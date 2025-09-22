@@ -342,7 +342,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         if (!this.confirmation || !this.confirmation.target) {
             return;
         }
-        absolutePosition(this.container, this.confirmation?.target as any, false);
+        absolutePosition(this.container as HTMLDivElement, this.confirmation?.target as any, false);
 
         const containerOffset = <any>getOffset(this.container);
         const targetOffset = <any>getOffset(this.confirmation?.target as any);
@@ -356,7 +356,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         }
 
         if (containerOffset && targetOffset && containerOffset.top < targetOffset.top) {
-            addClass(this.container, 'p-confirm-popup-flipped');
+            addClass(this.container as HTMLDivElement, 'p-confirm-popup-flipped');
         }
     }
 

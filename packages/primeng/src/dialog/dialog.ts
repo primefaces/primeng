@@ -476,7 +476,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     dragging: boolean | undefined;
 
-    ariaLabelledBy: string = this.getAriaLabelledBy();
+    ariaLabelledBy: string | null = this.getAriaLabelledBy();
 
     documentDragListener: VoidListener;
 
@@ -754,7 +754,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     initDrag(event: MouseEvent) {
-        if (hasClass(event.target as any, 'p-dialog-maximize-icon') || hasClass(event.target as any, 'p-dialog-header-close-icon') || hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        if (hasClass(event.target as any, 'p-dialog-maximize-icon') || hasClass(event.target as any, 'p-dialog-header-close-icon') || hasClass((<HTMLElement>event.target)?.parentElement as HTMLElement, 'p-dialog-header-icon')) {
             return;
         }
 
@@ -769,14 +769,14 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     onDrag(event: MouseEvent) {
-        if (this.dragging) {
-            const containerWidth = getOuterWidth(this.container);
-            const containerHeight = getOuterHeight(this.container);
+        if (this.dragging && this.container) {
+            const containerWidth = getOuterWidth(this.container as HTMLDivElement);
+            const containerHeight = getOuterHeight(this.container as HTMLDivElement);
             const deltaX = event.pageX - (this.lastPageX as number);
             const deltaY = event.pageY - (this.lastPageY as number);
             const offset = this.container.getBoundingClientRect();
 
-            const containerComputedStyle = getComputedStyle(this.container);
+            const containerComputedStyle = getComputedStyle(this.container as HTMLDivElement);
 
             const leftMargin = parseFloat(containerComputedStyle.marginLeft);
             const topMargin = parseFloat(containerComputedStyle.marginTop);
@@ -843,8 +843,8 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         if (this.resizing) {
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = getOuterWidth(this.container);
-            let containerHeight = getOuterHeight(this.container);
+            let containerWidth = getOuterWidth(this.container as HTMLDivElement);
+            let containerHeight = getOuterHeight(this.container as HTMLDivElement);
             let contentHeight = getOuterHeight(this.contentViewChild?.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
@@ -979,7 +979,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     appendContainer() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else appendChild(this.$appendTo(), this.wrapper);
+            else appendChild(this.$appendTo(), this.wrapper as HTMLElement);
         }
     }
 
@@ -994,7 +994,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container?.parentElement;
-                this.attrSelector && this.container.setAttribute(this.attrSelector, '');
+                this.attrSelector && this.container?.setAttribute(this.attrSelector, '');
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();

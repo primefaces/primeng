@@ -623,11 +623,11 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      * An array of objects to display as the available options.
      * @group Props
      */
-    @Input() get options(): any[] | undefined {
+    @Input() get options(): any[] | null | undefined {
         const options = this._options();
         return options;
     }
-    set options(val: any[] | undefined) {
+    set options(val: any[] | null | undefined) {
         if (!deepEquals(val, this._options())) {
             this._options.set(val);
         }
@@ -847,7 +847,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
     filterOptions: SelectFilterOptions | undefined;
 
-    _options = signal<any[] | undefined>(null);
+    _options = signal<any[] | null | undefined>(null);
 
     _placeholder = signal<string | undefined>(undefined);
 
@@ -919,7 +919,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
             const filteredOptions =
                 !_filterBy && !this.filterFields && !this.optionValue
-                    ? this.options.filter((option) => {
+                    ? this.options?.filter((option) => {
                           if (option.label) {
                               return option.label.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                           }
@@ -929,11 +929,11 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
             if (this.group) {
                 const optionGroups = this.options || [];
-                const filtered = [];
+                const filtered: any[] = [];
 
                 optionGroups.forEach((group) => {
                     const groupChildren = this.getOptionGroupChildren(group);
-                    const filteredItems = groupChildren.filter((item) => filteredOptions.includes(item));
+                    const filteredItems = groupChildren.filter((item) => filteredOptions?.includes(item));
 
                     if (filteredItems.length > 0)
                         filtered.push({
@@ -1335,7 +1335,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '.p-select-option.p-select-option-selected');
+                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-select-option.p-select-option-selected');
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                     }
@@ -1592,7 +1592,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     equalityKey() {
-        return this.optionValue ? null : this.dataKey;
+        return this.optionValue ? undefined : this.dataKey;
     }
 
     findFirstFocusedOptionIndex() {
@@ -1752,7 +1752,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay?.nativeElement : this.firstHiddenFocusableElementOnOverlay?.nativeElement);
                 event.preventDefault();
             } else {
                 if (this.focusedOptionIndex() !== -1 && this.overlayVisible) {
@@ -1766,7 +1766,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
         focus(focusableEl);
     }
 
@@ -1778,7 +1778,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     hasFocusableElements() {
-        return getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {
@@ -1826,7 +1826,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue?.toLocaleLowerCase(this.filterLocale));
     }
 
     onFilterInputChange(event: Event | any): void {
@@ -1834,9 +1834,9 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
-        !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+        !this.virtualScrollerDisabled && this.scroller?.scrollToIndex(0);
         setTimeout(() => {
-            this.overlayViewChild.alignOverlay();
+            this.overlayViewChild?.alignOverlay();
         });
         this.cd.markForCheck();
     }

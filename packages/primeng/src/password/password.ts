@@ -115,7 +115,7 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
      */
     size = input<'large' | 'small' | undefined>(undefined, { alias: 'pSize' });
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 

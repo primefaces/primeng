@@ -4,7 +4,7 @@ import { Fluid } from 'primeng/fluid';
 
 @Directive({ standalone: true })
 export class BaseInput extends BaseEditableHolder {
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     /**
      * Spans 100% width of the container when enabled.
