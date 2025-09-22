@@ -1,10 +1,12 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/orderlist/accessibilitydoc';
 import { BasicDoc } from '@/doc/orderlist/basicdoc';
+import { DragDropDoc } from '@/doc/orderlist/dragdropdoc';
 import { FilterDoc } from '@/doc/orderlist/filterdoc';
 import { ImportDoc } from '@/doc/orderlist/importdoc';
 import { TemplateDoc } from '@/doc/orderlist/templatedoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
+
 @Component({
     template: `<app-doc docTitle="Angular OrderList Component" header="OrderList" description="OrderList is used to sort a collection." [docs]="docs" [apiDocs]="['OrderList']" themeDocs="orderlist"></app-doc>`,
     standalone: true,
@@ -31,6 +33,11 @@ export class OrderListDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'drag-drop',
+            label: 'Drag & Drop',
+            component: DragDropDoc
         },
         {
             id: 'accessibility',

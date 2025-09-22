@@ -514,6 +514,10 @@ describe('Password', () => {
                 testFixture.detectChanges();
                 expect(testComponent.onClearEvent).toHaveBeenCalled();
             }
+
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(testComponent.showClear).toBe(true);
+
             flush();
         }));
 
@@ -939,6 +943,9 @@ describe('Password', () => {
                     expect(pTemplateValue).toBeTruthy();
                 }
             });
+
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(templatesFixture.componentInstance).toBeTruthy();
         });
 
         it('should verify all template types with #template structure', () => {

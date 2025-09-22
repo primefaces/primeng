@@ -18,6 +18,15 @@ const theme = /*css*/ `
     .p-listbox-header > .p-iconfield {
         flex-grow: 1;
     }
+
+    .p-listbox-list-container {
+        height: 100%;
+    }
+
+    /* CDK Drag & Drop styles */
+    .p-listbox-option.cdk-drag-preview {
+        background: dt('listbox.background');
+    }
 `;
 
 const classes = {

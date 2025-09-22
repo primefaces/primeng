@@ -1038,11 +1038,11 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     findFirstHeader() {
-        return this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true);
+        return this.containerViewChild?.nativeElement ? this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true) : null;
     }
 
     findLastHeader() {
-        return this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true);
+        return this.containerViewChild?.nativeElement ? this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true) : null;
     }
 
     onHeaderClick(event, item, index) {

@@ -33,6 +33,7 @@ import { ListboxChangeEvent } from './listbox.interface';
             (onBlur)="onBlur($event)"
             (onFilter)="onFilter($event)"
             (onDblClick)="onDblClick($event)"
+            (onDrop)="onDropHandler($event)"
         ></p-listbox>
 
         <!-- Reactive Forms test -->
@@ -103,6 +104,7 @@ class TestListboxComponent {
     onBlur(event: any) {}
     onFilter(event: any) {}
     onDblClick(event: any) {}
+    onDropHandler(event: any) {}
 
     loadLateOptions() {
         setTimeout(() => {
@@ -1645,7 +1647,8 @@ describe('Listbox #template Reference Tests', () => {
         <p-listbox
             #listboxRef
             [(ngModel)]="selectedValues"
-            [options]="asyncOptions | async"
+            [options]="options"
+            [dragdrop]="dragdrop"
             [optionLabel]="optionLabelFunction"
             [optionValue]="optionValueFunction"
             [optionDisabled]="optionDisabledFunction"
@@ -1661,6 +1664,7 @@ describe('Listbox #template Reference Tests', () => {
             (onFocus)="onFocusHandler($event)"
             (onBlur)="onBlurHandler($event)"
             (onDblClick)="onDblClickHandler($event)"
+            (onDrop)="onDropHandler($event)"
         >
         </p-listbox>
     `
@@ -1669,6 +1673,14 @@ class TestListboxViewChildComponent {
     selectedValues: any[] = [];
     dynamicStyle: any = null;
     dynamicStyleClass = '';
+
+    // Drag drop properties
+    dragdrop: boolean = false;
+    options: any[] = [
+        { name: 'Item 1', id: 'item1', active: true },
+        { name: 'Item 2', id: 'item2', active: true },
+        { name: 'Item 3', id: 'item3', active: true }
+    ];
 
     // Signal-based scroll height
     scrollHeightSignal = signal('400px');
@@ -1692,6 +1704,7 @@ class TestListboxViewChildComponent {
     onFocusHandler(event: any) {}
     onBlurHandler(event: any) {}
     onDblClickHandler(event: any) {}
+    onDropHandler(event: any) {}
 
     updateOptionsAsync() {
         setTimeout(() => {
@@ -1923,6 +1936,71 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 tick();
                 expect(component.onDblClickHandler).toHaveBeenCalled();
             }
+        }));
+
+        it('should automatically reorder items when dragdrop is enabled', fakeAsync(() => {
+            component.dragdrop = true;
+            component.options = [
+                { label: 'Item 1', value: 'item1' },
+                { label: 'Item 2', value: 'item2' },
+                { label: 'Item 3', value: 'item3' }
+            ];
+            fixture.detectChanges();
+            tick();
+
+            const originalOptions = [...component.options];
+            const firstItem = originalOptions[0];
+            const secondItem = originalOptions[1];
+
+            // Simulate drag drop event for reordering
+            const dragDropEvent: any = {
+                previousContainer: { data: component.options },
+                container: { data: component.options },
+                previousIndex: 0,
+                currentIndex: 1,
+                item: { data: firstItem }
+            };
+
+            // Call the drop method directly
+            const listboxComponent = fixture.debugElement.query(By.directive(Listbox)).componentInstance;
+            listboxComponent.drop(dragDropEvent);
+
+            tick();
+            fixture.detectChanges();
+
+            // Check that items were reordered
+            expect(component.options[0]).toBe(secondItem);
+            expect(component.options[1]).toBe(firstItem);
+        }));
+
+        it('should not reorder when dragdrop is disabled', fakeAsync(() => {
+            component.dragdrop = false;
+            component.options = [
+                { label: 'Item 1', value: 'item1' },
+                { label: 'Item 2', value: 'item2' }
+            ];
+            fixture.detectChanges();
+            tick();
+
+            const originalOptions = [...component.options];
+
+            const dragDropEvent: any = {
+                previousContainer: { data: component.options },
+                container: { data: component.options },
+                previousIndex: 0,
+                currentIndex: 1,
+                item: { data: component.options[0] }
+            };
+
+            const listboxComponent = fixture.debugElement.query(By.directive(Listbox)).componentInstance;
+            listboxComponent.drop(dragDropEvent);
+
+            tick();
+            fixture.detectChanges();
+
+            // Check that items were NOT reordered
+            expect(component.options[0]).toBe(originalOptions[0]);
+            expect(component.options[1]).toBe(originalOptions[1]);
         }));
     });
 });

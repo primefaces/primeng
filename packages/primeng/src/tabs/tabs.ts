@@ -42,7 +42,7 @@ export class Tabs extends BaseComponent {
      */
     scrollable = input(false, { transform: booleanAttribute });
     /**
-     * When enabled, hidden tabs are not rendered at all. Defaults to false that hides tabs with css.
+     * When enabled, tabs are not rendered until activation.
      * @type boolean
      * @defaultValue false
      * @group Props
