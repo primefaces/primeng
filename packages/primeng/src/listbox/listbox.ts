@@ -1,4 +1,4 @@
-import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
@@ -1594,6 +1594,23 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
 
     drop(event: CdkDragDrop<string[]>) {
         if (event) {
+            // If dragdrop is enabled and same container (reordering), automatically handle reordering
+            if (this.dragdrop && event.previousContainer === event.container) {
+                const currentOptions = [...this._options()];
+                moveItemInArray(currentOptions, event.previousIndex, event.currentIndex);
+                this._options.set(currentOptions);
+
+                // Update model value if needed for selection preservation
+                if (this.modelValue()) {
+                    this.writeModelValue(this.modelValue());
+                    this.onModelChange(this.modelValue());
+                }
+
+                // Mark for change detection
+                this.cd.markForCheck();
+            }
+
+            // Always emit the event for custom handling
             this.onDrop.emit(event);
         }
     }

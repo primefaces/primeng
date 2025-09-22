@@ -22,6 +22,11 @@ const theme = /*css*/ `
     .p-listbox-list-container {
         height: 100%;
     }
+
+    /* CDK Drag & Drop styles */
+    .p-listbox-option.cdk-drag-preview {
+        background: dt('listbox.background');
+    }
 `;
 
 const classes = {
