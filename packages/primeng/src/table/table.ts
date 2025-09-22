@@ -3518,7 +3518,6 @@ export class FrozenColumn implements AfterViewInit, OnDestroy {
         this.resizeObserver = resizeObserver;
     }
 
-    @HostListener('window:resize', ['$event'])
     recalculateColumns() {
         const siblings = DomHandler.siblings(this.el.nativeElement);
         const index = DomHandler.index(this.el.nativeElement);
