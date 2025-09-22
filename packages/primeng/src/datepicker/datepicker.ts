@@ -2792,7 +2792,12 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
     toggleAMPMIfNotMinDate(newPM: boolean) {
         let value = this.value;
-        const valueDateString = value ? value.toDateString() : null;
+        if (this.isRangeSelection() && Array.isArray(value) && value.length > 0) {
+            value = value[1] || value[0];
+        } else if (this.isMultipleSelection() && Array.isArray(value) && value.length > 0) {
+            value = value[value.length - 1];
+        }
+        const valueDateString = value instanceof Date ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         if (isMinDate && this.minDate.getHours() >= 12) {
             this.pm = true;
