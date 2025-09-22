@@ -103,7 +103,13 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         return this._visible;
     }
     set visible(value: boolean) {
+        if (value && !this._visible && this.isAnimating) {
+            this._pendingVisible = true;
+            return;
+        }
+
         this._visible = value;
+        this._pendingVisible = false;
 
         if (this._visible && !this.modalVisible) {
             this.modalVisible = true;
@@ -357,6 +363,10 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
     isOverlayContentClicked: boolean = false;
 
+    isAnimating: boolean = false;
+
+    _pendingVisible: boolean = false;
+
     scrollHandler: any;
 
     documentClickListener: any;
@@ -483,6 +493,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     onOverlayContentAnimationStart(event: AnimationEvent) {
+        this.isAnimating = true;
+
         switch (event.toState) {
             case 'visible':
                 this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
@@ -512,6 +524,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
 
         switch (event.toState) {
             case 'visible':
+                this.isAnimating = false;
                 if (this.visible) {
                     this.show(container, true);
                     this.bindListeners();
@@ -520,7 +533,8 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                 break;
 
             case 'void':
-                if (!this.visible) {
+                this.isAnimating = false;
+                if (!this.visible && !this._pendingVisible) {
                     this.hide(container, true);
                     this.modalVisible = false;
                     this.unbindListeners();
@@ -528,9 +542,13 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
                     ZIndexUtils.clear(container);
                     this.cd.markForCheck();
-
-                    break;
+                } else if (this._pendingVisible) {
+                    this._pendingVisible = false;
+                    this._visible = true;
+                    this.modalVisible = true;
+                    this.cd.markForCheck();
                 }
+                break;
         }
 
         this.handleEvents('onAnimationDone', event);
