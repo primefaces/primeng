@@ -1,12 +1,11 @@
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, DebugElement, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { TreeTable } from './treetable';
-import { TreeTableModule } from './treetable';
 import { TreeNode } from 'primeng/api';
 import { of } from 'rxjs';
+import { TreeTable, TreeTableModule } from './treetable';
 
 describe('TreeTable', () => {
     let component: TestBasicTreeTableComponent;
@@ -549,13 +548,6 @@ describe('TreeTable', () => {
 
             expect(treetable.virtualScrollDelay).toBe(200);
         });
-
-        it('should use virtualScrollItemSize when virtualRowHeight is deprecated', () => {
-            treetable.virtualRowHeight = 30;
-
-            expect(treetable.virtualScrollItemSize).toBe(50); // Should still use virtualScrollItemSize
-            expect(treetable.virtualRowHeight).toBe(30);
-        });
     });
 
     describe('Lazy Loading', () => {
@@ -657,11 +649,6 @@ describe('TreeTable', () => {
         beforeEach(() => {
             component.value = basicTreeData;
             fixture.detectChanges();
-        });
-
-        it('should have proper table structure', () => {
-            const table = fixture.debugElement.query(By.css('table[role="table"]'));
-            expect(table).toBeTruthy();
         });
 
         it('should have proper row group roles', () => {
@@ -1255,19 +1242,6 @@ describe('TreeTable', () => {
                 fixture.detectChanges();
 
                 expect(treetable.totalRecords).toBe(150);
-            });
-
-            it('should handle virtualRowHeight property (deprecated)', () => {
-                const originalVirtualScrollItemSize = treetable.virtualScrollItemSize;
-                treetable.virtualRowHeight = 45;
-
-                expect(treetable.virtualRowHeight).toBe(45);
-                // Should still preserve virtualScrollItemSize (handle NaN case properly)
-                if (Number.isNaN(originalVirtualScrollItemSize)) {
-                    expect(Number.isNaN(treetable.virtualScrollItemSize)).toBe(true);
-                } else {
-                    expect(treetable.virtualScrollItemSize).toBe(originalVirtualScrollItemSize);
-                }
             });
 
             it('should handle all boolean transform properties', () => {

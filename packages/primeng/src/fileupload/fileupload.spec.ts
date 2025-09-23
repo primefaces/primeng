@@ -1807,12 +1807,12 @@ describe('FileUpload Advanced Template Combinations', () => {
                         <div class="context-validation">
                             <!-- Test all context variables -->
                             <div class="context-info">
-                                <span [attr.data-has-files]=".!files">Has Files: {{ .!files }}</span>
-                                <span [attr.data-has-uploaded-files]=".!uploadedFiles">Has Uploaded: {{ .!uploadedFiles }}</span>
-                                <span [attr.data-has-remove-callback]=".!removeFileCallback">Has Remove CB: {{ .!removeFileCallback }}</span>
-                                <span [attr.data-has-remove-uploaded-callback]=".!removeUploadedFileCallback">Has Remove Uploaded CB: {{ .!removeUploadedFileCallback }}</span>
-                                <span [attr.data-has-choose-callback]=".!chooseCallback">Has Choose CB: {{ .!chooseCallback }}</span>
-                                <span [attr.data-has-clear-callback]=".!clearCallback">Has Clear CB: {{ .!clearCallback }}</span>
+                                <span [attr.data-has-files]="!files">Has Files: {{ !files }}</span>
+                                <span [attr.data-has-uploaded-files]="!uploadedFiles">Has Uploaded: {{ !uploadedFiles }}</span>
+                                <span [attr.data-has-remove-callback]="!removeFileCallback">Has Remove CB: {{ !removeFileCallback }}</span>
+                                <span [attr.data-has-remove-uploaded-callback]="!removeUploadedFileCallback">Has Remove Uploaded CB: {{ !removeUploadedFileCallback }}</span>
+                                <span [attr.data-has-choose-callback]="!chooseCallback">Has Choose CB: {{ !chooseCallback }}</span>
+                                <span [attr.data-has-clear-callback]="!clearCallback">Has Clear CB: {{ !clearCallback }}</span>
                                 <span [attr.data-progress-value]="progress || 0">Progress: {{ progress || 0 }}</span>
                                 <span [attr.data-messages-length]="messages?.length || 0">Messages: {{ messages?.length || 0 }}</span>
                             </div>

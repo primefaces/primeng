@@ -496,19 +496,37 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     getOptions() {
+        // Validate fraction digits according to Intl.NumberFormat specifications
+        // Handle potential NaN, Infinity, or invalid values
+        const validateFractionDigits = (value: number | undefined, min: number, max: number) => {
+            if (value == null || isNaN(value) || !isFinite(value)) {
+                return undefined;
+            }
+            return Math.max(min, Math.min(max, Math.floor(value)));
+        };
+
+        const minFractionDigits = validateFractionDigits(this.minFractionDigits, 0, 20);
+        const maxFractionDigits = validateFractionDigits(this.maxFractionDigits, 0, 100);
+
+        // Ensure minFractionDigits <= maxFractionDigits
+        const validatedMinFractionDigits = minFractionDigits != null && maxFractionDigits != null && minFractionDigits > maxFractionDigits ? maxFractionDigits : minFractionDigits;
+
         return {
             localeMatcher: this.localeMatcher,
             style: this.mode,
             currency: this.currency,
             currencyDisplay: this.currencyDisplay,
             useGrouping: this.useGrouping,
-            minimumFractionDigits: this.minFractionDigits ?? undefined,
-            maximumFractionDigits: this.maxFractionDigits ?? undefined
+            minimumFractionDigits: validatedMinFractionDigits,
+            maximumFractionDigits: maxFractionDigits
         };
     }
 
     constructParser() {
-        this.numberFormat = new Intl.NumberFormat(this.locale, this.getOptions());
+        const options = this.getOptions();
+        // Remove any properties with undefined or invalid values to let Intl.NumberFormat use defaults
+        const cleanOptions = Object.fromEntries(Object.entries(options).filter(([_key, value]) => value !== undefined));
+        this.numberFormat = new Intl.NumberFormat(this.locale, cleanOptions);
         const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [d, i]));
         this._numeral = new RegExp(`[${numerals.join('')}]`, 'g');

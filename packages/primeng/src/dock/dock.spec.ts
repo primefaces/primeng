@@ -782,14 +782,7 @@ describe('Dock', () => {
     describe('Router Integration Tests', () => {
         it('should handle router links', () => {
             const routerFixture = TestBed.createComponent(TestRouterDockComponent);
-            const routerComponent = routerFixture.componentInstance;
             const routerDock = routerFixture.debugElement.query(By.directive(Dock)).componentInstance;
-
-            console.log('Router model:', routerComponent.routerModel);
-            console.log(
-                'Model items clickable:',
-                routerComponent.routerModel.map((item) => `${item.label}: ${routerDock.isClickableRouterLink(item)}`)
-            );
 
             routerFixture.detectChanges();
 

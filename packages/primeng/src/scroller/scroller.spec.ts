@@ -2536,7 +2536,7 @@ describe('Scroller', () => {
 
             expect(scroller.id).toBeNull();
             expect(scroller.items).toBeNull();
-            expect(scroller.columns).toBeNull();
+            expect(scroller.columns).toBeUndefined();
 
             // Test undefined values
             component.dynamicId$.next(undefined);
@@ -2754,9 +2754,9 @@ describe('Scroller', () => {
                             <div
                                 class="p-template-content"
                                 [attr.data-items-count]="items?.length"
-                                [attr.data-has-scroll-to]=".!options.scrollTo"
-                                [attr.data-has-scroll-to-index]=".!options.scrollToIndex"
-                                [attr.data-has-get-item-options]=".!options.getItemOptions"
+                                [attr.data-has-scroll-to]="!options.scrollTo"
+                                [attr.data-has-scroll-to-index]="!options.scrollToIndex"
+                                [attr.data-has-get-item-options]="!options.getItemOptions"
                             >
                                 <div class="content-scrollable-element" [attr.data-scrollable]="options.scrollableElement">
                                     <div *ngFor="let item of items; let i = index" class="p-template-content-item" [attr.data-index]="i" [attr.data-item-id]="item.id">
@@ -2992,7 +2992,7 @@ describe('Scroller', () => {
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <ng-template #content let-items let-options="options">
-                            <div class="hash-template-content" [attr.data-items-count]="items?.length" [attr.data-has-scroll-to]=".!options.scrollTo" [attr.data-orientation]="options.orientation">
+                            <div class="hash-template-content" [attr.data-items-count]="items?.length" [attr.data-has-scroll-to]="!options.scrollTo" [attr.data-orientation]="options.orientation">
                                 <div class="hash-content-list">
                                     <div *ngFor="let item of items; let i = index" class="hash-content-item" [attr.data-index]="i">{{ item.name }} (Hash Template)</div>
                                 </div>

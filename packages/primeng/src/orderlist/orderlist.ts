@@ -574,7 +574,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * @group Method
      */
     public resetFilter() {
-        this.filterValue = null;
+        this.filterValue = '';
         this.filterViewChild && ((<HTMLInputElement>this.filterViewChild.nativeElement).value = '');
     }
 

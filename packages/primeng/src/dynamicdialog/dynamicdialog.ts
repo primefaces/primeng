@@ -131,7 +131,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     lastPageY: number | undefined;
 
-    ariaLabelledBy: string | undefined;
+    ariaLabelledBy: string | undefined | null;
 
     id: string = uuid('pn_id_');
 
@@ -338,7 +338,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     ngAfterViewInit() {
         super.ngAfterViewInit();
         this.loadChildComponent(this.childComponentType!);
-        this.ariaLabelledBy = this.getAriaLabelledBy() ?? undefined;
+        this.ariaLabelledBy = this.getAriaLabelledBy();
         this.cd.detectChanges();
     }
 

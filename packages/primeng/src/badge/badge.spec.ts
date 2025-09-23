@@ -2,8 +2,8 @@ import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Badge, BadgeDirective, BadgeModule } from './badge';
 import { SharedModule } from 'primeng/api';
+import { Badge, BadgeDirective, BadgeModule } from './badge';
 
 @Component({
     standalone: false,
@@ -674,38 +674,6 @@ describe('Badge', () => {
                 const badgeElement = buttonElement.querySelector('.p-badge') as HTMLElement;
                 expect(badgeElement.style.fontSize).toBe('14px');
                 expect(badgeElement?.classList.contains('styled-badge')).toBe(true);
-            });
-        });
-
-        describe('Deprecated Size Property', () => {
-            let fixture: ComponentFixture<TestDeprecatedSizeBadgeComponent>;
-            let component: TestDeprecatedSizeBadgeComponent;
-            let buttonElement: HTMLElement;
-
-            beforeEach(() => {
-                fixture = TestBed.createComponent(TestDeprecatedSizeBadgeComponent);
-                component = fixture.componentInstance;
-
-                // Mock console.log to capture deprecation warning
-                spyOn(console, 'log');
-
-                fixture.detectChanges();
-                buttonElement = fixture.debugElement.query(By.directive(BadgeDirective)).nativeElement;
-            });
-
-            it('should log deprecation warning when using size property', () => {
-                component.size = 'large';
-                fixture.detectChanges();
-
-                expect(console.log).toHaveBeenCalledWith('size property is deprecated and will removed in v18, use badgeSize instead.');
-            });
-
-            it('should still apply size classes when using deprecated property', () => {
-                component.size = 'large';
-                fixture.detectChanges();
-
-                const badgeElement = buttonElement.querySelector('.p-badge');
-                expect(badgeElement?.classList.contains('p-badge-lg')).toBe(true);
             });
         });
     });

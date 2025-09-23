@@ -67,6 +67,7 @@ export class RadioControlRegistry {
             [attr.value]="modelValue()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
+            [attr.aria-checked]="checked"
             [attr.tabindex]="tabindex"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"

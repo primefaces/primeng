@@ -206,7 +206,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     unbindResizeObserver() {
         if (this.resizeObserver) {
             this.resizeObserver.unobserve(this.el.nativeElement);
-            this.resizeObserver = undefined!;
+            this.resizeObserver = null!;
         }
     }
 }

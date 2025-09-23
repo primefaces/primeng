@@ -35,7 +35,7 @@
         "build:postbuild": "node ./scripts/postbuild.mjs",
         "dev:link": "pnpm link --global && npm link",
         "lint": "ng lint",
-        "test:unit": "ng test primeng --watch=false",
+        "test:unit": "ng test primeng --watch=false --browsers=ChromeHeadless",
         "test:unit:watch": "ng test primeng",
         "test:unit:coverage": "ng test primeng --coverage"
     },
