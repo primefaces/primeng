@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -14,6 +14,7 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
+    Inject,
     inject,
     Injectable,
     input,
@@ -26,6 +27,7 @@ import {
     OnInit,
     Optional,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     SimpleChanges,
@@ -3501,21 +3503,48 @@ export class FrozenColumn implements AfterViewInit, OnDestroy {
 
     @Input() alignFrozen: string = 'left';
 
+    resizeListener: VoidListener;
+
     private resizeObserver?: ResizeObserver;
 
-    constructor(private el: ElementRef) {}
+    constructor(
+        private el: ElementRef,
+        private renderer: Renderer2,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any
+    ) {}
 
     ngAfterViewInit() {
+        this.bindResizeListener();
         this.observeChanges();
     }
 
-    private observeChanges() {
-        const resizeObserver = new ResizeObserver(() => {
-            this.recalculateColumns();
-        });
+    bindResizeListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.resizeListener) {
+                this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', () => {
+                    this.recalculateColumns();
+                });
+            }
+        }
+    }
 
-        resizeObserver.observe(this.el.nativeElement);
-        this.resizeObserver = resizeObserver;
+    unbindResizeListener() {
+        if (this.resizeListener) {
+            this.resizeListener();
+            this.resizeListener = null;
+        }
+    }
+
+    observeChanges() {
+        if (isPlatformBrowser(this.platformId)) {
+            const resizeObserver = new ResizeObserver(() => {
+                this.recalculateColumns();
+            });
+
+            resizeObserver.observe(this.el.nativeElement);
+            this.resizeObserver = resizeObserver;
+        }
     }
 
     recalculateColumns() {
@@ -3562,6 +3591,7 @@ export class FrozenColumn implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.unbindResizeListener();
         if (this.resizeObserver) {
             this.resizeObserver.disconnect();
         }
