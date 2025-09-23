@@ -337,7 +337,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
 
     onSpaceKey() {
         const element = <any>findSingle(this.listViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
-        const anchorElement = element && <any>findSingle(element, '[data-pc-section="action"]');
+        const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
         anchorElement ? anchorElement.click() : element && element.click();
     }
