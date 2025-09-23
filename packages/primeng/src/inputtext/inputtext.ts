@@ -19,7 +19,7 @@ import { InputTextStyle } from './style/inputtextstyle';
 export class InputText extends BaseModelHolder implements DoCheck, AfterViewInit {
     ngControl = inject(NgControl, { optional: true, self: true });
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     /**
      * Defines the size of the component.

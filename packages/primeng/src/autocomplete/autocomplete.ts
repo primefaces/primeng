@@ -1065,7 +1065,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     isInputClicked(event) {
-        return event.target === this.inputEL.nativeElement;
+        return event.target === this.inputEL?.nativeElement;
     }
 
     isDropdownClicked(event) {
@@ -1082,18 +1082,18 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         }
 
         if (!this.overlayViewChild || !this.overlayViewChild.overlayViewChild?.nativeElement.contains(event.target)) {
-            focus(this.inputEL.nativeElement);
+            focus(this.inputEL?.nativeElement);
         }
     }
 
     handleDropdownClick(event) {
-        let query = undefined;
+        let query: string | undefined = undefined;
 
         if (this.overlayVisible) {
             this.hide(true);
         } else {
-            focus(this.inputEL.nativeElement);
-            query = this.inputEL.nativeElement.value;
+            focus(this.inputEL?.nativeElement);
+            query = this.inputEL?.nativeElement?.value as string;
 
             if (this.dropdownMode === 'blank') this.search(event, '', 'dropdown');
             else if (this.dropdownMode === 'current') this.search(event, query, 'dropdown');
@@ -1144,7 +1144,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             let valid = false;
 
             if (this.visibleOptions()) {
-                const matchedValue = this.visibleOptions().find((option) => this.isOptionMatched(option, this.inputEL.nativeElement.value || ''));
+                const matchedValue = this.visibleOptions().find((option) => this.isOptionMatched(option, this.inputEL?.nativeElement?.value || ''));
 
                 if (matchedValue !== undefined) {
                     valid = true;
@@ -1153,7 +1153,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             }
 
             if (!valid) {
-                this.inputEL.nativeElement.value = '';
+                this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
                 !this.multiple && this.updateModel(null);
             }
         }
@@ -1338,7 +1338,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.focusedOptionIndex.set(-1);
         if (this.multiple) {
             if (isEmpty(target.value) && this.hasSelectedOption()) {
-                focus(this.multiContainerEL.nativeElement);
+                focus(this.multiContainerEL?.nativeElement);
                 this.focusedMultipleOptionIndex.set(this.modelValue().length);
             } else {
                 event.stopPropagation(); // To prevent onArrowLeftKeyOnMultiple method
@@ -1387,7 +1387,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             if (this.multiple) {
                 if (!this.isSelected(event.target.value)) {
                     this.updateModel([...(this.modelValue() || []), event.target.value]);
-                    this.inputEL.nativeElement.value = '';
+                    this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
                 }
             }
         }
@@ -1419,7 +1419,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     onBackspaceKey(event) {
         if (this.multiple) {
-            if (isNotEmpty(this.modelValue()) && !this.inputEL.nativeElement.value) {
+            if (isNotEmpty(this.modelValue()) && !this.inputEL?.nativeElement?.value) {
                 const removedValue = this.modelValue()[this.modelValue().length - 1];
                 const newValue = this.modelValue().slice(0, -1);
                 this.updateModel(newValue);
@@ -1427,10 +1427,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             }
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
-        }
-
-        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
-            this.clear();
         }
     }
 
@@ -1446,7 +1442,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.focusedMultipleOptionIndex.set(optionIndex);
         if (optionIndex > this.modelValue().length - 1) {
             this.focusedMultipleOptionIndex.set(-1);
-            focus(this.inputEL.nativeElement);
+            focus(this.inputEL?.nativeElement);
         }
     }
 
@@ -1460,7 +1456,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         const value = this.getOptionValue(option);
 
         if (this.multiple) {
-            this.inputEL.nativeElement.value = '';
+            this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
 
             if (!this.isSelected(option)) {
                 this.updateModel([...(this.modelValue() || []), value]);
@@ -1502,7 +1498,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
         this.updateModel(value);
         this.onUnselect.emit({ originalEvent: event, value: removedOption });
-        focus(this.inputEL.nativeElement);
+        focus(this.inputEL?.nativeElement);
     }
 
     updateModel(value) {
@@ -1561,9 +1557,9 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.overlayVisible = true;
         const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
-        isFocus && focus(this.inputEL.nativeElement);
+        isFocus && focus(this.inputEL?.nativeElement);
         if (isFocus) {
-            focus(this.inputEL.nativeElement);
+            focus(this.inputEL?.nativeElement);
         }
         this.onShow.emit();
         this.cd.markForCheck();
@@ -1574,7 +1570,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             this.dirty = isFocus;
             this.overlayVisible = false;
             this.focusedOptionIndex.set(-1);
-            isFocus && focus(this.inputEL.nativeElement);
+            isFocus && focus(this.inputEL?.nativeElement);
             this.onHide.emit();
             this.cd.markForCheck();
         };
@@ -1586,7 +1582,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     clear() {
         this.updateModel(null);
-        this.inputEL.nativeElement.value = '';
+        this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
         this.onClear.emit();
     }
 
@@ -1631,7 +1627,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
             if (this.virtualScroll) {
                 this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
-                this.scroller.viewInit();
+                this.scroller?.viewInit();
             }
             if (this.visibleOptions() && this.visibleOptions().length) {
                 if (this.virtualScroll) {
@@ -1641,7 +1637,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
+                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-autocomplete-item.p-highlight');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });

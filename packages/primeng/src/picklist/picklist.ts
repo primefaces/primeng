@@ -138,6 +138,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterMatchMode]="filterMatchMode"
                     [filterPlaceHolder]="sourceFilterPlaceholder"
                     [dragdrop]="dragdrop"
+                    [dropListData]="source"
                     (onDrop)="onDrop($event, SOURCE_LIST)"
                     (onFilter)="onFilter($event.originalEvent, SOURCE_LIST)"
                 >
@@ -269,6 +270,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [filterMatchMode]="filterMatchMode"
                     [filterPlaceHolder]="targetFilterPlaceholder"
                     [dragdrop]="dragdrop"
+                    [dropListData]="target"
                     (onDrop)="onDrop($event, TARGET_LIST)"
                     (onFilter)="onFilter($event.originalEvent, TARGET_LIST)"
                 >
@@ -1436,11 +1438,21 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
     onDrop(event: CdkDragDrop<string[]>, listType: number) {
         let isTransfer = event.previousContainer !== event.container;
+
         let dropIndexes = this.getDropIndexes(event.previousIndex, event.currentIndex, listType, isTransfer, event.item.data);
 
         if (listType === this.SOURCE_LIST) {
             if (isTransfer) {
-                transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                // Use PickList's arrays instead of CDK's internal arrays
+                if (event.previousContainer.data === this.target) {
+                    // Remove item from target array
+                    const item = this.target.splice(dropIndexes.previousIndex, 1)[0];
+                    // Add item to source array
+                    this.source.splice(dropIndexes.currentIndex, 0, item);
+                } else {
+                    // Fallback: use CDK transfer
+                    transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                }
                 let selectedItemIndex = findIndexInList(event.item.data, this.selectedItemsTarget);
 
                 if (selectedItemIndex != -1) {
@@ -1464,7 +1476,16 @@ export class PickList extends BaseComponent implements AfterContentInit {
             }
         } else {
             if (isTransfer) {
-                transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                // Use PickList's arrays instead of CDK's internal arrays
+                if (event.previousContainer.data === this.source) {
+                    // Remove item from source array
+                    const item = this.source.splice(dropIndexes.previousIndex, 1)[0];
+                    // Add item to target array
+                    this.target.splice(dropIndexes.currentIndex, 0, item);
+                } else {
+                    // Fallback: use CDK transfer
+                    transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                }
 
                 let selectedItemIndex = findIndexInList(event.item.data, this.selectedItemsSource);
 
@@ -1488,6 +1509,8 @@ export class PickList extends BaseComponent implements AfterContentInit {
                 this.filter(<any[]>this.target, this.TARGET_LIST);
             }
         }
+
+        this.cd.markForCheck();
     }
 
     onListFocus(event, listType) {

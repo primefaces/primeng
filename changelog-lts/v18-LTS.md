@@ -1,3 +1,5 @@
+# Changelog
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [18.0.6-lts](https://www.npmjs.com/package/primeng/v/18.0.6-lts) (2025-05-27)
 
 **Fixed bugs:**

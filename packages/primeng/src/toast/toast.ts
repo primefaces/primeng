@@ -172,6 +172,7 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
 
     initTimeout() {
         if (!this.message?.sticky) {
+            this.clearTimeout();
             this.zone.runOutsideAngular(() => {
                 this.timeout = setTimeout(
                     () => {

@@ -255,7 +255,7 @@ export class MultiSelectItem extends BaseComponent {
                 </span>
             </ng-template>
         </div>
-        <p-overlay #overlay [hostAttrSelector]="attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" (onAnimationStart)="onOverlayAnimationStart($event)" (onHide)="hide()">
+        <p-overlay #overlay [hostAttrSelector]="attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" (onAnimationStart)="onOverlayAnimationStart($event)" (onHide)="onOverlayHide($event)">
             <ng-template #content>
                 <div [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span
@@ -360,8 +360,8 @@ export class MultiSelectItem extends BaseComponent {
                                 <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                     <ng-container *ngIf="isOptionGroup(option)">
                                         <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                            <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
-                                            <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
+                                            <span *ngIf="!groupTemplate && option.optionGroup">{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                            <ng-container *ngIf="option.optionGroup && groupTemplate" [ngTemplateOutlet]="groupTemplate" [ngTemplateOutletContext]="{ $implicit: option.optionGroup }"></ng-container>
                                         </li>
                                     </ng-container>
                                     <ng-container *ngIf="!isOptionGroup(option)">
@@ -491,7 +491,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
      * Specifies the visibility of the options panel.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) overlayVisible: boolean | undefined;
+    @Input({ transform: booleanAttribute }) overlayVisible: boolean | undefined = false;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -970,7 +970,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
@@ -1374,7 +1374,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     isOptionGroup(option) {
-        return (this.group || this.optionGroupLabel) && option.optionGroup && option.group;
+        return option && (this.group || this.optionGroupLabel) && option.optionGroup && option.group;
     }
 
     isValidOption(option) {
@@ -1450,7 +1450,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     getOptionGroupChildren(optionGroup: any) {
-        return this.optionGroupChildren ? resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+        return optionGroup ? (this.optionGroupChildren ? resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items) : [];
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -1680,10 +1680,12 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         event.preventDefault();
     }
 
-    onEscapeKey(event) {
-        this.overlayVisible && this.hide(true);
-        event.stopPropagation();
-        event.preventDefault();
+    onEscapeKey(event: KeyboardEvent) {
+        if (this.overlayVisible) {
+            this.hide(true);
+            event.stopPropagation();
+            event.preventDefault();
+        }
     }
 
     onTabKey(event, pressedInInputText = false) {
@@ -1709,7 +1711,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     onContainerClick(event: any) {
-        if (this.$disabled() || this.loading || this.readonly || (event.target as Node).isSameNode(this.focusInputViewChild?.nativeElement)) {
+        if (this.$disabled() || this.loading || this.readonly || event.target?.isSameNode?.(this.focusInputViewChild?.nativeElement)) {
             return;
         }
 
@@ -1951,6 +1953,15 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
         this._filterValue.set(null);
         this._filteredOptions = null;
+    }
+
+    onOverlayHide(event: any) {
+        // Called when overlay completes its hide animation
+        // Don't call hide() again to avoid recursive calls
+        this.focusedOptionIndex.set(-1);
+        if (this.filter && this.resetFilterOnHide) {
+            this.resetFilter();
+        }
     }
 
     close(event: Event) {

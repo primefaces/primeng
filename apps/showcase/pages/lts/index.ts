@@ -57,7 +57,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">STS</td>
                                 <td class="p-2">After v21 release</td>
                                 <td class="p-2">After v23 release</td>
-                                <td class="p-2"></td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -66,7 +66,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">LTS</td>
                                 <td class="p-2">After v20 release</td>
                                 <td class="p-2">After v22 release</td>
-                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/CHANGELOG-LTS-19.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/changelog-lts/v19-LTS.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
                             </tr>
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
                                 <td class="p-2">
@@ -75,7 +75,7 @@ import { TagModule } from 'primeng/tag';
                                 <td class="p-2">LTS</td>
                                 <td class="p-2">After v19 release</td>
                                 <td class="p-2">After v21 release</td>
-                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/CHANGELOG-LTS-18.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
+                                <td class="p-2"><a href="https://github.com/primefaces/primeng/blob/master/changelog-lts/v18-LTS.md" target="_blank" rel="noopener noreferrer">Changelog</a></td>
                             </tr>
 
                             <tr class="text-lg text-surface-800 dark:text-surface-50">
