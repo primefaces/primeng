@@ -941,6 +941,280 @@ describe('Button', () => {
         });
     });
 
+    describe('LoadingIcon and Icon Edge Cases', () => {
+        it('should show regular icon when loading is false and icon is provided', () => {
+            component.icon = 'pi pi-search';
+            component.loading = false;
+            fixture.detectChanges();
+
+            const iconElement = buttonElement.querySelector('.p-button-icon');
+            expect(iconElement).toBeTruthy();
+            expect(iconElement?.classList.contains('pi')).toBe(true);
+            expect(iconElement?.classList.contains('pi-search')).toBe(true);
+
+            // Should not have loading icon
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeFalsy();
+        });
+
+        it('should show default spinner when loading is true and no loadingIcon is provided', () => {
+            component.loading = true;
+            component.loadingIcon = undefined;
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+
+            // Should use default SVG spinner (check for direct SVG or nested SVG)
+            const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]') || loadingIcon?.querySelector('svg[data-p-icon="spinner"]');
+            expect(svgSpinner).toBeTruthy();
+
+            // Should not show regular icon
+            const regularIcon = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            expect(regularIcon).toBeFalsy();
+        });
+
+        it('should show custom loadingIcon when loading is true and loadingIcon is provided', () => {
+            component.loading = true;
+            component.loadingIcon = 'pi pi-spinner';
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spinner')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+
+            // Should not use default SVG spinner
+            const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]');
+            expect(svgSpinner).toBeFalsy();
+        });
+
+        it('should apply pi-spin class to custom loadingIcon for animation', () => {
+            component.loading = true;
+            component.loadingIcon = 'pi pi-cog';
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-cog')).toBe(true);
+        });
+
+        it('should switch from icon to loadingIcon when loading state changes', () => {
+            component.icon = 'pi pi-play';
+            component.loadingIcon = 'pi pi-spinner';
+            component.loading = false;
+            fixture.detectChanges();
+
+            // Initially should show regular icon
+            let iconElement = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            let loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(iconElement).toBeTruthy();
+            expect(loadingIcon).toBeFalsy();
+
+            // Switch to loading state
+            component.loading = true;
+            fixture.detectChanges();
+
+            // Should now show loading icon and not regular icon
+            iconElement = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(iconElement).toBeFalsy();
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spinner')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+        });
+
+        it('should handle complex loadingIcon classes', () => {
+            component.loading = true;
+            component.loadingIcon = 'pi pi-spin pi-cog custom-class';
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-cog')).toBe(true);
+            expect(loadingIcon?.classList.contains('custom-class')).toBe(true);
+        });
+
+        it('should handle empty loadingIcon string', () => {
+            component.loading = true;
+            component.loadingIcon = '';
+            fixture.detectChanges();
+
+            // Should fallback to default SVG spinner when loadingIcon is empty
+            const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]');
+            expect(svgSpinner).toBeTruthy();
+
+            // Check that span with empty loadingIcon is not shown
+            const spanWithEmptyIcon = buttonElement.querySelector('span[data-pc-section="loadingicon"]:not(:has(svg))');
+            expect(spanWithEmptyIcon).toBeFalsy();
+        });
+
+        it('should handle icon only button with loading state', () => {
+            component.icon = 'pi pi-save';
+            component.loadingIcon = 'pi pi-spinner';
+            component.label = undefined;
+            component.loading = false;
+            fixture.detectChanges();
+
+            // Initially icon-only button
+            expect(buttonElement.classList.contains('p-button-icon-only')).toBe(true);
+
+            const iconElement = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            expect(iconElement).toBeTruthy();
+
+            // Switch to loading
+            component.loading = true;
+            fixture.detectChanges();
+
+            // Should still be disabled and show loading icon
+            expect(buttonElement.disabled).toBe(true);
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spinner')).toBe(true);
+        });
+
+        it('should handle loading state with label but no icons', () => {
+            component.icon = undefined;
+            component.loadingIcon = undefined;
+            component.label = 'Submit';
+            component.loading = true;
+            fixture.detectChanges();
+
+            // Should show default spinner even without custom icons
+            const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]') || buttonElement.querySelector('[data-pc-section="loadingicon"] svg[data-p-icon="spinner"]');
+            expect(svgSpinner).toBeTruthy();
+
+            // Should still show label
+            const labelElement = buttonElement.querySelector('.p-button-label');
+            expect(labelElement?.textContent?.trim()).toBe('Submit');
+
+            // Button should be disabled
+            expect(buttonElement.disabled).toBe(true);
+        });
+
+        it('should preserve icon position classes during loading state transitions', () => {
+            component.icon = 'pi pi-search';
+            component.loadingIcon = 'pi pi-spinner';
+            component.label = 'Search';
+            component.iconPos = 'right';
+            component.loading = false;
+            fixture.detectChanges();
+
+            // Initially check icon position
+            const iconElement = buttonElement.querySelector('.p-button-icon-right');
+            expect(iconElement).toBeTruthy();
+
+            // Switch to loading
+            component.loading = true;
+            fixture.detectChanges();
+
+            // Loading icon should be present
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+
+            // Switch back to non-loading
+            component.loading = false;
+            fixture.detectChanges();
+
+            // Icon position should be preserved
+            const restoredIconElement = buttonElement.querySelector('.p-button-icon-right');
+            expect(restoredIconElement).toBeTruthy();
+        });
+
+        it('should handle rapid loading state changes with different icons', fakeAsync(() => {
+            component.icon = 'pi pi-play';
+            component.loadingIcon = 'pi pi-spinner';
+
+            // Multiple rapid state changes
+            component.loading = true;
+            fixture.detectChanges();
+            tick();
+
+            let loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+
+            component.loading = false;
+            fixture.detectChanges();
+            tick();
+
+            let regularIcon = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            expect(regularIcon).toBeTruthy();
+
+            // Change loadingIcon and switch again
+            component.loadingIcon = 'pi pi-cog';
+            component.loading = true;
+            fixture.detectChanges();
+            tick();
+
+            loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-cog')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+
+            flush();
+        }));
+
+        it('should maintain accessibility attributes during icon state changes', () => {
+            component.icon = 'pi pi-download';
+            component.loadingIcon = 'pi pi-spinner';
+            component.label = 'Download';
+            component.loading = false;
+            fixture.detectChanges();
+
+            // Check initial accessibility
+            const iconElement = buttonElement.querySelector('.p-button-icon');
+            expect(iconElement?.getAttribute('aria-hidden')).toBeNull(); // Icon elements don't always have aria-hidden in this implementation
+
+            // Switch to loading
+            component.loading = true;
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon?.getAttribute('aria-hidden')).toBe('true');
+        });
+
+        it('should handle iconClass method correctly for different states', () => {
+            component.icon = 'pi pi-home';
+            component.loadingIcon = 'pi pi-spinner';
+            component.label = 'Home';
+            component.iconPos = 'left';
+
+            // Test non-loading state
+            component.loading = false;
+            fixture.detectChanges();
+
+            const iconClassResult = buttonInstance.iconClass();
+            expect(iconClassResult).toBeDefined();
+            expect(iconClassResult['p-button-icon']).toBeTruthy();
+
+            // Test loading state
+            component.loading = true;
+            fixture.detectChanges();
+
+            const loadingIconClassResult = buttonInstance.iconClass();
+            expect(loadingIconClassResult).toBeDefined();
+            expect(Object.keys(loadingIconClassResult)).toContain('p-button-loading-icon pi-spin pi pi-spinner');
+        });
+
+        it('should handle spinnerIconClass method correctly', () => {
+            component.icon = 'pi pi-save';
+            component.loadingIcon = 'pi pi-spinner custom-spinner';
+            component.loading = true;
+            fixture.detectChanges();
+
+            const spinnerClass = buttonInstance.spinnerIconClass();
+            expect(spinnerClass).toContain('p-button-loading-icon');
+            expect(spinnerClass).toContain('pi-spin');
+            expect(spinnerClass).toContain('pi-spinner');
+            expect(spinnerClass).toContain('custom-spinner');
+        });
+    });
+
     describe('Edge Cases and Error Handling', () => {
         it('should handle empty label gracefully', () => {
             component.label = '';
