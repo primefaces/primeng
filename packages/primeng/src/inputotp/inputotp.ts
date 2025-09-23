@@ -285,7 +285,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     getAutofocus(i: number): boolean {
         if (i === 1) {
-            return this.autofocus;
+            return this.autofocus || false;
         }
         return false;
     }

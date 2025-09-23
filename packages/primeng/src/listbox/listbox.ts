@@ -504,7 +504,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
      * @group Props
      */
     @Input() get filterValue(): string {
-        return this._filterValue();
+        return this._filterValue() || '';
     }
     set filterValue(val: string) {
         this._filterValue.set(val);
@@ -924,7 +924,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     }
 
     removeOption(option) {
-        return this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey()));
+        return this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey() || ''));
     }
 
     onOptionSelect(event, option, index = -1) {
@@ -940,7 +940,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
 
     onOptionSelectMultiple(event, option) {
         let selected = this.isSelected(option);
-        let value = null;
+        let value: any[] = [];
         let metaSelection = this.optionTouched ? false : this.metaKeySelection;
 
         if (metaSelection) {
@@ -950,7 +950,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
                 value = metaKey ? this.removeOption(option) : [this.getOptionValue(option)];
             } else {
                 value = metaKey ? this.modelValue() || [] : [];
-                value = [...value, this.getOptionValue(option)];
+                value = [...(value || []), this.getOptionValue(option)];
             }
         } else {
             value = selected ? this.removeOption(option) : [...(this.modelValue() || []), this.getOptionValue(option)];
@@ -1007,7 +1007,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         if (this.$disabled() || this.readonly) {
             return;
         }
-        focus(this.headerCheckboxViewChild.nativeElement);
+        focus(this.headerCheckboxViewChild?.nativeElement);
 
         if (this.selectAll !== null) {
             this.onSelectAllChange.emit({
@@ -1062,23 +1062,23 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
 
     onFirstHiddenFocus(event: FocusEvent) {
         focus(this.listViewChild?.nativeElement);
-        const firstFocusableEl = getFirstFocusableElement(this.el.nativeElement, ':not([data-p-hidden-focusable="true"])');
-        this.lastHiddenFocusableElement.nativeElement.tabIndex = isEmpty(firstFocusableEl) ? '-1' : undefined;
-        this.firstHiddenFocusableElement.nativeElement.tabIndex = -1;
+        const firstFocusableEl = getFirstFocusableElement(this.el?.nativeElement, ':not([data-p-hidden-focusable="true"])');
+        this.lastHiddenFocusableElement?.nativeElement && (this.lastHiddenFocusableElement.nativeElement.tabIndex = isEmpty(firstFocusableEl) ? -1 : undefined);
+        this.firstHiddenFocusableElement?.nativeElement && (this.firstHiddenFocusableElement.nativeElement.tabIndex = -1);
     }
 
     onLastHiddenFocus(event: FocusEvent) {
         const relatedTarget = event.relatedTarget;
 
         if (relatedTarget === this.listViewChild?.nativeElement) {
-            const firstFocusableEl = <any>getFirstFocusableElement(this.el.nativeElement, ':not(.p-hidden-focusable)');
+            const firstFocusableEl = <any>getFirstFocusableElement(this.el?.nativeElement, ':not(.p-hidden-focusable)');
 
             focus(firstFocusableEl);
-            this.firstHiddenFocusableElement.nativeElement.tabIndex = undefined;
+            this.firstHiddenFocusableElement?.nativeElement && (this.firstHiddenFocusableElement.nativeElement.tabIndex = undefined);
         } else {
-            focus(this.firstHiddenFocusableElement.nativeElement);
+            focus(this.firstHiddenFocusableElement?.nativeElement);
         }
-        this.lastHiddenFocusableElement.nativeElement.tabIndex = -1;
+        this.lastHiddenFocusableElement?.nativeElement && (this.lastHiddenFocusableElement.nativeElement.tabIndex = -1);
     }
 
     onFocusout(event: FocusEvent) {
@@ -1140,7 +1140,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         this.startRangeIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
 
-        !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+        !this.virtualScrollerDisabled && this.scroller?.scrollToIndex(0);
     }
 
     onFilterBlur(event: FocusEvent) {
@@ -1437,7 +1437,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option)?.toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue?.toLocaleLowerCase(this.filterLocale));
     }
 
     scrollInView(index = -1) {
@@ -1447,7 +1447,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         } else if (!this.virtualScrollerDisabled) {
-            this.virtualScroll && this.scroller.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
+            this.virtualScroll && this.scroller?.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
         }
     }
 
@@ -1514,7 +1514,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     }
 
     findSelectedOptionIndex() {
-        if (this.$filled) {
+        if (this.$filled()) {
             if (this.multiple) {
                 for (let index = this.modelValue().length - 1; index >= 0; index--) {
                     const value = this.modelValue()[index];
@@ -1562,7 +1562,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     }
 
     isEquals(value1, value2) {
-        return equals(value1, value2, this.equalityKey());
+        return equals(value1, value2, this.equalityKey() || '');
     }
 
     isSelected(option) {
@@ -1581,7 +1581,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     }
 
     hasFilter() {
-        return this._filterValue() && this._filterValue().trim().length > 0;
+        return this._filterValue() && (this._filterValue()?.trim().length || 0) > 0;
     }
 
     resetFilter() {

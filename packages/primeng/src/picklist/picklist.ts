@@ -1199,8 +1199,8 @@ export class PickList extends BaseComponent implements AfterContentInit {
     }
 
     triggerChangeDetection() {
-        this.source = [...this.source];
-        this.target = [...this.target];
+        this.source = [...(this.source || [])];
+        this.target = [...(this.target || [])];
     }
 
     moveUp(listElement: any, list: any[], selectedItems: any[], callback: EventEmitter<any>, listType: number) {
@@ -1306,7 +1306,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
             let itemsToMove = [...this.selectedItemsSource];
             for (let i = 0; i < itemsToMove.length; i++) {
                 let selectedItem = itemsToMove[i];
-                if (findIndexInList(selectedItem, this.target) == -1) {
+                if (findIndexInList(selectedItem, this.target || []) == -1) {
                     this.target?.push(this.source?.splice(findIndexInList(selectedItem, this.source), 1)[0]);
 
                     if (this.visibleOptionsSource?.includes(selectedItem)) {
@@ -1335,12 +1335,15 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
     moveAllRight() {
         if (this.source) {
-            let movedItems = [];
+            let movedItems: any = [];
 
             for (let i = 0; i < this.source.length; i++) {
                 if (this.isItemVisible(this.source[i], this.SOURCE_LIST)) {
                     let removedItem = this.source.splice(i, 1)[0];
-                    this.target?.push(removedItem);
+                    if (this.target) {
+                        this.target = [...this.target, removedItem];
+                    }
+
                     movedItems.push(removedItem);
                     i--;
                 }
@@ -1369,7 +1372,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
             let itemsToMove = [...this.selectedItemsTarget];
             for (let i = 0; i < itemsToMove.length; i++) {
                 let selectedItem = itemsToMove[i];
-                if (findIndexInList(selectedItem, this.source) == -1) {
+                if (findIndexInList(selectedItem, this.source || []) == -1) {
                     this.source?.push(this.target?.splice(findIndexInList(selectedItem, this.target), 1)[0]);
 
                     if (this.visibleOptionsTarget?.includes(selectedItem)) {
@@ -1398,12 +1401,14 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
     moveAllLeft() {
         if (this.target) {
-            let movedItems = [];
+            let movedItems: any = [];
 
             for (let i = 0; i < this.target.length; i++) {
                 if (this.isItemVisible(this.target[i], this.TARGET_LIST)) {
                     let removedItem = this.target.splice(i, 1)[0];
-                    this.source?.push(removedItem);
+                    if (this.source) {
+                        this.source = [...this.source, removedItem];
+                    }
                     movedItems.push(removedItem);
                     i--;
                 }
@@ -1448,7 +1453,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
                     // Remove item from target array
                     const item = this.target.splice(dropIndexes.previousIndex, 1)[0];
                     // Add item to source array
-                    this.source.splice(dropIndexes.currentIndex, 0, item);
+                    this.source?.splice(dropIndexes.currentIndex, 0, item);
                 } else {
                     // Fallback: use CDK transfer
                     transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
@@ -1481,7 +1486,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
                     // Remove item from source array
                     const item = this.source.splice(dropIndexes.previousIndex, 1)[0];
                     // Add item to target array
-                    this.target.splice(dropIndexes.currentIndex, 0, item);
+                    this.target?.splice(dropIndexes.currentIndex, 0, item);
                 } else {
                     // Fallback: use CDK transfer
                     transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
@@ -1556,11 +1561,11 @@ export class PickList extends BaseComponent implements AfterContentInit {
         let previousIndex, currentIndex;
 
         if (droppedList === this.SOURCE_LIST) {
-            previousIndex = isTransfer ? (this.filterValueTarget ? findIndexInList(data, this.target) : fromIndex) : this.filterValueSource ? findIndexInList(data, this.source) : fromIndex;
-            currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsSource, toIndex, this.source) : toIndex;
+            previousIndex = isTransfer ? (this.filterValueTarget ? findIndexInList(data, this.target || []) : fromIndex) : this.filterValueSource ? findIndexInList(data, this.source || []) : fromIndex;
+            currentIndex = this.filterValueSource ? this.findFilteredCurrentIndex(this.visibleOptionsSource || [], toIndex, this.source || []) : toIndex;
         } else {
-            previousIndex = isTransfer ? (this.filterValueSource ? findIndexInList(data, this.source) : fromIndex) : this.filterValueTarget ? findIndexInList(data, this.target) : fromIndex;
-            currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(<any[]>this.visibleOptionsTarget, toIndex, this.target) : toIndex;
+            previousIndex = isTransfer ? (this.filterValueSource ? findIndexInList(data, this.source || []) : fromIndex) : this.filterValueTarget ? findIndexInList(data, this.target || []) : fromIndex;
+            currentIndex = this.filterValueTarget ? this.findFilteredCurrentIndex(this.visibleOptionsTarget || [], toIndex, this.target || []) : toIndex;
         }
 
         return { previousIndex, currentIndex };
@@ -1595,8 +1600,8 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
     initMedia() {
         if (isPlatformBrowser(this.platformId)) {
-            this.media = this.document.defaultView.matchMedia(`(max-width: ${this.breakpoint})`);
-            this.viewChanged = this.media.matches;
+            this.media = this.document.defaultView?.matchMedia(`(max-width: ${this.breakpoint})`) || null;
+            this.viewChanged = this.media?.matches || false;
             this.bindMediaChangeListener();
         }
     }
