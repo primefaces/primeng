@@ -44,7 +44,7 @@ import { CommonModule } from '@angular/common';
     `
 })
 class TestBasicPasswordComponent {
-    value: string | null = null;
+    value: string | null = null as any;
     feedback: boolean = true;
     toggleMask: boolean = false;
     showClear: boolean = false;
@@ -55,7 +55,7 @@ class TestBasicPasswordComponent {
     inputId: string = '';
     inputStyleClass: string = '';
     styleClass: string = '';
-    inputStyle: any = null;
+    inputStyle: any = null as any;
     tabindex: number = 0;
     ariaLabel: string = '';
     ariaLabelledBy: string = '';
@@ -145,7 +145,7 @@ class TestFormPasswordComponent {
     `
 })
 class TestPasswordPTemplateComponent {
-    value: string | null = null;
+    value: string | null = null as any;
     feedback: boolean = true;
     toggleMask: boolean = true;
     showClear: boolean = true;
@@ -204,7 +204,7 @@ class TestPasswordPTemplateComponent {
     `
 })
 class TestPasswordRefTemplateComponent {
-    value: string | null = null;
+    value: string | null = null as any;
     feedback: boolean = true;
     toggleMask: boolean = true;
     showClear: boolean = true;
@@ -216,7 +216,7 @@ class TestPasswordRefTemplateComponent {
     template: ` <input type="password" pPassword [(ngModel)]="value" [feedback]="feedback" [promptLabel]="promptLabel" [weakLabel]="weakLabel" [mediumLabel]="mediumLabel" [strongLabel]="strongLabel" /> `
 })
 class TestPasswordDirectiveComponent {
-    value: string | null = null;
+    value: string | null = null as any;
     feedback: boolean = true;
     promptLabel: string = 'Enter password';
     weakLabel: string = 'Weak';
@@ -1118,7 +1118,7 @@ describe('Password', () => {
     describe('Performance Tests', () => {
         it('should handle large datasets efficiently', fakeAsync(() => {
             // Test rapid password strength calculations
-            const passwords = [];
+            const passwords: string[] = [];
             for (let i = 0; i < 1000; i++) {
                 passwords.push(`password${i}Test123!`);
             }

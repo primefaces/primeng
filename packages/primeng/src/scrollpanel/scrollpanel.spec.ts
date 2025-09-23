@@ -290,8 +290,8 @@ describe('ScrollPanel', () => {
             // Test excessive scroll position (should be limited to max scrollable height)
             scrollPanel.scrollTop(99999);
             tick(50);
-            const maxScrollTop = scrollPanel.contentViewChild.nativeElement.scrollHeight - scrollPanel.contentViewChild.nativeElement.clientHeight;
-            expect(scrollPanel.contentViewChild.nativeElement.scrollTop).toBe(maxScrollTop);
+            const maxScrollTop = scrollPanel.contentViewChild!.nativeElement.scrollHeight - scrollPanel.contentViewChild!.nativeElement.clientHeight;
+            expect(scrollPanel.contentViewChild!.nativeElement.scrollTop).toBe(maxScrollTop);
 
             flush();
         }));
@@ -806,7 +806,7 @@ describe('ScrollPanel', () => {
 
         it('should fallback to timeout when requestAnimationFrame is not available', () => {
             const originalRAF = window.requestAnimationFrame;
-            (window as any).requestAnimationFrame = undefined;
+            (window as any).requestAnimationFrame = undefined as any;
 
             spyOn(window, 'setTimeout').and.callThrough();
 

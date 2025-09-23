@@ -78,8 +78,8 @@ class TestPickListComponent {
     filterBy: string = 'name';
     sourceFilterPlaceholder: string = 'Filter source';
     targetFilterPlaceholder: string = 'Filter target';
-    sourceStyle: any = null;
-    targetStyle: any = null;
+    sourceStyle: any = null as any;
+    targetStyle: any = null as any;
 
     // Event handlers
     onMoveToTarget(event: PickListMoveToTargetEvent) {
@@ -115,14 +115,14 @@ class TestPickListComponent {
     }
 
     // Event tracking
-    moveToTargetEvent: PickListMoveToTargetEvent | null = null;
-    moveToSourceEvent: PickListMoveToSourceEvent | null = null;
-    moveAllToTargetEvent: PickListMoveAllToTargetEvent | null = null;
-    moveAllToSourceEvent: PickListMoveAllToSourceEvent | null = null;
-    sourceSelectEvent: PickListSourceSelectEvent | null = null;
-    targetSelectEvent: PickListTargetSelectEvent | null = null;
-    sourceReorderEvent: PickListSourceReorderEvent | null = null;
-    targetReorderEvent: PickListTargetReorderEvent | null = null;
+    moveToTargetEvent: PickListMoveToTargetEvent | null = null as any;
+    moveToSourceEvent: PickListMoveToSourceEvent | null = null as any;
+    moveAllToTargetEvent: PickListMoveAllToTargetEvent | null = null as any;
+    moveAllToSourceEvent: PickListMoveAllToSourceEvent | null = null as any;
+    sourceSelectEvent: PickListSourceSelectEvent | null = null as any;
+    targetSelectEvent: PickListTargetSelectEvent | null = null as any;
+    sourceReorderEvent: PickListSourceReorderEvent | null = null as any;
+    targetReorderEvent: PickListTargetReorderEvent | null = null as any;
 }
 
 describe('PickList', () => {

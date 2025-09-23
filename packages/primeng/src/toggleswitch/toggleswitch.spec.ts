@@ -629,7 +629,7 @@ class TestBasicToggleSwitchComponent {
 })
 class TestFormToggleSwitchComponent {
     form = new FormGroup({
-        toggleValue: new FormControl(null, Validators.required)
+        toggleValue: new FormControl<boolean | null>(null, Validators.required)
     });
 }
 

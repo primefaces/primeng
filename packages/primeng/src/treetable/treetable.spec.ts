@@ -597,8 +597,8 @@ describe('TreeTable', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values', () => {
-            component.value = undefined;
-            component.columns = undefined;
+            component.value = undefined as any;
+            component.columns = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -1447,9 +1447,9 @@ describe('TreeTable', () => {
 
             it('should handle edge case values for all properties', () => {
                 // Test undefined values
-                component.styleClass = undefined;
-                component.dataKey = undefined;
-                component.loadingIcon = undefined;
+                component.styleClass = undefined as any;
+                component.dataKey = undefined as any;
+                component.loadingIcon = undefined as any;
                 fixture.detectChanges();
 
                 expect(treetable.styleClass).toBeUndefined();
@@ -1457,8 +1457,8 @@ describe('TreeTable', () => {
                 expect(treetable.loadingIcon).toBeUndefined();
 
                 // Test null values
-                component.tableStyle = null;
-                component.frozenColumns = null;
+                component.tableStyle = null as any;
+                component.frozenColumns = null as any;
                 fixture.detectChanges();
 
                 expect(treetable.tableStyle).toBeNull();
@@ -2227,7 +2227,7 @@ describe('TreeTable', () => {
                         tick();
                         expect(dynamicTreetable.selection).toEqual(testData[0]);
 
-                        dynamicTreetable.selection = null;
+                        dynamicTreetable.selection = null as any;
                         dynamicFixture.detectChanges();
                         tick();
                         expect(dynamicTreetable.selection).toBeNull();
@@ -2352,10 +2352,10 @@ describe('TreeTable', () => {
 
                     scrollOptions.forEach((options) => {
                         if (dynamicTreetable.hasOwnProperty('virtualScrollOptions')) {
-                            dynamicTreetable.virtualScrollOptions = options;
+                            dynamicTreetable.virtualScrollOptions = options as any;
                             dynamicFixture.detectChanges();
                             tick();
-                            expect(dynamicTreetable.virtualScrollOptions).toEqual(options);
+                            expect(dynamicTreetable.virtualScrollOptions).toEqual(options as any);
                         }
                     });
 
@@ -2475,7 +2475,7 @@ describe('TreeTable', () => {
 
                     validEdgeCases.forEach((data) => {
                         expect(() => {
-                            dynamicComponent.updateValue(data);
+                            dynamicComponent.updateValue(data as any);
                             dynamicFixture.detectChanges();
                             tick();
                         }).not.toThrow();
@@ -2490,7 +2490,7 @@ describe('TreeTable', () => {
                     invalidCases.forEach((data) => {
                         // These may throw errors, which is acceptable behavior
                         try {
-                            dynamicComponent.updateValue(data);
+                            dynamicComponent.updateValue(data as any);
                             dynamicFixture.detectChanges();
                             tick();
                         } catch (error) {

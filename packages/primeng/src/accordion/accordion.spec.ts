@@ -49,7 +49,7 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, Accordion
     `
 })
 class TestAccordionComponent {
-    value: undefined | null | string | number | string[] | number[] = undefined;
+    value: undefined | null | string | number | string[] | number[] = undefined as any;
     multiple = false;
     selectOnFocus = false;
     expandIcon?: string;
@@ -113,7 +113,7 @@ class TestDynamicAccordionComponent {
     `
 })
 class TestCustomIconAccordionComponent {
-    value: string | undefined = undefined;
+    value: string | undefined = undefined as any;
 }
 
 describe('Accordion', () => {
@@ -304,7 +304,7 @@ describe('Accordion', () => {
             component.tab1Disabled = true;
             fixture.detectChanges();
 
-            component.openEvent = undefined;
+            component.openEvent = undefined as any;
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
             fixture.detectChanges();
@@ -527,7 +527,7 @@ describe('Accordion', () => {
 
         it('should handle updateValue with non-array initial value in multiple mode', () => {
             component.multiple = true;
-            component.value = null;
+            component.value = null as any;
             fixture.detectChanges();
 
             accordion.updateValue('tab1');
@@ -696,7 +696,7 @@ describe('Accordion', () => {
 
     describe('Edge Cases', () => {
         it('should handle null value gracefully', () => {
-            component.value = null;
+            component.value = null as any;
             fixture.detectChanges();
 
             expect(accordion.value()).toBeNull();
@@ -709,7 +709,7 @@ describe('Accordion', () => {
         });
 
         it('should handle undefined value gracefully', () => {
-            component.value = undefined;
+            component.value = undefined as any;
             fixture.detectChanges();
 
             expect(accordion.value()).toBeUndefined();
@@ -752,7 +752,7 @@ describe('Accordion', () => {
 
         it('should handle empty accordion', () => {
             // Test empty accordion by clearing panels
-            component.value = undefined;
+            component.value = undefined as any;
             fixture.detectChanges();
 
             // Ensure accordion instance exists and has no active panels

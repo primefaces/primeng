@@ -47,9 +47,9 @@ class TestDrawerBasicComponent {
     closable = true;
     showCloseIcon = true;
     blockScroll = false;
-    style: any = null;
+    style: any = null as any;
     styleClass = '';
-    maskStyle: any = null;
+    maskStyle: any = null as any;
     appendTo: any = 'body';
     autoZIndex = true;
     baseZIndex = 0;
@@ -954,7 +954,7 @@ describe('Drawer', () => {
         });
 
         it('should handle null style property', () => {
-            testComponent.style = null;
+            testComponent.style = null as any;
             testFixture.detectChanges();
             expect(drawerComponent.style).toBeNull();
         });

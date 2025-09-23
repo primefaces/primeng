@@ -356,7 +356,7 @@ describe('PanelMenu', () => {
         });
 
         it('should handle undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(panelMenuInstance.model).toBeUndefined();

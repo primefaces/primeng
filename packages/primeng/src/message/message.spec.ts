@@ -33,7 +33,7 @@ class TestBasicMessageComponent {
     severity: string | 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
     text: string | undefined;
     escape = true;
-    style: { [klass: string]: any } | null | undefined = null;
+    style: { [klass: string]: any } | null | undefined = null as any;
     styleClass: string | undefined;
     closable = false;
     icon: string | undefined;
@@ -300,7 +300,7 @@ describe('Message', () => {
         it('should not auto-close when life is not set', fakeAsync(() => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
-            component.life = undefined;
+            component.life = undefined as any;
             fixture.detectChanges();
 
             messageEl = fixture.debugElement.query(By.css('p-message'));
@@ -344,13 +344,13 @@ describe('Message', () => {
         });
 
         it('should handle null and undefined severity', () => {
-            component.severity = null;
+            component.severity = null as any;
             fixture.detectChanges();
 
             let messageEl = fixture.debugElement.query(By.css('p-message'));
             expect(messageEl).toBeTruthy();
 
-            component.severity = undefined;
+            component.severity = undefined as any;
             fixture.detectChanges();
 
             messageEl = fixture.debugElement.query(By.css('p-message'));
@@ -443,7 +443,7 @@ describe('Message', () => {
 
         it('should display default close icon when closable is true and no closeIcon is set', () => {
             component.closable = true;
-            component.closeIcon = undefined;
+            component.closeIcon = undefined as any;
             fixture.detectChanges();
 
             const defaultCloseIcon = fixture.debugElement.query(By.css('button svg[data-p-icon="times"]'));
@@ -639,8 +639,8 @@ describe('Message', () => {
 
             // Verify component received the style input
             expect(messageInstance.style).toBeTruthy();
-            expect(Object.keys(messageInstance.style)).toContain('border');
-            expect(Object.keys(messageInstance.style)).toContain('padding');
+            expect(Object.keys(messageInstance.style!)).toContain('border');
+            expect(Object.keys(messageInstance.style!)).toContain('padding');
         });
 
         it('should apply size classes', () => {
@@ -777,11 +777,11 @@ describe('Message', () => {
         });
 
         it('should handle null/undefined values gracefully', () => {
-            component.text = undefined;
-            component.icon = undefined;
-            component.closeIcon = undefined;
-            component.style = null;
-            component.styleClass = undefined;
+            component.text = undefined as any;
+            component.icon = undefined as any;
+            component.closeIcon = undefined as any;
+            component.style = null as any;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             const messageDiv = fixture.debugElement.query(By.css('.p-message'));

@@ -44,7 +44,7 @@ class TestBasicMenuComponent {
     ariaLabel: string | undefined;
     ariaLabelledBy: string | undefined;
     tabindex: number = 0;
-    appendTo: any = undefined;
+    appendTo: any = undefined as any;
 
     showEvent: any;
     hideEvent: any;
@@ -479,7 +479,7 @@ describe('Menu', () => {
         });
 
         it('should handle null model', () => {
-            component.model = null;
+            component.model = null as any;
             fixture.detectChanges();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
@@ -1235,8 +1235,8 @@ describe('Menu', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', () => {
-            component.model = undefined;
-            component.ariaLabel = undefined;
+            component.model = undefined as any;
+            component.ariaLabel = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -1341,7 +1341,7 @@ describe('Menu', () => {
             const enabledItem = false;
             const disabledItem = true;
             const functionDisabledItem = () => true;
-            const undefinedItem = undefined;
+            const undefinedItem = undefined as any;
 
             expect(menuInstance.disabled(enabledItem)).toBe(false);
             expect(menuInstance.disabled(disabledItem)).toBe(true);

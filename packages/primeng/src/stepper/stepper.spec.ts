@@ -501,7 +501,7 @@ describe('Stepper', () => {
 
     describe('Edge Cases', () => {
         it('should handle undefined value', () => {
-            component.value = undefined;
+            component.value = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -536,7 +536,7 @@ describe('Stepper', () => {
             component.transitionOptions = '';
             fixture.detectChanges();
 
-            expect(stepper.transitionOptions()).toBe('');
+            expect(stepper.transitionOptions()).toBe('' as any);
         });
     });
 

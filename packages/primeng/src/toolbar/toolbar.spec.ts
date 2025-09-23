@@ -224,7 +224,7 @@ describe('Toolbar', () => {
         });
 
         it('should handle undefined ariaLabelledBy', () => {
-            component.ariaLabelledBy = undefined;
+            component.ariaLabelledBy = undefined as any;
             fixture.detectChanges();
 
             expect(toolbarEl.nativeElement.hasAttribute('aria-labelledby')).toBe(false);
@@ -427,7 +427,7 @@ describe('Toolbar', () => {
         it('should handle toolbar without any content', () => {
             // Using existing basic component without any content except default
             const basicFixture = TestBed.createComponent(TestBasicToolbarComponent);
-            basicFixture.componentInstance.ariaLabelledBy = undefined;
+            basicFixture.componentInstance.ariaLabelledBy = undefined as any;
             basicFixture.detectChanges();
 
             const toolbar = basicFixture.debugElement.query(By.directive(Toolbar));

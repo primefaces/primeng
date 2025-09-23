@@ -580,7 +580,7 @@ describe('MeterGroup', () => {
             ];
             fixture.detectChanges();
 
-            expect(meterGroup.value.length).toBe(2);
+            expect(meterGroup.value!.length).toBe(2);
             expect(meterGroup.totalPercent()).toBe(70);
         });
 
@@ -605,7 +605,7 @@ describe('MeterGroup', () => {
             expect(component.value.length).toBe(2);
 
             // The meterGroup should reflect the updated value
-            expect(meterGroup.value.length).toBe(2);
+            expect(meterGroup.value!.length).toBe(2);
 
             // Check DOM elements
             const labelTexts = element.querySelectorAll('.p-metergroup-label-text');
@@ -616,7 +616,7 @@ describe('MeterGroup', () => {
             component.value = [];
             fixture.detectChanges();
 
-            expect(meterGroup.value.length).toBe(0);
+            expect(meterGroup.value!.length).toBe(0);
             const meters = element.querySelectorAll('.p-metergroup-meter');
             expect(meters.length).toBe(0);
         });
@@ -675,7 +675,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
             tick();
 
-            expect(meterGroup.value[0].value).toBe(30);
+            expect(meterGroup.value![0].value).toBe(30);
             flush();
         }));
 
@@ -780,7 +780,7 @@ describe('MeterGroup', () => {
             }).not.toThrow();
 
             const meterGroup = fixture.debugElement.query(By.directive(MeterGroup)).componentInstance;
-            expect(meterGroup.value.length).toBe(100);
+            expect(meterGroup.value!.length).toBe(100);
             flush();
         }));
 

@@ -176,7 +176,7 @@ describe('IconField', () => {
 
         it('should work without input value', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
-            expect(inputElement.nativeElement.value).toBe('');
+            expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
         it('should update input value when model changes', fakeAsync(() => {

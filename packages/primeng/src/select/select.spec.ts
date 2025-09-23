@@ -394,7 +394,7 @@ class TestDynamicDataSourcesComponent {
     signalDisabled = this._signalDisabled.asReadonly();
     signalLoading = this._signalLoading.asReadonly();
 
-    selectedSignal: any = null;
+    selectedSignal: any = null as any;
 
     // Observable-based properties
     private observableSubject = new BehaviorSubject([
@@ -410,7 +410,7 @@ class TestDynamicDataSourcesComponent {
     observablePlaceholder$ = this.placeholderSubject.asObservable();
     observableDisabled$ = this.disabledSubject.asObservable();
 
-    selectedObservable: any = null;
+    selectedObservable: any = null as any;
 
     // Getter-based properties
     private _getterOptions = [
@@ -434,7 +434,7 @@ class TestDynamicDataSourcesComponent {
         return this._getterPlaceholder;
     }
 
-    selectedGetter: any = null;
+    selectedGetter: any = null as any;
 
     // Function-based properties
     getFunctionOptions() {
@@ -454,14 +454,14 @@ class TestDynamicDataSourcesComponent {
         return 'Select from function';
     }
 
-    selectedFunction: any = null;
+    selectedFunction: any = null as any;
 
     // Late-loaded properties
     lateLoadedOptions: any[] = [];
     lateLoadedLabel = 'text';
     lateLoadedPlaceholder = 'Loading options...';
     isLateLoading = true;
-    selectedLateLoaded: any = null;
+    selectedLateLoaded: any = null as any;
 
     // Computed properties
     private baseItems = signal([
@@ -479,7 +479,7 @@ class TestDynamicDataSourcesComponent {
     computedLabel = computed(() => 'name');
     computedPlaceholder = computed(() => `Select from ${this.computedOptions().length} computed options`);
 
-    selectedComputed: any = null;
+    selectedComputed: any = null as any;
 
     // Event handlers
     signalChangeEvent: any;
@@ -598,7 +598,7 @@ class TestComprehensiveFormComponent {
         { name: 'Form Option 2', code: 'form2' },
         { name: 'Form Option 3', code: 'form3' }
     ];
-    ngModelValue: any = null;
+    ngModelValue: any = null as any;
 
     constructor(private fb: FormBuilder) {
         this.testForm = this.fb.group({
@@ -680,8 +680,8 @@ class TestViewChildComponent {
     ];
 
     largeOptions: any[] = [];
-    selectedValue: any = null;
-    selectedVirtual: any = null;
+    selectedValue: any = null as any;
+    selectedVirtual: any = null as any;
 
     constructor() {
         // Generate large dataset for virtual scrolling
@@ -719,12 +719,12 @@ class TestViewChildComponent {
 class TestComplexEdgeCasesComponent {
     // Rapid updates
     rapidOptions: any[] = [{ name: 'Initial', code: 'init' }];
-    rapidValue: any = null;
+    rapidValue: any = null as any;
     rapidChangeCount = 0;
 
     // Memory intensive
     memoryOptions: any[] = [];
-    memoryValue: any = null;
+    memoryValue: any = null as any;
 
     // Unicode and special characters
     unicodeOptions = [
@@ -735,17 +735,17 @@ class TestComplexEdgeCasesComponent {
         { text: 'RTL: مرحبا بالعالم', id: 'rtl' },
         { text: 'Newlines\nand\ttabs', id: 'newlines' }
     ];
-    unicodeValue: any = null;
+    unicodeValue: any = null as any;
 
     // Circular reference
     circularOptions: any[] = [];
-    circularValue: any = null;
+    circularValue: any = null as any;
 
     // Edge cases
-    edgeOptions: any = null;
-    edgeValue: any = null;
-    edgeLabel: any = undefined;
-    edgePlaceholder: any = null;
+    edgeOptions: any = null as any;
+    edgeValue: any = null as any;
+    edgeLabel: any = undefined as any;
+    edgePlaceholder: any = null as any;
 
     constructor() {
         // Create memory intensive options
@@ -867,15 +867,15 @@ describe('Select', () => {
     describe('Options and Data', () => {
         it('should display options correctly', () => {
             expect(selectInstance.options).toBeDefined();
-            expect(selectInstance.options.length).toBe(3);
-            expect(selectInstance.options[0].name).toBe('Option 1');
+            expect(selectInstance.options!.length).toBe(3);
+            expect(selectInstance.options![0].name).toBe('Option 1');
         });
 
         it('should handle empty options array', () => {
             component.options = [];
             fixture.detectChanges();
 
-            expect(selectInstance.options.length).toBe(0);
+            expect(selectInstance.options!.length).toBe(0);
             expect(selectInstance.isEmpty()).toBe(true);
         });
 
@@ -1366,14 +1366,14 @@ describe('Select', () => {
         }));
 
         it('should handle null/undefined values gracefully', () => {
-            component.selectedValue = null;
+            component.selectedValue = null as any;
             selectInstance.writeModelValue(null);
             fixture.detectChanges();
 
             expect(selectInstance.modelValue()).toBe(null);
             expect(() => fixture.detectChanges()).not.toThrow();
 
-            component.selectedValue = undefined;
+            component.selectedValue = undefined as any;
             selectInstance.writeModelValue(undefined);
             fixture.detectChanges();
 
@@ -1398,9 +1398,9 @@ describe('Select', () => {
             ];
             fixture.detectChanges();
 
-            expect(selectInstance.options[0].name).toContain('"quotes"');
-            expect(selectInstance.options[1].name).toContain('<tags>');
-            expect(selectInstance.options[2].name).toContain('& ampersand');
+            expect(selectInstance.options![0].name).toContain('"quotes"');
+            expect(selectInstance.options![1].name).toContain('<tags>');
+            expect(selectInstance.options![2].name).toContain('& ampersand');
         });
     });
 
@@ -1528,8 +1528,8 @@ describe('Select - Grouped Options', () => {
 
     it('should handle grouped options', () => {
         expect(selectInstance.group).toBe(true);
-        expect(selectInstance.options.length).toBe(2);
-        expect(selectInstance.options[0].items.length).toBe(2);
+        expect(selectInstance.options!.length).toBe(2);
+        expect(selectInstance.options![0].items.length).toBe(2);
     });
 
     it('should get option group label', () => {
@@ -1978,8 +1978,8 @@ describe('Select - Dynamic and Signal-based Properties', () => {
 
     it('should handle dynamic signal-based options', () => {
         expect(selectInstance.options).toBeDefined();
-        expect(selectInstance.options.length).toBe(2);
-        expect(selectInstance.options[0].label).toBe('Dynamic 1');
+        expect(selectInstance.options!.length).toBe(2);
+        expect(selectInstance.options![0].label).toBe('Dynamic 1');
     });
 
     it('should update when signal-based options change', fakeAsync(() => {
@@ -1993,8 +1993,8 @@ describe('Select - Dynamic and Signal-based Properties', () => {
         fixture.detectChanges();
         tick();
 
-        expect(selectInstance.options.length).toBe(3);
-        expect(selectInstance.options[0].label).toBe('Updated 1');
+        expect(selectInstance.options!.length).toBe(3);
+        expect(selectInstance.options![0].label).toBe('Updated 1');
         flush();
     }));
 
@@ -2054,8 +2054,8 @@ describe('Select - Dynamic and Signal-based Properties', () => {
 
         tick(150);
 
-        expect(selectInstance.options.length).toBe(2);
-        expect(selectInstance.options[0].label).toBe('Async 1');
+        expect(selectInstance.options!.length).toBe(2);
+        expect(selectInstance.options![0].label).toBe('Async 1');
         flush();
     }));
 
@@ -2094,7 +2094,7 @@ describe('Select - Performance and Large Datasets', () => {
     });
 
     it('should handle large datasets efficiently', fakeAsync(() => {
-        const largeOptions = [];
+        const largeOptions: any[] = [];
         for (let i = 0; i < 1000; i++) {
             largeOptions.push({
                 name: `Option ${i}`,
@@ -2109,7 +2109,7 @@ describe('Select - Performance and Large Datasets', () => {
         const endTime = performance.now();
 
         expect(endTime - startTime).toBeLessThan(2000); // Should render in less than 2 seconds
-        expect(selectInstance.options.length).toBe(1000);
+        expect(selectInstance.options!.length).toBe(1000);
         flush();
     }));
 
@@ -2843,7 +2843,7 @@ describe('Select Complex Edge Cases', () => {
         }));
 
         it('should handle undefined optionLabel', fakeAsync(() => {
-            edgeComponent.edgeLabel = undefined;
+            edgeComponent.edgeLabel = undefined as any;
             edgeComponent.edgeOptions = [{ name: 'Test', code: 'test' }];
             edgeFixture.detectChanges();
             tick();
@@ -2855,7 +2855,7 @@ describe('Select Complex Edge Cases', () => {
         }));
 
         it('should handle null placeholder', () => {
-            edgeComponent.edgePlaceholder = null;
+            edgeComponent.edgePlaceholder = null as any;
             edgeFixture.detectChanges();
 
             expect(() => {
@@ -2880,7 +2880,7 @@ describe('Select Complex Edge Cases', () => {
         }));
 
         it('should handle concurrent option updates', fakeAsync(() => {
-            const promises = [];
+            const promises: Promise<any>[] = [];
 
             // Simulate concurrent updates
             for (let i = 0; i < 10; i++) {
@@ -3056,7 +3056,7 @@ describe('Select Advanced Accessibility', () => {
             const endEvent = new KeyboardEvent('keydown', { code: 'End' });
             selectInstance.onKeyDown(endEvent);
 
-            const lastIndex = selectInstance.options.length - 1;
+            const lastIndex = selectInstance.options!.length - 1;
             expect(selectInstance.focusedOptionIndex()).toBe(lastIndex);
 
             const homeEvent = new KeyboardEvent('keydown', { code: 'Home' });

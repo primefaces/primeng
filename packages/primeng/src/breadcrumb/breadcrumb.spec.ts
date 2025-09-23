@@ -295,11 +295,11 @@ describe('Breadcrumb', () => {
         });
 
         it('should handle undefined inputs', () => {
-            component.model = undefined;
-            component.home = undefined;
-            component.style = undefined;
-            component.styleClass = undefined;
-            component.homeAriaLabel = undefined;
+            component.model = undefined as any;
+            component.home = undefined as any;
+            component.style = undefined as any;
+            component.styleClass = undefined as any;
+            component.homeAriaLabel = undefined as any;
             fixture.detectChanges();
 
             expect(breadcrumbInstance.model).toBeUndefined();
@@ -320,7 +320,7 @@ describe('Breadcrumb', () => {
         });
 
         it('should not display home item when not provided', () => {
-            component.home = undefined;
+            component.home = undefined as any;
             fixture.detectChanges();
 
             const homeElement = fixture.debugElement.query(By.css('[data-pc-section="home"]'));
@@ -791,7 +791,7 @@ describe('Breadcrumb', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

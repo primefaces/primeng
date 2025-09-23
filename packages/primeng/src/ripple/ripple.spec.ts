@@ -317,7 +317,7 @@ describe('Ripple', () => {
         it('should work with modified DOM structure', () => {
             const newChild = document.createElement('div');
             newChild.textContent = 'New child';
-            rippleElement.nativeElement.appendChild(newChild);
+            rippleElement!.nativeElement.appendChild(newChild);
 
             expect(rippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);
             expect(rippleElement.nativeElement.querySelector('div')).toBeTruthy();
@@ -349,7 +349,7 @@ describe('Ripple', () => {
         it('should handle multiple directive instances efficiently', () => {
             const startTime = performance.now();
 
-            const fixtures = [];
+            const fixtures: ComponentFixture<TestBasicRippleComponent>[] = [];
             for (let i = 0; i < 10; i++) {
                 const testFixture = TestBed.createComponent(TestBasicRippleComponent);
                 testFixture.detectChanges();

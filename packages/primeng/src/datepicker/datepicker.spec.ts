@@ -73,7 +73,7 @@ import { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from './datepic
     `
 })
 class TestDatePickerComponent {
-    selectedDate: any = null;
+    selectedDate: any = null as any;
     dateFormat: string = 'dd/mm/yy';
     placeholder: string = 'Select a date';
     showTime: boolean = false;
@@ -83,8 +83,8 @@ class TestDatePickerComponent {
     inline: boolean = false;
     showButtonBar: boolean = false;
     selectionMode: string = 'single';
-    minDate: Date | null = null;
-    maxDate: Date | null = null;
+    minDate: Date | null = null as any;
+    maxDate: Date | null = null as any;
     disabledDates: Date[] = [];
     disabledDays: number[] = [];
     firstDayOfWeek: number = 0;
@@ -104,17 +104,17 @@ class TestDatePickerComponent {
     showOnFocus: boolean = true;
     tabindex: number = 0;
     iconDisplay: string = 'input';
-    icon: string | undefined = undefined;
+    icon: string | undefined = undefined as any;
     showClear: boolean = false;
-    appendTo: any = null;
+    appendTo: any = null as any;
     readonlyInput: boolean = false;
     shortYearCutoff: string = '+10';
     ariaLabel: string = 'Date picker';
-    ariaLabelledBy: string | undefined = undefined;
-    panelStyle: any = null;
-    panelStyleClass: string | undefined = undefined;
-    inputStyle: any = null;
-    inputStyleClass: string | undefined = undefined;
+    ariaLabelledBy: string | undefined = undefined as any;
+    panelStyle: any = null as any;
+    panelStyleClass: string | undefined = undefined as any;
+    inputStyle: any = null as any;
+    inputStyleClass: string | undefined = undefined as any;
     timeSeparator: string = ':';
     multipleSeparator: string = ',';
     rangeSeparator: string = '-';
@@ -144,7 +144,7 @@ class TestDatePickerComponent {
 })
 class TestReactiveFormDatePickerComponent {
     form = new FormGroup({
-        date: new FormControl(null, [Validators.required])
+        date: new FormControl<Date | null>(null, [Validators.required])
     });
 }
 
@@ -230,7 +230,7 @@ class TestReactiveFormDatePickerComponent {
     `
 })
 class TestPTemplatesDatePickerComponent {
-    selectedDate: Date | null = null;
+    selectedDate: Date | null = null as any;
     showTime: boolean = false;
     showIcon: boolean = false;
     showClear: boolean = false;
@@ -321,7 +321,7 @@ class TestPTemplatesDatePickerComponent {
     `
 })
 class TestRefTemplatesDatePickerComponent {
-    selectedDate: Date | null = null;
+    selectedDate: Date | null = null as any;
     showTime: boolean = false;
     showIcon: boolean = false;
     showClear: boolean = false;
@@ -344,7 +344,7 @@ class TestRefTemplatesDatePickerComponent {
     `
 })
 class TestTemplatesDatePickerComponent {
-    selectedDate: Date | null = null;
+    selectedDate: Date | null = null as any;
     showTime: boolean = false;
     showIcon: boolean = false;
     showClear: boolean = false;
@@ -799,9 +799,9 @@ describe('DatePicker', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values', () => {
-            testComponent.selectedDate = null;
-            testComponent.minDate = null;
-            testComponent.maxDate = null;
+            testComponent.selectedDate = null as any;
+            testComponent.minDate = null as any;
+            testComponent.maxDate = null as any;
             testFixture.detectChanges();
 
             expect(() => testFixture.detectChanges()).not.toThrow();

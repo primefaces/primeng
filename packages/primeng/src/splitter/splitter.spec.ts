@@ -35,7 +35,7 @@ class TestSplitterComponent {
     layout = 'horizontal';
     gutterSize = 4;
     minSizes: number[] = [];
-    stateKey: string | null = null;
+    stateKey: string | null = null as any;
     stateStorage = 'session';
     step = 5;
     panelStyleClass?: string;
@@ -574,7 +574,7 @@ describe('Splitter', () => {
             // In testing environment, we simulate the ngStyle behavior
             if (splitterInstance.panelStyle) {
                 Object.keys(splitterInstance.panelStyle).forEach((key) => {
-                    element.style[key] = splitterInstance.panelStyle[key];
+                    element.style[key] = splitterInstance.panelStyle![key];
                 });
             }
 
@@ -584,8 +584,8 @@ describe('Splitter', () => {
 
             // Also verify the template binding
             expect(splitterInstance.panelStyle).toBeTruthy();
-            expect(Object.keys(splitterInstance.panelStyle)).toContain('border');
-            expect(Object.keys(splitterInstance.panelStyle)).toContain('padding');
+            expect(Object.keys(splitterInstance.panelStyle!)).toContain('border');
+            expect(Object.keys(splitterInstance.panelStyle!)).toContain('padding');
         });
 
         it('should apply resizing classes during resize', () => {
@@ -766,7 +766,7 @@ describe('Splitter', () => {
         });
 
         it('should handle multiple timer clears', () => {
-            splitterInstance.timer = null;
+            splitterInstance.timer = null as any;
 
             expect(() => {
                 splitterInstance.clearTimer();

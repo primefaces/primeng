@@ -35,15 +35,15 @@ import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, 
 })
 class TestBasicEditorComponent {
     text: string = '<div>Initial content</div>';
-    style: { [key: string]: any } | null = null;
+    style: { [key: string]: any } | null = null as any;
     styleClass: string = '';
     placeholder: string = 'Enter text here...';
     readonly: boolean = false;
-    formats: string[] | undefined = undefined;
-    modules: object | undefined = undefined;
-    bounds: HTMLElement | string | undefined = undefined;
-    scrollingContainer: HTMLElement | string | undefined = undefined;
-    debug: string | undefined = undefined;
+    formats: string[] | undefined = undefined as any;
+    modules: object | undefined = undefined as any;
+    bounds: HTMLElement | string | undefined = undefined as any;
+    scrollingContainer: HTMLElement | string | undefined = undefined as any;
+    debug: string | undefined = undefined as any;
 
     // Event handlers
     initEvent: EditorInitEvent | undefined;
@@ -209,7 +209,7 @@ describe('Editor', () => {
         it('should have default values', () => {
             expect(editorInstance.readonly).toBe(false);
             expect(editorInstance.style).toBe(null);
-            expect(editorInstance.styleClass).toBe('');
+            expect(editorInstance.styleClass).toBe('' as any);
             expect(editorInstance.placeholder).toBe('Enter text here...');
             expect(editorInstance.formats).toBeUndefined();
             expect(editorInstance.modules).toBeUndefined();
@@ -653,7 +653,7 @@ describe('Editor', () => {
         });
 
         it('should handle destroy when quill is not initialized', () => {
-            editorInstance.quill = null;
+            editorInstance.quill = null as any;
 
             expect(() => {
                 editorInstance.ngOnDestroy();
@@ -677,7 +677,7 @@ describe('Editor', () => {
 
         it('should handle empty content', () => {
             editorInstance.writeControlValue('');
-            expect(editorInstance.value).toBe('');
+            expect(editorInstance.value).toBe('' as any);
         });
 
         it('should handle HTML content with special characters', () => {

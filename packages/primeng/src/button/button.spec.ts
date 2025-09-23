@@ -52,7 +52,7 @@ class TestBasicButtonComponent {
     rounded: boolean = false;
     text: boolean = false;
     outlined: boolean = false;
-    size: 'small' | 'large' | undefined | null = null;
+    size: 'small' | 'large' | undefined | null = null as any;
     plain: boolean = false;
     severity: any;
     badge: string | undefined;
@@ -155,7 +155,7 @@ class TestButtonDirectiveComponent {
     rounded: boolean = false;
     text: boolean = false;
     outlined: boolean = false;
-    size: 'small' | 'large' | undefined | null = null;
+    size: 'small' | 'large' | undefined | null = null as any;
     plain: boolean = false;
     loading: boolean = false;
     disabled: boolean = false;
@@ -585,7 +585,7 @@ describe('Button', () => {
         });
 
         it('should show icon-only button when no label', () => {
-            component.label = undefined;
+            component.label = undefined as any;
             component.icon = 'pi pi-search';
             fixture.detectChanges();
 
@@ -879,7 +879,7 @@ describe('Button', () => {
 
         it('should handle aria-hidden for icons', () => {
             component.icon = 'pi pi-search';
-            component.label = undefined; // Icon only
+            component.label = undefined as any; // Icon only
             fixture.detectChanges();
 
             // Check that icon property is set correctly
@@ -959,7 +959,7 @@ describe('Button', () => {
 
         it('should show default spinner when loading is true and no loadingIcon is provided', () => {
             component.loading = true;
-            component.loadingIcon = undefined;
+            component.loadingIcon = undefined as any;
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
@@ -1057,7 +1057,7 @@ describe('Button', () => {
         it('should handle icon only button with loading state', () => {
             component.icon = 'pi pi-save';
             component.loadingIcon = 'pi pi-spinner';
-            component.label = undefined;
+            component.label = undefined as any;
             component.loading = false;
             fixture.detectChanges();
 
@@ -1079,8 +1079,8 @@ describe('Button', () => {
         });
 
         it('should handle loading state with label but no icons', () => {
-            component.icon = undefined;
-            component.loadingIcon = undefined;
+            component.icon = undefined as any;
+            component.loadingIcon = undefined as any;
             component.label = 'Submit';
             component.loading = true;
             fixture.detectChanges();
@@ -1221,11 +1221,11 @@ describe('Button', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(buttonInstance.label).toBe('');
+            expect(buttonInstance.label).toBe('' as any);
         });
 
         it('should handle undefined label', () => {
-            component.label = undefined;
+            component.label = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
