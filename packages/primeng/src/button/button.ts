@@ -697,7 +697,7 @@ export class Button extends BaseComponent implements AfterContentInit {
         return {
             [`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`]: this.loading,
             'p-button-icon': true,
-            [this.icon]: true,
+            [this.icon as string]: true,
             'p-button-icon-left': this.iconPos === 'left' && this.label,
             'p-button-icon-right': this.iconPos === 'right' && this.label,
             'p-button-icon-top': this.iconPos === 'top' && this.label,
