@@ -819,7 +819,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((item: any) => resolveFieldData(item, this.optionValue) === modelValue) : modelValue;
+        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((option: any) => equals(option, modelValue, this.equalityKey())) : modelValue;
 
         if (isNotEmpty(modelValue)) {
             if (typeof modelValue === 'object' || this.optionValueSelected) {
@@ -1055,9 +1055,9 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     isSelected(option) {
         if (this.multiple) {
-            return this.unique ? (this.modelValue() as string[])?.find((model) => equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+            return this.unique ? (this.modelValue() as string[])?.some((model) => equals(model, option, this.equalityKey())) : false;
         }
-        return equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return equals(this.modelValue(), option, this.equalityKey());
     }
 
     isOptionMatched(option, value) {
@@ -1073,7 +1073,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     equalityKey() {
-        return this.dataKey; // TODO: The 'optionValue' properties can be added.
+        return this.optionValue ? undefined : this.dataKey;
     }
 
     onContainerClick(event) {
@@ -1383,7 +1383,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onEnterKey(event) {
-        if (!this.typeahead) {
+        if (!this.typeahead && !this.forceSelection) {
             if (this.multiple) {
                 if (!this.isSelected(event.target.value)) {
                     this.updateModel([...(this.modelValue() || []), event.target.value]);
@@ -1453,16 +1453,14 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onOptionSelect(event, option, isHide = true) {
-        const value = this.getOptionValue(option);
-
         if (this.multiple) {
             this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
 
             if (!this.isSelected(option)) {
-                this.updateModel([...(this.modelValue() || []), value]);
+                this.updateModel([...(this.modelValue() || []), option]);
             }
         } else {
-            this.updateModel(value);
+            this.updateModel(option);
         }
 
         this.onSelect.emit({ originalEvent: event, value: option });
@@ -1501,9 +1499,11 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         focus(this.inputEL?.nativeElement);
     }
 
-    updateModel(value) {
+    updateModel(options) {
+        const value = this.multiple ? options.map((option) => this.getOptionValue(option)) : this.getOptionValue(options);
+
         this.value = value;
-        this.writeModelValue(value);
+        this.writeModelValue(options);
         this.onModelChange(value);
         this.updateInputValue();
         this.cd.markForCheck();
@@ -1654,8 +1654,10 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        const options = this.multiple ? this.visibleOptions().filter((option) => value?.some((val) => equals(val, option, this.equalityKey()))) : this.visibleOptions().find((option) => equals(value, option, this.equalityKey())) || value;
+
         this.value = value;
-        setModelValue(value);
+        setModelValue(options);
         this.updateInputValue();
         this.cd.markForCheck();
     }
