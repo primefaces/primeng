@@ -41,7 +41,7 @@ import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
+import { AutoCompleteAddEvent, AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
@@ -147,6 +147,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <li [class]="cx('inputChip')" role="option">
                 <input
                     #focusInput
+                    #multiIn
                     [pAutoFocus]="autofocus"
                     [class]="cx('pcInputText')"
                     [ngStyle]="inputStyle"
@@ -596,6 +597,17 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      */
     @Input({ transform: booleanAttribute }) typeahead: boolean = true;
     /**
+     * Whether to add an item on blur event if the input has value and typeahead is false with multiple mode.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) addOnBlur: boolean = false;
+    /**
+     * Separator char to add item when typeahead is false and multiple mode is enabled.
+     * @group Props
+     */
+    @Input() separator: string | RegExp | undefined;
+    /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
      * @group Props
@@ -619,6 +631,12 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * @group Emits
      */
     @Output() onUnselect: EventEmitter<AutoCompleteUnselectEvent> = new EventEmitter<AutoCompleteUnselectEvent>();
+    /**
+     * Callback to invoke when an item is added via addOnBlur or separator features.
+     * @param {AutoCompleteAddEvent} event - Custom add event.
+     * @group Emits
+     */
+    @Output() onAdd: EventEmitter<AutoCompleteAddEvent> = new EventEmitter<AutoCompleteAddEvent>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
@@ -1219,12 +1237,55 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.dirty = false;
         this.focused = false;
         this.focusedOptionIndex.set(-1);
+
+        if (this.addOnBlur && this.multiple && !this.typeahead) {
+            const inputValue = (this.multiInputEl?.nativeElement?.value || event.target.value || '').trim();
+            if (inputValue && !this.isSelected(inputValue)) {
+                this.updateModel([...(this.modelValue() || []), inputValue]);
+                this.onAdd.emit({ originalEvent: event, value: inputValue });
+                if (this.multiInputEl?.nativeElement) {
+                    this.multiInputEl.nativeElement.value = '';
+                } else {
+                    event.target.value = '';
+                }
+            }
+        }
+
         this.onModelTouched();
         this.onBlur.emit(event);
     }
 
     onInputPaste(event) {
-        this.onKeyDown(event);
+        if (this.separator && this.multiple && !this.typeahead) {
+            const pastedData = (event.clipboardData || (window as any)['clipboardData'])?.getData('Text');
+            if (pastedData) {
+                const values = pastedData.split(this.separator);
+                const newValues = [...(this.modelValue() || [])];
+
+                values.forEach((value: string) => {
+                    const trimmedValue = value.trim();
+                    if (trimmedValue && !this.isSelected(trimmedValue)) {
+                        newValues.push(trimmedValue);
+                    }
+                });
+
+                if (newValues.length > (this.modelValue() || []).length) {
+                    const addedValues = newValues.slice((this.modelValue() || []).length);
+                    this.updateModel(newValues);
+                    addedValues.forEach((addedValue) => {
+                        this.onAdd.emit({ originalEvent: event, value: addedValue });
+                    });
+                    if (this.multiInputEl?.nativeElement) {
+                        this.multiInputEl.nativeElement.value = '';
+                    } else {
+                        event.target.value = '';
+                    }
+                    event.preventDefault();
+                }
+            }
+        } else {
+            this.onKeyDown(event);
+        }
     }
 
     onInputKeyUp(event) {
@@ -1294,7 +1355,26 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                 break;
 
             default:
+                this.handleSeparatorKey(event);
                 break;
+        }
+    }
+
+    handleSeparatorKey(event) {
+        if (this.separator && this.multiple && !this.typeahead) {
+            if (this.separator === event.key || (typeof this.separator === 'string' && event.key === this.separator) || (this.separator instanceof RegExp && event.key.match(this.separator))) {
+                const inputValue = (this.multiInputEl?.nativeElement?.value || event.target.value || '').trim();
+                if (inputValue && !this.isSelected(inputValue)) {
+                    this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.onAdd.emit({ originalEvent: event, value: inputValue });
+                    if (this.multiInputEl?.nativeElement) {
+                        this.multiInputEl.nativeElement.value = '';
+                    } else {
+                        event.target.value = '';
+                    }
+                    event.preventDefault();
+                }
+            }
         }
     }
 

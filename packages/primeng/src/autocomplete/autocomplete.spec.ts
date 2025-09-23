@@ -52,6 +52,9 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
             [virtualScroll]="virtualScroll"
             [virtualScrollItemSize]="virtualScrollItemSize"
             [unique]="unique"
+            [typeahead]="typeahead"
+            [addOnBlur]="addOnBlur"
+            [separator]="separator"
             [ariaLabel]="ariaLabel"
             [ariaLabelledBy]="ariaLabelledBy"
             [dropdownAriaLabel]="dropdownAriaLabel"
@@ -65,6 +68,7 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
             (onShow)="onShow($event)"
             (onHide)="onHide($event)"
             (onKeyUp)="onKeyUp($event)"
+            (onAdd)="onAdd($event)"
         >
             <ng-template #item let-item>
                 <div class="custom-item">{{ item.name || item }}</div>
@@ -123,6 +127,9 @@ class TestAutocompleteComponent {
     lazy: boolean = false;
     virtualScroll: boolean = false;
     virtualScrollItemSize: number = 38;
+    typeahead: boolean = true;
+    addOnBlur: boolean = false;
+    separator: string | RegExp | undefined;
 
     // Styling
     inputStyle: any = {};
@@ -139,6 +146,7 @@ class TestAutocompleteComponent {
     // Event tracking
     selectEvent: AutoCompleteSelectEvent | null = null as any;
     unselectEvent: AutoCompleteUnselectEvent | null = null as any;
+    addEvent: any | null = null as any;
     focusEvent: Event | null = null as any;
     blurEvent: Event | null = null as any;
     clearEvent: boolean = false;
@@ -182,6 +190,10 @@ class TestAutocompleteComponent {
 
     onUnselect(event: AutoCompleteUnselectEvent) {
         this.unselectEvent = event;
+    }
+
+    onAdd(event: any) {
+        this.addEvent = event;
     }
 
     onFocus(event: Event) {
@@ -1612,6 +1624,331 @@ describe('AutoComplete', () => {
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.unique).toBe(true);
+        });
+    });
+
+    describe('Chips-like Features (addOnBlur and separator)', () => {
+        beforeEach(() => {
+            testComponent.multiple = true;
+            testComponent.typeahead = false;
+            testFixture.detectChanges();
+        });
+
+        describe('addOnBlur feature', () => {
+            beforeEach(() => {
+                testComponent.addOnBlur = true;
+                testComponent.unique = true; // Enable unique for isSelected to work
+                testFixture.detectChanges();
+            });
+
+            it('should add item on blur when addOnBlur is enabled', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('New Item');
+                expect(testComponent.addEvent).toBeTruthy();
+                expect(testComponent.addEvent.value).toBe('New Item');
+            });
+
+            it('should not add empty items on blur', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = '   ';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should not add duplicate items on blur when unique is true', () => {
+                testComponent.selectedValue = ['Existing Item'];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Existing Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual(['Existing Item']);
+            });
+
+            it('should clear input after adding item on blur', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(inputElement.nativeElement.value).toBe('');
+            });
+
+            it('should not add items on blur when typeahead is true', () => {
+                testComponent.typeahead = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should not add items on blur when multiple is false', () => {
+                testComponent.multiple = false;
+                testComponent.selectedValue = null;
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toBeNull();
+            });
+
+            it('should not add items on blur when addOnBlur is false', () => {
+                testComponent.addOnBlur = false;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should emit onAdd event only when typeahead is false and multiple is true', () => {
+                testComponent.selectedValue = [];
+                testComponent.addEvent = null;
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                // Test with correct conditions
+                inputElement.nativeElement.value = 'Test Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.addEvent).toBeTruthy();
+                expect(testComponent.addEvent.value).toBe('Test Item');
+            });
+        });
+
+        describe('separator feature', () => {
+            beforeEach(() => {
+                testComponent.separator = ',';
+                testComponent.unique = true; // Enable unique for isSelected to work
+                testFixture.detectChanges();
+            });
+
+            it('should add items when separator key is pressed', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item1');
+                expect(testComponent.addEvent).toBeTruthy();
+                expect(testComponent.addEvent.value).toBe('Item1');
+            });
+
+            it('should handle multiple items separated by comma on paste', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                const pasteEvent = {
+                    clipboardData: {
+                        getData: () => 'Item1,Item2,Item3'
+                    },
+                    target: inputElement.nativeElement,
+                    preventDefault: jasmine.createSpy('preventDefault')
+                };
+
+                autocompleteComponent.onInputPaste(pasteEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item1');
+                expect(testComponent.selectedValue).toContain('Item2');
+                expect(testComponent.selectedValue).toContain('Item3');
+            });
+
+            it('should handle regex separator', () => {
+                testComponent.separator = /[,;]/;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ';' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item1');
+            });
+
+            it('should not add empty items when using separator', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = '';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should clear input after adding items with separator', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(inputElement.nativeElement.value).toBe('');
+            });
+
+            it('should not add items with separator when typeahead is true', () => {
+                testComponent.typeahead = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should not add items with separator when multiple is false', () => {
+                testComponent.multiple = false;
+                testComponent.selectedValue = null;
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toBeNull();
+            });
+        });
+
+        describe('combined addOnBlur and separator features', () => {
+            beforeEach(() => {
+                testComponent.addOnBlur = true;
+                testComponent.separator = ',';
+                testComponent.unique = true; // Enable unique for isSelected to work
+                testFixture.detectChanges();
+            });
+
+            it('should work together - separator takes priority over blur', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                // Test separator functionality first
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item1');
+
+                // After separator handling, test blur for remaining content
+                inputElement.nativeElement.value = 'Item3';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item3');
+            });
+
+            it('should handle paste event with multiple items', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                const pasteEvent = {
+                    clipboardData: {
+                        getData: () => 'Item1,Item2,Item3'
+                    },
+                    target: inputElement.nativeElement,
+                    preventDefault: jasmine.createSpy('preventDefault')
+                };
+
+                autocompleteComponent.onInputPaste(pasteEvent);
+                testFixture.detectChanges();
+
+                // Paste should handle the separators and add multiple items
+                expect(testComponent.selectedValue).toContain('Item1');
+                expect(testComponent.selectedValue).toContain('Item2');
+                expect(testComponent.selectedValue).toContain('Item3');
+            });
         });
     });
 });
