@@ -94,7 +94,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-template>
             }
             <ng-template #footer>
-                @if (footerTemplate || _footerTemplate) {
+                @if (footer || footerTemplate || _footerTemplate) {
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 }
