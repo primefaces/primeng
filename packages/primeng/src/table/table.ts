@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -14,6 +14,7 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
+    Inject,
     inject,
     Injectable,
     input,
@@ -26,6 +27,7 @@ import {
     OnInit,
     Optional,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     SimpleChanges,
@@ -3489,7 +3491,7 @@ export class RowGroupHeader {
         '[class.p-datatable-frozen-column-left]': 'alignFrozen === "left"'
     }
 })
-export class FrozenColumn implements AfterViewInit {
+export class FrozenColumn implements AfterViewInit, OnDestroy {
     @Input() get frozen(): boolean {
         return this._frozen;
     }
@@ -3501,20 +3503,50 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
+    resizeListener: VoidListener;
+
+    private resizeObserver?: ResizeObserver;
+
     constructor(
         private el: ElementRef,
-        private zone: NgZone
+        private renderer: Renderer2,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any
     ) {}
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                this.recalculateColumns();
-            }, 1000);
-        });
+        this.bindResizeListener();
+        this.observeChanges();
     }
 
-    @HostListener('window:resize', ['$event'])
+    bindResizeListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.resizeListener) {
+                this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', () => {
+                    this.recalculateColumns();
+                });
+            }
+        }
+    }
+
+    unbindResizeListener() {
+        if (this.resizeListener) {
+            this.resizeListener();
+            this.resizeListener = null;
+        }
+    }
+
+    observeChanges() {
+        if (isPlatformBrowser(this.platformId)) {
+            const resizeObserver = new ResizeObserver(() => {
+                this.recalculateColumns();
+            });
+
+            resizeObserver.observe(this.el.nativeElement);
+            this.resizeObserver = resizeObserver;
+        }
+    }
+
     recalculateColumns() {
         const siblings = DomHandler.siblings(this.el.nativeElement);
         const index = DomHandler.index(this.el.nativeElement);
@@ -3555,6 +3587,13 @@ export class FrozenColumn implements AfterViewInit {
                     filterRow.children[index].style.right = this.el.nativeElement.style.right;
                 }
             }
+        }
+    }
+
+    ngOnDestroy() {
+        this.unbindResizeListener();
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
         }
     }
 }
