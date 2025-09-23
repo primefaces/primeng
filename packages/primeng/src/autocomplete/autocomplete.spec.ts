@@ -137,15 +137,15 @@ class TestAutocompleteComponent {
     dropdownAriaLabel: string = 'Show options';
 
     // Event tracking
-    selectEvent: AutoCompleteSelectEvent | null = null;
-    unselectEvent: AutoCompleteUnselectEvent | null = null;
-    focusEvent: Event | null = null;
-    blurEvent: Event | null = null;
+    selectEvent: AutoCompleteSelectEvent | null = null as any;
+    unselectEvent: AutoCompleteUnselectEvent | null = null as any;
+    focusEvent: Event | null = null as any;
+    blurEvent: Event | null = null as any;
     clearEvent: boolean = false;
-    dropdownClickEvent: AutoCompleteDropdownClickEvent | null = null;
-    showEvent: Event | null = null;
-    hideEvent: Event | null = null;
-    keyUpEvent: KeyboardEvent | null = null;
+    dropdownClickEvent: AutoCompleteDropdownClickEvent | null = null as any;
+    showEvent: Event | null = null as any;
+    hideEvent: Event | null = null as any;
+    keyUpEvent: KeyboardEvent | null = null as any;
 
     // Form handling
     reactiveForm: FormGroup;
@@ -755,7 +755,7 @@ describe('AutoComplete', () => {
         it('should emit onSelect event', fakeAsync(() => {
             // Setup suggestions first
             testComponent.suggestions = [];
-            testComponent.optionLabel = undefined; // Use direct string comparison
+            testComponent.optionLabel = undefined as any; // Use direct string comparison
             testFixture.detectChanges();
 
             // Trigger search to get suggestions
@@ -1363,11 +1363,11 @@ describe('AutoComplete', () => {
         }));
 
         it('should handle null/undefined values', () => {
-            testComponent.selectedValue = null;
+            testComponent.selectedValue = null as any;
             testFixture.detectChanges();
             expect(() => testFixture.detectChanges()).not.toThrow();
 
-            testComponent.selectedValue = undefined;
+            testComponent.selectedValue = undefined as any;
             testFixture.detectChanges();
             expect(() => testFixture.detectChanges()).not.toThrow();
         });
@@ -1467,7 +1467,7 @@ describe('AutoComplete', () => {
 
         it('should handle forceSelection mode', fakeAsync(() => {
             testComponent.forceSelection = true;
-            testComponent.optionLabel = undefined; // Use string comparison for forceSelection
+            testComponent.optionLabel = undefined as any; // Use string comparison for forceSelection
             testComponent.suggestions = mockItems;
             testFixture.detectChanges();
 
@@ -1488,7 +1488,7 @@ describe('AutoComplete', () => {
             testFixture.detectChanges();
             tick();
 
-            expect(inputElement.nativeElement.value).toBe('');
+            expect(inputElement.nativeElement.value).toBe('' as any);
             flush();
         }));
 

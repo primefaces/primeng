@@ -27,7 +27,7 @@ class TestValueBadgeComponent {
     template: `<p-badge [badgeSize]="badgeSize" value="1"></p-badge>`
 })
 class TestSizeBadgeComponent {
-    badgeSize: 'small' | 'large' | 'xlarge' | null = null;
+    badgeSize: 'small' | 'large' | 'xlarge' | null = null as any;
 }
 
 @Component({
@@ -36,7 +36,7 @@ class TestSizeBadgeComponent {
     template: `<p-badge [severity]="severity" value="1"></p-badge>`
 })
 class TestSeverityBadgeComponent {
-    severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null;
+    severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null as any;
 }
 
 @Component({
@@ -104,7 +104,7 @@ class TestDirectiveDisabledBadgeComponent {
 })
 class TestDirectiveStyleBadgeComponent {
     value: string | number = '1';
-    badgeStyle: { [key: string]: any } | null = null;
+    badgeStyle: { [key: string]: any } | null = null as any;
     badgeStyleClass = '';
 }
 
@@ -125,8 +125,8 @@ class TestDeprecatedSizeBadgeComponent {
 })
 class TestDynamicBadgeComponent {
     value: string | number | null = '1';
-    badgeSize: 'small' | 'large' | 'xlarge' | null = null;
-    severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null;
+    badgeSize: 'small' | 'large' | 'xlarge' | null = null as any;
+    severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null as any;
     disabled = false;
     styleClass = '';
 }
@@ -187,7 +187,7 @@ describe('Badge', () => {
             });
 
             it('should display empty value by default', () => {
-                expect(element.textContent?.trim()).toBe('');
+                expect(element.textContent?.trim()).toBe('' as any);
             });
 
             it('should apply dot class when value is empty', () => {
@@ -236,12 +236,12 @@ describe('Badge', () => {
             });
 
             it('should apply dot class when value is null', () => {
-                component.value = null;
+                component.value = null as any;
                 fixture.detectChanges();
 
                 expect(element.classList.contains('p-badge-dot')).toBe(true);
                 expect(element.classList.contains('p-badge-circle')).toBe(false);
-                expect(element.textContent?.trim()).toBe('');
+                expect(element.textContent?.trim()).toBe('' as any);
             });
 
             it('should handle zero value', () => {
@@ -256,7 +256,7 @@ describe('Badge', () => {
                 component.value = '';
                 fixture.detectChanges();
 
-                expect(element.textContent?.trim()).toBe('');
+                expect(element.textContent?.trim()).toBe('' as any);
                 expect(element.classList.contains('p-badge-dot')).toBe(true);
             });
         });
@@ -388,7 +388,7 @@ describe('Badge', () => {
             });
 
             it('should be visible when not disabled', () => {
-                expect(element.style.display).toBe('');
+                expect(element.style.display).toBe('' as any);
             });
 
             it('should be hidden when disabled', () => {
@@ -405,7 +405,7 @@ describe('Badge', () => {
 
                 component.disabled = false;
                 fixture.detectChanges();
-                expect(element.style.display).toBe('');
+                expect(element.style.display).toBe('' as any);
             });
         });
 
@@ -481,12 +481,12 @@ describe('Badge', () => {
             });
 
             it('should handle null value with dot class', () => {
-                component.value = undefined;
+                component.value = undefined as any;
                 fixture.detectChanges();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
                 expect(badgeElement?.classList.contains('p-badge-dot')).toBe(true);
-                expect(badgeElement?.textContent?.trim()).toBe('');
+                expect(badgeElement?.textContent?.trim()).toBe('' as any);
             });
 
             it('should apply circle class for single character', () => {
@@ -748,7 +748,7 @@ describe('Badge', () => {
             expect(element.classList.contains('p-badge-circle')).toBe(false);
 
             // Change to null (dot)
-            component.value = null;
+            component.value = null as any;
             fixture.detectChanges();
             expect(element.classList.contains('p-badge-dot')).toBe(true);
             expect(element.classList.contains('p-badge-circle')).toBe(false);
@@ -764,7 +764,7 @@ describe('Badge', () => {
             expect(element.classList.contains('p-badge-info')).toBe(false);
             expect(element.classList.contains('p-badge-success')).toBe(true);
 
-            component.severity = null;
+            component.severity = null as any;
             fixture.detectChanges();
             expect(element.classList.contains('p-badge-success')).toBe(false);
         });
@@ -779,7 +779,7 @@ describe('Badge', () => {
             expect(element.classList.contains('p-badge-lg')).toBe(false);
             expect(element.classList.contains('p-badge-xl')).toBe(true);
 
-            component.badgeSize = null;
+            component.badgeSize = null as any;
             fixture.detectChanges();
             expect(element.classList.contains('p-badge-xl')).toBe(false);
             expect(element.classList.contains('p-badge-lg')).toBe(false);
@@ -840,7 +840,7 @@ describe('Badge', () => {
             fixture.detectChanges();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
-            expect(element.textContent?.trim()).toBe('');
+            expect(element.textContent?.trim()).toBe('' as any);
             // Whitespace strings are treated as valid content, not empty
             expect(element.classList.contains('p-badge-dot')).toBe(false);
         });

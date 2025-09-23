@@ -496,7 +496,7 @@ describe('MegaMenu', () => {
         });
 
         it('should handle null model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
@@ -857,7 +857,7 @@ describe('MegaMenu', () => {
 
             expect(megaMenuInstance.focused).toBe(false);
             expect(megaMenuInstance.focusedItemInfo().index).toBe(-1);
-            expect(megaMenuInstance.searchValue).toBe('');
+            expect(megaMenuInstance.searchValue).toBe('' as any);
             expect(megaMenuInstance.dirty).toBe(false);
         });
 
@@ -1153,8 +1153,8 @@ describe('MegaMenu', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', () => {
-            component.model = undefined;
-            component.ariaLabel = undefined;
+            component.model = undefined as any;
+            component.ariaLabel = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -1209,7 +1209,7 @@ describe('MegaMenu', () => {
 
             tick(600); // Wait for search timeout
 
-            expect(megaMenuInstance.searchValue).toBe('');
+            expect(megaMenuInstance.searchValue).toBe('' as any);
             flush();
         }));
     });

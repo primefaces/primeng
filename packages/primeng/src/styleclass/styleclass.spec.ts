@@ -824,7 +824,7 @@ describe('StyleClass', () => {
 
             tick();
 
-            expect(targetElement.style.maxHeight).toBe('');
+            expect(targetElement.style.maxHeight).toBe('' as any);
 
             flush();
         }));
@@ -832,7 +832,7 @@ describe('StyleClass', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined selector', () => {
-            styleClassInstance.selector = undefined;
+            styleClassInstance.selector = undefined as any;
 
             expect(() => buttonElement.nativeElement.click()).not.toThrow();
         });
@@ -863,7 +863,7 @@ describe('StyleClass', () => {
         });
 
         it('should handle animation without target element', () => {
-            styleClassInstance.target = null;
+            styleClassInstance.target = null as any;
 
             expect(() => styleClassInstance.enter()).not.toThrow();
             expect(() => styleClassInstance.leave()).not.toThrow();

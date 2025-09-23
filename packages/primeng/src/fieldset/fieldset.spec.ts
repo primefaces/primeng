@@ -28,7 +28,7 @@ class TestFieldsetComponent {
     legend = 'Test Fieldset';
     toggleable = false;
     collapsed = false;
-    style: any = null;
+    style: any = null as any;
     styleClass?: string;
     transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
@@ -187,7 +187,7 @@ describe('Fieldset', () => {
             // In testing environment, we simulate the ngStyle behavior
             if (fieldset.style) {
                 Object.keys(fieldset.style).forEach((key) => {
-                    element.style[key] = fieldset.style[key];
+                    element.style[key] = fieldset.style![key];
                 });
             }
 
@@ -197,8 +197,8 @@ describe('Fieldset', () => {
 
             // Also verify the template binding
             expect(fieldset.style).toBeTruthy();
-            expect(Object.keys(fieldset.style)).toContain('border');
-            expect(Object.keys(fieldset.style)).toContain('padding');
+            expect(Object.keys(fieldset.style!)).toContain('border');
+            expect(Object.keys(fieldset.style!)).toContain('padding');
         });
 
         it('should apply custom CSS classes', () => {
@@ -646,15 +646,15 @@ describe('Fieldset', () => {
             fixture.detectChanges();
 
             const legendLabel = fixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
-            expect(legendLabel.nativeElement.textContent.trim()).toBe('');
+            expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle undefined legend', () => {
-            component.legend = undefined;
+            component.legend = undefined as any;
             fixture.detectChanges();
 
             const legendLabel = fixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
-            expect(legendLabel.nativeElement.textContent.trim()).toBe('');
+            expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle empty legend', () => {
@@ -662,7 +662,7 @@ describe('Fieldset', () => {
             fixture.detectChanges();
 
             const legendLabel = fixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
-            expect(legendLabel.nativeElement.textContent.trim()).toBe('');
+            expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle rapid toggle clicks', fakeAsync(() => {
@@ -687,11 +687,11 @@ describe('Fieldset', () => {
         }));
 
         it('should handle null/undefined style objects', () => {
-            component.style = null;
+            component.style = null as any;
             fixture.detectChanges();
             expect(() => fixture.detectChanges()).not.toThrow();
 
-            component.style = undefined;
+            component.style = undefined as any;
             fixture.detectChanges();
             expect(() => fixture.detectChanges()).not.toThrow();
         });

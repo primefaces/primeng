@@ -43,7 +43,7 @@ import { ListboxChangeEvent } from './listbox.interface';
     `
 })
 class TestListboxComponent {
-    selectedValue: any = null;
+    selectedValue: any = null as any;
     options: any[] = [
         { label: 'Option 1', value: 'option1' },
         { label: 'Option 2', value: 'option2' },
@@ -61,7 +61,7 @@ class TestListboxComponent {
     virtualScroll: boolean = false;
     lazy: boolean = false;
     scrollHeight: string = '200px';
-    style: any = null;
+    style: any = null as any;
     styleClass: string = '';
     showReactiveForm: boolean = false;
 
@@ -82,7 +82,7 @@ class TestListboxComponent {
 
     // Reactive form
     reactiveForm = new FormGroup({
-        selectedItems: new FormControl([], [Validators.required])
+        selectedItems: new FormControl<string[]>([], [Validators.required])
     });
 
     formOptions = [
@@ -1671,7 +1671,7 @@ describe('Listbox #template Reference Tests', () => {
 })
 class TestListboxViewChildComponent {
     selectedValues: any[] = [];
-    dynamicStyle: any = null;
+    dynamicStyle: any = null as any;
     dynamicStyleClass = '';
 
     // Drag drop properties
@@ -1837,7 +1837,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
         it('should handle dynamic style and styleClass updates', fakeAsync(() => {
             fixture.detectChanges();
             expect(component.dynamicStyle).toBeNull();
-            expect(component.dynamicStyleClass).toBe('');
+            expect(component.dynamicStyleClass).toBe('' as any);
 
             component.updateDynamicStyles();
             tick();

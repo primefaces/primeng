@@ -670,9 +670,9 @@ describe('FileUpload', () => {
         }));
 
         it('should handle null/undefined values gracefully', () => {
-            component.accept = undefined;
-            component.maxFileSize = undefined;
-            component.fileLimit = undefined;
+            component.accept = undefined as any;
+            component.maxFileSize = undefined as any;
+            component.fileLimit = undefined as any;
 
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
 
@@ -1807,12 +1807,12 @@ describe('FileUpload Advanced Template Combinations', () => {
                         <div class="context-validation">
                             <!-- Test all context variables -->
                             <div class="context-info">
-                                <span [attr.data-has-files]="!!files">Has Files: {{ !!files }}</span>
-                                <span [attr.data-has-uploaded-files]="!!uploadedFiles">Has Uploaded: {{ !!uploadedFiles }}</span>
-                                <span [attr.data-has-remove-callback]="!!removeFileCallback">Has Remove CB: {{ !!removeFileCallback }}</span>
-                                <span [attr.data-has-remove-uploaded-callback]="!!removeUploadedFileCallback">Has Remove Uploaded CB: {{ !!removeUploadedFileCallback }}</span>
-                                <span [attr.data-has-choose-callback]="!!chooseCallback">Has Choose CB: {{ !!chooseCallback }}</span>
-                                <span [attr.data-has-clear-callback]="!!clearCallback">Has Clear CB: {{ !!clearCallback }}</span>
+                                <span [attr.data-has-files]=".!files">Has Files: {{ .!files }}</span>
+                                <span [attr.data-has-uploaded-files]=".!uploadedFiles">Has Uploaded: {{ .!uploadedFiles }}</span>
+                                <span [attr.data-has-remove-callback]=".!removeFileCallback">Has Remove CB: {{ .!removeFileCallback }}</span>
+                                <span [attr.data-has-remove-uploaded-callback]=".!removeUploadedFileCallback">Has Remove Uploaded CB: {{ .!removeUploadedFileCallback }}</span>
+                                <span [attr.data-has-choose-callback]=".!chooseCallback">Has Choose CB: {{ .!chooseCallback }}</span>
+                                <span [attr.data-has-clear-callback]=".!clearCallback">Has Clear CB: {{ .!clearCallback }}</span>
                                 <span [attr.data-progress-value]="progress || 0">Progress: {{ progress || 0 }}</span>
                                 <span [attr.data-messages-length]="messages?.length || 0">Messages: {{ messages?.length || 0 }}</span>
                             </div>
@@ -2175,7 +2175,7 @@ describe('FileUpload Input Properties - Static Values', () => {
             fixture.detectChanges();
             expect(component.style).toEqual(customStyle);
 
-            component.style = null;
+            component.style = null as any;
             fixture.detectChanges();
             expect(component.style).toBeNull();
         });
@@ -2586,7 +2586,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             tick();
             expect(component.style).toEqual({ width: '50%', height: '200px' });
 
-            styleSubject.next(null);
+            styleSubject.next(null as any);
             tick();
             expect(component.style).toBeNull();
         }));

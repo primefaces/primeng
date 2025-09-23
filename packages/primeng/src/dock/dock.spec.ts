@@ -355,7 +355,7 @@ describe('Dock', () => {
         });
 
         it('should handle null model', () => {
-            component.model = null;
+            component.model = null as any;
             fixture.detectChanges();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
@@ -889,8 +889,8 @@ describe('Dock', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', () => {
-            component.model = undefined;
-            component.ariaLabel = undefined;
+            component.model = undefined as any;
+            component.ariaLabel = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

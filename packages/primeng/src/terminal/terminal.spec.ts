@@ -151,9 +151,9 @@ describe('Terminal', () => {
         });
 
         it('should handle undefined inputs', () => {
-            component.welcomeMessage = undefined;
-            component.prompt = undefined;
-            component.styleClass = undefined;
+            component.welcomeMessage = undefined as any;
+            component.prompt = undefined as any;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(terminalInstance.welcomeMessage).toBeUndefined();
@@ -167,9 +167,9 @@ describe('Terminal', () => {
             component.styleClass = '';
             fixture.detectChanges();
 
-            expect(terminalInstance.welcomeMessage).toBe('');
-            expect(terminalInstance.prompt).toBe('');
-            expect(terminalInstance.styleClass).toBe('');
+            expect(terminalInstance.welcomeMessage).toBe('' as any);
+            expect(terminalInstance.prompt).toBe('' as any);
+            expect(terminalInstance.styleClass).toBe('' as any);
         });
     });
 
@@ -188,7 +188,7 @@ describe('Terminal', () => {
         });
 
         it('should not display welcome message element when not provided', () => {
-            component.welcomeMessage = undefined;
+            component.welcomeMessage = undefined as any;
             fixture.detectChanges();
 
             const welcomeElements = fixture.debugElement.queryAll(By.css('div'));
@@ -236,11 +236,11 @@ describe('Terminal', () => {
         it('should handle empty prompt', () => {
             component.prompt = '';
             fixture.detectChanges();
-            expect(terminalInstance.prompt).toBe('');
+            expect(terminalInstance.prompt).toBe('' as any);
         });
 
         it('should handle undefined prompt', () => {
-            component.prompt = undefined;
+            component.prompt = undefined as any;
             fixture.detectChanges();
             expect(terminalInstance.prompt).toBeUndefined();
         });
@@ -298,7 +298,7 @@ describe('Terminal', () => {
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
             terminalInstance.handleCommand(enterEvent);
 
-            expect(terminalInstance.command).toBe('');
+            expect(terminalInstance.command).toBe('' as any);
         });
 
         it('should not process command on other key press', () => {
@@ -322,7 +322,7 @@ describe('Terminal', () => {
             terminalInstance.handleCommand(enterEvent);
 
             expect(terminalInstance.commands.length).toBe(1);
-            expect(terminalInstance.commands[0].text).toBe('');
+            expect(terminalInstance.commands[0].text).toBe('' as any);
             expect(terminalService.sendCommand).toHaveBeenCalledWith('');
         });
 

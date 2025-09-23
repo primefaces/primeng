@@ -1,11 +1,11 @@
+import { AnimationEvent } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-import { Component, DebugElement, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AnimationEvent } from '@angular/animations';
-import { Popover } from './popover';
 import { OverlayService, PrimeTemplate } from 'primeng/api';
-import { CommonModule } from '@angular/common';
+import { Popover } from './popover';
 
 function createMockAnimationEvent(toState: string, fromState: string = 'void'): AnimationEvent {
     return {
@@ -49,7 +49,7 @@ class TestBasicPopoverComponent {
     @ViewChild('targetButton', { read: ElementRef }) targetButton!: ElementRef;
 
     dismissable = true;
-    style: { [klass: string]: any } | null = null;
+    style: { [klass: string]: any } | null = null as any;
     styleClass: string | undefined;
     appendTo: any = 'body';
     autoZIndex = true;
@@ -549,8 +549,8 @@ describe('Popover', () => {
             }
 
             expect(popoverInstance.style).toBeTruthy();
-            expect(Object.keys(popoverInstance.style)).toContain('border');
-            expect(Object.keys(popoverInstance.style)).toContain('padding');
+            expect(Object.keys(popoverInstance.style!)).toContain('border');
+            expect(Object.keys(popoverInstance.style!)).toContain('padding');
 
             flush();
         }));

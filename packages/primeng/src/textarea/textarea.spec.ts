@@ -21,10 +21,10 @@ class TestBasicTextareaComponent {
 class TestAdvancedTextareaComponent {
     content: string = '';
     enableAutoResize: boolean = false;
-    size: 'large' | 'small' | undefined = undefined;
-    variant: 'filled' | 'outlined' | undefined = undefined;
-    fluid: boolean | undefined = undefined;
-    invalid: boolean | undefined = undefined;
+    size: 'large' | 'small' | undefined = undefined as any;
+    variant: 'filled' | 'outlined' | undefined = undefined as any;
+    fluid: boolean | undefined = undefined as any;
+    invalid: boolean | undefined = undefined as any;
     resizeEventCount: number = 0;
 
     onResizeHandler(event: any) {
@@ -243,7 +243,7 @@ describe('Textarea', () => {
             fixture.detectChanges();
             tick();
 
-            expect(textareaEl.nativeElement.value).toBe('');
+            expect(textareaEl.nativeElement.value).toBe('' as any);
         }));
 
         it('should handle null/undefined values', fakeAsync(() => {
@@ -251,7 +251,7 @@ describe('Textarea', () => {
             fixture.detectChanges();
             tick();
 
-            expect(textareaEl.nativeElement.value).toBe('');
+            expect(textareaEl.nativeElement.value).toBe('' as any);
         }));
 
         it('should handle multiline content', fakeAsync(() => {

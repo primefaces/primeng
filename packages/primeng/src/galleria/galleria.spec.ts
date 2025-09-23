@@ -796,7 +796,7 @@ describe('Galleria', () => {
             // Add a mock close button element
             const closeButton = document.createElement('button');
             closeButton.setAttribute('data-pc-section', 'closebutton');
-            galleriaInstance.container.nativeElement.appendChild(closeButton);
+            galleriaInstance.container!.nativeElement.appendChild(closeButton);
 
             const mockAnimationEvent = {
                 toState: 'visible'
@@ -842,7 +842,7 @@ describe('Galleria', () => {
             component.images = null as any;
             fixture.detectChanges();
 
-            expect(galleriaInstance.value).toBe(null);
+            expect(galleriaInstance.value).toBe(null as any);
         });
 
         it('should handle single image', () => {
@@ -863,7 +863,7 @@ describe('Galleria', () => {
         });
 
         it('should handle undefined id', () => {
-            component.id = undefined;
+            component.id = undefined as any;
             fixture.detectChanges();
 
             expect(galleriaInstance.id).toBeUndefined();
@@ -877,7 +877,7 @@ describe('Galleria', () => {
         });
 
         it('should handle animation events with missing elements', () => {
-            galleriaInstance.mask = undefined;
+            galleriaInstance.mask = undefined as any;
 
             const mockAnimationEvent = {
                 toState: 'void'

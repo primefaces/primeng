@@ -157,7 +157,7 @@ class TestTemplateCheckboxComponent {
     template: ` <p-checkbox [(ngModel)]="value" [binary]="true" [indeterminate]="indeterminate" [trueValue]="customTrueValue" [falseValue]="customFalseValue" (onChange)="onSelectionChange($event)"> </p-checkbox> `
 })
 class TestIndeterminateCheckboxComponent {
-    value: any = null;
+    value: any = null as any;
     indeterminate: boolean = false;
     customTrueValue: any = 'yes';
     customFalseValue: any = 'no';
@@ -732,12 +732,12 @@ describe('Checkbox', () => {
         });
 
         it('should handle null/undefined values', () => {
-            testComponent.value = null;
+            testComponent.value = null as any;
             testFixture.detectChanges();
 
             expect(() => testFixture.detectChanges()).not.toThrow();
 
-            testComponent.value = undefined;
+            testComponent.value = undefined as any;
             testFixture.detectChanges();
 
             expect(() => testFixture.detectChanges()).not.toThrow();
@@ -950,7 +950,7 @@ describe('Checkbox', () => {
             const component = largeTestComponent.componentInstance;
 
             // Create large dataset
-            const largeIngredients = [];
+            const largeIngredients: any[] = [];
             for (let i = 0; i < 100; i++) {
                 largeIngredients.push({
                     name: `Ingredient ${i}`,

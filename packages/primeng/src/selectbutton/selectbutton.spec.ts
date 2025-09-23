@@ -70,32 +70,32 @@ describe('SelectButton', () => {
         });
 
         it('should get option label correctly', () => {
-            expect(component.getOptionLabel(component.options[0])).toBe('Option 1');
+            expect(component.getOptionLabel(component.options![0])).toBe('Option 1');
 
             component.optionLabel = 'label';
             expect(component.getOptionLabel({ label: 'Custom Label' })).toBe('Custom Label');
 
             // Test with object that has no label property - should return the object itself
-            component.optionLabel = undefined;
+            component.optionLabel = undefined as any;
             const objectOption = { name: 'Test Object', id: 1 };
             const result = component.getOptionLabel(objectOption);
             expect(result).toEqual(objectOption);
         });
 
         it('should get option value correctly', () => {
-            expect(component.getOptionValue(component.options[0])).toBe('opt1');
+            expect(component.getOptionValue(component.options![0])).toBe('opt1');
 
             component.optionValue = 'value';
             expect(component.getOptionValue({ value: 'custom-value' })).toBe('custom-value');
 
-            component.optionValue = undefined;
-            component.optionLabel = undefined;
+            component.optionValue = undefined as any;
+            component.optionLabel = undefined as any;
             expect(component.getOptionValue({ id: 1, name: 'Test' })).toEqual({ id: 1, name: 'Test' });
         });
 
         it('should check if option is disabled', () => {
-            expect(component.isOptionDisabled(component.options[0])).toBe(false);
-            expect(component.isOptionDisabled(component.options[2])).toBe(true);
+            expect(component.isOptionDisabled(component.options![0])).toBe(false);
+            expect(component.isOptionDisabled(component.options![2])).toBe(true);
 
             component.optionDisabled = 'disabled';
             expect(component.isOptionDisabled({ disabled: true })).toBe(true);
@@ -104,24 +104,24 @@ describe('SelectButton', () => {
 
         it('should check if option is selected in single mode', () => {
             component.value = 'opt1';
-            expect(component.isSelected(component.options[0])).toBe(true);
-            expect(component.isSelected(component.options[1])).toBe(false);
+            expect(component.isSelected(component.options![0])).toBe(true);
+            expect(component.isSelected(component.options![1])).toBe(false);
         });
 
         it('should check if option is selected in multiple mode', () => {
             component.multiple = true;
             component.value = ['opt1', 'opt2'];
 
-            expect(component.isSelected(component.options[0])).toBe(true);
-            expect(component.isSelected(component.options[1])).toBe(true);
-            expect(component.isSelected(component.options[2])).toBe(false);
+            expect(component.isSelected(component.options![0])).toBe(true);
+            expect(component.isSelected(component.options![1])).toBe(true);
+            expect(component.isSelected(component.options![2])).toBe(false);
         });
 
         it('should remove option from value array', () => {
             component.multiple = true;
             component.value = ['opt1', 'opt2'];
 
-            component.removeOption(component.options[0]);
+            component.removeOption(component.options![0]);
 
             expect(component.value).toEqual(['opt2']);
         });
@@ -147,7 +147,7 @@ describe('SelectButton', () => {
 
         it('should handle option selection in single mode', () => {
             const mockEvent = new Event('click');
-            component.onOptionSelect(mockEvent, component.options[0], 0);
+            component.onOptionSelect(mockEvent, component.options![0], 0);
 
             expect(component.value).toBe('opt1');
             expect(component.focusedIndex).toBe(0);
@@ -157,10 +157,10 @@ describe('SelectButton', () => {
             component.multiple = true;
             const mockEvent = new Event('click');
 
-            component.onOptionSelect(mockEvent, component.options[0], 0);
+            component.onOptionSelect(mockEvent, component.options![0], 0);
             expect(component.value).toEqual(['opt1']);
 
-            component.onOptionSelect(mockEvent, component.options[1], 1);
+            component.onOptionSelect(mockEvent, component.options![1], 1);
             expect(component.value).toEqual(['opt1', 'opt2']);
         });
 
@@ -169,13 +169,13 @@ describe('SelectButton', () => {
             component.value = ['opt1', 'opt2'];
             const mockEvent = new Event('click');
 
-            component.onOptionSelect(mockEvent, component.options[0], 0);
+            component.onOptionSelect(mockEvent, component.options![0], 0);
             expect(component.value).toEqual(['opt2']);
         });
 
         it('should not select disabled options', () => {
             const mockEvent = new Event('click');
-            component.onOptionSelect(mockEvent, component.options[2], 2);
+            component.onOptionSelect(mockEvent, component.options![2], 2);
 
             expect(component.value).toBeUndefined();
         });
@@ -185,7 +185,7 @@ describe('SelectButton', () => {
             spyOn(component.onOptionClick, 'emit');
 
             const mockEvent = new Event('click');
-            component.onOptionSelect(mockEvent, component.options[0], 0);
+            component.onOptionSelect(mockEvent, component.options![0], 0);
 
             expect(component.onChange.emit).toHaveBeenCalledWith({
                 originalEvent: mockEvent,
@@ -194,7 +194,7 @@ describe('SelectButton', () => {
 
             expect(component.onOptionClick.emit).toHaveBeenCalledWith({
                 originalEvent: mockEvent,
-                option: component.options[0],
+                option: component.options![0],
                 index: 0
             });
         });
@@ -215,7 +215,7 @@ describe('SelectButton', () => {
             formTestFixture.detectChanges();
             tick();
 
-            expect(formTestComponent.form.value.selectedValue).toBe('option2');
+            expect(formTestComponent.form.value.selectedValue).toBe('option2' as any);
             flush();
         }));
 
@@ -260,10 +260,10 @@ describe('SelectButton', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined options', () => {
-            component.options = null;
+            component.options = null as any;
             expect(() => fixture.detectChanges()).not.toThrow();
 
-            component.options = undefined;
+            component.options = undefined as any;
             expect(() => fixture.detectChanges()).not.toThrow();
         });
 
@@ -276,8 +276,8 @@ describe('SelectButton', () => {
             component.options = [{ value: 'opt1' }, { label: 'Option 2' }, {}];
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(component.getOptionLabel(component.options[0])).toBe(component.options[0]);
-            expect(component.getOptionValue(component.options[1])).toBe(component.options[1]);
+            expect(component.getOptionLabel(component.options![0])).toBe(component.options![0]);
+            expect(component.getOptionValue(component.options![1])).toBe(component.options![1]);
         });
 
         it('should handle selection with dataKey', () => {
@@ -290,8 +290,8 @@ describe('SelectButton', () => {
 
             fixture.detectChanges();
 
-            expect(component.isSelected(component.options[0])).toBe(true);
-            expect(component.isSelected(component.options[1])).toBe(false);
+            expect(component.isSelected(component.options![0])).toBe(true);
+            expect(component.isSelected(component.options![1])).toBe(false);
         });
 
         it('should handle rapid selection changes', fakeAsync(() => {
@@ -303,7 +303,7 @@ describe('SelectButton', () => {
 
             for (let i = 0; i < 5; i++) {
                 const optionIndex = i % 2;
-                component.onOptionSelect(new Event('click'), component.options[optionIndex], optionIndex);
+                component.onOptionSelect(new Event('click'), component.options![optionIndex], optionIndex);
                 tick(10);
             }
 
@@ -321,7 +321,7 @@ describe('SelectButton', () => {
             component.value = 'opt1';
 
             const mockEvent = new Event('click');
-            component.onOptionSelect(mockEvent, component.options[0], 0);
+            component.onOptionSelect(mockEvent, component.options![0], 0);
 
             expect(component.value).toBe('opt1');
         });
@@ -336,7 +336,7 @@ describe('SelectButton', () => {
             const mockEvent = new Event('click');
             const initialValue = component.value;
 
-            component.onOptionSelect(mockEvent, component.options[0], 0);
+            component.onOptionSelect(mockEvent, component.options![0], 0);
 
             expect(component.value).toBe(initialValue);
         });
@@ -373,7 +373,7 @@ describe('SelectButton', () => {
             expect(component.equalityKey).toBe('id');
 
             component.optionValue = 'value';
-            component.dataKey = undefined;
+            component.dataKey = undefined as any;
             expect(component.equalityKey).toBeFalsy();
         });
     });
@@ -416,7 +416,7 @@ describe('SelectButton', () => {
 })
 class TestFormSelectButtonComponent {
     form = new FormGroup({
-        selectedValue: new FormControl(null, Validators.required)
+        selectedValue: new FormControl<string | null>(null, Validators.required)
     });
 
     options = [
@@ -551,7 +551,7 @@ describe('SelectButton pTemplate Tests', () => {
 
         // Verify that the select button component works correctly
         expect(selectButtonInstance.value).toBe('opt3');
-        expect(selectButtonInstance.isSelected(component.options[2])).toBe(true);
+        expect(selectButtonInstance.isSelected(component.options![2])).toBe(true);
     }));
 
     it('should process pTemplates after content init', fakeAsync(() => {
@@ -625,7 +625,7 @@ describe('SelectButton #template Reference Tests', () => {
 
         // Verify that the select button component works correctly
         expect(selectButtonInstance.value).toBe('item3');
-        expect(selectButtonInstance.isSelected(component.options[2])).toBe(true);
+        expect(selectButtonInstance.isSelected(component.options![2])).toBe(true);
     }));
 
     it('should process #templates after content init', fakeAsync(() => {

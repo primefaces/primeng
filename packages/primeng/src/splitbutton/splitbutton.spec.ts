@@ -60,12 +60,12 @@ class TestBasicSplitButtonComponent {
     label: string | undefined = 'Save';
     icon: string | undefined = 'pi pi-check';
     iconPos: 'left' | 'right' = 'left';
-    severity: any = undefined;
+    severity: any = undefined as any;
     raised: boolean = false;
     rounded: boolean = false;
     text: boolean = false;
     outlined: boolean = false;
-    size: 'small' | 'large' | undefined | null = null;
+    size: 'small' | 'large' | undefined | null = null as any;
     plain: boolean = false;
     disabled: boolean | undefined = false;
     buttonDisabled: boolean = false;
@@ -1060,7 +1060,7 @@ describe('SplitButton', () => {
         });
 
         it('should handle undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -1072,11 +1072,11 @@ describe('SplitButton', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(splitButtonInstance.label).toBe('');
+            expect(splitButtonInstance.label).toBe('' as any);
         });
 
         it('should handle undefined label', () => {
-            component.label = undefined;
+            component.label = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -1159,7 +1159,7 @@ describe('SplitButton', () => {
             fixture.detectChanges();
 
             expect(splitButtonInstance.buttonProps).toBeDefined();
-            expect(splitButtonInstance.buttonProps['ariaLabel']).toBe('Custom aria label');
+            expect(splitButtonInstance.buttonProps!['ariaLabel']).toBe('Custom aria label');
         });
 
         it('should handle menuButtonProps', () => {
@@ -1170,7 +1170,7 @@ describe('SplitButton', () => {
             fixture.detectChanges();
 
             expect(splitButtonInstance.menuButtonProps).toBeDefined();
-            expect(splitButtonInstance.menuButtonProps['ariaLabel']).toBe('Menu button');
+            expect(splitButtonInstance.menuButtonProps!['ariaLabel']).toBe('Menu button');
         });
     });
 

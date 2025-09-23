@@ -6,7 +6,7 @@ import { AnimateOnScroll, AnimateOnScrollModule } from './animateonscroll';
 
 // Mock IntersectionObserver
 class MockIntersectionObserver implements IntersectionObserver {
-    root: Element | Document | null = null;
+    root: Element | Document | null = null as any;
     rootMargin = '';
     thresholds: readonly number[] = [];
 
@@ -210,7 +210,7 @@ describe('AnimateOnScroll', () => {
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             expect(directiveEl.nativeElement.classList.contains('fade-in')).toBe(true);
-            expect(directiveEl.nativeElement.style.opacity).toBe('');
+            expect(directiveEl.nativeElement.style.opacity).toBe('' as any);
             expect(directive.animationState).toBe('enter');
         }));
 
@@ -334,7 +334,7 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should default threshold to 0.5 when undefined', () => {
-            component.threshold = undefined;
+            component.threshold = undefined as any;
             fixture.detectChanges();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -556,14 +556,14 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should handle undefined enterClass and leaveClass', () => {
-            component.enterClass = undefined;
-            component.leaveClass = undefined;
+            component.enterClass = undefined as any;
+            component.leaveClass = undefined as any;
 
             expect(() => fixture.detectChanges()).not.toThrow();
         });
 
         it('should handle null root element', () => {
-            component.root = null;
+            component.root = null as any;
             fixture.detectChanges();
 
             const directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);

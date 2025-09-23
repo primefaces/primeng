@@ -348,7 +348,7 @@ describe('BlockUI', () => {
         });
 
         it('should handle undefined style class', () => {
-            component.styleClass = undefined;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(element.classList.contains('custom-blockui')).toBe(false);
@@ -624,8 +624,8 @@ describe('BlockUI', () => {
         });
 
         it('should handle null/undefined values gracefully', () => {
-            blockUIComponent.target = null;
-            blockUIComponent.styleClass = undefined;
+            blockUIComponent.target = null as any;
+            blockUIComponent.styleClass = undefined as any;
 
             expect(() => {
                 component.blocked = true;
