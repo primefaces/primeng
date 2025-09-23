@@ -116,7 +116,17 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </span>
             </ng-template>
         </div>
-        <div #container [class]="cn(cx('listContainer'), listStyleClass)" [ngStyle]="listStyle" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" cdkDropList [cdkDropListData]="cdkDropData()" (cdkDropListDropped)="drop($event)">
+        <div
+            #container
+            [class]="cn(cx('listContainer'), listStyleClass)"
+            [ngStyle]="listStyle"
+            [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'"
+            cdkDropList
+            [cdkDropListData]="cdkDropData()"
+            (cdkDropListDropped)="drop($event)"
+            (cdkDropListEntered)="onDragEntered()"
+            (cdkDropListExited)="onDragExited()"
+        >
             @if (hasFilter() && isEmpty()) {
                 <div [class]="cx('emptyMessage')">
                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
@@ -185,6 +195,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     cdkDrag
                                     [cdkDragData]="option"
                                     [cdkDragDisabled]="!dragdrop"
+                                    (cdkDragStarted)="isDragging.set(true)"
+                                    (cdkDragEnded)="isDragging.set(false)"
                                 >
                                     <span *ngIf="!groupTemplate && !_groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                     <ng-container *ngTemplateOutlet="groupTemplate || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
@@ -212,6 +224,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     cdkDrag
                                     [cdkDragData]="option"
                                     [cdkDragDisabled]="!dragdrop"
+                                    (cdkDragStarted)="isDragging.set(true)"
+                                    (cdkDragEnded)="isDragging.set(false)"
                                 >
                                     <p-checkbox
                                         *ngIf="checkbox && multiple"
@@ -281,7 +295,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass, { 'p-listbox-dragging': isDragging() })"
     }
 })
 export class Listbox extends BaseEditableHolder implements AfterContentInit, OnInit, OnDestroy {
@@ -806,6 +820,8 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
     startRangeIndex = signal<number>(-1);
 
     focusedOptionIndex = signal<number>(-1);
+
+    isDragging = signal<boolean>(false);
 
     @HostListener('focusout', ['$event'])
     onHostFocusOut(event: FocusEvent) {
@@ -1592,7 +1608,16 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         this._filterValue.set(null);
     }
 
+    onDragEntered() {
+        this.isDragging.set(true);
+    }
+
+    onDragExited() {
+        this.isDragging.set(false);
+    }
+
     drop(event: CdkDragDrop<string[]>) {
+        this.isDragging.set(false);
         if (event) {
             // If dragdrop is enabled and same container (reordering), automatically handle reordering
             if (this.dragdrop && event.previousContainer === event.container) {
