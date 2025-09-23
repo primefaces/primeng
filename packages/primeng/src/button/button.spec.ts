@@ -382,7 +382,7 @@ describe('Button', () => {
             // Manually apply styles to test the style binding works as expected
             if (buttonInstance.style) {
                 Object.keys(buttonInstance.style).forEach((key) => {
-                    buttonElement.style[key] = buttonInstance.style[key];
+                    buttonElement.style[key] = buttonInstance.style![key];
                 });
             }
 
