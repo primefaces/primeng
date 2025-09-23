@@ -442,7 +442,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     enableModality() {
-        if (this.ddconfig.dismissableMask) {
+        if (this.ddconfig.dismissableMask && this.wrapper) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.hide();
@@ -484,10 +484,11 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusableElement.focus(), 5);
             });
-        } else if (this.footerViewChild) {
-            // If the content section is empty try to focus on footer
+        } else if (this.footerViewChild && focusParentElement !== this.footerViewChild.nativeElement) {
+            // If the content section is empty try to focus on footer (avoid recursion)
             this.focus(this.footerViewChild.nativeElement);
-        } else if (!focusableElement && this.headerViewChild) {
+        } else if (!focusableElement && this.headerViewChild && focusParentElement !== this.headerViewChild.nativeElement) {
+            // If footer is also empty, try header (avoid recursion)
             this.focus(this.headerViewChild.nativeElement);
         }
     }
@@ -566,7 +567,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     initDrag(event: MouseEvent) {
-        if (hasClass(event.target as any, 'p-dialog-header-icon') || hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        const target = event.target as HTMLElement;
+        if (hasClass(target, 'p-dialog-header-icon') || (target.parentElement && hasClass(target.parentElement, 'p-dialog-header-icon'))) {
             return;
         }
 
@@ -650,7 +652,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
             this.documentDragEndListener();
-            this.documentDragListener = null;
+            this.documentDragEndListener = null;
         }
     }
 
@@ -705,7 +707,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : 'document';
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-            if (event.which == 27) {
+            if (event.key === 'Escape' || event.keyCode === 27 || event.which === 27) {
                 const currentZIndex = ZIndexUtils.getCurrent();
                 if (parseInt((this.container as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
                     this.hide();
@@ -731,7 +733,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     ngOnDestroy() {
         this.onContainerDestroy();
 
-        if (this.componentRef) {
+        if (this.componentRef && typeof this.componentRef.destroy === 'function') {
             this.componentRef.destroy();
         }
         this.destroyStyle();

@@ -33,9 +33,9 @@ export class BaseStyle {
 
     useStyle: UseStyle = inject(UseStyle);
 
-    theme = undefined;
+    theme: any = undefined;
 
-    css = undefined;
+    css: string | undefined = undefined;
 
     classes = {};
 
@@ -87,7 +87,7 @@ export class BaseStyle {
             const _css = resolve(this.css, { dt });
             const _style = minifyCSS(Css`${_css}${extendedCSS}`);
             const _props = Object.entries(props)
-                .reduce((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
+                .reduce<any>((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
 
             return `<style type="text/css" data-primeng-style-id="${this.name}" ${_props}>${_style}</style>`;
@@ -106,9 +106,9 @@ export class BaseStyle {
         if (this.theme) {
             const name = this.name === 'base' ? 'global-style' : `${this.name}-style`;
             const _css = Css`${resolve(this.theme, { dt })}`;
-            const _style = minifyCSS(Theme.transformCSS(name, _css));
+            const _style = minifyCSS(Theme.transformCSS(name, _css as string));
             const _props = Object.entries(props)
-                .reduce((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
+                .reduce<any>((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
 
             css.push(`<style type="text/css" data-primeng-style-id="${name}" ${_props}>${_style}</style>`);

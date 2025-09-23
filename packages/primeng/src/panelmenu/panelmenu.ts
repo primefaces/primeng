@@ -83,7 +83,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate || panelMenu._submenuIconTemplate"></ng-template>
                                 </ng-container>
-                                <span [class]="cx('itemIcon', { processedItem })" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
+                                <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span [class]="cx('itemLabel')" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
                                 <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
                             </a>
@@ -1038,11 +1038,11 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     findFirstHeader() {
-        return this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true);
+        return this.containerViewChild?.nativeElement ? this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true) : null;
     }
 
     findLastHeader() {
-        return this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true);
+        return this.containerViewChild?.nativeElement ? this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true) : null;
     }
 
     onHeaderClick(event, item, index) {

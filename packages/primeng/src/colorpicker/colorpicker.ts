@@ -374,7 +374,7 @@ export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterV
             case 'visible':
                 if (!this.inline) {
                     this.overlay = event.element;
-                    this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
+                    this.attrSelector && this.overlay?.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
 
                     if (this.autoZIndex) {
@@ -426,8 +426,8 @@ export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterV
     }
 
     alignOverlay() {
-        if (this.$appendTo() === 'self') relativePosition(this.overlay, this.inputViewChild?.nativeElement);
-        else absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
+        if (this.$appendTo() === 'self') relativePosition(this.overlay as HTMLElement, this.inputViewChild?.nativeElement);
+        else absolutePosition(this.overlay as HTMLElement, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -594,7 +594,7 @@ export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterV
     validateHEX(hex: string) {
         var len = 6 - hex.length;
         if (len > 0) {
-            var o = [];
+            var o: any = [];
             for (var i = 0; i < len; i++) {
                 o.push('0');
             }
@@ -749,7 +749,7 @@ export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterV
                     break;
             }
         } else {
-            this.value = this.HEXtoHSB(this.defaultColor);
+            this.value = this.HEXtoHSB(this.defaultColor as string);
         }
 
         this.updateColorSelector();

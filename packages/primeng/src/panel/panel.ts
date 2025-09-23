@@ -351,7 +351,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
 
     updateTabIndex() {
         if (this.contentWrapperViewChild) {
-            const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]:not([tabindex="-1"])');
+            const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]');
             focusableElements.forEach((element: HTMLElement) => {
                 if (this.collapsed) {
                     element.setAttribute('tabindex', '-1');
