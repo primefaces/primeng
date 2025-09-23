@@ -211,7 +211,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
 
@@ -651,7 +651,7 @@ export class Button extends BaseComponent implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;

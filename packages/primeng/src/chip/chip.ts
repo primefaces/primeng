@@ -119,7 +119,7 @@ export class Chip extends BaseComponent implements AfterContentInit {
      * Used to pass all properties of the chipProps to the Chip component.
      * @group Props
      */
-    @Input() get chipProps(): ChipProps {
+    @Input() get chipProps(): ChipProps | undefined {
         return this._chipProps;
     }
     set chipProps(val: ChipProps | undefined) {
@@ -131,7 +131,7 @@ export class Chip extends BaseComponent implements AfterContentInit {
         }
     }
 
-    _chipProps: ChipProps;
+    _chipProps: ChipProps | undefined;
 
     _componentStyle = inject(ChipStyle);
 

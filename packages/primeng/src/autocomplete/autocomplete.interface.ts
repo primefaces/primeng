@@ -30,7 +30,7 @@ export interface AutoCompleteDropdownClickEvent {
     /**
      * Selected option value.
      */
-    query: string;
+    query?: string;
 }
 /**
  * Custom select event.

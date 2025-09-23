@@ -970,7 +970,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;

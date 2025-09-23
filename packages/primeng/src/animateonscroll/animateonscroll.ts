@@ -4,7 +4,7 @@ import { addClass, removeClass } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
 interface AnimateOnScrollOptions {
-    root?: HTMLElement;
+    root?: HTMLElement | null;
     rootMargin?: string;
     threshold?: number;
 }
@@ -60,7 +60,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
 
     animationState: any;
 
-    animationEndListener: VoidFunction | undefined;
+    animationEndListener: VoidFunction | null | undefined;
 
     ngOnInit() {
         super.ngOnInit();
@@ -97,7 +97,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
             this.isObserverActive = true;
         }, this.options);
 
-        setTimeout(() => this.observer.observe(this.el.nativeElement), 0);
+        setTimeout(() => this.observer?.observe(this.el.nativeElement), 0);
 
         // Reset
 
