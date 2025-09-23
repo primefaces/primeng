@@ -36,7 +36,7 @@ const theme = /*css*/ `
         background: dt('datatable.header.cell.background');
     }
 
-    .p-datatable-mask {
+    .p-datatable-mask.p-overlay-mask {
         position: absolute;
         display: flex;
         align-items: center;
