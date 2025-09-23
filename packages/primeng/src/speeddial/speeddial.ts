@@ -515,7 +515,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
         const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
-        this.onItemClick(event, this.model[itemIndex]);
+        if (itemIndex !== -1 && this.model && this.model[itemIndex]) {
+            this.onItemClick(event, this.model[itemIndex]);
+        }
         this.onBlur(event);
 
         const buttonEl = <any>findSingle(this.container.nativeElement, 'button');
@@ -678,7 +680,13 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     get buttonIconClass() {
-        return (!this.visible && this.showIcon) || !this.hideIcon ? this.showIcon : this.hideIcon;
+        if (!this.visible && this.showIcon) {
+            return this.showIcon;
+        }
+        if (this.visible && this.hideIcon) {
+            return this.hideIcon;
+        }
+        return this.showIcon;
     }
 
     getItemStyle(index: number) {

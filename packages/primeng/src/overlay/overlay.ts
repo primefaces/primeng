@@ -491,7 +491,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
                     ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
                 }
 
-                this.hostAttrSelector() && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
+                this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
                 DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
                 this.alignOverlay();
                 break;

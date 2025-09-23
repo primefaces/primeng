@@ -73,7 +73,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                         [attr.data-pc-section]="'content'"
                     >
                         <ng-container *ngIf="optionTemplate; else defaultOptionTemplate">
-                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption?.option }"></ng-container>
+                            <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: processedOption?.option, level: level }"></ng-container>
                         </ng-container>
                         <ng-template #defaultOptionTemplate>
                             <span [class]="cx('optionText')" [attr.data-pc-section]="'text'">{{ getOptionLabelToRender(processedOption) }}</span>
@@ -708,7 +708,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
@@ -748,7 +748,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     }
 
     get selectedMessageText() {
-        return this.hasSelectedOption ? this.selectionMessageText.replaceAll('{0}', '1') : this.emptySelectionMessageText;
+        return this.hasSelectedOption() ? this.selectionMessageText.replaceAll('{0}', '1') : this.emptySelectionMessageText;
     }
 
     visibleOptions = computed(() => {
@@ -794,6 +794,14 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
                     this._optionTemplate = item.template;
                     break;
 
+                case 'header':
+                    this._headerTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this._footerTemplate = item.template;
+                    break;
+
                 case 'triggericon':
                     this._triggerIconTemplate = item.template;
                     break;
@@ -826,7 +834,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     }
 
     createProcessedOptions(options, level = 0, parent = {}, parentKey = '') {
-        const processedOptions = [];
+        const processedOptions: any[] = [];
 
         options &&
             options.forEach((option, index) => {
@@ -1075,7 +1083,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     }
 
     equalityKey() {
-        return this.optionValue ? null : this.dataKey;
+        return this.optionValue ? undefined : this.dataKey;
     }
 
     updateModel(value, event?) {
@@ -1167,7 +1175,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     }
 
     isOptionMatched(processedOption) {
-        return this.isValidOption(processedOption) && this.getProccessedOptionLabel(processedOption).toLocaleLowerCase(this.searchLocale).startsWith(this.searchValue.toLocaleLowerCase(this.searchLocale));
+        return this.isValidOption(processedOption) && this.getProccessedOptionLabel(processedOption).toLocaleLowerCase(this.searchLocale).startsWith(this.searchValue?.toLocaleLowerCase(this.searchLocale));
     }
 
     isOptionDisabled(option) {
@@ -1302,7 +1310,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
             this.activeOptionPath.set([]);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
 
-            isFocus && focus(this.focusInputViewChild.nativeElement);
+            isFocus && focus(this.focusInputViewChild?.nativeElement);
             this.onHide.emit(event);
             this.cd.markForCheck();
         };
@@ -1333,7 +1341,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
 
         this.focusedOptionInfo.set(focusedOptionInfo);
 
-        isFocus && focus(this.focusInputViewChild.nativeElement);
+        isFocus && focus(this.focusInputViewChild?.nativeElement);
     }
 
     clear(event?: MouseEvent) {
@@ -1341,7 +1349,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
             this.updateModel(null);
             this.focusedOptionInfo.set({ index: -1, level: 0, parentKey: '' });
             this.activeOptionPath.set([]);
-            this.onClear.emit();
+            this.onClear.emit(event);
         }
 
         event && event.stopPropagation();
@@ -1360,11 +1368,11 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
     }
 
     getOptionGroupChildren(optionGroup, level) {
-        return resolveFieldData(optionGroup, this.optionGroupChildren[level]);
+        return resolveFieldData(optionGroup, this.optionGroupChildren?.[level]);
     }
 
     isOptionGroup(option, level) {
-        return Object.prototype.hasOwnProperty.call(option, this.optionGroupChildren[level]);
+        return Object.prototype.hasOwnProperty.call(option, this.optionGroupChildren?.[level]);
     }
 
     isProccessedOptionGroup(processedOption) {
@@ -1382,7 +1390,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
         effect(() => {
             const activeOptionPath = this.activeOptionPath();
             if (isNotEmpty(activeOptionPath)) {
-                this.overlayViewChild.alignOverlay();
+                this.overlayViewChild?.alignOverlay();
             }
         });
     }
@@ -1440,7 +1448,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
             }
         }
 
-        isFocus && focus(this.focusInputViewChild.nativeElement);
+        isFocus && focus(this.focusInputViewChild?.nativeElement);
     }
 
     onOptionMouseEnter(event) {
@@ -1473,7 +1481,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
 
     bindMatchMediaListener() {
         if (!this.matchMediaListener) {
-            const window: Window = this.document.defaultView;
+            const window: Window | null = this.document.defaultView;
             if (window && window.matchMedia) {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
                 this.query = query;

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, RouterLink, RouterLinkActive } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChevronRightIcon, HomeIcon } from 'primeng/icons';
@@ -15,7 +15,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
 @Component({
     selector: 'p-breadcrumb',
     standalone: true,
-    imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
+    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
     template: `
         <nav [class]="cn(cx('root'), styleClass)" [style]="style" [attr.data-pc-name]="'breadcrumb'" [attr.data-pc-section]="'root'">
             <ol [attr.data-pc-section]="'menu'" [class]="cx('list')">
@@ -43,6 +43,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                         <a
                             *ngIf="home.routerLink"
                             [routerLink]="home.routerLink"
+                            routerLinkActive="p-menuitem-link-active"
                             [attr.aria-label]="homeAriaLabel"
                             [queryParams]="home.queryParams"
                             [routerLinkActiveOptions]="home.routerLinkActiveOptions || { exact: false }"
@@ -104,6 +105,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
                             <a
                                 *ngIf="menuitem?.routerLink"
                                 [routerLink]="menuitem?.routerLink"
+                                routerLinkActive="p-menuitem-link-active"
                                 [queryParams]="menuitem?.queryParams"
                                 [routerLinkActiveOptions]="menuitem?.routerLinkActiveOptions || { exact: false }"
                                 [class]="cx('itemLink')"
@@ -173,9 +175,7 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(BreadCrumbStyle);
 
-    constructor(private router: Router) {
-        super();
-    }
+    router = inject(Router);
 
     onClick(event: MouseEvent, item: MenuItem) {
         if (item.disabled) {

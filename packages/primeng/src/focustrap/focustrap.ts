@@ -69,7 +69,7 @@ export class FocusTrap extends BaseComponent {
                 'data-p-hidden-accessible': true,
                 'data-p-hidden-focusable': true,
                 onFocus: onFocus?.bind(this)
-            });
+            }) as HTMLElement;
         };
 
         this.firstHiddenFocusableElement = createFocusableElement(this.onFirstHiddenElementFocus);

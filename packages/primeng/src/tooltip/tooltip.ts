@@ -363,7 +363,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             if (this.getOption('hideOnEscape')) {
                 this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
                     this.deactivate();
-                    this.documentEscapeListener();
+                    this.documentEscapeListener?.();
                 });
             }
             this.interactionInProgress = true;
@@ -489,7 +489,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     updateText() {
         const content = this.getOption('tooltipLabel');
-        if (content instanceof TemplateRef) {
+        if (content && typeof (content as TemplateRef<any>).createEmbeddedView === 'function') {
             const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
             embeddedViewRef.detectChanges();
             embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
@@ -502,7 +502,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     align() {
-        let position = this.getOption('tooltipPosition');
+        const position = this.getOption('tooltipPosition') as keyof typeof positionPriority;
 
         const positionPriority = {
             top: [this.alignTop, this.alignBottom, this.alignRight, this.alignLeft],
@@ -511,7 +511,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             right: [this.alignRight, this.alignLeft, this.alignTop, this.alignBottom]
         };
 
-        for (let [index, alignmentFn] of positionPriority[position].entries()) {
+        const alignFns = positionPriority[position] || [];
+        for (let [index, alignmentFn] of alignFns.entries()) {
             if (index === 0) alignmentFn.call(this);
             else if (this.isOutOfBounds()) alignmentFn.call(this);
             else break;

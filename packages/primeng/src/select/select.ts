@@ -329,7 +329,7 @@ export class SelectItem extends BaseComponent {
                                 </li>
                                 <li *ngIf="!filterValue && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                     @if (!emptyTemplate && !_emptyTemplate) {
-                                        {{ emptyFilterMessageLabel || emptyMessageLabel }}
+                                        {{ emptyMessageLabel || emptyFilterMessageLabel }}
                                     } @else {
                                         <ng-container #empty *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
                                     }
@@ -623,11 +623,11 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
      * An array of objects to display as the available options.
      * @group Props
      */
-    @Input() get options(): any[] | undefined {
+    @Input() get options(): any[] | null | undefined {
         const options = this._options();
         return options;
     }
-    set options(val: any[] | undefined) {
+    set options(val: any[] | null | undefined) {
         if (!deepEquals(val, this._options())) {
             this._options.set(val);
         }
@@ -847,7 +847,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
     filterOptions: SelectFilterOptions | undefined;
 
-    _options = signal<any[] | undefined>(null);
+    _options = signal<any[] | null | undefined>(null);
 
     _placeholder = signal<string | undefined>(undefined);
 
@@ -919,7 +919,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
             const filteredOptions =
                 !_filterBy && !this.filterFields && !this.optionValue
-                    ? this.options.filter((option) => {
+                    ? this.options?.filter((option) => {
                           if (option.label) {
                               return option.label.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                           }
@@ -929,11 +929,11 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
             if (this.group) {
                 const optionGroups = this.options || [];
-                const filtered = [];
+                const filtered: any[] = [];
 
                 optionGroups.forEach((group) => {
                     const groupChildren = this.getOptionGroupChildren(group);
-                    const filteredItems = groupChildren.filter((item) => filteredOptions.includes(item));
+                    const filteredItems = groupChildren.filter((item) => filteredOptions?.includes(item));
 
                     if (filteredItems.length > 0)
                         filtered.push({
@@ -954,10 +954,20 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         // use  getAllVisibleAndNonVisibleOptions verses just visible options
         // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
         const options = this.getAllVisibleAndNonVisibleOptions();
-        // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
-        const selectedOptionIndex = options.findIndex((option) => this.isOptionValueEqualsModelValue(option));
 
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
+        // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
+        const selectedOptionIndex = options.findIndex((option) => {
+            const isEqual = this.isOptionValueEqualsModelValue(option);
+            return isEqual;
+        });
+
+        if (selectedOptionIndex !== -1) {
+            const selectedOption = options[selectedOptionIndex];
+            // Always show the label for selected options, even if disabled
+            return this.getOptionLabel(selectedOption);
+        }
+
+        return this.placeholder() || 'p-emptylabel';
     });
 
     selectedOption: any;
@@ -976,6 +986,13 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
 
                 if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
+                } else {
+                    // If no valid selected option found but we have a model value,
+                    // try to find the option including disabled ones for template display
+                    const disabledSelectedIndex = visibleOptions.findIndex((option) => this.isSelected(option));
+                    if (disabledSelectedIndex !== -1) {
+                        this.selectedOption = visibleOptions[disabledSelectedIndex];
+                    }
                 }
             }
 
@@ -1127,6 +1144,11 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onOptionSelect(event, option, isHide = true, preventChange = false) {
+        // Check if option is disabled before proceeding
+        if (this.isOptionDisabled(option)) {
+            return;
+        }
+
         if (!this.isSelected(option)) {
             const value = this.getOptionValue(option);
             this.updateModel(value, event);
@@ -1160,7 +1182,8 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     private isOptionValueEqualsModelValue(option: any) {
-        return this.isValidOption(option) && equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        // Don't check isValidOption here since we need to match disabled options too
+        return option !== undefined && option !== null && !this.isOptionGroup(option) && equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
     ngAfterViewInit() {
@@ -1211,11 +1234,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     isOptionDisabled(option: any) {
-        if (this.getOptionValue(this.modelValue()) === this.getOptionValue(option) || (this.getOptionLabel(this.modelValue() === this.getOptionLabel(option)) && option.disabled === false)) {
-            return false;
-        } else {
-            return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
-        }
+        return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
     }
 
     getOptionGroupLabel(optionGroup: any) {
@@ -1316,7 +1335,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '.p-select-option.p-select-option-selected');
+                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-select-option.p-select-option-selected');
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                     }
@@ -1573,7 +1592,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     equalityKey() {
-        return this.optionValue ? null : this.dataKey;
+        return this.optionValue ? undefined : this.dataKey;
     }
 
     findFirstFocusedOptionIndex() {
@@ -1654,7 +1673,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onHomeKey(event: any, pressedInInputText: boolean = false) {
-        if (pressedInInputText) {
+        if (pressedInInputText && event.currentTarget && event.currentTarget.setSelectionRange) {
             const target = event.currentTarget;
             if (event.shiftKey) {
                 target.setSelectionRange(0, target.value.length);
@@ -1672,7 +1691,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onEndKey(event: any, pressedInInputText = false) {
-        if (pressedInInputText) {
+        if (pressedInInputText && event.currentTarget && event.currentTarget.setSelectionRange) {
             const target = event.currentTarget;
 
             if (event.shiftKey) {
@@ -1723,15 +1742,17 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onEscapeKey(event: KeyboardEvent) {
-        this.overlayVisible && this.hide(true);
-        event.preventDefault();
-        event.stopPropagation();
+        if (this.overlayVisible) {
+            this.hide(true);
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay?.nativeElement : this.firstHiddenFocusableElementOnOverlay?.nativeElement);
                 event.preventDefault();
             } else {
                 if (this.focusedOptionIndex() !== -1 && this.overlayVisible) {
@@ -1745,7 +1766,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
         focus(focusableEl);
     }
 
@@ -1757,7 +1778,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     hasFocusableElements() {
-        return getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {
@@ -1805,7 +1826,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue?.toLocaleLowerCase(this.filterLocale));
     }
 
     onFilterInputChange(event: Event | any): void {
@@ -1813,9 +1834,9 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
-        !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+        !this.virtualScrollerDisabled && this.scroller?.scrollToIndex(0);
         setTimeout(() => {
-            this.overlayViewChild.alignOverlay();
+            this.overlayViewChild?.alignOverlay();
         });
         this.cd.markForCheck();
     }

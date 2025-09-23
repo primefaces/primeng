@@ -36,9 +36,9 @@ export class PrimeNG extends ThemeProvider {
     /**
      * @deprecated Since v20. Use `inputVariant` instead.
      */
-    inputStyle = signal<'outlined' | 'filled'>(null);
+    inputStyle = signal<'outlined' | 'filled' | null>(null);
 
-    inputVariant = signal<'outlined' | 'filled'>(null);
+    inputVariant = signal<'outlined' | 'filled' | null>(null);
 
     overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
 
@@ -178,7 +178,8 @@ export class PrimeNG extends ThemeProvider {
             selectColor: 'Select a color',
             removeLabel: 'Remove',
             browseFiles: 'Browse Files',
-            maximizeLabel: 'Maximize'
+            maximizeLabel: 'Maximize',
+            minimizeLabel: 'Minimize'
         }
     };
 

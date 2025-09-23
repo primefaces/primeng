@@ -176,7 +176,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         const width = getWidth(_content);
 
         this.isPrevButtonEnabled.set(scrollLeft !== 0);
-        this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && scrollLeft !== scrollWidth - width);
+        this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && Math.abs(scrollLeft - scrollWidth + width) > 1);
     }
 
     updateInkBar() {
