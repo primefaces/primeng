@@ -194,7 +194,7 @@ describe('DynamicDialogComponent', () => {
         });
 
         it('should not create aria-labelledby when header is null', () => {
-            mockConfig.header = null;
+            mockConfig.header = null as any;
             mockConfig.showHeader = false;
             component.visible = true;
             fixture.detectChanges();
@@ -424,10 +424,10 @@ describe('DynamicDialogComponent', () => {
 
             component.resetPosition();
 
-            expect(component.container.style.position).toBe('');
-            expect(component.container.style.left).toBe('');
-            expect(component.container.style.top).toBe('');
-            expect(component.container.style.margin).toBe('');
+            expect(component.container.style.position).toBe('' as any);
+            expect(component.container.style.left).toBe('' as any);
+            expect(component.container.style.top).toBe('' as any);
+            expect(component.container.style.margin).toBe('' as any);
         });
 
         afterEach(() => {
@@ -617,7 +617,7 @@ describe('DynamicDialogComponent', () => {
 
             const autofocusElement = document.createElement('input');
             autofocusElement.setAttribute('autofocus', '');
-            component.contentViewChild.nativeElement.appendChild(autofocusElement);
+            component.contentViewChild!.nativeElement.appendChild(autofocusElement);
 
             // Mock getFocusableElement to return autofocus element
             spyOn(DomHandler, 'getFocusableElement').and.callFake((element, selector) => {
@@ -642,7 +642,7 @@ describe('DynamicDialogComponent', () => {
             } as any;
 
             const focusableElement = document.createElement('button');
-            component.contentViewChild.nativeElement.appendChild(focusableElement);
+            component.contentViewChild!.nativeElement.appendChild(focusableElement);
 
             // Mock getFocusableElement to return focusable element
             spyOn(DomHandler, 'getFocusableElement').and.callFake((element, selector) => {
@@ -670,14 +670,14 @@ describe('DynamicDialogComponent', () => {
             } as any;
 
             const footerButton = document.createElement('button');
-            component.footerViewChild.nativeElement.appendChild(footerButton);
+            component.footerViewChild!.nativeElement.appendChild(footerButton);
 
             // Mock getFocusableElement to avoid stack overflow
             spyOn(DomHandler, 'getFocusableElement').and.callFake((element, selector) => {
                 if (selector === '[autofocus]') {
                     return null; // No autofocus elements
                 }
-                if (element === component.footerViewChild.nativeElement) {
+                if (element === component.footerViewChild!.nativeElement) {
                     return footerButton; // Return footer button
                 }
                 return null; // No other focusable elements
@@ -1086,7 +1086,7 @@ describe('DynamicDialogComponent', () => {
             component.ngOnDestroy();
 
             expect(component.onContainerDestroy).toHaveBeenCalled();
-            expect(component.componentRef.destroy).toHaveBeenCalled();
+            expect(component.componentRef!.destroy).toHaveBeenCalled();
             expect(component.destroyStyle).toHaveBeenCalled();
         });
 
@@ -1203,7 +1203,7 @@ describe('DynamicDialogComponent', () => {
 
         it('should create style element for breakpoints', () => {
             // Reset styleElement so createStyle can run again
-            component.styleElement = null;
+            component.styleElement = null as any;
 
             spyOn(component.renderer, 'createElement').and.returnValue(document.createElement('style'));
             spyOn(component.renderer, 'appendChild');
@@ -1219,7 +1219,7 @@ describe('DynamicDialogComponent', () => {
 
         it('should generate correct CSS for breakpoints', () => {
             // Reset styleElement so createStyle can run again
-            component.styleElement = null;
+            component.styleElement = null as any;
 
             // Call createStyle directly
             component.createStyle();

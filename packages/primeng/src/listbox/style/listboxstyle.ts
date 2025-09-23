@@ -18,6 +18,28 @@ const theme = /*css*/ `
     .p-listbox-header > .p-iconfield {
         flex-grow: 1;
     }
+
+    .p-listbox-list-container {
+        height: 100%;
+    }
+
+    /* CDK Drag & Drop styles */
+    .p-listbox-option.cdk-drag-preview {
+        background: dt('listbox.background');
+    }
+
+    .p-listbox-dragging .p-listbox-option:not(.cdk-drag-preview) {
+        pointer-events: none !important;
+    }
+
+    .p-listbox-dragging .p-listbox-option:not(.cdk-drag-preview):hover {
+        background: inherit !important;
+        color: inherit !important;
+    }
+
+    .cdk-drag-placeholder { 
+        pointer-events: none;
+    }
 `;
 
 const classes = {

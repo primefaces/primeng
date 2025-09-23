@@ -324,7 +324,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    @HostBinding('style.display') get display(): string {
+    @HostBinding('style.display') get display(): string | null {
         return this.alwaysShow || (this.pageLinks && this.pageLinks.length > 1) ? null : 'none';
     }
 
@@ -368,7 +368,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     }
 
     getPageAriaLabel(value: number): string | undefined {
-        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, `${value}`) : undefined;
+        return this.config.translation.aria ? this.config.translation.aria.pageLabel?.replace(/{page}/g, `${value}`) : undefined;
     }
 
     getLocalization(digit: number): string {
@@ -378,7 +378,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
             const numbers = String(digit).split('');
             return numbers.map((number) => index.get(Number(number))).join('');
         } else {
-            return index.get(digit);
+            return index.get(digit) as string;
         }
     }
 

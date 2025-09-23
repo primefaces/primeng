@@ -169,7 +169,7 @@ export class BaseComponent {
     }
 
     cx(key: string, params = {}): string {
-        return cn(this._getOptionValue(this.$style?.classes, key, { instance: this, ...params }));
+        return cn(this._getOptionValue(this.$style?.classes, key, { instance: this, ...params })) as string;
     }
 
     sx(key = '', when = true, params = {}) {

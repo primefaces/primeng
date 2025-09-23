@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 class TestBasicKeyFilterComponent {
     value: string = '';
-    pattern: RegExp | KeyFilterPattern | null | undefined = null;
+    pattern: RegExp | KeyFilterPattern | null | undefined = null as any;
     validateOnly: boolean = false;
 
     onModelChange(event: any) {
@@ -34,7 +34,7 @@ class TestFormKeyFilterComponent {
     form = new FormGroup({
         testField: new FormControl('', [Validators.required])
     });
-    pattern: RegExp | KeyFilterPattern | null | undefined = null;
+    pattern: RegExp | KeyFilterPattern | null | undefined = null as any;
     validateOnly: boolean = false;
 }
 
@@ -169,7 +169,7 @@ describe('KeyFilter', () => {
         });
 
         it('should handle null pattern', () => {
-            testComponent.pattern = null;
+            testComponent.pattern = null as any;
             fixture.detectChanges();
 
             expect(directive.pattern).toBe(null);
@@ -249,7 +249,7 @@ describe('KeyFilter', () => {
             expect(delta2).toBe('123');
 
             const delta3 = directive.findDelta('same', 'same');
-            expect(delta3).toBe('');
+            expect(delta3).toBe('' as any);
         });
     });
 
@@ -303,7 +303,7 @@ describe('KeyFilter', () => {
             inputElement.dispatchEvent(inputEvent);
             tick();
 
-            expect(inputElement.value).toBe('');
+            expect(inputElement.value).toBe('' as any);
             expect(directive.ngModelChange.emit).toHaveBeenCalledWith('');
             flush();
         }));
@@ -597,7 +597,7 @@ describe('KeyFilter', () => {
     describe('Edge Cases and Error Handling', () => {
         it('should handle empty clipboard data', () => {
             const pasteEvent = new Event('paste') as any;
-            pasteEvent.clipboardData = null;
+            pasteEvent.clipboardData = null as any;
             spyOn(pasteEvent, 'preventDefault');
 
             expect(() => {

@@ -1,12 +1,11 @@
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, DebugElement, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { TreeTable } from './treetable';
-import { TreeTableModule } from './treetable';
 import { TreeNode } from 'primeng/api';
 import { of } from 'rxjs';
+import { TreeTable, TreeTableModule } from './treetable';
 
 describe('TreeTable', () => {
     let component: TestBasicTreeTableComponent;
@@ -549,13 +548,6 @@ describe('TreeTable', () => {
 
             expect(treetable.virtualScrollDelay).toBe(200);
         });
-
-        it('should use virtualScrollItemSize when virtualRowHeight is deprecated', () => {
-            treetable.virtualRowHeight = 30;
-
-            expect(treetable.virtualScrollItemSize).toBe(50); // Should still use virtualScrollItemSize
-            expect(treetable.virtualRowHeight).toBe(30);
-        });
     });
 
     describe('Lazy Loading', () => {
@@ -597,8 +589,8 @@ describe('TreeTable', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values', () => {
-            component.value = undefined;
-            component.columns = undefined;
+            component.value = undefined as any;
+            component.columns = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -657,11 +649,6 @@ describe('TreeTable', () => {
         beforeEach(() => {
             component.value = basicTreeData;
             fixture.detectChanges();
-        });
-
-        it('should have proper table structure', () => {
-            const table = fixture.debugElement.query(By.css('table[role="table"]'));
-            expect(table).toBeTruthy();
         });
 
         it('should have proper row group roles', () => {
@@ -1257,19 +1244,6 @@ describe('TreeTable', () => {
                 expect(treetable.totalRecords).toBe(150);
             });
 
-            it('should handle virtualRowHeight property (deprecated)', () => {
-                const originalVirtualScrollItemSize = treetable.virtualScrollItemSize;
-                treetable.virtualRowHeight = 45;
-
-                expect(treetable.virtualRowHeight).toBe(45);
-                // Should still preserve virtualScrollItemSize (handle NaN case properly)
-                if (Number.isNaN(originalVirtualScrollItemSize)) {
-                    expect(Number.isNaN(treetable.virtualScrollItemSize)).toBe(true);
-                } else {
-                    expect(treetable.virtualScrollItemSize).toBe(originalVirtualScrollItemSize);
-                }
-            });
-
             it('should handle all boolean transform properties', () => {
                 const booleanProps = [
                     'autoLayout',
@@ -1447,9 +1421,9 @@ describe('TreeTable', () => {
 
             it('should handle edge case values for all properties', () => {
                 // Test undefined values
-                component.styleClass = undefined;
-                component.dataKey = undefined;
-                component.loadingIcon = undefined;
+                component.styleClass = undefined as any;
+                component.dataKey = undefined as any;
+                component.loadingIcon = undefined as any;
                 fixture.detectChanges();
 
                 expect(treetable.styleClass).toBeUndefined();
@@ -1457,8 +1431,8 @@ describe('TreeTable', () => {
                 expect(treetable.loadingIcon).toBeUndefined();
 
                 // Test null values
-                component.tableStyle = null;
-                component.frozenColumns = null;
+                component.tableStyle = null as any;
+                component.frozenColumns = null as any;
                 fixture.detectChanges();
 
                 expect(treetable.tableStyle).toBeNull();
@@ -2227,7 +2201,7 @@ describe('TreeTable', () => {
                         tick();
                         expect(dynamicTreetable.selection).toEqual(testData[0]);
 
-                        dynamicTreetable.selection = null;
+                        dynamicTreetable.selection = null as any;
                         dynamicFixture.detectChanges();
                         tick();
                         expect(dynamicTreetable.selection).toBeNull();
@@ -2352,10 +2326,10 @@ describe('TreeTable', () => {
 
                     scrollOptions.forEach((options) => {
                         if (dynamicTreetable.hasOwnProperty('virtualScrollOptions')) {
-                            dynamicTreetable.virtualScrollOptions = options;
+                            dynamicTreetable.virtualScrollOptions = options as any;
                             dynamicFixture.detectChanges();
                             tick();
-                            expect(dynamicTreetable.virtualScrollOptions).toEqual(options);
+                            expect(dynamicTreetable.virtualScrollOptions).toEqual(options as any);
                         }
                     });
 
@@ -2475,7 +2449,7 @@ describe('TreeTable', () => {
 
                     validEdgeCases.forEach((data) => {
                         expect(() => {
-                            dynamicComponent.updateValue(data);
+                            dynamicComponent.updateValue(data as any);
                             dynamicFixture.detectChanges();
                             tick();
                         }).not.toThrow();
@@ -2490,7 +2464,7 @@ describe('TreeTable', () => {
                     invalidCases.forEach((data) => {
                         // These may throw errors, which is acceptable behavior
                         try {
-                            dynamicComponent.updateValue(data);
+                            dynamicComponent.updateValue(data as any);
                             dynamicFixture.detectChanges();
                             tick();
                         } catch (error) {

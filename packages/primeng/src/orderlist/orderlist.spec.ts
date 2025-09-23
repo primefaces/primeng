@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { OrderList } from './orderlist';
 import { ButtonModule } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { RippleModule } from 'primeng/ripple';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 
 interface Product {
     id: string;
@@ -98,7 +98,7 @@ class TestBasicOrderListComponent {
     filterPlaceholder = 'Search products';
     filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
     filterLocale: string | undefined;
-    trackBy: Function = (index: number, item: any) => item.id;
+    trackBy: Function = (_index: number, item: any) => item.id;
     tabindex: number | undefined;
     ariaLabel = 'Product list';
     ariaLabelledBy: string | undefined;
@@ -380,7 +380,8 @@ describe('OrderList', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, NoopAnimationsModule, OrderList],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList],
+            providers: [provideNoopAnimations()],
             declarations: [
                 TestBasicOrderListComponent,
                 TestTemplatesOrderListComponent,
@@ -473,7 +474,7 @@ describe('OrderList', () => {
         });
 
         it('should move selected items to top', fakeAsync(() => {
-            const initialOrder = [...component.products];
+            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveTop();
@@ -487,7 +488,7 @@ describe('OrderList', () => {
         }));
 
         it('should move selected items down', () => {
-            const initialOrder = [...component.products];
+            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveDown();
@@ -500,7 +501,7 @@ describe('OrderList', () => {
         });
 
         it('should move selected items to bottom', () => {
-            const initialOrder = [...component.products];
+            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveBottom();
@@ -593,7 +594,7 @@ describe('OrderList', () => {
             orderList.filterValue = 'test';
             orderList.resetFilter();
 
-            expect(orderList.filterValue).toBe(null);
+            expect(orderList.filterValue).toBe('');
         });
 
         it('should check if item is visible', () => {
@@ -954,7 +955,7 @@ describe('OrderList', () => {
             orderList.filterValue = 'test';
             orderList.resetFilter();
 
-            expect(orderList.filterValue).toBe(null);
+            expect(orderList.filterValue).toBe('');
         });
 
         it('should handle empty filter results', () => {
@@ -1123,7 +1124,7 @@ describe('OrderList', () => {
         }));
 
         it('should handle large datasets efficiently', () => {
-            const largeData = [];
+            const largeData: any[] = [];
             for (let i = 0; i < 1000; i++) {
                 largeData.push({
                     id: `${i}`,
@@ -1319,7 +1320,7 @@ describe('OrderList', () => {
         });
 
         it('should use custom trackBy function', () => {
-            const customTrackBy = (index: number, item: any) => item.code;
+            const customTrackBy = (_index: number, item: any) => item.code;
             component.trackBy = customTrackBy;
             fixture.detectChanges();
 

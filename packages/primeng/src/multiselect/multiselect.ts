@@ -524,7 +524,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
      * @defaultValue 3
      */
     @Input() set maxSelectedLabels(val: number | null | undefined) {
-        this._maxSelectedLabels = val;
+        this._maxSelectedLabels = val || 0;
     }
     get maxSelectedLabels(): number | null | undefined {
         return this._maxSelectedLabels;
@@ -718,7 +718,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
     set options(val: any[] | undefined) {
         if (!deepEquals(this._options(), val)) {
-            this._options.set(val);
+            this._options.set(val || []);
         }
     }
     /**
@@ -970,7 +970,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
@@ -1073,7 +1073,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     _filterValue = signal<any>(null);
 
-    _options = signal<any[]>(null);
+    _options = signal<any[]>([]);
 
     startRangeIndex = signal<number>(-1);
 
@@ -1122,7 +1122,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
             if (this.group) {
                 const optionGroups = this.options || [];
-                const filtered = [];
+                const filtered: any[] = [];
 
                 optionGroups.forEach((group) => {
                     const groupChildren = this.getOptionGroupChildren(group);
@@ -1147,8 +1147,8 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         let label;
         const modelValue = this.modelValue();
 
-        if (modelValue && modelValue.length && this.displaySelectedLabel) {
-            if (isNotEmpty(this.maxSelectedLabels) && modelValue.length > this.maxSelectedLabels) {
+        if (modelValue && modelValue?.length && this.displaySelectedLabel) {
+            if (isNotEmpty(this.maxSelectedLabels) && modelValue?.length > (this.maxSelectedLabels || 0)) {
                 return this.getSelectedItemsLabel();
             } else {
                 label = '';
@@ -1168,7 +1168,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     });
 
     chipSelectedItems = computed(() => {
-        return isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
+        return isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue()?.length > (this.maxSelectedLabels || 0) ? this.modelValue()?.slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
     constructor(
@@ -1183,7 +1183,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
             const allVisibleAndNonVisibleOptions = this.getAllVisibleAndNonVisibleOptions();
             if (allVisibleAndNonVisibleOptions && isNotEmpty(allVisibleAndNonVisibleOptions)) {
                 if (this.optionValue && this.optionLabel && modelValue) {
-                    this.selectedOptions = allVisibleAndNonVisibleOptions.filter((option) => modelValue.includes(option[this.optionLabel]) || modelValue.includes(option[this.optionValue]));
+                    this.selectedOptions = allVisibleAndNonVisibleOptions.filter((option) => modelValue.includes(option[this.optionLabel!]) || modelValue.includes(option[this.optionValue!]));
                 } else {
                     this.selectedOptions = modelValue;
                 }
@@ -1270,10 +1270,10 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         }
 
         let selected = this.isSelected(option);
-        let value = null;
+        let value: any[] = [];
 
         if (selected) {
-            value = this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey()));
+            value = this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey() || ''));
         } else {
             value = [...(this.modelValue() || []), this.getOptionValue(option)];
         }
@@ -1390,11 +1390,11 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     isSelected(option) {
         const optionValue = this.getOptionValue(option);
-        return (this.modelValue() || []).some((value) => equals(value, optionValue, this.equalityKey()));
+        return (this.modelValue() || []).some((value) => equals(value, optionValue, this.equalityKey() || ''));
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue?.toLocaleLowerCase(this.filterLocale));
     }
 
     isEmpty() {
@@ -1422,7 +1422,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
 
     getLabelByValue(value) {
         const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
-        const matchedOption = options.find((option) => !this.isOptionGroup(option) && equals(this.getOptionValue(option), value, this.equalityKey()));
+        const matchedOption = options.find((option) => !this.isOptionGroup(option) && equals(this.getOptionValue(option), value, this.equalityKey() || ''));
         return matchedOption ? this.getOptionLabel(matchedOption) : null;
     }
 
@@ -1691,7 +1691,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay?.nativeElement : this.firstHiddenFocusableElementOnOverlay?.nativeElement);
 
                 event.preventDefault();
             } else {
@@ -1764,9 +1764,9 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
 
-        !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+        !this.virtualScrollerDisabled && this.scroller?.scrollToIndex(0);
         setTimeout(() => {
-            this.overlayViewChild.alignOverlay();
+            this.overlayViewChild?.alignOverlay();
         });
     }
 
@@ -1824,7 +1824,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         }
 
         if (this.partialSelected()) {
-            this.selectedOptions = null;
+            this.selectedOptions = [];
             this.cd.markForCheck();
         }
 
@@ -1870,7 +1870,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     partialSelected() {
-        return this.selectedOptions && this.selectedOptions.length > 0 && this.selectedOptions.length < this.options.length;
+        return this.selectedOptions && this.selectedOptions.length > 0 && this.selectedOptions.length < (this.options?.length || 0);
     }
 
     /**
@@ -1971,9 +1971,9 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     clear(event: Event) {
-        this.value = null;
+        this.value = [];
         this.updateModel(null, event);
-        this.selectedOptions = null;
+        this.selectedOptions = [];
         this.onClear.emit();
         this._disableTooltip = true;
 
@@ -1985,7 +1985,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     removeOption(optionValue, event) {
-        let value = this.modelValue().filter((val) => !equals(val, optionValue, this.equalityKey()));
+        let value = this.modelValue().filter((val) => !equals(val, optionValue, this.equalityKey() || ''));
 
         this.updateModel(value, event);
         this.onChange.emit({
@@ -2076,7 +2076,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
     }
 
     hasFocusableElements() {
-        return getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     hasFilter() {

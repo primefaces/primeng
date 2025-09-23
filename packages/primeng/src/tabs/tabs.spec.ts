@@ -894,7 +894,7 @@ describe('Tabs', () => {
 
     describe('Edge Cases', () => {
         it('should handle undefined value', () => {
-            component.value = undefined;
+            component.value = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

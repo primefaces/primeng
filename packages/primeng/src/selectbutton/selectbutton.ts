@@ -219,7 +219,7 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
         let newValue;
 
         if (this.multiple) {
-            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey));
+            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey || undefined));
             else newValue = this.value ? [...this.value, optionValue] : [optionValue];
         } else {
             if (selected && !this.allowEmpty) {
@@ -290,7 +290,7 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
                 }
             }
         } else {
-            selected = equals(this.getOptionValue(option), this.value, this.equalityKey);
+            selected = equals(this.getOptionValue(option), this.value, this.equalityKey || undefined);
         }
 
         return selected;

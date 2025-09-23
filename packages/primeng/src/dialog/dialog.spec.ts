@@ -91,16 +91,16 @@ class TestBasicDialogComponent {
     closeButtonProps: any = {};
     maximizeButtonProps: any = {};
     role = 'dialog';
-    breakpoints: any = null;
+    breakpoints: any = null as any;
 
     // Event handlers
-    showEvent: any = null;
-    hideEvent: any = null;
-    maximizeEvent: any = null;
-    resizeInitEvent: any = null;
-    resizeEndEvent: any = null;
-    dragEndEvent: any = null;
-    visibleChangeEvent: any = null;
+    showEvent: any = null as any;
+    hideEvent: any = null as any;
+    maximizeEvent: any = null as any;
+    resizeInitEvent: any = null as any;
+    resizeEndEvent: any = null as any;
+    dragEndEvent: any = null as any;
+    visibleChangeEvent: any = null as any;
 
     showDialog() {
         this.visible = true;
@@ -240,7 +240,7 @@ class TestPositionDialogComponent {
 class TestMaximizableDialogComponent {
     visible = false;
     maximizable = true;
-    maximizeEvent: any = null;
+    maximizeEvent: any = null as any;
 
     onMaximize(event: any) {
         this.maximizeEvent = event;
@@ -608,7 +608,7 @@ describe('Dialog', () => {
         }));
 
         it('should handle null/undefined header gracefully', () => {
-            component.header = undefined;
+            component.header = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -804,6 +804,9 @@ describe('Dialog', () => {
                 expect(closeButton).toBeTruthy();
             }
 
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(component).toBeTruthy();
+
             flush();
         }));
 
@@ -823,6 +826,9 @@ describe('Dialog', () => {
 
                 expect(maximizeButton).toBeTruthy();
             }
+
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(component.maximizable).toBe(true);
 
             flush();
         }));

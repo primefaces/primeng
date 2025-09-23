@@ -20,10 +20,10 @@ class TestBasicInputTextComponent {
 })
 class TestAdvancedInputTextComponent {
     content: string = '';
-    size: 'large' | 'small' | undefined = undefined;
-    variant: 'filled' | 'outlined' | undefined = undefined;
-    fluid: boolean | undefined = undefined;
-    invalid: boolean | undefined = undefined;
+    size: 'large' | 'small' | undefined = undefined as any;
+    variant: 'filled' | 'outlined' | undefined = undefined as any;
+    fluid: boolean | undefined = undefined as any;
+    invalid: boolean | undefined = undefined as any;
 }
 
 @Component({
@@ -272,7 +272,7 @@ describe('InputText', () => {
             fixture.detectChanges();
             tick();
 
-            expect(inputEl.nativeElement.value).toBe('');
+            expect(inputEl.nativeElement.value).toBe('' as any);
         }));
 
         it('should handle null/undefined values', fakeAsync(() => {
@@ -280,7 +280,7 @@ describe('InputText', () => {
             fixture.detectChanges();
             tick();
 
-            expect(inputEl.nativeElement.value).toBe('');
+            expect(inputEl.nativeElement.value).toBe('' as any);
         }));
 
         it('should handle special characters', fakeAsync(() => {

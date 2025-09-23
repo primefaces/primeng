@@ -40,6 +40,7 @@ class TestBasicPanelMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-multiple-panelmenu',
     template: ` <p-panelmenu [model]="model" [multiple]="true"> </p-panelmenu> `
 })
 class TestMultiplePanelMenuComponent {
@@ -122,6 +123,7 @@ class TestContentItemTemplatePanelMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-router-panelmenu',
     template: ` <p-panelmenu [model]="model"> </p-panelmenu> `
 })
 class TestRouterPanelMenuComponent {
@@ -145,6 +147,7 @@ class TestRouterPanelMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-disabled-panelmenu',
     template: ` <p-panelmenu [model]="model"> </p-panelmenu> `
 })
 class TestDisabledPanelMenuComponent {
@@ -164,6 +167,7 @@ class TestDisabledPanelMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-styled-panelmenu',
     template: ` <p-panelmenu [model]="model" styleClass="custom-panel" [transitionOptions]="transitionOptions"> </p-panelmenu> `
 })
 class TestStyledPanelMenuComponent {
@@ -179,12 +183,14 @@ class TestStyledPanelMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-empty-panelmenu',
     template: ` <p-panelmenu [model]="[]"> </p-panelmenu> `
 })
 class TestEmptyPanelMenuComponent {}
 
 @Component({
     standalone: false,
+    selector: 'test-dynamic-panelmenu',
     template: ` <p-panelmenu [model]="model"> </p-panelmenu> `
 })
 class TestDynamicPanelMenuComponent {
@@ -202,6 +208,7 @@ class TestDynamicPanelMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-command-panelmenu',
     template: ` <p-panelmenu [model]="model"> </p-panelmenu> `
 })
 class TestCommandPanelMenuComponent {
@@ -225,6 +232,7 @@ class TestCommandPanelMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-keyboard-panelmenu',
     template: ` <p-panelmenu [model]="model" [tabindex]="0"> </p-panelmenu> `
 })
 class TestKeyboardPanelMenuComponent {
@@ -348,7 +356,7 @@ describe('PanelMenu', () => {
         });
 
         it('should handle undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(panelMenuInstance.model).toBeUndefined();

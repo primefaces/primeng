@@ -64,11 +64,11 @@ class TestBasicPaginatorComponent {
     dropdownAppendTo: any;
     locale: string | undefined;
 
-    pageChangeEvent: PaginatorState | null = null;
+    pageChangeEvent: PaginatorState | null = null as any;
 
     onPageChange(event: PaginatorState) {
         this.pageChangeEvent = event;
-        this.first = event.first;
+        this.first = event.first!;
     }
 }
 
@@ -202,7 +202,7 @@ describe('Paginator', () => {
 
         it('should calculate page links correctly', () => {
             expect(paginator.pageLinks).toBeDefined();
-            expect(paginator.pageLinks.length).toBe(5);
+            expect(paginator.pageLinks!.length).toBe(5);
             expect(paginator.pageLinks).toEqual([1, 2, 3, 4, 5]);
         });
 
@@ -526,11 +526,11 @@ describe('Paginator', () => {
             const testFixture = TestBed.createComponent(TestBasicPaginatorComponent);
             const testPaginator = testFixture.debugElement.query(By.directive(Paginator)).componentInstance;
 
-            testPaginator.rowsPerPageOptions = undefined;
+            testPaginator.rowsPerPageOptions = undefined as any;
             testPaginator.updateRowsPerPageOptions();
             expect(testPaginator.rowsPerPageItems).toBeUndefined();
 
-            testPaginator.locale = undefined;
+            testPaginator.locale = undefined as any;
             const result = testPaginator.getLocalization(5);
             expect(result).toBeDefined();
         });

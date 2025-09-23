@@ -355,7 +355,7 @@ describe('Dock', () => {
         });
 
         it('should handle null model', () => {
-            component.model = null;
+            component.model = null as any;
             fixture.detectChanges();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
@@ -782,14 +782,7 @@ describe('Dock', () => {
     describe('Router Integration Tests', () => {
         it('should handle router links', () => {
             const routerFixture = TestBed.createComponent(TestRouterDockComponent);
-            const routerComponent = routerFixture.componentInstance;
             const routerDock = routerFixture.debugElement.query(By.directive(Dock)).componentInstance;
-
-            console.log('Router model:', routerComponent.routerModel);
-            console.log(
-                'Model items clickable:',
-                routerComponent.routerModel.map((item) => `${item.label}: ${routerDock.isClickableRouterLink(item)}`)
-            );
 
             routerFixture.detectChanges();
 
@@ -889,8 +882,8 @@ describe('Dock', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', () => {
-            component.model = undefined;
-            component.ariaLabel = undefined;
+            component.model = undefined as any;
+            component.ariaLabel = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

@@ -38,8 +38,8 @@ class TestBasicInplaceComponent {}
     `
 })
 class TestInplaceWithEventsComponent {
-    activateEvent: Event | null = null;
-    deactivateEvent: Event | null = null;
+    activateEvent: Event | null = null as any;
+    deactivateEvent: Event | null = null as any;
 
     onActivate(event: Event) {
         this.activateEvent = event;

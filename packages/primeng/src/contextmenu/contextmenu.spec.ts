@@ -56,6 +56,7 @@ class TestBasicContextMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-target-contextmenu',
     template: `
         <div #targetDiv id="target-div">Target Element</div>
         <p-contextmenu [model]="model" target="targetDiv"></p-contextmenu>
@@ -72,6 +73,7 @@ class TestTargetContextMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-global-contextmenu',
     template: ` <p-contextmenu [model]="model" [global]="true"></p-contextmenu> `
 })
 class TestGlobalContextMenuComponent {
@@ -140,6 +142,7 @@ class TestSubmenuIconTemplateComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-router-contextmenu',
     template: ` <p-contextmenu [model]="routerModel"></p-contextmenu> `
 })
 class TestRouterContextMenuComponent {
@@ -156,6 +159,7 @@ class TestRouterContextMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-styled-contextmenu',
     template: ` <p-contextmenu [style]="customStyle" styleClass="custom-contextmenu"></p-contextmenu> `
 })
 class TestStyledContextMenuComponent {
@@ -168,12 +172,14 @@ class TestStyledContextMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-minimal-contextmenu',
     template: `<p-contextmenu></p-contextmenu>`
 })
 class TestMinimalContextMenuComponent {}
 
 @Component({
     standalone: false,
+    selector: 'test-dynamic-contextmenu',
     template: ` <p-contextmenu [model]="dynamicModel"></p-contextmenu> `
 })
 class TestDynamicContextMenuComponent {
@@ -194,6 +200,7 @@ class TestDynamicContextMenuComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-disabled-items-contextmenu',
     template: ` <p-contextmenu [model]="disabledModel"></p-contextmenu> `
 })
 class TestDisabledItemsComponent {
@@ -202,6 +209,7 @@ class TestDisabledItemsComponent {
 
 @Component({
     standalone: true,
+    selector: 'test-target-component',
     template: '<div>Target Page</div>'
 })
 class TestTargetComponent {}
@@ -624,7 +632,7 @@ describe('ContextMenu', () => {
         });
 
         it('should handle undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(contextMenuInstance.model).toBeUndefined();
@@ -666,7 +674,7 @@ describe('ContextMenu', () => {
             // Create mock menu items structure
             const mockMenuDiv = document.createElement('div');
             mockMenuDiv.innerHTML = '<ul><li data-pc-section="menuitem" id="item_0"></li></ul>';
-            contextMenuInstance.rootmenu.el.nativeElement.appendChild(mockMenuDiv);
+            contextMenuInstance.rootmenu!.el!.nativeElement.appendChild(mockMenuDiv);
         });
 
         it('should handle arrow down key', () => {
@@ -882,8 +890,8 @@ describe('ContextMenu', () => {
 
             contextMenuInstance.position();
 
-            expect(contextMenuInstance.containerViewChild.nativeElement.style.left).toBeTruthy();
-            expect(contextMenuInstance.containerViewChild.nativeElement.style.top).toBeTruthy();
+            expect(contextMenuInstance.containerViewChild!.nativeElement.style.left).toBeTruthy();
+            expect(contextMenuInstance.containerViewChild!.nativeElement.style.top).toBeTruthy();
         });
 
         it('should handle viewport boundaries', () => {
@@ -911,7 +919,7 @@ describe('ContextMenu', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

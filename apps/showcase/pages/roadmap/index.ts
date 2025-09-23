@@ -30,7 +30,7 @@ import { Meta, Title } from '@angular/platform-browser';
                             <div class="flex-1 flex gap-4 flex-col">
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4 ">
                                     <h2 class="text-lg font-bold mt-0 mb-2">New Theme Editor</h2>
-                                    <p class="mt-0 mb-4 leading-normal">Advanced visual theme designer with support for the entire design token set, Figma to code and cloud storage.</p>
+                                    <p class="mt-0 mb-4 leading-normal">Advanced visual theme designer with support for the entire design token set, Figma to theme code and cloud storage.</p>
                                     <div class="bg-surface-200 dark:bg-surface-600 rounded">
                                         <div class="bg-blue-500 rounded" style="width: 100%; height: 4px"></div>
                                     </div>

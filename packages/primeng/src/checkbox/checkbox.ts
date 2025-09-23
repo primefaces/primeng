@@ -223,7 +223,7 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit {
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this._checkboxIconTemplate = item.template;
@@ -295,7 +295,7 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit {
     }
 
     focus() {
-        this.inputViewChild.nativeElement.focus();
+        this.inputViewChild?.nativeElement.focus();
     }
 
     /**

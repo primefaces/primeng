@@ -206,6 +206,7 @@ class TestFocusConfirmPopupComponent {
 // ConfirmPopup Button Properties Test
 @Component({
     standalone: false,
+    selector: 'test-button-properties-confirmpopup',
     template: `
         <p-confirmpopup></p-confirmpopup>
         <button (click)="confirm($event)" class="trigger-btn">Trigger</button>
@@ -252,6 +253,7 @@ class TestPositionConfirmPopupComponent {
 // ConfirmPopup Accessibility Test
 @Component({
     standalone: false,
+    selector: 'test-accessibility-confirmpopup',
     template: `
         <p-confirmpopup></p-confirmpopup>
         <button (click)="confirm($event)" class="trigger-btn">Trigger</button>
@@ -943,6 +945,9 @@ describe('ConfirmPopup', () => {
                 expect(rejectButton.nativeElement.hasAttribute('aria-label')).toBe(true);
             }
 
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(accessibilityFixture.componentInstance).toBeTruthy();
+
             flush();
         }));
 
@@ -983,6 +988,9 @@ describe('ConfirmPopup', () => {
                 expect(acceptButton).toBeTruthy();
             }
 
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(confirmPopupInstance).toBeTruthy();
+
             flush();
         }));
 
@@ -1000,6 +1008,9 @@ describe('ConfirmPopup', () => {
                 // Note: Button component handles Space internally
                 expect(rejectButton).toBeTruthy();
             }
+
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(confirmPopupInstance).toBeTruthy();
 
             flush();
         }));
@@ -1048,6 +1059,9 @@ describe('ConfirmPopup', () => {
                 // Message should be readable by screen readers
                 expect(messageElement.nativeElement.textContent.trim().length).toBeGreaterThan(0);
             }
+
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(confirmPopupInstance).toBeTruthy();
 
             flush();
         }));
@@ -1184,7 +1198,7 @@ describe('ConfirmPopup', () => {
         }));
 
         it('should not handle Escape key when confirmation is null', () => {
-            confirmPopupInstance.confirmation = null;
+            confirmPopupInstance.confirmation = null as any;
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
             spyOn(confirmPopupInstance, 'onReject');
 

@@ -5,8 +5,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Image, ImageModule } from './image';
 import { SharedModule } from 'primeng/api';
 
-const mockImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg';
-const mockPreviewImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg';
+// Using image paths from photoservice.ts to ensure consistency
+const mockImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg';
+const mockPreviewImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg';
 
 @Component({
     standalone: false,
@@ -26,7 +27,7 @@ class TestBasicImageComponent {
     imageClass: string = 'test-image-class';
     imageStyle: any = { border: '1px solid red' };
     styleClass: string = 'test-style-class';
-    imageErrorEvent: Event | null = null;
+    imageErrorEvent: Event | null = null as any;
 
     onImageError(event: Event) {
         this.imageErrorEvent = event;
@@ -61,8 +62,8 @@ class TestPreviewImageComponent {
     previewImageSizes: string = '';
     showTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
-    showEvent: any = null;
-    hideEvent: any = null;
+    showEvent: any = null as any;
+    hideEvent: any = null as any;
 
     onShow(event: any) {
         this.showEvent = event;

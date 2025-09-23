@@ -976,7 +976,7 @@ describe('ConfirmDialog', () => {
 
     describe('Edge Cases and Error Handling', () => {
         it('should handle missing confirmation gracefully', () => {
-            confirmDialogInstance.confirmation = null;
+            confirmDialogInstance.confirmation = null as any;
 
             expect(() => {
                 confirmDialogInstance.option('message');
@@ -989,15 +989,15 @@ describe('ConfirmDialog', () => {
             component.icon = '';
             fixture.detectChanges();
 
-            expect(confirmDialogInstance.header).toBe('');
-            expect(confirmDialogInstance.message).toBe('');
-            expect(confirmDialogInstance.icon).toBe('');
+            expect(confirmDialogInstance.header).toBe('' as any);
+            expect(confirmDialogInstance.message).toBe('' as any);
+            expect(confirmDialogInstance.icon).toBe('' as any);
         });
 
         it('should handle undefined properties gracefully', () => {
-            component.header = undefined;
-            component.message = undefined;
-            component.icon = undefined;
+            component.header = undefined as any;
+            component.message = undefined as any;
+            component.icon = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

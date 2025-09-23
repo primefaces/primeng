@@ -30,6 +30,7 @@ class TestBasicBreadcrumbComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-static-breadcrumb',
     template: ` <p-breadcrumb [model]="model" [home]="home"> </p-breadcrumb> `
 })
 class TestStaticBreadcrumbComponent {
@@ -108,6 +109,7 @@ class TestPTemplateSeparatorBreadcrumbComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-router-breadcrumb',
     template: ` <p-breadcrumb [model]="routerModel" [home]="routerHome"> </p-breadcrumb> `
 })
 class TestRouterBreadcrumbComponent {
@@ -120,6 +122,7 @@ class TestRouterBreadcrumbComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-styled-breadcrumb',
     template: ` <p-breadcrumb [style]="customStyle" styleClass="custom-breadcrumb"> </p-breadcrumb> `
 })
 class TestStyledBreadcrumbComponent {
@@ -132,12 +135,14 @@ class TestStyledBreadcrumbComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-minimal-breadcrumb',
     template: ` <p-breadcrumb></p-breadcrumb> `
 })
 class TestMinimalBreadcrumbComponent {}
 
 @Component({
     standalone: false,
+    selector: 'test-dynamic-breadcrumb',
     template: ` <p-breadcrumb [model]="dynamicModel" [home]="dynamicHome"> </p-breadcrumb> `
 })
 class TestDynamicBreadcrumbComponent {
@@ -155,6 +160,7 @@ class TestDynamicBreadcrumbComponent {
 
 @Component({
     standalone: true,
+    selector: 'test-target-component',
     template: '<div>Target Page</div>'
 })
 class TestTargetComponent {}
@@ -289,11 +295,11 @@ describe('Breadcrumb', () => {
         });
 
         it('should handle undefined inputs', () => {
-            component.model = undefined;
-            component.home = undefined;
-            component.style = undefined;
-            component.styleClass = undefined;
-            component.homeAriaLabel = undefined;
+            component.model = undefined as any;
+            component.home = undefined as any;
+            component.style = undefined as any;
+            component.styleClass = undefined as any;
+            component.homeAriaLabel = undefined as any;
             fixture.detectChanges();
 
             expect(breadcrumbInstance.model).toBeUndefined();
@@ -314,7 +320,7 @@ describe('Breadcrumb', () => {
         });
 
         it('should not display home item when not provided', () => {
-            component.home = undefined;
+            component.home = undefined as any;
             fixture.detectChanges();
 
             const homeElement = fixture.debugElement.query(By.css('[data-pc-section="home"]'));
@@ -785,7 +791,7 @@ describe('Breadcrumb', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

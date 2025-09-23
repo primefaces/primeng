@@ -309,7 +309,7 @@ export class Editor extends BaseEditableHolder implements AfterContentInit, OnDe
 
         this.quill.on('text-change', (delta: any, oldContents: any, source: 'user' | 'api' | 'silent') => {
             if (source === 'user') {
-                let html = isQuill2 ? this.quill.getSemanticHTML() : findSingle(editorElement, '.ql-editor').innerHTML;
+                let html = isQuill2 ? this.quill.getSemanticHTML() : findSingle(editorElement, '.ql-editor')?.innerHTML;
                 let text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
                     html = null;

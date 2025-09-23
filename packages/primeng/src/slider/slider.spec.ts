@@ -58,7 +58,7 @@ class TestBasicSliderComponent {
 })
 class TestFormSliderComponent {
     form = new FormGroup({
-        sliderValue: new FormControl(null, Validators.required)
+        sliderValue: new FormControl<number | null>(null, Validators.required)
     });
 }
 
@@ -344,7 +344,7 @@ describe('Slider', () => {
             formTestFixture.detectChanges();
             tick();
 
-            expect(formTestComponent.form.value.sliderValue).toBe(75);
+            expect(formTestComponent.form.value.sliderValue).toBe(75 as any);
             flush();
         }));
 
@@ -669,7 +669,7 @@ describe('Slider', () => {
         });
 
         it('should handle zero step value', () => {
-            component.step = undefined;
+            component.step = undefined as any;
             spyOn(component, 'updateValue');
 
             const mockEvent = new Event('keydown');
@@ -1011,7 +1011,7 @@ describe('Slider', () => {
 
             component.updateValue(30);
 
-            expect(component.sliderHandleStart.nativeElement.focus).toHaveBeenCalled();
+            expect(component.sliderHandleStart!.nativeElement.focus).toHaveBeenCalled();
         });
 
         it('should handle animation removal and addition', () => {

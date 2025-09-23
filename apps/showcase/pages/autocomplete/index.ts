@@ -1,5 +1,6 @@
 import { AccessibilityDoc } from '@/doc/autocomplete/accessibilitydoc';
 import { BasicDoc } from '@/doc/autocomplete/basicdoc';
+import { ChipsDoc } from '@/doc/autocomplete/chipsdoc';
 import { DisabledDoc } from '@/doc/autocomplete/disableddoc';
 import { DropdownDoc } from '@/doc/autocomplete/dropdowndoc';
 import { FilledDoc } from '@/doc/autocomplete/filleddoc';
@@ -80,6 +81,11 @@ export class AutoCompleteDemo {
             id: 'multiple',
             label: 'Multiple',
             component: MultipleDoc
+        },
+        {
+            id: 'chips',
+            label: 'Chips',
+            component: ChipsDoc
         },
         {
             id: 'floatlabel',

@@ -215,7 +215,7 @@ export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     unbindMutationObserver() {
-        this.mutationObserver.disconnect();
+        this.mutationObserver?.disconnect();
     }
 
     ngOnDestroy() {

@@ -209,7 +209,7 @@ class TestBasicMultiSelectComponent {
 })
 class TestFormMultiSelectComponent {
     form = new FormGroup({
-        selectedCities: new FormControl([], [Validators.required])
+        selectedCities: new FormControl<City[]>([], [Validators.required])
     });
 
     options: City[] = [
@@ -427,12 +427,12 @@ describe('MultiSelect', () => {
             expect(multiSelect.showHeader).toBe(true);
             expect(multiSelect.optionGroupLabel).toBe('label');
             expect(multiSelect.optionGroupChildren).toBe('items');
-            expect(multiSelect.emptyFilterMessage).toBe('');
-            expect(multiSelect.emptyMessage).toBe('');
+            expect(multiSelect.emptyFilterMessage).toBe('' as any);
+            expect(multiSelect.emptyMessage).toBe('' as any);
             expect(multiSelect.autocomplete).toBe('off');
             expect(multiSelect.tooltipPosition).toBe('right');
             expect(multiSelect.tooltipPositionStyle).toBe('absolute');
-            expect(multiSelect.tooltip).toBe('');
+            expect(multiSelect.tooltip).toBe('' as any);
             expect(multiSelect.tabindex).toBe(0);
         });
 
@@ -457,15 +457,15 @@ describe('MultiSelect', () => {
 
         it('should initialize with options', () => {
             expect(multiSelect.options).toBeDefined();
-            expect(multiSelect.options.length).toBe(6);
-            expect(multiSelect.options[0]).toEqual({ name: 'New York', code: 'NY', country: 'USA' });
+            expect(multiSelect.options!.length).toBe(6);
+            expect(multiSelect.options![0]).toEqual({ name: 'New York', code: 'NY', country: 'USA' });
         });
 
         it('should handle empty options', () => {
             component.options = [];
             fixture.detectChanges();
 
-            expect(multiSelect.options.length).toBe(0);
+            expect(multiSelect.options!.length).toBe(0);
             expect(multiSelect.isEmpty()).toBe(true);
         });
 
@@ -1209,7 +1209,7 @@ describe('MultiSelect', () => {
                 fixture.detectChanges();
             }).not.toThrow();
 
-            expect(multiSelect.options[0].name).toContain('<script>');
+            expect(multiSelect.options![0].name).toContain('<script>');
         });
 
         it('should handle invalid option data', () => {
@@ -1645,7 +1645,7 @@ describe('MultiSelect Grouped Options', () => {
         fixture.detectChanges();
 
         const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
-        expect(options.length).toBe(6); // 3 USA cities + 3 Italy cities
+        expect(options!.length).toBe(6); // 3 USA cities + 3 Italy cities
         flush();
     }));
 
@@ -2523,16 +2523,16 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
     describe('Signal-based Data Sources', () => {
         it('should work with signal options', fakeAsync(() => {
-            expect(component.signalMultiSelect.options.length).toBe(3);
-            expect(component.signalMultiSelect.options[0].name).toBe('Signal City 1');
+            expect(component.signalMultiSelect.options!.length).toBe(3);
+            expect(component.signalMultiSelect.options![0].name).toBe('Signal City 1');
 
             // Test signal updates
             component.updateSignalData();
             fixture.detectChanges();
             tick();
 
-            expect(component.signalMultiSelect.options.length).toBe(2);
-            expect(component.signalMultiSelect.options[0].name).toBe('Updated Signal 1');
+            expect(component.signalMultiSelect.options!.length).toBe(2);
+            expect(component.signalMultiSelect.options![0].name).toBe('Updated Signal 1');
             flush();
         }));
 
@@ -2570,14 +2570,14 @@ describe('MultiSelect Dynamic Data Sources', () => {
         }));
 
         it('should add items to signal dynamically', fakeAsync(() => {
-            const initialCount = component.signalMultiSelect.options.length;
+            const initialCount = component.signalMultiSelect.options!.length;
 
             component.addToSignal();
             fixture.detectChanges();
             tick();
 
-            expect(component.signalMultiSelect.options.length).toBe(initialCount + 1);
-            expect(component.signalMultiSelect.options[initialCount].name).toContain('New City');
+            expect(component.signalMultiSelect.options!.length).toBe(initialCount + 1);
+            expect(component.signalMultiSelect.options![initialCount].name).toContain('New City');
             flush();
         }));
     });
@@ -2666,14 +2666,14 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
     describe('Getter-based Data Sources', () => {
         it('should work with getter options', fakeAsync(() => {
-            expect(component.getterMultiSelect.options.length).toBe(2);
-            expect(component.getterMultiSelect.options[0].name).toBe('Getter City 1');
+            expect(component.getterMultiSelect.options!.length).toBe(2);
+            expect(component.getterMultiSelect.options![0].name).toBe('Getter City 1');
 
             component.updateGetterData();
             fixture.detectChanges();
             tick();
 
-            expect(component.getterMultiSelect.options[0].name).toBe('Updated Getter 1');
+            expect(component.getterMultiSelect.options![0].name).toBe('Updated Getter 1');
             flush();
         }));
 
@@ -2696,9 +2696,9 @@ describe('MultiSelect Dynamic Data Sources', () => {
     describe('Function-based Property Data Sources', () => {
         it('should work with function options', () => {
             const options = component.functionMultiSelect.options;
-            expect(options.length).toBe(3);
-            expect(options[0].name).toBe('Function City 1');
-            expect(options[1].disabled).toBe(true);
+            expect(options!.length).toBe(3);
+            expect(options![0].name).toBe('Function City 1');
+            expect(options![1].disabled).toBe(true);
         });
 
         it('should work with function optionLabel', () => {
@@ -2724,7 +2724,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
     describe('Late-loaded Data Sources', () => {
         it('should handle initially empty late-loaded data', () => {
-            expect(component.lateLoadMultiSelect.options.length).toBe(0);
+            expect(component.lateLoadMultiSelect.options!.length).toBe(0);
             expect(component.lateLoadMultiSelect.loading).toBe(true);
         });
 
@@ -2733,9 +2733,9 @@ describe('MultiSelect Dynamic Data Sources', () => {
             tick(150);
             fixture.detectChanges();
 
-            expect(component.lateLoadMultiSelect.options.length).toBe(3);
+            expect(component.lateLoadMultiSelect.options!.length).toBe(3);
             expect(component.lateLoadMultiSelect.loading).toBe(false);
-            expect(component.lateLoadMultiSelect.options[0].name).toBe('Late Loaded City 1');
+            expect(component.lateLoadMultiSelect.options![0].name).toBe('Late Loaded City 1');
             flush();
         }));
     });
@@ -3221,7 +3221,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             // Should render Unicode characters without issues
             const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
-            expect(options.length).toBeGreaterThan(0);
+            expect(options!.length).toBeGreaterThan(0);
 
             // Test Chinese characters
             const chineseOption = component.unicodeOptions.find((opt) => opt.name === '\u5317\u4eac');
@@ -3279,7 +3279,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             // Should not execute any scripts
             expect(() => {
                 const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
-                expect(options.length).toBeGreaterThan(0);
+                expect(options!.length).toBeGreaterThan(0);
             }).not.toThrow();
 
             flush();

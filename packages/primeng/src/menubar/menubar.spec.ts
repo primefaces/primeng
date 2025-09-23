@@ -54,6 +54,7 @@ class TestBasicMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-nested-menubar',
     template: ` <p-menubar [model]="nestedModel"> </p-menubar> `
 })
 class TestNestedMenubarComponent {
@@ -76,6 +77,7 @@ class TestNestedMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-router-menubar',
     template: ` <p-menubar [model]="routerModel"> </p-menubar> `
 })
 class TestRouterMenubarComponent {
@@ -177,6 +179,7 @@ class TestMenuIconTemplateComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-disabled-items',
     template: ` <p-menubar [model]="disabledModel"> </p-menubar> `
 })
 class TestDisabledItemsComponent {
@@ -185,6 +188,7 @@ class TestDisabledItemsComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-styled-menubar',
     template: ` <p-menubar [styleClass]="customStyleClass"> </p-menubar> `
 })
 class TestStyledMenubarComponent {
@@ -193,12 +197,14 @@ class TestStyledMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-minimal-menubar',
     template: `<p-menubar></p-menubar>`
 })
 class TestMinimalMenubarComponent {}
 
 @Component({
     standalone: false,
+    selector: 'test-dynamic-menubar',
     template: ` <p-menubar [model]="dynamicModel"> </p-menubar> `
 })
 class TestDynamicMenubarComponent {
@@ -219,6 +225,7 @@ class TestDynamicMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-command-menubar',
     template: ` <p-menubar [model]="commandModel"> </p-menubar> `
 })
 class TestCommandMenubarComponent {
@@ -237,6 +244,7 @@ class TestCommandMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-autohide-menubar',
     template: ` <p-menubar [model]="model" [autoHide]="autoHide" [autoHideDelay]="autoHideDelay"> </p-menubar> `
 })
 class TestAutoHideMenubarComponent {
@@ -879,7 +887,7 @@ describe('Menubar', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
