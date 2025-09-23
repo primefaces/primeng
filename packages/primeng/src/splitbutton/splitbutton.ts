@@ -44,7 +44,7 @@ type SplitButtonIconPosition = 'left' | 'right';
         <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultButton">
             <button
                 [class]="cx('pcButton')"
-                type="button"
+                [type]="buttonProps?.['type'] || 'button'"
                 pButton
                 pRipple
                 [severity]="severity"
@@ -68,7 +68,7 @@ type SplitButtonIconPosition = 'left' | 'right';
             <button
                 #defaultbtn
                 [class]="cx('pcButton')"
-                type="button"
+                [type]="buttonProps?.['type'] || 'button'"
                 pButton
                 pRipple
                 [severity]="severity"
@@ -88,7 +88,7 @@ type SplitButtonIconPosition = 'left' | 'right';
             ></button>
         </ng-template>
         <button
-            type="button"
+            [type]="buttonProps?.['type'] || 'button'"
             pButton
             pRipple
             [size]="size"

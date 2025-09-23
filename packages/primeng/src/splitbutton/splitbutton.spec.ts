@@ -1160,6 +1160,15 @@ describe('SplitButton', () => {
 
             expect(splitButtonInstance.buttonProps).toBeDefined();
             expect(splitButtonInstance.buttonProps['ariaLabel']).toBe('Custom aria label');
+            expect(splitButtonInstance.buttonProps['type']).toBe('button');
+
+            component.buttonProps = {
+                type: 'submit'
+            };
+            fixture.detectChanges();
+
+            expect(splitButtonInstance.buttonProps).toBeDefined();
+            expect(splitButtonInstance.buttonProps['type']).toBe('submit');
         });
 
         it('should handle menuButtonProps', () => {
