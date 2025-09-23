@@ -52,7 +52,7 @@ jobs:
             - name: Unit Test
               id: unitTest
               run: |
-                  pnpm run test:headless
+                  pnpm run test:unit
 
             - name: Add Code Format Fail Comment
               if: always() && steps.codeFormat.outcome == 'failure'
