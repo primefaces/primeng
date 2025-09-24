@@ -86,6 +86,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                                 <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span [class]="cx('itemLabel')" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
                                 <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                                <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="getItemProp(processedItem, 'badge')">{{ getItemProp(processedItem, 'badge') }}</span>
                             </a>
                             <a
                                 *ngIf="getItemProp(processedItem, 'routerLink')"
@@ -114,8 +115,7 @@ import { PanelMenuStyle } from './style/panelmenustyle';
                                 </ng-container>
                                 <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span *ngIf="getItemProp(processedItem, 'label')" [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span>
-
-                                <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="processedItem.badge">{{ processedItem.badge }}</span>
+                                <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="getItemProp(processedItem, 'badge')">{{ getItemProp(processedItem, 'badge') }}</span>
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
@@ -414,7 +414,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
             items.forEach((item, index) => {
                 const key = (parentKey !== '' ? parentKey + '_' : '') + index;
                 const newItem = {
-                    icon: item.icon,
+                    icon: item.icon,                    
                     expanded: item.expanded,
                     separator: item.separator,
                     item,
