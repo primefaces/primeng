@@ -1454,27 +1454,55 @@ export class PickList extends BaseComponent implements AfterContentInit {
         if (listType === this.SOURCE_LIST) {
             if (isTransfer) {
                 // Moving from target to source
-                // Remove item from target array
-                const item = this.target?.splice(dropIndexes.previousIndex, 1)[0];
-                // Add item to source array
-                if (item) {
-                    this.source?.splice(dropIndexes.currentIndex, 0, item);
+                let itemsToMove: any[] = [];
+
+                // Check if dragged item is in selected items
+                if (this.selectedItemsTarget && this.selectedItemsTarget.length > 0 && findIndexInList(event.item.data, this.selectedItemsTarget) !== -1) {
+                    // Move all selected items
+                    itemsToMove = [...this.selectedItemsTarget];
+                } else {
+                    // Move only the dragged item
+                    itemsToMove = [event.item.data];
                 }
-                let selectedItemIndex = findIndexInList(event.item.data, this.selectedItemsTarget);
 
-                if (selectedItemIndex != -1) {
-                    this.selectedItemsTarget.splice(selectedItemIndex, 1);
+                // Sort items by their index in target (to maintain order)
+                const sortedItems = this.sortByIndexInList(itemsToMove, this.target || []);
 
-                    if (this.keepSelection) {
-                        this.selectedItemsTarget.push(event.item.data);
+                // Remove all items from target
+                for (let item of sortedItems) {
+                    const itemIndex = findIndexInList(item, this.target || []);
+                    if (itemIndex !== -1) {
+                        this.target?.splice(itemIndex, 1);
                     }
                 }
 
-                if (this.visibleOptionsTarget) this.visibleOptionsTarget.splice(event.previousIndex, 1);
+                // Add all items to source at the drop position
+                for (let i = 0; i < sortedItems.length; i++) {
+                    this.source?.splice(dropIndexes.currentIndex + i, 0, sortedItems[i]);
+                }
 
-                this.onMoveToSource.emit({ items: [event.item.data] });
+                // Clear target selection
+                this.selectedItemsTarget = [];
+
+                if (this.keepSelection) {
+                    this.selectedItemsSource = [...this.selectedItemsSource, ...itemsToMove];
+                }
+
+                if (this.visibleOptionsTarget) {
+                    // Update visible options
+                    for (let item of itemsToMove) {
+                        const visibleIndex = findIndexInList(item, this.visibleOptionsTarget);
+                        if (visibleIndex !== -1) {
+                            this.visibleOptionsTarget.splice(visibleIndex, 1);
+                        }
+                    }
+                }
+
+                this.onMoveToSource.emit({ items: itemsToMove });
             } else {
-                moveItemInArray(this.source || [], dropIndexes.previousIndex, dropIndexes.currentIndex);
+                if (this.source) {
+                    moveItemInArray(this.source, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                }
                 this.onSourceReorder.emit({ items: [event.item.data] });
             }
 
@@ -1484,28 +1512,55 @@ export class PickList extends BaseComponent implements AfterContentInit {
         } else {
             if (isTransfer) {
                 // Moving from source to target
-                // Remove item from source array
-                const item = this.source?.splice(dropIndexes.previousIndex, 1)[0];
-                // Add item to target array
-                if (item) {
-                    this.target?.splice(dropIndexes.currentIndex, 0, item);
+                let itemsToMove: any[] = [];
+
+                // Check if dragged item is in selected items
+                if (this.selectedItemsSource && this.selectedItemsSource.length > 0 && findIndexInList(event.item.data, this.selectedItemsSource) !== -1) {
+                    // Move all selected items
+                    itemsToMove = [...this.selectedItemsSource];
+                } else {
+                    // Move only the dragged item
+                    itemsToMove = [event.item.data];
                 }
 
-                let selectedItemIndex = findIndexInList(event.item.data, this.selectedItemsSource);
+                // Sort items by their index in source (to maintain order)
+                const sortedItems = this.sortByIndexInList(itemsToMove, this.source || []);
 
-                if (selectedItemIndex != -1) {
-                    this.selectedItemsSource.splice(selectedItemIndex, 1);
-
-                    if (this.keepSelection) {
-                        this.selectedItemsTarget.push(event.item.data);
+                // Remove all items from source
+                for (let item of sortedItems) {
+                    const itemIndex = findIndexInList(item, this.source || []);
+                    if (itemIndex !== -1) {
+                        this.source?.splice(itemIndex, 1);
                     }
                 }
 
-                if (this.visibleOptionsSource) this.visibleOptionsSource.splice(event.previousIndex, 1);
+                // Add all items to target at the drop position
+                for (let i = 0; i < sortedItems.length; i++) {
+                    this.target?.splice(dropIndexes.currentIndex + i, 0, sortedItems[i]);
+                }
 
-                this.onMoveToTarget.emit({ items: [event.item.data] });
+                // Clear source selection
+                this.selectedItemsSource = [];
+
+                if (this.keepSelection) {
+                    this.selectedItemsTarget = [...this.selectedItemsTarget, ...itemsToMove];
+                }
+
+                if (this.visibleOptionsSource) {
+                    // Update visible options
+                    for (let item of itemsToMove) {
+                        const visibleIndex = findIndexInList(item, this.visibleOptionsSource);
+                        if (visibleIndex !== -1) {
+                            this.visibleOptionsSource.splice(visibleIndex, 1);
+                        }
+                    }
+                }
+
+                this.onMoveToTarget.emit({ items: itemsToMove });
             } else {
-                moveItemInArray(this.target || [], dropIndexes.previousIndex, dropIndexes.currentIndex);
+                if (this.target) {
+                    moveItemInArray(this.target, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                }
                 this.onTargetReorder.emit({ items: [event.item.data] });
             }
 
@@ -1514,7 +1569,11 @@ export class PickList extends BaseComponent implements AfterContentInit {
             }
         }
 
-        this.triggerChangeDetection();
+        // Only trigger change detection for transfers, not reordering
+        // Reordering modifies arrays in-place and triggerChangeDetection() would override changes
+        if (isTransfer) {
+            this.triggerChangeDetection();
+        }
         this.cd.markForCheck();
     }
 
