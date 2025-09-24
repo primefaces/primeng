@@ -143,8 +143,10 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      */
     @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
+    private _id: string = uuid('pn_id_');
+
     get id() {
-        return uuid('pn_id_');
+        return this._id;
     }
 
     get buttonAriaLabel() {

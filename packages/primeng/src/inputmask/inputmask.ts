@@ -331,6 +331,10 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     }
 
     initMask() {
+        if (!this.mask) {
+            return;
+        }
+
         this.tests = [];
         this.partialPosition = (this.mask as string).length;
         this.len = (this.mask as string).length;
@@ -642,7 +646,9 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     }
 
     writeBuffer() {
-        (this.inputViewChild as ElementRef).nativeElement.value = this.buffer.join('');
+        if (this.buffer && this.inputViewChild?.nativeElement) {
+            (this.inputViewChild as ElementRef).nativeElement.value = this.buffer.join('');
+        }
     }
 
     checkVal(allow?: boolean): number {
@@ -751,7 +757,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     }
 
     getUnmaskedValue() {
-        let unmaskedBuffer = [];
+        let unmaskedBuffer: string[] = [];
         for (let i = 0; i < this.buffer.length; i++) {
             let c = this.buffer[i];
             if (this.tests[i] && c != this.getPlaceholder(i)) {
@@ -763,8 +769,13 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     }
 
     updateModel(e: Event) {
-        const updatedValue = this.unmask ? this.getUnmaskedValue() : (e.target as HTMLInputElement).value;
-        if (updatedValue !== null || updatedValue !== undefined) {
+        const target = e.target as HTMLInputElement;
+        if (!target) {
+            return;
+        }
+
+        const updatedValue = this.unmask ? this.getUnmaskedValue() : target.value;
+        if (updatedValue !== null && updatedValue !== undefined) {
             this.value = updatedValue;
             this.writeModelValue(this.value);
             this.onModelChange(this.value);

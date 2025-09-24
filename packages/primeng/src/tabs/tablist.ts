@@ -105,11 +105,11 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     }
 
     get prevButtonAriaLabel() {
-        return this.config.translation.aria.previous;
+        return this.config?.translation?.aria?.previous;
     }
 
     get nextButtonAriaLabel() {
-        return this.config.translation.aria.next;
+        return this.config?.translation?.aria?.next;
     }
 
     ngAfterViewInit() {
@@ -125,7 +125,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     _nextIconTemplate: TemplateRef<any> | undefined;
 
     ngAfterContentInit() {
-        this.templates.forEach((t) => {
+        this.templates?.forEach((t) => {
             switch (t.getType()) {
                 case 'previcon':
                     this._prevIconTemplate = t.template;
@@ -176,7 +176,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         const width = getWidth(_content);
 
         this.isPrevButtonEnabled.set(scrollLeft !== 0);
-        this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && scrollLeft !== scrollWidth - width);
+        this.isNextButtonEnabled.set(_list.offsetWidth >= offsetWidth && Math.abs(scrollLeft - scrollWidth + width) > 1);
     }
 
     updateInkBar() {
@@ -206,7 +206,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
     unbindResizeObserver() {
         if (this.resizeObserver) {
             this.resizeObserver.unobserve(this.el.nativeElement);
-            this.resizeObserver = null;
+            this.resizeObserver = null!;
         }
     }
 }

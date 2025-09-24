@@ -384,7 +384,8 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
             case 'visible':
                 this.enableModality();
                 setTimeout(() => {
-                    focus(<any>findSingle(this.container.nativeElement, '[data-pc-section="closebutton"]'));
+                    const focusTarget = findSingle(this.container?.nativeElement, '[data-pc-section="closebutton"]');
+                    if (focusTarget) focus(focusTarget as HTMLElement);
                 }, 25);
                 break;
 
@@ -557,7 +558,7 @@ export class GalleriaContent extends BaseComponent implements DoCheck {
     }
 
     shouldRenderFooter() {
-        return (this.galleria.footerFacet && this.galleria.templates.toArray().length > 0) || this.galleria.footerTemplate;
+        return (this.galleria.footerFacet && this.galleria.templates && this.galleria.templates.toArray().length > 0) || this.galleria.footerTemplate;
     }
 
     startSlideShow() {
@@ -879,6 +880,7 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
         this.next();
 
         if (e && e.cancelable) {
+            e.stopPropagation();
             e.preventDefault();
         }
     }
@@ -888,6 +890,7 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
         this.prev();
 
         if (e && e.cancelable) {
+            e.stopPropagation();
             e.preventDefault();
         }
     }
@@ -939,12 +942,12 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
         return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.slide : undefined;
     }
 
-    ariaSlideNumber(value) {
-        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.slideNumber.replace(/{slideNumber}/g, value) : undefined;
+    ariaSlideNumber(value: any) {
+        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.slideNumber?.replace(/{slideNumber}/g, value) : undefined;
     }
 
-    ariaPageLabel(value) {
-        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.pageLabel.replace(/{page}/g, value) : undefined;
+    ariaPageLabel(value: any) {
+        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.pageLabel?.replace(/{page}/g, value) : undefined;
     }
 }
 
@@ -1141,7 +1144,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
             this.sortedResponsiveOptions.sort((data1, data2) => {
                 const value1 = data1.breakpoint;
                 const value2 = data2.breakpoint;
-                let result = null;
+                let result: number;
 
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;
@@ -1294,7 +1297,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
     }
 
     onRightKey() {
-        const indicators = find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+        const indicators = find(this.itemsContainer?.nativeElement, '[data-pc-section="thumbnailitem"]');
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
@@ -1313,33 +1316,33 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
     }
 
     onEndKey() {
-        const indicators = find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+        const indicators = find(this.itemsContainer?.nativeElement, '[data-pc-section="thumbnailitem"]');
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, indicators.length - 1);
     }
 
     onTabKey() {
-        const indicators = <any>[...find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
-        const highlightedIndex = indicators.findIndex((ind) => getAttribute(ind, 'data-p-active') === true);
+        const indicators = <any>[...find(this.itemsContainer?.nativeElement, '[data-pc-section="thumbnailitem"]')];
+        const highlightedIndex = indicators.findIndex((ind: any) => getAttribute(ind, 'data-p-active') === true);
 
-        const activeIndicator = <any>findSingle(this.itemsContainer.nativeElement, '[tabindex="0"]');
+        const activeIndicator = <any>findSingle(this.itemsContainer?.nativeElement, '[tabindex="0"]');
 
-        const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+        const activeIndex = indicators.findIndex((ind: any) => ind === activeIndicator?.parentElement);
 
         indicators[activeIndex].children[0].tabIndex = '-1';
         indicators[highlightedIndex].children[0].tabIndex = '0';
     }
 
     findFocusedIndicatorIndex() {
-        const indicators = [...find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]')];
-        const activeIndicator = findSingle(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"] > [tabindex="0"]');
+        const indicators = [...find(this.itemsContainer?.nativeElement, '[data-pc-section="thumbnailitem"]')];
+        const activeIndicator = findSingle(this.itemsContainer?.nativeElement, '[data-pc-section="thumbnailitem"] > [tabindex="0"]');
 
-        return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+        return indicators.findIndex((ind) => ind === activeIndicator?.parentElement);
     }
 
-    changedFocusedIndicator(prevInd, nextInd) {
-        const indicators = <any>find(this.itemsContainer.nativeElement, '[data-pc-section="thumbnailitem"]');
+    changedFocusedIndicator(prevInd: number, nextInd: number) {
+        const indicators = <any>find(this.itemsContainer?.nativeElement, '[data-pc-section="thumbnailitem"]');
 
         indicators[prevInd].children[0].tabIndex = '-1';
         indicators[nextInd].children[0].tabIndex = '0';
@@ -1485,8 +1488,8 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
         return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.nextPageLabel : undefined;
     }
 
-    ariaPageLabel(value) {
-        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.pageLabel.replace(/{page}/g, value) : undefined;
+    ariaPageLabel(value: any) {
+        return this.galleria.config.translation.aria ? this.galleria.config.translation.aria.pageLabel?.replace(/{page}/g, value) : undefined;
     }
 }
 

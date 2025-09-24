@@ -114,8 +114,8 @@ export class StyleClass implements OnDestroy {
     }
 
     toggle() {
-        if (hasClass(this.target, this.toggleClass as string)) removeClass(this.target, this.toggleClass as string);
-        else addClass(this.target, this.toggleClass as string);
+        if (hasClass(this.target!, this.toggleClass as string)) removeClass(this.target!, this.toggleClass as string);
+        else addClass(this.target!, this.toggleClass as string);
     }
 
     enter() {
@@ -125,25 +125,25 @@ export class StyleClass implements OnDestroy {
 
                 if (this.enterActiveClass.includes('slidedown')) {
                     (this.target as HTMLElement).style.height = '0px';
-                    removeClass(this.target, this.enterFromClass || 'hidden');
+                    removeClass(this.target!, this.enterFromClass || 'hidden');
                     (this.target as HTMLElement).style.maxHeight = (this.target as HTMLElement).scrollHeight + 'px';
-                    addClass(this.target, this.enterFromClass || 'hidden');
+                    addClass(this.target!, this.enterFromClass || 'hidden');
                     (this.target as HTMLElement).style.height = '';
                 }
 
-                addClass(this.target, this.enterActiveClass);
+                addClass(this.target!, this.enterActiveClass);
                 if (this.enterFromClass) {
-                    removeClass(this.target, this.enterFromClass);
+                    removeClass(this.target!, this.enterFromClass);
                 }
 
-                this.enterListener = this.renderer.listen(this.target, 'animationend', () => {
-                    removeClass(this.target, this.enterActiveClass as string);
+                this.enterListener = this.renderer.listen(this.target!, 'animationend', () => {
+                    removeClass(this.target!, this.enterActiveClass as string);
                     if (this.enterToClass) {
-                        addClass(this.target, this.enterToClass);
+                        addClass(this.target!, this.enterToClass);
                     }
                     this.enterListener && this.enterListener();
 
-                    if (this.enterActiveClass.includes('slidedown')) {
+                    if (this.enterActiveClass?.includes('slidedown')) {
                         (this.target as HTMLElement).style.maxHeight = '';
                     }
                     this.animating = false;
@@ -151,11 +151,11 @@ export class StyleClass implements OnDestroy {
             }
         } else {
             if (this.enterFromClass) {
-                removeClass(this.target, this.enterFromClass);
+                removeClass(this.target!, this.enterFromClass);
             }
 
             if (this.enterToClass) {
-                addClass(this.target, this.enterToClass);
+                addClass(this.target!, this.enterToClass);
             }
         }
 
@@ -176,15 +176,15 @@ export class StyleClass implements OnDestroy {
         if (this.leaveActiveClass) {
             if (!this.animating) {
                 this.animating = true;
-                addClass(this.target, this.leaveActiveClass);
+                addClass(this.target!, this.leaveActiveClass);
                 if (this.leaveFromClass) {
-                    removeClass(this.target, this.leaveFromClass);
+                    removeClass(this.target!, this.leaveFromClass);
                 }
 
-                this.leaveListener = this.renderer.listen(this.target, 'animationend', () => {
-                    removeClass(this.target, this.leaveActiveClass as string);
+                this.leaveListener = this.renderer.listen(this.target!, 'animationend', () => {
+                    removeClass(this.target!, this.leaveActiveClass as string);
                     if (this.leaveToClass) {
-                        addClass(this.target, this.leaveToClass);
+                        addClass(this.target!, this.leaveToClass);
                     }
                     this.leaveListener && this.leaveListener();
                     this.animating = false;
@@ -192,11 +192,11 @@ export class StyleClass implements OnDestroy {
             }
         } else {
             if (this.leaveFromClass) {
-                removeClass(this.target, this.leaveFromClass);
+                removeClass(this.target!, this.leaveFromClass);
             }
 
             if (this.leaveToClass) {
-                addClass(this.target, this.leaveToClass);
+                addClass(this.target!, this.leaveToClass);
             }
         }
 

@@ -30,7 +30,7 @@ export interface AutoCompleteDropdownClickEvent {
     /**
      * Selected option value.
      */
-    query: string;
+    query?: string;
 }
 /**
  * Custom select event.
@@ -59,6 +59,21 @@ export interface AutoCompleteUnselectEvent {
     originalEvent: Event;
     /**
      * Removed value.
+     */
+    value: any;
+}
+/**
+ * Custom add event.
+ * @see {@link AutoComplete.onAdd}
+ * @group Events
+ */
+export interface AutoCompleteAddEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Added value.
      */
     value: any;
 }

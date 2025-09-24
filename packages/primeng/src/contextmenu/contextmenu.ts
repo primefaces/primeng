@@ -290,13 +290,13 @@ export class ContextMenuSub extends BaseComponent {
         return this.getItemProp(processedItem, 'visible') !== false;
     }
 
-    isItemActive(processedItem: any): boolean {
+    isItemActive(processedItem: any): boolean | undefined {
         if (this.activeItemPath) {
             return this.activeItemPath.some((path) => path.key === processedItem.key);
         }
     }
 
-    isItemDisabled(processedItem: any): boolean {
+    isItemDisabled(processedItem: any): boolean | undefined {
         return this.getItemProp(processedItem, 'disabled');
     }
 
@@ -411,7 +411,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
      * Local template variable name of the element to attach the context menu.
      * @group Props
      */
-    @Input() target: HTMLElement | string | undefined;
+    @Input() target: HTMLElement | string | null | undefined;
     /**
      * Attaches the menu to document instead of a particular item.
      * @group Props
@@ -483,7 +483,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
 
-    container: HTMLDivElement | undefined;
+    container: HTMLDivElement | null | undefined;
 
     outsideClickListener: VoidListener;
 
@@ -523,7 +523,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     pressTimer: any;
 
-    private matchMediaListener: () => void;
+    private matchMediaListener: (() => void) | null;
 
     private query: MediaQueryList;
 
@@ -605,7 +605,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
                 this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                    if (this.containerViewChild.nativeElement.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2 && this.triggerEvent !== 'click') {
+                    if (this.containerViewChild?.nativeElement?.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2) {
                         this.hide();
                     }
                 });
@@ -652,7 +652,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
-        const processedItems = [];
+        const processedItems: any[] = [];
 
         items &&
             items.forEach((item, index) => {
@@ -752,7 +752,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
             this.activeItemPath.set(this.activeItemPath().filter((p) => key !== p.key && key.startsWith(p.key)));
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
-            focus(this.rootmenu.sublistViewChild.nativeElement);
+            focus(this.rootmenu?.sublistViewChild?.nativeElement);
         } else {
             grouped ? this.onItemChange(event) : this.hide();
         }
@@ -916,8 +916,8 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = <any>findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
+            const element = <any>findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -946,7 +946,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
             this.submenuVisible.set(true);
         }
         this.focusedItemInfo.set({ index, level, parentKey, item: processedItem.item });
-        isFocus && focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
         if (type === 'hover' && this.queryMatches) {
             return;
@@ -974,10 +974,10 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
                 this.container = event.element;
                 this.position();
                 this.moveOnTop();
-                this.attrSelector && this.container.setAttribute(this.attrSelector, '');
+                this.attrSelector && this.container?.setAttribute(this.attrSelector, '');
                 this.appendOverlay();
                 this.bindGlobalListeners();
-                focus(this.rootmenu.sublistViewChild.nativeElement);
+                focus(this.rootmenu?.sublistViewChild?.nativeElement);
                 break;
         }
     }
@@ -1051,6 +1051,8 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     position() {
+        if (!this.document.scrollingElement || !this.containerViewChild?.nativeElement) return;
+
         let left = this.pageX + 1;
         let top = this.pageY + 1;
         let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
@@ -1168,7 +1170,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.rootmenu?.el?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1186,7 +1188,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
     }
 
     isOutsideClicked(event: Event) {
-        return !(this.containerViewChild.nativeElement.isSameNode(event.target) || this.containerViewChild.nativeElement.contains(event.target));
+        return !(this.containerViewChild?.nativeElement?.isSameNode(event.target) || this.containerViewChild?.nativeElement?.contains(event.target));
     }
 
     unbindResizeListener() {

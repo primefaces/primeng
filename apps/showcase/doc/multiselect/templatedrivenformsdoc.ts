@@ -1,6 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -9,7 +17,9 @@ interface City {
 
 @Component({
     selector: 'template-driven-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText, CommonModule],
+    providers: [MessageService],
     template: `
         <app-docsectiontext></app-docsectiontext>
         <p-toast />

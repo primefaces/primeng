@@ -57,6 +57,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [style]="style"
             [dismissableMask]="dismissableMask"
             [draggable]="draggable"
+            [baseZIndex]="baseZIndex"
+            [autoZIndex]="autoZIndex"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -414,7 +416,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     id = uuid('pn_id_');
 
-    ariaLabelledBy: string = this.getAriaLabelledBy();
+    ariaLabelledBy: string | null = this.getAriaLabelledBy();
 
     translationSubscription: Subscription | undefined;
 
@@ -523,6 +525,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     getElementToFocus() {
+        if (!this.dialog?.el?.nativeElement) return;
+
         switch (this.option('defaultFocus')) {
             case 'accept':
                 return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');

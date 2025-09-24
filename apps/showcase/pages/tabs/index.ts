@@ -5,14 +5,15 @@ import { TemplateDoc } from '@/doc/tabs/customtemplatedoc';
 import { DisabledDoc } from '@/doc/tabs/disableddoc';
 import { DynamicDoc } from '@/doc/tabs/dynamicdoc';
 import { ImportDoc } from '@/doc/tabs/importdoc';
+import { LazyDoc } from '@/doc/tabs/lazydoc';
 import { ScrollableDoc } from '@/doc/tabs/scrollabledoc';
 import { TabmenuDoc } from '@/doc/tabs/tabmenudoc';
-import { TabsDocModule } from '@/doc/tabs/tabsdoc.module';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Tabs Component" header="Tabs" description="Tabs is a container component to group content with tabs." [docs]="docs" [apiDocs]="['Tabs', 'TabPanel', 'Tab']" themeDocs="tabs"></app-doc>`,
-    imports: [TabsDocModule],
+    imports: [AppDoc],
     standalone: true
 })
 export class TabsDemo {
@@ -41,6 +42,11 @@ export class TabsDemo {
             id: 'scrollable',
             label: 'Scrollable',
             component: ScrollableDoc
+        },
+        {
+            id: 'lazy',
+            label: 'Lazy',
+            component: LazyDoc
         },
         {
             id: 'disabled',

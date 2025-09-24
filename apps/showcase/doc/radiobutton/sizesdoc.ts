@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'sizes-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, RadioButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>RadioButton provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>

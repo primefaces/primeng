@@ -1,9 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'cascade-select-float-label-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, RouterModule, CascadeSelectModule, FloatLabelModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

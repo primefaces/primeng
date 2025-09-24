@@ -61,7 +61,7 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
 
     ngControl = inject(NgControl, { optional: true, self: true });
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
@@ -92,7 +92,7 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
 
     @HostListener('input', ['$event'])
     onInput(e: Event) {
-        this.writeModelValue(e.target['value']);
+        this.writeModelValue((e.target as HTMLTextAreaElement)?.value);
         this.updateState();
     }
 

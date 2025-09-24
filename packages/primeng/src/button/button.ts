@@ -211,7 +211,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     isTextButton = computed(() => !!(!this.iconSignal() && this.labelSignal() && this.text));
 
@@ -461,13 +461,13 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cx('loadingIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
+                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon)" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
                     <svg data-p-icon="spinner" *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), spinnerIconClass())" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
                 <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon') }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cx('icon')" [attr.data-pc-section]="'icon'"></span>
+                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cn('icon', iconClass())" [attr.data-pc-section]="'icon'"></span>
                 <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon') }"></ng-template>
             </ng-container>
             <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
@@ -651,7 +651,7 @@ export class Button extends BaseComponent implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
@@ -697,6 +697,7 @@ export class Button extends BaseComponent implements AfterContentInit {
         return {
             [`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`]: this.loading,
             'p-button-icon': true,
+            [this.icon as string]: true,
             'p-button-icon-left': this.iconPos === 'left' && this.label,
             'p-button-icon-right': this.iconPos === 'right' && this.label,
             'p-button-icon-top': this.iconPos === 'top' && this.label,

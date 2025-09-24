@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppCodeModule } from '@/components/doc/app.code.component';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dashboard-doc',
     standalone: true,
-    imports: [CommonModule, AppCodeModule, AppDocModule],
+    imports: [CommonModule, AppDocSectionText],
     template: `<app-docsectiontext>
             <p>
                 Dashboard is the entry point of the designer. The license key can be configured at this view before getting started with the full set of features. In the <b>My Themes</b> section, you're able to create a theme, and manage existing

@@ -8,10 +8,7 @@ import { TagModule } from 'primeng/tag';
     imports: [CommonModule, TagModule],
     template: `
         <section id="blocks-section" class="landing-blocks pt-20 overflow-hidden">
-            <div class="section-header relative z-30 flex items-center justify-center gap-4">
-                New PrimeBlocks
-                <p-tag value="Coming Soon" severity="warn" />
-            </div>
+            <div class="section-header relative z-30 flex items-center justify-center gap-4">PrimeBlocks</div>
             <p class="section-detail relative z-30">490+ ready to copy-paste UI blocks to build spectacular applications in no time.</p>
             <div class="flex justify-center mt-6 relative z-30">
                 <a href="https://primeblocks.org" target="_blank" class="linkbox linkbox-primary">

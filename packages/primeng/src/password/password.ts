@@ -115,7 +115,7 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
      */
     size = input<'large' | 'small' | undefined>(undefined, { alias: 'pSize' });
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
@@ -189,12 +189,12 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
             this.renderer.setStyle(this.panel, 'display', 'block');
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    addClass(this.panel, 'p-connected-overlay-visible');
+                    addClass(this.panel!, 'p-connected-overlay-visible');
                     this.bindScrollListener();
                     this.bindDocumentResizeListener();
                 }, 1);
             });
-            absolutePosition(this.panel, this.el.nativeElement);
+            absolutePosition(this.panel!, this.el.nativeElement);
         }
     }
 
@@ -229,8 +229,8 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     onKeyup(e: Event) {
         if (this.feedback) {
             let value = (e.target as HTMLInputElement).value,
-                label = null,
-                meterPos = null;
+                label: string | null = null,
+                meterPos: string | null = null;
 
             if (value.length === 0) {
                 label = this.promptLabel;
@@ -249,7 +249,7 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
                     meterPos = '0px -30px';
                 }
 
-                this.labelSignal.set(label);
+                this.labelSignal.set(label!);
                 this.updateMeter();
             }
 
@@ -257,14 +257,18 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
                 this.showOverlay();
             }
 
-            this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+            if (this.meter) {
+                this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+            }
 
-            (this.info as HTMLDivElement).textContent = label;
+            if (this.info) {
+                (this.info as HTMLDivElement).textContent = label;
+            }
         }
     }
 
     updateMeter() {
-        if (this.labelSignal()) {
+        if (this.labelSignal() && this.meter && this.info) {
             const label = this.labelSignal();
             const strengthClass = this.strengthClass(label.toLowerCase());
             const width = this.getWidth(label.toLowerCase());
@@ -314,7 +318,7 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.el.nativeElement, () => {
-                if (hasClass(this.panel, 'p-connected-overlay-visible')) {
+                if (hasClass(this.panel!, 'p-connected-overlay-visible')) {
                     this.hideOverlay();
                 }
             });
@@ -813,7 +817,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
 
     updateUI(value: string) {
         let label = null;
-        let meter = null;
+        let meter: { strength: string; width: string } | null = null;
 
         switch (this.testStrength(value)) {
             case 1:
@@ -864,8 +868,8 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     testStrength(str: string) {
         let level = 0;
 
-        if (this.strongCheckRegExp.test(str)) level = 3;
-        else if (this.mediumCheckRegExp.test(str)) level = 2;
+        if (this.strongCheckRegExp?.test(str)) level = 3;
+        else if (this.mediumCheckRegExp?.test(str)) level = 2;
         else if (str.length) level = 1;
 
         return level;

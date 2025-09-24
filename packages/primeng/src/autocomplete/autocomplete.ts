@@ -41,7 +41,7 @@ import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
+import { AutoCompleteAddEvent, AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
@@ -132,10 +132,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-posinset]="i + 1"
                 [attr.aria-selected]="true"
             >
-                <p-chip [class]="cx('pcChip')" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
+                <p-chip [class]="cx('pcChip')" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [disabled]="$disabled()" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
                     <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <ng-template #removeicon>
-                        <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [class]="cx('chipIcon')" (click)="!readonly ? removeOption($event, i) : ''">
+                        <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
                             <svg data-p-icon="times-circle" [class]="cx('chipIcon')" [attr.aria-hidden]="true" />
                         </span>
                         <span *ngIf="removeIconTemplate || _removeIconTemplate" [attr.aria-hidden]="true">
@@ -147,6 +147,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <li [class]="cx('inputChip')" role="option">
                 <input
                     #focusInput
+                    #multiIn
                     [pAutoFocus]="autofocus"
                     [class]="cx('pcInputText')"
                     [ngStyle]="inputStyle"
@@ -468,6 +469,11 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      */
     @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
+     * When enabled, the input value is added to the selected items on tab key press when multiple is true and typeahead is false.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) addOnTab: boolean = false;
+    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -596,6 +602,17 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      */
     @Input({ transform: booleanAttribute }) typeahead: boolean = true;
     /**
+     * Whether to add an item on blur event if the input has value and typeahead is false with multiple mode.
+     * @defaultValue false
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) addOnBlur: boolean = false;
+    /**
+     * Separator char to add item when typeahead is false and multiple mode is enabled.
+     * @group Props
+     */
+    @Input() separator: string | RegExp | undefined;
+    /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
      * @group Props
@@ -620,6 +637,12 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      */
     @Output() onUnselect: EventEmitter<AutoCompleteUnselectEvent> = new EventEmitter<AutoCompleteUnselectEvent>();
     /**
+     * Callback to invoke when an item is added via addOnBlur or separator features.
+     * @param {AutoCompleteAddEvent} event - Custom add event.
+     * @group Emits
+     */
+    @Output() onAdd: EventEmitter<AutoCompleteAddEvent> = new EventEmitter<AutoCompleteAddEvent>();
+    /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
@@ -643,6 +666,12 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * @group Emits
      */
     @Output() onClear: EventEmitter<Event | undefined> = new EventEmitter<Event | undefined>();
+    /**
+     * Callback to invoke on input key down.
+     * @param {KeyboardEvent} event - Keyboard event.
+     * @group Emits
+     */
+    @Output() onInputKeydown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
     /**
      * Callback to invoke on input key up.
      * @param {KeyboardEvent} event - Keyboard event.
@@ -819,7 +848,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((item: any) => resolveFieldData(item, this.optionValue) === modelValue) : modelValue;
+        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((option: any) => equals(option, modelValue, this.equalityKey())) : modelValue;
 
         if (isNotEmpty(modelValue)) {
             if (typeof modelValue === 'object' || this.optionValueSelected) {
@@ -1055,9 +1084,9 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     isSelected(option) {
         if (this.multiple) {
-            return this.unique ? (this.modelValue() as string[])?.find((model) => equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+            return this.unique ? (this.modelValue() as string[])?.some((model) => equals(model, option, this.equalityKey())) : false;
         }
-        return equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return equals(this.modelValue(), option, this.equalityKey());
     }
 
     isOptionMatched(option, value) {
@@ -1065,7 +1094,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     isInputClicked(event) {
-        return event.target === this.inputEL.nativeElement;
+        return event.target === this.inputEL?.nativeElement;
     }
 
     isDropdownClicked(event) {
@@ -1073,7 +1102,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     equalityKey() {
-        return this.dataKey; // TODO: The 'optionValue' properties can be added.
+        return this.optionValue ? undefined : this.dataKey;
     }
 
     onContainerClick(event) {
@@ -1082,18 +1111,18 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         }
 
         if (!this.overlayViewChild || !this.overlayViewChild.overlayViewChild?.nativeElement.contains(event.target)) {
-            focus(this.inputEL.nativeElement);
+            focus(this.inputEL?.nativeElement);
         }
     }
 
     handleDropdownClick(event) {
-        let query = undefined;
+        let query: string | undefined = undefined;
 
         if (this.overlayVisible) {
             this.hide(true);
         } else {
-            focus(this.inputEL.nativeElement);
-            query = this.inputEL.nativeElement.value;
+            focus(this.inputEL?.nativeElement);
+            query = this.inputEL?.nativeElement?.value as string;
 
             if (this.dropdownMode === 'blank') this.search(event, '', 'dropdown');
             else if (this.dropdownMode === 'current') this.search(event, query, 'dropdown');
@@ -1144,7 +1173,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             let valid = false;
 
             if (this.visibleOptions()) {
-                const matchedValue = this.visibleOptions().find((option) => this.isOptionMatched(option, this.inputEL.nativeElement.value || ''));
+                const matchedValue = this.visibleOptions().find((option) => this.isOptionMatched(option, this.inputEL?.nativeElement?.value || ''));
 
                 if (matchedValue !== undefined) {
                     valid = true;
@@ -1153,7 +1182,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             }
 
             if (!valid) {
-                this.inputEL.nativeElement.value = '';
+                this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
                 !this.multiple && this.updateModel(null);
             }
         }
@@ -1219,12 +1248,55 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.dirty = false;
         this.focused = false;
         this.focusedOptionIndex.set(-1);
+
+        if (this.addOnBlur && this.multiple && !this.typeahead) {
+            const inputValue = (this.multiInputEl?.nativeElement?.value || event.target.value || '').trim();
+            if (inputValue && !this.isSelected(inputValue)) {
+                this.updateModel([...(this.modelValue() || []), inputValue]);
+                this.onAdd.emit({ originalEvent: event, value: inputValue });
+                if (this.multiInputEl?.nativeElement) {
+                    this.multiInputEl.nativeElement.value = '';
+                } else {
+                    event.target.value = '';
+                }
+            }
+        }
+
         this.onModelTouched();
         this.onBlur.emit(event);
     }
 
     onInputPaste(event) {
-        this.onKeyDown(event);
+        if (this.separator && this.multiple && !this.typeahead) {
+            const pastedData = (event.clipboardData || (window as any)['clipboardData'])?.getData('Text');
+            if (pastedData) {
+                const values = pastedData.split(this.separator);
+                const newValues = [...(this.modelValue() || [])];
+
+                values.forEach((value: string) => {
+                    const trimmedValue = value.trim();
+                    if (trimmedValue && !this.isSelected(trimmedValue)) {
+                        newValues.push(trimmedValue);
+                    }
+                });
+
+                if (newValues.length > (this.modelValue() || []).length) {
+                    const addedValues = newValues.slice((this.modelValue() || []).length);
+                    this.updateModel(newValues);
+                    addedValues.forEach((addedValue) => {
+                        this.onAdd.emit({ originalEvent: event, value: addedValue });
+                    });
+                    if (this.multiInputEl?.nativeElement) {
+                        this.multiInputEl.nativeElement.value = '';
+                    } else {
+                        event.target.value = '';
+                    }
+                    event.preventDefault();
+                }
+            }
+        } else {
+            this.onKeyDown(event);
+        }
     }
 
     onInputKeyUp(event) {
@@ -1237,6 +1309,9 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
             return;
         }
+
+        // Emit keydown event for external handling
+        this.onInputKeydown.emit(event);
 
         switch (event.code) {
             case 'ArrowDown':
@@ -1294,7 +1369,26 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                 break;
 
             default:
+                this.handleSeparatorKey(event);
                 break;
+        }
+    }
+
+    handleSeparatorKey(event) {
+        if (this.separator && this.multiple && !this.typeahead) {
+            if (this.separator === event.key || (typeof this.separator === 'string' && event.key === this.separator) || (this.separator instanceof RegExp && event.key.match(this.separator))) {
+                const inputValue = (this.multiInputEl?.nativeElement?.value || event.target.value || '').trim();
+                if (inputValue && !this.isSelected(inputValue)) {
+                    this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.onAdd.emit({ originalEvent: event, value: inputValue });
+                    if (this.multiInputEl?.nativeElement) {
+                        this.multiInputEl.nativeElement.value = '';
+                    } else {
+                        event.target.value = '';
+                    }
+                    event.preventDefault();
+                }
+            }
         }
     }
 
@@ -1338,7 +1432,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.focusedOptionIndex.set(-1);
         if (this.multiple) {
             if (isEmpty(target.value) && this.hasSelectedOption()) {
-                focus(this.multiContainerEL.nativeElement);
+                focus(this.multiContainerEL?.nativeElement);
                 this.focusedMultipleOptionIndex.set(this.modelValue().length);
             } else {
                 event.stopPropagation(); // To prevent onArrowLeftKeyOnMultiple method
@@ -1383,11 +1477,12 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onEnterKey(event) {
-        if (!this.typeahead) {
+        if (!this.typeahead && !this.forceSelection) {
             if (this.multiple) {
-                if (!this.isSelected(event.target.value)) {
-                    this.updateModel([...(this.modelValue() || []), event.target.value]);
-                    this.inputEL.nativeElement.value = '';
+                const inputValue = event.target.value?.trim();
+                if (inputValue && !this.isSelected(inputValue)) {
+                    this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
                 }
             }
         }
@@ -1410,8 +1505,35 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onTabKey(event) {
+        // If there's a focused option in the dropdown, select it
         if (this.focusedOptionIndex() !== -1) {
             this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
+            return;
+        }
+
+        // Handle tab key behavior for multiple mode without typeahead
+        if (this.multiple && !this.typeahead) {
+            const inputValue = (this.multiInputEl?.nativeElement?.value || this.inputEL?.nativeElement?.value || '').trim();
+
+            if (this.addOnTab) {
+                if (inputValue && !this.isSelected(inputValue)) {
+                    // Add the value and keep focus
+                    this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.onAdd.emit({ originalEvent: event, value: inputValue });
+                    if (this.multiInputEl?.nativeElement) {
+                        this.multiInputEl.nativeElement.value = '';
+                    } else if (this.inputEL?.nativeElement) {
+                        this.inputEL.nativeElement.value = '';
+                    }
+                    this.updateInputValue();
+                    event.preventDefault(); // Keep focus on the component
+                    this.overlayVisible && this.hide();
+                    return;
+                }
+                // If no value or already selected, allow normal tab behavior (blur)
+            }
+            // If addOnTab is false or no value to add, allow normal tab behavior
+            // which will trigger blur and potentially addOnBlur
         }
 
         this.overlayVisible && this.hide();
@@ -1419,7 +1541,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     onBackspaceKey(event) {
         if (this.multiple) {
-            if (isNotEmpty(this.modelValue()) && !this.inputEL.nativeElement.value) {
+            if (isNotEmpty(this.modelValue()) && !this.inputEL?.nativeElement?.value) {
                 const removedValue = this.modelValue()[this.modelValue().length - 1];
                 const newValue = this.modelValue().slice(0, -1);
                 this.updateModel(newValue);
@@ -1427,10 +1549,6 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             }
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
-        }
-
-        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
-            this.clear();
         }
     }
 
@@ -1446,7 +1564,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.focusedMultipleOptionIndex.set(optionIndex);
         if (optionIndex > this.modelValue().length - 1) {
             this.focusedMultipleOptionIndex.set(-1);
-            focus(this.inputEL.nativeElement);
+            focus(this.inputEL?.nativeElement);
         }
     }
 
@@ -1457,16 +1575,14 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onOptionSelect(event, option, isHide = true) {
-        const value = this.getOptionValue(option);
-
         if (this.multiple) {
-            this.inputEL.nativeElement.value = '';
+            this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
 
             if (!this.isSelected(option)) {
-                this.updateModel([...(this.modelValue() || []), value]);
+                this.updateModel([...(this.modelValue() || []), option]);
             }
         } else {
-            this.updateModel(value);
+            this.updateModel(option);
         }
 
         this.onSelect.emit({ originalEvent: event, value: option });
@@ -1502,12 +1618,14 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
         this.updateModel(value);
         this.onUnselect.emit({ originalEvent: event, value: removedOption });
-        focus(this.inputEL.nativeElement);
+        focus(this.inputEL?.nativeElement);
     }
 
-    updateModel(value) {
+    updateModel(options) {
+        const value = this.multiple ? options.map((option) => this.getOptionValue(option)) : this.getOptionValue(options);
+
         this.value = value;
-        this.writeModelValue(value);
+        this.writeModelValue(options);
         this.onModelChange(value);
         this.updateInputValue();
         this.cd.markForCheck();
@@ -1561,9 +1679,9 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.overlayVisible = true;
         const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
-        isFocus && focus(this.inputEL.nativeElement);
+        isFocus && focus(this.inputEL?.nativeElement);
         if (isFocus) {
-            focus(this.inputEL.nativeElement);
+            focus(this.inputEL?.nativeElement);
         }
         this.onShow.emit();
         this.cd.markForCheck();
@@ -1574,7 +1692,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             this.dirty = isFocus;
             this.overlayVisible = false;
             this.focusedOptionIndex.set(-1);
-            isFocus && focus(this.inputEL.nativeElement);
+            isFocus && focus(this.inputEL?.nativeElement);
             this.onHide.emit();
             this.cd.markForCheck();
         };
@@ -1586,7 +1704,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
     clear() {
         this.updateModel(null);
-        this.inputEL.nativeElement.value = '';
+        this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
         this.onClear.emit();
     }
 
@@ -1631,7 +1749,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
 
             if (this.virtualScroll) {
                 this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
-                this.scroller.viewInit();
+                this.scroller?.viewInit();
             }
             if (this.visibleOptions() && this.visibleOptions().length) {
                 if (this.virtualScroll) {
@@ -1641,7 +1759,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
+                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-autocomplete-item.p-highlight');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
@@ -1658,8 +1776,10 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        const options = this.multiple ? this.visibleOptions().filter((option) => value?.some((val) => equals(val, option, this.equalityKey()))) : this.visibleOptions().find((option) => equals(value, option, this.equalityKey()));
+
         this.value = value;
-        setModelValue(value);
+        setModelValue(isEmpty(options) ? value : options);
         this.updateInputValue();
         this.cd.markForCheck();
     }

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'checkbox-style-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Following is the list of structural style classes, for theming classes visit <i>theming page.</i></p>

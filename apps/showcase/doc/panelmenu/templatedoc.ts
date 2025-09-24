@@ -1,10 +1,17 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { PanelMenu } from 'primeng/panelmenu';
+import { BadgeModule } from 'primeng/badge';
+import { Ripple } from 'primeng/ripple';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, PanelMenu, BadgeModule, Ripple, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>

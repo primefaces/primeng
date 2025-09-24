@@ -3,10 +3,15 @@ import { Code } from '@/domain/code';
 import { CarService } from '@/service/carservice';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'filter-service-table-integration-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppCode, AppDocSectionText, TableModule],
     template: `
         <app-docsectiontext>
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>

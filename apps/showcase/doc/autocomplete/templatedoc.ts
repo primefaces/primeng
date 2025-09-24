@@ -1,6 +1,12 @@
 import { Code } from '@/domain/code';
 import { CountryService } from '@/service/countryservice';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ButtonModule } from 'primeng/button';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -9,7 +15,8 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, AutoCompleteModule, ButtonModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>AutoComplete offers multiple templates for customization through templating.</p>
         </app-docsectiontext>

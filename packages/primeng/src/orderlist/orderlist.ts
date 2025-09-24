@@ -574,7 +574,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * @group Method
      */
     public resetFilter() {
-        this.filterValue = null;
+        this.filterValue = '';
         this.filterViewChild && ((<HTMLInputElement>this.filterViewChild.nativeElement).value = '');
     }
 
@@ -602,7 +602,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value || []);
 
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value[selectedItemIndex];
@@ -626,7 +626,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value || []);
 
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
@@ -650,7 +650,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value || []);
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value[selectedItemIndex];
@@ -675,7 +675,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value || []);
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
@@ -688,7 +688,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
             if (this.dragdrop && this.filterValue) this.filter();
 
             this.onReorder.emit(this.selection);
-            this.listViewChild.scrollInView(this.value?.length - 1);
+            this.listViewChild?.scrollInView(this.value?.length ? this.value.length - 1 : 0);
         }
         this.listViewChild?.cd?.markForCheck();
     }
@@ -700,8 +700,8 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (previousIndex !== currentIndex) {
             if (this.visibleOptions) {
                 if (this.filterValue) {
-                    previousIndex = findIndexInList(event.item.data, this.value);
-                    currentIndex = findIndexInList(this.visibleOptions[currentIndex], this.value);
+                    previousIndex = findIndexInList(event.item.data, this.value || []);
+                    currentIndex = findIndexInList(this.visibleOptions[currentIndex], this.value || []);
                 }
 
                 moveItemInArray(this.visibleOptions, event.previousIndex, event.currentIndex);

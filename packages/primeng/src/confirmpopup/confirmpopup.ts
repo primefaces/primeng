@@ -76,8 +76,8 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         (onClick)="onReject()"
                         [class]="cx('pcRejectButton')"
                         [styleClass]="confirmation?.rejectButtonStyleClass"
-                        [size]="confirmation.rejectButtonProps?.size || 'small'"
-                        [text]="confirmation.rejectButtonProps?.text || false"
+                        [size]="confirmation?.rejectButtonProps?.size || 'small'"
+                        [text]="confirmation?.rejectButtonProps?.text || false"
                         *ngIf="confirmation?.rejectVisible !== false"
                         [attr.aria-label]="rejectButtonLabel"
                         [buttonProps]="getRejectButtonProps()"
@@ -94,7 +94,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         (onClick)="onAccept()"
                         [class]="cx('pcAcceptButton')"
                         [styleClass]="confirmation?.acceptButtonStyleClass"
-                        [size]="confirmation.acceptButtonProps?.size || 'small'"
+                        [size]="confirmation?.acceptButtonProps?.size || 'small'"
                         *ngIf="confirmation?.acceptVisible !== false"
                         [attr.aria-label]="acceptButtonLabel"
                         [buttonProps]="getAcceptButtonProps()"
@@ -299,9 +299,9 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         return undefined;
     }
 
-    @HostListener('document:keydown.escape', ['$event'])
+    @HostListener('document:keydown.Escape', ['$event'])
     onEscapeKeydown(event: KeyboardEvent) {
-        if (this.confirmation && this.confirmation.closeOnEscape) {
+        if (this.confirmation && this.confirmation.closeOnEscape !== false) {
             this.onReject();
         }
     }
@@ -339,22 +339,24 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
             ZIndexUtils.set('overlay', this.container, this.config.zIndex.overlay);
         }
 
-        if (!this.confirmation) {
+        if (!this.confirmation || !this.confirmation.target) {
             return;
         }
-        absolutePosition(this.container, this.confirmation?.target as any, false);
+        absolutePosition(this.container as HTMLDivElement, this.confirmation?.target as any, false);
 
         const containerOffset = <any>getOffset(this.container);
         const targetOffset = <any>getOffset(this.confirmation?.target as any);
         let arrowLeft = 0;
 
-        if (containerOffset.left < targetOffset.left) {
+        if (containerOffset && targetOffset && containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left;
         }
-        (this.container as HTMLDivElement).style.setProperty('--p-confirmpopup-arrow-left', `${arrowLeft}px`);
+        if (this.container) {
+            (this.container as HTMLDivElement).style.setProperty('--p-confirmpopup-arrow-left', `${arrowLeft}px`);
+        }
 
-        if (containerOffset.top < targetOffset.top) {
-            addClass(this.container, 'p-confirm-popup-flipped');
+        if (containerOffset && targetOffset && containerOffset.top < targetOffset.top) {
+            addClass(this.container as HTMLDivElement, 'p-confirm-popup-flipped');
         }
     }
 

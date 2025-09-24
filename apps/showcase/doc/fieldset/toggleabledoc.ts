@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
     selector: 'fieldset-toggleable-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, FieldsetModule],
     template: `
         <app-docsectiontext>
             <p>Content of the fieldset can be expanded and collapsed using <i>toggleable</i> option, default state is defined with collapsed option.</p>

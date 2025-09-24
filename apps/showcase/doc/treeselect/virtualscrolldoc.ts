@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'virtual-scroll-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
     template: ` <app-docsectiontext>
             <p>
                 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance

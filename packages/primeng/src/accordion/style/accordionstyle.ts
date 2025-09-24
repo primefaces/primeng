@@ -23,6 +23,11 @@ const theme = /*css*/ `
     .p-accordioncontent.ng-animating {
         overflow: hidden;
     }
+
+    .p-accordionheader.p-ripple {
+        overflow: hidden;
+        position: relative;
+    }
 `;
 
 const classes = {

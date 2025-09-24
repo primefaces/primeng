@@ -405,11 +405,11 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
             parentNode = parentNode?.parentNode as Element;
         }
 
-        return parentNode?.id && this.visibleItems().find((processedItem) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
+        return parentNode?.id && this.visibleItems().find((processedItem: any) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
     }
 
     createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
-        const processedItems = [];
+        const processedItems: any = [];
         items &&
             items.forEach((item, index) => {
                 const key = (parentKey !== '' ? parentKey + '_' : '') + index;
@@ -448,7 +448,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         processedItems &&
             processedItems.forEach((processedItem) => {
                 if (this.isVisibleItem(processedItem)) {
-                    processedFlattenItems.push(processedItem);
+                    (processedFlattenItems as any[]).push(processedItem);
                     this.flatItems(processedItem.items, processedFlattenItems);
                 }
             });
@@ -645,7 +645,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     findNextItem(processedItem) {
-        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+        const index = this.visibleItems().findIndex((item: any) => item.key === processedItem.key);
 
         const matchedItem =
             index < this.visibleItems().length - 1
@@ -657,7 +657,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     findPrevItem(processedItem) {
-        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+        const index = this.visibleItems().findIndex((item: any) => item.key === processedItem.key);
         const matchedItem = index > 0 ? findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
 
         return matchedItem || processedItem;
@@ -670,18 +670,19 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         let matched = false;
 
         if (isNotEmpty(this.focusedItem())) {
-            const focusedItemIndex = this.visibleItems().findIndex((processedItem) => processedItem.key === this.focusedItem().key);
+            const focusedItemIndex = this.visibleItems().findIndex((processedItem: any) => processedItem.key === this.focusedItem().key);
 
-            matchedItem = this.visibleItems()
-                .slice(focusedItemIndex)
-                .find((processedItem) => this.isItemMatched(processedItem));
+            matchedItem =
+                this.visibleItems()
+                    .slice(focusedItemIndex)
+                    .find((processedItem: any) => this.isItemMatched(processedItem)) || null;
             matchedItem = isEmpty(matchedItem)
                 ? this.visibleItems()
                       .slice(0, focusedItemIndex)
-                      .find((processedItem) => this.isItemMatched(processedItem))
+                      .find((processedItem: any) => this.isItemMatched(processedItem)) || null
                 : matchedItem;
         } else {
-            matchedItem = this.visibleItems().find((processedItem) => this.isItemMatched(processedItem));
+            matchedItem = this.visibleItems().find((processedItem: any) => this.isItemMatched(processedItem)) || null;
         }
 
         if (isNotEmpty(matchedItem)) {
@@ -689,7 +690,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         }
 
         if (isEmpty(matchedItem) && isEmpty(this.focusedItem())) {
-            matchedItem = this.findFirstItem();
+            matchedItem = this.findFirstItem() || null;
         }
 
         if (isNotEmpty(matchedItem)) {
@@ -1038,11 +1039,11 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     findFirstHeader() {
-        return this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true);
+        return this.containerViewChild?.nativeElement ? this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true) : null;
     }
 
     findLastHeader() {
-        return this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true);
+        return this.containerViewChild?.nativeElement ? this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true) : null;
     }
 
     onHeaderClick(event, item, index) {

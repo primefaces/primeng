@@ -1,5 +1,5 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -14,6 +14,7 @@ import {
     EventEmitter,
     forwardRef,
     HostListener,
+    Inject,
     inject,
     Injectable,
     input,
@@ -26,6 +27,7 @@ import {
     OnInit,
     Optional,
     Output,
+    PLATFORM_ID,
     QueryList,
     Renderer2,
     SimpleChanges,
@@ -196,13 +198,13 @@ export class TableService {
                 [step]="rows"
                 [delay]="lazy ? virtualScrollDelay : 0"
                 [inline]="true"
+                [autoSize]="true"
                 [lazy]="lazy"
                 (onLazyLoad)="onLazyItemLoad($event)"
                 [loaderDisabled]="true"
                 [showSpacer]="false"
                 [showLoader]="loadingBodyTemplate || _loadingBodyTemplate"
                 [options]="virtualScrollOptions"
-                [autoSize]="true"
             >
                 <ng-template #content let-items let-scrollerOptions="options">
                     <ng-container
@@ -1599,7 +1601,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                     this.value.sort((data1, data2) => {
                         let value1 = ObjectUtils.resolveFieldData(data1, field);
                         let value2 = ObjectUtils.resolveFieldData(data2, field);
-                        let result = null;
+                        let result: any = null;
 
                         if (value1 == null && value2 != null) result = -1;
                         else if (value1 != null && value2 == null) result = 1;
@@ -1607,7 +1609,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
                         else if (typeof value1 === 'string' && typeof value2 === 'string') result = value1.localeCompare(value2);
                         else result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
 
-                        return order * result;
+                        return order * (result || 0);
                     });
 
                     this._value = [...this.value];
@@ -2111,7 +2113,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
     toggleRowsWithCheckbox({ originalEvent }: CheckboxChangeEvent, check: boolean) {
         if (this._selectAll !== null) {
-            this.selectAllChange.emit({ originalEvent, checked: check });
+            this.selectAllChange.emit({ originalEvent: originalEvent!, checked: check });
         } else {
             const data = this.selectionPageOnly ? this.dataToRender(this.processedData) : this.processedData;
             let selection = this.selectionPageOnly && this._selection ? this._selection.filter((s: any) => !data.some((d: any) => this.equals(s, d))) : [];
@@ -2127,7 +2129,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             this.selectionChange.emit(this._selection);
             this.tableService.onSelectionChange();
             this.onHeaderCheckboxToggle.emit({
-                originalEvent,
+                originalEvent: originalEvent!,
                 checked: check
             });
 
@@ -2421,7 +2423,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             link.click();
         } else {
             csv = 'data:text/csv;charset=utf-8,' + csv;
-            this.document.defaultView.open(encodeURI(csv));
+            this.document.defaultView?.open(encodeURI(csv));
         }
         this.renderer.removeChild(this.document.body, link);
     }
@@ -2648,7 +2650,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
         let widths = [];
         const tableHead = DomHandler.findSingle(this.el.nativeElement, '.p-datatable-thead');
         let headers = DomHandler.find(tableHead, 'tr > th');
-        headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+        headers.forEach((header) => (widths as any[]).push(DomHandler.getOuterWidth(header)));
 
         return widths;
     }
@@ -2738,7 +2740,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             if (this.resizableColumns && this.resizeColumnElement) {
                 let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
                 ObjectUtils.reorderArray(width, dragIndex + 1, dropIndex + 1);
-                this.updateStyleElement(width, dragIndex, null, null);
+                this.updateStyleElement(width, dragIndex, 0, 0);
             }
 
             (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.display = 'none';
@@ -2987,7 +2989,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
 
     saveColumnWidths(state: any) {
         let widths: any[] = [];
-        let headers = [];
+        let headers: any[] = [];
 
         const container = this.el?.nativeElement;
 
@@ -2995,7 +2997,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
             headers = DomHandler.find(container, '.p-datatable-thead > tr > th');
         }
 
-        headers.forEach((header) => widths.push(DomHandler.getOuterWidth(header)));
+        headers.forEach((header) => (widths as any[]).push(DomHandler.getOuterWidth(header)));
         state.columnWidths = widths.join(',');
 
         if (this.columnResizeMode === 'expand' && this.tableViewChild) {
@@ -3382,10 +3384,10 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let prevRowData = value[i - this.dt._first - 1];
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt?.groupRowsBy || '');
+        let prevRowData = value[i - (this.dt?._first || 0) - 1];
         if (prevRowData) {
-            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
+            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt?.groupRowsBy || '');
             return currentRowFieldData !== previousRowFieldData;
         } else {
             return true;
@@ -3393,10 +3395,10 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let nextRowData = value[i - this.dt._first + 1];
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt?.groupRowsBy || '');
+        let nextRowData = value[i - (this.dt?._first || 0) + 1];
         if (nextRowData) {
-            let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
+            let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt?.groupRowsBy || '');
             return currentRowFieldData !== nextRowFieldData;
         } else {
             return true;
@@ -3404,10 +3406,10 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     shouldRenderRowspan(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt?.groupRowsBy!);
         let prevRowData = value[i - 1];
         if (prevRowData) {
-            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
+            let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt?.groupRowsBy || '');
             return currentRowFieldData !== previousRowFieldData;
         } else {
             return true;
@@ -3415,7 +3417,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
     }
 
     calculateRowGroupSize(value: any, rowData: any, index: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt?.groupRowsBy!);
         let nextRowFieldData = currentRowFieldData;
         let groupRowSpan = 0;
 
@@ -3423,7 +3425,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
             groupRowSpan++;
             let nextRowData = value[++index];
             if (nextRowData) {
-                nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
+                nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt?.groupRowsBy || '');
             } else {
                 break;
             }
@@ -3489,7 +3491,7 @@ export class RowGroupHeader {
         '[class.p-datatable-frozen-column-left]': 'alignFrozen === "left"'
     }
 })
-export class FrozenColumn implements AfterViewInit {
+export class FrozenColumn implements AfterViewInit, OnDestroy {
     @Input() get frozen(): boolean {
         return this._frozen;
     }
@@ -3501,20 +3503,50 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
+    resizeListener: VoidListener;
+
+    private resizeObserver?: ResizeObserver;
+
     constructor(
         private el: ElementRef,
-        private zone: NgZone
+        private renderer: Renderer2,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any
     ) {}
 
     ngAfterViewInit() {
-        this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                this.recalculateColumns();
-            }, 1000);
-        });
+        this.bindResizeListener();
+        this.observeChanges();
     }
 
-    @HostListener('window:resize', ['$event'])
+    bindResizeListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.resizeListener) {
+                this.resizeListener = this.renderer.listen(this.document.defaultView, 'resize', () => {
+                    this.recalculateColumns();
+                });
+            }
+        }
+    }
+
+    unbindResizeListener() {
+        if (this.resizeListener) {
+            this.resizeListener();
+            this.resizeListener = null;
+        }
+    }
+
+    observeChanges() {
+        if (isPlatformBrowser(this.platformId)) {
+            const resizeObserver = new ResizeObserver(() => {
+                this.recalculateColumns();
+            });
+
+            resizeObserver.observe(this.el.nativeElement);
+            this.resizeObserver = resizeObserver;
+        }
+    }
+
     recalculateColumns() {
         const siblings = DomHandler.siblings(this.el.nativeElement);
         const index = DomHandler.index(this.el.nativeElement);
@@ -3555,6 +3587,13 @@ export class FrozenColumn implements AfterViewInit {
                     filterRow.children[index].style.right = this.el.nativeElement.style.right;
                 }
             }
+        }
+    }
+
+    ngOnDestroy() {
+        this.unbindResizeListener();
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
         }
     }
 }
@@ -3645,7 +3684,7 @@ export class SortableColumn extends BaseComponent implements OnInit, OnDestroy {
     }
 
     isFilterElement(element: HTMLElement) {
-        return this.isFilterElementIconOrButton(element) || this.isFilterElementIconOrButton(element?.parentElement?.parentElement);
+        return this.isFilterElementIconOrButton(element) || this.isFilterElementIconOrButton(element?.parentElement?.parentElement!);
     }
     private isFilterElementIconOrButton(element: HTMLElement) {
         return DomHandler.hasClass(element, 'pi-filter-icon') || DomHandler.hasClass(element, 'p-column-filter-menu-button');
@@ -3736,7 +3775,7 @@ export class SortIcon extends BaseComponent implements OnInit, OnDestroy {
     getBadgeValue() {
         let index = this.getMultiSortMetaIndex();
 
-        return this.dt.groupRowsBy && index > -1 ? index : index + 1;
+        return (this.dt?.groupRowsBy || '') && index > -1 ? index : index + 1;
     }
 
     isMultiSorted() {
@@ -3907,8 +3946,8 @@ export class SelectableRow extends BaseComponent implements OnInit, OnDestroy {
             const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
 
             this.dt.anchorRowIndex = lastSelectableRowIndex;
-            this.dt.selection = data.slice(this.index, data.length);
-            this.dt.selectRange(event, this.index);
+            this.dt.selection = data.slice(this.index || 0, data.length);
+            this.dt.selectRange(event, this.index || 0);
         }
         event.preventDefault();
     }
@@ -3922,9 +3961,9 @@ export class SelectableRow extends BaseComponent implements OnInit, OnDestroy {
             const data = this.dt.dataToRender(this.dt.rows);
             const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
 
-            this.dt.anchorRowIndex = this.dt.anchorRowIndex || firstSelectableRowIndex;
-            this.dt.selection = data.slice(0, this.index + 1);
-            this.dt.selectRange(event, this.index);
+            this.dt.anchorRowIndex = this.dt.anchorRowIndex || firstSelectableRowIndex || 0;
+            this.dt.selection = data.slice(0, (this.index || 0) + 1);
+            this.dt.selectRange(event, this.index || 0);
         }
         event.preventDefault();
     }
@@ -3945,14 +3984,14 @@ export class SelectableRow extends BaseComponent implements OnInit, OnDestroy {
                     firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
                     lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
 
-                    index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+                    index = (this.index || 0) <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
                 } else {
                     index = ObjectUtils.findIndexInList(this.dt.selection, data);
                 }
 
-                this.dt.anchorRowIndex = index;
-                this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
-                this.dt.selectRange(event, this.index);
+                this.dt.anchorRowIndex = index || 0;
+                this.dt.selection = index !== this.index ? data.slice(Math.min(index || 0, this.index || 0), Math.max(index || 0, this.index || 0) + 1) : [this.data];
+                this.dt.selectRange(event, this.index || 0);
             }
 
             event.preventDefault();
@@ -4894,7 +4933,7 @@ export class TableRadioButton implements OnInit, OnDestroy {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
 
-            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
+            this.ariaLabel = this.ariaLabel || (this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined);
             this.cd.markForCheck();
         });
     }
@@ -4962,7 +5001,7 @@ export class TableCheckbox implements OnInit, OnDestroy {
     ) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
-            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
+            this.ariaLabel = this.ariaLabel || (this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined);
             this.cd.markForCheck();
         });
     }
@@ -4975,8 +5014,8 @@ export class TableCheckbox implements OnInit, OnDestroy {
         if (!this.disabled()) {
             this.dt.toggleRowWithCheckbox(
                 {
-                    originalEvent,
-                    rowIndex: this.index()
+                    originalEvent: originalEvent!,
+                    rowIndex: this.index() || 0
                 },
                 this.value
             );
@@ -5026,7 +5065,7 @@ export class TableHeaderCheckbox implements OnInit, OnDestroy {
     ) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
-            this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectAll : this.dt.config.translation.aria.unselectAll) : undefined;
+            this.ariaLabel = this.ariaLabel || (this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectAll : this.dt.config.translation.aria.unselectAll) : undefined);
         });
 
         this.selectionChangeSubscription = this.dt.tableService.selectionSource$.subscribe(() => {
@@ -5041,7 +5080,7 @@ export class TableHeaderCheckbox implements OnInit, OnDestroy {
     onClick(event: CheckboxChangeEvent) {
         if (!this.disabled()) {
             if (this.dt.value && this.dt.value.length > 0) {
-                this.dt.toggleRowsWithCheckbox(event, this.checked);
+                this.dt.toggleRowsWithCheckbox(event, this.checked || false);
             }
         }
 
@@ -5469,13 +5508,13 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
      * Defines minimum fraction of digits.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) })
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
     minFractionDigits: number | undefined;
     /**
      * Defines maximum fraction of digits.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) })
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
     maxFractionDigits: number | undefined;
     /**
      * Defines prefix of the filter.
@@ -5694,19 +5733,19 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
     }
 
     get filterMenuButtonAriaLabel() {
-        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.hideFilterMenu : this.config.translation.aria.showFilterMenu) : undefined;
+        return this.config?.translation ? (this.overlayVisible ? this.config?.translation?.aria?.hideFilterMenu : this.config?.translation?.aria?.showFilterMenu) : undefined;
     }
 
     get removeRuleButtonAriaLabel() {
-        return this.config.translation ? this.config.translation.removeRule : undefined;
+        return this.config?.translation ? this.config?.translation?.removeRule : undefined;
     }
 
     get filterOperatorAriaLabel() {
-        return this.config.translation ? this.config.translation.aria.filterOperator : undefined;
+        return this.config?.translation ? this.config?.translation?.aria?.filterOperator : undefined;
     }
 
     get filterConstraintAriaLabel() {
-        return this.config.translation ? this.config.translation.aria.filterConstraint : undefined;
+        return this.config?.translation ? this.config?.translation?.aria?.filterConstraint : undefined;
     }
 
     dt = inject(Table);
@@ -5871,7 +5910,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
             matchMode: this.getDefaultMatchMode(),
             operator: this.getDefaultOperator()
         });
-        DomHandler.focus(this.clearButtonViewChild.nativeElement);
+        DomHandler.focus(this.clearButtonViewChild?.nativeElement);
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
@@ -5879,7 +5918,7 @@ export class ColumnFilter extends BaseComponent implements AfterContentInit {
         if (!this.showApplyButton) {
             this.dt._filter();
         }
-        DomHandler.focus(this.clearButtonViewChild.nativeElement);
+        DomHandler.focus(this.clearButtonViewChild?.nativeElement);
     }
 
     onOperatorChange(value: any) {
@@ -6224,10 +6263,10 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() placeholder: string | undefined;
 
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) })
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
     minFractionDigits: number | undefined;
 
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) })
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
     maxFractionDigits: number | undefined;
 
     @Input() prefix: string | undefined;

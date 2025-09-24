@@ -11,9 +11,9 @@ export interface SplitterResizeStartEvent {
      */
     originalEvent: TouchEvent | MouseEvent;
     /**
-     * Collapsed state of the panel.
+     * Sizes of the panels, can be percentages, pixels, rem, or other CSS units.
      */
-    sizes: number[];
+    sizes: (number | string)[];
 }
 /**
  * Custom panel resize end event.

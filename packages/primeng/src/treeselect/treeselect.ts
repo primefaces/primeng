@@ -472,7 +472,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
@@ -678,7 +678,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
                     isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
                     this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
                 } else {
-                    let focusableElements = <any>getFocusableElements(this.panelEl.nativeElement);
+                    let focusableElements = <any>getFocusableElements(this.panelEl?.nativeElement!);
 
                     if (focusableElements && focusableElements.length > 0) {
                         focusableElements[0].focus();
@@ -766,7 +766,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
             filteredValue: this.treeViewChild?.filteredNodes
         });
         setTimeout(() => {
-            this.overlayViewChild.alignOverlay();
+            this.overlayViewChild?.alignOverlay();
         });
     }
 
@@ -823,7 +823,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay?.nativeElement : this.firstHiddenFocusableElementOnOverlay?.nativeElement);
 
                 event.preventDefault();
             } else {
@@ -833,7 +833,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
     }
 
     hasFocusableElements() {
-        return getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     resetFilter() {
@@ -887,7 +887,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
         this.onNodeExpand.emit(event);
         this.expandedNodes.push(event.node);
         setTimeout(() => {
-            this.overlayViewChild.alignOverlay();
+            this.overlayViewChild?.alignOverlay();
         });
     }
 
@@ -895,7 +895,7 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
         this.onNodeCollapse.emit(event);
         this.expandedNodes.splice(this.expandedNodes.indexOf(event.node), 1);
         setTimeout(() => {
-            this.overlayViewChild.alignOverlay();
+            this.overlayViewChild?.alignOverlay();
         });
     }
 

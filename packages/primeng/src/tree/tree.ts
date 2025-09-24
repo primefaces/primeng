@@ -230,7 +230,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     get selectable() {
-        return this.node.selectable === false ? false : this.tree.selectionMode != null;
+        return this.node?.selectable === false ? false : this.tree?.selectionMode != null;
     }
 
     ngOnInit() {
@@ -545,10 +545,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
     onArrowUp(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : (<HTMLDivElement>event.target).parentElement;
 
-        if (nodeElement.previousElementSibling) {
+        if (nodeElement?.previousElementSibling) {
             this.focusRowChange(nodeElement, nodeElement.previousElementSibling, this.findLastVisibleDescendant(nodeElement.previousElementSibling));
         } else {
-            let parentNodeElement = this.getParentNodeElement(nodeElement);
+            let parentNodeElement = this.getParentNodeElement(nodeElement!);
 
             if (parentNodeElement) {
                 this.focusRowChange(nodeElement, parentNodeElement);
@@ -560,15 +560,15 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onArrowDown(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
-        const listElement = nodeElement.children[1];
+        const listElement = nodeElement?.children[1];
 
         if (listElement && listElement.children.length > 0) {
             this.focusRowChange(nodeElement, listElement.children[0]);
         } else {
-            if (nodeElement.parentElement.nextElementSibling) {
+            if (nodeElement?.parentElement?.nextElementSibling) {
                 this.focusRowChange(nodeElement, nodeElement.parentElement.nextElementSibling);
             } else {
-                let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement.parentElement);
+                let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement?.parentElement!);
 
                 if (nextSiblingAncestor) {
                     this.focusRowChange(nodeElement, nextSiblingAncestor);
@@ -602,7 +602,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
             return;
         }
 
-        let parentNodeElement = this.getParentNodeElement(nodeElement.parentElement);
+        let parentNodeElement = this.getParentNodeElement(nodeElement?.parentElement!);
 
         if (parentNodeElement) {
             this.focusRowChange(event.currentTarget, parentNodeElement);
@@ -694,7 +694,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     focusVirtualNode() {
         this.timeout = setTimeout(() => {
-            let node = <any>findSingle(this.tree?.contentViewChild.nativeElement, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
+            let node = <any>findSingle(this.tree?.contentViewChild?.nativeElement, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
             focus(node);
         }, 1);
     }
@@ -1281,7 +1281,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         if (simpleChange.value) {
             this.updateSerializedValue();
             if (this.hasFilterActive()) {
-                this._filter(this.filterViewChild.nativeElement.value);
+                this._filter(this.filterViewChild?.nativeElement?.value);
             }
         }
     }

@@ -1,10 +1,15 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { StepsModule } from 'primeng/steps';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'interactive-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, ToastModule, StepsModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>In order to add interactivity to the component, disable <i>readonly</i> and use a binding to <i>activeIndex</i> along with <i>activeIndexChange</i> to control the Steps.</p>

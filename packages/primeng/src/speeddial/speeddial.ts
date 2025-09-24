@@ -475,9 +475,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         const leftValidDirections = ['left', 'up-right', 'down-left'];
         const rightValidDirections = ['right', 'up-left', 'down-right'];
 
-        if (leftValidDirections.includes(this.direction)) {
+        if (leftValidDirections.includes(this.direction || '')) {
             this.navigateNextItem(event);
-        } else if (rightValidDirections.includes(this.direction)) {
+        } else if (rightValidDirections.includes(this.direction || '')) {
             this.navigatePrevItem(event);
         } else {
             this.navigatePrevItem(event);
@@ -488,9 +488,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         const leftValidDirections = ['left', 'up-right', 'down-left'];
         const rightValidDirections = ['right', 'up-left', 'down-right'];
 
-        if (leftValidDirections.includes(this.direction)) {
+        if (leftValidDirections.includes(this.direction || '')) {
             this.navigatePrevItem(event);
-        } else if (rightValidDirections.includes(this.direction)) {
+        } else if (rightValidDirections.includes(this.direction || '')) {
             this.navigateNextItem(event);
         } else {
             this.navigateNextItem(event);
@@ -512,13 +512,15 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     onEnterKey(event: any) {
-        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
         const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
-        this.onItemClick(event, this.model[itemIndex]);
+        if (itemIndex !== -1 && this.model && this.model[itemIndex]) {
+            this.onItemClick(event, this.model[itemIndex]);
+        }
         this.onBlur(event);
 
-        const buttonEl = <any>findSingle(this.container.nativeElement, 'button');
+        const buttonEl = <any>findSingle(this.container?.nativeElement, 'button');
 
         buttonEl && focus(buttonEl);
     }
@@ -526,7 +528,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     onEscapeKey(event: KeyboardEvent) {
         this.hide();
 
-        const buttonEl = <any>findSingle(this.container.nativeElement, 'button');
+        const buttonEl = <any>findSingle(this.container?.nativeElement, 'button');
 
         buttonEl && focus(buttonEl);
     }
@@ -557,7 +559,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     onTogglerArrowUp(event) {
         this.focused = true;
-        focus(this.list.nativeElement);
+        focus(this.list?.nativeElement);
 
         this.show();
         this.navigatePrevItem(event);
@@ -567,7 +569,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     onTogglerArrowDown(event) {
         this.focused = true;
-        focus(this.list.nativeElement);
+        focus(this.list?.nativeElement);
 
         this.show();
         this.navigateNextItem(event);
@@ -592,9 +594,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     findPrevOptionIndex(index) {
-        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
 
-        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
+        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[filteredItems.length - 1].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
 
@@ -604,8 +606,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     findNextOptionIndex(index) {
-        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
+        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[0].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
 
@@ -615,8 +617,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     changeFocusedOptionIndex(index) {
-        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
+        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
 
         if (filteredItems[index]) {
             this.focusedOptionIndex.set(filteredItems[index].getAttribute('id'));
@@ -678,7 +680,13 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     get buttonIconClass() {
-        return (!this.visible && this.showIcon) || !this.hideIcon ? this.showIcon : this.hideIcon;
+        if (!this.visible && this.showIcon) {
+            return this.showIcon;
+        }
+        if (this.visible && this.hideIcon) {
+            return this.hideIcon;
+        }
+        return this.showIcon;
     }
 
     getItemStyle(index: number) {

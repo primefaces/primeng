@@ -517,8 +517,17 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     get loadedItems() {
         if (this._items && !this.d_loading) {
-            if (this.both) return this._items.slice(this._appendOnly ? 0 : this.first.rows, this.last.rows).map((item) => (this._columns ? item : item.slice(this._appendOnly ? 0 : this.first.cols, this.last.cols)));
-            else if (this.horizontal && this._columns) return this._items;
+            if (this.both) {
+                return this._items.slice(this._appendOnly ? 0 : this.first.rows, this.last.rows).map((item) => {
+                    if (this._columns) {
+                        return item;
+                    } else if (Array.isArray(item)) {
+                        return item.slice(this._appendOnly ? 0 : this.first.cols, this.last.cols);
+                    } else {
+                        return item;
+                    }
+                });
+            } else if (this.horizontal && this._columns) return this._items;
             else return this._items.slice(this._appendOnly ? 0 : this.first, this.last);
         }
 
@@ -663,9 +672,13 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     init() {
         if (!this._disabled) {
-            this.setSize();
-            this.calculateOptions();
             this.setSpacerSize();
+            // wait for the next tick
+            setTimeout(() => {
+                this.setSize();
+            }, 1);
+            this.calculateOptions();
+
             this.bindResizeListener();
 
             this.cd.detectChanges();
@@ -681,9 +694,11 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         this.last = this.both ? { rows: 0, cols: 0 } : 0;
         this.numItemsInViewport = this.both ? { rows: 0, cols: 0 } : 0;
         this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
-        this.d_loading = this._loading || false;
+        if (this.d_loading === undefined || this.d_loading === false) {
+            this.d_loading = this._loading || false;
+        }
         this.d_numToleratedItems = this._numToleratedItems;
-        this.loaderArr = [];
+        this.loaderArr = this.loaderArr.length > 0 ? this.loaderArr : [];
     }
 
     getElementRef() {
@@ -846,7 +861,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         this.numItemsInViewport = numItemsInViewport;
         this.d_numToleratedItems = numToleratedItems;
 
-        if (this.showLoader) {
+        if (this._showLoader) {
             this.loaderArr = this.both ? Array.from({ length: numItemsInViewport.rows }).map(() => Array.from({ length: numItemsInViewport.cols })) : Array.from({ length: numItemsInViewport });
         }
 
@@ -854,7 +869,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             Promise.resolve().then(() => {
                 this.lazyLoadState = {
                     first: this._step ? (this.both ? { rows: 0, cols: first.cols } : 0) : first,
-                    last: Math.min(this._step ? this._step : this.last, (<any[]>this.items).length)
+                    last: Math.min(this._step ? this._step : this.last, (<any[]>this._items).length)
                 };
 
                 this.handleEvents('onLazyLoad', this.lazyLoadState);
@@ -955,6 +970,9 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     onScrollPositionChange(event: Event) {
         const target = event.target;
+        if (!target) {
+            throw new Error('Event target is null');
+        }
         const contentPos = this.getContentPosition();
         const calculateScrollPos = (_pos: number, _cpos: number) => (_pos ? (_pos > _cpos ? _pos - _cpos : _pos) : 0);
         const calculateCurrentIndex = (_pos: number, _size: number) => (_size || _pos ? Math.floor(_pos / (_size || _pos)) : 0);
@@ -1048,8 +1066,8 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
             if (this._lazy && this.isPageChanged(first)) {
                 const lazyLoadState = {
-                    first: this._step ? Math.min(this.getPageByFirst(first) * this._step, (<any[]>this.items).length - this._step) : first,
-                    last: Math.min(this._step ? (this.getPageByFirst(first) + 1) * this._step : last, (<any[]>this.items).length)
+                    first: this._step ? Math.min(this.getPageByFirst(first) * this._step, (<any[]>this._items).length - this._step) : first,
+                    last: Math.min(this._step ? (this.getPageByFirst(first) + 1) * this._step : last, (<any[]>this._items).length)
                 };
                 const isLazyStateChanged = this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
 
@@ -1062,12 +1080,12 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
     onContainerScroll(event: Event) {
         this.handleEvents('onScroll', { originalEvent: event });
 
-        if (this._delay && this.isPageChanged()) {
+        if (this._delay) {
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
 
-            if (!this.d_loading && this.showLoader) {
+            if (!this.d_loading && this._showLoader) {
                 const { isRangeChanged } = this.onScrollPositionChange(event);
                 const changed = isRangeChanged || (this._step ? this.isPageChanged() : false);
 
@@ -1081,7 +1099,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             this.scrollTimeout = setTimeout(() => {
                 this.onScrollChange(event);
 
-                if (this.d_loading && this.showLoader && (!this._lazy || this._loading === undefined)) {
+                if (this.d_loading && this._showLoader && (!this._lazy || this._loading === undefined)) {
                     this.d_loading = false;
                     this.page = this.getPageByFirst();
                 }
@@ -1155,7 +1173,11 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             contentStyle: this.contentStyle,
             vertical: this.vertical,
             horizontal: this.horizontal,
-            both: this.both
+            both: this.both,
+            scrollTo: this.scrollTo.bind(this),
+            scrollToIndex: this.scrollToIndex.bind(this),
+            orientation: this._orientation,
+            scrollableElement: this.elementViewChild?.nativeElement
         };
     }
 
@@ -1183,6 +1205,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
             last: index === count - 1,
             even: index % 2 === 0,
             odd: index % 2 !== 0,
+            loading: this.d_loading,
             ...extOptions
         };
     }

@@ -155,6 +155,10 @@ export class AccordionHeader extends BaseComponent {
     @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
     @HostListener('click', ['$event']) onClick(event?: MouseEvent | KeyboardEvent) {
+        if (this.disabled()) {
+            return;
+        }
+
         const wasActive = this.active();
 
         this.changeActiveValue();
@@ -170,7 +174,9 @@ export class AccordionHeader extends BaseComponent {
     }
 
     @HostListener('focus', ['$event']) onFocus() {
-        this.pcAccordion.selectOnFocus() && this.changeActiveValue();
+        if (!this.disabled() && this.pcAccordion.selectOnFocus()) {
+            this.changeActiveValue();
+        }
     }
 
     @HostListener('keydown', ['$event']) onKeydown(event: KeyboardEvent) {
@@ -263,7 +269,9 @@ export class AccordionHeader extends BaseComponent {
     }
 
     private onEnterKey(event: KeyboardEvent) {
-        this.changeActiveValue();
+        if (!this.disabled()) {
+            this.changeActiveValue();
+        }
         event.preventDefault();
     }
 }
@@ -454,14 +462,14 @@ export class Accordion extends BaseComponent implements BlockableUI {
         const nextTabElement = selfCheck ? tabElement : tabElement.nextElementSibling;
         const headerElement = findSingle(nextTabElement, '[data-pc-section="accordionheader"]');
 
-        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement, '[data-pc-section="accordionheader"]')) : null;
+        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement as HTMLElement, '[data-pc-section="accordionheader"]')) : null;
     }
 
     findPrevHeaderAction(tabElement, selfCheck = false) {
         const prevTabElement = selfCheck ? tabElement : tabElement.previousElementSibling;
         const headerElement = findSingle(prevTabElement, '[data-pc-section="accordionheader"]');
 
-        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement, '[data-pc-section="accordionheader"]')) : null;
+        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement as HTMLElement, '[data-pc-section="accordionheader"]')) : null;
     }
 
     findFirstHeaderAction() {

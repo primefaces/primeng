@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, ViewChild } from '@angular/core';
-import { MultiSelect } from 'primeng/multiselect';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MultiSelect, MultiSelectModule } from 'primeng/multiselect';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'virtual-scroll-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

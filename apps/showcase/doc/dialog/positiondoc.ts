@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dialog-position-demo',
-    standalone: false,
+    standalone: true,
+    imports: [DialogModule, ButtonModule, InputTextModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>position</i> property is used to display a Dialog at all edges and corners of the screen.</p>

@@ -24,7 +24,7 @@ export interface SelectChangeEvent {
     /**
      * Browser event.
      */
-    originalEvent: Event;
+    originalEvent?: Event;
     /**
      * Selected option value
      */

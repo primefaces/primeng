@@ -396,12 +396,12 @@ export class Slider extends BaseEditableHolder implements OnDestroy {
         let newValue;
 
         if (this.range) {
-            if (this.step) newValue = this.values[index] - this.step;
-            else newValue = this.values[index] - 1;
+            if (this.step) newValue = (this.values?.[index] ?? 0) - this.step;
+            else newValue = (this.values?.[index] ?? 0) - 1;
         } else {
-            if (this.step) newValue = this.value - this.step;
-            else if (!this.step && pageKey) newValue = this.value - 10;
-            else newValue = this.value - 1;
+            if (this.step) newValue = this.value! - this.step;
+            else if (!this.step && pageKey) newValue = this.value! - 10;
+            else newValue = this.value! - 1;
         }
 
         this.updateValue(newValue, event);
@@ -412,12 +412,12 @@ export class Slider extends BaseEditableHolder implements OnDestroy {
         let newValue;
 
         if (this.range) {
-            if (this.step) newValue = this.values[index] + this.step;
-            else newValue = this.values[index] + 1;
+            if (this.step) newValue = (this.values?.[index] ?? 0) + this.step;
+            else newValue = (this.values?.[index] ?? 0) + 1;
         } else {
-            if (this.step) newValue = this.value + this.step;
-            else if (!this.step && pageKey) newValue = this.value + 10;
-            else newValue = this.value + 1;
+            if (this.step) newValue = this.value! + this.step;
+            else if (!this.step && pageKey) newValue = this.value! + 10;
+            else newValue = this.value! + 1;
         }
 
         this.updateValue(newValue, event);

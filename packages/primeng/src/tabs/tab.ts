@@ -26,6 +26,7 @@ import { TabStyle } from './style/tabstyle';
         '[attr.aria-controls]': 'ariaControls()',
         '[attr.role]': '"tab"',
         '[attr.aria-selected]': 'active()',
+        '[attr.aria-disabled]': 'disabled()',
         '[attr.data-p-disabled]': 'disabled()',
         '[attr.data-p-active]': 'active()',
         '[attr.tabindex]': 'tabindex()'
@@ -63,16 +64,20 @@ export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
 
     active = computed(() => equals(this.pcTabs.value(), this.value()));
 
-    tabindex = computed(() => (this.active() ? this.pcTabs.tabindex() : -1));
+    tabindex = computed(() => (this.disabled() ? -1 : this.active() ? this.pcTabs.tabindex() : -1));
 
     mutationObserver: MutationObserver | undefined;
 
     @HostListener('focus', ['$event']) onFocus(event: FocusEvent) {
-        this.pcTabs.selectOnFocus() && this.changeActiveValue();
+        if (!this.disabled()) {
+            this.pcTabs.selectOnFocus() && this.changeActiveValue();
+        }
     }
 
     @HostListener('click', ['$event']) onClick(event: MouseEvent) {
-        this.changeActiveValue();
+        if (!this.disabled()) {
+            this.changeActiveValue();
+        }
     }
 
     @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
@@ -157,7 +162,9 @@ export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     onEnterKey(event) {
-        this.changeActiveValue();
+        if (!this.disabled()) {
+            this.changeActiveValue();
+        }
         event.preventDefault();
     }
 
@@ -208,7 +215,7 @@ export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     unbindMutationObserver() {
-        this.mutationObserver.disconnect();
+        this.mutationObserver?.disconnect();
     }
 
     ngOnDestroy() {

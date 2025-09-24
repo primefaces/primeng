@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, Directive, inject, Input, input, NgModule, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { addClass, hasClass, isEmpty, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
+import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, Directive, inject, Input, input, NgModule, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { addClass, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeStyle } from './style/badgestyle';
@@ -70,7 +70,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     }
 
     private get canUpdateBadge(): boolean {
-        return this.id && !this.disabled;
+        return isNotEmpty(this.id) && !this.disabled;
     }
 
     constructor() {
@@ -175,7 +175,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
 
     private renderBadgeContent(): void {
         if (this.disabled) {
-            return null;
+            return;
         }
 
         const el = this.activeElement;

@@ -1,4 +1,14 @@
 # Changelog
+
+Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
+
+## [20.1.2](https://github.com/primefaces/primeng/tree/20.1.2) (2025-09-15)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.1.1...20.1.2)
+
+**Fixed bugs:**
+- Scroller | height override issue [#18874](https://github.com/primefaces/primeng/issues/18874)
+- fix/restore autofocus on focusOnShow property [#18839](https://github.com/primefaces/primeng/issues/18839)
+
 ## [20.1.1](https://github.com/primefaces/primeng/tree/20.1.1) (2025-09-02)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.1.0...20.1.1)
 

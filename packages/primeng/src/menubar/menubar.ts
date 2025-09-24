@@ -273,6 +273,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
         if (this.activeItemPath) {
             return this.activeItemPath.some((path) => path.key === processedItem.key);
         }
+        return false;
     }
 
     isItemDisabled(processedItem: any): boolean {
@@ -615,7 +616,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
-        const processedItems = [];
+        const processedItems: any[] = [];
 
         items &&
             items.forEach((item, index) => {
@@ -630,7 +631,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
                 };
 
                 newItem['items'] = this.createProcessedItems(item.items, level + 1, newItem, key);
-                processedItems.push(newItem);
+                processedItems.push(newItem as any);
             });
 
         return processedItems;
@@ -658,7 +659,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     unbindMatchMediaListener() {
         if (this.matchMediaListener) {
             this.query.removeEventListener('change', this.matchMediaListener);
-            this.matchMediaListener = null;
+            this.matchMediaListener = null!;
         }
     }
 
@@ -687,7 +688,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = !root;
-            focus(this.rootmenu.el.nativeElement);
+            focus(this.rootmenu?.el.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
@@ -697,7 +698,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
                 this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
                 this.mobileActive = false;
-                focus(this.rootmenu.el.nativeElement);
+                focus(this.rootmenu?.el.nativeElement);
             }
         }
     }
@@ -734,7 +735,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.rootmenu?.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -754,7 +755,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         this.focusedItemInfo.set({ index, level, parentKey, item });
 
         grouped && (this.dirty = true);
-        isFocus && focus(this.rootmenu.el.nativeElement);
+        isFocus && focus(this.rootmenu?.el.nativeElement);
 
         if (type === 'hover' && this.queryMatches) {
             return;
@@ -766,11 +767,11 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     toggle(event: MouseEvent) {
         if (this.mobileActive) {
             this.mobileActive = false;
-            ZIndexUtils.clear(this.rootmenu.el.nativeElement);
+            ZIndexUtils.clear(this.rootmenu?.el.nativeElement);
             this.hide();
         } else {
             this.mobileActive = true;
-            ZIndexUtils.set('menu', this.rootmenu.el.nativeElement, this.config.zIndex.menu);
+            ZIndexUtils.set('menu', this.rootmenu?.el.nativeElement, this.config.zIndex.menu);
             setTimeout(() => {
                 this.show();
             }, 0);
@@ -783,7 +784,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
     hide(event?, isFocus?: boolean) {
         if (this.mobileActive) {
             setTimeout(() => {
-                focus(this.menubutton.nativeElement);
+                focus(this.menubutton?.nativeElement);
             }, 0);
         }
 
@@ -1095,8 +1096,8 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = <any>findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
+            const element = <any>findSingle(this.rootmenu?.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
         }
@@ -1143,8 +1144,8 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                    const isOutsideContainer = this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target);
-                    const isOutsideMenuButton = this.mobileActive && this.menubutton.nativeElement !== event.target && !this.menubutton.nativeElement.contains(event.target);
+                    const isOutsideContainer = this.rootmenu?.el.nativeElement !== event.target && !this.rootmenu?.el.nativeElement?.contains(event.target);
+                    const isOutsideMenuButton = this.mobileActive && this.menubutton?.nativeElement !== event.target && !this.menubutton?.nativeElement?.contains(event.target);
 
                     if (isOutsideContainer) {
                         isOutsideMenuButton ? (this.mobileActive = false) : this.hide();

@@ -131,7 +131,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     lastPageY: number | undefined;
 
-    ariaLabelledBy: string | undefined;
+    ariaLabelledBy: string | undefined | null;
 
     id: string = uuid('pn_id_');
 
@@ -357,9 +357,9 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
         this.componentRef = viewContainerRef?.createComponent(componentType);
 
-        if (this.inputValues) {
+        if (this.inputValues && this.componentRef) {
             Object.entries(this.inputValues).forEach(([key, value]) => {
-                this.componentRef.setInput(key, value);
+                this.componentRef!.setInput(key, value);
             });
         }
 
@@ -442,7 +442,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     enableModality() {
-        if (this.ddconfig.dismissableMask) {
+        if (this.ddconfig.dismissableMask && this.wrapper) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.hide();
@@ -471,7 +471,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         }
     }
 
-    focus(focusParentElement = this.contentViewChild.nativeElement) {
+    focus(focusParentElement = this.contentViewChild?.nativeElement) {
+        if (!focusParentElement) return;
         let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
@@ -484,10 +485,11 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusableElement.focus(), 5);
             });
-        } else if (this.footerViewChild) {
-            // If the content section is empty try to focus on footer
+        } else if (this.footerViewChild && focusParentElement !== this.footerViewChild.nativeElement) {
+            // If the content section is empty try to focus on footer (avoid recursion)
             this.focus(this.footerViewChild.nativeElement);
-        } else if (!focusableElement && this.headerViewChild) {
+        } else if (!focusableElement && this.headerViewChild && focusParentElement !== this.headerViewChild.nativeElement) {
+            // If footer is also empty, try header (avoid recursion)
             this.focus(this.headerViewChild.nativeElement);
         }
     }
@@ -522,8 +524,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         if (this.resizing) {
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = getOuterWidth(this.container);
-            let containerHeight = getOuterHeight(this.container);
+            let containerWidth = this.container ? getOuterWidth(this.container) : 0;
+            let containerHeight = this.container ? getOuterHeight(this.container) : 0;
             let contentHeight = getOuterHeight((<ElementRef>this.contentViewChild).nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
@@ -566,7 +568,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     initDrag(event: MouseEvent) {
-        if (hasClass(event.target as any, 'p-dialog-header-icon') || hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        const target = event.target as HTMLElement;
+        if (hasClass(target, 'p-dialog-header-icon') || (target.parentElement && hasClass(target.parentElement, 'p-dialog-header-icon'))) {
             return;
         }
 
@@ -583,8 +586,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            let containerWidth = getOuterWidth(this.container);
-            let containerHeight = getOuterHeight(this.container);
+            let containerWidth = this.container ? getOuterWidth(this.container) : 0;
+            let containerHeight = this.container ? getOuterHeight(this.container) : 0;
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
             let offset = (this.container as HTMLDivElement).getBoundingClientRect();
@@ -650,7 +653,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
             this.documentDragEndListener();
-            this.documentDragListener = null;
+            this.documentDragEndListener = null;
         }
     }
 
@@ -705,7 +708,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : 'document';
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-            if (event.which == 27) {
+            if (event.key === 'Escape' || event.keyCode === 27 || event.which === 27) {
                 const currentZIndex = ZIndexUtils.getCurrent();
                 if (parseInt((this.container as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
                     this.hide();
@@ -731,7 +734,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     ngOnDestroy() {
         this.onContainerDestroy();
 
-        if (this.componentRef) {
+        if (this.componentRef && typeof this.componentRef.destroy === 'function') {
             this.componentRef.destroy();
         }
         this.destroyStyle();

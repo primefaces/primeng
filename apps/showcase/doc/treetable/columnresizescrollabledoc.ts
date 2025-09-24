@@ -2,6 +2,11 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { TreeTableModule } from 'primeng/treetable';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Column {
     field: string;
@@ -10,7 +15,8 @@ interface Column {
 
 @Component({
     selector: 'resize-scrollable-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>To utilize the column resize modes with a <i>scrollable</i> TreeTable, a <i>colgroup</i> template must be defined. The default value of scrollHeight is "flex," it can also be set as a string value.</p>

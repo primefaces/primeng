@@ -34,6 +34,8 @@ import { DrawerStyle } from './style/drawerstyle';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
+
+const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 /**
  * Sidebar is a panel component displayed as an overlay at the edges of the screen.
  * @group Components
@@ -169,7 +171,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      * @group Props
      */
     @Input() get visible(): boolean {
-        return this._visible as boolean;
+        return this._visible ?? false;
     }
     set visible(val: boolean) {
         this._visible = val;
@@ -211,8 +213,11 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
     set fullScreen(value: boolean) {
         this._fullScreen = value;
-
-        if (value) this.transformOptions = 'none';
+        if (value === true) {
+            this.transformOptions = 'none';
+        } else {
+            this.transformOptions = defaultTransformOptions;
+        }
     }
     /**
      * Title content of the dialog.
@@ -261,7 +266,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     container: Nullable<HTMLDivElement>;
 
-    transformOptions: any = 'translate3d(-100%, 0px, 0px)';
+    transformOptions: any = defaultTransformOptions;
 
     mask: Nullable<HTMLDivElement>;
 
@@ -348,7 +353,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     show() {
-        this.container.setAttribute(this.attrSelector, '');
+        this.container?.setAttribute(this.attrSelector, '');
 
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex || this.config.zIndex.modal);
@@ -385,9 +390,11 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
-            setAttribute(this.mask, 'style', this.getMaskStyle());
-            setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
-            addClass(this.mask, this.cx('mask'));
+            if (this.mask) {
+                setAttribute(this.mask, 'style', this.getMaskStyle());
+                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
+                addClass(this.mask, this.cx('mask'));
+            }
 
             if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -461,8 +468,11 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
+            if (this.appendTo === 'body' && this.container) {
+                this.renderer.appendChild(this.document.body, this.container);
+            } else if (this.container) {
+                appendChild(this.appendTo, this.container);
+            }
         }
     }
 
