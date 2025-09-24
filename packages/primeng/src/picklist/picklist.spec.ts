@@ -34,6 +34,8 @@ import {
             [targetFilterPlaceholder]="targetFilterPlaceholder"
             [sourceStyle]="sourceStyle"
             [targetStyle]="targetStyle"
+            [optionLabel]="optionLabel"
+            [dataKey]="dataKey"
             (onMoveToTarget)="onMoveToTarget($event)"
             (onMoveToSource)="onMoveToSource($event)"
             (onMoveAllToTarget)="onMoveAllToTarget($event)"
@@ -80,6 +82,8 @@ class TestPickListComponent {
     targetFilterPlaceholder: string = 'Filter target';
     sourceStyle: any = null as any;
     targetStyle: any = null as any;
+    optionLabel: string | undefined;
+    dataKey: string | undefined;
 
     // Event handlers
     onMoveToTarget(event: PickListMoveToTargetEvent) {
@@ -595,5 +599,47 @@ describe('PickList', () => {
             expect(component.source[0]).toBe(originalSecondItem);
             expect(component.source[1]).toBe(originalFirstItem);
         }));
+    });
+
+    describe('dataKey property', () => {
+        it('should use dataKey property when provided', () => {
+            component.dataKey = 'id';
+            fixture.detectChanges();
+
+            expect(picklistComponent.dataKey).toBe('id');
+        });
+
+        it('should pass dataKey to both listbox components', () => {
+            component.dataKey = 'id';
+            fixture.detectChanges();
+
+            const listboxes = fixture.debugElement.queryAll(By.css('p-listbox'));
+            expect(listboxes.length).toBe(2);
+
+            // Check that both listboxes have the dataKey property set
+            expect(listboxes[0].componentInstance.dataKey).toBe('id');
+            expect(listboxes[1].componentInstance.dataKey).toBe('id');
+        });
+    });
+
+    describe('optionLabel property', () => {
+        it('should use optionLabel property when provided', () => {
+            component.optionLabel = 'title';
+            fixture.detectChanges();
+
+            expect(picklistComponent.optionLabel).toBe('title');
+        });
+
+        it('should pass optionLabel to both listbox components', () => {
+            component.optionLabel = 'title';
+            fixture.detectChanges();
+
+            const listboxes = fixture.debugElement.queryAll(By.css('p-listbox'));
+            expect(listboxes.length).toBe(2);
+
+            // Check that both listboxes have the optionLabel property set
+            expect(listboxes[0].componentInstance.optionLabel).toBe('title');
+            expect(listboxes[1].componentInstance.optionLabel).toBe('title');
+        });
     });
 });

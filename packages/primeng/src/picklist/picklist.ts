@@ -118,7 +118,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [multiple]="true"
                     [options]="source"
                     [(ngModel)]="selectedItemsSource"
-                    optionLabel="name"
+                    [optionLabel]="dataKey ?? 'name'"
                     [id]="idSource + '_list'"
                     [listStyle]="sourceStyle"
                     [striped]="stripedRows"
@@ -250,7 +250,7 @@ import { PickListStyle } from './style/pickliststyle';
                     [multiple]="true"
                     [options]="target"
                     [(ngModel)]="selectedItemsTarget"
-                    optionLabel="name"
+                    [optionLabel]="dataKey ?? 'name'"
                     [id]="idTarget + '_list'"
                     [listStyle]="targetStyle"
                     [striped]="stripedRows"
@@ -381,6 +381,11 @@ export class PickList extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() target: any[] | undefined;
+    /**
+     * Name of the field that uniquely identifies the options.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
     /**
      * Text for the source list caption
      * @group Props
