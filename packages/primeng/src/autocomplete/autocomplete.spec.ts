@@ -54,6 +54,7 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
             [unique]="unique"
             [typeahead]="typeahead"
             [addOnBlur]="addOnBlur"
+            [addOnTab]="addOnTab"
             [separator]="separator"
             [ariaLabel]="ariaLabel"
             [ariaLabelledBy]="ariaLabelledBy"
@@ -129,6 +130,7 @@ class TestAutocompleteComponent {
     virtualScrollItemSize: number = 38;
     typeahead: boolean = true;
     addOnBlur: boolean = false;
+    addOnTab: boolean = false;
     separator: string | RegExp | undefined;
 
     // Styling
@@ -1948,6 +1950,283 @@ describe('AutoComplete', () => {
                 expect(testComponent.selectedValue).toContain('Item1');
                 expect(testComponent.selectedValue).toContain('Item2');
                 expect(testComponent.selectedValue).toContain('Item3');
+            });
+        });
+
+        describe('addOnTab feature', () => {
+            let autocompleteComponent: AutoComplete;
+            let inputElement: any;
+
+            beforeEach(() => {
+                testComponent.multiple = true;
+                testComponent.typeahead = false;
+                testComponent.unique = true;
+                testFixture.detectChanges();
+
+                autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]')).nativeElement;
+            });
+
+            it('should trigger blur and addOnBlur when addOnTab=false and addOnBlur=true', () => {
+                testComponent.addOnTab = false;
+                testComponent.addOnBlur = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Set input value
+                inputElement.value = 'Test Item';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should not prevent default (allowing blur)
+                expect(tabEvent.defaultPrevented).toBe(false);
+
+                // Trigger blur manually (as Tab would do)
+                inputElement.dispatchEvent(new FocusEvent('blur'));
+                testFixture.detectChanges();
+
+                // Check that the item was added via addOnBlur
+                expect(testComponent.selectedValue).toContain('Test Item');
+
+                // Check focus state from DOM
+                expect(document.activeElement).not.toBe(inputElement);
+            });
+
+            it('should add item and keep focus on first tab when addOnTab=true, addOnBlur=true with value', () => {
+                testComponent.addOnTab = true;
+                testComponent.addOnBlur = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Set input value
+                inputElement.value = 'Test Item';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key first time
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should prevent default (keeping focus)
+                expect(tabEvent.defaultPrevented).toBe(true);
+
+                // Check that the item was added
+                expect(testComponent.selectedValue).toContain('Test Item');
+
+                // Check input is cleared
+                expect(inputElement.value).toBe('');
+
+                // Check focus is maintained (component still has focus)
+                // Note: In test environment, preventDefault keeps focus
+
+                // Press Tab key second time (now input is empty)
+                const tabEvent2 = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent2);
+                testFixture.detectChanges();
+
+                // Second tab should not prevent default (allowing blur)
+                expect(tabEvent2.defaultPrevented).toBe(false);
+            });
+
+            it('should trigger blur when addOnTab=true, addOnBlur=true without value', () => {
+                testComponent.addOnTab = true;
+                testComponent.addOnBlur = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Input is empty
+                inputElement.value = '';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should not prevent default (allowing blur)
+                expect(tabEvent.defaultPrevented).toBe(false);
+
+                // No items should be added
+                expect(testComponent.selectedValue.length).toBe(0);
+            });
+
+            it('should add item and keep focus when addOnTab=true, addOnBlur=false with value', () => {
+                testComponent.addOnTab = true;
+                testComponent.addOnBlur = false;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Set input value
+                inputElement.value = 'Test Item';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should prevent default (keeping focus)
+                expect(tabEvent.defaultPrevented).toBe(true);
+
+                // Check that the item was added
+                expect(testComponent.selectedValue).toContain('Test Item');
+
+                // Check input is cleared
+                expect(inputElement.value).toBe('');
+
+                // Check focus is maintained
+                // Note: In test environment, focus check may vary
+            });
+
+            it('should trigger blur when addOnTab=true, addOnBlur=false without value', () => {
+                testComponent.addOnTab = true;
+                testComponent.addOnBlur = false;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Input is empty
+                inputElement.value = '';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should not prevent default (allowing blur)
+                expect(tabEvent.defaultPrevented).toBe(false);
+
+                // No items should be added
+                expect(testComponent.selectedValue.length).toBe(0);
+            });
+
+            it('should not trigger addOnTab when dropdown option is focused', () => {
+                testComponent.addOnTab = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Setup component to have visible options
+                testComponent.suggestions = ['Option 1', 'Option 2'];
+                autocompleteComponent.suggestions = ['Option 1', 'Option 2'];
+                autocompleteComponent.overlayVisible = true;
+                testFixture.detectChanges();
+
+                // Set input value
+                inputElement.value = 'Test';
+                testFixture.detectChanges();
+
+                // Set focused option index (simulating arrow down navigation)
+                autocompleteComponent.focusedOptionIndex.set(0);
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Should select the focused option instead of adding input value
+                expect(testComponent.selectedValue).toContain('Option 1');
+                expect(testComponent.selectedValue).not.toContain('Test');
+            });
+
+            it('should handle already selected items correctly', () => {
+                testComponent.addOnTab = true;
+                testComponent.selectedValue = ['Test Item'];
+                testFixture.detectChanges();
+
+                // Set the multiInputEl value directly since we're in multiple mode
+                if (autocompleteComponent.multiInputEl) {
+                    autocompleteComponent.multiInputEl.nativeElement.value = 'Test Item';
+                } else {
+                    inputElement.value = 'Test Item';
+                }
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should not prevent default since item is already selected
+                // The component correctly doesn't add duplicate items
+                expect(tabEvent.defaultPrevented).toBe(false);
+
+                // Should still have only one instance of the item
+                expect(testComponent.selectedValue.filter((v) => v === 'Test Item').length).toBe(1);
+            });
+
+            it('should trim whitespace when adding items via tab', () => {
+                testComponent.addOnTab = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Set input value with whitespace
+                inputElement.value = '  Test Item  ';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Check that the item was added without whitespace
+                expect(testComponent.selectedValue).toContain('Test Item');
+                expect(testComponent.selectedValue).not.toContain('  Test Item  ');
             });
         });
     });

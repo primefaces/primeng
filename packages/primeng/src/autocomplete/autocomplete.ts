@@ -469,6 +469,11 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      */
     @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
+     * When enabled, the input value is added to the selected items on tab key press when multiple is true and typeahead is false.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) addOnTab: boolean = false;
+    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -661,6 +666,12 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
      * @group Emits
      */
     @Output() onClear: EventEmitter<Event | undefined> = new EventEmitter<Event | undefined>();
+    /**
+     * Callback to invoke on input key down.
+     * @param {KeyboardEvent} event - Keyboard event.
+     * @group Emits
+     */
+    @Output() onInputKeydown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
     /**
      * Callback to invoke on input key up.
      * @param {KeyboardEvent} event - Keyboard event.
@@ -1299,6 +1310,9 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
             return;
         }
 
+        // Emit keydown event for external handling
+        this.onInputKeydown.emit(event);
+
         switch (event.code) {
             case 'ArrowDown':
                 this.onArrowDownKey(event);
@@ -1465,8 +1479,9 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     onEnterKey(event) {
         if (!this.typeahead && !this.forceSelection) {
             if (this.multiple) {
-                if (!this.isSelected(event.target.value)) {
-                    this.updateModel([...(this.modelValue() || []), event.target.value]);
+                const inputValue = event.target.value?.trim();
+                if (inputValue && !this.isSelected(inputValue)) {
+                    this.updateModel([...(this.modelValue() || []), inputValue]);
                     this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
                 }
             }
@@ -1490,8 +1505,35 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
     }
 
     onTabKey(event) {
+        // If there's a focused option in the dropdown, select it
         if (this.focusedOptionIndex() !== -1) {
             this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
+            return;
+        }
+
+        // Handle tab key behavior for multiple mode without typeahead
+        if (this.multiple && !this.typeahead) {
+            const inputValue = (this.multiInputEl?.nativeElement?.value || this.inputEL?.nativeElement?.value || '').trim();
+
+            if (this.addOnTab) {
+                if (inputValue && !this.isSelected(inputValue)) {
+                    // Add the value and keep focus
+                    this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.onAdd.emit({ originalEvent: event, value: inputValue });
+                    if (this.multiInputEl?.nativeElement) {
+                        this.multiInputEl.nativeElement.value = '';
+                    } else if (this.inputEL?.nativeElement) {
+                        this.inputEL.nativeElement.value = '';
+                    }
+                    this.updateInputValue();
+                    event.preventDefault(); // Keep focus on the component
+                    this.overlayVisible && this.hide();
+                    return;
+                }
+                // If no value or already selected, allow normal tab behavior (blur)
+            }
+            // If addOnTab is false or no value to add, allow normal tab behavior
+            // which will trigger blur and potentially addOnBlur
         }
 
         this.overlayVisible && this.hide();
