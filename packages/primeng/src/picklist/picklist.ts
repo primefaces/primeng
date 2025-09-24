@@ -1,4 +1,4 @@
-import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
@@ -1453,15 +1453,12 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
         if (listType === this.SOURCE_LIST) {
             if (isTransfer) {
-                // Use PickList's arrays instead of CDK's internal arrays
-                if (event.previousContainer.data === this.target) {
-                    // Remove item from target array
-                    const item = this.target.splice(dropIndexes.previousIndex, 1)[0];
-                    // Add item to source array
+                // Moving from target to source
+                // Remove item from target array
+                const item = this.target?.splice(dropIndexes.previousIndex, 1)[0];
+                // Add item to source array
+                if (item) {
                     this.source?.splice(dropIndexes.currentIndex, 0, item);
-                } else {
-                    // Fallback: use CDK transfer
-                    transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
                 }
                 let selectedItemIndex = findIndexInList(event.item.data, this.selectedItemsTarget);
 
@@ -1477,7 +1474,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
                 this.onMoveToSource.emit({ items: [event.item.data] });
             } else {
-                moveItemInArray(event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                moveItemInArray(this.source || [], dropIndexes.previousIndex, dropIndexes.currentIndex);
                 this.onSourceReorder.emit({ items: [event.item.data] });
             }
 
@@ -1486,15 +1483,12 @@ export class PickList extends BaseComponent implements AfterContentInit {
             }
         } else {
             if (isTransfer) {
-                // Use PickList's arrays instead of CDK's internal arrays
-                if (event.previousContainer.data === this.source) {
-                    // Remove item from source array
-                    const item = this.source.splice(dropIndexes.previousIndex, 1)[0];
-                    // Add item to target array
+                // Moving from source to target
+                // Remove item from source array
+                const item = this.source?.splice(dropIndexes.previousIndex, 1)[0];
+                // Add item to target array
+                if (item) {
                     this.target?.splice(dropIndexes.currentIndex, 0, item);
-                } else {
-                    // Fallback: use CDK transfer
-                    transferArrayItem(event.previousContainer.data, event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
                 }
 
                 let selectedItemIndex = findIndexInList(event.item.data, this.selectedItemsSource);
@@ -1511,7 +1505,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
                 this.onMoveToTarget.emit({ items: [event.item.data] });
             } else {
-                moveItemInArray(event.container.data, dropIndexes.previousIndex, dropIndexes.currentIndex);
+                moveItemInArray(this.target || [], dropIndexes.previousIndex, dropIndexes.currentIndex);
                 this.onTargetReorder.emit({ items: [event.item.data] });
             }
 
@@ -1520,6 +1514,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
             }
         }
 
+        this.triggerChangeDetection();
         this.cd.markForCheck();
     }
 
