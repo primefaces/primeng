@@ -171,6 +171,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 
                 <ng-template #buildInItems let-items let-scrollerOptions="options">
                     <ul
+                        #list
                         [id]="id + '_list'"
                         [class]="cx('list')"
                         role="listbox"
