@@ -891,7 +891,19 @@ describe('OrderList', () => {
                 category: 'Category 1',
                 rating: 5
             });
-            expect(component.onReorder).toHaveBeenCalledWith([component.products[2]]);
+            expect(component.onReorder).toHaveBeenCalledWith([
+                {
+                    id: '1',
+                    code: 'P001',
+                    name: 'Product A',
+                    description: 'Description A',
+                    price: 100,
+                    quantity: 10,
+                    inventoryStatus: 'INSTOCK',
+                    category: 'Category 1',
+                    rating: 5
+                }
+            ]);
         });
 
         it('should not handle drop event when indices are same', () => {
@@ -940,14 +952,15 @@ describe('OrderList', () => {
                 orderList.onDrop(dragDropEvent);
 
                 // All selected items should move together
-                // Original: [Product A, Product B, Product C, Product D] - select A & C, drag A to position 1
-                // Remove Product C (index 2), then Product A (index 0), currentIndex adjusted from 1 to 0
-                // After removal: [Product B, Product D]
-                // Insert at position 0: [Product A, Product C, Product B, Product D]
+                // Original: [Product A, Product B, Product C, Product D, Product E] - select A & C, drag A to position 1
+                // itemsBefore = 1 (only A is before position 1), targetIndex = 1 - 1 = 0
+                // After removal: [Product B, Product D, Product E]
+                // Insert at position 0: [Product A, Product C, Product B, Product D, Product E]
                 expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
                 expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
                 expect(component.products[2]).toEqual(originalOrder[1]); // Product B moved to position 2
                 expect(component.products[3]).toEqual(originalOrder[3]); // Product D moved to position 3
+                expect(component.products[4]).toEqual(originalOrder[4]); // Product E moved to position 4
                 expect(component.onReorder).toHaveBeenCalledWith([originalOrder[0], originalOrder[2]]);
             });
 
@@ -1027,14 +1040,15 @@ describe('OrderList', () => {
                 orderList.onDrop(dragDropEvent);
 
                 // Selected items should move together maintaining their relative order
-                // Original: [Product A, Product B, Product C, Product D] - select A, C, D, drag A to position 1
-                // Remove Product D (index 3), Product C (index 2), Product A (index 0), currentIndex adjusted from 1 to 0
-                // After removal: [Product B]
-                // Insert at position 0: [Product A, Product C, Product D, Product B]
+                // Original: [Product A, Product B, Product C, Product D, Product E] - select A, C, D, drag A to position 1
+                // itemsBefore = 1 (only A is before position 1), targetIndex = 1 - 1 = 0
+                // After removal: [Product B, Product E]
+                // Insert at position 0: [Product A, Product C, Product D, Product B, Product E]
                 expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
                 expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
                 expect(component.products[2]).toEqual(originalOrder[3]); // Product D moved to position 2
                 expect(component.products[3]).toEqual(originalOrder[1]); // Product B moved to position 3
+                expect(component.products[4]).toEqual(originalOrder[4]); // Product E remains at position 4
                 expect(component.onReorder).toHaveBeenCalledWith([originalOrder[0], originalOrder[2], originalOrder[3]]);
             });
         });

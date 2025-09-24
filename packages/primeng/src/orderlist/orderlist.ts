@@ -741,39 +741,49 @@ export class OrderList extends BaseComponent implements AfterContentInit {
             // Determine items to move
             let itemsToMove: any[] = [];
 
-            // Check if dragged item is in selected items
-            if (this.selection && this.selection.length > 0 && findIndexInList(event.item.data, this.selection) !== -1) {
+            // Check if dragged item is in selected items AND we have multiple selections
+            if (this.selection && this.selection.length > 1 && findIndexInList(event.item.data, this.selection) !== -1) {
                 // Multi-selection: Move all selected items
                 itemsToMove = [...this.selection];
 
                 // For multi-selection, restore original state to undo Listbox's automatic reordering
-                this.value = originalValue;
-                if (originalVisibleOptions) {
-                    this.visibleOptions = originalVisibleOptions;
+                if (this.value) {
+                    this.value.length = 0;
+                    this.value.push(...originalValue);
+                }
+                if (originalVisibleOptions && this.visibleOptions) {
+                    this.visibleOptions.length = 0;
+                    this.visibleOptions.push(...originalVisibleOptions);
                 }
 
                 // Sort items by their index in the array to maintain relative order
                 itemsToMove = this.sortByIndexInList(itemsToMove, this.value || []);
 
+                // Calculate how many selected items are before the drop position
+                let itemsBefore = 0;
+                for (const item of itemsToMove) {
+                    const itemIndex = findIndexInList(item, this.value || []);
+                    if (itemIndex !== -1 && itemIndex < currentIndex) {
+                        itemsBefore++;
+                    }
+                }
+
                 // Remove all selected items (in reverse order to avoid index shifting)
-                // and calculate the adjusted target index as we go
-                let targetIndex = currentIndex;
                 for (let i = itemsToMove.length - 1; i >= 0; i--) {
                     const itemIndex = findIndexInList(itemsToMove[i], this.value || []);
                     if (itemIndex !== -1) {
                         this.value?.splice(itemIndex, 1);
-                        // Adjust target index if the removed item was before the original drop position
-                        if (itemIndex < currentIndex) {
-                            targetIndex--;
-                        }
                     }
                 }
+
+                // Calculate the final target index
+                // If we're dragging down, we need to subtract the number of items that were before the target
+                const targetIndex = Math.max(0, currentIndex - itemsBefore);
 
                 // Insert all selected items at the target position
                 for (let i = 0; i < itemsToMove.length; i++) {
                     this.value?.splice(targetIndex + i, 0, itemsToMove[i]);
                 }
-
                 // Update visibleOptions to match value
                 if (this.dragdrop) {
                     if (this.filterValue) {
