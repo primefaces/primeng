@@ -1,9 +1,9 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'checkbox-invalid-demo',
@@ -14,7 +14,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
+            <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" [ariaLabel]="'checkbox with true or false value'" />
         </div>
         <app-code [code]="code" selector="checkbox-invalid-demo"></app-code>
     `
@@ -26,7 +26,7 @@ export class InvalidDoc {
         basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />`,
 
         html: `<div class="card flex justify-center">
-    <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
+    <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" [ariaLabel]="'checkbox with true or false value'"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
