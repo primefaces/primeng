@@ -915,6 +915,129 @@ describe('OrderList', () => {
 
             expect(component.onReorder).not.toHaveBeenCalled();
         });
+
+        describe('Multi-Selection Drag & Drop', () => {
+            it('should move all selected items when dragging one of them', () => {
+                component.dragdrop = true;
+                // Select multiple items (first, third items - indices 0 and 2)
+                component.selection = [component.products[0], component.products[2]];
+                fixture.detectChanges();
+                spyOn(component, 'onReorder');
+
+                const dragDropEvent: CdkDragDrop<string[]> = {
+                    previousIndex: 0, // dragging first item
+                    currentIndex: 1, // to position 1
+                    item: { data: component.products[0] } as any, // dragging first item
+                    container: {} as any,
+                    previousContainer: {} as any,
+                    isPointerOverContainer: true,
+                    distance: { x: 0, y: 50 },
+                    dropPoint: { x: 0, y: 50 },
+                    event: new MouseEvent('mouseup')
+                };
+
+                const originalOrder = [...component.products];
+                orderList.onDrop(dragDropEvent);
+
+                // All selected items should move together
+                // Original: [Product A, Product B, Product C, Product D] - select A & C, drag A to position 1
+                // Remove Product C (index 2), then Product A (index 0), currentIndex adjusted from 1 to 0
+                // After removal: [Product B, Product D]
+                // Insert at position 0: [Product A, Product C, Product B, Product D]
+                expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
+                expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
+                expect(component.products[2]).toEqual(originalOrder[1]); // Product B moved to position 2
+                expect(component.products[3]).toEqual(originalOrder[3]); // Product D moved to position 3
+                expect(component.onReorder).toHaveBeenCalledWith([originalOrder[0], originalOrder[2]]);
+            });
+
+            it('should move only dragged item when it is not in selection', () => {
+                component.dragdrop = true;
+                // Select first and third items, but drag the second item (not selected)
+                component.selection = [component.products[0], component.products[2]];
+                fixture.detectChanges();
+                spyOn(component, 'onReorder');
+
+                const dragDropEvent: CdkDragDrop<string[]> = {
+                    previousIndex: 1, // dragging second item (not selected)
+                    currentIndex: 3, // to position 3
+                    item: { data: component.products[1] } as any,
+                    container: {} as any,
+                    previousContainer: {} as any,
+                    isPointerOverContainer: true,
+                    distance: { x: 0, y: 100 },
+                    dropPoint: { x: 0, y: 100 },
+                    event: new MouseEvent('mouseup')
+                };
+
+                const originalItem = component.products[1];
+                orderList.onDrop(dragDropEvent);
+
+                // Only the dragged item should move
+                expect(component.products[3]).toEqual(originalItem);
+                expect(component.onReorder).toHaveBeenCalledWith([originalItem]);
+            });
+
+            it('should move empty selection when no items are selected', () => {
+                component.dragdrop = true;
+                component.selection = []; // no selection
+                fixture.detectChanges();
+                spyOn(component, 'onReorder');
+
+                const dragDropEvent: CdkDragDrop<string[]> = {
+                    previousIndex: 1,
+                    currentIndex: 3,
+                    item: { data: component.products[1] } as any,
+                    container: {} as any,
+                    previousContainer: {} as any,
+                    isPointerOverContainer: true,
+                    distance: { x: 0, y: 100 },
+                    dropPoint: { x: 0, y: 100 },
+                    event: new MouseEvent('mouseup')
+                };
+
+                const originalItem = component.products[1];
+                orderList.onDrop(dragDropEvent);
+
+                // Only the dragged item should move
+                expect(component.products[3]).toEqual(originalItem);
+                expect(component.onReorder).toHaveBeenCalledWith([originalItem]);
+            });
+
+            it('should maintain relative order of selected items when moving multiple', () => {
+                component.dragdrop = true;
+                // Select items in order: 0, 2, 3 (maintain relative positioning)
+                component.selection = [component.products[0], component.products[2], component.products[3]];
+                fixture.detectChanges();
+                spyOn(component, 'onReorder');
+
+                const dragDropEvent: CdkDragDrop<string[]> = {
+                    previousIndex: 0, // dragging first selected item
+                    currentIndex: 1, // to position 1
+                    item: { data: component.products[0] } as any,
+                    container: {} as any,
+                    previousContainer: {} as any,
+                    isPointerOverContainer: true,
+                    distance: { x: 0, y: 50 },
+                    dropPoint: { x: 0, y: 50 },
+                    event: new MouseEvent('mouseup')
+                };
+
+                const originalOrder = [...component.products];
+                orderList.onDrop(dragDropEvent);
+
+                // Selected items should move together maintaining their relative order
+                // Original: [Product A, Product B, Product C, Product D] - select A, C, D, drag A to position 1
+                // Remove Product D (index 3), Product C (index 2), Product A (index 0), currentIndex adjusted from 1 to 0
+                // After removal: [Product B]
+                // Insert at position 0: [Product A, Product C, Product D, Product B]
+                expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
+                expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
+                expect(component.products[2]).toEqual(originalOrder[3]); // Product D moved to position 2
+                expect(component.products[3]).toEqual(originalOrder[1]); // Product B moved to position 3
+                expect(component.onReorder).toHaveBeenCalledWith([originalOrder[0], originalOrder[2], originalOrder[3]]);
+            });
+        });
     });
 
     describe('Filtering', () => {
