@@ -2178,6 +2178,10 @@ describe('AutoComplete', () => {
                 testComponent.selectedValue = ['Test Item'];
                 testFixture.detectChanges();
 
+                // Ensure the autocomplete component's model is synchronized
+                autocompleteComponent.updateModel(['Test Item']);
+                testFixture.detectChanges();
+
                 // Set the multiInputEl value directly since we're in multiple mode
                 if (autocompleteComponent.multiInputEl) {
                     autocompleteComponent.multiInputEl.nativeElement.value = 'Test Item';
@@ -2201,7 +2205,7 @@ describe('AutoComplete', () => {
                 expect(tabEvent.defaultPrevented).toBe(false);
 
                 // Should still have only one instance of the item
-                expect(testComponent.selectedValue.filter((v) => v === 'Test Item').length).toBe(1);
+                expect(testComponent.selectedValue.filter((v: any) => v === 'Test Item').length).toBe(1);
             });
 
             it('should trim whitespace when adding items via tab', () => {
