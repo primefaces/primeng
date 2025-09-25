@@ -21,6 +21,7 @@ const theme = /*css*/ `
     .p-inputgroup p-button:first-child,
     .p-inputgroup p-button:last-child {
         display: inline-flex;
+        height: 100%;
     }
 
     .p-inputgroup:has(> p-button:first-child) .p-button {
