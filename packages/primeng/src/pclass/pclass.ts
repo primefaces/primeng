@@ -8,7 +8,7 @@ export interface PClassObject {
 export interface PClassArray extends Array<PClassValue> {}
 
 /**
- * PClass directive provides Vue.js-style class binding functionality.
+ * PClass directive provides extends class binding functionality.
  * Supports strings, arrays, objects, and mixed combinations.
  * @group Directives
  */
