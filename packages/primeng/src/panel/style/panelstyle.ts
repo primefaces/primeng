@@ -6,10 +6,11 @@ const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
-    .p-panel-collapsed > .p-panel-content-container,
+    .p-panel-collapsed .p-panel-content-container,
     .p-panel-content-container.ng-animating {
-        overflow: hidden;
+        overflow: hidden !important;
     }
+
 `;
 
 const classes = {
@@ -17,8 +18,8 @@ const classes = {
         'p-panel p-component',
         {
             'p-panel-toggleable': instance.toggleable,
-            'p-panel-expanded': !instance.collapsed && instance.toggleable,
-            'p-panel-collapsed': instance.collapsed && instance.toggleable
+            'p-panel-expanded': !instance.collapsed() && instance.toggleable,
+            'p-panel-collapsed': instance.collapsed() && instance.toggleable
         }
     ],
     icons: ({ instance }) => [
