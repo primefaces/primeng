@@ -223,16 +223,10 @@ export class BaseComponent {
 
     // PASSTHROUGH FUNCTIONALITY
 
-    /**
-     * Main passthrough method used by components
-     */
     ptm(key = '', params = {}) {
         return this._getPTValue(this.pt || {}, key, { ...this._params(), ...params });
     }
 
-    /**
-     * Get passthrough datasets for data attributes
-     */
     _getPTDatasets(key = '') {
         const datasetPrefix = 'data-pc-';
         const isExtended = key === 'root' && ObjectUtils.isNotEmpty(this.pt?.['data-pc-section']);
@@ -248,30 +242,18 @@ export class BaseComponent {
         );
     }
 
-    /**
-     * Get default passthrough configuration
-     */
     defaultPT() {
         return this._getPT(this.config?.['pt'], undefined, (value: any) => this._getOptionValue(value, this._name, { ...this._params() }) || ObjectUtils.getItemValue(value, { ...this._params() }));
     }
 
-    /**
-     * Merge properties function
-     */
     _mergeProps(fn: any, ...args: any[]) {
         return ObjectUtils.isFunction(fn) ? fn(...args) : { ...args[0], ...args[1] };
     }
 
-    /**
-     * Use default passthrough
-     */
     _useDefaultPT(callback: any, key: any, params?: any) {
         return this._usePT(this.defaultPT(), callback, key, params);
     }
 
-    /**
-     * Core passthrough retrieval method
-     */
     _getPT(pt: any, key = '', callback?: any) {
         const getValue = (value: any, checkSameKey = false) => {
             const computedValue = callback ? callback(value) : value;
@@ -289,9 +271,6 @@ export class BaseComponent {
             : getValue(pt, true);
     }
 
-    /**
-     * Core passthrough usage method
-     */
     _usePT(pt: any, callback: any, key: any, params?: any) {
         const fn = (value: any) => callback(value, key, params);
         if (pt?.hasOwnProperty('_usept')) {
@@ -309,9 +288,6 @@ export class BaseComponent {
         return fn(pt);
     }
 
-    /**
-     * Comprehensive passthrough value resolution method
-     */
     _getPTValue(obj = {}, key = '', params = {}, searchInDefaultPT = true) {
         const searchOut = /./g.test(key) && !!params[key.split('.')[0]];
         const { mergeSections = true, mergeProps: useMergeProps = false } = this._getPropValue('ptOptions') || this.config?.['ptOptions'] || this.ptOptions || {};
@@ -321,9 +297,6 @@ export class BaseComponent {
         return mergeSections || (!mergeSections && self) ? (useMergeProps ? { ...global, ...self, ...datasets } : { ...global, ...self, ...datasets }) : { ...self, ...datasets };
     }
 
-    /**
-     * Use global passthrough
-     */
     _useGlobalPT(callback: any, key: any, params: any) {
         return this._usePT(
             this._getPT(this.config?.['pt'], undefined, (value: any) => ObjectUtils.getItemValue(value, { instance: this })),
@@ -333,24 +306,15 @@ export class BaseComponent {
         );
     }
 
-    /**
-     * Get passthrough class value
-     */
     _getPTClassValue(options?: any, key?: any, params?: any) {
         const value = this._getOptionValue(options, key, params);
         return ObjectUtils.isString(value) || ObjectUtils.isArray(value) ? { class: value } : value;
     }
 
-    /**
-     * Get property value with host instance fallback
-     */
     _getPropValue(name: any) {
         return this[name] || this._getHostInstance(this)?.[name];
     }
 
-    /**
-     * Get parameters for passthrough context
-     */
     _params() {
         const parentInstance = this._getHostInstance(this) || this.parent;
 
@@ -366,9 +330,6 @@ export class BaseComponent {
         };
     }
 
-    /**
-     * Merge multiple class arguments
-     */
     mergeClasses(...args) {
         const classNames = args.map((arg) => {
             if (typeof arg === 'object') {
@@ -382,16 +343,10 @@ export class BaseComponent {
         return classNames.join(' ');
     }
 
-    /**
-     * Check if component is unstyled
-     */
     isUnstyled() {
         return this.unstyled;
     }
 
-    /**
-     * Apply PassThrough attributes to root element
-     */
     _applyRootPT() {
         if (this.rootEl && this.ptm) {
             const rootPT = this.ptm('root');
@@ -400,7 +355,7 @@ export class BaseComponent {
                 if (rootPT.class) {
                     const classes = Array.isArray(rootPT.class) ? rootPT.class : [rootPT.class];
                     classes.forEach((cls: string) => {
-                        if (cls) this.rootEl?.classList.add(cls);
+                        if (cls && typeof cls === 'string') this.rootEl?.classList.add(cls);
                     });
                 }
 
