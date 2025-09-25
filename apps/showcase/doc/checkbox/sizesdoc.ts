@@ -1,9 +1,9 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'checkbox-sizes-demo',
@@ -15,16 +15,16 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
             <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
-                <label for="size_small" class="text-sm">Small</label>
+                <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" [ariaLabelledBy]="'size_small_label'" />
+                <label id="size_small_label" for="size_small" class="text-sm">Small</label>
             </div>
             <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
-                <label for="size_normal">Normal</label>
+                <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" [ariaLabelledBy]="'size_normal_label'" />
+                <label id="size_normal_label" for="size_normal">Normal</label>
             </div>
             <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
-                <label for="size_large" class="text-lg">Large</label>
+                <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" [ariaLabelledBy]="'size_large_label'" />
+                <label id="size_large_label" for="size_large" class="text-lg">Large</label>
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-sizes-demo"></app-code>
@@ -49,16 +49,16 @@ export class SizesDoc {
 
         html: `<div class="card flex flex-wrap justify-center gap-4">
     <div class="flex items-center gap-2">
-        <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
-        <label for="size_small" class="text-sm">Small</label>
+        <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" [ariaLabelledBy]="'size_small_label'" />
+        <label id="size_small_label" for="size_small" class="text-sm">Small</label>
     </div>
     <div class="flex items-center gap-2">
-        <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
-        <label for="size_normal">Normal</label>
+        <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" [ariaLabelledBy]="'size_normal_label'"/>
+        <label id="size_normal_label" for="size_normal">Normal</label>
     </div>
     <div class="flex items-center gap-2">
-        <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
-        <label for="size_large" class="text-lg">Large</label>
+        <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" [ariaLabelledBy]="'size_large_label'"/>
+        <label id="size_large_label" for="size_large" class="text-lg">Large</label>
     </div>
 </div>`,
 

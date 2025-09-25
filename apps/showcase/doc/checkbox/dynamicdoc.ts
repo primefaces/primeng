@@ -1,10 +1,10 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
@@ -17,8 +17,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
                 <div *ngFor="let category of categories" class="flex items-center">
-                    <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
-                    <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
+                    <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" [ariaLabelledBy]="category.id" />
+                    <label [for]="category.key" class="ml-2" [id]="category.id"> {{ category.name }} </label>
                 </div>
             </div>
         </div>
@@ -29,10 +29,10 @@ export class DynamicDoc {
     selectedCategories: any[] = [];
 
     categories: any[] = [
-        { name: 'Accounting', key: 'A' },
-        { name: 'Marketing', key: 'M' },
-        { name: 'Production', key: 'P' },
-        { name: 'Research', key: 'R' }
+        { id: 1, name: 'Accounting', key: 'A' },
+        { id: 2, name: 'Marketing', key: 'M' },
+        { id: 3, name: 'Production', key: 'P' },
+        { id: 4, name: 'Research', key: 'R' }
     ];
 
     code: Code = {
@@ -44,8 +44,8 @@ export class DynamicDoc {
         html: `<div class="card flex justify-center">
     <div class="flex flex-col gap-4">
         <div *ngFor="let category of categories" class="flex items-center">
-            <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
-            <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
+            <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" [ariaLabelledBy]="category.id"/>
+            <label [for]="category.key" class="ml-2" [id]="category.id"> {{ category.name }} </label>
         </div>
     </div>
 </div>`,
@@ -65,10 +65,10 @@ export class CheckboxDynamicDemo {
     selectedCategories: any[] = [];
 
     categories: any[] = [
-        { name: 'Accounting', key: 'A' },
-        { name: 'Marketing', key: 'M' },
-        { name: 'Production', key: 'P' },
-        { name: 'Research', key: 'R' },
+        { id: 1, name: 'Accounting', key: 'A' },
+        { id: 2, name: 'Marketing', key: 'M' },
+        { id: 3, name: 'Production', key: 'P' },
+        { id: 4, name: 'Research', key: 'R' },
     ];
 
     ngOnInit() {
