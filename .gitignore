@@ -21,7 +21,6 @@ dist
 .settings/
 *.sublime-workspace
 /.vscode
-.vscode
 
 # misc
 /.sass-cache
