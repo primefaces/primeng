@@ -83,7 +83,6 @@ export class BaseComponent {
 
         if (this.rootEl) {
             this.rootEl?.setAttribute(this.attrSelector, '');
-            this._applyRootPT();
         }
     }
 
@@ -97,9 +96,7 @@ export class BaseComponent {
         }
         if (changes) {
             Object.keys(changes).forEach((key) => {
-                if (key === 'pt' && this.rootEl) {
-                    this._applyRootPT();
-                } else if (key !== 'pt') {
+                if (key !== 'pt') {
                     if (this.params.props[key] !== changes[key].currentValue) {
                         this.params.props[key] = changes[key].currentValue;
                     }
