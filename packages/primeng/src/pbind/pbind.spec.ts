@@ -237,7 +237,8 @@ describe('Bind', () => {
             };
 
             const classes = directive.classes();
-            const uniqueClasses = classes.filter((cls) => cls === 'test-class');
+            const classArray = classes.split(' ');
+            const uniqueClasses = classArray.filter((cls: string) => cls === 'test-class');
 
             expect(uniqueClasses.length).toBe(1);
         });
@@ -403,7 +404,7 @@ describe('Bind', () => {
 
             const classes = directive.classes();
 
-            expect(classes).toEqual([]);
+            expect(classes).toEqual('');
         });
 
         it('should handle attrs without style property', () => {
@@ -482,7 +483,7 @@ describe('Bind', () => {
 
             const classes = directive.classes();
 
-            expect(classes).toEqual([]);
+            expect(classes).toEqual('');
         });
     });
 });
