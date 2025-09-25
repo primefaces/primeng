@@ -169,9 +169,15 @@ export interface PanelHeaderIconsTemplateContext {
         'data-pc-name': 'panel',
         'data-pc-section': 'root',
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
 export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.attrs = this.ptm('root');
+    }
     /**
      * Id of the component.
      */

@@ -1,12 +1,12 @@
-import { Input, Directive, ElementRef, Renderer2, SimpleChanges } from '@angular/core';
-import { ObjectUtils } from 'primeng/utils';
+import { Directive, ElementRef, Input, Renderer2, SimpleChanges } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
+import { ObjectUtils } from 'primeng/utils';
 
 @Directive({
     selector: '[pBind]',
     standalone: true,
     host: {
-        '[class]': 'classes().join(" ")'
+        '[class]': 'classes()'
     }
 })
 export class Bind {
@@ -22,9 +22,11 @@ export class Bind {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.attrs.currentValue && ObjectUtils.equals(changes.attrs.currentValue, changes.attrs.previousValue) === false) {
-            this.attrs = changes.attrs.currentValue;
-            this.bind();
+        if (this.host) {
+            if (changes.attrs.currentValue && ObjectUtils.equals(changes.attrs.currentValue, changes.attrs.previousValue) === false) {
+                this.attrs = changes.attrs.currentValue;
+                this.bind();
+            }
         }
     }
 
@@ -33,15 +35,18 @@ export class Bind {
     }
 
     classes() {
-        const classes =
-            typeof this.attrs.class === 'string'
-                ? this.attrs.class.split(' ')
-                : ObjectUtils.isArray(this.attrs.class)
-                  ? this.attrs.class
-                  : ObjectUtils.isObject(this.attrs.class)
-                    ? Object.keys(this.attrs.class).filter((key) => this.attrs.class[key] === true)
-                    : [];
-        return Array.from(new Set([...classes]));
+        if (this.attrs) {
+            const classes =
+                typeof this.attrs.class === 'string'
+                    ? this.attrs.class.split(' ')
+                    : ObjectUtils.isArray(this.attrs.class)
+                      ? this.attrs.class
+                      : ObjectUtils.isObject(this.attrs.class)
+                        ? Object.keys(this.attrs.class).filter((key) => this.attrs.class[key] === true)
+                        : [];
+            return Array.from(new Set([...classes])).join(' ');
+        }
+        return;
     }
 
     attributes() {
