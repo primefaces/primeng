@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NgClass } from '@angular/common';
 import { PClass } from './pclass';
 
 @Component({
@@ -10,9 +11,10 @@ import { PClass } from './pclass';
         <div [pClass]="objectClass" data-testid="object"></div>
         <div [pClass]="mixedClass" data-testid="mixed"></div>
         <div [pClass]="nullClass" data-testid="null"></div>
+        <div class="p-2 border border-surface-700" [ngClass]="ngClassExample" [pClass]="[combinedExample, 'string_class']" data-testid="combined"></div>
     `,
     standalone: true,
-    imports: [PClass]
+    imports: [PClass, NgClass]
 })
 class TestComponent {
     stringClass = 'test-class';
@@ -20,6 +22,13 @@ class TestComponent {
     objectClass = { active: true, disabled: false };
     mixedClass = ['base', { active: true, hidden: false }];
     nullClass = null;
+
+    ngClassExample = {
+        rounded: true,
+        'bg-green-500': true
+    };
+
+    combinedExample = ['text-white', 'font-semibold'];
 }
 
 describe('PClass Directive', () => {
@@ -72,5 +81,24 @@ describe('PClass Directive', () => {
         fixture.detectChanges();
 
         expect(element.nativeElement.className).toBe('new-class');
+    });
+
+    it('should combine static class, ngClass, and pClass correctly', () => {
+        const element = fixture.debugElement.query(By.css('[data-testid="combined"]'));
+        const classList = element.nativeElement.className.split(' ');
+
+        // Static classes
+        expect(classList).toContain('p-2');
+        expect(classList).toContain('border');
+        expect(classList).toContain('border-surface-700');
+
+        // NgClass classes
+        expect(classList).toContain('rounded');
+        expect(classList).toContain('bg-green-500');
+
+        // PClass classes
+        expect(classList).toContain('text-white');
+        expect(classList).toContain('font-semibold');
+        expect(classList).toContain('string_class');
     });
 });

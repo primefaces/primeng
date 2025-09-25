@@ -22,6 +22,9 @@ export class PClass {
      */
     pClass = input<PClassValue>();
 
+    private initialClasses = '';
+    private isInitialized = false;
+
     constructor(
         private el: ElementRef,
         private renderer: Renderer2
@@ -32,14 +35,22 @@ export class PClass {
     }
 
     private updateClasses(): void {
-        // Get computed class string using cn function
-        const classString = cn(this.el.nativeElement, this.pClass());
+        if (this.el?.nativeElement) {
+            // Store initial classes on first run
+            if (!this.isInitialized) {
+                this.initialClasses = this.el.nativeElement.className;
+                this.isInitialized = true;
+            }
 
-        // Apply the class to the element
-        if (classString) {
-            this.renderer.setAttribute(this.el.nativeElement, 'class', classString);
-        } else {
-            this.renderer.removeAttribute(this.el.nativeElement, 'class');
+            // Combine initial classes with pClass
+            const classString = cn(this.initialClasses, this.pClass());
+
+            // Apply the class to the element
+            if (classString) {
+                this.renderer.setAttribute(this.el.nativeElement, 'class', classString);
+            } else {
+                this.renderer.removeAttribute(this.el.nativeElement, 'class');
+            }
         }
     }
 }
