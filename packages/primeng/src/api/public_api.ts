@@ -1,4 +1,3 @@
-export * from '../pclass/pclass';
 export * from './blockableui';
 export * from './confirmaeventtype';
 export * from './confirmation';

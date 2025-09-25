@@ -21684,7 +21684,34 @@
         }
     },
     "pclass": {
-        "components": {}
+        "components": {
+            "PClass": {
+                "description": "PClass directive provides extends class binding functionality.\nSupports strings, arrays, objects, and mixed combinations.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "pClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "...",
+                            "description": "Class value(s) to be applied. Can be a string, array, object, or combination."
+                        }
+                    ]
+                }
+            }
+        },
+        "types": {
+            "description": "Defines the custom types used by the module.",
+            "values": [
+                {
+                    "name": "PClassValue",
+                    "value": "string | number | boolean | undefined | null | { [key: string]: boolean } | any",
+                    "description": "Represents the suitable value types of pClass directive."
+                }
+            ]
+        }
     },
     "picklist": {
         "components": {
