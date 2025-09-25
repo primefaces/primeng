@@ -46,7 +46,7 @@ export class Bind {
                         : [];
             return Array.from(new Set([...classes])).join(' ');
         }
-        return;
+        return '';
     }
 
     attributes() {
