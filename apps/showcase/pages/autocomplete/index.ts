@@ -1,9 +1,9 @@
 import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/autocomplete/accessibilitydoc';
+import { AdvancedChipsDoc } from '@/doc/autocomplete/advancedchipsdoc';
+import { BasicChipsDoc } from '@/doc/autocomplete/basicchipsdoc';
 import { BasicDoc } from '@/doc/autocomplete/basicdoc';
-import { ChipsDoc } from '@/doc/autocomplete/chipsdoc';
 import { ClearIconDoc } from '@/doc/autocomplete/clearicondoc';
-import { CustomOptionsDoc } from '@/doc/autocomplete/customoptionsdoc';
 import { DisabledDoc } from '@/doc/autocomplete/disableddoc';
 import { DropdownDoc } from '@/doc/autocomplete/dropdowndoc';
 import { FilledDoc } from '@/doc/autocomplete/filleddoc';
@@ -86,12 +86,18 @@ export class AutoCompleteDemo {
         {
             id: 'chips',
             label: 'Chips',
-            component: ChipsDoc
-        },
-        {
-            id: 'customoptions',
-            label: 'Custom Options',
-            component: CustomOptionsDoc
+            children: [
+                {
+                    id: 'basicchips',
+                    label: 'Basic',
+                    component: BasicChipsDoc
+                },
+                {
+                    id: 'advancedchips',
+                    label: 'Advanced',
+                    component: AdvancedChipsDoc
+                }
+            ]
         },
         {
             id: 'floatlabel',
