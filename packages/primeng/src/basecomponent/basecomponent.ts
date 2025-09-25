@@ -342,47 +342,4 @@ export class BaseComponent {
         return this.unstyled;
     }
 
-    // TODO: replace this method
-    _applyRootPT() {
-        if (this.rootEl && this.ptm) {
-            const rootPT = this.ptm('root');
-            if (rootPT && typeof rootPT === 'object') {
-                // Apply classes
-                if (rootPT.class) {
-                    const classes = Array.isArray(rootPT.class) ? rootPT.class : [rootPT.class];
-                    classes.forEach((cls: string) => {
-                        if (cls && typeof cls === 'string') this.rootEl?.classList.add(cls);
-                    });
-                }
-
-                // Apply styles
-                if (rootPT.style) {
-                    if (typeof rootPT.style === 'string') {
-                        this.rootEl.style.cssText += rootPT.style;
-                    } else if (typeof rootPT.style === 'object') {
-                        Object.keys(rootPT.style).forEach((key) => {
-                            if (this.rootEl) {
-                                this.rootEl.style[key as any] = rootPT.style[key];
-                            }
-                        });
-                    }
-                }
-
-                // Apply attributes (excluding class and style)
-                Object.keys(rootPT).forEach((key) => {
-                    if (key !== 'class' && key !== 'style' && key !== 'onclick' && !key.startsWith('on')) {
-                        this.rootEl?.setAttribute(key, rootPT[key]);
-                    }
-                });
-
-                // Apply event listeners
-                Object.keys(rootPT).forEach((key) => {
-                    if (key.startsWith('on') && typeof rootPT[key] === 'function') {
-                        const eventName = key.substring(2).toLowerCase();
-                        this.rootEl?.addEventListener(eventName, rootPT[key]);
-                    }
-                });
-            }
-        }
-    }
 }
