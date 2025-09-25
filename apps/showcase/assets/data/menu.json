@@ -441,6 +441,10 @@
                             "routerLink": "/styleclass"
                         },
                         {
+                            "name": "pClass",
+                            "routerLink": "/pclass"
+                        },
+                        {
                             "name": "Tag",
                             "routerLink": "/tag"
                         },
