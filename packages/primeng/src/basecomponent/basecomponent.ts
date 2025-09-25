@@ -95,11 +95,9 @@ export class BaseComponent {
                 this._themeChangeListener(() => this._loadScopedThemeStyles(dt.currentValue));
             }
         }
-
         if (changes) {
             Object.keys(changes).forEach((key) => {
                 if (key === 'pt' && this.rootEl) {
-                    // PT değiştiğinde root element'e yeniden uygula
                     this._applyRootPT();
                 } else if (key !== 'pt') {
                     if (this.params.props[key] !== changes[key].currentValue) {
@@ -347,6 +345,7 @@ export class BaseComponent {
         return this.unstyled;
     }
 
+    // TODO: replace this method
     _applyRootPT() {
         if (this.rootEl && this.ptm) {
             const rootPT = this.ptm('root');

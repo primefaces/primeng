@@ -1,6 +1,5 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 
@@ -13,52 +12,27 @@ import { PanelModule } from 'primeng/panel';
             <p>A simple Panel is created with a <i>header</i> property along with the content as children.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panel header="Header" [pt]="{ root: myMethod }">
+            <p-panel header="Header" [pt]="{ header: myMethod }" toggleable>
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </p-panel>
         </div>
-        <app-code [code]="code" selector="panel-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
+    // TODO: debug root element: [pt]="{ root: myMethod }"
+
     myMethod(params) {
-        console.log(params);
         const { props, state } = params;
         return {
             class: {
-                'p-BASICDEMO': !props.collapsed,
-                'p-PRIME': props.collapsed
+                'COLLAPSE-CHANGE': !params.instance.collapsed()
+            },
+            style: {
+                background: !params.instance.collapsed() ? 'red !important;' : 'blue !important;'
             }
         };
     }
-    code: Code = {
-        basic: `<p-panel header="Header">
-    <p class="m-0">
-        Lorem ipsum dolor sit amet...
-    </p>
-</p-panel>`,
-
-        html: `<div class="card flex justify-center">
-    <p-panel header="Header">
-        <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-    </p-panel>
-</div>`,
-
-        typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
-
-@Component({
-    selector: 'panel-basic-demo',
-    templateUrl: './panel-basic-demo.html',
-    standalone: true,
-    imports: [PanelModule]
-})
-export class PanelBasicDemo {}`
-    };
 }
