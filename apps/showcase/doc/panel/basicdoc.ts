@@ -75,4 +75,13 @@ export class BasicDoc {
             }
         };
     }
+
+    rootMethod(params) {
+        return {
+            class: {
+                '!border-2 !border-green-500 p-16': params.instance.collapsed(),
+                'p-16': !params.instance.collapsed()
+            }
+        };
+    }
 }
