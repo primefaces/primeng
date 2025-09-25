@@ -93,7 +93,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [fluid]="hasFluid"
                 [invalid]="invalid()"
             />
-            <ng-container *ngIf="showClear && !$disabled() && value != null">
+            <ng-container *ngIf="showClear && !$disabled() && inputfieldViewChild?.nativeElement?.value">
                 <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
                 <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
