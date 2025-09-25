@@ -4,6 +4,7 @@ import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
+import { ObjectUtils } from 'primeng/utils';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 @Directive({ standalone: true, providers: [BaseComponentStyle, BaseStyle] })
@@ -31,6 +32,17 @@ export class BaseComponent {
     public rootEl: any;
 
     @Input() dt: Object | undefined;
+
+    @Input() pt: { [arg: string]: any } | undefined | null;
+
+    @Input() ptOptions: { [arg: string]: any } | undefined | null;
+
+    @Input() unstyled: boolean = false;
+
+    params: any = {
+        props: {},
+        state: {}
+    };
 
     get styleOptions() {
         return { nonce: this.config?.csp().nonce };
@@ -63,12 +75,15 @@ export class BaseComponent {
             this._loadCoreStyles();
             this._loadStyles();
         }
+        this.params = this['initParams'] ? this['initParams']() : { props: {}, state: {} };
     }
 
     ngAfterViewInit() {
         this.rootEl = this.el?.nativeElement;
+
         if (this.rootEl) {
             this.rootEl?.setAttribute(this.attrSelector, '');
+            this._applyRootPT();
         }
     }
 
@@ -79,6 +94,19 @@ export class BaseComponent {
                 this._loadScopedThemeStyles(dt.currentValue);
                 this._themeChangeListener(() => this._loadScopedThemeStyles(dt.currentValue));
             }
+        }
+
+        if (changes) {
+            Object.keys(changes).forEach((key) => {
+                if (key === 'pt' && this.rootEl) {
+                    // PT değiştiğinde root element'e yeniden uygula
+                    this._applyRootPT();
+                } else if (key !== 'pt') {
+                    if (this.params.props[key] !== changes[key].currentValue) {
+                        this.params.props[key] = changes[key].currentValue;
+                    }
+                }
+            });
         }
     }
 
@@ -192,4 +220,218 @@ export class BaseComponent {
     }
 
     protected readonly cn = cn;
+
+    // PASSTHROUGH FUNCTIONALITY
+
+    /**
+     * Main passthrough method used by components
+     */
+    ptm(key = '', params = {}) {
+        return this._getPTValue(this.pt || {}, key, { ...this._params(), ...params });
+    }
+
+    /**
+     * Get passthrough datasets for data attributes
+     */
+    _getPTDatasets(key = '') {
+        const datasetPrefix = 'data-pc-';
+        const isExtended = key === 'root' && ObjectUtils.isNotEmpty(this.pt?.['data-pc-section']);
+
+        return (
+            key !== 'transition' && {
+                ...(key === 'root' && {
+                    [`${datasetPrefix}name`]: ObjectUtils.toFlatCase(isExtended ? this.pt?.['data-pc-section'] : this._name),
+                    ...(isExtended && { [`${datasetPrefix}extend`]: ObjectUtils.toFlatCase(this._name) })
+                }),
+                [`${datasetPrefix}section`]: ObjectUtils.toFlatCase(key)
+            }
+        );
+    }
+
+    /**
+     * Get default passthrough configuration
+     */
+    defaultPT() {
+        return this._getPT(this.config?.['pt'], undefined, (value: any) => this._getOptionValue(value, this._name, { ...this._params() }) || ObjectUtils.getItemValue(value, { ...this._params() }));
+    }
+
+    /**
+     * Merge properties function
+     */
+    _mergeProps(fn: any, ...args: any[]) {
+        return ObjectUtils.isFunction(fn) ? fn(...args) : { ...args[0], ...args[1] };
+    }
+
+    /**
+     * Use default passthrough
+     */
+    _useDefaultPT(callback: any, key: any, params?: any) {
+        return this._usePT(this.defaultPT(), callback, key, params);
+    }
+
+    /**
+     * Core passthrough retrieval method
+     */
+    _getPT(pt: any, key = '', callback?: any) {
+        const getValue = (value: any, checkSameKey = false) => {
+            const computedValue = callback ? callback(value) : value;
+            const _key = ObjectUtils.toFlatCase(key);
+            const _cKey = ObjectUtils.toFlatCase(this._name);
+
+            return (checkSameKey ? (_key !== _cKey ? computedValue?.[_key] : undefined) : computedValue?.[_key]) ?? computedValue;
+        };
+        return pt?.hasOwnProperty('_usept')
+            ? {
+                  _usept: pt['_usept'],
+                  originalValue: getValue(pt.originalValue),
+                  value: getValue(pt.value)
+              }
+            : getValue(pt, true);
+    }
+
+    /**
+     * Core passthrough usage method
+     */
+    _usePT(pt: any, callback: any, key: any, params?: any) {
+        const fn = (value: any) => callback(value, key, params);
+        if (pt?.hasOwnProperty('_usept')) {
+            const { mergeSections = true, mergeProps: useMergeProps = false } = pt['_usept'] || this.config?.['ptOptions'] || this.ptOptions || {};
+            const originalValue = fn(pt.originalValue);
+            const value = fn(pt.value);
+
+            if (originalValue === undefined && value === undefined) return undefined;
+            else if (ObjectUtils.isString(value)) return value;
+            else if (ObjectUtils.isString(originalValue)) return originalValue;
+
+            return mergeSections || (!mergeSections && value) ? (useMergeProps ? { ...originalValue, ...value } : { ...originalValue, ...value }) : value;
+        }
+
+        return fn(pt);
+    }
+
+    /**
+     * Comprehensive passthrough value resolution method
+     */
+    _getPTValue(obj = {}, key = '', params = {}, searchInDefaultPT = true) {
+        const searchOut = /./g.test(key) && !!params[key.split('.')[0]];
+        const { mergeSections = true, mergeProps: useMergeProps = false } = this._getPropValue('ptOptions') || this.config?.['ptOptions'] || this.ptOptions || {};
+        const global = searchInDefaultPT ? (searchOut ? this._useGlobalPT(this._getPTClassValue.bind(this), key, params) : this._useDefaultPT(this._getPTClassValue.bind(this), key, params)) : undefined;
+        const self = searchOut ? undefined : this._usePT(this._getPT(obj, this._name), this._getPTClassValue.bind(this), key, { ...params, global: {} });
+        const datasets = this._getPTDatasets(key);
+        return mergeSections || (!mergeSections && self) ? (useMergeProps ? { ...global, ...self, ...datasets } : { ...global, ...self, ...datasets }) : { ...self, ...datasets };
+    }
+
+    /**
+     * Use global passthrough
+     */
+    _useGlobalPT(callback: any, key: any, params: any) {
+        return this._usePT(
+            this._getPT(this.config?.['pt'], undefined, (value: any) => ObjectUtils.getItemValue(value, { instance: this })),
+            callback,
+            key,
+            params
+        );
+    }
+
+    /**
+     * Get passthrough class value
+     */
+    _getPTClassValue(options?: any, key?: any, params?: any) {
+        const value = this._getOptionValue(options, key, params);
+        return ObjectUtils.isString(value) || ObjectUtils.isArray(value) ? { class: value } : value;
+    }
+
+    /**
+     * Get property value with host instance fallback
+     */
+    _getPropValue(name: any) {
+        return this[name] || this._getHostInstance(this)?.[name];
+    }
+
+    /**
+     * Get parameters for passthrough context
+     */
+    _params() {
+        const parentInstance = this._getHostInstance(this) || this.parent;
+
+        return {
+            instance: this,
+            props: this?.params['props'],
+            state: this?.params['state'],
+            parent: {
+                instance: parentInstance,
+                props: parentInstance?.params['props'],
+                state: parentInstance?.params['state']
+            }
+        };
+    }
+
+    /**
+     * Merge multiple class arguments
+     */
+    mergeClasses(...args) {
+        const classNames = args.map((arg) => {
+            if (typeof arg === 'object') {
+                return Object.keys(arg)
+                    .filter((key) => arg[key])
+                    .join(' ');
+            } else {
+                return arg;
+            }
+        });
+        return classNames.join(' ');
+    }
+
+    /**
+     * Check if component is unstyled
+     */
+    isUnstyled() {
+        return this.unstyled;
+    }
+
+    /**
+     * Apply PassThrough attributes to root element
+     */
+    _applyRootPT() {
+        if (this.rootEl && this.ptm) {
+            const rootPT = this.ptm('root');
+            if (rootPT && typeof rootPT === 'object') {
+                // Apply classes
+                if (rootPT.class) {
+                    const classes = Array.isArray(rootPT.class) ? rootPT.class : [rootPT.class];
+                    classes.forEach((cls: string) => {
+                        if (cls) this.rootEl?.classList.add(cls);
+                    });
+                }
+
+                // Apply styles
+                if (rootPT.style) {
+                    if (typeof rootPT.style === 'string') {
+                        this.rootEl.style.cssText += rootPT.style;
+                    } else if (typeof rootPT.style === 'object') {
+                        Object.keys(rootPT.style).forEach((key) => {
+                            if (this.rootEl) {
+                                this.rootEl.style[key as any] = rootPT.style[key];
+                            }
+                        });
+                    }
+                }
+
+                // Apply attributes (excluding class and style)
+                Object.keys(rootPT).forEach((key) => {
+                    if (key !== 'class' && key !== 'style' && key !== 'onclick' && !key.startsWith('on')) {
+                        this.rootEl?.setAttribute(key, rootPT[key]);
+                    }
+                });
+
+                // Apply event listeners
+                Object.keys(rootPT).forEach((key) => {
+                    if (key.startsWith('on') && typeof rootPT[key] === 'function') {
+                        const eventName = key.substring(2).toLowerCase();
+                        this.rootEl?.addEventListener(eventName, rootPT[key]);
+                    }
+                });
+            }
+        }
+    }
 }
