@@ -11,7 +11,7 @@ import { PanelModule } from 'primeng/panel';
             <p>A simple Panel is created with a <i>header</i> property along with the content as children.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panel header="Header" [pt]="{ root: rootMethod, header: headerMethod }" toggleable>
+            <p-panel header="Header" [pt]="{ root: rootPT, header: headerPT, pcToggleButton: buttonPT }" toggleable>
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -21,24 +21,42 @@ import { PanelModule } from 'primeng/panel';
     `
 })
 export class BasicDoc {
-    headerMethod(params) {
-        const { props, state } = params;
+    buttonPT({ instance }) {
         return {
             class: {
-                'headerMethod-collapsed-true': params.instance.collapsed(),
-                'headerMethod-collapsed-false': !params.instance.collapsed()
+                'pcToggleButton-collapsed-true': instance.collapsed(),
+                'pcToggleButton-collapsed-false': instance.collapsed()
             },
             style: {
-                background: !params.instance.collapsed() ? 'red !important;' : 'blue !important;'
+                background: instance.collapsed() ? 'white !important;' : 'yellow !important;'
             }
         };
     }
 
-    rootMethod(params) {
+    headerPT({ instance }) {
         return {
             class: {
-                '!border-2 !border-green-500 p-16': params.instance.collapsed(),
-                'p-16': !params.instance.collapsed()
+                'header-collapsed-true': instance.collapsed(),
+                'header-collapsed-false': !instance.collapsed()
+            },
+            style: {
+                background: !instance.collapsed() ? 'red !important;' : 'blue !important;'
+            }
+        };
+    }
+
+    rootPT({ instance }) {
+        return {
+            // class: [
+            //     {
+            //         '!border-2 !border-green-500': instance.collapsed()
+            //     },
+            //     'p-16'
+            // ]
+
+            class: {
+                '!border-2 !border-green-500': instance.collapsed(),
+                'p-4': true
             }
         };
     }

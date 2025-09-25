@@ -77,6 +77,7 @@ export interface PanelHeaderIconsTemplateContext {
                         (click)="onIconClick($event)"
                         (keydown)="onKeyDown($event)"
                         [buttonProps]="getToggleButtonProps()"
+                        [pt]="ptm('pcToggleButton')"
                     >
                         <ng-template #icon>
                             <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
@@ -173,6 +174,7 @@ export interface PanelHeaderIconsTemplateContext {
     hostDirectives: [Bind]
 })
 export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
+    // for root=host elements, hostDirective use case
     bindDirectiveInstance = inject(Bind, { self: true });
 
     ngAfterViewChecked(): void {
