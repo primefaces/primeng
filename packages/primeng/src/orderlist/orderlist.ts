@@ -63,7 +63,7 @@ import { OrderListStyle } from './style/orderliststyle';
             [multiple]="true"
             [options]="value"
             [(ngModel)]="d_selection"
-            optionLabel="name"
+            [optionLabel]="dataKey ?? 'name'"
             [id]="id + '_list'"
             [listStyle]="listStyle"
             [striped]="stripedRows"
@@ -240,7 +240,11 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = true;
-
+    /**
+     * Name of the field that uniquely identifies the record in the data.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
     /**
      * A list of values that are currently selected.
      * @group Props
@@ -607,19 +611,20 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     moveUp() {
-        if (this.selection) {
-            for (let i = 0; i < this.selection.length; i++) {
-                let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value || []);
+        if (this.selection && this.value instanceof Array) {
+            // Sort selection by their current index to process them from top to bottom
+            const sortedSelection = this.sortByIndexInList(this.selection, this.value);
 
-                if (selectedItemIndex != 0 && this.value instanceof Array) {
+            for (let selectedItem of sortedSelection) {
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                // Only move if not at top and there's a valid position above
+                if (selectedItemIndex > 0) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex - 1];
                     this.value[selectedItemIndex - 1] = movedItem;
                     this.value[selectedItemIndex] = temp;
-                } else {
-                    break;
                 }
+                // Don't break - continue with other items even if one can't move
             }
 
             if (this.dragdrop) {
@@ -627,7 +632,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                     this.filter();
                 } else if (this.visibleOptions) {
                     // Update visibleOptions to match value when no filtering
-                    this.visibleOptions = [...(this.value || [])];
+                    this.visibleOptions = [...this.value];
                 }
             }
 
@@ -669,18 +674,16 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     moveDown() {
-        if (this.selection) {
-            for (let i = this.selection.length - 1; i >= 0; i--) {
-                let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value || []);
+        if (this.selection && this.value instanceof Array) {
+            const sortedSelection = this.sortByIndexInList(this.selection, this.value).reverse();
 
-                if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
+            for (let selectedItem of sortedSelection) {
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                if (selectedItemIndex < this.value.length - 1) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex + 1];
                     this.value[selectedItemIndex + 1] = movedItem;
                     this.value[selectedItemIndex] = temp;
-                } else {
-                    break;
                 }
             }
 
@@ -688,8 +691,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 if (this.filterValue) {
                     this.filter();
                 } else if (this.visibleOptions) {
-                    // Update visibleOptions to match value when no filtering
-                    this.visibleOptions = [...(this.value || [])];
+                    this.visibleOptions = [...this.value];
                 }
             }
 
@@ -718,7 +720,6 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 if (this.filterValue) {
                     this.filter();
                 } else if (this.visibleOptions) {
-                    // Update visibleOptions to match value when no filtering
                     this.visibleOptions = [...(this.value || [])];
                 }
             }
@@ -827,11 +828,11 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         });
     }
 
-    onListFocus(event) {
+    onListFocus(event: any) {
         this.onFocus.emit(event);
     }
 
-    onListBlur(event) {
+    onListBlur(event: any) {
         this.onBlur.emit(event);
     }
 

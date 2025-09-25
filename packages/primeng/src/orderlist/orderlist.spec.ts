@@ -522,6 +522,48 @@ describe('OrderList', () => {
             expect(component.products).toEqual(initialOrder);
         });
 
+        it('should move multiple selected items even when some cannot move up', () => {
+            // Select items at positions 0, 2, and 4 (first, third, and fifth items)
+            // First item (index 0) cannot move up, but others can
+            component.selection = [component.products[0], component.products[2], component.products[4]];
+            fixture.detectChanges();
+
+            const initialOrder = [...component.products];
+            spyOn(component, 'onReorder');
+
+            orderList.moveUp();
+
+            // First item (A) should stay at position 0 (can't move up)
+            expect(component.products[0]).toEqual(initialOrder[0]); // Product A stays
+            // Third item (C) should move to position 1 (was at 2, moves up)
+            expect(component.products[1]).toEqual(initialOrder[2]); // Product C moved up
+            // Fifth item (E) should move to position 3 (was at 4, moves up)
+            expect(component.products[3]).toEqual(initialOrder[4]); // Product E moved up
+
+            expect(component.onReorder).toHaveBeenCalledWith(component.selection);
+        });
+
+        it('should move multiple selected items even when some cannot move down', () => {
+            // Select items at positions 0, 2, and 4 (first, third, and fifth items)
+            // Last item (index 4) cannot move down, but others can
+            component.selection = [component.products[0], component.products[2], component.products[4]];
+            fixture.detectChanges();
+
+            const initialOrder = [...component.products];
+            spyOn(component, 'onReorder');
+
+            orderList.moveDown();
+
+            // First item (A) should move to position 1 (was at 0, moves down)
+            expect(component.products[1]).toEqual(initialOrder[0]); // Product A moved down
+            // Third item (C) should move to position 3 (was at 2, moves down)
+            expect(component.products[3]).toEqual(initialOrder[2]); // Product C moved down
+            // Fifth item (E) should stay at position 4 (can't move down)
+            expect(component.products[4]).toEqual(initialOrder[4]); // Product E stays
+
+            expect(component.onReorder).toHaveBeenCalledWith(component.selection);
+        });
+
         it('should not move items when disabled', () => {
             component.disabled = true;
             component.selection = [component.products[1]]; // Select second item
