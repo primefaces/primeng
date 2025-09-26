@@ -1,6 +1,6 @@
 {
     "name": "showcase",
-    "version": "20.1.2",
+    "version": "20.2.0",
     "license": "SEE LICENSE IN LICENSE.md",
     "type": "module",
     "scripts": {
