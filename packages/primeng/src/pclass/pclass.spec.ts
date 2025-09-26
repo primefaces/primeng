@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgClass } from '@angular/common';
@@ -100,5 +100,208 @@ describe('PClass Directive', () => {
         expect(classList).toContain('text-white');
         expect(classList).toContain('font-semibold');
         expect(classList).toContain('string_class');
+    });
+});
+
+@Component({
+    template: `
+        <div [pClass]="conditionalClasses()" data-testid="conditional"></div>
+        <div [pClass]="comboClasses()" data-testid="combo"></div>
+    `,
+    standalone: true,
+    imports: [PClass]
+})
+class SignalTestComponent {
+    active1 = signal<boolean>(false);
+    active2 = signal<boolean>(false);
+
+    conditionalClasses = computed(() => ({
+        'p-4 rounded-lg cursor-pointer select-none border': true,
+        'bg-primary': this.active1(),
+        'text-primary-contrast': this.active1(),
+        'border-surface': !this.active1(),
+        'border-primary': this.active1()
+    }));
+
+    comboClasses = computed(() => [
+        'p-4',
+        'rounded-lg',
+        {
+            'bg-purple-700 text-white': this.active2(),
+            'bg-purple-100 text-purple-800': !this.active2()
+        },
+        ['cursor-pointer select-none border']
+    ]);
+
+    toggle1() {
+        this.active1.update((value) => !value);
+    }
+
+    toggle2() {
+        this.active2.update((value) => !value);
+    }
+}
+
+describe('PClass Directive with Signals', () => {
+    let component: SignalTestComponent;
+    let fixture: ComponentFixture<SignalTestComponent>;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [SignalTestComponent]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(SignalTestComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create signal test component', () => {
+        expect(component).toBeTruthy();
+    });
+
+    describe('Conditional Classes with Signals', () => {
+        it('should apply initial conditional classes when signal is false', () => {
+            const element = fixture.debugElement.query(By.css('[data-testid="conditional"]'));
+            const classList = element.nativeElement.className.split(' ');
+
+            expect(classList).toContain('p-4');
+            expect(classList).toContain('rounded-lg');
+            expect(classList).toContain('cursor-pointer');
+            expect(classList).toContain('select-none');
+            expect(classList).toContain('border');
+            expect(classList).toContain('border-surface');
+            expect(classList).not.toContain('bg-primary');
+            expect(classList).not.toContain('text-primary-contrast');
+            expect(classList).not.toContain('border-primary');
+        });
+
+        it('should update classes when signal changes to true', () => {
+            const element = fixture.debugElement.query(By.css('[data-testid="conditional"]'));
+
+            component.toggle1();
+            fixture.detectChanges();
+
+            const classList = element.nativeElement.className.split(' ');
+
+            expect(classList).toContain('p-4');
+            expect(classList).toContain('rounded-lg');
+            expect(classList).toContain('cursor-pointer');
+            expect(classList).toContain('select-none');
+            expect(classList).toContain('border');
+            expect(classList).toContain('bg-primary');
+            expect(classList).toContain('text-primary-contrast');
+            expect(classList).toContain('border-primary');
+            expect(classList).not.toContain('border-surface');
+        });
+
+        it('should toggle classes multiple times', () => {
+            const element = fixture.debugElement.query(By.css('[data-testid="conditional"]'));
+
+            // Toggle to true
+            component.toggle1();
+            fixture.detectChanges();
+            expect(element.nativeElement.className).toContain('bg-primary');
+
+            // Toggle back to false
+            component.toggle1();
+            fixture.detectChanges();
+            expect(element.nativeElement.className).toContain('border-surface');
+            expect(element.nativeElement.className).not.toContain('bg-primary');
+        });
+    });
+
+    describe('Combination Classes with Signals', () => {
+        it('should apply initial combo classes when signal is false', () => {
+            const element = fixture.debugElement.query(By.css('[data-testid="combo"]'));
+            const classList = element.nativeElement.className.split(' ');
+
+            expect(classList).toContain('p-4');
+            expect(classList).toContain('rounded-lg');
+            expect(classList).toContain('bg-purple-100');
+            expect(classList).toContain('text-purple-800');
+            expect(classList).toContain('cursor-pointer');
+            expect(classList).toContain('select-none');
+            expect(classList).toContain('border');
+            expect(classList).not.toContain('bg-purple-700');
+            expect(classList).not.toContain('text-white');
+        });
+
+        it('should update combo classes when signal changes to true', () => {
+            const element = fixture.debugElement.query(By.css('[data-testid="combo"]'));
+
+            component.toggle2();
+            fixture.detectChanges();
+
+            const classList = element.nativeElement.className.split(' ');
+
+            expect(classList).toContain('p-4');
+            expect(classList).toContain('rounded-lg');
+            expect(classList).toContain('bg-purple-700');
+            expect(classList).toContain('text-white');
+            expect(classList).toContain('cursor-pointer');
+            expect(classList).toContain('select-none');
+            expect(classList).toContain('border');
+            expect(classList).not.toContain('bg-purple-100');
+            expect(classList).not.toContain('text-purple-800');
+        });
+
+        it('should handle nested arrays in combo classes', () => {
+            const element = fixture.debugElement.query(By.css('[data-testid="combo"]'));
+            const classList = element.nativeElement.className.split(' ');
+
+            // Nested array classes should always be applied
+            expect(classList).toContain('cursor-pointer');
+            expect(classList).toContain('select-none');
+            expect(classList).toContain('border');
+        });
+
+        it('should toggle combo classes multiple times', () => {
+            const element = fixture.debugElement.query(By.css('[data-testid="combo"]'));
+
+            // Toggle to true
+            component.toggle2();
+            fixture.detectChanges();
+            expect(element.nativeElement.className).toContain('bg-purple-700');
+            expect(element.nativeElement.className).toContain('text-white');
+
+            // Toggle back to false
+            component.toggle2();
+            fixture.detectChanges();
+            expect(element.nativeElement.className).toContain('bg-purple-100');
+            expect(element.nativeElement.className).toContain('text-purple-800');
+
+            // Toggle again to true
+            component.toggle2();
+            fixture.detectChanges();
+            expect(element.nativeElement.className).toContain('bg-purple-700');
+            expect(element.nativeElement.className).not.toContain('bg-purple-100');
+        });
+    });
+
+    describe('Both Signals Together', () => {
+        it('should handle independent signal updates', () => {
+            const conditionalEl = fixture.debugElement.query(By.css('[data-testid="conditional"]'));
+            const comboEl = fixture.debugElement.query(By.css('[data-testid="combo"]'));
+
+            // Toggle first signal
+            component.toggle1();
+            fixture.detectChanges();
+            expect(conditionalEl.nativeElement.className).toContain('bg-primary');
+            expect(comboEl.nativeElement.className).toContain('bg-purple-100');
+
+            // Toggle second signal
+            component.toggle2();
+            fixture.detectChanges();
+            expect(conditionalEl.nativeElement.className).toContain('bg-primary');
+            expect(comboEl.nativeElement.className).toContain('bg-purple-700');
+
+            // Toggle both back
+            component.toggle1();
+            component.toggle2();
+            fixture.detectChanges();
+            expect(conditionalEl.nativeElement.className).toContain('border-surface');
+            expect(comboEl.nativeElement.className).toContain('bg-purple-100');
+        });
     });
 });
