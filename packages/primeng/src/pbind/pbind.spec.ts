@@ -185,6 +185,7 @@ describe('Bind', () => {
 
         it('should exclude class, style, and event listeners from attributes', () => {
             const fixture = TestBed.createComponent(TestBindMixedComponent);
+            fixture.detectChanges();
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
 
             const attrs = directive.attributes();
@@ -290,6 +291,7 @@ describe('Bind', () => {
     describe('Event Listener Binding', () => {
         it('should bind event listeners', () => {
             const fixture = TestBed.createComponent(TestBindListenersComponent);
+            fixture.detectChanges();
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
 
             const listeners = directive.listeners();
@@ -444,23 +446,16 @@ describe('Bind', () => {
             });
 
             // Mock DomHandler.setAttributes
-            const originalSetAttributes = (window as any).DomHandler?.setAttributes;
-            (window as any).DomHandler = {
-                setAttributes: jasmine.createSpy('setAttributes')
-            };
+            const DomHandler = require('primeng/dom').DomHandler;
+            spyOn(DomHandler, 'setAttributes');
 
             directive.bind();
 
-            expect((window as any).DomHandler.setAttributes).toHaveBeenCalledWith(directive.host, {
+            expect(DomHandler.setAttributes).toHaveBeenCalledWith(directive.host, {
                 id: 'test-id',
                 'data-test': 'test-value',
                 style: { color: 'red' }
             });
-
-            // Restore original
-            if (originalSetAttributes) {
-                (window as any).DomHandler.setAttributes = originalSetAttributes;
-            }
         });
     });
 
