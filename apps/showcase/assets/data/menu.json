@@ -417,12 +417,8 @@
                             "routerLink": "/metergroup"
                         },
                         {
-                            "name": "ScrollTop",
-                            "routerLink": "/scrolltop"
-                        },
-                        {
-                            "name": "Skeleton",
-                            "routerLink": "/skeleton"
+                            "name": "pClass",
+                            "routerLink": "/pclass"
                         },
                         {
                             "name": "ProgressBar",
@@ -437,12 +433,16 @@
                             "routerLink": "/ripple"
                         },
                         {
-                            "name": "StyleClass",
-                            "routerLink": "/styleclass"
+                            "name": "ScrollTop",
+                            "routerLink": "/scrolltop"
                         },
                         {
-                            "name": "pClass",
-                            "routerLink": "/pclass"
+                            "name": "Skeleton",
+                            "routerLink": "/skeleton"
+                        },
+                        {
+                            "name": "StyleClass",
+                            "routerLink": "/styleclass"
                         },
                         {
                             "name": "Tag",
