@@ -21,10 +21,6 @@ import { PanelModule } from 'primeng/panel';
     `
 })
 export class BasicDoc {
-    mouseEnter() {
-        // console.log('asd');
-    }
-
     buttonPT({ instance }) {
         return {
             class: {
@@ -38,13 +34,9 @@ export class BasicDoc {
     }
 
     headerPT({ instance }) {
-        const handleMouseEnter = (instance) => {
-            // console.log('mouseEnter', instance?.collapsed());
-        };
+        const handleMouseEnter = (instance) => {};
 
-        const handleClick = (instance) => {
-            // console.log('click', instance)
-        };
+        const handleClick = (instance) => {};
 
         return {
             class: [
@@ -54,23 +46,22 @@ export class BasicDoc {
                 },
                 'STRING-CLASS',
                 { OBJECT: instance.collapsed() },
-                [{ object: true }]
+                [{ object: true }],
+                ['array-string-1', 'array-string-2']
             ],
             style: {
-                background: !instance.collapsed() ? 'red !important;' : 'blue !important;'
+                background: !instance.collapsed() ? 'red;' : 'blue;'
             },
+            // TODO: onmouseenter => onMouseEnter
             mouseenter: () => handleMouseEnter(instance),
             click: () => handleClick(instance),
             // mouseleave: () => this.handleMouseLeave(instance),
             'data-p-prime': true,
             'data-p-animating': instance.animating(),
-            'aria-label': 'test aria label'
+            'aria-label': 'test aria label',
+            id: 'RANDOM ID'
         };
     }
-
-    handleMouseLeave = (instance) => {
-        // console.log('mouseLeave', instance?.collapsed());
-    };
 
     rootPT({ instance }) {
         return {

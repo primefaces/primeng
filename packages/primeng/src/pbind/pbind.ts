@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input, Renderer2, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, SimpleChanges } from '@angular/core';
+import { cn } from '@primeuix/utils';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 
@@ -14,10 +15,7 @@ export class Bind {
 
     host: HTMLElement;
 
-    constructor(
-        private el: ElementRef,
-        private renderer: Renderer2
-    ) {
+    constructor(private el: ElementRef) {
         this.host = this.el.nativeElement;
     }
 
@@ -28,17 +26,13 @@ export class Bind {
                 this.bind();
             }
         }
-
-        // console.log(this.attributes())
     }
 
     bind() {
-        // Clear existing style and cached attributes to prevent duplication
         if (this.host.hasAttribute('style')) {
             this.host.removeAttribute('style');
         }
 
-        // Clear cached style attributes in DomHandler
         const hostWithAttrs = this.host as any;
         if (hostWithAttrs.$attrs && hostWithAttrs.$attrs.style) {
             delete hostWithAttrs.$attrs.style;
@@ -50,25 +44,9 @@ export class Bind {
 
     classes() {
         if (this.attrs) {
-            const classes = this.parseClasses(this.attrs.class);
-            return Array.from(new Set([...classes])).join(' ');
+            return cn(this.attrs.class);
         }
         return '';
-    }
-
-    private parseClasses(classValue: any): string[] {
-        if (typeof classValue === 'string') {
-            return classValue.split(' ');
-        } else if (ObjectUtils.isArray(classValue)) {
-            const result: string[] = [];
-            classValue.forEach((item) => {
-                result.push(...this.parseClasses(item));
-            });
-            return result;
-        } else if (ObjectUtils.isObject(classValue)) {
-            return Object.keys(classValue).filter((key) => classValue[key] === true);
-        }
-        return [];
     }
 
     attributes() {
@@ -93,8 +71,6 @@ export class Bind {
     }
 
     styles() {
-        // Only return the styles from attrs, not from existing element
-        // This prevents duplication when bind() is called multiple times
         return this.attrs?.style || {};
     }
 
@@ -102,10 +78,7 @@ export class Bind {
         if (this.attrs) {
             Object.keys(this.attrs).forEach((key) => {
                 if (typeof this.attrs[key] === 'function') {
-                    // console.log('Binding event listener:', key);
-                    // Remove existing listener if exists
                     this.host.removeEventListener(key, this.attrs[key]);
-                    // Add new listener - function should already have correct context
                     this.host.addEventListener(key, this.attrs[key]);
                 }
             });
@@ -136,8 +109,6 @@ export class Bind {
     }
 
     all() {
-        // console.log('listeners - pBind', this.listeners());
-        // console.log('attrs - pBind', this.attrs);
         return {
             style: this.styles(),
             ...this.attributes(),

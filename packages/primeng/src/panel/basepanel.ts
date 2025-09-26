@@ -80,8 +80,9 @@ export class BasePanel extends BaseComponent {
      */
     @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
 
+    // TODO: Move to panel.ts
     animating = signal<boolean>(false);
-
+    // TODO: will be removed later
     initParams() {
         return {
             props: {
