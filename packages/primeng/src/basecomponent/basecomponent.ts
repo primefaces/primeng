@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, Directive, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, ElementRef, inject, Injector, input, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
@@ -33,9 +33,13 @@ export class BaseComponent {
 
     @Input() dt: Object | undefined;
 
-    @Input() pt: { [arg: string]: any } | undefined | null;
+    pt = input<any>();
 
-    @Input() ptOptions: { [arg: string]: any } | undefined | null;
+    ptOptions = input<any>();
+
+    private _pt = computed(() => this.pt() ?? this.config.pt());
+
+    private _ptOptions = computed(() => this.ptOptions() ?? this.config.ptOptions());
 
     @Input() unstyled: boolean = false;
 
@@ -219,17 +223,17 @@ export class BaseComponent {
     // PASSTHROUGH FUNCTIONALITY
 
     ptm(key = '', params = {}) {
-        return this._getPTValue(this.pt || {}, key, { ...this._params(), ...params });
+        return this._getPTValue(this._pt() || {}, key, { ...this._params(), ...params });
     }
 
     _getPTDatasets(key = '') {
         const datasetPrefix = 'data-pc-';
-        const isExtended = key === 'root' && ObjectUtils.isNotEmpty(this.pt?.['data-pc-section']);
+        const isExtended = key === 'root' && ObjectUtils.isNotEmpty(this._pt()?.['data-pc-section']);
 
         return (
             key !== 'transition' && {
                 ...(key === 'root' && {
-                    [`${datasetPrefix}name`]: ObjectUtils.toFlatCase(isExtended ? this.pt?.['data-pc-section'] : this._name),
+                    [`${datasetPrefix}name`]: ObjectUtils.toFlatCase(isExtended ? this._pt()?.['data-pc-section'] : this._name),
                     ...(isExtended && { [`${datasetPrefix}extend`]: ObjectUtils.toFlatCase(this._name) })
                 }),
                 [`${datasetPrefix}section`]: ObjectUtils.toFlatCase(key)
@@ -269,7 +273,7 @@ export class BaseComponent {
     _usePT(pt: any, callback: any, key: any, params?: any) {
         const fn = (value: any) => callback(value, key, params);
         if (pt?.hasOwnProperty('_usept')) {
-            const { mergeSections = true, mergeProps: useMergeProps = false } = pt['_usept'] || this.config?.['ptOptions'] || this.ptOptions || {};
+            const { mergeSections = true, mergeProps: useMergeProps = false } = pt['_usept'] || this.config?.['ptOptions']() || this._ptOptions() || {};
             const originalValue = fn(pt.originalValue);
             const value = fn(pt.value);
 
@@ -285,7 +289,7 @@ export class BaseComponent {
 
     _getPTValue(obj = {}, key = '', params = {}, searchInDefaultPT = true) {
         const searchOut = /./g.test(key) && !!params[key.split('.')[0]];
-        const { mergeSections = true, mergeProps: useMergeProps = false } = this._getPropValue('ptOptions') || this.config?.['ptOptions'] || this.ptOptions || {};
+        const { mergeSections = true, mergeProps: useMergeProps = false } = this._getPropValue('ptOptions') || this.config?.['ptOptions']() || this._ptOptions() || {};
         const global = searchInDefaultPT ? (searchOut ? this._useGlobalPT(this._getPTClassValue.bind(this), key, params) : this._useDefaultPT(this._getPTClassValue.bind(this), key, params)) : undefined;
         const self = searchOut ? undefined : this._usePT(this._getPT(obj, this._name), this._getPTClassValue.bind(this), key, { ...params, global: {} });
         const datasets = this._getPTDatasets(key);
@@ -294,7 +298,7 @@ export class BaseComponent {
 
     _useGlobalPT(callback: any, key: any, params: any) {
         return this._usePT(
-            this._getPT(this.config?.['pt'], undefined, (value: any) => ObjectUtils.getItemValue(value, { instance: this })),
+            this._getPT(this.config?.['pt'](), undefined, (value: any) => ObjectUtils.getItemValue(value, { instance: this })),
             callback,
             key,
             params
@@ -341,5 +345,4 @@ export class BaseComponent {
     isUnstyled() {
         return this.unstyled;
     }
-
 }

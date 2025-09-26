@@ -1,81 +1,54 @@
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [PanelModule, AppDocSectionText],
+    imports: [PanelModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A simple Panel is created with a <i>header</i> property along with the content as children.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panel header="Header" [pt]="{ root: rootPT, header: headerPT, pcToggleButton: buttonPT }" toggleable>
+            <p-panel header="Header">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </p-panel>
         </div>
+        <app-code [code]="code" selector="panel-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
-    buttonPT({ instance }) {
-        return {
-            class: {
-                'pcToggleButton-collapsed-true': instance.collapsed(),
-                'pcToggleButton-collapsed-false': instance.collapsed()
-            },
-            style: {
-                background: instance.collapsed() ? 'white !important;' : 'yellow !important;'
-            }
-        };
-    }
+    code: Code = {
+        basic: `<p-panel header="Header">
+    <p class="m-0">
+        Lorem ipsum dolor sit amet...
+    </p>
+</p-panel>`,
 
-    headerPT({ instance }) {
-        const handleMouseEnter = (instance) => {};
+        html: `<div class="card flex justify-center">
+    <p-panel header="Header">
+        <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </p-panel>
+</div>`,
 
-        const handleClick = (instance) => {};
+        typescript: `import { Component } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
 
-        return {
-            class: [
-                {
-                    'header-collapsed-true': instance.collapsed(),
-                    'header-collapsed-false': !instance.collapsed()
-                },
-                'STRING-CLASS',
-                { OBJECT: instance.collapsed() },
-                [{ object: true }],
-                ['array-string-1', 'array-string-2']
-            ],
-            style: {
-                background: !instance.collapsed() ? 'red;' : 'blue;'
-            },
-            // TODO: onmouseenter => onMouseEnter
-            mouseenter: () => handleMouseEnter(instance),
-            click: () => handleClick(instance),
-            // mouseleave: () => this.handleMouseLeave(instance),
-            'data-p-prime': true,
-            'data-p-animating': instance.animating(),
-            'aria-label': 'test aria label',
-            id: 'RANDOM ID'
-        };
-    }
-
-    rootPT({ instance }) {
-        return {
-            // class: [
-            //     {
-            //         '!border-2 !border-green-500': instance.collapsed()
-            //     },
-            //     'p-16'
-            // ]
-
-            class: {
-                '!border-2 !border-green-500': instance.collapsed(),
-                'p-4': true
-            }
-        };
-    }
+@Component({
+    selector: 'panel-basic-demo',
+    templateUrl: './panel-basic-demo.html',
+    standalone: true,
+    imports: [PanelModule]
+})
+export class PanelBasicDemo {}`
+    };
 }
