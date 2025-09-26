@@ -25,12 +25,12 @@ import { TextareaModule } from 'primeng/textarea';
             </p-floatlabel>
 
             <p-floatlabel variant="in">
-                <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
                 <label for="in_label">In Label</label>
             </p-floatlabel>
 
             <p-floatlabel variant="on">
-                <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+                <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
                 <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
@@ -51,12 +51,12 @@ export class FloatlabelDoc {
 </p-floatlabel>
 
 <p-floatlabel variant="in">
-    <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+    <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
     <label for="in_label">In Label</label>
 </p-floatlabel>
 
 <p-floatlabel variant="on">
-    <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+    <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
     <label for="on_label">On Label</label>
 </p-floatlabel>`,
 
@@ -67,12 +67,12 @@ export class FloatlabelDoc {
     </p-floatlabel>
 
     <p-floatlabel variant="in">
-        <textarea pTextarea id="over_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+        <textarea pTextarea id="in_label" [(ngModel)]="value2" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
         <label for="in_label">In Label</label>
     </p-floatlabel>
 
     <p-floatlabel variant="on">
-        <textarea pTextarea id="over_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+        <textarea pTextarea id="on_label" [(ngModel)]="value3" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
         <label for="on_label">On Label</label>
     </p-floatlabel>
 </div>`,
