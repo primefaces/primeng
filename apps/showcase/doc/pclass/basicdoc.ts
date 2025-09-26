@@ -16,8 +16,8 @@ import { PClassModule } from 'primeng/pclass';
         <div class="card flex justify-center items-center gap-4">
             <div pClass="py-4 px-8 border border-surface rounded-lg">String</div>
             <div [pClass]="['py-4', 'px-8', 'rounded', 'bg-blue-500', 'text-white', 'font-semibold', 'rounded-lg']">Array</div>
-            <div [pClass]="conditionalClasses" (click)="toggle1()">Conditional</div>
-            <div [pClass]="comboClasses" (click)="toggle2()">Combination</div>
+            <div [pClass]="conditionalClasses()" (click)="toggle1()">Conditional</div>
+            <div [pClass]="comboClasses()" (click)="toggle2()">Combination</div>
         </div>
         <app-code [code]="code" selector="pclass-basic-demo"></app-code>
     `
@@ -46,11 +46,13 @@ export class BasicDoc {
     ]);
 
     toggle1() {
-        this.active1.update((value) => !value);
+        this.active1.set(!this.active1());
+
+        console.log('active1', this.active1());
     }
 
     toggle2() {
-        this.active2.update((value) => !value);
+        this.active2.set(!this.active2());
     }
 
     code: Code = {

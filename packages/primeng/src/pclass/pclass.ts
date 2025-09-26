@@ -36,7 +36,7 @@ export class PClass {
 
     private updateClasses(): void {
         if (this.el?.nativeElement) {
-            // Store initial classes on first run
+            // Store initial classes only once
             if (!this.isInitialized) {
                 this.initialClasses = this.el.nativeElement.className;
                 this.isInitialized = true;
