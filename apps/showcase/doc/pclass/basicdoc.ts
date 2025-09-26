@@ -11,7 +11,7 @@ import { PClassModule } from 'primeng/pclass';
     imports: [AppDocSectionText, AppCode, PClassModule, CommonModule],
     template: `
         <app-docsectiontext>
-            <p>ClassNames is applied with the <i>pClass</i> directive. The value can be a <i>string</i>, <i>array</i>, <i>object</i> or any combination of these types.</p>
+            <p><i>pClass</i> directive applies the class to the host element. The value can be a <i>string</i>, <i>array</i>, <i>object</i> or any combination of these types.</p>
         </app-docsectiontext>
         <div class="card flex justify-center items-center gap-4">
             <div pClass="py-4 px-8 border border-surface rounded-lg">String</div>
