@@ -305,6 +305,10 @@ export const routes: Routes = [
             {
                 path: 'migration',
                 loadChildren: () => import('@/pages/migration/routes')
+            },
+            {
+                path: 'pt-playground',
+                loadChildren: () => import('@/pages/pt_playground/routes')
             }
         ]
     },
