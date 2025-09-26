@@ -174,7 +174,7 @@ export interface PanelHeaderIconsTemplateContext {
     hostDirectives: [Bind]
 })
 export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
-    // for root=host elements, hostDirective use case
+    // TODO: replace this later. For root=host elements, hostDirective use case
     bindDirectiveInstance = inject(Bind, { self: true });
 
     ngAfterViewChecked(): void {

@@ -50,17 +50,25 @@ export class Bind {
 
     classes() {
         if (this.attrs) {
-            const classes =
-                typeof this.attrs.class === 'string'
-                    ? this.attrs.class.split(' ')
-                    : ObjectUtils.isArray(this.attrs.class)
-                      ? this.attrs.class
-                      : ObjectUtils.isObject(this.attrs.class)
-                        ? Object.keys(this.attrs.class).filter((key) => this.attrs.class[key] === true)
-                        : [];
+            const classes = this.parseClasses(this.attrs.class);
             return Array.from(new Set([...classes])).join(' ');
         }
         return '';
+    }
+
+    private parseClasses(classValue: any): string[] {
+        if (typeof classValue === 'string') {
+            return classValue.split(' ');
+        } else if (ObjectUtils.isArray(classValue)) {
+            const result: string[] = [];
+            classValue.forEach((item) => {
+                result.push(...this.parseClasses(item));
+            });
+            return result;
+        } else if (ObjectUtils.isObject(classValue)) {
+            return Object.keys(classValue).filter((key) => classValue[key] === true);
+        }
+        return [];
     }
 
     attributes() {

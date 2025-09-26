@@ -42,17 +42,29 @@ export class BasicDoc {
             // console.log('mouseEnter', instance?.collapsed());
         };
 
+        const handleClick = (instance) => {
+            // console.log('click', instance)
+        };
+
         return {
-            class: {
-                'header-collapsed-true': instance.collapsed(),
-                'header-collapsed-false': !instance.collapsed()
-            },
+            class: [
+                {
+                    'header-collapsed-true': instance.collapsed(),
+                    'header-collapsed-false': !instance.collapsed()
+                },
+                'STRING-CLASS',
+                { OBJECT: instance.collapsed() },
+                [{ object: true }]
+            ],
             style: {
                 background: !instance.collapsed() ? 'red !important;' : 'blue !important;'
             },
             mouseenter: () => handleMouseEnter(instance),
+            click: () => handleClick(instance),
             // mouseleave: () => this.handleMouseLeave(instance),
-            'data-p-PRIME': true
+            'data-p-prime': true,
+            'data-p-animating': instance.animating(),
+            'aria-label': 'test aria label'
         };
     }
 
