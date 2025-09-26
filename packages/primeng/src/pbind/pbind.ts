@@ -28,9 +28,22 @@ export class Bind {
                 this.bind();
             }
         }
+
+        // console.log(this.attributes())
     }
 
     bind() {
+        // Clear existing style and cached attributes to prevent duplication
+        if (this.host.hasAttribute('style')) {
+            this.host.removeAttribute('style');
+        }
+
+        // Clear cached style attributes in DomHandler
+        const hostWithAttrs = this.host as any;
+        if (hostWithAttrs.$attrs && hostWithAttrs.$attrs.style) {
+            delete hostWithAttrs.$attrs.style;
+        }
+
         DomHandler.setAttributes(this.host, this.all());
         this.bindEventListeners();
     }
@@ -56,14 +69,14 @@ export class Bind {
 
         if (this.attrs) {
             Object.keys(this.attrs).forEach((key) => {
-                if (key !== 'class' && key !== 'style' && !key.startsWith('on')) {
+                if (key !== 'class' && key !== 'style' && !key.startsWith('on') && key !== 'listeners') {
                     existingAttrs[key] = this.attrs[key];
                 }
             });
         }
 
         Array.from(this.host.attributes).forEach((attr: Attr) => {
-            if (attr.name !== 'class' && attr.name !== 'style' && !attr.name.includes('ng-reflect')) {
+            if (attr.name !== 'class' && attr.name !== 'style' && !attr.name.includes('ng-reflect') && !attr.name.includes('pbind')) {
                 attrs[attr.name] = attr.value;
             }
         });
@@ -72,23 +85,16 @@ export class Bind {
     }
 
     styles() {
-        const styles: { [key: string]: string } = {};
-        const element = this.host;
-
-        for (const prop in element.style) {
-            if (element.style.hasOwnProperty(prop)) {
-                styles[prop] = element.style[prop];
-            }
-        }
-
-        return { ...styles, ...this.attrs.style };
+        // Only return the styles from attrs, not from existing element
+        // This prevents duplication when bind() is called multiple times
+        return this.attrs?.style || {};
     }
 
     bindEventListeners() {
         if (this.attrs) {
             Object.keys(this.attrs).forEach((key) => {
                 if (typeof this.attrs[key] === 'function') {
-                    console.log('Binding event listener:', key);
+                    // console.log('Binding event listener:', key);
                     // Remove existing listener if exists
                     this.host.removeEventListener(key, this.attrs[key]);
                     // Add new listener - function should already have correct context
@@ -122,8 +128,8 @@ export class Bind {
     }
 
     all() {
-        console.log('listeners - pBind', this.listeners());
-        console.log('attrs - pBind', this.attrs);
+        // console.log('listeners - pBind', this.listeners());
+        // console.log('attrs - pBind', this.attrs);
         return {
             style: this.styles(),
             ...this.attributes(),

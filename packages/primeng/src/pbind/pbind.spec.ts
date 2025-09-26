@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Bind } from './pbind';
@@ -111,7 +111,7 @@ class TestBindMixedComponent {
     template: `<div [pBind]="attrs"></div>`
 })
 class TestBindDynamicComponent {
-    attrs = {
+    attrs: any = {
         id: 'initial-id',
         class: 'initial-class'
     };
@@ -121,7 +121,7 @@ class TestBindDynamicComponent {
             id: 'updated-id',
             class: 'updated-class',
             'data-updated': 'true'
-        } as any;
+        };
     }
 }
 
@@ -246,12 +246,12 @@ describe('Bind', () => {
     });
 
     describe('Style Binding', () => {
-        it('should merge existing styles with bind styles', () => {
+        it('should return styles from attrs only', () => {
             const fixture = TestBed.createComponent(TestBindStylesComponent);
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            // Set existing style
+            // Set existing style on element
             element.style.margin = '10px';
 
             directive.attrs = {
@@ -265,7 +265,8 @@ describe('Bind', () => {
 
             expect(styles.color).toBe('red');
             expect(styles.fontSize).toBe('16px');
-            expect(styles.margin).toBe('10px');
+            // Should not include existing element styles
+            expect(styles.margin).toBeUndefined();
         });
 
         it('should override existing styles with bind styles', () => {
@@ -311,6 +312,9 @@ describe('Bind', () => {
                 id: 'test-id',
                 class: 'test-class'
             };
+
+            directive.attrs = component.attrs;
+            fixture.detectChanges();
 
             const listeners = directive.listeners();
 
@@ -479,6 +483,235 @@ describe('Bind', () => {
             const classes = directive.classes();
 
             expect(classes).toEqual('');
+        });
+    });
+
+    describe('Duplicate Prevention in DOM', () => {
+        it('should not duplicate classes in DOM on multiple updates', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
+            const component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            // Update multiple times with same classes
+            component.attrs = { class: 'test-class another-class' };
+            fixture.detectChanges();
+
+            component.attrs = { class: 'test-class another-class' };
+            fixture.detectChanges();
+
+            component.attrs = { class: 'test-class another-class' };
+            fixture.detectChanges();
+
+            // Check that each class appears only once
+            const classes = element.className.split(' ').filter((c: string) => c);
+            const uniqueClasses = [...new Set(classes)];
+
+            expect(classes.length).toBe(uniqueClasses.length);
+            expect(classes.filter((c: string) => c === 'test-class').length).toBe(1);
+            expect(classes.filter((c: string) => c === 'another-class').length).toBe(1);
+        });
+
+        it('should not duplicate styles in DOM on multiple updates', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
+            const component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            // Update multiple times with same styles
+            component.attrs = { style: { background: 'red', color: 'blue' } };
+            fixture.detectChanges();
+
+            component.attrs = { style: { background: 'blue', color: 'red' } };
+            fixture.detectChanges();
+
+            component.attrs = { style: { background: 'red', color: 'blue' } };
+            fixture.detectChanges();
+
+            // Check style attribute for duplicates
+            const styleAttr = element.getAttribute('style');
+            const backgroundCount = (styleAttr.match(/background/g) || []).length;
+            const colorCount = (styleAttr.match(/color/g) || []).length;
+
+            expect(backgroundCount).toBe(1);
+            expect(colorCount).toBe(1);
+        });
+
+        it('should not duplicate style values when toggling', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
+            const component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            // Toggle between two different style values
+            for (let i = 0; i < 5; i++) {
+                component.attrs = { style: { background: i % 2 === 0 ? 'red' : 'blue' } };
+                fixture.detectChanges();
+            }
+
+            // Check that style doesn't contain accumulated values
+            const styleAttr = element.getAttribute('style');
+            const redCount = (styleAttr.match(/red/g) || []).length;
+            const blueCount = (styleAttr.match(/blue/g) || []).length;
+
+            // Should have either red or blue, not both, and not duplicated
+            expect(redCount + blueCount).toBe(1);
+        });
+
+        it('should not duplicate attributes in DOM on multiple updates', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
+            const component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            // Update multiple times with same attributes
+            component.attrs = {
+                id: 'test-id',
+                'data-test': 'test-value',
+                tabindex: '0'
+            };
+            fixture.detectChanges();
+
+            component.attrs = {
+                id: 'test-id',
+                'data-test': 'test-value',
+                tabindex: '0'
+            };
+            fixture.detectChanges();
+
+            // Check that each attribute exists only once
+            const attributes = Array.from(element.attributes);
+            const attributeNames = attributes.map((attr: Attr) => attr.name);
+            const uniqueAttributeNames = [...new Set(attributeNames)];
+
+            expect(attributeNames.length).toBe(uniqueAttributeNames.length);
+            expect(attributes.filter((attr: Attr) => attr.name === 'id').length).toBe(1);
+            expect(attributes.filter((attr: Attr) => attr.name === 'data-test').length).toBe(1);
+            expect(attributes.filter((attr: Attr) => attr.name === 'tabindex').length).toBe(1);
+        });
+
+        it('should not accumulate event listeners on multiple updates', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
+            const component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            let clickCount = 0;
+            const clickHandler = () => clickCount++;
+
+            // Update multiple times with same event listener
+            component.attrs = { click: clickHandler };
+            fixture.detectChanges();
+
+            component.attrs = { click: clickHandler };
+            fixture.detectChanges();
+
+            component.attrs = { click: clickHandler };
+            fixture.detectChanges();
+
+            // Trigger click event
+            element.dispatchEvent(new Event('click'));
+
+            // Should be called only once, not multiple times
+            expect(clickCount).toBe(1);
+        });
+
+        it('should clean up previous style when updating to new style', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
+            const component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            // Set initial style
+            component.attrs = { style: { background: 'red', padding: '10px' } };
+            fixture.detectChanges();
+
+            // Update to completely different style
+            component.attrs = { style: { color: 'blue', margin: '5px' } };
+            fixture.detectChanges();
+
+            const styleAttr = element.getAttribute('style');
+
+            // Old style properties should not exist
+            expect(styleAttr).not.toContain('background');
+            expect(styleAttr).not.toContain('padding');
+
+            // New style properties should exist
+            expect(styleAttr).toContain('color');
+            expect(styleAttr).toContain('margin');
+        });
+
+        it('should handle rapid toggling without duplication', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
+            const component = fixture.componentInstance;
+            const isActive = signal(false);
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            // Rapidly toggle 10 times
+            for (let i = 0; i < 10; i++) {
+                isActive.set(!isActive());
+                component.attrs = {
+                    style: {
+                        background: isActive() ? 'red' : 'blue',
+                        color: isActive() ? 'white' : 'black'
+                    }
+                };
+                fixture.detectChanges();
+            }
+
+            // Check final style doesn't have accumulated values
+            const styleAttr = element.getAttribute('style');
+            const semicolons = (styleAttr.match(/;/g) || []).length;
+
+            // Should have at most 2 style properties (background and color)
+            expect(semicolons).toBeLessThanOrEqual(2);
+
+            // Check no duplicate properties
+            const backgroundCount = (styleAttr.match(/background/g) || []).length;
+            const colorCount = (styleAttr.match(/color:/g) || []).length;
+
+            expect(backgroundCount).toBe(1);
+            expect(colorCount).toBe(1);
+        });
+
+        it('should not duplicate class when using object notation with true/false toggling', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
+            const component = fixture.componentInstance;
+            const isActive = signal(false);
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            // Toggle class object multiple times
+            for (let i = 0; i < 5; i++) {
+                isActive.set(!isActive());
+                component.attrs = {
+                    class: {
+                        active: isActive(),
+                        inactive: !isActive(),
+                        'base-class': true
+                    }
+                };
+                fixture.detectChanges();
+            }
+
+            const classes = element.className.split(' ').filter((c: string) => c);
+            const baseClassCount = classes.filter((c: string) => c === 'base-class').length;
+
+            expect(baseClassCount).toBe(1);
+
+            // Should have either active or inactive, not both
+            const hasActive = classes.includes('active');
+            const hasInactive = classes.includes('inactive');
+            expect(hasActive !== hasInactive).toBe(true);
         });
     });
 });

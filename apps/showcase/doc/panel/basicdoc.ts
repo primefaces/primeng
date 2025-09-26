@@ -22,7 +22,7 @@ import { PanelModule } from 'primeng/panel';
 })
 export class BasicDoc {
     mouseEnter() {
-        console.log('asd');
+        // console.log('asd');
     }
 
     buttonPT({ instance }) {
@@ -39,7 +39,7 @@ export class BasicDoc {
 
     headerPT({ instance }) {
         const handleMouseEnter = (instance) => {
-            console.log('mouseEnter', instance?.collapsed());
+            // console.log('mouseEnter', instance?.collapsed());
         };
 
         return {
@@ -51,12 +51,13 @@ export class BasicDoc {
                 background: !instance.collapsed() ? 'red !important;' : 'blue !important;'
             },
             mouseenter: () => handleMouseEnter(instance),
-            mouseleave: () => this.handleMouseLeave(instance)
+            // mouseleave: () => this.handleMouseLeave(instance),
+            'data-p-PRIME': true
         };
     }
 
     handleMouseLeave = (instance) => {
-        console.log('mouseLeave', instance?.collapsed());
+        // console.log('mouseLeave', instance?.collapsed());
     };
 
     rootPT({ instance }) {
