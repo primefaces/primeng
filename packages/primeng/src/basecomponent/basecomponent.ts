@@ -96,7 +96,7 @@ export class BaseComponent {
         }
         if (changes) {
             Object.keys(changes).forEach((key) => {
-                if (key !== 'pt') {
+                if (key !== 'pt' && changes[key]) {
                     if (this.params.props[key] !== changes[key].currentValue) {
                         this.params.props[key] = changes[key].currentValue;
                     }
