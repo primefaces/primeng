@@ -1,13 +1,13 @@
-import { Code } from '@/domain/code';
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { CommonModule } from '@angular/common';
-import { MenuModule } from 'primeng/menu';
-import { BadgeModule } from 'primeng/badge';
-import { AvatarModule } from 'primeng/avatar';
-import { Ripple } from 'primeng/ripple';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
+import { MenuModule } from 'primeng/menu';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'template-doc',
@@ -21,7 +21,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
+            <p-menu [model]="items" class="flex justify-center" styleClass="w-full overflow-hidden md:w-60">
                 <ng-template #start>
                     <span class="inline-flex items-center gap-1 px-2 py-2">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -131,7 +131,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
+        basic: `<p-menu [model]="items" class="flex justify-center" styleClass="w-full overflow-hidden md:w-60">
     <ng-template #start>
         <span class="inline-flex items-center gap-1 px-2 py-2">
             <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -167,7 +167,7 @@ export class TemplateDoc implements OnInit {
 </p-menu>`,
 
         html: `<div class="card">
-    <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
+    <p-menu [model]="items" class="flex justify-center" styleClass="w-full overflow-hidden md:w-60">
         <ng-template #start>
             <span class="inline-flex items-center gap-1 px-2 py-2">
                  <svg
