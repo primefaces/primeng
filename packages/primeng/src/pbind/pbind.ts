@@ -94,7 +94,7 @@ export class Bind {
         if (this.attrs) {
             Object.keys(this.attrs).forEach((key) => {
                 if (typeof this.attrs[key] === 'function') {
-                    // console.log('Binding event listener:', key);
+                    console.log('Binding event listener:', key);
                     // Remove existing listener if exists
                     this.host.removeEventListener(key, this.attrs[key]);
                     // Add new listener - function should already have correct context
