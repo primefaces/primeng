@@ -109,7 +109,7 @@ describe('PClass Directive', () => {
         <div [pClass]="comboClasses()" data-testid="combo"></div>
     `,
     standalone: true,
-    imports: [PClass]
+    imports: [ClassNamesModule]
 })
 class SignalTestComponent {
     active1 = signal<boolean>(false);
