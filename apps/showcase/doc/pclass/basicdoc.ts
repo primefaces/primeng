@@ -11,44 +11,18 @@ import { PClassModule } from 'primeng/pclass';
     imports: [AppDocSectionText, AppCode, PClassModule, CommonModule],
     template: `
         <app-docsectiontext>
-            <p>The <i>pClass</i> directive provides extended class binding functionality. It accepts strings, arrays, objects, and combinations of these types.</p>
+            <p>ClassNames is applied with the <i>pClass</i> directive. The value can be a <i>string</i>, <i>array</i>, <i>object</i> or any combination of these types.</p>
         </app-docsectiontext>
-        <div class="card">
-            <h3>Static Examples</h3>
-            <div class="flex justify-center items-center gap-4 mb-4">
-                <div pClass="p-4 border border-surface-700 rounded">String class</div>
-                <div [pClass]="arrayClasses">Array classes</div>
-                <div [pClass]="objectClasses">Object classes</div>
-                <div [pClass]="mixedClasses">Mixed classes</div>
-            </div>
-
-            <h3>Signal & Dynamic Examples</h3>
-            <div class="flex justify-center items-center gap-4">
-                <div [pClass]="conditionalClasses()" (click)="toggle1()">Conditional - Active: {{ active1() }}</div>
-                <div [pClass]="comboClasses()" (click)="toggle2()">Combination - Active: {{ active2() }}</div>
-            </div>
+        <div class="card flex justify-center items-center gap-4">
+            <div pClass="py-4 px-8 border border-surface rounded-lg">String</div>
+            <div [pClass]="['py-4', 'px-8', 'rounded', 'bg-blue-500', 'text-white', 'font-semibold', 'rounded-lg']">Array</div>
+            <div [pClass]="conditionalClasses" (click)="toggle1()">Conditional</div>
+            <div [pClass]="comboClasses" (click)="toggle2()">Combination</div>
         </div>
         <app-code [code]="code" selector="pclass-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
-    arrayClasses = ['p-4', 'rounded', 'bg-blue-500', 'text-white'];
-
-    objectClasses = {
-        'p-4': true,
-        'border-surface-700': true,
-        border: true,
-        rounded: true
-    };
-
-    mixedClasses = [
-        'p-4',
-        'rounded',
-        {
-            'bg-purple-500': true,
-            'text-white': true
-        }
-    ];
     active1 = signal<boolean>(false);
 
     active2 = signal<boolean>(false);
