@@ -1,5 +1,5 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { BasicDoc } from '@/doc/classnames/basicdoc';
+import { ExamplesDoc } from '@/doc/classnames/examplesdoc';
 import { ImportDoc } from '@/doc/classnames/importdoc';
 import { Component } from '@angular/core';
 
@@ -22,9 +22,9 @@ export class ClassNamesDemo {
             component: ImportDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
+            id: 'examples',
+            label: 'Examples',
+            component: ExamplesDoc
         }
     ];
 }
