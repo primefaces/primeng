@@ -47,8 +47,6 @@ export class BasicDoc {
 
     toggle1() {
         this.active1.set(!this.active1());
-
-        console.log('active1', this.active1());
     }
 
     toggle2() {
@@ -101,30 +99,10 @@ import { PClassModule } from 'primeng/pclass';
     imports: [PClassModule, CommonModule]
 })
 export class PClassBasicDemo {
-    // Static classes
-    arrayClasses = ['p-4', 'rounded', 'bg-blue-500', 'text-white'];
-
-    objectClasses = {
-        'p-4': true,
-        'border-surface-700': true,
-        border: true,
-        rounded: true
-    };
-
-    mixedClasses = [
-        'p-4',
-        'rounded',
-        {
-            'bg-purple-500': true,
-            'text-white': true
-        }
-    ];
-
-    // Signals for dynamic testing
     active1 = signal<boolean>(false);
+
     active2 = signal<boolean>(false);
 
-    // Computed signal classes
     conditionalClasses = computed(() => ({
         'p-4 rounded-lg cursor-pointer select-none border': true,
         'bg-primary': this.active1(),
@@ -144,11 +122,11 @@ export class PClassBasicDemo {
     ]);
 
     toggle1() {
-        this.active1.update((value) => !value);
+        this.active1.set(!this.active1());
     }
 
     toggle2() {
-        this.active2.update((value) => !value);
+        this.active2.set(!this.active2());
     }
 }`
     };
