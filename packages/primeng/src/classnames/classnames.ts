@@ -15,7 +15,7 @@ export type PClassValue = string | number | boolean | undefined | null | { [key:
     selector: '[pClass]',
     standalone: true
 })
-export class PClass {
+export class ClassNames {
     /**
      * Class value(s) to be applied. Can be a string, array, object, or combination.
      * @group Props
@@ -56,7 +56,7 @@ export class PClass {
 }
 
 @NgModule({
-    imports: [PClass],
-    exports: [PClass]
+    imports: [ClassNames],
+    exports: [ClassNames]
 })
-export class PClassModule {}
+export class ClassNamesModule {}

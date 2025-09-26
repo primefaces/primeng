@@ -3,12 +3,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
-import { PClassModule } from 'primeng/pclass';
+import { ClassNamesModule } from 'primeng/classnames';
 
 @Component({
     selector: 'basic-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, PClassModule, CommonModule],
+    imports: [AppDocSectionText, AppCode, ClassNamesModule, CommonModule],
     template: `
         <app-docsectiontext>
             <p><i>pClass</i> directive applies the class to the host element. The value can be a <i>string</i>, <i>array</i>, <i>object</i> or any combination of these types.</p>
@@ -19,7 +19,7 @@ import { PClassModule } from 'primeng/pclass';
             <div [pClass]="conditionalClasses()" (click)="toggle1()">Conditional</div>
             <div [pClass]="comboClasses()" (click)="toggle2()">Combination</div>
         </div>
-        <app-code [code]="code" selector="pclass-basic-demo"></app-code>
+        <app-code [code]="code" selector="classnames-basic-demo"></app-code>
     `
 })
 export class BasicDoc {

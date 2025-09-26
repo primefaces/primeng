@@ -1,8 +1,8 @@
-import { Component, signal, computed } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, computed, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgClass } from '@angular/common';
-import { PClass } from './pclass';
+import { ClassNamesModule } from './classnames';
 
 @Component({
     template: `
@@ -14,7 +14,7 @@ import { PClass } from './pclass';
         <div class="p-2 border border-surface-700" [ngClass]="ngClassExample" [pClass]="[combinedExample, 'string_class']" data-testid="combined"></div>
     `,
     standalone: true,
-    imports: [PClass, NgClass]
+    imports: [ClassNamesModule, NgClass]
 })
 class TestComponent {
     stringClass = 'test-class';
