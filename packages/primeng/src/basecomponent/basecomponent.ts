@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, computed, Directive, ElementRef, inject, Injector, input, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
-import { cn, getKeyValue, uuid } from '@primeuix/utils';
+import { cn, getKeyValue, mergeProps, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
 import { ObjectUtils } from 'primeng/utils';
@@ -226,6 +226,10 @@ export class BaseComponent {
         return this._getPTValue(this._pt() || {}, key, { ...this._params(), ...params });
     }
 
+    ptmo(obj = {}, key = '', params = {}) {
+        return this._getPTValue(obj, key, { instance: this, ...params }, false);
+    }
+
     _getPTDatasets(key = '') {
         const datasetPrefix = 'data-pc-';
         const isExtended = key === 'root' && ObjectUtils.isNotEmpty(this._pt()?.['data-pc-section']);
@@ -242,7 +246,7 @@ export class BaseComponent {
     }
 
     defaultPT() {
-        return this._getPT(this.config?.['pt'], undefined, (value: any) => this._getOptionValue(value, this._name, { ...this._params() }) || ObjectUtils.getItemValue(value, { ...this._params() }));
+        return this._getPT(this.config?.['pt'](), undefined, (value: any) => this._getOptionValue(value, this._name, { ...this._params() }) || ObjectUtils.getItemValue(value, { ...this._params() }));
     }
 
     _mergeProps(fn: any, ...args: any[]) {
@@ -289,7 +293,7 @@ export class BaseComponent {
 
     _getPTValue(obj = {}, key = '', params = {}, searchInDefaultPT = true) {
         const searchOut = /./g.test(key) && !!params[key.split('.')[0]];
-        const { mergeSections = true, mergeProps: useMergeProps = false } = this._getPropValue('ptOptions') || this.config?.['ptOptions']() || this._ptOptions() || {};
+        const { mergeSections = true, mergeProps: useMergeProps = false } = this._getPropValue('_ptOptions')() || this.config?.['ptOptions']() || this._ptOptions() || {};
         const global = searchInDefaultPT ? (searchOut ? this._useGlobalPT(this._getPTClassValue.bind(this), key, params) : this._useDefaultPT(this._getPTClassValue.bind(this), key, params)) : undefined;
         const self = searchOut ? undefined : this._usePT(this._getPT(obj, this._name), this._getPTClassValue.bind(this), key, { ...params, global: {} });
         const datasets = this._getPTDatasets(key);

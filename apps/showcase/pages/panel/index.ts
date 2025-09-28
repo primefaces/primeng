@@ -14,14 +14,6 @@ import { Component } from '@angular/core';
 export class PanelDemo {
     docs = [
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        }
-    ];
-
-    _docs = [
-        {
             id: 'import',
             label: 'Import',
             component: ImportDoc

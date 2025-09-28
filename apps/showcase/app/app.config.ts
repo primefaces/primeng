@@ -8,6 +8,15 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { DesignerService } from '@/service/designerservice';
 
+const rootPT = ({ instance }) => {
+    return {
+        class: {
+            'ROOTPT-CONFIG': instance.collapsed(),
+            'p-4': true
+        }
+    };
+};
+
 export const appConfig: ApplicationConfig = {
     providers: [
         provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })), // withEnabledBlockingInitialNavigation()
@@ -18,6 +27,7 @@ export const appConfig: ApplicationConfig = {
             ripple: false,
             pt: {
                 panel: {
+                    root: rootPT,
                     header: 'PANELHEADER'
                 }
             }
