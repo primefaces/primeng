@@ -20,7 +20,7 @@ import { PanelModule } from 'primeng/panel';
         </div>
     `
 })
-export class Playground {
+export class PTPlayground {
     buttonPT({ instance }) {
         return {
             class: {

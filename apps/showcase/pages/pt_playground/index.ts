@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Playground } from '../../doc/playground/playground';
+import { PTPlayground } from '@/doc/pt-playground/pt-playground';
 
 @Component({
     template: `<app-doc docTitle="Angular RadioButton Component" header="PT Playground" [docs]="docs"></app-doc>`,
@@ -12,7 +12,7 @@ export class PT_Playground {
         {
             id: 'pt-playground',
             label: 'PT Playground',
-            component: Playground
+            component: PTPlayground
         }
     ];
 }

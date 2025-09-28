@@ -8,6 +8,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { DesignerService } from '@/service/designerservice';
 
+// TODO: will be removed later
 const rootPT = ({ instance }) => {
     return {
         class: {
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
         providePrimeNG({
             theme: Noir,
             ripple: false,
+            // TODO: will be removed later
             pt: {
                 panel: {
                     root: rootPT,
