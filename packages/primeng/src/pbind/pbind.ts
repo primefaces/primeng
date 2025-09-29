@@ -1,118 +1,73 @@
-import { Directive, ElementRef, Input, SimpleChanges } from '@angular/core';
+import { computed, Directive, effect, ElementRef, input, NgModule, Renderer2 } from '@angular/core';
 import { cn } from '@primeuix/utils';
-import { DomHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
 
+/**
+ * Bind directive provides dynamic attribute, property, and event listener binding functionality.
+ * @group Components
+ */
 @Directive({
     selector: '[pBind]',
     standalone: true,
     host: {
+        '[style]': 'styles()',
         '[class]': 'classes()'
     }
 })
 export class Bind {
-    @Input('pBind') attrs: { [key: string]: any };
+    /**
+     * Dynamic attributes, properties, and event listeners to be applied to the host element.
+     * @group Props
+     */
+    attrs = input<{ [key: string]: any }>(undefined, { alias: 'pBind' });
 
-    host: HTMLElement;
+    private styles = computed(() => this.attrs()?.style);
+    private classes = computed(() => cn(this.attrs()?.class));
 
-    constructor(private el: ElementRef) {
-        this.host = this.el.nativeElement;
-    }
+    private listeners: (() => void)[] = [];
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (this.host) {
-            if (changes.attrs.currentValue && ObjectUtils.equals(changes.attrs.currentValue, changes.attrs.previousValue) === false) {
-                this.attrs = changes.attrs.currentValue;
-                this.bind();
-            }
-        }
-    }
+    constructor(
+        private el: ElementRef,
+        private renderer: Renderer2
+    ) {
+        effect((onCleanup) => {
+            const { style, class: className, ...rest } = this.attrs() || {};
 
-    bind() {
-        if (this.host.hasAttribute('style')) {
-            this.host.removeAttribute('style');
-        }
+            // clear previous listeners
+            this.clearListeners();
 
-        const hostWithAttrs = this.host as any;
-        if (hostWithAttrs.$attrs && hostWithAttrs.$attrs.style) {
-            delete hostWithAttrs.$attrs.style;
-        }
+            for (const [key, value] of Object.entries(rest)) {
+                if (key.startsWith('on') && typeof value === 'function') {
+                    // event listener
+                    const eventName = key.slice(2).toLowerCase();
+                    const unlisten = this.renderer.listen(this.el.nativeElement, eventName, value);
 
-        DomHandler.setAttributes(this.host, this.all());
-        this.bindEventListeners();
-    }
-
-    classes() {
-        if (this.attrs) {
-            return cn(this.attrs.class);
-        }
-        return '';
-    }
-
-    attributes() {
-        const attrs: { [key: string]: string } = {};
-        const existingAttrs: { [key: string]: string } = {};
-
-        if (this.attrs) {
-            Object.keys(this.attrs).forEach((key) => {
-                if (key !== 'class' && key !== 'style' && !key.startsWith('on') && key !== 'listeners') {
-                    existingAttrs[key] = this.attrs[key];
+                    this.listeners.push(unlisten);
+                } else if (value === null || value === undefined) {
+                    // remove attr
+                    this.renderer.removeAttribute(this.el.nativeElement, key);
+                } else {
+                    // attr & prop fallback
+                    this.renderer.setAttribute(this.el.nativeElement, key, value.toString());
+                    if (key in this.el.nativeElement) {
+                        (this.el.nativeElement as any)[key] = value;
+                    }
                 }
-            });
-        }
-
-        Array.from(this.host.attributes).forEach((attr: Attr) => {
-            if (attr.name !== 'class' && attr.name !== 'style' && !attr.name.includes('ng-reflect') && !attr.name.includes('pbind')) {
-                attrs[attr.name] = attr.value;
             }
+
+            onCleanup(() => {
+                this.clearListeners();
+            });
         });
-
-        return { ...attrs, ...existingAttrs };
     }
 
-    styles() {
-        return this.attrs?.style || {};
-    }
-
-    bindEventListeners() {
-        if (this.attrs) {
-            Object.keys(this.attrs).forEach((key) => {
-                if (typeof this.attrs[key] === 'function') {
-                    this.host.removeEventListener(key, this.attrs[key]);
-                    this.host.addEventListener(key, this.attrs[key]);
-                }
-            });
-        }
-    }
-
-    listeners() {
-        const listeners: { [key: string]: Function } = {};
-        const existingListeners: { [key: string]: Function } = {};
-        const element = this.host;
-
-        if (this.attrs) {
-            Object.keys(this.attrs).forEach((key) => {
-                if (key.startsWith('on')) {
-                    existingListeners[key] = this.attrs[key];
-                }
-            });
-        }
-
-        for (const prop in element) {
-            if (prop.startsWith('on')) {
-                const eventName = prop.slice(2);
-                listeners[eventName] = element[prop];
-            }
-        }
-
-        return { ...listeners, ...existingListeners };
-    }
-
-    all() {
-        return {
-            style: this.styles(),
-            ...this.attributes(),
-            ...this.listeners()
-        };
+    private clearListeners() {
+        this.listeners.forEach((unlisten) => unlisten());
+        this.listeners = [];
     }
 }
+
+@NgModule({
+    imports: [Bind],
+    exports: [Bind]
+})
+export class BindModule {}
