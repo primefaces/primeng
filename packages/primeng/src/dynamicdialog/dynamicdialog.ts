@@ -220,7 +220,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         }
     }
 
-    get parent() {
+    get _parent() {
         const domElements = Array.from(this.document.getElementsByClassName('p-dialog'));
         if (domElements.length > 1) {
             return domElements.pop();
@@ -381,7 +381,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
                 this.container = event.element;
                 this.wrapper = (this.container as HTMLDivElement).parentElement;
                 this.moveOnTop();
-                if (this.parent) {
+                if (this._parent) {
                     this.unbindGlobalListeners();
                 }
                 this.bindGlobalListeners();

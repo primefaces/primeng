@@ -1,15 +1,16 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, effect, ElementRef, inject, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation, viewChild, InjectionToken } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { PARENT_COMPONENT } from 'primeng/basecomponent';
+import { Button, ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Bind } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
 import { BasePanel } from './basepanel';
 import { PanelStyle } from './style/panelstyle';
-
+export const PANEL_COMPONENT = new InjectionToken<Panel>('PANEL_COMPONENT');
 /**
  * Custom panel toggle event, emits before panel toggle.
  * @see {@link onBeforeToggle}
@@ -63,6 +64,7 @@ export interface PanelHeaderIconsTemplateContext {
                 <div [pBind]="ptm('icons')" [class]="cx('icons')">
                     <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     <p-button
+                        #pcToggleButton
                         *ngIf="toggleable"
                         [attr.id]="id + '_header'"
                         severity="secondary"
@@ -82,11 +84,11 @@ export interface PanelHeaderIconsTemplateContext {
                         <ng-template #icon>
                             <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
                                 <ng-container *ngIf="!collapsed()">
-                                    <svg data-p-icon="minus" />
+                                    <svg data-p-icon="minus" [pBind]="ptm('pcToggleButton')['icon']" />
                                 </ng-container>
 
                                 <ng-container *ngIf="collapsed()">
-                                    <svg data-p-icon="plus" />
+                                    <svg data-p-icon="plus" [pBind]="ptm('pcToggleButton')['icon']" />
                                 </ng-container>
                             </ng-container>
 
@@ -164,7 +166,7 @@ export interface PanelHeaderIconsTemplateContext {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PanelStyle],
+    providers: [PanelStyle, { provide: PANEL_COMPONENT, useExisting: Panel }, { provide: PARENT_COMPONENT, useExisting: Panel }],
     host: {
         '[id]': 'id',
         'data-pc-name': 'panel',
@@ -174,6 +176,8 @@ export interface PanelHeaderIconsTemplateContext {
     hostDirectives: [Bind]
 })
 export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
+    $pcPanelComponent: Panel | undefined = inject(PANEL_COMPONENT, { optional: true, skipSelf: true }) ?? undefined;
+
     // TODO: replace this later. For root=host elements, hostDirective use case
     bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -244,6 +248,8 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
     _headerIconsTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
+
+    pcToggleButton = viewChild<Button>('pcToggleButton');
 
     get buttonAriaLabel() {
         return this._header;

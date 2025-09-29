@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, Output, booleanAttribute, model, signal } from '@angular/core';
+import { Directive, EventEmitter, Input, Output, booleanAttribute, model, signal, computed } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel';
 
@@ -82,25 +82,24 @@ export class BasePanel extends BaseComponent {
 
     // TODO: Move to panel.ts
     animating = signal<boolean>(false);
-    // TODO: will be removed later
+
     initParams() {
         return {
             props: {
                 toggleable: this.toggleable,
                 header: this._header,
+                collapsed: this.collapsed(),
                 styleClass: this.styleClass,
                 iconPos: this.iconPos,
                 showHeader: this.showHeader,
                 toggler: this.toggler,
-                collapsed: this.collapsed(),
                 transitionOptions: this.transitionOptions,
-                toggleButtonProps: this.toggleButtonProps,
-                collapsedChange: this.collapsedChange,
-                onBeforeToggle: this.onBeforeToggle,
-                onAfterToggle: this.onAfterToggle
+                toggleButtonProps: this.toggleButtonProps
             },
             state: {
-                animating: this.animating()
+                animating: this.animating(),
+                collapsed: this.collapsed(),
+                isExpanded: !this.collapsed()
             }
         };
     }

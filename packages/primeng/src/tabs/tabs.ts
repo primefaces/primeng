@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 
 import { uuid } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_COMPONENT } from 'primeng/basecomponent';
 import { TabsStyle } from './style/tabsstyle';
 import { Tab } from './tab';
 import { TabList } from './tablist';
@@ -20,7 +20,7 @@ import { TabPanels } from './tabpanels';
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [TabsStyle],
+    providers: [TabsStyle, { provide: PARENT_COMPONENT, useExisting: Tabs }],
     host: {
         '[class]': 'cx("root")',
         '[attr.data-pc-name]': '"tabs"',

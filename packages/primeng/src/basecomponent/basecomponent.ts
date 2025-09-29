@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, ElementRef, inject, Injector, input, Input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, ElementRef, inject, Injector, input, Input, PLATFORM_ID, Renderer2, SimpleChanges, OnDestroy, InjectionToken } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, mergeProps, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
@@ -7,8 +7,12 @@ import { PrimeNG } from 'primeng/config';
 import { ObjectUtils } from 'primeng/utils';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
-@Directive({ standalone: true, providers: [BaseComponentStyle, BaseStyle] })
-export class BaseComponent {
+export const PARENT_COMPONENT = new InjectionToken<BaseComponent>('PARENT_COMPONENT');
+@Directive({
+    standalone: true,
+    providers: [BaseComponentStyle, BaseStyle]
+})
+export class BaseComponent implements OnDestroy {
     public document: Document = inject(DOCUMENT);
 
     public platformId: any = inject(PLATFORM_ID);
@@ -43,10 +47,16 @@ export class BaseComponent {
 
     @Input() unstyled: boolean = false;
 
+    parentComponent: BaseComponent | undefined = inject(PARENT_COMPONENT, { optional: true, skipSelf: true }) ?? undefined;
+
     params: any = {
         props: {},
         state: {}
     };
+
+    get parent() {
+        return this['parentInstance'];
+    }
 
     get styleOptions() {
         return { nonce: this.config?.csp().nonce };
@@ -79,6 +89,7 @@ export class BaseComponent {
             this._loadCoreStyles();
             this._loadStyles();
         }
+
         this.params = this['initParams'] ? this['initParams']() : { props: {}, state: {} };
     }
 
@@ -97,15 +108,6 @@ export class BaseComponent {
                 this._loadScopedThemeStyles(dt.currentValue);
                 this._themeChangeListener(() => this._loadScopedThemeStyles(dt.currentValue));
             }
-        }
-        if (changes) {
-            Object.keys(changes).forEach((key) => {
-                if (key !== 'pt' && changes[key]) {
-                    if (this.params.props[key] !== changes[key].currentValue) {
-                        this.params.props[key] = changes[key].currentValue;
-                    }
-                }
-            });
         }
     }
 
@@ -208,10 +210,6 @@ export class BaseComponent {
         }
 
         return undefined;
-    }
-
-    get parent() {
-        return this['parentInstance'];
     }
 
     get $style() {
@@ -319,31 +317,18 @@ export class BaseComponent {
     }
 
     _params() {
-        const parentInstance = this._getHostInstance(this) || this.parent;
+        const parentInstance = this.parentComponent || this._getHostInstance(this) || this['parent'] || this['parentInstance'];
 
         return {
             instance: this,
-            props: this?.params['props'],
-            state: this?.params['state'],
+            props: this.params?.props || this,
+            state: this.params?.state || this,
             parent: {
                 instance: parentInstance,
-                props: parentInstance?.params['props'],
-                state: parentInstance?.params['state']
+                props: parentInstance?.params?.props || parentInstance,
+                state: parentInstance?.params?.state || parentInstance
             }
         };
-    }
-
-    mergeClasses(...args) {
-        const classNames = args.map((arg) => {
-            if (typeof arg === 'object') {
-                return Object.keys(arg)
-                    .filter((key) => arg[key])
-                    .join(' ');
-            } else {
-                return arg;
-            }
-        });
-        return classNames.join(' ');
     }
 
     isUnstyled() {
