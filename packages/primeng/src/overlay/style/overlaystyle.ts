@@ -84,6 +84,10 @@ const theme = /*css*/ `
     justify-content: flex-end;
     align-items: flex-end;
 }
+
+.p-overlay-content ~ .p-overlay-content {
+    display: none;
+}
 `;
 
 @Injectable()

@@ -417,8 +417,9 @@
                             "routerLink": "/metergroup"
                         },
                         {
-                            "name": "pClass",
-                            "routerLink": "/pclass"
+                            "name": "ClassNames",
+                            "routerLink": "/classnames",
+                            "badge": "NEW"
                         },
                         {
                             "name": "ProgressBar",

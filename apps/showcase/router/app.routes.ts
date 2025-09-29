@@ -293,8 +293,8 @@ export const routes: Routes = [
                 loadChildren: () => import('@/pages/animateonscroll/routes')
             },
             {
-                path: 'pclass',
-                loadChildren: () => import('@/pages/pclass/routes')
+                path: 'classnames',
+                loadChildren: () => import('@/pages/classnames/routes')
             },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
             { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) },
