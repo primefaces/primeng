@@ -1,8 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Bind } from 'primeng/pbind';
@@ -10,6 +11,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { BasePanel } from './basepanel';
 import { PanelStyle } from './style/panelstyle';
 
+const INSTANCE = new InjectionToken<Panel>('INSTANCE');
 /**
  * Custom panel toggle event, emits before panel toggle.
  * @see {@link onBeforeToggle}
@@ -164,7 +166,7 @@ export interface PanelHeaderIconsTemplateContext {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PanelStyle],
+    providers: [PanelStyle, { provide: INSTANCE, useExisting: Panel }, { provide: PARENT_INSTANCE, useExisting: Panel }],
     host: {
         '[id]': 'id',
         'data-pc-name': 'panel',
@@ -174,6 +176,7 @@ export interface PanelHeaderIconsTemplateContext {
     hostDirectives: [Bind]
 })
 export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
+    $pcPanel: Panel | undefined = inject(INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
     // TODO: replace this later. For root=host elements, hostDirective use case
     bindDirectiveInstance = inject(Bind, { self: true });
 

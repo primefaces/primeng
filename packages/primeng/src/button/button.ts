@@ -10,6 +10,7 @@ import {
     ContentChildren,
     Directive,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -22,7 +23,7 @@ import { addClass, findSingle, isEmpty } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Bind } from 'primeng/pbind';
@@ -30,6 +31,8 @@ import { Ripple } from 'primeng/ripple';
 import { BaseButton, ButtonIconPosition } from './basebutton';
 import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
+
+const INSTANCE = new InjectionToken<Button>('INSTANCE');
 
 const INTERNAL_BUTTON_CLASSES = {
     button: 'p-button',
@@ -484,10 +487,12 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ButtonStyle],
+    providers: [ButtonStyle, { provide: INSTANCE, useExisting: Button }, { provide: PARENT_INSTANCE, useExisting: Button }],
     hostDirectives: [Bind]
 })
 export class Button extends BaseButton implements AfterContentInit {
+    $pcButton: Button | undefined = inject(INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     _contentTemplate: TemplateRef<any> | undefined;
