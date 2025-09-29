@@ -114,11 +114,11 @@ describe('Tag', () => {
         it('should have default values', () => {
             const freshFixture = TestBed.createComponent(TestBasicTagComponent);
             const freshComponent = freshFixture.componentInstance;
-            freshComponent.value = undefined;
-            freshComponent.icon = undefined;
-            freshComponent.severity = undefined;
-            freshComponent.rounded = undefined;
-            freshComponent.styleClass = undefined;
+            freshComponent.value = undefined as any;
+            freshComponent.icon = undefined as any;
+            freshComponent.severity = undefined as any;
+            freshComponent.rounded = undefined as any;
+            freshComponent.styleClass = undefined as any;
             freshFixture.detectChanges();
 
             const freshTag = freshFixture.debugElement.query(By.directive(Tag)).componentInstance;
@@ -197,16 +197,16 @@ describe('Tag', () => {
             severities.forEach((severity) => {
                 component.severity = severity;
                 fixture.detectChanges();
-                expect(tagInstance.severity).toBe(severity);
+                expect(tagInstance.severity).toBe(severity as any);
             });
         });
 
         it('should handle undefined and null severity', () => {
-            component.severity = undefined;
+            component.severity = undefined as any;
             fixture.detectChanges();
             expect(tagInstance.severity).toBeUndefined();
 
-            component.severity = null;
+            component.severity = null as any;
             fixture.detectChanges();
             expect(tagInstance.severity).toBeNull();
         });
@@ -214,7 +214,7 @@ describe('Tag', () => {
         it('should handle string severity values', () => {
             component.severity = 'custom-severity';
             fixture.detectChanges();
-            expect(tagInstance.severity).toBe('custom-severity');
+            expect(tagInstance.severity).toBe('custom-severity' as any);
         });
     });
 
@@ -247,15 +247,15 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const labelSpan = fixture.debugElement.query(By.css('span:last-child'));
-            expect(labelSpan.nativeElement.textContent.trim()).toBe('');
+            expect(labelSpan.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle undefined value', () => {
-            component.value = undefined;
+            component.value = undefined as any;
             fixture.detectChanges();
 
             const labelSpan = fixture.debugElement.query(By.css('span:last-child'));
-            expect(labelSpan.nativeElement.textContent.trim()).toBe('');
+            expect(labelSpan.nativeElement.textContent.trim()).toBe('' as any);
         });
     });
 
@@ -277,7 +277,7 @@ describe('Tag', () => {
         });
 
         it('should not display icon when icon property is not set', () => {
-            component.icon = undefined;
+            component.icon = undefined as any;
             fixture.detectChanges();
 
             const iconSpan = fixture.debugElement.query(By.css('span[ngClass]'));
@@ -532,19 +532,19 @@ describe('Tag', () => {
 
             const element = styleFixture.debugElement.query(By.directive(Tag)).nativeElement;
 
-            expect(styleComponent.style).toEqual({ border: '2px solid blue', padding: '8px' });
+            expect(styleComponent.style!).toEqual({ border: '2px solid blue', padding: '8px' });
 
-            if (styleComponent.style) {
-                Object.keys(styleComponent.style).forEach((key) => {
+            if (styleComponent.style!) {
+                Object.keys(styleComponent.style!).forEach((key) => {
                     element.style[key] = styleComponent.style![key];
                 });
             }
 
             expect(element.style.border).toBe('2px solid blue');
             expect(element.style.padding).toBe('8px');
-            expect(styleComponent.style).toBeTruthy();
-            expect(Object.keys(styleComponent.style)).toContain('border');
-            expect(Object.keys(styleComponent.style)).toContain('padding');
+            expect(styleComponent.style!).toBeTruthy();
+            expect(Object.keys(styleComponent.style!)).toContain('border');
+            expect(Object.keys(styleComponent.style!)).toContain('padding');
         });
 
         it('should combine multiple CSS classes correctly', () => {
@@ -639,11 +639,11 @@ describe('Tag', () => {
             component.severity = 'my-custom-severity';
             fixture.detectChanges();
 
-            expect(tagInstance.severity).toBe('my-custom-severity');
+            expect(tagInstance.severity).toBe('my-custom-severity' as any);
         });
 
         it('should work without severity', () => {
-            component.severity = undefined;
+            component.severity = undefined as any;
             fixture.detectChanges();
 
             expect(tagInstance.severity).toBeUndefined();
@@ -667,7 +667,7 @@ describe('Tag', () => {
         });
 
         it('should handle rounded undefined', () => {
-            component.rounded = undefined;
+            component.rounded = undefined as any;
             fixture.detectChanges();
 
             expect(tagInstance.rounded).toBeFalsy(); // booleanAttribute transforms undefined to false
@@ -747,11 +747,11 @@ describe('Tag', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values', () => {
-            component.value = undefined;
-            component.icon = undefined;
-            component.severity = undefined;
-            component.rounded = undefined;
-            component.styleClass = undefined;
+            component.value = undefined as any;
+            component.icon = undefined as any;
+            component.severity = undefined as any;
+            component.rounded = undefined as any;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -770,10 +770,10 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(tagInstance.value).toBe('');
-            expect(tagInstance.icon).toBe('');
-            expect(tagInstance.severity).toBe('');
-            expect(tagInstance.styleClass).toBe('');
+            expect(tagInstance.value).toBe('' as any);
+            expect(tagInstance.icon).toBe('' as any);
+            expect(tagInstance.severity).toBe('' as any);
+            expect(tagInstance.styleClass).toBe('' as any);
         });
 
         it('should handle special characters in value', () => {
@@ -813,7 +813,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 expect(tagInstance.value).toBe(value);
-                expect(tagInstance.severity).toBe(severities[index]);
+                expect(tagInstance.severity).toBe(severities[index] as any);
                 expect(tagInstance.rounded).toBe(index % 2 === 0);
             });
         });
@@ -897,11 +897,11 @@ describe('Tag', () => {
             const minimalFixture = TestBed.createComponent(TestBasicTagComponent);
             const minimalComponent = minimalFixture.componentInstance;
 
-            minimalComponent.value = undefined;
-            minimalComponent.icon = undefined;
-            minimalComponent.severity = undefined;
-            minimalComponent.rounded = undefined;
-            minimalComponent.styleClass = undefined;
+            minimalComponent.value = undefined as any;
+            minimalComponent.icon = undefined as any;
+            minimalComponent.severity = undefined as any;
+            minimalComponent.rounded = undefined as any;
+            minimalComponent.styleClass = undefined as any;
 
             minimalFixture.detectChanges();
 

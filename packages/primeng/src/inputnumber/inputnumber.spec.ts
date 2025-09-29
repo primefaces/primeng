@@ -56,41 +56,41 @@ import { CommonModule } from '@angular/common';
     `
 })
 class TestBasicInputNumberComponent {
-    value: number | null = null;
+    value: number | null = null as any;
     showButtons: boolean = false;
     showClear: boolean = false;
-    min: number | undefined = undefined;
-    max: number | undefined = undefined;
+    min: number | undefined = undefined as any;
+    max: number | undefined = undefined as any;
     step: number = 1;
     format: boolean = true;
-    placeholder: string | undefined = undefined;
+    placeholder: string | undefined = undefined as any;
     disabled: boolean = false;
     readonly: boolean = false;
     buttonLayout: string = 'stacked';
     mode: string = 'decimal';
-    currency: string | undefined = undefined;
-    currencyDisplay: string | undefined = undefined;
+    currency: string | undefined = undefined as any;
+    currencyDisplay: string | undefined = undefined as any;
     useGrouping: boolean = true;
-    minFractionDigits: number | undefined = undefined;
-    maxFractionDigits: number | undefined = undefined;
-    prefix: string | undefined = undefined;
-    suffix: string | undefined = undefined;
-    locale: string | undefined = undefined;
+    minFractionDigits: number | undefined = undefined as any;
+    maxFractionDigits: number | undefined = undefined as any;
+    prefix: string | undefined = undefined as any;
+    suffix: string | undefined = undefined as any;
+    locale: string | undefined = undefined as any;
     allowEmpty: boolean = true;
     autofocus: boolean = false;
-    inputId: string | undefined = undefined;
-    styleClass: string | undefined = undefined;
-    inputStyleClass: string | undefined = undefined;
-    incrementButtonClass: string | undefined = undefined;
-    decrementButtonClass: string | undefined = undefined;
-    incrementButtonIcon: string | undefined = undefined;
-    decrementButtonIcon: string | undefined = undefined;
-    tabindex: number | undefined = undefined;
-    size: string | undefined = undefined;
-    ariaLabel: string | undefined = undefined;
-    ariaLabelledBy: string | undefined = undefined;
-    ariaDescribedBy: string | undefined = undefined;
-    title: string | undefined = undefined;
+    inputId: string | undefined = undefined as any;
+    styleClass: string | undefined = undefined as any;
+    inputStyleClass: string | undefined = undefined as any;
+    incrementButtonClass: string | undefined = undefined as any;
+    decrementButtonClass: string | undefined = undefined as any;
+    incrementButtonIcon: string | undefined = undefined as any;
+    decrementButtonIcon: string | undefined = undefined as any;
+    tabindex: number | undefined = undefined as any;
+    size: string | undefined = undefined as any;
+    ariaLabel: string | undefined = undefined as any;
+    ariaLabelledBy: string | undefined = undefined as any;
+    ariaDescribedBy: string | undefined = undefined as any;
+    title: string | undefined = undefined as any;
 
     onInputChange(_event: InputNumberInputEvent) {}
     onFocusChange(_event: Event) {}
@@ -213,10 +213,10 @@ describe('InputNumber', () => {
         });
 
         it('should handle null/undefined value initialization', () => {
-            component.value = null;
+            component.value = null as any;
             fixture.detectChanges();
             expect(component.value).toBeNull();
-            expect(component.formattedValue()).toBe('');
+            expect(component.formattedValue()).toBe('' as any);
         });
     });
 
@@ -575,7 +575,7 @@ describe('InputNumber', () => {
         });
 
         it('should hide clear icon when no value', () => {
-            testComponent.value = null;
+            testComponent.value = null as any;
             testFixture.detectChanges();
 
             const _clearIcon = testFixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
@@ -587,7 +587,7 @@ describe('InputNumber', () => {
             expect(testComponent.showClear).toBe(true);
 
             // Simulate clear action
-            testComponent.value = null;
+            testComponent.value = null as any;
             testFixture.detectChanges();
             tick();
 
@@ -913,7 +913,7 @@ describe('InputNumber', () => {
 
         it('should handle allowEmpty configuration', () => {
             testComponent.allowEmpty = false;
-            testComponent.value = null;
+            testComponent.value = null as any;
             testFixture.detectChanges();
 
             // Should handle the empty value according to allowEmpty setting

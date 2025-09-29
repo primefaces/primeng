@@ -247,7 +247,7 @@ export class Rating extends BaseEditableHolder implements OnInit {
     }
 
     starAriaLabel(value) {
-        return value === 1 ? this.config.translation.aria.star : this.config.translation.aria.stars.replace(/{star}/g, value);
+        return value === 1 ? this.config.translation.aria?.star : this.config.translation.aria?.stars?.replace(/{star}/g, value);
     }
 
     getIconTemplate(i: number): Nullable<TemplateRef<any>> {

@@ -347,7 +347,7 @@ describe('Divider', () => {
             const contentContainer = dividerEl.query(By.css('.p-divider-content'));
 
             expect(contentContainer).toBeTruthy();
-            expect(contentContainer.nativeElement.textContent.trim()).toBe('');
+            expect(contentContainer.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle complex content', () => {
@@ -674,10 +674,10 @@ describe('Divider', () => {
             const customFixture = TestBed.createComponent(TestCustomDividerComponent);
             const customComponent = customFixture.componentInstance;
 
-            customComponent.layout = undefined;
-            customComponent.type = undefined;
-            customComponent.align = undefined;
-            customComponent.styleClass = undefined;
+            customComponent.layout = undefined as any;
+            customComponent.type = undefined as any;
+            customComponent.align = undefined as any;
+            customComponent.styleClass = undefined as any;
 
             expect(() => customFixture.detectChanges()).not.toThrow();
 

@@ -63,7 +63,7 @@ import { OrderListStyle } from './style/orderliststyle';
             [multiple]="true"
             [options]="value"
             [(ngModel)]="d_selection"
-            optionLabel="name"
+            [optionLabel]="dataKey ?? 'name'"
             [id]="id + '_list'"
             [listStyle]="listStyle"
             [striped]="stripedRows"
@@ -240,7 +240,11 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = true;
-
+    /**
+     * Name of the field that uniquely identifies the record in the data.
+     * @group Props
+     */
+    @Input() dataKey: string | undefined;
     /**
      * A list of values that are currently selected.
      * @group Props
@@ -261,6 +265,9 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         this._value = val;
         if (this.filterValue) {
             this.filter();
+        } else if (this.dragdrop) {
+            // Initialize visibleOptions for drag&drop even when no filtering is active
+            this.visibleOptions = [...(val || [])];
         }
     }
     get value(): any[] | undefined {
@@ -470,6 +477,11 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 reset: () => this.resetFilter()
             };
         }
+
+        // Initialize visibleOptions for drag&drop if enabled and value exists
+        if (this.dragdrop && this.value && !this.visibleOptions) {
+            this.visibleOptions = [...this.value];
+        }
     }
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
@@ -574,7 +586,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * @group Method
      */
     public resetFilter() {
-        this.filterValue = null;
+        this.filterValue = '';
         this.filterViewChild && ((<HTMLInputElement>this.filterViewChild.nativeElement).value = '');
     }
 
@@ -599,22 +611,30 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     moveUp() {
-        if (this.selection) {
-            for (let i = 0; i < this.selection.length; i++) {
-                let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+        if (this.selection && this.value instanceof Array) {
+            // Sort selection by their current index to process them from top to bottom
+            const sortedSelection = this.sortByIndexInList(this.selection, this.value);
 
-                if (selectedItemIndex != 0 && this.value instanceof Array) {
+            for (let selectedItem of sortedSelection) {
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                // Only move if not at top and there's a valid position above
+                if (selectedItemIndex > 0) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex - 1];
                     this.value[selectedItemIndex - 1] = movedItem;
                     this.value[selectedItemIndex] = temp;
-                } else {
-                    break;
                 }
+                // Don't break - continue with other items even if one can't move
             }
 
-            if (this.dragdrop && this.filterValue) this.filter();
+            if (this.dragdrop) {
+                if (this.filterValue) {
+                    this.filter();
+                } else if (this.visibleOptions) {
+                    // Update visibleOptions to match value when no filtering
+                    this.visibleOptions = [...this.value];
+                }
+            }
 
             this.movedUp = true;
             this.onReorder.emit(this.selection);
@@ -626,7 +646,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = this.selection.length - 1; i >= 0; i--) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value || []);
 
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
@@ -636,7 +656,14 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 }
             }
 
-            if (this.dragdrop && this.filterValue) this.filter();
+            if (this.dragdrop) {
+                if (this.filterValue) {
+                    this.filter();
+                } else if (this.visibleOptions) {
+                    // Update visibleOptions to match value when no filtering
+                    this.visibleOptions = [...(this.value || [])];
+                }
+            }
 
             this.onReorder.emit(this.selection);
             setTimeout(() => {
@@ -647,22 +674,26 @@ export class OrderList extends BaseComponent implements AfterContentInit {
     }
 
     moveDown() {
-        if (this.selection) {
-            for (let i = this.selection.length - 1; i >= 0; i--) {
-                let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+        if (this.selection && this.value instanceof Array) {
+            const sortedSelection = this.sortByIndexInList(this.selection, this.value).reverse();
 
-                if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
+            for (let selectedItem of sortedSelection) {
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                if (selectedItemIndex < this.value.length - 1) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex + 1];
                     this.value[selectedItemIndex + 1] = movedItem;
                     this.value[selectedItemIndex] = temp;
-                } else {
-                    break;
                 }
             }
 
-            if (this.dragdrop && this.filterValue) this.filter();
+            if (this.dragdrop) {
+                if (this.filterValue) {
+                    this.filter();
+                } else if (this.visibleOptions) {
+                    this.visibleOptions = [...this.value];
+                }
+            }
 
             this.movedDown = true;
             this.onReorder.emit(this.selection);
@@ -675,7 +706,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         if (this.selection) {
             for (let i = 0; i < this.selection.length; i++) {
                 let selectedItem = this.selection[i];
-                let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+                let selectedItemIndex: number = findIndexInList(selectedItem, this.value || []);
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
@@ -685,10 +716,16 @@ export class OrderList extends BaseComponent implements AfterContentInit {
                 }
             }
 
-            if (this.dragdrop && this.filterValue) this.filter();
+            if (this.dragdrop) {
+                if (this.filterValue) {
+                    this.filter();
+                } else if (this.visibleOptions) {
+                    this.visibleOptions = [...(this.value || [])];
+                }
+            }
 
             this.onReorder.emit(this.selection);
-            this.listViewChild.scrollInView(this.value?.length - 1);
+            this.listViewChild?.scrollInView(this.value?.length ? this.value.length - 1 : 0);
         }
         this.listViewChild?.cd?.markForCheck();
     }
@@ -697,26 +734,105 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         let previousIndex = event.previousIndex;
         let currentIndex = event.currentIndex;
 
+        // Store the original state before any modifications
+        const originalValue = [...(this.value || [])];
+        const originalVisibleOptions = this.visibleOptions ? [...this.visibleOptions] : null;
+
         if (previousIndex !== currentIndex) {
-            if (this.visibleOptions) {
-                if (this.filterValue) {
-                    previousIndex = findIndexInList(event.item.data, this.value);
-                    currentIndex = findIndexInList(this.visibleOptions[currentIndex], this.value);
+            // Determine items to move
+            let itemsToMove: any[] = [];
+
+            // Check if dragged item is in selected items AND we have multiple selections
+            if (this.selection && this.selection.length > 1 && findIndexInList(event.item.data, this.selection) !== -1) {
+                // Multi-selection: Move all selected items
+                itemsToMove = [...this.selection];
+
+                // For multi-selection, restore original state to undo Listbox's automatic reordering
+                if (this.value) {
+                    this.value.length = 0;
+                    this.value.push(...originalValue);
+                }
+                if (originalVisibleOptions && this.visibleOptions) {
+                    this.visibleOptions.length = 0;
+                    this.visibleOptions.push(...originalVisibleOptions);
                 }
 
-                moveItemInArray(this.visibleOptions, event.previousIndex, event.currentIndex);
-            }
+                // Sort items by their index in the array to maintain relative order
+                itemsToMove = this.sortByIndexInList(itemsToMove, this.value || []);
 
-            moveItemInArray(this.value as any[], previousIndex, currentIndex);
-            this.onReorder.emit([event.item.data]);
+                // Calculate how many selected items are before the drop position
+                let itemsBefore = 0;
+                for (const item of itemsToMove) {
+                    const itemIndex = findIndexInList(item, this.value || []);
+                    if (itemIndex !== -1 && itemIndex < currentIndex) {
+                        itemsBefore++;
+                    }
+                }
+
+                // Remove all selected items (in reverse order to avoid index shifting)
+                for (let i = itemsToMove.length - 1; i >= 0; i--) {
+                    const itemIndex = findIndexInList(itemsToMove[i], this.value || []);
+                    if (itemIndex !== -1) {
+                        this.value?.splice(itemIndex, 1);
+                    }
+                }
+
+                // Calculate the final target index
+                // If we're dragging down, we need to subtract the number of items that were before the target
+                const targetIndex = Math.max(0, currentIndex - itemsBefore);
+
+                // Insert all selected items at the target position
+                for (let i = 0; i < itemsToMove.length; i++) {
+                    this.value?.splice(targetIndex + i, 0, itemsToMove[i]);
+                }
+                // Update visibleOptions to match value
+                if (this.dragdrop) {
+                    if (this.filterValue) {
+                        this.filter();
+                    } else if (this.visibleOptions) {
+                        this.visibleOptions = [...(this.value || [])];
+                    }
+                }
+
+                // Ensure change detection runs
+                this.cd?.markForCheck();
+
+                this.onReorder.emit(itemsToMove);
+            } else {
+                // Single item: Move only the dragged item (let Listbox handle it)
+                itemsToMove = [event.item.data];
+
+                if (this.filterValue) {
+                    previousIndex = findIndexInList(event.item.data, this.value || []);
+                    currentIndex = findIndexInList(this.visibleOptions?.[currentIndex], this.value || []);
+                }
+
+                moveItemInArray(this.value as any[], previousIndex, currentIndex);
+
+                // Sync visibleOptions for non-filtered case
+                if (this.dragdrop && this.visibleOptions && !this.filterValue) {
+                    this.visibleOptions = [...(this.value || [])];
+                }
+
+                this.onReorder.emit([event.item.data]);
+            }
         }
     }
 
-    onListFocus(event) {
+    // Helper method to sort items by their index in a list
+    private sortByIndexInList(items: any[], list: any[]): any[] {
+        return items.sort((a, b) => {
+            const indexA = findIndexInList(a, list);
+            const indexB = findIndexInList(b, list);
+            return indexA - indexB;
+        });
+    }
+
+    onListFocus(event: any) {
         this.onFocus.emit(event);
     }
 
-    onListBlur(event) {
+    onListBlur(event: any) {
         this.onBlur.emit(event);
     }
 

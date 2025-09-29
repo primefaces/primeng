@@ -93,7 +93,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [fluid]="hasFluid"
                 [invalid]="invalid()"
             />
-            <ng-container *ngIf="showClear && !$disabled() && value != null">
+            <ng-container *ngIf="showClear && !$disabled() && inputfieldViewChild?.nativeElement?.value">
                 <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
                 <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -887,7 +887,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         return this._defaultDate;
     }
     set defaultDate(defaultDate: Date | null) {
-        this._defaultDate = defaultDate;
+        this._defaultDate = defaultDate!;
 
         if (this.initialized) {
             const date = defaultDate || new Date();
@@ -1351,7 +1351,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     }
 
     monthPickerValues() {
-        let monthPickerValues = [];
+        let monthPickerValues: any[] = [];
         for (let i = 0; i <= 11; i++) {
             monthPickerValues.push(this.config.getTranslation('monthNamesShort')[i]);
         }
@@ -1360,7 +1360,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     }
 
     yearPickerValues() {
-        let yearPickerValues = [];
+        let yearPickerValues: any[] = [];
         let base = <number>this.currentYear - (<number>this.currentYear % 10);
         for (let i = 0; i < 10; i++) {
             yearPickerValues.push(base + i);
@@ -1408,7 +1408,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         let monthRows = Math.ceil((daysLength + firstDay) / 7);
 
         for (let i = 0; i < monthRows; i++) {
-            let week = [];
+            let week: any[] = [];
 
             if (i == 0) {
                 for (let j = prevMonthDaysLength - firstDay + 1; j <= prevMonthDaysLength; j++) {
@@ -1461,10 +1461,10 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
 
             if (this.showWeek) {
-                weekNumbers.push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day)));
+                (weekNumbers as any[]).push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day)));
             }
 
-            dates.push(week);
+            (dates as any[]).push(week);
         }
 
         return {
@@ -1801,7 +1801,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             if (this.isSingleSelection()) {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
-                let stringArrValue = null;
+                let stringArrValue: any[] | null = null;
                 if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
@@ -2126,7 +2126,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
                     if (this.timeOnly) {
                         return;
                     } else {
-                        if (element == headerElements.children[headerElements?.children?.length - 1]) {
+                        if (element == headerElements?.children[headerElements?.children?.length! - 1]) {
                             this.initFocusableCell();
                         }
                     }
@@ -2701,7 +2701,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
     constrainTime(hour: number, minute: number, second: number, pm: boolean) {
         let returnTimeTriple: number[] = [hour, minute, second];
-        let minHoursExceeds12: boolean;
+        let minHoursExceeds12: boolean = false;
         let value = this.value;
         const convertedHour = this.convertTo24Hour(hour, pm);
         const isRange = this.isRangeSelection(),
@@ -2724,49 +2724,49 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
 
         if (isMinDate) {
-            minHoursExceeds12 = this.minDate.getHours() >= 12;
+            minHoursExceeds12 = this.minDate!.getHours() >= 12;
         }
 
         switch (
             true // intentional fall through
         ) {
-            case isMinDate && minHoursExceeds12 && this.minDate.getHours() === 12 && this.minDate.getHours() > convertedHour:
+            case isMinDate && minHoursExceeds12 && this.minDate!.getHours() === 12 && this.minDate!.getHours() > convertedHour:
                 returnTimeTriple[0] = 11;
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
-                returnTimeTriple[1] = this.minDate.getMinutes();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
-                returnTimeTriple[2] = this.minDate.getSeconds();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate!.getMinutes();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
-            case isMinDate && !minHoursExceeds12 && this.minDate.getHours() - 1 === convertedHour && this.minDate.getHours() > convertedHour:
+            case isMinDate && !minHoursExceeds12 && this.minDate!.getHours() - 1 === convertedHour && this.minDate!.getHours() > convertedHour:
                 returnTimeTriple[0] = 11;
                 this.pm = true;
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
-                returnTimeTriple[1] = this.minDate.getMinutes();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
-                returnTimeTriple[2] = this.minDate.getSeconds();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate!.getMinutes();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
 
-            case isMinDate && minHoursExceeds12 && this.minDate.getHours() > convertedHour && convertedHour !== 12:
-                this.setCurrentHourPM(this.minDate.getHours());
-                returnTimeTriple[0] = this.currentHour;
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
-                returnTimeTriple[1] = this.minDate.getMinutes();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
-                returnTimeTriple[2] = this.minDate.getSeconds();
+            case isMinDate && minHoursExceeds12 && this.minDate!.getHours() > convertedHour && convertedHour !== 12:
+                this.setCurrentHourPM(this.minDate!.getHours());
+                returnTimeTriple[0] = this.currentHour || 0;
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate!.getMinutes();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
-            case isMinDate && this.minDate.getHours() > convertedHour:
-                returnTimeTriple[0] = this.minDate.getHours();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
-                returnTimeTriple[1] = this.minDate.getMinutes();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
-                returnTimeTriple[2] = this.minDate.getSeconds();
+            case isMinDate && this.minDate!.getHours() > convertedHour:
+                returnTimeTriple[0] = this.minDate!.getHours();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate!.getMinutes();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
-            case isMaxDate && this.maxDate.getHours() < convertedHour:
-                returnTimeTriple[0] = this.maxDate.getHours();
-            case isMaxDate && this.maxDate.getHours() === convertedHour && this.maxDate.getMinutes() < minute:
-                returnTimeTriple[1] = this.maxDate.getMinutes();
-            case isMaxDate && this.maxDate.getHours() === convertedHour && this.maxDate.getMinutes() === minute && this.maxDate.getSeconds() < second:
-                returnTimeTriple[2] = this.maxDate.getSeconds();
+            case isMaxDate && this.maxDate!.getHours() < convertedHour:
+                returnTimeTriple[0] = this.maxDate!.getHours();
+            case isMaxDate && this.maxDate!.getHours() === convertedHour && this.maxDate!.getMinutes() < minute:
+                returnTimeTriple[1] = this.maxDate!.getMinutes();
+            case isMaxDate && this.maxDate!.getHours() === convertedHour && this.maxDate!.getMinutes() === minute && this.maxDate!.getSeconds() < second:
+                returnTimeTriple[2] = this.maxDate!.getSeconds();
                 break;
         }
 
@@ -2785,7 +2785,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
             newHour = newHour >= 13 ? newHour - 12 : newHour;
         }
-        this.toggleAMPMIfNotMinDate(newPM);
+        this.toggleAMPMIfNotMinDate(newPM!);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         event.preventDefault();
     }
@@ -2794,7 +2794,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         let value = this.value;
         const valueDateString = value ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
-        if (isMinDate && this.minDate.getHours() >= 12) {
+        if (isMinDate && this.minDate!.getHours() >= 12) {
             this.pm = true;
         } else {
             this.pm = newPM;
@@ -2869,7 +2869,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
             newHour = newHour <= 0 ? 12 + newHour : newHour;
         }
-        this.toggleAMPMIfNotMinDate(newPM);
+        this.toggleAMPMIfNotMinDate(newPM!);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         event.preventDefault();
     }
@@ -2877,28 +2877,28 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     incrementMinute(event: any) {
         let newMinute = (this.currentMinute ?? 0) + this.stepMinute;
         newMinute = newMinute > 59 ? newMinute - 60 : newMinute;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond!, this.pm!);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, newMinute, this.currentSecond!, this.pm!);
         event.preventDefault();
     }
 
     decrementMinute(event: any) {
         let newMinute = (this.currentMinute ?? 0) - this.stepMinute;
         newMinute = newMinute < 0 ? 60 + newMinute : newMinute;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, newMinute, this.currentSecond || 0, this.pm!);
         event.preventDefault();
     }
 
     incrementSecond(event: any) {
         let newSecond = <any>this.currentSecond + this.stepSecond;
         newSecond = newSecond > 59 ? newSecond - 60 : newSecond;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, newSecond, this.pm!);
         event.preventDefault();
     }
 
     decrementSecond(event: any) {
         let newSecond = <any>this.currentSecond - this.stepSecond;
         newSecond = newSecond < 0 ? 60 + newSecond : newSecond;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, newSecond, this.pm!);
         event.preventDefault();
     }
 
@@ -2938,7 +2938,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     toggleAMPM(event: any) {
         const newPM = !this.pm;
         this.pm = newPM;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, this.currentSecond, newPM);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, this.currentSecond || 0, newPM);
         this.updateTime();
         event.preventDefault();
     }
@@ -3104,9 +3104,9 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             case 'visibleTouchUI':
                 if (!this.inline) {
                     this.overlay = event.element;
-                    this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
+                    this.attrSelector && this.overlay!.setAttribute(this.attrSelector, '');
                     const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
-                    addStyle(this.overlay, styles);
+                    addStyle(this.overlay!, styles || {});
 
                     this.appendOverlay();
                     this.updateFocus();
@@ -3149,13 +3149,13 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     appendOverlay() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else appendChild(this.$appendTo(), this.overlay);
+            else appendChild(this.$appendTo(), this.overlay!);
         }
     }
 
     restoreOverlayAppend() {
         if (this.overlay && this.$appendTo() !== 'self') {
-            this.el.nativeElement.appendChild(this.overlay);
+            this.el.nativeElement.appendChild(this.overlay!);
         }
     }
 
@@ -3189,7 +3189,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1));
             let maskStyleClass = 'p-overlay-mask p-datepicker-mask p-datepicker-mask-scrollblocker p-overlay-mask p-overlay-mask-enter';
-            addClass(this.mask, maskStyleClass);
+            addClass(this.mask!, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
@@ -3442,17 +3442,17 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
                 let names = [];
 
                 for (let i = 0; i < arr.length; i++) {
-                    names.push([i, arr[i]]);
+                    (names as any[]).push([i, arr[i]]);
                 }
-                names.sort((a, b) => {
-                    return -(a[1].length - b[1].length);
+                (names as any[]).sort((a, b) => {
+                    return -((a as any)[1].length - (b as any)[1].length);
                 });
 
-                for (let i = 0; i < names.length; i++) {
-                    let name = names[i][1];
-                    if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
-                        index = names[i][0];
-                        iValue += name.length;
+                for (let i = 0; i < (names as any[]).length; i++) {
+                    let name = (names as any[])[i][1];
+                    if (value.substr(iValue, (name as string).length).toLowerCase() === (name as string).toLowerCase()) {
+                        index = (names as any[])[i][0];
+                        iValue += (name as string).length;
                         break;
                     }
                 }
@@ -3611,7 +3611,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 (<HTMLStyleElement>this.responsiveStyleElement).type = 'text/css';
-                setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
+                setAttribute(this.responsiveStyleElement!, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.body, this.responsiveStyleElement);
             }
 
@@ -3644,7 +3644,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
 
             (<HTMLStyleElement>this.responsiveStyleElement).innerHTML = innerHTML;
-            setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
+            setAttribute(this.responsiveStyleElement!, 'nonce', this.config?.csp()?.nonce);
         }
     }
 

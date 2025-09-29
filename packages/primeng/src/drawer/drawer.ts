@@ -353,7 +353,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     show() {
-        this.container.setAttribute(this.attrSelector, '');
+        this.container?.setAttribute(this.attrSelector, '');
 
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex || this.config.zIndex.modal);
@@ -390,9 +390,11 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
-            setAttribute(this.mask, 'style', this.getMaskStyle());
-            setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
-            addClass(this.mask, this.cx('mask'));
+            if (this.mask) {
+                setAttribute(this.mask, 'style', this.getMaskStyle());
+                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
+                addClass(this.mask, this.cx('mask'));
+            }
 
             if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -466,8 +468,11 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
+            if (this.appendTo === 'body' && this.container) {
+                this.renderer.appendChild(this.document.body, this.container);
+            } else if (this.container) {
+                appendChild(this.appendTo, this.container);
+            }
         }
     }
 

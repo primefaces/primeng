@@ -287,7 +287,7 @@ describe('Card', () => {
             customComponent.header = 'Test Header';
             customFixture.detectChanges();
 
-            customComponent.header = undefined;
+            customComponent.header = undefined as any;
             customFixture.detectChanges();
 
             const titleElement = customFixture.debugElement.query(By.css('.p-card-title'));
@@ -335,7 +335,7 @@ describe('Card', () => {
             customComponent.subheader = 'Test Subheader';
             customFixture.detectChanges();
 
-            customComponent.subheader = undefined;
+            customComponent.subheader = undefined as any;
             customFixture.detectChanges();
 
             const subtitleElement = customFixture.debugElement.query(By.css('.p-card-subtitle'));
@@ -845,10 +845,10 @@ describe('Card', () => {
             const customFixture = TestBed.createComponent(TestCustomCardComponent);
             const customComponent = customFixture.componentInstance;
 
-            customComponent.header = undefined;
-            customComponent.subheader = undefined;
-            customComponent.styleClass = undefined;
-            customComponent.style = undefined;
+            customComponent.header = undefined as any;
+            customComponent.subheader = undefined as any;
+            customComponent.styleClass = undefined as any;
+            customComponent.style = undefined as any;
 
             expect(() => customFixture.detectChanges()).not.toThrow();
 

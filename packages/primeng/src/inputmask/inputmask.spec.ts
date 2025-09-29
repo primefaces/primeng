@@ -44,7 +44,7 @@ import { CommonModule } from '@angular/common';
     `
 })
 class TestBasicInputMaskComponent {
-    value: string | null = null;
+    value: string | null = null as any;
     mask: string = '999-99-9999';
     slotChar: string = '_';
     autoClear: boolean = true;
@@ -56,7 +56,7 @@ class TestBasicInputMaskComponent {
     keepBuffer: boolean = false;
     placeholder: string = '';
     styleClass: string = '';
-    style: any = null;
+    style: any = null as any;
     inputId: string = '';
     tabindex: string = '';
     title: string = '';
@@ -104,7 +104,7 @@ class TestFormInputMaskComponent {
     `
 })
 class TestTemplateInputMaskComponent {
-    value: string | null = null;
+    value: string | null = null as any;
     mask: string = '999-999-9999';
     showClear: boolean = true;
     placeholder: string = 'Enter phone number';
@@ -126,9 +126,9 @@ class TestMultipleInputMaskComponent {
     phoneMask: string = '(999) 999-9999';
     ssnMask: string = '999-99-9999';
     dateMask: string = '99/99/9999';
-    phoneValue: string | null = null;
-    ssnValue: string | null = null;
-    dateValue: string | null = null;
+    phoneValue: string | null = null as any;
+    ssnValue: string | null = null as any;
+    dateValue: string | null = null as any;
 }
 
 describe('InputMask', () => {
@@ -229,7 +229,7 @@ describe('InputMask', () => {
             fixture.detectChanges();
 
             expect(component.characterPattern).toBe('[0-9A-Fa-f]');
-            expect(component.defs['a']).toBe('[0-9A-Fa-f]');
+            expect(component.defs!['a']).toBe('[0-9A-Fa-f]');
         });
     });
 
@@ -309,7 +309,7 @@ describe('InputMask', () => {
 
             component.clear();
 
-            expect(component.inputViewChild?.nativeElement.value).toBe('');
+            expect(component.inputViewChild?.nativeElement.value).toBe('' as any);
             expect(component.value).toBeNull();
             expect(component.onModelChange).toHaveBeenCalledWith(null);
             expect(component.onClear.emit).toHaveBeenCalled();
@@ -632,10 +632,10 @@ describe('InputMask', () => {
             component.mask = '999-99-9999';
             fixture.detectChanges();
 
-            component.mask = null;
+            component.mask = null as any;
             expect(() => component.initMask()).not.toThrow(); // Now gracefully handled
 
-            component.mask = undefined;
+            component.mask = undefined as any;
             expect(() => component.initMask()).not.toThrow(); // Now gracefully handled
         });
 
@@ -768,7 +768,7 @@ describe('InputMask', () => {
             const mockSetValue = jasmine.createSpy('setModelValue');
             component.writeControlValue(null, mockSetValue);
 
-            expect(component.inputViewChild.nativeElement.value).toBe('');
+            expect(component.inputViewChild!.nativeElement.value).toBe('' as any);
             expect(component.value).toBeNull();
         });
     });

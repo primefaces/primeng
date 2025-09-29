@@ -631,7 +631,7 @@ describe('Panel', () => {
 
         it('should handle null toggleButtonProps', () => {
             testComponent.toggleable = true;
-            testComponent.toggleButtonProps = null;
+            testComponent.toggleButtonProps = null as any;
             testFixture.detectChanges();
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));

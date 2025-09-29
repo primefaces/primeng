@@ -90,7 +90,7 @@ describe('ProgressBar', () => {
         it('should have default values', () => {
             const freshFixture = TestBed.createComponent(TestBasicProgressBarComponent);
             const freshComponent = freshFixture.componentInstance;
-            freshComponent.value = undefined; // Reset to undefined
+            freshComponent.value = undefined as any; // Reset to undefined
             freshFixture.detectChanges();
             const freshProgressBar = freshFixture.debugElement.query(By.directive(ProgressBar)).componentInstance;
 
@@ -255,7 +255,7 @@ describe('ProgressBar', () => {
 
             expect(progressBarEl.componentInstance.mode).toBe('indeterminate');
             expect(valueElement).toBeTruthy();
-            expect(valueElement.nativeElement.style.width).toBe('');
+            expect(valueElement.nativeElement.style.width).toBe('' as any);
         });
 
         it('should apply color to indeterminate progress bar', () => {
@@ -392,19 +392,19 @@ describe('ProgressBar', () => {
             styleFixture.debugElement.query(By.directive(ProgressBar)).componentInstance;
             const element = styleFixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
 
-            expect(styleComponent.style).toEqual({ border: '2px solid red', padding: '10px' });
+            expect(styleComponent.style!).toEqual({ border: '2px solid red', padding: '10px' });
 
-            if (styleComponent.style) {
-                Object.keys(styleComponent.style).forEach((key) => {
+            if (styleComponent.style!) {
+                Object.keys(styleComponent.style!).forEach((key) => {
                     element.style[key] = styleComponent.style![key];
                 });
             }
 
             expect(element.style.border).toBe('2px solid red');
             expect(element.style.padding).toBe('10px');
-            expect(styleComponent.style).toBeTruthy();
-            expect(Object.keys(styleComponent.style)).toContain('border');
-            expect(Object.keys(styleComponent.style)).toContain('padding');
+            expect(styleComponent.style!).toBeTruthy();
+            expect(Object.keys(styleComponent.style!)).toContain('border');
+            expect(Object.keys(styleComponent.style!)).toContain('padding');
         });
 
         it('should apply valueStyleClass to value element', () => {
@@ -461,7 +461,7 @@ describe('ProgressBar', () => {
         });
 
         it('should handle undefined value in ARIA attributes', () => {
-            component.value = undefined;
+            component.value = undefined as any;
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressBar));
@@ -472,9 +472,9 @@ describe('ProgressBar', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values', () => {
-            component.value = undefined;
-            component.color = undefined;
-            component.styleClass = undefined;
+            component.value = undefined as any;
+            component.color = undefined as any;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -541,7 +541,7 @@ describe('ProgressBar', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(progressBarInstance.unit).toBe('');
+            expect(progressBarInstance.unit).toBe('' as any);
         });
 
         it('should handle mode changes correctly', () => {
@@ -556,7 +556,7 @@ describe('ProgressBar', () => {
             fixture.detectChanges();
 
             valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
-            expect(valueElement.nativeElement.style.width).toBe('');
+            expect(valueElement.nativeElement.style.width).toBe('' as any);
         });
 
         it('should handle rapid value changes', () => {

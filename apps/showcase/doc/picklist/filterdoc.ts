@@ -1,11 +1,11 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'filter-doc',

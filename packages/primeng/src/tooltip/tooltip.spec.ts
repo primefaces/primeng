@@ -401,7 +401,7 @@ describe('Tooltip', () => {
             mockElement.appendChild(input);
 
             const target = tooltipDirective.getTarget(mockElement);
-            expect(target.tagName.toLowerCase()).toBe('input');
+            expect(target!.tagName.toLowerCase()).toBe('input');
         });
 
         it('should return element itself if not p-inputwrapper', () => {
@@ -569,8 +569,8 @@ describe('Tooltip', () => {
         it('should handle mouseenter without existing container', () => {
             spyOn(tooltipDirective, 'activate');
 
-            tooltipDirective.container = null;
-            tooltipDirective.showTimeout = null;
+            tooltipDirective.container = null as any;
+            tooltipDirective.showTimeout = null as any;
 
             tooltipDirective.onMouseEnter(new MouseEvent('mouseenter'));
 

@@ -131,7 +131,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     lastPageY: number | undefined;
 
-    ariaLabelledBy: string | undefined;
+    ariaLabelledBy: string | undefined | null;
 
     id: string = uuid('pn_id_');
 
@@ -357,9 +357,9 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
         this.componentRef = viewContainerRef?.createComponent(componentType);
 
-        if (this.inputValues) {
+        if (this.inputValues && this.componentRef) {
             Object.entries(this.inputValues).forEach(([key, value]) => {
-                this.componentRef.setInput(key, value);
+                this.componentRef!.setInput(key, value);
             });
         }
 
@@ -471,7 +471,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         }
     }
 
-    focus(focusParentElement = this.contentViewChild.nativeElement) {
+    focus(focusParentElement = this.contentViewChild?.nativeElement) {
+        if (!focusParentElement) return;
         let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
@@ -523,8 +524,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         if (this.resizing) {
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = getOuterWidth(this.container);
-            let containerHeight = getOuterHeight(this.container);
+            let containerWidth = this.container ? getOuterWidth(this.container) : 0;
+            let containerHeight = this.container ? getOuterHeight(this.container) : 0;
             let contentHeight = getOuterHeight((<ElementRef>this.contentViewChild).nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
@@ -585,8 +586,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            let containerWidth = getOuterWidth(this.container);
-            let containerHeight = getOuterHeight(this.container);
+            let containerWidth = this.container ? getOuterWidth(this.container) : 0;
+            let containerHeight = this.container ? getOuterHeight(this.container) : 0;
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
             let offset = (this.container as HTMLDivElement).getBoundingClientRect();

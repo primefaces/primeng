@@ -188,7 +188,7 @@ export class Step extends BaseComponent implements AfterContentInit {
      * @defaultValue undefined
      * @group Props
      */
-    value: ModelSignal<number> = model<number | undefined>();
+    value: ModelSignal<number | undefined> = model<number | undefined>();
     /**
      * Whether the step is disabled.
      * @type {boolean}
@@ -308,7 +308,7 @@ export class StepPanel extends BaseComponent implements AfterContentInit {
      * @defaultValue undefined
      * @group Props
      */
-    value: ModelSignal<number> = model<number | undefined>(undefined);
+    value: ModelSignal<number | undefined> = model<number | undefined>(undefined);
 
     active = computed(() => this.pcStepper.value() === this.value());
 

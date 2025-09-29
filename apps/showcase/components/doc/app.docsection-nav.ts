@@ -2,6 +2,7 @@ import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
 import { Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils } from 'primeng/utils';
 import { fromEvent } from 'rxjs';
@@ -9,7 +10,7 @@ import { fromEvent } from 'rxjs';
 @Component({
     selector: 'app-docsection-nav',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, ButtonModule],
     template: `
         <div class="doc-section-nav-container">
             <ul #nav class="doc-section-nav">
@@ -45,7 +46,7 @@ import { fromEvent } from 'rxjs';
                     <span class="leading-none">Build Faster </span>
                     <span class="leading-none text-primary">Design Better</span>
                 </div>
-                <div class="text-center text-sm mt-4 text-secondary">490+ ready to use UI blocks crafted with PrimeVue and Tailwind CSS.</div>
+                <div class="text-center text-sm mt-4 text-secondary">490+ ready to use UI blocks crafted with PrimeNG and Tailwind CSS.</div>
                 <span class="flex justify-center">
                     <a pButton label="Learn More" size="small" href="https://primeblocks.org" target="_blank" rel="noopener" class="mt-4 inline-flex" rounded></a>
                 </span>

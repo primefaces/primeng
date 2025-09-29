@@ -21,7 +21,7 @@ const classes = {
     nodeContent: ({ instance }) => ({
         'p-tree-node-content': true,
         'p-tree-node-selectable': instance.selectable,
-        'p-tree-node-dragover': instance.draghoverNode,
+        'p-tree-node-dragover': instance.isNodeDropActive(),
         'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected
     }),
     nodeToggleButton: 'p-tree-node-toggle-button',
@@ -31,7 +31,7 @@ const classes = {
     nodeLabel: 'p-tree-node-label',
     nodeChildren: 'p-tree-node-children',
     emptyMessage: 'p-tree-empty-message',
-    dropPoint: ({ param }) => ['p-tree-node-droppoint', { 'p-tree-node-droppoint-active': param }]
+    dropPoint: 'p-tree-node-drop-point'
 };
 
 @Injectable()

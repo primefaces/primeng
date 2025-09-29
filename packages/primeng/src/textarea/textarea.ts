@@ -92,7 +92,7 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
 
     @HostListener('input', ['$event'])
     onInput(e: Event) {
-        this.writeModelValue(e.target['value']);
+        this.writeModelValue((e.target as HTMLTextAreaElement)?.value);
         this.updateState();
     }
 

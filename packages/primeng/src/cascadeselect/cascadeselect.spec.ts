@@ -147,7 +147,7 @@ const mockCountries = [
     `
 })
 class TestCascadeSelectComponent {
-    selectedValue: any = null;
+    selectedValue: any = null as any;
     options: any[] = [];
     formOptions: any[] = [];
 
@@ -177,13 +177,13 @@ class TestCascadeSelectComponent {
     panelStyleClass: string = '';
 
     // Event tracking
-    changeEvent: CascadeSelectChangeEvent | null = null;
-    showEvent: CascadeSelectShowEvent | null = null;
-    hideEvent: CascadeSelectHideEvent | null = null;
-    beforeShowEvent: CascadeSelectBeforeShowEvent | null = null;
-    beforeHideEvent: CascadeSelectBeforeHideEvent | null = null;
-    focusEvent: Event | null = null;
-    blurEvent: Event | null = null;
+    changeEvent: CascadeSelectChangeEvent | null = null as any;
+    showEvent: CascadeSelectShowEvent | null = null as any;
+    hideEvent: CascadeSelectHideEvent | null = null as any;
+    beforeShowEvent: CascadeSelectBeforeShowEvent | null = null as any;
+    beforeHideEvent: CascadeSelectBeforeHideEvent | null = null as any;
+    focusEvent: Event | null = null as any;
+    blurEvent: Event | null = null as any;
     clearEvent: boolean = false;
 
     // Form handling
@@ -351,7 +351,7 @@ class TestCascadeSelectComponent {
     `
 })
 class TestPTemplateCascadeSelectComponent {
-    selectedValue: any = null;
+    selectedValue: any = null as any;
     options: any[] = mockCountries;
     placeholder: string = 'Select Location';
     disabled: boolean = false;
@@ -875,11 +875,11 @@ describe('CascadeSelect', () => {
         });
 
         it('should handle null/undefined values', () => {
-            testComponent.selectedValue = null;
+            testComponent.selectedValue = null as any;
             testFixture.detectChanges();
             expect(() => testFixture.detectChanges()).not.toThrow();
 
-            testComponent.selectedValue = undefined;
+            testComponent.selectedValue = undefined as any;
             testFixture.detectChanges();
             expect(() => testFixture.detectChanges()).not.toThrow();
         });
@@ -926,17 +926,17 @@ describe('CascadeSelect', () => {
         });
 
         it('should handle large datasets efficiently', fakeAsync(() => {
-            const largeData = [];
+            const largeData: any[] = [];
             for (let i = 0; i < 100; i++) {
                 const country = {
                     name: `Country ${i}`,
                     code: `C${i}`,
-                    states: []
+                    states: [] as any[]
                 };
                 for (let j = 0; j < 10; j++) {
                     const state = {
                         name: `State ${i}-${j}`,
-                        cities: []
+                        cities: [] as any[]
                     };
                     for (let k = 0; k < 5; k++) {
                         state.cities.push({
@@ -988,7 +988,7 @@ describe('CascadeSelect', () => {
                 {
                     name: 'Another Country',
                     code: 'AC',
-                    states: [] // Empty states array
+                    states: [] as any[] // Empty states array
                 }
             ];
 
@@ -1063,7 +1063,7 @@ describe('CascadeSelect', () => {
         describe('Value Template (valueTemplate)', () => {
             it('should render pTemplate="value" with value and placeholder context', () => {
                 // Test with no value (placeholder scenario)
-                pTemplateComponent.selectedValue = null;
+                pTemplateComponent.selectedValue = null as any;
                 pTemplateFixture.detectChanges();
 
                 const valueTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-value"]'));

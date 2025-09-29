@@ -626,10 +626,10 @@ describe('ToggleButton', () => {
         }));
 
         it('should handle null/undefined values', () => {
-            component.onLabel = undefined;
-            component.offLabel = undefined;
-            component.onIcon = undefined;
-            component.offIcon = undefined;
+            component.onLabel = undefined as any;
+            component.offLabel = undefined as any;
+            component.onIcon = undefined as any;
+            component.offIcon = undefined as any;
 
             expect(() => {
                 fixture.detectChanges();
@@ -642,7 +642,7 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"]'));
-            expect(labelElement.nativeElement.textContent.trim()).toBe('');
+            expect(labelElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle allowEmpty false with initial true state', () => {
@@ -688,7 +688,7 @@ describe('ToggleButton', () => {
 
     describe('Performance Tests', () => {
         it('should handle multiple toggle button instances', () => {
-            const multipleFixtures = [];
+            const multipleFixtures: any[] = [];
             for (let i = 0; i < 10; i++) {
                 const testFixture = TestBed.createComponent(TestBasicToggleButtonComponent);
                 testFixture.detectChanges();
