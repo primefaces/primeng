@@ -632,7 +632,7 @@ describe('ContextMenu', () => {
         });
 
         it('should handle undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(contextMenuInstance.model).toBeUndefined();
@@ -674,7 +674,7 @@ describe('ContextMenu', () => {
             // Create mock menu items structure
             const mockMenuDiv = document.createElement('div');
             mockMenuDiv.innerHTML = '<ul><li data-pc-section="menuitem" id="item_0"></li></ul>';
-            contextMenuInstance.rootmenu.el.nativeElement.appendChild(mockMenuDiv);
+            contextMenuInstance.rootmenu!.el!.nativeElement.appendChild(mockMenuDiv);
         });
 
         it('should handle arrow down key', () => {
@@ -890,8 +890,8 @@ describe('ContextMenu', () => {
 
             contextMenuInstance.position();
 
-            expect(contextMenuInstance.containerViewChild.nativeElement.style.left).toBeTruthy();
-            expect(contextMenuInstance.containerViewChild.nativeElement.style.top).toBeTruthy();
+            expect(contextMenuInstance.containerViewChild!.nativeElement.style.left).toBeTruthy();
+            expect(contextMenuInstance.containerViewChild!.nativeElement.style.top).toBeTruthy();
         });
 
         it('should handle viewport boundaries', () => {
@@ -919,7 +919,7 @@ describe('ContextMenu', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

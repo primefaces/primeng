@@ -27,7 +27,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     `
 })
 class TestBasicRadioComponent {
-    selectedValue: any = null;
+    selectedValue: any = null as any;
     inputId: string = 'test-radio';
     ariaLabel: string = 'Test Radio';
     ariaLabelledBy: string = 'test-label';
@@ -93,12 +93,12 @@ class TestReactiveRadioComponent {
     template: ` <p-radiobutton name="advanced" [value]="radioValue" [(ngModel)]="selectedValue" [disabled]="isDisabled" [binary]="binary" [variant]="variant" [size]="size" [autofocus]="autofocus" (onClick)="onAdvancedClick($event)" /> `
 })
 class TestAdvancedRadioComponent {
-    selectedValue: any = null;
+    selectedValue: any = null as any;
     radioValue: any = 'test-value';
     isDisabled: boolean = false;
     binary: boolean = false;
-    variant: 'filled' | 'outlined' | undefined = undefined;
-    size: 'large' | 'small' | undefined = undefined;
+    variant: 'filled' | 'outlined' | undefined = undefined as any;
+    size: 'large' | 'small' | undefined = undefined as any;
     autofocus: boolean = false;
 
     clickEvents: any[] = [];
@@ -575,13 +575,13 @@ describe('RadioButton', () => {
         });
 
         it('should handle null/undefined values', fakeAsync(() => {
-            component.selectedValue = null;
+            component.selectedValue = null as any;
             fixture.detectChanges();
             tick();
 
             expect(radioInstance.checked).toBe(false);
 
-            component.selectedValue = undefined;
+            component.selectedValue = undefined as any;
             fixture.detectChanges();
             tick();
 

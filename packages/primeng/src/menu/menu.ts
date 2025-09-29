@@ -478,13 +478,13 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.onShow.emit({});
-                    this.attrSelector && this.container.setAttribute(this.attrSelector, '');
+                    this.attrSelector && this.container?.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
-                    focus(this.listViewChild.nativeElement);
+                    focus(this.listViewChild?.nativeElement);
                 }
                 break;
 
@@ -506,8 +506,8 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container, this.target);
-        else absolutePosition(this.container, this.target);
+        if (this.relativeAlign) relativePosition(this.container!, this.target);
+        else absolutePosition(this.container!, this.target);
     }
 
     appendOverlay() {
@@ -648,13 +648,13 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     onEndKey(event) {
-        this.changeFocusedOptionIndex(find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
         event.preventDefault();
     }
 
     onEnterKey(event) {
-        const element = <any>findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
-        const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
+        const element = <any>findSingle(this.containerViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
+        const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
         this.popup && focus(this.target);
         anchorElement ? anchorElement.click() : element && element.click();
@@ -667,21 +667,21 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     findNextOptionIndex(index) {
-        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         if (links.length > 0) {
             let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
             order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));

@@ -887,7 +887,7 @@ describe('Menubar', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined model', () => {
-            component.model = undefined;
+            component.model = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();

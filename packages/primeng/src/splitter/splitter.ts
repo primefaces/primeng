@@ -114,11 +114,12 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
         if (this.el && this.el.nativeElement && this.panels.length > 0) {
             let children = [...this.el.nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
-            let _panelSizes = [];
+            let _panelSizes: any = [];
 
             this.panels.map((panel, i) => {
                 let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
                 let panelSize = panelInitialSize || 100 / this.panels.length;
+
                 _panelSizes[i] = panelSize;
                 children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });
@@ -216,11 +217,12 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
                 if (!initialized) {
                     let children = [...this.el.nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
-                    let _panelSizes = [];
+                    let _panelSizes: any = [];
 
                     this.panels.map((panel, i) => {
                         let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
                         let panelSize = panelInitialSize || 100 / this.panels.length;
+
                         _panelSizes[i] = panelSize;
                         children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
                     });
@@ -266,21 +268,21 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
         if (isKeyDown) {
             if (this.horizontal()) {
-                newPrevPanelSize = (100 * (this.prevPanelSize + step)) / this.size;
-                newNextPanelSize = (100 * (this.nextPanelSize - step)) / this.size;
+                newPrevPanelSize = (100 * ((this.prevPanelSize ?? 0) + (step ?? 0))) / (this.size ?? 1);
+                newNextPanelSize = (100 * ((this.nextPanelSize ?? 0) - (step ?? 0))) / (this.size ?? 1);
             } else {
-                newPrevPanelSize = (100 * (this.prevPanelSize - step)) / this.size;
-                newNextPanelSize = (100 * (this.nextPanelSize + step)) / this.size;
+                newPrevPanelSize = (100 * ((this.prevPanelSize ?? 0) - (step ?? 0))) / (this.size ?? 1);
+                newNextPanelSize = (100 * ((this.nextPanelSize ?? 0) + (step ?? 0))) / (this.size ?? 1);
             }
         } else {
             if (this.horizontal()) {
                 if (isRTL(this.el.nativeElement)) {
-                    newPos = ((this.startPos - event.pageX) * 100) / this.size;
+                    newPos = (((this.startPos ?? 0) - event.pageX) * 100) / (this.size ?? 1);
                 } else {
-                    newPos = ((event.pageX - this.startPos) * 100) / this.size;
+                    newPos = ((event.pageX - (this.startPos ?? 0)) * 100) / (this.size ?? 1);
                 }
             } else {
-                newPos = ((event.pageY - this.startPos) * 100) / this.size;
+                newPos = ((event.pageY - (this.startPos ?? 0)) * 100) / (this.size ?? 1);
             }
 
             newPrevPanelSize = (this.prevPanelSize as number) + newPos;
@@ -487,10 +489,10 @@ export class Splitter extends BaseComponent implements AfterContentInit {
         if (isPlatformBrowser(this.platformId)) {
             switch (this.stateStorage) {
                 case 'local':
-                    return this.document.defaultView.localStorage;
+                    return this.document.defaultView?.localStorage;
 
                 case 'session':
-                    return this.document.defaultView.sessionStorage;
+                    return this.document.defaultView?.sessionStorage;
 
                 default:
                     throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
@@ -501,12 +503,12 @@ export class Splitter extends BaseComponent implements AfterContentInit {
     }
 
     saveState() {
-        this.getStorage().setItem(this.stateKey as string, JSON.stringify(this._panelSizes));
+        this.getStorage()?.setItem(this.stateKey as string, JSON.stringify(this._panelSizes));
     }
 
     restoreState() {
         const storage = this.getStorage();
-        const stateString = storage.getItem(this.stateKey as string);
+        const stateString = storage?.getItem(this.stateKey as string);
 
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);

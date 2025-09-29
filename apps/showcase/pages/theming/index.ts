@@ -4,6 +4,7 @@ import { ColorsDoc } from '@/doc/theming/colorsdoc';
 import { ComponentDoc } from '@/doc/theming/componentdoc';
 import { DarkModeDoc } from '@/doc/theming/darkmodedoc';
 import { DefinePresetDoc } from '@/doc/theming/definepresetdoc';
+import { ColorSchemeDoc } from '@/doc/theming/colorschemedoc';
 import { DtDoc } from '@/doc/theming/dtdoc';
 import { ExtendDoc } from '@/doc/theming/extenddoc';
 import { FocusRingDoc } from '@/doc/theming/focusringdoc';
@@ -83,6 +84,11 @@ export class ThemingDemo {
                     id: 'definepreset',
                     label: 'definePreset',
                     component: DefinePresetDoc
+                },
+                {
+                    id: 'colorscheme',
+                    label: 'Color Scheme',
+                    component: ColorSchemeDoc
                 },
                 {
                     id: 'primary',

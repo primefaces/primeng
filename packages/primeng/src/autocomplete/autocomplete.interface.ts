@@ -63,6 +63,21 @@ export interface AutoCompleteUnselectEvent {
     value: any;
 }
 /**
+ * Custom add event.
+ * @see {@link AutoComplete.onAdd}
+ * @group Events
+ */
+export interface AutoCompleteAddEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Added value.
+     */
+    value: any;
+}
+/**
  * Custom lazy load event.
  * @see {@link AutoComplete.onLazyLoad}
  * @group Events

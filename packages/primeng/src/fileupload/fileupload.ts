@@ -466,7 +466,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      * Maximum number of files that can be uploaded.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) fileLimit: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) }) fileLimit: number | undefined;
     /**
      * Style class of the upload button.
      * @group Props
@@ -677,7 +677,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 
     dragOverListener: VoidListener;
 
-    public uploadedFiles = [];
+    public uploadedFiles: File[] = [];
 
     sanitizer: DomSanitizer = inject(DomSanitizer);
 
@@ -998,7 +998,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         }
     }
     onRemoveUploadedFileClick(e: any) {
-        const { event, index } = e;
+        const { index } = e;
         if (this.hasUploadedFiles()) {
             this.removeUploadedFile(index);
         }
@@ -1031,7 +1031,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      * @param {Number} index - Index of the file to be removed.
      * @group Method
      */
-    removeUploadedFile(index) {
+    removeUploadedFile(index: number) {
         let removedFile = this.uploadedFiles.splice(index, 1)[0];
         this.uploadedFiles = [...this.uploadedFiles];
         this.onRemoveUploadedFile.emit({ file: removedFile, files: this.uploadedFiles });

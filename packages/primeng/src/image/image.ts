@@ -389,12 +389,12 @@ export class Image extends BaseComponent implements AfterContentInit {
         this.previewClick = false;
     }
 
-    onMaskKeydown(event) {
+    onMaskKeydown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Escape':
                 this.onMaskClick();
                 setTimeout(() => {
-                    focus(this.previewButton.nativeElement);
+                    focus(this.previewButton?.nativeElement);
                 }, 25);
                 event.preventDefault();
 
@@ -434,17 +434,17 @@ export class Image extends BaseComponent implements AfterContentInit {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container?.parentElement;
-                this.attrSelector && this.wrapper.setAttribute(this.attrSelector, '');
+                this.attrSelector && this.wrapper?.setAttribute(this.attrSelector, '');
                 this.appendContainer();
                 this.moveOnTop();
 
                 setTimeout(() => {
-                    focus(this.closeButton.nativeElement);
+                    focus(this.closeButton?.nativeElement);
                 }, 25);
                 break;
 
             case 'void':
-                addClass(this.wrapper, 'p-overlay-mask-leave');
+                if (this.wrapper) addClass(this.wrapper, 'p-overlay-mask-leave');
                 break;
         }
     }
@@ -471,8 +471,11 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     appendContainer() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
-            if (this.$appendTo() === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
-            else appendChild(this.$appendTo(), this.wrapper);
+            if (this.$appendTo() === 'body' && this.wrapper) {
+                this.document.body.appendChild(this.wrapper as HTMLElement);
+            } else if (this.wrapper) {
+                appendChild(this.$appendTo(), this.wrapper);
+            }
         }
     }
 

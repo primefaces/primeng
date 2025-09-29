@@ -57,7 +57,7 @@ import { FormsModule } from '@angular/forms';
 })
 class TestBasicTreeComponent {
     nodes: TreeNode[] = [];
-    selectionMode: 'single' | 'multiple' | 'checkbox' | null = null;
+    selectionMode: 'single' | 'multiple' | 'checkbox' | null = null as any;
     loadingMode: 'mask' | 'icon' = 'mask';
     selectedNodes: any;
     styleClass: string | undefined;
@@ -1810,7 +1810,7 @@ describe('Tree', () => {
         });
 
         it('should handle emptyMessage property', () => {
-            expect(tree.emptyMessage).toBe('');
+            expect(tree.emptyMessage).toBe('' as any);
 
             component.emptyMessage = 'No data available';
             fixture.detectChanges();

@@ -190,19 +190,19 @@ describe('ProgressSpinner', () => {
 
             const element = styleFixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
 
-            expect(styleComponent.style).toEqual({ width: '50px', height: '50px' });
+            expect(styleComponent.style!).toEqual({ width: '50px', height: '50px' });
 
-            if (styleComponent.style) {
-                Object.keys(styleComponent.style).forEach((key) => {
+            if (styleComponent.style!) {
+                Object.keys(styleComponent.style!).forEach((key) => {
                     element.style[key] = styleComponent.style![key];
                 });
             }
 
             expect(element.style.width).toBe('50px');
             expect(element.style.height).toBe('50px');
-            expect(styleComponent.style).toBeTruthy();
-            expect(Object.keys(styleComponent.style)).toContain('width');
-            expect(Object.keys(styleComponent.style)).toContain('height');
+            expect(styleComponent.style!).toBeTruthy();
+            expect(Object.keys(styleComponent.style!)).toContain('width');
+            expect(Object.keys(styleComponent.style!)).toContain('height');
         });
 
         it('should combine multiple CSS classes correctly', () => {
@@ -240,7 +240,7 @@ describe('ProgressSpinner', () => {
         });
 
         it('should not have aria-label when not provided', () => {
-            component.ariaLabel = undefined;
+            component.ariaLabel = undefined as any;
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
@@ -272,8 +272,8 @@ describe('ProgressSpinner', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values', () => {
-            component.ariaLabel = undefined;
-            component.styleClass = undefined;
+            component.ariaLabel = undefined as any;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -289,10 +289,10 @@ describe('ProgressSpinner', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(progressSpinnerInstance.strokeWidth).toBe('');
-            expect(progressSpinnerInstance.fill).toBe('');
-            expect(progressSpinnerInstance.animationDuration).toBe('');
-            expect(progressSpinnerInstance.ariaLabel).toBe('');
+            expect(progressSpinnerInstance.strokeWidth).toBe('' as any);
+            expect(progressSpinnerInstance.fill).toBe('' as any);
+            expect(progressSpinnerInstance.animationDuration).toBe('' as any);
+            expect(progressSpinnerInstance.ariaLabel).toBe('' as any);
         });
 
         it('should handle zero strokeWidth', () => {
@@ -442,8 +442,8 @@ describe('ProgressSpinner', () => {
             minimalComponent.strokeWidth = '2'; // Keep default
             minimalComponent.fill = 'none'; // Keep default
             minimalComponent.animationDuration = '2s'; // Keep default
-            minimalComponent.ariaLabel = undefined;
-            minimalComponent.styleClass = undefined;
+            minimalComponent.ariaLabel = undefined as any;
+            minimalComponent.styleClass = undefined as any;
 
             minimalFixture.detectChanges();
 

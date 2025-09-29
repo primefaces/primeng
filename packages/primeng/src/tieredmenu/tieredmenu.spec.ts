@@ -681,7 +681,7 @@ describe('TieredMenu', () => {
             const disabledItem = menuItems.find((item) => item.nativeElement.getAttribute('data-p-disabled') === 'true');
 
             expect(disabledItem).toBeTruthy();
-            expect(disabledItem.nativeElement.getAttribute('aria-disabled')).toBe('true');
+            expect(disabledItem!.nativeElement.getAttribute('aria-disabled')).toBe('true');
         });
     });
 

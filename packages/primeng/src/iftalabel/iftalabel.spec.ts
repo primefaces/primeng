@@ -115,7 +115,7 @@ describe('IftaLabel', () => {
 
         it('should work without input value', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
-            expect(inputElement.nativeElement.value).toBe('');
+            expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
         it('should handle empty string model', fakeAsync(() => {
@@ -124,7 +124,7 @@ describe('IftaLabel', () => {
             tick();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
-            expect(inputElement.nativeElement.value).toBe('');
+            expect(inputElement.nativeElement.value).toBe('' as any);
         }));
     });
 });

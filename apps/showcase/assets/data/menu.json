@@ -417,12 +417,9 @@
                             "routerLink": "/metergroup"
                         },
                         {
-                            "name": "ScrollTop",
-                            "routerLink": "/scrolltop"
-                        },
-                        {
-                            "name": "Skeleton",
-                            "routerLink": "/skeleton"
+                            "name": "ClassNames",
+                            "routerLink": "/classnames",
+                            "badge": "NEW"
                         },
                         {
                             "name": "ProgressBar",
@@ -435,6 +432,14 @@
                         {
                             "name": "Ripple",
                             "routerLink": "/ripple"
+                        },
+                        {
+                            "name": "ScrollTop",
+                            "routerLink": "/scrolltop"
+                        },
+                        {
+                            "name": "Skeleton",
+                            "routerLink": "/skeleton"
                         },
                         {
                             "name": "StyleClass",

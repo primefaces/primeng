@@ -38,7 +38,7 @@ class TestIconAvatarComponent {
 class TestImageAvatarComponent {
     image = '/path/to/avatar.jpg';
     ariaLabel = 'User Avatar';
-    imageError: Event | null = null;
+    imageError: Event | null = null as any;
 
     onImageError(event: Event) {
         this.imageError = event;
@@ -111,7 +111,7 @@ class TestDynamicAvatarComponent {
     styleClass: string | undefined;
     ariaLabel: string | undefined;
     ariaLabelledBy: string | undefined;
-    imageError: Event | null = null;
+    imageError: Event | null = null as any;
 
     onImageError(event: Event) {
         this.imageError = event;
@@ -213,7 +213,7 @@ describe('Avatar', () => {
         });
 
         it('should not display label when undefined', () => {
-            component.label = undefined;
+            component.label = undefined as any;
             fixture.detectChanges();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -270,7 +270,7 @@ describe('Avatar', () => {
         });
 
         it('should not display icon when undefined', () => {
-            component.icon = undefined;
+            component.icon = undefined as any;
             fixture.detectChanges();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -344,7 +344,7 @@ describe('Avatar', () => {
         });
 
         it('should not display image when undefined', () => {
-            component.image = undefined;
+            component.image = undefined as any;
             fixture.detectChanges();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -356,7 +356,7 @@ describe('Avatar', () => {
         });
 
         it('should remove p-avatar-image class when image is removed', () => {
-            component.image = undefined;
+            component.image = undefined as any;
             fixture.detectChanges();
 
             expect(element.classList.contains('p-avatar-image')).toBe(false);
@@ -486,7 +486,7 @@ describe('Avatar', () => {
         });
 
         it('should handle undefined style class', () => {
-            component.styleClass = undefined;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(element.classList.contains('p-avatar')).toBe(true);
@@ -529,8 +529,8 @@ describe('Avatar', () => {
         });
 
         it('should handle undefined aria attributes', () => {
-            component.ariaLabel = undefined;
-            component.ariaLabelledBy = undefined;
+            component.ariaLabel = undefined as any;
+            component.ariaLabelledBy = undefined as any;
             fixture.detectChanges();
 
             // When ariaLabel is undefined, no fallback is used
@@ -691,14 +691,14 @@ describe('Avatar', () => {
         });
 
         it('should handle all properties being undefined', () => {
-            component.label = undefined;
-            component.icon = undefined;
-            component.image = undefined;
-            component.size = undefined;
-            component.shape = undefined;
-            component.styleClass = undefined;
-            component.ariaLabel = undefined;
-            component.ariaLabelledBy = undefined;
+            component.label = undefined as any;
+            component.icon = undefined as any;
+            component.image = undefined as any;
+            component.size = undefined as any;
+            component.shape = undefined as any;
+            component.styleClass = undefined as any;
+            component.ariaLabel = undefined as any;
+            component.ariaLabelledBy = undefined as any;
             fixture.detectChanges();
 
             expect(avatarComponent.label).toBeUndefined();
@@ -739,7 +739,7 @@ describe('Avatar', () => {
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
             expect(labelElement).toBeTruthy();
-            expect(labelElement.nativeElement.textContent.trim()).toBe('');
+            expect(labelElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle null values gracefully', () => {
@@ -831,7 +831,7 @@ describe('Avatar', () => {
             fixture.detectChanges();
             expect(element.classList.contains('p-avatar-image')).toBe(true);
 
-            component.image = undefined;
+            component.image = undefined as any;
             fixture.detectChanges();
             expect(element.classList.contains('p-avatar-image')).toBe(false);
         });

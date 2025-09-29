@@ -1198,7 +1198,7 @@ describe('ConfirmPopup', () => {
         }));
 
         it('should not handle Escape key when confirmation is null', () => {
-            confirmPopupInstance.confirmation = null;
+            confirmPopupInstance.confirmation = null as any;
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
             spyOn(confirmPopupInstance, 'onReject');
 

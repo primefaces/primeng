@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { Scroller } from './scroller';
 import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent } from './scroller.interface';
@@ -196,7 +196,7 @@ class TestLazyLoadingComponent {
 
     onLazyLoad(event: ScrollerLazyLoadEvent) {
         // Simulate loading items
-        const newItems = [];
+        const newItems: any[] = [];
         for (let i = event.first; i < event.last && i < this.totalItems; i++) {
             newItems.push({ label: `Item ${i}`, value: `item${i}` });
         }
@@ -249,7 +249,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -304,7 +305,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -486,7 +488,7 @@ describe('Scroller', () => {
         });
 
         it('should handle trackBy property', () => {
-            const trackByFn = (index: number, item: any) => item.id;
+            const trackByFn = (_index: number, item: any) => item.id;
             component.trackBy = trackByFn;
             fixture.detectChanges();
             expect(scroller.trackBy).toBe(trackByFn);
@@ -518,7 +520,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -564,7 +567,7 @@ describe('Scroller', () => {
         });
 
         it('should return empty array when items are null or loading', () => {
-            component.items = null;
+            component.items = null as any;
             fixture.detectChanges();
             expect(scroller.loadedItems).toEqual([]);
 
@@ -605,7 +608,7 @@ describe('Scroller', () => {
             expect(scroller.loadedColumns).toEqual(testColumns.slice(0, 3));
 
             // Test when no columns
-            component.columns = null;
+            component.columns = null as any;
             fixture.detectChanges();
             expect(scroller.loadedColumns).toBeNull();
         });
@@ -618,7 +621,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -873,7 +877,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -958,7 +963,7 @@ describe('Scroller', () => {
             component.options = { onScroll: mockOnScroll };
             fixture.detectChanges();
 
-            const result = scroller.handleEvents('onScroll', { test: 'data' });
+            scroller.handleEvents('onScroll', { test: 'data' });
             expect(mockOnScroll).toHaveBeenCalledWith({ test: 'data' });
         });
     });
@@ -966,7 +971,8 @@ describe('Scroller', () => {
     describe('Template Content Projection Tests', () => {
         it('should render with content template', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestContentTemplateComponent]
             }).compileComponents();
 
@@ -991,7 +997,8 @@ describe('Scroller', () => {
 
         it('should configure with item template without rendering errors', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestItemTemplateComponent]
             }).compileComponents();
 
@@ -1014,7 +1021,8 @@ describe('Scroller', () => {
 
         it('should render with loader template', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestLoaderTemplateComponent]
             }).compileComponents();
 
@@ -1050,7 +1058,8 @@ describe('Scroller', () => {
             class TestDisabledComponent {}
 
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestDisabledComponent]
             }).compileComponents();
 
@@ -1069,7 +1078,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestLazyLoadingComponent]
             }).compileComponents();
 
@@ -1164,18 +1174,19 @@ describe('Scroller', () => {
     });
 
     describe('Both Orientation Tests', () => {
-        let component: TestBothOrientationComponent;
+        let _component: TestBothOrientationComponent;
         let fixture: ComponentFixture<TestBothOrientationComponent>;
         let scroller: Scroller;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBothOrientationComponent]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBothOrientationComponent);
-            component = fixture.componentInstance;
+            _component = fixture.componentInstance;
             scroller = fixture.debugElement.query(By.directive(Scroller)).componentInstance;
             fixture.detectChanges();
         });
@@ -1235,7 +1246,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestDynamicPropertiesComponent]
             }).compileComponents();
 
@@ -1301,7 +1313,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -1362,7 +1375,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -1373,12 +1387,12 @@ describe('Scroller', () => {
         });
 
         it('should handle null/undefined items gracefully', () => {
-            component.items = null;
+            component.items = null as any;
             fixture.detectChanges();
             expect(scroller.loadedItems).toEqual([]);
             expect(() => fixture.detectChanges()).not.toThrow();
 
-            component.items = undefined;
+            component.items = undefined as any;
             fixture.detectChanges();
             expect(scroller.loadedItems).toEqual([]);
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -1402,11 +1416,11 @@ describe('Scroller', () => {
         });
 
         it('should handle null/undefined columns', () => {
-            component.columns = null;
+            component.columns = null as any;
             fixture.detectChanges();
             expect(scroller.loadedColumns).toBeNull();
 
-            component.columns = undefined;
+            component.columns = undefined as any;
             fixture.detectChanges();
             expect(scroller.loadedColumns).toBeUndefined();
         });
@@ -1417,7 +1431,7 @@ describe('Scroller', () => {
         });
 
         it('should handle resize without element', () => {
-            scroller.elementViewChild = null;
+            scroller.elementViewChild = null as any;
             expect(() => scroller.onWindowResize()).not.toThrow();
         });
 
@@ -1500,7 +1514,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -1575,7 +1590,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -1599,10 +1615,10 @@ describe('Scroller', () => {
                 // Test empty string
                 component.id = '';
                 fixture.detectChanges();
-                expect(scroller.id).toBe('');
+                expect(scroller.id).toBe('' as any);
 
                 // Test undefined
-                component.id = undefined;
+                component.id = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.id).toBeUndefined();
             });
@@ -1625,10 +1641,10 @@ describe('Scroller', () => {
                 // Test empty string
                 component.styleClass = '';
                 fixture.detectChanges();
-                expect(scroller.styleClass).toBe('');
+                expect(scroller.styleClass).toBe('' as any);
 
                 // Test undefined
-                component.styleClass = undefined;
+                component.styleClass = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.styleClass).toBeUndefined();
             });
@@ -1651,7 +1667,7 @@ describe('Scroller', () => {
                 expect(scroller.scrollHeight).toBe('20rem');
 
                 // Test undefined
-                component.scrollHeight = undefined;
+                component.scrollHeight = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.scrollHeight).toBeUndefined();
             });
@@ -1669,7 +1685,7 @@ describe('Scroller', () => {
                 expect(scroller.scrollWidth).toBe('50%');
 
                 // Test undefined
-                component.scrollWidth = undefined;
+                component.scrollWidth = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.scrollWidth).toBeUndefined();
             });
@@ -1766,7 +1782,7 @@ describe('Scroller', () => {
                 expect(scroller.numToleratedItems).toBe(0);
 
                 // Test undefined
-                component.numToleratedItems = undefined;
+                component.numToleratedItems = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.numToleratedItems).toBeUndefined();
             });
@@ -1885,7 +1901,7 @@ describe('Scroller', () => {
                 expect(scroller._loading).toBe(false);
 
                 // Test undefined
-                component.loading = undefined;
+                component.loading = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.loading).toBeUndefined();
                 expect(scroller._loading).toBeUndefined();
@@ -1959,12 +1975,12 @@ describe('Scroller', () => {
                 expect(scroller._style).toEqual(style2);
 
                 // Test undefined
-                component.style = undefined;
+                component.style = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.style).toBeUndefined();
 
                 // Test null
-                component.style = null;
+                component.style = null as any;
                 fixture.detectChanges();
                 expect(scroller.style).toBeNull();
             });
@@ -1994,13 +2010,13 @@ describe('Scroller', () => {
                 expect(scroller._items).toEqual([]);
 
                 // Test undefined
-                component.items = undefined;
+                component.items = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.items).toBeUndefined();
                 expect(scroller._items).toBeUndefined();
 
                 // Test null
-                component.items = null;
+                component.items = null as any;
                 fixture.detectChanges();
                 expect(scroller.items).toBeNull();
                 expect(scroller._items).toBeNull();
@@ -2031,13 +2047,13 @@ describe('Scroller', () => {
                 expect(scroller._columns).toEqual([]);
 
                 // Test undefined
-                component.columns = undefined;
+                component.columns = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.columns).toBeUndefined();
                 expect(scroller._columns).toBeUndefined();
 
                 // Test null
-                component.columns = null;
+                component.columns = null as any;
                 fixture.detectChanges();
                 expect(scroller.columns).toBeNull();
                 expect(scroller._columns).toBeNull();
@@ -2072,7 +2088,7 @@ describe('Scroller', () => {
 
             it('should handle trackBy input property changes', () => {
                 // Test function
-                const trackByFn = (index: number, item: any) => item.id;
+                const trackByFn = (_index: number, item: any) => item.id;
                 component.trackBy = trackByFn;
                 fixture.detectChanges();
                 expect(scroller.trackBy).toBe(trackByFn);
@@ -2121,7 +2137,7 @@ describe('Scroller', () => {
                 expect(scroller._showLoader).toBe(true);
 
                 // Test undefined
-                component.options = undefined;
+                component.options = undefined as any;
                 fixture.detectChanges();
                 expect(scroller.options).toBeUndefined();
                 expect(scroller._options).toBeUndefined();
@@ -2197,7 +2213,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestDynamicInputsComponent]
             }).compileComponents();
 
@@ -2424,7 +2441,7 @@ describe('Scroller', () => {
             expect(scroller.numToleratedItems).toBe(5);
 
             // Test trackBy
-            const trackByFn = (index: number, item: any) => item.id;
+            const trackByFn = (_index: number, item: any) => item.id;
             component.dynamicTrackBy$.next(trackByFn);
             fixture.detectChanges();
             tick();
@@ -2513,13 +2530,13 @@ describe('Scroller', () => {
             // Test null values
             component.dynamicId$.next(null as any);
             component.dynamicItems$.next(null as any);
-            component.dynamicColumns$.next(null);
+            component.dynamicColumns$.next(undefined);
             fixture.detectChanges();
             tick();
 
             expect(scroller.id).toBeNull();
             expect(scroller.items).toBeNull();
-            expect(scroller.columns).toBeNull();
+            expect(scroller.columns).toBeUndefined();
 
             // Test undefined values
             component.dynamicId$.next(undefined);
@@ -2543,7 +2560,8 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
+                providers: [provideNoopAnimations()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
 
@@ -2624,10 +2642,10 @@ describe('Scroller', () => {
             component.scrollWidth = '';
             fixture.detectChanges();
 
-            expect(scroller.id).toBe('');
-            expect(scroller.styleClass).toBe('');
-            expect(scroller.scrollHeight).toBe('');
-            expect(scroller.scrollWidth).toBe('');
+            expect(scroller.id).toBe('' as any);
+            expect(scroller.styleClass).toBe('' as any);
+            expect(scroller.scrollHeight).toBe('' as any);
+            expect(scroller.scrollWidth).toBe('' as any);
 
             // Test strings with special characters
             component.id = 'id-with-!@#$%^&*()_+{}|:"<>?`~';
@@ -2736,9 +2754,9 @@ describe('Scroller', () => {
                             <div
                                 class="p-template-content"
                                 [attr.data-items-count]="items?.length"
-                                [attr.data-has-scroll-to]="!!options.scrollTo"
-                                [attr.data-has-scroll-to-index]="!!options.scrollToIndex"
-                                [attr.data-has-get-item-options]="!!options.getItemOptions"
+                                [attr.data-has-scroll-to]="!options.scrollTo"
+                                [attr.data-has-scroll-to-index]="!options.scrollToIndex"
+                                [attr.data-has-get-item-options]="!options.getItemOptions"
                             >
                                 <div class="content-scrollable-element" [attr.data-scrollable]="options.scrollableElement">
                                     <div *ngFor="let item of items; let i = index" class="p-template-content-item" [attr.data-index]="i" [attr.data-item-id]="item.id">
@@ -2852,7 +2870,8 @@ describe('Scroller', () => {
 
             it('should render pTemplate="content" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestPTemplateContentComponent]
                 }).compileComponents();
 
@@ -2879,7 +2898,8 @@ describe('Scroller', () => {
 
             it('should render pTemplate="item" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestPTemplateItemComponent]
                 }).compileComponents();
 
@@ -2916,7 +2936,8 @@ describe('Scroller', () => {
 
             it('should render pTemplate="loader" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestPTemplateLoaderComponent]
                 }).compileComponents();
 
@@ -2944,7 +2965,8 @@ describe('Scroller', () => {
 
             it('should render pTemplate="loadericon" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestPTemplateLoaderIconComponent]
                 }).compileComponents();
 
@@ -2970,7 +2992,7 @@ describe('Scroller', () => {
                 template: `
                     <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <ng-template #content let-items let-options="options">
-                            <div class="hash-template-content" [attr.data-items-count]="items?.length" [attr.data-has-scroll-to]="!!options.scrollTo" [attr.data-orientation]="options.orientation">
+                            <div class="hash-template-content" [attr.data-items-count]="items?.length" [attr.data-has-scroll-to]="!options.scrollTo" [attr.data-orientation]="options.orientation">
                                 <div class="hash-content-list">
                                     <div *ngFor="let item of items; let i = index" class="hash-content-item" [attr.data-index]="i">{{ item.name }} (Hash Template)</div>
                                 </div>
@@ -3060,7 +3082,8 @@ describe('Scroller', () => {
 
             it('should render #content template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestHashTemplateContentComponent]
                 }).compileComponents();
 
@@ -3081,7 +3104,8 @@ describe('Scroller', () => {
 
             it('should render #item template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestHashTemplateItemComponent]
                 }).compileComponents();
 
@@ -3107,7 +3131,8 @@ describe('Scroller', () => {
 
             it('should render #loader template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestHashTemplateLoaderComponent]
                 }).compileComponents();
 
@@ -3125,7 +3150,8 @@ describe('Scroller', () => {
 
             it('should render #loadericon template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestHashTemplateLoaderIconComponent]
                 }).compileComponents();
 
@@ -3177,7 +3203,8 @@ describe('Scroller', () => {
 
             it('should handle mixed pTemplate and #template projections', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
+                    providers: [provideNoopAnimations()],
                     declarations: [TestMixedTemplateComponent]
                 }).compileComponents();
 
@@ -3237,7 +3264,8 @@ describe('Scroller', () => {
 
             it('should provide accurate context objects for different orientations', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [TestContextValidationComponent, NoopAnimationsModule]
+                    imports: [TestContextValidationComponent],
+                    providers: [provideNoopAnimations()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestContextValidationComponent);
@@ -3310,7 +3338,8 @@ describe('Scroller', () => {
 
             it('should provide correct count values in context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [TestContextValidationComponent, NoopAnimationsModule]
+                    imports: [TestContextValidationComponent],
+                    providers: [provideNoopAnimations()]
                 }).compileComponents();
 
                 const fixture = TestBed.createComponent(TestContextValidationComponent);

@@ -22,29 +22,38 @@ import { ChipStyle } from './style/chipstyle';
         <ng-container *ngIf="removable">
             <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
                 <span
-                    tabindex="0"
                     *ngIf="removeIcon"
                     [class]="removeIcon"
                     [ngClass]="cx('removeIcon')"
                     [attr.data-pc-section]="'removeicon'"
                     (click)="close($event)"
                     (keydown)="onKeydown($event)"
+                    [attr.tabindex]="disabled ? -1 : 0"
                     [attr.aria-label]="removeAriaLabel"
                     role="button"
                 ></span>
                 <svg
                     data-p-icon="times-circle"
-                    tabindex="0"
                     *ngIf="!removeIcon"
                     [class]="cx('removeIcon')"
                     [attr.data-pc-section]="'removeicon'"
                     (click)="close($event)"
                     (keydown)="onKeydown($event)"
+                    [attr.tabindex]="disabled ? -1 : 0"
                     [attr.aria-label]="removeAriaLabel"
                     role="button"
                 />
             </ng-container>
-            <span *ngIf="removeIconTemplate || _removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" [class]="cx('removeIcon')" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+            <span
+                *ngIf="removeIconTemplate || _removeIconTemplate"
+                [attr.tabindex]="disabled ? -1 : 0"
+                [attr.data-pc-section]="'removeicon'"
+                [class]="cx('removeIcon')"
+                (click)="close($event)"
+                (keydown)="onKeydown($event)"
+                [attr.aria-label]="removeAriaLabel"
+                role="button"
+            >
                 <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate"></ng-template>
             </span>
         </ng-container>
@@ -87,6 +96,11 @@ export class Chip extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined = false;
     /**
      * Whether to display a remove icon.
      * @group Props

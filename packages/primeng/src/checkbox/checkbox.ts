@@ -27,11 +27,11 @@ import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { CheckIcon } from 'primeng/icons/check';
+import { MinusIcon } from 'primeng/icons/minus';
 import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { CheckboxStyle } from './style/checkboxstyle';
-import { CheckIcon } from 'primeng/icons/check';
-import { MinusIcon } from 'primeng/icons/minus';
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Checkbox),
@@ -81,6 +81,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-pc-name]': "'checkbox'",
         '[attr.data-p-highlight]': 'checked',
         '[attr.data-p-checked]': 'checked',
         '[attr.data-p-disabled]': '$disabled()'
@@ -223,7 +224,7 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit {
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this._checkboxIconTemplate = item.template;
@@ -295,7 +296,7 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit {
     }
 
     focus() {
-        this.inputViewChild.nativeElement.focus();
+        this.inputViewChild?.nativeElement.focus();
     }
 
     /**

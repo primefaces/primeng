@@ -308,8 +308,8 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container!);
+            else appendChild(this.appendTo, this.container!);
         }
     }
 
@@ -324,7 +324,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
             ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
         }
 
-        absolutePosition(this.container, this.target, false);
+        absolutePosition(this.container!, this.target, false);
 
         const containerOffset = <any>getOffset(this.container);
         const targetOffset = <any>getOffset(this.target);
@@ -337,8 +337,8 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         this.container?.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            this.container.setAttribute('data-p-popover-flipped', 'true');
-            addClass(this.container, 'p-popover-flipped');
+            this.container?.setAttribute('data-p-popover-flipped', 'true');
+            addClass(this.container!, 'p-popover-flipped');
         }
     }
 
@@ -401,7 +401,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     focus() {
-        let focusable = <any>findSingle(this.container, '[autofocus]');
+        let focusable = <any>findSingle(this.container!, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);

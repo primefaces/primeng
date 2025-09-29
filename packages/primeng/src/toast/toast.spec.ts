@@ -705,7 +705,7 @@ describe('Toast', () => {
         });
 
         it('should handle messages without keys', fakeAsync(() => {
-            component.key = undefined;
+            component.key = undefined as any;
             fixture.detectChanges();
 
             const message: ToastMessageOptions = {
@@ -823,7 +823,7 @@ describe('ToastItem', () => {
         });
 
         it('should have default values', () => {
-            expect(component.message).toBeUndefined();
+            expect(component.message as any).toBeUndefined();
             expect(component.index).toBeUndefined();
             expect(component.life).toBeUndefined();
             expect(component.template).toBeUndefined();
@@ -842,7 +842,7 @@ describe('ToastItem', () => {
             component.life = 5000;
             fixture.detectChanges();
 
-            expect(component.message).toEqual(testMessage);
+            expect(component.message as any).toEqual(testMessage);
             expect(component.index).toBe(0);
             expect(component.life).toBe(5000);
         });
@@ -881,7 +881,7 @@ describe('ToastItem', () => {
 
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
-                message: component.message
+                message: component.message as any
             });
             flush();
         }));
@@ -933,7 +933,7 @@ describe('ToastItem', () => {
             expect(component.clearTimeout).toHaveBeenCalled();
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
-                message: component.message
+                message: component.message as any
             });
             expect(mockEvent.preventDefault).toHaveBeenCalled();
         });
@@ -967,7 +967,7 @@ describe('ToastItem', () => {
 
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
-                message: component.message
+                message: component.message as any
             });
         });
 
@@ -981,7 +981,7 @@ describe('ToastItem', () => {
 
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
-                message: component.message
+                message: component.message as any
             });
         });
     });
@@ -1078,7 +1078,7 @@ describe('ToastItem', () => {
         });
 
         it('should have correct close button aria-label', () => {
-            component.message = { ...component.message, closable: true };
+            component.message = { ...(component.message as any), closable: true };
             fixture.detectChanges();
 
             const closeButton = fixture.debugElement.query(By.css('button'));
@@ -1117,7 +1117,7 @@ describe('ToastItem', () => {
         });
 
         it('should not leak memory with multiple timeouts', fakeAsync(() => {
-            component.message = { ...component.message, sticky: false };
+            component.message = { ...(component.message as any), sticky: false };
             component.life = 1000;
 
             spyOn(component, 'clearTimeout').and.callThrough();

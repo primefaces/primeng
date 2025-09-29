@@ -86,8 +86,8 @@ export class KeyFilter implements Validator {
 
         if (_pattern instanceof RegExp) {
             this.regex = _pattern;
-        } else if (_pattern in DEFAULT_MASKS) {
-            this.regex = DEFAULT_MASKS[_pattern];
+        } else if (_pattern && _pattern in DEFAULT_MASKS) {
+            this.regex = DEFAULT_MASKS[_pattern as keyof typeof DEFAULT_MASKS];
         } else {
             this.regex = /./;
         }
