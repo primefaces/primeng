@@ -1,13 +1,13 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, ElementRef, inject, Injector, input, Input, PLATFORM_ID, Renderer2, SimpleChanges, OnDestroy, InjectionToken } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, ElementRef, inject, InjectionToken, Injector, input, Input, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
-import { cn, getKeyValue, mergeProps, uuid } from '@primeuix/utils';
+import { cn, getKeyValue, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
 import { ObjectUtils } from 'primeng/utils';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
-export const PARENT_COMPONENT = new InjectionToken<BaseComponent>('PARENT_COMPONENT');
+export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');
 @Directive({
     standalone: true,
     providers: [BaseComponentStyle, BaseStyle]
@@ -47,7 +47,7 @@ export class BaseComponent implements OnDestroy {
 
     @Input() unstyled: boolean = false;
 
-    parentComponent: BaseComponent | undefined = inject(PARENT_COMPONENT, { optional: true, skipSelf: true }) ?? undefined;
+    parentInstance: BaseComponent | undefined = inject(PARENT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     params: any = {
         props: {},
@@ -317,7 +317,7 @@ export class BaseComponent implements OnDestroy {
     }
 
     _params() {
-        const parentInstance = this.parentComponent || this._getHostInstance(this) || this['parent'] || this['parentInstance'];
+        const parentInstance = this.parentInstance || this._getHostInstance(this) || this['parent'] || this['parentInstance'];
 
         return {
             instance: this,

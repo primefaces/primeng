@@ -1,13 +1,24 @@
-import { ContentChild, Directive, EventEmitter, Input, Output, TemplateRef, booleanAttribute, inject, input, numberAttribute } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
-import { ButtonProps, ButtonSeverity } from './button.interface';
+import { ContentChild, Directive, EventEmitter, InjectionToken, Input, Output, TemplateRef, booleanAttribute, inject, input, numberAttribute } from '@angular/core';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Fluid } from 'primeng/fluid';
+import { Button } from './button';
+import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './public_api';
 
 export type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
-@Directive({ standalone: true })
+const INSTANCE = new InjectionToken<Button>('INSTANCE');
+
+@Directive({
+    standalone: true,
+    providers: [
+        { provide: INSTANCE, useExisting: Button },
+        { provide: PARENT_INSTANCE, useExisting: Button }
+    ]
+})
 export class BaseButton extends BaseComponent {
+    $pcButton: Button | undefined = inject(INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     /**
      * Type of the button.
      * @group Props

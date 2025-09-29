@@ -1,9 +1,18 @@
-import { Directive, EventEmitter, Input, Output, booleanAttribute, model, signal, computed } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
-import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel';
+import { Directive, EventEmitter, InjectionToken, Input, Output, booleanAttribute, inject, model, signal } from '@angular/core';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Panel, PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel';
 
-@Directive({ standalone: true })
+const INSTANCE = new InjectionToken<Panel>('INSTANCE');
+@Directive({
+    standalone: true,
+    providers: [
+        { provide: INSTANCE, useExisting: Panel },
+        { provide: PARENT_INSTANCE, useExisting: Panel }
+    ]
+})
 export class BasePanel extends BaseComponent {
+    $pcPanel: Panel | undefined = inject(INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     /**
      * Defines if content of panel can be expanded and collapsed.
      * @group Props

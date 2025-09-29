@@ -7,7 +7,6 @@ import {
     Component,
     computed,
     contentChild,
-    ContentChild,
     ContentChildren,
     Directive,
     inject,
@@ -17,21 +16,20 @@ import {
     OnDestroy,
     QueryList,
     TemplateRef,
-    ViewEncapsulation,
-    ɵrestoreComponentResolutionQueue
+    ViewEncapsulation
 } from '@angular/core';
 import { addClass, findSingle, isEmpty } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
-import { PARENT_COMPONENT, BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from 'primeng/basecomponent';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
+import { Bind } from 'primeng/pbind';
 import { Ripple } from 'primeng/ripple';
+import { BaseButton, ButtonIconPosition } from './basebutton';
 import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
-import { Bind } from 'primeng/pbind';
-import { BaseButton, ButtonIconPosition } from './basebutton';
 
 const INTERNAL_BUTTON_CLASSES = {
     button: 'p-button',
@@ -486,7 +484,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ButtonStyle, { provide: PARENT_COMPONENT, useExisting: Button }],
+    providers: [ButtonStyle],
     hostDirectives: [Bind]
 })
 export class Button extends BaseButton implements AfterContentInit {
