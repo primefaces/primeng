@@ -1,9 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, Input, NgModule, QueryList, TemplateRef, ViewChild, viewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
-import { Button, ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Bind } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
@@ -63,7 +63,6 @@ export interface PanelHeaderIconsTemplateContext {
                 <div [pBind]="ptm('icons')" [class]="cx('icons')">
                     <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     <p-button
-                        #pcToggleButton
                         *ngIf="toggleable"
                         [attr.id]="id + '_header'"
                         severity="secondary"
@@ -245,8 +244,6 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
     _headerIconsTemplate: TemplateRef<any> | undefined;
 
     @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
-
-    pcToggleButton = viewChild<Button>('pcToggleButton');
 
     get buttonAriaLabel() {
         return this._header;
