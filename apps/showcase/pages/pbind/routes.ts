@@ -1,9 +1,9 @@
 // TODO: this doc will be removed later
-import { PT_Playground } from './';
+import { PBind } from './';
 
 export default [
     {
         path: '',
-        component: PT_Playground
+        component: PBind
     }
 ];

@@ -1,3 +1,4 @@
+// TODO: this doc will be removed later
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';

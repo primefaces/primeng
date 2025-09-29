@@ -1,6 +1,8 @@
+// TODO: this doc will be removed later
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
+import { Bind } from 'primeng/pbind';
 
 @Component({
     selector: 'basic-doc',
