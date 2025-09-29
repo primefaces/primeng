@@ -52,6 +52,10 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
             [virtualScroll]="virtualScroll"
             [virtualScrollItemSize]="virtualScrollItemSize"
             [unique]="unique"
+            [typeahead]="typeahead"
+            [addOnBlur]="addOnBlur"
+            [addOnTab]="addOnTab"
+            [separator]="separator"
             [ariaLabel]="ariaLabel"
             [ariaLabelledBy]="ariaLabelledBy"
             [dropdownAriaLabel]="dropdownAriaLabel"
@@ -65,6 +69,7 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
             (onShow)="onShow($event)"
             (onHide)="onHide($event)"
             (onKeyUp)="onKeyUp($event)"
+            (onAdd)="onAdd($event)"
         >
             <ng-template #item let-item>
                 <div class="custom-item">{{ item.name || item }}</div>
@@ -123,6 +128,10 @@ class TestAutocompleteComponent {
     lazy: boolean = false;
     virtualScroll: boolean = false;
     virtualScrollItemSize: number = 38;
+    typeahead: boolean = true;
+    addOnBlur: boolean = false;
+    addOnTab: boolean = false;
+    separator: string | RegExp | undefined;
 
     // Styling
     inputStyle: any = {};
@@ -137,15 +146,16 @@ class TestAutocompleteComponent {
     dropdownAriaLabel: string = 'Show options';
 
     // Event tracking
-    selectEvent: AutoCompleteSelectEvent | null = null;
-    unselectEvent: AutoCompleteUnselectEvent | null = null;
-    focusEvent: Event | null = null;
-    blurEvent: Event | null = null;
+    selectEvent: AutoCompleteSelectEvent | null = null as any;
+    unselectEvent: AutoCompleteUnselectEvent | null = null as any;
+    addEvent: any | null = null as any;
+    focusEvent: Event | null = null as any;
+    blurEvent: Event | null = null as any;
     clearEvent: boolean = false;
-    dropdownClickEvent: AutoCompleteDropdownClickEvent | null = null;
-    showEvent: Event | null = null;
-    hideEvent: Event | null = null;
-    keyUpEvent: KeyboardEvent | null = null;
+    dropdownClickEvent: AutoCompleteDropdownClickEvent | null = null as any;
+    showEvent: Event | null = null as any;
+    hideEvent: Event | null = null as any;
+    keyUpEvent: KeyboardEvent | null = null as any;
 
     // Form handling
     reactiveForm: FormGroup;
@@ -182,6 +192,10 @@ class TestAutocompleteComponent {
 
     onUnselect(event: AutoCompleteUnselectEvent) {
         this.unselectEvent = event;
+    }
+
+    onAdd(event: any) {
+        this.addEvent = event;
     }
 
     onFocus(event: Event) {
@@ -755,7 +769,7 @@ describe('AutoComplete', () => {
         it('should emit onSelect event', fakeAsync(() => {
             // Setup suggestions first
             testComponent.suggestions = [];
-            testComponent.optionLabel = undefined; // Use direct string comparison
+            testComponent.optionLabel = undefined as any; // Use direct string comparison
             testFixture.detectChanges();
 
             // Trigger search to get suggestions
@@ -1363,11 +1377,11 @@ describe('AutoComplete', () => {
         }));
 
         it('should handle null/undefined values', () => {
-            testComponent.selectedValue = null;
+            testComponent.selectedValue = null as any;
             testFixture.detectChanges();
             expect(() => testFixture.detectChanges()).not.toThrow();
 
-            testComponent.selectedValue = undefined;
+            testComponent.selectedValue = undefined as any;
             testFixture.detectChanges();
             expect(() => testFixture.detectChanges()).not.toThrow();
         });
@@ -1467,7 +1481,7 @@ describe('AutoComplete', () => {
 
         it('should handle forceSelection mode', fakeAsync(() => {
             testComponent.forceSelection = true;
-            testComponent.optionLabel = undefined; // Use string comparison for forceSelection
+            testComponent.optionLabel = undefined as any; // Use string comparison for forceSelection
             testComponent.suggestions = mockItems;
             testFixture.detectChanges();
 
@@ -1488,7 +1502,7 @@ describe('AutoComplete', () => {
             testFixture.detectChanges();
             tick();
 
-            expect(inputElement.nativeElement.value).toBe('');
+            expect(inputElement.nativeElement.value).toBe('' as any);
             flush();
         }));
 
@@ -1612,6 +1626,612 @@ describe('AutoComplete', () => {
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             expect(autocompleteInstance.unique).toBe(true);
+        });
+    });
+
+    describe('Chips-like Features (addOnBlur and separator)', () => {
+        beforeEach(() => {
+            testComponent.multiple = true;
+            testComponent.typeahead = false;
+            testFixture.detectChanges();
+        });
+
+        describe('addOnBlur feature', () => {
+            beforeEach(() => {
+                testComponent.addOnBlur = true;
+                testComponent.unique = true; // Enable unique for isSelected to work
+                testFixture.detectChanges();
+            });
+
+            it('should add item on blur when addOnBlur is enabled', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('New Item');
+                expect(testComponent.addEvent).toBeTruthy();
+                expect(testComponent.addEvent.value).toBe('New Item');
+            });
+
+            it('should not add empty items on blur', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = '   ';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should not add duplicate items on blur when unique is true', () => {
+                testComponent.selectedValue = ['Existing Item'];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Existing Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual(['Existing Item']);
+            });
+
+            it('should clear input after adding item on blur', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(inputElement.nativeElement.value).toBe('');
+            });
+
+            it('should not add items on blur when typeahead is true', () => {
+                testComponent.typeahead = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should not add items on blur when multiple is false', () => {
+                testComponent.multiple = false;
+                testComponent.selectedValue = null;
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toBeNull();
+            });
+
+            it('should not add items on blur when addOnBlur is false', () => {
+                testComponent.addOnBlur = false;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'New Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should emit onAdd event only when typeahead is false and multiple is true', () => {
+                testComponent.selectedValue = [];
+                testComponent.addEvent = null;
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                // Test with correct conditions
+                inputElement.nativeElement.value = 'Test Item';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.addEvent).toBeTruthy();
+                expect(testComponent.addEvent.value).toBe('Test Item');
+            });
+        });
+
+        describe('separator feature', () => {
+            beforeEach(() => {
+                testComponent.separator = ',';
+                testComponent.unique = true; // Enable unique for isSelected to work
+                testFixture.detectChanges();
+            });
+
+            it('should add items when separator key is pressed', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item1');
+                expect(testComponent.addEvent).toBeTruthy();
+                expect(testComponent.addEvent.value).toBe('Item1');
+            });
+
+            it('should handle multiple items separated by comma on paste', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                const pasteEvent = {
+                    clipboardData: {
+                        getData: () => 'Item1,Item2,Item3'
+                    },
+                    target: inputElement.nativeElement,
+                    preventDefault: jasmine.createSpy('preventDefault')
+                };
+
+                autocompleteComponent.onInputPaste(pasteEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item1');
+                expect(testComponent.selectedValue).toContain('Item2');
+                expect(testComponent.selectedValue).toContain('Item3');
+            });
+
+            it('should handle regex separator', () => {
+                testComponent.separator = /[,;]/;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ';' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item1');
+            });
+
+            it('should not add empty items when using separator', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = '';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should clear input after adding items with separator', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(inputElement.nativeElement.value).toBe('');
+            });
+
+            it('should not add items with separator when typeahead is true', () => {
+                testComponent.typeahead = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toEqual([]);
+            });
+
+            it('should not add items with separator when multiple is false', () => {
+                testComponent.multiple = false;
+                testComponent.selectedValue = null;
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input'));
+
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toBeNull();
+            });
+        });
+
+        describe('combined addOnBlur and separator features', () => {
+            beforeEach(() => {
+                testComponent.addOnBlur = true;
+                testComponent.separator = ',';
+                testComponent.unique = true; // Enable unique for isSelected to work
+                testFixture.detectChanges();
+            });
+
+            it('should work together - separator takes priority over blur', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                // Test separator functionality first
+                inputElement.nativeElement.value = 'Item1';
+                const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+                Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
+                autocompleteComponent.onKeyDown(keydownEvent);
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item1');
+
+                // After separator handling, test blur for remaining content
+                inputElement.nativeElement.value = 'Item3';
+                autocompleteComponent.onInputBlur({ target: inputElement.nativeElement });
+                testFixture.detectChanges();
+
+                expect(testComponent.selectedValue).toContain('Item3');
+            });
+
+            it('should handle paste event with multiple items', () => {
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                const autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]'));
+
+                const pasteEvent = {
+                    clipboardData: {
+                        getData: () => 'Item1,Item2,Item3'
+                    },
+                    target: inputElement.nativeElement,
+                    preventDefault: jasmine.createSpy('preventDefault')
+                };
+
+                autocompleteComponent.onInputPaste(pasteEvent);
+                testFixture.detectChanges();
+
+                // Paste should handle the separators and add multiple items
+                expect(testComponent.selectedValue).toContain('Item1');
+                expect(testComponent.selectedValue).toContain('Item2');
+                expect(testComponent.selectedValue).toContain('Item3');
+            });
+        });
+
+        describe('addOnTab feature', () => {
+            let autocompleteComponent: AutoComplete;
+            let inputElement: any;
+
+            beforeEach(() => {
+                testComponent.multiple = true;
+                testComponent.typeahead = false;
+                testComponent.unique = true;
+                testFixture.detectChanges();
+
+                autocompleteComponent = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                inputElement = testFixture.debugElement.query(By.css('input[role="combobox"]')).nativeElement;
+            });
+
+            it('should trigger blur and addOnBlur when addOnTab=false and addOnBlur=true', () => {
+                testComponent.addOnTab = false;
+                testComponent.addOnBlur = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Set input value
+                inputElement.value = 'Test Item';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should not prevent default (allowing blur)
+                expect(tabEvent.defaultPrevented).toBe(false);
+
+                // Trigger blur manually (as Tab would do)
+                inputElement.dispatchEvent(new FocusEvent('blur'));
+                testFixture.detectChanges();
+
+                // Check that the item was added via addOnBlur
+                expect(testComponent.selectedValue).toContain('Test Item');
+
+                // Check focus state from DOM
+                expect(document.activeElement).not.toBe(inputElement);
+            });
+
+            it('should add item and keep focus on first tab when addOnTab=true, addOnBlur=true with value', () => {
+                testComponent.addOnTab = true;
+                testComponent.addOnBlur = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Set input value
+                inputElement.value = 'Test Item';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key first time
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should prevent default (keeping focus)
+                expect(tabEvent.defaultPrevented).toBe(true);
+
+                // Check that the item was added
+                expect(testComponent.selectedValue).toContain('Test Item');
+
+                // Check input is cleared
+                expect(inputElement.value).toBe('');
+
+                // Check focus is maintained (component still has focus)
+                // Note: In test environment, preventDefault keeps focus
+
+                // Press Tab key second time (now input is empty)
+                const tabEvent2 = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent2);
+                testFixture.detectChanges();
+
+                // Second tab should not prevent default (allowing blur)
+                expect(tabEvent2.defaultPrevented).toBe(false);
+            });
+
+            it('should trigger blur when addOnTab=true, addOnBlur=true without value', () => {
+                testComponent.addOnTab = true;
+                testComponent.addOnBlur = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Input is empty
+                inputElement.value = '';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should not prevent default (allowing blur)
+                expect(tabEvent.defaultPrevented).toBe(false);
+
+                // No items should be added
+                expect(testComponent.selectedValue.length).toBe(0);
+            });
+
+            it('should add item and keep focus when addOnTab=true, addOnBlur=false with value', () => {
+                testComponent.addOnTab = true;
+                testComponent.addOnBlur = false;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Set input value
+                inputElement.value = 'Test Item';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should prevent default (keeping focus)
+                expect(tabEvent.defaultPrevented).toBe(true);
+
+                // Check that the item was added
+                expect(testComponent.selectedValue).toContain('Test Item');
+
+                // Check input is cleared
+                expect(inputElement.value).toBe('');
+
+                // Check focus is maintained
+                // Note: In test environment, focus check may vary
+            });
+
+            it('should trigger blur when addOnTab=true, addOnBlur=false without value', () => {
+                testComponent.addOnTab = true;
+                testComponent.addOnBlur = false;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Input is empty
+                inputElement.value = '';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should not prevent default (allowing blur)
+                expect(tabEvent.defaultPrevented).toBe(false);
+
+                // No items should be added
+                expect(testComponent.selectedValue.length).toBe(0);
+            });
+
+            it('should not trigger addOnTab when dropdown option is focused', () => {
+                testComponent.addOnTab = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Setup component to have visible options
+                testComponent.suggestions = ['Option 1', 'Option 2'];
+                autocompleteComponent.suggestions = ['Option 1', 'Option 2'];
+                autocompleteComponent.overlayVisible = true;
+                testFixture.detectChanges();
+
+                // Set input value
+                inputElement.value = 'Test';
+                testFixture.detectChanges();
+
+                // Set focused option index (simulating arrow down navigation)
+                autocompleteComponent.focusedOptionIndex.set(0);
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Should select the focused option instead of adding input value
+                expect(testComponent.selectedValue).toContain('Option 1');
+                expect(testComponent.selectedValue).not.toContain('Test');
+            });
+
+            it('should handle already selected items correctly', () => {
+                testComponent.addOnTab = true;
+                testComponent.selectedValue = ['Test Item'];
+                testFixture.detectChanges();
+
+                // Ensure the autocomplete component's model is synchronized
+                autocompleteComponent.updateModel(['Test Item']);
+                testFixture.detectChanges();
+
+                // Set the multiInputEl value directly since we're in multiple mode
+                if (autocompleteComponent.multiInputEl) {
+                    autocompleteComponent.multiInputEl.nativeElement.value = 'Test Item';
+                } else {
+                    inputElement.value = 'Test Item';
+                }
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Tab should not prevent default since item is already selected
+                // The component correctly doesn't add duplicate items
+                expect(tabEvent.defaultPrevented).toBe(false);
+
+                // Should still have only one instance of the item
+                expect(testComponent.selectedValue.filter((v: any) => v === 'Test Item').length).toBe(1);
+            });
+
+            it('should trim whitespace when adding items via tab', () => {
+                testComponent.addOnTab = true;
+                testComponent.selectedValue = [];
+                testFixture.detectChanges();
+
+                // Set input value with whitespace
+                inputElement.value = '  Test Item  ';
+                inputElement.dispatchEvent(new Event('input'));
+                testFixture.detectChanges();
+
+                // Press Tab key - call the component method directly for more reliable testing
+                const tabEvent = new KeyboardEvent('keydown', {
+                    code: 'Tab',
+                    key: 'Tab',
+                    bubbles: true,
+                    cancelable: true
+                });
+                autocompleteComponent.onKeyDown(tabEvent);
+                testFixture.detectChanges();
+
+                // Check that the item was added without whitespace
+                expect(testComponent.selectedValue).toContain('Test Item');
+                expect(testComponent.selectedValue).not.toContain('  Test Item  ');
+            });
         });
     });
 });

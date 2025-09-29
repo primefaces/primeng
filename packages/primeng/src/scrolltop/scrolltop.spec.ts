@@ -785,7 +785,7 @@ describe('ScrollTop', () => {
         });
 
         it('should handle undefined icon', () => {
-            scrollTop.icon = undefined;
+            scrollTop.icon = undefined as any;
             expect(scrollTop.icon).toBeUndefined();
             expect(scrollTop._icon).toBeUndefined();
         });
@@ -850,7 +850,7 @@ describe('ScrollTop', () => {
         });
 
         it('should handle undefined aria-label', () => {
-            component.buttonAriaLabel = undefined;
+            component.buttonAriaLabel = undefined as any;
             scrollTop.visible = true;
             fixture.detectChanges();
 

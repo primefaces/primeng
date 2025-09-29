@@ -4,6 +4,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -20,13 +21,14 @@ import {
     Optional,
     Output,
     QueryList,
+    signal,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find, findSingle, focus, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
+import { find, findSingle, focus, getOuterHeight, getOuterWidth, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -61,15 +63,6 @@ import {
     template: `
         @if (node) {
             <li
-                *ngIf="tree.droppableNodes"
-                [class]="cx('dropPoint', { param: draghoverPrev })"
-                [attr.aria-hidden]="true"
-                (drop)="onDropPoint($event, -1)"
-                (dragover)="onDropPointDragOver($event)"
-                (dragenter)="onDropPointDragEnter($event, -1)"
-                (dragleave)="onDropPointDragLeave($event)"
-            ></li>
-            <li
                 [class]="cn(cx('node'), node.styleClass)"
                 [ngStyle]="{ height: itemSize + 'px' }"
                 [style]="node.style"
@@ -85,6 +78,9 @@ import {
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
             >
+                @if (isPrevDropPointActive()) {
+                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true"></div>
+                }
                 <div
                     [class]="cx('nodeContent')"
                     [style.paddingLeft]="level * indentation + 'rem'"
@@ -92,13 +88,12 @@ import {
                     (contextmenu)="onNodeRightClick($event)"
                     (dblclick)="onNodeDblClick($event)"
                     (touchend)="onNodeTouchEnd()"
-                    (drop)="onDropNode($event)"
-                    (dragover)="onDropNodeDragOver($event)"
-                    (dragenter)="onDropNodeDragEnter($event)"
-                    (dragleave)="onDropNodeDragLeave($event)"
+                    (drop)="onNodeDrop($event)"
+                    (dragstart)="onNodeDragStart($event)"
+                    (dragover)="onNodeDragOver($event)"
+                    (dragleave)="onNodeDragLeave($event)"
+                    (dragend)="onNodeDragEnd($event)"
                     [draggable]="tree.draggableNodes"
-                    (dragstart)="onDragStart($event)"
-                    (dragend)="onDragStop($event)"
                 >
                     <button type="button" [attr.data-pc-section]="'toggler'" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate && !tree._togglerIconTemplate">
@@ -151,6 +146,9 @@ import {
                         </span>
                     </span>
                 </div>
+                @if (isNextDropPointActive()) {
+                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true"></div>
+                }
                 <ul [class]="cx('nodeChildren')" *ngIf="!tree.virtualScroll && node.children && node.expanded" role="group">
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy.bind(this)"
@@ -165,16 +163,6 @@ import {
                     ></p-treeNode>
                 </ul>
             </li>
-
-            <li
-                *ngIf="tree.droppableNodes && lastChild"
-                [class]="cx('dropPoint', { param: draghoverNext })"
-                (drop)="onDropPoint($event, 1)"
-                [attr.aria-hidden]="true"
-                (dragover)="onDropPointDragOver($event)"
-                (dragenter)="onDropPointDragEnter($event, 1)"
-                (dragleave)="onDropPointDragLeave($event)"
-            ></li>
         }
     `,
     encapsulation: ViewEncapsulation.None,
@@ -209,11 +197,19 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     timeout: any;
 
-    draghoverPrev: boolean | undefined;
+    isPrevDropPointHovered = signal<boolean>(false);
 
-    draghoverNext: boolean | undefined;
+    isNextDropPointHovered = signal<boolean>(false);
 
-    draghoverNode: boolean | undefined;
+    isNodeDropHovered = signal<boolean>(false);
+
+    isPrevDropPointActive = computed(() => this.isPrevDropPointHovered() && this.isDroppable());
+
+    isNextDropPointActive = computed(() => this.isNextDropPointHovered() && this.isDroppable());
+
+    isNodeDropActive = computed(() => this.isNodeDropHovered() && this.isNodeDroppable());
+
+    dropPosition = computed(() => (this.isPrevDropPointActive() ? -1 : this.isNextDropPointActive() ? 1 : 0));
 
     _componentStyle = inject(TreeStyle);
 
@@ -230,7 +226,11 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     get selectable() {
-        return this.node.selectable === false ? false : this.tree.selectionMode != null;
+        return this.node?.selectable === false ? false : this.tree?.selectionMode != null;
+    }
+
+    get subNodes(): TreeNode[] | undefined {
+        return this.node?.parent ? this.node.parent.children : this.tree.value;
     }
 
     ngOnInit() {
@@ -255,6 +255,30 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     isLeaf() {
         return this.tree.isNodeLeaf(<TreeNode>this.node);
+    }
+
+    isSelected() {
+        return this.tree.isSelected(<TreeNode>this.node);
+    }
+
+    isSameNode(event) {
+        return event.currentTarget && (event.currentTarget.isSameNode(event.target) || event.currentTarget.isSameNode(event.target.closest('[role="treeitem"]')));
+    }
+
+    isDraggable() {
+        return this.tree.draggableNodes;
+    }
+
+    isDroppable() {
+        return this.tree.droppableNodes && this.tree.allowDrop(<TreeNode>this.tree.dragNode, <TreeNode>this.node, this.tree.dragNodeScope);
+    }
+
+    isNodeDroppable() {
+        return (<TreeNode>this.node)?.droppable !== false && this.isDroppable();
+    }
+
+    isNodeDraggable() {
+        return (<TreeNode>this.node)?.draggable !== false && this.isDraggable();
     }
 
     toggle(event: Event) {
@@ -304,136 +328,49 @@ export class UITreeNode extends BaseComponent implements OnInit {
         this.tree.onNodeDblClick(event, <TreeNode>this.node);
     }
 
-    isSelected() {
-        return this.tree.isSelected(<TreeNode>this.node);
-    }
+    insertNodeOnDrop() {
+        const { dragNode, dragNodeIndex, dragNodeSubNodes } = this.tree;
 
-    isSameNode(event) {
-        return event.currentTarget && (event.currentTarget.isSameNode(event.target) || event.currentTarget.isSameNode(event.target.closest('[role="treeitem"]')));
-    }
-
-    onDropPoint(event: DragEvent, position: number) {
-        event.preventDefault();
-        let dragNode = this.tree.dragNode;
-        let dragNodeIndex = this.tree.dragNodeIndex;
-        let dragNodeScope = this.tree.dragNodeScope;
-        let isValidDropPointIndex = this.tree.dragNodeTree === this.tree ? position === 1 || dragNodeIndex !== <number>this.index - 1 : true;
-
-        if (this.tree.allowDrop(<TreeNode>dragNode, <TreeNode>this.node, dragNodeScope) && isValidDropPointIndex) {
-            let dropParams = { ...this.createDropPointEventMetadata(<number>position) };
-
-            if (this.tree.validateDrop) {
-                this.tree.onNodeDrop.emit({
-                    originalEvent: event,
-                    dragNode: dragNode,
-                    dropNode: this.node,
-                    index: this.index,
-                    accept: () => {
-                        this.processPointDrop(dropParams);
-                    }
-                });
-            } else {
-                this.processPointDrop(dropParams);
-                this.tree.onNodeDrop.emit({
-                    originalEvent: event,
-                    dragNode: dragNode,
-                    dropNode: this.node,
-                    index: this.index
-                });
-            }
+        if (!this.node || dragNodeIndex == null || !dragNode || !dragNodeSubNodes) {
+            return;
         }
 
-        this.draghoverPrev = false;
-        this.draghoverNext = false;
-    }
+        const position = this.dropPosition();
+        let subNodes = this.subNodes || [];
 
-    processPointDrop(event: any) {
-        let newNodeList = event.dropNode.parent ? event.dropNode.parent.children : this.tree.value;
-        event.dragNodeSubNodes.splice(event.dragNodeIndex, 1);
-        let dropIndex = this.index;
+        dragNodeSubNodes.splice(dragNodeIndex, 1);
 
-        if (event.position < 0) {
-            dropIndex = event.dragNodeSubNodes === newNodeList ? (event.dragNodeIndex > event.index ? event.index : event.index - 1) : event.index;
-            newNodeList.splice(dropIndex, 0, event.dragNode);
+        if (position < 0) {
+            // insert before a Node
+            const index = this.index || 0;
+            const dropIndex = dragNodeSubNodes === subNodes ? (dragNodeIndex > index ? index : index - 1) : index;
+            subNodes.splice(dropIndex, 0, dragNode);
+        } else if (position > 0) {
+            // insert after a Node
+            subNodes.push(dragNode);
         } else {
-            dropIndex = newNodeList.length;
-            newNodeList.push(event.dragNode);
+            // insert as child of a Node
+            this.node.children = this.node.children || [];
+            this.node.children.push(dragNode);
         }
 
         this.tree.dragDropService.stopDrag({
-            node: event.dragNode,
-            subNodes: event.dropNode.parent ? event.dropNode.parent.children : this.tree.value,
-            index: event.dragNodeIndex
+            node: dragNode,
+            subNodes,
+            index: dragNodeIndex
         });
     }
 
-    createDropPointEventMetadata(position: number) {
-        return {
-            dragNode: this.tree.dragNode,
-            dragNodeIndex: this.tree.dragNodeIndex,
-            dragNodeSubNodes: this.tree.dragNodeSubNodes,
-            dropNode: this.node,
-            index: this.index,
-            position: position
-        };
-    }
-
-    onDropPointDragOver(event: any) {
-        event.dataTransfer.dropEffect = 'move';
+    onNodeDrop(event: any) {
         event.preventDefault();
-    }
+        event.stopPropagation();
 
-    onDropPointDragEnter(event: Event, position: number) {
-        if (this.tree.allowDrop(<TreeNode>this.tree.dragNode, <TreeNode>this.node, this.tree.dragNodeScope)) {
-            if (position < 0) this.draghoverPrev = true;
-            else this.draghoverNext = true;
-        }
-    }
+        if (this.isDroppable()) {
+            const { dragNode } = this.tree;
+            const position = this.dropPosition();
+            const isValidDrop = position !== 0 || (position === 0 && this.isNodeDroppable());
 
-    onDropPointDragLeave(event: Event) {
-        this.draghoverPrev = false;
-        this.draghoverNext = false;
-    }
-
-    onDragStart(event: any) {
-        if (this.tree.draggableNodes && (<TreeNode>this.node).draggable !== false) {
-            event.dataTransfer.setData('text', 'data');
-
-            this.tree.dragDropService.startDrag({
-                tree: this,
-                node: this.node,
-                subNodes: this.node?.parent ? this.node.parent.children : this.tree.value,
-                index: this.index,
-                scope: this.tree.draggableScope
-            });
-        } else {
-            event.preventDefault();
-        }
-    }
-
-    onDragStop(event: any) {
-        this.tree.dragDropService.stopDrag({
-            node: this.node,
-            subNodes: this.node?.parent ? this.node.parent.children : this.tree.value,
-            index: this.index
-        });
-    }
-
-    onDropNodeDragOver(event: any) {
-        event.dataTransfer.dropEffect = 'move';
-        if (this.tree.droppableNodes) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    }
-
-    onDropNode(event: any) {
-        if (this.tree.droppableNodes && this.node?.droppable !== false) {
-            let dragNode = this.tree.dragNode;
-
-            if (this.tree.allowDrop(<TreeNode>dragNode, <TreeNode>this.node, this.tree.dragNodeScope)) {
-                let dropParams = { ...this.createDropNodeEventMetadata() };
-
+            if (isValidDrop) {
                 if (this.tree.validateDrop) {
                     this.tree.onNodeDrop.emit({
                         originalEvent: event,
@@ -441,11 +378,11 @@ export class UITreeNode extends BaseComponent implements OnInit {
                         dropNode: this.node,
                         index: this.index,
                         accept: () => {
-                            this.processNodeDrop(dropParams);
+                            this.insertNodeOnDrop();
                         }
                     });
                 } else {
-                    this.processNodeDrop(dropParams);
+                    this.insertNodeOnDrop();
                     this.tree.onNodeDrop.emit({
                         originalEvent: event,
                         dragNode: dragNode,
@@ -456,47 +393,85 @@ export class UITreeNode extends BaseComponent implements OnInit {
             }
         }
 
-        event.preventDefault();
-        event.stopPropagation();
-        this.draghoverNode = false;
+        this.isPrevDropPointHovered.set(false);
+        this.isNextDropPointHovered.set(false);
+        this.isNodeDropHovered.set(false);
     }
 
-    createDropNodeEventMetadata() {
-        return {
-            dragNode: this.tree.dragNode,
-            dragNodeIndex: this.tree.dragNodeIndex,
-            dragNodeSubNodes: this.tree.dragNodeSubNodes,
-            dropNode: this.node
-        };
-    }
+    onNodeDragStart(event: any) {
+        if (this.isNodeDraggable()) {
+            event.dataTransfer?.setData('text', 'data');
 
-    processNodeDrop(event: any) {
-        let dragNodeIndex = event.dragNodeIndex;
-        event.dragNodeSubNodes.splice(dragNodeIndex, 1);
+            const target = event.currentTarget as HTMLElement;
+            const dragEl = target.cloneNode(true) as HTMLElement;
+            const toggler = <HTMLElement>dragEl.querySelector('[data-pc-section="toggler"]');
+            const checkbox = <HTMLElement>dragEl.querySelector('[data-pc-name="checkbox"]');
 
-        if (event.dropNode.children) event.dropNode.children.push(event.dragNode);
-        else event.dropNode.children = [event.dragNode];
+            target.setAttribute('data-p-dragging', 'true');
+            dragEl.style.width = getOuterWidth(target) + 'px';
+            dragEl.style.height = getOuterHeight(target) + 'px';
+            dragEl.setAttribute('data-pc-section', 'drag-image');
+            toggler.style.visibility = 'hidden';
+            checkbox?.remove();
+            document.body.appendChild(dragEl);
 
-        this.tree.dragDropService.stopDrag({
-            node: event.dragNode,
-            subNodes: event.dropNode.parent ? event.dropNode.parent.children : this.tree.value,
-            index: dragNodeIndex
-        });
-    }
+            event.dataTransfer?.setDragImage(dragEl, 0, 0);
 
-    onDropNodeDragEnter(event: any) {
-        if (this.tree.droppableNodes && this.node?.droppable !== false && this.tree.allowDrop(<TreeNode>this.tree.dragNode, <TreeNode>this.node, this.tree.dragNodeScope)) {
-            this.draghoverNode = true;
+            setTimeout(() => document.body.removeChild(dragEl), 0);
+
+            this.tree.dragDropService.startDrag({
+                tree: this,
+                node: this.node,
+                subNodes: this.subNodes,
+                index: this.index,
+                scope: this.tree.draggableScope
+            });
+        } else {
+            event.preventDefault();
         }
     }
 
-    onDropNodeDragLeave(event: any) {
-        if (this.tree.droppableNodes) {
-            let rect = event.currentTarget.getBoundingClientRect();
-            if (event.x > rect.left + rect.width || event.x < rect.left || event.y >= Math.floor(rect.top + rect.height) || event.y < rect.top) {
-                this.draghoverNode = false;
+    onNodeDragOver(event: any) {
+        event.dataTransfer.dropEffect = 'move';
+
+        if (this.isDroppable()) {
+            const nodeElement = event.currentTarget as HTMLElement;
+            const rect = nodeElement.getBoundingClientRect();
+            const y = event.clientY - rect.top;
+
+            this.isPrevDropPointHovered.set(false);
+            this.isNextDropPointHovered.set(false);
+            this.isNodeDropHovered.set(false);
+
+            if (y < rect.height * 0.25) {
+                this.isPrevDropPointHovered.set(true);
+            } else if (y > rect.height * 0.75) {
+                this.isNextDropPointHovered.set(true);
+            } else if (this.isNodeDroppable()) {
+                this.isNodeDropHovered.set(true);
             }
         }
+
+        if (this.tree.droppableNodes) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }
+
+    onNodeDragLeave() {
+        this.isPrevDropPointHovered.set(false);
+        this.isNextDropPointHovered.set(false);
+        this.isNodeDropHovered.set(false);
+    }
+
+    onNodeDragEnd(event: any) {
+        event.currentTarget?.removeAttribute('data-p-dragging');
+
+        this.tree.dragDropService.stopDrag({
+            node: this.node,
+            subNodes: this.subNodes,
+            index: this.index
+        });
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -545,10 +520,10 @@ export class UITreeNode extends BaseComponent implements OnInit {
     onArrowUp(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : (<HTMLDivElement>event.target).parentElement;
 
-        if (nodeElement.previousElementSibling) {
+        if (nodeElement?.previousElementSibling) {
             this.focusRowChange(nodeElement, nodeElement.previousElementSibling, this.findLastVisibleDescendant(nodeElement.previousElementSibling));
         } else {
-            let parentNodeElement = this.getParentNodeElement(nodeElement);
+            let parentNodeElement = this.getParentNodeElement(nodeElement!);
 
             if (parentNodeElement) {
                 this.focusRowChange(nodeElement, parentNodeElement);
@@ -560,15 +535,15 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onArrowDown(event: KeyboardEvent) {
         const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
-        const listElement = nodeElement.children[1];
+        const listElement = nodeElement?.children[1];
 
         if (listElement && listElement.children.length > 0) {
             this.focusRowChange(nodeElement, listElement.children[0]);
         } else {
-            if (nodeElement.parentElement.nextElementSibling) {
+            if (nodeElement?.parentElement?.nextElementSibling) {
                 this.focusRowChange(nodeElement, nodeElement.parentElement.nextElementSibling);
             } else {
-                let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement.parentElement);
+                let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement?.parentElement!);
 
                 if (nextSiblingAncestor) {
                     this.focusRowChange(nodeElement, nextSiblingAncestor);
@@ -602,7 +577,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
             return;
         }
 
-        let parentNodeElement = this.getParentNodeElement(nodeElement.parentElement);
+        let parentNodeElement = this.getParentNodeElement(nodeElement?.parentElement!);
 
         if (parentNodeElement) {
             this.focusRowChange(event.currentTarget, parentNodeElement);
@@ -694,7 +669,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     focusVirtualNode() {
         this.timeout = setTimeout(() => {
-            let node = <any>findSingle(this.tree?.contentViewChild.nativeElement, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
+            let node = <any>findSingle(this.tree?.contentViewChild?.nativeElement, `[data-id="${<TreeNode>this.node?.key ?? <TreeNode>this.node?.data}"]`);
             focus(node);
         }, 1);
     }
@@ -1281,7 +1256,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         if (simpleChange.value) {
             this.updateSerializedValue();
             if (this.hasFilterActive()) {
-                this._filter(this.filterViewChild.nativeElement.value);
+                this._filter(this.filterViewChild?.nativeElement?.value);
             }
         }
     }

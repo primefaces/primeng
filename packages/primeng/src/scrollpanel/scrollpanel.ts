@@ -329,7 +329,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     repeat(bar, step) {
-        this.contentViewChild.nativeElement[bar] += step;
+        this.contentViewChild?.nativeElement && (this.contentViewChild.nativeElement[bar] += step);
         this.moveBar();
     }
 
@@ -376,10 +376,10 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
 
     onYBarMouseDown(e: MouseEvent) {
         this.isYBarClicked = true;
-        this.yBarViewChild.nativeElement.focus();
+        this.yBarViewChild?.nativeElement?.focus();
         this.lastPageY = e.pageY;
 
-        this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'true');
+        this.yBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'true');
         addClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'true');
@@ -390,10 +390,10 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
 
     onXBarMouseDown(e: MouseEvent) {
         this.isXBarClicked = true;
-        this.xBarViewChild.nativeElement.focus();
+        this.xBarViewChild?.nativeElement?.focus();
         this.lastPageX = e.pageX;
 
-        this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
+        this.xBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'false');
         addClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
@@ -443,9 +443,9 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     onFocus(event) {
-        if (this.xBarViewChild.nativeElement.isSameNode(event.target)) {
+        if (this.xBarViewChild?.nativeElement?.isSameNode(event.target)) {
             this.orientation = 'horizontal';
-        } else if (this.yBarViewChild.nativeElement.isSameNode(event.target)) {
+        } else if (this.yBarViewChild?.nativeElement?.isSameNode(event.target)) {
             this.orientation = 'vertical';
         }
     }
@@ -457,9 +457,9 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     onDocumentMouseUp(e: Event) {
-        this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
+        this.yBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'false');
         removeClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
-        this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
+        this.xBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'false');
         removeClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
         removeClass(this.document.body, 'p-scrollpanel-grabbed');

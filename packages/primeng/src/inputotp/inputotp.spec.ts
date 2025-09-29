@@ -58,8 +58,8 @@ class TestAdvancedInputOtpComponent {
     integerOnly: boolean = false;
     readonly: boolean = false;
     autofocus: boolean = false;
-    variant: 'filled' | 'outlined' | undefined = undefined;
-    size: 'large' | 'small' | undefined = undefined;
+    variant: 'filled' | 'outlined' | undefined = undefined as any;
+    size: 'large' | 'small' | undefined = undefined as any;
 
     changeEvents: InputOtpChangeEvent[] = [];
     focusEvents: Event[] = [];
@@ -551,7 +551,7 @@ describe('InputOtp', () => {
 
             const inputs = fixture.debugElement.queryAll(By.css('input'));
             inputs.forEach((input) => {
-                expect(input.nativeElement.value).toBe('');
+                expect(input.nativeElement.value).toBe('' as any);
             });
         }));
     });

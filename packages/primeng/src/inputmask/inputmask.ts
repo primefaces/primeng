@@ -757,7 +757,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     }
 
     getUnmaskedValue() {
-        let unmaskedBuffer = [];
+        let unmaskedBuffer: string[] = [];
         for (let i = 0; i < this.buffer.length; i++) {
             let c = this.buffer[i];
             if (this.tests[i] && c != this.getPlaceholder(i)) {

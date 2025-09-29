@@ -320,12 +320,12 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
      * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) minFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) }) minFractionDigits: number | undefined;
     /**
      * The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) }) maxFractionDigits: number | undefined;
     /**
      * Text to display before the value.
      * @group Props
@@ -437,7 +437,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
 
     _decimal: any;
 
-    _decimalChar: string;
+    _decimalChar: string = '';
 
     _group: any;
 
@@ -496,19 +496,37 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     getOptions() {
+        // Validate fraction digits according to Intl.NumberFormat specifications
+        // Handle potential NaN, Infinity, or invalid values
+        const validateFractionDigits = (value: number | undefined, min: number, max: number) => {
+            if (value == null || isNaN(value) || !isFinite(value)) {
+                return undefined;
+            }
+            return Math.max(min, Math.min(max, Math.floor(value)));
+        };
+
+        const minFractionDigits = validateFractionDigits(this.minFractionDigits, 0, 20);
+        const maxFractionDigits = validateFractionDigits(this.maxFractionDigits, 0, 100);
+
+        // Ensure minFractionDigits <= maxFractionDigits
+        const validatedMinFractionDigits = minFractionDigits != null && maxFractionDigits != null && minFractionDigits > maxFractionDigits ? maxFractionDigits : minFractionDigits;
+
         return {
             localeMatcher: this.localeMatcher,
             style: this.mode,
             currency: this.currency,
             currencyDisplay: this.currencyDisplay,
             useGrouping: this.useGrouping,
-            minimumFractionDigits: this.minFractionDigits ?? undefined,
-            maximumFractionDigits: this.maxFractionDigits ?? undefined
+            minimumFractionDigits: validatedMinFractionDigits,
+            maximumFractionDigits: maxFractionDigits
         };
     }
 
     constructParser() {
-        this.numberFormat = new Intl.NumberFormat(this.locale, this.getOptions());
+        const options = this.getOptions();
+        // Remove any properties with undefined or invalid values to let Intl.NumberFormat use defaults
+        const cleanOptions = Object.fromEntries(Object.entries(options).filter(([_key, value]) => value !== undefined));
+        this.numberFormat = new Intl.NumberFormat(this.locale, cleanOptions);
         const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [d, i]));
         this._numeral = new RegExp(`[${numerals.join('')}]`, 'g');
@@ -632,9 +650,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     parseValue(text: any) {
-        const suffixRegex = new RegExp(this._suffix, '');
-        const prefixRegex = new RegExp(this._prefix, '');
-        const currencyRegex = new RegExp(this._currency, '');
+        const suffixRegex = this._suffix ? new RegExp(this._suffix, '') : /(?:)/;
+        const prefixRegex = this._prefix ? new RegExp(this._prefix, '') : /(?:)/;
+        const currencyRegex = this._currency ? new RegExp(this._currency as RegExp | string, '') : /(?:)/;
 
         let filteredText = text
             .replace(suffixRegex, '')
@@ -678,9 +696,11 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         let step = (this.step() ?? 1) * dir;
         let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
         let newValue = this.validateValue((currentValue as number) + step);
-        if (this.maxlength() && this.maxlength() < this.formatValue(newValue).length) {
+        const max = this.maxlength();
+        if (max && max < this.formatValue(newValue).length) {
             return;
         }
+
         this.updateInput(newValue, null, 'spin', null);
         this.updateModel(event, newValue);
 
@@ -791,7 +811,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         let selectionStart = (event.target as HTMLInputElement).selectionStart as number;
         let selectionEnd = (event.target as HTMLInputElement).selectionEnd as number;
         let inputValue = (event.target as HTMLInputElement).value as string;
-        let newValueStr = null;
+        let newValueStr: any = null;
 
         if (event.altKey) {
             event.preventDefault();
@@ -869,7 +889,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
                         } else {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                         }
-                    } else if (this.mode === 'currency' && deleteChar.search(this._currency) != -1) {
+                    } else if (this.mode === 'currency' && this._currency && deleteChar.search(this._currency as RegExp) != -1) {
                         newValueStr = inputValue.slice(1);
                     }
 
@@ -966,7 +986,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         const { value, selectionStart, selectionEnd } = this.input.nativeElement;
         const newValue = this.parseValue(value + char);
         const newValueStr = newValue != null ? newValue.toString() : '';
-        const selectedValue = value.substring(selectionStart, selectionEnd);
+        const selectedValue = value.substring(selectionStart as number, selectionEnd as number);
         const selectedValueParsed = this.parseValue(selectedValue);
         const selectedValueStr = selectedValueParsed != null ? selectedValueParsed.toString() : '';
 
@@ -975,7 +995,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             return;
         }
 
-        if (this.maxlength() && newValueStr.length > this.maxlength()) {
+        const max = this.maxlength();
+
+        if (max && newValueStr.length > max) {
             return;
         }
 
@@ -1005,7 +1027,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     allowMinusSign() {
-        return this.min() == null || this.min() < 0;
+        const min = this.min();
+
+        return min == null || min < 0;
     }
 
     isMinusSign(char: string) {
@@ -1065,8 +1089,8 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             return;
         }
 
-        let selectionStart = this.input?.nativeElement.selectionStart;
-        let selectionEnd = this.input?.nativeElement.selectionEnd;
+        let selectionStart: any = this.input?.nativeElement.selectionStart;
+        let selectionEnd: any = this.input?.nativeElement.selectionEnd;
         let inputValue = this.input?.nativeElement.value.trim();
         const { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex } = this.getCharIndexes(inputValue);
         let newValueStr;
@@ -1138,15 +1162,15 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     initCursor() {
-        let selectionStart = this.input?.nativeElement.selectionStart;
-        let selectionEnd = this.input?.nativeElement.selectionEnd;
+        let selectionStart: any = this.input?.nativeElement.selectionStart;
+        let selectionEnd: any = this.input?.nativeElement.selectionEnd;
         let inputValue = this.input?.nativeElement.value;
         let valueLength = inputValue.length;
-        let index = null;
+        let index: any = null;
 
         // remove prefix
         let prefixLength = (this.prefixChar || '').length;
-        inputValue = inputValue.replace(this._prefix, '');
+        inputValue = inputValue.replace(this._prefix as RegExp, '');
 
         // Will allow selecting whole prefix. But not a part of it.
         // Negative values will trigger clauses after this to fix the cursor position.
@@ -1219,7 +1243,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
 
     updateValue(event: Event, valueStr: Nullable<string>, insertedValueStr: Nullable<string>, operation: Nullable<string>) {
         let currentValue = this.input?.nativeElement.value;
-        let newValue = null;
+        let newValue: any = null;
 
         if (valueStr != null) {
             newValue = this.parseValue(valueStr);
@@ -1256,13 +1280,15 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         if (value === '-' || value == null) {
             return null;
         }
+        const min = this.min();
+        const max = this.max();
 
-        if (this.min() != null && (value as number) < this.min()) {
+        if (min != null && (value as number) < min) {
             return this.min();
         }
 
-        if (this.max() != null && (value as number) > this.max()) {
-            return this.max();
+        if (max != null && (value as number) > max) {
+            return max;
         }
 
         return value;
@@ -1286,16 +1312,16 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             const selectionEnd = index + insertedValueStr.length;
             this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
         } else {
-            let selectionStart = this.input.nativeElement.selectionStart;
-            let selectionEnd = this.input.nativeElement.selectionEnd;
-
-            if (this.maxlength() && newValue.length > this.maxlength()) {
-                newValue = newValue.slice(0, this.maxlength());
-                selectionStart = Math.min(selectionStart, this.maxlength());
-                selectionEnd = Math.min(selectionEnd, this.maxlength());
+            let selectionStart: any = this.input.nativeElement.selectionStart;
+            let selectionEnd: any = this.input.nativeElement.selectionEnd;
+            const maxlength = this.maxlength();
+            if (maxlength && newValue.length > maxlength) {
+                newValue = newValue.slice(0, maxlength);
+                selectionStart = Math.min(selectionStart, maxlength);
+                selectionEnd = Math.min(selectionEnd, maxlength);
             }
 
-            if (this.maxlength() && this.maxlength() < newValue.length) {
+            if (maxlength && maxlength < newValue.length) {
                 return;
             }
 
@@ -1386,7 +1412,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         this.focused = false;
 
         const newValueNumber = this.validateValue(this.parseValue(this.input.nativeElement.value));
-        const newValueString = newValueNumber?.toString();
+        const newValueString: any = newValueNumber?.toString();
         this.input.nativeElement.value = this.formatValue(newValueString);
         this.input.nativeElement.setAttribute('aria-valuenow', newValueString);
         this.updateModel(event, newValueNumber);

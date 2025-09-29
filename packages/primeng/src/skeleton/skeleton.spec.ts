@@ -286,7 +286,7 @@ describe('Skeleton', () => {
         });
 
         it('should use width/height when size is not provided', () => {
-            component.size = undefined;
+            component.size = undefined as any;
             component.width = '300px';
             component.height = '40px';
             fixture.detectChanges();
@@ -397,7 +397,7 @@ describe('Skeleton', () => {
         });
 
         it('should handle undefined styleClass', () => {
-            component.styleClass = undefined;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -426,7 +426,7 @@ describe('Skeleton', () => {
         });
 
         it('should calculate container style with width and height', () => {
-            skeleton.size = undefined;
+            skeleton.size = undefined as any;
             skeleton.width = '150px';
             skeleton.height = '30px';
             skeleton.borderRadius = '3px';
@@ -447,7 +447,7 @@ describe('Skeleton', () => {
         });
 
         it('should handle missing borderRadius', () => {
-            skeleton.borderRadius = undefined;
+            skeleton.borderRadius = undefined as any;
 
             const style = skeleton.containerStyle;
 
@@ -622,13 +622,13 @@ describe('Skeleton', () => {
             skeleton.height = '';
 
             const style = skeleton.containerStyle;
-            expect(style.width).toBe('');
-            expect(style.height).toBe('');
+            expect(style.width).toBe('' as any);
+            expect(style.height).toBe('' as any);
         });
 
         it('should handle null/undefined values gracefully', () => {
-            skeleton.borderRadius = undefined;
-            skeleton.size = undefined;
+            skeleton.borderRadius = undefined as any;
+            skeleton.size = undefined as any;
 
             expect(() => {
                 const style = skeleton.containerStyle;
@@ -865,7 +865,7 @@ describe('Skeleton', () => {
             const element = fixture.debugElement.query(By.directive(Skeleton)).nativeElement;
 
             // Skeleton has empty template, so should not have inner content
-            expect(element.innerHTML.trim()).toBe('');
+            expect(element.innerHTML.trim()).toBe('' as any);
         });
 
         it('should apply host bindings correctly', () => {

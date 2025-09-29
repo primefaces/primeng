@@ -27,6 +27,19 @@ const theme = /*css*/ `
     .p-listbox-option.cdk-drag-preview {
         background: dt('listbox.background');
     }
+
+    .p-listbox-dragging .p-listbox-option:not(.cdk-drag-preview) {
+        pointer-events: none !important;
+    }
+
+    .p-listbox-dragging .p-listbox-option:not(.cdk-drag-preview):hover {
+        background: inherit !important;
+        color: inherit !important;
+    }
+
+    .cdk-drag-placeholder { 
+        pointer-events: none;
+    }
 `;
 
 const classes = {

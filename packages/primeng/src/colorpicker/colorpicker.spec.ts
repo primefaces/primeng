@@ -41,7 +41,7 @@ class TestBasicColorPickerComponent {
     hideTransitionOptions: string = '.1s linear';
     autofocus: boolean = false;
     defaultColor: string = 'ff0000';
-    appendTo: any = undefined;
+    appendTo: any = undefined as any;
 
     changeEvent: ColorPickerChangeEvent | undefined;
     showEvent: any;
@@ -364,7 +364,7 @@ describe('ColorPicker', () => {
         });
 
         it('should integrate with reactive forms', fakeAsync(() => {
-            expect(testComponent.form.get('selectedColor')?.value).toBe('');
+            expect(testComponent.form.get('selectedColor')?.value).toBe('' as any);
             expect(testComponent.form.invalid).toBe(true);
 
             const colorValue = '#ff0000';
@@ -535,12 +535,12 @@ describe('ColorPicker', () => {
         });
 
         it('should handle null/undefined values', () => {
-            testComponent.color = null;
+            testComponent.color = null as any;
             testFixture.detectChanges();
 
             expect(() => testFixture.detectChanges()).not.toThrow();
 
-            testComponent.color = undefined;
+            testComponent.color = undefined as any;
             testFixture.detectChanges();
 
             expect(() => testFixture.detectChanges()).not.toThrow();
@@ -629,7 +629,7 @@ describe('ColorPicker', () => {
             });
 
             // Create a simple test for blur update strategy
-            expect(blurControl.value).toBe('');
+            expect(blurControl.value).toBe('' as any);
 
             blurControl.setValue('#ff0000');
             expect(blurControl.value).toBe('#ff0000');
@@ -678,13 +678,13 @@ describe('ColorPicker', () => {
             });
 
             // Test null and undefined separately as they should be handled gracefully
-            testComponent.color = null;
+            testComponent.color = null as any;
             expect(() => {
                 testFixture.detectChanges();
                 tick();
             }).not.toThrow();
 
-            testComponent.color = undefined;
+            testComponent.color = undefined as any;
             expect(() => {
                 testFixture.detectChanges();
                 tick();

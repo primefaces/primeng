@@ -24,7 +24,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 and override the default <i>aria-label</i>.
             </p>
             <p>
-                Maximize element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.maximizeLabel</i> and <i>aria.minimizeLabel</i> property of the <a href="/configuration/#locale">locale</a> API. It cannot be customized using the <i>maximizeButtonProps</i>.
+                Maximize element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.maximizeLabel</i> and <i>aria.minimizeLabel</i> property of the <a href="/configuration/#locale">locale</a> API. It cannot be customized using
+                the <i>maximizeButtonProps</i>.
             </p>
 
             <app-code [code]="code" [hideToggleCode]="true"></app-code>

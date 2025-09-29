@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { OrderList } from './orderlist';
 import { ButtonModule } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { RippleModule } from 'primeng/ripple';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 
 interface Product {
     id: string;
@@ -98,7 +98,7 @@ class TestBasicOrderListComponent {
     filterPlaceholder = 'Search products';
     filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
     filterLocale: string | undefined;
-    trackBy: Function = (index: number, item: any) => item.id;
+    trackBy: Function = (_index: number, item: any) => item.id;
     tabindex: number | undefined;
     ariaLabel = 'Product list';
     ariaLabelledBy: string | undefined;
@@ -380,7 +380,8 @@ describe('OrderList', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, NoopAnimationsModule, OrderList],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList],
+            providers: [provideNoopAnimations()],
             declarations: [
                 TestBasicOrderListComponent,
                 TestTemplatesOrderListComponent,
@@ -473,7 +474,7 @@ describe('OrderList', () => {
         });
 
         it('should move selected items to top', fakeAsync(() => {
-            const initialOrder = [...component.products];
+            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveTop();
@@ -487,7 +488,7 @@ describe('OrderList', () => {
         }));
 
         it('should move selected items down', () => {
-            const initialOrder = [...component.products];
+            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveDown();
@@ -500,7 +501,7 @@ describe('OrderList', () => {
         });
 
         it('should move selected items to bottom', () => {
-            const initialOrder = [...component.products];
+            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveBottom();
@@ -519,6 +520,48 @@ describe('OrderList', () => {
             orderList.moveUp();
 
             expect(component.products).toEqual(initialOrder);
+        });
+
+        it('should move multiple selected items even when some cannot move up', () => {
+            // Select items at positions 0, 2, and 4 (first, third, and fifth items)
+            // First item (index 0) cannot move up, but others can
+            component.selection = [component.products[0], component.products[2], component.products[4]];
+            fixture.detectChanges();
+
+            const initialOrder = [...component.products];
+            spyOn(component, 'onReorder');
+
+            orderList.moveUp();
+
+            // First item (A) should stay at position 0 (can't move up)
+            expect(component.products[0]).toEqual(initialOrder[0]); // Product A stays
+            // Third item (C) should move to position 1 (was at 2, moves up)
+            expect(component.products[1]).toEqual(initialOrder[2]); // Product C moved up
+            // Fifth item (E) should move to position 3 (was at 4, moves up)
+            expect(component.products[3]).toEqual(initialOrder[4]); // Product E moved up
+
+            expect(component.onReorder).toHaveBeenCalledWith(component.selection);
+        });
+
+        it('should move multiple selected items even when some cannot move down', () => {
+            // Select items at positions 0, 2, and 4 (first, third, and fifth items)
+            // Last item (index 4) cannot move down, but others can
+            component.selection = [component.products[0], component.products[2], component.products[4]];
+            fixture.detectChanges();
+
+            const initialOrder = [...component.products];
+            spyOn(component, 'onReorder');
+
+            orderList.moveDown();
+
+            // First item (A) should move to position 1 (was at 0, moves down)
+            expect(component.products[1]).toEqual(initialOrder[0]); // Product A moved down
+            // Third item (C) should move to position 3 (was at 2, moves down)
+            expect(component.products[3]).toEqual(initialOrder[2]); // Product C moved down
+            // Fifth item (E) should stay at position 4 (can't move down)
+            expect(component.products[4]).toEqual(initialOrder[4]); // Product E stays
+
+            expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
         it('should not move items when disabled', () => {
@@ -593,7 +636,7 @@ describe('OrderList', () => {
             orderList.filterValue = 'test';
             orderList.resetFilter();
 
-            expect(orderList.filterValue).toBe(null);
+            expect(orderList.filterValue).toBe('');
         });
 
         it('should check if item is visible', () => {
@@ -890,7 +933,19 @@ describe('OrderList', () => {
                 category: 'Category 1',
                 rating: 5
             });
-            expect(component.onReorder).toHaveBeenCalledWith([component.products[2]]);
+            expect(component.onReorder).toHaveBeenCalledWith([
+                {
+                    id: '1',
+                    code: 'P001',
+                    name: 'Product A',
+                    description: 'Description A',
+                    price: 100,
+                    quantity: 10,
+                    inventoryStatus: 'INSTOCK',
+                    category: 'Category 1',
+                    rating: 5
+                }
+            ]);
         });
 
         it('should not handle drop event when indices are same', () => {
@@ -913,6 +968,131 @@ describe('OrderList', () => {
             orderList.onDrop(dragDropEvent);
 
             expect(component.onReorder).not.toHaveBeenCalled();
+        });
+
+        describe('Multi-Selection Drag & Drop', () => {
+            it('should move all selected items when dragging one of them', () => {
+                component.dragdrop = true;
+                // Select multiple items (first, third items - indices 0 and 2)
+                component.selection = [component.products[0], component.products[2]];
+                fixture.detectChanges();
+                spyOn(component, 'onReorder');
+
+                const dragDropEvent: CdkDragDrop<string[]> = {
+                    previousIndex: 0, // dragging first item
+                    currentIndex: 1, // to position 1
+                    item: { data: component.products[0] } as any, // dragging first item
+                    container: {} as any,
+                    previousContainer: {} as any,
+                    isPointerOverContainer: true,
+                    distance: { x: 0, y: 50 },
+                    dropPoint: { x: 0, y: 50 },
+                    event: new MouseEvent('mouseup')
+                };
+
+                const originalOrder = [...component.products];
+                orderList.onDrop(dragDropEvent);
+
+                // All selected items should move together
+                // Original: [Product A, Product B, Product C, Product D, Product E] - select A & C, drag A to position 1
+                // itemsBefore = 1 (only A is before position 1), targetIndex = 1 - 1 = 0
+                // After removal: [Product B, Product D, Product E]
+                // Insert at position 0: [Product A, Product C, Product B, Product D, Product E]
+                expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
+                expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
+                expect(component.products[2]).toEqual(originalOrder[1]); // Product B moved to position 2
+                expect(component.products[3]).toEqual(originalOrder[3]); // Product D moved to position 3
+                expect(component.products[4]).toEqual(originalOrder[4]); // Product E moved to position 4
+                expect(component.onReorder).toHaveBeenCalledWith([originalOrder[0], originalOrder[2]]);
+            });
+
+            it('should move only dragged item when it is not in selection', () => {
+                component.dragdrop = true;
+                // Select first and third items, but drag the second item (not selected)
+                component.selection = [component.products[0], component.products[2]];
+                fixture.detectChanges();
+                spyOn(component, 'onReorder');
+
+                const dragDropEvent: CdkDragDrop<string[]> = {
+                    previousIndex: 1, // dragging second item (not selected)
+                    currentIndex: 3, // to position 3
+                    item: { data: component.products[1] } as any,
+                    container: {} as any,
+                    previousContainer: {} as any,
+                    isPointerOverContainer: true,
+                    distance: { x: 0, y: 100 },
+                    dropPoint: { x: 0, y: 100 },
+                    event: new MouseEvent('mouseup')
+                };
+
+                const originalItem = component.products[1];
+                orderList.onDrop(dragDropEvent);
+
+                // Only the dragged item should move
+                expect(component.products[3]).toEqual(originalItem);
+                expect(component.onReorder).toHaveBeenCalledWith([originalItem]);
+            });
+
+            it('should move empty selection when no items are selected', () => {
+                component.dragdrop = true;
+                component.selection = []; // no selection
+                fixture.detectChanges();
+                spyOn(component, 'onReorder');
+
+                const dragDropEvent: CdkDragDrop<string[]> = {
+                    previousIndex: 1,
+                    currentIndex: 3,
+                    item: { data: component.products[1] } as any,
+                    container: {} as any,
+                    previousContainer: {} as any,
+                    isPointerOverContainer: true,
+                    distance: { x: 0, y: 100 },
+                    dropPoint: { x: 0, y: 100 },
+                    event: new MouseEvent('mouseup')
+                };
+
+                const originalItem = component.products[1];
+                orderList.onDrop(dragDropEvent);
+
+                // Only the dragged item should move
+                expect(component.products[3]).toEqual(originalItem);
+                expect(component.onReorder).toHaveBeenCalledWith([originalItem]);
+            });
+
+            it('should maintain relative order of selected items when moving multiple', () => {
+                component.dragdrop = true;
+                // Select items in order: 0, 2, 3 (maintain relative positioning)
+                component.selection = [component.products[0], component.products[2], component.products[3]];
+                fixture.detectChanges();
+                spyOn(component, 'onReorder');
+
+                const dragDropEvent: CdkDragDrop<string[]> = {
+                    previousIndex: 0, // dragging first selected item
+                    currentIndex: 1, // to position 1
+                    item: { data: component.products[0] } as any,
+                    container: {} as any,
+                    previousContainer: {} as any,
+                    isPointerOverContainer: true,
+                    distance: { x: 0, y: 50 },
+                    dropPoint: { x: 0, y: 50 },
+                    event: new MouseEvent('mouseup')
+                };
+
+                const originalOrder = [...component.products];
+                orderList.onDrop(dragDropEvent);
+
+                // Selected items should move together maintaining their relative order
+                // Original: [Product A, Product B, Product C, Product D, Product E] - select A, C, D, drag A to position 1
+                // itemsBefore = 1 (only A is before position 1), targetIndex = 1 - 1 = 0
+                // After removal: [Product B, Product E]
+                // Insert at position 0: [Product A, Product C, Product D, Product B, Product E]
+                expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
+                expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
+                expect(component.products[2]).toEqual(originalOrder[3]); // Product D moved to position 2
+                expect(component.products[3]).toEqual(originalOrder[1]); // Product B moved to position 3
+                expect(component.products[4]).toEqual(originalOrder[4]); // Product E remains at position 4
+                expect(component.onReorder).toHaveBeenCalledWith([originalOrder[0], originalOrder[2], originalOrder[3]]);
+            });
         });
     });
 
@@ -954,7 +1134,7 @@ describe('OrderList', () => {
             orderList.filterValue = 'test';
             orderList.resetFilter();
 
-            expect(orderList.filterValue).toBe(null);
+            expect(orderList.filterValue).toBe('');
         });
 
         it('should handle empty filter results', () => {
@@ -1123,7 +1303,7 @@ describe('OrderList', () => {
         }));
 
         it('should handle large datasets efficiently', () => {
-            const largeData = [];
+            const largeData: any[] = [];
             for (let i = 0; i < 1000; i++) {
                 largeData.push({
                     id: `${i}`,
@@ -1319,7 +1499,7 @@ describe('OrderList', () => {
         });
 
         it('should use custom trackBy function', () => {
-            const customTrackBy = (index: number, item: any) => item.code;
+            const customTrackBy = (_index: number, item: any) => item.code;
             component.trackBy = customTrackBy;
             fixture.detectChanges();
 

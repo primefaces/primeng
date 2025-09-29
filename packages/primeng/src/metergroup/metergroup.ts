@@ -24,7 +24,7 @@ import { MeterGroupStyle } from './style/metergroupstyle';
     `
 })
 export class MeterGroupLabel extends BaseComponent {
-    @Input() value: any[] = null;
+    @Input() value: any[] = [];
 
     @Input() labelPosition: 'start' | 'end' = 'end';
 
@@ -209,8 +209,8 @@ export class MeterGroup extends BaseComponent implements AfterContentInit {
     meterStyle(val: MeterItem) {
         return {
             backgroundColor: val.color,
-            width: this.orientation === 'horizontal' && this.percentValue(val.value),
-            height: this.orientation === 'vertical' && this.percentValue(val.value)
+            width: this.orientation === 'horizontal' && this.percentValue(val.value || 0),
+            height: this.orientation === 'vertical' && this.percentValue(val.value || 0)
         };
     }
 
@@ -218,7 +218,7 @@ export class MeterGroup extends BaseComponent implements AfterContentInit {
         if (!this.value) {
             return 0;
         }
-        return this.percent(this.value.reduce((total, val) => total + val.value, 0));
+        return this.percent(this.value.reduce((total, val) => total + (val.value || 0), 0));
     }
 
     percentages() {
@@ -227,10 +227,10 @@ export class MeterGroup extends BaseComponent implements AfterContentInit {
         }
 
         let sum = 0;
-        const sumsArray = [];
+        const sumsArray: number[] = [];
 
         this.value.forEach((item) => {
-            sum += item.value;
+            sum += item.value || 0;
             sumsArray.push(sum);
         });
 

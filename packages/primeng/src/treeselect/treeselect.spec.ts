@@ -161,7 +161,7 @@ const mockTreeNodes: TreeNode[] = [
     `
 })
 class TestTreeSelectComponent {
-    selectedValue: TreeNode | TreeNode[] | null = null;
+    selectedValue: TreeNode | TreeNode[] | null = null as any;
     options: TreeNode[] = [];
     formOptions: TreeNode[] = [];
 
@@ -210,16 +210,16 @@ class TestTreeSelectComponent {
     appendTo: any;
 
     // Event tracking
-    nodeSelectEvent: any = null;
-    nodeUnselectEvent: any = null;
-    nodeExpandEvent: TreeSelectNodeExpandEvent | null = null;
-    nodeCollapseEvent: TreeSelectNodeCollapseEvent | null = null;
-    showEvent: any = null;
-    hideEvent: any = null;
-    clearEvent: any = null;
-    filterEvent: any = null;
-    focusEvent: Event | null = null;
-    blurEvent: Event | null = null;
+    nodeSelectEvent: any = null as any;
+    nodeUnselectEvent: any = null as any;
+    nodeExpandEvent: TreeSelectNodeExpandEvent | null = null as any;
+    nodeCollapseEvent: TreeSelectNodeCollapseEvent | null = null as any;
+    showEvent: any = null as any;
+    hideEvent: any = null as any;
+    clearEvent: any = null as any;
+    filterEvent: any = null as any;
+    focusEvent: Event | null = null as any;
+    blurEvent: Event | null = null as any;
 
     // Form handling
     reactiveForm: FormGroup;
@@ -405,7 +405,7 @@ class TestTreeSelectComponent {
     `
 })
 class TestPTemplateTreeSelectComponent {
-    selectedValue: TreeNode | TreeNode[] | null = null;
+    selectedValue: TreeNode | TreeNode[] | null = null as any;
     options: TreeNode[] = mockTreeNodes;
     placeholder: string = 'Select Node';
     disabled: boolean = false;
@@ -717,7 +717,7 @@ describe('TreeSelect', () => {
         });
 
         it('should emit onNodeSelect event', fakeAsync(() => {
-            testComponent.selectedValue = null;
+            testComponent.selectedValue = null as any;
             testFixture.detectChanges();
 
             const dropdown = testFixture.debugElement.query(By.css('.p-treeselect-dropdown'));
@@ -835,7 +835,7 @@ describe('TreeSelect', () => {
         describe('Value Template (_valueTemplate)', () => {
             it('should render pTemplate="value" with value and placeholder context', () => {
                 // Test with no value (placeholder scenario)
-                pTemplateComponent.selectedValue = null;
+                pTemplateComponent.selectedValue = null as any;
                 pTemplateFixture.detectChanges();
 
                 const valueTemplate = pTemplateFixture.debugElement.query(By.css('[data-testid="ptemplate-value"]'));
@@ -1153,7 +1153,7 @@ describe('TreeSelect', () => {
         it('should support screen reader compatibility', () => {
             const hiddenInput = testFixture.debugElement.query(By.css('input[type="text"]'));
 
-            expect(hiddenInput.nativeElement.getAttribute('readonly')).toBe('');
+            expect(hiddenInput.nativeElement.getAttribute('readonly')).toBe('' as any);
             expect(hiddenInput.nativeElement.getAttribute('aria-expanded')).toBe('false');
         });
     });

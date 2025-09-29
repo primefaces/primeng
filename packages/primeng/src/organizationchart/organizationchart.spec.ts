@@ -27,7 +27,7 @@ import { TreeNode } from 'primeng/api';
 })
 class TestBasicOrganizationChartComponent {
     data: TreeNode[] = [];
-    selectionMode: 'single' | 'multiple' | null | undefined = null;
+    selectionMode: 'single' | 'multiple' | null | undefined = null as any;
     selection: any;
     collapsible: boolean = false;
     preserveSpace: boolean = true;

@@ -337,7 +337,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
 
     onSpaceKey() {
         const element = <any>findSingle(this.listViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
-        const anchorElement = element && <any>findSingle(element, '[data-pc-section="action"]');
+        const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
         anchorElement ? anchorElement.click() : element && element.click();
     }
@@ -350,7 +350,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     changeFocusedOptionIndex(index) {
-        const menuitems = <any>find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = <any>find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
         let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
@@ -358,7 +358,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     findPrevOptionIndex(index) {
-        const menuitems = find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;

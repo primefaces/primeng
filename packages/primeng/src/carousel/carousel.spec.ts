@@ -58,7 +58,7 @@ class TestBasicCarouselComponent {
     page: number = 0;
     numVisible: number = 3;
     numScroll: number = 1;
-    responsiveOptions: CarouselResponsiveOptions[] | undefined = undefined;
+    responsiveOptions: CarouselResponsiveOptions[] | undefined = undefined as any;
     orientation: 'horizontal' | 'vertical' = 'horizontal';
     verticalViewPortHeight: string = '300px';
     contentClass: string = '';
@@ -304,7 +304,7 @@ describe('Carousel', () => {
             carouselInstance.value = [];
             expect(carouselInstance.isEmpty()).toBe(true);
 
-            carouselInstance.value = null;
+            carouselInstance.value = null as any;
             expect(carouselInstance.isEmpty()).toBe(true);
         });
 
@@ -854,7 +854,7 @@ describe('Carousel', () => {
         });
 
         it('should handle destroy when no responsive options', () => {
-            carouselInstance.responsiveOptions = undefined;
+            carouselInstance.responsiveOptions = undefined as any;
 
             expect(() => {
                 carouselInstance.ngOnDestroy();

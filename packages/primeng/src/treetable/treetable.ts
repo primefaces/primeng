@@ -1231,7 +1231,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
             nodes.sort((node1, node2) => {
                 let value1 = resolveFieldData(node1.data, this.sortField);
                 let value2 = resolveFieldData(node2.data, this.sortField);
-                let result = null;
+                let result: number = 0;
 
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;
@@ -1297,7 +1297,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
         let value1 = resolveFieldData(node1.data, multiSortMeta[index].field);
         let value2 = resolveFieldData(node2.data, multiSortMeta[index].field);
-        let result = null;
+        let result: number = 0;
 
         if (value1 == null && value2 != null) result = -1;
         else if (value1 != null && value2 == null) result = 1;
@@ -1314,7 +1314,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
             return multiSortMeta.length - 1 > index ? this.multisortField(node1, node2, multiSortMeta, index + 1) : 0;
         }
 
-        return multiSortMeta[index].order * <number>result;
+        return multiSortMeta[index].order * result;
     }
 
     getSortMeta(field: string) {
@@ -2541,7 +2541,9 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
 
                 if (this.scrollHeight) {
                     let scrollBarWidth = calculateScrollbarWidth();
-                    this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                    if (this.scrollHeaderBoxViewChild?.nativeElement) {
+                        this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                    }
 
                     if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
                         this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
@@ -3392,8 +3394,8 @@ export class TTHeaderCheckbox {
     }
 
     onClick(event: Event) {
-        if ((this.tt.value || this.tt.filteredNodes) && (this.tt.value.length > 0 || this.tt.filteredNodes.length > 0)) {
-            this.tt.toggleNodesWithCheckbox(event, !this.checked);
+        if ((this.tt?.value || this.tt?.filteredNodes) && ((this.tt?.value && this.tt.value.length > 0) || (this.tt?.filteredNodes && this.tt.filteredNodes.length > 0))) {
+            this.tt?.toggleNodesWithCheckbox(event, !this.checked);
         }
 
         clearSelection();
@@ -3478,7 +3480,7 @@ export class TTEditableColumn implements AfterViewInit {
                         return;
                     }
 
-                    removeClass(this.tt.editingCell, 'p-cell-editing');
+                    if (this.tt.editingCell) removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.openCell();
                 }
             } else {
@@ -3503,7 +3505,7 @@ export class TTEditableColumn implements AfterViewInit {
     }
 
     closeEditingCell() {
-        removeClass(this.tt.editingCell, 'p-checkbox-icon');
+        if (this.tt.editingCell) removeClass(this.tt.editingCell, 'p-checkbox-icon');
         this.tt.editingCell = null;
         this.tt.unbindDocumentEditListener();
     }
@@ -3514,7 +3516,7 @@ export class TTEditableColumn implements AfterViewInit {
             //enter
             if (event.keyCode == 13 && !event.shiftKey) {
                 if (this.tt.isEditingCellValid()) {
-                    removeClass(this.tt.editingCell, 'p-cell-editing');
+                    if (this.tt.editingCell) removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
                     this.tt.onEditComplete.emit({ field: this.field, data: this.data });
                 }
@@ -3525,7 +3527,7 @@ export class TTEditableColumn implements AfterViewInit {
             //escape
             else if (event.keyCode == 27) {
                 if (this.tt.isEditingCellValid()) {
-                    removeClass(this.tt.editingCell, 'p-cell-editing');
+                    if (this.tt.editingCell) removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
                     this.tt.onEditCancel.emit({ field: this.field, data: this.data });
                 }
@@ -3849,19 +3851,20 @@ export class TTRow extends BaseComponent {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 const container = this.tt.el?.nativeElement;
-                const row = <any>findSingle(container, '.p-treetable-tbody').children[<number>index || this.tt.toggleRowIndex];
+                const tbody = findSingle(container, '.p-treetable-tbody');
+                const row = tbody?.children?.[<number>index || this.tt.toggleRowIndex || 0];
                 const rows = [...find(container, 'tr')];
 
                 rows &&
                     rows.forEach((r: any) => {
-                        if (!row.isSameNode(r)) {
+                        if (row && !row.isSameNode(r)) {
                             r.tabIndex = -1;
                         }
                     });
 
                 if (row) {
-                    row.tabIndex = 0;
-                    row.focus();
+                    (row as HTMLElement).tabIndex = 0;
+                    (row as HTMLElement).focus();
                 }
             }, 25);
         });
@@ -3904,7 +3907,7 @@ export class TreeTableToggler extends BaseComponent {
     }
 
     get toggleButtonAriaLabel() {
-        return this.config.translation ? (this.rowNode.expanded ? this.config.translation.aria.collapseRow : this.config.translation.aria.expandRow) : undefined;
+        return this.config.translation ? (this.rowNode.expanded ? this.config.translation?.aria?.collapseRow : this.config.translation?.aria?.expandRow) : undefined;
     }
 
     onClick(event: Event) {

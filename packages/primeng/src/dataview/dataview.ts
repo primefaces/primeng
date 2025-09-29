@@ -465,7 +465,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
             this.value.sort((data1, data2) => {
                 let value1 = resolveFieldData(data1, this.sortField);
                 let value2 = resolveFieldData(data2, this.sortField);
-                let result = null;
+                let result: number;
 
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;

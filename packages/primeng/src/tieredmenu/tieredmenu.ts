@@ -310,6 +310,7 @@ export class TieredMenuSub extends BaseComponent {
             this.positionSubmenu();
             return this.activeItemPath().some((path) => path.key === processedItem.key);
         }
+        return false;
     }
 
     isItemDisabled(processedItem: any): boolean {
@@ -630,12 +631,12 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     unbindMatchMediaListener() {
         if (this.matchMediaListener) {
             this.query.removeEventListener('change', this.matchMediaListener);
-            this.matchMediaListener = null;
+            this.matchMediaListener = null as any;
         }
     }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
-        const processedItems = [];
+        const processedItems: any = [];
 
         items &&
             items.forEach((item, index) => {
@@ -726,16 +727,16 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = true;
-            focus(this.rootmenu.sublistViewChild.nativeElement);
+            focus(this.rootmenu?.sublistViewChild?.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
             } else {
                 const rootProcessedItem = root ? processedItem : this.activeItemPath().find((p) => p.parentKey === '');
                 this.hide(originalEvent);
-                this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
+                this.changeFocusedItemIndex(originalEvent, rootProcessedItem?.index ?? -1);
 
-                focus(this.rootmenu.sublistViewChild.nativeElement);
+                focus(this.rootmenu?.sublistViewChild?.nativeElement);
             }
         }
     }
@@ -907,8 +908,8 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = <any>findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
+            const element = <any>findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -936,7 +937,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         this.focusedItemInfo.set({ index, level, parentKey, item });
 
         grouped && (this.dirty = true);
-        isFocus && focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
         if (type === 'hover' && this.queryMatches) {
             return;
@@ -966,15 +967,15 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.onShow.emit({});
-                    addStyle(this.containerViewChild.nativeElement, { position: 'absolute', top: 0 });
-                    this.attrSelector && this.container.setAttribute(this.attrSelector, '');
+                    addStyle(this.containerViewChild?.nativeElement, { position: 'absolute', top: 0 });
+                    this.attrSelector && this.container?.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindOutsideClickListener();
                     this.bindResizeListener();
                     this.bindScrollListener();
 
-                    focus(this.rootmenu.sublistViewChild.nativeElement);
+                    focus(this.rootmenu?.sublistViewChild?.nativeElement);
                     this.scrollInView();
                 }
                 break;
@@ -987,13 +988,13 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container, this.target);
-        else absolutePosition(this.container, this.target);
+        if (this.relativeAlign) relativePosition(this.container!, this.target);
+        else absolutePosition(this.container!, this.target);
 
         const targetWidth = getOuterWidth(this.target);
 
         if (targetWidth > getOuterWidth(this.container)) {
-            this.container.style.minWidth = getOuterWidth(this.target) + 'px';
+            this.container!.style.minWidth = getOuterWidth(this.target) + 'px';
         }
     }
 
@@ -1008,7 +1009,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     appendOverlay() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.$appendTo(), this.container);
+            else appendChild(this.$appendTo(), this.container!);
         }
     }
 
@@ -1036,7 +1037,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && focus(this.relatedTarget || this.target || this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.relatedTarget || this.target || this.rootmenu?.sublistViewChild?.nativeElement);
         this.dirty = false;
     }
 
@@ -1064,7 +1065,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
         this.cd.markForCheck();
     }
@@ -1151,7 +1152,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.rootmenu?.el?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });

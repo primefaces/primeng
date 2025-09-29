@@ -41,7 +41,7 @@ class TestImageChipComponent {
     image = '/path/to/image.jpg';
     alt = 'User Avatar';
     label = 'Image Chip';
-    imageError: Event | null = null;
+    imageError: Event | null = null as any;
 
     onImageError(event: Event) {
         this.imageError = event;
@@ -57,7 +57,7 @@ class TestRemovableChipComponent {
     label = 'Removable Chip';
     removable = true;
     removed = false;
-    removeEvent: MouseEvent | null = null;
+    removeEvent: MouseEvent | null = null as any;
 
     onRemove(event: MouseEvent) {
         this.removed = true;
@@ -158,7 +158,7 @@ class TestDynamicChipComponent {
     showContent = false;
     content = 'Dynamic content';
     removed = false;
-    imageError: Event | null = null;
+    imageError: Event | null = null as any;
 
     onRemove(event: MouseEvent) {
         this.removed = true;
@@ -239,7 +239,7 @@ describe('Chip', () => {
         });
 
         it('should be visible by default', () => {
-            expect(element.style.display).toBe('');
+            expect(element.style.display).toBe('' as any);
         });
 
         it('should not show remove icon when not removable', () => {
@@ -273,7 +273,7 @@ describe('Chip', () => {
         });
 
         it('should not display label when undefined', () => {
-            component.label = undefined;
+            component.label = undefined as any;
             fixture.detectChanges();
 
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
@@ -321,7 +321,7 @@ describe('Chip', () => {
         });
 
         it('should not display icon when undefined', () => {
-            component.icon = undefined;
+            component.icon = undefined as any;
             fixture.detectChanges();
 
             const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
@@ -393,7 +393,7 @@ describe('Chip', () => {
         });
 
         it('should not display image when undefined', () => {
-            component.image = undefined;
+            component.image = undefined as any;
             fixture.detectChanges();
 
             const imageElement = fixture.debugElement.query(By.css('.p-chip-image'));
@@ -786,7 +786,7 @@ describe('Chip', () => {
 
         it('should be visible by default', () => {
             expect(chipComponent.visible).toBe(true);
-            expect(element.style.display).toBe('');
+            expect(element.style.display).toBe('' as any);
         });
 
         it('should hide when visible is false', () => {
@@ -867,10 +867,10 @@ describe('Chip', () => {
 
         it('should handle null/undefined values gracefully', () => {
             component.label = null as any;
-            component.icon = undefined;
-            component.image = undefined;
-            component.alt = undefined;
-            component.styleClass = undefined;
+            component.icon = undefined as any;
+            component.image = undefined as any;
+            component.alt = undefined as any;
+            component.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(fixture.debugElement.query(By.css('.p-chip-label'))).toBeFalsy();
@@ -896,7 +896,7 @@ describe('Chip', () => {
 
             const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
             expect(labelElement).toBeTruthy();
-            expect(labelElement.nativeElement.textContent.trim()).toBe('');
+            expect(labelElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle rapid removable state changes', () => {
@@ -914,7 +914,7 @@ describe('Chip', () => {
         });
 
         it('should handle undefined chipProps gracefully', () => {
-            component.chipProps = undefined;
+            component.chipProps = undefined as any;
             fixture.detectChanges();
 
             expect(chipComponent.chipProps).toBeUndefined();

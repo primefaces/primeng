@@ -234,7 +234,7 @@ describe('DataView', () => {
             expect(dataview.showPageLinks).toBe(true);
             expect(dataview.lazyLoadOnInit).toBe(true);
             expect(dataview.emptyMessage).toBe('No products found');
-            expect(dataview.gridStyleClass).toBe('');
+            expect(dataview.gridStyleClass).toBe('' as any);
             expect(dataview.first).toBe(0);
             expect(dataview.layout).toBe('list');
         });
@@ -414,7 +414,7 @@ describe('DataView', () => {
         });
 
         it('should update totalRecords', () => {
-            dataview.totalRecords = undefined;
+            dataview.totalRecords = undefined as any;
             dataview._value = component.products;
             dataview.updateTotalRecords();
 
@@ -861,14 +861,14 @@ describe('DataView', () => {
         });
 
         it('should handle sorting without sortField', () => {
-            component.sortField = undefined;
+            component.sortField = undefined as any;
             fixture.detectChanges();
 
             expect(() => dataview.sort()).not.toThrow();
         });
 
         it('should handle large datasets efficiently', () => {
-            const largeData = [];
+            const largeData: any[] = [];
             for (let i = 0; i < 1000; i++) {
                 largeData.push({
                     id: i,
@@ -1189,7 +1189,7 @@ describe('DataView', () => {
         });
 
         it('should handle gridStyleClass property', () => {
-            expect(dataview.gridStyleClass).toBe('');
+            expect(dataview.gridStyleClass).toBe('' as any);
 
             component.gridStyleClass = 'custom-grid-class';
             fixture.detectChanges();

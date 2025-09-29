@@ -3063,6 +3063,12 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "minimizeLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -3718,6 +3724,14 @@
                             "description": "Specifies if multiple values can be selected."
                         },
                         {
+                            "name": "addOnTab",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the input value is added to the selected items on tab key press when multiple is true and typeahead is false."
+                        },
+                        {
                             "name": "tabindex",
                             "optional": false,
                             "readonly": false,
@@ -3893,6 +3907,21 @@
                             "description": "Whether typeahead is active or not."
                         },
                         {
+                            "name": "addOnBlur",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to add an item on blur event if the input has value and typeahead is false with multiple mode."
+                        },
+                        {
+                            "name": "separator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | RegExp",
+                            "description": "Separator char to add item when typeahead is false and multiple mode is enabled."
+                        },
+                        {
                             "name": "appendTo",
                             "optional": false,
                             "readonly": false,
@@ -4048,6 +4077,16 @@
                             "description": "Callback to invoke when a selected value is removed."
                         },
                         {
+                            "name": "onAdd",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AutoCompleteAddEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when an item is added via addOnBlur or separator features."
+                        },
+                        {
                             "name": "onFocus",
                             "parameters": [
                                 {
@@ -4086,6 +4125,16 @@
                                 }
                             ],
                             "description": "Callback to invoke when clear button is clicked."
+                        },
+                        {
+                            "name": "onInputKeydown",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "KeyboardEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on input key down."
                         },
                         {
                             "name": "onKeyUp",
@@ -4240,7 +4289,7 @@
                             },
                             {
                                 "name": "query",
-                                "optional": false,
+                                "optional": true,
                                 "readonly": false,
                                 "type": "string",
                                 "description": "Selected option value."
@@ -4284,6 +4333,26 @@
                                 "readonly": false,
                                 "type": "any",
                                 "description": "Removed value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "AutoCompleteAddEvent",
+                        "description": "Custom add event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Added value."
                             }
                         ]
                     },
@@ -7144,6 +7213,14 @@
                             "type": "string",
                             "description": "Class of the element.",
                             "deprecated": "since v20.0.0, use "
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the element should be disabled."
                         },
                         {
                             "name": "removable",
@@ -11218,7 +11295,8 @@
                     "parameters": [
                         {
                             "name": "ref",
-                            "type": "DynamicDialogRef<any>"
+                            "type": "DynamicDialogRef<any>",
+                            "description": "DynamicDialog instance."
                         }
                     ],
                     "returnType": "DynamicDialogComponent",
@@ -11462,7 +11540,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string",
-                            "description": "Position of the dialog, options are \"center\", \"top\", \"bottom\", \"left\", \"right\", \"top-left\", \"top-right\", \"bottom-left\" or \"bottom-right\"."
+                            "description": "Position of the dialog, options are \"center\", \"top\", \"bottom\", \"left\", \"right\", \"topleft\", \"topright\", \"bottomleft\" or \"bottomright\"."
                         },
                         {
                             "name": "closeAriaLabel",
@@ -12735,7 +12813,7 @@
                             "parameters": [
                                 {
                                     "name": "index",
-                                    "type": "any",
+                                    "type": "number",
                                     "description": "Index of the file to be removed."
                                 }
                             ],
@@ -16491,6 +16569,13 @@
                             "description": "Whether to enable dragdrop based reordering."
                         },
                         {
+                            "name": "dropListData",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "Array to use for CDK drop list data binding. When not provided, uses options array."
+                        },
+                        {
                             "name": "fluid",
                             "optional": false,
                             "readonly": false,
@@ -17759,7 +17844,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"error\" | \"info\" | \"success\" | \"warn\" | \"secondary\" | \"contrast\"",
                             "default": "'info'",
                             "description": "Severity level of the message."
                         },
@@ -19383,6 +19468,13 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Whether to focus on the first visible or selected element."
+                        },
+                        {
+                            "name": "dataKey",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the field that uniquely identifies the record in the data."
                         },
                         {
                             "name": "selection",
@@ -21591,6 +21683,36 @@
             }
         }
     },
+    "pclass": {
+        "components": {
+            "PClass": {
+                "description": "PClass directive provides extends class binding functionality.\nSupports strings, arrays, objects, and mixed combinations.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "pClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "...",
+                            "description": "Class value(s) to be applied. Can be a string, array, object, or combination."
+                        }
+                    ]
+                }
+            }
+        },
+        "types": {
+            "description": "Defines the custom types used by the module.",
+            "values": [
+                {
+                    "name": "PClassValue",
+                    "value": "string | number | boolean | undefined | null | { [key: string]: boolean } | any",
+                    "description": "Represents the suitable value types of pClass directive."
+                }
+            ]
+        }
+    },
     "picklist": {
         "components": {
             "PickList": {
@@ -21611,6 +21733,13 @@
                             "readonly": false,
                             "type": "any[]",
                             "description": "An array of objects for the target list."
+                        },
+                        {
+                            "name": "dataKey",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the field that uniquely identifies the options."
                         },
                         {
                             "name": "sourceHeader",
@@ -24990,7 +25119,7 @@
                         "props": [
                             {
                                 "name": "originalEvent",
-                                "optional": false,
+                                "optional": true,
                                 "readonly": false,
                                 "type": "Event",
                                 "description": "Browser event."
@@ -26593,8 +26722,8 @@
                                 "name": "sizes",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "number[]",
-                                "description": "Collapsed state of the panel."
+                                "type": "(string | number)[]",
+                                "description": "Sizes of the panels, can be percentages, pixels, rem, or other CSS units."
                             }
                         ]
                     },
@@ -26613,8 +26742,8 @@
                                 "name": "sizes",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "number[]",
-                                "description": "Collapsed state of the panel."
+                                "type": "(string | number)[]",
+                                "description": "Sizes of the panels, can be percentages, pixels, rem, or other CSS units."
                             }
                         ]
                     }
@@ -29293,12 +29422,31 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "lazy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When enabled, tab is not rendered until activation."
+                        },
+                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
                             "type": "ModelSignal<string | number>",
                             "default": "undefined",
                             "description": "Value of the active tab."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Template for initializing complex content when lazy is enabled.",
+                            "type": "Signal<unknown>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -29345,7 +29493,7 @@
                             "readonly": false,
                             "type": "InputSignalWithTransform<boolean, unknown>",
                             "default": "false",
-                            "description": "When enabled, hidden tabs are not rendered at all. Defaults to false that hides tabs with css."
+                            "description": "When enabled, tabs are not rendered until activation."
                         },
                         {
                             "name": "selectOnFocus",
@@ -29477,7 +29625,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"info\" | \"success\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "description": "Severity type of the tag."
                         },
                         {

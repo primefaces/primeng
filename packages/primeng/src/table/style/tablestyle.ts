@@ -20,23 +20,7 @@ const theme = /*css*/ `
         z-index: 1;
     }
 
-    .p-datatable-scrollable > tr:not(:has(.p-datatable-selectable-row)) > .p-datatable-frozen-column {
-        position: sticky;
-        background: dt('datatable.header.cell.background');
-    }
-
-    .p-datatable-scrollable th.p-datatable-frozen-column {
-        z-index: 1;
-        position: sticky;
-        background: dt('datatable.header.cell.background');
-    }
-    .p-datatable-scrollable td.p-datatable-frozen-column {
-        z-index: 1;
-        position: sticky;
-        background: dt('datatable.header.cell.background');
-    }
-
-    .p-datatable-mask {
+    .p-datatable-mask.p-overlay-mask {
         position: absolute;
         display: flex;
         align-items: center;

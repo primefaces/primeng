@@ -1182,7 +1182,7 @@ describe('SpeedDial', () => {
         it('should have correct button icon class based on state', () => {
             // Test buttonIconClass getter logic directly
             speedDialInstance.showIcon = 'pi pi-plus';
-            speedDialInstance.hideIcon = undefined;
+            speedDialInstance.hideIcon = undefined as any;
             speedDialInstance._visible = false;
             expect(speedDialInstance.buttonIconClass).toBe('pi pi-plus');
 
@@ -1262,7 +1262,7 @@ describe('SpeedDial', () => {
         }));
 
         it('should handle missing container element gracefully', () => {
-            speedDialInstance.container = undefined;
+            speedDialInstance.container = undefined as any;
 
             expect(() => {
                 speedDialInstance.isOutsideClicked(new Event('click'));

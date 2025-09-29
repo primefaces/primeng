@@ -33,7 +33,7 @@ class TestBasicInputGroupComponent {
     `
 })
 class TestStyledInputGroupComponent {
-    price: number | null = null;
+    price: number | null = null as any;
     customClass: string = 'custom-input-group';
 }
 
@@ -205,7 +205,7 @@ describe('InputGroup', () => {
 
         it('should work without input value', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
-            expect(inputElement.nativeElement.value).toBe('');
+            expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
         it('should update input value when model changes', fakeAsync(() => {
@@ -253,12 +253,12 @@ describe('InputGroup', () => {
 
             const addonElement = emptyFixture.debugElement.query(By.directive(InputGroupAddon));
             expect(addonElement).toBeTruthy();
-            expect(addonElement.nativeElement.textContent.trim()).toBe('');
+            expect(addonElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle undefined styleClass', () => {
             const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;
-            inputGroupInstance.styleClass = undefined;
+            inputGroupInstance.styleClass = undefined as any;
             fixture.detectChanges();
 
             expect(inputGroupInstance.styleClass).toBeUndefined();

@@ -61,6 +61,11 @@ export class AppDocApiSection {
             const moduleName = docName.toLowerCase();
             let module = APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
 
+            // Special case for StyleClass which is nested under "class" -> "style" -> "components"
+            if (docName === 'StyleClass' && !module) {
+                module = APIDoc['class']?.style?.components[docName];
+            }
+
             let newDoc = {
                 id: `api.${this.isInterface(module) ? this.docs()[0].toLowerCase() + '.interfaces' : moduleName}`,
                 isInterface: this.isInterface(module),
