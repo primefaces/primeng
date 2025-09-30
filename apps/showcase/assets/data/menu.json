@@ -540,6 +540,10 @@
                 {
                     "name": "PrimeTV",
                     "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                },
+                   {
+                    "name": "RTL",
+                    "routerLink": "/guides/rtl"
                 }
             ]
         },
