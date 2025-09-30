@@ -65,7 +65,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * Height of an item in the list.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) itemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) itemSize: number | undefined | null;
     /**
      * Inline style of the component.
      * @group Props

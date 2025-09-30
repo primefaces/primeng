@@ -163,7 +163,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Maximum number of entries allowed.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) max: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) max: number | undefined | null;
     /**
      * Maximum length of a chip.
      * @group Props
@@ -183,7 +183,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props

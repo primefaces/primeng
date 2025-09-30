@@ -479,7 +479,7 @@ export class Password implements AfterContentInit, OnInit {
      * specifies the maximum number of characters allowed in the input element.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxLength: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxLength: number | undefined | null;
     /**
      * Text for a strong password. Defaults to PrimeNG I18N API configuration.
      * @group Props

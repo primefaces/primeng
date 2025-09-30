@@ -246,7 +246,7 @@ export class SplitButton {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
     /**
      * When present, it specifies that the menu button element should be disabled.
      * @group Props

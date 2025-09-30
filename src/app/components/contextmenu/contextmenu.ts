@@ -460,7 +460,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      * Press delay in touch devices as miliseconds.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) pressDelay: number | undefined = 500;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) pressDelay: number | undefined | null = 500;
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits

@@ -241,19 +241,19 @@ export class UITreeNode implements OnInit {
 
     @Input() parentNode: TreeNode<any> | undefined;
 
-    @Input({ transform: booleanAttribute }) root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined | null;
 
-    @Input({ transform: numberAttribute }) index: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) index: number | undefined | null;
 
     @Input({ transform: booleanAttribute }) firstChild: boolean | undefined;
 
     @Input({ transform: booleanAttribute }) lastChild: boolean | undefined;
 
-    @Input({ transform: numberAttribute }) level: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) level: number | undefined | null;
 
-    @Input({ transform: numberAttribute }) indentation: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) indentation: number | undefined | null;
 
-    @Input({ transform: numberAttribute }) itemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) itemSize: number | undefined | null;
 
     @Input() loadingMode: string;
 
@@ -1051,7 +1051,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) virtualScrollItemSize: number | undefined | null;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props

@@ -609,7 +609,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Height of a row to use in calculations of virtual scrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) virtualScrollItemSize: number | undefined | null;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -4681,7 +4681,7 @@ export class TableRadioButton {
 
     @Input() value: any;
 
-    @Input({ transform: numberAttribute }) index: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) index: number | undefined | null;
 
     @Input() inputId: string | undefined;
 
@@ -4781,7 +4781,7 @@ export class TableCheckbox {
 
     @Input() value: any;
 
-    @Input({ transform: numberAttribute }) index: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) index: number | undefined | null;
 
     @Input() inputId: string | undefined;
 
@@ -5334,12 +5334,12 @@ export class ColumnFilter implements AfterContentInit {
      * Defines minimum fraction of digits.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) minFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) minFractionDigits: number | undefined | null;
     /**
      * Defines maximum fraction of digits.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFractionDigits: number | undefined | null;
     /**
      * Defines prefix of the filter.
      * @group Props
@@ -5999,9 +5999,9 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() placeholder: string | undefined;
 
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) minFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) minFractionDigits: number | undefined | null;
 
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFractionDigits: number | undefined | null;
 
     @Input() prefix: string | undefined;
 

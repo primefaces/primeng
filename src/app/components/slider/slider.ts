@@ -168,7 +168,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * Step factor to increment/decrement the value.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) step: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) step: number | undefined | null;
     /**
      * When specified, allows two boundary values to be picked.
      * @group Props

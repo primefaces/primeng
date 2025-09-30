@@ -140,7 +140,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props

@@ -669,7 +669,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Maximum number of selectable dates in multiple mode.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxDateCount: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxDateCount: number | undefined | null;
     /**
      * Whether to display today and clear buttons at the footer
      * @group Props
@@ -749,7 +749,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
     /**
      * Specifies the input variant of the component.
      * @group Props

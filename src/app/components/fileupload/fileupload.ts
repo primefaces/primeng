@@ -259,7 +259,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Maximum file size allowed in bytes.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxFileSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFileSize: number | undefined | null;
     /**
      * Summary message of the invalid file size.
      * @group Props

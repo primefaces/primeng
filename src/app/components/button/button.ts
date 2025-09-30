@@ -433,7 +433,7 @@ export class Button implements AfterContentInit {
      * Add a tabindex to the button.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
     /**
      * Defines the size of the button.
      * @group Props
