@@ -1,13 +1,32 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    InjectionToken,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    signal,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Bind } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
-import { BasePanel } from './basepanel';
 import { PanelStyle } from './style/panelstyle';
 
 const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
@@ -166,21 +185,114 @@ export interface PanelHeaderIconsTemplateContext {
     providers: [PanelStyle, { provide: PANEL_INSTANCE, useExisting: Panel }, { provide: PARENT_INSTANCE, useExisting: Panel }],
     host: {
         '[id]': 'id',
-        'data-pc-name': 'panel',
-        'data-pc-section': 'root',
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-p]': 'dataP()'
     },
     hostDirectives: [Bind]
 })
-export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
+export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
     $pcPanel: Panel | undefined = inject(PANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-    // TODO: replace this later. For root=host elements, hostDirective use case
+
+    _componentStyle = inject(PanelStyle);
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     ngAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
+
+    /**
+     * Id of the component.
+     */
+    @Input() id: string | undefined = uuid('pn_id_');
+    /**
+     * Defines if content of panel can be expanded and collapsed.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) toggleable: boolean | undefined;
+
+    /**
+     * Header text of the panel.
+     * @group Props
+     */
+    @Input('header') _header: string | undefined;
+
+    /**
+     * Internal collapsed state
+     */
+    _collapsed: boolean | undefined;
+
+    /**
+     * Defines the initial state of panel content, supports one or two-way binding as well.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute })
+    get collapsed(): boolean | undefined {
+        return this._collapsed;
+    }
+    set collapsed(value: boolean | undefined) {
+        this._collapsed = value;
+    }
+
+    /**
+     * Style class of the component.
+     * @group Props
+     * @deprecated since v20.0.0, use `class` instead.
+     */
+    @Input() styleClass: string | undefined;
+
+    /**
+     * Position of the icons.
+     * @group Props
+     */
+    @Input() iconPos: 'start' | 'end' | 'center' = 'end';
+
+    /**
+     * Specifies if header of panel cannot be displayed.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showHeader: boolean = true;
+
+    /**
+     * Specifies the toggler element to toggle the panel content.
+     * @group Props
+     */
+    @Input() toggler: 'icon' | 'header' = 'icon';
+
+    /**
+     * Transition options of the animation.
+     * @group Props
+     */
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() toggleButtonProps: any;
+
+    /**
+     * Emitted when the collapsed changes.
+     * @param {boolean} value - New Value.
+     * @group Emits
+     */
+    @Output() collapsedChange: EventEmitter<boolean | undefined> = new EventEmitter<boolean | undefined>();
+
+    /**
+     * Callback to invoke before panel toggle.
+     * @param {PanelBeforeToggleEvent} event - Custom panel toggle event
+     * @group Emits
+     */
+    @Output() onBeforeToggle: EventEmitter<PanelBeforeToggleEvent> = new EventEmitter<PanelBeforeToggleEvent>();
+
+    /**
+     * Callback to invoke after panel toggle.
+     * @param {PanelAfterToggleEvent} event - Custom panel toggle event
+     * @group Emits
+     */
+    @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
+
+    animating = signal<boolean>(false);
 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
     /**
@@ -249,8 +361,6 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
     getToggleButtonProps() {
         return { ...this.toggleButtonProps, ...this.ptm('toggleButton') };
     }
-
-    _componentStyle = inject(PanelStyle);
 
     onHeaderClick(event: MouseEvent) {
         if (this.toggler === 'header') {
@@ -361,7 +471,7 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [Panel, BasePanel, SharedModule, Bind],
-    exports: [Panel, BasePanel, SharedModule, Bind]
+    imports: [Panel, SharedModule, Bind],
+    exports: [Panel, SharedModule, Bind]
 })
 export class PanelModule {}
