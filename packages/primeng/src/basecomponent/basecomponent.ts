@@ -319,15 +319,24 @@ export class BaseComponent implements OnDestroy {
     _params() {
         const parentInstance = this.parentInstance || this._getHostInstance(this) || this['parent'] || this['parentInstance'];
 
+        const buildParentParams = (instance: any): any => {
+            if (!instance) return undefined;
+
+            const grandParentInstance = instance.parentInstance || instance._getHostInstance?.(instance) || instance['parent'] || instance['parentInstance'];
+
+            return {
+                instance: instance,
+                props: instance.params?.props || instance,
+                state: instance.params?.state || instance,
+                ...(grandParentInstance && { parent: buildParentParams(grandParentInstance) })
+            };
+        };
+
         return {
             instance: this,
             props: this.params?.props || this,
             state: this.params?.state || this,
-            parent: {
-                instance: parentInstance,
-                props: parentInstance?.params?.props || parentInstance,
-                state: parentInstance?.params?.state || parentInstance
-            }
+            ...(parentInstance && { parent: buildParentParams(parentInstance) })
         };
     }
 
