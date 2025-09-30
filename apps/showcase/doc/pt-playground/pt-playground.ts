@@ -93,16 +93,16 @@ export class PTPlayground {
         return {
             class: [
                 {
-                    'header-collapsed-true': instance.collapsed(),
-                    'header-collapsed-false': !instance.collapsed()
+                    'header-collapsed-true': instance.collapsed,
+                    'header-collapsed-false': !instance.collapsed
                 },
                 'STRING-CLASS',
-                { OBJECT: instance.collapsed() },
+                { OBJECT: instance.collapsed },
                 [{ object: true }],
                 ['array-string-1', 'array-string-2']
             ],
             style: {
-                background: !instance.collapsed() ? 'red;' : 'blue;'
+                background: !instance.collapsed ? 'red;' : 'blue;'
             },
             // TODO: onmouseenter => onMouseEnter
             mouseenter: () => handleMouseEnter(instance),
@@ -119,13 +119,13 @@ export class PTPlayground {
         return {
             // class: [
             //     {
-            //         '!border-2 !border-green-500': instance.collapsed()
+            //         '!border-2 !border-green-500': instance.collapsed
             //     },
             //     'p-16'
             // ]
 
             class: {
-                '!border-2 !border-green-500': instance.collapsed(),
+                '!border-2 !border-green-500': instance.collapsed,
                 'p-4': true
             }
         };

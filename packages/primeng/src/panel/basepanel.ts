@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, Output, booleanAttribute, model, signal } from '@angular/core';
+import { Directive, EventEmitter, Input, Output, booleanAttribute, signal } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel';
 
@@ -22,7 +22,7 @@ export class BasePanel extends BaseComponent {
      * Defines the initial state of panel content, supports one or two-way binding as well.
      * @group Props
      */
-    collapsed = model<boolean | undefined>(false);
+    @Input({ transform: booleanAttribute }) collapsed: boolean | undefined;
 
     /**
      * Style class of the component.
@@ -90,7 +90,7 @@ export class BasePanel extends BaseComponent {
             props: {
                 toggleable: this.toggleable,
                 header: this._header,
-                collapsed: this.collapsed(),
+                collapsed: this.collapsed,
                 styleClass: this.styleClass,
                 iconPos: this.iconPos,
                 showHeader: this.showHeader,
@@ -100,8 +100,8 @@ export class BasePanel extends BaseComponent {
             },
             state: {
                 animating: this.animating(),
-                collapsed: this.collapsed(),
-                isExpanded: !this.collapsed()
+                collapsed: this.collapsed,
+                isExpanded: !this.collapsed
             }
         };
     }

@@ -30,27 +30,27 @@ export class BasicDoc {
     buttonPT({ instance }) {
         return {
             class: {
-                'pcToggleButton-collapsed-true': instance.collapsed(),
-                'pcToggleButton-collapsed-false': instance.collapsed()
+                'pcToggleButton-collapsed-true': instance.collapsed,
+                'pcToggleButton-collapsed-false': instance.collapsed
             },
             style: {
-                background: instance.collapsed() ? 'white !important;' : 'yellow !important;'
+                background: instance.collapsed ? 'white !important;' : 'yellow !important;'
             }
         };
     }
 
     headerPT({ instance }) {
         const handleMouseEnter = (instance) => {
-            // console.log('mouseEnter', instance?.collapsed());
+            // console.log('mouseEnter', instance?.collapsed);
         };
 
         return {
             class: {
-                'header-collapsed-true': instance.collapsed(),
-                'header-collapsed-false': !instance.collapsed()
+                'header-collapsed-true': instance.collapsed,
+                'header-collapsed-false': !instance.collapsed
             },
             style: {
-                background: !instance.collapsed() ? 'red !important;' : 'blue !important;'
+                background: !instance.collapsed ? 'red !important;' : 'blue !important;'
             },
             mouseenter: () => handleMouseEnter(instance),
             // mouseleave: () => this.handleMouseLeave(instance),
@@ -59,20 +59,20 @@ export class BasicDoc {
     }
 
     handleMouseLeave = (instance) => {
-        // console.log('mouseLeave', instance?.collapsed());
+        // console.log('mouseLeave', instance?.collapsed);
     };
 
     rootPT({ instance }) {
         return {
             // class: [
             //     {
-            //         '!border-2 !border-green-500': instance.collapsed()
+            //         '!border-2 !border-green-500': instance.collapsed
             //     },
             //     'p-16'
             // ]
 
             class: {
-                '!border-2 !border-green-500': instance.collapsed(),
+                '!border-2 !border-green-500': instance.collapsed,
                 'p-4': true
             }
         };

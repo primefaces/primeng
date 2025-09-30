@@ -75,7 +75,7 @@ export interface PanelHeaderIconsTemplateContext {
                         [styleClass]="cx('pcToggleButton')"
                         [attr.aria-label]="buttonAriaLabel"
                         [attr.aria-controls]="id + '_content'"
-                        [attr.aria-expanded]="!collapsed()"
+                        [attr.aria-expanded]="!collapsed"
                         (click)="onIconClick($event)"
                         (keydown)="onKeyDown($event)"
                         [buttonProps]="getToggleButtonProps()"
@@ -83,16 +83,16 @@ export interface PanelHeaderIconsTemplateContext {
                     >
                         <ng-template #icon>
                             <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
-                                <ng-container *ngIf="!collapsed()">
+                                <ng-container *ngIf="!collapsed">
                                     <svg data-p-icon="minus" [pBind]="ptm('pcToggleButton')['icon']" />
                                 </ng-container>
 
-                                <ng-container *ngIf="collapsed()">
+                                <ng-container *ngIf="collapsed">
                                     <svg data-p-icon="plus" [pBind]="ptm('pcToggleButton')['icon']" />
                                 </ng-container>
                             </ng-container>
 
-                            <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed() }"></ng-template>
+                            <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
@@ -103,10 +103,10 @@ export interface PanelHeaderIconsTemplateContext {
                 [id]="id + '_content'"
                 role="region"
                 [attr.aria-labelledby]="id + '_header'"
-                [attr.aria-hidden]="collapsed()"
-                [attr.tabindex]="collapsed() ? '-1' : undefined"
+                [attr.aria-hidden]="collapsed"
+                [attr.tabindex]="collapsed ? '-1' : undefined"
                 [@panelContent]="
-                    collapsed()
+                    collapsed
                         ? {
                               value: 'hidden',
                               params: {
@@ -276,10 +276,10 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
         }
 
         this.animating.set(true);
-        this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed() });
+        this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
         if (this.toggleable) {
-            if (this.collapsed()) this.expand();
+            if (this.collapsed) this.expand();
             else this.collapse();
         }
 
@@ -287,13 +287,13 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
     }
 
     expand() {
-        this.collapsed.set(false);
+        this.collapsed = false;
         this.collapsedChange.emit(false);
         this.updateTabIndex();
     }
 
     collapse() {
-        this.collapsed.set(true);
+        this.collapsed = true;
         this.collapsedChange.emit(true);
         this.updateTabIndex();
     }
@@ -306,7 +306,7 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
         if (this.contentWrapperViewChild) {
             const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]');
             focusableElements.forEach((element: HTMLElement) => {
-                if (this.collapsed()) {
+                if (this.collapsed) {
                     element.setAttribute('tabindex', '-1');
                 } else {
                     element.removeAttribute('tabindex');
@@ -324,7 +324,7 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
 
     onToggleDone(event: any) {
         this.animating.set(false);
-        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed() });
+        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
