@@ -1,4 +1,5 @@
 import { Directive, EventEmitter, Input, Output, booleanAttribute, signal } from '@angular/core';
+import { uuid } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel';
 
@@ -6,6 +7,10 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel';
     standalone: true
 })
 export class BasePanel extends BaseComponent {
+    /**
+     * Id of the component.
+     */
+    @Input() id: string | undefined = uuid('pn_id_');
     /**
      * Defines if content of panel can be expanded and collapsed.
      * @group Props
@@ -88,6 +93,7 @@ export class BasePanel extends BaseComponent {
     initParams() {
         return {
             props: {
+                id: this.id,
                 toggleable: this.toggleable,
                 header: this._header,
                 collapsed: this.collapsed,

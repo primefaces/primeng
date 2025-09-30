@@ -8,16 +8,6 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
-// TODO: will be removed later
-const rootPT = ({ instance }) => {
-    return {
-        class: {
-            'ROOTPT-CONFIG': instance.collapsed,
-            'p-4': true
-        }
-    };
-};
-
 export const appConfig: ApplicationConfig = {
     providers: [
         provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })), // withEnabledBlockingInitialNavigation()
@@ -25,14 +15,7 @@ export const appConfig: ApplicationConfig = {
         provideAnimationsAsync(),
         providePrimeNG({
             theme: Noir,
-            ripple: false,
-            // TODO: will be removed later
-            pt: {
-                panel: {
-                    root: rootPT,
-                    header: 'PANELHEADER'
-                }
-            }
+            ripple: false
         }),
         MessageService,
         DesignerService,

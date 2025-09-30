@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { uuid } from '@primeuix/utils';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
@@ -183,10 +182,6 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
     ngAfterViewChecked(): void {
         this.bindDirectiveInstance.attrs = this.ptm('root');
     }
-    /**
-     * Id of the component.
-     */
-    @Input() id: string | undefined = uuid('pn_id_');
 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
     /**

@@ -4,7 +4,7 @@ import { PTPlayground } from '@/doc/pt-playground/pt-playground';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular RadioButton Component" header="PT Playground" [docs]="docs"></app-doc>`,
+    template: `<app-doc docTitle="Angular PT Playground" header="PT Playground" [docs]="docs"></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
