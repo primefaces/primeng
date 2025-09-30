@@ -10,7 +10,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { BasePanel } from './basepanel';
 import { PanelStyle } from './style/panelstyle';
 
-const INSTANCE = new InjectionToken<Panel>('INSTANCE');
+const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
 /**
  * Custom panel toggle event, emits before panel toggle.
  * @see {@link onBeforeToggle}
@@ -163,7 +163,7 @@ export interface PanelHeaderIconsTemplateContext {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PanelStyle, { provide: INSTANCE, useExisting: Panel }, { provide: PARENT_INSTANCE, useExisting: Panel }],
+    providers: [PanelStyle, { provide: PANEL_INSTANCE, useExisting: Panel }, { provide: PARENT_INSTANCE, useExisting: Panel }],
     host: {
         '[id]': 'id',
         'data-pc-name': 'panel',
@@ -174,7 +174,7 @@ export interface PanelHeaderIconsTemplateContext {
     hostDirectives: [Bind]
 })
 export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
-    $pcPanel: Panel | undefined = inject(INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+    $pcPanel: Panel | undefined = inject(PANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
     // TODO: replace this later. For root=host elements, hostDirective use case
     bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -281,13 +281,13 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
     }
 
     expand() {
-        this.collapsed = false;
+        this._collapsed = false;
         this.collapsedChange.emit(false);
         this.updateTabIndex();
     }
 
     collapse() {
-        this.collapsed = true;
+        this._collapsed = true;
         this.collapsedChange.emit(true);
         this.updateTabIndex();
     }

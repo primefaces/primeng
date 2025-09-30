@@ -24,10 +24,21 @@ export class BasePanel extends BaseComponent {
     @Input('header') _header: string | undefined;
 
     /**
+     * Internal collapsed state
+     */
+    _collapsed: boolean | undefined;
+
+    /**
      * Defines the initial state of panel content, supports one or two-way binding as well.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) collapsed: boolean | undefined;
+    @Input({ transform: booleanAttribute })
+    get collapsed(): boolean | undefined {
+        return this._collapsed;
+    }
+    set collapsed(value: boolean | undefined) {
+        this._collapsed = value;
+    }
 
     /**
      * Style class of the component.
@@ -96,7 +107,7 @@ export class BasePanel extends BaseComponent {
                 id: this.id,
                 toggleable: this.toggleable,
                 header: this._header,
-                collapsed: this.collapsed,
+                collapsed: this._collapsed,
                 styleClass: this.styleClass,
                 iconPos: this.iconPos,
                 showHeader: this.showHeader,
@@ -106,8 +117,8 @@ export class BasePanel extends BaseComponent {
             },
             state: {
                 animating: this.animating(),
-                collapsed: this.collapsed,
-                isExpanded: !this.collapsed
+                collapsed: this._collapsed,
+                isExpanded: !this._collapsed
             }
         };
     }

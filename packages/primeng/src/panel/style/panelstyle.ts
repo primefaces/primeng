@@ -18,8 +18,8 @@ const classes = {
         'p-panel p-component',
         {
             'p-panel-toggleable': instance.toggleable,
-            'p-panel-expanded': !instance.collapsed && instance.toggleable,
-            'p-panel-collapsed': instance.collapsed && instance.toggleable
+            'p-panel-expanded': !instance._collapsed && instance.toggleable,
+            'p-panel-collapsed': instance._collapsed && instance.toggleable
         }
     ],
     icons: ({ instance }) => [
