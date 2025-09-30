@@ -1762,7 +1762,6 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
                 this.overlayVisible && this.hide(this.filter);
             }
         }
-        event.stopPropagation();
     }
 
     onFirstHiddenFocus(event) {
