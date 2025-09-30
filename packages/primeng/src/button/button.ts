@@ -6,15 +6,19 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
+    ContentChild,
     contentChild,
     ContentChildren,
     Directive,
+    EventEmitter,
     inject,
     InjectionToken,
     input,
     Input,
     NgModule,
+    numberAttribute,
     OnDestroy,
+    Output,
     QueryList,
     TemplateRef,
     ViewEncapsulation
@@ -28,11 +32,12 @@ import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Bind } from 'primeng/pbind';
 import { Ripple } from 'primeng/ripple';
-import { BaseButton, ButtonIconPosition } from './basebutton';
 import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';
 
-const INSTANCE = new InjectionToken<Button>('INSTANCE');
+const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
+
+export type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
 const INTERNAL_BUTTON_CLASSES = {
     button: 'p-button',
@@ -51,7 +56,7 @@ const INTERNAL_BUTTON_CLASSES = {
         '[class.p-button-label]': 'true'
     }
 })
-export class ButtonLabel extends BaseButton {
+export class ButtonLabel extends BaseComponent {
     _componentStyle = inject(ButtonStyle);
 }
 
@@ -63,7 +68,7 @@ export class ButtonLabel extends BaseButton {
         '[class.p-button-icon]': 'true'
     }
 })
-export class ButtonIcon extends BaseButton {
+export class ButtonIcon extends BaseComponent {
     _componentStyle = inject(ButtonStyle);
 }
 /**
@@ -487,13 +492,221 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ButtonStyle, { provide: INSTANCE, useExisting: Button }, { provide: PARENT_INSTANCE, useExisting: Button }],
+    providers: [ButtonStyle, { provide: BUTTON_INSTANCE, useExisting: Button }, { provide: PARENT_INSTANCE, useExisting: Button }],
     hostDirectives: [Bind]
 })
-export class Button extends BaseButton implements AfterContentInit {
-    $pcButton: Button | undefined = inject(INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+export class Button extends BaseComponent implements AfterContentInit {
+    $pcButton: Button | undefined = inject(BUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+    /**
+     * Type of the button.
+     * @group Props
+     */
+    @Input() type: string = 'button';
+
+    /**
+     * Value of the badge.
+     * @group Props
+     */
+    @Input() badge: string | undefined;
+
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
+
+    /**
+     * Add a shadow to indicate elevation.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) raised: boolean = false;
+
+    /**
+     * Add a circular border radius to the button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) rounded: boolean = false;
+
+    /**
+     * Add a textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) text: boolean = false;
+
+    /**
+     * Add a plain textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) plain: boolean = false;
+
+    /**
+     * Add a border class without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) outlined: boolean = false;
+
+    /**
+     * Add a link style to the button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) link: boolean = false;
+
+    /**
+     * Add a tabindex to the button.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+
+    /**
+     * Defines the size of the button.
+     * @group Props
+     */
+    @Input() size: 'small' | 'large' | undefined;
+
+    /**
+     * Specifies the variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'outlined' | 'text' | undefined;
+
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+
+    /**
+     * Style class of the badge.
+     * @group Props
+     * @deprecated use badgeSeverity instead.
+     */
+    @Input() badgeClass: string | undefined;
+
+    /**
+     * Severity type of the badge.
+     * @group Props
+     * @defaultValue secondary
+     */
+    @Input() badgeSeverity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined = 'secondary';
+
+    /**
+     * Used to define a string that autocomplete attribute the current element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+
+    /**
+     * Position of the icon.
+     * @group Props
+     */
+    @Input() iconPos: ButtonIconPosition = 'left';
+
+    /**
+     * Name of the icon.
+     * @group Props
+     */
+    @Input() icon: string | undefined;
+
+    /**
+     * Text of the button.
+     * @group Props
+     */
+    @Input() label: string | undefined;
+
+    /**
+     * Whether the button is in loading state.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) loading: boolean = false;
+
+    /**
+     * Icon to display in loading state.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+
+    /**
+     * Defines the style of the button.
+     * @group Props
+     */
+    @Input() severity: ButtonSeverity;
+
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() buttonProps: ButtonProps;
+
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+
+    /**
+     * Callback to execute when button is clicked.
+     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
+    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter();
+
+    /**
+     * Callback to execute when button is focused.
+     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (focus).
+     * @param {FocusEvent} event - Focus event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+
+    /**
+     * Callback to execute when button loses focus.
+     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (blur).
+     * @param {FocusEvent} event - Focus event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+
+    /**
+     * Template of the content.
+     * @group Templates
+     **/
+    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template of the loading.
+     * @group Templates
+     **/
+    @ContentChild('loadingicon') loadingIconTemplate: TemplateRef<any> | undefined;
+
+    /**
+     * Template of the icon.
+     * @group Templates
+     **/
+    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
+
+    _componentStyle = inject(ButtonStyle);
 
     _contentTemplate: TemplateRef<any> | undefined;
 
@@ -543,7 +756,7 @@ export class Button extends BaseButton implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonDirective, Button, BaseButton, SharedModule, ButtonLabel, ButtonIcon],
-    exports: [ButtonDirective, Button, BaseButton, ButtonLabel, ButtonIcon, SharedModule]
+    imports: [CommonModule, ButtonDirective, Button, SharedModule, ButtonLabel, ButtonIcon],
+    exports: [ButtonDirective, Button, ButtonLabel, ButtonIcon, SharedModule]
 })
 export class ButtonModule {}
