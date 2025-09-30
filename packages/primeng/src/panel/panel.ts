@@ -362,6 +362,6 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
 
 @NgModule({
     imports: [Panel, BasePanel, SharedModule, Bind],
-    exports: [Panel, BasePanel, SharedModule]
+    exports: [Panel, BasePanel, SharedModule, Bind]
 })
 export class PanelModule {}
