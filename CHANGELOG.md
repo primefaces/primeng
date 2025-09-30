@@ -5,6 +5,11 @@ Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 ## [20.2.0](https://github.com/primefaces/primeng/tree/20.2.0) (2025-09-26)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.1.2...20.2.0)
 
+**PrimeUIX Changelog**
+Enhancements via the PrimeUIX packages that PrimeNG utilizes internally. 
+- [#Styles](https://github.com/primefaces/primeuix/milestone/28?closed=1)
+- [#Themes](https://github.com/primefaces/primeuix/milestone/29?closed=1)
+
 **Fixed bugs:**
 - Table: Performance degradation for the table with pFrozenColumn [#15922](https://github.com/primefaces/primeng/issues/15922)
 - Autocomplete: Do not clear input on Backspace [#16570](https://github.com/primefaces/primeng/issues/16570)
