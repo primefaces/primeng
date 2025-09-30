@@ -100,7 +100,7 @@ export class DropdownItem {
 
     @Input({ transform: booleanAttribute }) visible: boolean | undefined;
 
-    @Input({ transform: numberAttribute }) itemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) itemSize: number | undefined | null;
 
     @Input() ariaPosInset: string | undefined;
 
@@ -431,7 +431,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null = 0;
     /**
      * Default text to display when no option is selected.
      * @group Props
@@ -572,7 +572,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) virtualScrollItemSize: number | undefined | null;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -607,7 +607,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Maximum number of character allows in the editable input field.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxlength: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxlength: number | undefined | null;
     /**
      * Advisory information to display in a tooltip on hover.
      * @group Props

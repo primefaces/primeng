@@ -70,7 +70,7 @@ export class InputSwitch {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
     /**
      * Identifier of the input element.
      * @group Props

@@ -383,7 +383,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null = 0;
     /**
      * Defines a string that labels the move to right button for accessibility.
      * @group Props

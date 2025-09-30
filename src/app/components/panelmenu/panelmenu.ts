@@ -185,7 +185,7 @@ export class PanelMenuSub {
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
 
     @Input() transitionOptions: string | undefined;
 
@@ -329,7 +329,7 @@ export class PanelMenuList implements OnChanges {
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
 
     @Input() activeItem: any;
 
@@ -906,7 +906,7 @@ export class PanelMenu implements AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

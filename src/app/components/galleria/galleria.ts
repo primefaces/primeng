@@ -487,7 +487,7 @@ export class GalleriaContent implements DoCheck {
 
     @Input() value: any[] = [];
 
-    @Input({ transform: numberAttribute }) numVisible: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) numVisible: number | undefined | null;
 
     @Input({ transform: booleanAttribute }) fullScreen: boolean;
 
@@ -609,7 +609,7 @@ export class GalleriaContent implements DoCheck {
 export class GalleriaItemSlot {
     @Input() templates: QueryList<PrimeTemplate> | undefined;
 
-    @Input({ transform: numberAttribute }) index: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) index: number | undefined | null;
 
     @Input() get item(): any {
         return this._item;

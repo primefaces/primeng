@@ -55,22 +55,22 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Delay to show the tooltip in milliseconds.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) showDelay: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) showDelay: number | undefined | null;
     /**
      * Delay to hide the tooltip in milliseconds.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) hideDelay: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) hideDelay: number | undefined | null;
     /**
      * Time to wait in milliseconds to hide the tooltip even it is active.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) life: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) life: number | undefined | null;
     /**
      * Specifies the additional vertical offset of the tooltip from its default position.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) positionTop: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) positionTop: number | undefined | null;
     /**
      * Specifies the additional horizontal offset of the tooltip from its default position.
      * @group Props

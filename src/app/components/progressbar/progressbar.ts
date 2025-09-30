@@ -66,7 +66,7 @@ export class ProgressBar {
      * Current value of the progress.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) value: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) value: number | undefined | null;
     /**
      * Whether to display the progress bar value.
      * @group Props

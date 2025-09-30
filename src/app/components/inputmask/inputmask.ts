@@ -164,12 +164,12 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Size of the input field.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) size: number | undefined | null;
     /**
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxlength: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxlength: number | undefined | null;
     /**
      * Specifies tab order of the element.
      * @group Props

@@ -175,7 +175,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
 
     /**
      * Defines a string that labels the input for accessibility.

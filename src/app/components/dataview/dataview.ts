@@ -132,12 +132,12 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Number of rows to display per page.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) rows: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) rows: number | undefined | null;
     /**
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) totalRecords: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) totalRecords: number | undefined | null;
     /**
      * Number of page links to display in paginator.
      * @group Props
@@ -257,7 +257,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) first: number | undefined = 0;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) first: number | undefined | null = 0;
     /**
      * Property name of data to use in sorting by default.
      * @group Props
@@ -267,7 +267,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Order to sort the data by default.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) sortOrder: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) sortOrder: number | undefined | null;
     /**
      * An array of objects to display.
      * @group Props

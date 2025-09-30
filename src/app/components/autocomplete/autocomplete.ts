@@ -357,7 +357,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) virtualScrollItemSize: number | undefined | null;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -367,7 +367,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxlength: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxlength: number | undefined | null;
     /**
      * Name of the input element.
      * @group Props
@@ -382,7 +382,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Size of the input field.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) size: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) size: number | undefined | null;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -483,7 +483,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) tabindex: number | undefined | null;
     /**
      * A property to uniquely identify a value in options.
      * @group Props

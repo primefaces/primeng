@@ -307,7 +307,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Number of rows to display per page.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) rows: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) rows: number | undefined | null;
     /**
      * Index of the first row to be displayed.
      * @group Props
@@ -457,7 +457,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Height of a row to use in calculations of virtual scrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) virtualScrollItemSize: number | undefined | null;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props

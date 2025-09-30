@@ -128,7 +128,7 @@ import { DomHandler } from 'primeng/dom';
 export class ToastItem implements AfterViewInit, OnDestroy {
     @Input() message: Message | null | undefined;
 
-    @Input({ transform: numberAttribute }) index: number | null | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) index: number | undefined | null;
 
     @Input({ transform: numberAttribute }) life: number;
 

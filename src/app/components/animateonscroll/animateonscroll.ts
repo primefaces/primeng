@@ -43,7 +43,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
      * Specifies the threshold option of the IntersectionObserver API
      * @group Props
      */
-    @Input({ transform: numberAttribute }) threshold: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) threshold: number | undefined | null;
     /**
      * Whether the scroll event listener should be removed after initial run.
      * @group Props

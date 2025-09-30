@@ -108,7 +108,7 @@ export class MultiSelectItem {
 
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
-    @Input({ transform: numberAttribute }) itemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) itemSize: number | undefined | null;
 
     @Input({ transform: booleanAttribute }) focused: boolean | undefined;
 
@@ -671,7 +671,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) virtualScrollItemSize: number | undefined | null;
     /**
      * Icon to display in loading state.
      * @group Props

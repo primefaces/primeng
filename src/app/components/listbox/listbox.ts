@@ -304,7 +304,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) virtualScrollItemSize: number | undefined | null;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
