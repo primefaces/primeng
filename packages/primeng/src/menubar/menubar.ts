@@ -705,7 +705,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
     onItemMouseEnter(event: any) {
         if (!isTouchDevice()) {
-            if (this.dirty) {
+            if (this.dirty || this.autoDisplay) {
                 this.onItemChange(event, 'hover');
             }
         } else {
