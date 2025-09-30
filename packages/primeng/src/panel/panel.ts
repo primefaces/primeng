@@ -179,7 +179,7 @@ export class Panel extends BasePanel implements AfterContentInit, BlockableUI {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     ngAfterViewChecked(): void {
-        this.bindDirectiveInstance.attrs = this.ptm('root');
+        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
