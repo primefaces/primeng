@@ -1,4 +1,4 @@
-import { computed, Directive, effect, ElementRef, input, NgModule, Renderer2 } from '@angular/core';
+import { computed, Directive, effect, ElementRef, input, NgModule, Renderer2, signal } from '@angular/core';
 import { cn } from '@primeuix/utils';
 
 /**
@@ -18,7 +18,10 @@ export class Bind {
      * Dynamic attributes, properties, and event listeners to be applied to the host element.
      * @group Props
      */
-    attrs = input<{ [key: string]: any }>(undefined, { alias: 'pBind' });
+    pBind = input<{ [key: string]: any } | undefined>(undefined);
+
+    private _attrs = signal<{ [key: string]: any } | undefined>(undefined);
+    private attrs = computed(() => this._attrs() || this.pBind());
 
     private styles = computed(() => this.attrs()?.style);
     private classes = computed(() => cn(this.attrs()?.class));
@@ -58,6 +61,10 @@ export class Bind {
                 this.clearListeners();
             });
         });
+    }
+
+    setAttrs(attrs: { [key: string]: any } | undefined) {
+        this._attrs.set(attrs);
     }
 
     private clearListeners() {
