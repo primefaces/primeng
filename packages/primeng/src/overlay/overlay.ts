@@ -354,9 +354,9 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
     /**
      * The last target element position to align the overlay when the target moves and appendTo is 'body'.
      */
-    private lastTargetPosition: { top: number; left: number } = { top: 0, left: 0 };
+    private lastTargetPosition: { top: number; left: number } | null = { top: 0, left: 0 };
     private mutationObserver: MutationObserver | null = null;
-    private checkMovementTimeout = null;
+    private checkMovementTimeout: any = null;
 
     modalVisible: boolean = false;
 
