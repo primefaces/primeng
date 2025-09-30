@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { AccessibilityDemoComponent } from './accessibility/accessibilitydemo.component';
-import { PrimeFlexDemoComponent } from './primeflex/primeflexdemo.component';
-import { RTLDemoComponent } from './rtl/rtldemo.component';
+import { AccessibilityDemoComponent } from './accessibility/accessibilitydemo';
+import { PrimeFlexDemoComponent } from './primeflex/primeflexdemo';
+import { RTLDemoComponent } from './rtl/rtldemo';
 import { TemplateUpdateDemoComponent } from './templateupdate/templateupdatedemo.component';
 
 export default [
