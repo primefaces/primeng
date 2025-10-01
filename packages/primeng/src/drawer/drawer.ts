@@ -191,18 +191,19 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         }
         switch (value) {
             case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                this.defaultTransformOptions  = 'translate3d(-100%, 0px, 0px)';
                 break;
             case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                this.defaultTransformOptions  = 'translate3d(100%, 0px, 0px)';
                 break;
             case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                this.defaultTransformOptions  = 'translate3d(0px, 100%, 0px)';
                 break;
             case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                this.defaultTransformOptions  = 'translate3d(0px, -100%, 0px)';
                 break;
         }
+        this.transformOptions = this.defaultTransformOptions;
     }
     /**
      * Adds a close icon to the header to hide the dialog.
