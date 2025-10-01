@@ -1,9 +1,9 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'checkbox-filled-demo',
@@ -14,7 +14,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
+            <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" [ariaLabel]="'basic checkbox with true or false value'" />
         </div>
         <app-code [code]="code" selector="checkbox-filled-demo"></app-code>
     `
@@ -26,7 +26,7 @@ export class FilledDoc {
         basic: `<p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />`,
 
         html: `<div class="card flex justify-center">
-    <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
+    <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" [ariaLabel]="'basic checkbox with true or false value'"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
