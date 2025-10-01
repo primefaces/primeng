@@ -1,13 +1,35 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    EventEmitter,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
+import { Bind } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
+import { transformToBoolean } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 import { FieldsetStyle } from './style/fieldsetstyle';
+
+const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
 
 /**
  * Fieldset is a grouping component with the optional content toggle feature.
@@ -16,11 +38,11 @@ import { FieldsetStyle } from './style/fieldsetstyle';
 @Component({
     selector: 'p-fieldset',
     standalone: true,
-    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule],
+    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, Bind],
     template: `
-        <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [attr.data-pc-name]="'fieldset'" [attr.data-pc-section]="'root'">
-            <legend [class]="cx('legend')" [attr.data-pc-section]="'legend'">
-                <ng-container *ngIf="toggleable; else legendContent">
+        <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" [attr.data-p]="dataP()">
+            <legend [class]="cx('legend')" [pBind]="ptm('legend')">
+                <ng-container *ngIf="toggleable(); else legendContent">
                     <button
                         [attr.id]="id + '_header'"
                         tabindex="0"
@@ -31,16 +53,17 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                         (click)="toggle($event)"
                         (keydown)="onKeyDown($event)"
                         [class]="cx('toggleButton')"
+                        [pBind]="ptm('toggleButton')"
                     >
                         <ng-container *ngIf="collapsed">
-                            <svg data-p-icon="plus" *ngIf="!expandIconTemplate && !_expandIconTemplate" [class]="cx('toggleIcon')" [attr.data-pc-section]="'togglericon'" />
-                            <span *ngIf="expandIconTemplate || _expandIconTemplate" [class]="cx('toggleIcon')" [attr.data-pc-section]="'togglericon'">
+                            <svg data-p-icon="plus" *ngIf="!expandIconTemplate && !_expandIconTemplate" [class]="cx('toggleIcon')" [pBind]="ptm('toggleIcon')" />
+                            <span *ngIf="expandIconTemplate || _expandIconTemplate" [class]="cx('toggleIcon')" [pBind]="ptm('toggleIcon')">
                                 <ng-container *ngTemplateOutlet="expandIconTemplate || _expandIconTemplate"></ng-container>
                             </span>
                         </ng-container>
                         <ng-container *ngIf="!collapsed">
-                            <svg data-p-icon="minus" *ngIf="!collapseIconTemplate && !_collapseIconTemplate" [class]="cx('toggleIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'togglericon'" />
-                            <span *ngIf="collapseIconTemplate || _collapseIconTemplate" [class]="cx('toggleIcon')" [attr.data-pc-section]="'togglericon'">
+                            <svg data-p-icon="minus" *ngIf="!collapseIconTemplate && !_collapseIconTemplate" [class]="cx('toggleIcon')" [attr.aria-hidden]="true" [pBind]="ptm('toggleIcon')" />
+                            <span *ngIf="collapseIconTemplate || _collapseIconTemplate" [class]="cx('toggleIcon')" [pBind]="ptm('toggleIcon')">
                                 <ng-container *ngTemplateOutlet="collapseIconTemplate || _collapseIconTemplate"></ng-container>
                             </span>
                         </ng-container>
@@ -48,7 +71,7 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                     </button>
                 </ng-container>
                 <ng-template #legendContent>
-                    <span [class]="cx('legendLabel')" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
+                    <span [class]="cx('legendLabel')" [pBind]="ptm('legendLabel')">{{ legend }}</span>
                     <ng-content select="p-header"></ng-content>
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 </ng-template>
@@ -57,13 +80,13 @@ import { FieldsetStyle } from './style/fieldsetstyle';
                 [attr.id]="id + '_content'"
                 role="region"
                 [class]="cx('contentContainer')"
+                [pBind]="ptm('contentContainer')"
                 [@fieldsetContent]="collapsed ? { value: 'hidden', params: { transitionParams: transitionOptions, height: '0' } } : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*' } }"
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
-                [attr.data-pc-section]="'toggleablecontent'"
                 (@fieldsetContent.done)="onToggleDone()"
             >
-                <div [class]="cx('content')" [attr.data-pc-section]="'content'">
+                <div [class]="cx('content')" [pBind]="ptm('content')">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
@@ -90,9 +113,26 @@ import { FieldsetStyle } from './style/fieldsetstyle';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [FieldsetStyle]
+    providers: [FieldsetStyle, { provide: FIELDSET_INSTANCE, useExisting: Fieldset }, { provide: PARENT_INSTANCE, useExisting: Fieldset }],
+    hostDirectives: [Bind]
 })
 export class Fieldset extends BaseComponent implements AfterContentInit, BlockableUI {
+    $pcFieldset: Fieldset | undefined = inject(FIELDSET_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    _componentStyle = inject(FieldsetStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
+    dataP = computed(() => {
+        return this.cn({
+            toggleable: this.toggleable()
+        });
+    });
+
     /**
      * Header text of the fieldset.
      * @group Props
@@ -103,7 +143,7 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      * @group Props
      * @defaultValue false
      */
-    @Input({ transform: booleanAttribute }) toggleable: boolean | undefined;
+    toggleable = input(undefined, { transform: (v: any) => transformToBoolean(v) });
     /**
      * Defines the default visibility state of the content.
      * * @group Props
@@ -154,8 +194,6 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
     }
 
     public animating: Nullable<boolean>;
-
-    _componentStyle = inject(FieldsetStyle);
 
     /**
      * Defines the header template.
