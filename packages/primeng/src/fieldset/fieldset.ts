@@ -1,31 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    input,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Bind } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
-import { transformToBoolean } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 import { FieldsetStyle } from './style/fieldsetstyle';
 
@@ -40,9 +21,9 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
     standalone: true,
     imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, Bind],
     template: `
-        <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" [attr.data-p]="dataP()">
+        <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" [attr.data-p]="dataP">
             <legend [class]="cx('legend')" [pBind]="ptm('legend')">
-                <ng-container *ngIf="toggleable(); else legendContent">
+                <ng-container *ngIf="toggleable; else legendContent">
                     <button
                         [attr.id]="id + '_header'"
                         tabindex="0"
@@ -127,11 +108,11 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
 
-    dataP = computed(() => {
+    get dataP() {
         return this.cn({
-            toggleable: this.toggleable()
+            toggleable: this.toggleable
         });
-    });
+    }
 
     /**
      * Header text of the fieldset.
@@ -143,7 +124,7 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      * @group Props
      * @defaultValue false
      */
-    toggleable = input(undefined, { transform: (v: any) => transformToBoolean(v) });
+    @Input({ transform: booleanAttribute }) toggleable: boolean | undefined;
     /**
      * Defines the default visibility state of the content.
      * * @group Props

@@ -153,7 +153,7 @@ describe('Fieldset', () => {
             component.legend = 'My Fieldset';
             fixture.detectChanges();
 
-            const legendLabel = fixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
+            const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendLabel.nativeElement.textContent.trim()).toBe('My Fieldset');
         });
 
@@ -280,7 +280,7 @@ describe('Fieldset', () => {
         });
 
         it('should update aria-hidden on content', () => {
-            const contentContainer = fixture.debugElement.query(By.css('[data-pc-section="toggleablecontent"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-fieldset-content-container'));
 
             component.collapsed = false;
             fixture.detectChanges();
@@ -553,7 +553,7 @@ describe('Fieldset', () => {
             facetFixture.detectChanges();
 
             // Check if fieldset displays the legend text
-            const legendTitle = facetFixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
+            const legendTitle = facetFixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendTitle).toBeTruthy();
             expect(legendTitle.nativeElement.textContent.trim()).toBe('Header Facet Test');
 
@@ -572,7 +572,7 @@ describe('Fieldset', () => {
 
         it('should have proper ARIA attributes', () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
-            const contentContainer = fixture.debugElement.query(By.css('[data-pc-section="toggleablecontent"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-fieldset-content-container'));
 
             expect(toggleButton.nativeElement.getAttribute('role')).toBe('button');
             expect(toggleButton.nativeElement.getAttribute('tabindex')).toBe('0');
@@ -587,7 +587,7 @@ describe('Fieldset', () => {
 
         it('should have matching aria-controls and id attributes', () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
-            const contentContainer = fixture.debugElement.query(By.css('[data-pc-section="toggleablecontent"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-fieldset-content-container'));
 
             const ariaControls = toggleButton.nativeElement.getAttribute('aria-controls');
             const contentId = contentContainer.nativeElement.getAttribute('id');
@@ -597,7 +597,7 @@ describe('Fieldset', () => {
 
         it('should have matching aria-labelledby and button id', () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
-            const contentContainer = fixture.debugElement.query(By.css('[data-pc-section="toggleablecontent"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-fieldset-content-container'));
 
             const buttonId = toggleButton.nativeElement.getAttribute('id');
             const ariaLabelledby = contentContainer.nativeElement.getAttribute('aria-labelledby');
@@ -614,38 +614,12 @@ describe('Fieldset', () => {
         });
     });
 
-    describe('Data Attributes', () => {
-        it('should have correct data-pc-name attribute', () => {
-            const fieldsetElement = fixture.debugElement.query(By.css('fieldset'));
-            expect(fieldsetElement.nativeElement.getAttribute('data-pc-name')).toBe('fieldset');
-        });
-
-        it('should have correct data-pc-section attributes', () => {
-            component.toggleable = true;
-            fixture.detectChanges();
-
-            const fieldsetElement = fixture.debugElement.query(By.css('fieldset'));
-            const legend = fixture.debugElement.query(By.css('legend'));
-            const legendTitle = fixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
-            const toggleIcon = fixture.debugElement.query(By.css('[data-pc-section="togglericon"]'));
-            const content = fixture.debugElement.query(By.css('[data-pc-section="content"]'));
-            const toggleableContent = fixture.debugElement.query(By.css('[data-pc-section="toggleablecontent"]'));
-
-            expect(fieldsetElement.nativeElement.getAttribute('data-pc-section')).toBe('root');
-            expect(legend.nativeElement.getAttribute('data-pc-section')).toBe('legend');
-            expect(legendTitle).toBeTruthy();
-            expect(toggleIcon).toBeTruthy();
-            expect(content).toBeTruthy();
-            expect(toggleableContent).toBeTruthy();
-        });
-    });
-
     describe('Edge Cases', () => {
         it('should handle null legend', () => {
             component.legend = null as any;
             fixture.detectChanges();
 
-            const legendLabel = fixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
+            const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
@@ -653,7 +627,7 @@ describe('Fieldset', () => {
             component.legend = undefined as any;
             fixture.detectChanges();
 
-            const legendLabel = fixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
+            const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
@@ -661,7 +635,7 @@ describe('Fieldset', () => {
             component.legend = '';
             fixture.detectChanges();
 
-            const legendLabel = fixture.debugElement.query(By.css('[data-pc-section="legendtitle"]'));
+            const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 

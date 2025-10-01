@@ -16,8 +16,8 @@ const classes = {
     root: ({ instance }) => [
         'p-fieldset p-component',
         {
-            'p-fieldset-toggleable': instance.toggleable(),
-            'p-fieldset-collapsed': instance.collapsed && instance.toggleable()
+            'p-fieldset-toggleable': instance.toggleable,
+            'p-fieldset-collapsed': instance.collapsed && instance.toggleable
         }
     ],
     legend: 'p-fieldset-legend',
