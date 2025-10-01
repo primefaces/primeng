@@ -35,7 +35,6 @@ const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
-const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 /**
  * Sidebar is a panel component displayed as an overlay at the edges of the screen.
  * @group Components
@@ -217,7 +216,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         if (value === true) {
             this.transformOptions = 'none';
         } else {
-            this.transformOptions = defaultTransformOptions;
+            this.transformOptions = this.defaultTransformOptions;
         }
     }
     /**
@@ -278,6 +277,8 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     animationEndListener: VoidListener;
 
     _componentStyle = inject(DrawerStyle);
+
+    defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
