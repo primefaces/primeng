@@ -467,8 +467,6 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             pRipple
-            data-pc-name="button"
-            [attr.data-pc-section]="'root'"
             [attr.tabindex]="tabindex || buttonProps?.tabindex"
             [pAutoFocus]="autofocus || buttonProps?.autofocus"
             [pBind]="ptm('root')"
@@ -499,6 +497,8 @@ export class Button extends BaseComponent implements AfterContentInit {
     $pcButton: Button | undefined = inject(BUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(ButtonStyle);
 
     ngAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
@@ -712,8 +712,6 @@ export class Button extends BaseComponent implements AfterContentInit {
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
     }
-
-    _componentStyle = inject(ButtonStyle);
 
     _contentTemplate: TemplateRef<any> | undefined;
 
