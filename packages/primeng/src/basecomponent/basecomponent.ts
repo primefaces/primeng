@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, computed, Directive, ElementRef, inject, InjectionToken, Injector, input, Input, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
-import { cn, getKeyValue, uuid } from '@primeuix/utils';
+import { cn, getKeyValue, mergeProps, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
 import { ObjectUtils } from 'primeng/utils';
@@ -213,7 +213,7 @@ export class BaseComponent implements OnDestroy {
     }
 
     get $style() {
-        return this.parent ? this.parent.componentStyle : this.componentStyle;
+        return this.componentStyle;
     }
 
     protected readonly cn = cn;
@@ -226,6 +226,13 @@ export class BaseComponent implements OnDestroy {
 
     ptmo(obj = {}, key = '', params = {}) {
         return this._getPTValue(obj, key, { instance: this, ...params }, false);
+    }
+
+    ptms(keys: string[], params = {}) {
+        return keys.reduce((acc, arg) => {
+            acc = mergeProps(acc, this.ptm(arg, params)) || {};
+            return acc;
+        }, {});
     }
 
     _getPTDatasets(key = '') {

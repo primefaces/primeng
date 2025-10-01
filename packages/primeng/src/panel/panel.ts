@@ -198,7 +198,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     bindDirectiveInstance = inject(Bind, { self: true });
 
     ngAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
     /**

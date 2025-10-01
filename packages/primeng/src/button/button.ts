@@ -497,6 +497,13 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 })
 export class Button extends BaseComponent implements AfterContentInit {
     $pcButton: Button | undefined = inject(BUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Type of the button.
      * @group Props
