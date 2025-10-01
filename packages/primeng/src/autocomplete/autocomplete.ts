@@ -103,8 +103,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate && !readonly" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
+            <span *ngIf="(clearIconTemplate || _clearIconTemplate) && !readonly" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
@@ -132,7 +132,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-posinset]="i + 1"
                 [attr.aria-selected]="true"
             >
-                <p-chip [class]="cx('pcChip')" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [disabled]="$disabled()" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
+                <p-chip [class]="cx('pcChip')" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [disabled]="$disabled()" [removable]="!readonly" (onRemove)="!readonly ? removeOption($event, i) : ''">
                     <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <ng-template #removeicon>
                         <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
