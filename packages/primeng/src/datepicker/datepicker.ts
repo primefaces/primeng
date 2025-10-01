@@ -3104,7 +3104,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             case 'visibleTouchUI':
                 if (!this.inline) {
                     this.overlay = event.element;
-                    this.attrSelector && this.overlay!.setAttribute(this.attrSelector, '');
+                    this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
                     const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
                     addStyle(this.overlay!, styles || {});
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/panel';
+import { style as panel_style } from '@primeuix/styles/panel';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${panel_style}
 
     /* For PrimeNG */
     .p-panel-collapsed .p-panel-content-container,
@@ -42,7 +42,7 @@ const classes = {
 export class PanelStyle extends BaseStyle {
     name = 'panel';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

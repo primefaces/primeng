@@ -22,6 +22,7 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
+import { $dt } from '@primeuix/styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -30,7 +31,6 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
-import { $dt } from '@primeuix/styled';
 
 /**
  * Popover is a container component that can overlay other components on page.
@@ -345,7 +345,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            this.container?.setAttribute(this.attrSelector, '');
+            this.container?.setAttribute(this.$attrSelector, '');
             this.appendContainer();
             this.align();
             this.bindDocumentClickListener();

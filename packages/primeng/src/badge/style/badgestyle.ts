@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/badge';
+import { style as badge_style } from '@primeuix/styles/badge';
 import { isEmpty, isNotEmpty } from '@primeuix/utils';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${badge_style}
 
     /* For PrimeNG (directive)*/
     .p-overlay-badge {
@@ -44,7 +44,7 @@ const classes = {
 export class BadgeStyle extends BaseStyle {
     name = 'badge';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

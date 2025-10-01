@@ -974,7 +974,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
                 this.container = event.element;
                 this.position();
                 this.moveOnTop();
-                this.attrSelector && this.container?.setAttribute(this.attrSelector, '');
+                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
                 this.appendOverlay();
                 this.bindGlobalListeners();
                 focus(this.rootmenu?.sublistViewChild?.nativeElement);

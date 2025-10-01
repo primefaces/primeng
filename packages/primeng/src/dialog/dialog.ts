@@ -994,7 +994,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container?.parentElement;
-                this.attrSelector && this.container?.setAttribute(this.attrSelector, '');
+                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();

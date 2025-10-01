@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
+const style = /*css*/ `
 .p-popover {
     margin-top: dt('popover.gutter');
     background: dt('popover.background');
@@ -92,7 +92,7 @@ const classes = {
 export class PopoverStyle extends BaseStyle {
     name = 'popover';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

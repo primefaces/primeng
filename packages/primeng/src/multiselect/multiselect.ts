@@ -255,7 +255,16 @@ export class MultiSelectItem extends BaseComponent {
                 </span>
             </ng-template>
         </div>
-        <p-overlay #overlay [hostAttrSelector]="attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" (onAnimationStart)="onOverlayAnimationStart($event)" (onHide)="onOverlayHide($event)">
+        <p-overlay
+            #overlay
+            [hostAttrSelector]="$attrSelector"
+            [(visible)]="overlayVisible"
+            [options]="overlayOptions"
+            [target]="'@parent'"
+            [appendTo]="$appendTo()"
+            (onAnimationStart)="onOverlayAnimationStart($event)"
+            (onHide)="onOverlayHide($event)"
+        >
             <ng-template #content>
                 <div [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span

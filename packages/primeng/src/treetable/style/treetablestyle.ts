@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
+const style = /*css*/ `
 /* For PrimeNG */
 .p-treetable {
     position: relative;
@@ -582,7 +582,7 @@ const classes = {
 export class TreeTableStyle extends BaseStyle {
     name = 'treetable';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/inputnumber';
+import { style as inputnumber_style } from '@primeuix/styles/inputnumber';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${inputnumber_style}
 
     /* For PrimeNG */
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext,
@@ -59,7 +59,7 @@ const classes = {
 export class InputNumberStyle extends BaseStyle {
     name = 'inputnumber';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

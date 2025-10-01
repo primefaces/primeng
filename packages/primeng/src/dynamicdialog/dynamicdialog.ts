@@ -283,7 +283,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     get dialogId() {
-        return this.attrSelector;
+        return this.$attrSelector;
     }
 
     private zIndexForLayering?: number;

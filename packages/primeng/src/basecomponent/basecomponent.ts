@@ -1,18 +1,19 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, ElementRef, inject, InjectionToken, Injector, input, Input, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
-import { cn, getKeyValue, mergeProps, uuid } from '@primeuix/utils';
+import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
-import { ObjectUtils } from 'primeng/utils';
+import type { NgLifecycle } from './basecomponent.types';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');
+
 @Directive({
     standalone: true,
     providers: [BaseComponentStyle, BaseStyle]
 })
-export class BaseComponent implements OnDestroy {
+export class BaseComponent implements NgLifecycle {
     public document: Document = inject(DOCUMENT);
 
     public platformId: any = inject(PLATFORM_ID);
@@ -27,249 +28,333 @@ export class BaseComponent implements OnDestroy {
 
     public config: PrimeNG = inject(PrimeNG);
 
+    public $parentInstance: BaseComponent | undefined = inject(PARENT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     public baseComponentStyle: BaseComponentStyle = inject(BaseComponentStyle);
 
     public baseStyle: BaseStyle = inject(BaseStyle);
 
     public scopedStyleEl: any;
 
-    public rootEl: any;
+    public parent = this.$params.parent;
 
-    @Input() dt: Object | undefined;
+    protected readonly cn = cn;
 
+    private _themeScopedListener: () => void;
+
+    /******************** Inputs ********************/
+
+    // @todo - update types for dt, pt and ptOptions
+    /**
+     * Generates scoped CSS variables using design tokens for the component.
+     */
+    dt = input<Object | undefined>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     *
+     * @experimental
+     * This property is not yet implemented. It will be available in a future release.
+     */
+    unstyled = input<boolean | undefined>();
+    /**
+     * Used to pass attributes to DOM elements inside the component.
+     */
     pt = input<any>();
-
+    /**
+     * Used to configure passthrough(pt) options of the component.
+     */
     ptOptions = input<any>();
 
-    private _pt = computed(() => this.pt() ?? this.config.pt());
+    /******************** Computed ********************/
 
-    private _ptOptions = computed(() => this.ptOptions() ?? this.config.ptOptions());
+    $attrSelector = uuid('pc');
 
-    @Input() unstyled: boolean = false;
-
-    parentInstance: BaseComponent | undefined = inject(PARENT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    params: any = {
-        props: {},
-        state: {}
-    };
-
-    get parent() {
-        return this['parentInstance'];
+    get $name() {
+        return this.constructor?.name?.replace(/^_/, '') || 'UnknownComponent';
     }
 
-    get styleOptions() {
+    private get $hostName() {
+        return this['hostName'];
+    }
+
+    $unstyled = computed(() => {
+        return this.unstyled() !== undefined ? this.unstyled() : this.config?.unstyled() || false;
+    });
+
+    $pt = computed(() => {
+        return resolve(this.pt(), this.$params);
+    });
+
+    get $globalPT() {
+        return this._getPT(this.config?.pt(), undefined, (value) => resolve(value, this.$params));
+    }
+
+    get $defaultPT() {
+        return this._getPT(this.config?.pt(), undefined, (value) => this._getOptionValue(value, this.$hostName || this.$name, this.$params) || resolve(value, this.$params));
+    }
+
+    get $style() {
+        return { theme: undefined, css: undefined, classes: undefined, inlineStyles: undefined, ...(this._getHostInstance(this) || {}).$style, ...this['_componentStyle'] };
+    }
+
+    get $styleOptions() {
         return { nonce: this.config?.csp().nonce };
     }
 
-    get _name() {
-        return this.constructor.name.replace(/^_/, '').toLowerCase();
+    get $params() {
+        const parentInstance = this._getHostInstance(this) || this.$parentInstance;
+
+        return {
+            instance: this,
+            parent: {
+                instance: parentInstance
+            }
+        };
     }
 
-    get componentStyle() {
-        return this['_componentStyle'];
-    }
+    /******************** Lifecycle Hooks ********************/
 
-    attrSelector = uuid('pc');
+    constructor() {
+        // watch _dt_ changes
+        effect((onCleanup) => {
+            if (this.document && !isPlatformServer(this.platformId)) {
+                ThemeService.off('theme:change', this._themeScopedListener);
 
-    private themeChangeListeners: Function[] = [];
+                if (this.dt()) {
+                    this._loadScopedThemeStyles(this.dt());
+                    this._themeScopedListener = () => this._loadScopedThemeStyles(this.dt());
+                    this._themeChangeListener(this._themeScopedListener);
+                } else {
+                    this._unloadScopedThemeStyles();
+                }
+            }
 
-    _getHostInstance(instance) {
-        if (instance) {
-            return instance ? (this['hostName'] ? (instance['name'] === this['hostName'] ? instance : this._getHostInstance(instance.parentInstance)) : instance.parentInstance) : undefined;
-        }
-    }
+            onCleanup(() => {
+                ThemeService.off('theme:change', this._themeScopedListener);
+            });
+        });
 
-    _getOptionValue(options, key = '', params = {}) {
-        return getKeyValue(options, key, params);
+        // watch _unstyled_ changes
+        effect((onCleanup) => {
+            if (this.document && !isPlatformServer(this.platformId)) {
+                ThemeService.off('theme:change', this._loadCoreStyles);
+
+                if (!this.$unstyled()) {
+                    this._loadCoreStyles();
+                    this._themeChangeListener(this._loadCoreStyles); // Update styles with theme settings
+                }
+            }
+
+            onCleanup(() => {
+                ThemeService.off('theme:change', this._loadCoreStyles);
+            });
+        });
+
+        this._hook('onBeforeInit');
     }
 
     ngOnInit() {
-        if (this.document) {
-            this._loadCoreStyles();
-            this._loadStyles();
-        }
+        this._loadCoreStyles();
+        this._loadStyles();
 
-        this.params = this['initParams'] ? this['initParams']() : { props: {}, state: {} };
-    }
-
-    ngAfterViewInit() {
-        this.rootEl = this.el?.nativeElement;
-
-        if (this.rootEl) {
-            this.rootEl?.setAttribute(this.attrSelector, '');
-        }
+        this._hook('onInit');
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.document && !isPlatformServer(this.platformId)) {
-            const { dt } = changes;
-            if (dt && dt.currentValue) {
-                this._loadScopedThemeStyles(dt.currentValue);
-                this._themeChangeListener(() => this._loadScopedThemeStyles(dt.currentValue));
-            }
-        }
+        this._hook('onChanges', changes);
+    }
+
+    ngDoCheck() {
+        this._hook('onDoCheck');
+    }
+
+    ngAfterContentInit() {
+        this._hook('onAfterContentInit');
+    }
+
+    ngAfterContentChecked() {
+        this._hook('onAfterContentChecked');
+    }
+
+    ngAfterViewInit() {
+        // @todo - remove this after implementing pt for root
+        this.el?.nativeElement?.setAttribute(this.$attrSelector, '');
+
+        this._hook('onAfterViewInit');
+    }
+
+    ngAfterViewChecked() {
+        this._hook('onAfterViewChecked');
+        this['onAfterViewChecked']?.(); // @todo - update lifecycle hooks calls in components
     }
 
     ngOnDestroy() {
+        this._removeThemeListeners();
         this._unloadScopedThemeStyles();
-        // @ts-ignore
-        this.themeChangeListeners.forEach((callback) => ThemeService.off('theme:change', callback));
+
+        this._hook('onDestroy');
     }
 
-    _loadStyles() {
-        const _load = () => {
-            if (!Base.isStyleNameLoaded('base')) {
-                this.baseStyle.loadGlobalCSS(this.styleOptions);
-                Base.setLoadedStyleName('base');
-            }
+    /******************** Methods ********************/
 
-            this._loadThemeStyles();
-            // @todo update config.theme()
-        };
-
-        _load();
-        this._themeChangeListener(() => _load());
+    private _mergeProps(fn: any, ...args: any[]) {
+        return isFunction(fn) ? fn(...args) : mergeProps(...args);
     }
 
-    _loadCoreStyles() {
-        if (!Base.isStyleNameLoaded('base') && this.componentStyle?.name) {
-            this.baseComponentStyle.loadCSS(this.styleOptions);
-            this.componentStyle && this.componentStyle?.loadCSS(this.styleOptions);
-            Base.setLoadedStyleName(this.componentStyle?.name);
+    private _getHostInstance(instance: any) {
+        return instance ? (this.$hostName ? (this.$name === this.$hostName ? instance : this._getHostInstance(instance.$parentInstance)) : instance.$parentInstance) : undefined;
+    }
+
+    private _getPropValue(name: string) {
+        return this[name] || this._getHostInstance(this)?.[name];
+    }
+
+    private _getOptionValue(options: any, key = '', params = {}) {
+        return getKeyValue(options, key, params);
+    }
+
+    private _hook(hookName: string, ...args: any[]) {
+        if (!this.$hostName) {
+            const selfHook = this._usePT(this._getPT(this.$pt(), this.$name), this._getOptionValue, `hooks.${hookName}`);
+            const defaultHook = this._useDefaultPT(this._getOptionValue, `hooks.${hookName}`);
+
+            selfHook?.(...args);
+            defaultHook?.(...args);
         }
     }
 
-    _loadThemeStyles() {
+    /********** Load Styles **********/
+
+    private _load() {
+        if (!Base.isStyleNameLoaded('base')) {
+            this.baseStyle.loadBaseCSS(this.$styleOptions);
+            this._loadGlobalStyles();
+
+            Base.setLoadedStyleName('base');
+        }
+
+        this._loadThemeStyles();
+    }
+
+    private _loadStyles() {
+        this._load();
+        this._themeChangeListener(() => this._load());
+    }
+
+    private _loadGlobalStyles() {
+        const globalCSS = this._useGlobalPT(this._getOptionValue, 'global.css', this.$params);
+
+        isNotEmpty(globalCSS) && this.baseStyle.load(globalCSS, { name: 'global', ...this.$styleOptions });
+    }
+
+    private _loadCoreStyles() {
+        if (!Base.isStyleNameLoaded(this.$style?.name) && this.$style?.name) {
+            this.baseComponentStyle.loadCSS(this.$styleOptions);
+            this.$style.loadCSS(this.$styleOptions);
+
+            Base.setLoadedStyleName(this.$style.name);
+        }
+    }
+
+    private _loadThemeStyles() {
+        if (this.$unstyled() || this.config?.theme() === 'none') return;
+
         // common
         if (!Theme.isStyleNameLoaded('common')) {
-            const { primitive, semantic, global, style } = this.componentStyle?.getCommonTheme?.() || {};
+            const { primitive, semantic, global, style } = this.$style?.getCommonTheme?.() || {};
 
-            this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
-            this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
-            this.baseStyle.load(global?.css, { name: 'global-variables', ...this.styleOptions });
-            this.baseStyle.loadGlobalTheme({ name: 'global-style', ...this.styleOptions }, style);
+            this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.$styleOptions });
+            this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.$styleOptions });
+            this.baseStyle.load(global?.css, { name: 'global-variables', ...this.$styleOptions });
+            this.baseStyle.loadBaseStyle({ name: 'global-style', ...this.$styleOptions }, style);
 
             Theme.setLoadedStyleName('common');
         }
 
         // component
-        if (!Theme.isStyleNameLoaded(this.componentStyle?.name) && this.componentStyle?.name) {
-            const { css, style } = this.componentStyle?.getComponentTheme?.() || {};
+        if (!Theme.isStyleNameLoaded(this.$style?.name) && this.$style?.name) {
+            const { css, style } = this.$style?.getComponentTheme?.() || {};
 
-            this.componentStyle?.load(css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
-            this.componentStyle?.loadTheme({ name: `${this.componentStyle?.name}-style`, ...this.styleOptions }, style);
+            this.$style?.load(css, { name: `${this.$style?.name}-variables`, ...this.$styleOptions });
+            this.$style?.loadStyle({ name: `${this.$style?.name}-style`, ...this.$styleOptions }, style);
 
-            Theme.setLoadedStyleName(this.componentStyle?.name);
+            Theme.setLoadedStyleName(this.$style?.name);
         }
 
         // layer order
         if (!Theme.isStyleNameLoaded('layer-order')) {
-            const layerOrder = this.componentStyle?.getLayerOrderThemeCSS?.();
+            const layerOrder = this.$style?.getLayerOrderThemeCSS?.();
 
-            this.baseStyle.load(layerOrder, { name: 'layer-order', first: true, ...this.styleOptions });
+            this.baseStyle.load(layerOrder, { name: 'layer-order', first: true, ...this.$styleOptions });
             Theme.setLoadedStyleName('layer-order');
-        }
-
-        if (this.dt) {
-            this._loadScopedThemeStyles(this.dt);
-            this._themeChangeListener(() => this._loadScopedThemeStyles(this.dt));
         }
     }
 
-    _loadScopedThemeStyles(preset) {
-        const { css } = this.componentStyle?.getPresetTheme?.(preset, `[${this.attrSelector}]`) || {};
-        const scopedStyle = this.componentStyle?.load(css, {
-            name: `${this.attrSelector}-${this.componentStyle?.name}`,
-            ...this.styleOptions
-        });
+    private _loadScopedThemeStyles(preset) {
+        const { css } = this.$style?.getPresetTheme?.(preset, `[${this.$attrSelector}]`) || {};
+        const scopedStyle = this.$style?.load(css, { name: `${this.$attrSelector}-${this.$style?.name}`, ...this.$styleOptions });
 
         this.scopedStyleEl = scopedStyle?.el;
     }
 
-    _unloadScopedThemeStyles() {
+    private _unloadScopedThemeStyles() {
         this.scopedStyleEl?.remove();
     }
 
-    _themeChangeListener(callback = () => {}) {
+    private _themeChangeListener(callback = () => {}) {
         Base.clearLoadedStyleNames();
-        ThemeService.on('theme:change', callback);
-        this.themeChangeListeners.push(callback);
+        ThemeService.on('theme:change', callback.bind(this));
     }
 
-    cx(key: string, params = {}): string {
-        return cn(this._getOptionValue(this.$style?.classes, key, { instance: this, ...params })) as string;
+    private _removeThemeListeners() {
+        ThemeService.off('theme:change', this._loadCoreStyles);
+        ThemeService.off('theme:change', this._load);
+        ThemeService.off('theme:change', this._themeScopedListener);
     }
 
-    sx(key = '', when = true, params = {}) {
-        if (when) {
-            const self = this._getOptionValue(this.$style?.inlineStyles, key, { instance: this, ...params });
-            //const base = this._getOptionValue(BaseComponentStyle.inlineStyles, key, { ...this.$params, ...params });
+    /********** Passthrough **********/
 
-            return self;
-        }
+    private _getPTValue(obj = {}, key = '', params = {}, searchInDefaultPT = true) {
+        const searchOut = /./g.test(key) && !!params[key.split('.')[0]];
+        const { mergeSections = true, mergeProps: useMergeProps = false } = this._getPropValue('ptOptions')?.() || this.config?.['ptOptions']?.() || {};
+        const global = searchInDefaultPT ? (searchOut ? this._useGlobalPT(this._getPTClassValue, key, params) : this._useDefaultPT(this._getPTClassValue, key, params)) : undefined;
+        const self = searchOut ? undefined : this._usePT(this._getPT(obj, this.$hostName || this.$name), this._getPTClassValue, key, { ...params, global: global || {} });
+        const datasets = this._getPTDatasets(key);
 
-        return undefined;
+        return mergeSections || (!mergeSections && self) ? (useMergeProps ? this._mergeProps(useMergeProps, global, self, datasets) : { ...global, ...self, ...datasets }) : { ...self, ...datasets };
     }
 
-    get $style() {
-        return this.componentStyle;
-    }
-
-    protected readonly cn = cn;
-
-    // PASSTHROUGH FUNCTIONALITY
-
-    ptm(key = '', params = {}) {
-        return this._getPTValue(this._pt() || {}, key, { ...this._params(), ...params });
-    }
-
-    ptmo(obj = {}, key = '', params = {}) {
-        return this._getPTValue(obj, key, { instance: this, ...params }, false);
-    }
-
-    ptms(keys: string[], params = {}) {
-        return keys.reduce((acc, arg) => {
-            acc = mergeProps(acc, this.ptm(arg, params)) || {};
-            return acc;
-        }, {});
-    }
-
-    _getPTDatasets(key = '') {
+    private _getPTDatasets(key = '') {
         const datasetPrefix = 'data-pc-';
-        const isExtended = key === 'root' && ObjectUtils.isNotEmpty(this._pt()?.['data-pc-section']);
+        const isExtended = key === 'root' && isNotEmpty(this.$pt()?.['data-pc-section']);
 
         return (
             key !== 'transition' && {
                 ...(key === 'root' && {
-                    [`${datasetPrefix}name`]: ObjectUtils.toFlatCase(isExtended ? this._pt()?.['data-pc-section'] : this._name),
-                    ...(isExtended && { [`${datasetPrefix}extend`]: ObjectUtils.toFlatCase(this._name) })
+                    [`${datasetPrefix}name`]: toFlatCase(isExtended ? this.$pt()?.['data-pc-section'] : this.$name),
+                    ...(isExtended && { [`${datasetPrefix}extend`]: toFlatCase(this.$name) }),
+                    [`${this.$attrSelector}`]: '' // @todo - use `data-pc-id: this.$attrSelector` instead.
                 }),
-                [`${datasetPrefix}section`]: ObjectUtils.toFlatCase(key)
+                [`${datasetPrefix}section`]: toFlatCase(key)
             }
         );
     }
 
-    defaultPT() {
-        return this._getPT(this.config?.['pt'](), undefined, (value: any) => this._getOptionValue(value, this._name, { ...this._params() }) || ObjectUtils.getItemValue(value, { ...this._params() }));
+    private _getPTClassValue(options?: any, key?: any, params?: any) {
+        const value = this._getOptionValue(options, key, params);
+
+        return isString(value) || isArray(value) ? { class: value } : value;
     }
 
-    _mergeProps(fn: any, ...args: any[]) {
-        return ObjectUtils.isFunction(fn) ? fn(...args) : { ...args[0], ...args[1] };
-    }
-
-    _useDefaultPT(callback: any, key: any, params?: any) {
-        return this._usePT(this.defaultPT(), callback, key, params);
-    }
-
-    _getPT(pt: any, key = '', callback?: any) {
-        const getValue = (value: any, checkSameKey = false) => {
+    private _getPT(pt: any, key = '', callback?: any) {
+        const getValue = (value, checkSameKey = false) => {
             const computedValue = callback ? callback(value) : value;
-            const _key = ObjectUtils.toFlatCase(key);
-            const _cKey = ObjectUtils.toFlatCase(this._name);
+            const _key = toFlatCase(key);
+            const _cKey = toFlatCase(this.$hostName || this.$name);
 
             return (checkSameKey ? (_key !== _cKey ? computedValue?.[_key] : undefined) : computedValue?.[_key]) ?? computedValue;
         };
+
         return pt?.hasOwnProperty('_usept')
             ? {
                   _usept: pt['_usept'],
@@ -279,75 +364,61 @@ export class BaseComponent implements OnDestroy {
             : getValue(pt, true);
     }
 
-    _usePT(pt: any, callback: any, key: any, params?: any) {
-        const fn = (value: any) => callback(value, key, params);
+    private _usePT(pt: any, callback: any, key: any, params?: any) {
+        const fn = (value) => callback?.call(this, value, key, params);
+
         if (pt?.hasOwnProperty('_usept')) {
-            const { mergeSections = true, mergeProps: useMergeProps = false } = pt['_usept'] || this.config?.['ptOptions']() || this._ptOptions() || {};
+            const { mergeSections = true, mergeProps: useMergeProps = false } = pt['_usept'] || this.config?.['ptOptions']() || {};
             const originalValue = fn(pt.originalValue);
             const value = fn(pt.value);
 
             if (originalValue === undefined && value === undefined) return undefined;
-            else if (ObjectUtils.isString(value)) return value;
-            else if (ObjectUtils.isString(originalValue)) return originalValue;
+            else if (isString(value)) return value;
+            else if (isString(originalValue)) return originalValue;
 
-            return mergeSections || (!mergeSections && value) ? (useMergeProps ? { ...originalValue, ...value } : { ...originalValue, ...value }) : value;
+            return mergeSections || (!mergeSections && value) ? (useMergeProps ? this._mergeProps(useMergeProps, originalValue, value) : { ...originalValue, ...value }) : value;
         }
 
         return fn(pt);
     }
 
-    _getPTValue(obj = {}, key = '', params = {}, searchInDefaultPT = true) {
-        const searchOut = /./g.test(key) && !!params[key.split('.')[0]];
-        const { mergeSections = true, mergeProps: useMergeProps = false } = this._getPropValue('_ptOptions')() || this.config?.['ptOptions']() || this._ptOptions() || {};
-        const global = searchInDefaultPT ? (searchOut ? this._useGlobalPT(this._getPTClassValue.bind(this), key, params) : this._useDefaultPT(this._getPTClassValue.bind(this), key, params)) : undefined;
-        const self = searchOut ? undefined : this._usePT(this._getPT(obj, this._name), this._getPTClassValue.bind(this), key, { ...params, global: {} });
-        const datasets = this._getPTDatasets(key);
-        return mergeSections || (!mergeSections && self) ? (useMergeProps ? { ...global, ...self, ...datasets } : { ...global, ...self, ...datasets }) : { ...self, ...datasets };
+    private _useGlobalPT(callback: any, key: any, params?: any) {
+        return this._usePT(this.$globalPT, callback, key, params);
     }
 
-    _useGlobalPT(callback: any, key: any, params: any) {
-        return this._usePT(
-            this._getPT(this.config?.['pt'](), undefined, (value: any) => ObjectUtils.getItemValue(value, { instance: this })),
-            callback,
-            key,
-            params
-        );
+    private _useDefaultPT(callback: any, key: any, params?: any) {
+        return this._usePT(this.$defaultPT, callback, key, params);
     }
 
-    _getPTClassValue(options?: any, key?: any, params?: any) {
-        const value = this._getOptionValue(options, key, params);
-        return ObjectUtils.isString(value) || ObjectUtils.isArray(value) ? { class: value } : value;
+    /******************** Exposed API ********************/
+
+    public ptm(key = '', params = {}) {
+        return this._getPTValue(this.$pt(), key, { ...this.$params, ...params });
     }
 
-    _getPropValue(name: any) {
-        return this[name] || this._getHostInstance(this)?.[name];
+    public ptms(keys: string[], params = {}) {
+        return keys.reduce((acc, arg) => {
+            acc = mergeProps(acc, this.ptm(arg, params)) || {};
+            return acc;
+        }, {});
     }
 
-    _params() {
-        const parentInstance = this.parentInstance || this._getHostInstance(this) || this['parent'] || this['parentInstance'];
-
-        const buildParentParams = (instance: any): any => {
-            if (!instance) return undefined;
-
-            const grandParentInstance = instance.parentInstance || instance._getHostInstance?.(instance) || instance['parent'] || instance['parentInstance'];
-
-            return {
-                instance: instance,
-                props: instance.params?.props || instance,
-                state: instance.params?.state || instance,
-                ...(grandParentInstance && { parent: buildParentParams(grandParentInstance) })
-            };
-        };
-
-        return {
-            instance: this,
-            props: this.params?.props || this,
-            state: this.params?.state || this,
-            ...(parentInstance && { parent: buildParentParams(parentInstance) })
-        };
+    public ptmo(obj = {}, key = '', params = {}) {
+        return this._getPTValue(obj, key, { instance: this, ...params }, false);
     }
 
-    isUnstyled() {
-        return this.unstyled;
+    public cx(key: string, params = {}) {
+        return !this.$unstyled() ? cn(this._getOptionValue(this.$style.classes, key, { ...this.$params, ...params })) : undefined;
+    }
+
+    public sx(key = '', when = true, params = {}) {
+        if (when) {
+            const self = this._getOptionValue(this.$style.inlineStyles, key, { ...this.$params, ...params }) as Record<string, any>;
+            const base = this._getOptionValue(this.baseComponentStyle.inlineStyles, key, { ...this.$params, ...params }) as Record<string, any>;
+
+            return { ...base, ...self };
+        }
+
+        return undefined;
     }
 }

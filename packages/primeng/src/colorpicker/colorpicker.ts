@@ -2,7 +2,7 @@ import { animate, AnimationEvent, style, transition, trigger } from '@angular/an
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, input, Input, NgModule, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, cn, isTouchDevice, relativePosition } from '@primeuix/utils';
+import { absolutePosition, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
@@ -374,7 +374,7 @@ export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterV
             case 'visible':
                 if (!this.inline) {
                     this.overlay = event.element;
-                    this.attrSelector && this.overlay?.setAttribute(this.attrSelector, '');
+                    this.$attrSelector && this.overlay?.setAttribute(this.$attrSelector, '');
                     this.appendOverlay();
 
                     if (this.autoZIndex) {
@@ -770,8 +770,6 @@ export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterV
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }
-
-    protected readonly cn = cn;
 }
 
 @NgModule({

@@ -20,7 +20,7 @@ const classes = {
 export class SkeletonStyle extends BaseStyle {
     name = 'skeleton';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 
