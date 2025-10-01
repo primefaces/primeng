@@ -268,7 +268,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     defaultTransformOptions: any = 'translate3d(-100%, 0px, 0px)';
 
-    transformOptions: any = defaultTransformOptions;
+    transformOptions: any = this.defaultTransformOptions;
 
     mask: Nullable<HTMLDivElement>;
 
