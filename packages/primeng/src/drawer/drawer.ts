@@ -266,6 +266,8 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     container: Nullable<HTMLDivElement>;
 
+    defaultTransformOptions: any = 'translate3d(-100%, 0px, 0px)';
+
     transformOptions: any = defaultTransformOptions;
 
     mask: Nullable<HTMLDivElement>;
@@ -277,8 +279,6 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     animationEndListener: VoidListener;
 
     _componentStyle = inject(DrawerStyle);
-
-    defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 
     ngAfterViewInit() {
         super.ngAfterViewInit();
