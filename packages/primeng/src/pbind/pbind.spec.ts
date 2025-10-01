@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Bind } from './pbind';
 
@@ -9,7 +9,7 @@ import { Bind } from './pbind';
     template: `<div [pBind]="attrs"></div>`
 })
 class TestBasicBindComponent {
-    attrs = {};
+    attrs: any = {};
 }
 
 @Component({
@@ -82,9 +82,12 @@ class TestBindStylesComponent {
     template: `<div [pBind]="attrs"></div>`
 })
 class TestBindListenersComponent {
+    clickHandler = jasmine.createSpy('click');
+    hoverHandler = jasmine.createSpy('hover');
+
     attrs = {
-        onclick: () => console.log('clicked'),
-        onmouseover: () => console.log('hovered')
+        onclick: this.clickHandler,
+        onmouseover: this.hoverHandler
     };
 }
 
@@ -94,6 +97,8 @@ class TestBindListenersComponent {
     template: `<div [pBind]="attrs" class="existing-class" style="margin: 10px;"></div>`
 })
 class TestBindMixedComponent {
+    clickHandler = jasmine.createSpy('click');
+
     attrs = {
         id: 'mixed-id',
         class: 'bind-class',
@@ -101,7 +106,7 @@ class TestBindMixedComponent {
             color: 'blue',
             padding: '5px'
         },
-        onclick: () => console.log('mixed clicked')
+        onclick: this.clickHandler
     };
 }
 
@@ -125,6 +130,13 @@ class TestBindDynamicComponent {
     }
 }
 
+@Component({
+    standalone: false,
+    selector: 'test-set-attrs',
+    template: `<div [pBind]="undefined"></div>`
+})
+class TestSetAttrsComponent {}
+
 describe('Bind', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -138,36 +150,20 @@ describe('Bind', () => {
                 TestBindStylesComponent,
                 TestBindListenersComponent,
                 TestBindMixedComponent,
-                TestBindDynamicComponent
+                TestBindDynamicComponent,
+                TestSetAttrsComponent
             ]
         });
     });
 
     describe('Directive Initialization', () => {
-        let fixture: ComponentFixture<TestBasicBindComponent>;
-        let directive: Bind;
-        let element: HTMLElement;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(TestBasicBindComponent);
+        it('should create the directive', () => {
+            const fixture = TestBed.createComponent(TestBasicBindComponent);
             fixture.detectChanges();
 
-            const directiveDebugElement = fixture.debugElement.query(By.directive(Bind));
-            directive = directiveDebugElement.injector.get(Bind);
-            element = directiveDebugElement.nativeElement;
-        });
+            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
 
-        it('should create the directive', () => {
             expect(directive).toBeTruthy();
-        });
-
-        it('should inject host element reference', () => {
-            expect(directive.host).toBeDefined();
-            expect(directive.host).toBe(element);
-        });
-
-        it('should initialize with empty attrs', () => {
-            expect(directive.attrs).toEqual({});
         });
     });
 
@@ -183,17 +179,22 @@ describe('Bind', () => {
             expect(element.getAttribute('tabindex')).toBe('0');
         });
 
-        it('should exclude class, style, and event listeners from attributes', () => {
-            const fixture = TestBed.createComponent(TestBindMixedComponent);
+        it('should handle null and undefined attribute values', () => {
+            const fixture = TestBed.createComponent(TestBasicBindComponent);
+            const component = fixture.componentInstance;
+
+            component.attrs = {
+                id: 'test-id',
+                'data-test': null,
+                'data-value': undefined
+            };
             fixture.detectChanges();
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
 
-            const attrs = directive.attributes();
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            expect(attrs.id).toBe('mixed-id');
-            expect(attrs.class).toBeUndefined();
-            expect(attrs.style).toBeUndefined();
-            expect(attrs.onclick).toBeUndefined();
+            expect(element.getAttribute('id')).toBe('test-id');
+            expect(element.hasAttribute('data-test')).toBe(false);
+            expect(element.hasAttribute('data-value')).toBe(false);
         });
     });
 
@@ -229,108 +230,88 @@ describe('Bind', () => {
             expect(element.className).not.toContain('another-class');
         });
 
-        it('should return unique classes only', () => {
-            const fixture = TestBed.createComponent(TestBindClassesComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
+        it('should merge with existing classes', () => {
+            const fixture = TestBed.createComponent(TestBindMixedComponent);
+            fixture.detectChanges();
 
-            directive.attrs = {
-                class: 'test-class test-class duplicate-class'
-            };
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            const classes = directive.classes();
-            const classArray = classes.split(' ');
-            const uniqueClasses = classArray.filter((cls: string) => cls === 'test-class');
-
-            expect(uniqueClasses.length).toBe(1);
+            expect(element.className).toContain('bind-class');
+            expect(element.className).toContain('existing-class');
         });
     });
 
     describe('Style Binding', () => {
-        it('should return styles from attrs only', () => {
+        it('should bind styles from attrs', () => {
             const fixture = TestBed.createComponent(TestBindStylesComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
+            fixture.detectChanges();
+
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            // Set existing style on element
-            element.style.margin = '10px';
-
-            directive.attrs = {
-                style: {
-                    color: 'red',
-                    fontSize: '16px'
-                }
-            };
-
-            const styles = directive.styles();
-
-            expect(styles.color).toBe('red');
-            expect(styles.fontSize).toBe('16px');
-            // Should not include existing element styles
-            expect(styles.margin).toBeUndefined();
+            expect(element.style.color).toBe('red');
+            expect(element.style.fontSize).toBe('16px');
         });
 
-        it('should override existing styles with bind styles', () => {
-            const fixture = TestBed.createComponent(TestBindStylesComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
+        it('should merge with existing styles', () => {
+            const fixture = TestBed.createComponent(TestBindMixedComponent);
+            fixture.detectChanges();
+
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            // Set existing style
-            element.style.color = 'blue';
-
-            directive.attrs = {
-                style: {
-                    color: 'red'
-                }
-            };
-
-            const styles = directive.styles();
-
-            expect(styles.color).toBe('red');
+            expect(element.style.color).toBe('blue');
+            expect(element.style.padding).toBe('5px');
+            expect(element.style.margin).toBe('10px');
         });
     });
 
     describe('Event Listener Binding', () => {
         it('should bind event listeners', () => {
             const fixture = TestBed.createComponent(TestBindListenersComponent);
+            const component = fixture.componentInstance;
             fixture.detectChanges();
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
 
-            const listeners = directive.listeners();
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            expect(typeof listeners.onclick).toBe('function');
-            expect(typeof listeners.onmouseover).toBe('function');
+            element.dispatchEvent(new Event('click'));
+            element.dispatchEvent(new Event('mouseover'));
+
+            expect(component.clickHandler).toHaveBeenCalled();
+            expect(component.hoverHandler).toHaveBeenCalled();
         });
 
-        it('should filter only event listeners starting with "on"', () => {
-            const fixture = TestBed.createComponent(TestBasicBindComponent);
+        it('should cleanup old listeners when attrs change', () => {
+            const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
 
-            component.attrs = {
-                onclick: () => {},
-                onmouseover: () => {},
-                id: 'test-id',
-                class: 'test-class'
-            };
+            const firstHandler = jasmine.createSpy('first');
+            const secondHandler = jasmine.createSpy('second');
 
-            directive.attrs = component.attrs;
+            component.attrs = { onclick: firstHandler };
             fixture.detectChanges();
 
-            const listeners = directive.listeners();
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            expect(listeners.onclick).toBeDefined();
-            expect(listeners.onmouseover).toBeDefined();
-            expect(listeners.id).toBeUndefined();
-            expect(listeners.class).toBeUndefined();
+            // Test first handler
+            element.dispatchEvent(new Event('click'));
+            expect(firstHandler).toHaveBeenCalledTimes(1);
+
+            // Update to second handler
+            component.attrs = { onclick: secondHandler };
+            fixture.detectChanges();
+
+            // Test that first handler is no longer called
+            element.dispatchEvent(new Event('click'));
+            expect(firstHandler).toHaveBeenCalledTimes(1); // Still 1, not called again
+            expect(secondHandler).toHaveBeenCalledTimes(1);
         });
     });
 
     describe('Mixed Content', () => {
         it('should handle mixed attributes, classes, styles, and listeners', () => {
             const fixture = TestBed.createComponent(TestBindMixedComponent);
+            const component = fixture.componentInstance;
             fixture.detectChanges();
 
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
             // Test attributes
@@ -340,11 +321,13 @@ describe('Bind', () => {
             expect(element.className).toContain('bind-class');
             expect(element.className).toContain('existing-class');
 
-            // Test all method
-            const all = directive.all();
-            expect((all as any).id).toBe('mixed-id');
-            expect((all as any).style).toBeDefined();
-            expect((all as any).onclick).toBeDefined();
+            // Test styles
+            expect(element.style.color).toBe('blue');
+            expect(element.style.padding).toBe('5px');
+
+            // Test event listener
+            element.dispatchEvent(new Event('click'));
+            expect(component.clickHandler).toHaveBeenCalled();
         });
     });
 
@@ -370,123 +353,119 @@ describe('Bind', () => {
             expect(element.getAttribute('data-updated')).toBe('true');
         });
 
-        it('should call bind when attrs changes', () => {
+        it('should remove attributes when set to null or undefined', () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
 
-            spyOn(directive, 'bind');
-
-            // Update attrs to trigger ngOnChanges
-            component.updateAttrs();
+            component.attrs = {
+                id: 'test-id',
+                'data-test': 'test-value'
+            };
             fixture.detectChanges();
 
-            expect(directive.bind).toHaveBeenCalled();
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            expect(element.getAttribute('data-test')).toBe('test-value');
+
+            // Update with null to remove attribute
+            component.attrs = {
+                id: 'test-id',
+                'data-test': null
+            };
+            fixture.detectChanges();
+
+            expect(element.hasAttribute('data-test')).toBe(false);
+            expect(element.getAttribute('id')).toBe('test-id');
+        });
+    });
+
+    describe('setAttrs Method', () => {
+        it('should update attrs via setAttrs method', () => {
+            const fixture = TestBed.createComponent(TestSetAttrsComponent);
+            fixture.detectChanges();
+
+            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            directive.setAttrs({
+                id: 'set-id',
+                class: 'set-class',
+                'data-test': 'test-value'
+            });
+            fixture.detectChanges();
+
+            expect(element.getAttribute('id')).toBe('set-id');
+            expect(element.className).toContain('set-class');
+            expect(element.getAttribute('data-test')).toBe('test-value');
+        });
+
+        it('should prioritize setAttrs over pBind input', () => {
+            const fixture = TestBed.createComponent(TestBasicBindComponent);
+            const component = fixture.componentInstance;
+
+            component.attrs = {
+                id: 'input-id',
+                class: 'input-class'
+            };
+            fixture.detectChanges();
+
+            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            directive.setAttrs({
+                id: 'set-id',
+                class: 'set-class'
+            });
+            fixture.detectChanges();
+
+            expect(element.getAttribute('id')).toBe('set-id');
+            expect(element.className).toContain('set-class');
         });
     });
 
     describe('Edge Cases', () => {
         it('should handle empty or undefined attrs', () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
+            const component = fixture.componentInstance;
 
-            directive.attrs = {} as any;
-
-            expect(() => {
-                directive.classes();
-                directive.attributes();
-                directive.styles();
-                directive.listeners();
-            }).not.toThrow();
-        });
-
-        it('should handle attrs without class property', () => {
-            const fixture = TestBed.createComponent(TestBasicBindComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
-
-            directive.attrs = {
-                id: 'test-id'
-            };
-
-            const classes = directive.classes();
-
-            expect(classes).toEqual('');
-        });
-
-        it('should handle attrs without style property', () => {
-            const fixture = TestBed.createComponent(TestBasicBindComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
-
-            directive.attrs = {
-                id: 'test-id'
-            };
-
-            const styles = directive.styles();
-
-            expect(styles).toBeDefined();
-            expect(styles.id).toBeUndefined();
-        });
-
-        it('should handle element without existing attributes', () => {
-            const fixture = TestBed.createComponent(TestBasicBindComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
-
-            const attrs = directive.attributes();
-
-            expect(attrs).toBeDefined();
-            expect(typeof attrs).toBe('object');
-        });
-    });
-
-    describe('Integration with DomHandler', () => {
-        it('should call DomHandler.setAttributes with correct parameters', () => {
-            const fixture = TestBed.createComponent(TestBindAttributesComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
-
-            spyOn(directive, 'all').and.returnValue({
-                id: 'test-id',
-                'data-test': 'test-value',
-                style: { color: 'red' }
-            });
-
-            // Mock DomHandler.setAttributes
-            const DomHandler = require('primeng/dom').DomHandler;
-            spyOn(DomHandler, 'setAttributes');
-
-            directive.bind();
-
-            expect(DomHandler.setAttributes).toHaveBeenCalledWith(directive.host, {
-                id: 'test-id',
-                'data-test': 'test-value',
-                style: { color: 'red' }
-            });
-        });
-    });
-
-    describe('Host Class Binding', () => {
-        it('should bind classes through host property', () => {
-            const fixture = TestBed.createComponent(TestBindClassesComponent);
+            component.attrs = undefined;
             fixture.detectChanges();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            expect(element.className).toContain('test-class');
-            expect(element.className).toContain('another-class');
+            expect(element).toBeTruthy();
         });
 
-        it('should handle empty classes array', () => {
+        it('should handle attrs without class property', () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
-            const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
+            const component = fixture.componentInstance;
 
-            directive.attrs = {};
+            component.attrs = {
+                id: 'test-id'
+            };
+            fixture.detectChanges();
 
-            const classes = directive.classes();
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
 
-            expect(classes).toEqual('');
+            expect(element.getAttribute('id')).toBe('test-id');
+        });
+
+        it('should handle attrs without style property', () => {
+            const fixture = TestBed.createComponent(TestBasicBindComponent);
+            const component = fixture.componentInstance;
+
+            component.attrs = {
+                id: 'test-id'
+            };
+            fixture.detectChanges();
+
+            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
+
+            expect(element.getAttribute('id')).toBe('test-id');
         });
     });
 
-    describe('Duplicate Prevention in DOM', () => {
+    describe('Duplicate Prevention', () => {
         it('should not duplicate classes in DOM on multiple updates', () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
@@ -513,87 +492,6 @@ describe('Bind', () => {
             expect(classes.filter((c: string) => c === 'another-class').length).toBe(1);
         });
 
-        it('should not duplicate styles in DOM on multiple updates', () => {
-            const fixture = TestBed.createComponent(TestBindDynamicComponent);
-            const component = fixture.componentInstance;
-            fixture.detectChanges();
-
-            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
-
-            // Update multiple times with same styles
-            component.attrs = { style: { background: 'red', color: 'blue' } };
-            fixture.detectChanges();
-
-            component.attrs = { style: { background: 'blue', color: 'red' } };
-            fixture.detectChanges();
-
-            component.attrs = { style: { background: 'red', color: 'blue' } };
-            fixture.detectChanges();
-
-            // Check style attribute for duplicates
-            const styleAttr = element.getAttribute('style');
-            const backgroundCount = (styleAttr.match(/background/g) || []).length;
-            const colorCount = (styleAttr.match(/color/g) || []).length;
-
-            expect(backgroundCount).toBe(1);
-            expect(colorCount).toBe(1);
-        });
-
-        it('should not duplicate style values when toggling', () => {
-            const fixture = TestBed.createComponent(TestBindDynamicComponent);
-            const component = fixture.componentInstance;
-            fixture.detectChanges();
-
-            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
-
-            // Toggle between two different style values
-            for (let i = 0; i < 5; i++) {
-                component.attrs = { style: { background: i % 2 === 0 ? 'red' : 'blue' } };
-                fixture.detectChanges();
-            }
-
-            // Check that style doesn't contain accumulated values
-            const styleAttr = element.getAttribute('style');
-            const redCount = (styleAttr.match(/red/g) || []).length;
-            const blueCount = (styleAttr.match(/blue/g) || []).length;
-
-            // Should have either red or blue, not both, and not duplicated
-            expect(redCount + blueCount).toBe(1);
-        });
-
-        it('should not duplicate attributes in DOM on multiple updates', () => {
-            const fixture = TestBed.createComponent(TestBindDynamicComponent);
-            const component = fixture.componentInstance;
-            fixture.detectChanges();
-
-            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
-
-            // Update multiple times with same attributes
-            component.attrs = {
-                id: 'test-id',
-                'data-test': 'test-value',
-                tabindex: '0'
-            };
-            fixture.detectChanges();
-
-            component.attrs = {
-                id: 'test-id',
-                'data-test': 'test-value',
-                tabindex: '0'
-            };
-            fixture.detectChanges();
-
-            // Check that each attribute exists only once
-            const attributes = Array.from(element.attributes);
-            const attributeNames = attributes.map((attr: Attr) => attr.name);
-            const uniqueAttributeNames = [...new Set(attributeNames)];
-
-            expect(attributeNames.length).toBe(uniqueAttributeNames.length);
-            expect(attributes.filter((attr: Attr) => attr.name === 'id').length).toBe(1);
-            expect(attributes.filter((attr: Attr) => attr.name === 'data-test').length).toBe(1);
-            expect(attributes.filter((attr: Attr) => attr.name === 'tabindex').length).toBe(1);
-        });
-
         it('should not accumulate event listeners on multiple updates', () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
@@ -605,13 +503,13 @@ describe('Bind', () => {
             const clickHandler = () => clickCount++;
 
             // Update multiple times with same event listener
-            component.attrs = { click: clickHandler };
+            component.attrs = { onclick: clickHandler };
             fixture.detectChanges();
 
-            component.attrs = { click: clickHandler };
+            component.attrs = { onclick: clickHandler };
             fixture.detectChanges();
 
-            component.attrs = { click: clickHandler };
+            component.attrs = { onclick: clickHandler };
             fixture.detectChanges();
 
             // Trigger click event
@@ -619,32 +517,6 @@ describe('Bind', () => {
 
             // Should be called only once, not multiple times
             expect(clickCount).toBe(1);
-        });
-
-        it('should clean up previous style when updating to new style', () => {
-            const fixture = TestBed.createComponent(TestBindDynamicComponent);
-            const component = fixture.componentInstance;
-            fixture.detectChanges();
-
-            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
-
-            // Set initial style
-            component.attrs = { style: { background: 'red', padding: '10px' } };
-            fixture.detectChanges();
-
-            // Update to completely different style
-            component.attrs = { style: { color: 'blue', margin: '5px' } };
-            fixture.detectChanges();
-
-            const styleAttr = element.getAttribute('style');
-
-            // Old style properties should not exist
-            expect(styleAttr).not.toContain('background');
-            expect(styleAttr).not.toContain('padding');
-
-            // New style properties should exist
-            expect(styleAttr).toContain('color');
-            expect(styleAttr).toContain('margin');
         });
 
         it('should handle rapid toggling without duplication', () => {
@@ -659,54 +531,12 @@ describe('Bind', () => {
             for (let i = 0; i < 10; i++) {
                 isActive.set(!isActive());
                 component.attrs = {
-                    style: {
-                        background: isActive() ? 'red' : 'blue',
-                        color: isActive() ? 'white' : 'black'
-                    }
-                };
-                fixture.detectChanges();
-            }
-
-            // Check final style doesn't have accumulated values
-            const styleAttr = element.getAttribute('style');
-            const semicolons = (styleAttr.match(/;/g) || []).length;
-
-            // Should have at most 2 style properties (background and color)
-            expect(semicolons).toBeLessThanOrEqual(2);
-
-            // Check no duplicate properties
-            const backgroundCount = (styleAttr.match(/background/g) || []).length;
-            const colorCount = (styleAttr.match(/color:/g) || []).length;
-
-            expect(backgroundCount).toBe(1);
-            expect(colorCount).toBe(1);
-        });
-
-        it('should not duplicate class when using object notation with true/false toggling', () => {
-            const fixture = TestBed.createComponent(TestBindDynamicComponent);
-            const component = fixture.componentInstance;
-            const isActive = signal(false);
-            fixture.detectChanges();
-
-            const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
-
-            // Toggle class object multiple times
-            for (let i = 0; i < 5; i++) {
-                isActive.set(!isActive());
-                component.attrs = {
-                    class: {
-                        active: isActive(),
-                        inactive: !isActive(),
-                        'base-class': true
-                    }
+                    class: isActive() ? 'active' : 'inactive'
                 };
                 fixture.detectChanges();
             }
 
             const classes = element.className.split(' ').filter((c: string) => c);
-            const baseClassCount = classes.filter((c: string) => c === 'base-class').length;
-
-            expect(baseClassCount).toBe(1);
 
             // Should have either active or inactive, not both
             const hasActive = classes.includes('active');

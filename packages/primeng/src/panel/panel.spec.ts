@@ -652,7 +652,7 @@ describe('Panel', () => {
     describe('Public Methods', () => {
         it('should expand programmatically', () => {
             testComponent.toggleable = true;
-            panelInstance.collapsed.set(true);
+            panelInstance.collapsed = true;
             testFixture.detectChanges();
 
             panelInstance.expand();
@@ -663,7 +663,7 @@ describe('Panel', () => {
 
         it('should collapse programmatically', () => {
             testComponent.toggleable = true;
-            panelInstance.collapsed.set(true);
+            panelInstance.collapsed = true;
             testFixture.detectChanges();
 
             panelInstance.collapse();
@@ -674,7 +674,7 @@ describe('Panel', () => {
 
         it('should toggle programmatically', () => {
             testComponent.toggleable = true;
-            panelInstance.collapsed.set(false);
+            panelInstance.collapsed = false;
             testFixture.detectChanges();
 
             const event = new MouseEvent('click');
