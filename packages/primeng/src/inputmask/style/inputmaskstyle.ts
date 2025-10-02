@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
+const style = /*css*/ `
     /* For PrimeNG */
     p-inputmask {
         position: relative;
@@ -55,7 +55,7 @@ const classes = {
 export class InputMaskStyle extends BaseStyle {
     name = 'inputmask';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

@@ -741,7 +741,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
             case 'visible':
                 this.overlay = event.element;
                 ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-                this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
+                this.$attrSelector && this.overlay.setAttribute(this.$attrSelector, '');
                 this.appendContainer();
                 this.alignOverlay();
                 this.bindScrollListener();

@@ -222,7 +222,7 @@ export class SelectItem extends BaseComponent {
             </ng-template>
         </div>
 
-        <p-overlay #overlay [hostAttrSelector]="attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" (onAnimationStart)="onOverlayAnimationStart($event)" (onHide)="hide()">
+        <p-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" (onAnimationStart)="onOverlayAnimationStart($event)" (onHide)="hide()">
             <ng-template #content>
                 <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span

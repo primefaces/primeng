@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
+const style = /*css*/ `
 .p-overlay {
     position: absolute;
     top: 0;
@@ -94,5 +94,5 @@ const theme = /*css*/ `
 export class OverlayStyle extends BaseStyle {
     name = 'overlay';
 
-    theme = theme;
+    style = style;
 }

@@ -353,7 +353,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     show() {
-        this.container?.setAttribute(this.attrSelector, '');
+        this.container?.setAttribute(this.$attrSelector, '');
 
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex || this.config.zIndex.modal);

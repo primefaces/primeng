@@ -38,7 +38,7 @@ const classes = {
 export class TreeStyle extends BaseStyle {
     name = 'tree';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

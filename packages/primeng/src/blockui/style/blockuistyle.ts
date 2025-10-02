@@ -15,7 +15,7 @@ const classes = {
 export class BlockUiStyle extends BaseStyle {
     name = 'blockui';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

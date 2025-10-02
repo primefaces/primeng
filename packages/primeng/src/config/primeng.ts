@@ -24,6 +24,11 @@ export type PrimeNGConfigType = {
     };
     overlayOptions?: OverlayOptions;
     translation?: Translation;
+    /**
+     * @experimental
+     * This property is not yet implemented. It will be available in a future release.
+     */
+    unstyled?: boolean;
     zIndex?: ZIndex;
     pt?: any;
     ptOptions?: any;
@@ -47,6 +52,14 @@ export class PrimeNG extends ThemeProvider {
     overlayOptions: OverlayOptions = {};
 
     csp = signal<{ nonce: string | undefined }>({ nonce: undefined });
+
+    /**
+     * Indicates whether the component should be rendered without styles.
+     *
+     * @experimental
+     * This property is not yet implemented. It will be available in a future release.
+     */
+    unstyled = signal<boolean | undefined>(undefined);
 
     pt = signal<any>(null);
 
@@ -210,7 +223,7 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex, ptOptions, pt } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex, ptOptions, pt, unstyled } = config || {};
 
         if (csp) this.csp.set(csp);
         if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
@@ -223,6 +236,7 @@ export class PrimeNG extends ThemeProvider {
         if (zIndex) this.zIndex = zIndex;
         if (pt) this.pt.set(pt);
         if (ptOptions) this.ptOptions.set(ptOptions);
+        if (unstyled) this.unstyled.set(unstyled);
 
         if (theme)
             this.setThemeConfig({

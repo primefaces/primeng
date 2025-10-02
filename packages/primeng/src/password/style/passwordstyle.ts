@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/password';
+import { style as password_style } from '@primeuix/styles/password';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${password_style}
 
     /* For PrimeNG */
     p-password.ng-invalid.ng-dirty .p-inputtext {
@@ -61,7 +61,7 @@ const classes = {
 export class PasswordStyle extends BaseStyle {
     name = 'password';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

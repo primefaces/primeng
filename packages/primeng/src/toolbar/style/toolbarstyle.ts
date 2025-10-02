@@ -13,7 +13,7 @@ const classes = {
 export class ToolbarStyle extends BaseStyle {
     name = 'toolbar';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

@@ -12,7 +12,7 @@ const classes = {
 export class InplaceStyle extends BaseStyle {
     name = 'inplace';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }
