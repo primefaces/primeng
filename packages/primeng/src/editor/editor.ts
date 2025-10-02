@@ -138,7 +138,7 @@ export class Editor extends BaseEditableHolder implements AfterContentInit, OnDe
      * @param {EditorInitEvent} event - custom event.
      * @group Emits
      */
-    @Output() onInit: EventEmitter<EditorInitEvent> = new EventEmitter<EditorInitEvent>();
+    @Output('onInit') onEditorInit: EventEmitter<EditorInitEvent> = new EventEmitter<EditorInitEvent>();
     /**
      * Callback to invoke when text of editor changes.
      * @param {EditorTextChangeEvent} event - custom event.
@@ -359,7 +359,7 @@ export class Editor extends BaseEditableHolder implements AfterContentInit, OnDe
         editorEl.addEventListener('focus', this.focusListener);
         editorEl.addEventListener('blur', this.blurListener);
 
-        this.onInit.emit({
+        this.onEditorInit.emit({
             editor: this.quill
         });
     }

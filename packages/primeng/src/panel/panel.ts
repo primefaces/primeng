@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -190,14 +189,14 @@ export interface PanelHeaderIconsTemplateContext {
     },
     hostDirectives: [Bind]
 })
-export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Panel extends BaseComponent implements BlockableUI {
     $pcPanel: Panel | undefined = inject(PANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(PanelStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
@@ -433,7 +432,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'header':
