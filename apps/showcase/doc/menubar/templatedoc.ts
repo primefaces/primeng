@@ -1,10 +1,19 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { MenubarModule } from 'primeng/menubar';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
+import { InputTextModule } from 'primeng/inputtext';
+import { Ripple } from 'primeng/ripple';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'menubar-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, MenubarModule, BadgeModule, AvatarModule, InputTextModule, Ripple, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Custom content can be placed inside the menubar using the <i>start</i> and <i>end</i> templates.</p>

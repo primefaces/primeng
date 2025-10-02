@@ -37,7 +37,7 @@ const classes = {
         const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
         const pos = positions.find((item) => item === instance.position);
 
-        return ['p-dialog-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, `p-dialog-${pos}`];
+        return ['p-dialog-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, pos ? `p-dialog-${pos}` : ''];
     },
     root: ({ instance }) => [
         'p-dialog p-component',

@@ -1,16 +1,20 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { PanelMenu } from 'primeng/panelmenu';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [PanelMenu, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+            <p-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
     `
@@ -100,10 +104,10 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelmenu [model]="items" styleClass="w-full md:w-20rem" />`,
+        basic: `<p-panelmenu [model]="items" class="w-full md:w-20rem" />`,
 
         html: `<div class="card flex justify-center">
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80" />
+    <p-panelmenu [model]="items" class="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

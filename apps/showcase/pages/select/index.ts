@@ -14,17 +14,18 @@ import { InvalidDoc } from '@/doc/select/invaliddoc';
 import { LazyVirtualScrollDoc } from '@/doc/select/lazyvirtualscrolldoc';
 import { LoadingStateDoc } from '@/doc/select/loadingstatedoc';
 import { ReactiveFormsDoc } from '@/doc/select/reactiveformsdoc';
-import { SelectDocModule } from '@/doc/select/selectdoc.module';
 import { SizesDoc } from '@/doc/select/sizesdoc';
 import { TemplateDoc } from '@/doc/select/templatedoc';
-import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
-import { Component } from '@angular/core';
 import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
+import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
+import { FluidDoc } from '@/doc/select/fluiddoc';
+import { AppDoc } from '@/components/doc/app.doc';
+import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" themeDocs="select"></app-doc> `,
     standalone: true,
-    imports: [SelectDocModule],
+    imports: [AppDoc],
     styleUrl: './selectdemo.scss'
 })
 export class SelectDemo {
@@ -65,16 +66,10 @@ export class SelectDemo {
             component: FilterDoc
         },
         {
-            id: 'clearicon',
-            label: 'Clear Icon',
-            component: ClearIconDoc
-        },
-        {
             id: 'loadingstate',
             label: 'Loading State',
             component: LoadingStateDoc
         },
-
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
@@ -101,9 +96,29 @@ export class SelectDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'forms',
@@ -113,17 +128,6 @@ export class SelectDemo {
                 { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
             ]
         },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

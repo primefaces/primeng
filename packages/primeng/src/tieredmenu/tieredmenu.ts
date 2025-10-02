@@ -4,6 +4,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     effect,
@@ -89,7 +90,7 @@ import { IsItemGroupPipe } from './pipes/item-group.pipe';
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [ngStyle]="getItemProp(processedItem, 'style')"
-                    [class]="cx('item', { processedItem })"
+                    [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
@@ -121,8 +122,8 @@ import { IsItemGroupPipe } from './pipes/item-group.pipe';
                                 </ng-template>
                                 <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
 
-                                <ng-container *ngIf="processedItem | isItemGroup">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                <ng-container *ngIf="processedItem | isItemGroup"">
+                                    <svg data-p-icon="angle-right" *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -162,8 +163,10 @@ import { IsItemGroupPipe } from './pipes/item-group.pipe';
                                 </ng-template>
                                 <span *ngIf="getItemProp(processedItem, 'badge')" [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
 
+
                                 <ng-container *ngIf="processedItem | isItemGroup">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <svg data-p-icon="angle-right" *ngIf="!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -310,6 +313,7 @@ export class TieredMenuSub extends BaseComponent {
     isItemVisible(processedItem: any): boolean {
         return this.getItemProp(processedItem, 'visible') !== false;
     }
+
 
     isItemDisabled(processedItem: any): boolean {
         return this.getItemProp(processedItem, 'disabled');
@@ -475,6 +479,12 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -500,6 +510,8 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     container: HTMLDivElement | undefined;
 
@@ -623,12 +635,12 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     unbindMatchMediaListener() {
         if (this.matchMediaListener) {
             this.query.removeEventListener('change', this.matchMediaListener);
-            this.matchMediaListener = null;
+            this.matchMediaListener = null as any;
         }
     }
 
     createProcessedItems(items: any, level: number = 0, parent: any = {}, parentKey: any = '') {
-        const processedItems = [];
+        const processedItems: any = [];
 
         items &&
             items.forEach((item, index) => {
@@ -719,16 +731,16 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = true;
-            focus(this.rootmenu.sublistViewChild.nativeElement);
+            focus(this.rootmenu?.sublistViewChild?.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
             } else {
                 const rootProcessedItem = root ? processedItem : this.activeItemPath().find((p) => p.parentKey === '');
                 this.hide(originalEvent);
-                this.changeFocusedItemIndex(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
+                this.changeFocusedItemIndex(originalEvent, rootProcessedItem?.index ?? -1);
 
-                focus(this.rootmenu.sublistViewChild.nativeElement);
+                focus(this.rootmenu?.sublistViewChild?.nativeElement);
             }
         }
     }
@@ -847,6 +859,10 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     onArrowLeftKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
+        if (!processedItem) {
+            event.preventDefault();
+            return;
+        }
         const parentItem = this.activeItemPath().find((p) => p.key === processedItem.parentKey);
         const root = isEmpty(processedItem.parent);
 
@@ -896,8 +912,8 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = <any>findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
+            const element = <any>findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -925,7 +941,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         this.focusedItemInfo.set({ index, level, parentKey, item });
 
         grouped && (this.dirty = true);
-        isFocus && focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
         if (type === 'hover' && this.queryMatches) {
             return;
@@ -955,15 +971,15 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.onShow.emit({});
-                    addStyle(this.containerViewChild.nativeElement, { position: 'absolute', top: 0 });
-                    this.attrSelector && this.container.setAttribute(this.attrSelector, '');
+                    addStyle(this.containerViewChild?.nativeElement, { position: 'absolute', top: 0 });
+                    this.attrSelector && this.container?.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindOutsideClickListener();
                     this.bindResizeListener();
                     this.bindScrollListener();
 
-                    focus(this.rootmenu.sublistViewChild.nativeElement);
+                    focus(this.rootmenu?.sublistViewChild?.nativeElement);
                     this.scrollInView();
                 }
                 break;
@@ -976,13 +992,13 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container, this.target);
-        else absolutePosition(this.container, this.target);
+        if (this.relativeAlign) relativePosition(this.container!, this.target);
+        else absolutePosition(this.container!, this.target);
 
         const targetWidth = getOuterWidth(this.target);
 
         if (targetWidth > getOuterWidth(this.container)) {
-            this.container.style.minWidth = getOuterWidth(this.target) + 'px';
+            this.container!.style.minWidth = getOuterWidth(this.target) + 'px';
         }
     }
 
@@ -995,9 +1011,9 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     appendOverlay() {
-        if (this.$appendTo()) {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.$appendTo(), this.container);
+            else appendChild(this.$appendTo(), this.container!);
         }
     }
 
@@ -1025,7 +1041,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && focus(this.relatedTarget || this.target || this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.relatedTarget || this.target || this.rootmenu?.sublistViewChild?.nativeElement);
         this.dirty = false;
     }
 
@@ -1053,7 +1069,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && focus(this.rootmenu.sublistViewChild.nativeElement);
+        isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
         this.cd.markForCheck();
     }
@@ -1140,7 +1156,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = findSingle(this.rootmenu?.el?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });

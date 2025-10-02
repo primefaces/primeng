@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/contextmenu';
+export * from '@primeuix/themes/aura/contextmenu';
+export { default } from '@primeuix/themes/aura/contextmenu';

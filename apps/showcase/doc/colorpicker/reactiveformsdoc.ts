@@ -1,11 +1,19 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, ColorPickerModule, ButtonModule, MessageModule, ToastModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ColorPicker can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -14,7 +22,7 @@ import { MessageService } from 'primeng/api';
             <p-toast />
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col items-center gap-2">
-                    <p-colorpicker formControlName="color" />
+                    <p-colorpicker formControlName="color" defaultColor="989898" />
                     @if (isInvalid('color')) {
                         <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
                     }
@@ -55,7 +63,7 @@ export class ReactiveFormsDoc {
     code: Code = {
         basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
     <div class="flex flex-col items-center gap-2">
-        <p-colorpicker formControlName="color" />
+        <p-colorpicker formControlName="color" defaultColor="989898" />
         @if (isInvalid('color')) {
             <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
         }
@@ -67,7 +75,7 @@ export class ReactiveFormsDoc {
     <p-toast />
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
         <div class="flex flex-col items-center gap-2">
-            <p-colorpicker formControlName="color" />
+            <p-colorpicker formControlName="color" defaultColor="989898" />
             @if (isInvalid('color')) {
                 <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
             }

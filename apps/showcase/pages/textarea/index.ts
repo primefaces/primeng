@@ -8,14 +8,15 @@ import { IftaLabelDoc } from '@/doc/textarea/iftalabeldoc';
 import { ImportDoc } from '@/doc/textarea/importdoc';
 import { InvalidDoc } from '@/doc/textarea/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/textarea/reactiveformsdoc';
-import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
 import { SizesDoc } from '@/doc/textarea/sizesdoc';
-import { TextareaDocModule } from '@/doc/textarea/texteareadoc.module';
+import { TemplateDrivenFormsDoc } from '@/doc/textarea/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/textarea/fluiddoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [TextareaDocModule],
+    imports: [AppDoc],
     template: `<app-doc docTitle="Angular Textarea Component" header="Textarea" description="Textarea adds styling and autoResize functionality to standard textarea element." [docs]="docs" [apiDocs]="['Textarea']" themeDocs="textearea"></app-doc>`
 })
 export class TextareaDemo {
@@ -51,9 +52,24 @@ export class TextareaDemo {
             component: SizesDoc
         },
         {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
+        },
+        {
             id: 'filled',
             label: 'Filled',
             component: FilledDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'forms',
@@ -63,17 +79,6 @@ export class TextareaDemo {
                 { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
             ]
         },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

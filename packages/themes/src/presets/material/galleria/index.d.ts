@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/galleria';
+export * from '@primeuix/themes/material/galleria';
+export { default } from '@primeuix/themes/material/galleria';

@@ -13,6 +13,7 @@ import {
     forwardRef,
     Inject,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -64,7 +65,7 @@ export class SafeHtmlPipe implements PipeTransform {
     selector: '[pMenuItemContent]',
     standalone: true,
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe],
-    template: `
+    template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item)" [attr.data-pc-section]="'content'">
         <ng-container *ngIf="!itemTemplate">
             <a
                 *ngIf="!item?.routerLink"
@@ -113,12 +114,7 @@ export class SafeHtmlPipe implements PipeTransform {
             <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
             <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
         </ng-template>
-    `,
-    host: {
-        'data-pc-section': 'content',
-        '[class]': "cx('itemContent')",
-        '(click)': 'onItemClick($event, item)'
-    },
+    </div>`,
     encapsulation: ViewEncapsulation.None,
     providers: [MenuStyle]
 })
@@ -197,7 +193,7 @@ export class MenuItemContent extends BaseComponent {
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li [class]="cx('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator"></li>
                         <li
-                            [class]="cx('item', { item, menuItemId: menuitemId(item, id, i, j) })"
+                            [class]="cn(cx('item', { item, id: menuitemId(item, id, i, j) }), item?.styleClass)"
                             *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -218,7 +214,7 @@ export class MenuItemContent extends BaseComponent {
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
                     <li [class]="cx('separator')" *ngIf="item.separator && item.visible !== false" role="separator"></li>
                     <li
-                        [class]="cx('item', { item, menuItemId: menuitemId(item, id, i) })"
+                        [class]="cn(cx('item', { item, id: menuitemId(item, id, i) }), item?.styleClass)"
                         *ngIf="!item.separator && item.visible !== false"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate ?? _itemTemplate"
@@ -308,6 +304,12 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -333,6 +335,8 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     container: HTMLDivElement | undefined;
 
@@ -474,13 +478,13 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
                     this.container = event.element;
                     this.moveOnTop();
                     this.onShow.emit({});
-                    this.attrSelector && this.container.setAttribute(this.attrSelector, '');
+                    this.attrSelector && this.container?.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
-                    focus(this.listViewChild.nativeElement);
+                    focus(this.listViewChild?.nativeElement);
                 }
                 break;
 
@@ -502,8 +506,8 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container, this.target);
-        else absolutePosition(this.container, this.target);
+        if (this.relativeAlign) relativePosition(this.container!, this.target);
+        else absolutePosition(this.container!, this.target);
     }
 
     appendOverlay() {
@@ -560,6 +564,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     onListFocus(event: Event) {
         if (!this.focused) {
             this.focused = true;
+            !this.popup && this.changeFocusedOptionIndex(0);
             this.onFocus.emit(event);
         }
     }
@@ -643,13 +648,13 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     onEndKey(event) {
-        this.changeFocusedOptionIndex(find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
         event.preventDefault();
     }
 
     onEnterKey(event) {
-        const element = <any>findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
-        const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
+        const element = <any>findSingle(this.containerViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
+        const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
         this.popup && focus(this.target);
         anchorElement ? anchorElement.click() : element && element.click();
@@ -662,22 +667,21 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
     }
 
     findNextOptionIndex(index) {
-        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const links = find(this.containerViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
-
+        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         if (links.length > 0) {
             let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
             order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));

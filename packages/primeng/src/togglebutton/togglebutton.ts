@@ -14,17 +14,18 @@ import {
     Input,
     NgModule,
     numberAttribute,
+    OnInit,
     Output,
     QueryList,
     TemplateRef
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -42,14 +43,11 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     hostDirectives: [{ directive: Ripple }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[attr.tabindex]': 'tabindex',
-        '[attr.disabled]': 'disabled()',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.aria-pressed]': 'checked',
-        '[attr.data-p-checked]': 'active',
-        '[attr.data-p-disabled]': 'disabled()',
-        '[attr.required]': 'required()',
-        '[attr.type]': '"button"'
+        '[attr.aria-label]': 'ariaLabel',
+        '[attr.aria-pressed]': 'checked ? "true" : "false"',
+        '[attr.role]': '"button"',
+        '[attr.tabindex]': 'tabindex !== undefined ? tabindex : (!$disabled() ? 0 : -1)'
     },
     template: `<span [class]="cx('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
@@ -67,8 +65,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
-    @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+export class ToggleButton extends BaseEditableHolder implements OnInit, AfterContentInit {
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
                 this.toggle(event);
@@ -81,8 +80,9 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
         }
     }
 
-    @HostListener('click', ['$event']) toggle(event: Event) {
-        if (!this.disabled() && !(this.allowEmpty === false && this.checked)) {
+    @HostListener('click', ['$event'])
+    toggle(event: Event) {
+        if (!this.$disabled() && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;
             this.writeModelValue(this.checked);
             this.onModelChange(this.checked);
@@ -188,9 +188,12 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
 
     checked: boolean = false;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
+    ngOnInit() {
+        super.ngOnInit();
+        if (this.checked === null || this.checked === undefined) {
+            this.checked = false;
+        }
+    }
 
     _componentStyle = inject(ToggleButtonStyle);
 
@@ -198,26 +201,12 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
         this.onModelTouched();
     }
 
-    writeValue(value: any): void {
-        this.checked = value;
-        this.writeModelValue(value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
     get hasOnLabel(): boolean {
         return (this.onLabel && this.onLabel.length > 0) as boolean;
     }
 
     get hasOffLabel(): boolean {
-        return (this.onLabel && this.onLabel.length > 0) as boolean;
+        return (this.offLabel && this.offLabel.length > 0) as boolean;
     }
 
     get active() {
@@ -242,6 +231,18 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
                     break;
             }
         });
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.checked = value;
+        setModelValue(value);
+        this.cd.markForCheck();
     }
 }
 

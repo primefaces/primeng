@@ -106,7 +106,7 @@ type SplitButtonIconPosition = 'left' | 'right';
         >
             <span *ngIf="dropdownIcon" [class]="dropdownIcon"></span>
             <ng-container *ngIf="!dropdownIcon">
-                <ChevronDownIcon *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
+                <svg data-p-icon="chevron-down" *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
             </ng-container>
         </button>
@@ -261,9 +261,9 @@ export class SplitButton extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) set disabled(v: boolean | undefined) {
-        this._disabled = v;
-        this.buttonDisabled = v;
-        this.menuButtonDisabled = v;
+        this._disabled = v ?? false;
+        this.buttonDisabled = v ?? false;
+        this.menuButtonDisabled = v ?? false;
     }
     public get disabled(): boolean | undefined {
         return this._disabled;
@@ -358,8 +358,8 @@ export class SplitButton extends BaseComponent implements AfterContentInit {
     }
 
     onDefaultButtonClick(event: MouseEvent) {
-        this.onClick.emit(event);
-        this.menu.hide();
+        this.onClick?.emit(event);
+        this.menu?.hide();
     }
 
     onDropdownButtonClick(event?: MouseEvent) {

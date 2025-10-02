@@ -1,7 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -10,17 +17,18 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ReactiveFormsModule, AutoCompleteModule, ToastModule, MessageModule, ButtonModule, CommonModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>AutoComplete can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <p-toast />
         <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" />
-                    @if (isInvalid('selectedCountry')) {
-                        <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+                    <p-autocomplete formControlName="value" [suggestions]="items" [invalid]="isInvalid('value')" (completeMethod)="search($event)" fluid />
+                    @if (isInvalid('value')) {
+                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -39,7 +47,7 @@ export class ReactiveFormsDoc {
 
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
-            selectedCountry: ['', Validators.required]
+            value: ['', Validators.required]
         });
     }
 
@@ -62,11 +70,11 @@ export class ReactiveFormsDoc {
     }
 
     code: Code = {
-        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
     <div class="flex flex-col gap-1">
-        <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" />
-        @if (isInvalid('selectedCountry')) {
-            <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+        <p-autocomplete formControlName="value" [suggestions]="items" [invalid]="isInvalid('value')" (completeMethod)="search($event)" fluid />
+        @if (isInvalid('value')) {
+            <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -74,11 +82,11 @@ export class ReactiveFormsDoc {
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
+    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 md:w-56">
         <div class="flex flex-col gap-1">
-            <p-autocomplete formControlName="selectedCountry" [suggestions]="items" [invalid]="isInvalid('selectedCountry')" (completeMethod)="search($event)" />
-            @if (isInvalid('selectedCountry')) {
-                <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+            <p-autocomplete formControlName="value" [suggestions]="items" [invalid]="isInvalid('value')" (completeMethod)="search($event)" fluid />
+            @if (isInvalid('value')) {
+                <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -115,7 +123,7 @@ export class AutocompleteReactiveFormsDemo {
 
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
-            selectedCountry: ['', Validators.required]
+            value: ['', Validators.required]
         });
     }
 

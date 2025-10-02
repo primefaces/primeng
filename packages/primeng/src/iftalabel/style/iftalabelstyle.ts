@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/iftalabel';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
+const theme = /*css*/ `
     ${style}
 
     /* For PrimeNG */
     .p-iftalabel:has(.ng-invalid.ng-dirty) label {
-        color: ${dt('iftalabel.invalid.color')};
+        color: dt('iftalabel.invalid.color');
     }
 `;
 

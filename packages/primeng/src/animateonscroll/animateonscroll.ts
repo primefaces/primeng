@@ -4,7 +4,7 @@ import { addClass, removeClass } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
 interface AnimateOnScrollOptions {
-    root?: HTMLElement;
+    root?: HTMLElement | null;
     rootMargin?: string;
     threshold?: number;
 }
@@ -45,12 +45,12 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
      * Specifies the threshold option of the IntersectionObserver API
      * @group Props
      */
-    @Input({ transform: numberAttribute }) threshold: number | undefined;
+    @Input({ transform: numberAttribute }) threshold: number | undefined = 0.5;
     /**
      * Whether the scroll event listener should be removed after initial run.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) once: boolean = true;
+    @Input({ transform: booleanAttribute }) once: boolean = false;
 
     observer: IntersectionObserver | undefined;
 
@@ -60,7 +60,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
 
     animationState: any;
 
-    animationEndListener: VoidFunction | undefined;
+    animationEndListener: VoidFunction | null | undefined;
 
     ngOnInit() {
         super.ngOnInit();
@@ -80,7 +80,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
         return {
             root: this.root,
             rootMargin: this.rootMargin,
-            threshold: this.threshold
+            threshold: this.threshold || 0.5
         };
     }
 
@@ -97,7 +97,7 @@ export class AnimateOnScroll extends BaseComponent implements OnInit, AfterViewI
             this.isObserverActive = true;
         }, this.options);
 
-        setTimeout(() => this.observer.observe(this.el.nativeElement), 0);
+        setTimeout(() => this.observer?.observe(this.el.nativeElement), 0);
 
         // Reset
 

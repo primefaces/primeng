@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/fieldset';
+export * from '@primeuix/themes/material/fieldset';
+export { default } from '@primeuix/themes/material/fieldset';

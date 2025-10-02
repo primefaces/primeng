@@ -417,12 +417,9 @@
                             "routerLink": "/metergroup"
                         },
                         {
-                            "name": "ScrollTop",
-                            "routerLink": "/scrolltop"
-                        },
-                        {
-                            "name": "Skeleton",
-                            "routerLink": "/skeleton"
+                            "name": "ClassNames",
+                            "routerLink": "/classnames",
+                            "badge": "NEW"
                         },
                         {
                             "name": "ProgressBar",
@@ -435,6 +432,14 @@
                         {
                             "name": "Ripple",
                             "routerLink": "/ripple"
+                        },
+                        {
+                            "name": "ScrollTop",
+                            "routerLink": "/scrolltop"
+                        },
+                        {
+                            "name": "Skeleton",
+                            "routerLink": "/skeleton"
                         },
                         {
                             "name": "StyleClass",
@@ -483,7 +488,16 @@
         {
             "name": "Figma UI Kit",
             "icon": "pi pi-pencil",
-            "routerLink": "/uikit"
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/uikit"
+                },
+                {
+                    "name": "Guide",
+                    "routerLink": "/uikit/guide"
+                }
+            ]
         },
         {
             "name": "Templates",
@@ -506,10 +520,10 @@
 
         },
         {
-            "name": "New PrimeBlocks",
+            "name": "PrimeBlocks",
             "icon": "pi pi-server",
             "href": "https://primeblocks.org",
-            "badge": "Soon"
+            "badge": "NEW"
         },
         {
             "name": "Guides",
@@ -520,16 +534,30 @@
                     "routerLink": "/guides/accessibility"
                 },
                 {
-                    "name": "Migration to v18+",
-                    "routerLink": "/guides/migration"
-                },
-                {
                     "name": "PrimeFlex",
                     "routerLink": "/guides/primeflex"
                 },
                 {
                     "name": "PrimeTV",
                     "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                },
+                   {
+                    "name": "RTL",
+                    "routerLink": "/guides/rtl"
+                }
+            ]
+        },
+        {
+            "name": "Migration",
+            "icon": "pi pi-arrow-up",
+            "children": [
+                {
+                    "name": "Updating to v20",
+                    "routerLink": "/migration/v20"
+                },
+                {
+                    "name": "Updating to v19",
+                    "routerLink": "/migration/v19"
                 }
             ]
         },

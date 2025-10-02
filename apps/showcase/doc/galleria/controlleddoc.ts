@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
 import { Component, OnInit, model } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'galleria-controlled-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
@@ -34,7 +40,7 @@ export class ControlledDoc implements OnInit {
     }
 
     set activeIndex(newValue) {
-        if (this.images && 0 <= newValue && newValue <= this.images.length - 1) {
+        if (this.images() && 0 <= newValue && newValue <= this.images().length - 1) {
             this._activeIndex = newValue;
         }
     }
@@ -113,7 +119,7 @@ export class GalleriaControlledDemo implements OnInit {
     }
 
     set activeIndex(newValue) {
-        if (this.images && 0 <= newValue && newValue <= this.images.length - 1) {
+        if (this.images() && 0 <= newValue && newValue <= this.images().length - 1) {
             this._activeIndex = newValue;
         }
     }

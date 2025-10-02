@@ -46,12 +46,12 @@ import { CarouselStyle } from './style/carouselstyle';
                 <p-button *ngIf="showNavigators" [class]="cx('pcPrevButton')" [attr.aria-label]="ariaPrevButtonLabel()" (click)="navBackward($event)" [text]="true" [buttonProps]="prevButtonProps">
                     <ng-template #icon>
                         <ng-container *ngIf="!previousIconTemplate && !_previousIconTemplate && !prevButtonProps?.icon">
-                            <ChevronLeftIcon *ngIf="!isVertical()" />
-                            <ChevronUpIcon *ngIf="isVertical()" />
+                            <svg data-p-icon="chevron-left" *ngIf="!isVertical()" />
+                            <svg data-p-icon="chevron-up" *ngIf="isVertical()" />
                         </ng-container>
-                        <span *ngIf="(previousIconTemplate || _previousIconTemplate) && !prevButtonProps?.icon">
+                        <ng-container *ngIf="(previousIconTemplate || _previousIconTemplate) && !prevButtonProps?.icon">
                             <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
-                        </span>
+                        </ng-container>
                     </ng-template>
                 </p-button>
                 <div [class]="cx('viewport')" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
@@ -82,8 +82,8 @@ import { CarouselStyle } from './style/carouselstyle';
                 <p-button type="button" *ngIf="showNavigators" [class]="cx('pcNextButton')" (click)="navForward($event)" [attr.aria-label]="ariaNextButtonLabel()" [buttonProps]="nextButtonProps" [text]="true">
                     <ng-template #icon>
                         <ng-container *ngIf="!nextIconTemplate && !_nextIconTemplate && !nextButtonProps?.icon">
-                            <ChevronRightIcon *ngIf="!isVertical()" />
-                            <ChevronDownIcon *ngIf="isVertical()" />
+                            <svg data-p-icon="chevron-right" *ngIf="!isVertical()" />
+                            <svg data-p-icon="chevron-down" *ngIf="isVertical()" />
                         </ng-container>
                         <span *ngIf="nextIconTemplate || (_nextIconTemplate && !nextButtonProps?.icon)">
                             <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
@@ -553,6 +553,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
             this.carouselStyle.type = 'text/css';
             setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
             this.renderer.appendChild(this.document.head, this.carouselStyle);
+            setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
         }
 
         let innerHTML = `
@@ -565,7 +566,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
             this.responsiveOptions.sort((data1, data2) => {
                 const value1 = data1.breakpoint;
                 const value2 = data2.breakpoint;
-                let result = null;
+                let result: number | null = null;
 
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;
@@ -743,7 +744,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     onRightKey() {
-        const indicators = [...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const indicators = [...find(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"]')];
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
@@ -762,17 +763,17 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     onEndKey() {
-        const indicators = [...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]r')];
+        const indicators = [...find(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"]r')];
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, indicators.length - 1);
     }
 
     onTabKey() {
-        const indicators = <any>[...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const indicators = <any>[...find(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"]')];
         const highlightedIndex = indicators.findIndex((ind) => getAttribute(ind, 'data-p-highlight') === true);
 
-        const activeIndicator = <any>findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const activeIndicator = <any>findSingle(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
         const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
 
         indicators[activeIndex].children[0].tabIndex = '-1';
@@ -780,14 +781,14 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     findFocusedIndicatorIndex() {
-        const indicators = [...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
-        const activeIndicator = findSingle(this.indicatorContent.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
+        const indicators = [...find(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"]')];
+        const activeIndicator = findSingle(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"] > button[tabindex="0"]');
 
-        return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+        return indicators.findIndex((ind) => ind === activeIndicator?.parentElement);
     }
 
     changedFocusedIndicator(prevInd, nextInd) {
-        const indicators = <any>[...find(this.indicatorContent.nativeElement, '[data-pc-section="indicator"]')];
+        const indicators = <any>[...find(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"]')];
 
         indicators[prevInd].children[0].tabIndex = '-1';
         indicators[nextInd].children[0].tabIndex = '0';
@@ -916,23 +917,23 @@ export class Carousel extends BaseComponent implements AfterContentInit {
     }
 
     ariaPrevButtonLabel() {
-        return this.config.translation.aria ? this.config.translation.aria.prevPageLabel : undefined;
+        return this.config.translation.aria ? this.config.translation.aria?.prevPageLabel : undefined;
     }
 
     ariaSlideLabel() {
-        return this.config.translation.aria ? this.config.translation.aria.slide : undefined;
+        return this.config.translation.aria ? this.config.translation.aria?.slide : undefined;
     }
 
     ariaNextButtonLabel() {
-        return this.config.translation.aria ? this.config.translation.aria.nextPageLabel : undefined;
+        return this.config.translation.aria ? this.config.translation.aria?.nextPageLabel : undefined;
     }
 
     ariaSlideNumber(value) {
-        return this.config.translation.aria ? this.config.translation.aria.slideNumber.replace(/{slideNumber}/g, value) : undefined;
+        return this.config.translation.aria ? this.config.translation.aria?.slideNumber?.replace(/{slideNumber}/g, value) : undefined;
     }
 
     ariaPageLabel(value) {
-        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, value) : undefined;
+        return this.config.translation.aria ? this.config.translation.aria?.pageLabel?.replace(/{page}/g, value) : undefined;
     }
 
     bindDocumentListeners() {

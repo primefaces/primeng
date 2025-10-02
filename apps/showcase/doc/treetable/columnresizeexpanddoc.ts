@@ -2,6 +2,11 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { TreeTableModule } from 'primeng/treetable';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Column {
     field: string;
@@ -10,14 +15,15 @@ interface Column {
 
 @Component({
     selector: 'resize-expand-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
                     <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" ttResizableColumn>
@@ -57,7 +63,7 @@ export class ResizeExpandDoc {
     }
 
     code: Code = {
-        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+        basic: `<p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
     <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns" ttResizableColumn>
@@ -76,7 +82,7 @@ export class ResizeExpandDoc {
 </p-treetable>`,
 
         html: `<div class="card">
-    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+    <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
         <ng-template #header let-columns>
             <tr>
                 <th *ngFor="let col of columns" ttResizableColumn>

@@ -2,18 +2,18 @@ import { AccessibilityDoc } from '@/doc/toggleswitch/accessibilitydoc';
 import { BasicDoc } from '@/doc/toggleswitch/basicdoc';
 import { DisabledDoc } from '@/doc/toggleswitch/disableddoc';
 import { ImportDoc } from '@/doc/toggleswitch/importdoc';
-import { ToggleSwitchDocModule } from '@/doc/toggleswitch/toggleswitchdoc.module';
 import { InvalidDoc } from '@/doc/toggleswitch/invaliddoc';
 import { PreselectionDoc } from '@/doc/toggleswitch/preselectiondoc';
 import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/toggleswitch/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenformsdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular ToggleSwitch Component" header="ToggleSwitch" description="ToggleSwitch is used to select a boolean value." [docs]="docs" [apiDocs]="['ToggleSwitch']" themeDocs="toggleswitch"></app-doc>`,
     standalone: true,
-    imports: [ToggleSwitchDocModule]
+    imports: [AppDoc]
 })
 export class ToggleSwitchDemo {
     docs = [
@@ -33,19 +33,6 @@ export class ToggleSwitchDemo {
             component: PreselectionDoc
         },
         {
-            id: 'forms',
-            label: 'Forms',
-            children: [
-                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
-            ]
-        },
-        {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
@@ -54,6 +41,19 @@ export class ToggleSwitchDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'accessibility',

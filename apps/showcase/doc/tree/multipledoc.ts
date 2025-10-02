@@ -2,10 +2,16 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { TreeModule } from 'primeng/tree';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'multiple-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, FormsModule, ToggleSwitchModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -19,7 +25,7 @@ import { TreeNode } from 'primeng/api';
                 <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
-            <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+            <p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
         </div>
         <app-code [code]="code" selector="tree-multiple-demo"></app-code>
     `
@@ -42,14 +48,14 @@ export class MultipleDoc implements OnInit {
     <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
-<p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />`,
+<p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />`,
 
         html: `<div class="card">
     <div class="flex items-center mb-6 gap-2">
         <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
-    <p-tree [metaKeySelection]="metaKeySelection" [value]="files" styleClass="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+    <p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

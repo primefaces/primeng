@@ -45,7 +45,7 @@ export interface ButtonProps {
     rounded?: boolean;
     text?: boolean;
     plain?: boolean;
-    severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    severity?: ButtonSeverity;
     outlined?: boolean;
     link?: boolean;
     tabindex?: number | undefined;
@@ -56,6 +56,7 @@ export interface ButtonProps {
     badgeSeverity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     ariaLabel?: string | undefined;
     autofocus?: boolean | undefined;
+    variant?: string | undefined;
 }
 
 export type ButtonSeverity = 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;

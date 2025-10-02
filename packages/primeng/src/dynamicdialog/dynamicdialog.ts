@@ -24,13 +24,29 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     standalone: true,
     imports: [CommonModule, SharedModule, DynamicDialogContent, WindowMaximizeIcon, WindowMinimizeIcon, TimesIcon, Button, FocusTrap],
     template: `
-        <div #mask [style]="sx('mask')" [class]="cn(cx('mask'), ddconfig.maskStyleClass)">
+        <div
+            #mask
+            [ngStyle]="{
+                position: 'fixed',
+                height: '100%',
+                width: '100%',
+                left: 0,
+                top: 0,
+                display: 'flex',
+                'justify-content': position === 'left' || position === 'topleft' || position === 'bottomleft' ? 'flex-start' : position === 'right' || position === 'topright' || position === 'bottomright' ? 'flex-end' : 'center',
+                'align-items': position === 'top' || position === 'topleft' || position === 'topright' ? 'flex-start' : position === 'bottom' || position === 'bottomleft' || position === 'bottomright' ? 'flex-end' : 'center',
+                'pointer-events': ddconfig.modal ? 'auto' : 'none'
+            }"
+            [class]="ddconfig.maskStyleClass"
+            [ngClass]="maskClass"
+        >
             <div
                 *ngIf="visible"
                 #container
-                [class]="cn(cx('root'), ddconfig.styleClass)"
-                [ngStyle]="ddconfig.style"
-                [style]="sx('root')"
+                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximizable && maximized }"
+                [ngStyle]="{ display: 'flex', 'flex-direction': 'column', 'pointer-events': 'auto' }"
+                [style]="ddconfig.style"
+                [class]="ddconfig.styleClass"
                 [@animation]="{
                     value: 'visible',
                     params: {
@@ -49,40 +65,38 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.aria-modal]="true"
                 [attr.id]="dialogId"
             >
-                <div *ngIf="ddconfig.resizable" [class]="cx('resizeHandle')" (mousedown)="initResize($event)"></div>
-                <div #titlebar [class]="cx('header')" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader !== false">
+                <div *ngIf="ddconfig.resizable" [ngClass]="'p-resizable-handle'" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+                <div #titlebar [ngClass]="'p-dialog-header'" (mousedown)="initDrag($event)" *ngIf="ddconfig.showHeader !== false">
                     <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
                     <ng-container *ngIf="!headerTemplate">
-                        <span [class]="cx('title')" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
-                        <div [class]="cx('headerActions')">
-                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
-                                <ng-container *ngIf="!maximizeIcon">
-                                    <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" />
-                                    <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" />
-                                </ng-container>
-                                <ng-container *ngIf="!maximized">
-                                    <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
-                                </ng-container>
-                                <ng-container *ngIf="maximized">
-                                    <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
-                                </ng-container>
+                        <span [ngClass]="'p-dialog-title'" [id]="ariaLabelledBy">{{ ddconfig.header }}</span>
+                        <div [ngClass]="'p-dialog-header-actions'">
+                            <p-button *ngIf="ddconfig.maximizable" [styleClass]="'p-dialog-maximize-button'" (onClick)="maximize()" (keydown.enter)="maximize()" rounded text [tabindex]="maximizable ? '0' : '-1'">
+                                <ng-template #icon>
+                                    <ng-container *ngIf="!maximized">
+                                        <svg data-p-icon="window-maximize" *ngIf="!maximizeIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
+                                    </ng-container>
+                                    <ng-container *ngIf="maximized">
+                                        <svg data-p-icon="window-minimize" *ngIf="!minimizeIconTemplate" />
+                                        <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
+                                    </ng-container>
+                                </ng-template>
                             </p-button>
-                            <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
-                                <ng-container *ngIf="!closeIconTemplate">
-                                    <TimesIcon />
-                                </ng-container>
-                                <span *ngIf="closeIconTemplate">
+                            <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="ddconfig.closeAriaLabel || defaultCloseAriaLabel" (onClick)="hide()" (keydown.enter)="hide()" rounded text severity="secondary">
+                                <ng-template #icon>
+                                    <svg *ngIf="!closeIconTemplate" data-p-icon="times" />
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                                </span>
+                                </ng-template>
                             </p-button>
                         </div>
                     </ng-container>
                 </div>
-                <div #content [class]="cx('content')" [style]="ddconfig.contentStyle">
+                <div #content [ngClass]="'p-dialog-content'" [ngStyle]="ddconfig.contentStyle">
                     <ng-template pDynamicDialogContent *ngIf="!contentTemplate"></ng-template>
                     <ng-container *ngComponentOutlet="contentTemplate"></ng-container>
                 </div>
-                <div #footer [class]="cx('footer')" *ngIf="ddconfig.footer || footerTemplate">
+                <div #footer [ngClass]="'p-dialog-footer'" *ngIf="ddconfig.footer || footerTemplate">
                     <ng-container *ngIf="!footerTemplate">
                         {{ ddconfig.footer }}
                     </ng-container>
@@ -117,7 +131,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     lastPageY: number | undefined;
 
-    ariaLabelledBy: string | undefined;
+    ariaLabelledBy: string | undefined | null;
 
     id: string = uuid('pn_id_');
 
@@ -257,6 +271,17 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         return this.ddconfig?.templates?.closeicon;
     }
 
+    get maskClass() {
+        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
+        const pos = positions.find((item) => item === this.position);
+
+        return {
+            'p-dialog-mask': true,
+            'p-overlay-mask p-overlay-mask-enter': this.ddconfig.modal || this.ddconfig.dismissableMask,
+            [`p-dialog-${pos}`]: pos
+        };
+    }
+
     get dialogId() {
         return this.attrSelector;
     }
@@ -285,6 +310,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
                 let innerHTML = '';
                 for (let breakpoint in this.breakpoints) {
@@ -331,9 +357,9 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
         this.componentRef = viewContainerRef?.createComponent(componentType);
 
-        if (this.inputValues) {
+        if (this.inputValues && this.componentRef) {
             Object.entries(this.inputValues).forEach(([key, value]) => {
-                this.componentRef.setInput(key, value);
+                this.componentRef!.setInput(key, value);
             });
         }
 
@@ -416,7 +442,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     enableModality() {
-        if (this.ddconfig.dismissableMask) {
+        if (this.ddconfig.dismissableMask && this.wrapper) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.hide();
@@ -445,7 +471,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         }
     }
 
-    focus(focusParentElement = this.contentViewChild.nativeElement) {
+    focus(focusParentElement = this.contentViewChild?.nativeElement) {
+        if (!focusParentElement) return;
         let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
@@ -458,10 +485,11 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusableElement.focus(), 5);
             });
-        } else if (this.footerViewChild) {
-            // If the content section is empty try to focus on footer
+        } else if (this.footerViewChild && focusParentElement !== this.footerViewChild.nativeElement) {
+            // If the content section is empty try to focus on footer (avoid recursion)
             this.focus(this.footerViewChild.nativeElement);
-        } else if (!focusableElement && this.headerViewChild) {
+        } else if (!focusableElement && this.headerViewChild && focusParentElement !== this.headerViewChild.nativeElement) {
+            // If footer is also empty, try header (avoid recursion)
             this.focus(this.headerViewChild.nativeElement);
         }
     }
@@ -496,8 +524,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         if (this.resizing) {
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = getOuterWidth(this.container);
-            let containerHeight = getOuterHeight(this.container);
+            let containerWidth = this.container ? getOuterWidth(this.container) : 0;
+            let containerHeight = this.container ? getOuterHeight(this.container) : 0;
             let contentHeight = getOuterHeight((<ElementRef>this.contentViewChild).nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
@@ -540,7 +568,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     }
 
     initDrag(event: MouseEvent) {
-        if (hasClass(event.target as any, 'p-dialog-header-icon') || hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        const target = event.target as HTMLElement;
+        if (hasClass(target, 'p-dialog-header-icon') || (target.parentElement && hasClass(target.parentElement, 'p-dialog-header-icon'))) {
             return;
         }
 
@@ -557,8 +586,8 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
 
     onDrag(event: MouseEvent) {
         if (this.dragging) {
-            let containerWidth = getOuterWidth(this.container);
-            let containerHeight = getOuterHeight(this.container);
+            let containerWidth = this.container ? getOuterWidth(this.container) : 0;
+            let containerHeight = this.container ? getOuterHeight(this.container) : 0;
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
             let offset = (this.container as HTMLDivElement).getBoundingClientRect();
@@ -624,7 +653,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     unbindDocumentDragEndListener() {
         if (this.documentDragEndListener) {
             this.documentDragEndListener();
-            this.documentDragListener = null;
+            this.documentDragEndListener = null;
         }
     }
 
@@ -679,7 +708,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : 'document';
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-            if (event.which == 27) {
+            if (event.key === 'Escape' || event.keyCode === 27 || event.which === 27) {
                 const currentZIndex = ZIndexUtils.getCurrent();
                 if (parseInt((this.container as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
                     this.hide();
@@ -705,7 +734,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
     ngOnDestroy() {
         this.onContainerDestroy();
 
-        if (this.componentRef) {
+        if (this.componentRef && typeof this.componentRef.destroy === 'function') {
             this.componentRef.destroy();
         }
         this.destroyStyle();

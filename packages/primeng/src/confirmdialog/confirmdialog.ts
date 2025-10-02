@@ -57,6 +57,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [style]="style"
             [dismissableMask]="dismissableMask"
             [draggable]="draggable"
+            [baseZIndex]="baseZIndex"
+            [autoZIndex]="autoZIndex"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -105,10 +107,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
                         [buttonProps]="getRejectButtonProps()"
                     >
-                        @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
-                            <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
-                        }
-                        <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
+                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
+                            }
+                            <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                     <p-button
                         [label]="acceptButtonLabel"
@@ -118,10 +122,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
                         [buttonProps]="getAcceptButtonProps()"
                     >
-                        @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
-                            <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
-                        }
-                        <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        <ng-template #icon>
+                            @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
+                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
+                            }
+                            <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                        </ng-template>
                     </p-button>
                 }
             </ng-template>
@@ -410,7 +416,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
 
     id = uuid('pn_id_');
 
-    ariaLabelledBy: string = this.getAriaLabelledBy();
+    ariaLabelledBy: string | null = this.getAriaLabelledBy();
 
     translationSubscription: Subscription | undefined;
 
@@ -519,6 +525,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     getElementToFocus() {
+        if (!this.dialog?.el?.nativeElement) return;
+
         switch (this.option('defaultFocus')) {
             case 'accept':
                 return findSingle(this.dialog.el.nativeElement, '.p-confirm-dialog-accept');
@@ -542,6 +550,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         if (!this.styleElement) {
             this.styleElement = this.document.createElement('style');
             this.styleElement.type = 'text/css';
+            setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             this.document.head.appendChild(this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
@@ -626,11 +635,11 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
     }
 
     get acceptButtonLabel(): string {
-        return this.option('acceptLabel') || this.config.getTranslation(TranslationKeys.ACCEPT);
+        return this.option('acceptLabel') || this.getAcceptButtonProps()?.label || this.config.getTranslation(TranslationKeys.ACCEPT);
     }
 
     get rejectButtonLabel(): string {
-        return this.option('rejectLabel') || this.config.getTranslation(TranslationKeys.REJECT);
+        return this.option('rejectLabel') || this.getRejectButtonProps()?.label || this.config.getTranslation(TranslationKeys.REJECT);
     }
 
     getAcceptButtonProps() {

@@ -1,17 +1,17 @@
 import { AccessibilityDoc } from '@/doc/editor/accessibilitydoc';
 import { BasicDoc } from '@/doc/editor/basicdoc';
 import { CustomToolbarDoc } from '@/doc/editor/customtoolbardoc';
-import { EditorDocModule } from '@/doc/editor/editordoc.module';
 import { ImportDoc } from '@/doc/editor/importdoc';
 import { QuillDoc } from '@/doc/editor/quilldoc';
 import { ReactiveFormsDoc } from '@/doc/editor/reactiveformsdoc';
 import { ReadOnlyDoc } from '@/doc/editor/readonlydoc';
 import { TemplateDrivenFormsDoc } from '@/doc/editor/templatedrivenformsdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [EditorDocModule],
+    imports: [AppDoc],
     template: ` <app-doc docTitle="Angular Editor Component" header="Editor" description="Editor is rich text editor component based on Quill." [docs]="docs" [apiDocs]="['Editor']" themeDocs="editor"></app-doc> `
 })
 export class EditorDemo {
@@ -49,7 +49,6 @@ export class EditorDemo {
                 { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
             ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

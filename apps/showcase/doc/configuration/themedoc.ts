@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'theming-doc',
-    standalone: false,
+    standalone: true,
+    imports: [RouterModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the <a routerLink="/theming">theming</a> documentation for details.</p>

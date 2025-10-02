@@ -1,6 +1,7 @@
 {
-    "id": 92,
-    "content": "Introducing the all-new Theme Designer! 🚀",
+    "id": 89,
+    "content": "Unlock the Power of Next-Gen PrimeBlocks | Now Available! 🎉",
     "linkText": "Learn More",
-    "routerLink": "/designer"
+    "linkHref": "https://primeblocks.org",
+    "target": "_blank"
 }

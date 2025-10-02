@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/panel';
+export * from '@primeuix/themes/aura/panel';
+export { default } from '@primeuix/themes/aura/panel';

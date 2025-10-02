@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/breadcrumb';
+export * from '@primeuix/themes/lara/breadcrumb';
+export { default } from '@primeuix/themes/lara/breadcrumb';

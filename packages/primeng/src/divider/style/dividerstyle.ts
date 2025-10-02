@@ -5,8 +5,8 @@ import { BaseStyle } from 'primeng/base';
 /* Position */
 const inlineStyles = {
     root: ({ instance }) => ({
-        justifyContent: instance.layout === 'horizontal' ? (instance.align === 'center' || instance.align === null ? 'center' : instance.align === 'left' ? 'flex-start' : instance.align === 'right' ? 'flex-end' : null) : null,
-        alignItems: instance.layout === 'vertical' ? (instance.align === 'center' || instance.align === null ? 'center' : instance.align === 'top' ? 'flex-start' : instance.align === 'bottom' ? 'flex-end' : null) : null
+        justifyContent: instance.layout === 'horizontal' ? (instance.align === 'center' || instance.align == null ? 'center' : instance.align === 'left' ? 'flex-start' : instance.align === 'right' ? 'flex-end' : null) : null,
+        alignItems: instance.layout === 'vertical' ? (instance.align === 'center' || instance.align == null ? 'center' : instance.align === 'top' ? 'flex-start' : instance.align === 'bottom' ? 'flex-end' : null) : null
     })
 };
 

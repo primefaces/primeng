@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/button';
+export * from '@primeuix/themes/aura/button';
+export { default } from '@primeuix/themes/aura/button';

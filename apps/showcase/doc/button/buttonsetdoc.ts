@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'button-set-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Multiple buttons are grouped when wrapped inside an element with <i>p-buttonset</i> class.</p>

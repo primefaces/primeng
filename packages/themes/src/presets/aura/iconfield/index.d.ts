@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/iconfield';
+export * from '@primeuix/themes/aura/iconfield';
+export { default } from '@primeuix/themes/aura/iconfield';

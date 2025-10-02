@@ -1,11 +1,16 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MenuItem } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
-
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+import { BadgeModule } from 'primeng/badge';
+import { Ripple } from 'primeng/ripple';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 @Component({
     selector: 'context-menu-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, ContextMenuModule, BadgeModule, Ripple, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>

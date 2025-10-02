@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'icons-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule],
     template: `
         <app-docsectiontext>
             <p>The buttons and menuitems have support to display icons.</p>

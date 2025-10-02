@@ -18,7 +18,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { find, findSingle, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -34,7 +34,7 @@ import { DockStyle } from './style/dockstyle';
 @Component({
     selector: 'p-dock',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, SharedModule],
+    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, Ripple, TooltipModule, SharedModule],
     template: `
         <div [class]="cx('listContainer')">
             <ul
@@ -60,7 +60,7 @@ import { DockStyle } from './style/dockstyle';
                         [class]="cn(cx('item', { item, id: getItemId(item, i) }), item?.styleClass)"
                         role="menuitem"
                         [attr.aria-label]="item.label"
-                        [attr.aria-disabled]="disabled(item)"
+                        [attr.aria-disabled]="disabled(item) || false"
                         (click)="onItemClick($event, item)"
                         (mouseenter)="onItemMouseEnter(i)"
                         [attr.data-pc-section]="'menuitem'"
@@ -74,6 +74,7 @@ import { DockStyle } from './style/dockstyle';
                                 [routerLink]="item.routerLink"
                                 [queryParams]="item.queryParams"
                                 [class]="cx('itemLink')"
+                                routerLinkActive="router-link-active"
                                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                                 [target]="item.target"
                                 [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
@@ -179,7 +180,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
 
     focused: boolean = false;
 
-    focusedOptionIndex: number = -1;
+    focusedOptionIndex: string | number = -1;
 
     _componentStyle = inject(DockStyle);
 
@@ -192,7 +193,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
     mobileActive = signal<boolean>(false);
 
     get focusedOptionId() {
-        return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
+        return this.focusedOptionIndex !== -1 && this.focusedOptionIndex !== '-1' ? String(this.focusedOptionIndex) : null;
     }
 
     constructor(public cd: ChangeDetectorRef) {
@@ -224,11 +225,11 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     disabled(item) {
-        return typeof item.disabled === 'function' ? item.disabled() : item.disabled;
+        return typeof item.disabled === 'function' ? item.disabled() : item.disabled || false;
     }
 
     isItemActive(id) {
-        return id === this.focusedOptionIndex;
+        return String(id) === String(this.focusedOptionIndex);
     }
 
     onListMouseLeave() {
@@ -331,25 +332,25 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     onEndKey() {
-        this.changeFocusedOptionIndex(find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
     }
 
     onSpaceKey() {
-        const element = <any>findSingle(this.listViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
-        const anchorElement = element && <any>findSingle(element, '[data-pc-section="action"]');
+        const element = <any>findSingle(this.listViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
+        const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
         anchorElement ? anchorElement.click() : element && element.click();
     }
 
     findNextOptionIndex(index) {
-        const menuitems = find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const menuitems = <any>find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = <any>find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
 
         let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
@@ -357,14 +358,14 @@ export class Dock extends BaseComponent implements AfterContentInit {
     }
 
     findPrevOptionIndex(index) {
-        const menuitems = find(this.listViewChild.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
     isClickableRouterLink(item: any) {
-        return item.routerLink && !item.disabled;
+        return !!item.routerLink && !this.disabled(item);
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;

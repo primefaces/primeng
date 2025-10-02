@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/listbox';
+export * from '@primeuix/themes/nora/listbox';
+export { default } from '@primeuix/themes/nora/listbox';

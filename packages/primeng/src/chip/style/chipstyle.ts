@@ -3,7 +3,12 @@ import { style } from '@primeuix/styles/chip';
 import { BaseStyle } from 'primeng/base';
 
 const classes = {
-    root: () => ['p-chip p-component'],
+    root: ({ instance }) => [
+        'p-chip p-component',
+        {
+            'p-disabled': instance.disabled
+        }
+    ],
     image: 'p-chip-image',
     icon: 'p-chip-icon',
     label: 'p-chip-label',

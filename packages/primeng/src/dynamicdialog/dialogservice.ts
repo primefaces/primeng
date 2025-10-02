@@ -26,25 +26,28 @@ export class DialogService {
      * @returns {DynamicDialogRef} DynamicDialog instance.
      * @group Method
      */
-    public open<T, DataType = any, InputValuesType extends Record<string, any> = {}>(componentType: Type<T>, config: DynamicDialogConfig<DataType, InputValuesType>): DynamicDialogRef<T> {
+    public open<T, DataType = any, InputValuesType extends Record<string, any> = {}>(componentType: Type<T>, config: DynamicDialogConfig<DataType, InputValuesType>): DynamicDialogRef<T> | null {
         if (!this.duplicationPermission(componentType, config)) {
             return null;
         }
 
         const dialogRef = this.appendDialogComponentToBody<T>(config, componentType);
 
-        this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
-        this.dialogComponentRefMap.get(dialogRef).instance.inputValues = config.inputValues;
+        const componentRefInstance = this.dialogComponentRefMap.get(dialogRef);
+        if (componentRefInstance) {
+            componentRefInstance.instance.childComponentType = componentType;
+            componentRefInstance.instance.inputValues = config.inputValues || {};
+        }
 
         return dialogRef;
     }
     /**
      * Returns the dynamic dialog component instance.
-     * @param {ref} DynamicDialogRef - DynamicDialog instance.
+     * @param {DynamicDialogRef} ref - DynamicDialog instance.
      * @group Method
      */
     public getInstance(ref: DynamicDialogRef<any>) {
-        return this.dialogComponentRefMap.get(ref).instance;
+        return this.dialogComponentRefMap.get(ref)?.instance;
     }
 
     private appendDialogComponentToBody<T>(config: DynamicDialogConfig, componentType: Type<T>): DynamicDialogRef<T> {
@@ -55,7 +58,7 @@ export class DialogService {
         map.set(DynamicDialogRef, dialogRef);
 
         const sub = dialogRef.onClose.subscribe(() => {
-            this.dialogComponentRefMap.get(dialogRef).instance.close();
+            this.dialogComponentRefMap.get(dialogRef)?.instance.close();
         });
 
         const destroySub = dialogRef.onDestroy.subscribe(() => {
@@ -89,9 +92,11 @@ export class DialogService {
         }
 
         const dialogComponentRef = this.dialogComponentRefMap.get(dialogRef);
-        this.appRef.detachView(dialogComponentRef.hostView);
-        dialogComponentRef.destroy();
-        dialogComponentRef.changeDetectorRef.detectChanges();
+        if (dialogComponentRef) {
+            this.appRef.detachView(dialogComponentRef.hostView);
+            dialogComponentRef.destroy();
+            dialogComponentRef.changeDetectorRef.detectChanges();
+        }
         this.dialogComponentRefMap.delete(dialogRef);
     }
 

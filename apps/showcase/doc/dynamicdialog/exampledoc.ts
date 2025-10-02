@@ -4,10 +4,15 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Footer } from './footer';
 import { ProductListDemo } from './productlistdemo';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-dialog-example-demo',
-    standalone: false,
+    standalone: true,
+    imports: [ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -183,7 +188,7 @@ import { ButtonModule } from 'primeng/button';
     template: \`<div class="flex justify-end mt-1 mb-4">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
-        <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
+        <p-table [value]="products" responsiveLayout="scroll" [rows]="5">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="code">Code</th>

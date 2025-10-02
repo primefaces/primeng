@@ -34,16 +34,16 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseInput } from 'primeng/baseinput';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { Fluid } from 'primeng/fluid';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
-import { BaseInput } from 'primeng/baseinput';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Fluid } from '../fluid/fluid';
 
 type Meter = {
     strength: string;
@@ -89,6 +89,8 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
      * Sets the visibility of the password field.
+     * @defaultValue false
+     * @type boolean
      * @group Props
      */
     @Input() set showPassword(show: boolean) {
@@ -96,13 +98,13 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     }
     /**
      * Specifies the input variant of the component.
-     * @defaultValue undefined
+     * @defaultValue 'outlined'
      * @group Props
      */
     variant = input<'filled' | 'outlined' | undefined>();
     /**
      * Spans 100% width of the container when enabled.
-     * @defaultValue undefined
+     * @defaultValue false
      * @group Props
      */
     fluid = input(undefined, { transform: booleanAttribute });
@@ -111,11 +113,11 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
      * @defaultValue undefined
      * @group Props
      */
-    size = input<'large' | 'small' | undefined>();
+    size = input<'large' | 'small' | undefined>(undefined, { alias: 'pSize' });
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
-    $variant = computed(() => this.config.inputStyle() || this.variant() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
@@ -187,12 +189,12 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
             this.renderer.setStyle(this.panel, 'display', 'block');
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    addClass(this.panel, 'p-connected-overlay-visible');
+                    addClass(this.panel!, 'p-connected-overlay-visible');
                     this.bindScrollListener();
                     this.bindDocumentResizeListener();
                 }, 1);
             });
-            absolutePosition(this.panel, this.el.nativeElement);
+            absolutePosition(this.panel!, this.el.nativeElement);
         }
     }
 
@@ -227,8 +229,8 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     onKeyup(e: Event) {
         if (this.feedback) {
             let value = (e.target as HTMLInputElement).value,
-                label = null,
-                meterPos = null;
+                label: string | null = null,
+                meterPos: string | null = null;
 
             if (value.length === 0) {
                 label = this.promptLabel;
@@ -247,7 +249,7 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
                     meterPos = '0px -30px';
                 }
 
-                this.labelSignal.set(label);
+                this.labelSignal.set(label!);
                 this.updateMeter();
             }
 
@@ -255,14 +257,18 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
                 this.showOverlay();
             }
 
-            this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+            if (this.meter) {
+                this.renderer.setStyle(this.meter, 'backgroundPosition', meterPos);
+            }
 
-            (this.info as HTMLDivElement).textContent = label;
+            if (this.info) {
+                (this.info as HTMLDivElement).textContent = label;
+            }
         }
     }
 
     updateMeter() {
-        if (this.labelSignal()) {
+        if (this.labelSignal() && this.meter && this.info) {
             const label = this.labelSignal();
             const strengthClass = this.strengthClass(label.toLowerCase());
             const width = this.getWidth(label.toLowerCase());
@@ -312,7 +318,7 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.el.nativeElement, () => {
-                if (hasClass(this.panel, 'p-connected-overlay-visible')) {
+                if (hasClass(this.panel!, 'p-connected-overlay-visible')) {
                     this.hideOverlay();
                 }
             });
@@ -393,7 +399,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, MapperPipe, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, SharedModule],
     template: `
         <input
             #input
@@ -403,19 +409,19 @@ export const Password_VALUE_ACCESSOR: any = {
             [attr.id]="inputId"
             [attr.tabindex]="tabindex"
             pInputText
-            [disabled]="disabled()"
             [pSize]="size()"
             [ngStyle]="inputStyle"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
-            [attr.type]="unmasked | mapper: inputType"
+            [attr.type]="unmasked ? 'text' : 'password'"
             [attr.placeholder]="placeholder"
             [attr.autocomplete]="autocomplete"
             [value]="value"
             [variant]="$variant()"
-            [name]="name()"
-            [required]="required()"
+            [attr.name]="name()"
             [attr.maxlength]="maxlength() || maxLength"
             [attr.minlength]="minlength()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             [invalid]="invalid()"
             (input)="onInput($event)"
             (focus)="onInputFocus($event)"
@@ -425,7 +431,7 @@ export const Password_VALUE_ACCESSOR: any = {
             [pAutoFocus]="autofocus"
         />
         <ng-container *ngIf="showClear && value != null">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
             <span (click)="clear()" [class]="cx('clearIcon')" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
@@ -433,13 +439,13 @@ export const Password_VALUE_ACCESSOR: any = {
 
         <ng-container *ngIf="toggleMask">
             <ng-container *ngIf="unmasked">
-                <EyeSlashIcon [class]="cx('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
                 <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()">
                     <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
                 </span>
             </ng-container>
             <ng-container *ngIf="!unmasked">
-                <EyeIcon *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
                 <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()">
                     <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
                 </span>
@@ -529,7 +535,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     @Input() mediumLabel: string | undefined;
     /**
      * specifies the maximum number of characters allowed in the input element.
-     * @deprecated in v20, use maxlength instead.
+     * @deprecated since v20.0.0, use maxlength instead.
      * @group Props
      */
     @Input({ transform: numberAttribute }) maxLength: number | undefined;
@@ -605,6 +611,12 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
      */
     @Input({ transform: numberAttribute }) tabindex?: number;
     /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
@@ -637,6 +649,8 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _contentTemplate: TemplateRef<any> | undefined;
 
@@ -671,10 +685,6 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     overlay: any;
 
     value: Nullable<string> = null;
-
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
 
     translationSubscription: Nullable<Subscription>;
 
@@ -807,7 +817,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
 
     updateUI(value: string) {
         let label = null;
-        let meter = null;
+        let meter: { strength: string; width: string } | null = null;
 
         switch (this.testStrength(value)) {
             case 1:
@@ -858,28 +868,11 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
     testStrength(str: string) {
         let level = 0;
 
-        if (this.strongCheckRegExp.test(str)) level = 3;
-        else if (this.mediumCheckRegExp.test(str)) level = 2;
+        if (this.strongCheckRegExp?.test(str)) level = 3;
+        else if (this.mediumCheckRegExp?.test(str)) level = 2;
         else if (str.length) level = 1;
 
         return level;
-    }
-
-    writeValue(value: any): void {
-        if (value === undefined) this.value = null;
-        else this.value = value;
-
-        if (this.feedback) this.updateUI(this.value || '');
-        this.writeModelValue(this.value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     bindScrollListener() {
@@ -958,6 +951,21 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
         this.onModelChange(this.value);
         this.writeValue(this.value);
         this.onClear.emit();
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        if (value === undefined) this.value = null;
+        else this.value = value;
+
+        if (this.feedback) this.updateUI(this.value || '');
+        setModelValue(this.value);
+        this.cd.markForCheck();
     }
 
     ngOnDestroy() {

@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/toolbar';
+export * from '@primeuix/themes/aura/toolbar';
+export { default } from '@primeuix/themes/aura/toolbar';

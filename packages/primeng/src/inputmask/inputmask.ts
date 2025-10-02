@@ -46,16 +46,16 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseInput } from 'primeng/baseinput';
 import { TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 import { InputMaskStyle } from './style/inputmaskstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -74,11 +74,11 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [class]="cx('root')"
             [attr.id]="inputId"
             [attr.type]="type"
-            [name]="name()"
+            [attr.name]="name()"
             [invalid]="invalid()"
+            [class]="styleClass"
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
@@ -91,9 +91,9 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
             [attr.aria-required]="ariaRequired"
-            [disabled]="disabled()"
-            [readonly]="readonly"
-            [required]="required()"
+            [attr.required]="required() ? '' : undefined"
+            [attr.readonly]="readonly ? '' : undefined"
+            [attr.disabled]="$disabled() ? '' : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keydown)="onInputKeydown($event)"
@@ -104,9 +104,10 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
             [attr.data-pc-section]="'root'"
+            [fluid]="hasFluid"
         />
-        <ng-container *ngIf="value != null && $filled() && showClear && !disabled()">
-            <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+        <ng-container *ngIf="value != null && $filled() && showClear && !$disabled()">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
@@ -114,9 +115,12 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
     `,
     providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cx('root')"
+    }
 })
-export class InputMask extends BaseInput implements OnInit, AfterContentInit, ControlValueAccessor {
+export class InputMask extends BaseInput implements OnInit, AfterContentInit {
     /**
      * HTML5 input type.
      * @group Props
@@ -203,15 +207,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * When present, the input gets a focus automatically on load.
-     * @group Props
-     * @deprecated Use autofocus property instead.
-     */
-    @Input({ transform: booleanAttribute }) set autoFocus(value: boolean | undefined) {
-        this.autofocus = value;
-        console.log('autoFocus is deprecated. Use autofocus property instead.');
-    }
-    /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
@@ -283,10 +278,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     _mask: Nullable<string>;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     input: Nullable<HTMLInputElement>;
 
     defs: Nullable<{ [klass: string]: any }>;
@@ -340,6 +331,10 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     }
 
     initMask() {
+        if (!this.mask) {
+            return;
+        }
+
         this.tests = [];
         this.partialPosition = (this.mask as string).length;
         this.len = (this.mask as string).length;
@@ -378,27 +373,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
             }
         }
         this.defaultBuffer = this.buffer.join('');
-    }
-
-    writeValue(value: any): void {
-        this.value = value;
-        this.writeModelValue(this.value);
-
-        if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
-            else this.inputViewChild.nativeElement.value = this.value;
-
-            this.checkVal();
-            this.focusText = this.inputViewChild.nativeElement.value;
-        }
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     caret(first?: number, last?: number): Caret | undefined {
@@ -672,7 +646,9 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     }
 
     writeBuffer() {
-        (this.inputViewChild as ElementRef).nativeElement.value = this.buffer.join('');
+        if (this.buffer && this.inputViewChild?.nativeElement) {
+            (this.inputViewChild as ElementRef).nativeElement.value = this.buffer.join('');
+        }
     }
 
     checkVal(allow?: boolean): number {
@@ -781,7 +757,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     }
 
     getUnmaskedValue() {
-        let unmaskedBuffer = [];
+        let unmaskedBuffer: string[] = [];
         for (let i = 0; i < this.buffer.length; i++) {
             let c = this.buffer[i];
             if (this.tests[i] && c != this.getPlaceholder(i)) {
@@ -793,8 +769,13 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     }
 
     updateModel(e: Event) {
-        const updatedValue = this.unmask ? this.getUnmaskedValue() : (e.target as HTMLInputElement).value;
-        if (updatedValue !== null || updatedValue !== undefined) {
+        const target = e.target as HTMLInputElement;
+        if (!target) {
+            return;
+        }
+
+        const updatedValue = this.unmask ? this.getUnmaskedValue() : target.value;
+        if (updatedValue !== null && updatedValue !== undefined) {
             this.value = updatedValue;
             this.writeModelValue(this.value);
             this.onModelChange(this.value);
@@ -810,6 +791,25 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         this.value = null;
         this.onModelChange(this.value);
         this.onClear.emit();
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+
+        if (this.inputViewChild && this.inputViewChild.nativeElement) {
+            if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
+            else this.inputViewChild.nativeElement.value = this.value;
+
+            this.checkVal();
+            this.focusText = this.inputViewChild.nativeElement.value;
+        }
     }
 }
 

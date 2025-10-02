@@ -495,7 +495,11 @@ export class DesignerService {
     }
 
     async activateTheme(data: any) {
-        this.designer.update((prev) => ({ ...prev, active: true, theme: { key: data.t_key, name: data.t_name, preset: JSON.parse(data.t_preset), config: JSON.parse(data.t_config) } }));
+        this.designer.update((prev) => ({
+            ...prev,
+            active: true,
+            theme: { key: data.t_key, name: data.t_name, preset: typeof data.t_preset === 'string' ? JSON.parse(data.t_preset) : data.t_preset, config: typeof data.t_config === 'string' ? JSON.parse(data.t_config) : data.t_config }
+        }));
 
         usePreset(this.designer().theme.preset);
         await this.applyFont(this.designer().theme.config.fontFamily);

@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, Directive, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, booleanAttribute, computed, Directive, ElementRef, inject, input, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -110,6 +110,14 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() tooltipOptions: TooltipOptions | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _tooltipOptions = {
         tooltipLabel: null,
@@ -355,7 +363,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             if (this.getOption('hideOnEscape')) {
                 this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
                     this.deactivate();
-                    this.documentEscapeListener();
+                    this.documentEscapeListener?.();
                 });
             }
             this.interactionInProgress = true;
@@ -481,7 +489,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     updateText() {
         const content = this.getOption('tooltipLabel');
-        if (content instanceof TemplateRef) {
+        if (content && typeof (content as TemplateRef<any>).createEmbeddedView === 'function') {
             const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
             embeddedViewRef.detectChanges();
             embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
@@ -494,7 +502,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     align() {
-        let position = this.getOption('tooltipPosition');
+        const position = this.getOption('tooltipPosition') as keyof typeof positionPriority;
 
         const positionPriority = {
             top: [this.alignTop, this.alignBottom, this.alignRight, this.alignLeft],
@@ -503,7 +511,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             right: [this.alignRight, this.alignLeft, this.alignTop, this.alignBottom]
         };
 
-        for (let [index, alignmentFn] of positionPriority[position].entries()) {
+        const alignFns = positionPriority[position] || [];
+        for (let [index, alignmentFn] of alignFns.entries()) {
             if (index === 0) alignmentFn.call(this);
             else if (this.isOutOfBounds()) alignmentFn.call(this);
             else break;
@@ -523,7 +532,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.startsWith('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.startsWith('P-') ? (findSingle(this.el.nativeElement, '.p-component') as HTMLElement) : this.el.nativeElement;
     }
 
     alignRight() {

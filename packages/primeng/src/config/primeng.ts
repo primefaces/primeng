@@ -36,11 +36,11 @@ export class PrimeNG extends ThemeProvider {
     /**
      * @deprecated Since v20. Use `inputVariant` instead.
      */
-    inputStyle = signal<'outlined' | 'filled'>(null);
+    inputStyle = signal<'outlined' | 'filled' | null>(null);
 
-    inputVariant = signal<'outlined' | 'filled'>(null);
+    inputVariant = signal<'outlined' | 'filled' | null>(null);
 
-    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>('self');
+    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
 
     overlayOptions: OverlayOptions = {};
 
@@ -81,6 +81,7 @@ export class PrimeNG extends ThemeProvider {
         accept: 'Yes',
         reject: 'No',
         choose: 'Choose',
+        completed: 'Completed',
         upload: 'Upload',
         cancel: 'Cancel',
         pending: 'Pending',
@@ -177,7 +178,8 @@ export class PrimeNG extends ThemeProvider {
             selectColor: 'Select a color',
             removeLabel: 'Remove',
             browseFiles: 'Browse Files',
-            maximizeLabel: 'Maximize'
+            maximizeLabel: 'Maximize',
+            minimizeLabel: 'Minimize'
         }
     };
 
@@ -202,7 +204,7 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex } = config || {};
 
         if (csp) this.csp.set(csp);
         if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
@@ -212,6 +214,7 @@ export class PrimeNG extends ThemeProvider {
         if (overlayOptions) this.overlayOptions = overlayOptions;
         if (translation) this.setTranslation(translation);
         if (filterMatchModeOptions) this.filterMatchModeOptions = filterMatchModeOptions;
+        if (zIndex) this.zIndex = zIndex;
 
         if (theme)
             this.setThemeConfig({

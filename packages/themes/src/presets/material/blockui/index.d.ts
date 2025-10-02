@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/blockui';
+export * from '@primeuix/themes/material/blockui';
+export { default } from '@primeuix/themes/material/blockui';

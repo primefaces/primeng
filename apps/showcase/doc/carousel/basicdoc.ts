@@ -2,10 +2,17 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'carousel-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionText, AppCode, CarouselModule, ButtonModule, TagModule],
     template: `
         <app-docsectiontext>
             <p>Carousel requires a collection of items as its value along with a template to render each item.</p>
@@ -105,8 +112,8 @@ export class CarouselBasicDemo implements OnInit {
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
+        this.productService.getProductsSmall().then(data => {
+            this.products = data.slice(0, 9);
         });
 
        this.responsiveOptions = [
@@ -168,8 +175,8 @@ export class CarouselBasicDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => {
-            this.products = products;
+        this.productService.getProductsSmall().then((data) => {
+            this.products = data.slice(0, 9);
             this.cdr.detectChanges();
         });
 

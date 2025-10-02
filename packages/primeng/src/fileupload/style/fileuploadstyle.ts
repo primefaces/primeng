@@ -17,7 +17,8 @@ const classes = {
     fileSize: 'p-fileupload-file-size',
     pcFileBadge: 'p-fileupload-file-badge',
     fileActions: 'p-fileupload-file-actions',
-    pcFileRemoveButton: 'p-fileupload-file-remove-button'
+    pcFileRemoveButton: 'p-fileupload-file-remove-button',
+    basicContent: 'p-fileupload-basic-content'
 };
 
 @Injectable()
@@ -99,7 +100,11 @@ export enum FileUploadClasses {
     /**
      * Class name of the file remove button element
      */
-    pcFileRemoveButton = 'p-fileupload-file-remove-button'
+    pcFileRemoveButton = 'p-fileupload-file-remove-button',
+    /**
+     * Class name of the content in basic mode
+     */
+    basicContent = 'p-fileupload-basic-content'
 }
 
 export interface FileUploadStyle extends BaseStyle {}

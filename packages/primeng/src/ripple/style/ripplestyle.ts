@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/ripple';
-import { css } from '@primeuix/styled';
+import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => css`
+const theme = /*css*/ `
     ${style}
     /* For PrimeNG */
     .p-ripple {

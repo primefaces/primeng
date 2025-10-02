@@ -55,10 +55,11 @@ import {
     resolveFieldData
 } from '@primeuix/utils';
 import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { BaseComponent } from 'primeng/basecomponent';
 import { Checkbox } from 'primeng/checkbox';
 import { DomHandler } from 'primeng/dom';
-import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from 'primeng/icons';
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from 'primeng/icons';
 import { PaginatorModule } from 'primeng/paginator';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
@@ -128,7 +129,7 @@ export class TreeTableService {
             <div [class]="cx('mask')">
                 <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
                 <ng-container *ngIf="!loadingIcon">
-                    <SpinnerIcon *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [styleClass]="cx('loadingIcon')" />
+                    <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
                     <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
                         <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                     </span>
@@ -177,7 +178,7 @@ export class TreeTableService {
         </p-paginator>
 
         <div [class]="cx('wrapper')" *ngIf="!scrollable">
-            <table role="table" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
+            <table role="treegrid" #table [ngClass]="tableStyleClass" [ngStyle]="tableStyle">
                 <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: columns }"></ng-container>
                 <thead role="rowgroup" [class]="cx('thead')">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: columns }"></ng-container>
@@ -243,13 +244,13 @@ export class TreeTableService {
             <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
         </div>
 
-        <div #resizeHelper [class]="cx('columnResizerHelper')" style="display:none" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [class]="cx('reorderIndicatorUp')" style="display: none;" *ngIf="reorderableColumns">
-            <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
+        <div #resizeHelper [class]="cx('columnResizerHelper')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [class]="cx('reorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
         </span>
-        <span #reorderIndicatorDown [class]="cx('reorderIndicatorDown')" style="display: none;" *ngIf="reorderableColumns">
-            <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
+        <span #reorderIndicatorDown [class]="cx('reorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
     `,
@@ -1230,7 +1231,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
             nodes.sort((node1, node2) => {
                 let value1 = resolveFieldData(node1.data, this.sortField);
                 let value2 = resolveFieldData(node2.data, this.sortField);
-                let result = null;
+                let result: number = 0;
 
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;
@@ -1296,7 +1297,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
         let value1 = resolveFieldData(node1.data, multiSortMeta[index].field);
         let value2 = resolveFieldData(node2.data, multiSortMeta[index].field);
-        let result = null;
+        let result: number = 0;
 
         if (value1 == null && value2 != null) result = -1;
         else if (value1 != null && value2 == null) result = 1;
@@ -1313,7 +1314,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
             return multiSortMeta.length - 1 > index ? this.multisortField(node1, node2, multiSortMeta, index + 1) : 0;
         }
 
-        return multiSortMeta[index].order * <number>result;
+        return multiSortMeta[index].order * result;
     }
 
     getSortMeta(field: string) {
@@ -2433,7 +2434,7 @@ export class TTBody {
         </ng-container>
 
         <ng-template #buildInItems let-items let-scrollerOptions="options">
-            <table role="table" #scrollTable [class]="tt.tableStyleClass" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="tt.tableStyle" [style]="scrollerOptions.contentStyle">
+            <table role="treegrid" #scrollTable [class]="tt.tableStyleClass" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="tt.tableStyle" [style]="scrollerOptions.contentStyle">
                 <ng-container
                     *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate || tt._frozenColGroupTemplate || tt.colGroupTemplate || tt._colGroupTemplate : tt.colGroupTemplate || tt._colGroupTemplate; context: { $implicit: columns }"
                 ></ng-container>
@@ -2446,7 +2447,7 @@ export class TTBody {
                     [frozen]="frozen"
                 ></tbody>
             </table>
-            <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
+            <div #scrollableAligner [style.background-color]="'transparent'" *ngIf="frozen"></div>
         </ng-template>
 
         <div #scrollFooter *ngIf="tt.footerTemplate || tt._footerTemplate" [class]="cx('scrollableFooter')">
@@ -2540,7 +2541,9 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
 
                 if (this.scrollHeight) {
                     let scrollBarWidth = calculateScrollbarWidth();
-                    this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                    if (this.scrollHeaderBoxViewChild?.nativeElement) {
+                        this.scrollHeaderBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                    }
 
                     if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
                         this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
@@ -2686,7 +2689,7 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
         '[class]': 'cx("sortableColumn")',
         '[tabindex]': 'isEnabled() ? "0" : null',
         role: 'columnheader',
-        '[aria-sort]': 'ariaSorted'
+        '[attr.aria-sort]': 'ariaSorted'
     },
     providers: [TreeTableStyle]
 })
@@ -2760,14 +2763,17 @@ export class TTSortableColumn extends BaseComponent implements OnInit, OnDestroy
 @Component({
     selector: 'p-treeTableSortIcon, p-treetable-sort-icon, p-tree-table-sort-icon',
     standalone: false,
-    template: ` <ng-container *ngIf="!tt.sortIconTemplate && !tt._sortIconTemplate">
-            <SortAltIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
-            <SortAmountUpAltIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
-            <SortAmountDownIcon [styleClass]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
+    template: `
+        <ng-container *ngIf="!tt.sortIconTemplate && !tt._sortIconTemplate">
+            <svg data-p-icon="sort-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
+            <svg data-p-icon="sort-amount-up-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 1" />
+            <svg data-p-icon="sort-amount-down" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === -1" />
         </ng-container>
         <span *ngIf="tt.sortIconTemplate || tt._sortIconTemplate" [class]="cx('sortableColumnIcon')">
             <ng-template *ngTemplateOutlet="tt.sortIconTemplate || tt._sortIconTemplate; context: { $implicit: sortOrder }"></ng-template>
-        </span>`,
+        </span>
+        <p-badge *ngIf="isMultiSorted()" [class]="cx('sortableColumnBadge')" [value]="getBadgeValue()" size="small"></p-badge>
+    `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TreeTableStyle]
@@ -2805,6 +2811,23 @@ export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
         event.preventDefault();
     }
 
+    getMultiSortMetaIndex() {
+        let multiSortMeta = this.tt._multiSortMeta;
+        let index = -1;
+
+        if (multiSortMeta && this.tt.sortMode === 'multiple' && multiSortMeta.length > 1) {
+            for (let i = 0; i < multiSortMeta.length; i++) {
+                let meta = multiSortMeta[i];
+                if (meta.field === this.field || meta.field === this.field) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+
+        return index;
+    }
+
     updateSortState() {
         if (this.tt.sortMode === 'single') {
             this.sortOrder = this.tt.isSorted(<string>this.field) ? this.tt.sortOrder : 0;
@@ -2812,6 +2835,14 @@ export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
             let sortMeta = this.tt.getSortMeta(<string>this.field);
             this.sortOrder = sortMeta ? sortMeta.order : 0;
         }
+    }
+
+    getBadgeValue() {
+        return this.getMultiSortMetaIndex() + 1;
+    }
+
+    isMultiSorted() {
+        return this.tt.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
     }
 
     ngOnDestroy() {
@@ -3018,7 +3049,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     standalone: false,
     host: {
         '[class]': 'cx("row")',
-        '[aria-checked]': 'selected'
+        '[attr.aria-selected]': 'selected'
     },
     providers: [TreeTableStyle]
 })
@@ -3363,8 +3394,8 @@ export class TTHeaderCheckbox {
     }
 
     onClick(event: Event) {
-        if ((this.tt.value || this.tt.filteredNodes) && (this.tt.value.length > 0 || this.tt.filteredNodes.length > 0)) {
-            this.tt.toggleNodesWithCheckbox(event, !this.checked);
+        if ((this.tt?.value || this.tt?.filteredNodes) && ((this.tt?.value && this.tt.value.length > 0) || (this.tt?.filteredNodes && this.tt.filteredNodes.length > 0))) {
+            this.tt?.toggleNodesWithCheckbox(event, !this.checked);
         }
 
         clearSelection();
@@ -3449,7 +3480,7 @@ export class TTEditableColumn implements AfterViewInit {
                         return;
                     }
 
-                    removeClass(this.tt.editingCell, 'p-cell-editing');
+                    if (this.tt.editingCell) removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.openCell();
                 }
             } else {
@@ -3474,7 +3505,7 @@ export class TTEditableColumn implements AfterViewInit {
     }
 
     closeEditingCell() {
-        removeClass(this.tt.editingCell, 'p-checkbox-icon');
+        if (this.tt.editingCell) removeClass(this.tt.editingCell, 'p-checkbox-icon');
         this.tt.editingCell = null;
         this.tt.unbindDocumentEditListener();
     }
@@ -3485,7 +3516,7 @@ export class TTEditableColumn implements AfterViewInit {
             //enter
             if (event.keyCode == 13 && !event.shiftKey) {
                 if (this.tt.isEditingCellValid()) {
-                    removeClass(this.tt.editingCell, 'p-cell-editing');
+                    if (this.tt.editingCell) removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
                     this.tt.onEditComplete.emit({ field: this.field, data: this.data });
                 }
@@ -3496,7 +3527,7 @@ export class TTEditableColumn implements AfterViewInit {
             //escape
             else if (event.keyCode == 27) {
                 if (this.tt.isEditingCellValid()) {
-                    removeClass(this.tt.editingCell, 'p-cell-editing');
+                    if (this.tt.editingCell) removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
                     this.tt.onEditCancel.emit({ field: this.field, data: this.data });
                 }
@@ -3640,9 +3671,9 @@ export class TreeTableCellEditor extends BaseComponent implements AfterContentIn
     host: {
         '[class]': `'p-element ' + styleClass`,
         '[tabindex]': "'0'",
-        '[aria-expanded]': 'expanded',
-        '[aria-level]': 'level',
-        '[data-pc-section]': 'row',
+        '[attr.aria-expanded]': 'expanded',
+        '[attr.aria-level]': 'level',
+        '[attr.data-pc-section]': 'row',
         '[role]': 'row'
     },
     providers: [TreeTableStyle]
@@ -3770,13 +3801,13 @@ export class TTRow extends BaseComponent {
         const rows = this.el.nativeElement ? [...find(this.el.nativeElement.parentNode, 'tr')] : undefined;
 
         if (rows && isNotEmpty(rows)) {
-            const hasSelectedRow = rows.some((row) => getAttribute(row, 'data-p-highlight') || row.getAttribute('aria-checked') === 'true');
+            const hasSelectedRow = rows.some((row) => getAttribute(row, 'data-p-highlight') || row.getAttribute('aria-selected') === 'true');
             rows.forEach((row: any) => {
                 row.tabIndex = -1;
             });
 
             if (hasSelectedRow) {
-                const selectedNodes = rows.filter((node) => getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-checked') === 'true');
+                const selectedNodes = rows.filter((node) => getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-selected') === 'true');
                 (selectedNodes[0] as any).tabIndex = 0;
 
                 return;
@@ -3820,19 +3851,20 @@ export class TTRow extends BaseComponent {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 const container = this.tt.el?.nativeElement;
-                const row = <any>findSingle(container, '.p-treetable-tbody').children[<number>index || this.tt.toggleRowIndex];
+                const tbody = findSingle(container, '.p-treetable-tbody');
+                const row = tbody?.children?.[<number>index || this.tt.toggleRowIndex || 0];
                 const rows = [...find(container, 'tr')];
 
                 rows &&
                     rows.forEach((r: any) => {
-                        if (!row.isSameNode(r)) {
+                        if (row && !row.isSameNode(r)) {
                             r.tabIndex = -1;
                         }
                     });
 
                 if (row) {
-                    row.tabIndex = 0;
-                    row.focus();
+                    (row as HTMLElement).tabIndex = 0;
+                    (row as HTMLElement).focus();
                 }
             }, 25);
         });
@@ -3856,8 +3888,8 @@ export class TTRow extends BaseComponent {
             [attr.aria-label]="toggleButtonAriaLabel"
         >
             <ng-container *ngIf="!tt.togglerIconTemplate && !tt._togglerIconTemplate">
-                <ChevronDownIcon *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true" />
-                <ChevronRightIcon *ngIf="!rowNode.node.expanded" [attr.aria-hidden]="true" />
+                <svg data-p-icon="chevron-down" *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true" />
+                <svg data-p-icon="chevron-right" *ngIf="!rowNode.node.expanded" [attr.aria-hidden]="true" />
             </ng-container>
             <ng-template *ngTemplateOutlet="tt.togglerIconTemplate || tt._togglerIconTemplate; context: { $implicit: rowNode.node.expanded }"></ng-template>
         </button>
@@ -3875,7 +3907,7 @@ export class TreeTableToggler extends BaseComponent {
     }
 
     get toggleButtonAriaLabel() {
-        return this.config.translation ? (this.rowNode.expanded ? this.config.translation.aria.collapseRow : this.config.translation.aria.expandRow) : undefined;
+        return this.config.translation ? (this.rowNode.expanded ? this.config.translation?.aria?.collapseRow : this.config.translation?.aria?.expandRow) : undefined;
     }
 
     onClick(event: Event) {
@@ -3912,8 +3944,8 @@ export class TreeTableToggler extends BaseComponent {
         SortAltIcon,
         SortAmountUpAltIcon,
         SortAmountDownIcon,
+        BadgeModule,
         CheckIcon,
-        MinusIcon,
         ChevronDownIcon,
         ChevronRightIcon,
         Checkbox,

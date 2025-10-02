@@ -32,23 +32,23 @@ import { MessageStyle } from './style/messagestyle';
             >
                 <div [class]="cx('content')">
                     @if (iconTemplate || _iconTemplate) {
-                        <ng-container *ngTemplateOutlet="iconTemplate || iconTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                     }
                     @if (icon) {
                         <i [class]="cn(cx('icon'), icon)"></i>
                     }
 
-                    <div *ngIf="!escape; else escapeOut">
-                        <span *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text"></span>
-                    </div>
-
-                    <ng-template #escapeOut>
-                        <span *ngIf="escape && text" [ngClass]="cx('text')">{{ text }}</span>
-                    </ng-template>
-
                     @if (containerTemplate || _containerTemplate) {
-                        <ng-container *ngTemplateOutlet="containerTemplate || containerTemplate; context: { closeCallback: close.bind(this) }"></ng-container>
+                        <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
                     } @else {
+                        <div *ngIf="!escape; else escapeOut">
+                            <span *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text"></span>
+                        </div>
+
+                        <ng-template #escapeOut>
+                            <span *ngIf="escape && text" [ngClass]="cx('text')">{{ text }}</span>
+                        </ng-template>
+
                         <span [ngClass]="cx('text')">
                             <ng-content></ng-content>
                         </span>
@@ -62,7 +62,7 @@ import { MessageStyle } from './style/messagestyle';
                                 <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
                             }
                             @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
-                                <TimesIcon [styleClass]="cx('closeIcon')" />
+                                <svg data-p-icon="times" [class]="cx('closeIcon')" />
                             }
                         </button>
                     }
@@ -98,15 +98,16 @@ export class Message extends BaseComponent implements AfterContentInit {
      * @defaultValue 'info'
      * @group Props
      */
-    @Input() severity: string | 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
+    @Input() severity: 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
     /**
      * Text content.
+     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
      * @group Props
      */
     @Input() text: string | undefined;
     /**
      * Whether displaying messages would be escaped or not.
-     * @deprecated Use content projection instead '<p-message>Content</p-message>'.
+     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) escape: boolean = true;
@@ -205,6 +206,10 @@ export class Message extends BaseComponent implements AfterContentInit {
     _iconTemplate: TemplateRef<any> | undefined;
 
     _closeIconTemplate: TemplateRef<any> | undefined;
+
+    closeCallback = (event: Event) => {
+        this.close(event);
+    };
 
     ngOnInit() {
         super.ngOnInit();

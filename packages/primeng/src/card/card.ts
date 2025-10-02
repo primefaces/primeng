@@ -42,7 +42,7 @@ import { CardStyle } from './style/cardstyle';
     providers: [CardStyle],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[data-pc-name]': '"card"',
+        '[attr.data-pc-name]': '"card"',
         '[style]': '_style()'
     }
 })

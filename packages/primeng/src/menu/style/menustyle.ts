@@ -18,10 +18,10 @@ const classes = {
     submenuLabel: 'p-menu-submenu-label',
     separator: 'p-menu-separator',
     end: 'p-menu-end',
-    item: ({ instance, item, menuitemId }) => [
+    item: ({ instance, item, id }) => [
         'p-menu-item',
         {
-            'p-focus': instance.focusedOptionId() && menuitemId === instance.focusedOptionId(),
+            'p-focus': instance.focusedOptionId() && id === instance.focusedOptionId(),
             'p-disabled': instance.disabled(item.disabled)
         },
         item.styleClass

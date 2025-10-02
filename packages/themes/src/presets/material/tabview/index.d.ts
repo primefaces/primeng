@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/tabview';
+export * from '@primeuix/themes/material/tabview';
+export { default } from '@primeuix/themes/material/tabview';

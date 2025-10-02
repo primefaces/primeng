@@ -1,3 +1,4 @@
+import { getCSSVariableByRegex } from '@primeuix/utils';
 /**
  * @dynamic is for runtime initializing DomHandler.browser
  *
@@ -10,9 +11,9 @@
 export class DomHandler {
     public static zindex: number = 1000;
 
-    private static calculatedScrollbarWidth: number = null;
+    private static calculatedScrollbarWidth: number | null = null;
 
-    private static calculatedScrollbarHeight: number = null;
+    private static calculatedScrollbarHeight: number | null = null;
 
     private static browser: any;
 
@@ -136,17 +137,19 @@ export class DomHandler {
             top: -1 * windowScrollTop,
             left: -1 * windowScrollLeft
         };
-        let top: number, left: number;
+        let top: number,
+            left: number,
+            origin: string = 'top';
 
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
             top = targetOffset.top - relativeElementOffset.top - elementDimensions.height;
-            element.style.transformOrigin = 'bottom';
+            origin = 'bottom';
             if (targetOffset.top + top < 0) {
                 top = -1 * targetOffset.top;
             }
         } else {
             top = targetHeight + targetOffset.top - relativeElementOffset.top;
-            element.style.transformOrigin = 'top';
+            origin = 'top';
         }
 
         const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
@@ -164,7 +167,13 @@ export class DomHandler {
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
-        gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
+        element.style.transformOrigin = origin;
+
+        if (gutter) {
+            const gutterValue = getCSSVariableByRegex(/-anchor-gutter$/)?.value;
+
+            element.style.marginTop = origin === 'bottom' ? `calc(${gutterValue ?? '2px'} * -1)` : (gutterValue ?? '');
+        }
     }
 
     public static absolutePosition(element: any, target: any, gutter: boolean = true): void {
@@ -204,7 +213,7 @@ export class DomHandler {
     }
 
     static getScrollableParents(element: any) {
-        let scrollableParents = [];
+        let scrollableParents: any[] = [];
 
         if (element) {
             let parents = this.getParents(element);
@@ -297,7 +306,8 @@ export class DomHandler {
             last = +new Date();
 
             if (+opacity < 1) {
-                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                if (window.requestAnimationFrame) window.requestAnimationFrame(tick);
+                else setTimeout(tick, 16);
             }
         };
 
@@ -445,7 +455,7 @@ export class DomHandler {
         return parentNode.replaceChild(replacementElement, element);
     }
 
-    public static getUserAgent(): string {
+    public static getUserAgent(): string | undefined {
         if (navigator && this.isClient()) {
             return navigator.userAgent;
         }
@@ -502,7 +512,7 @@ export class DomHandler {
     }
 
     public static removeElement(element: Element) {
-        if (!('remove' in Element.prototype)) element.parentNode.removeChild(element);
+        if (!('remove' in Element.prototype)) element.parentNode?.removeChild(element);
         else element.remove();
     }
 
@@ -550,11 +560,11 @@ export class DomHandler {
     }
 
     public static clearSelection(): void {
-        if (window.getSelection) {
-            if (window.getSelection().empty) {
-                window.getSelection().empty();
-            } else if (window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
-                window.getSelection().removeAllRanges();
+        if (window.getSelection && window.getSelection()) {
+            if (window.getSelection()?.empty) {
+                window.getSelection()?.empty();
+            } else if (window.getSelection()?.removeAllRanges && (window.getSelection()?.rangeCount || 0) > 0 && (window.getSelection()?.getRangeAt(0)?.getClientRects()?.length || 0) > 0) {
+                window.getSelection()?.removeAllRanges();
             }
         } else if (document['selection'] && document['selection'].empty) {
             try {
@@ -635,7 +645,7 @@ export class DomHandler {
     public static getFocusableElements(element, selector = ''): any[] {
         let focusableElements = this.find(element, this.getFocusableSelectorString(selector));
 
-        let visibleFocusableElements = [];
+        let visibleFocusableElements: any[] = [];
 
         for (let focusableElement of focusableElements) {
             const computedStyle = getComputedStyle(focusableElement);
@@ -694,8 +704,8 @@ export class DomHandler {
     }
 
     public static getSelection() {
-        if (window.getSelection) return window.getSelection().toString();
-        else if (document.getSelection) return document.getSelection().toString();
+        if (window.getSelection) return window.getSelection()?.toString();
+        else if (document.getSelection) return document.getSelection()?.toString();
         else if (document['selection']) return document['selection'].createRange().text;
 
         return null;
@@ -716,7 +726,7 @@ export class DomHandler {
             case '@parent':
                 return el?.parentElement;
             case '@grandparent':
-                return el?.parentElement.parentElement;
+                return el?.parentElement?.parentElement;
             default:
                 const type = typeof target;
 

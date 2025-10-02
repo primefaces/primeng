@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/picklist';
+export * from '@primeuix/themes/nora/picklist';
+export { default } from '@primeuix/themes/nora/picklist';

@@ -1,11 +1,19 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, CascadeSelectModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>CascadeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -16,18 +24,18 @@ import { MessageService } from 'primeng/api';
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
                     <p-cascadeselect
-                        formControlName="selectedCountry"
+                        formControlName="selectedCity"
                         [options]="countries"
                         optionLabel="cname"
                         optionGroupLabel="name"
                         [optionGroupChildren]="['states', 'cities']"
                         [style]="{ minWidth: '14rem' }"
                         placeholder="Select a City"
-                        [invalid]="isInvalid('selectedCountry')"
+                        [invalid]="isInvalid('selectedCity')"
                     />
 
-                    @if (isInvalid('selectedCountry')) {
-                        <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+                    @if (isInvalid('selectedCity')) {
+                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -124,7 +132,7 @@ export class ReactiveFormsDoc {
         ];
 
         this.exampleForm = this.fb.group({
-            selectedCountry: ['', Validators.required]
+            selectedCity: ['', Validators.required]
         });
     }
 
@@ -146,18 +154,18 @@ export class ReactiveFormsDoc {
         basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
     <div class="flex flex-col gap-1">
         <p-cascadeselect
-            formControlName="selectedCountry"
+            formControlName="selectedCity"
             [options]="countries"
             optionLabel="cname"
             optionGroupLabel="name"
             [optionGroupChildren]="['states', 'cities']"
             [style]="{ minWidth: '14rem' }"
             placeholder="Select a City"
-            [invalid]="isInvalid('selectedCountry')"
+            [invalid]="isInvalid('selectedCity')"
         />
 
-        @if (isInvalid('selectedCountry')) {
-            <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+        @if (isInvalid('selectedCity')) {
+            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
         }
     </div>
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -168,18 +176,18 @@ export class ReactiveFormsDoc {
     <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
         <div class="flex flex-col gap-1">
             <p-cascadeselect
-                formControlName="selectedCountry"
+                formControlName="selectedCity"
                 [options]="countries"
                 optionLabel="cname"
                 optionGroupLabel="name"
                 [optionGroupChildren]="['states', 'cities']"
                 [style]="{ minWidth: '14rem' }"
                 placeholder="Select a City"
-                [invalid]="isInvalid('selectedCountry')"
+                [invalid]="isInvalid('selectedCity')"
             />
 
-            @if (isInvalid('selectedCountry')) {
-                <p-message severity="error" size="small" variant="simple">Country is required.</p-message>
+            @if (isInvalid('selectedCity')) {
+                <p-message severity="error" size="small" variant="simple">City is required.</p-message>
             }
         </div>
         <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -288,7 +296,7 @@ export class CascadeSelectReactiveFormsDemo {
         ];
 
         this.exampleForm = this.fb.group({
-            selectedCountry: ['', Validators.required]
+            selectedCity: ['', Validators.required]
         });
     }
 

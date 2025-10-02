@@ -84,7 +84,7 @@ import { MegaMenuStyle } from './style/megamenustyle';
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [ngStyle]="getItemProp(processedItem, 'style')"
-                    [class]="cn(cx('item', { processedItem }), processedItem?.styleClass)"
+                    [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
@@ -118,9 +118,9 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
                                         @if (orientation === 'horizontal' || mobileActive) {
-                                            <AngleDownIcon [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                            <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                         } @else {
-                                            <AngleRightIcon [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                            <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
                                         }
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate || megaMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
@@ -157,8 +157,8 @@ import { MegaMenuStyle } from './style/megamenustyle';
                                 <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
-                                        <AngleRightIcon [styleClass]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                        <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
+                                        <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate || megaMenu._submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
@@ -296,11 +296,11 @@ export class MegaMenuSub extends BaseComponent {
     }
 
     getAriaSetSize() {
-        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+        return this.items?.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
     }
 
     getAriaPosInset(index: number) {
-        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+        return index - (this.items?.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length || 0) + 1;
     }
 
     onItemMouseEnter(param: any) {
@@ -334,7 +334,7 @@ export class MegaMenuSub extends BaseComponent {
                 (click)="menuButtonClick($event)"
                 (keydown)="menuButtonKeydown($event)"
             >
-                <BarsIcon *ngIf="!buttonIconTemplate && !_buttonIconTemplate" />
+                <svg data-p-icon="bars" *ngIf="!buttonIconTemplate && !_buttonIconTemplate" />
                 <ng-template *ngTemplateOutlet="buttonIconTemplate || _buttonIconTemplate"></ng-template>
             </a>
         </ng-container>
@@ -629,12 +629,12 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
     unbindMatchMediaListener() {
         if (this.matchMediaListener) {
             this.query.removeEventListener('change', this.matchMediaListener);
-            this.matchMediaListener = null;
+            this.matchMediaListener = null!;
         }
     }
 
     createProcessedItems(items, level = 0, parent = {}, parentKey = '', columnIndex?) {
-        const processedItems = [];
+        const processedItems: any[] = [];
 
         items &&
             items.forEach((item, index) => {
@@ -650,7 +650,9 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
                 };
 
                 newItem['items'] =
-                    level === 0 && item.items && item.items.length > 0 ? item.items.map((_items, _index) => this.createProcessedItems(_items, level + 1, newItem, key, _index)) : this.createProcessedItems(item.items, level + 1, newItem, key);
+                    level === 0 && item.items && item.items.length > 0
+                        ? item.items.map((_items: any, _index: any) => this.createProcessedItems(_items, level + 1, newItem, key, _index))
+                        : this.createProcessedItems(item.items, level + 1, newItem, key);
                 processedItems.push(newItem);
             });
         return processedItems;
@@ -702,11 +704,11 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
     toggle(event: MouseEvent) {
         if (this.mobileActive) {
             this.mobileActive = false;
-            ZIndexUtils.clear(this.rootmenu.el.nativeElement);
+            ZIndexUtils.clear(this.rootmenu?.el.nativeElement);
             this.hide();
         } else {
             this.mobileActive = true;
-            ZIndexUtils.set('menu', this.rootmenu.el.nativeElement, this.config.zIndex.menu);
+            ZIndexUtils.set('menu', this.rootmenu?.el.nativeElement, this.config.zIndex.menu);
             setTimeout(() => {
                 this.show();
             }, 0);
@@ -728,7 +730,7 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
         let element;
 
         if (id === null && this.queryMatches) {
-            element = this.menubuttonViewChild.nativeElement;
+            element = this.menubuttonViewChild?.nativeElement;
         } else {
             element = findSingle(this.rootmenu?.menubarViewChild?.nativeElement, `li[id="${id}"]`);
         }
@@ -1110,7 +1112,7 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
             const element = <any>findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && <any>findSingle(element, 'a[data-pc-section="action"]');
+            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
 
@@ -1186,7 +1188,7 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
     unbindResizeListener() {
         if (this.resizeListener) {
             window.removeEventListener('resize', this.resizeListener);
-            this.resizeListener = null;
+            this.resizeListener = null!;
         }
     }
 

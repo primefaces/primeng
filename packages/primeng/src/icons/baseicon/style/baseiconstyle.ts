@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const css = `
+const css = /*css*/ `
 .p-icon {
     display: inline-block;
     vertical-align: baseline;
@@ -35,11 +35,13 @@ const css = `
 }
 `;
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class BaseIconStyle extends BaseStyle {
     name = 'baseicon';
 
-    inlineStyles = css;
+    css = css;
 }
 /**
  *

@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/inputchips';
+export * from '@primeuix/themes/aura/inputchips';
+export { default } from '@primeuix/themes/aura/inputchips';

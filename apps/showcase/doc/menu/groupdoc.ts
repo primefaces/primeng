@@ -1,10 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'menu-group-demo',
-    standalone: false,
+    standalone: true,
+    imports: [MenuModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Menu supports one level of nesting by defining children with <i>items</i> property.</p>

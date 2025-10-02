@@ -24,7 +24,7 @@ import { MeterGroupStyle } from './style/metergroupstyle';
     `
 })
 export class MeterGroupLabel extends BaseComponent {
-    @Input() value: any[] = null;
+    @Input() value: any[] = [];
 
     @Input() labelPosition: 'start' | 'end' = 'end';
 
@@ -194,33 +194,43 @@ export class MeterGroup extends BaseComponent implements AfterContentInit {
     }
 
     percent(meter = 0) {
+        if (this.max === this.min) {
+            return 100; // When min = max, any value should be 100%
+        }
         const percentOfItem = ((meter - this.min) / (this.max - this.min)) * 100;
 
         return Math.round(Math.max(0, Math.min(100, percentOfItem)));
     }
 
-    percentValue(meter) {
+    percentValue(meter: number) {
         return this.percent(meter) + '%';
     }
 
-    meterStyle(val) {
+    meterStyle(val: MeterItem) {
         return {
             backgroundColor: val.color,
-            width: this.orientation === 'horizontal' && this.percentValue(val.value),
-            height: this.orientation === 'vertical' && this.percentValue(val.value)
+            width: this.orientation === 'horizontal' && this.percentValue(val.value || 0),
+            height: this.orientation === 'vertical' && this.percentValue(val.value || 0)
         };
     }
 
     totalPercent() {
-        return this.percent(this.value.reduce((total, val) => total + val.value, 0));
+        if (!this.value) {
+            return 0;
+        }
+        return this.percent(this.value.reduce((total, val) => total + (val.value || 0), 0));
     }
 
     percentages() {
+        if (!this.value) {
+            return [];
+        }
+
         let sum = 0;
-        const sumsArray = [];
+        const sumsArray: number[] = [];
 
         this.value.forEach((item) => {
-            sum += item.value;
+            sum += item.value || 0;
             sumsArray.push(sum);
         });
 
