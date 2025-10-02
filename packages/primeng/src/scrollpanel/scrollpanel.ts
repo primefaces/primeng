@@ -1,29 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewChecked,
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    QueryList,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, removeClass, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
 
@@ -36,7 +16,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
 @Component({
     selector: 'p-scroll-panel, p-scrollPanel, p-scrollpanel',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
         <div [pBind]="ptm('contentContainer')" [class]="cx('contentContainer')">
             <div #content [pBind]="ptm('content')" [class]="cx('content')" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
@@ -526,7 +506,7 @@ export class ScrollPanel extends BaseComponent {
 }
 
 @NgModule({
-    imports: [ScrollPanel, SharedModule, Bind],
-    exports: [ScrollPanel, SharedModule, Bind]
+    imports: [ScrollPanel, SharedModule, BindModule],
+    exports: [ScrollPanel, SharedModule, BindModule]
 })
 export class ScrollPanelModule {}

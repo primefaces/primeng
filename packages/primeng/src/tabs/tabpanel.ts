@@ -2,7 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { TabPanelStyle } from './style/tabpanelstyle';
 import { Tabs } from './tabs';
 
@@ -15,7 +15,7 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
 @Component({
     selector: 'p-tabpanel',
     standalone: true,
-    imports: [NgTemplateOutlet],
+    imports: [NgTemplateOutlet, BindModule],
     template: `
         <ng-template #defaultContent>
             <ng-content />
@@ -30,7 +30,6 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
     providers: [TabPanelStyle, { provide: TABPANEL_INSTANCE, useExisting: TabPanel }, { provide: PARENT_INSTANCE, useExisting: TabPanel }],
     host: {
         '[class]': 'cx("root")',
-        '[attr.data-pc-name]': '"tabpanel"',
         '[attr.id]': 'id()',
         '[attr.role]': '"tabpanel"',
         '[attr.aria-labelledby]': 'ariaLabelledby()',

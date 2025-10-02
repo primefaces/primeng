@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { TabsStyle } from './style/tabsstyle';
 import { Tab } from './tab';
 import { TabList } from './tablist';
@@ -18,14 +18,13 @@ const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
 @Component({
     selector: 'p-tabs',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [TabsStyle, { provide: TABS_INSTANCE, useExisting: Tabs }, { provide: PARENT_INSTANCE, useExisting: Tabs }],
     host: {
         '[class]': 'cx("root")',
-        '[attr.data-pc-name]': '"tabs"',
         '[attr.id]': 'id()'
     },
     hostDirectives: [Bind]
@@ -91,7 +90,7 @@ export class Tabs extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Tabs, TabPanels, TabPanel, TabList, Tab, Bind],
-    exports: [Tabs, TabPanels, TabPanel, TabList, Tab, Bind]
+    imports: [Tabs, TabPanels, TabPanel, TabList, Tab, BindModule],
+    exports: [Tabs, TabPanels, TabPanel, TabList, Tab, BindModule]
 })
 export class TabsModule {}

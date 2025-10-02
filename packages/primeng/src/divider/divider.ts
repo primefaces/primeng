@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { DividerStyle } from './style/dividerstyle';
 
 const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
@@ -14,7 +14,7 @@ const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
 @Component({
     selector: 'p-divider',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
         <div [pBind]="ptm('content')" [class]="cx('content')">
             <ng-content></ng-content>
@@ -65,7 +65,7 @@ export class Divider extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Divider, Bind],
-    exports: [Divider, Bind]
+    imports: [Divider, BindModule],
+    exports: [Divider, BindModule]
 })
 export class DividerModule {}

@@ -74,7 +74,7 @@ const ACCORDION_INSTANCE = new InjectionToken<Accordion>('ACCORDION_INSTANCE');
  */
 @Component({
     selector: 'p-accordion-panel, p-accordionpanel',
-    imports: [CommonModule],
+    imports: [CommonModule, BindModule],
     standalone: true,
     template: `<ng-content />`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -127,7 +127,7 @@ export class AccordionPanel extends BaseComponent {
  */
 @Component({
     selector: 'p-accordion-header, p-accordionheader',
-    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon],
+    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, BindModule],
     standalone: true,
     template: `
         <ng-content />
@@ -317,7 +317,7 @@ export class AccordionHeader extends BaseComponent {
 
 @Component({
     selector: 'p-accordion-content, p-accordioncontent',
-    imports: [CommonModule, Bind],
+    imports: [CommonModule, BindModule],
     standalone: true,
     template: `<div
         [class]="cx('content')"

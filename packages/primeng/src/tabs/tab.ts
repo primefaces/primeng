@@ -3,7 +3,7 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, Element
 import { equals, focus, getAttribute } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { Ripple } from 'primeng/ripple';
 import { TabStyle } from './style/tabstyle';
 import { TabList } from './tablist';
@@ -18,13 +18,12 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
 @Component({
     selector: 'p-tab',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': 'cx("root")',
-        '[attr.data-pc-name]': '"tab"',
         '[attr.id]': 'id()',
         '[attr.aria-controls]': 'ariaControls()',
         '[attr.role]': '"tab"',

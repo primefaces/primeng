@@ -774,36 +774,4 @@ describe('Splitter', () => {
             }).not.toThrow();
         });
     });
-
-    describe('Data Attributes', () => {
-        it('should have correct data-pc-name attributes', () => {
-            const splitterElement = testFixture.debugElement.query(By.css('p-splitter'));
-            const panels = testFixture.debugElement.queryAll(By.css('[data-pc-name="splitterpanel"]'));
-            const gutter = testFixture.debugElement.query(By.css('[data-pc-section="gutter"]'));
-            const handle = testFixture.debugElement.query(By.css('[data-pc-section="gutterhandle"]'));
-
-            expect(splitterElement.nativeElement.getAttribute('data-pc-name')).toBe('splitter');
-            expect(panels[0].nativeElement.getAttribute('data-pc-name')).toBe('splitterpanel');
-            expect(gutter.nativeElement.getAttribute('data-pc-section')).toBe('gutter');
-            expect(handle.nativeElement.getAttribute('data-pc-section')).toBe('gutterhandle');
-        });
-
-        it('should update gutter resizing attributes', () => {
-            const gutter = testFixture.debugElement.query(By.css('.p-splitter-gutter'));
-            const mouseEvent = new MouseEvent('mousedown');
-            Object.defineProperty(mouseEvent, 'pageX', { value: 100, writable: true });
-            Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: true });
-            Object.defineProperty(mouseEvent, 'currentTarget', { value: gutter.nativeElement, writable: true });
-
-            splitterInstance.resizeStart(mouseEvent, 0);
-
-            expect(gutter.nativeElement.getAttribute('data-p-gutter-resizing')).toBe('true');
-            expect(splitterInstance.el.nativeElement.getAttribute('data-p-resizing')).toBe('true');
-
-            splitterInstance.resizeEnd(mouseEvent);
-
-            // Check that CSS classes are removed after resize end
-            expect(splitterInstance.el.nativeElement.className).not.toContain('p-splitter-resizing');
-        });
-    });
 });

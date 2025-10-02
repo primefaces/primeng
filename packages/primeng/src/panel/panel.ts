@@ -24,7 +24,7 @@ import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
 import { PanelStyle } from './style/panelstyle';
 
@@ -72,7 +72,7 @@ export interface PanelHeaderIconsTemplateContext {
 @Component({
     selector: 'p-panel',
     standalone: true,
-    imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, Bind],
+    imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule],
     template: `
         <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
             <span [pBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
@@ -470,7 +470,7 @@ export class Panel extends BaseComponent implements BlockableUI {
 }
 
 @NgModule({
-    imports: [Panel, SharedModule, Bind],
-    exports: [Panel, SharedModule, Bind]
+    imports: [Panel, SharedModule, BindModule],
+    exports: [Panel, SharedModule, BindModule]
 })
 export class PanelModule {}

@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Component, DebugElement } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Image, ImageModule } from './image';
 import { SharedModule } from 'primeng/api';
+import { Image, ImageModule } from './image';
 
 // Using image paths from photoservice.ts to ensure consistency
 const mockImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg';
@@ -439,7 +439,7 @@ describe('Image', () => {
             mockWrapper.appendChild(mockElement);
 
             imageInstance.closeButton = mockCloseButton as any;
-            imageInstance.attrSelector = 'test-attr';
+            imageInstance.$attrSelector = 'test-attr';
 
             spyOn(mockCloseButton.nativeElement, 'focus');
             spyOn(imageInstance, 'appendContainer');
@@ -551,7 +551,7 @@ describe('Image', () => {
             mockWrapper.appendChild(mockElement);
 
             imageInstance.closeButton = mockCloseButton as any;
-            imageInstance.attrSelector = 'test-attr';
+            imageInstance.$attrSelector = 'test-attr';
 
             const animationEvent = {
                 toState: 'visible',

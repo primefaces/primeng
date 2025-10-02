@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inje
 import { equals } from '@primeuix/utils';
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { CardStyle } from './style/cardstyle';
 
 const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
@@ -15,7 +15,7 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
 @Component({
     selector: 'p-card',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
         <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">
             <ng-content select="p-header"></ng-content>
@@ -149,7 +149,7 @@ export class Card extends BaseComponent implements BlockableUI {
 }
 
 @NgModule({
-    imports: [Card, SharedModule, Bind],
-    exports: [Card, SharedModule, Bind]
+    imports: [Card, SharedModule, BindModule],
+    exports: [Card, SharedModule, BindModule]
 })
 export class CardModule {}

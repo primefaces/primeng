@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -299,7 +299,7 @@ describe('Editor', () => {
         it('should emit onInit event', () => {
             spyOn(component, 'onInit');
 
-            editorInstance.onInit.emit({
+            editorInstance.onEditorInit.emit({
                 editor: editorInstance.quill
             });
 

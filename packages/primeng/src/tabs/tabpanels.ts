@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { TabPanelsStyle } from './style/tabpanelsstyle';
 
 const TABPANELS_INSTANCE = new InjectionToken<TabPanels>('TABPANELS_INSTANCE');
@@ -13,13 +13,12 @@ const TABPANELS_INSTANCE = new InjectionToken<TabPanels>('TABPANELS_INSTANCE');
 @Component({
     selector: 'p-tabpanels',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': 'cx("root")',
-        '[attr.data-pc-name]': '"tabpanels"',
         '[attr.role]': '"presentation"'
     },
     providers: [TabPanelsStyle, { provide: TABPANELS_INSTANCE, useExisting: TabPanels }, { provide: PARENT_INSTANCE, useExisting: TabPanels }],

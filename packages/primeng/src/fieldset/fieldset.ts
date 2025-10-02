@@ -1,11 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 import { FieldsetStyle } from './style/fieldsetstyle';
@@ -19,7 +19,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
 @Component({
     selector: 'p-fieldset',
     standalone: true,
-    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, Bind],
+    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, BindModule],
     template: `
         <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" [attr.data-p]="dataP">
             <legend [class]="cx('legend')" [pBind]="ptm('legend')">
@@ -274,7 +274,7 @@ export class Fieldset extends BaseComponent implements BlockableUI {
 }
 
 @NgModule({
-    imports: [Fieldset, SharedModule],
-    exports: [Fieldset, SharedModule]
+    imports: [Fieldset, SharedModule, BindModule],
+    exports: [Fieldset, SharedModule, BindModule]
 })
 export class FieldsetModule {}

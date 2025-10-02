@@ -4,7 +4,7 @@ import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { RippleModule } from 'primeng/ripple';
 import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';
@@ -18,7 +18,7 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
 @Component({
     selector: 'p-tablist',
     standalone: true,
-    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule, Bind],
+    imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule, BindModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {
             <button
@@ -68,8 +68,7 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': 'cx("root")',
-        '[attr.data-pc-name]': '"tablist"'
+        '[class]': 'cx("root")'
     },
     providers: [TabListStyle, { provide: TABLIST_INSTANCE, useExisting: TabList }, { provide: PARENT_INSTANCE, useExisting: TabList }],
     hostDirectives: [Bind]
