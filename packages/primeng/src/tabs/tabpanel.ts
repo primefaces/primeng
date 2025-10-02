@@ -1,9 +1,12 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, input, model, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/pbind';
 import { TabPanelStyle } from './style/tabpanelstyle';
 import { Tabs } from './tabs';
+
+const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
 
 /**
  * TabPanel is a helper component for Tabs component.
@@ -24,7 +27,7 @@ import { Tabs } from './tabs';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [TabPanelStyle],
+    providers: [TabPanelStyle, { provide: TABPANEL_INSTANCE, useExisting: TabPanel }, { provide: PARENT_INSTANCE, useExisting: TabPanel }],
     host: {
         '[class]': 'cx("root")',
         '[attr.data-pc-name]': '"tabpanel"',
@@ -33,10 +36,19 @@ import { Tabs } from './tabs';
         '[attr.aria-labelledby]': 'ariaLabelledby()',
         '[attr.data-p-active]': 'active()',
         '[hidden]': '!active()'
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class TabPanel extends BaseComponent {
+export class TabPanel extends BaseComponent implements AfterViewChecked {
+    $pcTabPanel: TabPanel | undefined = inject(TABPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     pcTabs = inject<Tabs>(forwardRef(() => Tabs));
+
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 
     /**
      * When enabled, tab is not rendered until activation.

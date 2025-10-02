@@ -4,7 +4,7 @@ import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@primeuix/utils';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
-import type { NgLifecycle } from './basecomponent.types';
+import type { Lifecycle } from './basecomponent.types';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');
@@ -13,7 +13,7 @@ export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANC
     standalone: true,
     providers: [BaseComponentStyle, BaseStyle]
 })
-export class BaseComponent implements NgLifecycle {
+export class BaseComponent implements Lifecycle {
     public document: Document = inject(DOCUMENT);
 
     public platformId: any = inject(PLATFORM_ID);
@@ -114,6 +114,40 @@ export class BaseComponent implements NgLifecycle {
 
     /******************** Lifecycle Hooks ********************/
 
+    onInit() {
+        // NOOP - to be implemented by subclasses
+    }
+
+    onChanges(changes: SimpleChanges) {
+        // NOOP - to be implemented by subclasses
+    }
+
+    onDoCheck() {
+        // NOOP - to be implemented by subclasses
+    }
+
+    onAfterContentInit() {
+        // NOOP - to be implemented by subclasses
+    }
+
+    onAfterContentChecked() {
+        // NOOP - to be implemented by subclasses
+    }
+
+    onAfterViewInit() {
+        // NOOP - to be implemented by subclasses
+    }
+
+    onAfterViewChecked() {
+        // NOOP - to be implemented by subclasses
+    }
+
+    onDestroy() {
+        // NOOP - to be implemented by subclasses
+    }
+
+    /******************** Angular Lifecycle Hooks ********************/
+
     constructor() {
         // watch _dt_ changes
         effect((onCleanup) => {
@@ -153,45 +187,92 @@ export class BaseComponent implements NgLifecycle {
         this._hook('onBeforeInit');
     }
 
+    /**
+     * ⚠ Do not override ngOnInit!
+     *
+     * Use 'onInit()' in subclasses instead.
+     */
     ngOnInit() {
         this._loadCoreStyles();
         this._loadStyles();
 
+        this.onInit();
         this._hook('onInit');
     }
 
+    /**
+     * ⚠ Do not override ngOnChanges!
+     *
+     * Use 'onChanges(changes: SimpleChanges)' in subclasses instead.
+     */
     ngOnChanges(changes: SimpleChanges) {
+        this.onChanges(changes);
         this._hook('onChanges', changes);
     }
 
+    /**
+     * ⚠ Do not override ngDoCheck!
+     *
+     * Use 'onDoCheck()' in subclasses instead.
+     */
     ngDoCheck() {
+        this.onDoCheck();
         this._hook('onDoCheck');
     }
 
+    /**
+     * ⚠ Do not override ngAfterContentInit!
+     *
+     * Use 'onAfterContentInit()' in subclasses instead.
+     */
     ngAfterContentInit() {
+        this.onAfterContentInit();
         this._hook('onAfterContentInit');
     }
 
+    /**
+     * ⚠ Do not override ngAfterContentChecked!
+     *
+     * Use 'onAfterContentChecked()' in subclasses instead.
+     */
     ngAfterContentChecked() {
+        this.onAfterContentChecked();
         this._hook('onAfterContentChecked');
     }
 
+    /**
+     * ⚠ Do not override ngAfterViewInit!
+     *
+     * Use 'onAfterViewInit()' in subclasses instead.
+     */
     ngAfterViewInit() {
         // @todo - remove this after implementing pt for root
         this.el?.nativeElement?.setAttribute(this.$attrSelector, '');
 
+        this.onAfterViewInit();
         this._hook('onAfterViewInit');
     }
 
+    /**
+     * ⚠ Do not override ngAfterViewChecked!
+     *
+     * Use 'onAfterViewChecked()' in subclasses instead.
+     */
     ngAfterViewChecked() {
+        this.onAfterViewChecked();
         this._hook('onAfterViewChecked');
-        this['onAfterViewChecked']?.(); // @todo - update lifecycle hooks calls in components
     }
 
+    /**
+     * ⚠ Do not override ngOnDestroy!
+     *
+     * Use 'onDestroy()' in subclasses instead.
+     */
     ngOnDestroy() {
         this._removeThemeListeners();
         this._unloadScopedThemeStyles();
 
+        this.onDestroy();
         this._hook('onDestroy');
     }
 

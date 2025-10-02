@@ -1,11 +1,33 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, QueryList, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    contentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    inject,
+    InjectionToken,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    ViewEncapsulation
+} from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/pbind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
 import { SplitterStyle } from './style/splitterstyle';
+
+const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
 
 /**
  * Splitter is utilized to separate and resize panels.
@@ -14,14 +36,15 @@ import { SplitterStyle } from './style/splitterstyle';
 @Component({
     selector: 'p-splitter',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, Bind],
     template: `
         <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
-            <div [class]="cn(cx('panel'), panelStyleClass)" [ngStyle]="panelStyle" tabindex="-1" [attr.data-pc-name]="'splitterpanel'" [attr.data-pc-section]="'panel'">
+            <div [pBind]="ptm('panel')" [class]="cn(cx('panel'), panelStyleClass)" [ngStyle]="panelStyle" tabindex="-1">
                 <ng-container *ngTemplateOutlet="panel"></ng-container>
             </div>
             <div
                 *ngIf="i !== panels.length - 1"
+                [pBind]="ptm('gutter')"
                 [class]="cx('gutter')"
                 role="separator"
                 tabindex="-1"
@@ -30,15 +53,14 @@ import { SplitterStyle } from './style/splitterstyle';
                 (touchmove)="onGutterTouchMove($event)"
                 (touchend)="onGutterTouchEnd($event)"
                 [attr.data-p-gutter-resizing]="false"
-                [attr.data-pc-section]="'gutter'"
             >
                 <div
+                    [pBind]="ptm('gutterHandle')"
                     [class]="cx('gutterHandle')"
                     tabindex="0"
                     [ngStyle]="gutterStyle()"
                     [attr.aria-orientation]="layout"
                     [attr.aria-valuenow]="prevSize"
-                    [attr.data-pc-section]="'gutterhandle'"
                     (keyup)="onGutterKeyUp($event)"
                     (keydown)="onGutterKeyDown($event, i)"
                 ></div>
@@ -49,13 +71,18 @@ import { SplitterStyle } from './style/splitterstyle';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        'data-pc-name': 'splitter',
-        'data-pc-section': 'root',
         '[attr.data-p-gutter-resizing]': 'false'
     },
-    providers: [SplitterStyle]
+    providers: [SplitterStyle, { provide: SPLITTER_INSTANCE, useExisting: Splitter }, { provide: PARENT_INSTANCE, useExisting: Splitter }],
+    hostDirectives: [Bind]
 })
-export class Splitter extends BaseComponent implements AfterContentInit {
+export class Splitter extends BaseComponent implements AfterContentInit, AfterViewChecked {
+    $pcSplitter: Splitter | undefined = inject(SPLITTER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Style class of the component.
      * @deprecated since v20. Use `class` instead.
@@ -534,7 +561,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [Splitter, SharedModule],
-    exports: [Splitter, SharedModule]
+    imports: [Splitter, SharedModule, Bind],
+    exports: [Splitter, SharedModule, Bind]
 })
 export class SplitterModule {}

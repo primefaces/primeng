@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/pbind';
 import { TabsStyle } from './style/tabsstyle';
 import { Tab } from './tab';
 import { TabList } from './tablist';
 import { TabPanel } from './tabpanel';
 import { TabPanels } from './tabpanels';
+
+const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
 
 /**
  * Tabs facilitates seamless switching between different views.
@@ -19,14 +22,23 @@ import { TabPanels } from './tabpanels';
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [TabsStyle],
+    providers: [TabsStyle, { provide: TABS_INSTANCE, useExisting: Tabs }, { provide: PARENT_INSTANCE, useExisting: Tabs }],
     host: {
         '[class]': 'cx("root")',
         '[attr.data-pc-name]': '"tabs"',
         '[attr.id]': 'id()'
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Tabs extends BaseComponent {
+export class Tabs extends BaseComponent implements AfterViewChecked {
+    $pcTabs: Tabs | undefined = inject(TABS_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Value of the active tab.
      * @defaultValue undefined
@@ -79,7 +91,7 @@ export class Tabs extends BaseComponent {
 }
 
 @NgModule({
-    imports: [Tabs, TabPanels, TabPanel, TabList, Tab],
-    exports: [Tabs, TabPanels, TabPanel, TabList, Tab]
+    imports: [Tabs, TabPanels, TabPanel, TabList, Tab, Bind],
+    exports: [Tabs, TabPanels, TabPanel, TabList, Tab, Bind]
 })
 export class TabsModule {}
