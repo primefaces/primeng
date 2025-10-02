@@ -1,12 +1,15 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, input, model, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, InjectionToken, input, model, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/pbind';
 import { Ripple } from 'primeng/ripple';
 import { TabList } from './tablist';
 import { Tabs } from './tabs';
 import { TabStyle } from './style/tabstyle';
+
+const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
 
 /**
  * Defines valid properties in Tab component.
@@ -31,10 +34,18 @@ import { TabStyle } from './style/tabstyle';
         '[attr.data-p-active]': 'active()',
         '[attr.tabindex]': 'tabindex()'
     },
-    hostDirectives: [Ripple],
-    providers: [TabStyle]
+    hostDirectives: [Ripple, Bind],
+    providers: [TabStyle, { provide: TAB_INSTANCE, useExisting: Tab }, { provide: PARENT_INSTANCE, useExisting: Tab }]
 })
-export class Tab extends BaseComponent implements AfterViewInit, OnDestroy {
+export class Tab extends BaseComponent implements AfterViewInit, OnDestroy, AfterViewChecked {
+    $pcTab: Tab | undefined = inject(TAB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Value of tab.
      * @defaultValue undefined
