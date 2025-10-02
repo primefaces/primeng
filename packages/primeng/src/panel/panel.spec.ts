@@ -1189,4 +1189,365 @@ describe('Panel', () => {
             }
         });
     });
+
+    describe('PassThrough (PT) Support', () => {
+        describe('Case 1: Simple String Classes', () => {
+            it('should apply PT class to host section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('HOST_CLASS');
+            });
+
+            it('should apply PT class to root section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('ROOT_CLASS');
+            });
+
+            it('should apply PT class to header section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test Header';
+                fixture.componentRef.setInput('pt', { title: 'HEADER_CLASS' });
+                fixture.detectChanges();
+
+                const headerEl = fixture.debugElement.query(By.css('.p-panel-header'));
+                expect(headerEl.nativeElement.className).toContain('HEADER_CLASS');
+            });
+
+            it('should apply PT class to title section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test Title';
+                fixture.componentRef.setInput('pt', { title: 'TITLE_CLASS' });
+                fixture.detectChanges();
+
+                const titleEl = fixture.debugElement.query(By.css('.p-panel-title'));
+                expect(titleEl.nativeElement.className).toContain('TITLE_CLASS');
+            });
+
+            it('should apply PT class to icons section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test';
+                fixture.componentRef.setInput('pt', { icons: 'ICONS_CLASS' });
+                fixture.detectChanges();
+
+                const iconsEl = fixture.debugElement.query(By.css('.p-panel-icons'));
+                expect(iconsEl.nativeElement.className).toContain('ICONS_CLASS');
+            });
+
+            it('should apply PT class to contentContainer section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                fixture.componentRef.setInput('pt', { contentContainer: 'CONTENT_CONTAINER_CLASS' });
+                fixture.detectChanges();
+
+                const contentContainerEl = fixture.debugElement.query(By.css('.p-panel-content-container'));
+                expect(contentContainerEl.nativeElement.className).toContain('CONTENT_CONTAINER_CLASS');
+            });
+
+            it('should apply PT class to content section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
+                fixture.detectChanges();
+
+                const contentEl = fixture.debugElement.query(By.css('.p-panel-content'));
+                expect(contentEl.nativeElement.className).toContain('CONTENT_CLASS');
+            });
+        });
+
+        describe('Case 2: Object Values with Attributes and Styles', () => {
+            it('should apply PT object with class, style and data attributes to root', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel.collapsed = true;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: 'background-color: red',
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('ROOT_OBJECT_CLASS');
+                expect(hostElement.style.backgroundColor).toBe('red');
+                expect(hostElement.getAttribute('data-p-test')).toBe('true');
+                expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply PT object with attributes to header', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test';
+                fixture.componentRef.setInput('pt', {
+                    title: {
+                        class: 'HEADER_OBJECT_CLASS',
+                        'data-testid': 'panel-header',
+                        style: 'padding: 20px'
+                    }
+                });
+                fixture.detectChanges();
+
+                const headerEl = fixture.debugElement.query(By.css('.p-panel-header'));
+                expect(headerEl.nativeElement.className).toContain('HEADER_OBJECT_CLASS');
+                expect(headerEl.nativeElement.getAttribute('data-testid')).toBe('panel-header');
+                expect(headerEl.nativeElement.style.padding).toBe('20px');
+            });
+
+            it('should apply PT object to contentContainer', () => {
+                const fixture = TestBed.createComponent(Panel);
+                fixture.componentRef.setInput('pt', {
+                    contentContainer: {
+                        class: 'CONTAINER_OBJECT_CLASS',
+                        'aria-labelledby': 'custom-label'
+                    }
+                });
+                fixture.detectChanges();
+
+                const containerEl = fixture.debugElement.query(By.css('.p-panel-content-container'));
+                expect(containerEl.nativeElement.className).toContain('CONTAINER_OBJECT_CLASS');
+            });
+        });
+
+        describe('Case 3: Mixed String and Object Values', () => {
+            it('should apply mixed PT values to multiple sections', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test';
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    title: 'HEADER_STRING_CLASS',
+                    content: {
+                        class: 'CONTENT_MIXED_CLASS',
+                        style: 'margin: 10px'
+                    }
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('ROOT_MIXED_CLASS');
+
+                const headerEl = fixture.debugElement.query(By.css('.p-panel-header'));
+                expect(headerEl.nativeElement.className).toContain('HEADER_STRING_CLASS');
+
+                const contentEl = fixture.debugElement.query(By.css('.p-panel-content'));
+                expect(contentEl.nativeElement.className).toContain('CONTENT_MIXED_CLASS');
+                expect(contentEl.nativeElement.style.margin).toBe('10px');
+            });
+        });
+
+        describe('Case 4: Instance-based Functions', () => {
+            it('should apply PT function using instance collapsed state', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel.collapsed = true;
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => ({
+                        class: {
+                            COLLAPSED: instance?.collapsed
+                        }
+                    })
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('COLLAPSED');
+            });
+
+            it('should apply PT function with dynamic styles based on instance state', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test';
+                panel.collapsed = true;
+                fixture.componentRef.setInput('pt', {
+                    title: ({ instance }) => ({
+                        style: {
+                            'background-color': instance?.collapsed ? 'yellow' : 'red'
+                        }
+                    })
+                });
+                fixture.detectChanges();
+
+                const headerEl = fixture.debugElement.query(By.css('.p-panel-header'));
+                expect(headerEl.nativeElement.style.backgroundColor).toBe('yellow');
+            });
+
+            it('should update PT when instance state changes', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test';
+                panel.toggleable = true;
+                panel.collapsed = false;
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => ({
+                        class: {
+                            IS_COLLAPSED: instance?.collapsed === true,
+                            IS_EXPANDED: instance?.collapsed === false
+                        }
+                    })
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('IS_EXPANDED');
+
+                // Toggle to collapsed
+                panel.collapsed = true;
+                fixture.detectChanges();
+
+                expect(hostElement.className).toContain('IS_COLLAPSED');
+            });
+        });
+
+        describe('Case 5: Event Binding via PT', () => {
+            it('should handle onclick event through PT on title section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test';
+                let clicked = false;
+
+                fixture.componentRef.setInput('pt', {
+                    title: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const titleEl = fixture.debugElement.query(By.css('.p-panel-title'));
+                titleEl.nativeElement.click();
+
+                expect(clicked).toBe(true);
+            });
+
+            it('should handle onclick event through PT on header section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                const panel = fixture.componentInstance;
+                panel._header = 'Test';
+                let headerClicked = false;
+
+                fixture.componentRef.setInput('pt', {
+                    title: {
+                        onclick: () => {
+                            headerClicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const headerEl = fixture.debugElement.query(By.css('.p-panel-header'));
+                headerEl.nativeElement.click();
+
+                expect(headerClicked).toBe(true);
+            });
+        });
+
+        describe('Case 6: Inline PT Usage', () => {
+            @Component({
+                standalone: false,
+                template: `<p-panel [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-panel>`
+            })
+            class TestInlineStringPTComponent {}
+
+            @Component({
+                standalone: false,
+                template: `<p-panel [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></p-panel>`
+            })
+            class TestInlineObjectPTComponent {}
+
+            beforeEach(() => {
+                TestBed.configureTestingModule({
+                    imports: [Panel],
+                    declarations: [TestInlineStringPTComponent, TestInlineObjectPTComponent]
+                });
+            });
+
+            it('should apply inline PT with string value', () => {
+                const fixture = TestBed.createComponent(TestInlineStringPTComponent);
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement.querySelector('p-panel');
+                expect(hostElement.className).toContain('INLINE_ROOT_CLASS');
+            });
+
+            it('should apply inline PT with object value', () => {
+                const fixture = TestBed.createComponent(TestInlineObjectPTComponent);
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement.querySelector('p-panel');
+                expect(hostElement.className).toContain('INLINE_OBJECT_CLASS');
+            });
+        });
+
+        describe('Case 7: Global PT via PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-panel header="Panel 1"></p-panel>
+                    <p-panel header="Panel 2"></p-panel>
+                `
+            })
+            class TestGlobalPTComponent {}
+
+            it('should apply global PT configuration to all panel instances', () => {
+                TestBed.configureTestingModule({
+                    imports: [Panel],
+                    declarations: [TestGlobalPTComponent],
+                    providers: [
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    panel: {
+                                        root: 'GLOBAL_PANEL_CLASS',
+                                        title: { 'aria-label': 'GLOBAL_ARIA_LABEL' }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                });
+
+                const fixture = TestBed.createComponent(TestGlobalPTComponent);
+                fixture.detectChanges();
+
+                const panels = fixture.nativeElement.querySelectorAll('p-panel');
+                expect(panels.length).toBe(2);
+
+                // Both panels should have global PT applied
+                panels.forEach((panel: HTMLElement) => {
+                    expect(panel.className).toContain('GLOBAL_PANEL_CLASS');
+                });
+
+                const headers = fixture.debugElement.queryAll(By.css('.p-panel-header'));
+                headers.forEach((header) => {
+                    expect(header.nativeElement.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
+                });
+            });
+        });
+
+        describe('PT with Footer Section', () => {
+            it('should apply PT class to footer section', () => {
+                const fixture = TestBed.createComponent(Panel);
+                fixture.componentRef.setInput('pt', { footer: 'FOOTER_CLASS' });
+                fixture.detectChanges();
+
+                // Footer should not exist without content
+                let footerEl = fixture.debugElement.query(By.css('.p-panel-footer'));
+                expect(footerEl).toBeFalsy();
+            });
+        });
+    });
 });

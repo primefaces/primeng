@@ -79,7 +79,7 @@ export interface PanelHeaderIconsTemplateContext {
             <span [pBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-            <div [pBind]="ptm('icons')" [class]="cx('icons')">
+            <div [pBind]="ptm('headerActions')" [class]="cx('headerActions')">
                 <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                 <p-button
                     *ngIf="toggleable"
