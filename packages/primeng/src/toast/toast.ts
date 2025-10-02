@@ -136,7 +136,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ToastStyle]
 })
-export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy {
+export class ToastItem extends BaseComponent {
     @Input() message: ToastMessageOptions | null | undefined;
 
     @Input({ transform: numberAttribute }) index: number | null | undefined;
@@ -165,8 +165,7 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
         super();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.initTimeout();
     }
 
@@ -217,9 +216,8 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.clearTimeout();
-        super.ngOnDestroy();
     }
 }
 
@@ -258,7 +256,7 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
         '[style]': "sx('root')"
     }
 })
-export class Toast extends BaseComponent implements OnInit, OnDestroy {
+export class Toast extends BaseComponent {
     /**
      * Key of the message in case message is targeted to a specific toast component.
      * @group Props
@@ -374,9 +372,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
-
+    onInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe((messages) => {
             if (messages) {
                 if (Array.isArray(messages)) {
@@ -405,7 +401,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
 
     _headlessTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'message':
@@ -422,8 +418,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -525,7 +520,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
@@ -539,7 +534,6 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         }
 
         this.destroyStyle();
-        super.ngOnDestroy();
     }
 }
 

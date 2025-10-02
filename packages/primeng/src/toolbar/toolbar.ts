@@ -35,7 +35,7 @@ import { ToolbarStyle } from './style/toolbarstyle';
         '[attr.aria-labelledby]': 'ariaLabelledBy'
     }
 })
-export class Toolbar extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Toolbar extends BaseComponent implements BlockableUI {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -79,7 +79,7 @@ export class Toolbar extends BaseComponent implements AfterContentInit, Blockabl
 
     _centerTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'start':

@@ -76,7 +76,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Editor extends BaseEditableHolder implements AfterContentInit, OnDestroy {
+export class Editor extends BaseEditableHolder {
     /**
      * Inline style of the container.
      * @group Props
@@ -215,7 +215,7 @@ export class Editor extends BaseEditableHolder implements AfterContentInit, OnDe
         });
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
@@ -364,7 +364,7 @@ export class Editor extends BaseEditableHolder implements AfterContentInit, OnDe
         });
     }
 
-    ngOnDestroy(): void {
+    onDestroy(): void {
         if (this.quill && this.quill.root) {
             const editorEl = this.quill.root;
             if (this.focusListener) {

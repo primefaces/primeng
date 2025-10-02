@@ -113,7 +113,7 @@ import { OrderListStyle } from './style/orderliststyle';
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class OrderList extends BaseComponent implements AfterContentInit {
+export class OrderList extends BaseComponent {
     /**
      * Text for the caption.
      * @group Props
@@ -465,8 +465,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.responsive) {
             this.createStyle();
         }
@@ -506,7 +505,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     _filterIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -892,9 +891,8 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.destroyStyle();
-        super.ngOnDestroy();
     }
 }
 

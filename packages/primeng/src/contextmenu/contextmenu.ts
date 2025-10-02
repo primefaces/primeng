@@ -390,7 +390,7 @@ export class ContextMenuSub extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [ContextMenuStyle]
 })
-export class ContextMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ContextMenu extends BaseComponent {
     /**
      * An array of menuitems.
      * @group Props
@@ -562,8 +562,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
         });
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.bindMatchMediaListener();
         this.bindTriggerEventListener();
@@ -635,7 +634,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 
     _itemTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'submenuicon':
@@ -1235,12 +1234,11 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindGlobalListeners();
         this.unbindTriggerEventListener();
         this.unbindMatchMediaListener();
         this.removeAppendedElements();
-        super.ngOnDestroy();
     }
 }
 

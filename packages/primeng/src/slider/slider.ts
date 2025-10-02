@@ -124,7 +124,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Slider extends BaseEditableHolder implements OnDestroy {
+export class Slider extends BaseEditableHolder {
     /**
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
@@ -656,9 +656,8 @@ export class Slider extends BaseEditableHolder implements OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindDragListeners();
-        super.ngOnDestroy();
     }
 
     get minVal() {

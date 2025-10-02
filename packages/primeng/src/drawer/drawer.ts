@@ -99,7 +99,7 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
     encapsulation: ViewEncapsulation.None,
     providers: [DrawerStyle]
 })
-export class Drawer extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class Drawer extends BaseComponent {
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -278,8 +278,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     _componentStyle = inject(DrawerStyle);
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.initialized = true;
     }
     /**
@@ -320,7 +319,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -514,7 +513,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.initialized = false;
 
         if (this.visible && this.modal) {

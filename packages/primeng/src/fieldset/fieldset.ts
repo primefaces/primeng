@@ -97,14 +97,14 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
     providers: [FieldsetStyle, { provide: FIELDSET_INSTANCE, useExisting: Fieldset }, { provide: PARENT_INSTANCE, useExisting: Fieldset }],
     hostDirectives: [Bind]
 })
-export class Fieldset extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Fieldset extends BaseComponent implements BlockableUI {
     $pcFieldset: Fieldset | undefined = inject(FIELDSET_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(FieldsetStyle);
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
 
@@ -250,7 +250,7 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'header':

@@ -88,7 +88,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit {
+export class ToggleSwitch extends BaseEditableHolder {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -174,7 +174,7 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
         this.onClick(event);
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'handle':

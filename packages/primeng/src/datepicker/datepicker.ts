@@ -1,8 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -18,8 +16,6 @@ import {
     NgModule,
     NgZone,
     numberAttribute,
-    OnDestroy,
-    OnInit,
     Output,
     QueryList,
     TemplateRef,
@@ -503,7 +499,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class DatePicker extends BaseInput implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
+export class DatePicker extends BaseInput {
     @Input() iconDisplay: 'input' | 'button' = 'button';
     /**
      * Style class of the component.
@@ -1226,8 +1222,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.window = this.document.defaultView as Window;
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.attributeSelector = uuid('pn_id_');
         this.panelId = this.attributeSelector + '_panel';
         const date = this.defaultDate || new Date();
@@ -1252,8 +1247,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.initialized = true;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.inline) {
             this.contentViewChild && this.contentViewChild.nativeElement.setAttribute(this.attributeSelector, '');
 
@@ -1270,7 +1264,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'date':
@@ -3762,7 +3756,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
@@ -3780,8 +3774,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.clearTimePickerTimer();
         this.restoreOverlayAppend();
         this.onOverlayHide();
-
-        super.ngOnDestroy();
     }
 }
 

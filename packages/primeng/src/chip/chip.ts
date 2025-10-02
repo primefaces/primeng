@@ -69,7 +69,7 @@ import { ChipStyle } from './style/chipstyle';
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class Chip extends BaseComponent implements AfterContentInit {
+export class Chip extends BaseComponent {
     /**
      * Defines the text to display.
      * @group Props
@@ -155,7 +155,7 @@ export class Chip extends BaseComponent implements AfterContentInit {
 
     _removeIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'removeicon':
@@ -169,8 +169,7 @@ export class Chip extends BaseComponent implements AfterContentInit {
         });
     }
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
+    onChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.chipProps && simpleChanges.chipProps.currentValue) {
             const { currentValue } = simpleChanges.chipProps;
 

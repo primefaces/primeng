@@ -131,7 +131,7 @@ type SplitButtonIconPosition = 'left' | 'right';
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class SplitButton extends BaseComponent implements AfterContentInit {
+export class SplitButton extends BaseComponent {
     /**
      * MenuModel instance to define the overlay items.
      * @group Props
@@ -334,12 +334,11 @@ export class SplitButton extends BaseComponent implements AfterContentInit {
 
     _dropdownIconTemplate: TemplateRef<any> | undefined;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.ariaId = uuid('pn_id_');
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':

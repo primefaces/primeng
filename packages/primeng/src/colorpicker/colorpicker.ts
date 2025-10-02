@@ -78,7 +78,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': '"root"'
     }
 })
-export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterViewInit {
+export class ColorPicker extends BaseEditableHolder {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -720,7 +720,7 @@ export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterV
         this.overlay = null;
     }
 
-    ngAfterViewInit() {
+    onAfterViewInit() {
         if (this.inline) {
             this.updateColorSelector();
             this.updateUI();
@@ -757,7 +757,7 @@ export class ColorPicker extends BaseEditableHolder implements OnDestroy, AfterV
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;

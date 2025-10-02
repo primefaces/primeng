@@ -61,7 +61,7 @@ type Meter = {
     },
     providers: [PasswordStyle]
 })
-export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
+export class PasswordDirective extends BaseEditableHolder {
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -207,7 +207,7 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
 
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
-                    this.ngOnDestroy();
+                    this.onDestroy();
                 }, 150);
             });
         }
@@ -355,7 +355,7 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.panel) {
             if (this.scrollHandler) {
                 this.scrollHandler.destroy();
@@ -369,8 +369,6 @@ export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
             this.meter = null;
             this.info = null;
         }
-
-        super.ngOnDestroy();
     }
 }
 
@@ -492,7 +490,7 @@ export const Password_VALUE_ACCESSOR: any = {
         'data-pc-section': 'root'
     }
 })
-export class Password extends BaseInput implements OnInit, AfterContentInit {
+export class Password extends BaseInput {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -692,8 +690,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
 
     overlayService = inject(OverlayService);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.infoText = this.promptText();
         this.mediumCheckRegExp = new RegExp(this.mediumRegex);
         this.strongCheckRegExp = new RegExp(this.strongRegex);
@@ -702,7 +699,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
         });
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -968,7 +965,7 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.overlay) {
             ZIndexUtils.clear(this.overlay);
             this.overlay = null;
@@ -985,8 +982,6 @@ export class Password extends BaseInput implements OnInit, AfterContentInit {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

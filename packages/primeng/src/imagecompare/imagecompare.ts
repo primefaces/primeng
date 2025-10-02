@@ -28,7 +28,7 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ImageCompareStyle]
 })
-export class ImageCompare extends BaseComponent implements AfterContentInit {
+export class ImageCompare extends BaseComponent {
     /**
      * Index of the element in tabbing order.
      * @defaultValue 0
@@ -70,13 +70,12 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
 
     isRTL: boolean = false;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.updateDirection();
         this.observeDirectionChanges();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'left':
@@ -117,12 +116,10 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.mutationObserver) {
             this.mutationObserver.disconnect();
         }
-
-        super.ngOnDestroy();
     }
 }
 

@@ -123,7 +123,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [SpeedDialStyle]
 })
-export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class SpeedDial extends BaseComponent {
     /**
      * List of items id.
      * @group Props
@@ -330,13 +330,11 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         return { ...this.tooltipOptions, tooltipLabel: item.label, disabled: !this.tooltipOptions };
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.type !== 'linear') {
                 const button = <any>findSingle(this.container?.nativeElement, '.p-speeddial-button');
@@ -352,7 +350,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'button':
@@ -727,9 +725,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindDocumentClickListener();
-        super.ngOnDestroy();
     }
 }
 

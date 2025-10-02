@@ -130,7 +130,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     encapsulation: ViewEncapsulation.None,
     providers: [DialogStyle]
 })
-export class Dialog extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class Dialog extends BaseComponent {
     /**
      * Title text of the dialog.
      * @group Props
@@ -562,8 +562,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         };
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -571,7 +570,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
@@ -1082,14 +1081,13 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.container) {
             this.restoreAppend();
             this.onContainerDestroy();
         }
 
         this.destroyStyle();
-        super.ngOnDestroy();
     }
 }
 

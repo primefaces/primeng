@@ -117,7 +117,7 @@ import { ImageStyle } from './style/imagestyle';
         '[class]': "cn(cx('root'),styleClass)"
     }
 })
-export class Image extends BaseComponent implements AfterContentInit {
+export class Image extends BaseComponent {
     /**
      * Style class of the image element.
      * @group Props
@@ -331,7 +331,7 @@ export class Image extends BaseComponent implements AfterContentInit {
 
     _previewTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'indicator':

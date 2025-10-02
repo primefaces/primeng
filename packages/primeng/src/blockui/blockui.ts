@@ -45,7 +45,7 @@ import { BlockUiStyle } from './style/blockuistyle';
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class BlockUI extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class BlockUI extends BaseComponent {
     /**
      * Name of the local ng-template variable referring to another component.
      * @group Props
@@ -98,8 +98,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
         super();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this._blocked) this.block();
 
         if (this.target && !this.target.getBlockableElement) {
@@ -111,7 +110,7 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -174,10 +173,9 @@ export class BlockUI extends BaseComponent implements AfterViewInit, AfterConten
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unblock();
         this.destroyModal();
-        super.ngOnDestroy();
     }
 }
 

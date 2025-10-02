@@ -37,7 +37,7 @@ import { TerminalService } from './terminalservice';
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Terminal extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
+export class Terminal extends BaseComponent {
     /**
      * Initial text to display on terminal.
      * @group Props
@@ -82,12 +82,11 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.container = find(this.el.nativeElement, '.p-terminal')[0];
     }
 
-    ngAfterViewChecked() {
+    onAfterViewChecked() {
         if (this.commandProcessed) {
             this.container.scrollTop = this.container.scrollHeight;
             this.commandProcessed = false;
@@ -114,12 +113,10 @@ export class Terminal extends BaseComponent implements AfterViewInit, AfterViewC
         element.focus();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

@@ -72,7 +72,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         '[attr.data-pc-name]': '"selectbutton"'
     }
 })
-export class SelectButton extends BaseEditableHolder implements AfterContentInit {
+export class SelectButton extends BaseEditableHolder {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -298,7 +298,7 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':

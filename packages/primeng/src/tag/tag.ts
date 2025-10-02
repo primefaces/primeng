@@ -29,7 +29,7 @@ import { TagStyle } from './style/tagstyle';
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Tag extends BaseComponent implements AfterContentInit {
+export class Tag extends BaseComponent {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -65,7 +65,7 @@ export class Tag extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(TagStyle);
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':

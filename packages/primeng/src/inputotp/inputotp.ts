@@ -119,7 +119,7 @@ export interface InputOtpInputTemplateContext {
         '[class]': "cx('root')"
     }
 })
-export class InputOtp extends BaseEditableHolder implements AfterContentInit {
+export class InputOtp extends BaseEditableHolder {
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
@@ -212,7 +212,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     _componentStyle = inject(InputOtpStyle);
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'input':

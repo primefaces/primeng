@@ -295,7 +295,7 @@ export class PanelMenuSub extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class PanelMenuList extends BaseComponent implements OnChanges {
+export class PanelMenuList extends BaseComponent {
     @Input() panelId: string | undefined;
 
     @Input() id: string | undefined;
@@ -344,7 +344,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         return focusedItem && focusedItem.item?.id ? focusedItem.item.id : isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    onChanges(changes: SimpleChanges) {
         this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
     }
 
@@ -855,7 +855,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         'data-pc-name': 'panelmenu'
     }
 })
-export class PanelMenu extends BaseComponent implements AfterContentInit {
+export class PanelMenu extends BaseComponent {
     /**
      * An array of menuitems.
      * @group Props
@@ -919,12 +919,11 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(PanelMenuStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'submenuicon':

@@ -17,7 +17,7 @@ import { TooltipStyle } from './style/tooltipstyle';
     standalone: true,
     providers: [TooltipStyle]
 })
-export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
+export class Tooltip extends BaseComponent {
     /**
      * Position of the tooltip.
      * @group Props
@@ -182,8 +182,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         super();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 const tooltipEvent = this.getOption('tooltipEvent');
@@ -213,8 +212,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         if (simpleChange.tooltipPosition) {
             this.setOption({ tooltipPosition: simpleChange.tooltipPosition.currentValue });
         }
@@ -730,9 +728,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         this.clearHideTimeout();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindEvents();
-        super.ngOnDestroy();
 
         if (this.container) {
             ZIndexUtils.clear(this.container);

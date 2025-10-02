@@ -65,7 +65,7 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
 
     providers: [ScrollTopStyle]
 })
-export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ScrollTop extends BaseComponent {
     /**
      * Class of the element.
      * @group Props
@@ -144,13 +144,12 @@ export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit
 
     _componentStyle = inject(ScrollTopStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.target === 'window') this.bindDocumentScrollListener();
         else if (this.target === 'parent') this.bindParentScrollListener();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
@@ -225,7 +224,7 @@ export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.target === 'window') this.unbindDocumentScrollListener();
         else if (this.target === 'parent') this.unbindParentScrollListener();
 
@@ -233,7 +232,6 @@ export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit
             ZIndexUtils.clear(this.overlay);
             this.overlay = null;
         }
-        super.ngOnDestroy();
     }
 }
 

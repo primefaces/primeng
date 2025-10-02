@@ -1,29 +1,10 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewChecked,
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    effect,
-    ElementRef,
-    forwardRef,
-    inject,
-    InjectionToken,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
+import { Bind } from 'primeng/pbind';
 import { RippleModule } from 'primeng/ripple';
 import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';
@@ -93,11 +74,11 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
     providers: [TabListStyle, { provide: TABLIST_INSTANCE, useExisting: TabList }, { provide: PARENT_INSTANCE, useExisting: TabList }],
     hostDirectives: [Bind]
 })
-export class TabList extends BaseComponent implements AfterViewInit, AfterContentInit, AfterViewChecked {
+export class TabList extends BaseComponent {
     $pcTabList: TabList | undefined = inject(TABLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
@@ -162,8 +143,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         return this.config?.translation?.aria?.next;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.showNavigators() && isPlatformBrowser(this.platformId)) {
             this.updateButtonState();
             this.bindResizeObserver();
@@ -174,7 +154,7 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
 
     _nextIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((t) => {
             switch (t.getType()) {
                 case 'previcon':
@@ -187,9 +167,8 @@ export class TabList extends BaseComponent implements AfterViewInit, AfterConten
         });
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindResizeObserver();
-        super.ngOnDestroy();
     }
 
     onScroll(event: Event) {

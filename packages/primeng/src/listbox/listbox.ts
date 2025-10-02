@@ -299,7 +299,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass, { 'p-listbox-dragging': isDragging() })"
     }
 })
-export class Listbox extends BaseEditableHolder implements AfterContentInit, OnInit, OnDestroy {
+export class Listbox extends BaseEditableHolder {
     /**
      * Unique identifier of the component.
      * @group Props
@@ -838,8 +838,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.cd.markForCheck();
@@ -855,7 +854,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -1653,12 +1652,10 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

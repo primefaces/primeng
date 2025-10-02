@@ -76,11 +76,11 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
     providers: [SplitterStyle, { provide: SPLITTER_INSTANCE, useExisting: Splitter }, { provide: PARENT_INSTANCE, useExisting: Splitter }],
     hostDirectives: [Bind]
 })
-export class Splitter extends BaseComponent implements AfterContentInit, AfterViewChecked {
+export class Splitter extends BaseComponent {
     $pcSplitter: Splitter | undefined = inject(SPLITTER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
     /**
@@ -209,11 +209,9 @@ export class Splitter extends BaseComponent implements AfterContentInit, AfterVi
 
     _componentStyle = inject(SplitterStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
-    }
+    onInit() {}
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         if (this.templates && this.templates.toArray().length > 0) {
             this.templates.forEach((item) => {
                 switch (item.getType()) {
@@ -233,8 +231,7 @@ export class Splitter extends BaseComponent implements AfterContentInit, AfterVi
         }
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.panels && this.panels.length) {
                 let initialized = false;

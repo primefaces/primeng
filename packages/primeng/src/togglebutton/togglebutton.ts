@@ -65,7 +65,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseEditableHolder implements OnInit, AfterContentInit {
+export class ToggleButton extends BaseEditableHolder {
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
@@ -188,8 +188,7 @@ export class ToggleButton extends BaseEditableHolder implements OnInit, AfterCon
 
     checked: boolean = false;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.checked === null || this.checked === undefined) {
             this.checked = false;
         }
@@ -217,7 +216,7 @@ export class ToggleButton extends BaseEditableHolder implements OnInit, AfterCon
 
     _contentTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':

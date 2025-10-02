@@ -88,7 +88,7 @@ export const RATING_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class Rating extends BaseEditableHolder implements OnInit {
+export class Rating extends BaseEditableHolder {
     /**
      * When present, changing the value is not possible.
      * @group Props
@@ -171,8 +171,7 @@ export class Rating extends BaseEditableHolder implements OnInit {
 
     _offIconTemplate: TemplateRef<any> | undefined;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.nameattr = this.nameattr || uuid('pn_id_');
         this.starsArray = [];
         for (let i = 0; i < this.stars; i++) {
@@ -180,7 +179,7 @@ export class Rating extends BaseEditableHolder implements OnInit {
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'onicon':

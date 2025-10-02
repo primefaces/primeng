@@ -190,7 +190,7 @@ export class MenubarService {
         '[style]': 'inlineStyles'
     }
 })
-export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
+export class MenubarSub extends BaseComponent {
     @Input() items: any[];
 
     @Input() itemTemplate: TemplateRef<any> | undefined;
@@ -237,8 +237,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
 
     _componentStyle = inject(MenuBarStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
             this.cd.markForCheck();
         });
@@ -303,9 +302,8 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.mouseLeaveSubscriber?.unsubscribe();
-        super.ngOnDestroy();
     }
 }
 /**
@@ -379,7 +377,7 @@ export class MenubarSub extends BaseComponent implements OnInit, OnDestroy {
         'data-pc-name': 'menubar'
     }
 })
-export class Menubar extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
+export class Menubar extends BaseComponent {
     /**
      * An array of menuitems.
      * @group Props
@@ -534,8 +532,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         });
     }
 
-    ngOnInit(): void {
-        super.ngOnInit();
+    onInit(): void {
         this.bindMatchMediaListener();
         this.menubarService.autoHide = this.autoHide;
         this.menubarService.autoHideDelay = this.autoHideDelay;
@@ -585,7 +582,7 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
 
     _submenuIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'start':
@@ -1169,12 +1166,11 @@ export class Menubar extends BaseComponent implements AfterContentInit, OnDestro
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.mouseLeaveSubscriber?.unsubscribe();
         this.unbindOutsideClickListener();
         this.unbindResizeListener();
         this.unbindMatchMediaListener();
-        super.ngOnDestroy();
     }
 }
 

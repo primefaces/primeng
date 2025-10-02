@@ -145,7 +145,7 @@ import { DataViewStyle } from './style/dataviewstyle';
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class DataView extends BaseComponent implements OnInit, OnDestroy, BlockableUI, OnChanges {
+export class DataView extends BaseComponent implements BlockableUI {
     /**
      * When specified as true, enables the pagination.
      * @group Props
@@ -400,8 +400,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
 
     filterService = inject(FilterService);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -412,12 +411,9 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
         this.initialized = true;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-    }
+    onAfterViewInit() {}
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
+    onChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.layout && !simpleChanges.layout.firstChange) {
             this.onChangeLayout.emit({ layout: simpleChanges.layout.currentValue });
         }
@@ -529,11 +525,10 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
         return this.filterValue && this.filterValue.trim().length > 0;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-        super.ngOnDestroy();
     }
 }
 

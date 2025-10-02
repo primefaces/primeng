@@ -439,7 +439,7 @@ export class MultiSelectItem extends BaseComponent {
         '[style]': "sx('root')"
     }
 })
-export class MultiSelect extends BaseEditableHolder implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked {
+export class MultiSelect extends BaseEditableHolder {
     /**
      * Unique identifier of the component
      * @group Props
@@ -985,7 +985,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         return this.fluid() ?? !!this.pcFluid;
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -1201,8 +1201,7 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         });
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.autoUpdateModel();
 
@@ -1218,14 +1217,13 @@ export class MultiSelect extends BaseEditableHolder implements OnInit, AfterView
         return this.selectionLimit && this.modelValue() && this.modelValue().length === this.selectionLimit;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.overlayVisible) {
             this.show();
         }
     }
 
-    ngAfterViewChecked() {
+    onAfterViewChecked() {
         if (this.filtered) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {

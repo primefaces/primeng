@@ -391,7 +391,7 @@ export class TieredMenuSub extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [TieredMenuStyle]
 })
-export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
+export class TieredMenu extends BaseComponent {
     /**
      * An array of menuitems.
      * @group Props
@@ -587,13 +587,12 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.bindMatchMediaListener();
         this.id = this.id || uuid('pn_id_');
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'submenuicon':
@@ -1228,7 +1227,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.popup) {
             if (this.scrollHandler) {
                 this.scrollHandler.destroy();
@@ -1243,7 +1242,6 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
             this.onOverlayHide();
         }
         this.unbindMatchMediaListener();
-        super.ngOnDestroy();
     }
 }
 

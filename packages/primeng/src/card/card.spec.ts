@@ -961,4 +961,319 @@ describe('Card', () => {
             expect(bodyElement).toBeTruthy();
         });
     });
+
+    describe('PassThrough (PT) Support', () => {
+        describe('Case 1: Simple String Classes', () => {
+            it('should apply PT class to host section', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('HOST_CLASS');
+            });
+
+            it('should apply PT class to root section', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('ROOT_CLASS');
+            });
+
+            it('should apply PT class to header section', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test Header');
+                fixture.componentRef.setInput('pt', { header: 'HEADER_CLASS' });
+                fixture.detectChanges();
+
+                const headerEl = fixture.debugElement.query(By.css('.p-card-header'));
+                expect(headerEl.nativeElement.className).toContain('HEADER_CLASS');
+            });
+
+            it('should apply PT class to body section', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', { body: 'BODY_CLASS' });
+                fixture.detectChanges();
+
+                const bodyEl = fixture.debugElement.query(By.css('.p-card-body'));
+                expect(bodyEl.nativeElement.className).toContain('BODY_CLASS');
+            });
+
+            it('should apply PT class to title section', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test Title');
+                fixture.componentRef.setInput('pt', { title: 'TITLE_CLASS' });
+                fixture.detectChanges();
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                expect(titleEl.nativeElement.className).toContain('TITLE_CLASS');
+            });
+
+            it('should apply PT class to subtitle section', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('subheader', 'Test Subtitle');
+                fixture.componentRef.setInput('pt', { subtitle: 'SUBTITLE_CLASS' });
+                fixture.detectChanges();
+
+                const subtitleEl = fixture.debugElement.query(By.css('.p-card-subtitle'));
+                expect(subtitleEl.nativeElement.className).toContain('SUBTITLE_CLASS');
+            });
+
+            it('should apply PT class to content section', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
+                fixture.detectChanges();
+
+                const contentEl = fixture.debugElement.query(By.css('.p-card-content'));
+                expect(contentEl.nativeElement.className).toContain('CONTENT_CLASS');
+            });
+        });
+
+        describe('Case 2: Object Values with Attributes and Styles', () => {
+            it('should apply PT object with class, style and data attributes to root', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: 'background-color: red',
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('ROOT_OBJECT_CLASS');
+                expect(hostElement.style.backgroundColor).toBe('red');
+                expect(hostElement.getAttribute('data-p-test')).toBe('true');
+                expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply PT object with attributes to header', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test');
+                fixture.componentRef.setInput('pt', {
+                    header: {
+                        class: 'HEADER_OBJECT_CLASS',
+                        'data-testid': 'card-header',
+                        style: 'padding: 20px'
+                    }
+                });
+                fixture.detectChanges();
+
+                const headerEl = fixture.debugElement.query(By.css('.p-card-header'));
+                expect(headerEl.nativeElement.className).toContain('HEADER_OBJECT_CLASS');
+                expect(headerEl.nativeElement.getAttribute('data-testid')).toBe('card-header');
+                expect(headerEl.nativeElement.style.padding).toBe('20px');
+            });
+
+            it('should apply PT object to body', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', {
+                    body: {
+                        class: 'BODY_OBJECT_CLASS',
+                        'aria-labelledby': 'custom-label'
+                    }
+                });
+                fixture.detectChanges();
+
+                const bodyEl = fixture.debugElement.query(By.css('.p-card-body'));
+                expect(bodyEl.nativeElement.className).toContain('BODY_OBJECT_CLASS');
+                expect(bodyEl.nativeElement.getAttribute('aria-labelledby')).toBe('custom-label');
+            });
+
+            it('should apply PT object to content', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', {
+                    content: {
+                        class: 'CONTENT_OBJECT_CLASS',
+                        style: 'margin: 10px'
+                    }
+                });
+                fixture.detectChanges();
+
+                const contentEl = fixture.debugElement.query(By.css('.p-card-content'));
+                expect(contentEl.nativeElement.className).toContain('CONTENT_OBJECT_CLASS');
+                expect(contentEl.nativeElement.style.margin).toBe('10px');
+            });
+        });
+
+        describe('Case 3: Mixed String and Object Values', () => {
+            it('should apply mixed PT values to multiple sections', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test');
+                fixture.componentRef.setInput('subheader', 'Test Subtitle');
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    title: 'TITLE_STRING_CLASS',
+                    subtitle: {
+                        class: 'SUBTITLE_MIXED_CLASS',
+                        style: 'margin: 10px'
+                    }
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('ROOT_MIXED_CLASS');
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                expect(titleEl.nativeElement.className).toContain('TITLE_STRING_CLASS');
+
+                const subtitleEl = fixture.debugElement.query(By.css('.p-card-subtitle'));
+                expect(subtitleEl.nativeElement.className).toContain('SUBTITLE_MIXED_CLASS');
+                expect(subtitleEl.nativeElement.style.margin).toBe('10px');
+            });
+        });
+
+        describe('Case 4: Instance-based Functions', () => {
+            it('should apply PT function using instance header state', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test Header');
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => ({
+                        class: {
+                            HAS_HEADER: !!instance?.header
+                        }
+                    })
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('HAS_HEADER');
+            });
+
+            it('should apply PT function with dynamic styles based on instance state', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test');
+                fixture.componentRef.setInput('pt', {
+                    title: ({ instance }) => ({
+                        style: {
+                            'background-color': instance?.header ? 'yellow' : 'red'
+                        }
+                    })
+                });
+                fixture.detectChanges();
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                expect(titleEl.nativeElement.style.backgroundColor).toBe('yellow');
+            });
+
+            it('should update PT when instance state changes', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Initial Header');
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => ({
+                        class: {
+                            HAS_HEADER: !!instance?.header,
+                            NO_HEADER: !instance?.header
+                        }
+                    })
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.className).toContain('HAS_HEADER');
+
+                // Change header to undefined
+                fixture.componentRef.setInput('header', undefined);
+                fixture.detectChanges();
+
+                expect(hostElement.className).toContain('NO_HEADER');
+            });
+        });
+
+        describe('Case 5: Event Binding via PT', () => {
+            it('should handle onclick event through PT on title section', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test');
+                let clicked = false;
+
+                fixture.componentRef.setInput('pt', {
+                    title: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                titleEl.nativeElement.click();
+
+                expect(clicked).toBe(true);
+            });
+
+            it('should handle onclick event through PT on content section', () => {
+                const fixture = TestBed.createComponent(Card);
+                let contentClicked = false;
+
+                fixture.componentRef.setInput('pt', {
+                    content: {
+                        onclick: () => {
+                            contentClicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const contentEl = fixture.debugElement.query(By.css('.p-card-content'));
+                contentEl.nativeElement.click();
+
+                expect(contentClicked).toBe(true);
+            });
+        });
+
+        describe('Case 6: Inline PT Usage', () => {
+            @Component({
+                standalone: false,
+                template: `<p-card [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-card>`
+            })
+            class TestInlineStringPTComponent {}
+
+            @Component({
+                standalone: false,
+                template: `<p-card [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></p-card>`
+            })
+            class TestInlineObjectPTComponent {}
+
+            beforeEach(() => {
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestInlineStringPTComponent, TestInlineObjectPTComponent]
+                });
+            });
+
+            it('should apply inline PT with string class', () => {
+                const inlineFixture = TestBed.createComponent(TestInlineStringPTComponent);
+                inlineFixture.detectChanges();
+
+                const cardElement = inlineFixture.debugElement.query(By.directive(Card));
+                expect(cardElement.nativeElement.className).toContain('INLINE_ROOT_CLASS');
+            });
+
+            it('should apply inline PT with object class', () => {
+                const inlineFixture = TestBed.createComponent(TestInlineObjectPTComponent);
+                inlineFixture.detectChanges();
+
+                const cardElement = inlineFixture.debugElement.query(By.directive(Card));
+                expect(cardElement.nativeElement.className).toContain('INLINE_OBJECT_CLASS');
+            });
+        });
+
+        describe('PT with Footer Section', () => {
+            it('should apply PT class to footer section when footer content exists', () => {
+                const fixture = TestBed.createComponent(TestTemplateCardComponent);
+                fixture.componentRef.setInput('pt', { footer: 'FOOTER_CLASS' });
+                fixture.detectChanges();
+
+                const footerEl = fixture.debugElement.query(By.css('.p-card-footer'));
+                expect(footerEl).toBeTruthy();
+                expect(footerEl.nativeElement.className).toContain('FOOTER_CLASS');
+            });
+        });
+    });
 });

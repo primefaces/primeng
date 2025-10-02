@@ -110,7 +110,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     encapsulation: ViewEncapsulation.None,
     providers: [DynamicDialogStyle]
 })
-export class DynamicDialogComponent extends BaseComponent implements AfterViewInit, OnDestroy {
+export class DynamicDialogComponent extends BaseComponent {
     visible: boolean = true;
 
     componentRef: Nullable<ComponentRef<any>>;
@@ -298,8 +298,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -335,8 +334,7 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         }
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.loadChildComponent(this.childComponentType!);
         this.ariaLabelledBy = this.getAriaLabelledBy();
         this.cd.detectChanges();
@@ -731,14 +729,13 @@ export class DynamicDialogComponent extends BaseComponent implements AfterViewIn
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.onContainerDestroy();
 
         if (this.componentRef && typeof this.componentRef.destroy === 'function') {
             this.componentRef.destroy();
         }
         this.destroyStyle();
-        super.ngOnDestroy();
     }
 }
 

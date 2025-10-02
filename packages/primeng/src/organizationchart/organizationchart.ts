@@ -95,7 +95,7 @@ import { OrganizationChartStyle } from './style/organizationchartstyle';
     changeDetection: ChangeDetectionStrategy.Default,
     providers: [OrganizationChartStyle]
 })
-export class OrganizationChartNode extends BaseComponent implements OnDestroy {
+export class OrganizationChartNode extends BaseComponent {
     @Input() node: TreeNode<any> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined;
@@ -157,8 +157,7 @@ export class OrganizationChartNode extends BaseComponent implements OnDestroy {
         return this.chart.isSelected(this.node as TreeNode);
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         this.subscription.unsubscribe();
     }
 }
@@ -178,7 +177,7 @@ export class OrganizationChartNode extends BaseComponent implements OnDestroy {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class OrganizationChart extends BaseComponent implements AfterContentInit {
+export class OrganizationChart extends BaseComponent {
     /**
      * An array of nested TreeNodes.
      * @group Props
@@ -278,7 +277,7 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
         return this.value && this.value.length ? this.value[0] : null;
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         if ((this.templates as QueryList<PrimeTemplate>).length) {
             this.templateMap = {};
         }

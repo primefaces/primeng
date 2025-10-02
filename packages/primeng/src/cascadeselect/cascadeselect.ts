@@ -111,7 +111,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CascadeSelectStyle]
 })
-export class CascadeSelectSub extends BaseComponent implements OnInit {
+export class CascadeSelectSub extends BaseComponent {
     @Input() role: string | undefined;
 
     @Input() selectId: string | undefined;
@@ -158,8 +158,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (!this.root) {
             this.position();
         }
@@ -362,7 +361,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterContentInit {
+export class CascadeSelect extends BaseEditableHolder {
     /**
      * Unique identifier of the component
      * @group Props
@@ -783,7 +782,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'value':
@@ -821,8 +820,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
         });
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        super.ngOnChanges(changes);
+    onChanges(changes: SimpleChanges): void {
         if (changes.options) {
             this.processedOptions = this.createProcessedOptions(changes.options.currentValue || []);
             this.updateModel(null);
@@ -1467,15 +1465,13 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.autoUpdateModel();
         this.bindMatchMediaListener();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.initialized = true;
     }
 
@@ -1524,7 +1520,7 @@ export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterCo
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.matchMediaListener) {
             this.unbindMatchMediaListener();
         }

@@ -84,12 +84,12 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
     },
     hostDirectives: [Bind]
 })
-export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterContentInit, AfterViewChecked, OnDestroy {
+export class ScrollPanel extends BaseComponent {
     $pcScrollPanel: ScrollPanel | undefined = inject(SCROLLPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
     /**
@@ -163,13 +163,11 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
 
     zone: NgZone = inject(NgZone);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.contentId = uuid('pn_id_') + '_content';
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.moveBar();
@@ -191,7 +189,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -513,7 +511,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.initialized) {
             this.unbindListeners();
         }

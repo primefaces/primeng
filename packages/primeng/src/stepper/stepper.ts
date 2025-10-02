@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
     ChangeDetectionStrategy,
     Component,
     computed,
@@ -29,7 +27,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/pbind';
 import { transformToBoolean } from 'primeng/utils';
 import { StepItemStyle } from './style/stepitemstyle';
 import { StepListStyle } from './style/stepliststyle';
@@ -84,7 +82,7 @@ export interface StepPanelContentTemplateContext {
     providers: [StepListStyle, { provide: STEPLIST_INSTANCE, useExisting: StepList }, { provide: PARENT_INSTANCE, useExisting: StepList }],
     hostDirectives: [Bind]
 })
-export class StepList extends BaseComponent implements AfterViewChecked {
+export class StepList extends BaseComponent {
     $pcStepList: StepList | undefined = inject(STEPLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -92,7 +90,7 @@ export class StepList extends BaseComponent implements AfterViewChecked {
 
     _componentStyle = inject(StepListStyle);
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
@@ -131,7 +129,7 @@ export class StepperSeparator extends BaseComponent {
     providers: [StepItemStyle, { provide: STEPITEM_INSTANCE, useExisting: StepItem }, { provide: PARENT_INSTANCE, useExisting: StepItem }],
     hostDirectives: [Bind]
 })
-export class StepItem extends BaseComponent implements AfterViewChecked {
+export class StepItem extends BaseComponent {
     $pcStepItem: StepItem | undefined = inject(STEPITEM_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -163,7 +161,7 @@ export class StepItem extends BaseComponent implements AfterViewChecked {
 
     _componentStyle = inject(StepItemStyle);
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
@@ -206,7 +204,7 @@ export class StepItem extends BaseComponent implements AfterViewChecked {
     providers: [StepStyle, { provide: STEP_INSTANCE, useExisting: Step }, { provide: PARENT_INSTANCE, useExisting: Step }],
     hostDirectives: [Bind]
 })
-export class Step extends BaseComponent implements AfterContentInit, AfterViewChecked {
+export class Step extends BaseComponent {
     $pcStep: Step | undefined = inject(STEP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -259,7 +257,7 @@ export class Step extends BaseComponent implements AfterContentInit, AfterViewCh
 
     _componentStyle = inject(StepStyle);
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -269,7 +267,7 @@ export class Step extends BaseComponent implements AfterContentInit, AfterViewCh
         });
     }
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
@@ -333,7 +331,7 @@ export class Step extends BaseComponent implements AfterContentInit, AfterViewCh
     providers: [StepPanelStyle, { provide: STEPPANEL_INSTANCE, useExisting: StepPanel }, { provide: PARENT_INSTANCE, useExisting: StepPanel }],
     hostDirectives: [Bind]
 })
-export class StepPanel extends BaseComponent implements AfterContentInit, AfterViewChecked {
+export class StepPanel extends BaseComponent {
     $pcStepPanel: StepPanel | undefined = inject(STEPPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -384,7 +382,7 @@ export class StepPanel extends BaseComponent implements AfterContentInit, AfterV
 
     _componentStyle = inject(StepPanelStyle);
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -410,7 +408,7 @@ export class StepPanel extends BaseComponent implements AfterContentInit, AfterV
         this.pcStepper.updateValue(value);
     }
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
@@ -418,7 +416,7 @@ export class StepPanel extends BaseComponent implements AfterContentInit, AfterV
 @Component({
     selector: 'p-step-panels',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -428,13 +426,13 @@ export class StepPanel extends BaseComponent implements AfterContentInit, AfterV
     providers: [StepPanelsStyle, { provide: STEPPANELS_INSTANCE, useExisting: StepPanels }, { provide: PARENT_INSTANCE, useExisting: StepPanels }],
     hostDirectives: [Bind]
 })
-export class StepPanels extends BaseComponent implements AfterViewChecked {
+export class StepPanels extends BaseComponent {
     $pcStepPanels: StepPanels | undefined = inject(STEPPANELS_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
     _componentStyle = inject(StepPanelsStyle);
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
@@ -458,7 +456,7 @@ export class StepPanels extends BaseComponent implements AfterViewChecked {
     },
     hostDirectives: [Bind]
 })
-export class Stepper extends BaseComponent implements AfterViewChecked {
+export class Stepper extends BaseComponent {
     $pcStepper: Stepper | undefined = inject(STEPPER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -504,13 +502,13 @@ export class Stepper extends BaseComponent implements AfterViewChecked {
         return this.value() === value;
     }
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
 
 @NgModule({
-    imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, StepperSeparator, SharedModule, Bind],
-    exports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, StepperSeparator, SharedModule, Bind]
+    imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, StepperSeparator, SharedModule, BindModule],
+    exports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, StepperSeparator, SharedModule, BindModule]
 })
 export class StepperModule {}

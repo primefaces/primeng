@@ -1,15 +1,12 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentChecked,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChild,
     ContentChildren,
-    DoCheck,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -19,9 +16,6 @@ import {
     KeyValueDiffers,
     NgModule,
     numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
     Output,
     PLATFORM_ID,
     QueryList,
@@ -85,7 +79,7 @@ import { GalleriaStyle } from './style/galleriastyle';
     encapsulation: ViewEncapsulation.None,
     providers: [GalleriaStyle]
 })
-export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
+export class Galleria extends BaseComponent {
     /**
      * Index of the first item.
      * @group Props
@@ -306,7 +300,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
@@ -356,8 +350,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
         });
     }
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
+    onChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.value && simpleChanges.value.currentValue?.length < this.numVisible) {
             this.numVisibleLimit = simpleChanges.value.currentValue.length;
         } else {
@@ -422,7 +415,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.fullScreen) {
             removeClass(this.document.body, 'p-overflow-hidden');
         }
@@ -489,7 +482,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [GalleriaStyle]
 })
-export class GalleriaContent extends BaseComponent implements DoCheck {
+export class GalleriaContent extends BaseComponent {
     @Input() get activeIndex(): number {
         return this._activeIndex;
     }
@@ -544,7 +537,7 @@ export class GalleriaContent extends BaseComponent implements DoCheck {
         }
     }
 
-    ngDoCheck(): void {
+    onDoCheck(): void {
         if (isPlatformBrowser(this.galleria.platformId)) {
             const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);
             if (changes && changes.forEachItem.length > 0) {
@@ -618,7 +611,7 @@ export class GalleriaContent extends BaseComponent implements DoCheck {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleriaItemSlot {
+export class GalleriaItemSlot extends BaseComponent {
     @Input() templates: QueryList<PrimeTemplate> | undefined;
 
     @Input({ transform: numberAttribute }) index: number | undefined;
@@ -703,7 +696,7 @@ export class GalleriaItemSlot {
 
     _item: any;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         if (this.templates && this.templates.toArray().length > 0) {
             this.templates?.forEach((item) => {
                 if (item.getType() === this.type) {
@@ -781,7 +774,7 @@ export class GalleriaItemSlot {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [GalleriaStyle]
 })
-export class GalleriaItem extends BaseComponent implements OnChanges {
+export class GalleriaItem extends BaseComponent {
     @Input() id: string | undefined;
 
     @Input({ transform: booleanAttribute }) circular: boolean = false;
@@ -834,8 +827,7 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
         super();
     }
 
-    ngOnChanges({ autoPlay }: SimpleChanges): void {
-        super.ngOnChanges({ autoPlay });
+    onChanges({ autoPlay }: SimpleChanges): void {
         if (autoPlay?.currentValue) {
             this.startSlideShow.emit();
         }
@@ -1002,7 +994,7 @@ export class GalleriaItem extends BaseComponent implements OnChanges {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [GalleriaStyle]
 })
-export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterContentChecked, AfterViewInit, OnDestroy {
+export class GalleriaThumbnails extends BaseComponent {
     @Input() containerId: string | undefined;
 
     @Input() value: any[] | undefined;
@@ -1076,8 +1068,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.createStyle();
 
@@ -1087,7 +1078,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
         }
     }
 
-    ngAfterContentChecked() {
+    onAfterContentChecked() {
         let totalShiftedItems = this.totalShiftedItems;
 
         if ((this._oldNumVisible !== this.d_numVisible || this._oldactiveIndex !== this._activeIndex) && this.itemsContainer) {
@@ -1119,8 +1110,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
         }
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.calculatePosition();
         }
@@ -1469,8 +1459,7 @@ export class GalleriaThumbnails extends BaseComponent implements OnInit, AfterCo
         }
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.responsiveOptions) {
             this.unbindDocumentListeners();
         }

@@ -119,7 +119,7 @@ import { CarouselStyle } from './style/carouselstyle';
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Carousel extends BaseComponent implements AfterContentInit {
+export class Carousel extends BaseComponent {
     /**
      * Index of the first item.
      * @defaultValue 0
@@ -390,7 +390,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         this.window = this.document.defaultView as Window;
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
+    onChanges(simpleChange: SimpleChanges) {
         if (isPlatformBrowser(this.platformId)) {
             if (simpleChange.value) {
                 if (this.circular && this._value) {
@@ -424,7 +424,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.id = uuid('pn_id_');
         if (isPlatformBrowser(this.platformId)) {
             this.allowAutoplay = !!this.autoplayInterval;
@@ -477,7 +477,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         this.cd.detectChanges();
     }
 
-    ngAfterContentChecked() {
+    onAfterContentChecked() {
         if (isPlatformBrowser(this.platformId)) {
             const isCircular = this.isCircular();
             let totalShiftedItems = this.totalShiftedItems;
@@ -955,7 +955,7 @@ export class Carousel extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.responsiveOptions) {
             this.unbindDocumentListeners();
         }

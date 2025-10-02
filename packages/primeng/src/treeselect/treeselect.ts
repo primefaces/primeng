@@ -191,7 +191,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
+export class TreeSelect extends BaseEditableHolder {
     /**
      * Identifier of the underlying input element.
      * @group Props
@@ -602,13 +602,12 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
         this.onClick(event);
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.listId = uuid('pn_id_') + '_list';
         this.updateTreeState();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         if ((this.templates as QueryList<PrimeTemplate>).length) {
             this.templateMap = {};
         }

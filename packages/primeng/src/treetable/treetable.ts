@@ -1,7 +1,5 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -12,20 +10,14 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
-    Inject,
     inject,
     Injectable,
     Input,
     NgModule,
     NgZone,
     numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -261,7 +253,7 @@ export class TreeTableService {
         '[attr.data-scrollselectors]': "'.p-treetable-scrollable-body'"
     }
 })
-export class TreeTable extends BaseComponent implements AfterContentInit, OnInit, OnDestroy, BlockableUI, OnChanges {
+export class TreeTable extends BaseComponent implements BlockableUI {
     _componentStyle = inject(TreeTableStyle);
     /**
      * An array of objects to represent dynamic columns.
@@ -886,8 +878,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
     toggleRowIndex: Nullable<number>;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.lazy && this.lazyLoadOnInit && !this.virtualScroll) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -896,7 +887,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'caption':
@@ -1012,8 +1003,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
 
     zone = inject(NgZone);
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
             this._value = simpleChange.value.currentValue;
 
@@ -2298,14 +2288,12 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindDocumentEditListener();
         this.editingCell = null;
         this.editingCellField = null;
         this.editingCellData = null;
         this.initialized = null;
-
-        super.ngOnDestroy();
     }
 }
 
@@ -2334,7 +2322,7 @@ export class TreeTable extends BaseComponent implements AfterContentInit, OnInit
     `,
     encapsulation: ViewEncapsulation.None
 })
-export class TTBody {
+export class TTBody extends BaseComponent {
     @Input('pTreeTableBody') columns: any[] | undefined;
 
     @Input('pTreeTableBodyTemplate') template: Nullable<TemplateRef<any>>;
@@ -2349,9 +2337,9 @@ export class TTBody {
 
     constructor(
         public tt: TreeTable,
-        public treeTableService: TreeTableService,
-        public cd: ChangeDetectorRef
+        public treeTableService: TreeTableService
     ) {
+        super();
         this.subscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
             if (this.tt.virtualScroll) {
                 this.cd.detectChanges();
@@ -2373,7 +2361,7 @@ export class TTBody {
         return getItemOptions ? getItemOptions(rowIndex).index : rowIndex;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -2468,7 +2456,7 @@ export class TTBody {
     encapsulation: ViewEncapsulation.None,
     providers: [TreeTableStyle]
 })
-export class TTScrollableView extends BaseComponent implements AfterViewInit, OnDestroy {
+export class TTScrollableView extends BaseComponent {
     @Input('ttScrollableView') columns: any[] | undefined;
 
     @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
@@ -2519,14 +2507,12 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
 
     constructor(
         public tt: TreeTable,
-        public el: ElementRef,
         public zone: NgZone
     ) {
         super();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.frozen) {
                 if (this.tt.frozenColumns || this.tt.frozenBodyTemplate || this.tt._frozenBodyTemplate) {
@@ -2674,8 +2660,7 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
         }
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         this.unbindEvents();
 
         this.frozenSiblingBody = null;
@@ -2693,7 +2678,7 @@ export class TTScrollableView extends BaseComponent implements AfterViewInit, On
     },
     providers: [TreeTableStyle]
 })
-export class TTSortableColumn extends BaseComponent implements OnInit, OnDestroy {
+export class TTSortableColumn extends BaseComponent {
     @Input('ttSortableColumn') field: string | undefined;
 
     @Input({ transform: booleanAttribute }) ttSortableColumnDisabled: boolean | undefined;
@@ -2719,8 +2704,7 @@ export class TTSortableColumn extends BaseComponent implements OnInit, OnDestroy
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.isEnabled()) {
             this.updateSortState();
         }
@@ -2752,8 +2736,7 @@ export class TTSortableColumn extends BaseComponent implements OnInit, OnDestroy
         return this.ttSortableColumnDisabled !== true;
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -2778,7 +2761,7 @@ export class TTSortableColumn extends BaseComponent implements OnInit, OnDestroy
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TreeTableStyle]
 })
-export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
+export class TTSortIcon extends BaseComponent {
     @Input() field: string | undefined;
 
     @Input() ariaLabelDesc: string | undefined;
@@ -2802,8 +2785,7 @@ export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.updateSortState();
     }
 
@@ -2845,8 +2827,7 @@ export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
         return this.tt.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -2857,7 +2838,7 @@ export class TTSortIcon extends BaseComponent implements OnInit, OnDestroy {
     selector: '[ttResizableColumn]',
     standalone: false
 })
-export class TTResizableColumn implements AfterViewInit, OnDestroy {
+export class TTResizableColumn extends BaseComponent {
     @Input({ transform: booleanAttribute }) ttResizableColumnDisabled: boolean | undefined;
 
     resizer: HTMLSpanElement | undefined;
@@ -2869,15 +2850,13 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
     documentMouseUpListener: VoidListener;
 
     constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
         public tt: TreeTable,
-        public el: ElementRef,
         public zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
-    ngAfterViewInit() {
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.isEnabled()) {
                 addClass(this.el.nativeElement, 'p-resizable-column');
@@ -2929,7 +2908,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
         return this.ttResizableColumnDisabled !== true;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.resizerMouseDownListener) {
             this.resizerMouseDownListener();
             this.resizerMouseDownListener = null;
@@ -2943,7 +2922,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
     selector: '[ttReorderableColumn]',
     standalone: false
 })
-export class TTReorderableColumn implements AfterViewInit, OnDestroy {
+export class TTReorderableColumn extends BaseComponent {
     @Input({ transform: booleanAttribute }) ttReorderableColumnDisabled: boolean | undefined;
 
     dragStartListener: VoidListener;
@@ -2957,15 +2936,13 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     mouseDownListener: VoidListener;
 
     constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
         public tt: TreeTable,
-        public el: ElementRef,
         public zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
-    ngAfterViewInit() {
+    onAfterViewInit() {
         if (this.isEnabled()) {
             this.bindEvents();
         }
@@ -3039,7 +3016,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
         return this.ttReorderableColumnDisabled !== true;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindEvents();
     }
 }
@@ -3053,7 +3030,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
     },
     providers: [TreeTableStyle]
 })
-export class TTSelectableRow extends BaseComponent implements OnInit, OnDestroy {
+export class TTSelectableRow extends BaseComponent {
     @Input('ttSelectableRow') rowNode: any;
 
     @Input({ transform: booleanAttribute }) ttSelectableRowDisabled: boolean | undefined;
@@ -3076,8 +3053,7 @@ export class TTSelectableRow extends BaseComponent implements OnInit, OnDestroy 
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.isEnabled()) {
             this.selected = this.tt.isSelected(this.rowNode.node);
         }
@@ -3129,8 +3105,7 @@ export class TTSelectableRow extends BaseComponent implements OnInit, OnDestroy 
         return this.ttSelectableRowDisabled !== true;
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3145,7 +3120,7 @@ export class TTSelectableRow extends BaseComponent implements OnInit, OnDestroy 
     },
     providers: [TreeTableStyle]
 })
-export class TTSelectableRowDblClick extends BaseComponent implements OnInit, OnDestroy {
+export class TTSelectableRowDblClick extends BaseComponent {
     @Input('ttSelectableRowDblClick') rowNode: any;
 
     @Input({ transform: booleanAttribute }) ttSelectableRowDisabled: boolean | undefined;
@@ -3168,8 +3143,7 @@ export class TTSelectableRowDblClick extends BaseComponent implements OnInit, On
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.isEnabled()) {
             this.selected = this.tt.isSelected(this.rowNode.node);
         }
@@ -3189,8 +3163,7 @@ export class TTSelectableRowDblClick extends BaseComponent implements OnInit, On
         return this.ttSelectableRowDisabled !== true;
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3247,8 +3220,7 @@ export class TTContextMenuRow extends BaseComponent {
         return this.ttContextMenuRowDisabled !== true;
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3304,8 +3276,7 @@ export class TTCheckbox extends BaseComponent {
         });
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.tt.selectionKeys) {
             this.checked = this.tt.isNodeSelected(this.rowNode.node);
             this.partialChecked = this.tt.isNodePartialSelected(this.rowNode.node);
@@ -3343,8 +3314,7 @@ export class TTCheckbox extends BaseComponent {
         this.focused = false;
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
@@ -3366,7 +3336,7 @@ export class TTCheckbox extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TTHeaderCheckbox {
+export class TTHeaderCheckbox extends BaseComponent {
     checked: boolean | undefined;
 
     disabled: boolean | undefined;
@@ -3377,9 +3347,9 @@ export class TTHeaderCheckbox {
 
     constructor(
         public tt: TreeTable,
-        public tableService: TreeTableService,
-        private cd: ChangeDetectorRef
+        public tableService: TreeTableService
     ) {
+        super();
         this.valueChangeSubscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
         });
@@ -3389,7 +3359,7 @@ export class TTHeaderCheckbox {
         });
     }
 
-    ngOnInit() {
+    onInit() {
         this.checked = this.updateCheckedState();
     }
 
@@ -3401,7 +3371,7 @@ export class TTHeaderCheckbox {
         clearSelection();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.selectionChangeSubscription) {
             this.selectionChangeSubscription.unsubscribe();
         }
@@ -3450,7 +3420,7 @@ export class TTHeaderCheckbox {
     selector: '[ttEditableColumn]',
     standalone: false
 })
-export class TTEditableColumn implements AfterViewInit {
+export class TTEditableColumn extends BaseComponent {
     @Input('ttEditableColumn') data: any;
 
     @Input('ttEditableColumnField') field: any;
@@ -3459,11 +3429,12 @@ export class TTEditableColumn implements AfterViewInit {
 
     constructor(
         public tt: TreeTable,
-        public el: ElementRef,
         public zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
-    ngAfterViewInit() {
+    onAfterViewInit() {
         if (this.isEnabled()) {
             addClass(this.el.nativeElement, 'p-editable-column');
         }
@@ -3636,7 +3607,7 @@ export class TTEditableColumn implements AfterViewInit {
     `,
     encapsulation: ViewEncapsulation.None
 })
-export class TreeTableCellEditor extends BaseComponent implements AfterContentInit {
+export class TreeTableCellEditor extends BaseComponent {
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     inputTemplate: Nullable<TemplateRef<any>>;
@@ -3650,7 +3621,7 @@ export class TreeTableCellEditor extends BaseComponent implements AfterContentIn
         super();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'input':

@@ -84,7 +84,7 @@ export class ButtonIcon extends BaseComponent {
         '[class.p-button-text]': 'isTextButton()'
     }
 })
-export class ButtonDirective extends BaseComponent implements AfterViewInit, OnDestroy {
+export class ButtonDirective extends BaseComponent {
     /**
      * Add a textual class to the button without a background initially.
      * @group Props
@@ -273,8 +273,7 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
     _componentStyle = inject(ButtonStyle);
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         addClass(this.htmlElement, this.getStyleClass().join(' '));
 
         this.createIcon();
@@ -443,9 +442,8 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
         return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon || 'p-hidden';
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.initialized = false;
-        super.ngOnDestroy();
     }
 }
 /**
@@ -493,14 +491,14 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     providers: [ButtonStyle, { provide: BUTTON_INSTANCE, useExisting: Button }, { provide: PARENT_INSTANCE, useExisting: Button }],
     hostDirectives: [Bind]
 })
-export class Button extends BaseComponent implements AfterContentInit {
+export class Button extends BaseComponent {
     $pcButton: Button | undefined = inject(BUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
     _componentStyle = inject(ButtonStyle);
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
 
@@ -719,7 +717,7 @@ export class Button extends BaseComponent implements AfterContentInit {
 
     _loadingIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':

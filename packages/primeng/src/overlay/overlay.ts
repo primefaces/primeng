@@ -1,26 +1,6 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    input,
-    Input,
-    NgModule,
-    NgZone,
-    OnDestroy,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, input, Input, NgModule, NgZone, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -93,7 +73,7 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     encapsulation: ViewEncapsulation.None,
     providers: [OverlayStyle]
 })
-export class Overlay extends BaseComponent implements AfterContentInit, OnDestroy {
+export class Overlay extends BaseComponent {
     /**
      * The visible property is an input that determines the visibility of the component.
      * @defaultValue false
@@ -427,7 +407,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         super();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -640,7 +620,7 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.hide(this.overlayEl, true);
 
         if (this.overlayEl && this.$appendTo() !== 'self') {
@@ -654,7 +634,6 @@ export class Overlay extends BaseComponent implements AfterContentInit, OnDestro
         }
 
         this.unbindListeners();
-        super.ngOnDestroy();
     }
 }
 

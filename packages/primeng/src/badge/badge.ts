@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, Directive, inject, Input, input, NgModule, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, inject, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { addClass, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -14,7 +14,7 @@ import { BadgeStyle } from './style/badgestyle';
     providers: [BadgeStyle],
     standalone: true
 })
-export class BadgeDirective extends BaseComponent implements OnChanges, AfterViewInit {
+export class BadgeDirective extends BaseComponent {
     /**
      * When specified, disables the component.
      * @group Props
@@ -77,8 +77,9 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         super();
     }
 
-    public ngOnChanges({ value, size, severity, disabled, badgeStyle, badgeStyleClass }: SimpleChanges): void {
-        super.ngOnChanges({ value, size, severity, disabled });
+    onChanges(changes: SimpleChanges): void {
+        const { value, size, severity, disabled, badgeStyle, badgeStyleClass } = changes;
+
         if (disabled) {
             this.toggleDisableState();
         }
@@ -104,8 +105,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         }
     }
 
-    public ngAfterViewInit(): void {
-        super.ngAfterViewInit();
+    onAfterViewInit(): void {
         this.id = uuid('pn_id_') + '_badge';
         this.renderBadgeContent();
     }

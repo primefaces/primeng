@@ -140,7 +140,7 @@ import { BreadCrumbStyle } from './style/breadcrumbstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [BreadCrumbStyle]
 })
-export class Breadcrumb extends BaseComponent implements AfterContentInit {
+export class Breadcrumb extends BaseComponent {
     /**
      * An array of menuitems.
      * @group Props
@@ -218,7 +218,7 @@ export class Breadcrumb extends BaseComponent implements AfterContentInit {
 
     _itemTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'separator':

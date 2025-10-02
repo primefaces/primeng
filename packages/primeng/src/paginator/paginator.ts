@@ -139,7 +139,7 @@ import { PaginatorStyle } from './style/paginatorstyle';
         '[class]': "cn(cx('paginator'), styleClass)"
     }
 })
-export class Paginator extends BaseComponent implements OnInit, AfterContentInit, OnChanges {
+export class Paginator extends BaseComponent {
     /**
      * Number of page links to display.
      * @group Props
@@ -332,12 +332,11 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.updatePaginatorState();
     }
 
-    ngAfterContentInit(): void {
+    onAfterContentInit(): void {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'dropdownicon':
@@ -382,9 +381,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
         }
     }
 
-    ngOnChanges(simpleChange: SimpleChanges): void {
-        super.ngOnChanges(simpleChange);
-
+    onChanges(simpleChange: SimpleChanges): void {
         if (simpleChange.totalRecords) {
             this.updatePageLinks();
             this.updatePaginatorState();

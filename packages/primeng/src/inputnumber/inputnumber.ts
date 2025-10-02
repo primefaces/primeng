@@ -189,7 +189,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class InputNumber extends BaseInput implements OnInit, AfterContentInit, OnChanges {
+export class InputNumber extends BaseInput {
     /**
      * Displays spinner buttons.
      * @group Props
@@ -459,17 +459,14 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         super();
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
         if (props.some((p) => !!simpleChange[p])) {
             this.updateConstructParser();
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
-
+    onInit() {
         this.ngControl = this.injector.get(NgControl, null, { optional: true });
 
         this.constructParser();
@@ -477,7 +474,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         this.initialized = true;
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':

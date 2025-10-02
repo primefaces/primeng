@@ -34,7 +34,7 @@ import { ProgressBarStyle } from './style/progressbarstyle';
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class ProgressBar extends BaseComponent implements AfterContentInit {
+export class ProgressBar extends BaseComponent {
     /**
      * Current value of the progress.
      * @group Props
@@ -83,7 +83,7 @@ export class ProgressBar extends BaseComponent implements AfterContentInit {
 
     _contentTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':

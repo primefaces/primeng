@@ -41,7 +41,7 @@ import { TimelineStyle } from './style/timelinestyle';
         '[attr.data-pc-name]': "'timeline'"
     }
 })
-export class Timeline extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Timeline extends BaseComponent implements BlockableUI {
     /**
      * An array of events to display.
      * @group Props
@@ -95,7 +95,7 @@ export class Timeline extends BaseComponent implements AfterContentInit, Blockab
         return this.el.nativeElement.children[0];
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':

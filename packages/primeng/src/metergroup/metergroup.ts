@@ -90,7 +90,7 @@ export class MeterGroupLabel extends BaseComponent {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class MeterGroup extends BaseComponent implements AfterContentInit {
+export class MeterGroup extends BaseComponent {
     /**
      * Current value of the metergroup.
      * @group Props
@@ -160,14 +160,13 @@ export class MeterGroup extends BaseComponent implements AfterContentInit {
         super();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         const _container = this.el.nativeElement;
         const height = getOuterHeight(_container);
         this.vertical && (_container.style.height = height + 'px');
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'label':

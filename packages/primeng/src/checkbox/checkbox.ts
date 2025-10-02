@@ -87,7 +87,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         '[attr.data-p-disabled]': '$disabled()'
     }
 })
-export class Checkbox extends BaseEditableHolder implements AfterContentInit {
+export class Checkbox extends BaseEditableHolder {
     /**
      * Value of the checkbox.
      * @group Props
@@ -223,7 +223,7 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit {
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
@@ -236,8 +236,7 @@ export class Checkbox extends BaseEditableHolder implements AfterContentInit {
         });
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        super.ngOnChanges(changes);
+    onChanges(changes: SimpleChanges) {
         if (changes.indeterminate) {
             this._indeterminate.set(changes.indeterminate.currentValue);
         }

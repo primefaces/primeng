@@ -120,7 +120,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         '[class]': "cx('root')"
     }
 })
-export class InputMask extends BaseInput implements OnInit, AfterContentInit {
+export class InputMask extends BaseInput {
     /**
      * HTML5 input type.
      * @group Props
@@ -308,8 +308,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
 
     _componentStyle = inject(InputMaskStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (isPlatformBrowser(this.platformId)) {
             let ua = navigator.userAgent;
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
@@ -320,7 +319,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
 
     _clearIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':

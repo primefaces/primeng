@@ -93,7 +93,7 @@ import { PopoverStyle } from './style/popoverstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [PopoverStyle]
 })
-export class Popover extends BaseComponent implements AfterContentInit, OnDestroy {
+export class Popover extends BaseComponent {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -207,7 +207,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
     overlayService = inject(OverlayService);
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -479,7 +479,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         this.unbindScrollListener();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
@@ -502,7 +502,6 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         if (this.overlaySubscription) {
             this.overlaySubscription.unsubscribe();
         }
-        super.ngOnDestroy();
     }
 }
 

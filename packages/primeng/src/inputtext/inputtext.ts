@@ -16,7 +16,7 @@ import { InputTextStyle } from './style/inputtextstyle';
     },
     providers: [InputTextStyle]
 })
-export class InputText extends BaseModelHolder implements DoCheck, AfterViewInit {
+export class InputText extends BaseModelHolder {
     ngControl = inject(NgControl, { optional: true, self: true });
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
@@ -49,13 +49,12 @@ export class InputText extends BaseModelHolder implements DoCheck, AfterViewInit
 
     _componentStyle = inject(InputTextStyle);
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
         this.cd.detectChanges();
     }
 
-    ngDoCheck() {
+    onDoCheck() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 

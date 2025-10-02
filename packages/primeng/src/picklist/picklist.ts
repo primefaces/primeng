@@ -370,7 +370,7 @@ import { PickListStyle } from './style/pickliststyle';
     encapsulation: ViewEncapsulation.None,
     providers: [PickListStyle]
 })
-export class PickList extends BaseComponent implements AfterContentInit {
+export class PickList extends BaseComponent {
     /**
      * An array of objects for the source list.
      * @group Props
@@ -850,8 +850,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
     filterService = inject(FilterService);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.responsive) {
             this.createStyle();
             this.initMedia();
@@ -1024,7 +1023,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
 
     _sourceFilterIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -1748,10 +1747,9 @@ export class PickList extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.destroyStyle();
         this.destroyMedia();
-        super.ngOnDestroy();
     }
 }
 

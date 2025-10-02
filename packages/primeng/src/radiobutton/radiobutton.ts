@@ -86,7 +86,7 @@ export class RadioControlRegistry {
         '[class]': "cx('root')"
     }
 })
-export class RadioButton extends BaseEditableHolder implements OnInit, OnDestroy {
+export class RadioButton extends BaseEditableHolder {
     /**
      * Value of the radiobutton.
      * @group Props
@@ -175,8 +175,7 @@ export class RadioButton extends BaseEditableHolder implements OnInit, OnDestroy
 
     registry = inject(RadioControlRegistry);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.control = this.injector.get(NgControl);
         this.registry.add(this.control, this);
     }
@@ -228,9 +227,8 @@ export class RadioButton extends BaseEditableHolder implements OnInit, OnDestroy
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.registry.remove(this);
-        super.ngOnDestroy();
     }
 }
 

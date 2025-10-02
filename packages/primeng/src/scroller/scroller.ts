@@ -87,7 +87,7 @@ import { ScrollerStyle } from './style/scrollerstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ScrollerStyle]
 })
-export class Scroller extends BaseComponent implements OnInit, AfterContentInit, AfterViewChecked, OnDestroy {
+export class Scroller extends BaseComponent {
     /**
      * Unique identifier of the element.
      * @group Props
@@ -552,13 +552,11 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.setInitialState();
     }
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
+    onChanges(simpleChanges: SimpleChanges) {
         let isLoadingChanged = false;
         if (this.scrollHeight == '100%') {
             this.height = '100%';
@@ -607,7 +605,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -633,25 +631,23 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         Promise.resolve().then(() => {
             this.viewInit();
         });
     }
 
-    ngAfterViewChecked() {
+    onAfterViewChecked() {
         if (!this.initialized) {
             this.viewInit();
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindResizeListener();
 
         this.contentEl = null;
         this.initialized = false;
-        super.ngOnDestroy();
     }
 
     viewInit() {

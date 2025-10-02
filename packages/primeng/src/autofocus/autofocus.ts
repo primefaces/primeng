@@ -26,7 +26,7 @@ export class AutoFocus extends BaseComponent {
 
     host: ElementRef = inject(ElementRef);
 
-    ngAfterContentChecked() {
+    onAFterContentChecked() {
         // This sets the `attr.autofocus` which is different than the Input `autofocus` attribute.
         if (this.autofocus === false) {
             this.host.nativeElement.removeAttribute('autofocus');
@@ -39,7 +39,7 @@ export class AutoFocus extends BaseComponent {
         }
     }
 
-    ngAfterViewChecked() {
+    onAfterViewChecked() {
         if (!this.focused) {
             this.autoFocus();
         }

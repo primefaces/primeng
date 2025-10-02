@@ -168,7 +168,7 @@ import {
     encapsulation: ViewEncapsulation.None,
     providers: [TreeStyle]
 })
-export class UITreeNode extends BaseComponent implements OnInit {
+export class UITreeNode extends BaseComponent {
     static ICON_CLASS: string = 'p-tree-node-icon ';
 
     @Input() rowNode: any;
@@ -233,8 +233,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         return this.node?.parent ? this.node.parent.children : this.tree.value;
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         (<TreeNode>this.node).parent = this.parentNode;
         const nativeElement = this.tree.el.nativeElement;
         const pDialogWrapper = nativeElement.closest('p-dialog');
@@ -789,7 +788,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
+export class Tree extends BaseComponent implements BlockableUI {
     /**
      * An array of treenodes.
      * @group Props
@@ -1127,7 +1126,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
 
     _filterTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         if ((this.templates as QueryList<PrimeTemplate>).length) {
             this._templateMap = {};
         }
@@ -1223,8 +1222,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.filterBy) {
             this.filterOptions = {
                 filter: (value) => this._filter(value),
@@ -1251,8 +1249,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         }
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
             this.updateSerializedValue();
             if (this.hasFilterActive()) {
@@ -1787,7 +1784,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         return this.el.nativeElement.children[0];
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.dragStartSubscription) {
             this.dragStartSubscription.unsubscribe();
         }
@@ -1795,8 +1792,6 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         if (this.dragStopSubscription) {
             this.dragStopSubscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 @NgModule({

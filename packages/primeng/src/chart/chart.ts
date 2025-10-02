@@ -24,7 +24,7 @@ import { ChartStyle } from './style/chartstyle';
     },
     providers: [ChartStyle]
 })
-export class UIChart extends BaseComponent implements AfterViewInit, OnDestroy {
+export class UIChart extends BaseComponent {
     /**
      * Type of the chart.
      * @group Props
@@ -107,8 +107,7 @@ export class UIChart extends BaseComponent implements AfterViewInit, OnDestroy {
         super();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.initChart();
         this.initialized = true;
     }
@@ -172,8 +171,7 @@ export class UIChart extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.chart) {
             this.chart.destroy();
             this.initialized = false;

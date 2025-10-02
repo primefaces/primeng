@@ -30,12 +30,12 @@ const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
     },
     hostDirectives: [Bind]
 })
-export class Tabs extends BaseComponent implements AfterViewChecked {
+export class Tabs extends BaseComponent {
     $pcTabs: Tabs | undefined = inject(TABS_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 

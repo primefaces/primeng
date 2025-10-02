@@ -13,7 +13,7 @@ import { InplaceStyle } from './style/inplacestyle';
     imports: [CommonModule],
     template: '<ng-content></ng-content>'
 })
-export class InplaceDisplay {}
+export class InplaceDisplay extends BaseComponent {}
 
 @Component({
     selector: 'p-inplacecontent, p-inplaceContent',
@@ -21,7 +21,7 @@ export class InplaceDisplay {}
     imports: [CommonModule],
     template: '<ng-content></ng-content>'
 })
-export class InplaceContent {}
+export class InplaceContent extends BaseComponent {}
 /**
  * Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
  * @group Components
@@ -58,7 +58,7 @@ export class InplaceContent {}
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Inplace extends BaseComponent implements AfterContentInit {
+export class Inplace extends BaseComponent {
     /**
      * Whether the content is displayed or not.
      * @group Props
@@ -177,7 +177,7 @@ export class Inplace extends BaseComponent implements AfterContentInit {
 
     _contentTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'display':

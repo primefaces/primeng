@@ -133,7 +133,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ConfirmPopupStyle]
 })
-export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnDestroy {
+export class ConfirmPopup extends BaseComponent {
     /**
      * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
      * @group Props
@@ -265,7 +265,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -508,7 +508,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         return this.confirmation?.rejectLabel || this.config.getTranslation(TranslationKeys.REJECT);
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.restoreAppend();
 
         if (this.subscription) {

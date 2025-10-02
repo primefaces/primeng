@@ -121,7 +121,7 @@ import { DockStyle } from './style/dockstyle';
         'data-pc-name': 'dock'
     }
 })
-export class Dock extends BaseComponent implements AfterContentInit {
+export class Dock extends BaseComponent {
     /**
      * Current id state as a string.
      * @group Props
@@ -201,14 +201,12 @@ export class Dock extends BaseComponent implements AfterContentInit {
         this.currentIndex = -3;
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.bindMatchMediaListener();
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         this.unbindMatchMediaListener();
     }
 
@@ -370,7 +368,7 @@ export class Dock extends BaseComponent implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'item':

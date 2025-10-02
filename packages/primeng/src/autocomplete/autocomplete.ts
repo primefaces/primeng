@@ -1,8 +1,6 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -19,7 +17,6 @@ import {
     NgModule,
     NgZone,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     signal,
@@ -300,7 +297,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class AutoComplete extends BaseInput implements AfterViewChecked, AfterContentInit, OnDestroy {
+export class AutoComplete extends BaseInput {
     /**
      * Minimum number of characters to initiate a search.
      * @deprecated since v20.0.0, use `minQueryLength` instead.
@@ -922,15 +919,14 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.cd.detectChanges();
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -988,7 +984,7 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         });
     }
 
-    ngAfterViewChecked() {
+    onAfterViewChecked() {
         //Use timeouts as since Angular 4.2, AfterViewChecked is broken and not called after panel is updated
         if (this.suggestionsUpdated && this.overlayViewChild) {
             this.zone.runOutsideAngular(() => {
@@ -1784,18 +1780,16 @@ export class AutoComplete extends BaseInput implements AfterViewChecked, AfterCo
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
-
-        super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [AutoComplete],
+    imports: [AutoComplete, SharedModule],
     exports: [AutoComplete, SharedModule]
 })
 export class AutoCompleteModule {}

@@ -1,7 +1,6 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -17,7 +16,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     Output,
     Pipe,
     PipeTransform,
@@ -242,7 +240,7 @@ export class MenuItemContent extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [MenuStyle]
 })
-export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
+export class Menu extends BaseComponent {
     /**
      * An array of menuitems.
      * @group Props
@@ -397,8 +395,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
         this.cd.markForCheck();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (!this.popup) {
             this.bindDocumentClickListener();
         }
@@ -441,7 +438,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'start':
@@ -801,7 +798,7 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.popup) {
             if (this.scrollHandler) {
                 this.scrollHandler.destroy();
@@ -819,7 +816,6 @@ export class Menu extends BaseComponent implements AfterContentInit, OnDestroy {
         if (!this.popup) {
             this.unbindDocumentClickListener();
         }
-        super.ngOnDestroy();
     }
 
     hasSubMenu(): boolean {

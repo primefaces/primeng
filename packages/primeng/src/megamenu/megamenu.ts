@@ -377,7 +377,7 @@ export class MegaMenuSub extends BaseComponent {
         'data-pc-name': 'megamenu'
     }
 })
-export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
+export class MegaMenu extends BaseComponent {
     /**
      * An array of menuitems.
      * @group Props
@@ -563,13 +563,12 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
         });
     }
 
-    ngOnInit(): void {
-        super.ngOnInit();
+    onInit(): void {
         this.bindMatchMediaListener();
         this.id = this.id || uuid('pn_id_');
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'start':
@@ -1192,11 +1191,10 @@ export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestr
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindOutsideClickListener();
         this.unbindResizeListener();
         this.unbindMatchMediaListener();
-        super.ngOnDestroy();
     }
 }
 

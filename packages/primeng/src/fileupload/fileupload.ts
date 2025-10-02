@@ -1,8 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -16,8 +14,6 @@ import {
     NgModule,
     NgZone,
     numberAttribute,
-    OnDestroy,
-    OnInit,
     output,
     Output,
     QueryList,
@@ -316,7 +312,7 @@ export class FileContent extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     providers: [FileUploadStyle]
 })
-export class FileUpload extends BaseComponent implements AfterViewInit, AfterContentInit, OnInit, OnDestroy, BlockableUI {
+export class FileUpload extends BaseComponent implements BlockableUI {
     /**
      * Name of the request parameter to identify the files at backend.
      * @group Props
@@ -687,15 +683,13 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 
     _componentStyle = inject(FileUploadStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.cd.markForCheck();
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.mode === 'advanced') {
                 this.zone.runOutsideAngular(() => {
@@ -727,7 +721,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
@@ -1203,7 +1197,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         return this.config.getTranslation(TranslationKeys.PENDING);
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.content && this.content.nativeElement) {
             if (this.dragOverListener) {
                 this.dragOverListener();
@@ -1214,8 +1208,6 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

@@ -92,7 +92,7 @@ import { MessageStyle } from './style/messagestyle';
         ])
     ]
 })
-export class Message extends BaseComponent implements AfterContentInit {
+export class Message extends BaseComponent {
     /**
      * Severity level of the message.
      * @defaultValue 'info'
@@ -211,8 +211,7 @@ export class Message extends BaseComponent implements AfterContentInit {
         this.close(event);
     };
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.life) {
             setTimeout(() => {
                 this.visible.set(false);
@@ -220,7 +219,7 @@ export class Message extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'container':

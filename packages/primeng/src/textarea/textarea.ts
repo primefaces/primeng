@@ -17,7 +17,7 @@ import { TextareaStyle } from './style/textareastyle';
     },
     providers: [TextareaStyle]
 })
-export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class Textarea extends BaseModelHolder {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -67,8 +67,7 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
         return this.fluid() ?? !!this.pcFluid;
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.ngControl) {
             this.ngControlSubscription = (this.ngControl as any).valueChanges.subscribe(() => {
                 this.updateState();
@@ -76,14 +75,13 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
         }
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.autoResize) this.resize();
 
         this.cd.detectChanges();
     }
 
-    ngAfterViewChecked() {
+    onAfterViewChecked() {
         if (this.autoResize) {
             this.resize();
         }
@@ -116,12 +114,10 @@ export class Textarea extends BaseModelHolder implements OnInit, AfterViewInit, 
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.ngControlSubscription) {
             this.ngControlSubscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

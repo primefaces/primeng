@@ -360,7 +360,7 @@ export class SelectItem extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class Select extends BaseInput implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked {
+export class Select extends BaseInput {
     /**
      * Unique identifier of the component
      * @group Props
@@ -1015,8 +1015,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         return this.group ? this.flatOptions(this.options) : this.options || [];
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.autoUpdateModel();
 
@@ -1028,7 +1027,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -1102,7 +1101,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         });
     }
 
-    ngAfterViewChecked() {
+    onAfterViewChecked() {
         if (this.optionsChanged && this.overlayVisible) {
             this.optionsChanged = false;
 
@@ -1186,8 +1185,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         return option !== undefined && option !== null && !this.isOptionGroup(option) && equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.editable) {
             this.updateEditableLabel();
         }

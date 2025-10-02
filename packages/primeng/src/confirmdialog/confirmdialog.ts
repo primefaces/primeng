@@ -138,7 +138,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     encapsulation: ViewEncapsulation.None,
     providers: [ConfirmDialogStyle]
 })
-export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
+export class ConfirmDialog extends BaseComponent {
     /**
      * Title text of the dialog.
      * @group Props
@@ -454,8 +454,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -467,7 +466,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
@@ -591,7 +590,7 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.subscription.unsubscribe();
         // Unsubscribe from confirmation events if the dialogue is opened and this component is somehow destroyed.
         this.unsubscribeConfirmationEvents();
@@ -601,7 +600,6 @@ export class ConfirmDialog extends BaseComponent implements OnInit, OnDestroy {
         }
 
         this.destroyStyle();
-        super.ngOnDestroy();
     }
 
     onVisibleChange(value: boolean) {
