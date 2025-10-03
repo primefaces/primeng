@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChil
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/bind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
 import { SplitterStyle } from './style/splitterstyle';

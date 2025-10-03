@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, NgModule, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/bind';
 import { TabsStyle } from './style/tabsstyle';
 import { Tab } from './tab';
 import { TabList } from './tablist';

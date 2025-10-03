@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Bind } from './pbind';
+import { Bind } from './bind';
 
 @Component({
     standalone: false,

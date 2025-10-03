@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Elem
 import { addClass, getHeight, removeClass, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
 

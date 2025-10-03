@@ -4,8 +4,8 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, Con
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { Bind, BindModule } from 'primeng/pbind';
 import { Nullable } from 'primeng/ts-helpers';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 import { FieldsetStyle } from './style/fieldsetstyle';

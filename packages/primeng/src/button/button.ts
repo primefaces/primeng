@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -17,7 +15,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     TemplateRef,
@@ -28,9 +25,9 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
-import { Bind } from 'primeng/pbind';
 import { Ripple } from 'primeng/ripple';
 import { ButtonProps, ButtonSeverity } from './button.interface';
 import { ButtonStyle } from './style/buttonstyle';

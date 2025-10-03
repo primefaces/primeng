@@ -296,6 +296,10 @@ export const routes: Routes = [
                 path: 'classnames',
                 loadChildren: () => import('@/pages/classnames/routes')
             },
+            {
+                path: 'bind',
+                loadChildren: () => import('@/pages/bind/routes')
+            },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
             { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) },
             {
@@ -310,11 +314,6 @@ export const routes: Routes = [
             {
                 path: 'pt-playground',
                 loadChildren: () => import('@/pages/pt_playground/routes')
-            },
-            // TODO: this route will be removed later
-            {
-                path: 'pbind',
-                loadChildren: () => import('@/pages/pbind/routes')
             }
         ]
     },

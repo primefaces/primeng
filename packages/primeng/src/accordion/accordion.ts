@@ -23,8 +23,8 @@ import {
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
-import { Bind, BindModule } from 'primeng/pbind';
 import { Ripple } from 'primeng/ripple';
 import { transformToBoolean } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';

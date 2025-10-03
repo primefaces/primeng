@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inje
 import { equals } from '@primeuix/utils';
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/pbind';
+import { Bind, BindModule } from 'primeng/bind';
 import { CardStyle } from './style/cardstyle';
 
 const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');

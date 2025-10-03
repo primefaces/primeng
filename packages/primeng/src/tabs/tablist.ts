@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChil
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
-import { Bind, BindModule } from 'primeng/pbind';
 import { RippleModule } from 'primeng/ripple';
 import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';

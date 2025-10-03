@@ -422,6 +422,11 @@
                             "badge": "NEW"
                         },
                         {
+                            "name": "Bind",
+                            "routerLink": "/bind",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "ProgressBar",
                             "routerLink": "/progressbar"
                         },
