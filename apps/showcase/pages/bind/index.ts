@@ -4,7 +4,7 @@ import { ImportDoc } from '@/doc/bind/importdoc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Bind Directive" header="Bind" description="Bind directive dynamically binds attributes, properties, classes, styles, and event listeners to HTML elements" [docs]="docs"></app-doc>`,
+    template: `<app-doc docTitle="Angular Bind Directive" header="Bind" description="Bind directive provides extended property binding functionality that is not possible with the native Angular directives." [docs]="docs"></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
@@ -17,7 +17,7 @@ export class Bind {
         },
         {
             id: 'bind-examples',
-            label: 'Basic',
+            label: 'Examples',
             component: ExamplesDoc
         }
     ];
