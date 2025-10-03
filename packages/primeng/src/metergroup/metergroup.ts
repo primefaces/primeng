@@ -37,6 +37,8 @@ export class MeterGroupLabel extends BaseComponent {
     @Input() iconTemplate: TemplateRef<any> | undefined;
 
     parentInstance: MeterGroup = inject(forwardRef(() => MeterGroup));
+
+    _componentStyle = inject(MeterGroupStyle);
 }
 /**
  * MeterGroup displays scalar measurements within a known range.
