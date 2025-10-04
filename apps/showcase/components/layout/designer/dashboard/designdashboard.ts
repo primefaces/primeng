@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, model, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, model, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
+import { RouterModule } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
-import { Menu, MenuModule } from 'primeng/menu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { Menu, MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'design-dashboard',
@@ -18,7 +18,12 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                 <img src="https://primefaces.org/cdn/designer/{{ isDarkTheme() ? 'editor-intro-dark.png' : 'editor-intro.png' }}" />
             </a>
         </div>
-        <div class="text-lg font-semibold mb-2">Authenticate</div>
+        <div class="text-lg font-semibold mb-2">System Maintenance</div>
+        <p>We're currently performing scheduled maintenance on our system to launch our new PrimeUI Store application that hosts the Theme Designer APIs.</p>
+        <p>We apologize for any inconvenience and expect to be back online by 05 Oct 2025, 18:00 UTC.</p>
+        <p>Thank you for your patience. We're excited to introduce you to our improved platform!</p>
+
+        <!-- <div class="text-lg font-semibold mb-2">Authenticate</div>
         <div *ngIf="!verified()">
             <span class="block leading-6 mb-4"
                 >Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, figma to theme code, cloud storage, and migration assistant. <a routerLink="/designer" class="doc-link">Discover</a> more about
@@ -87,7 +92,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                     <i class="pi pi-ellipsis-h !text-xs"></i>
                 </button>
             </div>
-        </div>
+        </div>-->
         <p-menu #menu [model]="themeOptions" [popup]="true" appendTo="body" (onShow)="onMenuShow()" (onHide)="onMenuHide()" />`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
