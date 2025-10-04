@@ -53,6 +53,12 @@ export class Card extends BaseComponent implements BlockableUI {
     $pcCard: Card | undefined = inject(CARD_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(CardStyle);
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Header of the card.
      * @group Props
@@ -70,7 +76,19 @@ export class Card extends BaseComponent implements BlockableUI {
     @Input() set style(value: { [klass: string]: any } | null | undefined) {
         if (!equals(this._style(), value)) {
             this._style.set(value);
+            // Apply style directly to avoid infinite loop in host binding
+            if (this.el?.nativeElement) {
+                if (value) {
+                    Object.keys(value).forEach((key) => {
+                        this.el.nativeElement.style[key] = value[key];
+                    });
+                }
+            }
         }
+    }
+
+    get style() {
+        return this._style();
     }
     /**
      * Class of the element.
@@ -104,8 +122,6 @@ export class Card extends BaseComponent implements BlockableUI {
     _footerTemplate: TemplateRef<any> | undefined;
 
     _style = signal<{ [klass: string]: any } | null | undefined>(null);
-
-    _componentStyle = inject(CardStyle);
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
@@ -141,10 +157,6 @@ export class Card extends BaseComponent implements BlockableUI {
                     break;
             }
         });
-    }
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
 

@@ -1,5 +1,5 @@
 import { computed, Directive, effect, ElementRef, input, NgModule, Renderer2, signal } from '@angular/core';
-import { cn } from '@primeuix/utils';
+import { cn, equals } from '@primeuix/utils';
 
 /**
  * Bind directive provides dynamic attribute, property, and event listener binding functionality.
@@ -64,7 +64,9 @@ export class Bind {
     }
 
     setAttrs(attrs: { [key: string]: any } | undefined) {
-        this._attrs.set(attrs);
+        if (!equals(this._attrs(), attrs)) {
+            this._attrs.set(attrs);
+        }
     }
 
     private clearListeners() {

@@ -107,7 +107,8 @@ export class StepList extends BaseComponent {
     host: {
         '[class]': 'cx("separator")'
     },
-    providers: [StepperStyle, { provide: STEPPERSEPARATOR_INSTANCE, useExisting: StepperSeparator }, { provide: PARENT_INSTANCE, useExisting: StepperSeparator }]
+    providers: [StepperStyle, { provide: STEPPERSEPARATOR_INSTANCE, useExisting: StepperSeparator }, { provide: PARENT_INSTANCE, useExisting: StepperSeparator }],
+    hostDirectives: [Bind]
 })
 export class StepperSeparator extends BaseComponent {
     $pcStepperSeparator: StepperSeparator | undefined = inject(STEPPERSEPARATOR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

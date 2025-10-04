@@ -118,24 +118,24 @@ describe('ScrollPanel', () => {
 
     describe('DOM Structure', () => {
         it('should render content container', () => {
-            const contentContainer = fixture.debugElement.query(By.css('[data-pc-section="wrapper"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
             expect(contentContainer).toBeTruthy();
         });
 
         it('should render content area', () => {
-            const content = fixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = fixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
         });
 
         it('should render horizontal scrollbar', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             expect(xBar).toBeTruthy();
             expect(xBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(xBar.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
         });
 
         it('should render vertical scrollbar', () => {
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             expect(yBar).toBeTruthy();
             expect(yBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(yBar.nativeElement.getAttribute('aria-orientation')).toBe('vertical');
@@ -167,8 +167,8 @@ describe('ScrollPanel', () => {
         });
 
         it('should apply correct CSS classes to scrollbars', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.className).toContain('p-scrollpanel-bar-x');
             expect(yBar.nativeElement.className).toContain('p-scrollpanel-bar-y');
@@ -305,7 +305,7 @@ describe('ScrollPanel', () => {
         it('should handle arrow key navigation in vertical orientation', fakeAsync(() => {
             scrollPanel.orientation = 'vertical';
 
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             const arrowDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             const arrowUpEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
@@ -354,8 +354,8 @@ describe('ScrollPanel', () => {
         }));
 
         it('should update orientation on focus', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.onFocus({ target: xBar.nativeElement });
             expect(scrollPanel.orientation).toBe('horizontal');
@@ -377,7 +377,7 @@ describe('ScrollPanel', () => {
         }));
 
         it('should handle vertical bar mouse down', fakeAsync(() => {
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: false });
 
@@ -396,7 +396,7 @@ describe('ScrollPanel', () => {
         }));
 
         it('should handle horizontal bar mouse down', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageX', { value: 150, writable: false });
 
@@ -445,8 +445,8 @@ describe('ScrollPanel', () => {
             scrollPanel.isXBarClicked = true;
             scrollPanel.isYBarClicked = true;
 
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.onDocumentMouseUp(new MouseEvent('mouseup'));
 
@@ -472,7 +472,7 @@ describe('ScrollPanel', () => {
             expect(templateScrollPanel.templates).toBeDefined();
 
             // Verify pTemplate content container is rendered
-            const content = templateFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = templateFixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
 
             flush();
@@ -492,7 +492,7 @@ describe('ScrollPanel', () => {
             expect(contentScrollPanel.contentTemplate).toBeDefined();
 
             // Verify content container is rendered
-            const content = contentTemplateFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = contentTemplateFixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
 
             flush();
@@ -574,8 +574,8 @@ describe('ScrollPanel', () => {
 
     describe('Accessibility', () => {
         it('should have correct ARIA attributes on scrollbars', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(xBar.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
@@ -589,8 +589,8 @@ describe('ScrollPanel', () => {
         });
 
         it('should update aria-valuenow on scroll', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.lastScrollLeft = 50;
             scrollPanel.lastScrollTop = 75;
@@ -603,8 +603,8 @@ describe('ScrollPanel', () => {
         }));
 
         it('should be keyboard navigable', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.tabIndex).toBe(0);
             expect(yBar.nativeElement.tabIndex).toBe(0);
@@ -750,20 +750,20 @@ describe('ScrollPanel', () => {
 
     describe('Data Attributes', () => {
         it('should have correct data-pc-section attributes', () => {
-            const wrapper = fixture.debugElement.query(By.css('[data-pc-section="wrapper"]'));
-            const content = fixture.debugElement.query(By.css('[data-pc-section="content"]'));
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
+            const content = fixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            expect(wrapper.nativeElement.getAttribute('data-pc-section')).toBe('wrapper');
-            expect(content.nativeElement.getAttribute('data-pc-section')).toBe('content');
-            expect(xBar.nativeElement.getAttribute('data-pc-section')).toBe('barx');
-            expect(yBar.nativeElement.getAttribute('data-pc-section')).toBe('bary');
+            expect(contentContainer?.nativeElement.getAttribute('data-pc-section')).toBe('contentcontainer');
+            expect(content?.nativeElement.getAttribute('data-pc-section')).toBe('content');
+            expect(xBar?.nativeElement.getAttribute('data-pc-section')).toBe('barx');
+            expect(yBar?.nativeElement.getAttribute('data-pc-section')).toBe('bary');
         });
 
         it('should update grabbed state data attributes', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: false });
@@ -779,8 +779,8 @@ describe('ScrollPanel', () => {
         });
 
         it('should update scrollbar hidden state attributes', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             // moveBar sets attributes based on scroll ratios
             scrollPanel.moveBar();

@@ -433,13 +433,16 @@ describe('FileUpload', () => {
     });
 
     describe('Advanced Mode UI', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
+            // Recreate component to ensure clean state
+            fixture = TestBed.createComponent(FileUpload);
+            component = fixture.componentInstance;
             component.mode = 'advanced';
             fixture.detectChanges();
         });
 
         it('should show choose button', () => {
-            const chooseButton = fixture.debugElement.query(By.css('[data-pc-section="choosebutton"]'));
+            const chooseButton = fixture.debugElement.query(By.css('.p-fileupload-choose-button'));
             expect(chooseButton).toBeTruthy();
         });
 
@@ -470,7 +473,7 @@ describe('FileUpload', () => {
 
             // The actual button disabling is handled by the template bindings,
             // which we can verify by checking the component property
-            const chooseButton = fixture.debugElement.query(By.css('[data-pc-section="choosebutton"]'));
+            const chooseButton = fixture.debugElement.query(By.css('.p-fileupload-choose-button button'));
             if (chooseButton && chooseButton.nativeElement.disabled !== undefined) {
                 expect(chooseButton.nativeElement.disabled).toBe(true);
             } else {

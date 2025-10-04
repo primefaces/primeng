@@ -22,17 +22,16 @@ const classes = {
             'p-panel-collapsed': instance._collapsed && instance.toggleable
         }
     ],
-    icons: ({ instance }) => [
-        'p-panel-icons',
+    header: 'p-panel-header',
+    title: 'p-panel-title',
+    headerActions: ({ instance }) => [
+        'p-panel-header-actions',
         {
             'p-panel-icons-start': instance.iconPos === 'start',
             'p-panel-icons-end': instance.iconPos === 'end',
             'p-panel-icons-center': instance.iconPos === 'center'
         }
     ],
-    header: 'p-panel-header',
-    title: 'p-panel-title',
-    headerActions: 'p-panel-header-actions',
     pcToggleButton: 'p-panel-toggle-button',
     contentContainer: 'p-panel-content-container',
     content: 'p-panel-content',
