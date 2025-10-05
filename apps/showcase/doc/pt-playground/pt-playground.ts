@@ -2,7 +2,7 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { PanelModule } from 'primeng/panel';
+import { PanelModule, PanelPassThrough } from 'primeng/panel';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
@@ -36,8 +36,12 @@ import { TabsModule } from 'primeng/tabs';
 export class PTPlayground {
     subPanelPT(params) {
         return {
-            root: 'YO'
-        };
+            root: 'YO',
+            content: {},
+            header(options) {
+                //options.instance.
+            }
+        } as PanelPassThrough;
     }
 
     nestedPanelPt(params) {

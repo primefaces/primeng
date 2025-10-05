@@ -43,4 +43,9 @@ export interface Lifecycle {
     onAfterViewChecked(): void;
 }
 
-export type LifecycleHooks = 'onBeforeInit' | keyof Lifecycle;
+export interface LifecycleHooks extends Partial<Lifecycle> {
+    /**
+     * Defines a function to be called before the component's initialization (constructor phase).
+     */
+    onBeforeInit?(): void;
+}

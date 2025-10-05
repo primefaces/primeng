@@ -2,15 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
-
-export type ThemeType = { preset?: any; options?: any } | 'none' | boolean | undefined;
-
-export type ThemeConfigType = {
-    theme?: ThemeType;
-    csp?: {
-        nonce: string | undefined;
-    };
-};
+import type { ThemeConfigType } from './primeng.types';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeProvider {

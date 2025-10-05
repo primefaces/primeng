@@ -26,44 +26,10 @@ import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
+import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from './panel.types';
 import { PanelStyle } from './style/panelstyle';
 
 const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
-/**
- * Custom panel toggle event, emits before panel toggle.
- * @see {@link onBeforeToggle}
- * @group Interface
- */
-export interface PanelBeforeToggleEvent {
-    /**
-     * Browser event.
-     */
-    originalEvent: Event;
-    /**
-     * Collapsed state of the panel.
-     */
-    collapsed: boolean | undefined;
-}
-
-/**
- * Custom panel toggle event, emits after panel toggle.
- * @see {@link onAfterToggle}
- * @extends {PanelBeforeToggleEvent}
- * @group Interface
- */
-export interface PanelAfterToggleEvent extends PanelBeforeToggleEvent {}
-
-/**
- * Toggle icon template context.
- * @param {boolean} $implicit - Collapsed state as a boolean, implicit value.
- * @group Interface
- */
-export interface PanelHeaderIconsTemplateContext {
-    /**
-     * Collapsed state as a boolean, implicit value.
-     */
-    $implicit: boolean;
-}
 
 /**
  * Panel is a container with the optional content toggle feature.
@@ -189,7 +155,7 @@ export interface PanelHeaderIconsTemplateContext {
     },
     hostDirectives: [Bind]
 })
-export class Panel extends BaseComponent implements BlockableUI {
+export class Panel extends BaseComponent<PanelPassThrough> implements BlockableUI {
     $pcPanel: Panel | undefined = inject(PANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(PanelStyle);

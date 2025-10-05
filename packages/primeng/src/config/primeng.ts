@@ -1,39 +1,8 @@
 import { ElementRef, inject, Injectable, PLATFORM_ID, signal, TemplateRef } from '@angular/core';
 import { FilterMatchMode, OverlayOptions, Translation } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { ThemeConfigType, ThemeProvider } from './themeprovider';
-
-// Type for zIndex
-export type ZIndex = {
-    modal: number;
-    overlay: number;
-    menu: number;
-    tooltip: number;
-};
-
-export type PrimeNGConfigType = {
-    ripple?: boolean;
-    overlayAppendTo?: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
-     * @deprecated Since v20. Use `inputVariant` instead.
-     */
-    inputStyle?: 'outlined' | 'filled';
-    inputVariant?: 'outlined' | 'filled';
-    csp?: {
-        nonce: string | undefined;
-    };
-    overlayOptions?: OverlayOptions;
-    translation?: Translation;
-    /**
-     * @experimental
-     * This property is not yet implemented. It will be available in a future release.
-     */
-    unstyled?: boolean;
-    zIndex?: ZIndex;
-    pt?: any;
-    ptOptions?: any;
-    filterMatchModeOptions?: any;
-} & ThemeConfigType;
+import type { PrimeNGConfigType, ThemeConfigType, ZIndex } from './primeng.types';
+import { ThemeProvider } from './themeprovider';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNG extends ThemeProvider {
@@ -61,9 +30,9 @@ export class PrimeNG extends ThemeProvider {
      */
     unstyled = signal<boolean | undefined>(undefined);
 
-    pt = signal<any>(null);
+    pt = signal<PrimeNGConfigType['pt']>(undefined);
 
-    ptOptions = signal<any>(null);
+    ptOptions = signal<PrimeNGConfigType['ptOptions']>(undefined);
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],

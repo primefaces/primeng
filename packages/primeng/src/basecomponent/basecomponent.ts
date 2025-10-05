@@ -2,9 +2,9 @@ import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@primeuix/utils';
+import type { Lifecycle, PassThroughOptions } from 'primeng/api';
 import { Base, BaseStyle } from 'primeng/base';
 import { PrimeNG } from 'primeng/config';
-import type { Lifecycle } from './basecomponent.types';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');
@@ -13,7 +13,7 @@ export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANC
     standalone: true,
     providers: [BaseComponentStyle, BaseStyle]
 })
-export class BaseComponent implements Lifecycle {
+export class BaseComponent<PT = any> implements Lifecycle {
     public document: Document = inject(DOCUMENT);
 
     public platformId: any = inject(PLATFORM_ID);
@@ -44,7 +44,6 @@ export class BaseComponent implements Lifecycle {
 
     /******************** Inputs ********************/
 
-    // @todo - update types for dt, pt and ptOptions
     /**
      * Generates scoped CSS variables using design tokens for the component.
      */
@@ -59,11 +58,11 @@ export class BaseComponent implements Lifecycle {
     /**
      * Used to pass attributes to DOM elements inside the component.
      */
-    pt = input<any>();
+    pt = input<PT | undefined>();
     /**
      * Used to configure passthrough(pt) options of the component.
      */
-    ptOptions = input<any>();
+    ptOptions = input<PassThroughOptions | undefined>();
 
     /******************** Computed ********************/
 
@@ -105,7 +104,7 @@ export class BaseComponent implements Lifecycle {
         const parentInstance = this._getHostInstance(this) || this.$parentInstance;
 
         return {
-            instance: this,
+            instance: this as any,
             parent: {
                 instance: parentInstance
             }
@@ -474,7 +473,7 @@ export class BaseComponent implements Lifecycle {
     /******************** Exposed API ********************/
 
     public ptm(key = '', params = {}) {
-        return this._getPTValue(this.$pt(), key, { ...this.$params, ...params });
+        return this._getPTValue(this.$pt() as any, key, { ...this.$params, ...params });
     }
 
     public ptms(keys: string[], params = {}) {

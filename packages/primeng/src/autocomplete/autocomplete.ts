@@ -30,7 +30,6 @@ import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedM
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseInput } from 'primeng/baseinput';
 import { Chip } from 'primeng/chip';
-import { PrimeNG } from 'primeng/config';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
@@ -780,8 +779,6 @@ export class AutoComplete extends BaseInput {
     onHostClick(event: MouseEvent) {
         this.onContainerClick(event);
     }
-
-    private primeng = inject(PrimeNG);
 
     value: string | any;
 
