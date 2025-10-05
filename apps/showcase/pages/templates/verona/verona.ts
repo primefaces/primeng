@@ -44,7 +44,8 @@ export class VeronaPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard2.png',
         liveHref: 'https://verona.primeng.org/',
-        docHref: 'https://verona.primeng.org/documentation'
+        docHref: 'https://verona.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/verona'
     };
 
     features2Data = [

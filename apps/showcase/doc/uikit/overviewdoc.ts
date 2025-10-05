@@ -2,8 +2,8 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Ripple } from 'primeng/ripple';
 import { BadgeModule } from 'primeng/badge';
+import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
@@ -231,7 +231,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface mt-auto" />
-                            <a href="https://www.primefaces.org/store/uikit.xhtml" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                            <a href="https://primeui.store/uikit" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -275,7 +275,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface" />
-                            <a href="https://www.primefaces.org/store/uikit.xhtml" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                            <a href="https://primeui.store/uikit" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                         </div>
                     </div>
                 </div>

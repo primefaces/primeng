@@ -43,7 +43,8 @@ export class PoseidonPage {
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-hero-2.jpg',
         description: 'A modern and easy to use premium application template with various color schemes.Based on flat design language, it is fully responsive, touch optimized, built with SASS, CSS3 and HTML5.',
         liveHref: 'https://poseidon.primeng.org',
-        docHref: 'https://poseidon.primeng.org/documentation'
+        docHref: 'https://poseidon.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/poseidon'
     };
 
     features2Data = [
