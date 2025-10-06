@@ -44,7 +44,8 @@ export class ApolloPage {
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard2.png',
         description: 'A spectacular application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
         liveHref: 'https://apollo.primeng.org',
-        docHref: 'https://apollo.primeng.org/documentation'
+        docHref: 'https://apollo.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/apollo'
     };
 
     apolloFeatures2Data = [

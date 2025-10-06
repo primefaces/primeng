@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, model, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, model, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
+import { RouterModule } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
-import { Menu, MenuModule } from 'primeng/menu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { Menu, MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'design-dashboard',
@@ -18,6 +18,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                 <img src="https://primefaces.org/cdn/designer/{{ isDarkTheme() ? 'editor-intro-dark.png' : 'editor-intro.png' }}" />
             </a>
         </div>
+
         <div class="text-lg font-semibold mb-2">Authenticate</div>
         <div *ngIf="!verified()">
             <span class="block leading-6 mb-4"
@@ -25,10 +26,10 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                 the Theme Designer by visiting the detailed <a routerLink="/designer/guide" class="doc-link">documentation</a>.</span
             >
             <span class="block leading-6 mb-4"
-                >A license can be purchased from <a href="https://primefaces.org/store/designer.xhtml" class="doc-link" rel="noopener noreferrer">PrimeStore</a>, if you do not have a license key, you are still able to experience the Designer in trial
-                mode. Note that in trial mode, downloads, figma to theme code, migration assistant and cloud storage are not available.</span
+                >A license can be purchased from <a href="https://primeui.store/designer" class="doc-link" rel="noopener noreferrer">PrimeStore</a>, if you do not have a license key, you are still able to experience the Designer in trial mode. Note
+                that in trial mode, downloads, figma to theme code, migration assistant and cloud storage are not available.</span
             >
-            <span class="block leading-6 mb-4">Sign-in at <a href="https://primefaces.org/store/designer.xhtml" class="doc-link" rel="noopener noreferrer">PrimeStore</a> to retrieve your license key along with the pass key.</span>
+            <span class="block leading-6 mb-4">Sign-in at <a href="https://primeui.store/designer" class="doc-link" rel="noopener noreferrer">PrimeStore</a> to retrieve your license key along with the pass key.</span>
         </div>
         <div *ngIf="!verified()" class="flex gap-4">
             <input [(ngModel)]="licenseKey" type="password" [attr.autocomplete]="'off'" class="px-3 py-2 rounded-md border border-surface-300 dark:border-surface-700 flex-1" placeholder="License Key" />

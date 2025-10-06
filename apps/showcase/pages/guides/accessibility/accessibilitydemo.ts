@@ -11,7 +11,7 @@ import { AppDoc } from '@/components/doc/app.doc';
     selector: 'accessibility',
     standalone: true,
     imports: [AppDoc],
-    templateUrl: './accessibilitydemo.component.html'
+    template: `<app-doc docTitle="Accessibility - PrimeNG" header="Accessibility" description="PrimeNG has WCAG 2.1 AA level compliance, refer to the accessibility documentation of each component for detailed information." [docs]="docs"></app-doc>`
 })
 export class AccessibilityDemoComponent {
     docs = [
