@@ -194,7 +194,7 @@ export class SelectItem extends BaseComponent {
             [attr.disabled]="$disabled() ? '' : undefined"
         />
         <ng-container *ngIf="isVisibleClearIcon">
-            <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
+            <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" [attr.tabindex]="0" (keydown)="onClearIconKeyDown($event)"/>
             <span [class]="cx('clearIcon')" (click)="clear($event)" *ngIf="clearIconTemplate || _clearIconTemplate" [attr.data-pc-section]="'clearicon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate; context: { class: cx('clearIcon') }"></ng-template>
             </span>
@@ -1490,6 +1490,12 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         this.clicked.set(false);
     }
 
+    onClearIconKeyDown(event: KeyboardEvent) {
+        if (event.code === 'Enter' || event.code === 'Space') {
+            this.clear(event);
+        }
+    }
+    
     onFilterKeyDown(event) {
         switch (event.code) {
             case 'ArrowDown':
