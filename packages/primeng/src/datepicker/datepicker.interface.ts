@@ -72,6 +72,20 @@ export interface DatePickerTemplates {
      * Custom footer template.
      */
     footer(): TemplateRef<any>;
+    /**
+     * Custom button bar template.
+     * @param {Object} context - button bar template params.
+     */
+    buttonbar(context: {
+        /**
+         * Today button click callback
+         */
+        todayCallback: () => void;
+        /**
+         * Clear button click callback
+         */
+        clearCallback: () => void;
+    }): TemplateRef<{ todayCallback: Function; clearCallback: Function }>;
 }
 /**
  * Locale settings options.
