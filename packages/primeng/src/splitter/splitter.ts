@@ -5,7 +5,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
+import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.types';
 import { SplitterStyle } from './style/splitterstyle';
 
 const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');

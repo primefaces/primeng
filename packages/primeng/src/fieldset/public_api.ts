@@ -1,3 +1,3 @@
 export * from './fieldset';
-export * from './fieldset.interface';
+export * from './fieldset.types';
 export * from './style/fieldsetstyle';

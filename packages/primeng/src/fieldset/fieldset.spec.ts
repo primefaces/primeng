@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Fieldset } from './fieldset';
-import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
+import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.types';
 
 @Component({
     standalone: true,

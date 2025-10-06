@@ -29,7 +29,7 @@ import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { ButtonProps, ButtonSeverity } from './button.interface';
+import { ButtonProps, ButtonSeverity } from './button.types';
 import { ButtonStyle } from './style/buttonstyle';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');

@@ -1,3 +1,3 @@
 export * from './splitter';
-export * from './splitter.interface';
+export * from './splitter.types';
 export * from './style/splitterstyle';

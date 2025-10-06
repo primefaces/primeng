@@ -1,5 +1,45 @@
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { NgClass } from '@angular/common';
 import { TemplateRef } from '@angular/core';
+import { Button } from './button';
+import { BadgePassThroughOption } from '../badge/badge.types';
+/**
+ * Defines passthrough(pt) options type in component.
+ */
+export declare type ButtonPassThroughOption<E> = PassThroughOption<E, Button>;
+
+/**
+ * Custom passthrough(pt) options.
+ * @see {@link ButtonProps.pt}
+ */
+export interface ButtonPassThroughOptions<T = any> {
+    /**
+     * Used to pass attributes to the host DOM element.
+     */
+    host: ButtonPassThroughOption<HTMLElement>;
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: ButtonPassThroughOption<HTMLButtonElement>;
+    /**
+     * Used to pass attributes to the loading icon's DOM element.
+     */
+    loadingIcon?: ButtonPassThroughOption<HTMLSpanElement>;
+    /**
+     * Used to pass attributes to the icon's DOM element.
+     */
+    icon?: ButtonPassThroughOption<HTMLSpanElement>;
+    /**
+     * Used to pass attributes to the label's DOM element.
+     */
+    label?: ButtonPassThroughOption<HTMLSpanElement>;
+    /**
+     * Used to pass attributes to the Badge component.
+     */
+    pcBadge?: BadgePassThroughOption<T>;
+}
+
+export type ButtonPassThrough = PassThrough<Button, ButtonPassThroughOptions>;
 
 /**
  * Defines valid templates in Button.

@@ -1,3 +1,3 @@
 export * from './toolbar';
-export * from './toolbar.interface';
+export * from './toolbar.types';
 export * from './style/toolbarstyle';
