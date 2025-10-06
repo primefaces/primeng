@@ -188,9 +188,19 @@ export class StepItem extends BaseComponent {
     imports: [CommonModule, StepperSeparator, SharedModule, BindModule],
     template: `
         @if (!content && !_contentTemplate) {
-            <button [attr.id]="id()" [class]="cx('header')" [attr.role]="'tab'" [tabindex]="isStepDisabled() ? -1 : undefined" [attr.aria-controls]="ariaControls()" [disabled]="isStepDisabled()" (click)="onStepClick()" type="button">
-                <span [class]="cx('number')">{{ value() }}</span>
-                <span [class]="cx('title')">
+            <button
+                [attr.id]="id()"
+                [class]="cx('header')"
+                [pBind]="ptm('header')"
+                [attr.role]="'tab'"
+                [tabindex]="isStepDisabled() ? -1 : undefined"
+                [attr.aria-controls]="ariaControls()"
+                [disabled]="isStepDisabled()"
+                (click)="onStepClick()"
+                type="button"
+            >
+                <span [class]="cx('number')" [pBind]="ptm('number')">{{ value() }}</span>
+                <span [class]="cx('title')" [pBind]="ptm('title')">
                     <ng-content></ng-content>
                 </span>
             </button>
@@ -220,7 +230,13 @@ export class Step extends BaseComponent {
     $pcStep: Step | undefined = inject(STEP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
     pcStepper = inject(forwardRef(() => Stepper));
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Active value of stepper.
      * @type {number}
@@ -277,10 +293,6 @@ export class Step extends BaseComponent {
                     break;
             }
         });
-    }
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
     onStepClick() {
