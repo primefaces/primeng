@@ -82,6 +82,7 @@ import { OrderListStyle } from './style/orderliststyle';
             [filterPlaceHolder]="filterPlaceholder"
             [dragdrop]="dragdrop"
             (onDrop)="onDrop($event)"
+            (onClick)="onItemClick($event, $event.option, $event.index, $event.selectedId)"
         >
             <ng-container *ngIf="headerTemplate || _headerTemplate">
                 <ng-template #header>
