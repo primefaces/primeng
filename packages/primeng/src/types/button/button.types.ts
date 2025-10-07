@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-
+import type { BadgePassThrough } from 'primeng/types/badge';
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
@@ -33,7 +33,7 @@ export interface ButtonPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the Badge component.
      */
-    //pcBadge?: BadgePassThroughOption<T>;
+    pcBadge?: BadgePassThrough;
 }
 
 /**

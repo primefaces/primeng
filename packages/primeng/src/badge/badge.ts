@@ -4,6 +4,7 @@ import { addClass, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/uti
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeStyle } from './style/badgestyle';
+import { BadgePassThrough } from 'primeng/types/badge';
 
 /**
  * Badge Directive is directive usage of badge component.
@@ -252,7 +253,7 @@ export class BadgeDirective extends BaseComponent {
         '[style.display]': 'badgeDisabled() ? "none" : null'
     }
 })
-export class Badge extends BaseComponent {
+export class Badge extends BaseComponent<BadgePassThrough> {
     /**
      * Class of the element.
      * @deprecated since v20.0.0, use `class` instead.
