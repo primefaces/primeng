@@ -4,6 +4,7 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ToolbarStyle } from './style/toolbarstyle';
+import { ToolbarPassThrough } from 'primeng/types/toolbar';
 
 const TOOLBAR_INSTANCE = new InjectionToken<Toolbar>('TOOLBAR_INSTANCE');
 
@@ -37,7 +38,7 @@ const TOOLBAR_INSTANCE = new InjectionToken<Toolbar>('TOOLBAR_INSTANCE');
     },
     hostDirectives: [Bind]
 })
-export class Toolbar extends BaseComponent implements BlockableUI {
+export class Toolbar extends BaseComponent<ToolbarPassThrough> implements BlockableUI {
     $pcToolbar: Toolbar | undefined = inject(TOOLBAR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

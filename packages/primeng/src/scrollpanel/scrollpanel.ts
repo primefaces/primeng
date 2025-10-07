@@ -6,6 +6,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
+import { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
 
 const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTANCE');
 
@@ -64,7 +65,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
     },
     hostDirectives: [Bind]
 })
-export class ScrollPanel extends BaseComponent {
+export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
     $pcScrollPanel: ScrollPanel | undefined = inject(SCROLLPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

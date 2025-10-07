@@ -4,6 +4,7 @@ import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { DividerStyle } from './style/dividerstyle';
+import { DividerPassThrough } from 'primeng/types/divider';
 
 const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
 
@@ -31,7 +32,7 @@ const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
     providers: [DividerStyle, { provide: DIVIDER_INSTANCE, useExisting: Divider }, { provide: PARENT_INSTANCE, useExisting: Divider }],
     hostDirectives: [Bind]
 })
-export class Divider extends BaseComponent {
+export class Divider extends BaseComponent<DividerPassThrough> {
     $pcDivider: Divider | undefined = inject(DIVIDER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

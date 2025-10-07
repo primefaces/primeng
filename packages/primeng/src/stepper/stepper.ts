@@ -35,6 +35,7 @@ import { StepPanelsStyle } from './style/steppanelsstyle';
 import { StepPanelStyle } from './style/steppanelstyle';
 import { StepperStyle } from './style/stepperstyle';
 import { StepStyle } from './style/stepstyle';
+import { StepperPassThrough, StepListPassThrough, StepperSeparatorPassThrough, StepItemPassThrough, StepPassThrough, StepPanelPassThrough, StepPanelsPassThrough } from 'primeng/types/stepper';
 
 const STEPPER_INSTANCE = new InjectionToken<Stepper>('STEPPER_INSTANCE');
 const STEPLIST_INSTANCE = new InjectionToken<StepList>('STEPLIST_INSTANCE');
@@ -83,7 +84,7 @@ export interface StepPanelContentTemplateContext {
     providers: [StepListStyle, { provide: STEPLIST_INSTANCE, useExisting: StepList }, { provide: PARENT_INSTANCE, useExisting: StepList }],
     hostDirectives: [Bind]
 })
-export class StepList extends BaseComponent {
+export class StepList extends BaseComponent<StepListPassThrough> {
     $pcStepList: StepList | undefined = inject(STEPLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -110,7 +111,7 @@ export class StepList extends BaseComponent {
     providers: [StepperStyle, { provide: STEPPERSEPARATOR_INSTANCE, useExisting: StepperSeparator }, { provide: PARENT_INSTANCE, useExisting: StepperSeparator }],
     hostDirectives: [Bind]
 })
-export class StepperSeparator extends BaseComponent {
+export class StepperSeparator extends BaseComponent<StepperSeparatorPassThrough> {
     $pcStepperSeparator: StepperSeparator | undefined = inject(STEPPERSEPARATOR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -140,7 +141,7 @@ export class StepperSeparator extends BaseComponent {
     providers: [StepItemStyle, { provide: STEPITEM_INSTANCE, useExisting: StepItem }, { provide: PARENT_INSTANCE, useExisting: StepItem }],
     hostDirectives: [Bind]
 })
-export class StepItem extends BaseComponent {
+export class StepItem extends BaseComponent<StepItemPassThrough> {
     $pcStepItem: StepItem | undefined = inject(STEPITEM_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -226,7 +227,7 @@ export class StepItem extends BaseComponent {
     providers: [StepStyle, { provide: STEP_INSTANCE, useExisting: Step }, { provide: PARENT_INSTANCE, useExisting: Step }],
     hostDirectives: [Bind]
 })
-export class Step extends BaseComponent {
+export class Step extends BaseComponent<StepPassThrough> {
     $pcStep: Step | undefined = inject(STEP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -354,7 +355,7 @@ export class Step extends BaseComponent {
     providers: [StepPanelStyle, { provide: STEPPANEL_INSTANCE, useExisting: StepPanel }, { provide: PARENT_INSTANCE, useExisting: StepPanel }],
     hostDirectives: [Bind]
 })
-export class StepPanel extends BaseComponent {
+export class StepPanel extends BaseComponent<StepPanelPassThrough> {
     $pcStepPanel: StepPanel | undefined = inject(STEPPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -449,7 +450,7 @@ export class StepPanel extends BaseComponent {
     providers: [StepPanelsStyle, { provide: STEPPANELS_INSTANCE, useExisting: StepPanels }, { provide: PARENT_INSTANCE, useExisting: StepPanels }],
     hostDirectives: [Bind]
 })
-export class StepPanels extends BaseComponent {
+export class StepPanels extends BaseComponent<StepPanelsPassThrough> {
     $pcStepPanels: StepPanels | undefined = inject(STEPPANELS_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -479,7 +480,7 @@ export class StepPanels extends BaseComponent {
     },
     hostDirectives: [Bind]
 })
-export class Stepper extends BaseComponent {
+export class Stepper extends BaseComponent<StepperPassThrough> {
     $pcStepper: Stepper | undefined = inject(STEPPER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

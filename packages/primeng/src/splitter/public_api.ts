@@ -1,3 +1,3 @@
+export * from 'primeng/types/splitter';
 export * from './splitter';
-export * from './splitter.types';
 export * from './style/splitterstyle';

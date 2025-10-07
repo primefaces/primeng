@@ -5,6 +5,7 @@ import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primen
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { CardStyle } from './style/cardstyle';
+import { CardPassThrough } from 'primeng/types/card';
 
 const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
 
@@ -49,7 +50,7 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
     },
     hostDirectives: [Bind]
 })
-export class Card extends BaseComponent implements BlockableUI {
+export class Card extends BaseComponent<CardPassThrough> implements BlockableUI {
     $pcCard: Card | undefined = inject(CARD_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

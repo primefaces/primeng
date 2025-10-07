@@ -4,6 +4,13 @@ import { FieldsetPassThrough } from 'primeng/fieldset';
 import { BadgePassThrough } from 'primeng/types/badge';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { PanelPassThrough } from 'primeng/types/panel';
+import type { AccordionPassThrough } from 'primeng/types/accordion';
+import type { CardPassThrough } from 'primeng/types/card';
+import type { DividerPassThrough } from 'primeng/types/divider';
+import type { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
+import type { SplitterPassThrough } from 'primeng/types/splitter';
+import type { StepperPassThrough } from 'primeng/types/stepper';
+import type { ToolbarPassThrough } from 'primeng/types/toolbar';
 
 /** ZIndex configuration */
 export type ZIndex = {
@@ -24,6 +31,13 @@ export type ThemeConfigType = {
 };
 
 export interface GlobalPassThrough {
+    accordion?: AccordionPassThrough;
+    card?: CardPassThrough;
+    divider?: DividerPassThrough;
+    scrollPanel?: ScrollPanelPassThrough;
+    splitter?: SplitterPassThrough;
+    stepper?: StepperPassThrough;
+    toolbar?: ToolbarPassThrough;
     panel?: PanelPassThrough;
     button?: ButtonPassThrough;
     badge?: BadgePassThrough;

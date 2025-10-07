@@ -28,6 +28,7 @@ import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { transformToBoolean } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';
+import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from 'primeng/types/accordion';
 
 /**
  * Custom tab open event.
@@ -87,7 +88,7 @@ const ACCORDION_INSTANCE = new InjectionToken<Accordion>('ACCORDION_INSTANCE');
     hostDirectives: [Bind],
     providers: [AccordionStyle, { provide: ACCORDION_PANEL_INSTANCE, useExisting: AccordionPanel }, { provide: PARENT_INSTANCE, useExisting: AccordionPanel }]
 })
-export class AccordionPanel extends BaseComponent {
+export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
     $pcAccordionPanel: AccordionPanel | undefined = inject(ACCORDION_PANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -161,7 +162,7 @@ export class AccordionPanel extends BaseComponent {
     hostDirectives: [Ripple, Bind],
     providers: [AccordionStyle, { provide: ACCORDION_HEADER_INSTANCE, useExisting: AccordionHeader }, { provide: PARENT_INSTANCE, useExisting: AccordionHeader }]
 })
-export class AccordionHeader extends BaseComponent {
+export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     $pcAccordionHeader: AccordionHeader | undefined = inject(ACCORDION_HEADER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -363,7 +364,7 @@ export class AccordionHeader extends BaseComponent {
     ],
     providers: [AccordionStyle, { provide: ACCORDION_CONTENT_INSTANCE, useExisting: AccordionContent }, { provide: PARENT_INSTANCE, useExisting: AccordionContent }]
 })
-export class AccordionContent extends BaseComponent {
+export class AccordionContent extends BaseComponent<AccordionContentPassThrough> {
     $pcAccordionContent: AccordionContent | undefined = inject(ACCORDION_CONTENT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -403,7 +404,7 @@ export class AccordionContent extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [AccordionStyle, { provide: ACCORDION_INSTANCE, useExisting: Accordion }, { provide: PARENT_INSTANCE, useExisting: Accordion }]
 })
-export class Accordion extends BaseComponent implements BlockableUI {
+export class Accordion extends BaseComponent<AccordionPassThrough> implements BlockableUI {
     $pcAccordion: Accordion | undefined = inject(ACCORDION_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

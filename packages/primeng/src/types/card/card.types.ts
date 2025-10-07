@@ -1,47 +1,51 @@
 import { TemplateRef } from '@angular/core';
-import { PassThrough, PassThroughOption } from 'primeng/api';
-import { Card } from './card';
-/**
- * Defines passthrough(pt) options type in component.
- */
-export declare type CardPassThroughOption<E> = PassThroughOption<E, Card>;
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
- * Custom passthrough(pt) options.
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
  * @see {@link CardProps.pt}
+ * @group Interface
  */
-export interface CardPassThroughOptions {
+export interface CardPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the root's DOM element.
      */
-    root?: CardPassThroughOption<HTMLElement>;
+    root?: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the header's DOM element.
      */
-    header?: CardPassThroughOption<HTMLDivElement>;
+    header?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the body's DOM element.
      */
-    body?: CardPassThroughOption<HTMLDivElement>;
+    body?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the subtitle's DOM element.
      */
-    subtitle?: CardPassThroughOption<HTMLDivElement>;
+    subtitle?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the title's DOM element.
      */
-    title?: CardPassThroughOption<HTMLDivElement>;
+    title?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the content's DOM element.
      */
-    content?: CardPassThroughOption<HTMLDivElement>;
+    content?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the footer's DOM element.
      */
-    footer?: CardPassThroughOption<HTMLDivElement>;
+    footer?: PassThroughOption<HTMLDivElement, I>;
 }
 
-export type CardPassThrough = PassThrough<Card, CardPassThroughOptions>;
+/**
+ * Defines valid pass-through options in Card component.
+ * @see {@link CardPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type CardPassThrough<I = unknown> = PassThrough<I, CardPassThroughOptions<I>>;
 
 /**
  * Defines valid templates in Card.

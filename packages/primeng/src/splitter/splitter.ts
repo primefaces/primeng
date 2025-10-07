@@ -5,8 +5,9 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.types';
+import type { SplitterResizeEndEvent, SplitterResizeStartEvent } from 'primeng/types/splitter';
 import { SplitterStyle } from './style/splitterstyle';
+import { SplitterPassThrough } from 'primeng/types/splitter';
 
 const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
 
@@ -57,7 +58,7 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
     providers: [SplitterStyle, { provide: SPLITTER_INSTANCE, useExisting: Splitter }, { provide: PARENT_INSTANCE, useExisting: Splitter }],
     hostDirectives: [Bind]
 })
-export class Splitter extends BaseComponent {
+export class Splitter extends BaseComponent<SplitterPassThrough> {
     $pcSplitter: Splitter | undefined = inject(SPLITTER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
