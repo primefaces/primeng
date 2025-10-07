@@ -127,64 +127,6 @@
                 }
             }
         },
-        "interfaces": {
-            "description": "Defines the custom interfaces used by the module.",
-            "values": [
-                {
-                    "name": "AccordionTabOpenEvent",
-                    "description": "Custom tab open event.",
-                    "props": [
-                        {
-                            "name": "originalEvent",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Event",
-                            "description": "Browser event."
-                        },
-                        {
-                            "name": "index",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Opened tab index."
-                        }
-                    ]
-                },
-                {
-                    "name": "AccordionTabCloseEvent",
-                    "description": "Custom tab close event.",
-                    "props": [
-                        {
-                            "name": "originalEvent",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Event",
-                            "description": "Browser event."
-                        },
-                        {
-                            "name": "index",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Opened tab index."
-                        }
-                    ]
-                },
-                {
-                    "name": "AccordionToggleIconTemplateContext",
-                    "description": "Toggle icon template context.",
-                    "props": [
-                        {
-                            "name": "active",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "Represents the active status of the panel."
-                        }
-                    ]
-                }
-            ]
-        },
         "style": {
             "components": {},
             "classes": {
@@ -284,6 +226,59 @@
                                 "readonly": false,
                                 "type": "PassThroughOption<HTMLDivElement, I>",
                                 "description": "Used to pass attributes to the content's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "AccordionTabOpenEvent",
+                        "description": "Custom tab open event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Opened tab index."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "AccordionTabCloseEvent",
+                        "description": "Custom tab close event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Opened tab index."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "AccordionToggleIconTemplateContext",
+                        "description": "Toggle icon template context.",
+                        "props": [
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Represents the active status of the panel."
                             }
                         ]
                     }
@@ -27261,6 +27256,9 @@
     },
     "stepper": {
         "components": {
+            "StepperSeparator": {
+                "description": "StepperSeparator is a helper component for Stepper component used in vertical orientation."
+            },
             "StepItem": {
                 "description": "StepItem is a helper component for Stepper component used in vertical orientation.",
                 "props": {
@@ -27377,65 +27375,6 @@
                     ]
                 }
             }
-        },
-        "interfaces": {
-            "description": "Defines the custom interfaces used by the module.",
-            "values": [
-                {
-                    "name": "StepContentTemplateContext",
-                    "description": "Context interface for the StepPanel content template.",
-                    "props": [
-                        {
-                            "name": "activateCallback",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "() => void",
-                            "description": "Callback function to activate a step."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "The value associated with the step."
-                        },
-                        {
-                            "name": "active",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "A flag indicating whether the step is active."
-                        }
-                    ]
-                },
-                {
-                    "name": "StepPanelContentTemplateContext",
-                    "description": "Context interface for the StepPanel content template.",
-                    "props": [
-                        {
-                            "name": "activateCallback",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "(index: number) => void",
-                            "description": "Callback function to activate a step."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "The value associated with the step."
-                        },
-                        {
-                            "name": "active",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "A flag indicating whether the step is active."
-                        }
-                    ]
-                }
-            ]
         },
         "style": {
             "components": {},
@@ -27573,6 +27512,60 @@
                                 "readonly": false,
                                 "type": "PassThroughOption<HTMLElement, I>",
                                 "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "StepContentTemplateContext",
+                        "description": "Context interface for the StepPanel content template.",
+                        "props": [
+                            {
+                                "name": "activateCallback",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "() => void",
+                                "description": "Callback function to activate a step."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "The value associated with the step."
+                            },
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "A flag indicating whether the step is active."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "StepPanelContentTemplateContext",
+                        "description": "Context interface for the StepPanel content template.",
+                        "props": [
+                            {
+                                "name": "activateCallback",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "(index: number) => void",
+                                "description": "Callback function to activate a step."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "The value associated with the step."
+                            },
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "A flag indicating whether the step is active."
                             }
                         ]
                     }

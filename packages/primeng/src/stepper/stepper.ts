@@ -28,6 +28,7 @@ import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
+import { StepItemPassThrough, StepListPassThrough, StepPanelPassThrough, StepPanelsPassThrough, StepPassThrough, StepperPassThrough, StepperSeparatorPassThrough } from 'primeng/types/stepper';
 import { transformToBoolean } from 'primeng/utils';
 import { StepItemStyle } from './style/stepitemstyle';
 import { StepListStyle } from './style/stepliststyle';
@@ -35,7 +36,6 @@ import { StepPanelsStyle } from './style/steppanelsstyle';
 import { StepPanelStyle } from './style/steppanelstyle';
 import { StepperStyle } from './style/stepperstyle';
 import { StepStyle } from './style/stepstyle';
-import { StepperPassThrough, StepListPassThrough, StepperSeparatorPassThrough, StepItemPassThrough, StepPassThrough, StepPanelPassThrough, StepPanelsPassThrough } from 'primeng/types/stepper';
 
 const STEPPER_INSTANCE = new InjectionToken<Stepper>('STEPPER_INSTANCE');
 const STEPLIST_INSTANCE = new InjectionToken<StepList>('STEPLIST_INSTANCE');
@@ -97,7 +97,10 @@ export class StepList extends BaseComponent<StepListPassThrough> {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
-
+/**
+ * StepperSeparator is a helper component for Stepper component used in vertical orientation.
+ * @group Components
+ */
 @Component({
     selector: 'p-stepper-separator',
     standalone: true,
