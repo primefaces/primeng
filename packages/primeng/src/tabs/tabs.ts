@@ -8,6 +8,7 @@ import { Tab } from './tab';
 import { TabList } from './tablist';
 import { TabPanel } from './tabpanel';
 import { TabPanels } from './tabpanels';
+import { TabsPassThrough } from 'primeng/types/tabs';
 
 const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
 
@@ -29,7 +30,7 @@ const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
     },
     hostDirectives: [Bind]
 })
-export class Tabs extends BaseComponent {
+export class Tabs extends BaseComponent<TabsPassThrough> {
     $pcTabs: Tabs | undefined = inject(TABS_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

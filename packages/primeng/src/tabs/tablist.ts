@@ -8,6 +8,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
 import { RippleModule } from 'primeng/ripple';
 import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';
+import { TabListPassThrough } from 'primeng/types/tabs';
 
 const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
 
@@ -73,7 +74,7 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
     providers: [TabListStyle, { provide: TABLIST_INSTANCE, useExisting: TabList }, { provide: PARENT_INSTANCE, useExisting: TabList }],
     hostDirectives: [Bind]
 })
-export class TabList extends BaseComponent {
+export class TabList extends BaseComponent<TabListPassThrough> {
     $pcTabList: TabList | undefined = inject(TABLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, InjectionToken, ViewEncapsu
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { TabPanelsStyle } from './style/tabpanelsstyle';
+import { TabPanelsPassThrough } from 'primeng/types/tabs';
 
 const TABPANELS_INSTANCE = new InjectionToken<TabPanels>('TABPANELS_INSTANCE');
 
@@ -24,7 +25,7 @@ const TABPANELS_INSTANCE = new InjectionToken<TabPanels>('TABPANELS_INSTANCE');
     providers: [TabPanelsStyle, { provide: TABPANELS_INSTANCE, useExisting: TabPanels }, { provide: PARENT_INSTANCE, useExisting: TabPanels }],
     hostDirectives: [Bind]
 })
-export class TabPanels extends BaseComponent {
+export class TabPanels extends BaseComponent<TabPanelsPassThrough> {
     $pcTabPanels: TabPanels | undefined = inject(TABPANELS_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

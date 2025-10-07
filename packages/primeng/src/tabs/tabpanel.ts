@@ -5,6 +5,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { TabPanelStyle } from './style/tabpanelstyle';
 import { Tabs } from './tabs';
+import { TabPanelPassThrough } from 'primeng/types/tabs';
 
 const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
 
@@ -38,7 +39,7 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
     },
     hostDirectives: [Bind]
 })
-export class TabPanel extends BaseComponent {
+export class TabPanel extends BaseComponent<TabPanelPassThrough> {
     $pcTabPanel: TabPanel | undefined = inject(TABPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

@@ -8,6 +8,7 @@ import { Ripple } from 'primeng/ripple';
 import { TabStyle } from './style/tabstyle';
 import { TabList } from './tablist';
 import { Tabs } from './tabs';
+import { TabPassThrough } from 'primeng/types/tabs';
 
 const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
 
@@ -36,7 +37,7 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
     hostDirectives: [Ripple, Bind],
     providers: [TabStyle, { provide: TAB_INSTANCE, useExisting: Tab }, { provide: PARENT_INSTANCE, useExisting: Tab }]
 })
-export class Tab extends BaseComponent {
+export class Tab extends BaseComponent<TabPassThrough> {
     $pcTab: Tab | undefined = inject(TAB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
