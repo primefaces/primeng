@@ -1,5 +1,7 @@
 import type { ElementRef, TemplateRef } from '@angular/core';
 import type { OverlayOptions, PassThroughOptions, Translation } from 'primeng/api';
+import { FieldsetPassThrough } from 'primeng/fieldset';
+import { BadgePassThrough } from 'primeng/types/badge';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { PanelPassThrough } from 'primeng/types/panel';
 
@@ -24,6 +26,8 @@ export type ThemeConfigType = {
 export interface GlobalPassThrough {
     panel?: PanelPassThrough;
     button?: ButtonPassThrough;
+    badge?: BadgePassThrough;
+    fieldset?: FieldsetPassThrough;
     global?: {
         css?: string;
     };

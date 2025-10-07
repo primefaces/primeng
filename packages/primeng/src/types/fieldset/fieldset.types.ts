@@ -22,7 +22,7 @@ export interface FieldsetPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the toggle icon's DOM element.
      */
-    toggleIcon?: PassThroughOption<SVGElement, I>;
+    toggleIcon?: PassThroughOption<SVGElement | HTMLSpanElement, I>;
     /**
      * Used to pass attributes to the legend label's DOM element.
      */
