@@ -1,8 +1,10 @@
 import APIDoc from '@/doc/apidoc/index.json';
 import { CommonModule } from '@angular/common';
 import { Component, computed, ElementRef, inject, input, InputSignal, viewChild } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { addClass, find, removeClass } from '@primeuix/utils/dom';
 import { PrimeNG } from 'primeng/config';
+import { AppDocSectionText } from './app.docsectiontext';
 
 interface DocItem {
     label: string;
@@ -45,8 +47,14 @@ export const getPTOptions = (name) => {
 @Component({
     selector: 'app-docptviewer',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, AppDocSectionText, RouterModule],
     template: `
+        <app-docsectiontext>
+            <p>
+                Some sections may not be visible due to the availability of the particular feature. Section names that start with the <i>pc</i> prefix indicate that the element is a PrimeNG component not a DOM element. Visit the
+                <a routerLink="/passthrough/#pcprefix">pass-through</a> documentation for more information.
+            </p>
+        </app-docsectiontext>
         <div #container class="doc-ptviewerwrapper card">
             <div id="doc-ptviewer" class="doc-ptviewer">
                 <ng-content />
