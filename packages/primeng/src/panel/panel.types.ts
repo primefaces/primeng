@@ -3,11 +3,13 @@ import type { Panel } from './panel';
 
 /**
  * Defines passthrough(pt) options type in component.
+ * @group Types
  */
 export declare type PanelPassThroughOption<E> = PassThroughOption<E, Panel>;
 
 /**
  * Custom passthrough(pt) options.
+ * @group Interface
  * @see {@link Panel.pt}
  */
 export interface PanelPassThroughOptions {
@@ -47,6 +49,21 @@ export interface PanelPassThroughOptions {
 }
 
 export type PanelPassThrough = PassThrough<Panel, PanelPassThroughOptions>;
+/**
+ * Custom passthrough(pt) options.
+ * @group Interface
+ * @see {@link Panel.pt}
+ */
+export interface PanelPassThroughMethodOptions {
+    /**
+     * Defines instance.
+     */
+    instance: any;
+    /**
+     * Defines parent options.
+     */
+    parent: any;
+}
 
 /**
  * Custom panel toggle event, emits before panel toggle.

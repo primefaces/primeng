@@ -1,17 +1,18 @@
 import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppDocService } from './app.doc.service';
-import { AppDocFeaturesSection } from './app.docfeaturessection';
 import { AppDocApiSection } from './app.docapisection';
+import { AppDocFeaturesSection } from './app.docfeaturessection';
+import { AppDocPtSection } from './app.docptsection';
 import { AppDocThemingSection } from './app.docthemingsection';
 
 @Component({
     selector: 'app-doc',
     standalone: true,
-    imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection],
+    imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection, AppDocPtSection],
     providers: [AppDocService],
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu">
@@ -28,6 +29,11 @@ import { AppDocThemingSection } from './app.docthemingsection';
                     <button type="button" (click)="activateTab(2)">THEMING</button>
                 </li>
             }
+            @if (ptDocs()) {
+                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 3 }">
+                    <button type="button" (click)="activateTab(3)">PASSTHROUGH</button>
+                </li>
+            }
         </ul>
         <div class="doc-tabpanels">
             @if (docs) {
@@ -39,6 +45,9 @@ import { AppDocThemingSection } from './app.docthemingsection';
 
             @if (themeDocs) {
                 <app-docthemingsection [header]="header" [docs]="themeDocs" [componentName]="themeDocs" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+            }
+            @if (ptDocs()) {
+                <app-docptsection [ptComponent]="ptDocs()" [componentName]="themeDocs" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 3 ? 'flex' : 'none' }" />
             }
         </div>
     </div>`,
@@ -57,6 +66,8 @@ export class AppDoc implements OnInit, OnChanges {
     @Input() apiDocs!: string[];
 
     @Input() themeDocs: string;
+
+    ptDocs = input<any>();
 
     docService = inject(AppDocService);
 

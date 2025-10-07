@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const rootDir = path.resolve(__dirname, '../../../packages/primeng');
 const outputPath = path.resolve(__dirname, '../../../apps/showcase/doc/apidoc/');
 
 const staticMessages = {
@@ -522,7 +521,7 @@ async function main() {
         let mergedDocs = {};
 
         for (const key in doc) {
-            const parentKey = key.includes('style') ? key.replace(/style/g, '') : key.includes('.interface') ? key.split('.')[0] : key;
+            const parentKey = key.includes('style') ? key.replace(/style/g, '') : key.includes('.interface') || key.includes('.types') ? key.split('.')[0] : key;
 
             if (!mergedDocs[parentKey]) {
                 mergedDocs[parentKey] = {
@@ -539,12 +538,11 @@ async function main() {
                     }
                 };
             }
-
-            if (key.includes('.interface')) {
+            if (key.includes('.interface') || key.includes('.types')) {
                 const interfaceDoc = doc[key];
                 mergedDocs[parentKey] = {
                     ...mergedDocs[parentKey],
-                    interfaces: {
+                    [key.includes('.interface') ? 'interfaces' : 'types']: {
                         ...interfaceDoc
                     }
                 };
