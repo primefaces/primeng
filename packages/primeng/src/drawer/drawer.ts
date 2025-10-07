@@ -35,7 +35,6 @@ const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 
-const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 /**
  * Sidebar is a panel component displayed as an overlay at the edges of the screen.
  * @group Components
@@ -191,18 +190,19 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         }
         switch (value) {
             case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
+                this.defaultTransformOptions  = 'translate3d(-100%, 0px, 0px)';
                 break;
             case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
+                this.defaultTransformOptions  = 'translate3d(100%, 0px, 0px)';
                 break;
             case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
+                this.defaultTransformOptions  = 'translate3d(0px, 100%, 0px)';
                 break;
             case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
+                this.defaultTransformOptions  = 'translate3d(0px, -100%, 0px)';
                 break;
         }
+        this.transformOptions = this.defaultTransformOptions;
     }
     /**
      * Adds a close icon to the header to hide the dialog.
@@ -216,7 +216,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         if (value === true) {
             this.transformOptions = 'none';
         } else {
-            this.transformOptions = defaultTransformOptions;
+            this.transformOptions = this.defaultTransformOptions;
         }
     }
     /**
@@ -266,7 +266,9 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     container: Nullable<HTMLDivElement>;
 
-    transformOptions: any = defaultTransformOptions;
+    defaultTransformOptions: any = 'translate3d(-100%, 0px, 0px)';
+
+    transformOptions: any = this.defaultTransformOptions;
 
     mask: Nullable<HTMLDivElement>;
 
