@@ -415,7 +415,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
                     ...(isExtended && { [`${datasetPrefix}extend`]: toFlatCase(this.$name) }),
                     [`${this.$attrSelector}`]: '' // @todo - use `data-pc-id: this.$attrSelector` instead.
                 }),
-                [`${datasetPrefix}section`]: toFlatCase(key)
+                [`${datasetPrefix}section`]: toFlatCase(key.includes('.') ? (key.split('.').at(-1) ?? '') : key)
             }
         );
     }

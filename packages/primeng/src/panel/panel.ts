@@ -66,11 +66,11 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                     <ng-template #icon>
                         <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
                             <ng-container *ngIf="!collapsed">
-                                <svg data-p-icon="minus" [pBind]="ptm('pcToggleButton')['icon']" />
+                                <svg data-p-icon="minus" [pBind]="ptm('pcToggleButton.icon')" />
                             </ng-container>
 
                             <ng-container *ngIf="collapsed">
-                                <svg data-p-icon="plus" [pBind]="ptm('pcToggleButton')['icon']" />
+                                <svg data-p-icon="plus" [pBind]="ptm('pcToggleButton.icon')" />
                             </ng-container>
                         </ng-container>
 
