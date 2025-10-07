@@ -2,6 +2,26 @@ import { HttpEvent } from '@angular/common/http';
 import { FileUpload } from './fileupload';
 import { TemplateRef } from '@angular/core';
 
+/** FileValidationEvent
+ * @group Events
+ */
+export interface FileValidationEvent {
+    /**
+     * File that caused the event to be thrown.
+     */
+    file: File;
+
+    /**
+     * Summary of the validation results.
+     */
+    messageSummary: string;
+
+    /**
+     * Details for the validation results.
+     */
+    messageDetail: string;
+}
+
 /**
  * Upload event.
  * @group Events

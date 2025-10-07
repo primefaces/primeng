@@ -36,7 +36,7 @@ import { Message } from 'primeng/message';
 import { ProgressBar } from 'primeng/progressbar';
 import { VoidListener } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
-import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent, RemoveUploadedFileEvent } from './fileupload.interface';
+import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent, FileValidationEvent, RemoveUploadedFileEvent } from './fileupload.interface';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
 @Component({
@@ -568,6 +568,12 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      * @group Emits
      */
     @Output() onRemoveUploadedFile: EventEmitter<RemoveUploadedFileEvent> = new EventEmitter<RemoveUploadedFileEvent>();
+    /**
+     * This event is triggered if the file-validation fails.
+     * @param {FileValidationEvent} event - Validation event
+     * @group Emits
+     */
+    @Output() onFileValidationMessage: EventEmitter<FileValidationEvent> = new EventEmitter<FileValidationEvent>();
 
     /**
      * Template for file.
@@ -859,19 +865,31 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
     validate(file: File): boolean {
         this.msgs = this.msgs || [];
         if (this.accept && !this.isFileTypeValid(file)) {
-            const text = `${this.invalidFileTypeMessageSummary.replace('{0}', file.name)} ${this.invalidFileTypeMessageDetail.replace('{0}', this.accept)}`;
+            const summary = this.invalidFileTypeMessageSummary.replace('{0}', file.name);
+            const detail = this.invalidFileTypeMessageDetail.replace('{0}', this.accept);
             this.msgs.push({
                 severity: 'error',
-                text: text
+                text: `${summary} ${detail}`
+            });
+            this.onFileValidationMessage.emit({
+                messageSummary: summary,
+                messageDetail: detail,
+                file
             });
             return false;
         }
 
         if (this.maxFileSize && file.size > this.maxFileSize) {
-            const text = `${this.invalidFileSizeMessageSummary.replace('{0}', file.name)} ${this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))}`;
+            const summary = this.invalidFileSizeMessageSummary.replace('{0}', file.name);
+            const detail = this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize));
             this.msgs.push({
                 severity: 'error',
-                text: text
+                text: `${summary} ${detail}`
+            });
+            this.onFileValidationMessage.emit({
+                messageSummary: summary,
+                messageDetail: detail,
+                file
             });
             return false;
         }
