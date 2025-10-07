@@ -24,7 +24,11 @@ export const getPTOptions = (name) => {
         stepitem: 'stepper',
         steppanel: 'stepper',
         steppanels: 'stepper',
-        stepperseparator: 'stepper'
+        stepperseparator: 'stepper',
+        tablist: 'tabs',
+        tab: 'tabs',
+        tabpanel: 'tabs',
+        tabpanels: 'tabs'
     };
 
     const lookupName = componentMapping[name.toLowerCase()] || name.toLowerCase();
