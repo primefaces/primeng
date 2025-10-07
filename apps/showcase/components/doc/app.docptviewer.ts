@@ -28,7 +28,10 @@ export const getPTOptions = (name) => {
         tablist: 'tabs',
         tab: 'tabs',
         tabpanel: 'tabs',
-        tabpanels: 'tabs'
+        tabpanels: 'tabs',
+        accordionpanel: 'accordion',
+        accordionheader: 'accordion',
+        accordioncontent: 'accordion'
     };
 
     const lookupName = componentMapping[name.toLowerCase()] || name.toLowerCase();
