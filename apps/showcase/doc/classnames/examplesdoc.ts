@@ -160,7 +160,7 @@ export class ClassNamesDemo {
 
     active2 = signal<boolean>(false);
 
-    comboClasses = computed(() => [
+    nestedClasses = computed(() => [
         'p-4',
         'rounded-lg',
         {
