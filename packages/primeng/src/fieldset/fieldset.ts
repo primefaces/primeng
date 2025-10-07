@@ -7,7 +7,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
-import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.types';
+import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from 'primeng/types/fieldset';
 import { FieldsetStyle } from './style/fieldsetstyle';
 
 const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
@@ -97,7 +97,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
     providers: [FieldsetStyle, { provide: FIELDSET_INSTANCE, useExisting: Fieldset }, { provide: PARENT_INSTANCE, useExisting: Fieldset }],
     hostDirectives: [Bind]
 })
-export class Fieldset extends BaseComponent implements BlockableUI {
+export class Fieldset extends BaseComponent<FieldsetPassThrough> implements BlockableUI {
     $pcFieldset: Fieldset | undefined = inject(FIELDSET_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(FieldsetStyle);

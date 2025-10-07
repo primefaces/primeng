@@ -10,7 +10,7 @@ export interface BadgePassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the root's DOM element.
      */
-    root?: PassThroughOption<HTMLElement>;
+    root?: PassThroughOption<HTMLElement, I>;
 }
 
 /**

@@ -1,3 +1,3 @@
+export * from 'primeng/types/fieldset';
 export * from './fieldset';
-export * from './fieldset.types';
 export * from './style/fieldsetstyle';

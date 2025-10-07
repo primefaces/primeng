@@ -1,47 +1,49 @@
 import { TemplateRef } from '@angular/core';
 import { PassThrough, PassThroughOption } from 'primeng/api';
-import { Fieldset } from './fieldset';
-/**
- * Defines passthrough(pt) options type in component.
- */
-export declare type FieldsetPassThroughOption<E> = PassThroughOption<E, Fieldset>;
 
 /**
  * Custom passthrough(pt) options.
  * @see {@link FieldsetProps.pt}
+ * @group Interface
  */
-export interface FieldsetPassThroughOptions {
+export interface FieldsetPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the root's DOM element.
      */
-    root?: FieldsetPassThroughOption<HTMLFieldSetElement>;
+    root?: PassThroughOption<HTMLFieldSetElement, I>;
     /**
      * Used to pass attributes to the legend's DOM element.
      */
-    legend?: FieldsetPassThroughOption<HTMLLegendElement>;
+    legend?: PassThroughOption<HTMLLegendElement, I>;
     /**
      * Used to pass attributes to the toggle button's DOM element.
      */
-    toggleButton?: FieldsetPassThroughOption<HTMLButtonElement>;
+    toggleButton?: PassThroughOption<HTMLButtonElement, I>;
     /**
      * Used to pass attributes to the toggle icon's DOM element.
      */
-    toggleIcon?: FieldsetPassThroughOption<SVGElement>;
+    toggleIcon?: PassThroughOption<SVGElement, I>;
     /**
      * Used to pass attributes to the legend label's DOM element.
      */
-    legendLabel?: FieldsetPassThroughOption<HTMLSpanElement>;
+    legendLabel?: PassThroughOption<HTMLSpanElement, I>;
     /**
      * Used to pass attributes to the content container's DOM element.
      */
-    contentContainer?: FieldsetPassThroughOption<HTMLDivElement>;
+    contentContainer?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the content's DOM element.
      */
-    content?: FieldsetPassThroughOption<HTMLDivElement>;
+    content?: PassThroughOption<HTMLDivElement, I>;
 }
 
-export type FieldsetPassThrough = PassThrough<Fieldset, FieldsetPassThroughOptions>;
+/**
+ * Defines valid pass-through options in Fieldset component.
+ * @see {@link FieldsetPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type FieldsetPassThrough<I = unknown> = PassThrough<I, FieldsetPassThroughOptions<I>>;
 
 /**
  * Custom panel toggle event, emits after toggle.
