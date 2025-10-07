@@ -29,7 +29,7 @@ export class AppDocPtSection {
         },
         {
             id: 'pt.doc.options',
-            label: this.componentName() + ' PT Options'
+            label: this.componentName().charAt(0).toUpperCase() + this.componentName().slice(1) + ' PT Options'
         }
     ]);
 }
