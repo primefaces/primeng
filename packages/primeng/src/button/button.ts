@@ -29,7 +29,7 @@ import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import { ButtonProps, ButtonSeverity } from './button.types';
+import type { ButtonPassThrough, ButtonProps, ButtonSeverity } from 'primeng/types/button';
 import { ButtonStyle } from './style/buttonstyle';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
@@ -488,7 +488,7 @@ export class ButtonDirective extends BaseComponent {
     providers: [ButtonStyle, { provide: BUTTON_INSTANCE, useExisting: Button }, { provide: PARENT_INSTANCE, useExisting: Button }],
     hostDirectives: [Bind]
 })
-export class Button extends BaseComponent {
+export class Button extends BaseComponent<ButtonPassThrough> {
     $pcButton: Button | undefined = inject(BUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

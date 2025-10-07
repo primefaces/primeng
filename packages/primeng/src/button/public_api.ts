@@ -1,3 +1,4 @@
+// Backward compatibility
+export * from 'primeng/types/button';
 export * from './button';
-export * from './button.types';
 export * from './style/buttonstyle';

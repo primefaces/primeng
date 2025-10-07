@@ -21,7 +21,7 @@ export interface PassThroughOptions {
  * @template I Type of instance.
  * @template PI Type of parent instance.
  */
-export interface PassThroughMethodOptions<I, PI = any> {
+export interface PassThroughContext<I = unknown, PI = unknown> {
     /**
      * Defines instance.
      */
@@ -46,11 +46,11 @@ export interface CommonPassThrough {
 }
 
 type HTMLElementProps<T> = {
-    [K in keyof T as T[K] extends Function ? never : K]: T[K];
+    [K in keyof T as T[K] extends Function ? never : K]?: T[K];
 };
 
 type OnGlobalEventHandlers = {
-    [K in keyof GlobalEventHandlers as K extends `on${infer Rest}` ? `on${Rest}` : never]: GlobalEventHandlers[K];
+    [K in keyof GlobalEventHandlers as K extends `on${infer Rest}` ? `on${Rest}` : never]?: GlobalEventHandlers[K];
 };
 
 type PassThroughAttributes<E> = HTMLElementProps<E> &
@@ -58,8 +58,8 @@ type PassThroughAttributes<E> = HTMLElementProps<E> &
         [key: string]: any;
     };
 
-export declare type PassThroughOption<E = HTMLElement, I = any, PI = any> = PassThroughAttributes<E> | ((options: PassThroughMethodOptions<I, PI>) => PassThroughAttributes<E> | string) | string | null | undefined;
+export declare type PassThroughOption<E = HTMLElement, I = unknown, PI = unknown> = PassThroughAttributes<E> | ((options: PassThroughContext<I, PI>) => PassThroughAttributes<E> | string) | string | null | undefined;
 
 type AllPassThrough<O> = O & CommonPassThrough;
 
-export declare type PassThrough<I, O> = AllPassThrough<O> | ((options: PassThroughMethodOptions<I>) => AllPassThrough<O>) | null | undefined;
+export declare type PassThrough<I = unknown, O = unknown> = AllPassThrough<O> | ((context: PassThroughContext<I>) => AllPassThrough<O>) | null | undefined;

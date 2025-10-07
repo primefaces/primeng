@@ -1,5 +1,7 @@
 import type { ElementRef, TemplateRef } from '@angular/core';
 import type { OverlayOptions, PassThroughOptions, Translation } from 'primeng/api';
+import type { ButtonPassThrough } from 'primeng/types/button';
+import type { PanelPassThrough } from 'primeng/types/panel';
 
 /** ZIndex configuration */
 export type ZIndex = {
@@ -20,7 +22,8 @@ export type ThemeConfigType = {
 };
 
 export interface GlobalPassThrough {
-    panel?: any;
+    panel?: PanelPassThrough;
+    button?: ButtonPassThrough;
     global?: {
         css?: string;
     };

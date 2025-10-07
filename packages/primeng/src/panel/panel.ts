@@ -26,7 +26,7 @@ import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
-import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from './panel.types';
+import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from 'primeng/types/panel';
 import { PanelStyle } from './style/panelstyle';
 
 const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
@@ -60,7 +60,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                     [attr.aria-expanded]="!collapsed"
                     (click)="onIconClick($event)"
                     (keydown)="onKeyDown($event)"
-                    [buttonProps]="getToggleButtonProps()"
+                    [buttonProps]="toggleButtonProps"
                     [pt]="ptm('pcToggleButton')"
                 >
                     <ng-template #icon>
@@ -321,10 +321,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
 
     get buttonAriaLabel() {
         return this._header;
-    }
-
-    getToggleButtonProps() {
-        return { ...this.toggleButtonProps, ...this.ptm('toggleButton') };
     }
 
     onHeaderClick(event: MouseEvent) {

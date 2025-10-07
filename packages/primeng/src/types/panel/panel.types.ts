@@ -1,69 +1,60 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Panel } from './panel';
+import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
- * Defines passthrough(pt) options type in component.
- * @group Types
- */
-export declare type PanelPassThroughOption<E> = PassThroughOption<E, Panel>;
-
-/**
- * Custom passthrough(pt) options.
- * @group Interface
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
  * @see {@link Panel.pt}
+ * @group Interface
  */
-export interface PanelPassThroughOptions {
+export interface PanelPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the root's DOM element.
      */
-    root?: PanelPassThroughOption<HTMLButtonElement>;
+    root?: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the header's DOM element.
      */
-    header?: PanelPassThroughOption<HTMLDivElement>;
+    header?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the title's DOM element.
      */
-    title?: PanelPassThroughOption<HTMLDivElement>;
+    title?: PassThroughOption<HTMLSpanElement, I>;
     /**
      * Used to pass attributes to the header actions' DOM element.
      */
-    headerActions?: PanelPassThroughOption<HTMLDivElement>;
+    headerActions?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the toggle button button's DOM element.
      * @see {@link ButtonPassThroughOptions}
      */
-    //pcToggleButton?: ButtonPassThroughOptions<PanelSharedPassThroughMethodOptions>;
+    pcToggleButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the content container's DOM element.
      */
-    contentContainer?: PanelPassThroughOption<HTMLDivElement>;
+    contentContainer?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the content's DOM element.
      */
-    content?: PanelPassThroughOption<HTMLDivElement>;
+    content?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the footer's DOM element.
      */
-    footer?: PanelPassThroughOption<HTMLDivElement>;
+    footer?: PassThroughOption<HTMLDivElement, I>;
 }
 
-export type PanelPassThrough = PassThrough<Panel, PanelPassThroughOptions>;
 /**
- * Custom passthrough(pt) options.
- * @group Interface
- * @see {@link Panel.pt}
+ * Defines valid pass-through options in Panel component.
+ * @see {@link PanelPassThroughOptions}
+ *
+ * @template I Type of instance.
  */
-export interface PanelPassThroughMethodOptions {
-    /**
-     * Defines instance.
-     */
-    instance: any;
-    /**
-     * Defines parent options.
-     */
-    parent: any;
-}
+export type PanelPassThrough<I = unknown> = PassThrough<I, PanelPassThroughOptions<I>>;
 
 /**
  * Custom panel toggle event, emits before panel toggle.

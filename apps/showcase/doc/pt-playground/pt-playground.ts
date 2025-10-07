@@ -1,8 +1,9 @@
 // TODO: this doc will be removed later
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
+import { PassThroughContext } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
@@ -37,10 +38,11 @@ export class PTPlayground {
     subPanelPT(params) {
         return {
             root: 'YO',
-            content: {},
-            header(options) {
-                //options.instance.
-            }
+            footer: {},
+            header: (context: PassThroughContext<Panel>) => {
+                //context.instance.
+            },
+            hooks: {}
         } as PanelPassThrough;
     }
 

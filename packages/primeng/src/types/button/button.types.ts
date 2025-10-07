@@ -1,45 +1,48 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { NgClass } from '@angular/common';
 import { TemplateRef } from '@angular/core';
-import { Button } from './button';
-import { BadgePassThroughOption } from '../badge/badge.types';
-/**
- * Defines passthrough(pt) options type in component.
- */
-export declare type ButtonPassThroughOption<E> = PassThroughOption<E, Button>;
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
- * Custom passthrough(pt) options.
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
  * @see {@link ButtonProps.pt}
+ * @group Interface
  */
-export interface ButtonPassThroughOptions<T = any> {
+export interface ButtonPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the host DOM element.
      */
-    host: ButtonPassThroughOption<HTMLElement>;
+    host: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the root's DOM element.
      */
-    root?: ButtonPassThroughOption<HTMLButtonElement>;
+    root?: PassThroughOption<HTMLButtonElement, I>;
     /**
      * Used to pass attributes to the loading icon's DOM element.
      */
-    loadingIcon?: ButtonPassThroughOption<HTMLSpanElement>;
+    loadingIcon?: PassThroughOption<HTMLSpanElement, I>;
     /**
      * Used to pass attributes to the icon's DOM element.
      */
-    icon?: ButtonPassThroughOption<HTMLSpanElement>;
+    icon?: PassThroughOption<HTMLSpanElement, I>;
     /**
      * Used to pass attributes to the label's DOM element.
      */
-    label?: ButtonPassThroughOption<HTMLSpanElement>;
+    label?: PassThroughOption<HTMLSpanElement, I>;
     /**
      * Used to pass attributes to the Badge component.
      */
-    pcBadge?: BadgePassThroughOption<T>;
+    //pcBadge?: BadgePassThroughOption<T>;
 }
 
-export type ButtonPassThrough = PassThrough<Button, ButtonPassThroughOptions>;
+/**
+ * Defines valid pass-through options in Button component.
+ * @see {@link ButtonPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type ButtonPassThrough<I = unknown> = PassThrough<I, ButtonPassThroughOptions<I>>;
 
 /**
  * Defines valid templates in Button.

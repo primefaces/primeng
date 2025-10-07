@@ -1,3 +1,4 @@
+// Backwards compatibility
+export * from 'primeng/types/panel';
 export * from './panel';
-export * from './panel.types';
 export * from './style/panelstyle';
