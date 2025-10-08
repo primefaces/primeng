@@ -22,7 +22,6 @@ import { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
 import type { PanelPassThrough } from 'primeng/types/panel';
 import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
 import type { ProgressSpinnerPassThrough } from 'primeng/types/progressspinner';
-import type { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
 import type { ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import type { SkeletonPassThrough } from 'primeng/types/skeleton';
 import type { SplitterPassThrough } from 'primeng/types/splitter';
