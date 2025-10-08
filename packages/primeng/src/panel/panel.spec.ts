@@ -5,7 +5,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { Panel } from './panel';
-import type { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.types';
+import type { PanelAfterToggleEvent, PanelBeforeToggleEvent } from 'primeng/types/panel';
 
 @Component({
     standalone: false,
