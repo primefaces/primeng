@@ -10,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
@@ -24,13 +25,17 @@ import {
 import { RouterModule } from '@angular/router';
 import { find, findSingle, focus, hasClass, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { asapScheduler } from 'rxjs';
 import { SpeedDialStyle } from './style/speeddialstyle';
+import { SpeedDialPassThrough } from 'primeng/types/speeddial';
+import { Bind } from 'primeng/bind';
+
+const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE');
 
 /**
  * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
@@ -39,9 +44,9 @@ import { SpeedDialStyle } from './style/speeddialstyle';
 @Component({
     selector: 'p-speeddial, p-speedDial, p-speed-dial',
     standalone: true,
-    imports: [CommonModule, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, SharedModule],
+    imports: [CommonModule, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, SharedModule, Bind],
     template: `
-        <div #container [class]="cn(cx('root'), className)" [style]="style" [ngStyle]="sx('root')" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
+        <div #container [pBind]="ptm('root')" [class]="cn(cx('root'), className)" [style]="style" [ngStyle]="sx('root')">
             <ng-container *ngIf="!buttonTemplate && !_buttonTemplate">
                 <button
                     type="button"
@@ -58,8 +63,8 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     [attr.aria-labelledby]="ariaLabelledBy"
                     (click)="onButtonClick($event)"
                     (keydown)="onTogglerKeydown($event)"
-                    [attr.data-pc-name]="'button'"
                     [buttonProps]="buttonProps"
+                    [pt]="ptm('pcButton')"
                 >
                     <svg data-p-icon="plus" pButtonIcon *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
@@ -70,6 +75,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
             </ng-container>
             <ul
                 #list
+                [pBind]="ptm('list')"
                 [class]="cx('list')"
                 role="menu"
                 [id]="id + '_list'"
@@ -78,11 +84,11 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                 (keydown)="onKeyDown($event)"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 [tabindex]="-1"
-                [attr.data-pc-section]="'menu'"
                 [ngStyle]="sx('list')"
             >
                 <li
                     *ngFor="let item of model; let i = index"
+                    [pBind]="ptm('item')"
                     [ngStyle]="getItemStyle(i)"
                     [class]="cx('item', { item, i })"
                     pTooltip
@@ -90,7 +96,6 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"
                     role="menuitem"
-                    [attr.data-pc-section]="'menuitem'"
                 >
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
@@ -109,21 +114,32 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                             (click)="onItemClick($event, item)"
                             [disabled]="item?.disabled"
                             (keydown.enter)="onItemClick($event, item)"
-                            [attr.data-pc-section]="'action'"
                             [attr.aria-label]="item.label"
                             [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                        ></button>
+                            [pt]="ptm('pcAction')"
+                        >
+                            <span *ngIf="item.icon" [pBind]="ptm('actionIcon')" [class]="item.icon" pButtonIcon></span>
+                        </button>
                     </ng-container>
                 </li>
             </ul>
         </div>
-        <div *ngIf="mask && visible" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle"></div>
+        <div *ngIf="mask && visible" [pBind]="ptm('mask')" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [SpeedDialStyle]
+    providers: [SpeedDialStyle, { provide: SPEED_DIAL_INSTANCE, useExisting: SpeedDial }, { provide: PARENT_INSTANCE, useExisting: SpeedDial }],
+    hostDirectives: [Bind]
 })
-export class SpeedDial extends BaseComponent {
+export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
+    $pcSpeedDial: SpeedDial | undefined = inject(SPEED_DIAL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * List of items id.
      * @group Props
