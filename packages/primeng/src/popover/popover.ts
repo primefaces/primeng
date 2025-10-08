@@ -168,6 +168,8 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
     container: Nullable<HTMLDivElement>;
 
+    documentEscapeListener: VoidListener;
+
     overlayVisible: boolean = false;
 
     render: boolean = false;
@@ -248,6 +250,23 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         }
     }
 
+    bindDocumentEscapeListener() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.documentEscapeListener) {
+                this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
+                    this.hide();
+                });
+            }
+        }
+    }
+
+    unbindDocumentEscapeListener() {
+        if (this.documentEscapeListener) {
+            this.documentEscapeListener();
+            this.documentEscapeListener = null;
+        }
+    }
+
     /**
      * Toggles the visibility of the panel.
      * @param {Event} event - Browser event
@@ -287,6 +306,8 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         this.overlayVisible = true;
         this.render = true;
         this.cd.markForCheck();
+
+        this.bindDocumentEscapeListener();
     }
 
     onOverlayClick(event: MouseEvent) {
@@ -414,6 +435,8 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
      * @group Method
      */
     hide() {
+        this.unbindDocumentEscapeListener();
+
         this.overlayVisible = false;
         this.cd.markForCheck();
     }
@@ -421,11 +444,6 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     onCloseClick(event: MouseEvent) {
         this.hide();
         event.preventDefault();
-    }
-
-    @HostListener('document:keydown.escape', ['$event'])
-    onEscapeKeydown(event: KeyboardEvent) {
-        this.hide();
     }
 
     onWindowResize() {
@@ -478,6 +496,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
+        this.unbindDocumentEscapeListener();
     }
 
     ngOnDestroy() {
