@@ -15,6 +15,7 @@ import type { ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
 import type { ChipPassThrough } from 'primeng/types/chip';
 import type { DialogPassThrough } from 'primeng/types/dialog';
 import type { DividerPassThrough } from 'primeng/types/divider';
+import type { DrawerPassThrough } from 'primeng/types/drawer';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { InplacePassThrough } from 'primeng/types/inplace';
 import type { MenuPassThrough } from 'primeng/types/menu';
@@ -69,6 +70,7 @@ export interface GlobalPassThrough {
     confirmPopup?: ConfirmPopupPassThrough;
     dialog?: DialogPassThrough;
     divider?: DividerPassThrough;
+    drawer?: DrawerPassThrough;
     menu?: MenuPassThrough;
     menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;
