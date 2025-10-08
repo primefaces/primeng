@@ -17,7 +17,7 @@ interface Doc {
 }
 
 export const getPTOptions = (name) => {
-    // Map sub-components to their parent component
+    // TODO: will be removed later. Map sub-components to their parent component
     const componentMapping = {
         steplist: 'stepper',
         step: 'stepper',
@@ -31,7 +31,8 @@ export const getPTOptions = (name) => {
         tabpanels: 'tabs',
         accordionpanel: 'accordion',
         accordionheader: 'accordion',
-        accordioncontent: 'accordion'
+        accordioncontent: 'accordion',
+        contextmenusub: 'contextmenu'
     };
 
     const lookupName = componentMapping[name.toLowerCase()] || name.toLowerCase();

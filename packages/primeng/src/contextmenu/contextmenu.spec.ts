@@ -1190,4 +1190,183 @@ describe('ContextMenu', () => {
             expect(contextMenuInstance.isItemSeparator(separatorItem)).toBe(true);
         });
     });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<any>;
+
+        afterEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        describe('Case 1: Basic PT - Root and RootList', () => {
+            @Component({
+                standalone: true,
+                imports: [ContextMenu],
+                template: `<p-contextmenu #cm [model]="model" [pt]="pt" [global]="true"></p-contextmenu>`
+            })
+            class PTStringTestComponent {
+                @ViewChild('cm') contextMenu!: ContextMenu;
+                model: MenuItem[] = [
+                    {
+                        label: 'File',
+                        items: [{ label: 'New' }, { label: 'Open' }]
+                    },
+                    { separator: true },
+                    { label: 'Edit', icon: 'pi pi-pencil' }
+                ];
+                pt = {
+                    root: 'ROOT_CLASS',
+                    rootList: 'ROOT_LIST_CLASS',
+                    submenu: 'SUBMENU_CLASS',
+                    item: 'ITEM_CLASS',
+                    itemContent: 'ITEM_CONTENT_CLASS',
+                    itemLink: 'ITEM_LINK_CLASS',
+                    itemIcon: 'ITEM_ICON_CLASS',
+                    itemLabel: 'ITEM_LABEL_CLASS',
+                    submenuIcon: 'SUBMENU_ICON_CLASS',
+                    separator: 'SEPARATOR_CLASS'
+                };
+            }
+
+            beforeEach(fakeAsync(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTStringTestComponent, NoopAnimationsModule]
+                }).createComponent(PTStringTestComponent);
+                ptFixture.detectChanges();
+
+                // Trigger context menu to show
+                const event = new MouseEvent('contextmenu', { bubbles: true });
+                document.dispatchEvent(event);
+                ptFixture.detectChanges();
+                tick(300);
+            }));
+
+            it('should apply PT string class to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-contextmenu'));
+                expect(root).toBeTruthy();
+                expect(root.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: PT with Objects - Root only', () => {
+            @Component({
+                standalone: true,
+                imports: [ContextMenu],
+                template: `<p-contextmenu #cm [model]="model" [pt]="pt" [global]="true"></p-contextmenu>`
+            })
+            class PTObjectTestComponent {
+                @ViewChild('cm') contextMenu!: ContextMenu;
+                model: MenuItem[] = [
+                    {
+                        label: 'File',
+                        icon: 'pi pi-file',
+                        items: [{ label: 'New' }]
+                    }
+                ];
+                pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'true',
+                        'aria-label': 'TEST_ROOT_ARIA_LABEL'
+                    },
+                    item: {
+                        class: 'ITEM_OBJECT_CLASS',
+                        'data-p-custom': 'item-data'
+                    },
+                    itemLabel: {
+                        style: { color: 'blue' },
+                        'aria-label': 'TEST_LABEL_ARIA'
+                    },
+                    itemIcon: {
+                        class: 'ICON_OBJECT_CLASS'
+                    }
+                };
+            }
+
+            beforeEach(fakeAsync(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTObjectTestComponent, NoopAnimationsModule]
+                }).createComponent(PTObjectTestComponent);
+                ptFixture.detectChanges();
+
+                // Trigger context menu to show
+                const event = new MouseEvent('contextmenu', { bubbles: true });
+                document.dispatchEvent(event);
+                ptFixture.detectChanges();
+                tick(300);
+            }));
+
+            it('should apply PT object class to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-contextmenu'));
+                expect(root.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT object style to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-contextmenu'));
+                expect(root.nativeElement.style.backgroundColor).toBe('red');
+            });
+
+            it('should apply PT object data attribute to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-contextmenu'));
+                expect(root.nativeElement.getAttribute('data-p-test')).toBe('true');
+            });
+
+            it('should apply PT object aria-label to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-contextmenu'));
+                expect(root).toBeTruthy();
+                expect(root.nativeElement.getAttribute('aria-label')).toBe('TEST_ROOT_ARIA_LABEL');
+            });
+        });
+
+        describe('Case 3: PT Mixed - Root only', () => {
+            @Component({
+                standalone: true,
+                imports: [ContextMenu],
+                template: `<p-contextmenu #cm [model]="model" [pt]="pt" [global]="true"></p-contextmenu>`
+            })
+            class PTMixedTestComponent {
+                @ViewChild('cm') contextMenu!: ContextMenu;
+                model: MenuItem[] = [
+                    {
+                        label: 'File',
+                        items: [{ label: 'New' }]
+                    }
+                ];
+                pt = {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    rootList: 'ROOT_LIST_STRING',
+                    item: {
+                        class: 'ITEM_MIXED_CLASS',
+                        style: 'padding: 10px'
+                    },
+                    itemLabel: 'LABEL_STRING_CLASS'
+                };
+            }
+
+            beforeEach(fakeAsync(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTMixedTestComponent, NoopAnimationsModule]
+                }).createComponent(PTMixedTestComponent);
+                ptFixture.detectChanges();
+
+                // Trigger context menu to show
+                const event = new MouseEvent('contextmenu', { bubbles: true });
+                document.dispatchEvent(event);
+                ptFixture.detectChanges();
+                tick(300);
+            }));
+
+            it('should apply PT mixed object class to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-contextmenu'));
+                expect(root).toBeTruthy();
+                expect(root.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+            });
+        });
+    });
 });
