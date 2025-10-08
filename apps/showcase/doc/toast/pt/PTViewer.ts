@@ -1,50 +1,39 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'toast-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ToastModule, ButtonModule],
-    providers: [MessageService],
+    imports: [CommonModule, AppDocPtViewer],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-toast key="tst"></p-toast>
-            <div class="flex gap-2">
-                <p-button (click)="showSuccess()" label="Success" severity="success"></p-button>
-                <p-button (click)="showInfo()" label="Info" severity="info"></p-button>
-                <p-button (click)="showWarn()" label="Warn" severity="warn"></p-button>
-                <p-button (click)="showError()" label="Error" severity="danger"></p-button>
+            <div class="p-toast p-component" data-pc-name="toast" data-pc-section="root">
+                <div>
+                    <div class="p-toast-message p-toast-message-info" data-pc-section="message">
+                        <div class="p-toast-message-content" data-pc-section="messagecontent">
+                            <i class="pi pi-info-circle p-toast-message-icon" data-pc-section="messageicon"></i>
+                            <div class="p-toast-message-text" data-pc-section="messagetext">
+                                <span class="p-toast-summary" data-pc-section="summary">Message Summary</span>
+                                <div class="p-toast-detail" data-pc-section="detail">Message Detail</div>
+                            </div>
+                            <div data-pc-section="buttoncontainer">
+                                <button class="p-toast-close-button" type="button" data-pc-section="closebutton">
+                                    <i class="pi pi-times p-toast-close-icon" data-pc-section="closeicon"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </app-docptviewer>
     `
 })
 export class PTViewer {
-    constructor(private messageService: MessageService) {}
-
     docs = [
         {
             data: getPTOptions('Toast'),
             key: 'Toast'
         }
     ];
-
-    showSuccess() {
-        this.messageService.add({ key: 'tst', severity: 'success', summary: 'Success', detail: 'Message Content' });
-    }
-
-    showInfo() {
-        this.messageService.add({ key: 'tst', severity: 'info', summary: 'Info', detail: 'Message Content' });
-    }
-
-    showWarn() {
-        this.messageService.add({ key: 'tst', severity: 'warn', summary: 'Warning', detail: 'Message Content' });
-    }
-
-    showError() {
-        this.messageService.add({ key: 'tst', severity: 'error', summary: 'Error', detail: 'Message Content' });
-    }
 }

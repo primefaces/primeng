@@ -1,8 +1,10 @@
 import type { ElementRef, TemplateRef } from '@angular/core';
 import type { OverlayOptions, PassThroughOptions, Translation } from 'primeng/api';
 import { FieldsetPassThrough } from 'primeng/fieldset';
+import { ScrollPanelPassThrough } from 'primeng/scrollpanel';
 import type { AccordionPassThrough } from 'primeng/types/accordion';
 import type { AvatarPassThrough } from 'primeng/types/avatar';
+import type { AvatarGroupPassThrough } from 'primeng/types/avatargroup';
 import { BadgePassThrough } from 'primeng/types/badge';
 import type { BlockUIPassThrough } from 'primeng/types/blockui';
 import type { BreadcrumbPassThrough } from 'primeng/types/breadcrumb';
@@ -11,17 +13,20 @@ import type { CardPassThrough } from 'primeng/types/card';
 import type { ChipPassThrough } from 'primeng/types/chip';
 import type { DividerPassThrough } from 'primeng/types/divider';
 import type { FluidPassThrough } from 'primeng/types/fluid';
+import type { InplacePassThrough } from 'primeng/types/inplace';
 import type { MenuPassThrough } from 'primeng/types/menu';
 import type { MenubarPassThrough } from 'primeng/types/menubar';
-import type { MessagePassThrough } from 'primeng/types/message';
-import type { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
+import { MessagePassThrough } from 'primeng/types/message';
+import type { MeterGroupPassThrough } from 'primeng/types/metergroup';
+import { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
 import type { PanelPassThrough } from 'primeng/types/panel';
-import type { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
+import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
+import type { ProgressSpinnerPassThrough } from 'primeng/types/progressspinner';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
-import type { SplitButtonPassThrough } from 'primeng/types/splitbutton';
+import { SplitButtonPassThrough } from 'primeng/types/splitbutton';
 import type { SplitterPassThrough } from 'primeng/types/splitter';
 import type { StepperPassThrough } from 'primeng/types/stepper';
-import type { TabsPassThrough } from 'primeng/types/tabs';
+import { TabsPassThrough } from 'primeng/types/tabs';
 import type { ToastPassThrough } from 'primeng/types/toast';
 import type { ToolbarPassThrough } from 'primeng/types/toolbar';
 
@@ -43,9 +48,12 @@ export type ThemeConfigType = {
     };
 };
 
+type NewType = SpeedDialPassThrough;
+
 export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
     avatar?: AvatarPassThrough;
+    avatarGroup?: AvatarGroupPassThrough;
     blockUI?: BlockUIPassThrough;
     breadcrumb?: BreadcrumbPassThrough;
     card?: CardPassThrough;
@@ -54,10 +62,14 @@ export interface GlobalPassThrough {
     menu?: MenuPassThrough;
     menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;
+    inplace?: InplacePassThrough;
     message?: MessagePassThrough;
+    meterGroup?: MeterGroupPassThrough;
     overlayBadge?: OverlayBadgePassThrough;
+    progressBar?: ProgressBarPassThrough;
+    progressSpinner?: ProgressSpinnerPassThrough;
     scrollPanel?: ScrollPanelPassThrough;
-    speedDial?: SpeedDialPassThrough;
+    speedDial?: NewType;
     splitButton?: SplitButtonPassThrough;
     splitter?: SplitterPassThrough;
     stepper?: StepperPassThrough;
