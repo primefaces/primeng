@@ -1,21 +1,25 @@
 import type { ElementRef, TemplateRef } from '@angular/core';
 import type { OverlayOptions, PassThroughOptions, Translation } from 'primeng/api';
 import { FieldsetPassThrough } from 'primeng/fieldset';
-import { BadgePassThrough } from 'primeng/types/badge';
-import type { ButtonPassThrough } from 'primeng/types/button';
-import type { PanelPassThrough } from 'primeng/types/panel';
+import { ScrollPanelPassThrough } from 'primeng/scrollpanel';
 import type { AccordionPassThrough } from 'primeng/types/accordion';
 import type { AvatarPassThrough } from 'primeng/types/avatar';
 import type { AvatarGroupPassThrough } from 'primeng/types/avatargroup';
+import { BadgePassThrough } from 'primeng/types/badge';
 import type { BlockUIPassThrough } from 'primeng/types/blockui';
+import type { BreadcrumbPassThrough } from 'primeng/types/breadcrumb';
+import type { ButtonPassThrough } from 'primeng/types/button';
 import type { CardPassThrough } from 'primeng/types/card';
 import type { ChipPassThrough } from 'primeng/types/chip';
 import type { DividerPassThrough } from 'primeng/types/divider';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { InplacePassThrough } from 'primeng/types/inplace';
-import type { MessagePassThrough } from 'primeng/types/message';
+import type { MenuPassThrough } from 'primeng/types/menu';
+import type { MenubarPassThrough } from 'primeng/types/menubar';
+import { MessagePassThrough } from 'primeng/types/message';
 import type { MeterGroupPassThrough } from 'primeng/types/metergroup';
-import type { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
+import { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
+import type { PanelPassThrough } from 'primeng/types/panel';
 import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
 import type { ProgressSpinnerPassThrough } from 'primeng/types/progressspinner';
 import type { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
@@ -49,14 +53,19 @@ export type ThemeConfigType = {
     };
 };
 
+type NewType = SpeedDialPassThrough;
+
 export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
     avatar?: AvatarPassThrough;
     avatarGroup?: AvatarGroupPassThrough;
     blockUI?: BlockUIPassThrough;
+    breadcrumb?: BreadcrumbPassThrough;
     card?: CardPassThrough;
     chip?: ChipPassThrough;
     divider?: DividerPassThrough;
+    menu?: MenuPassThrough;
+    menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;
     inplace?: InplacePassThrough;
     message?: MessagePassThrough;

@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api';
 import { Chip, ChipModule } from './chip';
-import { ChipProps } from './chip.interface';
+import { ChipProps } from 'primeng/types/chip';
 
 @Component({
     standalone: false,
