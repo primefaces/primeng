@@ -13,6 +13,7 @@ import {
     HostListener,
     Inject,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
@@ -24,14 +25,18 @@ import {
 } from '@angular/core';
 import { absolutePosition, addClass, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
+
+const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INSTANCE');
 
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
@@ -40,11 +45,14 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
 @Component({
     selector: 'p-confirmpopup',
     standalone: true,
-    imports: [CommonModule, SharedModule, ButtonModule, FocusTrap],
+    imports: [CommonModule, SharedModule, ButtonModule, FocusTrap, Bind],
+    providers: [ConfirmPopupStyle, { provide: CONFIRMPOPUP_INSTANCE, useExisting: ConfirmPopup }, { provide: PARENT_INSTANCE, useExisting: ConfirmPopup }],
+    hostDirectives: [Bind],
     template: `
         <div
             *ngIf="visible"
             pFocusTrap
+            [pBind]="ptm('root')"
             [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             role="alertdialog"
@@ -60,20 +68,21 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                 <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate; context: { $implicit: confirmation }"></ng-container>
             </ng-container>
             <ng-template #notHeadless>
-                <div #content [class]="cx('content')">
+                <div #content [pBind]="ptm('content')" [class]="cx('content')">
                     <ng-container *ngIf="contentTemplate || _contentTemplate; else withoutContentTemplate">
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: confirmation }"></ng-container>
                     </ng-container>
                     <ng-template #withoutContentTemplate>
-                        <i [class]="cx('icon')" *ngIf="confirmation?.icon"></i>
-                        <span [class]="cx('message')">{{ confirmation?.message }}</span>
+                        <i [pBind]="ptm('icon')" [class]="cx('icon')" *ngIf="confirmation?.icon"></i>
+                        <span [pBind]="ptm('message')" [class]="cx('message')">{{ confirmation?.message }}</span>
                     </ng-template>
                 </div>
-                <div [class]="cx('footer')">
+                <div [pBind]="ptm('footer')" [class]="cx('footer')">
                     <p-button
                         type="button"
                         [label]="rejectButtonLabel"
                         (onClick)="onReject()"
+                        [pt]="ptm('pcRejectButton')"
                         [class]="cx('pcRejectButton')"
                         [styleClass]="confirmation?.rejectButtonStyleClass"
                         [size]="confirmation?.rejectButtonProps?.size || 'small'"
@@ -92,6 +101,7 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
                         type="button"
                         [label]="acceptButtonLabel"
                         (onClick)="onAccept()"
+                        [pt]="ptm('pcAcceptButton')"
                         [class]="cx('pcAcceptButton')"
                         [styleClass]="confirmation?.acceptButtonStyleClass"
                         [size]="confirmation?.acceptButtonProps?.size || 'small'"
@@ -130,10 +140,17 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    providers: [ConfirmPopupStyle]
+    encapsulation: ViewEncapsulation.None
 })
-export class ConfirmPopup extends BaseComponent {
+export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
+    $pcConfirmPopup: ConfirmPopup | undefined = inject(CONFIRMPOPUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
      * @group Props
