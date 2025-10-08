@@ -4745,6 +4745,55 @@
                     }
                 ]
             }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "AvatarPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "label",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the label's DOM element."
+                            },
+                            {
+                                "name": "icon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the icon's DOM element."
+                            },
+                            {
+                                "name": "image",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLImageElement, I>",
+                                "description": "Used to pass attributes to the image's DOM element."
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     },
     "avatargroup": {
@@ -31356,7 +31405,7 @@
                 ]
             }
         },
-        "interfaces": {
+        "types": {
             "components": {},
             "events": {
                 "description": "Defines the custom events used by the component's emitters.",
@@ -31380,7 +31429,7 @@
                 "description": "Defines the templates used by the component.",
                 "values": [
                     {
-                        "parent": "toast",
+                        "parent": "types",
                         "name": "message",
                         "parameters": [
                             {
@@ -31391,7 +31440,7 @@
                         "description": "Custom template of message."
                     },
                     {
-                        "parent": "toast",
+                        "parent": "types",
                         "name": "headless",
                         "parameters": [
                             {
@@ -31400,6 +31449,87 @@
                             }
                         ],
                         "description": "Headless template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "ToastPassThroughOptions",
+                        "description": "Custom pass-through(pt) options for Toast.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "message",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the message's DOM element."
+                            },
+                            {
+                                "name": "messageContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the message content's DOM element."
+                            },
+                            {
+                                "name": "messageIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the message icon's DOM element."
+                            },
+                            {
+                                "name": "messageText",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the message text's DOM element."
+                            },
+                            {
+                                "name": "summary",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the summary's DOM element."
+                            },
+                            {
+                                "name": "detail",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the detail's DOM element."
+                            },
+                            {
+                                "name": "closeButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the close button's DOM element."
+                            },
+                            {
+                                "name": "closeIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the close icon's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
