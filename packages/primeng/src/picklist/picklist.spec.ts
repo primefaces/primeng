@@ -748,14 +748,20 @@ describe('PickList', () => {
         }));
 
         it('should allow drag&drop after moveAllRight', fakeAsync(() => {
+            // Verify initial state and keep tracking source and target form original references as a parent component
+            const source = picklistComponent.source;
+            const target = picklistComponent.target;
+            expect(source?.length).toBe(4);
+            expect(target?.length).toBe(2);
+
             // Move all items to target
             picklistComponent.moveAllRight();
             tick();
             fixture.detectChanges();
 
-            // Verify all items were moved
-            expect(picklistComponent.source?.length).toBe(0);
-            expect(picklistComponent.target?.length).toBe(6); // 2 original + 4 moved
+            // Verify all items were moved by using previous references
+            expect(source?.length).toBe(0);
+            expect(target?.length).toBe(6); // 2 original + 4 moved
 
             // Now try to drag&drop an item back from target to source
             const itemToMove = picklistComponent.target![0];
@@ -790,14 +796,20 @@ describe('PickList', () => {
         }));
 
         it('should allow drag&drop after moveAllLeft', fakeAsync(() => {
+            // Verify initial state and keep tracking source and target form original references as a parent component
+            const source = picklistComponent.source;
+            const target = picklistComponent.target;
+            expect(source?.length).toBe(4);
+            expect(target?.length).toBe(2);
+
             // Move all items to source
             picklistComponent.moveAllLeft();
             tick();
             fixture.detectChanges();
 
             // Verify all items were moved
-            expect(picklistComponent.target?.length).toBe(0);
-            expect(picklistComponent.source?.length).toBe(6); // 4 original + 2 moved
+            expect(source?.length).toBe(6); // 4 original + 2 moved
+            expect(target?.length).toBe(0);
 
             // Now try to drag&drop an item from source to target
             const itemToMove = picklistComponent.source![0];
