@@ -1,5 +1,6 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
+import { TemplateRef } from '@angular/core';
 
 /**
  * Custom pass-through(pt) options.
@@ -47,3 +48,30 @@ export interface DrawerPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type DrawerPassThrough<I = unknown> = PassThrough<I, DrawerPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in Drawer.
+ * @group Templates
+ */
+export interface DrawerTemplates {
+    /**
+     * Custom template of header.
+     */
+    header(): TemplateRef<any>;
+    /**
+     * Custom template of content.
+     */
+    content(): TemplateRef<any>;
+    /**
+     * Custom template of footer.
+     */
+    footer(): TemplateRef<any>;
+    /**
+     * Custom template of closeicon.
+     */
+    closeicon(): TemplateRef<any>;
+    /**
+     * Headless template.
+     */
+    headless(): TemplateRef<any>;
+}
