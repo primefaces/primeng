@@ -11,6 +11,7 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -27,14 +28,18 @@ import {
 } from '@angular/core';
 import { addClass, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { DialogPassThrough } from 'primeng/types/dialog';
 import { ZIndexUtils } from 'primeng/utils';
 import { DialogStyle } from './style/dialogstyle';
+
+const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -46,9 +51,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-dialog',
     standalone: true,
-    imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule],
+    imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind],
     template: `
-        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle">
+        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle" [pBind]="ptm('mask')">
             <div
                 *ngIf="visible"
                 #container
@@ -72,12 +77,13 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-container>
 
                 <ng-template #notHeadless>
-                    <div *ngIf="resizable" [class]="cx('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
-                    <div #titlebar [class]="cx('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                        <span [id]="ariaLabelledBy" [class]="cx('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
+                    <div *ngIf="resizable" [class]="cx('resizeHandle')" [pBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
+                    <div #titlebar [class]="cx('header')" [pBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
+                        <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
                         <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>
-                        <div [class]="cx('headerActions')">
+                        <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
                             <p-button
+                                [pt]="ptm('pcMaximizeButton')"
                                 *ngIf="maximizable"
                                 [styleClass]="cx('pcMaximizeButton')"
                                 [ariaLabel]="maximized ? minimizeLabel : maximizeLabel"
@@ -100,7 +106,16 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     </ng-container>
                                 </ng-template>
                             </p-button>
-                            <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="closeAriaLabel" (onClick)="close($event)" (keydown.enter)="close($event)" [tabindex]="closeTabindex" [buttonProps]="closeButtonProps">
+                            <p-button
+                                [pt]="ptm('pcCloseButton')"
+                                *ngIf="closable"
+                                [styleClass]="cx('pcCloseButton')"
+                                [ariaLabel]="closeAriaLabel"
+                                (onClick)="close($event)"
+                                (keydown.enter)="close($event)"
+                                [tabindex]="closeTabindex"
+                                [buttonProps]="closeButtonProps"
+                            >
                                 <ng-template #icon>
                                     <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
                                         <span *ngIf="closeIcon" [class]="closeIcon"></span>
@@ -113,11 +128,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             </p-button>
                         </div>
                     </div>
-                    <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [pBind]="ptm('content')">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                     </div>
-                    <div #footer [class]="cx('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
+                    <div #footer [class]="cx('footer')" [pBind]="ptm('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
                         <ng-content select="p-footer"></ng-content>
                         <ng-container *ngTemplateOutlet="_footerTemplate || footerTemplate || footerT"></ng-container>
                     </div>
@@ -128,9 +143,18 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DialogStyle]
+    providers: [DialogStyle, { provide: DIALOG_INSTANCE, useExisting: Dialog }, { provide: PARENT_INSTANCE, useExisting: Dialog }],
+    hostDirectives: [Bind]
 })
-export class Dialog extends BaseComponent {
+export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, AfterContentInit, OnDestroy {
+    $pcDialog: Dialog | undefined = inject(DIALOG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Title text of the dialog.
      * @group Props

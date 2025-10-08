@@ -2,6 +2,7 @@ import { AccessibilityDoc } from '@/doc/popover/accessibilitydoc';
 import { BasicDoc } from '@/doc/popover/basicdoc';
 import { DataTableDoc } from '@/doc/popover/datatabledoc';
 import { ImportDoc } from '@/doc/popover/importdoc';
+import { PTComponent } from '@/doc/popover/pt/PTComponent';
 import { SelectDataDoc } from '@/doc/popover/selectdatadoc';
 import { TargetDoc } from '@/doc/popover/targetdoc';
 import { TemplateDoc } from '@/doc/popover/templatedoc';
@@ -9,11 +10,21 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Popover Component" header="Popover" description="Popover is a container component that can overlay other components on page." [docs]="docs" [apiDocs]="['Popover']" themeDocs="popover"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular Popover Component"
+        header="Popover"
+        description="Popover is a container component that can overlay other components on page."
+        [docs]="docs"
+        [apiDocs]="['Popover']"
+        [ptDocs]="ptComponent"
+        themeDocs="popover"
+    ></app-doc>`,
     imports: [AppDoc],
     standalone: true
 })
 export class PopoverDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
