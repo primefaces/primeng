@@ -29,6 +29,7 @@ import { SplitButtonPassThrough } from 'primeng/types/splitbutton';
 import type { SplitterPassThrough } from 'primeng/types/splitter';
 import type { StepperPassThrough } from 'primeng/types/stepper';
 import { TabsPassThrough } from 'primeng/types/tabs';
+import type { TieredMenuPassThrough } from 'primeng/types/tieredmenu';
 import type { ToastPassThrough } from 'primeng/types/toast';
 import type { ToolbarPassThrough } from 'primeng/types/toolbar';
 
@@ -78,6 +79,7 @@ export interface GlobalPassThrough {
     splitter?: SplitterPassThrough;
     stepper?: StepperPassThrough;
     tabs?: TabsPassThrough;
+    tieredMenu?: TieredMenuPassThrough;
     toast?: ToastPassThrough;
     toolbar?: ToolbarPassThrough;
     panel?: PanelPassThrough;
