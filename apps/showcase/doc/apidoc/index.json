@@ -8281,66 +8281,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "confirmdialog",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom template of header."
-                    },
-                    {
-                        "parent": "confirmdialog",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom template of footer."
-                    },
-                    {
-                        "parent": "confirmdialog",
-                        "name": "message",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // undefined\n  }"
-                            }
-                        ],
-                        "description": "Custom template of message."
-                    },
-                    {
-                        "parent": "confirmdialog",
-                        "name": "icon",
-                        "parameters": [],
-                        "description": "Custom template of icon."
-                    },
-                    {
-                        "parent": "confirmdialog",
-                        "name": "rejecticon",
-                        "parameters": [],
-                        "description": "Custom template of rejecticon."
-                    },
-                    {
-                        "parent": "confirmdialog",
-                        "name": "accepticon",
-                        "parameters": [],
-                        "description": "Custom template of accepticon."
-                    },
-                    {
-                        "parent": "confirmdialog",
-                        "name": "headless",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // undefined\n  }"
-                            }
-                        ],
-                        "description": "Headless template."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -8364,6 +8304,126 @@
                     {
                         "class": "p-confirmdialog-accept-button",
                         "description": "Class name of the accept button element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom template of header."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom template of footer."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "message",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Custom template of message."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "icon",
+                        "parameters": [],
+                        "description": "Custom template of icon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "rejecticon",
+                        "parameters": [],
+                        "description": "Custom template of rejecticon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "accepticon",
+                        "parameters": [],
+                        "description": "Custom template of accepticon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "headless",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Headless template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "ConfirmDialogPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "icon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the icon's DOM element."
+                            },
+                            {
+                                "name": "message",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the message's DOM element."
+                            },
+                            {
+                                "name": "pcDialog",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "DialogPassThrough",
+                                "description": "Used to pass attributes to the Dialog component."
+                            },
+                            {
+                                "name": "pcAcceptButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the accept Button component."
+                            },
+                            {
+                                "name": "pcRejectButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the reject Button component."
+                            }
+                        ]
                     }
                 ]
             }
@@ -8448,48 +8508,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "confirmpopup",
-                        "name": "content",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // undefined\n  }"
-                            }
-                        ],
-                        "description": "Custom content template."
-                    },
-                    {
-                        "parent": "confirmpopup",
-                        "name": "rejecticon",
-                        "parameters": [],
-                        "description": "Custom template of rejecticon."
-                    },
-                    {
-                        "parent": "confirmpopup",
-                        "name": "accepticon",
-                        "parameters": [],
-                        "description": "Custom template of accepticon."
-                    },
-                    {
-                        "parent": "confirmpopup",
-                        "name": "headless",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // undefined\n  }"
-                            }
-                        ],
-                        "description": "Headless template."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -8521,6 +8539,115 @@
                     {
                         "class": "p-confirmpopup-accept-button",
                         "description": "Class name of the accept button element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Custom content template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "rejecticon",
+                        "parameters": [],
+                        "description": "Custom template of rejecticon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "accepticon",
+                        "parameters": [],
+                        "description": "Custom template of accepticon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "headless",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Headless template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "ConfirmPopupPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
+                                "name": "icon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the icon's DOM element."
+                            },
+                            {
+                                "name": "message",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the message's DOM element."
+                            },
+                            {
+                                "name": "footer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer's DOM element."
+                            },
+                            {
+                                "name": "pcRejectButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the reject Button component."
+                            },
+                            {
+                                "name": "pcAcceptButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the accept Button component."
+                            }
+                        ]
                     }
                 ]
             }
@@ -8727,6 +8854,90 @@
                     {
                         "class": "p-contextmenu-separator",
                         "description": "Class name of the separator element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "ContextMenuPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "rootList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the root list's DOM element."
+                            },
+                            {
+                                "name": "submenu",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the submenu's DOM element."
+                            },
+                            {
+                                "name": "separator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the separator's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "itemContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item content's DOM element."
+                            },
+                            {
+                                "name": "itemLink",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the item link's DOM element."
+                            },
+                            {
+                                "name": "itemIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item icon's DOM element."
+                            },
+                            {
+                                "name": "itemLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item label's DOM element."
+                            },
+                            {
+                                "name": "submenuIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<SVGElement, I>",
+                                "description": "Used to pass attributes to the submenu icon's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -11004,50 +11215,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "dialog",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom template of header."
-                    },
-                    {
-                        "parent": "dialog",
-                        "name": "content",
-                        "parameters": [],
-                        "description": "Custom template of content."
-                    },
-                    {
-                        "parent": "dialog",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom template of footer."
-                    },
-                    {
-                        "parent": "dialog",
-                        "name": "closeicon",
-                        "parameters": [],
-                        "description": "Custom template of closeicon."
-                    },
-                    {
-                        "parent": "dialog",
-                        "name": "maximizeicon",
-                        "parameters": [],
-                        "description": "Custom template of maximizeicon."
-                    },
-                    {
-                        "parent": "dialog",
-                        "name": "minimizeicon",
-                        "parameters": [],
-                        "description": "Custom template of minimizeicon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -11087,6 +11254,138 @@
                     {
                         "class": "p-dialog-footer",
                         "description": "Class name of the footer element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom template of header."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "content",
+                        "parameters": [],
+                        "description": "Custom template of content."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom template of footer."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "closeicon",
+                        "parameters": [],
+                        "description": "Custom template of closeicon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "maximizeicon",
+                        "parameters": [],
+                        "description": "Custom template of maximizeicon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "minimizeicon",
+                        "parameters": [],
+                        "description": "Custom template of minimizeicon."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "DialogPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "mask",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the mask's DOM element."
+                            },
+                            {
+                                "name": "resizeHandle",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the resize handle's DOM element."
+                            },
+                            {
+                                "name": "header",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header's DOM element."
+                            },
+                            {
+                                "name": "title",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the title's DOM element."
+                            },
+                            {
+                                "name": "headerActions",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header actions' DOM element."
+                            },
+                            {
+                                "name": "pcMaximizeButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the maximize Button component."
+                            },
+                            {
+                                "name": "pcCloseButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the close Button component."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
+                                "name": "footer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -11267,26 +11566,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "dock",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  }",
-                                "description": "item data."
-                            }
-                        ],
-                        "description": "Custom template of item."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -11318,6 +11597,69 @@
                     {
                         "class": "p-dock-item-icon",
                         "description": "Class name of the item icon element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "DockPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "listContainer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the list container's DOM element."
+                            },
+                            {
+                                "name": "list",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the list's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "itemContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item content's DOM element."
+                            },
+                            {
+                                "name": "itemLink",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the item link's DOM element."
+                            },
+                            {
+                                "name": "itemIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item icon's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -11674,44 +12016,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "drawer",
-                        "name": "header",
-                        "parameters": [],
-                        "description": "Custom template of header."
-                    },
-                    {
-                        "parent": "drawer",
-                        "name": "content",
-                        "parameters": [],
-                        "description": "Custom template of content."
-                    },
-                    {
-                        "parent": "drawer",
-                        "name": "footer",
-                        "parameters": [],
-                        "description": "Custom template of footer."
-                    },
-                    {
-                        "parent": "drawer",
-                        "name": "closeicon",
-                        "parameters": [],
-                        "description": "Custom template of closeicon."
-                    },
-                    {
-                        "parent": "drawer",
-                        "name": "headless",
-                        "parameters": [],
-                        "description": "Headless template."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -11739,6 +12043,104 @@
                     {
                         "class": "p-drawer-content",
                         "description": "Class name of the content element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom template of header."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "content",
+                        "parameters": [],
+                        "description": "Custom template of content."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom template of footer."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "closeicon",
+                        "parameters": [],
+                        "description": "Custom template of closeicon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "headless",
+                        "parameters": [],
+                        "description": "Headless template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "DrawerPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "header",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header's DOM element."
+                            },
+                            {
+                                "name": "title",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the title's DOM element."
+                            },
+                            {
+                                "name": "pcCloseButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the close Button component."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
+                                "name": "footer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -17776,43 +18178,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "megamenu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "megamenu",
-                        "name": "start",
-                        "parameters": [],
-                        "description": "Custom template of start."
-                    },
-                    {
-                        "parent": "megamenu",
-                        "name": "submenuicon",
-                        "parameters": [],
-                        "description": "Custom template of submenuicon."
-                    },
-                    {
-                        "parent": "megamenu",
-                        "name": "end",
-                        "parameters": [],
-                        "description": "Custom template of end."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -17884,6 +18249,180 @@
                     {
                         "class": "p-megamenu-end",
                         "description": "Class name of the end element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom template of start."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "submenuicon",
+                        "parameters": [],
+                        "description": "Custom template of submenuicon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom template of end."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "MegaMenuPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "start",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the start's DOM element."
+                            },
+                            {
+                                "name": "button",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the button's DOM element."
+                            },
+                            {
+                                "name": "buttonIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the button icon's DOM element."
+                            },
+                            {
+                                "name": "rootList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the root list's DOM element."
+                            },
+                            {
+                                "name": "submenuLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the submenu label's DOM element."
+                            },
+                            {
+                                "name": "separator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the separator's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "itemContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item content's DOM element."
+                            },
+                            {
+                                "name": "itemLink",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the item link's DOM element."
+                            },
+                            {
+                                "name": "itemIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item icon's DOM element."
+                            },
+                            {
+                                "name": "itemLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item label's DOM element."
+                            },
+                            {
+                                "name": "submenuIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the submenu icon's DOM element."
+                            },
+                            {
+                                "name": "overlay",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the overlay's DOM element."
+                            },
+                            {
+                                "name": "grid",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the grid's DOM element."
+                            },
+                            {
+                                "name": "column",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the column's DOM element."
+                            },
+                            {
+                                "name": "submenu",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the submenu's DOM element."
+                            },
+                            {
+                                "name": "end",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the end's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -22119,31 +22658,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "panelmenu",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "panelmenu",
-                        "name": "submenuicon",
-                        "parameters": [],
-                        "description": "Custom template of submenuicon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -22218,6 +22732,146 @@
                     },
                     {
                         "class": "p-menuitem-separator"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "PanelMenuPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "panel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the panel's DOM element."
+                            },
+                            {
+                                "name": "header",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header's DOM element."
+                            },
+                            {
+                                "name": "headerContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header content's DOM element."
+                            },
+                            {
+                                "name": "headerLink",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the header link's DOM element."
+                            },
+                            {
+                                "name": "submenuIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<SVGElement, I>",
+                                "description": "Used to pass attributes to the submenu icon's DOM element."
+                            },
+                            {
+                                "name": "headerIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the header icon's DOM element."
+                            },
+                            {
+                                "name": "headerLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the header label's DOM element."
+                            },
+                            {
+                                "name": "contentContainer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the toggleable content's DOM element."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the menu content's DOM element."
+                            },
+                            {
+                                "name": "rootList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the root list's DOM element."
+                            },
+                            {
+                                "name": "submenu",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the submenu's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "itemContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item content's DOM element."
+                            },
+                            {
+                                "name": "itemLink",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the item link's DOM element."
+                            },
+                            {
+                                "name": "itemIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item icon's DOM element."
+                            },
+                            {
+                                "name": "itemLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item label's DOM element."
+                            },
+                            {
+                                "name": "separator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the separator's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -23921,6 +24575,64 @@
         },
         "style": {
             "components": {}
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t closeCallback: VoidFunction, // undefined\n  }",
+                                "description": "closeCallback."
+                            }
+                        ],
+                        "description": "Custom template of content."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "closeicon",
+                        "parameters": [],
+                        "description": "Custom template of closeicon."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "PopoverPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     },
     "progressbar": {
@@ -25457,25 +26169,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "scrolltop",
-                        "name": "icon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t styleClass: undefined, // Style class of the icon.\n  }"
-                            }
-                        ],
-                        "description": "Icon of the component."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -25487,6 +26180,41 @@
                     {
                         "class": "p-scrolltop-icon",
                         "description": "Class name of the icon element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "ScrollTopPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "pcButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the Button component."
+                            }
+                        ]
                     }
                 ]
             }
@@ -26842,6 +27570,34 @@
                     {
                         "class": "p-skeleton",
                         "description": "Class name of the root element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "SkeletonPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -31187,16 +31943,55 @@
                 ]
             }
         },
-        "interfaces": {
+        "types": {
             "components": {},
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
                     {
-                        "parent": "tag",
+                        "parent": "types",
                         "name": "icon",
                         "parameters": [],
                         "description": "Custom icon template"
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "TagPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "icon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the icon's DOM element."
+                            },
+                            {
+                                "name": "label",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the label's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -31274,6 +32069,90 @@
                     {
                         "class": "p-terminal-prompt-value",
                         "description": "Class name of the prompt value element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "TerminalPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "welcomeMessage",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the welcome message's DOM element."
+                            },
+                            {
+                                "name": "commandList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the command list's DOM element."
+                            },
+                            {
+                                "name": "command",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the command's DOM element."
+                            },
+                            {
+                                "name": "promptLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the prompt label's DOM element."
+                            },
+                            {
+                                "name": "commandValue",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the command value's DOM element."
+                            },
+                            {
+                                "name": "commandResponse",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the command response's DOM element."
+                            },
+                            {
+                                "name": "prompt",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the prompt's DOM element."
+                            },
+                            {
+                                "name": "promptValue",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLInputElement, I>",
+                                "description": "Used to pass attributes to the prompt value's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -31633,27 +32512,86 @@
                 ]
             }
         },
-        "interfaces": {
+        "types": {
             "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
                 "values": [
                     {
-                        "parent": "tieredmenu",
-                        "name": "item",
-                        "parameters": [
+                        "name": "TieredMenuPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
                             {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t hasSubmenu: boolean, // Submenu control of the item.\n  }"
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "rootList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the root list's DOM element."
+                            },
+                            {
+                                "name": "submenu",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the submenu's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "itemContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item content's DOM element."
+                            },
+                            {
+                                "name": "itemLink",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the item link's DOM element."
+                            },
+                            {
+                                "name": "itemIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item icon's DOM element."
+                            },
+                            {
+                                "name": "itemLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item label's DOM element."
+                            },
+                            {
+                                "name": "submenuIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the submenu icon's DOM element."
+                            },
+                            {
+                                "name": "separator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the separator's DOM element."
                             }
-                        ],
-                        "description": "Custom template of item."
-                    },
-                    {
-                        "parent": "tieredmenu",
-                        "name": "submenuicon",
-                        "parameters": [],
-                        "description": "Custom template of submenuicon."
+                        ]
                     }
                 ]
             }

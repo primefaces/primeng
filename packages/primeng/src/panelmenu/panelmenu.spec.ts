@@ -445,7 +445,7 @@ describe('PanelMenu', () => {
             fixture.detectChanges();
             tick();
 
-            const panelContent = fixture.debugElement.query(By.css('[data-pc-section="menucontent"]'));
+            const panelContent = fixture.debugElement.query(By.css('.p-panelmenu-content'));
             expect(panelContent).toBeTruthy();
         }));
 
@@ -540,7 +540,7 @@ describe('PanelMenu', () => {
 
             expect(panelMenuInstance.templates).toBeDefined();
 
-            const menuContent = templateFixture.debugElement.query(By.css('[data-pc-section="menucontent"]'));
+            const menuContent = templateFixture.debugElement.query(By.css('.p-panelmenu-content'));
             expect(menuContent).toBeTruthy();
 
             flush();
@@ -558,7 +558,7 @@ describe('PanelMenu', () => {
 
             expect(panelMenuInstance.itemTemplate).toBeDefined();
 
-            const menuContent = itemTemplateFixture.debugElement.query(By.css('[data-pc-section="menucontent"]'));
+            const menuContent = itemTemplateFixture.debugElement.query(By.css('.p-panelmenu-content'));
             expect(menuContent).toBeTruthy();
 
             flush();
@@ -663,7 +663,7 @@ describe('PanelMenu', () => {
             fixture.detectChanges();
             tick();
 
-            const panelContent = fixture.debugElement.query(By.css('[data-pc-section="toggleablecontent"]'));
+            const panelContent = fixture.debugElement.query(By.css('.p-panelmenu-content-container'));
 
             expect(panelContent.nativeElement.getAttribute('role')).toBe('region');
             expect(panelContent.nativeElement.hasAttribute('aria-labelledby')).toBe(true);
@@ -976,7 +976,7 @@ describe('PanelMenu', () => {
 
             expect(panelMenuInstance.model).toEqual(newModel);
 
-            const panelContent = fixture.debugElement.query(By.css('[data-pc-section="menucontent"]'));
+            const panelContent = fixture.debugElement.query(By.css('.p-panelmenu-content'));
             expect(panelContent).toBeTruthy();
         }));
 
@@ -1186,6 +1186,244 @@ describe('PanelMenu', () => {
             panelMenuInstance.onToggleDone();
 
             expect(panelMenuInstance.animating).toBe(false);
+        });
+    });
+
+    describe('PassThrough Tests', () => {
+        let fixture: ComponentFixture<PanelMenu>;
+        let panelMenu: PanelMenu;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(PanelMenu);
+            panelMenu = fixture.componentInstance;
+            panelMenu.model = [
+                {
+                    label: 'Documents',
+                    icon: 'pi pi-file',
+                    items: [
+                        { label: 'Work', icon: 'pi pi-briefcase' },
+                        { label: 'Personal', icon: 'pi pi-user' }
+                    ]
+                }
+            ];
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            it('should apply string classes to all PT sections', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    host: 'HOST_CLASS',
+                    root: 'ROOT_CLASS',
+                    panel: 'PANEL_CLASS',
+                    header: 'HEADER_CLASS',
+                    headerContent: 'HEADER_CONTENT_CLASS',
+                    headerLink: 'HEADER_LINK_CLASS',
+                    headerLabel: 'HEADER_LABEL_CLASS',
+                    submenuIcon: 'SUBMENU_ICON_CLASS',
+                    contentContainer: 'CONTENT_CONTAINER_CLASS',
+                    content: 'CONTENT_CLASS',
+                    rootList: 'ROOT_LIST_CLASS',
+                    item: 'ITEM_CLASS',
+                    itemContent: 'ITEM_CONTENT_CLASS',
+                    itemLink: 'ITEM_LINK_CLASS',
+                    itemLabel: 'ITEM_LABEL_CLASS',
+                    itemIcon: 'ITEM_ICON_CLASS'
+                });
+
+                fixture.detectChanges();
+                tick(150);
+
+                const hostElement = fixture.nativeElement;
+                const panelElement = hostElement.querySelector('.p-panelmenu-panel');
+                const headerElement = hostElement.querySelector('.p-panelmenu-header');
+
+                expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
+                expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
+                expect(panelElement?.classList.contains('PANEL_CLASS')).toBe(true);
+                expect(headerElement?.classList.contains('HEADER_CLASS')).toBe(true);
+
+                flush();
+            }));
+        });
+
+        describe('Case 2: Object with attributes', () => {
+            it('should apply object attributes to PT sections', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-test': 'root-test',
+                        'aria-label': 'Panel Menu Root'
+                    },
+                    header: {
+                        class: 'HEADER_OBJECT_CLASS',
+                        'data-test': 'header-test',
+                        'aria-label': 'Panel Header'
+                    }
+                });
+
+                fixture.detectChanges();
+                tick(150);
+
+                const hostElement = fixture.nativeElement;
+                const headerElement = hostElement.querySelector('.p-panelmenu-header');
+
+                expect(hostElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(hostElement.style.backgroundColor).toBe('red');
+                expect(hostElement.getAttribute('data-test')).toBe('root-test');
+                expect(hostElement.getAttribute('aria-label')).toBe('Panel Menu Root');
+                expect(headerElement?.classList.contains('HEADER_OBJECT_CLASS')).toBe(true);
+                expect(headerElement?.getAttribute('data-test')).toBe('header-test');
+
+                flush();
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should handle mixed PT values', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    panel: 'PANEL_STRING_CLASS',
+                    header: {
+                        class: 'HEADER_MIXED_CLASS',
+                        'data-mixed': 'true'
+                    },
+                    headerLabel: 'LABEL_STRING_CLASS'
+                });
+
+                fixture.detectChanges();
+                tick(150);
+
+                const hostElement = fixture.nativeElement;
+                const panelElement = hostElement.querySelector('.p-panelmenu-panel');
+                const headerElement = hostElement.querySelector('.p-panelmenu-header');
+
+                expect(hostElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+                expect(panelElement?.classList.contains('PANEL_STRING_CLASS')).toBe(true);
+                expect(headerElement?.classList.contains('HEADER_MIXED_CLASS')).toBe(true);
+                expect(headerElement?.getAttribute('data-mixed')).toBe('true');
+
+                flush();
+            }));
+        });
+
+        describe('Case 4: Instance variables', () => {
+            it('should use instance variables in PT', fakeAsync(() => {
+                panelMenu.multiple = true;
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => ({
+                        'data-multiple': instance?.multiple ? 'true' : 'false'
+                    })
+                });
+
+                fixture.detectChanges();
+                tick(150);
+
+                const hostElement = fixture.nativeElement;
+
+                expect(hostElement.getAttribute('data-multiple')).toBe('true');
+
+                flush();
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should handle onclick events in PT', fakeAsync(() => {
+                let clicked = false;
+
+                fixture.componentRef.setInput('pt', {
+                    header: () => ({
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    })
+                });
+
+                fixture.detectChanges();
+                tick(150);
+
+                const headerElement = fixture.nativeElement.querySelector('.p-panelmenu-header');
+                headerElement?.click();
+
+                expect(clicked).toBe(true);
+
+                flush();
+            }));
+        });
+
+        describe('Case 6: Inline PT', () => {
+            it('should work with inline PT configuration', fakeAsync(() => {
+                const testFixture = TestBed.createComponent(PanelMenu);
+                const testComponent = testFixture.componentInstance;
+
+                testComponent.model = [{ label: 'Test', items: [{ label: 'Item' }] }];
+                testFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+
+                testFixture.detectChanges();
+                tick(150);
+
+                const hostElement = testFixture.nativeElement;
+                expect(hostElement.classList.contains('INLINE_TEST_CLASS')).toBe(true);
+
+                flush();
+            }));
+
+            it('should work with inline PT object configuration', fakeAsync(() => {
+                const testFixture = TestBed.createComponent(PanelMenu);
+                const testComponent = testFixture.componentInstance;
+
+                testComponent.model = [{ label: 'Test', items: [{ label: 'Item' }] }];
+                testFixture.componentRef.setInput('pt', {
+                    root: { class: 'INLINE_OBJECT_CLASS' }
+                });
+
+                testFixture.detectChanges();
+                tick(150);
+
+                const hostElement = testFixture.nativeElement;
+                expect(hostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+
+                flush();
+            }));
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            it('should accept global PT configuration structure', fakeAsync(() => {
+                // Note: Full global PT testing requires PrimeNG service setup
+                // This test verifies the PT structure is accepted
+                fixture.componentRef.setInput('pt', {
+                    root: { 'data-global-test': 'true' }
+                });
+
+                fixture.detectChanges();
+                tick(150);
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.getAttribute('data-global-test')).toBe('true');
+
+                flush();
+            }));
+        });
+
+        describe('Case 8: Hooks', () => {
+            it('should accept PT hooks structure', fakeAsync(() => {
+                // Note: Hooks execution requires lifecycle integration
+                // This test verifies the PT hooks structure is accepted
+                fixture.componentRef.setInput('pt', {
+                    root: 'HOOK_TEST_CLASS',
+                    hooks: {}
+                });
+
+                fixture.detectChanges();
+                tick(150);
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.classList.contains('HOOK_TEST_CLASS')).toBe(true);
+
+                flush();
+            }));
         });
     });
 });
