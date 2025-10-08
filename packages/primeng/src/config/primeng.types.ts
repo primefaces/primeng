@@ -7,6 +7,7 @@ import type { PanelPassThrough } from 'primeng/types/panel';
 import type { AccordionPassThrough } from 'primeng/types/accordion';
 import type { CardPassThrough } from 'primeng/types/card';
 import type { DividerPassThrough } from 'primeng/types/divider';
+import type { MessagePassThrough } from 'primeng/types/message';
 import type { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
 import type { SplitterPassThrough } from 'primeng/types/splitter';
 import type { StepperPassThrough } from 'primeng/types/stepper';
@@ -37,6 +38,7 @@ export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
     card?: CardPassThrough;
     divider?: DividerPassThrough;
+    message?: MessagePassThrough;
     scrollPanel?: ScrollPanelPassThrough;
     speedDial?: SpeedDialPassThrough;
     splitButton?: SplitButtonPassThrough;

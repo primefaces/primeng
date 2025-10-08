@@ -1,11 +1,15 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
+import { MessagePassThrough } from 'primeng/types/message';
 import { MessageStyle } from './style/messagestyle';
+
+const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
 
 /**
  * Message groups a collection of contents in tabs.
@@ -14,10 +18,11 @@ import { MessageStyle } from './style/messagestyle';
 @Component({
     selector: 'p-message',
     standalone: true,
-    imports: [CommonModule, TimesIcon, Ripple, SharedModule],
+    imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind],
     template: `
         @if (visible()) {
             <div
+                [pBind]="ptm('root')"
                 class="p-message p-component"
                 [attr.aria-live]="'polite'"
                 [class]="cn(cx('root'), styleClass)"
@@ -30,39 +35,39 @@ import { MessageStyle } from './style/messagestyle';
                     }
                 }"
             >
-                <div [class]="cx('content')">
+                <div [pBind]="ptm('content')" [class]="cx('content')">
                     @if (iconTemplate || _iconTemplate) {
                         <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                     }
                     @if (icon) {
-                        <i [class]="cn(cx('icon'), icon)"></i>
+                        <i [pBind]="ptm('icon')" [class]="cn(cx('icon'), icon)"></i>
                     }
 
                     @if (containerTemplate || _containerTemplate) {
                         <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
                     } @else {
                         <div *ngIf="!escape; else escapeOut">
-                            <span *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text"></span>
+                            <span [pBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text"></span>
                         </div>
 
                         <ng-template #escapeOut>
-                            <span *ngIf="escape && text" [ngClass]="cx('text')">{{ text }}</span>
+                            <span [pBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')">{{ text }}</span>
                         </ng-template>
 
-                        <span [ngClass]="cx('text')">
+                        <span [pBind]="ptm('text')" [ngClass]="cx('text')">
                             <ng-content></ng-content>
                         </span>
                     }
                     @if (closable) {
-                        <button pRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel">
+                        <button [pBind]="ptm('closeButton')" pRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel">
                             @if (closeIcon) {
-                                <i [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon"></i>
+                                <i [pBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon"></i>
                             }
                             @if (closeIconTemplate || _closeIconTemplate) {
                                 <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
                             }
                             @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
-                                <svg data-p-icon="times" [class]="cx('closeIcon')" />
+                                <svg [pBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" />
                             }
                         </button>
                     }
@@ -72,7 +77,8 @@ import { MessageStyle } from './style/messagestyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [MessageStyle],
+    providers: [MessageStyle, { provide: MESSAGE_INSTANCE, useExisting: Message }, { provide: PARENT_INSTANCE, useExisting: Message }],
+    hostDirectives: [Bind],
     animations: [
         trigger('messageAnimation', [
             transition(':enter', [style({ opacity: 0, transform: 'translateY(-25%)' }), animate('{{showTransitionParams}}')]),
@@ -92,7 +98,17 @@ import { MessageStyle } from './style/messagestyle';
         ])
     ]
 })
-export class Message extends BaseComponent {
+export class Message extends BaseComponent<MessagePassThrough> {
+    _componentStyle = inject(MessageStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcMessage: Message | undefined = inject(MESSAGE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Severity level of the message.
      * @defaultValue 'info'
@@ -178,8 +194,6 @@ export class Message extends BaseComponent {
     }
 
     visible = signal<boolean>(true);
-
-    _componentStyle = inject(MessageStyle);
 
     /**
      * Custom template of the message container.

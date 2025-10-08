@@ -18368,6 +18368,69 @@
                     }
                 ]
             }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "MessagePassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
+                                "name": "icon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the icon's DOM element."
+                            },
+                            {
+                                "name": "text",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the text's DOM element."
+                            },
+                            {
+                                "name": "closeButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the close button's DOM element."
+                            },
+                            {
+                                "name": "closeIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the close icon's DOM element."
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     },
     "metergroup": {
