@@ -4972,6 +4972,13 @@
                         "description": "Custom passthrough(pt) options.",
                         "props": [
                             {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
                                 "name": "root",
                                 "optional": true,
                                 "readonly": false,
@@ -5085,20 +5092,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "blockui",
-                        "name": "content",
-                        "parameters": [],
-                        "description": "Custom template of content."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -5106,6 +5099,45 @@
                     {
                         "class": "p-blockui",
                         "description": "Class name of the root element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "content",
+                        "parameters": [],
+                        "description": "Custom template of content."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "BlockUIPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
                     }
                 ]
             }

@@ -6,6 +6,7 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import type { PanelPassThrough } from 'primeng/types/panel';
 import type { AccordionPassThrough } from 'primeng/types/accordion';
 import type { AvatarPassThrough } from 'primeng/types/avatar';
+import type { BlockUIPassThrough } from 'primeng/types/blockui';
 import type { CardPassThrough } from 'primeng/types/card';
 import type { DividerPassThrough } from 'primeng/types/divider';
 import type { MessagePassThrough } from 'primeng/types/message';
@@ -39,6 +40,7 @@ export type ThemeConfigType = {
 export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
     avatar?: AvatarPassThrough;
+    blockUI?: BlockUIPassThrough;
     card?: CardPassThrough;
     divider?: DividerPassThrough;
     message?: MessagePassThrough;
