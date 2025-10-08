@@ -5,6 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { providePrimeNG } from 'primeng/config';
 import { SpeedDial } from './speeddial';
 
 // Basic SpeedDial Test Component
@@ -1403,6 +1404,718 @@ describe('SpeedDial', () => {
             const unbindSpy = spyOn(speedDialInstance, 'unbindDocumentClickListener');
             speedDialInstance.visible = false;
             expect(unbindSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('PassThrough Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            it('should apply string class to host', () => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                const hostElement = fixture.nativeElement;
+                expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to root', () => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                const rootElement = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to pcButton', () => {
+                fixture.componentRef.setInput('pt', { pcButton: 'BUTTON_CLASS' });
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('button[pButton]'));
+                expect(buttonElement.nativeElement.classList.contains('BUTTON_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to list', () => {
+                fixture.componentRef.setInput('pt', { list: 'LIST_CLASS' });
+                fixture.detectChanges();
+
+                const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement.nativeElement.classList.contains('LIST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to item', fakeAsync(() => {
+                component.visible = true;
+                fixture.componentRef.setInput('pt', { item: 'ITEM_CLASS' });
+                fixture.detectChanges();
+                tick();
+
+                const itemElements = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+                expect(itemElements.length).toBeGreaterThan(0);
+                expect(itemElements[0].nativeElement.classList.contains('ITEM_CLASS')).toBe(true);
+            }));
+
+            it('should apply string class to mask', () => {
+                component.mask = true;
+                component.visible = true;
+                fixture.componentRef.setInput('pt', { mask: 'MASK_CLASS' });
+                fixture.detectChanges();
+
+                const maskElement = fixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                expect(maskElement?.nativeElement.classList.contains('MASK_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects with class, style, data attributes, aria-label', () => {
+            it('should apply object properties to root', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: 'background-color: red',
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                const rootElement = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(rootElement.nativeElement.style.backgroundColor).toBe('red');
+                expect(rootElement.nativeElement.getAttribute('data-p-test')).toBe('true');
+                expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object properties to pcButton', () => {
+                fixture.componentRef.setInput('pt', {
+                    pcButton: {
+                        class: 'BUTTON_OBJECT_CLASS',
+                        style: 'color: blue',
+                        'data-p-button': true
+                    }
+                });
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('button[pButton]'));
+                expect(buttonElement.nativeElement.classList.contains('BUTTON_OBJECT_CLASS')).toBe(true);
+                expect(buttonElement.nativeElement.style.color).toBe('blue');
+                expect(buttonElement.nativeElement.getAttribute('data-p-button')).toBe('true');
+            });
+
+            it('should apply object properties to list', () => {
+                fixture.componentRef.setInput('pt', {
+                    list: {
+                        class: 'LIST_OBJECT_CLASS',
+                        style: 'padding: 10px',
+                        'data-p-list': true
+                    }
+                });
+                fixture.detectChanges();
+
+                const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement.nativeElement.classList.contains('LIST_OBJECT_CLASS')).toBe(true);
+                expect(listElement.nativeElement.style.padding).toBe('10px');
+                expect(listElement.nativeElement.getAttribute('data-p-list')).toBe('true');
+            });
+
+            it('should apply object properties to mask', () => {
+                component.mask = true;
+                component.visible = true;
+                fixture.componentRef.setInput('pt', {
+                    mask: {
+                        class: 'MASK_OBJECT_CLASS',
+                        style: 'opacity: 0.5',
+                        'data-p-mask': true
+                    }
+                });
+                fixture.detectChanges();
+
+                const maskElement = fixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                expect(maskElement?.nativeElement.classList.contains('MASK_OBJECT_CLASS')).toBe(true);
+                expect(maskElement?.nativeElement.style.opacity).toBe('0.5');
+                expect(maskElement?.nativeElement.getAttribute('data-p-mask')).toBe('true');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed pt configuration', fakeAsync(() => {
+                component.visible = true;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    pcButton: 'BUTTON_STRING_CLASS',
+                    list: {
+                        class: 'LIST_MIXED_CLASS',
+                        style: 'margin: 5px'
+                    },
+                    item: 'ITEM_STRING_CLASS'
+                });
+                fixture.detectChanges();
+                tick();
+
+                const rootElement = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+
+                const buttonElement = fixture.debugElement.query(By.css('button[pButton]'));
+                expect(buttonElement.nativeElement.classList.contains('BUTTON_STRING_CLASS')).toBe(true);
+
+                const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement.nativeElement.classList.contains('LIST_MIXED_CLASS')).toBe(true);
+                expect(listElement.nativeElement.style.margin).toBe('5px');
+
+                const itemElements = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+                expect(itemElements[0]?.nativeElement.classList.contains('ITEM_STRING_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should apply dynamic classes based on instance visible state', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: {
+                                SPEED_DIAL_VISIBLE: instance?.visible
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const rootElement = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('SPEED_DIAL_VISIBLE')).toBe(false);
+
+                speedDialInstance.show();
+                tick();
+                fixture.detectChanges();
+
+                expect(rootElement.nativeElement.classList.contains('SPEED_DIAL_VISIBLE')).toBe(true);
+            }));
+
+            it('should apply dynamic styles based on instance direction', () => {
+                component.direction = 'up';
+                fixture.componentRef.setInput('pt', {
+                    list: ({ instance }) => {
+                        return {
+                            style: {
+                                'background-color': instance?.direction === 'up' ? 'yellow' : 'red'
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement.nativeElement.style.backgroundColor).toBe('yellow');
+
+                component.direction = 'down';
+                fixture.detectChanges();
+
+                expect(listElement.nativeElement.style.backgroundColor).toBe('red');
+            });
+
+            it('should apply dynamic classes based on instance disabled state', () => {
+                fixture.componentRef.setInput('pt', {
+                    pcButton: ({ instance }) => {
+                        return {
+                            class: {
+                                DISABLED_BUTTON: instance?.disabled
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('button[pButton]'));
+                expect(buttonElement.nativeElement.classList.contains('DISABLED_BUTTON')).toBe(false);
+
+                component.disabled = true;
+                fixture.detectChanges();
+
+                expect(buttonElement.nativeElement.classList.contains('DISABLED_BUTTON')).toBe(true);
+            });
+
+            it('should apply dynamic styles based on instance mask state', () => {
+                component.mask = true;
+                component.visible = true;
+                fixture.componentRef.setInput('pt', {
+                    mask: ({ instance }) => {
+                        return {
+                            style: {
+                                'background-color': instance?.visible ? 'rgba(0,0,0,0.5)' : 'transparent'
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const maskElement = fixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                expect(maskElement?.nativeElement.style.backgroundColor).toBe('rgba(0, 0, 0, 0.5)');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should bind onclick event to root', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const rootElement = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                rootElement.nativeElement.click();
+
+                expect(clicked).toBe(true);
+            });
+
+            it('should bind onclick event to pcButton', () => {
+                let buttonClicked = false;
+                fixture.componentRef.setInput('pt', {
+                    pcButton: {
+                        onclick: () => {
+                            buttonClicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('button[pButton]'));
+                buttonElement.nativeElement.click();
+
+                expect(buttonClicked).toBe(true);
+            });
+
+            it('should bind onclick event with instance access', () => {
+                let instanceVisible: boolean | undefined;
+                fixture.componentRef.setInput('pt', {
+                    pcButton: ({ instance }) => {
+                        return {
+                            onclick: () => {
+                                instanceVisible = instance?.visible;
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('button[pButton]'));
+                buttonElement.nativeElement.click();
+
+                expect(instanceVisible).toBeDefined();
+                expect(instanceVisible).toBe(true);
+            });
+        });
+
+        describe('Case 6: Test emitters', () => {
+            it('should access onShow emitter from instance', fakeAsync(() => {
+                let showCalled = false;
+                speedDialInstance.onShow.subscribe(() => {
+                    showCalled = true;
+                });
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: instance?.onShow ? 'HAS_ON_SHOW' : 'NO_ON_SHOW'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const rootElement = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('HAS_ON_SHOW')).toBe(true);
+
+                speedDialInstance.show();
+                tick();
+
+                expect(showCalled).toBe(true);
+            }));
+
+            it('should access onHide emitter from instance', fakeAsync(() => {
+                let hideCalled = false;
+                speedDialInstance.onHide.subscribe(() => {
+                    hideCalled = true;
+                });
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: instance?.onHide ? 'HAS_ON_HIDE' : 'NO_ON_HIDE'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const rootElement = fixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('HAS_ON_HIDE')).toBe(true);
+
+                speedDialInstance.show();
+                tick();
+                speedDialInstance.hide();
+                tick();
+
+                expect(hideCalled).toBe(true);
+            }));
+
+            it('should access onClick emitter from instance', () => {
+                let clickEmitted = false;
+                speedDialInstance.onClick.subscribe(() => {
+                    clickEmitted = true;
+                });
+
+                fixture.componentRef.setInput('pt', {
+                    pcButton: ({ instance }) => {
+                        return {
+                            'data-has-click': instance?.onClick ? 'true' : 'false'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('button[pButton]'));
+                expect(buttonElement.nativeElement.getAttribute('data-has-click')).toBe('true');
+
+                buttonElement.nativeElement.click();
+                expect(clickEmitted).toBe(true);
+            });
+        });
+
+        describe('Case 7: Inline test', () => {
+            it('should handle inline pt with string class', () => {
+                TestBed.overrideComponent(TestBasicSpeedDialComponent, {
+                    set: {
+                        template: `<p-speeddial [model]="model" [pt]="{root: 'INLINE_ROOT_CLASS'}"></p-speeddial>`
+                    }
+                });
+
+                const inlineFixture = TestBed.createComponent(TestBasicSpeedDialComponent);
+                inlineFixture.detectChanges();
+
+                const rootElement = inlineFixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+            });
+
+            it('should handle inline pt with object class', () => {
+                TestBed.overrideComponent(TestBasicSpeedDialComponent, {
+                    set: {
+                        template: `<p-speeddial [model]="model" [pt]="{root: {class: 'INLINE_OBJECT_CLASS'}}"></p-speeddial>`
+                    }
+                });
+
+                const inlineFixture = TestBed.createComponent(TestBasicSpeedDialComponent);
+                inlineFixture.detectChanges();
+
+                const rootElement = inlineFixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            });
+
+            it('should handle multiple inline pt sections', fakeAsync(() => {
+                TestBed.overrideComponent(TestBasicSpeedDialComponent, {
+                    set: {
+                        template: `<p-speeddial [visible]="true" [model]="model" [pt]="{root: 'INLINE_ROOT', pcButton: 'INLINE_BUTTON', list: 'INLINE_LIST'}"></p-speeddial>`
+                    }
+                });
+
+                const inlineFixture = TestBed.createComponent(TestBasicSpeedDialComponent);
+                inlineFixture.detectChanges();
+                tick();
+
+                const rootElement = inlineFixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('INLINE_ROOT')).toBe(true);
+
+                const buttonElement = inlineFixture.debugElement.query(By.css('button[pButton]'));
+                expect(buttonElement.nativeElement.classList.contains('INLINE_BUTTON')).toBe(true);
+
+                const listElement = inlineFixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement.nativeElement.classList.contains('INLINE_LIST')).toBe(true);
+            }));
+        });
+
+        describe('Case 8: Test from PrimeNGConfig', () => {
+            it('should apply global PT configuration from providePrimeNG', async () => {
+                @Component({
+                    standalone: true,
+                    imports: [SpeedDial],
+                    template: `
+                        <p-speeddial [model]="model1" class="first-speeddial"></p-speeddial>
+                        <p-speeddial [model]="model2" class="second-speeddial"></p-speeddial>
+                    `
+                })
+                class GlobalPTTestComponent {
+                    model1: MenuItem[] = [{ label: 'Action 1', icon: 'pi pi-plus' }];
+                    model2: MenuItem[] = [{ label: 'Action 2', icon: 'pi pi-minus' }];
+                }
+
+                await TestBed.configureTestingModule({
+                    imports: [GlobalPTTestComponent, NoopAnimationsModule],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                speeddial: {
+                                    host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
+                                    root: { class: 'GLOBAL_ROOT_CLASS' }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(GlobalPTTestComponent);
+                globalFixture.detectChanges();
+
+                const speedDials = globalFixture.debugElement.queryAll(By.directive(SpeedDial));
+                expect(speedDials.length).toBe(2);
+
+                // Check first speeddial
+                const firstHost = speedDials[0].nativeElement;
+                expect(firstHost.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+
+                const firstRoot = speedDials[0].query(By.css('[data-pc-name="speeddial"]'));
+                expect(firstRoot.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+
+                // Check second speeddial
+                const secondHost = speedDials[1].nativeElement;
+                expect(secondHost.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+
+                const secondRoot = speedDials[1].query(By.css('[data-pc-name="speeddial"]'));
+                expect(secondRoot.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply global PT with multiple attributes', async () => {
+                @Component({
+                    standalone: true,
+                    imports: [SpeedDial],
+                    template: `<p-speeddial [model]="model"></p-speeddial>`
+                })
+                class MultiAttributePTTestComponent {
+                    model: MenuItem[] = [{ label: 'Test', icon: 'pi pi-check' }];
+                }
+
+                await TestBed.configureTestingModule({
+                    imports: [MultiAttributePTTestComponent, NoopAnimationsModule],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                speeddial: {
+                                    host: {
+                                        class: 'GLOBAL_HOST_CLASS',
+                                        style: 'position: relative',
+                                        'data-p-global': 'true'
+                                    },
+                                    pcButton: {
+                                        class: 'GLOBAL_BUTTON_CLASS',
+                                        'data-p-button-global': 'true'
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const multiAttrFixture = TestBed.createComponent(MultiAttributePTTestComponent);
+                multiAttrFixture.detectChanges();
+
+                const hostElement = multiAttrFixture.nativeElement.querySelector('p-speeddial');
+                expect(hostElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
+                expect(hostElement.style.position).toBe('relative');
+                expect(hostElement.getAttribute('data-p-global')).toBe('true');
+
+                const buttonElement = multiAttrFixture.debugElement.query(By.css('button[pButton]'));
+                expect(buttonElement.nativeElement.classList.contains('GLOBAL_BUTTON_CLASS')).toBe(true);
+                expect(buttonElement.nativeElement.getAttribute('data-p-button-global')).toBe('true');
+            });
+
+            it('should apply global CSS from PrimeNGConfig', async () => {
+                @Component({
+                    standalone: true,
+                    imports: [SpeedDial],
+                    template: `<p-speeddial [model]="model"></p-speeddial>`
+                })
+                class GlobalCSSTestComponent {
+                    model: MenuItem[] = [{ label: 'CSS Test', icon: 'pi pi-star' }];
+                }
+
+                await TestBed.configureTestingModule({
+                    imports: [GlobalCSSTestComponent, NoopAnimationsModule],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                speeddial: {
+                                    host: { class: 'GLOBAL_CSS_TEST' },
+                                    global: {
+                                        css: `
+                                            .GLOBAL_CSS_TEST button {
+                                                border: 1px solid red !important;
+                                            }
+                                        `
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const cssFixture = TestBed.createComponent(GlobalCSSTestComponent);
+                cssFixture.detectChanges();
+
+                const hostElement = cssFixture.nativeElement.querySelector('p-speeddial');
+                expect(hostElement.classList.contains('GLOBAL_CSS_TEST')).toBe(true);
+
+                // Note: Testing actual CSS application in unit tests is challenging
+                // The CSS is injected, but computed styles may not be available in test environment
+                const buttonElement = cssFixture.debugElement.query(By.css('button[pButton]'));
+                expect(buttonElement).toBeTruthy();
+            });
+        });
+
+        describe('Case 9: Test hooks', () => {
+            it('should call onAfterViewInit hook from PT', async () => {
+                let hookCalled = false;
+
+                @Component({
+                    standalone: true,
+                    imports: [SpeedDial],
+                    template: `<p-speeddial [model]="model" [pt]="ptConfig"></p-speeddial>`
+                })
+                class HookTestComponent {
+                    model: MenuItem[] = [{ label: 'Hook Test', icon: 'pi pi-cog' }];
+                    ptConfig = {
+                        root: 'HOOK-TEST',
+                        hooks: {
+                            onAfterViewInit: () => {
+                                hookCalled = true;
+                            }
+                        }
+                    };
+                }
+
+                await TestBed.configureTestingModule({
+                    imports: [HookTestComponent, NoopAnimationsModule]
+                }).compileComponents();
+
+                const hookFixture = TestBed.createComponent(HookTestComponent);
+                hookFixture.detectChanges();
+
+                // Wait for AfterViewInit lifecycle hook
+                await hookFixture.whenStable();
+
+                expect(hookCalled).toBe(true);
+
+                const rootElement = hookFixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
+                expect(rootElement.nativeElement.classList.contains('HOOK-TEST')).toBe(true);
+            });
+
+            it('should call onInit hook from PT', async () => {
+                let initHookCalled = false;
+
+                @Component({
+                    standalone: true,
+                    imports: [SpeedDial],
+                    template: `<p-speeddial [model]="model" [pt]="ptConfig"></p-speeddial>`
+                })
+                class InitHookTestComponent {
+                    model: MenuItem[] = [{ label: 'Init Hook Test', icon: 'pi pi-power-off' }];
+                    ptConfig = {
+                        root: 'INIT-HOOK-TEST',
+                        hooks: {
+                            onInit: () => {
+                                initHookCalled = true;
+                            }
+                        }
+                    };
+                }
+
+                await TestBed.configureTestingModule({
+                    imports: [InitHookTestComponent, NoopAnimationsModule]
+                }).compileComponents();
+
+                const initHookFixture = TestBed.createComponent(InitHookTestComponent);
+                initHookFixture.detectChanges();
+
+                // Wait for Init lifecycle hook
+                await initHookFixture.whenStable();
+
+                expect(initHookCalled).toBe(true);
+            });
+
+            it('should call onDestroy hook from PT', async () => {
+                let destroyHookCalled = false;
+
+                @Component({
+                    standalone: true,
+                    imports: [SpeedDial],
+                    template: `<p-speeddial [model]="model" [pt]="ptConfig"></p-speeddial>`
+                })
+                class DestroyHookTestComponent {
+                    model: MenuItem[] = [{ label: 'Destroy Hook Test', icon: 'pi pi-times' }];
+                    ptConfig = {
+                        root: 'DESTROY-HOOK-TEST',
+                        hooks: {
+                            onDestroy: () => {
+                                destroyHookCalled = true;
+                            }
+                        }
+                    };
+                }
+
+                await TestBed.configureTestingModule({
+                    imports: [DestroyHookTestComponent, NoopAnimationsModule]
+                }).compileComponents();
+
+                const destroyHookFixture = TestBed.createComponent(DestroyHookTestComponent);
+                destroyHookFixture.detectChanges();
+
+                // Destroy the component to trigger onDestroy hook
+                destroyHookFixture.destroy();
+
+                expect(destroyHookCalled).toBe(true);
+            });
+
+            it('should call multiple hooks from PT', async () => {
+                let initCalled = false;
+                let afterViewInitCalled = false;
+                let destroyCalled = false;
+
+                @Component({
+                    standalone: true,
+                    imports: [SpeedDial],
+                    template: `<p-speeddial [model]="model" [pt]="ptConfig"></p-speeddial>`
+                })
+                class MultipleHooksTestComponent {
+                    model: MenuItem[] = [{ label: 'Multiple Hooks', icon: 'pi pi-list' }];
+                    ptConfig = {
+                        root: 'MULTIPLE-HOOKS-TEST',
+                        hooks: {
+                            onInit: () => {
+                                initCalled = true;
+                            },
+                            onAfterViewInit: () => {
+                                afterViewInitCalled = true;
+                            },
+                            onDestroy: () => {
+                                destroyCalled = true;
+                            }
+                        }
+                    };
+                }
+
+                await TestBed.configureTestingModule({
+                    imports: [MultipleHooksTestComponent, NoopAnimationsModule]
+                }).compileComponents();
+
+                const multiHookFixture = TestBed.createComponent(MultipleHooksTestComponent);
+                multiHookFixture.detectChanges();
+
+                await multiHookFixture.whenStable();
+
+                expect(initCalled).toBe(true);
+                expect(afterViewInitCalled).toBe(true);
+                expect(destroyCalled).toBe(false);
+
+                multiHookFixture.destroy();
+
+                expect(destroyCalled).toBe(true);
+            });
         });
     });
 });

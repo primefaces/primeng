@@ -26635,42 +26635,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "speeddial",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Data of the item.\n  \t index: number, // Index of the item.\n  \t toggleCallback: Function, // Item click function\n  }"
-                            }
-                        ],
-                        "description": "Custom template of item."
-                    },
-                    {
-                        "parent": "speeddial",
-                        "name": "button",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t toggleCallback: Function, // Button click function\n  }"
-                            }
-                        ],
-                        "description": "Custom template of button."
-                    },
-                    {
-                        "parent": "speeddial",
-                        "name": "icon",
-                        "parameters": [],
-                        "description": "Custom template of icon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -26702,6 +26666,113 @@
                     {
                         "class": "p-speeddial-mask",
                         "description": "Class name of the mask element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "button",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t toggleCallback: undefined, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Custom button template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "icon",
+                        "parameters": [],
+                        "description": "Custom icon template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t item: any, // undefined\n  \t index: number, // undefined\n  \t toggleCallback: undefined, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "itemicon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t item: any, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Custom item icon template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "SpeedDialPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "pcButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the Button component."
+                            },
+                            {
+                                "name": "list",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the list's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "pcAction",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the action's Button component."
+                            },
+                            {
+                                "name": "actionIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the action icon's DOM element."
+                            },
+                            {
+                                "name": "mask",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the mask's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
@@ -26983,26 +27054,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "splitbutton",
-                        "name": "content",
-                        "parameters": [],
-                        "description": "Custom template of content."
-                    },
-                    {
-                        "parent": "splitbutton",
-                        "name": "dropdownicon",
-                        "parameters": [],
-                        "description": "Custom template of dropdownicon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -27018,6 +27069,65 @@
                     {
                         "class": "p-splitbutton-dropdown",
                         "description": "Class name of the dropdown element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "content",
+                        "parameters": [],
+                        "description": "Custom template of content."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "dropdownicon",
+                        "parameters": [],
+                        "description": "Custom template of dropdownicon."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "SplitButtonPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "pcButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the Button component."
+                            },
+                            {
+                                "name": "pcDropdown",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the dropdown Button component."
+                            },
+                            {
+                                "name": "pcMenu",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Used to pass attributes to the TieredMenu component."
+                            }
+                        ]
                     }
                 ]
             }
