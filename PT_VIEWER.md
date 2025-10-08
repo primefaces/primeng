@@ -25,7 +25,7 @@ mkdir -p apps/showcase/doc/<componentname>/pt
 ### 3. Create PTViewer.ts
 
 Create `apps/showcase/doc/<componentname>/pt/PTViewer.ts` with the following structure:
-
+USE AS EXAMPLE: `../basicdoc.ts`
 ```typescript
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
