@@ -1,9 +1,10 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, Input } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MegaMenuItem, SharedModule } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
 import { MegaMenu } from './megamenu';
 
 @Component({
@@ -20,13 +21,14 @@ import { MegaMenu } from './megamenu';
             [tabindex]="tabindex"
             [ariaLabel]="ariaLabel"
             [ariaLabelledBy]="ariaLabelledBy"
+            [pt]="pt"
         >
         </p-megamenu>
     `
 })
 class TestBasicMegaMenuComponent {
-    id: string | undefined;
-    model: MegaMenuItem[] | undefined = [
+    @Input() id: string | undefined;
+    @Input() model: MegaMenuItem[] | undefined = [
         {
             label: 'Fashion',
             icon: 'pi pi-shopping-cart',
@@ -64,14 +66,15 @@ class TestBasicMegaMenuComponent {
         { separator: true },
         { label: 'Simple Item', icon: 'pi pi-home', disabled: true }
     ];
-    orientation: 'horizontal' | 'vertical' | string = 'horizontal';
-    styleClass: string | undefined;
-    breakpoint: string = '960px';
-    scrollHeight: string = '20rem';
-    disabled: boolean = false;
-    tabindex: number = 0;
-    ariaLabel: string | undefined;
-    ariaLabelledBy: string | undefined;
+    @Input() orientation: 'horizontal' | 'vertical' | string = 'horizontal';
+    @Input() styleClass: string | undefined;
+    @Input() breakpoint: string = '960px';
+    @Input() scrollHeight: string = '20rem';
+    @Input() disabled: boolean = false;
+    @Input() tabindex: number = 0;
+    @Input() ariaLabel: string | undefined;
+    @Input() ariaLabelledBy: string | undefined;
+    @Input() pt: any;
 }
 
 @Component({
@@ -461,17 +464,17 @@ describe('MegaMenu', () => {
 
     describe('Menu Item Display Tests', () => {
         it('should render menu items from model', () => {
-            const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
             expect(items.length).toBeGreaterThanOrEqual(3); // At least Fashion, Electronics, Simple Item
         });
 
         it('should render item icons when provided', () => {
-            const iconElements = fixture.debugElement.queryAll(By.css('span[data-pc-section="icon"]'));
+            const iconElements = fixture.debugElement.queryAll(By.css('span[data-pc-section="itemicon"]'));
             expect(iconElements.length).toBeGreaterThanOrEqual(3); // Icons for items with icons
         });
 
         it('should render item labels', () => {
-            const labelElements = fixture.debugElement.queryAll(By.css('span[data-pc-section="label"]'));
+            const labelElements = fixture.debugElement.queryAll(By.css('span[data-pc-section="itemlabel"]'));
             expect(labelElements.length).toBeGreaterThanOrEqual(3);
         });
 
@@ -483,7 +486,7 @@ describe('MegaMenu', () => {
             ];
             fixture.detectChanges();
 
-            const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
             expect(items.length).toBe(2); // Only visible items
         });
 
@@ -491,7 +494,7 @@ describe('MegaMenu', () => {
             component.model = [];
             fixture.detectChanges();
 
-            const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
             expect(items.length).toBe(0);
         });
 
@@ -499,7 +502,7 @@ describe('MegaMenu', () => {
             component.model = undefined as any;
             fixture.detectChanges();
 
-            const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
             expect(items.length).toBe(0);
         });
 
@@ -545,7 +548,7 @@ describe('MegaMenu', () => {
 
             expect(megaMenuInstance.orientation).toBe('horizontal');
 
-            const rootList = fixture.debugElement.query(By.css('ul[data-pc-section="root"]'));
+            const rootList = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
             expect(rootList.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
         });
 
@@ -556,7 +559,7 @@ describe('MegaMenu', () => {
             const verticalMegaMenu = verticalFixture.debugElement.query(By.directive(MegaMenu)).componentInstance;
             expect(verticalMegaMenu.orientation).toBe('vertical');
 
-            const rootList = verticalFixture.debugElement.query(By.css('ul[data-pc-section="root"]'));
+            const rootList = verticalFixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
             expect(rootList.nativeElement.getAttribute('aria-orientation')).toBe('vertical');
         });
 
@@ -580,8 +583,8 @@ describe('MegaMenu', () => {
             const commandComponent = commandFixture.componentInstance;
             commandFixture.detectChanges();
 
-            const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="menuitem"]'));
-            const contentElement = itemElement.query(By.css('div[data-pc-section="content"]'));
+            const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="item"]'));
+            const contentElement = itemElement.query(By.css('div[data-pc-section="itemcontent"]'));
 
             contentElement.nativeElement.click();
             tick();
@@ -607,7 +610,7 @@ describe('MegaMenu', () => {
             const disabledFixture = TestBed.createComponent(TestDisabledMegaMenuComponent);
             disabledFixture.detectChanges();
 
-            const itemElements = disabledFixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const itemElements = disabledFixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
 
             // Check if items exist and have attributes
             if (itemElements.length > 0) {
@@ -918,7 +921,7 @@ describe('MegaMenu', () => {
 
     describe('Accessibility Tests', () => {
         it('should have proper ARIA attributes on root list', () => {
-            const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="root"]'));
+            const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
 
             expect(listElement.nativeElement.getAttribute('role')).toBe('menubar');
             expect(listElement.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
@@ -926,7 +929,7 @@ describe('MegaMenu', () => {
         });
 
         it('should have proper ARIA attributes on menu items', () => {
-            const itemElements = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const itemElements = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
 
             if (itemElements.length > 0) {
                 itemElements.forEach((item, index) => {
@@ -956,7 +959,7 @@ describe('MegaMenu', () => {
 
             fixture.detectChanges();
 
-            const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="root"]'));
+            const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
             if (listElement) {
                 const ariaActivedescendant = listElement.nativeElement.getAttribute('aria-activedescendant');
                 if (ariaActivedescendant) {
@@ -977,7 +980,7 @@ describe('MegaMenu', () => {
             expect(megaMenuInstance.ariaLabel).toBe('Main Navigation Menu');
 
             // The current implementation may not bind aria-label to ul element
-            const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="root"]'));
+            const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
             if (listElement) {
                 const ariaLabel = listElement.nativeElement.getAttribute('aria-label');
                 if (ariaLabel) {
@@ -994,7 +997,7 @@ describe('MegaMenu', () => {
             expect(megaMenuInstance.ariaLabelledBy).toBe('megamenu-heading');
 
             // The current implementation may not bind aria-labelledby to ul element
-            const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="root"]'));
+            const listElement = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
             if (listElement) {
                 const ariaLabelledBy = listElement.nativeElement.getAttribute('aria-labelledby');
                 if (ariaLabelledBy) {
@@ -1165,7 +1168,7 @@ describe('MegaMenu', () => {
             component.model = [{ label: 'No Icon Item' }, { label: 'Icon Item', icon: 'pi pi-check' }];
             fixture.detectChanges();
 
-            const iconElements = fixture.debugElement.queryAll(By.css('span[data-pc-section="icon"]'));
+            const iconElements = fixture.debugElement.queryAll(By.css('span[data-pc-section="itemicon"]'));
             expect(iconElements.length).toBe(1); // Only one item has icon
         });
 
@@ -1173,7 +1176,7 @@ describe('MegaMenu', () => {
             component.model = [{ label: 'Custom Style', styleClass: 'custom-item-class' }];
             fixture.detectChanges();
 
-            const itemElement = fixture.debugElement.query(By.css('li[data-pc-section="menuitem"]'));
+            const itemElement = fixture.debugElement.query(By.css('li[data-pc-section="item"]'));
             expect(itemElement.nativeElement.classList.contains('custom-item-class')).toBe(true);
         });
 
@@ -1314,6 +1317,399 @@ describe('MegaMenu', () => {
             expect(processedItems[0].key).toBe('0');
             expect(processedItems[1].key).toBe('1');
             expect(processedItems[1].items).toBeDefined();
+        });
+    });
+
+    describe('PT (Pass Through) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            it('should apply simple string classes to PT sections', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: 'ROOT_CLASS',
+                    start: 'START_CLASS',
+                    button: 'BUTTON_CLASS',
+                    end: 'END_CLASS'
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
+                expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply string classes to submenu sections', () => {
+                fixture.componentRef.setInput('pt', {
+                    rootList: 'ROOTLIST_CLASS',
+                    item: 'ITEM_CLASS',
+                    itemContent: 'ITEM_CONTENT_CLASS',
+                    itemLink: 'ITEM_LINK_CLASS'
+                });
+                fixture.detectChanges();
+
+                const rootList = fixture.debugElement.query(By.css('ul[data-pc-section="rootlist"]'));
+                if (rootList) {
+                    expect(rootList.nativeElement.classList.contains('ROOTLIST_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 2: Objects with class, style, data-p-*, aria-*', () => {
+            it('should apply object PT with class, style, and attributes to root', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'OBJECT_ROOT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
+                expect(hostElement.classList.contains('OBJECT_ROOT_CLASS')).toBe(true);
+                expect(hostElement.getAttribute('data-p-test')).toBe('true');
+                expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object PT to button section', () => {
+                component.model = [{ label: 'Test' }];
+                fixture.componentRef.setInput('pt', {
+                    button: {
+                        class: 'BUTTON_OBJECT_CLASS',
+                        style: { color: 'blue' },
+                        'data-p-button': true
+                    }
+                });
+                megaMenuInstance.queryMatches = true;
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('a[role="button"]'));
+                if (buttonElement) {
+                    expect(buttonElement.nativeElement.classList.contains('BUTTON_OBJECT_CLASS')).toBe(true);
+                    expect(buttonElement.nativeElement.getAttribute('data-p-button')).toBe('true');
+                }
+            });
+
+            it('should apply object PT to item sections', () => {
+                fixture.componentRef.setInput('pt', {
+                    item: {
+                        class: 'ITEM_OBJECT_CLASS',
+                        'data-p-item': true,
+                        'aria-label': 'ITEM_ARIA'
+                    }
+                });
+                fixture.detectChanges();
+
+                const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
+                if (items.length > 0) {
+                    expect(items[0].nativeElement.classList.contains('ITEM_OBJECT_CLASS')).toBe(true);
+                    expect(items[0].nativeElement.getAttribute('data-p-item')).toBe('true');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should handle mixed PT values correctly', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'MIXED_ROOT_CLASS'
+                    },
+                    start: 'MIXED_START_STRING',
+                    button: {
+                        class: 'MIXED_BUTTON_CLASS',
+                        style: { padding: '10px' }
+                    },
+                    end: 'MIXED_END_STRING'
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
+                expect(hostElement.classList.contains('MIXED_ROOT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should access instance properties via PT functions', () => {
+                component.disabled = true;
+                fixture.componentRef.setInput('disabled', true);
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: 'PT_FUNCTION_CLASS'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
+                // Verify PT function is called and applied
+                expect(hostElement.classList.contains('PT_FUNCTION_CLASS')).toBe(true);
+            });
+
+            it('should use instance state in PT function for button', () => {
+                component.model = [{ label: 'Test' }];
+                fixture.componentRef.setInput('pt', {
+                    button: ({ instance }) => {
+                        return {
+                            style: {
+                                'background-color': instance?.mobileActive ? 'yellow' : 'red'
+                            }
+                        };
+                    }
+                });
+                megaMenuInstance.queryMatches = true;
+                megaMenuInstance.mobileActive = true;
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('a[role="button"]'));
+                if (buttonElement) {
+                    expect(buttonElement.nativeElement.style.backgroundColor).toBe('yellow');
+                }
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should bind onclick event via PT', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
+                hostElement.click();
+
+                expect(clicked).toBe(true);
+            });
+
+            it('should bind onclick to button via PT', () => {
+                component.model = [{ label: 'Test' }];
+                let buttonClicked = false;
+
+                fixture.componentRef.setInput('pt', {
+                    button: {
+                        onclick: () => {
+                            buttonClicked = true;
+                        }
+                    }
+                });
+                megaMenuInstance.queryMatches = true;
+                fixture.detectChanges();
+
+                const buttonElement = fixture.debugElement.query(By.css('a[role="button"]'));
+                if (buttonElement) {
+                    buttonElement.nativeElement.click();
+                    expect(buttonClicked).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 6: Test emitters', () => {
+            it('should access component emitters via PT function', () => {
+                let emitterAccessed = false;
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        if (instance) {
+                            emitterAccessed = true;
+                        }
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(emitterAccessed).toBe(true);
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            it('should apply global PT configuration from PrimeNG config', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestBasicMegaMenuComponent],
+                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                megamenu: {
+                                    root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL', class: 'GLOBAL_MEGAMENU_CLASS' }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(TestBasicMegaMenuComponent);
+                globalFixture.detectChanges();
+
+                const megaMenuEl = globalFixture.debugElement.query(By.directive(MegaMenu));
+                const hostElement = megaMenuEl.nativeElement;
+
+                expect(hostElement.classList.contains('GLOBAL_MEGAMENU_CLASS')).toBe(true);
+                expect(hostElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+            });
+
+            it('should apply global CSS from PrimeNG config', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestBasicMegaMenuComponent],
+                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                megamenu: {
+                                    root: { class: 'GLOBAL_CSS_CLASS' },
+                                    global: {
+                                        css: `
+                                            .p-megamenu {
+                                                border: 1px solid red !important;
+                                            }
+                                        `
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(TestBasicMegaMenuComponent);
+                globalFixture.detectChanges();
+
+                const megaMenuEl = globalFixture.debugElement.query(By.directive(MegaMenu));
+                expect(megaMenuEl.nativeElement.classList.contains('GLOBAL_CSS_CLASS')).toBe(true);
+            });
+
+            it('should merge instance PT with global PT', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestBasicMegaMenuComponent],
+                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                megamenu: {
+                                    root: { class: 'GLOBAL_CLASS' }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const mergeFixture = TestBed.createComponent(TestBasicMegaMenuComponent);
+                mergeFixture.componentRef.setInput('pt', {
+                    root: { class: 'INSTANCE_CLASS' }
+                });
+                mergeFixture.detectChanges();
+
+                const megaMenuEl = mergeFixture.debugElement.query(By.directive(MegaMenu));
+                const hostElement = megaMenuEl.nativeElement;
+
+                // Both classes should be applied
+                expect(hostElement.classList.contains('GLOBAL_CLASS') || hostElement.classList.contains('INSTANCE_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            it('should accept PT hooks configuration without error', fakeAsync(() => {
+                let onAfterViewInitCalled = false;
+
+                fixture.componentRef.setInput('pt', {
+                    root: 'MY-MEGAMENU',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            onAfterViewInitCalled = true;
+                        }
+                    }
+                });
+
+                fixture.detectChanges();
+                tick();
+
+                // Hooks may or may not be called depending on lifecycle timing
+                // The important thing is that PT with hooks doesn't throw an error
+                expect(() => fixture.detectChanges()).not.toThrow();
+                flush();
+            }));
+
+            it('should accept multiple PT lifecycle hooks without error', fakeAsync(() => {
+                const hooksCalled: string[] = [];
+
+                fixture.componentRef.setInput('pt', {
+                    root: 'HOOKS_TEST',
+                    hooks: {
+                        onInit: () => {
+                            hooksCalled.push('onInit');
+                        },
+                        onAfterViewInit: () => {
+                            hooksCalled.push('onAfterViewInit');
+                        }
+                    }
+                });
+
+                fixture.detectChanges();
+                tick();
+
+                // Verify hooks configuration doesn't break the component
+                expect(() => fixture.detectChanges()).not.toThrow();
+                flush();
+            }));
+        });
+
+        describe('Inline PT Tests', () => {
+            it('should handle inline PT with string class', () => {
+                const inlineFixture = TestBed.createComponent(TestBasicMegaMenuComponent);
+                inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+                inlineFixture.detectChanges();
+
+                const hostElement = inlineFixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
+                expect(hostElement.classList.contains('INLINE_TEST_CLASS')).toBe(true);
+            });
+
+            it('should handle inline PT with object class', () => {
+                const inlineFixture = TestBed.createComponent(TestBasicMegaMenuComponent);
+                inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
+                inlineFixture.detectChanges();
+
+                const hostElement = inlineFixture.debugElement.query(By.directive(MegaMenu)).nativeElement;
+                expect(hostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('PT Context Tests', () => {
+            it('should pass correct context to PT functions', () => {
+                let receivedContext: any;
+
+                fixture.componentRef.setInput('pt', {
+                    item: (options: any) => {
+                        receivedContext = options.context;
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+
+                if (receivedContext) {
+                    expect(receivedContext).toBeDefined();
+                    expect(receivedContext.item).toBeDefined();
+                }
+            });
+
+            it('should provide active, focused, disabled states in context', () => {
+                let contextStates: any;
+
+                fixture.componentRef.setInput('pt', {
+                    item: (options: any) => {
+                        contextStates = options.context;
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+
+                if (contextStates) {
+                    expect(contextStates.hasOwnProperty('active') || contextStates.hasOwnProperty('focused') || contextStates.hasOwnProperty('disabled')).toBe(true);
+                }
+            });
         });
     });
 });

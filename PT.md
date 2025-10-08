@@ -24,7 +24,7 @@
         @Component({
         selector: 'p-button',
         standalone: true,
-        imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule, Bind],
+        imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule, BindModule],
         template: `
             <button
                 [class]="cn(cx('root'), styleClass, buttonProps?.styleClass)"
@@ -50,7 +50,7 @@
         @Component({
             selector: 'p-panel',
             standalone: true,
-            imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, Bind],
+            imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule],
             template: ` <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'"></div> `,
             providers: [PanelStyle, { provide: PANEL_INSTANCE, useExisting: Panel }, { provide: PARENT_INSTANCE, useExisting: Panel }],
             host: {
@@ -258,7 +258,7 @@ Template'de [pBind] kullanılacaksa, component imports'a Bind eklenmeli:
 
 ```typescript
 @Component({
-    imports: [CommonModule, ButtonModule, Bind],
+    imports: [CommonModule, ButtonModule, BindModule],
 })
 ```
 
