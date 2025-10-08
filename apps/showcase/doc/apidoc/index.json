@@ -18712,13 +18712,52 @@
                 }
             }
         },
-        "interfaces": {
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-metergroup",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-metergroup-meters",
+                        "description": "Class name of the meters element"
+                    },
+                    {
+                        "class": "p-metergroup-meter",
+                        "description": "Class name of the meter element"
+                    },
+                    {
+                        "class": "p-metergroup-label-list",
+                        "description": "Class name of the label list element"
+                    },
+                    {
+                        "class": "p-metergroup-label",
+                        "description": "Class name of the label element"
+                    },
+                    {
+                        "class": "p-metergroup-label-icon",
+                        "description": "Class name of the label icon element"
+                    },
+                    {
+                        "class": "p-metergroup-label-marker",
+                        "description": "Class name of the label marker element"
+                    },
+                    {
+                        "class": "p-metergroup-label-text",
+                        "description": "Class name of the label text element"
+                    }
+                ]
+            }
+        },
+        "types": {
             "components": {},
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
                     {
-                        "parent": "metergroup",
+                        "parent": "types",
                         "name": "label",
                         "parameters": [
                             {
@@ -18729,7 +18768,7 @@
                         "description": "Custom label template."
                     },
                     {
-                        "parent": "metergroup",
+                        "parent": "types",
                         "name": "meter",
                         "parameters": [
                             {
@@ -18740,7 +18779,7 @@
                         "description": "Custom meter item template."
                     },
                     {
-                        "parent": "metergroup",
+                        "parent": "types",
                         "name": "start",
                         "parameters": [
                             {
@@ -18751,7 +18790,7 @@
                         "description": "Custom start template."
                     },
                     {
-                        "parent": "metergroup",
+                        "parent": "types",
                         "name": "end",
                         "parameters": [
                             {
@@ -18762,7 +18801,7 @@
                         "description": "Custom start template."
                     },
                     {
-                        "parent": "metergroup",
+                        "parent": "types",
                         "name": "icon",
                         "parameters": [
                             {
@@ -18810,45 +18849,75 @@
                                 "description": "Icon of the meter item."
                             }
                         ]
-                    }
-                ]
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-metergroup",
-                        "description": "Class name of the root element"
                     },
                     {
-                        "class": "p-metergroup-meters",
-                        "description": "Class name of the meters element"
-                    },
-                    {
-                        "class": "p-metergroup-meter",
-                        "description": "Class name of the meter element"
-                    },
-                    {
-                        "class": "p-metergroup-label-list",
-                        "description": "Class name of the label list element"
-                    },
-                    {
-                        "class": "p-metergroup-label",
-                        "description": "Class name of the label element"
-                    },
-                    {
-                        "class": "p-metergroup-label-icon",
-                        "description": "Class name of the label icon element"
-                    },
-                    {
-                        "class": "p-metergroup-label-marker",
-                        "description": "Class name of the label marker element"
-                    },
-                    {
-                        "class": "p-metergroup-label-text",
-                        "description": "Class name of the label text element"
+                        "name": "MeterGroupPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "meters",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the meters' DOM element."
+                            },
+                            {
+                                "name": "meter",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the meter's DOM element."
+                            },
+                            {
+                                "name": "labelList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLOListElement, I>",
+                                "description": "Used to pass attributes to the label list's DOM element."
+                            },
+                            {
+                                "name": "label",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the label's DOM element."
+                            },
+                            {
+                                "name": "labelIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the label icon's DOM element."
+                            },
+                            {
+                                "name": "labelMarker",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the label marker's DOM element."
+                            },
+                            {
+                                "name": "labelText",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the label text's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
