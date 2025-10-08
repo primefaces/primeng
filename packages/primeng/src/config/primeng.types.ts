@@ -8,6 +8,7 @@ import type { AccordionPassThrough } from 'primeng/types/accordion';
 import type { AvatarPassThrough } from 'primeng/types/avatar';
 import type { BlockUIPassThrough } from 'primeng/types/blockui';
 import type { CardPassThrough } from 'primeng/types/card';
+import type { ChipPassThrough } from 'primeng/types/chip';
 import type { DividerPassThrough } from 'primeng/types/divider';
 import type { MessagePassThrough } from 'primeng/types/message';
 import type { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
@@ -42,6 +43,7 @@ export interface GlobalPassThrough {
     avatar?: AvatarPassThrough;
     blockUI?: BlockUIPassThrough;
     card?: CardPassThrough;
+    chip?: ChipPassThrough;
     divider?: DividerPassThrough;
     message?: MessagePassThrough;
     scrollPanel?: ScrollPanelPassThrough;

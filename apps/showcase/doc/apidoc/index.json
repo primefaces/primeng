@@ -7580,26 +7580,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "chip",
-                        "name": "content",
-                        "parameters": [],
-                        "description": "Custom template of content."
-                    },
-                    {
-                        "parent": "chip",
-                        "name": "removeicon",
-                        "parameters": [],
-                        "description": "Custom template of remove icon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -7623,6 +7603,79 @@
                     {
                         "class": "p-chip-remove-icon",
                         "description": "Class name of the remove icon element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "content",
+                        "parameters": [],
+                        "description": "Custom template of content."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "removeicon",
+                        "parameters": [],
+                        "description": "Custom template of remove icon."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "ChipPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "image",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLImageElement, I>",
+                                "description": "Used to pass attributes to the image's DOM element."
+                            },
+                            {
+                                "name": "icon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the icon's DOM element."
+                            },
+                            {
+                                "name": "label",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the label's DOM element."
+                            },
+                            {
+                                "name": "removeIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the remove icon's DOM element."
+                            }
+                        ]
                     }
                 ]
             }
