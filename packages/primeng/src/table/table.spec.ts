@@ -407,6 +407,16 @@ describe('Table', () => {
             expect(tableInstance.sortMode).toBe('single');
         });
 
+        it('should render sort icons', () => {
+            const sortIcons = testFixture.debugElement.queryAll(By.css('p-sortIcon'));
+            expect(sortIcons.length).toBe(3);
+        });
+
+        it('should have sortable columns', () => {
+            const sortableColumns = testFixture.debugElement.queryAll(By.css('[pSortableColumn]'));
+            expect(sortableColumns.length).toBe(3);
+        });
+
         it('should only emit one sort event when both sort inputs change', () => {
             const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
             const emitterSpy = spyOn(tableInstance.onSort, 'emit');
@@ -420,6 +430,36 @@ describe('Table', () => {
 
             expect(tableInstance.sortField).toBe('price');
             expect(tableInstance.sortOrder).toBe(1);
+            expect(emitterSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('should only emit one sort event when only order changes', () => {
+            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const emitterSpy = spyOn(tableInstance.onSort, 'emit');
+
+            expect(tableInstance.sortField).toBe('name');
+            expect(tableInstance.sortOrder).toBe(-1);
+
+            testComponent.sortOrder = 1;
+            testFixture.detectChanges();
+
+            expect(tableInstance.sortField).toBe('name');
+            expect(tableInstance.sortOrder).toBe(1);
+            expect(emitterSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('should only emit one sort event when onyl field changes', () => {
+            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const emitterSpy = spyOn(tableInstance.onSort, 'emit');
+
+            expect(tableInstance.sortField).toBe('name');
+            expect(tableInstance.sortOrder).toBe(-1);
+
+            testComponent.sortField = 'price';
+            testFixture.detectChanges();
+
+            expect(tableInstance.sortField).toBe('price');
+            expect(tableInstance.sortOrder).toBe(-1);
             expect(emitterSpy).toHaveBeenCalledTimes(1);
         });
     });
