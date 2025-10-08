@@ -6,6 +6,7 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import type { PanelPassThrough } from 'primeng/types/panel';
 import type { AccordionPassThrough } from 'primeng/types/accordion';
 import type { AvatarPassThrough } from 'primeng/types/avatar';
+import type { AvatarGroupPassThrough } from 'primeng/types/avatargroup';
 import type { BlockUIPassThrough } from 'primeng/types/blockui';
 import type { CardPassThrough } from 'primeng/types/card';
 import type { ChipPassThrough } from 'primeng/types/chip';
@@ -43,6 +44,7 @@ export type ThemeConfigType = {
 export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
     avatar?: AvatarPassThrough;
+    avatarGroup?: AvatarGroupPassThrough;
     blockUI?: BlockUIPassThrough;
     card?: CardPassThrough;
     chip?: ChipPassThrough;

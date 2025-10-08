@@ -4830,6 +4830,34 @@
                     }
                 ]
             }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "AvatarGroupPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     },
     "badge": {

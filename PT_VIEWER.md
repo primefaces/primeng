@@ -132,8 +132,7 @@ export class <ComponentName>Demo {
 ## Example: Panel Component
 
 ### PrimeVue Source
-Located at: `/Users/cetincakiroglu/Development/primetek/primevue/apps/showcase/doc/componentname/pt`
-
+Located at: `/Users/mcetin/Desktop/development/primevue/apps/showcase/doc/componentname/pt`
 ### Angular Implementation
 
 **PTViewer.ts:**
