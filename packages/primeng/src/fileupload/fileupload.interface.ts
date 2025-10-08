@@ -132,6 +132,25 @@ export interface FileUploadErrorEvent {
      */
     files: File[];
 }
+/**
+ * Callback to invoke when a validation message is produced.
+ * @see {@link FileUpload.onValidationMessage}
+ * @group Events
+ */
+export interface FileUploadValidationMessageEvent {
+    /**
+     * Templated summary message.
+     */
+    summary: string;
+    /**
+     * Templated detail message.
+     */
+    detail: string;
+    /**
+     * File that failed validation.
+     */
+    file: File;
+}
 
 /**
  * Defines valid templates in FileUpload.

@@ -36,7 +36,7 @@ import { Message } from 'primeng/message';
 import { ProgressBar } from 'primeng/progressbar';
 import { VoidListener } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
-import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent, RemoveUploadedFileEvent } from './fileupload.interface';
+import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent, FileUploadValidationMessageEvent, RemoveUploadedFileEvent } from './fileupload.interface';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
 @Component({
@@ -393,6 +393,11 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      */
     @Input() invalidFileLimitMessageSummary: string = 'Maximum number of files exceeded, ';
     /**
+     * When disabled, validation messages are not stored for inline display.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) displayValidationMessages: boolean = true;
+    /**
      * Inline style of the element.
      * @group Props
      */
@@ -550,6 +555,12 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
      * @group Emits
      */
     @Output() onProgress: EventEmitter<FileProgressEvent> = new EventEmitter<FileProgressEvent>();
+    /**
+     * Callback to invoke when a validation message is generated.
+     * @param {FileUploadValidationMessageEvent} event - Validation message event.
+     * @group Emits
+     */
+    @Output() onValidationMessage: EventEmitter<FileUploadValidationMessageEvent> = new EventEmitter<FileUploadValidationMessageEvent>();
     /**
      * Callback to invoke in custom upload mode to upload the files manually.
      * @param {FileUploadHandlerEvent} event - Upload handler event.
@@ -806,7 +817,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
             this.files = [];
         }
 
-        this.msgs = [];
+        this.resetValidationMessages();
         this.files = this.files || [];
         let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
 
@@ -827,7 +838,8 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         this.onSelect.emit({ originalEvent: event, files: files, currentFiles: this.files });
 
         // this will check the fileLimit with the uploaded files
-        this.checkFileLimit(files);
+        const lastSelectedFile = this.files.length ? this.files[this.files.length - 1] : undefined;
+        this.checkFileLimit(files, { invalidFile: lastSelectedFile });
 
         if (this.hasFiles() && this.auto && (this.mode !== 'advanced' || !this.isFileLimitExceeded())) {
             this.upload();
@@ -857,22 +869,21 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
     }
 
     validate(file: File): boolean {
-        this.msgs = this.msgs || [];
         if (this.accept && !this.isFileTypeValid(file)) {
-            const text = `${this.invalidFileTypeMessageSummary.replace('{0}', file.name)} ${this.invalidFileTypeMessageDetail.replace('{0}', this.accept)}`;
-            this.msgs.push({
-                severity: 'error',
-                text: text
-            });
+            const summary = this.invalidFileTypeMessageSummary.replace('{0}', file.name);
+            const detail = this.invalidFileTypeMessageDetail.replace('{0}', this.accept);
+
+            this.handleValidationMessage(file, summary, detail);
+
             return false;
         }
 
         if (this.maxFileSize && file.size > this.maxFileSize) {
-            const text = `${this.invalidFileSizeMessageSummary.replace('{0}', file.name)} ${this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))}`;
-            this.msgs.push({
-                severity: 'error',
-                text: text
-            });
+            const summary = this.invalidFileSizeMessageSummary.replace('{0}', file.name);
+            const detail = this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize));
+
+            this.handleValidationMessage(file, summary, detail);
+
             return false;
         }
 
@@ -928,7 +939,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
             this.cd.markForCheck();
         } else {
             this.uploading = true;
-            this.msgs = [];
+            this.resetValidationMessages();
             let formData = new FormData();
 
             this.onBeforeUpload.emit({
@@ -1011,7 +1022,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         this.files = [];
         this.onClear.emit();
         this.clearInputElement();
-        this.msgs = [];
+        this.resetValidationMessages();
         this.cd.markForCheck();
     }
     /**
@@ -1024,7 +1035,7 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         this.clearInputElement();
         this.onRemove.emit({ originalEvent: event, file: this.files[index] });
         this.files.splice(index, 1);
-        this.checkFileLimit(this.files);
+        this.checkFileLimit(this.files, { emitMessage: false });
     }
     /**
      * Removes uploaded file.
@@ -1056,19 +1067,60 @@ export class FileUpload extends BaseComponent implements AfterViewInit, AfterCon
         }
     }
 
-    checkFileLimit(files: File[]) {
-        this.msgs ??= [];
-        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit && this.fileLimit < files.length;
+    checkFileLimit(files: File[], options?: { emitMessage?: boolean; invalidFile?: File }) {
+        const emitMessage = options?.emitMessage ?? true;
+        const shouldStore = this.shouldStoreValidationMessages();
+        const currentMessages = this.msgs ?? [];
 
-        if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
-            const text = `${this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString())} ${this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())}`;
-            this.msgs.push({
-                severity: 'error',
-                text: text
-            });
-        } else {
+        if (shouldStore && !this.msgs) {
+            this.msgs = [];
+        }
+
+        const invalidFile = options?.invalidFile ?? (files && files.length ? files[files.length - 1] : this.files[this.files.length - 1]);
+        const hasExistingValidationMessages = shouldStore && currentMessages.length > 0 && this.fileLimit && this.fileLimit < files.length;
+        const exceeded = this.isFileLimitExceeded() || hasExistingValidationMessages;
+
+        if (exceeded) {
+            if (emitMessage && invalidFile) {
+                const fileLimit = this.fileLimit ? this.fileLimit.toString() : '';
+                const summary = this.invalidFileLimitMessageSummary.replace('{0}', fileLimit);
+                const detail = this.invalidFileLimitMessageDetail.replace('{0}', fileLimit);
+
+                this.handleValidationMessage(invalidFile, summary, detail);
+            }
+        } else if (shouldStore && this.msgs) {
             this.msgs = this.msgs.filter((msg) => !msg.text.includes(this.invalidFileLimitMessageSummary));
         }
+    }
+
+    private shouldStoreValidationMessages(): boolean {
+        return this.displayValidationMessages;
+    }
+
+    private resetValidationMessages(): void {
+        if (this.shouldStoreValidationMessages()) {
+            this.msgs = [];
+        } else {
+            this.msgs = undefined;
+        }
+    }
+
+    private handleValidationMessage(file: File, summary: string, detail: string): void {
+        const combinedText = `${summary} ${detail}`;
+
+        if (this.shouldStoreValidationMessages()) {
+            this.msgs ??= [];
+            this.msgs.push({
+                severity: 'error',
+                text: combinedText
+            });
+        }
+
+        this.onValidationMessage.emit({
+            file,
+            summary,
+            detail
+        });
     }
 
     clearInputElement() {
