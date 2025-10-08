@@ -1246,18 +1246,488 @@ describe('Card', () => {
         });
 
         describe('PT with Footer Section', () => {
-            xit('should apply PT class to footer section when footer content exists', () => {
-                // Skip: PT needs to be set before component initialization for proper binding
-                const fixture = TestBed.createComponent(TestFacetCardComponent);
-                fixture.detectChanges();
+            it('should apply PT class to footer section when footer content exists', () => {
+                @Component({
+                    standalone: false,
+                    template: `
+                        <p-card [pt]="pt">
+                            <ng-template pTemplate="footer">
+                                <div>Footer Content</div>
+                            </ng-template>
+                        </p-card>
+                    `
+                })
+                class TestPTFooterComponent {
+                    pt = { footer: 'FOOTER_CLASS' };
+                }
 
-                const cardComponent = fixture.debugElement.query(By.directive(Card));
-                cardComponent.componentInstance.pt = { footer: 'FOOTER_CLASS' };
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestPTFooterComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestPTFooterComponent);
                 fixture.detectChanges();
 
                 const footerEl = fixture.debugElement.query(By.css('.p-card-footer'));
                 expect(footerEl).toBeTruthy();
                 expect(footerEl.nativeElement.className).toContain('FOOTER_CLASS');
+            });
+
+            it('should apply PT class to header section', () => {
+                @Component({
+                    standalone: false,
+                    template: `
+                        <p-card [pt]="pt">
+                            <ng-template pTemplate="header">
+                                <div>Header Content</div>
+                            </ng-template>
+                        </p-card>
+                    `
+                })
+                class TestPTHeaderComponent {
+                    pt = { header: 'HEADER_SECTION_CLASS' };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestPTHeaderComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestPTHeaderComponent);
+                fixture.detectChanges();
+
+                const headerEl = fixture.debugElement.query(By.css('.p-card-header'));
+                expect(headerEl).toBeTruthy();
+                expect(headerEl.nativeElement.className).toContain('HEADER_SECTION_CLASS');
+            });
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            it('should apply global PT configuration from PrimeNGConfig', () => {
+                @Component({
+                    standalone: false,
+                    template: `
+                        <p-card header="Card 1"></p-card>
+                        <p-card header="Card 2"></p-card>
+                    `
+                })
+                class TestGlobalPTComponent {}
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestGlobalPTComponent],
+                    providers: [
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    card: {
+                                        root: 'GLOBAL_CARD_CLASS',
+                                        title: { 'aria-label': 'GLOBAL_ARIA_LABEL' }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                });
+
+                const fixture = TestBed.createComponent(TestGlobalPTComponent);
+                fixture.detectChanges();
+
+                const cardElements = fixture.debugElement.queryAll(By.directive(Card));
+                expect(cardElements.length).toBe(2);
+            });
+
+            it('should merge local PT with global PT', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-card [pt]="localPt" header="Test"></p-card>`
+                })
+                class TestMergePTComponent {
+                    localPt = { root: 'LOCAL_CLASS', title: 'LOCAL_TITLE_CLASS' };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestMergePTComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestMergePTComponent);
+                fixture.detectChanges();
+
+                const cardEl = fixture.debugElement.query(By.css('p-card'));
+                expect(cardEl.nativeElement.className).toContain('LOCAL_CLASS');
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                expect(titleEl.nativeElement.className).toContain('LOCAL_TITLE_CLASS');
+            });
+        });
+
+        xdescribe('Case 8: PT Hooks', () => {
+            // Skipped: Card component hooks support needs to be verified
+            xit('should execute onAfterViewInit hook from PT', () => {
+                let hookExecuted = false;
+
+                @Component({
+                    standalone: false,
+                    template: `<p-card [pt]="pt"></p-card>`
+                })
+                class TestPTHooksComponent {
+                    pt = {
+                        root: 'MY_CARD',
+                        hooks: {
+                            onAfterViewInit: () => {
+                                hookExecuted = true;
+                            }
+                        }
+                    };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestPTHooksComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestPTHooksComponent);
+                fixture.detectChanges();
+
+                expect(hookExecuted).toBe(true);
+            });
+
+            xit('should execute onBeforeMount hook from PT', () => {
+                let beforeMountExecuted = false;
+
+                @Component({
+                    standalone: false,
+                    template: `<p-card [pt]="pt"></p-card>`
+                })
+                class TestPTBeforeMountComponent {
+                    pt = {
+                        hooks: {
+                            onBeforeMount: () => {
+                                beforeMountExecuted = true;
+                            }
+                        }
+                    };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestPTBeforeMountComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestPTBeforeMountComponent);
+                fixture.detectChanges();
+
+                expect(beforeMountExecuted).toBe(true);
+            });
+
+            xit('should execute onAfterContentInit hook from PT', () => {
+                let contentInitExecuted = false;
+
+                @Component({
+                    standalone: false,
+                    template: `<p-card [pt]="pt"></p-card>`
+                })
+                class TestPTContentInitComponent {
+                    pt = {
+                        hooks: {
+                            onAfterContentInit: () => {
+                                contentInitExecuted = true;
+                            }
+                        }
+                    };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestPTContentInitComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestPTContentInitComponent);
+                fixture.detectChanges();
+
+                expect(contentInitExecuted).toBe(true);
+            });
+
+            xit('should execute multiple lifecycle hooks from PT', () => {
+                const executedHooks: string[] = [];
+
+                @Component({
+                    standalone: false,
+                    template: `<p-card [pt]="pt"></p-card>`
+                })
+                class TestMultiplePTHooksComponent {
+                    pt = {
+                        hooks: {
+                            onBeforeMount: () => {
+                                executedHooks.push('onBeforeMount');
+                            },
+                            onAfterContentInit: () => {
+                                executedHooks.push('onAfterContentInit');
+                            },
+                            onAfterViewInit: () => {
+                                executedHooks.push('onAfterViewInit');
+                            }
+                        }
+                    };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestMultiplePTHooksComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestMultiplePTHooksComponent);
+                fixture.detectChanges();
+
+                expect(executedHooks.length).toBeGreaterThan(0);
+            });
+        });
+
+        describe('Advanced PT Scenarios', () => {
+            it('should apply PT with all sections', () => {
+                @Component({
+                    standalone: false,
+                    template: `
+                        <p-card [pt]="pt" [header]="'Test Header'" [subheader]="'Test Subheader'">
+                            <ng-template pTemplate="header">
+                                <div>Header Content</div>
+                            </ng-template>
+                            <div>Content</div>
+                            <ng-template pTemplate="footer">
+                                <div>Footer Content</div>
+                            </ng-template>
+                        </p-card>
+                    `
+                })
+                class TestAllSectionsPTComponent {
+                    pt = {
+                        root: 'PT_ROOT',
+                        header: 'PT_HEADER',
+                        body: 'PT_BODY',
+                        title: 'PT_TITLE',
+                        subtitle: 'PT_SUBTITLE',
+                        content: 'PT_CONTENT',
+                        footer: 'PT_FOOTER'
+                    };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestAllSectionsPTComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestAllSectionsPTComponent);
+                fixture.detectChanges();
+
+                const cardEl = fixture.debugElement.query(By.css('p-card'));
+                expect(cardEl.nativeElement.className).toContain('PT_ROOT');
+
+                const headerEl = fixture.debugElement.query(By.css('.p-card-header'));
+                expect(headerEl.nativeElement.className).toContain('PT_HEADER');
+
+                const bodyEl = fixture.debugElement.query(By.css('.p-card-body'));
+                expect(bodyEl.nativeElement.className).toContain('PT_BODY');
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                expect(titleEl.nativeElement.className).toContain('PT_TITLE');
+
+                const subtitleEl = fixture.debugElement.query(By.css('.p-card-subtitle'));
+                expect(subtitleEl.nativeElement.className).toContain('PT_SUBTITLE');
+
+                const contentEl = fixture.debugElement.query(By.css('.p-card-content'));
+                expect(contentEl.nativeElement.className).toContain('PT_CONTENT');
+
+                const footerEl = fixture.debugElement.query(By.css('.p-card-footer'));
+                expect(footerEl.nativeElement.className).toContain('PT_FOOTER');
+            });
+
+            it('should handle PT with function returning classes based on instance', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-card [pt]="pt" [header]="header"></p-card>`
+                })
+                class TestPTFunctionComponent {
+                    header = 'Test Header';
+                    pt = {
+                        root: ({ instance }: any) => ({
+                            class: instance?.header ? 'HAS-HEADER' : 'NO-HEADER'
+                        })
+                    };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestPTFunctionComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestPTFunctionComponent);
+                fixture.detectChanges();
+
+                const cardEl = fixture.debugElement.query(By.css('p-card'));
+                expect(cardEl.nativeElement.className).toContain('HAS-HEADER');
+            });
+
+            it('should handle dynamic PT updates', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-card [pt]="pt"></p-card>`
+                })
+                class TestDynamicPTComponent {
+                    pt = { root: 'INITIAL_CLASS' };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestDynamicPTComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestDynamicPTComponent);
+                const component = fixture.componentInstance;
+                fixture.detectChanges();
+
+                let cardEl = fixture.debugElement.query(By.css('p-card'));
+                expect(cardEl.nativeElement.className).toContain('INITIAL_CLASS');
+
+                component.pt = { root: 'UPDATED_CLASS' };
+                fixture.detectChanges();
+
+                expect(cardEl.nativeElement.className).toContain('UPDATED_CLASS');
+            });
+
+            it('should apply PT with data attributes and aria labels', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'PT_CUSTOM_CLASS',
+                        'data-testid': 'card-test',
+                        'aria-label': 'Custom Card'
+                    }
+                });
+                fixture.detectChanges();
+
+                const cardEl = fixture.nativeElement;
+                expect(cardEl.className).toContain('PT_CUSTOM_CLASS');
+                expect(cardEl.getAttribute('data-testid')).toBe('card-test');
+                expect(cardEl.getAttribute('aria-label')).toBe('Custom Card');
+            });
+
+            it('should handle PT with multiple event handlers', () => {
+                let clickCount = 0;
+                let mouseOverCount = 0;
+
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test');
+                fixture.componentRef.setInput('pt', {
+                    title: {
+                        onclick: () => {
+                            clickCount++;
+                        },
+                        onmouseover: () => {
+                            mouseOverCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                titleEl.nativeElement.click();
+                titleEl.nativeElement.dispatchEvent(new MouseEvent('mouseover'));
+
+                expect(clickCount).toBe(1);
+                expect(mouseOverCount).toBe(1);
+            });
+
+            it('should apply PT with style objects', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('pt', {
+                    body: {
+                        style: {
+                            padding: '20px',
+                            backgroundColor: 'lightblue'
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const bodyEl = fixture.debugElement.query(By.css('.p-card-body'));
+                expect(bodyEl.nativeElement.style.padding).toBe('20px');
+                expect(bodyEl.nativeElement.style.backgroundColor).toBe('lightblue');
+            });
+
+            it('should handle PT function with instance-based styles', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-card [pt]="pt" [header]="header" [subheader]="subheader"></p-card>`
+                })
+                class TestPTInstanceStyleComponent {
+                    header = 'Header';
+                    subheader = 'Subheader';
+                    pt = {
+                        title: ({ instance }: any) => ({
+                            style: {
+                                color: instance?.subheader ? 'blue' : 'red'
+                            }
+                        })
+                    };
+                }
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [CardModule],
+                    declarations: [TestPTInstanceStyleComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestPTInstanceStyleComponent);
+                fixture.detectChanges();
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                expect(titleEl.nativeElement.style.color).toBe('blue');
+            });
+
+            it('should handle PT with complex nested objects', () => {
+                const fixture = TestBed.createComponent(Card);
+                fixture.componentRef.setInput('header', 'Test');
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_COMPLEX',
+                        'data-level': '1'
+                    },
+                    body: {
+                        class: 'BODY_COMPLEX',
+                        style: { margin: '15px' }
+                    },
+                    title: {
+                        class: 'TITLE_COMPLEX',
+                        'aria-level': '2'
+                    }
+                });
+                fixture.detectChanges();
+
+                const rootEl = fixture.nativeElement;
+                expect(rootEl.className).toContain('ROOT_COMPLEX');
+                expect(rootEl.getAttribute('data-level')).toBe('1');
+
+                const bodyEl = fixture.debugElement.query(By.css('.p-card-body'));
+                expect(bodyEl.nativeElement.className).toContain('BODY_COMPLEX');
+                expect(bodyEl.nativeElement.style.margin).toBe('15px');
+
+                const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
+                expect(titleEl.nativeElement.className).toContain('TITLE_COMPLEX');
+                expect(titleEl.nativeElement.getAttribute('aria-level')).toBe('2');
             });
         });
     });

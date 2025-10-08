@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -158,6 +158,29 @@ class TestContentChildIconsTabsComponent {
     value = 1;
 }
 
+@Component({
+    standalone: false,
+    template: `
+        <p-tabs [value]="1" [pt]="pt">
+            <p-tablist>
+                <p-tab [value]="1">PT Test Tab 1</p-tab>
+                <p-tab [value]="2">PT Test Tab 2</p-tab>
+            </p-tablist>
+            <p-tabpanels>
+                <p-tabpanel [value]="1">
+                    <div>PT Test Content 1</div>
+                </p-tabpanel>
+                <p-tabpanel [value]="2">
+                    <div>PT Test Content 2</div>
+                </p-tabpanel>
+            </p-tabpanels>
+        </p-tabs>
+    `
+})
+class TestPTTabsComponent {
+    @Input() pt: any;
+}
+
 describe('Tabs', () => {
     let fixture: ComponentFixture<TestTabsComponent>;
     let component: TestTabsComponent;
@@ -167,7 +190,7 @@ describe('Tabs', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [TabsModule, NoopAnimationsModule],
-            declarations: [TestTabsComponent, TestScrollableTabsComponent, TestLazyTabsComponent, TestContentChildIconsTabsComponent]
+            declarations: [TestTabsComponent, TestScrollableTabsComponent, TestLazyTabsComponent, TestContentChildIconsTabsComponent, TestPTTabsComponent]
         });
 
         fixture = TestBed.createComponent(TestTabsComponent);
@@ -980,5 +1003,133 @@ describe('Tabs', () => {
             const tabListComponent = scrollableFixture.debugElement.query(By.directive(TabList)).componentInstance;
             expect(tabListComponent).toBeTruthy();
         });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTTabsComponent>;
+        let ptComponent: TestPTTabsComponent;
+        let ptTabs: Tabs;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTTabsComponent);
+            ptComponent = ptFixture.componentInstance;
+        });
+
+        it('should apply simple string classes to PT sections', fakeAsync(() => {
+            ptComponent.pt = {
+                root: 'ROOT_CLASS',
+                host: 'HOST_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            const classList = tabsEl.nativeElement.className;
+
+            expect(classList).toContain('ROOT_CLASS');
+            expect(classList).toContain('HOST_CLASS');
+
+            flush();
+        }));
+
+        it('should apply object-based PT options with class and attributes', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    'data-test': 'tabs-test',
+                    'aria-label': 'PT Tabs Label',
+                    'data-role': 'tabs-role'
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+
+            expect(tabsEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(tabsEl.nativeElement.getAttribute('data-test')).toBe('tabs-test');
+            expect(tabsEl.nativeElement.getAttribute('aria-label')).toBe('PT Tabs Label');
+            expect(tabsEl.nativeElement.getAttribute('data-role')).toBe('tabs-role');
+
+            flush();
+        }));
+
+        it('should apply mixed object and string PT values', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS'
+                },
+                host: 'PT_HOST_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            const classList = tabsEl.nativeElement.className;
+
+            expect(classList).toContain('PT_ROOT_CLASS');
+            expect(classList).toContain('PT_HOST_CLASS');
+
+            flush();
+        }));
+
+        it('should use instance variables in PT functions', fakeAsync(() => {
+            ptComponent.pt = {
+                root: ({ instance }) => {
+                    return {
+                        class: instance?.scrollable() ? 'SCROLLABLE' : 'NON_SCROLLABLE',
+                        'data-lazy': instance?.lazy()
+                    };
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            ptTabs = ptFixture.debugElement.query(By.directive(Tabs)).componentInstance;
+
+            expect(tabsEl.nativeElement.className).toContain('NON_SCROLLABLE');
+            expect(tabsEl.nativeElement.getAttribute('data-lazy')).toBe('false');
+
+            flush();
+        }));
+
+        it('should handle event binding in PT options', fakeAsync(() => {
+            let clicked = false;
+            ptComponent.pt = {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            tabsEl.nativeElement.click();
+
+            expect(clicked).toBe(true);
+
+            flush();
+        }));
+
+        it('should apply PT options using setInput', fakeAsync(() => {
+            ptFixture.componentRef.setInput('pt', { root: 'SETINPUT_ROOT_CLASS' });
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+
+            expect(tabsEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
+
+            flush();
+        }));
     });
 });

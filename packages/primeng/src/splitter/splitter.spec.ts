@@ -1,5 +1,5 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, Input } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Splitter } from './splitter';
@@ -94,6 +94,23 @@ class TestThreePanelComponent {}
 })
 class TestNestedSplitterComponent {}
 
+@Component({
+    standalone: false,
+    template: `
+        <p-splitter [pt]="pt">
+            <ng-template #panel>
+                <div>PT Test Panel 1</div>
+            </ng-template>
+            <ng-template #panel>
+                <div>PT Test Panel 2</div>
+            </ng-template>
+        </p-splitter>
+    `
+})
+class TestPTSplitterComponent {
+    @Input() pt: any;
+}
+
 describe('Splitter', () => {
     let testFixture: ComponentFixture<TestSplitterComponent>;
     let testComponent: TestSplitterComponent;
@@ -103,7 +120,7 @@ describe('Splitter', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [Splitter, NoopAnimationsModule],
-            declarations: [TestSplitterComponent, TestThreePanelComponent, TestNestedSplitterComponent]
+            declarations: [TestSplitterComponent, TestThreePanelComponent, TestNestedSplitterComponent, TestPTSplitterComponent]
         });
 
         testFixture = TestBed.createComponent(TestSplitterComponent);
@@ -773,5 +790,175 @@ describe('Splitter', () => {
                 splitterInstance.clearTimer();
             }).not.toThrow();
         });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTSplitterComponent>;
+        let ptComponent: TestPTSplitterComponent;
+        let ptSplitter: Splitter;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTSplitterComponent);
+            ptComponent = ptFixture.componentInstance;
+        });
+
+        it('should apply simple string classes to PT sections', fakeAsync(() => {
+            ptComponent.pt = {
+                host: 'HOST_CLASS',
+                root: 'ROOT_CLASS',
+                panel: 'PANEL_CLASS',
+                gutter: 'GUTTER_CLASS',
+                gutterHandle: 'GUTTER_HANDLE_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const panels = ptFixture.debugElement.queryAll(By.css('.p-splitterpanel'));
+            const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
+            const gutterHandle = ptFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
+
+            expect(hostEl.nativeElement.className).toContain('HOST_CLASS');
+            expect(hostEl.nativeElement.className).toContain('ROOT_CLASS');
+            expect(panels[0].nativeElement.className).toContain('PANEL_CLASS');
+            expect(panels[1].nativeElement.className).toContain('PANEL_CLASS');
+            expect(gutter.nativeElement.className).toContain('GUTTER_CLASS');
+            expect(gutterHandle.nativeElement.className).toContain('GUTTER_HANDLE_CLASS');
+
+            flush();
+        }));
+
+        it('should apply object-based PT options with class and attributes', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'ROOT_OBJECT_CLASS',
+                    'data-test': 'root-test',
+                    'aria-label': 'ROOT_ARIA_LABEL'
+                },
+                panel: {
+                    class: 'PANEL_OBJECT_CLASS',
+                    'data-test': 'panel-test'
+                },
+                gutter: {
+                    class: 'GUTTER_OBJECT_CLASS',
+                    'data-role': 'custom-gutter'
+                },
+                gutterHandle: {
+                    class: 'HANDLE_OBJECT_CLASS',
+                    'aria-label': 'HANDLE_ARIA_LABEL'
+                }
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const panels = ptFixture.debugElement.queryAll(By.css('.p-splitterpanel'));
+            const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
+            const gutterHandle = ptFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
+
+            expect(hostEl.nativeElement.className).toContain('ROOT_OBJECT_CLASS');
+            expect(hostEl.nativeElement.getAttribute('data-test')).toBe('root-test');
+            expect(hostEl.nativeElement.getAttribute('aria-label')).toBe('ROOT_ARIA_LABEL');
+            expect(panels[0].nativeElement.className).toContain('PANEL_OBJECT_CLASS');
+            expect(panels[0].nativeElement.getAttribute('data-test')).toBe('panel-test');
+            expect(gutter.nativeElement.className).toContain('GUTTER_OBJECT_CLASS');
+            expect(gutter.nativeElement.getAttribute('data-role')).toBe('custom-gutter');
+            expect(gutterHandle.nativeElement.className).toContain('HANDLE_OBJECT_CLASS');
+            expect(gutterHandle.nativeElement.getAttribute('aria-label')).toBe('HANDLE_ARIA_LABEL');
+
+            flush();
+        }));
+
+        it('should apply mixed object and string PT values', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'MIXED_ROOT_CLASS'
+                },
+                panel: 'MIXED_PANEL_CLASS',
+                gutter: {
+                    class: 'MIXED_GUTTER_CLASS'
+                },
+                gutterHandle: 'MIXED_HANDLE_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const panels = ptFixture.debugElement.queryAll(By.css('.p-splitterpanel'));
+            const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
+            const gutterHandle = ptFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
+
+            expect(hostEl.nativeElement.className).toContain('MIXED_ROOT_CLASS');
+            expect(panels[0].nativeElement.className).toContain('MIXED_PANEL_CLASS');
+            expect(gutter.nativeElement.className).toContain('MIXED_GUTTER_CLASS');
+            expect(gutterHandle.nativeElement.className).toContain('MIXED_HANDLE_CLASS');
+
+            flush();
+        }));
+
+        it('should use instance variables in PT functions', fakeAsync(() => {
+            ptSplitter = ptFixture.debugElement.query(By.directive(Splitter)).componentInstance;
+            ptSplitter.layout = 'vertical';
+            ptSplitter.dragging = true;
+
+            ptComponent.pt = {
+                root: ({ instance }) => ({
+                    class: instance?.dragging ? 'DRAGGING' : 'NOT_DRAGGING'
+                }),
+                gutter: ({ instance }) => ({
+                    class: 'GUTTER_INSTANCE',
+                    'data-layout': instance?.layout
+                })
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
+
+            expect(hostEl.nativeElement.className).toContain('DRAGGING');
+            expect(gutter.nativeElement.className).toContain('GUTTER_INSTANCE');
+            expect(gutter.nativeElement.getAttribute('data-layout')).toBe('vertical');
+
+            flush();
+        }));
+
+        it('should handle event binding in PT options', fakeAsync(() => {
+            let clicked = false;
+            ptComponent.pt = {
+                panel: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const panel = ptFixture.debugElement.query(By.css('.p-splitterpanel'));
+            panel.nativeElement.click();
+            tick(50);
+
+            expect(clicked).toBe(true);
+
+            flush();
+        }));
+
+        it('should apply PT options using setInput', fakeAsync(() => {
+            ptFixture.componentRef.setInput('pt', {
+                root: 'SET_INPUT_CLASS',
+                gutter: { class: 'GUTTER_SET_INPUT' }
+            });
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
+
+            expect(hostEl.nativeElement.className).toContain('SET_INPUT_CLASS');
+            expect(gutter.nativeElement.className).toContain('GUTTER_SET_INPUT');
+
+            flush();
+        }));
     });
 });
