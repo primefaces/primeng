@@ -17,8 +17,31 @@ interface Doc {
 }
 
 export const getPTOptions = (name) => {
-    const { props } = APIDoc[name.toLowerCase()].types.interfaces.values.find((t) => t.name.toLowerCase() === `${name}PassThroughOptions`.toLowerCase());
-    const options = APIDoc[name.toLowerCase()].types.interfaces.values.find((t) => t.name.toLowerCase() === `${name}PassThroughMethodOptions`.toLowerCase());
+    // Map sub-components to their parent component
+    const componentMapping = {
+        steplist: 'stepper',
+        step: 'stepper',
+        stepitem: 'stepper',
+        steppanel: 'stepper',
+        steppanels: 'stepper',
+        stepperseparator: 'stepper',
+        tablist: 'tabs',
+        tab: 'tabs',
+        tabpanel: 'tabs',
+        tabpanels: 'tabs',
+        accordionpanel: 'accordion',
+        accordionheader: 'accordion',
+        accordioncontent: 'accordion'
+    };
+
+    const lookupName = componentMapping[name.toLowerCase()] || name.toLowerCase();
+    const componentTypes = APIDoc[lookupName]?.types;
+
+    const passThrough = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${name}PassThroughOptions`.toLowerCase());
+
+    const { props } = passThrough;
+
+    const options = componentTypes.interfaces.values.find((t) => t.name.toLowerCase() === `${name}PassThroughMethodOptions`.toLowerCase());
 
     let data = [];
 
@@ -94,8 +117,8 @@ export class AppDocPtViewer {
     findComponentName(label: string, doc: Doc): string {
         let text = '';
 
-        if (this.docs.length > 1) {
-            text += `| ${doc.key}`;
+        if (this.docs() && this.docs().length > 1) {
+            text += ` | ${doc.key}`;
         }
 
         if (label.includes('pc')) {
@@ -131,10 +154,10 @@ export class AppDocPtViewer {
         else if (componentName === 'Galleria') cmpName = 'GalleriaContent';
 
         if (componentName === 'ScrollTop') selector = `[data-pc-extend="button"][data-pc-section="root"]`;
-        else if (item.label === 'root') selector = `[data-pc-name="${cmpName.toLowerCase()}"]`;
-        else if (item.label.startsWith('pc')) selector = `[data-pc-name="${item.label.toLowerCase()}"]`;
+        else if (item.label === 'root') selector = `[data-pc-name="${cmpName.toLowerCase()}"][data-pc-section="root"]`;
+        else if (item.label.startsWith('pc')) selector = `[data-pc-name="${item.label.toLowerCase()}"][data-pc-section="root"]`;
         else if (componentName === 'InputMask') selector = `[data-pc-name="inputtext"][data-pc-section="root"]`;
-        else selector = `[data-pc-section="${item.label.toLowerCase()}"]`;
+        else selector = `[data-pc-name="${cmpName.toLowerCase()}"] [data-pc-section="${item.label.toLowerCase()}"]`;
 
         this.hoveredElements = find(this.container()?.nativeElement, selector);
 

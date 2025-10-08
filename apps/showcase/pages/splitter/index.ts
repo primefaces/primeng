@@ -4,15 +4,17 @@ import { ImportDoc } from '@/doc/splitter/importdoc';
 import { NestedDoc } from '@/doc/splitter/nesteddoc';
 import { SizeDoc } from '@/doc/splitter/sizedoc';
 import { VerticalDoc } from '@/doc/splitter/verticaldoc';
+import { PTComponent } from '@/doc/splitter/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Splitter Component" header="Splitter" description="Splitter is utilized to separate and resize panels." [docs]="docs" [apiDocs]="['Splitter']" themeDocs="splitter"></app-doc>`,
+    template: `<app-doc docTitle="Angular Splitter Component" header="Splitter" description="Splitter is utilized to separate and resize panels." [docs]="docs" [apiDocs]="['Splitter']" [ptDocs]="ptComponent" themeDocs="splitter"></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class SplitterDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',
