@@ -1244,4 +1244,135 @@ describe('Menubar', () => {
             });
         });
     });
+
+    describe('PassThrough', () => {
+        let fixture: ComponentFixture<Menubar>;
+        let menubar: Menubar;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(Menubar);
+            menubar = fixture.componentInstance;
+            fixture.componentRef.setInput('model', [
+                { label: 'Item 1', icon: 'pi pi-home' },
+                { label: 'Item 2', icon: 'pi pi-search', items: [{ label: 'Subitem' }] }
+            ]);
+        });
+
+        it('Case 1: should apply simple string classes to PT sections', () => {
+            fixture.componentRef.setInput('pt', {
+                button: 'BUTTON_CLASS',
+                buttonIcon: 'BUTTON_ICON_CLASS'
+            });
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('BUTTON_CLASS')).toBe(true);
+            }
+        });
+
+        it('Case 2: should apply PT as objects with class, style, and data attributes', () => {
+            fixture.componentRef.setInput('pt', {
+                button: {
+                    class: 'CUSTOM_BUTTON',
+                    style: 'background-color: red',
+                    'data-test': 'button-test',
+                    'aria-label': 'Custom Button'
+                }
+            });
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('CUSTOM_BUTTON')).toBe(true);
+                expect(buttonEl.style.backgroundColor).toBe('red');
+                expect(buttonEl.getAttribute('data-test')).toBe('button-test');
+                expect(buttonEl.getAttribute('aria-label')).toBe('Custom Button');
+            }
+        });
+
+        it('Case 3: should apply mixed object and string PT values', () => {
+            fixture.componentRef.setInput('pt', {
+                button: 'BUTTON_STR_CLASS',
+                buttonIcon: { class: 'ICON_OBJ_CLASS' }
+            });
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('BUTTON_STR_CLASS')).toBe(true);
+            }
+        });
+
+        it('Case 4: should use instance variables in PT functions', () => {
+            fixture.componentRef.setInput('pt', {
+                button: ({ instance }) => ({
+                    class: {
+                        MOBILE_ACTIVE: instance.mobileActive
+                    }
+                })
+            });
+
+            menubar.mobileActive = true;
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('MOBILE_ACTIVE')).toBe(true);
+            }
+        });
+
+        it('Case 5: should handle event binding in PT', () => {
+            let clicked = false;
+            fixture.componentRef.setInput('pt', {
+                button: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                buttonEl.click();
+                expect(clicked).toBe(true);
+            }
+        });
+
+        it('Case 6: should apply inline PT object', () => {
+            const testFixture = TestBed.createComponent(Menubar);
+            testFixture.componentRef.setInput('model', [{ label: 'Test' }]);
+            testFixture.componentRef.setInput('pt', { button: 'INLINE_CLASS' });
+            testFixture.detectChanges();
+
+            const buttonEl = testFixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('INLINE_CLASS')).toBe(true);
+            }
+        });
+
+        it('Case 8: should execute PT hooks', () => {
+            let hookCalled = false;
+            fixture.componentRef.setInput('pt', {
+                button: 'TEST',
+                hooks: {
+                    onInit: () => {
+                        hookCalled = true;
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hookCalled).toBe(true);
+        });
+    });
 });
