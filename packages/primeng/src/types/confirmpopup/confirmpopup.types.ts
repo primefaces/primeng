@@ -1,5 +1,6 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
+import { TemplateRef } from '@angular/core';
 
 /**
  * Custom pass-through(pt) options.
@@ -52,3 +53,26 @@ export interface ConfirmPopupPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type ConfirmPopupPassThrough<I = unknown> = PassThrough<I, ConfirmPopupPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in ConfirmPopup.
+ * @group Templates
+ */
+export interface ConfirmPopupTemplates {
+    /**
+     * Custom content template.
+     */
+    content(context: { $implicit?: any }): TemplateRef<any>;
+    /**
+     * Custom template of rejecticon.
+     */
+    rejecticon(): TemplateRef<any>;
+    /**
+     * Custom template of accepticon.
+     */
+    accepticon(): TemplateRef<any>;
+    /**
+     * Headless template.
+     */
+    headless(context: { $implicit?: any }): TemplateRef<any>;
+}
