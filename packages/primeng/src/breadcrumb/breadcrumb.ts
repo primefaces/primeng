@@ -249,7 +249,7 @@ export class Breadcrumb extends BaseComponent<BreadcrumbPassThrough> {
         });
     }
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 

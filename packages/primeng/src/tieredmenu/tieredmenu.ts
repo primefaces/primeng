@@ -262,7 +262,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
 
     $pcTieredMenuSub: TieredMenuSub | undefined = inject(TIEREDMENUSUB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
@@ -637,7 +637,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         });
     }
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 

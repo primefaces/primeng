@@ -26,9 +26,9 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
+import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from 'primeng/types/accordion';
 import { transformToBoolean } from 'primeng/utils';
 import { AccordionStyle } from './style/accordionstyle';
-import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from 'primeng/types/accordion';
 
 /**
  * Custom tab open event.
@@ -93,7 +93,7 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
 

@@ -393,7 +393,7 @@ export class Dock extends BaseComponent<DockPassThrough> {
         });
     }
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 

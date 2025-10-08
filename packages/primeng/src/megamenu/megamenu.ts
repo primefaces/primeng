@@ -600,7 +600,7 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
         this.id = this.id || uuid('pn_id_');
     }
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 

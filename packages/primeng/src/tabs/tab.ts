@@ -5,10 +5,10 @@ import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { Ripple } from 'primeng/ripple';
+import { TabPassThrough } from 'primeng/types/tabs';
 import { TabStyle } from './style/tabstyle';
 import { TabList } from './tablist';
 import { Tabs } from './tabs';
-import { TabPassThrough } from 'primeng/types/tabs';
 
 const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
 
@@ -42,7 +42,7 @@ export class Tab extends BaseComponent<TabPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
