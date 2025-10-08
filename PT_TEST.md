@@ -122,3 +122,8 @@
             }
         }
     ```
+
+
+#### FINAL STEP: 
+- RUN `pnpm --filter primeng test:unit --include='**/componentname/*.spec.ts'`
+- Debug if any test error found.

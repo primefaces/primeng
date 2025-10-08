@@ -2,6 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
 import { Divider, DividerModule } from './divider';
 
 @Component({
@@ -733,6 +734,452 @@ describe('Divider', () => {
 
             // If we got here without errors, the test passes
             expect(true).toBe(true);
+        });
+    });
+
+    describe('PassThrough (PT)', () => {
+        describe('Case 1: Simple string classes', () => {
+            it('should apply simple string class to root', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('ROOT_CLASS');
+            });
+
+            it('should apply simple string class to content', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
+                ptFixture.detectChanges();
+
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                expect(contentElement?.nativeElement.className).toContain('CONTENT_CLASS');
+            });
+
+            it('should apply multiple simple string classes to different sections', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'ROOT_CLASS',
+                    content: 'CONTENT_CLASS'
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('ROOT_CLASS');
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                expect(contentElement?.nativeElement.className).toContain('CONTENT_CLASS');
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            it('should apply object with class to root', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'OBJECT_CLASS'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('OBJECT_CLASS');
+            });
+
+            it('should apply object with style to root', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        style: { 'background-color': 'red' }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.style.backgroundColor).toBe('red');
+            });
+
+            it('should apply object with data attribute to root', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        'data-p-test': true
+                    }
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.getAttribute('data-p-test')).toBe('true');
+            });
+
+            it('should apply object with aria-label to root', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply multiple object properties to content', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    content: {
+                        class: 'CONTENT_OBJECT_CLASS',
+                        style: { color: 'blue' },
+                        'data-test': 'value',
+                        'aria-hidden': 'true'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                expect(contentElement?.nativeElement.className).toContain('CONTENT_OBJECT_CLASS');
+                expect(contentElement?.nativeElement.style.color).toBe('blue');
+                expect(contentElement?.nativeElement.getAttribute('data-test')).toBe('value');
+                expect(contentElement?.nativeElement.getAttribute('aria-hidden')).toBe('true');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed object and string values to different sections', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS'
+                    },
+                    content: 'CONTENT_STRING_CLASS'
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('ROOT_OBJECT_CLASS');
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                expect(contentElement?.nativeElement.className).toContain('CONTENT_STRING_CLASS');
+            });
+
+            it('should handle string for root and object for content', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'ROOT_STRING_CLASS',
+                    content: {
+                        class: 'CONTENT_OBJECT_CLASS',
+                        style: { 'font-weight': 'bold' }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('ROOT_STRING_CLASS');
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                expect(contentElement?.nativeElement.className).toContain('CONTENT_OBJECT_CLASS');
+                expect(contentElement?.nativeElement.style.fontWeight).toBe('bold');
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should use instance layout property in PT function', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('layout', 'vertical');
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: instance.layout === 'vertical' ? 'VERTICAL_LAYOUT' : ''
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('VERTICAL_LAYOUT');
+            });
+
+            it('should use instance type property in PT function', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('type', 'dashed');
+                ptFixture.componentRef.setInput('pt', {
+                    content: ({ instance }) => {
+                        return {
+                            style: {
+                                'border-color': instance.type === 'dashed' ? 'yellow' : 'red'
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                expect(contentElement?.nativeElement.style.borderColor).toBe('yellow');
+            });
+
+            it('should use instance align property in PT function', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('align', 'center');
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: instance.align === 'center' ? 'CENTERED' : ''
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('CENTERED');
+            });
+
+            it('should use multiple instance properties in PT function', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('layout', 'horizontal');
+                ptFixture.componentRef.setInput('type', 'dotted');
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: instance.layout === 'horizontal' && instance.type === 'dotted' ? 'HORIZONTAL_DOTTED' : ''
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('HORIZONTAL_DOTTED');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should bind onclick event via PT', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                let clicked = false;
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                ptFixture.nativeElement.click();
+                expect(clicked).toBe(true);
+            });
+
+            it('should bind onclick event to content via PT', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                let contentClicked = false;
+                ptFixture.componentRef.setInput('pt', {
+                    content: {
+                        onclick: () => {
+                            contentClicked = true;
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                contentElement?.nativeElement.click();
+                expect(contentClicked).toBe(true);
+            });
+
+            it('should bind onclick event with instance reference', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                let instanceLayout = '';
+                ptFixture.componentRef.setInput('layout', 'vertical');
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            onclick: () => {
+                                instanceLayout = instance.layout || '';
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                ptFixture.nativeElement.click();
+                expect(instanceLayout).toBe('vertical');
+            });
+        });
+
+        describe('Case 6: Inline test', () => {
+            it('should apply inline PT with string class', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-divider [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-divider>`
+                })
+                class TestInlinePTStringComponent {}
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [DividerModule],
+                    declarations: [TestInlinePTStringComponent]
+                });
+
+                const inlineFixture = TestBed.createComponent(TestInlinePTStringComponent);
+                inlineFixture.detectChanges();
+
+                const inlineDivider = inlineFixture.debugElement.query(By.directive(Divider));
+                expect(inlineDivider.nativeElement.className).toContain('INLINE_ROOT_CLASS');
+            });
+
+            it('should apply inline PT with object class', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-divider [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></p-divider>`
+                })
+                class TestInlinePTObjectComponent {}
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [DividerModule],
+                    declarations: [TestInlinePTObjectComponent]
+                });
+
+                const inlineFixture = TestBed.createComponent(TestInlinePTObjectComponent);
+                inlineFixture.detectChanges();
+
+                const inlineDivider = inlineFixture.debugElement.query(By.directive(Divider));
+                expect(inlineDivider.nativeElement.className).toContain('INLINE_OBJECT_CLASS');
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-divider></p-divider>
+                    <p-divider></p-divider>
+                `
+            })
+            class TestGlobalPTComponent {}
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [DividerModule],
+                    declarations: [TestGlobalPTComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                divider: {
+                                    root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
+                                    content: { class: 'GLOBAL_CONTENT_CLASS' }
+                                }
+                            }
+                        })
+                    ]
+                });
+            });
+
+            it('should apply global PT configuration from PrimeNG config', () => {
+                const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+                globalFixture.detectChanges();
+
+                const dividers = globalFixture.debugElement.queryAll(By.directive(Divider));
+                expect(dividers.length).toBe(2);
+
+                dividers.forEach((divider) => {
+                    expect(divider.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+                });
+            });
+
+            it('should apply global PT to multiple instances of the component', () => {
+                const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+                globalFixture.detectChanges();
+
+                const dividers = globalFixture.debugElement.queryAll(By.directive(Divider));
+                dividers.forEach((divider) => {
+                    expect(divider.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+                });
+            });
+
+            it('should merge local PT with global PT', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-divider [pt]="{ root: { class: 'LOCAL_CLASS' } }"></p-divider>`
+                })
+                class TestMergedPTComponent {}
+
+                TestBed.configureTestingModule({
+                    declarations: [TestMergedPTComponent]
+                });
+
+                const mergedFixture = TestBed.createComponent(TestMergedPTComponent);
+                mergedFixture.detectChanges();
+
+                const dividerElement = mergedFixture.debugElement.query(By.directive(Divider));
+                expect(dividerElement.nativeElement.className).toContain('LOCAL_CLASS');
+                expect(dividerElement.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            it('should apply PT with root class configuration', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'MY_DIVIDER'
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('MY_DIVIDER');
+            });
+
+            it('should apply PT with content class configuration', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    content: 'CONTENT_CLASS'
+                });
+                ptFixture.detectChanges();
+
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                expect(contentElement?.nativeElement.className).toContain('CONTENT_CLASS');
+            });
+
+            it('should handle PT configuration changes', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'INITIAL_PT_CLASS'
+                });
+                ptFixture.detectChanges();
+                expect(ptFixture.nativeElement.className).toContain('INITIAL_PT_CLASS');
+
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'UPDATED_PT_CLASS'
+                });
+                ptFixture.detectChanges();
+                expect(ptFixture.nativeElement.className).toContain('UPDATED_PT_CLASS');
+            });
+        });
+
+        describe('PT Complex Scenarios', () => {
+            it('should handle PT updates dynamically', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', { root: 'INITIAL_CLASS' });
+                ptFixture.detectChanges();
+                expect(ptFixture.nativeElement.className).toContain('INITIAL_CLASS');
+
+                ptFixture.componentRef.setInput('pt', { root: 'UPDATED_CLASS' });
+                ptFixture.detectChanges();
+                expect(ptFixture.nativeElement.className).toContain('UPDATED_CLASS');
+                expect(ptFixture.nativeElement.className).not.toContain('INITIAL_CLASS');
+            });
+
+            it('should combine PT with component inputs', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('layout', 'vertical');
+                ptFixture.componentRef.setInput('type', 'dashed');
+                ptFixture.componentRef.setInput('pt', { root: 'CUSTOM_PT_CLASS' });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('p-divider-vertical');
+                expect(ptFixture.nativeElement.className).toContain('p-divider-dashed');
+                expect(ptFixture.nativeElement.className).toContain('CUSTOM_PT_CLASS');
+            });
+
+            it('should apply PT to all sections simultaneously', () => {
+                const ptFixture = TestBed.createComponent(Divider);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'PT_ROOT',
+                    content: 'PT_CONTENT'
+                });
+                ptFixture.detectChanges();
+
+                expect(ptFixture.nativeElement.className).toContain('PT_ROOT');
+                const contentElement = ptFixture.debugElement.query(By.css('.p-divider-content'));
+                expect(contentElement?.nativeElement.className).toContain('PT_CONTENT');
+            });
         });
     });
 });
