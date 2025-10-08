@@ -496,6 +496,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
+        this.unbindDocumentEscapeListener();
     }
 
     ngOnDestroy() {
