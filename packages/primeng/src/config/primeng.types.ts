@@ -18,6 +18,7 @@ import type { DividerPassThrough } from 'primeng/types/divider';
 import type { DrawerPassThrough } from 'primeng/types/drawer';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { InplacePassThrough } from 'primeng/types/inplace';
+import type { PopoverPassThrough } from 'primeng/types/popover';
 import type { MenuPassThrough } from 'primeng/types/menu';
 import type { MenubarPassThrough } from 'primeng/types/menubar';
 import { MessagePassThrough } from 'primeng/types/message';
@@ -75,6 +76,7 @@ export interface GlobalPassThrough {
     menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;
     inplace?: InplacePassThrough;
+    popover?: PopoverPassThrough;
     message?: MessagePassThrough;
     meterGroup?: MeterGroupPassThrough;
     overlayBadge?: OverlayBadgePassThrough;

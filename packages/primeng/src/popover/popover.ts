@@ -11,6 +11,7 @@ import {
     EventEmitter,
     HostListener,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     NgZone,
@@ -25,12 +26,16 @@ import {
 import { $dt } from '@primeuix/styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
+
+const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
 
 /**
  * Popover is a container component that can overlay other components on page.
@@ -39,10 +44,13 @@ import { PopoverStyle } from './style/popoverstyle';
 @Component({
     selector: 'p-popover',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, Bind],
+    providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
+    hostDirectives: [Bind],
     template: `
         <div
             *ngIf="render"
+            [pBind]="ptm('root')"
             [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             (click)="onOverlayClick($event)"
@@ -57,7 +65,7 @@ import { PopoverStyle } from './style/popoverstyle';
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
         >
-            <div [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+            <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
                 <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
             </div>
@@ -90,10 +98,17 @@ import { PopoverStyle } from './style/popoverstyle';
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    providers: [PopoverStyle]
+    encapsulation: ViewEncapsulation.None
 })
-export class Popover extends BaseComponent {
+export class Popover extends BaseComponent<PopoverPassThrough> {
+    $pcPopover: Popover | undefined = inject(POPOVER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
