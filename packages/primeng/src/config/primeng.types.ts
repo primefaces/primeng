@@ -13,6 +13,7 @@ import type { StepperPassThrough } from 'primeng/types/stepper';
 import type { ToolbarPassThrough } from 'primeng/types/toolbar';
 import type { TabsPassThrough } from 'primeng/types/tabs';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
+import type { SplitButtonPassThrough } from 'primeng/types/splitbutton';
 
 /** ZIndex configuration */
 export type ZIndex = {
@@ -38,6 +39,7 @@ export interface GlobalPassThrough {
     divider?: DividerPassThrough;
     scrollPanel?: ScrollPanelPassThrough;
     speedDial?: SpeedDialPassThrough;
+    splitButton?: SplitButtonPassThrough;
     splitter?: SplitterPassThrough;
     stepper?: StepperPassThrough;
     tabs?: TabsPassThrough;
