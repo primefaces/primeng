@@ -1,3 +1,3 @@
 export * from './confirmdialog';
-export * from './confirmdialog.interface';
+export * from 'primeng/types/confirmdialog';
 export * from './style/confirmdialogstyle';
