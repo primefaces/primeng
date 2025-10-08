@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, inject, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { addClass, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { BadgeStyle } from './style/badgestyle';
 import { BadgePassThrough } from 'primeng/types/badge';
+
+const BADGE_INSTANCE = new InjectionToken<Badge>('BADGE_INSTANCE');
 
 /**
  * Badge Directive is directive usage of badge component.
@@ -244,16 +247,24 @@ export class BadgeDirective extends BaseComponent {
     selector: 'p-badge',
     template: `{{ value() }}`,
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, Bind],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [BadgeStyle],
+    providers: [BadgeStyle, { provide: BADGE_INSTANCE, useExisting: Badge }, { provide: PARENT_INSTANCE, useExisting: Badge }],
     host: {
         '[class]': "cn(cx('root'), styleClass())",
         '[style.display]': 'badgeDisabled() ? "none" : null'
-    }
+    },
+    hostDirectives: [Bind]
 })
 export class Badge extends BaseComponent<BadgePassThrough> {
+    $pcBadge: Badge | undefined = inject(BADGE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Class of the element.
      * @deprecated since v20.0.0, use `class` instead.

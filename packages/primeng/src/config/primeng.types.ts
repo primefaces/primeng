@@ -1,21 +1,23 @@
 import type { ElementRef, TemplateRef } from '@angular/core';
 import type { OverlayOptions, PassThroughOptions, Translation } from 'primeng/api';
 import { FieldsetPassThrough } from 'primeng/fieldset';
-import { BadgePassThrough } from 'primeng/types/badge';
-import type { ButtonPassThrough } from 'primeng/types/button';
-import type { PanelPassThrough } from 'primeng/types/panel';
 import type { AccordionPassThrough } from 'primeng/types/accordion';
+import type { AvatarPassThrough } from 'primeng/types/avatar';
+import { BadgePassThrough } from 'primeng/types/badge';
+import type { BlockUIPassThrough } from 'primeng/types/blockui';
+import type { ButtonPassThrough } from 'primeng/types/button';
 import type { CardPassThrough } from 'primeng/types/card';
+import type { ChipPassThrough } from 'primeng/types/chip';
 import type { DividerPassThrough } from 'primeng/types/divider';
-import type { MenuPassThrough } from 'primeng/types/menu';
-import type { MenubarPassThrough } from 'primeng/types/menubar';
+import type { PanelPassThrough } from 'primeng/types/panel';
 import type { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
-import type { SplitterPassThrough } from 'primeng/types/splitter';
-import type { StepperPassThrough } from 'primeng/types/stepper';
-import type { ToolbarPassThrough } from 'primeng/types/toolbar';
-import type { TabsPassThrough } from 'primeng/types/tabs';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
 import type { SplitButtonPassThrough } from 'primeng/types/splitbutton';
+import type { SplitterPassThrough } from 'primeng/types/splitter';
+import type { StepperPassThrough } from 'primeng/types/stepper';
+import type { TabsPassThrough } from 'primeng/types/tabs';
+import type { ToastPassThrough } from 'primeng/types/toast';
+import type { ToolbarPassThrough } from 'primeng/types/toolbar';
 
 /** ZIndex configuration */
 export type ZIndex = {
@@ -37,16 +39,23 @@ export type ThemeConfigType = {
 
 export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
+    avatar?: AvatarPassThrough;
+    blockUI?: BlockUIPassThrough;
     card?: CardPassThrough;
+    chip?: ChipPassThrough;
     divider?: DividerPassThrough;
     menu?: MenuPassThrough;
     menubar?: MenubarPassThrough;
+    fluid?: FluidPassThrough;
+    message?: MessagePassThrough;
+    overlayBadge?: OverlayBadgePassThrough;
     scrollPanel?: ScrollPanelPassThrough;
     speedDial?: SpeedDialPassThrough;
     splitButton?: SplitButtonPassThrough;
     splitter?: SplitterPassThrough;
     stepper?: StepperPassThrough;
     tabs?: TabsPassThrough;
+    toast?: ToastPassThrough;
     toolbar?: ToolbarPassThrough;
     panel?: PanelPassThrough;
     button?: ButtonPassThrough;

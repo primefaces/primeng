@@ -10,15 +10,18 @@ import { OutlinedDoc } from '@/doc/message/outlineddoc';
 import { SeverityDoc } from '@/doc/message/severitydoc';
 import { SimpleDoc } from '@/doc/message/simpledoc';
 import { SizesDoc } from '@/doc/message/sizesdoc';
+import { PTComponent } from '@/doc/message/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" themeDocs="message"></app-doc>`,
+    template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" [ptDocs]="ptComponent" themeDocs="message"></app-doc>`,
     imports: [AppDoc],
     standalone: true
 })
 export class MessageDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

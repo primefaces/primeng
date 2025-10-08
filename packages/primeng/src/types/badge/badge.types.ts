@@ -8,6 +8,10 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 export interface BadgePassThroughOptions<I = unknown> {
     /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLElement, I>;
+    /**
      * Used to pass attributes to the root's DOM element.
      */
     root?: PassThroughOption<HTMLElement, I>;

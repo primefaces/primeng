@@ -9,6 +9,7 @@ import {
     ContentChildren,
     ElementRef,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
@@ -19,9 +20,13 @@ import {
 } from '@angular/core';
 import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
+import { BlockUIPassThrough } from 'primeng/types/blockui';
 import { ZIndexUtils } from 'primeng/utils';
 import { BlockUiStyle } from './style/blockuistyle';
+
+const BLOCKUI_INSTANCE = new InjectionToken<BlockUI>('BLOCKUI_INSTANCE');
 
 /**
  * BlockUI can either block other components or the whole page.
@@ -37,15 +42,21 @@ import { BlockUiStyle } from './style/blockuistyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [BlockUiStyle],
+    providers: [BlockUiStyle, { provide: BLOCKUI_INSTANCE, useExisting: BlockUI }, { provide: PARENT_INSTANCE, useExisting: BlockUI }],
     host: {
         '[attr.aria-busy]': 'blocked',
-        '[attr.data-pc-name]': "'blockui'",
-        '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class BlockUI extends BaseComponent {
+export class BlockUI extends BaseComponent<BlockUIPassThrough> {
+    $pcBlockUI: BlockUI | undefined = inject(BLOCKUI_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Name of the local ng-template variable referring to another component.
      * @group Props
