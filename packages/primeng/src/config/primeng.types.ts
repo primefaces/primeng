@@ -27,6 +27,7 @@ import type { ToolbarPassThrough } from 'primeng/types/toolbar';
 import type { TabsPassThrough } from 'primeng/types/tabs';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
 import type { SplitButtonPassThrough } from 'primeng/types/splitbutton';
+import type { TagPassThrough } from 'primeng/types/tag';
 import type { ToastPassThrough } from 'primeng/types/toast';
 
 /** ZIndex configuration */
@@ -70,6 +71,7 @@ export interface GlobalPassThrough {
     splitter?: SplitterPassThrough;
     stepper?: StepperPassThrough;
     tabs?: TabsPassThrough;
+    tag?: TagPassThrough;
     toast?: ToastPassThrough;
     toolbar?: ToolbarPassThrough;
     panel?: PanelPassThrough;
