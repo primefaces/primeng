@@ -10,7 +10,9 @@ import type { BlockUIPassThrough } from 'primeng/types/blockui';
 import type { BreadcrumbPassThrough } from 'primeng/types/breadcrumb';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { CardPassThrough } from 'primeng/types/card';
+import type { ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
 import type { ChipPassThrough } from 'primeng/types/chip';
+import type { DialogPassThrough } from 'primeng/types/dialog';
 import type { DividerPassThrough } from 'primeng/types/divider';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { InplacePassThrough } from 'primeng/types/inplace';
@@ -62,6 +64,8 @@ export interface GlobalPassThrough {
     breadcrumb?: BreadcrumbPassThrough;
     card?: CardPassThrough;
     chip?: ChipPassThrough;
+    confirmDialog?: ConfirmDialogPassThrough;
+    dialog?: DialogPassThrough;
     divider?: DividerPassThrough;
     menu?: MenuPassThrough;
     menubar?: MenubarPassThrough;

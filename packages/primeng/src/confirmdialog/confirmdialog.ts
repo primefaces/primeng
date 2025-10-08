@@ -1,6 +1,7 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
+    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -9,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     NgZone,
@@ -22,12 +24,16 @@ import {
 } from '@angular/core';
 import { findSingle, setAttribute, uuid } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { Nullable } from 'primeng/ts-helpers';
+import { ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
+
+const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_INSTANCE');
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -39,9 +45,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-confirmDialog, p-confirmdialog, p-confirm-dialog',
     standalone: true,
-    imports: [CommonModule, Button, Dialog, SharedModule],
+    imports: [CommonModule, Button, Dialog, SharedModule, Bind],
     template: `
         <p-dialog
+            [pt]="ptm('pcDialog')"
             #dialog
             [visible]="visible"
             (visibleChange)="onVisibleChange($event)"
@@ -84,12 +91,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     @if (iconTemplate || _iconTemplate) {
                         <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     } @else if (!iconTemplate && !_iconTemplate && !_messageTemplate && !messageTemplate) {
-                        <i [ngClass]="cx('icon')" [class]="option('icon')" *ngIf="option('icon')"></i>
+                        <i [ngClass]="cx('icon')" [class]="option('icon')" [pBind]="ptm('icon')" *ngIf="option('icon')"></i>
                     }
                     @if (messageTemplate || _messageTemplate) {
                         <ng-template *ngTemplateOutlet="messageTemplate || _messageTemplate; context: { $implicit: confirmation }"></ng-template>
                     } @else {
-                        <span [class]="cx('message')" [innerHTML]="option('message')"> </span>
+                        <span [class]="cx('message')" [pBind]="ptm('message')" [innerHTML]="option('message')"> </span>
                     }
                 </ng-template>
             }
@@ -100,6 +107,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 }
                 @if (!footerTemplate && !_footerTemplate) {
                     <p-button
+                        [pt]="ptm('pcRejectButton')"
                         *ngIf="option('rejectVisible')"
                         [label]="rejectButtonLabel"
                         (onClick)="onReject()"
@@ -115,6 +123,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         </ng-template>
                     </p-button>
                     <p-button
+                        [pt]="ptm('pcAcceptButton')"
                         [label]="acceptButtonLabel"
                         (onClick)="onAccept()"
                         [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
@@ -136,9 +145,18 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ConfirmDialogStyle]
+    providers: [ConfirmDialogStyle, { provide: CONFIRMDIALOG_INSTANCE, useExisting: ConfirmDialog }, { provide: PARENT_INSTANCE, useExisting: ConfirmDialog }],
+    hostDirectives: [Bind]
 })
-export class ConfirmDialog extends BaseComponent {
+export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> implements OnInit, AfterContentInit, OnDestroy {
+    $pcConfirmDialog: ConfirmDialog | undefined = inject(CONFIRMDIALOG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Title text of the dialog.
      * @group Props
