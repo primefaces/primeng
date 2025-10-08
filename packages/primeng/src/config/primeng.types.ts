@@ -12,6 +12,7 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import type { CardPassThrough } from 'primeng/types/card';
 import type { ChipPassThrough } from 'primeng/types/chip';
 import type { DividerPassThrough } from 'primeng/types/divider';
+import type { DockPassThrough } from 'primeng/types/dock';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { InplacePassThrough } from 'primeng/types/inplace';
 import type { MenuPassThrough } from 'primeng/types/menu';
@@ -59,6 +60,7 @@ export interface GlobalPassThrough {
     card?: CardPassThrough;
     chip?: ChipPassThrough;
     divider?: DividerPassThrough;
+    dock?: DockPassThrough;
     menu?: MenuPassThrough;
     menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;

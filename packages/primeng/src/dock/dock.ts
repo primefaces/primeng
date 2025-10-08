@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -9,6 +8,7 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     Output,
@@ -21,11 +21,15 @@ import {
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { find, findSingle, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import { DockPassThrough } from 'primeng/types/dock';
 import { DockStyle } from './style/dockstyle';
+
+const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
 
 /**
  * Dock is a navigation component consisting of menuitems.
@@ -34,9 +38,9 @@ import { DockStyle } from './style/dockstyle';
 @Component({
     selector: 'p-dock',
     standalone: true,
-    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, Ripple, TooltipModule, SharedModule],
+    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, Ripple, TooltipModule, SharedModule, Bind],
     template: `
-        <div [class]="cx('listContainer')">
+        <div [class]="cx('listContainer')" [pBind]="ptm('listContainer')">
             <ul
                 #list
                 [attr.id]="id"
@@ -47,11 +51,11 @@ import { DockStyle } from './style/dockstyle';
                 [tabindex]="tabindex"
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.data-pc-section]="'menu'"
                 (focus)="onListFocus($event)"
                 (blur)="onListBlur($event)"
                 (keydown)="onListKeyDown($event)"
                 (mouseleave)="onListMouseLeave()"
+                [pBind]="ptm('list')"
             >
                 @for (item of model; track item.label; let i = $index) {
                     <li
@@ -63,11 +67,11 @@ import { DockStyle } from './style/dockstyle';
                         [attr.aria-disabled]="disabled(item) || false"
                         (click)="onItemClick($event, item)"
                         (mouseenter)="onItemMouseEnter(i)"
-                        [attr.data-pc-section]="'menuitem'"
+                        [pBind]="getPTOptions(item, i, 'item')"
                         [attr.data-p-focused]="isItemActive(getItemId(item, i))"
                         [attr.data-p-disabled]="disabled(item) || false"
                     >
-                        <div [class]="cx('itemContent')" [attr.data-pc-section]="'content'">
+                        <div [class]="cx('itemContent')" [pBind]="getPTOptions(item, i, 'itemContent')">
                             <a
                                 *ngIf="isClickableRouterLink(item); else elseBlock"
                                 pRipple
@@ -87,8 +91,9 @@ import { DockStyle } from './style/dockstyle';
                                 [replaceUrl]="item.replaceUrl"
                                 [state]="item.state"
                                 [attr.aria-hidden]="true"
+                                [pBind]="getPTOptions(item, i, 'itemLink')"
                             >
-                                <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle"></span>
+                                <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
                                 <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
                             </a>
                             <ng-template #elseBlock>
@@ -102,8 +107,9 @@ import { DockStyle } from './style/dockstyle';
                                     [target]="item.target"
                                     [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
+                                    [pBind]="getPTOptions(item, i, 'itemLink')"
                                 >
-                                    <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle"></span>
+                                    <span [class]="cn(cx('itemIcon'), item.icon)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
                                     <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
                                 </a>
                             </ng-template>
@@ -115,13 +121,14 @@ import { DockStyle } from './style/dockstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DockStyle],
+    providers: [DockStyle, { provide: DOCK_INSTANCE, useExisting: Dock }, { provide: PARENT_INSTANCE, useExisting: Dock }],
     host: {
         '[class]': 'cn(cx("root"), styleClass)',
         'data-pc-name': 'dock'
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Dock extends BaseComponent {
+export class Dock extends BaseComponent<DockPassThrough> {
     /**
      * Current id state as a string.
      * @group Props
@@ -183,6 +190,10 @@ export class Dock extends BaseComponent {
     focusedOptionIndex: string | number = -1;
 
     _componentStyle = inject(DockStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcDock: Dock | undefined = inject(DOCK_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     matchMediaListener: any;
 
@@ -330,33 +341,33 @@ export class Dock extends BaseComponent {
     }
 
     onEndKey() {
-        this.changeFocusedOptionIndex(find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]').length - 1);
     }
 
     onSpaceKey() {
-        const element = <any>findSingle(this.listViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
-        const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
+        const element = <HTMLElement>findSingle(this.listViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
+        const anchorElement = element && <HTMLElement>findSingle(element, 'a,button');
 
         anchorElement ? anchorElement.click() : element && element.click();
     }
 
     findNextOptionIndex(index) {
-        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const menuitems = <any>find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = <any>find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
 
         let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
-        this.focusedOptionIndex = menuitems[order].getAttribute('id');
+        this.focusedOptionIndex = menuitems[order]?.getAttribute('id');
     }
 
     findPrevOptionIndex(index) {
-        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
@@ -378,6 +389,19 @@ export class Dock extends BaseComponent {
                 default:
                     this._itemTemplate = item.template;
                     break;
+            }
+        });
+    }
+
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    getPTOptions(item: MenuItem, index: number, key: string) {
+        return this.ptm(key, {
+            context: {
+                item,
+                index
             }
         });
     }
