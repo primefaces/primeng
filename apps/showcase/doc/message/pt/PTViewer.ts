@@ -9,12 +9,7 @@ import { MessageModule } from 'primeng/message';
     imports: [CommonModule, AppDocPtViewer, MessageModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <div class="flex flex-col gap-4">
-                <p-message severity="success" [closable]="true">Success Message Content</p-message>
-                <p-message severity="info">Info Message Content</p-message>
-                <p-message severity="warn" [closable]="true">Warning Message Content</p-message>
-                <p-message severity="error">Error Message Content</p-message>
-            </div>
+            <p-message [closable]="true" severity="info" icon="pi pi-send">Info Message</p-message>
         </app-docptviewer>
     `
 })
