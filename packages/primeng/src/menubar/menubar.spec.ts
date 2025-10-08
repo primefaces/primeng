@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from 'primeng/api';
-import { Menubar } from './menubar';
+import { Menubar, MenubarSub } from './menubar';
 
 @Component({
     standalone: false,
@@ -1039,6 +1039,209 @@ describe('Menubar', () => {
             expect(processedItems[1].key).toBe('1');
             expect(processedItems[1].items).toBeTruthy();
             expect(processedItems[1].items.length).toBe(2);
+        });
+    });
+
+    describe('MenubarSub getPTOptions Method', () => {
+        it('should call ptm with correct parameters', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item', disabled: false },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: {
+                    item: processedItem.item,
+                    index: 0,
+                    active: jasmine.any(Boolean),
+                    focused: jasmine.any(Boolean),
+                    disabled: jasmine.any(Boolean),
+                    level: menubarSub.level
+                }
+            });
+        });
+
+        it('should return value from ptm method', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item' },
+                key: '0',
+                index: 0
+            };
+
+            const result = menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(result).toBeDefined();
+        });
+
+        it('should determine active state correctly', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item' },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'isItemActive').and.returnValue(true);
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.isItemActive).toHaveBeenCalledWith(processedItem);
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    active: true
+                })
+            });
+        });
+
+        it('should determine focused state correctly', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item', id: 'test-item-0' },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'isItemFocused').and.returnValue(true);
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.isItemFocused).toHaveBeenCalledWith(processedItem);
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    focused: true
+                })
+            });
+        });
+
+        it('should determine disabled state correctly', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem', disabled: true }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Disabled Item', disabled: true },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'isItemDisabled').and.returnValue(true);
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.isItemDisabled).toHaveBeenCalledWith(processedItem);
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    disabled: true
+                })
+            });
+        });
+
+        it('should use correct PT key', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item' },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'itemLink');
+
+            expect(menubarSub.ptm).toHaveBeenCalledWith('itemLink', jasmine.any(Object));
+        });
+
+        it('should include level in context', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item' },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    level: menubarSub.level
+                })
+            });
+        });
+
+        it('should pass correct index', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Item 2' },
+                key: '1',
+                index: 1
+            };
+
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 1, 'item');
+
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    index: 1
+                })
+            });
         });
     });
 });

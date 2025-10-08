@@ -18168,49 +18168,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "menubar",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  \t root: boolean, // Whether root or not\n  }"
-                            }
-                        ],
-                        "description": "Custom item template."
-                    },
-                    {
-                        "parent": "menubar",
-                        "name": "start",
-                        "parameters": [],
-                        "description": "Custom template of start."
-                    },
-                    {
-                        "parent": "menubar",
-                        "name": "end",
-                        "parameters": [],
-                        "description": "Custom template of end."
-                    },
-                    {
-                        "parent": "menubar",
-                        "name": "menuicon",
-                        "parameters": [],
-                        "description": "Custom template of menuicon."
-                    },
-                    {
-                        "parent": "menubar",
-                        "name": "submenuicon",
-                        "parameters": [],
-                        "description": "Custom template of submenuicon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -18266,6 +18223,165 @@
                     {
                         "class": "p-menubar-end",
                         "description": "Class name of the end element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  \t root: boolean, // Whether root or not\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom template of start."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom template of end."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "menuicon",
+                        "parameters": [],
+                        "description": "Custom template of menuicon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "submenuicon",
+                        "parameters": [],
+                        "description": "Custom template of submenuicon."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "MenubarPassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "rootList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the root list's DOM element."
+                            },
+                            {
+                                "name": "item",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the item's DOM element."
+                            },
+                            {
+                                "name": "itemContent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the item content's DOM element."
+                            },
+                            {
+                                "name": "itemLink",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the item link's DOM element."
+                            },
+                            {
+                                "name": "itemIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item icon's DOM element."
+                            },
+                            {
+                                "name": "itemLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the item label's DOM element."
+                            },
+                            {
+                                "name": "submenuIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<SVGElement, I>",
+                                "description": "Used to pass attributes to the submenu icon's DOM element."
+                            },
+                            {
+                                "name": "separator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the separator's DOM element."
+                            },
+                            {
+                                "name": "button",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLAnchorElement, I>",
+                                "description": "Used to pass attributes to the mobile menu button's DOM element."
+                            },
+                            {
+                                "name": "buttonIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<SVGElement, I>",
+                                "description": "Used to pass attributes to the mobile menu button icon's DOM element."
+                            },
+                            {
+                                "name": "submenu",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the submenu's DOM element."
+                            },
+                            {
+                                "name": "start",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the start of the component."
+                            },
+                            {
+                                "name": "end",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the end of the component."
+                            },
+                            {
+                                "name": "pcBadge",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Used to pass attributes to Badge component."
+                            }
+                        ]
                     }
                 ]
             }
