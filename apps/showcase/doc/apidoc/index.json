@@ -15090,32 +15090,6 @@
                 }
             }
         },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "inplace",
-                        "name": "display",
-                        "parameters": [],
-                        "description": "Custom template of display."
-                    },
-                    {
-                        "parent": "inplace",
-                        "name": "content",
-                        "parameters": [],
-                        "description": "Custom template of content."
-                    },
-                    {
-                        "parent": "inplace",
-                        "name": "closeicon",
-                        "parameters": [],
-                        "description": "Custom template of close icon."
-                    }
-                ]
-            }
-        },
         "style": {
             "components": {},
             "classes": {
@@ -15131,6 +15105,55 @@
                     {
                         "class": "p-inplace-content",
                         "description": "Class name of the content element"
+                    }
+                ]
+            }
+        },
+        "types": {
+            "components": {},
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "InplacePassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
+                        "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
+                                "name": "root",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "display",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the display's DOM element."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
+                                "name": "pcButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the Button component."
+                            }
+                        ]
                     }
                 ]
             }

@@ -12,6 +12,7 @@ import type { CardPassThrough } from 'primeng/types/card';
 import type { ChipPassThrough } from 'primeng/types/chip';
 import type { DividerPassThrough } from 'primeng/types/divider';
 import type { FluidPassThrough } from 'primeng/types/fluid';
+import type { InplacePassThrough } from 'primeng/types/inplace';
 import type { MessagePassThrough } from 'primeng/types/message';
 import type { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
 import type { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
@@ -50,6 +51,7 @@ export interface GlobalPassThrough {
     chip?: ChipPassThrough;
     divider?: DividerPassThrough;
     fluid?: FluidPassThrough;
+    inplace?: InplacePassThrough;
     message?: MessagePassThrough;
     overlayBadge?: OverlayBadgePassThrough;
     scrollPanel?: ScrollPanelPassThrough;

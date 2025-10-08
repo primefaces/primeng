@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
+import { InplacePassThrough } from 'primeng/types/inplace';
 import { InplaceStyle } from './style/inplacestyle';
+
+const INPLACE_INSTANCE = new InjectionToken<Inplace>('INPLACE_INSTANCE');
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
@@ -29,19 +33,19 @@ export class InplaceContent extends BaseComponent {}
 @Component({
     selector: 'p-inplace',
     standalone: true,
-    imports: [CommonModule, ButtonModule, TimesIcon, SharedModule, Ripple],
+    imports: [CommonModule, ButtonModule, TimesIcon, SharedModule, Ripple, Bind],
     template: `
-        <div [class]="cx('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
+        <div [class]="cx('display')" [pBind]="ptm('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
             <ng-content select="[pInplaceDisplay]"></ng-content>
             <ng-container *ngTemplateOutlet="displayTemplate || _displayTemplate"></ng-container>
         </div>
-        <div [class]="cx('content')" *ngIf="active">
+        <div [class]="cx('content')" [pBind]="ptm('content')" *ngIf="active">
             <ng-content select="[pInplaceContent]"></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
 
             <ng-container *ngIf="closable">
-                <p-button *ngIf="closeIcon" type="button" [icon]="closeIcon" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></p-button>
-                <p-button *ngIf="!closeIcon" type="button" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
+                <p-button *ngIf="closeIcon" [pt]="ptm('pcButton')" type="button" [icon]="closeIcon" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></p-button>
+                <p-button *ngIf="!closeIcon" [pt]="ptm('pcButton')" type="button" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
                     <ng-template #icon>
                         <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
                     </ng-template>
@@ -52,13 +56,22 @@ export class InplaceContent extends BaseComponent {}
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [InplaceStyle],
+    providers: [InplaceStyle, { provide: INPLACE_INSTANCE, useExisting: Inplace }, { provide: PARENT_INSTANCE, useExisting: Inplace }],
     host: {
         '[attr.aria-live]': "'polite'",
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Inplace extends BaseComponent {
+export class Inplace extends BaseComponent<InplacePassThrough> {
+    $pcInplace: Inplace | undefined = inject(INPLACE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Whether the content is displayed or not.
      * @group Props
