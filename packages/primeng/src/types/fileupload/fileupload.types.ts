@@ -6,7 +6,6 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
 import type { MessagePassThrough } from 'primeng/types/message';
 import type { BadgePassThrough } from 'primeng/types/badge';
-import { Message } from 'primeng/message';
 
 /**
  * Upload event.
