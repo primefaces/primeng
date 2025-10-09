@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, input, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -982,6 +982,401 @@ describe('Chip', () => {
             fixture.detectChanges();
             expect(element.classList.contains('initial-class')).toBe(false);
             expect(element.classList.contains('updated-class')).toBe(true);
+        });
+    });
+
+    describe('PassThrough API', () => {
+        @Component({
+            standalone: true,
+            imports: [Chip],
+            template: `<p-chip [label]="label()" [icon]="icon()" [image]="image()" [removable]="removable()" [removeIcon]="removeIcon()" [pt]="pt()"></p-chip>`
+        })
+        class TestPTChipComponent {
+            label = input<string | undefined>('Test');
+            icon = input<string | undefined>();
+            image = input<string | undefined>();
+            removable = input<boolean>(false);
+            removeIcon = input<string | undefined>();
+            pt = input<any>();
+        }
+
+        describe('Case 1: Simple string classes', () => {
+            let fixture: ComponentFixture<TestPTChipComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTChipComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
+            });
+
+            it('should apply string class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to root section', () => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to label section', () => {
+                fixture.componentRef.setInput('pt', { label: 'LABEL_CLASS' });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
+                expect(labelElement.nativeElement.classList.contains('LABEL_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to icon section', () => {
+                fixture.componentRef.setInput('icon', 'pi pi-user');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', { icon: 'ICON_CLASS' });
+                fixture.detectChanges();
+
+                const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
+                expect(iconElement.nativeElement.classList.contains('ICON_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to image section', () => {
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('image', '/path/to/image.jpg');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', { image: 'IMAGE_CLASS' });
+                fixture.detectChanges();
+
+                const imageElement = fixture.debugElement.query(By.css('img'));
+                expect(imageElement.nativeElement.classList.contains('IMAGE_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to removeIcon section', () => {
+                fixture.componentRef.setInput('removable', true);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', { removeIcon: 'REMOVE_ICON_CLASS' });
+                fixture.detectChanges();
+
+                const removeIconElement = fixture.debugElement.query(By.css('.p-chip-remove-icon'));
+                expect(removeIconElement.nativeElement.classList.contains('REMOVE_ICON_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            let fixture: ComponentFixture<TestPTChipComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTChipComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
+            });
+
+            it('should apply object with class, style, data and aria attributes to root', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'lightblue' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(element.style.backgroundColor).toBe('lightblue');
+                expect(element.getAttribute('data-p-test')).toBe('true');
+                expect(element.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object with class, style, data and aria attributes to label', () => {
+                fixture.componentRef.setInput('pt', {
+                    label: {
+                        class: 'LABEL_OBJECT_CLASS',
+                        style: { color: 'red' },
+                        'data-p-label': 'chip',
+                        'aria-hidden': 'true'
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
+                expect(labelElement.nativeElement.classList.contains('LABEL_OBJECT_CLASS')).toBe(true);
+                expect(labelElement.nativeElement.style.color).toBe('red');
+                expect(labelElement.nativeElement.getAttribute('data-p-label')).toBe('chip');
+                expect(labelElement.nativeElement.getAttribute('aria-hidden')).toBe('true');
+            });
+
+            it('should apply object with class, style, data and aria attributes to icon', () => {
+                fixture.componentRef.setInput('icon', 'pi pi-user');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    icon: {
+                        class: 'ICON_OBJECT_CLASS',
+                        style: { 'font-size': '1.5rem' },
+                        'data-p-icon': 'user'
+                    }
+                });
+                fixture.detectChanges();
+
+                const iconElement = fixture.debugElement.query(By.css('.p-chip-icon'));
+                expect(iconElement.nativeElement.classList.contains('ICON_OBJECT_CLASS')).toBe(true);
+                expect(iconElement.nativeElement.style.fontSize).toBe('1.5rem');
+                expect(iconElement.nativeElement.getAttribute('data-p-icon')).toBe('user');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            let fixture: ComponentFixture<TestPTChipComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTChipComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
+            });
+
+            it('should apply mixed pt with object and string values', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    label: 'LABEL_MIXED_CLASS'
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+
+                const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
+                expect(labelElement.nativeElement.classList.contains('LABEL_MIXED_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            let fixture: ComponentFixture<TestPTChipComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTChipComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
+            });
+
+            it('should use instance label in pt function for root', () => {
+                fixture.componentRef.setInput('label', 'Dynamic Label');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.label ? 'HAS_LABEL' : 'NO_LABEL'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HAS_LABEL')).toBe(true);
+            });
+
+            it('should use instance removable in pt function for label', () => {
+                fixture.componentRef.setInput('removable', true);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    label: ({ instance }: any) => {
+                        return {
+                            'data-removable': instance?.removable ? 'true' : 'false'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
+                expect(labelElement.nativeElement.getAttribute('data-removable')).toBe('true');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            let fixture: ComponentFixture<TestPTChipComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTChipComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Chip)).nativeElement;
+            });
+
+            it('should bind onclick event to root through pt', () => {
+                let clickCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clickCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                element.click();
+                element.click();
+
+                expect(clickCount).toBe(2);
+            });
+
+            it('should bind onclick event to label through pt', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    label: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-chip-label'));
+                labelElement.nativeElement.click();
+
+                expect(clicked).toBe(true);
+            });
+        });
+
+        describe('Case 6: Test emitters', () => {
+            let fixture: ComponentFixture<TestPTChipComponent>;
+            let chipComponent: Chip;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTChipComponent);
+                fixture.detectChanges();
+                chipComponent = fixture.debugElement.query(By.directive(Chip)).componentInstance;
+            });
+
+            it('should access onRemove emitter through instance in pt', () => {
+                let emitterAccessed = false;
+                fixture.componentRef.setInput('removable', true);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        if (instance.onRemove) {
+                            emitterAccessed = true;
+                        }
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(emitterAccessed).toBe(true);
+            });
+
+            it('should access onImageError emitter through instance in pt', () => {
+                let emitterAccessed = false;
+                fixture.componentRef.setInput('image', '/path/to/image.jpg');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        if (instance.onImageError) {
+                            emitterAccessed = true;
+                        }
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(emitterAccessed).toBe(true);
+            });
+        });
+
+        describe('Case 7: Inline test', () => {
+            it('should apply inline pt with string class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTChipComponent);
+                inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(Chip)).nativeElement;
+                expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
+            });
+
+            it('should apply inline pt with object class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTChipComponent);
+                inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(Chip)).nativeElement;
+                expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            let fixture: ComponentFixture<TestPTChipComponent>;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTChipComponent);
+            });
+
+            it('should call onAfterViewInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterContentInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterContentInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterViewChecked hook', () => {
+                let checkCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            checkCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(checkCount).toBeGreaterThan(0);
+            });
+
+            it('should call onDestroy hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onDestroy: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+                fixture.destroy();
+
+                expect(hookCalled).toBe(true);
+            });
         });
     });
 });

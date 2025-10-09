@@ -2,13 +2,13 @@
 
 - Bilesenlerdeki data-pc-section ve data-pc-name kisimlari silinecek. Bunlari [pBind]="ptm('xxx')" verince dinamik olarak alacak.
 
-- bilesenlere PARENT_INSTANCE import edilecek: 
+- bilesenlere PARENT_INSTANCE import edilecek:
     import { PARENT_INSTANCE } from 'primeng/basecomponent';
 
 - bilesenlere instance token tanimlanacak:
-    
+
     const COMPONENTNAME_INSTANCE = new InjectionToken<Component>('COMPONENTNAME_INSTANCE');
-    
+
     const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
 
 - Bilesen token'i providers'a eklenecek, ornegin:
@@ -20,6 +20,7 @@
 
     2.1- Eger host ve root elemanlar farkli ise asagidaki gibi kullanilacak:
     Ornegin button.ts'te p-button host eleman ancak icinde bir button var ve bu root eleman.
+
     ```
         @Component({
         selector: 'p-button',
@@ -35,7 +36,9 @@
         hostDirectives: [Bind]
     })
     ```
+
     Bu durumda injection su sekilde olacak:
+
     ```
         bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -46,6 +49,7 @@
 
     2.2- Eger host ve root elemanlar ayni ise asagidaki gibi kullanilacak:
     Ornegin panel.ts'te p-panel ayni zamanda hem host hem de root eleman.
+
     ```
         @Component({
             selector: 'p-panel',
@@ -61,7 +65,9 @@
             hostDirectives: [Bind]
         })
     ```
+
     Bu durumda kullanim asagidaki gibi olacak:
+
     ```
         bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -74,6 +80,7 @@
     template'e ekstra div EKLENMEYECEK! Sadece ptms(['host', 'root']) kullanılacak.
 
     Örnek YANLIŞ kullanım (ekstra div eklenmemeli):
+
     ```
     template: `
         <div [pBind]="ptm('root')">  <!-- YANLIŞ! -->
@@ -83,6 +90,7 @@
     ```
 
     Örnek DOĞRU kullanım (host zaten root):
+
     ```
     host: {
         '[class]': "cn(cx('root'), styleClass)"
@@ -112,6 +120,7 @@
   3. `public_api.ts` - Export dosyası
 
 Örnek yapı:
+
 ```
 /types/button/
 ├── button.types.ts
@@ -188,6 +197,7 @@ export class Component extends BaseComponent<ComponentPassThrough> {
 Her yeni bileşen için GlobalPassThrough interface'ine ekleme yapılacak:
 
 `/packages/primeng/src/config/primeng.types.ts`:
+
 ```typescript
 import type { ComponentPassThrough } from 'primeng/types/component';
 
@@ -217,6 +227,7 @@ export interface SplitButtonPassThroughOptions<I = unknown> {
 ```
 
 Template'de kullanımı:
+
 ```html
 <button
     pButton
@@ -245,6 +256,7 @@ Template'deki her önemli DOM elementine [pBind] eklencek:
 ```
 
 PrimeNG child componentlerine [pt] ile geçilir:
+
 ```html
 <button
     pButton
@@ -269,6 +281,7 @@ Bileşen klasöründeki `.interface.ts` dosyaları types klasörüne taşınacak
 1. Interface dosyasındaki tüm içerik `types/[component-name]/[component-name].types.ts` dosyasına eklenir
 2. Orijinal `.interface.ts` dosyası silinir
 3. Bileşen dosyasındaki import güncellenir:
+
    ```typescript
    // Eski:
    import { ButtonProps } from './button.interface';
@@ -276,7 +289,9 @@ Bileşen klasöründeki `.interface.ts` dosyaları types klasörüne taşınacak
    // Yeni:
    import { ButtonProps } from 'primeng/types/button';
    ```
+
 4. Bileşenin `public_api.ts` dosyası güncellenir:
+
    ```typescript
    // En tepeye eklenir:
    export * from 'primeng/types/button';
@@ -286,3 +301,21 @@ Bileşen klasöründeki `.interface.ts` dosyaları types klasörüne taşınacak
    // Silinen satır:
    // export * from './button.interface';
    ```
+
+#### COMPONENT SPESIFIK METODLAR VE SUB BILESENLER
+
+- getPTOptions, getItemPTOptions, getXXXPTOptions gibi primevue implementasyonunda bulunan metodlar port edilmeli.
+- primevue component path, tum alakali primevue bilesen/sub bilesen'leri incele => `/Users/cetincakiroglu/Development/primetek/primevue/packages/primevue/src/componentname/`
+
+- Ornek getPTOptions Pattern:
+
+```typescript
+    getPTOptions(key, value, index) {
+        return this.ptm(key, {
+            context: {
+                value,
+                index
+            }
+        });
+    },
+```

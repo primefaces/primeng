@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, input } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Tag } from './tag';
@@ -963,5 +963,385 @@ describe('Tag', () => {
 
             flush();
         }));
+    });
+
+    describe('PassThrough API', () => {
+        @Component({
+            standalone: true,
+            imports: [Tag],
+            template: `<p-tag [value]="value()" [icon]="icon()" [severity]="severity()" [rounded]="rounded()" [pt]="pt()"></p-tag>`
+        })
+        class TestPTTagComponent {
+            value = input<string | undefined>('PT Tag');
+            icon = input<string | undefined>();
+            severity = input<'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | string | undefined>();
+            rounded = input<boolean>(false);
+            pt = input<any>();
+        }
+
+        let fixture: ComponentFixture<TestPTTagComponent>;
+        let tagElement: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestPTTagComponent);
+            fixture.detectChanges();
+            tagElement = fixture.debugElement.query(By.css('p-tag'));
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            it('should apply string class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to root section', () => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to icon section', () => {
+                fixture.componentRef.setInput('icon', 'pi pi-tag');
+                fixture.componentRef.setInput('pt', { icon: 'ICON_CLASS' });
+                fixture.detectChanges();
+
+                const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+                expect(iconElement?.classList.contains('ICON_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to label section', () => {
+                fixture.componentRef.setInput('pt', { label: 'LABEL_CLASS' });
+                fixture.detectChanges();
+
+                const labelElement = tagElement.nativeElement.querySelector('[data-pc-section="label"]');
+                expect(labelElement?.classList.contains('LABEL_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects (class, style, data, aria)', () => {
+            it('should apply object with class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: { class: 'HOST_OBJ_CLASS' } });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('HOST_OBJ_CLASS')).toBe(true);
+            });
+
+            it('should apply object with style to host section', () => {
+                fixture.componentRef.setInput('pt', { host: { style: { color: 'red', fontSize: '20px' } } });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.style.color).toBe('red');
+                expect(tagElement.nativeElement.style.fontSize).toBe('20px');
+            });
+
+            it('should apply object with data attributes to host section', () => {
+                fixture.componentRef.setInput('pt', { host: { 'data-test-id': 'host-test' } });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.getAttribute('data-test-id')).toBe('host-test');
+            });
+
+            it('should apply object with aria attributes to host section', () => {
+                fixture.componentRef.setInput('pt', { host: { 'aria-label': 'Tag Test' } });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.getAttribute('aria-label')).toBe('Tag Test');
+            });
+
+            it('should apply object with multiple properties to root section', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJ_CLASS',
+                        style: { backgroundColor: 'blue' },
+                        'data-section': 'root'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('ROOT_OBJ_CLASS')).toBe(true);
+                expect(tagElement.nativeElement.style.backgroundColor).toBe('blue');
+                expect(tagElement.nativeElement.getAttribute('data-section')).toBe('root');
+            });
+
+            it('should apply object with class to icon section', () => {
+                fixture.componentRef.setInput('icon', 'pi pi-tag');
+                fixture.componentRef.setInput('pt', { icon: { class: 'ICON_OBJ_CLASS' } });
+                fixture.detectChanges();
+
+                const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+                expect(iconElement?.classList.contains('ICON_OBJ_CLASS')).toBe(true);
+            });
+
+            it('should apply object with style to icon section', () => {
+                fixture.componentRef.setInput('icon', 'pi pi-tag');
+                fixture.componentRef.setInput('pt', { icon: { style: { padding: '10px' } } });
+                fixture.detectChanges();
+
+                const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+                expect(iconElement?.style.padding).toBe('10px');
+            });
+
+            it('should apply object to label section', () => {
+                fixture.componentRef.setInput('pt', { label: { class: 'LABEL_OBJ_CLASS' } });
+                fixture.detectChanges();
+
+                const labelElement = tagElement.nativeElement.querySelector('[data-pc-section="label"]');
+                expect(labelElement?.classList.contains('LABEL_OBJ_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed values to host section', () => {
+                fixture.componentRef.setInput('pt', {
+                    host: {
+                        class: 'HOST_MIXED_CLASS',
+                        stringValue: 'some-value'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            });
+
+            it('should apply mixed values to root section', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS',
+                        style: { margin: '5px' }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+                expect(tagElement.nativeElement.style.margin).toBe('5px');
+            });
+
+            it('should apply mixed values to icon section', () => {
+                fixture.componentRef.setInput('icon', 'pi pi-tag');
+                fixture.componentRef.setInput('pt', {
+                    icon: {
+                        class: 'ICON_MIXED_CLASS',
+                        style: { fontSize: '16px' }
+                    }
+                });
+                fixture.detectChanges();
+
+                const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+                expect(iconElement?.classList.contains('ICON_MIXED_CLASS')).toBe(true);
+                expect(iconElement?.style.fontSize).toBe('16px');
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should access value property from instance in pt', () => {
+                fixture.componentRef.setInput('value', 'Test Value');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    host: ({ instance }: any) => ({
+                        class: instance?.value ? 'HAS_VALUE' : 'NO_VALUE'
+                    })
+                });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('HAS_VALUE')).toBe(true);
+            });
+
+            it('should access severity property from instance in pt', () => {
+                fixture.componentRef.setInput('severity', 'success');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => ({
+                        class: instance?.severity === 'success' ? 'SUCCESS_CLASS' : 'OTHER_CLASS'
+                    })
+                });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('SUCCESS_CLASS')).toBe(true);
+            });
+
+            it('should access rounded property from instance in pt', () => {
+                fixture.componentRef.setInput('rounded', true);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    label: ({ instance }: any) => ({
+                        class: instance?.rounded ? 'ROUNDED_CLASS' : 'NOT_ROUNDED_CLASS'
+                    })
+                });
+                fixture.detectChanges();
+
+                const labelElement = tagElement.nativeElement.querySelector('[data-pc-section="label"]');
+                expect(labelElement?.classList.contains('ROUNDED_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should bind onclick event to host section', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    host: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                tagElement.nativeElement.click();
+                expect(clicked).toBe(true);
+            });
+
+            it('should bind onclick event to icon section', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('icon', 'pi pi-tag');
+                fixture.componentRef.setInput('pt', {
+                    icon: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+                iconElement?.click();
+                expect(clicked).toBe(true);
+            });
+        });
+
+        describe('Case 6: Test emitters', () => {
+            it('should verify Tag component has no emitters', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        // Tag component doesn't have emitters
+                        expect(instance).toBeDefined();
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+            });
+        });
+
+        describe('Case 7: Inline test', () => {
+            it('should apply inline styles and classes for host section', () => {
+                fixture.componentRef.setInput('pt', {
+                    host: {
+                        class: 'inline-test-host',
+                        style: { display: 'inline-block', padding: '15px' }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('inline-test-host')).toBe(true);
+                expect(tagElement.nativeElement.style.display).toBe('inline-block');
+                expect(tagElement.nativeElement.style.padding).toBe('15px');
+            });
+
+            it('should apply inline styles and classes for root section', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'inline-test-root',
+                        style: { width: '100px' }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(tagElement.nativeElement.classList.contains('inline-test-root')).toBe(true);
+                expect(tagElement.nativeElement.style.width).toBe('100px');
+            });
+
+            it('should apply inline styles and classes for label section', () => {
+                fixture.componentRef.setInput('pt', {
+                    label: {
+                        class: 'inline-test-label',
+                        style: { fontWeight: 'bold' }
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = tagElement.nativeElement.querySelector('[data-pc-section="label"]');
+                expect(labelElement?.classList.contains('inline-test-label')).toBe(true);
+                expect(labelElement?.style.fontWeight).toBe('bold');
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            it('should call onAfterViewInit hook in pt', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTTagComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                expect(hookCalled).toBe(true);
+                hookFixture.destroy();
+                flush();
+            }));
+
+            it('should call onAfterContentInit hook in pt', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTTagComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterContentInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                expect(hookCalled).toBe(true);
+                hookFixture.destroy();
+                flush();
+            }));
+
+            it('should call onAfterViewChecked hook in pt', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTTagComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                expect(hookCalled).toBe(true);
+                hookFixture.destroy();
+                flush();
+            }));
+
+            it('should call onDestroy hook in pt', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTTagComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onDestroy: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                hookFixture.destroy();
+                expect(hookCalled).toBe(true);
+                flush();
+            }));
+        });
     });
 });

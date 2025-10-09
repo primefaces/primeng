@@ -1,4 +1,4 @@
-import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, input, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -875,6 +875,304 @@ describe('Badge', () => {
             fixture.detectChanges();
             expect(element.classList.contains('p-badge-success')).toBe(false);
             expect(element.classList.contains('p-badge-warn')).toBe(true);
+        });
+    });
+
+    describe('PassThrough API', () => {
+        @Component({
+            standalone: true,
+            imports: [Badge],
+            template: `<p-badge [value]="value()" [badgeSize]="badgeSize()" [severity]="severity()" [pt]="pt()"></p-badge>`
+        })
+        class TestPTBadgeComponent {
+            value = input<string | number | null>();
+            badgeSize = input<'small' | 'large' | 'xlarge' | null>();
+            severity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null>();
+            pt = input<any>();
+        }
+
+        describe('Case 1: Simple string classes', () => {
+            let fixture: ComponentFixture<TestPTBadgeComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTBadgeComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+            });
+
+            it('should apply string class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to root section', () => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            let fixture: ComponentFixture<TestPTBadgeComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTBadgeComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+            });
+
+            it('should apply object with class, style, data and aria attributes to root', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(element.style.backgroundColor).toBe('red');
+                expect(element.getAttribute('data-p-test')).toBe('true');
+                expect(element.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object with class, style, data and aria attributes to host', () => {
+                fixture.componentRef.setInput('pt', {
+                    host: {
+                        class: 'HOST_OBJECT_CLASS',
+                        style: { color: 'blue' },
+                        'data-p-host': 'test',
+                        'aria-hidden': 'true'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
+                expect(element.style.color).toBe('blue');
+                expect(element.getAttribute('data-p-host')).toBe('test');
+                expect(element.getAttribute('aria-hidden')).toBe('true');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            let fixture: ComponentFixture<TestPTBadgeComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTBadgeComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+            });
+
+            it('should apply mixed pt with object and string values', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    host: 'HOST_MIXED_CLASS'
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+                expect(element.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            let fixture: ComponentFixture<TestPTBadgeComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTBadgeComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+            });
+
+            it('should use instance value in pt function for root', () => {
+                fixture.componentRef.setInput('value', '5');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.value() ? 'HAS_VALUE' : 'NO_VALUE'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HAS_VALUE')).toBe(true);
+            });
+
+            it('should use instance severity in pt function for root', () => {
+                fixture.componentRef.setInput('severity', 'success');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'border-color': instance?.severity() === 'success' ? 'green' : 'red'
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.style.borderColor).toBe('green');
+            });
+
+            it('should use instance badgeSize in pt function for host', () => {
+                fixture.componentRef.setInput('badgeSize', 'large');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    host: ({ instance }: any) => {
+                        return {
+                            'data-size': instance?.badgeSize() || 'normal'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.getAttribute('data-size')).toBe('large');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            let fixture: ComponentFixture<TestPTBadgeComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTBadgeComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+            });
+
+            it('should bind onclick event to root through pt', () => {
+                let clickCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clickCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                element.click();
+                element.click();
+
+                expect(clickCount).toBe(2);
+            });
+
+            it('should bind onclick event to host through pt', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    host: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                element.click();
+
+                expect(clicked).toBe(true);
+            });
+        });
+
+        describe('Case 7: Inline test', () => {
+            it('should apply inline pt with string class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTBadgeComponent);
+                inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(Badge)).nativeElement;
+                expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
+            });
+
+            it('should apply inline pt with object class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTBadgeComponent);
+                inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(Badge)).nativeElement;
+                expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            let fixture: ComponentFixture<TestPTBadgeComponent>;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTBadgeComponent);
+            });
+
+            it('should call onAfterViewInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterContentInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterContentInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterViewChecked hook', () => {
+                let checkCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            checkCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(checkCount).toBeGreaterThan(0);
+            });
+
+            it('should call onDestroy hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onDestroy: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+                fixture.destroy();
+
+                expect(hookCalled).toBe(true);
+            });
         });
     });
 });
