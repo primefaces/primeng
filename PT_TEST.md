@@ -1,10 +1,12 @@
 ### STEPS:
+
 1. Read the component code, analyze its inputs and outputs.
 2. Identify pt sections in the component template: ```ptm('xxx')``` indicates a section. For example: ```ptm('title') => pt={title: {}}``` is how it's used.
 3. pt input test usage: ```fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });```
 4. Write tests according to the following cases.
 
     ### Case 1: Simple string classes
+
     ```
         pt_1 = {
             host: 'HOST CLASS',
@@ -14,6 +16,7 @@
     ```
 
     ### Case 2: Objects
+
     ```
         pt_2 = {
             root: {
@@ -27,6 +30,7 @@
     ```
 
     ### Case 3: Mixed object and string values
+
     ```
         pt_3 = {
             root: {
@@ -38,6 +42,7 @@
     ```
 
     ### Case 4: Use variables from instance
+
     ```
         pt_4 = {
             root: ({ instance }) => {
@@ -59,6 +64,7 @@
     ```
 
     ### Case 5: Event binding
+
     ```
         pt_5 = {
             title: ({ instance }) => {
@@ -73,6 +79,7 @@
     ```
 
     ### Case 5: Test emitters
+
     ```
         pt_6 = {
             root: ({instance}) => {
@@ -82,12 +89,14 @@
     ```
 
     ### Case 6: Inline test
+
     ```
         <p-panel [pt]="{root: 'TEST CLASS'}"/>
         <p-panel [pt]="{root: {class: 'TEST CLASS'}"/>
     ```
 
     ### Case 7: Test from PrimeNGConfig
+
     - Inject config into test environment
     - Create multiple instances of the same component
     - Test global.css as well
@@ -111,6 +120,7 @@
     - In tests, class, style, attributes given via PT should be verified through DOM
 
     ### Case 8: Test hooks
+
     ```
         pt = {
             root: 'MY-Panel',
@@ -123,7 +133,24 @@
         }
     ```
 
+    ### Case 9: Component-Specific Methods
+
+- Methods like getPTOptions, getItemPTOptions, getXXXPTOptions that exist in the primevue implementation should be tested.
+- primevue component path, examine all related primevue component/sub-components => `/Users/cetincakiroglu/Development/primetek/primevue/packages/primevue/src/componentname/`
+- Example getPTOptions Pattern:
+
+```typescript
+    getPTOptions(key, value, index) {
+        return this.ptm(key, {
+            context: {
+                value,
+                index
+            }
+        });
+    },
+```
 
 #### FINAL STEP: 
+
 - RUN `pnpm --filter primeng test:unit --include='**/componentname/*.spec.ts'`
 - Debug if any test error found.
