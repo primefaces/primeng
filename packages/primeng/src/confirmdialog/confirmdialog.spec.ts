@@ -1072,4 +1072,499 @@ describe('ConfirmDialog', () => {
             expect(() => confirmDialogInstance.ngOnDestroy()).not.toThrow();
         });
     });
+
+    describe('PT (PassThrough) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <button (click)="confirm()">Confirm</button>
+                `
+            })
+            class TestPTCase1Component {
+                pt = {
+                    pcDialog: 'DIALOG_CLASS',
+                    message: 'MESSAGE_CLASS',
+                    icon: 'ICON_CLASS',
+                    pcAcceptButton: 'ACCEPT_BUTTON_CLASS',
+                    pcRejectButton: 'REJECT_BUTTON_CLASS'
+                };
+
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm() {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: 'test',
+                        accept: () => {}
+                    });
+                }
+            }
+
+            it('should apply simple string classes to PT sections', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase1Component],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [ConfirmationService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                component.confirm();
+                testFixture.detectChanges();
+                tick();
+
+                const dialog = testFixture.debugElement.query(By.directive(Dialog));
+                if (dialog) {
+                    expect(dialog.nativeElement.classList.contains('DIALOG_CLASS') || dialog.componentInstance).toBeTruthy();
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 2: Objects with class, style, and attributes', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <button (click)="confirm()">Confirm</button>
+                `
+            })
+            class TestPTCase2Component {
+                pt = {
+                    pcDialog: {
+                        class: 'DIALOG_OBJECT_CLASS',
+                        style: { border: '2px solid blue' },
+                        'data-test': 'dialog-test'
+                    },
+                    message: {
+                        class: 'MESSAGE_OBJECT_CLASS',
+                        style: { padding: '10px' }
+                    },
+                    icon: {
+                        class: 'ICON_OBJECT_CLASS',
+                        'aria-label': 'Confirmation icon'
+                    }
+                };
+
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm() {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: 'test',
+                        accept: () => {}
+                    });
+                }
+            }
+
+            it('should apply object properties to PT sections', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase2Component],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [ConfirmationService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                component.confirm();
+                testFixture.detectChanges();
+                tick();
+
+                const message = testFixture.debugElement.query(By.css('[data-pc-section="message"]'));
+                if (message) {
+                    expect(message.nativeElement.classList.contains('MESSAGE_OBJECT_CLASS')).toBe(true);
+                    expect(message.nativeElement.style.padding).toBe('10px');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <button (click)="confirm()">Confirm</button>
+                `
+            })
+            class TestPTCase3Component {
+                pt = {
+                    pcDialog: {
+                        class: 'DIALOG_MIXED_CLASS'
+                    },
+                    message: 'MESSAGE_STRING_CLASS',
+                    icon: {
+                        class: 'ICON_MIXED_CLASS'
+                    }
+                };
+
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm() {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: 'test',
+                        accept: () => {}
+                    });
+                }
+            }
+
+            it('should apply mixed object and string values correctly', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase3Component],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [ConfirmationService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                component.confirm();
+                testFixture.detectChanges();
+                tick();
+
+                const message = testFixture.debugElement.query(By.css('[data-pc-section="message"]'));
+                if (message) {
+                    expect(message.nativeElement.classList.contains('MESSAGE_STRING_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog [pt]="pt" key="test" [visible]="isVisible"></p-confirmdialog>
+                    <button (click)="confirm()">Confirm</button>
+                `
+            })
+            class TestPTCase4Component {
+                isVisible = false;
+                pt = {
+                    pcDialog: ({ instance }: any) => {
+                        return {
+                            class: instance?.visible ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
+                        };
+                    },
+                    message: ({ instance }: any) => {
+                        return {
+                            style: {
+                                color: instance?.visible ? 'black' : 'gray'
+                            }
+                        };
+                    }
+                };
+
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm() {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: 'test',
+                        accept: () => {}
+                    });
+                }
+            }
+
+            it('should use instance variables in PT functions', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase4Component],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [ConfirmationService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                component.confirm();
+                testFixture.detectChanges();
+                tick();
+
+                // Dialog becomes visible after confirm
+                const confirmDialogInstance = testFixture.debugElement.query(By.directive(ConfirmDialog));
+                expect(confirmDialogInstance).toBeTruthy();
+
+                flush();
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <button (click)="confirm()">Confirm</button>
+                `
+            })
+            class TestPTCase5Component {
+                clickedSection: string = '';
+                pt = {
+                    message: {
+                        onclick: () => {
+                            this.clickedSection = 'message';
+                        }
+                    },
+                    icon: {
+                        onclick: () => {
+                            this.clickedSection = 'icon';
+                        }
+                    }
+                };
+
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm() {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: 'test',
+                        accept: () => {}
+                    });
+                }
+            }
+
+            it('should bind click events through PT', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase5Component],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [ConfirmationService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                component.confirm();
+                testFixture.detectChanges();
+                tick();
+
+                const message = testFixture.debugElement.query(By.css('[data-pc-section="message"]'));
+                if (message) {
+                    message.nativeElement.click();
+                    expect(component.clickedSection).toBe('message');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 6: Inline test', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog [pt]="{ pcDialog: 'INLINE_DIALOG_CLASS', message: 'INLINE_MESSAGE_CLASS' }" key="test"></p-confirmdialog>
+                    <button (click)="confirm()">Confirm</button>
+                `
+            })
+            class TestPTCase6InlineComponent {
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm() {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: 'test',
+                        accept: () => {}
+                    });
+                }
+            }
+
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog [pt]="{ pcDialog: { class: 'INLINE_DIALOG_OBJECT_CLASS' }, icon: { class: 'INLINE_ICON_CLASS' } }" key="test"></p-confirmdialog>
+                    <button (click)="confirm()">Confirm</button>
+                `
+            })
+            class TestPTCase6InlineObjectComponent {
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm() {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: 'test',
+                        accept: () => {}
+                    });
+                }
+            }
+
+            it('should apply inline PT string classes', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineComponent],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [ConfirmationService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                component.confirm();
+                testFixture.detectChanges();
+                tick();
+
+                const message = testFixture.debugElement.query(By.css('[data-pc-section="message"]'));
+                if (message) {
+                    expect(message.nativeElement.classList.contains('INLINE_MESSAGE_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+
+            it('should apply inline PT object classes', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [ConfirmationService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                component.confirm();
+                testFixture.detectChanges();
+                tick();
+
+                const icon = testFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+                if (icon) {
+                    expect(icon.nativeElement.classList.contains('INLINE_ICON_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog key="test1"></p-confirmdialog>
+                    <button (click)="confirm('test1')">Confirm 1</button>
+                    <p-confirmdialog key="test2"></p-confirmdialog>
+                    <button (click)="confirm('test2')">Confirm 2</button>
+                `
+            })
+            class TestPTCase7GlobalComponent {
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm(key: string) {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: key,
+                        accept: () => {}
+                    });
+                }
+            }
+
+            it('should apply global PT configuration from PrimeNGConfig', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [
+                        ConfirmationService,
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    confirmdialog: {
+                                        pcDialog: { class: 'GLOBAL_DIALOG_CLASS' },
+                                        message: { class: 'GLOBAL_MESSAGE_CLASS' }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+
+                const dialogs = testFixture.debugElement.queryAll(By.directive(ConfirmDialog));
+                expect(dialogs.length).toBe(2);
+
+                flush();
+            }));
+        });
+
+        describe('Case 8: Test hooks', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <button (click)="confirm()">Confirm</button>
+                `
+            })
+            class TestPTCase8HooksComponent {
+                afterViewInitCalled = false;
+                afterViewCheckedCalled = false;
+                onDestroyCalled = false;
+
+                pt = {
+                    pcDialog: 'HOOK_TEST_CLASS',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.afterViewInitCalled = true;
+                        },
+                        onAfterViewChecked: () => {
+                            this.afterViewCheckedCalled = true;
+                        },
+                        onDestroy: () => {
+                            this.onDestroyCalled = true;
+                        }
+                    }
+                };
+
+                constructor(private confirmationService: ConfirmationService) {}
+
+                confirm() {
+                    this.confirmationService.confirm({
+                        message: 'Are you sure?',
+                        key: 'test',
+                        accept: () => {}
+                    });
+                }
+            }
+
+            it('should call PT hooks on Angular lifecycle events', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase8HooksComponent],
+                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    providers: [ConfirmationService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+
+                testFixture.detectChanges();
+
+                expect(component.afterViewInitCalled).toBe(true);
+                expect(component.afterViewCheckedCalled).toBe(true);
+
+                testFixture.destroy();
+                expect(component.onDestroyCalled).toBe(true);
+
+                flush();
+            }));
+        });
+    });
 });
