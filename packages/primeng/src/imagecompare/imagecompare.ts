@@ -1,8 +1,12 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
+import { ImageComparePassThrough } from 'primeng/types/imagecompare';
 import { ImageCompareStyle } from './style/imagecomparestyle';
+
+const IMAGECOMPARE_INSTANCE = new InjectionToken<ImageCompare>('IMAGECOMPARE_INSTANCE');
 
 /**
  * Compare two images side by side with a slider.
@@ -11,12 +15,12 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
 @Component({
     selector: 'p-imageCompare, p-imagecompare, p-image-compare',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
         <ng-template *ngTemplateOutlet="leftTemplate || _leftTemplate"></ng-template>
         <ng-template *ngTemplateOutlet="rightTemplate || _rightTemplate"></ng-template>
 
-        <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" />
+        <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" [pBind]="ptm('slider')" />
     `,
     host: {
         '[class]': "cx('root')",
@@ -24,11 +28,15 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
         '[attr.aria-labelledby]': 'ariaLabelledby',
         '[attr.aria-label]': 'ariaLabel'
     },
+    hostDirectives: [Bind],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ImageCompareStyle]
+    providers: [ImageCompareStyle, { provide: IMAGECOMPARE_INSTANCE, useExisting: ImageCompare }, { provide: PARENT_INSTANCE, useExisting: ImageCompare }]
 })
-export class ImageCompare extends BaseComponent {
+export class ImageCompare extends BaseComponent<ImageComparePassThrough> {
+    $pcImageCompare: ImageCompare | undefined = inject(IMAGECOMPARE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
     /**
      * Index of the element in tabbing order.
      * @defaultValue 0
@@ -69,6 +77,10 @@ export class ImageCompare extends BaseComponent {
     mutationObserver: MutationObserver;
 
     isRTL: boolean = false;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 
     onInit() {
         this.updateDirection();

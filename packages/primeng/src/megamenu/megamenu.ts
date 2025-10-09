@@ -320,7 +320,7 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
         this.itemMouseEnter.emit({ originalEvent: event, processedItem });
     }
 
-    // Helper method to get PT from parent MegaMenu if available, otherwise use own PT
+    // TODO: will be removed later. Helper method to get PT from parent ContextMenu if available, otherwise use own PT
     _ptm(section: string, options?: any) {
         return this.$pcMegaMenu ? this.$pcMegaMenu.ptm(section, options) : this.ptm(section, options);
     }

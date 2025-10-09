@@ -18,7 +18,7 @@
         pt_2 = {
             root: {
                 class: 'collapsed',
-                style: 'background-color: "red"',
+                style: {'background-color': 'red'},
                 'data-p-TEST': true,
                 'aria-label': 'TEST ARIA LABEL'
             // try for all pt sections

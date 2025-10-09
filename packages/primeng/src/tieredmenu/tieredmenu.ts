@@ -356,7 +356,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
         return isNotEmpty(processedItem.items);
     }
 
-    // Helper method to get PT from parent TieredMenu if available, otherwise use own PT
+    // TODO: will be removed later. Helper method to get PT from parent ContextMenu if available, otherwise use own PT
     _ptm(section: string, options?: any) {
         return this.$pcTieredMenu ? this.$pcTieredMenu.ptm(section, options) : this.ptm(section, options);
     }
