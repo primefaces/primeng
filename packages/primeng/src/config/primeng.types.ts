@@ -31,6 +31,7 @@ import type { PanelMenuPassThrough } from 'primeng/types/panelmenu';
 import type { PopoverPassThrough } from 'primeng/types/popover';
 import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
 import type { ProgressSpinnerPassThrough } from 'primeng/types/progressspinner';
+import type { ScrollerPassThrough } from 'primeng/types/scroller';
 import type { ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import type { SkeletonPassThrough } from 'primeng/types/skeleton';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
@@ -92,6 +93,7 @@ export interface GlobalPassThrough {
     overlayBadge?: OverlayBadgePassThrough;
     progressBar?: ProgressBarPassThrough;
     progressSpinner?: ProgressSpinnerPassThrough;
+    scroller?: ScrollerPassThrough;
     scrollPanel?: ScrollPanelPassThrough;
     scrollTop?: ScrollTopPassThrough;
     skeleton?: SkeletonPassThrough;
