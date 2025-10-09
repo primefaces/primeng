@@ -2,6 +2,11 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { HttpEvent } from '@angular/common/http';
 import { FileUpload } from 'primeng/fileupload';
 import { TemplateRef } from '@angular/core';
+import type { ButtonPassThrough } from 'primeng/types/button';
+import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
+import type { MessagePassThrough } from 'primeng/types/message';
+import type { BadgePassThrough } from 'primeng/types/badge';
+import { Message } from 'primeng/message';
 
 /**
  * Upload event.
@@ -500,15 +505,15 @@ export interface FileUploadPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the choose button component.
      */
-    pcChooseButton?: any;
+    pcChooseButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the upload button component.
      */
-    pcUploadButton?: any;
+    pcUploadButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the cancel button component.
      */
-    pcCancelButton?: any;
+    pcCancelButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the content's DOM element.
      */
@@ -516,11 +521,11 @@ export interface FileUploadPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the progress bar component.
      */
-    pcProgressBar?: any;
+    pcProgressBar?: ProgressBarPassThrough;
     /**
      * Used to pass attributes to the message component.
      */
-    pcMessage?: any;
+    pcMessage?: MessagePassThrough;
     /**
      * Used to pass attributes to the file list's DOM element.
      */
@@ -548,7 +553,7 @@ export interface FileUploadPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the file badge component.
      */
-    pcFileBadge?: any;
+    pcFileBadge?: BadgePassThrough;
     /**
      * Used to pass attributes to the file actions's DOM element.
      */
@@ -556,7 +561,7 @@ export interface FileUploadPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the file remove button component.
      */
-    pcFileRemoveButton?: any;
+    pcFileRemoveButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the basic content's DOM element.
      */
