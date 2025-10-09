@@ -18,6 +18,7 @@ import type { DialogPassThrough } from 'primeng/types/dialog';
 import type { DividerPassThrough } from 'primeng/types/divider';
 import type { DockPassThrough } from 'primeng/types/dock';
 import type { DrawerPassThrough } from 'primeng/types/drawer';
+import type { FileUploadPassThrough } from 'primeng/types/fileupload';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { GalleriaPassThrough } from 'primeng/types/galleria';
 import type { ImagePassThrough } from 'primeng/types/image';
@@ -28,12 +29,14 @@ import type { MenuPassThrough } from 'primeng/types/menu';
 import type { MenubarPassThrough } from 'primeng/types/menubar';
 import { MessagePassThrough } from 'primeng/types/message';
 import type { MeterGroupPassThrough } from 'primeng/types/metergroup';
+import type { OrderListPassThrough } from 'primeng/types/orderlist';
 import { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
 import type { PanelPassThrough } from 'primeng/types/panel';
 import type { PanelMenuPassThrough } from 'primeng/types/panelmenu';
 import type { PopoverPassThrough } from 'primeng/types/popover';
 import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
 import type { ProgressSpinnerPassThrough } from 'primeng/types/progressspinner';
+import type { ScrollerPassThrough } from 'primeng/types/scroller';
 import type { ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import type { SkeletonPassThrough } from 'primeng/types/skeleton';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
@@ -44,8 +47,10 @@ import { TabsPassThrough } from 'primeng/types/tabs';
 import type { TagPassThrough } from 'primeng/types/tag';
 import type { TerminalPassThrough } from 'primeng/types/terminal';
 import type { TieredMenuPassThrough } from 'primeng/types/tieredmenu';
+import type { TimelinePassThrough } from 'primeng/types/timeline';
 import type { ToastPassThrough } from 'primeng/types/toast';
 import type { ToolbarPassThrough } from 'primeng/types/toolbar';
+import type { TreePassThrough } from 'primeng/types/tree';
 
 /** ZIndex configuration */
 export type ZIndex = {
@@ -83,6 +88,7 @@ export interface GlobalPassThrough {
     dock?: DockPassThrough;
     megaMenu?: MegaMenuPassThrough;
     drawer?: DrawerPassThrough;
+    fileUpload?: FileUploadPassThrough;
     menu?: MenuPassThrough;
     menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;
@@ -93,9 +99,11 @@ export interface GlobalPassThrough {
     popover?: PopoverPassThrough;
     message?: MessagePassThrough;
     meterGroup?: MeterGroupPassThrough;
+    orderList?: OrderListPassThrough;
     overlayBadge?: OverlayBadgePassThrough;
     progressBar?: ProgressBarPassThrough;
     progressSpinner?: ProgressSpinnerPassThrough;
+    scroller?: ScrollerPassThrough;
     scrollPanel?: ScrollPanelPassThrough;
     scrollTop?: ScrollTopPassThrough;
     skeleton?: SkeletonPassThrough;
@@ -105,10 +113,12 @@ export interface GlobalPassThrough {
     stepper?: StepperPassThrough;
     tabs?: TabsPassThrough;
     tieredMenu?: TieredMenuPassThrough;
+    timeline?: TimelinePassThrough;
     tag?: TagPassThrough;
     terminal?: TerminalPassThrough;
     toast?: ToastPassThrough;
     toolbar?: ToolbarPassThrough;
+    tree?: TreePassThrough;
     panel?: PanelPassThrough;
     panelMenu?: PanelMenuPassThrough;
     button?: ButtonPassThrough;

@@ -9,6 +9,7 @@ import { FilterDoc } from '@/doc/tree/filterdoc';
 import { ImportDoc } from '@/doc/tree/importdoc';
 import { LazyDoc } from '@/doc/tree/lazydoc';
 import { MultipleDoc } from '@/doc/tree/multipledoc';
+import { PTComponent } from '@/doc/tree/pt/PTComponent';
 import { SingleDoc } from '@/doc/tree/singledoc';
 import { TemplateDoc } from '@/doc/tree/templatedoc';
 import { VirtualScrollDoc } from '@/doc/tree/virtualscrolldoc';
@@ -17,11 +18,13 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Tree Component" header="Tree" description="Tree is used to display hierarchical data." [docs]="docs" [apiDocs]="['Tree', 'TreeNode']" themeDocs="tree"></app-doc>`,
+    template: `<app-doc docTitle="Angular Tree Component" header="Tree" description="Tree is used to display hierarchical data." [docs]="docs" [apiDocs]="['Tree', 'TreeNode']" [ptDocs]="ptComponent" themeDocs="tree"></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class TreeDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

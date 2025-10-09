@@ -12,6 +12,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
 import { find, findSingle, focus, getOuterHeight, getOuterWidth, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
 import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from 'primeng/icons';
@@ -40,8 +42,6 @@ import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
-import { Subscription } from 'rxjs';
-import { TreeStyle } from './style/treestyle';
 import {
     TreeFilterEvent,
     TreeLazyLoadEvent,
@@ -52,14 +52,20 @@ import {
     TreeNodeExpandEvent,
     TreeNodeSelectEvent,
     TreeNodeUnSelectEvent,
+    TreePassThrough,
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
-} from './tree.interface';
+} from 'primeng/types/tree';
+import { Subscription } from 'rxjs';
+import { TreeStyle } from './style/treestyle';
+
+const TREE_INSTANCE = new InjectionToken<Tree>('TREE_INSTANCE');
+const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
 
 @Component({
     selector: 'p-treeNode',
     standalone: true,
-    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule],
+    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule, Bind],
     template: `
         @if (node) {
             <li
@@ -77,9 +83,10 @@ import {
                 [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
+                [pBind]="ptm('node')"
             >
                 @if (isPrevDropPointActive()) {
-                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true"></div>
+                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="ptm('dropPoint')"></div>
                 }
                 <div
                     [class]="cx('nodeContent')"
@@ -94,18 +101,19 @@ import {
                     (dragleave)="onNodeDragLeave($event)"
                     (dragend)="onNodeDragEnd($event)"
                     [draggable]="tree.draggableNodes"
+                    [pBind]="ptm('nodeContent')"
                 >
-                    <button type="button" [attr.data-pc-section]="'toggler'" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1">
+                    <button type="button" [attr.data-pc-section]="'toggler'" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1" [pBind]="ptm('nodeToggleButton')">
                         <ng-container *ngIf="!tree.togglerIconTemplate && !tree._togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                <svg data-p-icon="chevron-right" *ngIf="!node.expanded" [class]="cx('nodeToggleIcon')" />
-                                <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleIcon')" />
+                                <svg data-p-icon="chevron-right" *ngIf="!node.expanded" [class]="cx('nodeToggleIcon')" [pBind]="ptm('nodeTogglerIcon')" />
+                                <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleIcon')" [pBind]="ptm('nodeTogglerIcon')" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
-                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin />
+                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin [pBind]="ptm('nodeTogglerIcon')" />
                             </ng-container>
                         </ng-container>
-                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')">
+                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')" [pBind]="ptm('nodeTogglerIcon')">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate || tree._togglerIconTemplate; context: { $implicit: node.expanded, loading: node.loading }"></ng-template>
                         </span>
                     </button>
@@ -121,6 +129,7 @@ import {
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
                         (click)="$event.preventDefault()"
+                        [pt]="ptm('nodeCheckbox')"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
@@ -138,8 +147,8 @@ import {
                         </ng-container>
                     </p-checkbox>
 
-                    <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
-                    <span [class]="cx('nodeLabel')">
+                    <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon" [pBind]="ptm('nodeIcon')"></span>
+                    <span [class]="cx('nodeLabel')" [pBind]="ptm('nodeLabel')">
                         <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
                         <span *ngIf="tree.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
@@ -147,9 +156,9 @@ import {
                     </span>
                 </div>
                 @if (isNextDropPointActive()) {
-                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true"></div>
+                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="ptm('dropPoint')"></div>
                 }
-                <ul [class]="cx('nodeChildren')" *ngIf="!tree.virtualScroll && node.children && node.expanded" role="group">
+                <ul [class]="cx('nodeChildren')" *ngIf="!tree.virtualScroll && node.children && node.expanded" role="group" [pBind]="ptm('nodeChildren')">
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy.bind(this)"
                         [node]="childNode"
@@ -166,9 +175,17 @@ import {
         }
     `,
     encapsulation: ViewEncapsulation.None,
-    providers: [TreeStyle]
+    providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }],
+    hostDirectives: [Bind]
 })
-export class UITreeNode extends BaseComponent {
+export class UITreeNode extends BaseComponent<TreePassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcTreeNode: UITreeNode | undefined = inject(TREENODE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     static ICON_CLASS: string = 'p-tree-node-icon ';
 
     @Input() rowNode: any;
@@ -680,13 +697,13 @@ export class UITreeNode extends BaseComponent {
 @Component({
     selector: 'p-tree',
     standalone: true,
-    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule],
+    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule, Bind],
     template: `
-        <div [class]="cx('mask')" *ngIf="loading && loadingMode === 'mask'">
-            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
+        <div [class]="cx('mask')" *ngIf="loading && loadingMode === 'mask'" [pBind]="ptm('mask')">
+            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)" [pBind]="ptm('loadingIcon')"></i>
             <ng-container *ngIf="!loadingIcon">
-                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" spin [class]="cx('loadingIcon')" />
-                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" spin [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')" />
+                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -695,7 +712,7 @@ export class UITreeNode extends BaseComponent {
         @if (filterTemplate || _filterTemplate) {
             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
         } @else {
-            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')">
+            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')" [pBind]="ptm('pcFilterContainer')">
                 <input
                     #filter
                     [pAutoFocus]="filterInputAutoFocus"
@@ -706,10 +723,11 @@ export class UITreeNode extends BaseComponent {
                     [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()"
                     (input)="_filter($event.target?.value)"
+                    [pBind]="ptm('pcFilterInput')"
                 />
                 <p-inputicon>
-                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" />
-                    <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')">
+                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')" />
+                    <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                     </span>
                 </p-inputicon>
@@ -731,9 +749,20 @@ export class UITreeNode extends BaseComponent {
                 (onScrollIndexChange)="onScrollIndexChange.emit($event)"
                 (onLazyLoad)="onLazyLoad.emit($event)"
                 [options]="virtualScrollOptions"
+                [pt]="ptm('pcScroller')"
             >
                 <ng-template #content let-items let-scrollerOptions="options">
-                    <ul *ngIf="items" #content [class]="cx('rootChildren')" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                    <ul
+                        *ngIf="items"
+                        #content
+                        [class]="cx('rootChildren')"
+                        [ngClass]="scrollerOptions.contentStyleClass"
+                        [style]="scrollerOptions.contentStyle"
+                        role="tree"
+                        [attr.aria-label]="ariaLabel"
+                        [attr.aria-labelledby]="ariaLabelledBy"
+                        [pBind]="ptm('rootChildren')"
+                    >
                         <p-treeNode
                             #treeNode
                             *ngFor="let rowNode of items; let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
@@ -757,8 +786,8 @@ export class UITreeNode extends BaseComponent {
                 </ng-container>
             </p-scroller>
             <ng-container *ngIf="!virtualScroll">
-                <div #wrapper [class]="cx('wrapper')" [style.max-height]="scrollHeight">
-                    <ul #content [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                <div #wrapper [class]="cx('wrapper')" [style.max-height]="scrollHeight" [pBind]="ptm('wrapper')">
+                    <ul #content [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [pBind]="ptm('rootChildren')">
                         <p-treeNode
                             *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy.bind(this)"
                             [node]="node"
@@ -773,7 +802,7 @@ export class UITreeNode extends BaseComponent {
             </ng-container>
         </ng-container>
 
-        <div [class]="cx('emptyMessage')" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
+        <div [class]="cx('emptyMessage')" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)" [pBind]="ptm('emptyMessage')">
             <ng-container *ngIf="!emptyMessageTemplate && !_emptyMessageTemplate; else emptyFilter">
                 {{ emptyMessageLabel }}
             </ng-container>
@@ -783,12 +812,20 @@ export class UITreeNode extends BaseComponent {
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    providers: [TreeStyle],
+    providers: [TreeStyle, { provide: TREE_INSTANCE, useExisting: Tree }, { provide: PARENT_INSTANCE, useExisting: Tree }],
     host: {
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Tree extends BaseComponent implements BlockableUI {
+export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcTree: Tree | undefined = inject(TREE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * An array of treenodes.
      * @group Props

@@ -5,6 +5,7 @@ import { LayoutDoc } from '@/doc/dataview/layoutdoc';
 import { LoadingDoc } from '@/doc/dataview/loadingdoc';
 import { PaginationDoc } from '@/doc/dataview/paginationdoc';
 import { SortingDoc } from '@/doc/dataview/sortingdoc';
+import { PTComponent } from '@/doc/dataview/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -18,12 +19,15 @@ import { AppDoc } from '@/components/doc/app.doc';
             description="DataView displays data in grid grid-cols-12 gap-4 or list layout with pagination and sorting features."
             [docs]="docs"
             [apiDocs]="['DataView']"
+            [ptDocs]="ptComponent"
             themeDocs="dataview"
         ></app-doc>
     `,
     styleUrls: ['./dataviewdemo.scss']
 })
 export class DataViewDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

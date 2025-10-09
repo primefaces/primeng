@@ -1,5 +1,6 @@
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import { OrderList } from './orderlist';
+
 /**
  * Callbacks to invoke on filter.
  * @group Interface
@@ -8,6 +9,7 @@ export interface OrderListFilterOptions {
     filter?: (value?: any) => void;
     reset?: () => void;
 }
+
 /**
  * Custom change event.
  * @see {@link OrderList.selectionChange}
@@ -23,6 +25,7 @@ export interface OrderListSelectionChangeEvent {
      */
     value: any[];
 }
+
 /**
  * Custom change event.
  * @see {@link OrderList.selectionChange}
@@ -38,6 +41,7 @@ export interface OrderListFilterEvent {
      */
     value: any[];
 }
+
 /**
  * Defines valid templates in OrderList.
  * @group Templates
@@ -104,3 +108,53 @@ export interface OrderListTemplates {
      */
     movebottomicon(): TemplateRef<any>;
 }
+
+/**
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
+ * @see {@link OrderListProps.pt}
+ * @group Interface
+ */
+export interface OrderListPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the controls container's DOM element.
+     */
+    controls?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the move up button's DOM element.
+     */
+    moveUpButton?: PassThroughOption<HTMLButtonElement, I>;
+    /**
+     * Used to pass attributes to the move top button's DOM element.
+     */
+    moveTopButton?: PassThroughOption<HTMLButtonElement, I>;
+    /**
+     * Used to pass attributes to the move down button's DOM element.
+     */
+    moveDownButton?: PassThroughOption<HTMLButtonElement, I>;
+    /**
+     * Used to pass attributes to the move bottom button's DOM element.
+     */
+    moveBottomButton?: PassThroughOption<HTMLButtonElement, I>;
+    /**
+     * Used to pass attributes to the Listbox component.
+     */
+    pcListbox?: any;
+}
+
+/**
+ * Defines valid pass-through options in OrderList.
+ * @see {@link OrderListPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type OrderListPassThrough<I = unknown> = PassThrough<I, OrderListPassThroughOptions<I>>;
