@@ -56,8 +56,8 @@ import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
 import { ContextMenuPassThrough } from 'primeng/types/contextmenu';
+import { ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
 
 const CONTEXTMENU_INSTANCE = new InjectionToken<ContextMenu>('CONTEXTMENU_INSTANCE');
@@ -349,7 +349,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
         }
     }
 
-    // Helper method to get PT from parent ContextMenu if available, otherwise use own PT
+    // TODO: will be removed later. Helper method to get PT from parent ContextMenu if available, otherwise use own PT
     _ptm(section: string, options?: any) {
         return this.$pcContextMenu ? this.$pcContextMenu.ptm(section, options) : this.ptm(section, options);
     }
