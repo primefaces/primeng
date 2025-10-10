@@ -31,6 +31,7 @@ import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { ImageComparePassThrough } from 'primeng/types/imagecompare';
 import type { InplacePassThrough } from 'primeng/types/inplace';
 import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
+import type { InputOtpPassThrough } from 'primeng/types/inputotp';
 import type { KnobPassThrough } from 'primeng/types/knob';
 import type { MegaMenuPassThrough } from 'primeng/types/megamenu';
 import type { MenuPassThrough } from 'primeng/types/menu';
@@ -119,6 +120,7 @@ export interface GlobalPassThrough {
     imageCompare?: ImageComparePassThrough;
     inplace?: InplacePassThrough;
     inputNumber?: InputNumberPassThrough;
+    inputOtp?: InputOtpPassThrough;
     knob?: KnobPassThrough;
     popover?: PopoverPassThrough;
     message?: MessagePassThrough;
