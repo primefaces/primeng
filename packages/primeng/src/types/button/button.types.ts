@@ -13,7 +13,7 @@ export interface ButtonPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the host DOM element.
      */
-    host: PassThroughOption<HTMLElement, I>;
+    host?: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the root's DOM element.
      */
