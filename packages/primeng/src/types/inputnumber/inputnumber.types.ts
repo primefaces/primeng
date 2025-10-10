@@ -1,4 +1,5 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import { TemplateRef } from '@angular/core';
 
 /**
  * Custom pass-through(pt) options.
@@ -72,4 +73,23 @@ export interface InputNumberInputEvent {
      * Formatted value.
      */
     formattedValue: string;
+}
+
+/**
+ * Defines valid templates in InputNumber.
+ * @group Templates
+ */
+export interface InputNumberTemplates {
+    /**
+     * Custom clear icon template.
+     */
+    clearicon(): TemplateRef<any>;
+    /**
+     * Custom increment button icon template.
+     */
+    incrementbuttonicon(): TemplateRef<any>;
+    /**
+     * Custom decrement button icon template.
+     */
+    decrementbuttonicon(): TemplateRef<any>;
 }
