@@ -1,15 +1,38 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, input, Input, NgModule, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewChecked,
+    AfterViewInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ColorPickerPassThrough } from 'primeng/types/colorpicker';
 import { ZIndexUtils } from 'primeng/utils';
-import { ColorPickerChangeEvent } from './colorpicker.interface';
+import type { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
 import { ColorPickerStyle } from './style/colorpickerstyle';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
@@ -17,6 +40,9 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => ColorPicker),
     multi: true
 };
+
+const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTANCE');
+
 /**
  * ColorPicker groups a collection of contents in tabs.
  * @group Components
@@ -24,7 +50,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-colorPicker, p-colorpicker, p-color-picker',
     standalone: true,
-    imports: [CommonModule, AutoFocusModule, SharedModule],
+    imports: [CommonModule, AutoFocusModule, SharedModule, Bind],
+    hostDirectives: [Bind],
     template: `
         <input
             *ngIf="!inline"
@@ -39,9 +66,9 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             (focus)="onInputFocus()"
             [attr.id]="inputId"
             [style.backgroundColor]="inputBgColor"
-            [attr.data-pc-section]="'input'"
             [attr.aria-label]="ariaLabel"
             [pAutoFocus]="autofocus"
+            [pBind]="ptm('preview')"
         />
         <div
             *ngIf="inline || overlayVisible"
@@ -54,31 +81,37 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             [@.disabled]="inline === true"
             (@overlayAnimation.start)="onOverlayAnimationStart($event)"
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-            [attr.data-pc-section]="'panel'"
+            [pBind]="ptm('panel')"
         >
-            <div [class]="cx('content')" [attr.data-pc-section]="'content'">
-                <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
-                    <div [class]="cx('colorBackground')" [attr.data-pc-section]="'color'">
-                        <div #colorHandle [class]="cx('colorHandle')" [attr.data-pc-section]="'colorHandle'"></div>
+            <div [class]="cx('content')" [pBind]="ptm('content')">
+                <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [pBind]="ptm('colorSelector')">
+                    <div [class]="cx('colorBackground')" [pBind]="ptm('colorBackground')">
+                        <div #colorHandle [class]="cx('colorHandle')" [pBind]="ptm('colorHandle')"></div>
                     </div>
                 </div>
-                <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [attr.data-pc-section]="'hue'">
-                    <div #hueHandle [class]="cx('hueHandle')" [attr.data-pc-section]="'hueHandle'"></div>
+                <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [pBind]="ptm('hue')">
+                    <div #hueHandle [class]="cx('hueHandle')" [pBind]="ptm('hueHandle')"></div>
                 </div>
             </div>
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
-    providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle],
+    providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle, { provide: COLORPICKER_INSTANCE, useExisting: ColorPicker }, { provide: PARENT_INSTANCE, useExisting: ColorPicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-pc-name]': '"colorpicker"',
-        '[attr.data-pc-section]': '"root"'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class ColorPicker extends BaseEditableHolder {
+export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> implements AfterViewChecked {
+    $pcColorPicker: ColorPicker | undefined = inject(COLORPICKER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.

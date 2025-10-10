@@ -4,6 +4,7 @@ import { DisabledDoc } from '@/doc/colorpicker/disableddoc';
 import { FormatDoc } from '@/doc/colorpicker/formatdoc';
 import { ImportDoc } from '@/doc/colorpicker/importdoc';
 import { InlineDoc } from '@/doc/colorpicker/inlinedoc';
+import { PTComponent } from '@/doc/colorpicker/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveformsdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/colorpicker/templatedrivenformsdoc';
 import { Component } from '@angular/core';
@@ -12,7 +13,15 @@ import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular ColorPicker Component" header="ColorPicker" description="ColorPicker is an input component to select a color." [docs]="docs" [apiDocs]="['ColorPicker']" themeDocs="colorpicker"></app-doc>`
+    template: ` <app-doc
+        docTitle="Angular ColorPicker Component"
+        header="ColorPicker"
+        description="ColorPicker is an input component to select a color."
+        [docs]="docs"
+        [apiDocs]="['ColorPicker']"
+        themeDocs="colorpicker"
+        [ptDocs]="ptComponent"
+    ></app-doc>`
 })
 export class ColorPickerDemo {
     docs = [
@@ -55,4 +64,6 @@ export class ColorPickerDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

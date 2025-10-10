@@ -12,6 +12,7 @@ import type { ButtonPassThrough } from 'primeng/types/button';
 import type { CardPassThrough } from 'primeng/types/card';
 import type { CarouselPassThrough } from 'primeng/types/carousel';
 import type { ChipPassThrough } from 'primeng/types/chip';
+import type { ColorPickerPassThrough } from 'primeng/types/colorpicker';
 import type { ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
 import type { ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
 import type { DialogPassThrough } from 'primeng/types/dialog';
@@ -91,6 +92,7 @@ export interface GlobalPassThrough {
     card?: CardPassThrough;
     carousel?: CarouselPassThrough;
     chip?: ChipPassThrough;
+    colorPicker?: ColorPickerPassThrough;
     confirmDialog?: ConfirmDialogPassThrough;
     confirmPopup?: ConfirmPopupPassThrough;
     dialog?: DialogPassThrough;
