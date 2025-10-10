@@ -1,7 +1,7 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 
@@ -22,12 +22,20 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [pt]="pt" />
         </div>
         <app-code [code]="code" selector="select-basic-demo"></app-code>
     `
 })
 export class BasicDoc implements OnInit {
+    pt = {
+        root: {
+            class: 'ROOT-CLASS'
+        },
+        item: {
+            class: 'ROOT-CLASS'
+        }
+    };
     cities: City[];
 
     selectedCity: City | undefined;

@@ -90,9 +90,35 @@ const style = /*css*/ `
 }
 `;
 
+const classes = {
+    host: 'p-overlay-host',
+    root: ({ instance }: { instance: any }) => [
+        'p-overlay p-component',
+        {
+            'p-overlay-modal p-overlay-mask p-overlay-mask-enter': instance.modal,
+            'p-overlay-center': instance.modal && instance.overlayResponsiveDirection === 'center',
+            'p-overlay-top': instance.modal && instance.overlayResponsiveDirection === 'top',
+            'p-overlay-top-start': instance.modal && instance.overlayResponsiveDirection === 'top-start',
+            'p-overlay-top-end': instance.modal && instance.overlayResponsiveDirection === 'top-end',
+            'p-overlay-bottom': instance.modal && instance.overlayResponsiveDirection === 'bottom',
+            'p-overlay-bottom-start': instance.modal && instance.overlayResponsiveDirection === 'bottom-start',
+            'p-overlay-bottom-end': instance.modal && instance.overlayResponsiveDirection === 'bottom-end',
+            'p-overlay-left': instance.modal && instance.overlayResponsiveDirection === 'left',
+            'p-overlay-left-start': instance.modal && instance.overlayResponsiveDirection === 'left-start',
+            'p-overlay-left-end': instance.modal && instance.overlayResponsiveDirection === 'left-end',
+            'p-overlay-right': instance.modal && instance.overlayResponsiveDirection === 'right',
+            'p-overlay-right-start': instance.modal && instance.overlayResponsiveDirection === 'right-start',
+            'p-overlay-right-end': instance.modal && instance.overlayResponsiveDirection === 'right-end'
+        }
+    ],
+    content: 'p-overlay-content'
+};
+
 @Injectable()
 export class OverlayStyle extends BaseStyle {
     name = 'overlay';
 
     style = style;
+
+    classes = classes;
 }

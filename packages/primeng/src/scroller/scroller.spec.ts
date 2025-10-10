@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, DebugElement, input } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { Scroller } from './scroller';
@@ -3363,6 +3365,409 @@ describe('Scroller', () => {
                 expect(itemOptions.index).toBeGreaterThanOrEqual(0);
                 expect(itemOptions.index).toBeLessThan(itemOptions.count);
             });
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        @Component({
+            standalone: true,
+            imports: [CommonModule, Scroller],
+            template: `
+                <p-scroller [items]="items()" [itemSize]="itemSize()" [pt]="pt()" [showLoader]="showLoader()" [loading]="loading()">
+                    <ng-template #item let-item>
+                        <div class="item">{{ item }}</div>
+                    </ng-template>
+                </p-scroller>
+            `
+        })
+        class TestPTScrollerComponent {
+            items = input(Array.from({ length: 100 }, (_, i) => `Item ${i + 1}`));
+            itemSize = input(50);
+            pt = input<any>();
+            showLoader = input(false);
+            loading = input(false);
+        }
+
+        let fixture: ComponentFixture<TestPTScrollerComponent>;
+        let component: TestPTScrollerComponent;
+        let scrollerInstance: Scroller;
+        let scrollerElement: DebugElement;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [TestPTScrollerComponent],
+                providers: [provideNoopAnimations()]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestPTScrollerComponent);
+            component = fixture.componentInstance;
+            scrollerElement = fixture.debugElement.query(By.css('p-scroller'));
+            scrollerInstance = scrollerElement.componentInstance;
+            fixture.detectChanges();
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            it('should apply string class to root', () => {
+                fixture.componentRef.setInput('pt', { root: 'CUSTOM_ROOT_CLASS' });
+                fixture.detectChanges();
+
+                const root = fixture.debugElement.query(By.css('.p-virtualscroller'));
+                expect(root.nativeElement.classList.contains('CUSTOM_ROOT_CLASS')).toBeTruthy();
+            });
+
+            it('should apply string class to content', () => {
+                fixture.componentRef.setInput('pt', { content: 'CUSTOM_CONTENT_CLASS' });
+                fixture.detectChanges();
+
+                const content = fixture.debugElement.query(By.css('.p-virtualscroller-content'));
+                expect(content.nativeElement.classList.contains('CUSTOM_CONTENT_CLASS')).toBeTruthy();
+            });
+
+            it('should apply string class to spacer', () => {
+                fixture.componentRef.setInput('pt', { spacer: 'CUSTOM_SPACER_CLASS' });
+                fixture.detectChanges();
+
+                const spacer = fixture.debugElement.query(By.css('.p-virtualscroller-spacer'));
+                expect(spacer?.nativeElement.classList.contains('CUSTOM_SPACER_CLASS')).toBeTruthy();
+            });
+
+            it('should apply string class to loader when loading', fakeAsync(() => {
+                fixture.componentRef.setInput('showLoader', true);
+                fixture.componentRef.setInput('loading', true);
+                fixture.componentRef.setInput('pt', { loader: 'CUSTOM_LOADER_CLASS' });
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+
+                const loader = fixture.debugElement.query(By.css('.p-virtualscroller-loader'));
+                if (loader) {
+                    expect(loader.nativeElement.classList.contains('CUSTOM_LOADER_CLASS')).toBeTruthy();
+                }
+                flush();
+            }));
+
+            it('should apply string class to loadingIcon when loading', fakeAsync(() => {
+                fixture.componentRef.setInput('showLoader', true);
+                fixture.componentRef.setInput('loading', true);
+                fixture.componentRef.setInput('pt', { loadingIcon: 'CUSTOM_LOADING_ICON_CLASS' });
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+
+                const loadingIcon = fixture.debugElement.query(By.css('[data-p-icon="spinner"]'));
+                if (loadingIcon) {
+                    expect(loadingIcon.nativeElement.classList.contains('CUSTOM_LOADING_ICON_CLASS')).toBeTruthy();
+                }
+                flush();
+            }));
+        });
+
+        describe('Case 2: Objects', () => {
+            it('should apply object properties to root', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                const root = fixture.debugElement.query(By.css('.p-virtualscroller'));
+                expect(root.nativeElement.classList.contains('ROOT_CLASS')).toBeTruthy();
+                expect(root.nativeElement.style.backgroundColor).toBe('red');
+                expect(root.nativeElement.getAttribute('data-p-test')).toBe('true');
+                expect(root.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object properties to content', () => {
+                fixture.componentRef.setInput('pt', {
+                    content: {
+                        class: 'CONTENT_CLASS',
+                        style: { padding: '10px' },
+                        'data-content': 'test'
+                    }
+                });
+                fixture.detectChanges();
+
+                const content = fixture.debugElement.query(By.css('.p-virtualscroller-content'));
+                expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBeTruthy();
+                expect(content.nativeElement.style.padding).toBe('10px');
+                expect(content.nativeElement.getAttribute('data-content')).toBe('test');
+            });
+
+            it('should apply object properties to spacer', () => {
+                fixture.componentRef.setInput('pt', {
+                    spacer: {
+                        class: 'SPACER_CLASS',
+                        'data-spacer': 'test'
+                    }
+                });
+                fixture.detectChanges();
+
+                const spacer = fixture.debugElement.query(By.css('.p-virtualscroller-spacer'));
+                expect(spacer?.nativeElement.classList.contains('SPACER_CLASS')).toBeTruthy();
+                expect(spacer?.nativeElement.getAttribute('data-spacer')).toBe('test');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should handle mixed PT values', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: { class: 'ROOT_OBJECT_CLASS' },
+                    content: 'CONTENT_STRING_CLASS'
+                });
+                fixture.detectChanges();
+
+                const root = fixture.debugElement.query(By.css('.p-virtualscroller'));
+                const content = fixture.debugElement.query(By.css('.p-virtualscroller-content'));
+
+                expect(root.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBeTruthy();
+                expect(content.nativeElement.classList.contains('CONTENT_STRING_CLASS')).toBeTruthy();
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should apply PT based on instance state', () => {
+                fixture.componentRef.setInput('loading', true);
+                fixture.componentRef.setInput('showLoader', true);
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => ({
+                        class: {
+                            IS_LOADING: instance.d_loading
+                        }
+                    }),
+                    loader: ({ instance }) => ({
+                        style: {
+                            'background-color': instance.d_loading ? 'yellow' : 'transparent'
+                        }
+                    })
+                });
+                fixture.detectChanges();
+
+                const root = fixture.debugElement.query(By.css('.p-virtualscroller'));
+                const loader = fixture.debugElement.query(By.css('.p-virtualscroller-loader'));
+
+                expect(root.nativeElement.classList.contains('IS_LOADING')).toBeTruthy();
+                expect(loader?.nativeElement.style.backgroundColor).toBe('yellow');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should handle onclick event in PT', () => {
+                let clickCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clickCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const root = fixture.debugElement.query(By.css('.p-virtualscroller'));
+                root.nativeElement.click();
+
+                expect(clickCount).toBe(1);
+            });
+        });
+
+        describe('Case 6: Inline PT test', () => {
+            @Component({
+                standalone: true,
+                imports: [CommonModule, Scroller],
+                template: `<p-scroller [items]="items" [itemSize]="50" [pt]="{ root: 'INLINE_TEST_CLASS' }">
+                    <ng-template #item let-item>{{ item }}</ng-template>
+                </p-scroller>`
+            })
+            class TestInlinePTComponent {
+                items = ['Item 1', 'Item 2', 'Item 3'];
+            }
+
+            it('should apply inline PT', () => {
+                const inlineFixture = TestBed.createComponent(TestInlinePTComponent);
+                inlineFixture.detectChanges();
+
+                const root = inlineFixture.debugElement.query(By.css('.p-virtualscroller'));
+                expect(root.nativeElement.classList.contains('INLINE_TEST_CLASS')).toBeTruthy();
+            });
+
+            it('should apply inline PT with object', () => {
+                @Component({
+                    standalone: true,
+                    imports: [CommonModule, Scroller],
+                    template: `<p-scroller [items]="items" [itemSize]="50" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }">
+                        <ng-template #item let-item>{{ item }}</ng-template>
+                    </p-scroller>`
+                })
+                class TestInlineObjectPTComponent {
+                    items = ['Item 1', 'Item 2', 'Item 3'];
+                }
+
+                const objFixture = TestBed.createComponent(TestInlineObjectPTComponent);
+                objFixture.detectChanges();
+
+                const root = objFixture.debugElement.query(By.css('.p-virtualscroller'));
+                expect(root.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBeTruthy();
+            });
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            @Component({
+                standalone: true,
+                imports: [CommonModule, Scroller],
+                template: `
+                    <p-scroller [items]="items1" [itemSize]="50">
+                        <ng-template #item let-item>{{ item }}</ng-template>
+                    </p-scroller>
+                    <p-scroller [items]="items2" [itemSize]="50">
+                        <ng-template #item let-item>{{ item }}</ng-template>
+                    </p-scroller>
+                `
+            })
+            class TestGlobalPTComponent {
+                items1 = ['A1', 'A2'];
+                items2 = ['B1', 'B2'];
+            }
+
+            it('should apply global PT from PrimeNGConfig', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [TestGlobalPTComponent],
+                    providers: [
+                        provideNoopAnimations(),
+                        providePrimeNG({
+                            pt: {
+                                scroller: {
+                                    root: { 'aria-label': 'GLOBAL_SCROLLER_LABEL', class: 'GLOBAL_CLASS' }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+                globalFixture.detectChanges();
+
+                const scrollers = globalFixture.debugElement.queryAll(By.css('.p-virtualscroller'));
+                expect(scrollers.length).toBe(2);
+
+                scrollers.forEach((scroller) => {
+                    expect(scroller.nativeElement.getAttribute('aria-label')).toBe('GLOBAL_SCROLLER_LABEL');
+                    expect(scroller.nativeElement.classList.contains('GLOBAL_CLASS')).toBeTruthy();
+                });
+            });
+
+            it('should apply multiple PT attributes from global config', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [TestGlobalPTComponent],
+                    providers: [
+                        provideNoopAnimations(),
+                        providePrimeNG({
+                            pt: {
+                                scroller: {
+                                    root: { class: 'GLOBAL_ROOT' },
+                                    content: { class: 'GLOBAL_CONTENT' }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+                globalFixture.detectChanges();
+
+                const scrollers = globalFixture.debugElement.queryAll(By.css('.p-virtualscroller'));
+                scrollers.forEach((scroller) => {
+                    expect(scroller.nativeElement.classList.contains('GLOBAL_ROOT')).toBeTruthy();
+                });
+
+                const contents = globalFixture.debugElement.queryAll(By.css('.p-virtualscroller-content'));
+                contents.forEach((content) => {
+                    expect(content.nativeElement.classList.contains('GLOBAL_CONTENT')).toBeTruthy();
+                });
+            });
+        });
+
+        describe('Case 8: Hooks', () => {
+            it('should call onAfterViewInit hook', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTScrollerComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                expect(hookCalled).toBeTruthy();
+                flush();
+            }));
+
+            it('should call onAfterViewChecked hook', fakeAsync(() => {
+                let checkCount = 0;
+                const hookFixture = TestBed.createComponent(TestPTScrollerComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            checkCount++;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                expect(checkCount).toBeGreaterThan(0);
+                flush();
+            }));
+        });
+
+        describe('Complete PT Coverage: All sections', () => {
+            it('should apply PT to all sections together', fakeAsync(() => {
+                fixture.componentRef.setInput('showLoader', true);
+                fixture.componentRef.setInput('loading', true);
+                fixture.componentRef.setInput('pt', {
+                    root: { class: 'PT_ROOT', 'data-root': 'test' },
+                    content: { class: 'PT_CONTENT', 'data-content': 'test' },
+                    spacer: { class: 'PT_SPACER', 'data-spacer': 'test' },
+                    loader: { class: 'PT_LOADER', 'data-loader': 'test' },
+                    loadingIcon: { class: 'PT_LOADING_ICON' }
+                });
+                fixture.detectChanges();
+                tick();
+
+                const root = fixture.debugElement.query(By.css('.p-virtualscroller'));
+                expect(root.nativeElement.classList.contains('PT_ROOT')).toBeTruthy();
+                expect(root.nativeElement.getAttribute('data-root')).toBe('test');
+
+                const content = fixture.debugElement.query(By.css('.p-virtualscroller-content'));
+                expect(content.nativeElement.classList.contains('PT_CONTENT')).toBeTruthy();
+                expect(content.nativeElement.getAttribute('data-content')).toBe('test');
+
+                const spacer = fixture.debugElement.query(By.css('.p-virtualscroller-spacer'));
+                if (spacer) {
+                    expect(spacer.nativeElement.classList.contains('PT_SPACER')).toBeTruthy();
+                    expect(spacer.nativeElement.getAttribute('data-spacer')).toBe('test');
+                }
+
+                const loader = fixture.debugElement.query(By.css('.p-virtualscroller-loader'));
+                if (loader) {
+                    expect(loader.nativeElement.classList.contains('PT_LOADER')).toBeTruthy();
+                    expect(loader.nativeElement.getAttribute('data-loader')).toBe('test');
+                }
+
+                const loadingIcon = fixture.debugElement.query(By.css('[data-p-icon="spinner"]'));
+                if (loadingIcon) {
+                    expect(loadingIcon.nativeElement.classList.contains('PT_LOADING_ICON')).toBeTruthy();
+                }
+
+                flush();
+            }));
         });
     });
 });

@@ -1,6 +1,6 @@
 import APIDoc from '@/doc/apidoc/index.json';
 import { CommonModule } from '@angular/common';
-import { Component, computed, ElementRef, inject, input, InputSignal, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, ElementRef, inject, input, InputSignal, viewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { addClass, find, removeClass } from '@primeuix/utils/dom';
 import { PrimeNG } from 'primeng/config';
@@ -114,6 +114,12 @@ export class AppDocPtViewer {
     ptOptions = computed(() => getPTOptions(this.componentName()));
 
     navItems = computed(() => []);
+
+    cd: ChangeDetectorRef = inject(ChangeDetectorRef);
+
+    ngAfterViewChecked() {
+        this.cd.detectChanges();
+    }
 
     findComponentName(label: string, doc: Doc): string {
         let text = '';

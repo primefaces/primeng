@@ -38,6 +38,7 @@ import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
 import type { ProgressSpinnerPassThrough } from 'primeng/types/progressspinner';
 import type { ScrollerPassThrough } from 'primeng/types/scroller';
 import type { ScrollTopPassThrough } from 'primeng/types/scrolltop';
+import type { SelectPassThrough } from 'primeng/types/select';
 import type { SkeletonPassThrough } from 'primeng/types/skeleton';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
 import type { SplitButtonPassThrough } from 'primeng/types/splitbutton';
@@ -106,6 +107,7 @@ export interface GlobalPassThrough {
     scroller?: ScrollerPassThrough;
     scrollPanel?: ScrollPanelPassThrough;
     scrollTop?: ScrollTopPassThrough;
+    select?: SelectPassThrough;
     skeleton?: SkeletonPassThrough;
     speedDial?: SpeedDialPassThrough;
     splitButton?: SplitButtonPassThrough;

@@ -10,19 +10,22 @@ import { ScrollerModule } from 'primeng/scroller';
     imports: [CommonModule, AppDocPtViewer, ClassNamesModule, ScrollerModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-scroller [items]="items" [itemSize]="50" styleClass="border border-surface-200 dark:border-surface-700" [style]="{ width: '200px', height: '200px' }">
+            <p-virtualscroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                 <ng-template #item let-item let-options="options">
-                    <div [pClass]="['flex items-center p-2', { 'bg-surface-100 dark:bg-surface-700': options.odd }]" style="height: 50px">
+                    <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
                         {{ item }}
                     </div>
                 </ng-template>
-            </p-scroller>
+            </p-virtualscroller>
         </app-docptviewer>
     `
 })
 export class PTViewer {
-    items = Array.from({ length: 100 }, (_, i) => `Item #${i}`);
+    items!: string[];
 
+    ngOnInit() {
+        this.items = Array.from({ length: 1000 }).map((_, i) => `Item #${i}`);
+    }
     docs = [
         {
             data: getPTOptions('Scroller'),

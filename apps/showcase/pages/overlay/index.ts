@@ -7,6 +7,7 @@ import { EventsDoc } from '@/doc/overlay/eventsdoc';
 import { HideOnEscapeDoc } from '@/doc/overlay/hideonescapedoc';
 import { ImportDoc } from '@/doc/overlay/importdoc';
 import { ModeDoc } from '@/doc/overlay/modedoc';
+import { PTComponent } from '@/doc/overlay/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/overlay/responsivedoc';
 import { StyleDoc } from '@/doc/overlay/styledoc';
 import { TargetDoc } from '@/doc/overlay/targetdoc';
@@ -22,12 +23,14 @@ import { AppDoc } from '@/components/doc/app.doc';
         description="This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior."
         [docs]="docs"
         [apiDocs]="['Overlay', 'OverlayOptions']"
+        [ptDocs]="ptComponent"
         themeDocs="overlay"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class OverlayDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

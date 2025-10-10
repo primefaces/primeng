@@ -1,13 +1,35 @@
 import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, input, Input, NgModule, NgZone, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    NgZone,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { OverlayStyle } from './style/overlaystyle';
+
+const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
 
 const showOverlayContentAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
 
@@ -19,38 +41,15 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
 @Component({
     selector: 'p-overlay',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, Bind],
+    hostDirectives: [Bind],
     template: `
-        <div
-            *ngIf="modalVisible"
-            #overlay
-            [ngStyle]="style"
-            [class]="styleClass"
-            [ngClass]="{
-                'p-overlay p-component': true,
-                'p-overlay-modal p-overlay-mask p-overlay-mask-enter': modal,
-                'p-overlay-center': modal && overlayResponsiveDirection === 'center',
-                'p-overlay-top': modal && overlayResponsiveDirection === 'top',
-                'p-overlay-top-start': modal && overlayResponsiveDirection === 'top-start',
-                'p-overlay-top-end': modal && overlayResponsiveDirection === 'top-end',
-                'p-overlay-bottom': modal && overlayResponsiveDirection === 'bottom',
-                'p-overlay-bottom-start': modal && overlayResponsiveDirection === 'bottom-start',
-                'p-overlay-bottom-end': modal && overlayResponsiveDirection === 'bottom-end',
-                'p-overlay-left': modal && overlayResponsiveDirection === 'left',
-                'p-overlay-left-start': modal && overlayResponsiveDirection === 'left-start',
-                'p-overlay-left-end': modal && overlayResponsiveDirection === 'left-end',
-                'p-overlay-right': modal && overlayResponsiveDirection === 'right',
-                'p-overlay-right-start': modal && overlayResponsiveDirection === 'right-start',
-                'p-overlay-right-end': modal && overlayResponsiveDirection === 'right-end'
-            }"
-            (click)="onOverlayClick()"
-        >
+        <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" (click)="onOverlayClick()">
             <div
                 *ngIf="visible"
                 #content
-                [ngStyle]="contentStyle"
-                [class]="contentStyleClass"
-                [ngClass]="'p-overlay-content'"
+                [class]="cn(cx('content'), contentStyleClass)"
+                [pBind]="ptm('content')"
                 (click)="onOverlayContentClick($event)"
                 [@overlayContentAnimation]="{
                     value: 'visible',
@@ -71,9 +70,13 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     animations: [trigger('overlayContentAnimation', [transition(':enter', [useAnimation(showOverlayContentAnimation)]), transition(':leave', [useAnimation(hideOverlayContentAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [OverlayStyle]
+    providers: [OverlayStyle, { provide: OVERLAY_INSTANCE, useExisting: Overlay }, { provide: PARENT_INSTANCE, useExisting: Overlay }]
 })
 export class Overlay extends BaseComponent {
+    $pcOverlay: Overlay | undefined = inject(OVERLAY_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    @Input() hostName: string = '';
+
     /**
      * The visible property is an input that determines the visibility of the component.
      * @defaultValue false
@@ -345,6 +348,8 @@ export class Overlay extends BaseComponent {
 
     _componentStyle = inject(OverlayStyle);
 
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     private documentKeyboardListener: VoidListener;
 
     private window: Window | null;
@@ -419,6 +424,10 @@ export class Overlay extends BaseComponent {
                     break;
             }
         });
+    }
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
 
     show(overlay?: HTMLElement, isFocus: boolean = false) {

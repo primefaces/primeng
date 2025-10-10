@@ -1,7 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
@@ -14,8 +12,6 @@ import {
     Input,
     NgModule,
     NgZone,
-    OnDestroy,
-    OnInit,
     Output,
     QueryList,
     SimpleChanges,
@@ -97,6 +93,7 @@ export class Scroller extends BaseComponent<ScrollerPassThrough> {
 
     $pcScroller: Scroller | undefined = inject(SCROLLER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
+    @Input() hostName = '';
     /**
      * Unique identifier of the element.
      * @group Props
