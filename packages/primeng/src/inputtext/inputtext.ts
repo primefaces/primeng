@@ -1,8 +1,13 @@
-import { AfterViewInit, booleanAttribute, computed, Directive, DoCheck, HostListener, inject, input, Input, NgModule } from '@angular/core';
+import { AfterViewInit, booleanAttribute, computed, Directive, DoCheck, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseModelHolder } from 'primeng/basemodelholder';
+import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
+import { InputTextPassThrough } from 'primeng/types/inputtext';
 import { InputTextStyle } from './style/inputtextstyle';
+
+const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -14,9 +19,12 @@ import { InputTextStyle } from './style/inputtextstyle';
     host: {
         '[class]': "cx('root')"
     },
-    providers: [InputTextStyle]
+    providers: [InputTextStyle, { provide: INPUTTEXT_INSTANCE, useExisting: InputText }, { provide: PARENT_INSTANCE, useExisting: InputText }],
+    hostDirectives: [Bind]
 })
-export class InputText extends BaseModelHolder {
+export class InputText extends BaseModelHolder<InputTextPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     ngControl = inject(NgControl, { optional: true, self: true });
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
@@ -52,6 +60,10 @@ export class InputText extends BaseModelHolder {
     onAfterViewInit() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
         this.cd.detectChanges();
+    }
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
     onDoCheck() {

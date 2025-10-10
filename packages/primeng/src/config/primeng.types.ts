@@ -25,6 +25,7 @@ import type { GalleriaPassThrough } from 'primeng/types/galleria';
 import type { ImagePassThrough } from 'primeng/types/image';
 import type { ImageComparePassThrough } from 'primeng/types/imagecompare';
 import type { InplacePassThrough } from 'primeng/types/inplace';
+import type { InputTextPassThrough } from 'primeng/types/inputtext';
 import type { MegaMenuPassThrough } from 'primeng/types/megamenu';
 import type { MenuPassThrough } from 'primeng/types/menu';
 import type { MenubarPassThrough } from 'primeng/types/menubar';
@@ -99,6 +100,7 @@ export interface GlobalPassThrough {
     image?: ImagePassThrough;
     imageCompare?: ImageComparePassThrough;
     inplace?: InplacePassThrough;
+    inputText?: InputTextPassThrough;
     popover?: PopoverPassThrough;
     message?: MessagePassThrough;
     meterGroup?: MeterGroupPassThrough;
