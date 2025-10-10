@@ -56,6 +56,7 @@ import type { TerminalPassThrough } from 'primeng/types/terminal';
 import type { TieredMenuPassThrough } from 'primeng/types/tieredmenu';
 import type { TimelinePassThrough } from 'primeng/types/timeline';
 import type { ToastPassThrough } from 'primeng/types/toast';
+import type { ToggleSwitchPassThrough } from 'primeng/types/toggleswitch';
 import type { ToolbarPassThrough } from 'primeng/types/toolbar';
 import type { TreePassThrough } from 'primeng/types/tree';
 
@@ -131,6 +132,7 @@ export interface GlobalPassThrough {
     tag?: TagPassThrough;
     terminal?: TerminalPassThrough;
     toast?: ToastPassThrough;
+    toggleSwitch?: ToggleSwitchPassThrough;
     toolbar?: ToolbarPassThrough;
     tree?: TreePassThrough;
     panel?: PanelPassThrough;

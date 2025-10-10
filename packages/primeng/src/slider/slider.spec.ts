@@ -4,7 +4,7 @@ import { FormsModule, FormControl, FormGroup, Validators } from '@angular/forms'
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Slider, SliderModule } from './slider';
-import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
+import { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
 import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { CommonModule } from '@angular/common';
