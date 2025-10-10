@@ -6,13 +6,13 @@ import { Component } from '@angular/core';
 import { PTViewer } from './PTViewer';
 
 @Component({
-    selector: 'inputicon-pt-component',
+    selector: 'iftalabel-pt-component',
     standalone: true,
     imports: [CommonModule, AppDocSection],
     template: `
         <div class="doc-main">
             <div class="doc-intro">
-                <h1>InputIcon Pass Through</h1>
+                <h1>IftaLabel Pass Through</h1>
             </div>
             <app-docsection [docs]="docs" />
         </div>
@@ -26,10 +26,10 @@ export class PTComponent {
             component: PTViewer
         },
         {
-            id: 'pt.doc.inputicon',
-            label: 'InputIcon PT Options',
+            id: 'pt.doc.iftalabel',
+            label: 'IftaLabel PT Options',
             component: AppDocApiTable,
-            data: getPTOptions('InputIcon')
+            data: getPTOptions('IftaLabel')
         }
     ];
 }

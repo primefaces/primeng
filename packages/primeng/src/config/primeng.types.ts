@@ -25,6 +25,7 @@ import type { FloatLabelPassThrough } from 'primeng/types/floatlabel';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { GalleriaPassThrough } from 'primeng/types/galleria';
 import type { IconFieldPassThrough } from 'primeng/types/iconfield';
+import type { IftaLabelPassThrough } from 'primeng/types/iftalabel';
 import type { ImagePassThrough } from 'primeng/types/image';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { ImageComparePassThrough } from 'primeng/types/imagecompare';
@@ -112,6 +113,7 @@ export interface GlobalPassThrough {
     fluid?: FluidPassThrough;
     galleria?: GalleriaPassThrough;
     iconField?: IconFieldPassThrough;
+    iftaLabel?: IftaLabelPassThrough;
     inputIcon?: InputIconPassThrough;
     image?: ImagePassThrough;
     imageCompare?: ImageComparePassThrough;
