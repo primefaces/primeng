@@ -21,6 +21,7 @@ import type { DockPassThrough } from 'primeng/types/dock';
 import type { DrawerPassThrough } from 'primeng/types/drawer';
 import type { EditorPassThrough } from 'primeng/types/editor';
 import type { FileUploadPassThrough } from 'primeng/types/fileupload';
+import type { FloatLabelPassThrough } from 'primeng/types/floatlabel';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { GalleriaPassThrough } from 'primeng/types/galleria';
 import type { ImagePassThrough } from 'primeng/types/image';
@@ -103,6 +104,7 @@ export interface GlobalPassThrough {
     drawer?: DrawerPassThrough;
     editor?: EditorPassThrough;
     fileUpload?: FileUploadPassThrough;
+    floatLabel?: FloatLabelPassThrough;
     menu?: MenuPassThrough;
     menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;
