@@ -215,14 +215,14 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
         '[style]': "sx('root')"
     }
 })
-export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> implements AfterViewChecked {
+export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     $pcTreeSelect: TreeSelect | undefined = inject(TREESELECT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
     _componentStyle = inject(TreeSelectStyle);
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
