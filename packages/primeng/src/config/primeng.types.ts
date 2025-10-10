@@ -3,6 +3,7 @@ import type { OverlayOptions, PassThroughOptions, Translation } from 'primeng/ap
 import { FieldsetPassThrough } from 'primeng/fieldset';
 import { ScrollPanelPassThrough } from 'primeng/scrollpanel';
 import type { AccordionPassThrough } from 'primeng/types/accordion';
+import type { AutoCompletePassThrough } from 'primeng/types/autocomplete';
 import type { AvatarPassThrough } from 'primeng/types/avatar';
 import type { AvatarGroupPassThrough } from 'primeng/types/avatargroup';
 import { BadgePassThrough } from 'primeng/types/badge';
@@ -77,6 +78,7 @@ type NewType = SpeedDialPassThrough;
 
 export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
+    autoComplete?: AutoCompletePassThrough;
     avatar?: AvatarPassThrough;
     avatarGroup?: AvatarGroupPassThrough;
     blockUI?: BlockUIPassThrough;

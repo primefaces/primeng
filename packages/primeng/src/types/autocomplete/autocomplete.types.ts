@@ -1,6 +1,109 @@
 import { TemplateRef } from '@angular/core';
 import { ScrollerOptions } from 'primeng/api';
-import { AutoComplete } from './autocomplete';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { ChipPassThrough } from 'primeng/types/chip';
+import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { OverlayPassThrough } from 'primeng/types/overlay';
+import type { ScrollerPassThrough } from 'primeng/types/scroller';
+import { AutoComplete } from '../../autocomplete/autocomplete';
+
+/**
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
+ * @see {@link AutoCompleteProps.pt}
+ * @group Interface
+ */
+export interface AutoCompletePassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the InputText component.
+     * @see {@link InputTextPassThrough}
+     */
+    pcInputText?: InputTextPassThrough;
+    /**
+     * Used to pass attributes to the input multiple's DOM element.
+     */
+    inputMultiple?: PassThroughOption<HTMLUListElement, I>;
+    /**
+     * Used to pass attributes to the chip item's DOM element.
+     */
+    chipItem?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the Chip component.
+     * @see {@link ChipPassThrough}
+     */
+    pcChip?: ChipPassThrough;
+    /**
+     * Used to pass attributes to the chip icon's DOM element.
+     */
+    chipIcon?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the input chip's DOM element.
+     */
+    inputChip?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the clear icon's DOM element.
+     */
+    clearIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the loader's DOM element.
+     */
+    loader?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the dropdown button's DOM element.
+     */
+    dropdown?: PassThroughOption<HTMLButtonElement, I>;
+    /**
+     * Used to pass attributes to the Overlay component.
+     * @see {@link OverlayPassThrough}
+     */
+    pcOverlay?: OverlayPassThrough;
+    /**
+     * Used to pass attributes to the overlay's DOM element.
+     */
+    overlay?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the list container's DOM element.
+     */
+    listContainer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the Scroller component.
+     * @see {@link ScrollerPassThrough}
+     */
+    pcScroller?: ScrollerPassThrough;
+    /**
+     * Used to pass attributes to the list's DOM element.
+     */
+    list?: PassThroughOption<HTMLUListElement, I>;
+    /**
+     * Used to pass attributes to the option group's DOM element.
+     */
+    optionGroup?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the option's DOM element.
+     */
+    option?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the empty message's DOM element.
+     */
+    emptyMessage?: PassThroughOption<HTMLLIElement, I>;
+}
+
+/**
+ * Defines valid pass-through options in AutoComplete.
+ * @see {@link AutoCompletePassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type AutoCompletePassThrough<I = unknown> = PassThrough<I, AutoCompletePassThroughOptions<I>>;
 
 /**
  * Custom complete event.
