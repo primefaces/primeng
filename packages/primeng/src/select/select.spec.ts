@@ -3624,6 +3624,129 @@ describe('Select PT (PassThrough)', () => {
 
             flush();
         }));
+
+        it('should provide complete context object with all properties in getPTItemOptions', fakeAsync(() => {
+            let capturedContexts: any[] = [];
+            component.pt = {
+                option: ({ context }: any) => {
+                    capturedContexts.push({
+                        option: context?.option,
+                        index: context?.index,
+                        selected: context?.selected,
+                        focused: context?.focused,
+                        disabled: context?.disabled
+                    });
+                    return {};
+                }
+            };
+
+            // Select an option to test selected state
+            component.selectedValue = 'opt1';
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Focus an option
+            selectInstance.focusedOptionIndex.set(1);
+            fixture.detectChanges();
+
+            // Verify all contexts have the required properties
+            expect(capturedContexts.length).toBeGreaterThan(0);
+
+            capturedContexts.forEach((ctx) => {
+                expect(ctx.option).toBeDefined();
+                expect(typeof ctx.index).toBe('number');
+                expect(typeof ctx.selected).toBe('boolean');
+                expect(typeof ctx.focused).toBe('boolean');
+                expect(typeof ctx.disabled).toBe('boolean');
+            });
+
+            // Find the selected context
+            const selectedContext = capturedContexts.find((ctx) => ctx.selected === true);
+            expect(selectedContext).toBeTruthy();
+            expect(selectedContext?.option.code).toBe('opt1');
+
+            // Find the focused context
+            const focusedContext = capturedContexts.find((ctx) => ctx.focused === true);
+            expect(focusedContext).toBeTruthy();
+            expect(focusedContext?.index).toBe(1);
+
+            flush();
+        }));
+
+        it('should update context when selection changes via getPTItemOptions', fakeAsync(() => {
+            let contextSnapshots: any[] = [];
+            component.pt = {
+                option: ({ context }: any) => {
+                    if (context?.option?.code === 'opt2') {
+                        contextSnapshots.push({
+                            timestamp: Date.now(),
+                            selected: context.selected,
+                            option: context.option
+                        });
+                    }
+                    return {};
+                }
+            };
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Should not be selected initially
+            let opt2Context = contextSnapshots[contextSnapshots.length - 1];
+            expect(opt2Context?.selected).toBe(false);
+
+            // Select opt2
+            component.selectedValue = 'opt2';
+            fixture.detectChanges();
+            tick();
+
+            // Trigger change detection again
+            selectInstance.hide();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Should be selected now
+            opt2Context = contextSnapshots[contextSnapshots.length - 1];
+            expect(opt2Context?.selected).toBe(true);
+            expect(opt2Context?.option?.code).toBe('opt2');
+
+            flush();
+        }));
+
+        it('should provide disabled state correctly in context', fakeAsync(() => {
+            // Add a disabled option to test data
+            component.options = [
+                { name: 'Option 1', code: 'opt1' },
+                { name: 'Option 2', code: 'opt2', disabled: true },
+                { name: 'Option 3', code: 'opt3' }
+            ];
+
+            let disabledContextFound = false;
+            component.pt = {
+                option: ({ context }: any) => {
+                    if (context?.option?.code === 'opt2') {
+                        disabledContextFound = true;
+                        expect(context.disabled).toBe(true);
+                    }
+                    return {};
+                }
+            };
+
+            fixture.detectChanges();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            expect(disabledContextFound).toBe(true);
+
+            flush();
+        }));
     });
 
     describe('Clear icon and checkmark PT sections', () => {
