@@ -45,6 +45,7 @@ import type { RatingPassThrough } from 'primeng/types/rating';
 import type { ScrollerPassThrough } from 'primeng/types/scroller';
 import type { ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import type { SelectPassThrough } from 'primeng/types/select';
+import type { SelectButtonPassThrough } from 'primeng/types/selectbutton';
 import type { SkeletonPassThrough } from 'primeng/types/skeleton';
 import type { SliderPassThrough } from 'primeng/types/slider';
 import type { SpeedDialPassThrough } from 'primeng/types/speeddial';
@@ -124,6 +125,7 @@ export interface GlobalPassThrough {
     scrollPanel?: ScrollPanelPassThrough;
     scrollTop?: ScrollTopPassThrough;
     select?: SelectPassThrough;
+    selectButton?: SelectButtonPassThrough;
     skeleton?: SkeletonPassThrough;
     slider?: SliderPassThrough;
     speedDial?: SpeedDialPassThrough;
