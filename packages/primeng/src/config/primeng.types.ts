@@ -60,6 +60,7 @@ import type { ToggleButtonPassThrough } from 'primeng/types/togglebutton';
 import type { ToggleSwitchPassThrough } from 'primeng/types/toggleswitch';
 import type { ToolbarPassThrough } from 'primeng/types/toolbar';
 import type { TreePassThrough } from 'primeng/types/tree';
+import type { TreeSelectPassThrough } from 'primeng/types/treeselect';
 
 /** ZIndex configuration */
 export type ZIndex = {
@@ -137,6 +138,7 @@ export interface GlobalPassThrough {
     toggleSwitch?: ToggleSwitchPassThrough;
     toolbar?: ToolbarPassThrough;
     tree?: TreePassThrough;
+    treeSelect?: TreeSelectPassThrough;
     panel?: PanelPassThrough;
     panelMenu?: PanelMenuPassThrough;
     button?: ButtonPassThrough;
