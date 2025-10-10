@@ -1,13 +1,18 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind, BindModule } from 'primeng/bind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
+import type { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
+import { SliderPassThrough } from 'primeng/types/slider';
 import { SliderStyle } from './style/sliderstyle';
+
+const SLIDER_INSTANCE = new InjectionToken<Slider>('SLIDER_INSTANCE');
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,7 +26,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-slider',
     standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule],
+    imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <span
             *ngIf="range && orientation == 'horizontal'"
@@ -32,6 +37,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
             }"
             [attr.data-pc-section]="'range'"
+            [pBind]="ptm('range')"
         ></span>
         <span
             *ngIf="range && orientation == 'vertical'"
@@ -42,9 +48,10 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
             }"
             [attr.data-pc-section]="'range'"
+            [pBind]="ptm('range')"
         ></span>
-        <span *ngIf="!range && orientation == 'vertical'" [class]="cx('range')" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', height: handleValue + '%' }"></span>
-        <span *ngIf="!range && orientation == 'horizontal'" [class]="cx('range')" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', width: handleValue + '%' }"></span>
+        <span *ngIf="!range && orientation == 'vertical'" [class]="cx('range')" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', height: handleValue + '%' }" [pBind]="ptm('range')"></span>
+        <span *ngIf="!range && orientation == 'horizontal'" [class]="cx('range')" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', width: handleValue + '%' }" [pBind]="ptm('range')"></span>
         <span
             *ngIf="!range"
             #sliderHandle
@@ -70,6 +77,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.aria-orientation]="orientation"
             [attr.data-pc-section]="'handle'"
             [pAutoFocus]="autofocus"
+            [pBind]="ptm('handle')"
         ></span>
         <span
             *ngIf="range"
@@ -92,6 +100,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.aria-orientation]="orientation"
             [attr.data-pc-section]="'startHandler'"
             [pAutoFocus]="autofocus"
+            [pBind]="ptm('startHandler')"
         ></span>
         <span
             *ngIf="range"
@@ -113,18 +122,28 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel"
             [attr.aria-orientation]="orientation"
             [attr.data-pc-section]="'endHandler'"
+            [pBind]="ptm('endHandler')"
         ></span>
     `,
-    providers: [SLIDER_VALUE_ACCESSOR, SliderStyle],
+    providers: [SLIDER_VALUE_ACCESSOR, SliderStyle, { provide: SLIDER_INSTANCE, useExisting: Slider }, { provide: PARENT_INSTANCE, useExisting: Slider }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.data-pc-name]': "'slider'",
         '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Slider extends BaseEditableHolder {
+export class Slider extends BaseEditableHolder<SliderPassThrough> {
+    $pcSlider: Slider | undefined = inject(SLIDER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
