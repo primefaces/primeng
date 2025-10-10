@@ -18,6 +18,10 @@ const theme = /*css*/ `
         margin: 0;
     }
 
+    .p-inputgroup p-button {
+        height: 100%;
+    }
+
     .p-inputgroup p-button:first-child,
     .p-inputgroup p-button:last-child {
         display: inline-flex;
