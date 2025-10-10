@@ -38,6 +38,7 @@ import type { PanelMenuPassThrough } from 'primeng/types/panelmenu';
 import type { PopoverPassThrough } from 'primeng/types/popover';
 import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
 import type { ProgressSpinnerPassThrough } from 'primeng/types/progressspinner';
+import type { RadioButtonPassThrough } from 'primeng/types/radiobutton';
 import type { RatingPassThrough } from 'primeng/types/rating';
 import type { ScrollerPassThrough } from 'primeng/types/scroller';
 import type { ScrollTopPassThrough } from 'primeng/types/scrolltop';
@@ -109,6 +110,7 @@ export interface GlobalPassThrough {
     overlayBadge?: OverlayBadgePassThrough;
     progressBar?: ProgressBarPassThrough;
     progressSpinner?: ProgressSpinnerPassThrough;
+    radioButton?: RadioButtonPassThrough;
     rating?: RatingPassThrough;
     scroller?: ScrollerPassThrough;
     scrollPanel?: ScrollPanelPassThrough;
