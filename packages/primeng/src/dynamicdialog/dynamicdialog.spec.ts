@@ -965,6 +965,37 @@ describe('DynamicDialogComponent', () => {
             flush();
         }));
 
+        it('should not focus on parent content when nested dialog closes and focusOnClose is false', fakeAsync(() => {
+            mockConfig.focusOnClose = false;
+            const parentDialog = document.createElement('div');
+            parentDialog.className = 'p-dialog';
+            const parentContent = document.createElement('div');
+            parentContent.className = 'p-dialog-content';
+            parentDialog.appendChild(parentContent);
+            document.body.appendChild(parentDialog);
+
+            spyOn(component, 'focus');
+            spyOn(component, 'onContainerDestroy');
+
+            const animationEvent: AnimationEvent = {
+                element: document.createElement('div'),
+                toState: 'void',
+                fromState: 'visible',
+                totalTime: 150,
+                phaseName: 'done',
+                triggerName: 'animation',
+                disabled: false
+            };
+
+            component.onAnimationEnd(animationEvent);
+
+            expect(component.focus).toHaveBeenCalledTimes(0);
+            expect(component.onContainerDestroy).toHaveBeenCalled();
+
+            document.body.removeChild(parentDialog);
+            flush();
+        }));
+
         it('should handle z-index layering for nested dialogs', () => {
             const wrapperElement = document.createElement('div');
             const containerElement = document.createElement('div');

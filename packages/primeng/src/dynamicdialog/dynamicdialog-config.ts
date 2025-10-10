@@ -46,6 +46,11 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     closeOnEscape?: boolean = false;
     /**
+     * Specifies if autofocus should happen on close.
+     * @group Props
+     */
+    focusOnClose?: boolean = true;
+    /**
      * Specifies if autofocus should happen on show.
      * @group Props
      */
