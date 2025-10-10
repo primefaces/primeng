@@ -60,6 +60,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [class]="cn(cx('root'), styleClass)"
                 [style]="sx('root')"
                 [ngStyle]="style"
+                [pBind]="ptm('root')"
                 pFocusTrap
                 [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{

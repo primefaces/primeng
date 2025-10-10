@@ -66,7 +66,7 @@ const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE'
     }`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [FileUploadStyle],
-    imports: [CommonModule, Badge, Button, TimesIcon]
+    imports: [CommonModule, Badge, Button, TimesIcon, Bind]
 })
 export class FileContent extends BaseComponent {
     _componentStyle = inject(FileUploadStyle);

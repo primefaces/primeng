@@ -83,10 +83,10 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                 [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
-                [pBind]="ptm('node')"
+                [pBind]="getPTOptions('node')"
             >
                 @if (isPrevDropPointActive()) {
-                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="ptm('dropPoint')"></div>
+                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="getPTOptions('dropPoint')"></div>
                 }
                 <div
                     [class]="cx('nodeContent')"
@@ -101,19 +101,19 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                     (dragleave)="onNodeDragLeave($event)"
                     (dragend)="onNodeDragEnd($event)"
                     [draggable]="tree.draggableNodes"
-                    [pBind]="ptm('nodeContent')"
+                    [pBind]="getPTOptions('nodeContent')"
                 >
-                    <button type="button" [attr.data-pc-section]="'toggler'" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1" [pBind]="ptm('nodeToggleButton')">
+                    <button type="button" [attr.data-pc-section]="'toggler'" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1" [pBind]="getPTOptions('nodeToggleButton')">
                         <ng-container *ngIf="!tree.togglerIconTemplate && !tree._togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                <svg data-p-icon="chevron-right" *ngIf="!node.expanded" [class]="cx('nodeToggleIcon')" [pBind]="ptm('nodeTogglerIcon')" />
-                                <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleIcon')" [pBind]="ptm('nodeTogglerIcon')" />
+                                <svg data-p-icon="chevron-right" *ngIf="!node.expanded" [class]="cx('nodeToggleIcon')" [pBind]="getPTOptions('nodeToggleIcon')" />
+                                <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleIcon')" [pBind]="getPTOptions('nodeToggleIcon')" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
-                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin [pBind]="ptm('nodeTogglerIcon')" />
+                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin [pBind]="getPTOptions('nodeToggleIcon')" />
                             </ng-container>
                         </ng-container>
-                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')" [pBind]="ptm('nodeTogglerIcon')">
+                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')" [pBind]="getPTOptions('nodeToggleIcon')">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate || tree._togglerIconTemplate; context: { $implicit: node.expanded, loading: node.loading }"></ng-template>
                         </span>
                     </button>
@@ -129,7 +129,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
                         (click)="$event.preventDefault()"
-                        [pt]="ptm('nodeCheckbox')"
+                        [pt]="getPTOptions('nodeCheckbox')"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
@@ -147,8 +147,8 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                         </ng-container>
                     </p-checkbox>
 
-                    <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon" [pBind]="ptm('nodeIcon')"></span>
-                    <span [class]="cx('nodeLabel')" [pBind]="ptm('nodeLabel')">
+                    <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon" [pBind]="getPTOptions('nodeIcon')"></span>
+                    <span [class]="cx('nodeLabel')" [pBind]="getPTOptions('nodeLabel')">
                         <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
                         <span *ngIf="tree.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
@@ -156,7 +156,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                     </span>
                 </div>
                 @if (isNextDropPointActive()) {
-                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="ptm('dropPoint')"></div>
+                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="getPTOptions('dropPoint')"></div>
                 }
                 <ul [class]="cx('nodeChildren')" *ngIf="!tree.virtualScroll && node.children && node.expanded" role="group" [pBind]="ptm('nodeChildren')">
                     <p-treeNode
@@ -248,6 +248,20 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     get subNodes(): TreeNode[] | undefined {
         return this.node?.parent ? this.node.parent.children : this.tree.value;
+    }
+
+    getPTOptions(key: string) {
+        return this.ptm(key, {
+            context: {
+                node: this.node,
+                index: this.index,
+                expanded: this.node?.expanded,
+                selected: this.selected,
+                checked: this.checked,
+                partialChecked: this.node?.partialSelected,
+                leaf: this.isLeaf()
+            }
+        });
     }
 
     onInit() {
