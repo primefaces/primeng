@@ -24,7 +24,9 @@ import type { FileUploadPassThrough } from 'primeng/types/fileupload';
 import type { FloatLabelPassThrough } from 'primeng/types/floatlabel';
 import type { FluidPassThrough } from 'primeng/types/fluid';
 import type { GalleriaPassThrough } from 'primeng/types/galleria';
+import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { ImagePassThrough } from 'primeng/types/image';
+import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { ImageComparePassThrough } from 'primeng/types/imagecompare';
 import type { InplacePassThrough } from 'primeng/types/inplace';
 import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
@@ -109,6 +111,8 @@ export interface GlobalPassThrough {
     menubar?: MenubarPassThrough;
     fluid?: FluidPassThrough;
     galleria?: GalleriaPassThrough;
+    iconField?: IconFieldPassThrough;
+    inputIcon?: InputIconPassThrough;
     image?: ImagePassThrough;
     imageCompare?: ImageComparePassThrough;
     inplace?: InplacePassThrough;
