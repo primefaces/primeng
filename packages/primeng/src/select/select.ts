@@ -45,7 +45,7 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent } from 'primeng/types/select';
+import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent, SelectPassThrough } from 'primeng/types/select';
 import { SelectStyle } from './style/selectstyle';
 
 const SELECT_INSTANCE = new InjectionToken<Select>('SELECT_INSTANCE');
@@ -409,7 +409,7 @@ export class SelectItem extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     hostDirectives: [Bind]
 })
-export class Select extends BaseInput implements AfterViewInit, AfterViewChecked {
+export class Select extends BaseInput<SelectPassThrough> implements AfterViewInit, AfterViewChecked {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     /**

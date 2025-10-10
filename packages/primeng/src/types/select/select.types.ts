@@ -1,7 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption, ScrollerOptions } from 'primeng/api';
 import type { OverlayPassThrough } from 'primeng/types/overlay';
-import { Select } from '../../select/select';
 
 /**
  * Custom pass-through(pt) options.
