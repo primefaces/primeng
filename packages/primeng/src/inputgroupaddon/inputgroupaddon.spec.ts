@@ -1,70 +1,42 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { InputGroup } from './inputgroup';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
+import { InputGroupAddon } from './inputgroupaddon';
 import { providePrimeNG } from 'primeng/config';
 
 @Component({
     standalone: true,
-    imports: [InputGroup, InputGroupAddon, FormsModule],
+    imports: [InputGroupAddon, FormsModule],
     template: `
-        <p-inputgroup>
-            <p-inputgroup-addon>
-                <i class="pi pi-user"></i>
-            </p-inputgroup-addon>
-            <input type="text" [(ngModel)]="username" placeholder="Username" />
-        </p-inputgroup>
+        <p-inputgroup-addon>
+            <i class="pi pi-user"></i>
+        </p-inputgroup-addon>
     `
 })
-class TestBasicInputGroupComponent {
-    username: string = '';
-}
+class TestBasicInputGroupAddonComponent {}
 
 @Component({
     standalone: true,
-    imports: [InputGroup, InputGroupAddon, FormsModule],
-    template: `
-        <p-inputgroup [styleClass]="customClass">
-            <p-inputgroup-addon>$</p-inputgroup-addon>
-            <input type="number" [(ngModel)]="price" placeholder="Price" />
-            <p-inputgroup-addon>.00</p-inputgroup-addon>
-        </p-inputgroup>
-    `
+    imports: [InputGroupAddon, FormsModule],
+    template: ` <p-inputgroup-addon [style]="addonStyle" [styleClass]="addonClass"> $ </p-inputgroup-addon> `
 })
-class TestStyledInputGroupComponent {
-    price: number | null = null as any;
-    customClass: string = 'custom-input-group';
-}
-
-@Component({
-    standalone: true,
-    imports: [InputGroup, InputGroupAddon, FormsModule],
-    template: `
-        <p-inputgroup>
-            <p-inputgroup-addon [style]="addonStyle" [styleClass]="addonClass"> www </p-inputgroup-addon>
-            <input type="text" [(ngModel)]="website" placeholder="Website" />
-        </p-inputgroup>
-    `
-})
-class TestAddonStyledComponent {
-    website: string = '';
+class TestStyledInputGroupAddonComponent {
     addonStyle: { [key: string]: any } = { 'background-color': '#f0f0f0' };
     addonClass: string = 'custom-addon';
 }
 
-describe('InputGroup', () => {
+describe('InputGroupAddon', () => {
     describe('Basic Functionality', () => {
-        let component: TestBasicInputGroupComponent;
-        let fixture: ComponentFixture<TestBasicInputGroupComponent>;
+        let component: TestBasicInputGroupAddonComponent;
+        let fixture: ComponentFixture<TestBasicInputGroupAddonComponent>;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicInputGroupComponent]
+                imports: [TestBasicInputGroupAddonComponent]
             }).compileComponents();
 
-            fixture = TestBed.createComponent(TestBasicInputGroupComponent);
+            fixture = TestBed.createComponent(TestBasicInputGroupAddonComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
         });
@@ -73,88 +45,31 @@ describe('InputGroup', () => {
             expect(component).toBeTruthy();
         });
 
-        it('should render input and addon content', () => {
-            const inputElement = fixture.debugElement.query(By.css('input'));
+        it('should render addon content', () => {
             const addonElement = fixture.debugElement.query(By.directive(InputGroupAddon));
             const iconElement = fixture.debugElement.query(By.css('i.pi-user'));
 
-            expect(inputElement).toBeTruthy();
             expect(addonElement).toBeTruthy();
             expect(iconElement).toBeTruthy();
-            expect(inputElement.nativeElement.placeholder).toBe('Username');
         });
 
-        it('should have correct CSS classes', () => {
-            const inputGroupElement = fixture.debugElement.query(By.directive(InputGroup));
+        it('should have correct CSS class', () => {
             const addonElement = fixture.debugElement.query(By.directive(InputGroupAddon));
 
-            expect(inputGroupElement.nativeElement.classList.contains('p-inputgroup')).toBe(true);
             expect(addonElement.nativeElement.classList.contains('p-inputgroupaddon')).toBe(true);
         });
-
-        it('should have correct data attributes', () => {
-            const inputGroupElement = fixture.debugElement.query(By.directive(InputGroup));
-            const addonElement = fixture.debugElement.query(By.directive(InputGroupAddon));
-
-            expect(inputGroupElement.nativeElement.getAttribute('data-pc-name')).toBe('inputgroup');
-            expect(addonElement.nativeElement.getAttribute('data-pc-name')).toBe('inputgroupaddon');
-        });
     });
 
-    describe('Multiple Addons', () => {
-        let component: TestStyledInputGroupComponent;
-        let fixture: ComponentFixture<TestStyledInputGroupComponent>;
+    describe('Styling', () => {
+        let component: TestStyledInputGroupAddonComponent;
+        let fixture: ComponentFixture<TestStyledInputGroupAddonComponent>;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestStyledInputGroupComponent]
+                imports: [TestStyledInputGroupAddonComponent]
             }).compileComponents();
 
-            fixture = TestBed.createComponent(TestStyledInputGroupComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-        });
-
-        it('should render multiple addons', () => {
-            const addonElements = fixture.debugElement.queryAll(By.directive(InputGroupAddon));
-            const inputElement = fixture.debugElement.query(By.css('input'));
-
-            expect(addonElements.length).toBe(2);
-            expect(addonElements[0].nativeElement.textContent.trim()).toBe('$');
-            expect(addonElements[1].nativeElement.textContent.trim()).toBe('.00');
-            expect(inputElement.nativeElement.type).toBe('number');
-        });
-
-        it('should apply custom styleClass to InputGroup', () => {
-            const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;
-            const inputGroupElement = fixture.debugElement.query(By.directive(InputGroup));
-
-            expect(inputGroupInstance.styleClass).toBe('custom-input-group');
-            expect(inputGroupElement.nativeElement.classList.contains('custom-input-group')).toBe(true);
-        });
-
-        it('should update styleClass dynamically', () => {
-            component.customClass = 'new-custom-class';
-            fixture.detectChanges();
-
-            const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;
-            const inputGroupElement = fixture.debugElement.query(By.directive(InputGroup));
-
-            expect(inputGroupInstance.styleClass).toBe('new-custom-class');
-            expect(inputGroupElement.nativeElement.classList.contains('new-custom-class')).toBe(true);
-        });
-    });
-
-    describe('Addon Styling', () => {
-        let component: TestAddonStyledComponent;
-        let fixture: ComponentFixture<TestAddonStyledComponent>;
-
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
-                imports: [TestAddonStyledComponent]
-            }).compileComponents();
-
-            fixture = TestBed.createComponent(TestAddonStyledComponent);
+            fixture = TestBed.createComponent(TestStyledInputGroupAddonComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
         });
@@ -189,95 +104,19 @@ describe('InputGroup', () => {
             expect(addonElement.nativeElement.classList.contains('updated-addon')).toBe(true);
         });
     });
-
-    describe('Form Integration', () => {
-        let component: TestBasicInputGroupComponent;
-        let fixture: ComponentFixture<TestBasicInputGroupComponent>;
-
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
-                imports: [TestBasicInputGroupComponent]
-            }).compileComponents();
-
-            fixture = TestBed.createComponent(TestBasicInputGroupComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-        });
-
-        it('should work without input value', () => {
-            const inputElement = fixture.debugElement.query(By.css('input'));
-            expect(inputElement.nativeElement.value).toBe('' as any);
-        });
-
-        it('should update input value when model changes', fakeAsync(() => {
-            component.username = 'testuser';
-            fixture.detectChanges();
-            tick();
-
-            const inputElement = fixture.debugElement.query(By.css('input'));
-            expect(inputElement.nativeElement.value).toBe('testuser');
-        }));
-    });
-
-    describe('Edge Cases', () => {
-        let component: TestBasicInputGroupComponent;
-        let fixture: ComponentFixture<TestBasicInputGroupComponent>;
-
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
-                imports: [TestBasicInputGroupComponent]
-            }).compileComponents();
-
-            fixture = TestBed.createComponent(TestBasicInputGroupComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-        });
-
-        it('should handle empty addon content', () => {
-            // Create a component with empty addon
-            @Component({
-                standalone: true,
-                imports: [InputGroup, InputGroupAddon, FormsModule],
-                template: `
-                    <p-inputgroup>
-                        <p-inputgroup-addon></p-inputgroup-addon>
-                        <input type="text" [(ngModel)]="value" />
-                    </p-inputgroup>
-                `
-            })
-            class TestEmptyAddonComponent {
-                value: string = '';
-            }
-
-            const emptyFixture = TestBed.createComponent(TestEmptyAddonComponent);
-            emptyFixture.detectChanges();
-
-            const addonElement = emptyFixture.debugElement.query(By.directive(InputGroupAddon));
-            expect(addonElement).toBeTruthy();
-            expect(addonElement.nativeElement.textContent.trim()).toBe('' as any);
-        });
-
-        it('should handle undefined styleClass', () => {
-            const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;
-            inputGroupInstance.styleClass = undefined as any;
-            fixture.detectChanges();
-
-            expect(inputGroupInstance.styleClass).toBeUndefined();
-        });
-    });
 });
 
-describe('InputGroup PassThrough Tests', () => {
-    let fixture: ComponentFixture<InputGroup>;
-    let component: InputGroup;
+describe('InputGroupAddon PassThrough Tests', () => {
+    let fixture: ComponentFixture<InputGroupAddon>;
+    let component: InputGroupAddon;
     let hostElement: HTMLElement;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputGroup, FormsModule]
+            imports: [InputGroupAddon, FormsModule]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(InputGroup);
+        fixture = TestBed.createComponent(InputGroupAddon);
         component = fixture.componentInstance;
         hostElement = fixture.nativeElement;
     });
@@ -303,15 +142,15 @@ describe('InputGroup PassThrough Tests', () => {
             fixture.componentRef.setInput('pt', {
                 root: {
                     class: 'PT_ROOT_CLASS',
-                    style: { 'background-color': 'red' },
-                    'data-testid': 'inputgroup'
+                    style: { 'background-color': 'blue' },
+                    'data-testid': 'inputgroupaddon'
                 }
             });
             fixture.detectChanges();
 
             expect(hostElement.classList.contains('PT_ROOT_CLASS')).toBe(true);
-            expect(hostElement.style.backgroundColor).toBe('red');
-            expect(hostElement.getAttribute('data-testid')).toBe('inputgroup');
+            expect(hostElement.style.backgroundColor).toBe('blue');
+            expect(hostElement.getAttribute('data-testid')).toBe('inputgroupaddon');
         });
 
         it('should apply object with aria-label to host', () => {
@@ -364,6 +203,20 @@ describe('InputGroup PassThrough Tests', () => {
 
             expect(hostElement.classList.contains('WITH_STYLE')).toBe(true);
         });
+
+        it('should use style from instance in PT function', () => {
+            fixture.componentRef.setInput('style', { color: 'green' });
+            fixture.componentRef.setInput('pt', {
+                root: ({ instance }: any) => ({
+                    style: {
+                        'background-color': instance?.style?.color === 'green' ? 'yellow' : 'red'
+                    }
+                })
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.style.backgroundColor).toBe('yellow');
+        });
     });
 
     describe('PT Case 5: Event binding', () => {
@@ -388,11 +241,11 @@ describe('InputGroup PassThrough Tests', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [InputGroup, FormsModule],
+                imports: [InputGroupAddon, FormsModule],
                 providers: [
                     providePrimeNG({
                         pt: {
-                            inputGroup: {
+                            inputGroupAddon: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
                                 root: 'GLOBAL_CLASS'
                             }
@@ -401,7 +254,7 @@ describe('InputGroup PassThrough Tests', () => {
                 ]
             }).compileComponents();
 
-            const globalFixture = TestBed.createComponent(InputGroup);
+            const globalFixture = TestBed.createComponent(InputGroupAddon);
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
@@ -415,11 +268,11 @@ describe('InputGroup PassThrough Tests', () => {
             const hooksCalled: string[] = [];
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [InputGroup, FormsModule],
+                imports: [InputGroupAddon, FormsModule],
                 providers: [
                     providePrimeNG({
                         pt: {
-                            inputGroup: {
+                            inputGroupAddon: {
                                 hooks: {
                                     onInit: () => {
                                         hooksCalled.push('onInit');
@@ -439,7 +292,7 @@ describe('InputGroup PassThrough Tests', () => {
                 ]
             }).compileComponents();
 
-            const hookFixture = TestBed.createComponent(InputGroup);
+            const hookFixture = TestBed.createComponent(InputGroupAddon);
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');

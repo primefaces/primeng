@@ -1,8 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, HostBinding, inject, Input, NgModule } from '@angular/core';
+import { AfterViewChecked, Component, HostBinding, inject, InjectionToken, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
+import { InputGroupAddonPassThrough } from 'primeng/types/inputgroupaddon';
 import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
+
+const INPUTGROUPADDON_INSTANCE = new InjectionToken<InputGroupAddon>('INPUTGROUPADDON_INSTANCE');
 
 /**
  * InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input.
@@ -12,15 +15,24 @@ import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
     selector: 'p-inputgroup-addon, p-inputGroupAddon',
     template: ` <ng-content></ng-content> `,
     standalone: true,
-    imports: [CommonModule],
+    imports: [BindModule],
     host: {
-        '[class]': 'styleClass',
-        '[class.p-inputgroupaddon]': 'true',
-        '[attr.data-pc-name]': '"inputgroupaddon"'
+        '[class]': "cn(cx('root'), styleClass)"
     },
-    providers: [InputGroupAddonStyle]
+    providers: [InputGroupAddonStyle, { provide: INPUTGROUPADDON_INSTANCE, useExisting: InputGroupAddon }, { provide: PARENT_INSTANCE, useExisting: InputGroupAddon }],
+    hostDirectives: [Bind]
 })
-export class InputGroupAddon extends BaseComponent {
+export class InputGroupAddon extends BaseComponent<InputGroupAddonPassThrough> implements AfterViewChecked {
+    _componentStyle = inject(InputGroupAddonStyle);
+
+    $pcInputGroupAddon: InputGroupAddon | undefined = inject(INPUTGROUPADDON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Inline style of the element.
      * @group Props
@@ -31,8 +43,6 @@ export class InputGroupAddon extends BaseComponent {
      * @group Props
      */
     @Input() styleClass: string | undefined;
-
-    _componentStyle = inject(InputGroupAddonStyle);
 
     @HostBinding('style') get hostStyle(): { [klass: string]: any } | null | undefined {
         return this.style;
