@@ -32,6 +32,7 @@ import type { ImageComparePassThrough } from 'primeng/types/imagecompare';
 import type { InplacePassThrough } from 'primeng/types/inplace';
 import type { InputGroupPassThrough } from 'primeng/types/inputgroup';
 import type { InputGroupAddonPassThrough } from 'primeng/types/inputgroupaddon';
+import type { InputMaskPassThrough } from 'primeng/types/inputmask';
 import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
 import type { InputOtpPassThrough } from 'primeng/types/inputotp';
 import type { KnobPassThrough } from 'primeng/types/knob';
@@ -123,6 +124,7 @@ export interface GlobalPassThrough {
     inplace?: InplacePassThrough;
     inputGroup?: InputGroupPassThrough;
     inputGroupAddon?: InputGroupAddonPassThrough;
+    inputMask?: InputMaskPassThrough;
     inputNumber?: InputNumberPassThrough;
     inputOtp?: InputOtpPassThrough;
     knob?: KnobPassThrough;

@@ -14,6 +14,7 @@ import { SlotCharDoc } from '@/doc/inputmask/slotchardoc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenformsdoc';
 import { FluidDoc } from '@/doc/inputmask/fluiddoc';
 import { ClearIconDoc } from '@/doc/inputmask/clearicondoc';
+import { PTComponent } from '@/doc/inputmask/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -23,6 +24,7 @@ import { AppDoc } from '@/components/doc/app.doc';
         header="InputMask"
         description="InputMask component is used to enter input in a certain format such as numeric, date, currency and phone."
         [docs]="docs"
+        [ptDocs]="ptComponent"
         [apiDocs]="['InputMask']"
         themeDocs="inputmask"
     ></app-doc> `,
@@ -30,6 +32,8 @@ import { AppDoc } from '@/components/doc/app.doc';
     imports: [AppDoc]
 })
 export class InputMaskDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
