@@ -9,7 +9,7 @@ import { SplitterModule } from 'primeng/splitter';
     imports: [CommonModule, AppDocPtViewer, SplitterModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-splitter [style]="{ height: '300px' }">
+            <p-splitter [style]="{ height: '300px' }" class="w-full">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 1</div>
                 </ng-template>
