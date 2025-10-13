@@ -1,7 +1,6 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -45,20 +44,53 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
     imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule, Bind],
     template: `
         <div [pBind]="ptm('controls')" [class]="cx('controls')" [attr.data-pc-section]="'controls'">
-            <button [pBind]="ptm('moveUpButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'" [buttonProps]="getButtonProps('up')">
+            <button
+                [pt]="ptm('moveUpButton')"
+                type="button"
+                [disabled]="moveDisabled()"
+                pButton
+                pRipple
+                (click)="moveUp()"
+                [attr.aria-label]="moveUpAriaLabel"
+                [attr.data-pc-section]="'moveUpButton'"
+                [buttonProps]="getButtonProps('up')"
+                hostName="orderlist"
+            >
                 <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" pButtonIcon />
                 <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
             </button>
-            <button [pBind]="ptm('moveTopButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'" [buttonProps]="getButtonProps('top')">
+            <button
+                [pt]="ptm('moveTopButton')"
+                type="button"
+                [disabled]="moveDisabled()"
+                pButton
+                pRipple
+                (click)="moveTop()"
+                [attr.aria-label]="moveTopAriaLabel"
+                [attr.data-pc-section]="'moveTopButton'"
+                [buttonProps]="getButtonProps('top')"
+                hostName="orderlist"
+            >
                 <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" pButtonIcon />
                 <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
             </button>
-            <button [pBind]="ptm('moveDownButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'" [buttonProps]="getButtonProps('down')">
+            <button
+                [pt]="ptm('moveDownButton')"
+                type="button"
+                [disabled]="moveDisabled()"
+                pButton
+                pRipple
+                (click)="moveDown()"
+                [attr.aria-label]="moveDownAriaLabel"
+                [attr.data-pc-section]="'moveDownButton'"
+                [buttonProps]="getButtonProps('down')"
+                hostName="orderlist"
+            >
                 <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" pButtonIcon />
                 <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
             </button>
             <button
-                [pBind]="ptm('moveBottomButton')"
+                [pt]="ptm('moveBottomButton')"
                 type="button"
                 [disabled]="moveDisabled()"
                 pButton
@@ -67,13 +99,14 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 [attr.aria-label]="moveBottomAriaLabel"
                 [attr.data-pc-section]="'moveBottomButton'"
                 [buttonProps]="getButtonProps('bottom')"
+                hostName="orderlist"
             >
                 <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" pButtonIcon />
                 <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
             </button>
         </div>
         <p-listbox
-            [pBind]="ptm('pcListbox')"
+            [pt]="ptm('pcListbox')"
             #listelement
             [multiple]="true"
             [options]="value"
@@ -97,6 +130,7 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
             [filterPlaceHolder]="filterPlaceholder"
             [dragdrop]="dragdrop"
             (onDrop)="onDrop($event)"
+            hostName="orderlist"
         >
             <ng-container *ngIf="headerTemplate || _headerTemplate">
                 <ng-template #header>
