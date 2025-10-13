@@ -13,7 +13,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     template: `
         <app-docptviewer [docs]="docs">
             <p-confirmpopup />
-            <p-button (onClick)="confirm($event)" label="Delete" severity="danger"></p-button>
+            <p-button (onClick)="confirm($event)" label="Open Popup" outlined></p-button>
         </app-docptviewer>
     `
 })
@@ -30,9 +30,9 @@ export class PTViewer {
                 severity: 'secondary',
                 outlined: true
             },
+
             acceptButtonProps: {
-                label: 'Delete',
-                severity: 'danger'
+                label: 'Save'
             }
         });
     }

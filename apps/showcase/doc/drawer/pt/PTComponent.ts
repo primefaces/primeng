@@ -11,7 +11,7 @@ import { PTViewer } from './PTViewer';
     imports: [CommonModule, AppDocSection],
     template: `<div class="doc-main">
         <div class="doc-intro">
-            <h1>Panel Pass Through</h1>
+            <h1>Drawer Pass Through</h1>
         </div>
         <app-docsection [docs]="docs" />
     </div>`
@@ -24,8 +24,8 @@ export class PTComponent {
             component: PTViewer
         },
         {
-            id: 'pt.doc.panel',
-            label: 'Panel PT Options',
+            id: 'pt.doc.drawer',
+            label: 'Drawer PT Options',
             component: AppDocApiTable,
             data: getPTOptions('Drawer')
         }
