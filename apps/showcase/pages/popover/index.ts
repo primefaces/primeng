@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/popover/accessibilitydoc';
 import { BasicDoc } from '@/doc/popover/basicdoc';
 import { DataTableDoc } from '@/doc/popover/datatabledoc';
@@ -7,7 +8,6 @@ import { SelectDataDoc } from '@/doc/popover/selectdatadoc';
 import { TargetDoc } from '@/doc/popover/targetdoc';
 import { TemplateDoc } from '@/doc/popover/templatedoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -17,7 +17,7 @@ import { AppDoc } from '@/components/doc/app.doc';
         [docs]="docs"
         [apiDocs]="['Popover']"
         [ptDocs]="ptComponent"
-        themeDocs="popover"
+        componentName="Popover"
     ></app-doc>`,
     imports: [AppDoc],
     standalone: true
