@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/drawer/accessibilitydoc';
 import { BasicDoc } from '@/doc/drawer/basicdoc';
 import { FullScreenDoc } from '@/doc/drawer/fullscreendoc';
@@ -8,12 +9,11 @@ import { PTComponent } from '@/doc/drawer/pt/PTComponent';
 import { SizeDoc } from '@/doc/drawer/sizedoc';
 import { TemplateDoc } from '@/doc/drawer/templatedoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Drawer Component" header="Drawer" description="Drawer is a container component displayed as an overlay." [docs]="docs" [apiDocs]="['Drawer']" [ptDocs]="ptComponent" themeDocs="drawer"></app-doc> `
+    template: ` <app-doc docTitle="Angular Drawer Component" header="Drawer" description="Drawer is a container component displayed as an overlay." [docs]="docs" [apiDocs]="['Drawer']" [ptDocs]="ptComponent" componentName="drawer"></app-doc> `
 })
 export class DrawerDemo {
     ptComponent = PTComponent;

@@ -1,8 +1,6 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -15,7 +13,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     TemplateRef,
@@ -406,9 +403,9 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
             if (this.mask) {
-                setAttribute(this.mask, 'style', this.getMaskStyle());
-                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
                 addClass(this.mask, this.cx('mask'));
+                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
+                setAttribute(this.mask, 'style', this.getMaskStyle());
             }
 
             if (this.dismissible) {
@@ -427,6 +424,11 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     }
 
     getMaskStyle() {
+        const a = this.maskStyle
+            ? Object.entries(this.maskStyle)
+                  .map(([key, value]) => `${key}: ${value}`)
+                  .join('; ')
+            : '';
         return this.maskStyle
             ? Object.entries(this.maskStyle)
                   .map(([key, value]) => `${key}: ${value}`)
