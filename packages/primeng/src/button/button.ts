@@ -91,6 +91,8 @@ export class ButtonDirective extends BaseComponent {
 
     _componentStyle = inject(ButtonStyle);
 
+    @Input() hostName: any = '';
+
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
@@ -500,6 +502,8 @@ export class ButtonDirective extends BaseComponent {
     hostDirectives: [Bind]
 })
 export class Button extends BaseComponent<ButtonPassThrough> {
+    @Input() hostName: any = '';
+
     $pcButton: Button | undefined = inject(BUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });

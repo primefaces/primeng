@@ -1,4 +1,4 @@
-import { AfterViewInit, booleanAttribute, computed, Directive, DoCheck, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
+import { booleanAttribute, computed, Directive, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseModelHolder } from 'primeng/basemodelholder';
@@ -23,7 +23,11 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
     hostDirectives: [Bind]
 })
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
+    @Input() hostName: any = '';
+
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcInputText: InputText | undefined = inject(INPUTTEXT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     ngControl = inject(NgControl, { optional: true, self: true });
 

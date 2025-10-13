@@ -97,7 +97,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             </ng-container>
             <ng-template #builtInFilterElement>
                 @if (filter) {
-                    <p-iconfield [pt]="ptm('pcFilterContainer')">
+                    <p-iconfield [pt]="ptm('pcFilterContainer')" hostName="listbox">
                         <input
                             #filterInput
                             pInputText
@@ -115,6 +115,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             (keydown)="onFilterKeyDown($event)"
                             (blur)="onFilterBlur($event)"
                             [pt]="ptm('pcFilter')"
+                            hostName="listbox"
                         />
                         <p-inputicon [pt]="ptm('pcFilterIconContainer')">
                             <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [attr.aria-hidden]="true" [pBind]="ptm('filterIcon')" />
@@ -160,6 +161,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             } @else {
                 <p-scroller
                     [pt]="ptm('virtualScroller')"
+                    hostName="listbox"
                     #scroller
                     *ngIf="virtualScroll"
                     [items]="visibleOptions()"
@@ -257,6 +259,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                                         [binary]="true"
                                         [pt]="ptm('pcCheckbox')"
+                                        hostName="listbox"
                                     >
                                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                                             <ng-template #icon>
@@ -332,7 +335,15 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
+    @Input() hostName: any = '';
+
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcListbox: Listbox | undefined = inject(LISTBOX_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 
     /**
      * Unique identifier of the component.
@@ -1700,10 +1711,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-    }
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
 

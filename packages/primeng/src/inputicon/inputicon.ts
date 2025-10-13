@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -25,7 +25,8 @@ const INPUTICON_INSTANCE = new InjectionToken<InputIcon>('INPUTICON_INSTANCE');
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class InputIcon extends BaseComponent<InputIconPassThrough> implements AfterViewChecked {
+export class InputIcon extends BaseComponent<InputIconPassThrough> {
+    @Input() hostName: any = '';
     /**
      * Style class of the element.
      * @deprecated since v20.0.0, use `class` instead.
