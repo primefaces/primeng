@@ -1,5 +1,6 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { InputOtp } from 'primeng/inputotp';
+import { InputTextPassThrough } from '../inputtext/inputtext.types';
 
 /**
  * Custom pass-through(pt) options.
@@ -20,7 +21,7 @@ export interface InputOtpPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the InputText component.
      */
-    pcInputText?: any;
+    pcInputText?: InputTextPassThrough;
 }
 
 /**

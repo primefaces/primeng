@@ -1,6 +1,7 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { InputMask } from 'primeng/inputmask';
 import { TemplateRef } from '@angular/core';
+import { InputTextPassThrough } from '../inputtext/inputtext.types';
 
 /**
  * Custom pass-through(pt) options.
@@ -17,7 +18,7 @@ export interface InputMaskPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the InputText component.
      */
-    pcInputText?: any;
+    pcInputText?: InputTextPassThrough;
     /**
      * Used to pass attributes to the clear icon's DOM element.
      */
