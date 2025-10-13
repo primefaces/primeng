@@ -12,7 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
     imports: [CommonModule, AppDocPtViewer, DialogModule, ButtonModule, InputTextModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-dialog [(visible)]="visible" header="Edit Profile" [maximizable]="true" [draggable]="false" [style]="{ width: '25rem' }">
+            <p-dialog [(visible)]="visible" header="Edit Profile" [maximizable]="true" maskStyleClass="!relative" [draggable]="false" [style]="{ width: '25rem' }" class="!my-auto">
                 <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
@@ -33,7 +33,7 @@ import { InputTextModule } from 'primeng/inputtext';
     `
 })
 export class PTViewer {
-    visible = true;
+    visible: boolean = true;
 
     docs = [
         {
