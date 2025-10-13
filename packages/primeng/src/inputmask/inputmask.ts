@@ -334,12 +334,6 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     focused: Nullable<boolean>;
 
-    rootPTOptions() {
-        return {
-            root: mergeProps(this.ptm('pcInputText'), this.ptm('root'))
-        };
-    }
-
     onInit() {
         if (isPlatformBrowser(this.platformId)) {
             let ua = navigator.userAgent;
