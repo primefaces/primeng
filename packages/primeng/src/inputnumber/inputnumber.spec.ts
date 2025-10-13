@@ -1408,7 +1408,7 @@ describe('InputNumber', () => {
                             pt: {
                                 inputNumber: {
                                     root: { class: 'GLOBAL_ROOT_CLASS' },
-                                    pcInputText: { class: 'GLOBAL_INPUT_CLASS' }
+                                    pcInputText: { root: { class: 'GLOBAL_INPUT_CLASS' } }
                                 }
                             }
                         })

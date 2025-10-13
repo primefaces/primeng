@@ -1,9 +1,14 @@
-import { AfterViewChecked, AfterViewInit, booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, input, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
+import { booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, InjectionToken, input, Input, NgModule, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseModelHolder } from 'primeng/basemodelholder';
+import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
+import { TextareaPassThrough } from 'primeng/types/textarea';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
+
+const TEXTAREA_INSTANCE = new InjectionToken<Textarea>('TEXTAREA_INSTANCE');
 
 /**
  * Textarea adds styling and autoResize functionality to standard textarea element.
@@ -15,9 +20,14 @@ import { TextareaStyle } from './style/textareastyle';
     host: {
         '[class]': "cx('root')"
     },
-    providers: [TextareaStyle]
+    providers: [TextareaStyle, { provide: TEXTAREA_INSTANCE, useExisting: Textarea }, { provide: PARENT_INSTANCE, useExisting: Textarea }],
+    hostDirectives: [Bind]
 })
-export class Textarea extends BaseModelHolder {
+export class Textarea extends BaseModelHolder<TextareaPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcTextarea: Textarea | undefined = inject(TEXTAREA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -82,6 +92,7 @@ export class Textarea extends BaseModelHolder {
     }
 
     onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
         if (this.autoResize) {
             this.resize();
         }

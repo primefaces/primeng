@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { Component, DebugElement } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { providePrimeNG } from 'primeng/config';
 import { Textarea } from './textarea';
+import { TextareaPassThrough } from 'primeng/types/textarea';
 
 @Component({
     standalone: true,
@@ -39,6 +41,18 @@ class TestAdvancedTextareaComponent {
 })
 class TestReactiveFormTextareaComponent {
     textControl = new FormControl('');
+}
+
+@Component({
+    standalone: true,
+    imports: [Textarea, FormsModule],
+    template: ` <textarea pTextarea [(ngModel)]="value" [pt]="pt" [autoResize]="autoResize" [invalid]="invalid"></textarea> `
+})
+class TestPTTextareaComponent {
+    value: string = '';
+    pt: TextareaPassThrough | undefined = undefined as any;
+    autoResize: boolean = false;
+    invalid: boolean = false;
 }
 
 describe('Textarea', () => {
@@ -262,5 +276,318 @@ describe('Textarea', () => {
 
             expect(textareaEl.nativeElement.value).toBe(multilineContent);
         }));
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        let component: TestPTTextareaComponent;
+        let fixture: ComponentFixture<TestPTTextareaComponent>;
+        let textareaEl: HTMLTextAreaElement;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [TestPTTextareaComponent]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestPTTextareaComponent);
+            component = fixture.componentInstance;
+            const debugEl = fixture.debugElement.query(By.directive(Textarea));
+            textareaEl = debugEl.nativeElement;
+            fixture.detectChanges();
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            it('should apply root class from pt', fakeAsync(() => {
+                component.pt = { root: 'ROOT_CLASS' };
+                fixture.detectChanges();
+                tick();
+
+                expect(textareaEl.classList.contains('ROOT_CLASS')).toBe(true);
+            }));
+
+            it('should apply host class from pt', fakeAsync(() => {
+                component.pt = { host: 'HOST_CLASS' };
+                fixture.detectChanges();
+                tick();
+
+                expect(textareaEl.classList.contains('HOST_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 2: Objects', () => {
+            it('should apply root object with class, style, data attributes, and aria-label', fakeAsync(() => {
+                component.pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { borderColor: 'red' } as any,
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                };
+                fixture.detectChanges();
+                tick();
+
+                expect(textareaEl.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(textareaEl.style.borderColor).toBe('red');
+                expect(textareaEl.getAttribute('data-p-test')).toBe('true');
+                expect(textareaEl.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            }));
+
+            it('should apply host object with multiple attributes', fakeAsync(() => {
+                component.pt = {
+                    host: {
+                        class: 'HOST_OBJECT_CLASS',
+                        style: { padding: '10px' } as any,
+                        'data-custom': 'custom-value'
+                    }
+                };
+                fixture.detectChanges();
+                tick();
+
+                expect(textareaEl.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
+                expect(textareaEl.style.padding).toBe('10px');
+                expect(textareaEl.getAttribute('data-custom')).toBe('custom-value');
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed pt with root object and host string', fakeAsync(() => {
+                component.pt = {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    host: 'HOST_MIXED_CLASS'
+                };
+                fixture.detectChanges();
+                tick();
+
+                expect(textareaEl.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+                expect(textareaEl.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should access instance.invalid property in PT callback', fakeAsync(() => {
+                component.invalid = true;
+                let instanceAccessed = false;
+                component.pt = {
+                    root: ({ instance }) => {
+                        if ((instance as any)?.invalid()) {
+                            instanceAccessed = true;
+                        }
+                        return {
+                            class: {
+                                INVALID_CLASS: (instance as any)?.invalid()
+                            }
+                        };
+                    }
+                };
+                fixture.detectChanges();
+                tick();
+
+                expect(instanceAccessed).toBe(true);
+            }));
+
+            it('should access instance.autoResize property in PT callback', fakeAsync(() => {
+                component.autoResize = true;
+                let instanceAccessed = false;
+                component.pt = {
+                    root: ({ instance }) => {
+                        if ((instance as any)?.autoResize) {
+                            instanceAccessed = true;
+                        }
+                        return {
+                            class: {
+                                AUTO_RESIZE_ENABLED: (instance as any)?.autoResize
+                            }
+                        };
+                    }
+                };
+                fixture.detectChanges();
+                tick();
+
+                expect(instanceAccessed).toBe(true);
+            }));
+
+            it('should use instance properties for conditional styling', fakeAsync(() => {
+                component.invalid = true;
+                component.pt = {
+                    root: ({ instance }) => ({
+                        style: {
+                            borderColor: (instance as any)?.invalid() ? 'red' : 'green'
+                        } as any
+                    })
+                };
+                fixture.detectChanges();
+                tick();
+
+                expect(textareaEl.style.borderColor).toBe('red');
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should bind onclick event via PT', fakeAsync(() => {
+                let clicked = false;
+                component.pt = {
+                    root: () => ({
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    })
+                };
+                fixture.detectChanges();
+                tick();
+
+                textareaEl.click();
+                expect(clicked).toBe(true);
+            }));
+
+            it('should bind onfocus event via PT', fakeAsync(() => {
+                let focused = false;
+                component.pt = {
+                    root: () => ({
+                        onfocus: () => {
+                            focused = true;
+                        }
+                    })
+                };
+                fixture.detectChanges();
+                tick();
+
+                textareaEl.dispatchEvent(new Event('focus'));
+                expect(focused).toBe(true);
+            }));
+        });
+
+        describe('Case 6: Inline PT', () => {
+            it('should apply inline pt with string class', fakeAsync(() => {
+                const inlineFixture = TestBed.createComponent(TestPTTextareaComponent);
+                inlineFixture.componentInstance.pt = { root: 'INLINE_CLASS' };
+                inlineFixture.detectChanges();
+                tick();
+
+                const el = inlineFixture.debugElement.query(By.directive(Textarea)).nativeElement;
+                expect(el.classList.contains('INLINE_CLASS')).toBe(true);
+            }));
+
+            it('should apply inline pt with object', fakeAsync(() => {
+                const inlineFixture = TestBed.createComponent(TestPTTextareaComponent);
+                inlineFixture.componentInstance.pt = {
+                    root: {
+                        class: 'INLINE_OBJECT_CLASS'
+                    }
+                };
+                inlineFixture.detectChanges();
+                tick();
+
+                const el = inlineFixture.debugElement.query(By.directive(Textarea)).nativeElement;
+                expect(el.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            it('should apply global pt configuration', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [TestPTTextareaComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                textarea: {
+                                    host: { 'aria-label': 'GLOBAL_ARIA_LABEL' }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(TestPTTextareaComponent);
+                globalFixture.detectChanges();
+                tick();
+
+                const el = globalFixture.debugElement.query(By.directive(Textarea)).nativeElement;
+                expect(el.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
+            }));
+
+            it('should apply global css from PrimeNGConfig', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [TestPTTextareaComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                textarea: {
+                                    root: 'GLOBAL_CLASS',
+                                    global: {
+                                        css: `textarea { border: 2px solid blue !important; }`
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(TestPTTextareaComponent);
+                globalFixture.detectChanges();
+                tick();
+
+                const el = globalFixture.debugElement.query(By.directive(Textarea)).nativeElement;
+                expect(el.classList.contains('GLOBAL_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 8: Hooks', () => {
+            it('should execute onAfterViewInit hook', fakeAsync(() => {
+                let hookCalled = false;
+                component.pt = {
+                    root: 'HOOK_CLASS',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                };
+
+                // Recreate component to trigger lifecycle hooks
+                const newFixture = TestBed.createComponent(TestPTTextareaComponent);
+                newFixture.componentInstance.pt = component.pt;
+                newFixture.detectChanges();
+                tick();
+
+                expect(hookCalled).toBe(true);
+            }));
+
+            it('should execute onAfterViewChecked hook', fakeAsync(() => {
+                let hookCallCount = 0;
+                component.pt = {
+                    root: 'HOOK_CLASS',
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            hookCallCount++;
+                        }
+                    }
+                };
+                fixture.detectChanges();
+                tick();
+
+                expect(hookCallCount).toBeGreaterThan(0);
+            }));
+
+            it('should execute onDestroy hook', fakeAsync(() => {
+                let hookCalled = false;
+                component.pt = {
+                    root: 'HOOK_CLASS',
+                    hooks: {
+                        onDestroy: () => {
+                            hookCalled = true;
+                        }
+                    }
+                };
+                fixture.detectChanges();
+                tick();
+
+                fixture.destroy();
+                expect(hookCalled).toBe(true);
+            }));
+        });
     });
 });
