@@ -1,7 +1,6 @@
 {
-    "id": 89,
-    "content": "Unlock the Power of Next-Gen PrimeBlocks | Now Available! 🎉",
+    "id": 90,
+    "content": "Introducing CI Pipeline for Figma to Theme Code ⭐️",
     "linkText": "Learn More",
-    "linkHref": "https://primeblocks.org",
-    "target": "_blank"
+    "routerLink": "/designer/ci"
 }
