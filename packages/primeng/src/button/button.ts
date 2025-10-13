@@ -34,6 +34,8 @@ import { ButtonStyle } from './style/buttonstyle';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
 
+const BUTTON_DIRECTIVE_INSTANCE = new InjectionToken<ButtonDirective>('BUTTON_DIRECTIVE_INSTANCE');
+
 export type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
 const INTERNAL_BUTTON_CLASSES = {
@@ -75,13 +77,24 @@ export class ButtonIcon extends BaseComponent {
 @Directive({
     selector: '[pButton]',
     standalone: true,
-    providers: [ButtonStyle],
+    providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }],
     host: {
         '[class.p-button-icon-only]': 'isIconOnly()',
         '[class.p-button-text]': 'isTextButton()'
-    }
+    },
+    hostDirectives: [Bind]
 })
 export class ButtonDirective extends BaseComponent {
+    $pcButtonDirective: ButtonDirective | undefined = inject(BUTTON_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(ButtonStyle);
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+    }
+
     /**
      * Add a textual class to the button without a background initially.
      * @group Props
@@ -267,8 +280,6 @@ export class ButtonDirective extends BaseComponent {
             </clipPath>
         </defs>
     </svg>`;
-
-    _componentStyle = inject(ButtonStyle);
 
     onAfterViewInit() {
         addClass(this.htmlElement, this.getStyleClass().join(' '));

@@ -2,12 +2,13 @@ import { AccessibilityDoc } from '@/doc/picklist/accessibilitydoc';
 import { BasicDoc } from '@/doc/picklist/basicdoc';
 import { FilterDoc } from '@/doc/picklist/filterdoc';
 import { ImportDoc } from '@/doc/picklist/importdoc';
+import { PTComponent } from '@/doc/picklist/pt/PTComponent';
 import { TemplateDoc } from '@/doc/picklist/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular PickList Component" header="PickList" description="PickList is used to reorder items between different lists." [docs]="docs" [apiDocs]="['PickList']" themeDocs="picklist"></app-doc>`,
+    template: `<app-doc docTitle="Angular PickList Component" header="PickList" description="PickList is used to reorder items between different lists." [docs]="docs" [apiDocs]="['PickList']" [ptDocs]="ptComponent" themeDocs="picklist"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
     styleUrl: './picklistdemo.scss'
@@ -40,4 +41,6 @@ export class PickListDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }
