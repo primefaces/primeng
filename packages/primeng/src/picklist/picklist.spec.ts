@@ -1509,7 +1509,7 @@ describe('PickList', () => {
             it('should access instance.showSourceControls property in PT callback', fakeAsync(() => {
                 ptPicklist.showSourceControls = true;
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
+                    host: ({ instance }) => {
                         return {
                             class: {
                                 SOURCE_CONTROLS_VISIBLE: instance?.showSourceControls
@@ -1520,16 +1520,15 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
                 tick();
 
-                const rootEl = ptFixture.debugElement.query(By.css('[class*="p-picklist"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('SOURCE_CONTROLS_VISIBLE')).toBe(true);
-                }
+                // host is the component's root element
+                const hostEl = ptFixture.debugElement.nativeElement;
+                expect(hostEl.classList.contains('SOURCE_CONTROLS_VISIBLE')).toBe(true);
             }));
 
             it('should access instance.showTargetControls property in PT callback', fakeAsync(() => {
                 ptPicklist.showTargetControls = true;
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
+                    host: ({ instance }) => {
                         return {
                             class: {
                                 TARGET_CONTROLS_VISIBLE: instance?.showTargetControls
@@ -1540,10 +1539,9 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
                 tick();
 
-                const rootEl = ptFixture.debugElement.query(By.css('[class*="p-picklist"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('TARGET_CONTROLS_VISIBLE')).toBe(true);
-                }
+                // host is the component's root element
+                const hostEl = ptFixture.debugElement.nativeElement;
+                expect(hostEl.classList.contains('TARGET_CONTROLS_VISIBLE')).toBe(true);
             }));
 
             it('should access instance.source array in PT callback', fakeAsync(() => {
@@ -1625,7 +1623,7 @@ describe('PickList', () => {
 
             it('should access instance.$pcPickList in nested picklist PT callback', fakeAsync(() => {
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
+                    host: ({ instance }) => {
                         return {
                             class: 'NESTED_TEST',
                             'data-has-parent': instance?.$pcPickList ? 'true' : 'false'
@@ -1637,8 +1635,9 @@ describe('PickList', () => {
 
                 // In standalone picklist, $pcPickList should be undefined
                 expect(ptPicklist.$pcPickList).toBeUndefined();
-                const rootEl = ptFixture.debugElement.query(By.css('[class*="p-picklist"]'));
-                expect(rootEl?.nativeElement.getAttribute('data-has-parent')).toBe('false');
+                // host is the component's root element
+                const hostEl = ptFixture.debugElement.nativeElement;
+                expect(hostEl.getAttribute('data-has-parent')).toBe('false');
             }));
 
             it('should use instance properties for complex conditional PT', fakeAsync(() => {

@@ -1,18 +1,14 @@
-import { AccessibilityDoc } from '@/doc/message/accessibilitydoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { BasicDoc } from '@/doc/message/basicdoc';
-import { ClosableDoc } from '@/doc/message/closabledoc';
-import { DynamicDoc } from '@/doc/message/dynamicdoc';
 import { FormDoc } from '@/doc/message/formdoc';
 import { IconDoc } from '@/doc/message/icondoc';
 import { ImportDoc } from '@/doc/message/importdoc';
-import { LifeDoc } from '@/doc/message/lifedoc';
 import { OutlinedDoc } from '@/doc/message/outlineddoc';
+import { PTComponent } from '@/doc/message/pt/PTComponent';
 import { SeverityDoc } from '@/doc/message/severitydoc';
 import { SimpleDoc } from '@/doc/message/simpledoc';
 import { SizesDoc } from '@/doc/message/sizesdoc';
-import { PTComponent } from '@/doc/message/pt/PTComponent';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" [ptDocs]="ptComponent" themeDocs="message"></app-doc>`,
@@ -62,26 +58,26 @@ export class MessageDemo {
             id: 'forms',
             label: 'Forms',
             component: FormDoc
-        },
-        {
-            id: 'dynamic',
-            label: 'Dynamic',
-            component: DynamicDoc
-        },
-        {
-            id: 'closable',
-            label: 'Closable',
-            component: ClosableDoc
-        },
-        {
-            id: 'life',
-            label: 'Life',
-            component: LifeDoc
-        },
-        {
-            id: 'accessibility',
-            label: 'Accessibility',
-            component: AccessibilityDoc
         }
+        // {
+        //     id: 'dynamic',
+        //     label: 'Dynamic',
+        //     component: DynamicDoc
+        // },
+        // {
+        //     id: 'closable',
+        //     label: 'Closable',
+        //     component: ClosableDoc
+        // },
+        // {
+        //     id: 'life',
+        //     label: 'Life',
+        //     component: LifeDoc
+        // },
+        // {
+        //     id: 'accessibility',
+        //     label: 'Accessibility',
+        //     component: AccessibilityDoc
+        // }
     ];
 }

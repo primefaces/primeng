@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, HostBinding, inject, InjectionToken, Input, NgModule } from '@angular/core';
+import { Component, HostBinding, inject, InjectionToken, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -22,7 +22,7 @@ const INPUTGROUPADDON_INSTANCE = new InjectionToken<InputGroupAddon>('INPUTGROUP
     providers: [InputGroupAddonStyle, { provide: INPUTGROUPADDON_INSTANCE, useExisting: InputGroupAddon }, { provide: PARENT_INSTANCE, useExisting: InputGroupAddon }],
     hostDirectives: [Bind]
 })
-export class InputGroupAddon extends BaseComponent<InputGroupAddonPassThrough> implements AfterViewChecked {
+export class InputGroupAddon extends BaseComponent<InputGroupAddonPassThrough> {
     _componentStyle = inject(InputGroupAddonStyle);
 
     $pcInputGroupAddon: InputGroupAddon | undefined = inject(INPUTGROUPADDON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -16,9 +15,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
     Optional,
     Output,
     QueryList,
@@ -33,7 +29,7 @@ import { find, findSingle, focus, getOuterHeight, getOuterWidth, hasClass, remov
 import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
+import { Bind, BindModule } from 'primeng/bind';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
 import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from 'primeng/icons';
@@ -65,7 +61,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
 @Component({
     selector: 'p-treeNode',
     standalone: true,
-    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule, Bind],
+    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule, BindModule],
     template: `
         @if (node) {
             <li
@@ -726,7 +722,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         @if (filterTemplate || _filterTemplate) {
             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
         } @else {
-            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')" [pBind]="ptm('pcFilterContainer')">
+            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')" [pt]="ptm('pcFilterContainer')">
                 <input
                     #filter
                     [pAutoFocus]="filterInputAutoFocus"
@@ -737,7 +733,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                     [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()"
                     (input)="_filter($event.target?.value)"
-                    [pBind]="ptm('pcFilterInput')"
+                    [pt]="ptm('pcFilterInput')"
                 />
                 <p-inputicon>
                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')" />
@@ -764,6 +760,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                 (onLazyLoad)="onLazyLoad.emit($event)"
                 [options]="virtualScrollOptions"
                 [pt]="ptm('pcScroller')"
+                hostName="tree"
             >
                 <ng-template #content let-items let-scrollerOptions="options">
                     <ul

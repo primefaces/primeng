@@ -4,18 +4,19 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'inputgroup-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, InputGroupModule, InputGroupAddonModule, InputNumberModule, FormsModule],
+    imports: [CommonModule, AppDocPtViewer, InputGroupModule, InputGroupAddonModule, InputTextModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-inputnumber [(ngModel)]="value" placeholder="Price" />
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
+                <p-inputgroup-addon>
+                    <i class="pi pi-user"></i>
+                </p-inputgroup-addon>
+                <input pInputText [(ngModel)]="value" placeholder="Username" />
             </p-inputgroup>
         </app-docptviewer>
     `

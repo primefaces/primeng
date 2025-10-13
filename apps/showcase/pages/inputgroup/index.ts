@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/inputgroup/accessibilitydoc';
 import { BasicDoc } from '@/doc/inputgroup/basicdoc';
 import { ButtonDoc } from '@/doc/inputgroup/buttondoc';
@@ -8,7 +9,6 @@ import { ImportDoc } from '@/doc/inputgroup/importdoc';
 import { MultipleDoc } from '@/doc/inputgroup/multipledoc';
 import { PTComponent } from '@/doc/inputgroup/pt/PTComponent';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" [ptDocs]="ptComponent" themeDocs="inputgroup"></app-doc> `,

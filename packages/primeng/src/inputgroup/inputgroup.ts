@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, inject, InjectionToken, Input, NgModule } from '@angular/core';
+import { Component, inject, InjectionToken, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -22,7 +22,7 @@ const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE'
         '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class InputGroup extends BaseComponent<InputGroupPassThrough> implements AfterViewChecked {
+export class InputGroup extends BaseComponent<InputGroupPassThrough> {
     _componentStyle = inject(InputGroupStyle);
 
     $pcInputGroup: InputGroup | undefined = inject(INPUTGROUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

@@ -27,8 +27,6 @@
 */
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -41,7 +39,6 @@ import {
     InjectionToken,
     Input,
     NgModule,
-    OnInit,
     Output,
     QueryList,
     TemplateRef,
@@ -49,17 +46,17 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getUserAgent, isClient } from '@primeuix/utils';
+import { getUserAgent, isClient, mergeProps } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseInput } from 'primeng/baseinput';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
 import { TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
-import { InputMaskPassThrough } from 'primeng/types/inputmask';
 import type { Caret } from 'primeng/types/inputmask';
+import { InputMaskPassThrough } from 'primeng/types/inputmask';
 import { InputMaskStyle } from './style/inputmaskstyle';
 
 const INPUTMASK_INSTANCE = new InjectionToken<InputMask>('INPUTMASK_INSTANCE');
@@ -81,8 +78,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [pBind]="ptm('root')"
-            [pt]="ptm('pcInputText')"
+            [pt]="rootPTOptions()"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name()"
@@ -128,7 +124,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         '[class]': "cx('root')"
     }
 })
-export class InputMask extends BaseInput<InputMaskPassThrough> implements AfterViewChecked {
+export class InputMask extends BaseInput<InputMaskPassThrough> {
     _componentStyle = inject(InputMaskStyle);
 
     $pcInputMask: InputMask | undefined = inject(INPUTMASK_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -137,6 +133,20 @@ export class InputMask extends BaseInput<InputMaskPassThrough> implements AfterV
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
+    rootPTOptions() {
+        return {
+            root: mergeProps(this.ptm('pcInputText', this.ptmParams)['root'])
+        };
+    }
+
+    ptmParams() {
+        return {
+            context: {
+                filled: this.$variant() === 'filled'
+            }
+        };
     }
 
     /**
