@@ -77,7 +77,7 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
