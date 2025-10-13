@@ -93,7 +93,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (click)="onInputClick()"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
-            [pBind]="ptm('pcInputText')"
+            [pt]="ptm('pcInputText')"
             [pAutoFocus]="autofocus"
             [fluid]="hasFluid"
         />

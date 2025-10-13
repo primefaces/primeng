@@ -49,7 +49,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getUserAgent, isClient } from '@primeuix/utils';
+import { getUserAgent, isClient, mergeProps } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseInput } from 'primeng/baseinput';
@@ -81,8 +81,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [pBind]="ptm('root')"
-            [pt]="ptm('pcInputText')"
+            [pt]="rootPTOptions()"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name()"
@@ -323,6 +322,12 @@ export class InputMask extends BaseInput<InputMaskPassThrough> implements AfterV
     androidChrome: boolean = true;
 
     focused: Nullable<boolean>;
+
+    rootPTOptions() {
+        return {
+            root: mergeProps(this.ptm('pcInputText'), this.ptm('root'))
+        };
+    }
 
     onInit() {
         if (isPlatformBrowser(this.platformId)) {
