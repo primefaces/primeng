@@ -13,7 +13,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     imports: [CommonModule, AppDocPtViewer, ToolbarModule, ButtonModule, InputTextModule, IconFieldModule, InputIconModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-toolbar>
+            <p-toolbar class="w-full">
                 <ng-template #start>
                     <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
                     <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
