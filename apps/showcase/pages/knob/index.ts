@@ -4,6 +4,7 @@ import { ColorDoc } from '@/doc/knob/colordoc';
 import { DisabledDoc } from '@/doc/knob/disableddoc';
 import { ImportDoc } from '@/doc/knob/importdoc';
 import { MinMaxDoc } from '@/doc/knob/minmaxdoc';
+import { PTComponent } from '@/doc/knob/pt/PTComponent';
 import { ReactiveDoc } from '@/doc/knob/reactivedoc';
 import { ReactiveFormsDoc } from '@/doc/knob/reactiveformsdoc';
 import { ReadonlyDoc } from '@/doc/knob/readonlydoc';
@@ -16,7 +17,7 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Knob Component" header="Knob" description="Knob is a form component to define number inputs with a dial." [docs]="docs" [apiDocs]="['Knob']" themeDocs="knob"></app-doc> `,
+    template: `<app-doc docTitle="Angular Knob Component" header="Knob" description="Knob is a form component to define number inputs with a dial." [docs]="docs" [apiDocs]="['Knob']" themeDocs="knob" [ptDocs]="ptComponent"></app-doc> `,
     standalone: true,
     imports: [AppDoc]
 })
@@ -91,4 +92,6 @@ export class KnobDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

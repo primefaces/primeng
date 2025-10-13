@@ -8,6 +8,7 @@ import { InvalidDoc } from '@/doc/radiobutton/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/radiobutton/reactiveformsdoc';
 import { SizesDoc } from '@/doc/radiobutton/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/radiobutton/templatedrivenformsdoc';
+import { PTComponent } from '@/doc/radiobutton/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 import { AppDocService } from '@/components/doc/app.doc.service';
@@ -18,12 +19,14 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         description="RadioButton is an extension to standard radio button element with theming."
         [docs]="docs"
         [apiDocs]="['RadioButton']"
+        [ptDocs]="ptComponent"
         themeDocs="radiobutton"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class RadioButtonDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

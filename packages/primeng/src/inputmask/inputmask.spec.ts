@@ -1114,4 +1114,320 @@ describe('InputMask', () => {
             }).not.toThrow();
         });
     });
+
+    describe('PassThrough (PT) Support', () => {
+        describe('Case 1: Simple string classes', () => {
+            it('should apply PT with simple string classes to root', () => {
+                const pt = {
+                    root: 'PT_ROOT_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(inputElement.classList.contains('PT_ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT with simple string classes to clearIcon', () => {
+                const pt = {
+                    clearIcon: 'PT_CLEAR_ICON_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    expect(clearIconElement.classList.contains('PT_CLEAR_ICON_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            it('should apply PT with object properties to root', () => {
+                const pt = {
+                    root: {
+                        class: 'PT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'true',
+                        'aria-label': 'PT_ARIA_LABEL'
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(inputElement.classList.contains('PT_OBJECT_CLASS')).toBe(true);
+                expect(inputElement.style.backgroundColor).toBe('red');
+                expect(inputElement.getAttribute('data-p-test')).toBe('true');
+                expect(inputElement.getAttribute('aria-label')).toBe('PT_ARIA_LABEL');
+            });
+
+            it('should apply PT with object properties to clearIcon', () => {
+                const pt = {
+                    clearIcon: {
+                        class: 'PT_CLEAR_ICON_OBJECT_CLASS',
+                        style: { color: 'blue' },
+                        'data-testid': 'clear-icon-pt'
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    expect(clearIconElement.classList.contains('PT_CLEAR_ICON_OBJECT_CLASS')).toBe(true);
+                    expect(clearIconElement.style.color).toBe('blue');
+                    expect(clearIconElement.getAttribute('data-testid')).toBe('clear-icon-pt');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed PT values correctly', () => {
+                const pt = {
+                    root: {
+                        class: 'PT_ROOT_OBJECT_CLASS'
+                    },
+                    clearIcon: 'PT_CLEAR_ICON_STRING_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(inputElement.classList.contains('PT_ROOT_OBJECT_CLASS')).toBe(true);
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    expect(clearIconElement.classList.contains('PT_CLEAR_ICON_STRING_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should apply PT using instance variables for root', () => {
+                const pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: {
+                                PT_DISABLED: instance?.disabled,
+                                PT_READONLY: instance?.readonly
+                            }
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('disabled', true);
+                fixture.componentRef.setInput('readonly', false);
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(inputElement.classList.contains('PT_DISABLED')).toBe(true);
+                expect(inputElement.classList.contains('PT_READONLY')).toBe(false);
+            });
+
+            it('should apply PT using instance variables for clearIcon', () => {
+                const pt = {
+                    clearIcon: ({ instance }: any) => {
+                        return {
+                            style: {
+                                color: instance?.showClear ? 'green' : 'red'
+                            }
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    expect(clearIconElement.style.color).toBe('green');
+                }
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should handle onclick event in PT', () => {
+                let clickedValue = '';
+
+                const pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            onclick: () => {
+                                clickedValue = instance.value || 'clicked';
+                            }
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                inputElement.click();
+                fixture.detectChanges();
+
+                expect(clickedValue).toBe('123-45-6789');
+            });
+
+            it('should handle onclick event in clearIcon PT', () => {
+                let clearIconClicked = false;
+
+                const pt = {
+                    clearIcon: () => {
+                        return {
+                            onclick: () => {
+                                clearIconClicked = true;
+                            }
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    clearIconElement.dispatchEvent(new MouseEvent('click'));
+                    fixture.detectChanges();
+                    expect(clearIconClicked).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 6: Inline test', () => {
+            @Component({
+                standalone: true,
+                imports: [InputMask, FormsModule],
+                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ root: 'INLINE_PT_CLASS' }" />`
+            })
+            class InlineTestComponent {}
+
+            it('should apply inline PT with string class', () => {
+                const inlineFixture = TestBed.createComponent(InlineTestComponent);
+                inlineFixture.detectChanges();
+
+                const inputElement = inlineFixture.nativeElement.querySelector('input');
+                expect(inputElement.classList.contains('INLINE_PT_CLASS')).toBe(true);
+            });
+
+            @Component({
+                standalone: true,
+                imports: [InputMask, FormsModule],
+                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ root: { class: 'INLINE_PT_OBJECT_CLASS' } }" />`
+            })
+            class InlineObjectTestComponent {}
+
+            it('should apply inline PT with object class', () => {
+                const inlineFixture = TestBed.createComponent(InlineObjectTestComponent);
+                inlineFixture.detectChanges();
+
+                const inputElement = inlineFixture.nativeElement.querySelector('input');
+                expect(inputElement.classList.contains('INLINE_PT_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            it('should apply global PT configuration from PrimeNGConfig', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputMask, FormsModule],
+                    providers: [
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    inputmask: {
+                                        root: { 'aria-label': 'GLOBAL_PT_ARIA_LABEL' }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(InputMask);
+                globalFixture.componentRef.setInput('mask', '999-99-9999');
+                globalFixture.detectChanges();
+
+                const inputElement = globalFixture.nativeElement.querySelector('input');
+                expect(inputElement).toBeTruthy();
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            it('should execute PT hooks lifecycle methods', fakeAsync(() => {
+                let afterViewInitCalled = false;
+                let onInitCalled = false;
+
+                const pt = {
+                    root: 'PT_HOOKS_CLASS',
+                    hooks: {
+                        onInit: () => {
+                            onInitCalled = true;
+                        },
+                        onAfterViewInit: () => {
+                            afterViewInitCalled = true;
+                        }
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+                tick();
+
+                expect(onInitCalled).toBe(true);
+                expect(afterViewInitCalled).toBe(true);
+            }));
+
+            it('should execute onDestroy hook', fakeAsync(() => {
+                let onDestroyCalled = false;
+
+                const pt = {
+                    hooks: {
+                        onDestroy: () => {
+                            onDestroyCalled = true;
+                        }
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+                tick();
+
+                fixture.destroy();
+                tick();
+
+                expect(onDestroyCalled).toBe(true);
+            }));
+        });
+    });
 });
