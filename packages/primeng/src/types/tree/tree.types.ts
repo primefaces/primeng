@@ -4,6 +4,8 @@ import { ScrollerOptions, TreeNode } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 import type { ScrollerPassThrough } from 'primeng/types/scroller';
 import type { CheckboxPassThrough } from 'primeng/types/checkbox';
+import type { IconFieldPassThrough } from 'primeng/types/iconfield';
+import type { InputIconPassThrough } from 'primeng/types/inputicon';
 
 /**
  * Custom node select event.
@@ -229,7 +231,11 @@ export interface TreePassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the filter container's DOM element.
      */
-    pcFilterContainer?: PassThroughOption<HTMLDivElement, I>;
+    pcFilterContainer?: IconFieldPassThrough;
+    /**
+     * Used to pass attributes to the filter icon container's DOM element.
+     */
+    pcFilterIconContainer?: InputIconPassThrough;
     /**
      * Used to pass attributes to the filter input's DOM element.
      */

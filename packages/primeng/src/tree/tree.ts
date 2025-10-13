@@ -726,7 +726,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         @if (filterTemplate || _filterTemplate) {
             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
         } @else {
-            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')" [pBind]="ptm('pcFilterContainer')">
+            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')" [pt]="ptm('pcFilterContainer')">
                 <input
                     #filter
                     [pAutoFocus]="filterInputAutoFocus"
@@ -737,9 +737,9 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                     [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()"
                     (input)="_filter($event.target?.value)"
-                    [pBind]="ptm('pcFilterInput')"
+                    [pt]="ptm('pcFilterInput')"
                 />
-                <p-inputicon>
+                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')" />
                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
