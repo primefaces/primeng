@@ -60,7 +60,7 @@ export class AppDocThemingSection {
         }
 
         if (APIDoc[docName]) {
-            const classes = APIDoc[docName]['style'] && APIDoc[docName]['style']['classes']['values'];
+            const classes = APIDoc[docName]['style'] && APIDoc[docName]['style']['classes'] && APIDoc[docName]['style']['classes']['values'];
             this.classDoc.set({ classes: classes });
 
             this.navItems.update((prev) => [
