@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
     selector: 'confirmdialog-pt-viewer',
@@ -10,8 +10,8 @@ import { ConfirmationService } from 'primeng/api';
     imports: [CommonModule, AppDocPtViewer, ConfirmDialogModule],
     providers: [ConfirmationService],
     template: `
-        <app-docptviewer [docs]="docs">
-            <p-confirmDialog [style]="{ width: '25rem' }"></p-confirmDialog>
+        <app-docptviewer [docs]="docs" #docref>
+            <p-confirmdialog [style]="{ width: '25rem' }" maskStyleClass="!relative !rounded-[2rem]" styleClass="!relative" [appendTo]="docref?.nativeElement"></p-confirmdialog>
         </app-docptviewer>
     `
 })

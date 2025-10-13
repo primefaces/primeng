@@ -66,6 +66,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [draggable]="draggable"
             [baseZIndex]="baseZIndex"
             [autoZIndex]="autoZIndex"
+            [maskStyleClass]="cn(cx('mask'), maskStyleClass)"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -117,7 +118,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     >
                         <ng-template #icon>
                             @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
-                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
+                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')" [pBind]="ptm('pcRejectButton')['icon']"></i>
                             }
                             <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
                         </ng-template>
@@ -133,7 +134,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     >
                         <ng-template #icon>
                             @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
-                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
+                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')" [pBind]="ptm('pcAcceptButton')['icon']"></i>
                             }
                             <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
                         </ng-template>
@@ -154,7 +155,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     bindDirectiveInstance = inject(Bind, { self: true });
 
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
     /**
