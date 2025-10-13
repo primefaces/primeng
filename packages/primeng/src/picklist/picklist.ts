@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BindModule } from 'primeng/bind';
+import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'primeng/icons';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
@@ -44,7 +44,7 @@ import {
 } from 'primeng/types/picklist';
 import { PickListStyle } from './style/pickliststyle';
 
-const PICKLIST_INSTANCE = new InjectionToken<Listbox>('PICKLIST_INSTANCE');
+const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
 
 /**
  * PickList is used to reorder items between different lists.
@@ -130,7 +130,7 @@ const PICKLIST_INSTANCE = new InjectionToken<Listbox>('PICKLIST_INSTANCE');
                     (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [attr.data-pc-section]="'sourceMoveBottomButton'"
                     [buttonProps]="getButtonProps('movebottom')"
-                    [pt]="ptm('pcSourceMoveUpButton')"
+                    [pt]="ptm('pcSourceMoveBottomButton')"
                     hostName="picklist"
                 >
                     <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate || _moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" pButtonIcon [pBind]="ptm('pcSourceMoveBottomButton')['icon']" />
@@ -405,9 +405,19 @@ const PICKLIST_INSTANCE = new InjectionToken<Listbox>('PICKLIST_INSTANCE');
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PickListStyle, { provide: PARENT_INSTANCE, useExisting: Listbox }, { provide: PICKLIST_INSTANCE, useExisting: Listbox }]
+    providers: [PickListStyle, { provide: PARENT_INSTANCE, useExisting: PickList }, { provide: PICKLIST_INSTANCE, useExisting: PickList }],
+    hostDirectives: [Bind]
 })
 export class PickList extends BaseComponent {
+    @Input() hostName: any = '';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcPickList: PickList | undefined = inject(PICKLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
     /**
      * An array of objects for the source list.
      * @group Props
