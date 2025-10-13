@@ -283,7 +283,7 @@ export class SelectItem extends BaseComponent {
                             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
-                            <p-iconfield [pBind]="ptm('pcFilterContainer')">
+                            <p-iconfield [pt]="ptm('pcFilterContainer')">
                                 <input
                                     #filter
                                     pInputText
@@ -301,9 +301,9 @@ export class SelectItem extends BaseComponent {
                                     [attr.aria-activedescendant]="focusedOptionId"
                                     (keydown)="onFilterKeyDown($event)"
                                     (blur)="onFilterBlur($event)"
-                                    [pBind]="ptm('pcFilter')"
+                                    [pt]="ptm('pcFilter')"
                                 />
-                                <p-inputicon [pBind]="ptm('pcFilterIconContainer')">
+                                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
                                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [pBind]="ptm('filterIcon')" />
                                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('filterIcon')">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
