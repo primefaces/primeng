@@ -4,9 +4,10 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
+import { ListboxChangeEvent } from 'primeng/types/listbox';
 import { BehaviorSubject, Observable, delay, of } from 'rxjs';
 import { Listbox } from './listbox';
-import { ListboxChangeEvent } from './listbox.interface';
 
 @Component({
     standalone: false,
