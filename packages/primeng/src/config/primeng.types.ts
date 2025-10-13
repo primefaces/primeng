@@ -45,6 +45,7 @@ import type { MenubarPassThrough } from 'primeng/types/menubar';
 import { MessagePassThrough } from 'primeng/types/message';
 import type { MeterGroupPassThrough } from 'primeng/types/metergroup';
 import type { OrderListPassThrough } from 'primeng/types/orderlist';
+import type { OrganizationChartPassThrough } from 'primeng/types/organizationchart';
 import { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
 import type { PanelPassThrough } from 'primeng/types/panel';
 import type { PanelMenuPassThrough } from 'primeng/types/panelmenu';
@@ -138,6 +139,7 @@ export interface GlobalPassThrough {
     message?: MessagePassThrough;
     meterGroup?: MeterGroupPassThrough;
     orderList?: OrderListPassThrough;
+    organizationChart?: OrganizationChartPassThrough;
     overlayBadge?: OverlayBadgePassThrough;
     progressBar?: ProgressBarPassThrough;
     progressSpinner?: ProgressSpinnerPassThrough;

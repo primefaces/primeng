@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, effect, input } from '@angular/core';
 import { AppDocSectionNav } from './app.docsection-nav';
 
 @Component({
@@ -22,14 +22,20 @@ export class AppDocPtSection {
 
     componentName = input<string>('');
 
+    constructor() {
+        effect(() => {
+            console.log(this.componentName());
+        });
+    }
+
     navItems = computed(() => [
         {
             id: 'pt.viewer',
             label: 'Viewer'
         },
         {
-            id: 'pt.doc.options',
-            label: this.componentName().charAt(0).toUpperCase() + this.componentName().slice(1) + ' PT Options'
+            id: 'pt.doc.options'
+            // label: this.componentName().charAt(0).toUpperCase() + this.componentName().slice(1) + ' PT Options'
         }
     ]);
 }
