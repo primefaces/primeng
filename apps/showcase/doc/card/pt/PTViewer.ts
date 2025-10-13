@@ -19,8 +19,8 @@ import { CardModule } from 'primeng/card';
                 </p>
                 <ng-template #footer>
                     <div class="flex gap-4 mt-1">
-                        <p-button label="Cancel" severity="secondary" [outlined]="true" class="w-full" />
-                        <p-button label="Save" class="w-full" />
+                        <button pButton label="Cancel" severity="secondary" [outlined]="true" class="w-full"></button>
+                        <button pButton label="Save" class="w-full"></button>
                     </div>
                 </ng-template>
             </p-card>
