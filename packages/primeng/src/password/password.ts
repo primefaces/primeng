@@ -1,7 +1,6 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -14,13 +13,12 @@ import {
     forwardRef,
     HostListener,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
     NgZone,
     numberAttribute,
-    OnDestroy,
-    OnInit,
     Output,
     Pipe,
     PipeTransform,
@@ -34,16 +32,23 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { BaseInput } from 'primeng/baseinput';
+import { Bind, BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Fluid } from 'primeng/fluid';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { PasswordPassThrough } from 'primeng/types/password';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
+
+const PASSWORD_DIRECTIVE_INSTANCE = new InjectionToken<PasswordDirective>('PASSWORD_DIRECTIVE_INSTANCE');
+
+const PASSWORD_INSTANCE = new InjectionToken<Password>('PASSWORD_INSTANCE');
 
 type Meter = {
     strength: string;
@@ -59,9 +64,17 @@ type Meter = {
     host: {
         '[class]': "cx('rootDirective')"
     },
-    providers: [PasswordStyle]
+    providers: [PasswordStyle, { provide: PASSWORD_DIRECTIVE_INSTANCE, useExisting: PasswordDirective }, { provide: PARENT_INSTANCE, useExisting: PasswordDirective }],
+    hostDirectives: [Bind]
 })
 export class PasswordDirective extends BaseEditableHolder {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcPasswordDirective: PasswordDirective | undefined = inject(PASSWORD_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -397,7 +410,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, SharedModule, BindModule],
     template: `
         <input
             #input
@@ -425,26 +438,26 @@ export const Password_VALUE_ACCESSOR: any = {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keyup)="onKeyUp($event)"
-            [attr.data-pc-section]="'input'"
             [pAutoFocus]="autofocus"
+            [pt]="ptm('pcInputText')"
         />
         <ng-container *ngIf="showClear && value != null">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span (click)="clear()" [class]="cx('clearIcon')" [attr.data-pc-section]="'clearIcon'">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [pBind]="ptm('clearIcon')" />
+            <span (click)="clear()" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
 
         <ng-container *ngIf="toggleMask">
             <ng-container *ngIf="unmasked">
-                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
-                <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()">
+                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" />
+                <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()" [pBind]="ptm('maskIcon')">
                     <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
                 </span>
             </ng-container>
             <ng-container *ngIf="!unmasked">
-                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
-                <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()">
+                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" [pBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
+                <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()" [pBind]="ptm('unmaskIcon')">
                     <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
                 </span>
             </ng-container>
@@ -462,35 +475,42 @@ export const Password_VALUE_ACCESSOR: any = {
             }"
             (@overlayAnimation.start)="onAnimationStart($event)"
             (@overlayAnimation.done)="onAnimationEnd($event)"
-            [attr.data-pc-section]="'panel'"
+            [pBind]="ptm('overlay')"
         >
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
             <ng-container *ngIf="contentTemplate || _contentTemplate; else content">
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </ng-container>
             <ng-template #content>
-                <div [class]="cx('content')">
-                    <div [class]="cx('meter')" [attr.data-pc-section]="'meter'">
-                        <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
+                <div [class]="cx('content')" [pBind]="ptm('content')">
+                    <div [class]="cx('meter')" [pBind]="ptm('meter')">
+                        <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')"></div>
                     </div>
-                    <div [class]="cx('meterText')" [attr.data-pc-section]="'info'">{{ infoText }}</div>
+                    <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
                 </div>
             </ng-template>
             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
-    providers: [Password_VALUE_ACCESSOR, PasswordStyle],
+    providers: [Password_VALUE_ACCESSOR, PasswordStyle, { provide: PASSWORD_INSTANCE, useExisting: Password }, { provide: PARENT_INSTANCE, useExisting: Password }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')",
-        'data-pc-name': 'password',
-        'data-pc-section': 'root'
-    }
+        '[style]': "sx('root')"
+    },
+    hostDirectives: [Bind]
 })
-export class Password extends BaseInput {
+export class Password extends BaseInput<PasswordPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcPassword: Password | undefined = inject(PASSWORD_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -986,7 +1006,7 @@ export class Password extends BaseInput {
 }
 
 @NgModule({
-    imports: [Password, PasswordDirective, SharedModule],
-    exports: [PasswordDirective, Password, SharedModule]
+    imports: [Password, PasswordDirective, SharedModule, BindModule],
+    exports: [PasswordDirective, Password, SharedModule, BindModule]
 })
 export class PasswordModule {}
