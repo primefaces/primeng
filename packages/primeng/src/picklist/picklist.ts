@@ -73,7 +73,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
     ],
     template: `
         <div [ngStyle]="style" [class]="cn(cx('root'), styleClass)" cdkDropListGroup [pBind]="ptm('root')">
-            <div [class]="cx('sourceControls')" *ngIf="showSourceControls" [pBind]="ptm('sourceControls')">
+            <div [class]="cx('sourceControls')" *ngIf="showSourceControls" [pBind]="ptm('sourceControls')" [attr.data-pc-group-section]="'controls'">
                 <button
                     type="button"
                     [attr.aria-label]="moveUpAriaLabel"
@@ -169,6 +169,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     (onFilter)="onFilter($event.originalEvent, SOURCE_LIST)"
                     [pt]="ptm('pcListbox')"
                     hostName="picklist"
+                    [attr.data-pc-group-section]="'list'"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate || sourceHeader">
                         <ng-template #header>
@@ -274,7 +275,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     <ng-template *ngTemplateOutlet="moveAllToSourceIconTemplate || _moveAllToSourceIconTemplate; context: { $implicit: viewChanged }"></ng-template>
                 </button>
             </div>
-            <div [class]="cx('targetListContainer')" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'" [pBind]="ptm('targetListContainer')">
+            <div [class]="cx('targetListContainer')" [attr.data-pc-group-section]="'listcontainer'" [pBind]="ptm('targetListContainer')">
                 <p-listbox
                     #targetlist
                     [ariaLabel]="targetAriaLabel"
@@ -305,6 +306,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     (onDrop)="onDrop($event, TARGET_LIST)"
                     (onFilter)="onFilter($event.originalEvent, TARGET_LIST)"
                     [pt]="ptm('pcListbox')"
+                    [attr.data-pc-group-section]="'list'"
                     hostName="picklist"
                 >
                     <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate || targetHeader">
