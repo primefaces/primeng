@@ -1,5 +1,7 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
+import { SelectPassThrough } from 'primeng/select';
+import { InputNumberPassThrough } from 'primeng/inputnumber';
 
 /**
  * Paginator state.
@@ -110,15 +112,15 @@ export interface PaginatorPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the Select component (jump to page dropdown).
      */
-    pcJumpToPageDropdown?: any;
+    pcJumpToPageDropdown?: SelectPassThrough;
     /**
      * Used to pass attributes to the InputNumber component (jump to page input).
      */
-    pcJumpToPageInput?: any;
+    pcJumpToPageInput?: InputNumberPassThrough;
     /**
      * Used to pass attributes to the Select component (rows per page dropdown).
      */
-    pcRowPerPageDropdown?: any;
+    pcRowPerPageDropdown?: SelectPassThrough;
 }
 
 /**

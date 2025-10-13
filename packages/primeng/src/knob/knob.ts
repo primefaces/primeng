@@ -67,9 +67,10 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
+
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.

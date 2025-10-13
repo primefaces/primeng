@@ -1,6 +1,7 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
+import { MenuPassThrough } from '../menu/menu.types';
 
 /**
  * Custom pass-through(pt) options.
@@ -27,7 +28,7 @@ export interface SplitButtonPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the TieredMenu component.
      */
-    pcMenu?: any; // Will be TieredMenuPassThrough when available
+    pcMenu?: MenuPassThrough;
 }
 
 /**

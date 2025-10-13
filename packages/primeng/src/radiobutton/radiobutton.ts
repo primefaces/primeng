@@ -117,9 +117,10 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    ngAfterViewChecked(): void {
+    onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
+
     /**
      * Value of the radiobutton.
      * @group Props

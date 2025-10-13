@@ -735,7 +735,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                     (input)="_filter($event.target?.value)"
                     [pt]="ptm('pcFilterInput')"
                 />
-                <p-inputicon>
+                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')" />
                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>

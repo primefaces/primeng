@@ -1,6 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
 import { ScrollerOptions, TreeNode } from 'primeng/api';
+import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { ScrollerPassThrough } from 'primeng/types/scroller';
+import type { CheckboxPassThrough } from 'primeng/types/checkbox';
+import type { IconFieldPassThrough } from 'primeng/types/iconfield';
+import type { InputIconPassThrough } from 'primeng/types/inputicon';
 
 /**
  * Custom node select event.
@@ -226,11 +231,15 @@ export interface TreePassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the filter container's DOM element.
      */
-    pcFilterContainer?: PassThroughOption<HTMLDivElement, I>;
+    pcFilterContainer?: IconFieldPassThrough;
+    /**
+     * Used to pass attributes to the filter icon container's DOM element.
+     */
+    pcFilterIconContainer?: InputIconPassThrough;
     /**
      * Used to pass attributes to the filter input's DOM element.
      */
-    pcFilterInput?: any;
+    pcFilterInput?: InputTextPassThrough;
     /**
      * Used to pass attributes to the filter icon's DOM element.
      */
@@ -238,7 +247,7 @@ export interface TreePassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the Scroller component.
      */
-    pcScroller?: any;
+    pcScroller?: ScrollerPassThrough;
     /**
      * Used to pass attributes to the wrapper's DOM element.
      */
@@ -270,7 +279,7 @@ export interface TreePassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the node checkbox's DOM element.
      */
-    nodeCheckbox?: any;
+    nodeCheckbox?: CheckboxPassThrough;
     /**
      * Used to pass attributes to the node icon's DOM element.
      */
