@@ -1,9 +1,6 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -20,7 +17,6 @@ import {
     NgModule,
     NgZone,
     numberAttribute,
-    OnInit,
     Output,
     QueryList,
     Signal,
@@ -44,7 +40,6 @@ import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
-import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
@@ -59,40 +54,38 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'p-multiSelectItem, p-multiselect-item',
+    selector: 'li[pMultiSelectItem]',
     standalone: true,
-    imports: [CommonModule, Checkbox, FormsModule, Ripple, SharedModule],
+    imports: [CommonModule, Checkbox, FormsModule, SharedModule],
     template: `
-        <li
-            pRipple
-            [class]="cx('option')"
-            role="option"
-            [ngStyle]="{ height: itemSize + 'px' }"
-            [id]="id"
-            [attr.aria-label]="label"
-            [attr.aria-setsize]="ariaSetSize"
-            [attr.aria-posinset]="ariaPosInset"
-            [attr.aria-selected]="selected"
-            [attr.data-p-focused]="focused"
-            [attr.data-p-highlight]="selected"
-            [attr.data-p-disabled]="disabled"
-            [attr.aria-checked]="selected"
-            (click)="onOptionClick($event)"
-            (mouseenter)="onOptionMouseEnter($event)"
-        >
-            <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label">
-                <ng-container *ngIf="itemCheckboxIconTemplate">
-                    <ng-template #icon let-klass="class">
-                        <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: klass }"></ng-template>
-                    </ng-template>
-                </ng-container>
-            </p-checkbox>
-            <span *ngIf="!template">{{ label ?? 'empty' }}</span>
-            <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
-        </li>
+        <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label">
+            <ng-container *ngIf="itemCheckboxIconTemplate">
+                <ng-template #icon let-klass="class">
+                    <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: klass }"></ng-template>
+                </ng-template>
+            </ng-container>
+        </p-checkbox>
+        <span *ngIf="!template">{{ label ?? 'empty' }}</span>
+        <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
     `,
     encapsulation: ViewEncapsulation.None,
-    providers: [MultiSelectStyle]
+    providers: [MultiSelectStyle],
+    host: {
+        '[class]': 'cx("option")',
+        role: 'option',
+        '[style.height.px]': 'itemSize',
+        '[id]': 'id',
+        '[attr.aria-label]': 'label',
+        '[attr.aria-setsize]': 'ariaSetSize',
+        '[attr.aria-posinset]': 'ariaPosInset',
+        '[attr.aria-selected]': 'selected',
+        '[attr.data-p-focused]': 'focused',
+        '[attr.data-p-highlight]': 'selected',
+        '[attr.data-p-disabled]': 'disabled',
+        '[attr.aria-checked]': 'selected',
+        '(click)': 'onOptionClick($event)',
+        '(mouseenter)': 'onOptionMouseEnter($event)'
+    }
 })
 export class MultiSelectItem extends BaseComponent {
     @Input() id: string | undefined;
@@ -374,7 +367,9 @@ export class MultiSelectItem extends BaseComponent {
                                         </li>
                                     </ng-container>
                                     <ng-container *ngIf="!isOptionGroup(option)">
-                                        <p-multiselect-item
+                                        <li
+                                            pMultiSelectItem
+                                            pRipple
                                             [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                             [option]="option"
                                             [selected]="isSelected(option)"
@@ -390,7 +385,7 @@ export class MultiSelectItem extends BaseComponent {
                                             [highlightOnSelect]="highlightOnSelect"
                                             (onClick)="onOptionSelect($event, false, getOptionIndex(i, scrollerOptions))"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
-                                        ></p-multiselect-item>
+                                        ></li>
                                     </ng-container>
                                 </ng-template>
 
