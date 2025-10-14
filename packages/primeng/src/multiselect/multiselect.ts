@@ -12,6 +12,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -29,8 +30,9 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind, BindModule } from 'primeng/bind';
 import { Checkbox } from 'primeng/checkbox';
 import { Chip } from 'primeng/chip';
 import { DomHandler, unblockBodyScroll } from 'primeng/dom';
@@ -43,9 +45,22 @@ import { Overlay } from 'primeng/overlay';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
+import {
+    MultiSelectBlurEvent,
+    MultiSelectChangeEvent,
+    MultiSelectFilterEvent,
+    MultiSelectFilterOptions,
+    MultiSelectFocusEvent,
+    MultiSelectLazyLoadEvent,
+    MultiSelectPassThrough,
+    MultiSelectRemoveEvent,
+    MultiSelectSelectAllChangeEvent
+} from 'primeng/types/multiselect';
 import { ObjectUtils } from 'primeng/utils';
-import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MultiSelectStyle } from './style/multiselectstyle';
+
+const MULTISELECT_INSTANCE = new InjectionToken<MultiSelect>('MULTISELECT_INSTANCE');
+const MULTISELECT_ITEM_INSTANCE = new InjectionToken<MultiSelectItem>('MULTISELECT_ITEM_INSTANCE');
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -58,7 +73,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, Checkbox, FormsModule, SharedModule],
     template: `
-        <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label">
+        <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label" [pt]="getPTOptions('pcOptionCheckbox')">
             <ng-container *ngIf="itemCheckboxIconTemplate">
                 <ng-template #icon let-klass="class">
                     <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: klass }"></ng-template>
@@ -71,11 +86,9 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     providers: [MultiSelectStyle],
     host: {
-        '[class]': 'cx("option")',
-        role: 'option',
         '[style.height.px]': 'itemSize',
-        '[id]': 'id',
         '[attr.aria-label]': 'label',
+        role: 'option',
         '[attr.aria-setsize]': 'ariaSetSize',
         '[attr.aria-posinset]': 'ariaPosInset',
         '[attr.aria-selected]': 'selected',
@@ -88,7 +101,19 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     }
 })
 export class MultiSelectItem extends BaseComponent {
-    @Input() id: string | undefined;
+    $pcMultiSelectItem: MultiSelectItem | undefined = inject(MULTISELECT_ITEM_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    hostName = 'MultiSelect';
+
+    getPTOptions(key) {
+        return this.ptm(key, {
+            context: {
+                selected: this.selected,
+                focused: this.focused,
+                disabled: this.disabled
+            }
+        });
+    }
 
     @Input() option: any;
 
@@ -148,9 +173,10 @@ export class MultiSelectItem extends BaseComponent {
 @Component({
     selector: 'p-multiSelect, p-multiselect, p-multi-select',
     standalone: true,
-    imports: [CommonModule, MultiSelectItem, Overlay, SharedModule, Tooltip, Scroller, AutoFocus, CheckIcon, SearchIcon, TimesIcon, ChevronDownIcon, IconField, InputIcon, InputText, Chip, Checkbox, FormsModule],
+    imports: [CommonModule, MultiSelectItem, Overlay, SharedModule, Tooltip, Scroller, AutoFocus, CheckIcon, SearchIcon, TimesIcon, ChevronDownIcon, IconField, InputIcon, InputText, Chip, Checkbox, FormsModule, BindModule],
+    hostDirectives: [Bind],
     template: `
-        <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+        <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true" [pBind]="ptm('hiddenInputContainer')">
             <input
                 #focusInput
                 [pTooltip]="tooltip"
@@ -175,9 +201,11 @@ export class MultiSelectItem extends BaseComponent {
                 [attr.name]="name()"
                 [attr.required]="required() ? '' : undefined"
                 [attr.disabled]="$disabled() ? '' : undefined"
+                [pBind]="ptm('hiddenInput')"
             />
         </div>
         <div
+            [pBind]="ptm('labelContainer')"
             [class]="cx('labelContainer')"
             [pTooltip]="tooltip"
             (mouseleave)="labelContainerMouseLeave()"
@@ -186,15 +214,15 @@ export class MultiSelectItem extends BaseComponent {
             [positionStyle]="tooltipPositionStyle"
             [tooltipStyleClass]="tooltipStyleClass"
         >
-            <div [class]="cx('label')">
+            <div [pBind]="ptm('label')" [class]="cx('label')">
                 <ng-container *ngIf="!selectedItemsTemplate && !_selectedItemsTemplate">
                     <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
                     <ng-container *ngIf="display === 'chip'">
                         @if (chipSelectedItems() && chipSelectedItems().length === maxSelectedLabels) {
                             {{ getSelectedItemsLabel() }}
                         } @else {
-                            <div #token *ngFor="let item of chipSelectedItems(); let i = index" [class]="cx('chipItem')">
-                                <p-chip [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!$disabled() && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
+                            <div #token *ngFor="let item of chipSelectedItems(); let i = index" [pBind]="ptm('chipItem')" [class]="cx('chipItem')">
+                                <p-chip [pt]="ptm('pcChip')" [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!$disabled() && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
                                     <ng-container *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate">
                                         <ng-template #removeicon>
                                             <ng-container *ngIf="!$disabled() && !readonly">
@@ -204,6 +232,7 @@ export class MultiSelectItem extends BaseComponent {
                                                     (click)="removeOption(item, $event)"
                                                     [attr.data-pc-section]="'clearicon'"
                                                     [attr.aria-hidden]="true"
+                                                    [pBind]="ptm('chipIcon')"
                                                 >
                                                     <ng-container *ngTemplateOutlet="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate; context: { class: 'p-multiselect-chip-icon' }"></ng-container>
                                                 </span>
@@ -223,27 +252,27 @@ export class MultiSelectItem extends BaseComponent {
             </div>
         </div>
         <ng-container *ngIf="isVisibleClearIcon">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear($event)" [attr.aria-hidden]="true" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear($event)" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <div [class]="cx('dropdown')">
+        <div [pBind]="ptm('dropdown')" [class]="cx('dropdown')">
             <ng-container *ngIf="loading; else elseBlock">
                 <ng-container *ngIf="loadingIconTemplate || _loadingIconTemplate">
                     <ng-container *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-container>
                 </ng-container>
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin ' + loadingIcon)" [attr.aria-hidden]="true"></span>
-                    <span *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), 'pi pi-spinner pi-spin')" [attr.aria-hidden]="true"></span>
+                    <span *ngIf="loadingIcon" [pBind]="ptm('loadingIcon')" [class]="cn(cx('loadingIcon'), 'pi-spin ' + loadingIcon)" [attr.aria-hidden]="true"></span>
+                    <span *ngIf="!loadingIcon" [pBind]="ptm('loadingIcon')" [class]="cn(cx('loadingIcon'), 'pi pi-spinner pi-spin')" [attr.aria-hidden]="true"></span>
                 </ng-container>
             </ng-container>
             <ng-template #elseBlock>
                 <ng-container *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate">
-                    <span *ngIf="dropdownIcon" [class]="cx('dropdownIcon')" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
-                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [class]="cx('dropdownIcon')" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
+                    <span *ngIf="dropdownIcon" [pBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
+                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [pBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [attr.aria-hidden]="true" />
                 </ng-container>
-                <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
+                <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [pBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [attr.aria-hidden]="true">
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
                 </span>
             </ng-template>
@@ -257,9 +286,10 @@ export class MultiSelectItem extends BaseComponent {
             [appendTo]="$appendTo()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="onOverlayHide($event)"
+            [pt]="ptm('pcOverlay')"
         >
             <ng-template #content>
-                <div [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
+                <div [pBind]="ptm('overlay')" [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -268,16 +298,18 @@ export class MultiSelectItem extends BaseComponent {
                         (focus)="onFirstHiddenFocus($event)"
                         [attr.data-p-hidden-accessible]="true"
                         [attr.data-p-hidden-focusable]="true"
+                        [pBind]="ptm('firstHiddenFocusableEl')"
                     >
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <div [class]="cx('header')" *ngIf="showHeader">
+                    <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader">
                         <ng-content select="p-header"></ng-content>
                         <ng-container *ngIf="filterTemplate || _filterTemplate; else builtInFilterElement">
                             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
                             <p-checkbox
+                                [pt]="getHeaderCheckboxPTOptions('pcHeaderCheckbox')"
                                 [ngModel]="allSelected()"
                                 [ariaLabel]="toggleAllAriaLabel"
                                 [binary]="true"
@@ -302,10 +334,11 @@ export class MultiSelectItem extends BaseComponent {
                                 </ng-template>
                             </p-checkbox>
 
-                            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')">
+                            <p-iconfield *ngIf="filter" [pt]="ptm('pcFilterContainer')" [class]="cx('pcFilterContainer')">
                                 <input
                                     #filterInput
                                     pInputText
+                                    [pt]="ptm('pcFilter')"
                                     [variant]="$variant()"
                                     type="text"
                                     [attr.autocomplete]="autocomplete"
@@ -322,16 +355,16 @@ export class MultiSelectItem extends BaseComponent {
                                     [attr.placeholder]="filterPlaceHolder"
                                     [attr.aria-label]="ariaFilterLabel"
                                 />
-                                <p-inputicon>
-                                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" />
-                                    <span *ngIf="filterIconTemplate || _filterIconTemplate" class="p-multiselect-filter-icon">
+                                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [pBind]="ptm('filterIcon')" />
+                                    <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('filterIcon')" class="p-multiselect-filter-icon">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                                     </span>
                                 </p-inputicon>
                             </p-iconfield>
                         </ng-template>
                     </div>
-                    <div [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                    <div [pBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
                         <p-scroller
                             *ngIf="virtualScroll"
                             #scroller
@@ -358,10 +391,10 @@ export class MultiSelectItem extends BaseComponent {
                         </ng-container>
 
                         <ng-template #buildInItems let-items let-scrollerOptions="options">
-                            <ul #items [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
+                            <ul #items [pBind]="ptm('list')" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
                                 <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                     <ng-container *ngIf="isOptionGroup(option)">
-                                        <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                        <li [pBind]="ptm('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                             <span *ngIf="!groupTemplate && option.optionGroup">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                             <ng-container *ngIf="option.optionGroup && groupTemplate" [ngTemplateOutlet]="groupTemplate" [ngTemplateOutletContext]="{ $implicit: option.optionGroup }"></ng-container>
                                         </li>
@@ -370,6 +403,8 @@ export class MultiSelectItem extends BaseComponent {
                                         <li
                                             pMultiSelectItem
                                             pRipple
+                                            [pBind]="getPTOptions(option, getItemOptions, i, 'option')"
+                                            [class]="cx('option')"
                                             [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                             [option]="option"
                                             [selected]="isSelected(option)"
@@ -389,14 +424,14 @@ export class MultiSelectItem extends BaseComponent {
                                     </ng-container>
                                 </ng-template>
 
-                                <li *ngIf="hasFilter() && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                <li *ngIf="hasFilter() && isEmpty()" [pBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !emptyTemplate && !_emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
                                     } @else {
                                         <ng-container *ngTemplateOutlet="emptyFilterTemplate || _emptyFilterTemplate || emptyTemplate || _emptyFilterTemplate"></ng-container>
                                     }
                                 </li>
-                                <li *ngIf="!hasFilter() && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                <li *ngIf="!hasFilter() && isEmpty()" [pBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                     @if (!emptyTemplate && !_emptyTemplate) {
                                         {{ emptyMessageLabel }}
                                     } @else {
@@ -419,12 +454,13 @@ export class MultiSelectItem extends BaseComponent {
                         (focus)="onLastHiddenFocus($event)"
                         [attr.data-p-hidden-accessible]="true"
                         [attr.data-p-hidden-focusable]="true"
+                        [pBind]="ptm('lastHiddenFocusableEl')"
                     ></span>
                 </div>
             </ng-template>
         </p-overlay>
     `,
-    providers: [MULTISELECT_VALUE_ACCESSOR, MultiSelectStyle],
+    providers: [MULTISELECT_VALUE_ACCESSOR, MultiSelectStyle, { provide: MULTISELECT_INSTANCE, useExisting: MultiSelect }, { provide: PARENT_INSTANCE, useExisting: MultiSelect }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -434,7 +470,7 @@ export class MultiSelectItem extends BaseComponent {
         '[style]': "sx('root')"
     }
 })
-export class MultiSelect extends BaseEditableHolder {
+export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     /**
      * Unique identifier of the component
      * @group Props
@@ -882,6 +918,8 @@ export class MultiSelect extends BaseEditableHolder {
 
     _componentStyle = inject(MultiSelectStyle);
 
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     searchValue: Nullable<string>;
 
     searchTimeout: any;
@@ -973,6 +1011,8 @@ export class MultiSelect extends BaseEditableHolder {
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
+    $pcMultiSelect: MultiSelect | undefined = inject(MULTISELECT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
@@ -1219,6 +1259,7 @@ export class MultiSelect extends BaseEditableHolder {
     }
 
     onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
         if (this.filtered) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => {
@@ -2095,6 +2136,24 @@ export class MultiSelect extends BaseEditableHolder {
         this.value = value;
         setModelValue(value);
         this.cd.markForCheck();
+    }
+
+    getHeaderCheckboxPTOptions(key: string) {
+        return this.ptm(key, {
+            context: {
+                selected: this.allSelected()
+            }
+        });
+    }
+
+    getPTOptions(option, itemOptions, index, key) {
+        return this.ptm(key, {
+            context: {
+                selected: this.isSelected(option),
+                focused: this.focusedOptionIndex() === this.getOptionIndex(index, itemOptions),
+                disabled: this.isOptionDisabled(option)
+            }
+        });
     }
 }
 
