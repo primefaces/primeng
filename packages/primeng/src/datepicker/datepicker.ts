@@ -11,6 +11,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -26,13 +27,16 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
+import { Bind, BindModule } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { DatePickerPassThrough } from 'primeng/types/datepicker';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { DatePickerMonthChangeEvent, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from './datepicker.interface';
@@ -43,6 +47,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => DatePicker),
     multi: true
 };
+
+const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE');
+
 /**
  * DatePicker is a form component to work with dates.
  * @group Components
@@ -50,7 +57,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-datePicker, p-datepicker, p-date-picker',
     standalone: true,
-    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule],
+    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule, BindModule],
+    hostDirectives: [Bind],
     template: `
         <ng-template [ngIf]="!inline">
             <input
@@ -88,10 +96,11 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [variant]="$variant()"
                 [fluid]="hasFluid"
                 [invalid]="invalid()"
+                [pt]="ptm('pcInputText')"
             />
             <ng-container *ngIf="showClear && !$disabled() && inputfieldViewChild?.nativeElement?.value">
-                <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
-                <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()">
+                <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()" />
+                <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -106,16 +115,17 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [class]="cx('dropdown')"
                 [disabled]="$disabled()"
                 tabindex="0"
+                [pBind]="ptm('dropdown')"
             >
-                <span *ngIf="icon" [ngClass]="icon"></span>
+                <span *ngIf="icon" [ngClass]="icon" [pBind]="ptm('dropdownIcon')"></span>
                 <ng-container *ngIf="!icon">
-                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" />
+                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" [pBind]="ptm('dropdownIcon')" />
                     <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
                 </ng-container>
             </button>
             <ng-container *ngIf="iconDisplay === 'input' && showIcon">
-                <span [class]="cx('inputIconContainer')">
-                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" />
+                <span [class]="cx('inputIconContainer')" [pBind]="ptm('inputIconContainer')">
+                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" [pBind]="ptm('inputIcon')" />
 
                     <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                 </span>
@@ -138,13 +148,14 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
             (@overlayAnimation.done)="onOverlayAnimationDone($event)"
             (click)="onOverlayClick($event)"
             *ngIf="inline || overlayVisible"
+            [pBind]="ptm('panel')"
         >
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
             <ng-container *ngIf="!timeOnly">
-                <div [class]="cx('calendarContainer')">
-                    <div [class]="cx('calendar')" *ngFor="let month of months; let i = index">
-                        <div [class]="cx('header')">
+                <div [class]="cx('calendarContainer')" [pBind]="ptm('calendarContainer')">
+                    <div [class]="cx('calendar')" *ngFor="let month of months; let i = index" [pBind]="ptm('calendar')">
+                        <div [class]="cx('header')" [pBind]="ptm('header')">
                             <p-button
                                 rounded
                                 variant="text"
@@ -155,6 +166,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
                                 type="button"
                                 [ariaLabel]="prevIconAriaLabel"
+                                [pt]="ptm('pcPrevButton')"
+                                [attr.data-pc-group-section]="'navigator'"
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-left" *ngIf="!previousIconTemplate && !_previousIconTemplate" />
@@ -163,7 +176,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     </span>
                                 </ng-template>
                             </p-button>
-                            <div [class]="cx('title')">
+                            <div [class]="cx('title')" [pBind]="ptm('title')">
                                 <button
                                     *ngIf="currentView === 'date'"
                                     type="button"
@@ -173,6 +186,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
                                     [attr.aria-label]="this.getTranslation('chooseMonth')"
                                     pRipple
+                                    [pBind]="ptm('selectMonth')"
+                                    [attr.data-pc-group-section]="'navigator'"
                                 >
                                     {{ getMonthName(month.month) }}
                                 </button>
@@ -185,10 +200,12 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
                                     [attr.aria-label]="getTranslation('chooseYear')"
                                     pRipple
+                                    [pBind]="ptm('selectYear')"
+                                    [attr.data-pc-group-section]="'navigator'"
                                 >
                                     {{ getYear(month) }}
                                 </button>
-                                <span [class]="cx('decade')" *ngIf="currentView === 'year'">
+                                <span [class]="cx('decade')" *ngIf="currentView === 'year'" [pBind]="ptm('decade')">
                                     <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
                                     <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                 </span>
@@ -202,6 +219,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 (onClick)="onNextButtonClick($event)"
                                 [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                 [ariaLabel]="nextIconAriaLabel"
+                                [pt]="ptm('pcNextButton')"
+                                [attr.data-pc-group-section]="'navigator'"
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-right" *ngIf="!nextIconTemplate && !_nextIconTemplate" />
@@ -211,27 +230,35 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 </ng-template>
                             </p-button>
                         </div>
-                        <table [class]="cx('dayView')" role="grid" *ngIf="currentView === 'date'">
-                            <thead>
-                                <tr>
-                                    <th *ngIf="showWeek" [class]="cx('weekHeader')">
-                                        <span>{{ getTranslation('weekHeader') }}</span>
+                        <table [class]="cx('dayView')" role="grid" *ngIf="currentView === 'date'" [pBind]="ptm('table')">
+                            <thead [pBind]="ptm('tableHeader')">
+                                <tr [pBind]="ptm('tableHeaderRow')">
+                                    <th *ngIf="showWeek" [class]="cx('weekHeader')" [pBind]="ptm('weekHeader')">
+                                        <span [pBind]="ptm('weekHeaderLabel')">{{ getTranslation('weekHeader') }}</span>
                                     </th>
-                                    <th [class]="cx('weekDayCell')" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last">
-                                        <span [class]="cx('weekDay')">{{ weekDay }}</span>
+                                    <th [class]="cx('weekDayCell')" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last" [pBind]="ptm('weekDayCell')">
+                                        <span [class]="cx('weekDay')" [pBind]="ptm('weekDay')">{{ weekDay }}</span>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr *ngFor="let week of month.dates; let j = index">
-                                    <td *ngIf="showWeek" [class]="cx('weekNumber')">
-                                        <span [class]="cx('weekLabelContainer')">
+                            <tbody [pBind]="ptm('tableBody')">
+                                <tr *ngFor="let week of month.dates; let j = index" [pBind]="ptm('tableBodyRow')">
+                                    <td *ngIf="showWeek" [class]="cx('weekNumber')" [pBind]="ptm('weekNumber')">
+                                        <span [class]="cx('weekLabelContainer')" [pBind]="ptm('weekLabelContainer')">
                                             {{ month.weekNumbers[j] }}
                                         </span>
                                     </td>
-                                    <td *ngFor="let date of week" [attr.aria-label]="date.day" [class]="cx('dayCell', { date })">
+                                    <td *ngFor="let date of week" [attr.aria-label]="date.day" [class]="cx('dayCell', { date })" [pBind]="ptm('dayCell')">
                                         <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
-                                            <span [ngClass]="dayClass(date)" (click)="onDateSelect($event, date)" draggable="false" [attr.data-date]="formatDateKey(formatDateMetaToDate(date))" (keydown)="onDateCellKeydown($event, date, i)" pRipple>
+                                            <span
+                                                [ngClass]="dayClass(date)"
+                                                (click)="onDateSelect($event, date)"
+                                                draggable="false"
+                                                [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
+                                                (keydown)="onDateCellKeydown($event, date, i)"
+                                                pRipple
+                                                [pBind]="ptm('day')"
+                                            >
                                                 <ng-container *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
                                                 <ng-container *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
                                                     <ng-container *ngTemplateOutlet="dateTemplate || _dateTemplate; context: { $implicit: date }"></ng-container>
@@ -250,16 +277,16 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         </table>
                     </div>
                 </div>
-                <div [class]="cx('monthView')" *ngIf="currentView === 'month'">
-                    <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event, i)" [class]="cx('month', { month: m, index: i })" pRipple>
+                <div [class]="cx('monthView')" *ngIf="currentView === 'month'" [pBind]="ptm('monthView')">
+                    <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event, i)" [class]="cx('month', { month: m, index: i })" pRipple [pBind]="ptm('month')">
                         {{ m }}
                         <div *ngIf="isMonthSelected(i)" class="p-hidden-accessible" aria-live="polite">
                             {{ m }}
                         </div>
                     </span>
                 </div>
-                <div [class]="cx('yearView')" *ngIf="currentView === 'year'">
-                    <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" [class]="cx('year', { year: y })" pRipple>
+                <div [class]="cx('yearView')" *ngIf="currentView === 'year'" [pBind]="ptm('yearView')">
+                    <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" [class]="cx('year', { year: y })" pRipple [pBind]="ptm('year')">
                         {{ y }}
                         <div *ngIf="isYearSelected(y)" class="p-hidden-accessible" aria-live="polite">
                             {{ y }}
@@ -267,8 +294,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     </span>
                 </div>
             </ng-container>
-            <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'">
-                <div [class]="cx('hourPicker')">
+            <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'" [pBind]="ptm('timePicker')">
+                <div [class]="cx('hourPicker')" [pBind]="ptm('hourPicker')">
                     <p-button
                         rounded
                         variant="text"
@@ -283,13 +310,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextHour')"
+                        [pt]="ptm('pcIncrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
-                    <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
+                    <span [pBind]="ptm('hour')"><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
                     <p-button
                         rounded
                         variant="text"
@@ -304,17 +333,19 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevHour')"
+                        [pt]="ptm('pcDecrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
-                <div class="p-datepicker-separator">
-                    <span>{{ timeSeparator }}</span>
+                <div class="p-datepicker-separator" [pBind]="ptm('separatorContainer')">
+                    <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
                 </div>
-                <div [class]="cx('minutePicker')">
+                <div [class]="cx('minutePicker')" [pBind]="ptm('minutePicker')">
                     <p-button
                         rounded
                         variant="text"
@@ -329,13 +360,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextMinute')"
+                        [pt]="ptm('pcIncrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
-                    <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
+                    <span [pBind]="ptm('minute')"><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
                     <p-button
                         rounded
                         variant="text"
@@ -350,17 +383,19 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevMinute')"
+                        [pt]="ptm('pcDecrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
-                <div [class]="cx('separator')" *ngIf="showSeconds">
-                    <span>{{ timeSeparator }}</span>
+                <div [class]="cx('separator')" *ngIf="showSeconds" [pBind]="ptm('separatorContainer')">
+                    <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
                 </div>
-                <div [class]="cx('secondPicker')" *ngIf="showSeconds">
+                <div [class]="cx('secondPicker')" *ngIf="showSeconds" [pBind]="ptm('secondPicker')">
                     <p-button
                         rounded
                         variant="text"
@@ -375,13 +410,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextSecond')"
+                        [pt]="ptm('pcIncrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
-                    <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
+                    <span [pBind]="ptm('second')"><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
                     <p-button
                         rounded
                         variant="text"
@@ -396,17 +433,19 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevSecond')"
+                        [pt]="ptm('pcDecrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
-                <div [class]="cx('separator')" *ngIf="hourFormat == '12'">
-                    <span>{{ timeSeparator }}</span>
+                <div [class]="cx('separator')" *ngIf="hourFormat == '12'" [pBind]="ptm('separatorContainer')">
+                    <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
                 </div>
-                <div [class]="cx('ampmPicker')" *ngIf="hourFormat == '12'">
+                <div [class]="cx('ampmPicker')" *ngIf="hourFormat == '12'" [pBind]="ptm('ampmPicker')">
                     <p-button
                         text
                         rounded
@@ -416,13 +455,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (onClick)="toggleAMPM($event)"
                         (keydown.enter)="toggleAMPM($event)"
                         [attr.aria-label]="getTranslation('am')"
+                        [pt]="ptm('pcIncrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
-                    <span>{{ pm ? 'PM' : 'AM' }}</span>
+                    <span [pBind]="ptm('ampm')">{{ pm ? 'PM' : 'AM' }}</span>
                     <p-button
                         text
                         rounded
@@ -432,15 +473,17 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (click)="toggleAMPM($event)"
                         (keydown.enter)="toggleAMPM($event)"
                         [attr.aria-label]="getTranslation('pm')"
+                        [pt]="ptm('pcDecrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
             </div>
-            <div [class]="cx('buttonbar')" *ngIf="showButtonBar">
+            <div [class]="cx('buttonbar')" *ngIf="showButtonBar" [pBind]="ptm('buttonbar')">
                 <p-button
                     size="small"
                     [styleClass]="cx('pcTodayButton')"
@@ -451,6 +494,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     severity="secondary"
                     variant="text"
                     size="small"
+                    [pt]="ptm('pcTodayButton')"
+                    [attr.data-pc-group-section]="'button'"
                 />
                 <p-button
                     size="small"
@@ -462,6 +507,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     severity="secondary"
                     variant="text"
                     size="small"
+                    [pt]="ptm('pcClearButton')"
+                    [attr.data-pc-group-section]="'button'"
                 />
             </div>
             <ng-content select="p-footer"></ng-content>
@@ -491,7 +538,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
             ])
         ])
     ],
-    providers: [DATEPICKER_VALUE_ACCESSOR, DatePickerStyle],
+    providers: [DATEPICKER_VALUE_ACCESSOR, DatePickerStyle, { provide: DATEPICKER_INSTANCE, useExisting: DatePicker }, { provide: PARENT_INSTANCE, useExisting: DatePicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -499,7 +546,11 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class DatePicker extends BaseInput {
+export class DatePicker extends BaseInput<DatePickerPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcDatePicker: DatePicker | undefined = inject(DATEPICKER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     @Input() iconDisplay: 'input' | 'button' = 'button';
     /**
      * Style class of the component.
@@ -1260,6 +1311,10 @@ export class DatePicker extends BaseInput {
                 }
             }
         }
+    }
+
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
