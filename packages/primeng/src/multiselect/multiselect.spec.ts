@@ -1644,7 +1644,7 @@ describe('MultiSelect Grouped Options', () => {
         tick();
         fixture.detectChanges();
 
-        const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
+        const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
         expect(options!.length).toBe(6); // 3 USA cities + 3 Italy cities
         flush();
     }));
@@ -3220,7 +3220,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             fixture.detectChanges();
 
             // Should render Unicode characters without issues
-            const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
+            const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
             expect(options!.length).toBeGreaterThan(0);
 
             // Test Chinese characters
@@ -3278,7 +3278,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             // Should not execute any scripts
             expect(() => {
-                const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
+                const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
                 expect(options!.length).toBeGreaterThan(0);
             }).not.toThrow();
 
