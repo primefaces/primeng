@@ -46,7 +46,8 @@ import { GalleriaStyle } from './style/galleriastyle';
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
             <div *ngIf="maskVisible" #mask [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined" (click)="onMaskHide($event)">
-                <p-galleriaContent
+                <div
+                    pGalleriaContent
                     *ngIf="visible"
                     [@animation]="{
                         value: 'visible',
@@ -61,12 +62,12 @@ import { GalleriaStyle } from './style/galleriastyle';
                     (activeItemChange)="onActiveItemChange($event)"
                     [ngStyle]="containerStyle"
                     [fullScreen]="fullScreen"
-                ></p-galleriaContent>
+                ></div>
             </div>
         </div>
 
         <ng-template #windowed>
-            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
+            <div pGalleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></div>
         </ng-template>
     `,
     animations: [
@@ -427,7 +428,7 @@ export class Galleria extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-galleriaContent',
+    selector: 'div[pGalleriaContent]',
     standalone: false,
     template: `
         <div [attr.id]="id" [attr.role]="'region'" *ngIf="value && value.length > 0" [class]="cn(cx('root'), galleria.containerClass)" [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" pFocusTrap [pFocusTrapDisabled]="!fullScreen">
@@ -436,10 +437,11 @@ export class Galleria extends BaseComponent {
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate"></ng-template>
             </button>
             <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" [class]="cx('header')">
-                <p-galleriaItemSlot type="header" [templates]="galleria.templates"></p-galleriaItemSlot>
+                <div pGalleriaItemSlot type="header" [templates]="galleria.templates"></div>
             </div>
             <div [class]="cx('content')" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
-                <p-galleriaItem
+                <div
+                    pGalleriaItem
                     [id]="id"
                     [value]="value"
                     [activeIndex]="activeIndex"
@@ -455,9 +457,10 @@ export class Galleria extends BaseComponent {
                     [slideShowActive]="slideShowActive"
                     (startSlideShow)="startSlideShow()"
                     (stopSlideShow)="stopSlideShow()"
-                ></p-galleriaItem>
+                ></div>
 
-                <p-galleriaThumbnails
+                <div
+                    pGalleriaThumbnails
                     *ngIf="galleria.showThumbnails"
                     [containerId]="id"
                     [value]="value"
@@ -472,10 +475,10 @@ export class Galleria extends BaseComponent {
                     [showThumbnailNavigators]="galleria.showThumbnailNavigators"
                     [slideShowActive]="slideShowActive"
                     (stopSlideShow)="stopSlideShow()"
-                ></p-galleriaThumbnails>
+                ></div>
             </div>
             <div *ngIf="shouldRenderFooter()" [class]="cx('footer')">
-                <p-galleriaItemSlot type="footer" [templates]="galleria.templates"></p-galleriaItemSlot>
+                <div pGalleriaItemSlot type="footer" [templates]="galleria.templates"></div>
             </div>
         </div>
     `,
@@ -602,7 +605,7 @@ export class GalleriaContent extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-galleriaItemSlot',
+    selector: 'div[pGalleriaItemSlot]',
     standalone: false,
     template: `
         <ng-container *ngIf="shouldRender()">
@@ -732,7 +735,7 @@ export class GalleriaItemSlot extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-galleriaItem',
+    selector: 'div[pGalleriaItem]',
     standalone: false,
     template: `
         <div [class]="cx('items')">
@@ -741,14 +744,14 @@ export class GalleriaItemSlot extends BaseComponent {
                 <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate || galleria._itemPreviousIconTemplate"></ng-template>
             </button>
             <div [id]="id + '_item_' + activeIndex" role="group" [class]="cx('item')" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()">
-                <p-galleriaItemSlot type="item" [item]="activeItem" [templates]="templates" [class]="cx('item')"></p-galleriaItemSlot>
+                <div pGalleriaItemSlot type="item" [item]="activeItem" [templates]="templates" [class]="cx('item')"></div>
             </div>
             <button *ngIf="showItemNavigators" type="button" [class]="cx('nextButton')" (click)="navForward($event)" role="navigation" (focus)="onButtonFocus('right')" (blur)="onButtonBlur('right')">
                 <svg data-p-icon="chevron-right" *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [class]="cx('nextIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate || galleria._itemNextIconTemplate"></ng-template>
             </button>
             <div [class]="cx('caption')" *ngIf="captionFacet || galleria.captionTemplate">
-                <p-galleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></p-galleriaItemSlot>
+                <div pGalleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></div>
             </div>
         </div>
         <ul *ngIf="showIndicators" [class]="cx('indicatorList')">
@@ -764,7 +767,7 @@ export class GalleriaItemSlot extends BaseComponent {
                 [attr.aria-controls]="id + '_item_' + index"
             >
                 <button type="button" tabIndex="-1" [class]="cx('indicatorButton')" *ngIf="!indicatorFacet && !galleria.indicatorTemplate"></button>
-                <p-galleriaItemSlot type="indicator" [index]="index" [templates]="templates"></p-galleriaItemSlot>
+                <div pGalleriaItemSlot type="indicator" [index]="index" [templates]="templates"></div>
             </li>
         </ul>
     `,
@@ -944,7 +947,7 @@ export class GalleriaItem extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-galleriaThumbnails',
+    selector: 'div[pGalleriaThumbnails]',
     standalone: false,
     template: `
         <div [class]="cx('thumbnails')">
@@ -976,7 +979,7 @@ export class GalleriaItem extends BaseComponent {
                                 (touchend)="onItemClick(index)"
                                 (keydown.enter)="onItemClick(index)"
                             >
-                                <p-galleriaItemSlot type="thumbnail" [item]="item" [templates]="templates"></p-galleriaItemSlot>
+                                <div pGalleriaItemSlot type="thumbnail" [item]="item" [templates]="templates"></div>
                             </div>
                         </div>
                     </div>
