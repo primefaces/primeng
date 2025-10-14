@@ -1,8 +1,8 @@
+import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'gitlab-doc',
@@ -44,7 +44,7 @@ export class GitLabDoc {
     # Set these as GitLab CI/CD variables for security
     DESIGNER_SECRET: \${THEME_DESIGNER_SECRET_KEY}
     THEME_NAME: "my-custom-theme"
-    PROJECT: "primevue" # or your target project
+    PROJECT: "primeng" # or your target project
     TOKENS_PATH: "./tokens.json"
     OUTPUT_DIR: "./my-custom-theme"
     # Optional configuration

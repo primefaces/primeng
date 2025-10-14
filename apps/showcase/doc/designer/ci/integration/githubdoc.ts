@@ -1,8 +1,8 @@
+import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'github-doc',
@@ -61,7 +61,7 @@ jobs:
               with:
                   designer-secret: \${{ secrets.THEME_DESIGNER_SECRET_KEY }}
                   theme-name: "acme"
-                  project: "primevue"
+                  project: "primeng"
                   font-size: "14px"
                   font-family: "Inter Var"
                   tokens-path: "tokens.json"

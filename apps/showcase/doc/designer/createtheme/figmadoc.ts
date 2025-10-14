@@ -27,7 +27,6 @@ import { RouterModule } from '@angular/router';
             Instead of setting a CI pipeline, for quick prototyping purposes, you may also choose to use to manually export a tokens json file and then upload it to the designer. Note that, this flow would get tedious and repetitive in active
             development cycles when compared to an automated CI pipeline.
         </p>
-        <b class="mb-4 block">Export JSON file</b>
         <p>
             Open the <a routerLink="/uikit">PrimeOne UI Kit</a> in which you've modified tokens. In the Tokens Studio plugin, navigate to the <i>Tools</i> menu and select <i>Export to file/folder.</i> When the Export tokens modal appears, make sure
             the <i>Single file</i> tab is selected. Check the <i>All tokens sets</i> option, then click <i>Export</i>.

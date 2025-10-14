@@ -11,6 +11,18 @@ import { RouterModule } from '@angular/router';
     template: `<app-docsectiontext>
         <p>Theme Designer public endpoint is hosted at PrimeUI Store.</p>
         <app-code [code]="code1" hideToggleCode importCode hideStackBlitz />
+
+        <h3>Get a Secret Key</h3>
+        <ul class="leading-relaxed list-decimal list-inside">
+            <li>Visit the <a href="https://primeui.store/designer" target="_blank" rel="noopener noreferrer">PrimeUI Store</a>.</li>
+            <li>Purchase an Extended License of Theme Designer.</li>
+            <li>Navigate to your <a href="https://primeui.store/user/designer" target="_blank" rel="noopener noreferrer"> account settings</a>.</li>
+            <li>Generate a secret key for CI/CD integration.</li>
+        </ul>
+
+        <h3>Authentication</h3>
+        <p>Define a <i>Authentication: Bearer</i> request headerto configure your secret key.</p>
+
         <h3>Parameters</h3>
         <p>The request type must be <i>POST</i>.</p>
         <div class="doc-tablewrapper">
@@ -24,14 +36,6 @@ import { RouterModule } from '@angular/router';
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <i>designer-secret</i>
-                        </td>
-                        <td>string</td>
-                        <td>yes</td>
-                        <td>Secret key to access the API, can be generated at PrimeUI Store.</td>
-                    </tr>
                     <tr>
                         <td>
                             <i>name</i>
@@ -76,32 +80,44 @@ import { RouterModule } from '@angular/router';
             </table>
         </div>
 
-        <h3>Get a Secret Key</h3>
-        <ul class="leading-relaxed list-decimal list-inside">
-            <li>Visit the <a href="https://primeui.store/designer" target="_blank" rel="noopener noreferrer">PrimeUI Store</a>.</li>
-            <li>Purchase an Extended License of Theme Designer.</li>
-            <li>Navigate to your <a href="https://primeui.store/user/designer" target="_blank" rel="noopener noreferrer"> account settings</a>.</li>
-            <li>Generate a secret key for CI/CD integration.</li>
-        </ul>
+        <h3>Example</h3>
+        <app-code [code]="code2" hideToggleCode importCode hideStackBlitz />
 
         <h3>Response</h3>
         <p>A successful response returns a zip file containing the source code of the generated theme preset. The content-type header of this type of response is <i>application/zip</i>.</p>
 
         <h3>Error Handling</h3>
         <p>When theme generation fails, a json response is returned with <i>application/json</i> content-type header. The response contains an error object with <i>code</i> and <i>message</i>.</p>
-        <app-code [code]="code2" hideToggleCode importCode hideStackBlitz />
+        <app-code [code]="code3" hideToggleCode importCode hideStackBlitz />
     </app-docsectiontext>`
 })
 export class DesignerApiDoc {
-    code1: {
-        basic: `https://primeui.store/api/designer/integration/theme/create`;
+    code1 = {
+        basic: `https://primeui.store/api/designer/integration/theme/create`
     };
-    code2: {
+
+    code2 = {
+        basic: `const response = await fetch(https://primeui.store/api/designer/integration/theme/create, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json, application/zip',
+        'Authorization': \`Bearer \${designer_secret_key}\`
+      },
+      body: JSON.stringify({
+        name: 'acme-theme',
+        project: 'primeng,
+        tokens: //JSON data
+      })
+});`
+    };
+
+    code3 = {
         basic: `{
     error: {
         code: 'download_failed',
         message: 'Failed to create archieve.'
     }
-}`;
+}`
     };
 }

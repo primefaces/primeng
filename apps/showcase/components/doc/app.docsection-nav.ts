@@ -40,8 +40,8 @@ import { fromEvent } from 'rxjs';
             </ul>
             @if (ad) {
                 <div class="mt-8 px-4 py-6 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-900 w-full relative cursor-pointer">
-                    <img src="https://primefaces.org/cdn/primevue/images/primeblocks/primeblocks-menu-light.jpg" class="w-full rounded-xl block dark:hidden mb-4" />
-                    <img src="https://primefaces.org/cdn/primevue/images/primeblocks/primeblocks-menu-dark.jpg" class="w-full rounded-xl hidden dark:block mb-4" />
+                    <img [src]="ad.lightImage" class="w-full rounded-xl block dark:hidden mb-4" />
+                    <img [src]="ad.darkImage" class="w-full rounded-xl hidden dark:block mb-4" />
                     <span class="bg-yellow-400 text-black absolute end-2 top-3 text-xs font-bold rounded-md px-1 py-1 leading-none" value="New">NEW</span>
                     <div class="text-xl font-semibold flex flex-col gap-2 text-center">
                         <span class="leading-none">{{ ad.title }}</span>
