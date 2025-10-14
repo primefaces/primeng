@@ -13,26 +13,12 @@ import { TemplateSectionComponent } from './templatesection.component';
 import { ThemeSectionComponent } from './themesection.component';
 import { UsersSectionComponent } from './userssection.component';
 import { ButtonModule } from 'primeng/button';
-import { AppDesigner } from '@/components/layout/designer/app.designer';
 
 @Component({
     selector: 'landing',
     standalone: true,
     templateUrl: './landing.component.html',
-    imports: [
-        CommonModule,
-        AppNewsComponent,
-        AppTopBarComponent,
-        ButtonModule,
-        HeroSectionComponent,
-        FeaturesSectionComponent,
-        UsersSectionComponent,
-        ThemeSectionComponent,
-        BlockSectionComponent,
-        TemplateSectionComponent,
-        FooterSectionComponent,
-        AppDesigner
-    ]
+    imports: [CommonModule, AppNewsComponent, AppTopBarComponent, ButtonModule, HeroSectionComponent, FeaturesSectionComponent, UsersSectionComponent, ThemeSectionComponent, BlockSectionComponent, TemplateSectionComponent, FooterSectionComponent]
 })
 export class LandingComponent implements OnInit {
     subscription!: Subscription;

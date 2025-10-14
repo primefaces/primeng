@@ -11,12 +11,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { AppDesigner } from '@/components/layout/designer/app.designer';
 
 @Component({
     selector: 'app-root',
-    template: `<router-outlet></router-outlet>`,
+    template: `<router-outlet></router-outlet> <app-designer />`,
     standalone: true,
-    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule],
+    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppDesigner],
     providers: [
         CarService,
         CountryService,
