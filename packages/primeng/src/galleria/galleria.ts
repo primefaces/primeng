@@ -3,21 +3,19 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
-    Inject,
     inject,
+    InjectionToken,
     Input,
     KeyValueDiffers,
     NgModule,
     numberAttribute,
     Output,
-    PLATFORM_ID,
     QueryList,
     SimpleChanges,
     TemplateRef,
@@ -26,15 +24,18 @@ import {
 } from '@angular/core';
 import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
+import { GalleriaPassThrough, GalleriaResponsiveOptions } from 'primeng/types/galleria';
 import { ZIndexUtils } from 'primeng/utils';
-import { GalleriaResponsiveOptions } from './galleria.interface';
 import { GalleriaStyle } from './style/galleriastyle';
+
+const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
 
 /**
  * Galleria is an advanced content gallery component.
@@ -45,7 +46,7 @@ import { GalleriaStyle } from './style/galleriastyle';
     standalone: false,
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
-            <div *ngIf="maskVisible" #mask [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined" (click)="onMaskHide($event)">
+            <div *ngIf="maskVisible" #mask [pBind]="ptm('mask')" [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined" (click)="onMaskHide($event)">
                 <div
                     pGalleriaContent
                     *ngIf="visible"
@@ -62,6 +63,9 @@ import { GalleriaStyle } from './style/galleriastyle';
                     (activeItemChange)="onActiveItemChange($event)"
                     [ngStyle]="containerStyle"
                     [fullScreen]="fullScreen"
+                    [pBind]="ptm('root')"
+                    pFocusTrap
+                    [pFocusTrapDisabled]="!fullScreen"
                 ></div>
             </div>
         </div>
@@ -78,9 +82,17 @@ import { GalleriaStyle } from './style/galleriastyle';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [GalleriaStyle]
+    providers: [GalleriaStyle, { provide: GALLERIA_INSTANCE, useExisting: Galleria }, { provide: PARENT_INSTANCE, useExisting: Galleria }],
+    hostDirectives: [Bind],
+    host: {
+        'data-pc-name': 'galleria'
+    }
 })
-export class Galleria extends BaseComponent {
+export class Galleria extends BaseComponent<GalleriaPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     /**
      * Index of the first item.
      * @group Props
@@ -291,15 +303,11 @@ export class Galleria extends BaseComponent {
 
     _componentStyle = inject(GalleriaStyle);
 
-    constructor(
-        @Inject(PLATFORM_ID) public platformId: any,
-        public element: ElementRef,
-        public cd: ChangeDetectorRef
-    ) {
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    constructor(public element: ElementRef) {
         super();
     }
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -431,15 +439,13 @@ export class Galleria extends BaseComponent {
     selector: 'div[pGalleriaContent]',
     standalone: false,
     template: `
-        <div [attr.id]="id" [attr.role]="'region'" *ngIf="value && value.length > 0" [class]="cn(cx('root'), galleria.containerClass)" [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}" pFocusTrap [pFocusTrapDisabled]="!fullScreen">
-            <button *ngIf="galleria.fullScreen" type="button" [class]="cx('closeButton')" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
-                <svg data-p-icon="times" *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [class]="cx('closeIcon')" />
+        <ng-container *ngIf="value && value.length > 0">
+            <button *ngIf="galleria.fullScreen" type="button" [pBind]="ptm('closeButton')" [class]="cx('closeButton')" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()">
+                <svg data-p-icon="times" *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [pBind]="ptm('closeIcon')" [class]="cx('closeIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate"></ng-template>
             </button>
-            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" [class]="cx('header')">
-                <div pGalleriaItemSlot type="header" [templates]="galleria.templates"></div>
-            </div>
-            <div [class]="cx('content')" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
+            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" pGalleriaItemSlot type="header" [templates]="galleria.templates" [pBind]="ptm('header')" [class]="cx('header')"></div>
+            <div [pBind]="ptm('content')" [class]="cx('content')" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
                 <div
                     pGalleriaItem
                     [id]="id"
@@ -457,10 +463,13 @@ export class Galleria extends BaseComponent {
                     [slideShowActive]="slideShowActive"
                     (startSlideShow)="startSlideShow()"
                     (stopSlideShow)="stopSlideShow()"
+                    [pBind]="ptm('itemsContaier')"
+                    [class]="cx('itemsContainer')"
                 ></div>
 
                 <div
                     pGalleriaThumbnails
+                    [pBind]="ptm('thumbnails')"
                     *ngIf="galleria.showThumbnails"
                     [containerId]="id"
                     [value]="value"
@@ -477,15 +486,21 @@ export class Galleria extends BaseComponent {
                     (stopSlideShow)="stopSlideShow()"
                 ></div>
             </div>
-            <div *ngIf="shouldRenderFooter()" [class]="cx('footer')">
-                <div pGalleriaItemSlot type="footer" [templates]="galleria.templates"></div>
-            </div>
-        </div>
+            <div *ngIf="shouldRenderFooter()" pGalleriaItemSlot [pBind]="ptm('footer')" [class]="cx('footer')" type="footer" [templates]="galleria.templates"></div>
+        </ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [GalleriaStyle]
+    providers: [GalleriaStyle],
+    host: {
+        '[attr.id]': 'id',
+        '[attr.role]': '"region"',
+        '[style]': '!galleria.fullScreen ? galleria.containerStyle : {}',
+        '[class]': "cn(cx('root'), galleria?.contentClass)"
+    }
 })
-export class GalleriaContent extends BaseComponent {
+export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
+    hostName: string = 'Galleria';
+
     @Input() get activeIndex(): number {
         return this._activeIndex;
     }
@@ -507,6 +522,8 @@ export class GalleriaContent extends BaseComponent {
 
     _componentStyle = inject(GalleriaStyle);
 
+    $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     id: string;
 
     _activeIndex: number = 0;
@@ -521,9 +538,7 @@ export class GalleriaContent extends BaseComponent {
 
     constructor(
         public galleria: Galleria,
-        public cd: ChangeDetectorRef,
-        private differs: KeyValueDiffers,
-        private elementRef: ElementRef
+        private differs: KeyValueDiffers
     ) {
         super();
         this.id = this.galleria.id || uuid('pn_id_');
@@ -533,7 +548,7 @@ export class GalleriaContent extends BaseComponent {
     // For custom fullscreen
     @HostListener('document:fullscreenchange', ['$event'])
     handleFullscreenChange(event: Event) {
-        if (document?.fullscreenElement === this.elementRef.nativeElement?.children[0]) {
+        if (document?.fullscreenElement === this.el.nativeElement?.children[0]) {
             this.fullScreen = true;
         } else {
             this.fullScreen = false;
@@ -612,9 +627,14 @@ export class GalleriaContent extends BaseComponent {
             <ng-container *ngTemplateOutlet="contentTemplate; context: context"></ng-container>
         </ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[attr.data-pc-name]': '"galleriaitemslot"'
+    }
 })
-export class GalleriaItemSlot extends BaseComponent {
+export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
+    hostName: string = 'Galleria';
+
     @Input() templates: QueryList<PrimeTemplate> | undefined;
 
     @Input({ transform: numberAttribute }) index: number | undefined;
@@ -638,6 +658,8 @@ export class GalleriaItemSlot extends BaseComponent {
     }
 
     galleria: Galleria = inject(Galleria);
+
+    $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     set item(item: any) {
         this._item = item;
@@ -738,25 +760,53 @@ export class GalleriaItemSlot extends BaseComponent {
     selector: 'div[pGalleriaItem]',
     standalone: false,
     template: `
-        <div [class]="cx('items')">
-            <button *ngIf="showItemNavigators" type="button" role="navigation" [class]="cx('prevButton')" (click)="navBackward($event)" (focus)="onButtonFocus('left')" (blur)="onButtonBlur('left')">
-                <svg data-p-icon="chevron-left" *ngIf="!galleria.itemPreviousIconTemplate && !galleria._itemPreviousIconTemplate" [class]="cx('prevIcon')" />
+        <div [pBind]="ptm('items')" [class]="cx('items')">
+            <button
+                *ngIf="showItemNavigators"
+                type="button"
+                role="navigation"
+                [pBind]="ptm('prevButton')"
+                [class]="cx('prevButton')"
+                (click)="navBackward($event)"
+                (focus)="onButtonFocus('left')"
+                (blur)="onButtonBlur('left')"
+                data-pc-group-section="itemnavigator"
+            >
+                <svg data-p-icon="chevron-left" *ngIf="!galleria.itemPreviousIconTemplate && !galleria._itemPreviousIconTemplate" [pBind]="ptm('prevIcon')" [class]="cx('prevIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate || galleria._itemPreviousIconTemplate"></ng-template>
             </button>
-            <div [id]="id + '_item_' + activeIndex" role="group" [class]="cx('item')" [attr.aria-label]="ariaSlideNumber(activeIndex + 1)" [attr.aria-roledescription]="ariaSlideLabel()">
-                <div pGalleriaItemSlot type="item" [item]="activeItem" [templates]="templates" [class]="cx('item')"></div>
-            </div>
-            <button *ngIf="showItemNavigators" type="button" [class]="cx('nextButton')" (click)="navForward($event)" role="navigation" (focus)="onButtonFocus('right')" (blur)="onButtonBlur('right')">
-                <svg data-p-icon="chevron-right" *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [class]="cx('nextIcon')" />
+            <div
+                pGalleriaItemSlot
+                [pBind]="ptm('item')"
+                [class]="cx('item')"
+                [item]="activeItem"
+                [templates]="templates"
+                [id]="id + '_item_' + activeIndex"
+                role="group"
+                [class]="cx('item')"
+                [attr.aria-label]="ariaSlideNumber(activeIndex + 1)"
+                [attr.aria-roledescription]="ariaSlideLabel()"
+            ></div>
+            <button
+                *ngIf="showItemNavigators"
+                type="button"
+                [pBind]="ptm('nextButton')"
+                [class]="cx('nextButton')"
+                (click)="navForward($event)"
+                role="navigation"
+                (focus)="onButtonFocus('right')"
+                (blur)="onButtonBlur('right')"
+                data-pc-group-section="itemnavigator"
+            >
+                <svg data-p-icon="chevron-right" *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [pBind]="ptm('nextIcon')" [class]="cx('nextIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate || galleria._itemNextIconTemplate"></ng-template>
             </button>
-            <div [class]="cx('caption')" *ngIf="captionFacet || galleria.captionTemplate">
-                <div pGalleriaItemSlot type="caption" [item]="activeItem" [templates]="templates"></div>
-            </div>
+            <div *ngIf="captionFacet || galleria.captionTemplate" pGalleriaItemSlot [pBind]="ptm('caption')" [class]="cx('caption')" type="caption" [item]="activeItem" [templates]="templates"></div>
         </div>
-        <ul *ngIf="showIndicators" [class]="cx('indicatorList')">
+        <ul *ngIf="showIndicators" [pBind]="ptm('indicatorList')" [class]="cx('indicatorList')">
             <li
                 *ngFor="let item of value; let index = index"
+                [pBind]="getIndicatorPTOptions(index)"
                 tabindex="0"
                 (click)="onIndicatorClick(index)"
                 (mouseenter)="onIndicatorMouseEnter(index)"
@@ -765,19 +815,27 @@ export class GalleriaItemSlot extends BaseComponent {
                 [attr.aria-label]="ariaPageLabel(index + 1)"
                 [attr.aria-selected]="activeIndex === index"
                 [attr.aria-controls]="id + '_item_' + index"
+                [pBind]="ptm('indicator', getIndicatorPTOptions(index))"
             >
-                <button type="button" tabIndex="-1" [class]="cx('indicatorButton')" *ngIf="!indicatorFacet && !galleria.indicatorTemplate"></button>
-                <div pGalleriaItemSlot type="indicator" [index]="index" [templates]="templates"></div>
+                <button
+                    *ngIf="!indicatorFacet && !galleria.indicatorTemplate"
+                    pGalleriaItemSlot
+                    type="button"
+                    tabIndex="-1"
+                    [index]="index"
+                    [templates]="templates"
+                    [pBind]="ptm('indicatorButton', getIndicatorPTOptions(index))"
+                    [class]="cx('indicatorButton')"
+                ></button>
             </li>
         </ul>
     `,
-    host: {
-        '[class]': "cx('itemsContainer')"
-    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [GalleriaStyle]
 })
-export class GalleriaItem extends BaseComponent {
+export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
+    hostName: string = 'Galleria';
+
     @Input() id: string | undefined;
 
     @Input({ transform: booleanAttribute }) circular: boolean = false;
@@ -828,6 +886,14 @@ export class GalleriaItem extends BaseComponent {
 
     constructor(public galleria: Galleria) {
         super();
+    }
+
+    getIndicatorPTOptions(index: number) {
+        return this.ptm('indicator', {
+            context: {
+                highlighted: this.activeIndex === index
+            }
+        });
     }
 
     onChanges({ autoPlay }: SimpleChanges): void {
@@ -950,27 +1016,36 @@ export class GalleriaItem extends BaseComponent {
     selector: 'div[pGalleriaThumbnails]',
     standalone: false,
     template: `
-        <div [class]="cx('thumbnails')">
-            <div [class]="cx('thumbnailContent')">
-                <button *ngIf="showThumbnailNavigators" type="button" [class]="cx('thumbnailPrevButton')" (click)="navBackward($event)" pRipple [attr.aria-label]="ariaPrevButtonLabel()">
+        <div [pBind]="ptm('thumbnails')" [class]="cx('thumbnails')">
+            <div [pBind]="ptm('thumbnailContent')" [class]="cx('thumbnailContent')">
+                <button
+                    *ngIf="showThumbnailNavigators"
+                    type="button"
+                    [pBind]="ptm('thumbnailPrevButton')"
+                    [class]="cx('thumbnailPrevButton')"
+                    (click)="navBackward($event)"
+                    pRipple
+                    [attr.aria-label]="ariaPrevButtonLabel()"
+                    data-pc-group-section="thumbnailnavigator"
+                >
                     <ng-container *ngIf="!galleria.previousThumbnailIconTemplate && !galleria._previousThumbnailIconTemplate">
-                        <svg data-p-icon="chevron-left" *ngIf="!isVertical" [class]="cx('thumbnailPrevIcon')" />
-                        <svg data-p-icon="chevron-up" *ngIf="isVertical" [class]="cx('thumbnailPrevIcon')" />
+                        <svg data-p-icon="chevron-left" *ngIf="!isVertical" [pBind]="ptm('thumbnailPrevIcon')" [class]="cx('thumbnailPrevIcon')" />
+                        <svg data-p-icon="chevron-up" *ngIf="isVertical" [pBind]="ptm('thumbnailPrevIcon')" [class]="cx('thumbnailPrevIcon')" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.previousThumbnailIconTemplate || galleria._previousThumbnailIconTemplate"></ng-template>
                 </button>
-                <div [class]="cx('thumbnailsViewport')" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
-                    <div #itemsContainer [class]="cx('thumbnailItems')" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" role="tablist">
+                <div [pBind]="ptm('thumbnailsViewport')" [class]="cx('thumbnailsViewport')" [ngStyle]="{ height: isVertical ? contentHeight : '' }">
+                    <div #itemsContainer [pBind]="ptm('thumbnailItems')" [class]="cx('thumbnailItems')" (transitionend)="onTransitionEnd()" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" role="tablist">
                         <div
                             *ngFor="let item of value; let index = index"
+                            [pBind]="ptm('thumbnailItem')"
                             [class]="cx('thumbnailItem', { index, activeIndex })"
                             [attr.aria-selected]="activeIndex === index"
                             [attr.aria-controls]="containerId + '_item_' + index"
-                            [attr.data-pc-section]="'thumbnailitem'"
-                            [attr.data-p-active]="activeIndex === index"
                             (keydown)="onThumbnailKeydown($event, index)"
                         >
                             <div
+                                [pBind]="ptm('thumbnail')"
                                 [class]="cx('thumbnail')"
                                 [attr.tabindex]="activeIndex === index ? 0 : -1"
                                 [attr.aria-current]="activeIndex === index ? 'page' : undefined"
@@ -979,15 +1054,24 @@ export class GalleriaItem extends BaseComponent {
                                 (touchend)="onItemClick(index)"
                                 (keydown.enter)="onItemClick(index)"
                             >
-                                <div pGalleriaItemSlot type="thumbnail" [item]="item" [templates]="templates"></div>
+                                <div pGalleriaItemSlot type="thumbnail" [pBind]="ptm('thumbnail')" [item]="item" [templates]="templates"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button *ngIf="showThumbnailNavigators" type="button" [class]="cx('thumbnailNextButton')" (click)="navForward($event)" pRipple [attr.aria-label]="ariaNextButtonLabel()">
+                <button
+                    *ngIf="showThumbnailNavigators"
+                    type="button"
+                    [pBind]="ptm('thumbnailNextButton')"
+                    [class]="cx('thumbnailNextButton')"
+                    (click)="navForward($event)"
+                    pRipple
+                    [attr.aria-label]="ariaNextButtonLabel()"
+                    data-pc-group-section="thumbnailnavigator"
+                >
                     <ng-container *ngIf="!galleria.nextThumbnailIconTemplate && !galleria._nextThumbnailIconTemplate">
-                        <svg data-p-icon="chevron-right" *ngIf="!isVertical" [class]="cx('thumbnailNextIcon')" />
-                        <svg data-p-icon="chevron-down" *ngIf="isVertical" [class]="cx('thumbnailNextIcon')" />
+                        <svg data-p-icon="chevron-right" *ngIf="!isVertical" [pBind]="ptm('thumbnailNextIcon')" [class]="cx('thumbnailNextIcon')" />
+                        <svg data-p-icon="chevron-down" *ngIf="isVertical" [pBind]="ptm('thumbnailNextIcon')" [class]="cx('thumbnailNextIcon')" />
                     </ng-container>
                     <ng-template *ngTemplateOutlet="galleria.nextThumbnailIconTemplate || galleria._nextThumbnailIconTemplate"></ng-template>
                 </button>
@@ -997,7 +1081,9 @@ export class GalleriaItem extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [GalleriaStyle]
 })
-export class GalleriaThumbnails extends BaseComponent {
+export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
+    hostName: string = 'Galleria';
+
     @Input() containerId: string | undefined;
 
     @Input() value: any[] | undefined;
@@ -1486,7 +1572,7 @@ export class GalleriaThumbnails extends BaseComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, FocusTrap],
+    imports: [CommonModule, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, FocusTrap, BindModule],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })

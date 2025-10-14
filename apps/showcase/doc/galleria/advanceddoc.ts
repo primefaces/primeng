@@ -1,12 +1,11 @@
-import { Code } from '@/domain/code';
-import { PhotoService } from '@/service/photoservice';
-import { isPlatformBrowser, CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Galleria } from 'primeng/galleria';
-import { GalleriaModule } from 'primeng/galleria';
-import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { PhotoService } from '@/service/photoservice';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { Galleria, GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-advanced-doc',
