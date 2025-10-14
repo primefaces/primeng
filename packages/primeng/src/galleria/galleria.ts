@@ -817,16 +817,10 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                 [attr.aria-controls]="id + '_item_' + index"
                 [pBind]="ptm('indicator', getIndicatorPTOptions(index))"
             >
-                <button
-                    *ngIf="!indicatorFacet && !galleria.indicatorTemplate"
-                    pGalleriaItemSlot
-                    type="button"
-                    tabIndex="-1"
-                    [index]="index"
-                    [templates]="templates"
-                    [pBind]="ptm('indicatorButton', getIndicatorPTOptions(index))"
-                    [class]="cx('indicatorButton')"
-                ></button>
+                <button *ngIf="!indicatorFacet && !galleria.indicatorTemplate" type="button" tabIndex="-1" [pBind]="ptm('indicatorButton', getIndicatorPTOptions(index))" [class]="cx('indicatorButton')"></button>
+                <ng-container *ngIf="indicatorFacet || galleria.indicatorTemplate">
+                    <ng-container pGalleriaItemSlot type="indicator" [index]="index" [templates]="templates"></ng-container>
+                </ng-container>
             </li>
         </ul>
     `,
