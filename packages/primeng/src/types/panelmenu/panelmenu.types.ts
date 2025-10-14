@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PanelMenu } from 'primeng/panelmenu';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link PanelMenuProps.pt}
+ * @see {@link PanelMenu.pt}
  * @group Interface
  */
 export interface PanelMenuPassThroughOptions<I = unknown> {

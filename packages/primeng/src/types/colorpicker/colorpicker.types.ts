@@ -1,5 +1,5 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { ColorPicker } from 'primeng/colorpicker';
+import type { ColorPicker } from 'primeng/colorpicker';
 
 /**
  * Custom pass-through(pt) options.

@@ -1,11 +1,12 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Card } from 'primeng/card';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link CardProps.pt}
+ * @see {@link Card.pt}
  * @group Interface
  */
 export interface CardPassThroughOptions<I = unknown> {

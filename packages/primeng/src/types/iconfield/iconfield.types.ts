@@ -1,5 +1,5 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { IconField } from 'primeng/iconfield';
+import type { IconField } from 'primeng/iconfield';
 
 /**
  * Custom pass-through(pt) options.

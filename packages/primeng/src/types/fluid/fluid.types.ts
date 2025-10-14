@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Fluid } from 'primeng/fluid';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link FluidProps.pt}
+ * @see {@link Fluid.pt}
  * @group Interface
  */
 export interface FluidPassThroughOptions<I = unknown> {

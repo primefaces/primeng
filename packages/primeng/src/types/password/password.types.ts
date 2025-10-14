@@ -1,11 +1,12 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { Password } from 'primeng/password';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link PasswordPassThrough}
+ * @see {@link Password.pt}
  * @group Interface
  */
 export interface PasswordPassThroughOptions<I = unknown> {

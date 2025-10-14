@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { ProgressBar } from 'primeng/progressbar';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link ProgressBarProps.pt}
+ * @see {@link ProgressBar.pt}
  * @group Interface
  */
 export interface ProgressBarPassThroughOptions<I = unknown> {

@@ -1,48 +1,12 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-
-/**
- * Defines valid templates in Timeline.
- * @group Templates
- */
-export interface TimelineTemplates {
-    /**
-     * Custom content template.
-     * @param {Object} context - item data.
-     */
-    content(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
-    /**
-     * Custom opposite item template.
-     * @param {Object} context - item data.
-     */
-    opposite(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
-    /**
-     * Custom marker template.
-     * @param {Object} context - item data.
-     */
-    marker(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
-}
+import type { Timeline } from 'primeng/timeline';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link TimelineProps.pt}
+ * @see {@link Timeline.pt}
  * @group Interface
  */
 export interface TimelinePassThroughOptions<I = unknown> {
@@ -87,3 +51,40 @@ export interface TimelinePassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type TimelinePassThrough<I = unknown> = PassThrough<I, TimelinePassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in Timeline.
+ * @group Templates
+ */
+export interface TimelineTemplates {
+    /**
+     * Custom content template.
+     * @param {Object} context - item data.
+     */
+    content(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Custom opposite item template.
+     * @param {Object} context - item data.
+     */
+    opposite(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Custom marker template.
+     * @param {Object} context - item data.
+     */
+    marker(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+}

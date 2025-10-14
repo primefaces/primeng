@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Dock } from 'primeng/dock';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link DockProps.pt}
+ * @see {@link Dock.pt}
  * @group Interface
  */
 export interface DockPassThroughOptions<I = unknown> {

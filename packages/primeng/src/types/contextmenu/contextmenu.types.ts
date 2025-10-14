@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { ContextMenu } from 'primeng/contextmenu';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link ContextMenuProps.pt}
+ * @see {@link ContextMenu.pt}
  * @group Interface
  */
 export interface ContextMenuPassThroughOptions<I = unknown> {

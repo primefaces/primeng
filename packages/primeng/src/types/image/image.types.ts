@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Image } from 'primeng/image';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link ImageProps.pt}
+ * @see {@link Image.pt}
  * @group Interface
  */
 export interface ImagePassThroughOptions<I = unknown> {

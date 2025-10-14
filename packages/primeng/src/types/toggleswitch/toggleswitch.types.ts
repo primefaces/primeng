@@ -1,5 +1,5 @@
 import { PassThrough, PassThroughOption } from 'primeng/api';
-import { ToggleSwitch } from 'primeng/toggleswitch';
+import type { ToggleSwitch } from 'primeng/toggleswitch';
 
 /**
  * Custom passthrough(pt) options.

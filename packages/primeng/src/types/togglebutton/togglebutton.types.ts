@@ -1,6 +1,7 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { ToggleButton } from 'primeng/togglebutton';
+import type { ToggleButton } from 'primeng/togglebutton';
+
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.

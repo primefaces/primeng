@@ -1,48 +1,14 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { MenuItem } from 'primeng/api';
-
-/**
- * Defines valid templates in Menubar.
- * @group Templates
- */
-export interface MenubarTemplates {
-    /**
-     * Custom item template.
-     */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: MenuItem;
-        /**
-         * Whether root or not
-         */
-        root: boolean;
-    }): TemplateRef<{ $implicit: MenuItem; root: boolean }>;
-    /**
-     * Custom template of start.
-     */
-    start(): TemplateRef<any>;
-    /**
-     * Custom template of end.
-     */
-    end(): TemplateRef<any>;
-    /**
-     * Custom template of menuicon.
-     */
-    menuicon(): TemplateRef<any>;
-    /**
-     * Custom template of submenuicon.
-     */
-    submenuicon(): TemplateRef<any>;
-}
+import type { Menubar } from 'primeng/menubar';
+import type { BadgePassThrough } from 'primeng/types/badge';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link MenubarProps.pt}
+ * @see {@link Menubar.pt}
  * @group Interface
  */
 export interface MenubarPassThroughOptions<I = unknown> {
@@ -106,7 +72,7 @@ export interface MenubarPassThroughOptions<I = unknown> {
      * Used to pass attributes to Badge component.
      * @see {@link BadgePassThrough}
      */
-    pcBadge?: any; // BadgePassThrough when available
+    pcBadge?: BadgePassThrough;
 }
 
 /**
@@ -116,3 +82,39 @@ export interface MenubarPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type MenubarPassThrough<I = unknown> = PassThrough<I, MenubarPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in Menubar.
+ * @group Templates
+ */
+export interface MenubarTemplates {
+    /**
+     * Custom item template.
+     */
+    item(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: MenuItem;
+        /**
+         * Whether root or not
+         */
+        root: boolean;
+    }): TemplateRef<{ $implicit: MenuItem; root: boolean }>;
+    /**
+     * Custom template of start.
+     */
+    start(): TemplateRef<any>;
+    /**
+     * Custom template of end.
+     */
+    end(): TemplateRef<any>;
+    /**
+     * Custom template of menuicon.
+     */
+    menuicon(): TemplateRef<any>;
+    /**
+     * Custom template of submenuicon.
+     */
+    submenuicon(): TemplateRef<any>;
+}

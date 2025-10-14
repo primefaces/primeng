@@ -1,6 +1,45 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import { Scroller } from '../../scroller/scroller';
+import type { Scroller } from 'primeng/scroller';
+
+/**
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
+ * @see {@link Scroller.pt}
+ * @group Interface
+ */
+export interface ScrollerPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the content's DOM element.
+     */
+    content?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the spacer's DOM element.
+     */
+    spacer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the loader's DOM element.
+     */
+    loader?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the loading icon's DOM element.
+     */
+    loadingIcon?: PassThroughOption<HTMLElement, I>;
+}
+
+/**
+ * Defines valid pass-through options in Scroller.
+ * @see {@link ScrollerPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type ScrollerPassThrough<I = unknown> = PassThrough<I, ScrollerPassThroughOptions<I>>;
+
 /**
  * Options of the scroll direction.
  * @group Types
@@ -162,41 +201,3 @@ export interface ScrollerTemplates {
         options: ScrollerLoaderIconOptions;
     }): TemplateRef<{ options: ScrollerLoaderIconOptions }>;
 }
-
-/**
- * Custom pass-through(pt) options.
- * @template I Type of instance.
- *
- * @see {@link ScrollerProps.pt}
- * @group Interface
- */
-export interface ScrollerPassThroughOptions<I = unknown> {
-    /**
-     * Used to pass attributes to the root's DOM element.
-     */
-    root?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the content's DOM element.
-     */
-    content?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the spacer's DOM element.
-     */
-    spacer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the loader's DOM element.
-     */
-    loader?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the loading icon's DOM element.
-     */
-    loadingIcon?: PassThroughOption<HTMLElement, I>;
-}
-
-/**
- * Defines valid pass-through options in Scroller.
- * @see {@link ScrollerPassThroughOptions}
- *
- * @template I Type of instance.
- */
-export type ScrollerPassThrough<I = unknown> = PassThrough<I, ScrollerPassThroughOptions<I>>;

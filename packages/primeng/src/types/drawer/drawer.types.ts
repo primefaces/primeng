@@ -1,12 +1,13 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import { TemplateRef } from '@angular/core';
+import type { Drawer } from 'primeng/drawer';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link DrawerProps.pt}
+ * @see {@link Drawer.pt}
  * @group Interface
  */
 export interface DrawerPassThroughOptions<I = unknown> {

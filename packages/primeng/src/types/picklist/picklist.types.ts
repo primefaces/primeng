@@ -2,6 +2,119 @@ import { TemplateRef } from '@angular/core';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { ListBoxPassThrough } from 'primeng/types/listbox';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PickList } from 'primeng/picklist';
+
+/**
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
+ * @see {@link PickList.pt}
+ * @group Interface
+ */
+export interface PickListPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the source controls' DOM element.
+     */
+    sourceControls?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the source list container's DOM element.
+     */
+    sourceListContainer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the transfer controls' DOM element.
+     */
+    transferControls?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the target list container's DOM element.
+     */
+    targetListContainer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the target controls' DOM element.
+     */
+    targetControls?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the source move up Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcSourceMoveUpButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the source move top Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcSourceMoveTopButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the source move down Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcSourceMoveDownButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the source move bottom Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcSourceMoveBottomButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the move to target Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcMoveToTargetButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the move all to target Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcMoveAllToTargetButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the move to source Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcMoveToSourceButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the move all to source Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcMoveAllToSourceButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the target move up Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcTargetMoveUpButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the target move top Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcTargetMoveTopButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the target move down Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcTargetMoveDownButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the target move bottom Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcTargetMoveBottomButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the Listbox component.
+     * @see {@link ListBoxPassThrough}
+     */
+    pcListbox?: ListBoxPassThrough;
+}
+
+/**
+ * Defines valid pass-through options in PickList.
+ * @see {@link PickListPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type PickListPassThrough<I = unknown> = PassThrough<I, PickListPassThroughOptions<I>>;
 
 /**
  * Callbacks to invoke on filter.
@@ -223,115 +336,3 @@ export interface PickListTemplates {
      */
     sourcefiltericon(): TemplateRef<any>;
 }
-
-/**
- * Custom pass-through(pt) options.
- * @template I Type of instance.
- *
- * @see {@link PickListProps.pt}
- * @group Interface
- */
-export interface PickListPassThroughOptions<I = unknown> {
-    /**
-     * Used to pass attributes to the root's DOM element.
-     */
-    root?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the source controls' DOM element.
-     */
-    sourceControls?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the source list container's DOM element.
-     */
-    sourceListContainer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the transfer controls' DOM element.
-     */
-    transferControls?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the target list container's DOM element.
-     */
-    targetListContainer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the target controls' DOM element.
-     */
-    targetControls?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the source move up Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcSourceMoveUpButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the source move top Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcSourceMoveTopButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the source move down Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcSourceMoveDownButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the source move bottom Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcSourceMoveBottomButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the move to target Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcMoveToTargetButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the move all to target Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcMoveAllToTargetButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the move to source Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcMoveToSourceButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the move all to source Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcMoveAllToSourceButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the target move up Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcTargetMoveUpButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the target move top Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcTargetMoveTopButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the target move down Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcTargetMoveDownButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the target move bottom Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcTargetMoveBottomButton?: ButtonPassThrough;
-    /**
-     * Used to pass attributes to the Listbox component.
-     * @see {@link ListBoxPassThrough}
-     */
-    pcListbox?: ListBoxPassThrough;
-}
-
-/**
- * Defines valid pass-through options in PickList.
- * @see {@link PickListPassThroughOptions}
- *
- * @template I Type of instance.
- */
-export type PickListPassThrough<I = unknown> = PassThrough<I, PickListPassThroughOptions<I>>;

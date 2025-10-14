@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Menu } from 'primeng/menu';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link MenuProps.pt}
+ * @see {@link Menu.pt}
  * @group Interface
  */
 export interface MenuPassThroughOptions<I = unknown> {

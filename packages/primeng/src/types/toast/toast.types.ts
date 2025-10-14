@@ -1,35 +1,12 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption, ToastMessageOptions } from 'primeng/api';
-
-/**
- * Defines valid templates in Toast.
- * @group Templates
- */
-export interface ToastTemplates {
-    /**
-     * Custom template of message.
-     */
-    message(context: {
-        /**
-         * Data of the message.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
-    /**
-     * Headless template.
-     */
-    headless(context: {
-        /**
-         * Data of the message.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
-}
+import type { Toast } from 'primeng/toast';
 
 /**
  * Custom pass-through(pt) options for Toast.
  * @template I Type of instance.
  *
+ * @see {@link Toast.pt}
  * @group Interface
  */
 export interface ToastPassThroughOptions<I = unknown> {
@@ -82,6 +59,31 @@ export interface ToastPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type ToastPassThrough<I = unknown> = PassThrough<I, ToastPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in Toast.
+ * @group Templates
+ */
+export interface ToastTemplates {
+    /**
+     * Custom template of message.
+     */
+    message(context: {
+        /**
+         * Data of the message.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Headless template.
+     */
+    headless(context: {
+        /**
+         * Data of the message.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+}
 
 /**
  * Defines the position type for Toast.

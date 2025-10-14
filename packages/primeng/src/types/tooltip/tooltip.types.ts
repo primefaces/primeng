@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Tooltip } from 'primeng/tooltip';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link TooltipProps.pt}
+ * @see {@link Tooltip.pt}
  * @group Interface
  */
 export interface TooltipPassThroughOptions<I = unknown> {

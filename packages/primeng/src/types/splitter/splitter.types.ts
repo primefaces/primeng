@@ -1,11 +1,12 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Splitter } from 'primeng/splitter';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link SplitterProps.pt}
+ * @see {@link Splitter.pt}
  * @group Interface
  */
 export interface SplitterPassThroughOptions<I = unknown> {

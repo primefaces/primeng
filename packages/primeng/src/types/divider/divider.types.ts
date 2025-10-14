@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Divider } from 'primeng/divider';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link DividerProps.pt}
+ * @see {@link Divider.pt}
  * @group Interface
  */
 export interface DividerPassThroughOptions<I = unknown> {

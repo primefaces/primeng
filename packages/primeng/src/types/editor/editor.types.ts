@@ -1,6 +1,6 @@
 import { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import { Editor } from 'primeng/editor';
+import type { Editor } from 'primeng/editor';
 
 /**
  * Custom passthrough(pt) options.

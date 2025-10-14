@@ -5,13 +5,13 @@ import type { ChipPassThrough } from 'primeng/types/chip';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 import type { OverlayPassThrough } from 'primeng/types/overlay';
 import type { ScrollerPassThrough } from 'primeng/types/scroller';
-import { AutoComplete } from '../../autocomplete/autocomplete';
+import type { AutoComplete } from 'primeng/autocomplete';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link AutoCompleteProps.pt}
+ * @see {@link AutoComplete.pt}
  * @group Interface
  */
 export interface AutoCompletePassThroughOptions<I = unknown> {

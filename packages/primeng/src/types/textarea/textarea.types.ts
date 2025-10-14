@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Textarea } from 'primeng/textarea';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link TextareaPassThrough}
+ * @see {@link Textarea.pt}
  * @group Interface
  */
 export interface TextareaPassThroughOptions<I = unknown> {

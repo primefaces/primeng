@@ -1,11 +1,12 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Toolbar } from 'primeng/toolbar';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link ToolbarProps.pt}
+ * @see {@link Toolbar.pt}
  * @group Interface
  */
 export interface ToolbarPassThroughOptions<I = unknown> {

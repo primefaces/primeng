@@ -1,22 +1,12 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-
-/**
- * Defines valid templates in BlockUI.
- * @group Templates
- */
-export interface BlockUITemplates {
-    /**
-     * Custom template of content.
-     */
-    content(): TemplateRef<any>;
-}
+import type { BlockUI } from 'primeng/blockui';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link BlockUIProps.pt}
+ * @see {@link BlockUI.pt}
  * @group Interface
  */
 export interface BlockUIPassThroughOptions<I = unknown> {
@@ -37,3 +27,14 @@ export interface BlockUIPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type BlockUIPassThrough<I = unknown> = PassThrough<I, BlockUIPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in BlockUI.
+ * @group Templates
+ */
+export interface BlockUITemplates {
+    /**
+     * Custom template of content.
+     */
+    content(): TemplateRef<any>;
+}
