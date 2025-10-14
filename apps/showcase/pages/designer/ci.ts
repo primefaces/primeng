@@ -1,12 +1,13 @@
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
-import { OverviewDoc } from '@/doc/designer/ci/overviewdoc';
 import { DesignerApiDoc } from '@/doc/designer/ci/designerapidoc';
 import { FigmaDoc } from '@/doc/designer/ci/figmadoc';
+import { BitbucketDoc } from '@/doc/designer/ci/integration/bitbucketdoc';
 import { GitHubDoc } from '@/doc/designer/ci/integration/githubdoc';
 import { GitLabDoc } from '@/doc/designer/ci/integration/gitlabdoc';
-import { BitbucketDoc } from '@/doc/designer/ci/integration/bitbucketdoc';
 import { LivePreviewDoc } from '@/doc/designer/ci/livepreviewdoc';
+import { OverviewDoc } from '@/doc/designer/ci/overviewdoc';
+import { VideoTutorialDoc } from '@/doc/designer/ci/videotutorialdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -29,6 +30,11 @@ export class CIDemo {
             id: 'overview',
             label: 'Overview',
             component: OverviewDoc
+        },
+        {
+            id: 'videotutorial',
+            label: 'Video Tutorial',
+            component: VideoTutorialDoc
         },
         {
             id: 'designer-api',
