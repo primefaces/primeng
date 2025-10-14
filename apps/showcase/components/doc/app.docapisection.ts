@@ -59,7 +59,7 @@ export class AppDocApiSection {
 
         for (const docName of this.docs()) {
             const moduleName = docName.toLowerCase();
-            let module = APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
+            let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
 
             // Special case for StyleClass which is nested under "class" -> "style" -> "components"
             if (docName === 'StyleClass' && !module) {
@@ -77,8 +77,8 @@ export class AppDocApiSection {
 
             if (module) {
                 let props =
-                    module.components && module.components[docName.toLowerCase()]
-                        ? module.components[docName.toLowerCase()].props
+                    module.components && module.components[docName]
+                        ? module.components[docName].props
                         : module.props
                           ? module.props
                           : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)
