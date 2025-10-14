@@ -1,12 +1,13 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import { TemplateRef } from '@angular/core';
+import type { Dialog } from 'primeng/dialog';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link DialogProps.pt}
+ * @see {@link Dialog.pt}
  * @group Interface
  */
 export interface DialogPassThroughOptions<I = unknown> {

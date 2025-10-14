@@ -1,6 +1,65 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
 import { PaginatorPassThrough } from 'primeng/types/paginator';
+import type { DataView } from 'primeng/dataview';
+
+/**
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
+ * @see {@link DataView.pt}
+ * @group Interface
+ */
+export interface DataViewPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the loading container's DOM element.
+     */
+    loading?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the loading overlay's DOM element.
+     */
+    loadingOverlay?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the loading icon's DOM element.
+     */
+    loadingIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the header's DOM element.
+     */
+    header?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the content container's DOM element.
+     */
+    content?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the empty message's DOM element.
+     */
+    emptyMessage?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the footer's DOM element.
+     */
+    footer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the Paginator component.
+     */
+    pcPaginator?: PaginatorPassThrough;
+}
+
+/**
+ * Defines valid pass-through options in DataView.
+ * @see {@link DataViewPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type DataViewPassThrough<I = unknown> = PassThrough<I, DataViewPassThroughOptions<I>>;
 
 /**
  * State of the paginator.
@@ -173,61 +232,3 @@ export interface DataViewTemplates {
      */
     gridicon(): TemplateRef<any>;
 }
-
-/**
- * Custom pass-through(pt) options.
- * @template I Type of instance.
- *
- * @see {@link DataViewProps.pt}
- * @group Interface
- */
-export interface DataViewPassThroughOptions<I = unknown> {
-    /**
-     * Used to pass attributes to the host's DOM element.
-     */
-    host?: PassThroughOption<HTMLElement, I>;
-    /**
-     * Used to pass attributes to the root's DOM element.
-     */
-    root?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the loading container's DOM element.
-     */
-    loading?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the loading overlay's DOM element.
-     */
-    loadingOverlay?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the loading icon's DOM element.
-     */
-    loadingIcon?: PassThroughOption<SVGElement, I>;
-    /**
-     * Used to pass attributes to the header's DOM element.
-     */
-    header?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the content container's DOM element.
-     */
-    content?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the empty message's DOM element.
-     */
-    emptyMessage?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the footer's DOM element.
-     */
-    footer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the Paginator component.
-     */
-    pcPaginator?: PaginatorPassThrough;
-}
-
-/**
- * Defines valid pass-through options in DataView.
- * @see {@link DataViewPassThroughOptions}
- *
- * @template I Type of instance.
- */
-export type DataViewPassThrough<I = unknown> = PassThrough<I, DataViewPassThroughOptions<I>>;

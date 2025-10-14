@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { TieredMenu } from 'primeng/tieredmenu';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link TieredMenuProps.pt}
+ * @see {@link TieredMenu.pt}
  * @group Interface
  */
 export interface TieredMenuPassThroughOptions<I = unknown> {

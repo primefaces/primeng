@@ -1,11 +1,12 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThroughOptions } from 'primeng/button';
+import type { Carousel } from 'primeng/carousel';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link CarouselProps.pt}
+ * @see {@link Carousel.pt}
  * @group Interface
  */
 export interface CarouselPassThroughOptions<I = unknown> {

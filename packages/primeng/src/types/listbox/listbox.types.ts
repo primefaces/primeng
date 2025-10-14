@@ -1,5 +1,103 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
+import type { Listbox } from 'primeng/listbox';
+/**
+ * Defines valid pass-through options in ListBox component.
+ * @template I Type of instance.
+ *
+ * @see {@link Listbox.pt}
+ * @group Interface
+ */
+export interface ListBoxPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the header's DOM element.
+     */
+    header?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the Checkbox component.
+     */
+    pcCheckbox?: any;
+    /**
+     * Used to pass attributes to the IconField component.
+     */
+    pcFilterContainer?: any;
+    /**
+     * Used to pass attributes to the filter input's DOM element.
+     */
+    pcFilter?: any;
+    /**
+     * Used to pass attributes to the InputIcon component.
+     */
+    pcFilterIconContainer?: any;
+    /**
+     * Used to pass attributes to the filter icon's DOM element.
+     */
+    filterIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the hidden filter result's DOM element.
+     */
+    hiddenFilterResult?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the list container's DOM element.
+     */
+    listContainer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the VirtualScroller component.
+     */
+    virtualScroller?: any;
+    /**
+     * Used to pass attributes to the list's DOM element.
+     */
+    list?: PassThroughOption<HTMLUListElement, I>;
+    /**
+     * Used to pass attributes to the option group's DOM element.
+     */
+    optionGroup?: PassThroughOption<HTMLLIElement, I, ListBoxContext>;
+    /**
+     * Used to pass attributes to the option's DOM element.
+     */
+    option?: PassThroughOption<HTMLLIElement, I, ListBoxContext>;
+    /**
+     * Used to pass attributes to the option check icon's DOM element.
+     */
+    optionCheckIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the option blank icon's DOM element.
+     */
+    optionBlankIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the empty message's DOM element.
+     */
+    emptyMessage?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the hidden empty message's DOM element.
+     */
+    hiddenEmptyMessage?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the hidden selected message's DOM element.
+     */
+    hiddenSelectedMessage?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the first hidden focusable element.
+     */
+    hiddenFirstFocusableEl?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the last hidden focusable element.
+     */
+    hiddenLastFocusableEl?: PassThroughOption<HTMLSpanElement, I>;
+}
+
+/**
+ * Defines valid pass-through options in ListBox component.
+ * @see {@link ListBoxPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type ListBoxPassThrough<I = unknown> = PassThrough<I, ListBoxPassThroughOptions<I>>;
 
 /**
  * Filter options of listbox.
@@ -173,100 +271,3 @@ export interface ListBoxContext {
      */
     disabled?: boolean;
 }
-
-/**
- * Defines valid pass-through options in ListBox component.
- * @template I Type of instance.
- *
- * @group Interface
- */
-export interface ListBoxPassThroughOptions<I = unknown> {
-    /**
-     * Used to pass attributes to the root's DOM element.
-     */
-    root?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the header's DOM element.
-     */
-    header?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the Checkbox component.
-     */
-    pcCheckbox?: any;
-    /**
-     * Used to pass attributes to the IconField component.
-     */
-    pcFilterContainer?: any;
-    /**
-     * Used to pass attributes to the filter input's DOM element.
-     */
-    pcFilter?: any;
-    /**
-     * Used to pass attributes to the InputIcon component.
-     */
-    pcFilterIconContainer?: any;
-    /**
-     * Used to pass attributes to the filter icon's DOM element.
-     */
-    filterIcon?: PassThroughOption<SVGElement, I>;
-    /**
-     * Used to pass attributes to the hidden filter result's DOM element.
-     */
-    hiddenFilterResult?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the list container's DOM element.
-     */
-    listContainer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the VirtualScroller component.
-     */
-    virtualScroller?: any;
-    /**
-     * Used to pass attributes to the list's DOM element.
-     */
-    list?: PassThroughOption<HTMLUListElement, I>;
-    /**
-     * Used to pass attributes to the option group's DOM element.
-     */
-    optionGroup?: PassThroughOption<HTMLLIElement, I, ListBoxContext>;
-    /**
-     * Used to pass attributes to the option's DOM element.
-     */
-    option?: PassThroughOption<HTMLLIElement, I, ListBoxContext>;
-    /**
-     * Used to pass attributes to the option check icon's DOM element.
-     */
-    optionCheckIcon?: PassThroughOption<SVGElement, I>;
-    /**
-     * Used to pass attributes to the option blank icon's DOM element.
-     */
-    optionBlankIcon?: PassThroughOption<SVGElement, I>;
-    /**
-     * Used to pass attributes to the empty message's DOM element.
-     */
-    emptyMessage?: PassThroughOption<HTMLLIElement, I>;
-    /**
-     * Used to pass attributes to the hidden empty message's DOM element.
-     */
-    hiddenEmptyMessage?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the hidden selected message's DOM element.
-     */
-    hiddenSelectedMessage?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the first hidden focusable element.
-     */
-    hiddenFirstFocusableEl?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the last hidden focusable element.
-     */
-    hiddenLastFocusableEl?: PassThroughOption<HTMLSpanElement, I>;
-}
-
-/**
- * Defines valid pass-through options in ListBox component.
- * @see {@link ListBoxPassThroughOptions}
- *
- * @template I Type of instance.
- */
-export type ListBoxPassThrough<I = unknown> = PassThrough<I, ListBoxPassThroughOptions<I>>;

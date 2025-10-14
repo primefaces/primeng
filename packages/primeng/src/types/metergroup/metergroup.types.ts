@@ -1,5 +1,60 @@
 import type { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { MeterGroup } from 'primeng/metergroup';
+
+/**
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
+ * @see {@link MeterGroup.pt}
+ * @group Interface
+ */
+export interface MeterGroupPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the meters' DOM element.
+     */
+    meters?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the meter's DOM element.
+     */
+    meter?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the label list's DOM element.
+     */
+    labelList?: PassThroughOption<HTMLOListElement, I>;
+    /**
+     * Used to pass attributes to the label's DOM element.
+     */
+    label?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the label icon's DOM element.
+     */
+    labelIcon?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the label marker's DOM element.
+     */
+    labelMarker?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the label text's DOM element.
+     */
+    labelText?: PassThroughOption<HTMLSpanElement, I>;
+}
+
+/**
+ * Defines valid pass-through options in MeterGroup.
+ * @see {@link MeterGroupPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type MeterGroupPassThrough<I = unknown> = PassThrough<I, MeterGroupPassThroughOptions<I>>;
 
 /**
  * Defines valid templates in MeterGroup.
@@ -122,57 +177,3 @@ export interface MeterItem {
      */
     icon?: string;
 }
-
-/**
- * Custom pass-through(pt) options.
- * @template I Type of instance.
- *
- * @see {@link MeterGroupProps.pt}
- * @group Interface
- */
-export interface MeterGroupPassThroughOptions<I = unknown> {
-    /**
-     * Used to pass attributes to the host's DOM element.
-     */
-    host?: PassThroughOption<HTMLElement, I>;
-    /**
-     * Used to pass attributes to the root's DOM element.
-     */
-    root?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the meters' DOM element.
-     */
-    meters?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the meter's DOM element.
-     */
-    meter?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the label list's DOM element.
-     */
-    labelList?: PassThroughOption<HTMLOListElement, I>;
-    /**
-     * Used to pass attributes to the label's DOM element.
-     */
-    label?: PassThroughOption<HTMLLIElement, I>;
-    /**
-     * Used to pass attributes to the label icon's DOM element.
-     */
-    labelIcon?: PassThroughOption<HTMLElement, I>;
-    /**
-     * Used to pass attributes to the label marker's DOM element.
-     */
-    labelMarker?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the label text's DOM element.
-     */
-    labelText?: PassThroughOption<HTMLSpanElement, I>;
-}
-
-/**
- * Defines valid pass-through options in MeterGroup.
- * @see {@link MeterGroupPassThroughOptions}
- *
- * @template I Type of instance.
- */
-export type MeterGroupPassThrough<I = unknown> = PassThrough<I, MeterGroupPassThroughOptions<I>>;

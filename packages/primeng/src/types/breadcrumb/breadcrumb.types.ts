@@ -1,11 +1,12 @@
 import type { MenuItem } from 'primeng/api';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Breadcrumb } from 'primeng/breadcrumb';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link BreadcrumbProps.pt}
+ * @see {@link Breadcrumb.pt}
  * @group Interface
  */
 export interface BreadcrumbPassThroughOptions<I = unknown> {

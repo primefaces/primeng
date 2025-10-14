@@ -1,39 +1,12 @@
 import { TemplateRef } from '@angular/core';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
-
-/**
- * Defines valid templates in MegaMenu.
- * @group Templates
- */
-export interface MegaMenuTemplates {
-    /**
-     * Custom item template.
-     */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: MenuItem;
-    }): TemplateRef<{ $implicit: MenuItem }>;
-    /**
-     * Custom template of start.
-     */
-    start(): TemplateRef<any>;
-    /**
-     * Custom template of submenuicon.
-     */
-    submenuicon(): TemplateRef<any>;
-    /**
-     * Custom template of end.
-     */
-    end(): TemplateRef<any>;
-}
+import type { MegaMenu } from 'primeng/megamenu';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link MegaMenuProps.pt}
+ * @see {@link MegaMenu.pt}
  * @group Interface
  */
 export interface MegaMenuPassThroughOptions<I = unknown> {
@@ -118,3 +91,31 @@ export interface MegaMenuPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type MegaMenuPassThrough<I = unknown> = PassThrough<I, MegaMenuPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in MegaMenu.
+ * @group Templates
+ */
+export interface MegaMenuTemplates {
+    /**
+     * Custom item template.
+     */
+    item(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: MenuItem;
+    }): TemplateRef<{ $implicit: MenuItem }>;
+    /**
+     * Custom template of start.
+     */
+    start(): TemplateRef<any>;
+    /**
+     * Custom template of submenuicon.
+     */
+    submenuicon(): TemplateRef<any>;
+    /**
+     * Custom template of end.
+     */
+    end(): TemplateRef<any>;
+}

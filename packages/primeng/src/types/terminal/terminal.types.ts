@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Terminal } from 'primeng/terminal';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link TerminalProps.pt}
+ * @see {@link Terminal.pt}
  * @group Interface
  */
 export interface TerminalPassThroughOptions<I = unknown> {

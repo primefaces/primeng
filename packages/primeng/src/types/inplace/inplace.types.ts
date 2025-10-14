@@ -1,11 +1,12 @@
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Inplace } from 'primeng/inplace';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link InplaceProps.pt}
+ * @see {@link Inplace.pt}
  * @group Interface
  */
 export interface InplacePassThroughOptions<I = unknown> {

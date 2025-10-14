@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Skeleton } from 'primeng/skeleton';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link SkeletonProps.pt}
+ * @see {@link Skeleton.pt}
  * @group Interface
  */
 export interface SkeletonPassThroughOptions<I = unknown> {

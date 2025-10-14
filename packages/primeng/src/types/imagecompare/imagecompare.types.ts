@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { ImageCompare } from 'primeng/imagecompare';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link ImageCompareProps.pt}
+ * @see {@link ImageCompare.pt}
  * @group Interface
  */
 export interface ImageComparePassThroughOptions<I = unknown> {

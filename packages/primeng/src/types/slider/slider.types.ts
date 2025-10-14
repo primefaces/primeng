@@ -1,5 +1,5 @@
 import { PassThrough, PassThroughOption } from 'primeng/api';
-import { Slider } from 'primeng/slider';
+import type { Slider } from 'primeng/slider';
 
 /**
  * Custom passthrough(pt) options.

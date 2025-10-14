@@ -1,5 +1,5 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { FloatLabel } from 'primeng/floatlabel';
+import type { FloatLabel } from 'primeng/floatlabel';
 
 /**
  * Custom pass-through(pt) options.

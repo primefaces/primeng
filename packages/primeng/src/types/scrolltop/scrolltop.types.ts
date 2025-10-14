@@ -1,11 +1,12 @@
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { ScrollTop } from 'primeng/scrolltop';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link ScrollTopProps.pt}
+ * @see {@link ScrollTop.pt}
  * @group Interface
  */
 export interface ScrollTopPassThroughOptions<I = unknown> {

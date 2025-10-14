@@ -1,12 +1,13 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
+import type { SpeedDial } from 'primeng/speeddial';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link SpeedDialProps.pt}
+ * @see {@link SpeedDial.pt}
  * @group Interface
  */
 export interface SpeedDialPassThroughOptions<I = unknown> {

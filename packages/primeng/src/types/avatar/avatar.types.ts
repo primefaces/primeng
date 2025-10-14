@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Avatar } from 'primeng/avatar';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link AvatarProps.pt}
+ * @see {@link Avatar.pt}
  * @group Interface
  */
 export interface AvatarPassThroughOptions<I = unknown> {

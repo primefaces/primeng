@@ -5,12 +5,13 @@ import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 import type { ScrollerPassThrough } from 'primeng/types/scroller';
+import type { Select } from 'primeng/select';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link SelectProps.pt}
+ * @see {@link Select.pt}
  * @group Interface
  */
 export interface SelectPassThroughOptions<I = unknown> {

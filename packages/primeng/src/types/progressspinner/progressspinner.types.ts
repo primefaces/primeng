@@ -1,10 +1,11 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { ProgressSpinner } from 'primeng/progressspinner';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
  *
- * @see {@link ProgressSpinnerProps.pt}
+ * @see {@link ProgressSpinner.pt}
  * @group Interface
  */
 export interface ProgressSpinnerPassThroughOptions<I = unknown> {
