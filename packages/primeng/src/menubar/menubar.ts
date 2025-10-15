@@ -189,6 +189,7 @@ export class MenubarService {
                     (itemClick)="itemClick.emit($event)"
                     (itemMouseEnter)="onItemMouseEnter($event)"
                     [inlineStyles]="sx('submenu', true, { instance: this, processedItem })"
+                    [pt]="pt"
                 ></ul>
             </li>
         </ng-template>
@@ -387,6 +388,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             (keydown)="onKeyDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
             (mouseleave)="onMouseLeave($event)"
+            [pt]="pt"
         ></ul>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate; else legacy" [pBind]="ptm('end')">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
