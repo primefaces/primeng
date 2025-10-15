@@ -77,6 +77,7 @@ import {
                 [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
+                (contextmenu)="onNodeRightClick($event)"
             >
                 @if (isPrevDropPointActive()) {
                     <div [class]="cx('dropPoint')" [attr.aria-hidden]="true"></div>
@@ -85,7 +86,6 @@ import {
                     [class]="cx('nodeContent')"
                     [style.paddingLeft]="level * indentation + 'rem'"
                     (click)="onNodeClick($event)"
-                    (contextmenu)="onNodeRightClick($event)"
                     (dblclick)="onNodeDblClick($event)"
                     (touchend)="onNodeTouchEnd()"
                     (drop)="onNodeDrop($event)"
