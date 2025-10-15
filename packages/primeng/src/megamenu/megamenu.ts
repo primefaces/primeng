@@ -189,6 +189,7 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                                     [root]="false"
                                     (itemClick)="itemClick.emit($event)"
                                     (itemMouseEnter)="onItemMouseEnter($event)"
+                                    [pt]="pt"
                                 >
                                 </p-megamenu-sub>
                             </div>
@@ -394,6 +395,7 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
             (itemMouseEnter)="onItemMouseEnter($event)"
             [queryMatches]="queryMatches"
             [scrollHeight]="scrollHeight"
+            [pt]="pt"
         ></p-megamenu-sub>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate" [pBind]="ptm('end')">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
