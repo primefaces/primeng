@@ -420,6 +420,7 @@ export class MultiSelectItem extends BaseComponent {
                                             [highlightOnSelect]="highlightOnSelect"
                                             (onClick)="onOptionSelect($event, false, getOptionIndex(i, scrollerOptions))"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
+                                            [pt]="pt"
                                         ></li>
                                     </ng-container>
                                 </ng-template>
