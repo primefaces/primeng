@@ -1,6 +1,7 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
 import type { OrderList } from 'primeng/orderlist';
+import type { ListBoxPassThrough } from 'primeng/listbox';
 
 /**
  * Custom pass-through(pt) options.
@@ -41,7 +42,7 @@ export interface OrderListPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the Listbox component.
      */
-    pcListbox?: any;
+    pcListbox?: ListBoxPassThrough;
 }
 
 /**
