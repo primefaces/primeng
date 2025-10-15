@@ -125,7 +125,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
                         (click)="$event.preventDefault()"
-                        [pt]="getPTOptions('nodeCheckbox')"
+                        [pt]="getPTOptions('pcNodeCheckbox')"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
