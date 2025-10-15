@@ -174,8 +174,6 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
     providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }]
 })
 export class UITreeNode extends BaseComponent<TreePassThrough> {
-    bindDirectiveInstance = inject(Bind, { self: true });
-
     $pcTreeNode: UITreeNode | undefined = inject(TREENODE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     static ICON_CLASS: string = 'p-tree-node-icon ';
