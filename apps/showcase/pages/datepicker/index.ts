@@ -24,15 +24,18 @@ import { TimeDoc } from '@/doc/datepicker/timedoc';
 import { YearDoc } from '@/doc/datepicker/yeardoc';
 import { FluidDoc } from '@/doc/datepicker/fluiddoc';
 import { ClearIconDoc } from '@/doc/datepicker/clearicondoc';
+import { PTComponent } from '@/doc/datepicker/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular DatePicker Component" header="DatePicker" description="DatePicker is an input component to select a date." [docs]="docs" [apiDocs]="['DatePicker']" themeDocs="datepicker"></app-doc> `
+    template: ` <app-doc docTitle="Angular DatePicker Component" header="DatePicker" description="DatePicker is an input component to select a date." [docs]="docs" [apiDocs]="['DatePicker']" [ptDocs]="ptComponent" themeDocs="datepicker"></app-doc> `
 })
 export class DatePickerDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

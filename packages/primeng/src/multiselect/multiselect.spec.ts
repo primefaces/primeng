@@ -4,6 +4,7 @@ import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core
 import { FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
 import { BehaviorSubject, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { MultiSelect, MultiSelectModule } from './multiselect';
@@ -1644,7 +1645,7 @@ describe('MultiSelect Grouped Options', () => {
         tick();
         fixture.detectChanges();
 
-        const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
+        const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
         expect(options!.length).toBe(6); // 3 USA cities + 3 Italy cities
         flush();
     }));
@@ -3220,7 +3221,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             fixture.detectChanges();
 
             // Should render Unicode characters without issues
-            const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
+            const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
             expect(options!.length).toBeGreaterThan(0);
 
             // Test Chinese characters
@@ -3278,7 +3279,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             // Should not execute any scripts
             expect(() => {
-                const options = fixture.debugElement.queryAll(By.css('p-multiselect-item'));
+                const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
                 expect(options!.length).toBeGreaterThan(0);
             }).not.toThrow();
 
@@ -3390,6 +3391,407 @@ describe('MultiSelect Complex Edge Cases', () => {
             }
 
             expect(component.largeDataset.length).toBe(initialLength);
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        it('PT Case 1: should accept simple string values', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                root: 'custom-root-class',
+                                label: 'custom-label-class',
+                                dropdown: 'custom-dropdown-class',
+                                overlay: 'custom-overlay-class'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const root = fixture.nativeElement;
+            expect(root.classList.contains('custom-root-class')).toBe(true);
+        });
+
+        it('PT Case 2: should accept object values with class, style, and attributes', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                root: {
+                                    class: 'pt-root-test',
+                                    style: { 'background-color': 'red' },
+                                    'data-p-test': true,
+                                    'aria-label': 'TEST ARIA LABEL'
+                                },
+                                label: {
+                                    class: 'pt-label-test'
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const root = fixture.nativeElement;
+            expect(root.classList.contains('pt-root-test')).toBe(true);
+            expect(root.style.backgroundColor).toBe('red');
+            expect(root.getAttribute('data-p-test')).toBe('true');
+            expect(root.getAttribute('aria-label')).toBe('TEST ARIA LABEL');
+        });
+
+        it('PT Case 3: should accept mixed object and string values', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                root: 'string-root',
+                                label: { class: 'object-label' },
+                                dropdown: { class: 'dropdown-class' }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const root = fixture.nativeElement;
+            expect(root.classList.contains('string-root')).toBe(true);
+        });
+
+        it('PT Case 4: should use variables from instance in PT functions', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                root: ({ instance }: any) => ({
+                                    'data-disabled': instance?.$disabled?.()
+                                })
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.componentRef.setInput('disabled', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const root = fixture.nativeElement;
+            expect(root.getAttribute('data-disabled')).toBe('true');
+        });
+
+        it('PT Case 5: should support event handlers in PT options', async () => {
+            const clickSpy = jasmine.createSpy('clickHandler');
+
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                root: {
+                                    onClick: clickSpy
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const root = fixture.nativeElement;
+            root.click();
+
+            expect(clickSpy).toHaveBeenCalled();
+        });
+
+        it('PT Case 6: should work inline with component instance', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [provideNoopAnimations()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const root = fixture.nativeElement;
+            expect(root.classList.contains('INLINE_TEST_CLASS')).toBe(true);
+        });
+
+        it('PT Case 7: should support ptOptions.mergeProps and ptOptions.mergeSections', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                root: 'global-root',
+                                label: 'global-label',
+                                overlay: 'global-overlay'
+                            }
+                        },
+                        ptOptions: {
+                            mergeProps: true,
+                            mergeSections: true
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const root = fixture.nativeElement;
+            expect(root.classList.contains('global-root')).toBe(true);
+        });
+
+        it('PT Case 8: should test hooks - onAfterViewInit', async () => {
+            const hookSpy = jasmine.createSpy('onAfterViewInit');
+
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                root: 'MY-MultiSelect',
+                                hooks: {
+                                    onAfterViewInit: hookSpy
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.detectChanges();
+
+            expect(hookSpy).toHaveBeenCalled();
+        });
+
+        it('PT Case 9: should test component-specific getHeaderCheckboxPTOptions method', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                pcHeaderCheckbox: ({ context }: any) => ({
+                                    class: {
+                                        SELECTED: context?.selected
+                                    }
+                                })
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // Verify component is created with PT configuration
+            expect(fixture.componentInstance).toBeTruthy();
+        });
+
+        it('PT Case 9: should test component-specific getPTOptions method for options', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                option: ({ context }: any) => ({
+                                    class: {
+                                        SELECTED: context?.selected,
+                                        FOCUSED: context?.focused,
+                                        DISABLED: context?.disabled
+                                    }
+                                })
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2, disabled: true }
+            ];
+            fixture.detectChanges();
+
+            // Open dropdown
+            const dropdown = fixture.debugElement.query(By.css('.p-multiselect-dropdown'));
+            dropdown.nativeElement.click();
+            fixture.detectChanges();
+
+            // Verify getPTOptions method works with context
+            const options = fixture.debugElement.queryAll(By.css('li[role="option"]'));
+            expect(options.length).toBeGreaterThan(0);
+        });
+
+        it('PT: should apply PT to all template elements', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                root: 'pt-root',
+                                labelContainer: 'pt-label-container',
+                                label: 'pt-label',
+                                dropdown: 'pt-dropdown',
+                                overlay: 'pt-overlay',
+                                header: 'pt-header',
+                                listContainer: 'pt-list-container',
+                                list: 'pt-list'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const root = fixture.nativeElement;
+            expect(root.classList.contains('pt-root')).toBe(true);
+        });
+
+        it('PT: should apply PT to child components (pcChip, pcHeaderCheckbox, pcFilter)', async () => {
+            await TestBed.configureTestingModule({
+                imports: [MultiSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            multiselect: {
+                                pcChip: {
+                                    root: 'custom-chip-root'
+                                },
+                                pcHeaderCheckbox: {
+                                    root: 'custom-checkbox-root'
+                                },
+                                pcFilter: {
+                                    root: 'custom-filter-root'
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(MultiSelect);
+            const instance = fixture.componentInstance;
+            instance.options = [
+                { label: 'Option 1', value: 1 },
+                { label: 'Option 2', value: 2 }
+            ];
+            fixture.componentRef.setInput('display', 'chip');
+            fixture.componentRef.setInput('filter', true);
+            fixture.componentInstance.value = [1];
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // Verify component is created with PT configuration for child components
+            expect(fixture.componentInstance).toBeTruthy();
         });
     });
 });

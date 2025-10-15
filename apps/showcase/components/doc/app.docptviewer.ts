@@ -158,8 +158,6 @@ export class AppDocPtViewer {
         let cmpName = componentName;
 
         if (componentName === 'ConfirmDialog') cmpName = 'Dialog';
-        else if (componentName === 'Galleria') cmpName = 'GalleriaContent';
-
         if (componentName === 'ScrollTop') selector = `[data-pc-extend="button"][data-pc-section="root"]`;
         else if (item.label === 'root') selector = `[data-pc-name="${cmpName.toLowerCase()}"][data-pc-section="root"]`;
         else if (item.label.startsWith('pc')) selector = `[data-pc-name="${item.label.toLowerCase()}"][data-pc-section="root"]`;

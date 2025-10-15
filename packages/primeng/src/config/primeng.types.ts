@@ -12,6 +12,7 @@ import type { BreadcrumbPassThrough } from 'primeng/types/breadcrumb';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { CardPassThrough } from 'primeng/types/card';
 import type { CarouselPassThrough } from 'primeng/types/carousel';
+import type { CascadeSelectPassThrough } from 'primeng/types/cascadeselect';
 import type { CheckboxPassThrough } from 'primeng/types/checkbox';
 import type { ChipPassThrough } from 'primeng/types/chip';
 import type { ColorPickerPassThrough } from 'primeng/types/colorpicker';
@@ -105,6 +106,7 @@ export interface GlobalPassThrough {
     breadcrumb?: BreadcrumbPassThrough;
     card?: CardPassThrough;
     carousel?: CarouselPassThrough;
+    cascadeSelect?: CascadeSelectPassThrough;
     checkbox?: CheckboxPassThrough;
     chip?: ChipPassThrough;
     colorPicker?: ColorPickerPassThrough;

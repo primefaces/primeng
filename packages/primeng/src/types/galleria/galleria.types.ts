@@ -1,4 +1,95 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import { TemplateRef } from '@angular/core';
+
+/**
+ * Responsive options of the component.
+ * @group Interface
+ */
+export interface GalleriaResponsiveOptions {
+    /**
+     * Breakpoint for responsive mode. Exp; @media screen and (max-width: ${breakpoint}) {...}
+     */
+    breakpoint: string;
+    /**
+     * The number of visible items on breakpoint.
+     */
+    numVisible: number;
+}
+
+/**
+ * Defines valid templates in Galleria.
+ * @group Templates
+ */
+export interface GalleriaTemplates {
+    /**
+     * Custom template of header.
+     */
+    header(): TemplateRef<any>;
+    /**
+     * Custom template of footer.
+     */
+    footer(): TemplateRef<any>;
+    /**
+     * Custom template of indicator.
+     * @param {Object} context - indicator data.
+     */
+    indicator(context: {
+        /**
+         * Index of the item.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Custom template of closeicon.
+     */
+    closeicon(): TemplateRef<any>;
+    /**
+     * Custom template of itemnexticon.
+     */
+    itemnexticon(): TemplateRef<any>;
+    /**
+     * Custom template of itempreviousicon.
+     */
+    itempreviousicon(): TemplateRef<any>;
+    /**
+     * Custom template of previousthumbnailicon.
+     */
+    previousthumbnailicon(): TemplateRef<any>;
+    /**
+     * Custom template of nextthumbnailicon.
+     */
+    nextthumbnailicon(): TemplateRef<any>;
+    /**
+     * Custom template of caption.
+     * @param {Object} context - item data.
+     */
+    caption(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Custom template of thumbnail.
+     * @param {Object} context - item data.
+     */
+    thumbnail(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Custom template of item.
+     * @param {Object} context - item data.
+     */
+    item(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+}
 
 /**
  * Custom pass-through(pt) options.
@@ -45,9 +136,9 @@ export interface GalleriaPassThroughOptions<I = unknown> {
      */
     prevButton?: PassThroughOption<HTMLButtonElement, I>;
     /**
-     * Used to pass attributes to the previous button icon's DOM element.
+     * Used to pass attributes to the previous icon's DOM element.
      */
-    prevButtonIcon?: PassThroughOption<SVGElement, I>;
+    prevIcon?: PassThroughOption<SVGElement, I>;
     /**
      * Used to pass attributes to the item's DOM element.
      */
@@ -57,9 +148,9 @@ export interface GalleriaPassThroughOptions<I = unknown> {
      */
     nextButton?: PassThroughOption<HTMLButtonElement, I>;
     /**
-     * Used to pass attributes to the next button icon's DOM element.
+     * Used to pass attributes to the next icon's DOM element.
      */
-    nextButtonIcon?: PassThroughOption<SVGElement, I>;
+    nextIcon?: PassThroughOption<SVGElement, I>;
     /**
      * Used to pass attributes to the caption's DOM element.
      */
@@ -89,9 +180,9 @@ export interface GalleriaPassThroughOptions<I = unknown> {
      */
     thumbnailPrevButton?: PassThroughOption<HTMLButtonElement, I>;
     /**
-     * Used to pass attributes to the thumbnail previous button icon's DOM element.
+     * Used to pass attributes to the thumbnail previous icon's DOM element.
      */
-    thumbnailPrevButtonIcon?: PassThroughOption<SVGElement, I>;
+    thumbnailPrevIcon?: PassThroughOption<SVGElement, I>;
     /**
      * Used to pass attributes to the thumbnails viewport's DOM element.
      */
@@ -113,9 +204,9 @@ export interface GalleriaPassThroughOptions<I = unknown> {
      */
     thumbnailNextButton?: PassThroughOption<HTMLButtonElement, I>;
     /**
-     * Used to pass attributes to the thumbnail next button icon's DOM element.
+     * Used to pass attributes to the thumbnail next icon's DOM element.
      */
-    thumbnailNextButtonIcon?: PassThroughOption<SVGElement, I>;
+    thumbnailNextIcon?: PassThroughOption<SVGElement, I>;
     /**
      * Used to pass attributes to the footer's DOM element.
      */
