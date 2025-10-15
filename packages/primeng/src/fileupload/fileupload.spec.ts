@@ -7,6 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, Observable, of, delay, timer } from 'rxjs';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { FileUpload, FileUploadModule } from './fileupload';
+import { FileUploadValidationMessageEvent } from './fileupload.interface';
 
 describe('FileUpload', () => {
     let component: FileUpload;
@@ -201,6 +202,56 @@ describe('FileUpload', () => {
             expect(result).toBe(false);
             expect(component.msgs?.length).toBe(1);
             expect(component.msgs?.[0].text).toContain('Invalid file size');
+        });
+
+        it('should emit validation event with templated messages for invalid type', () => {
+            component.accept = 'image/*';
+            component.invalidFileTypeMessageSummary = '{0}: Invalid file type, ';
+            component.invalidFileTypeMessageDetail = 'allowed file types: {0}.';
+            const invalidFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+            let emitted: FileUploadValidationMessageEvent | undefined;
+            component.onValidationMessage.subscribe((event) => (emitted = event));
+
+            const result = component.validate(invalidFile);
+
+            expect(result).toBe(false);
+            expect(emitted).toBeTruthy();
+            expect(emitted?.file).toBe(invalidFile);
+            expect(emitted?.summary).toContain('Invalid file type');
+            expect(emitted?.detail).toContain(component.accept as string);
+            expect(component.msgs?.[0].text).toContain('Invalid file type');
+        });
+
+        it('should skip inline messages when displayValidationMessages is disabled', () => {
+            component.displayValidationMessages = false;
+            component.accept = 'image/*';
+            const invalidFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+            let emitted: FileUploadValidationMessageEvent | undefined;
+            component.onValidationMessage.subscribe((event) => (emitted = event));
+
+            const result = component.validate(invalidFile);
+
+            expect(result).toBe(false);
+            expect(emitted).toBeTruthy();
+            expect(component.msgs).toBeUndefined();
+        });
+
+        it('should emit validation event when file limit exceeded', () => {
+            component.displayValidationMessages = false;
+            component.fileLimit = 1;
+            const firstFile = new File(['first'], 'first.txt', { type: 'text/plain' });
+            const secondFile = new File(['second'], 'second.txt', { type: 'text/plain' });
+            component.files = [firstFile, secondFile];
+            let emitted: FileUploadValidationMessageEvent | undefined;
+            component.onValidationMessage.subscribe((event) => (emitted = event));
+
+            component.checkFileLimit(component.files, { invalidFile: secondFile });
+
+            expect(emitted).toBeTruthy();
+            expect(emitted?.file).toBe(secondFile);
+            expect(emitted?.summary).toContain(component.invalidFileLimitMessageSummary.replace('{0}', component.fileLimit?.toString() ?? ''));
+            expect(emitted?.detail).toContain(component.fileLimit?.toString() ?? '');
+            expect(component.msgs).toBeUndefined();
         });
     });
 
