@@ -781,6 +781,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                             [itemSize]="scrollerOptions.itemSize"
                             [indentation]="indentation"
                             [loadingMode]="loadingMode"
+                            [pt]="pt"
                         ></p-treeNode>
                     </ul>
                 </ng-template>
@@ -801,6 +802,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                             [index]="index"
                             [level]="0"
                             [loadingMode]="loadingMode"
+                            [pt]="pt"
                         ></p-treeNode>
                     </ul>
                 </div>
