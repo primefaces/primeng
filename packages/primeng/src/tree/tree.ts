@@ -171,17 +171,13 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
         }
     `,
     encapsulation: ViewEncapsulation.None,
-    providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }],
-    hostDirectives: [Bind]
+    providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }]
 })
 export class UITreeNode extends BaseComponent<TreePassThrough> {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcTreeNode: UITreeNode | undefined = inject(TREENODE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
-    }
     static ICON_CLASS: string = 'p-tree-node-icon ';
 
     @Input() rowNode: any;
