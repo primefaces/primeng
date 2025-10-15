@@ -148,6 +148,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     hostDirectives: [Bind]
 })
 export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, AfterContentInit, OnDestroy {
+    @Input() hostName: string = '';
+
     $pcDialog: Dialog | undefined = inject(DIALOG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
