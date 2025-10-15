@@ -10,6 +10,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InputNumberModule } from 'primeng/inputnumber';`
+        typescript: `import { InputNumber } from 'primeng/inputnumber';`
     };
 }

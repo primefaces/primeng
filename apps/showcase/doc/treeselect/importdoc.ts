@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TreeSelectModule } from 'primeng/treeselect';`
+        typescript: `import { TreeSelect } from 'primeng/treeselect';`
     };
 }
