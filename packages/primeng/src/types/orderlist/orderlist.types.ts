@@ -2,6 +2,7 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
 import type { OrderList } from 'primeng/orderlist';
 import type { ListBoxPassThrough } from 'primeng/listbox';
+import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
  * Custom pass-through(pt) options.
@@ -26,19 +27,19 @@ export interface OrderListPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the move up button's DOM element.
      */
-    moveUpButton?: PassThroughOption<HTMLButtonElement, I>;
+    pcMoveUpButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the move top button's DOM element.
      */
-    moveTopButton?: PassThroughOption<HTMLButtonElement, I>;
+    pcMoveTopButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the move down button's DOM element.
      */
-    moveDownButton?: PassThroughOption<HTMLButtonElement, I>;
+    pcMoveDownButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the move bottom button's DOM element.
      */
-    moveBottomButton?: PassThroughOption<HTMLButtonElement, I>;
+    pcMoveBottomButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the Listbox component.
      */
