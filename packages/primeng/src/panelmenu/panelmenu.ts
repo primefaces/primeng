@@ -164,6 +164,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                             [focusedItemId]="focusedItemId"
                             [activeItemPath]="activeItemPath"
                             [level]="level + 1"
+                            [pt]="pt"
                             [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
                             (itemToggle)="onItemToggle($event)"
                         ></p-panelmenu-sub>
@@ -348,6 +349,7 @@ export class PanelMenuSub extends BaseComponent {
             (keydown)="onKeyDown($event)"
             (menuFocus)="onFocus($event)"
             (menuBlur)="onBlur($event)"
+            [pt]="pt"
         ></p-panelmenu-sub>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -878,6 +880,7 @@ export class PanelMenuList extends BaseComponent {
                             [tabindex]="tabindex"
                             [parentExpanded]="isItemActive(item)"
                             (headerFocus)="updateFocusedHeader($event)"
+                            [pt]="pt"
                         ></p-panelMenuList>
                     </div>
                 </div>
