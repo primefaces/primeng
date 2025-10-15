@@ -35,6 +35,7 @@ import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { DialogStyle } from './style/dialogstyle';
+import { DialogPosition } from './dialog.interface';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -330,10 +331,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      * Position of the dialog.
      * @group Props
      */
-    @Input() get position(): 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' {
+    @Input() get position(): DialogPosition {
         return this._position;
     }
-    set position(value: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
+    set position(value: DialogPosition) {
         this._position = value;
 
         switch (value) {
@@ -514,7 +515,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     _style: any = {};
 
-    _position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
+    _position: DialogPosition = 'center';
 
     originalStyle: any;
 
