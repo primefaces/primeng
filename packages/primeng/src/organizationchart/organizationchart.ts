@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -16,7 +15,6 @@ import {
     InjectionToken,
     Input,
     NgModule,
-    OnDestroy,
     Output,
     QueryList,
     TemplateRef,
@@ -28,9 +26,8 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
-import { OrganizationChartPassThrough } from 'primeng/types/organizationchart';
+import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent, OrganizationChartPassThrough } from 'primeng/types/organizationchart';
 import { Subject, Subscription } from 'rxjs';
-import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent } from 'primeng/types/organizationchart';
 import { OrganizationChartStyle } from './style/organizationchartstyle';
 
 const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANIZATIONCHART_INSTANCE');
@@ -90,7 +87,7 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
             </tr>
             <tr [ngStyle]="getChildStyle(node)" [class]="cx('nodeChildren')" [@childState]="'in'" [pBind]="ptm('nodeChildren')">
                 <td *ngFor="let child of node.children" colspan="2" [pBind]="ptm('nodeCell')">
-                    <table [class]="cx('table')" pOrganizationChartNode [node]="child" [collapsible]="node.children && node.children.length > 0 && collapsible"></table>
+                    <table [class]="cx('table')" pOrganizationChartNode [pt]="pt" [node]="child" [collapsible]="node.children && node.children.length > 0 && collapsible"></table>
                 </td>
             </tr>
         </tbody>
@@ -194,7 +191,7 @@ export class OrganizationChartNode extends BaseComponent {
     selector: 'p-organizationChart, p-organization-chart, p-organizationchart',
     standalone: true,
     imports: [CommonModule, OrganizationChartNode, SharedModule, BindModule],
-    template: ` <table [class]="cx('table')" [collapsible]="collapsible" pOrganizationChartNode [node]="root" *ngIf="root" [pBind]="ptm('table')"></table> `,
+    template: ` <table [class]="cx('table')" [collapsible]="collapsible" pOrganizationChartNode [pt]="pt" [node]="root" *ngIf="root" [pBind]="ptm('table')"></table> `,
     changeDetection: ChangeDetectionStrategy.Default,
     providers: [OrganizationChartStyle, { provide: ORGANIZATIONCHART_INSTANCE, useExisting: OrganizationChart }, { provide: PARENT_INSTANCE, useExisting: OrganizationChart }],
     host: {
