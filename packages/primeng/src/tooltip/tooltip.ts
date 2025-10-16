@@ -1,9 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, computed, Directive, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
@@ -23,16 +23,6 @@ const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 })
 export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     $pcTooltip: Tooltip | undefined = inject(TOOLTIP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    bindDirectiveInstance = inject(Bind, { optional: true, host: true });
-
-    onAfterViewChecked(): void {
-        if (this.bindDirectiveInstance) {
-            this.bindDirectiveInstance.setAttrs(this.ptm('host'));
-        } else {
-            this.applyPTAttributes(this.el.nativeElement, this.ptm('host'));
-        }
-    }
 
     /**
      * Position of the tooltip.
@@ -193,11 +183,16 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     interactionInProgress = false;
 
+    ptTooltip = input<any>();
+
     constructor(
         public zone: NgZone,
         private viewContainer: ViewContainerRef
     ) {
         super();
+        effect(() => {
+            this.ptTooltip() && this.directivePT.set(this.ptTooltip());
+        });
     }
 
     onAfterViewInit() {
@@ -405,67 +400,16 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
     }
 
-    private applyPTAttributes(element: HTMLElement, attrs: any, appendClass = false) {
-        if (!attrs) return;
-
-        const { style, class: className, ...rest } = attrs;
-
-        // Handle class
-        if (className) {
-            if (appendClass) {
-                element.className += ' ' + className;
-            } else {
-                element.className = className;
-            }
-        }
-
-        // Handle style
-        if (style && typeof style === 'object') {
-            Object.assign(element.style, style);
-        }
-
-        // Handle other attributes and event listeners
-        Object.entries(rest).forEach(([key, value]) => {
-            if (key.startsWith('on') && typeof value === 'function') {
-                const eventName = key.substring(2).toLowerCase();
-                element.addEventListener(eventName, value as EventListener);
-            } else if (value === null || value === undefined) {
-                element.removeAttribute(key);
-            } else {
-                element.setAttribute(key, value.toString());
-            }
-        });
-    }
-
     create() {
         if (this.container) {
             this.clearHideTimeout();
             this.remove();
         }
 
-        this.container = document.createElement('div');
-        this.container.setAttribute('id', this.getOption('id'));
-        this.container.setAttribute('role', 'tooltip');
-
-        // Store PT classes from root section
-        const rootPT = this.ptm('root');
-        if (rootPT && rootPT.class) {
-            this.rootPTClasses = rootPT.class;
-        }
-
-        this.applyPTAttributes(this.container, rootPT);
-
-        let tooltipArrow = document.createElement('div');
-        tooltipArrow.className = 'p-tooltip-arrow';
-        tooltipArrow.setAttribute('data-pc-section', 'arrow');
-        this.applyPTAttributes(tooltipArrow, this.ptm('arrow'), true);
-
+        this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
+        let tooltipArrow = createElement('div', { class: 'p-tooltip-arrow', 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
         this.container.appendChild(tooltipArrow);
-
-        this.tooltipText = document.createElement('div');
-        this.tooltipText.className = 'p-tooltip-text';
-        this.tooltipText.setAttribute('data-pc-section', 'text');
-        this.applyPTAttributes(this.tooltipText, this.ptm('text'), true);
+        this.tooltipText = createElement('div', { class: 'p-tooltip-text', 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
 
         this.updateText();
 
@@ -540,11 +484,10 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     hide() {
-        if (this.getOption('tooltipZIndex') === 'auto') {
-            ZIndexUtils.clear(this.container);
-        }
-
-        this.remove();
+        // if (this.getOption('tooltipZIndex') === 'auto') {
+        //     ZIndexUtils.clear(this.container);
+        // }
+        // this.remove();
     }
 
     updateText() {
@@ -683,16 +626,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     preAlign(position: string) {
         this.container.style.left = -999 + 'px';
         this.container.style.top = -999 + 'px';
-
-        let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;
-        let className = this.getOption('tooltipStyleClass') ? defaultClassName + ' ' + this.getOption('tooltipStyleClass') : defaultClassName;
-
-        // Preserve PT classes from root section
-        if (this.rootPTClasses) {
-            className += ' ' + this.rootPTClasses;
-        }
-
-        this.container.className = className;
+        this.container.className = this.cn(this.cx('root'), this.ptm('root')?.class, 'p-tooltip-' + position, this.getOption('tooltipStyleClass'));
     }
 
     isOutOfBounds(): boolean {

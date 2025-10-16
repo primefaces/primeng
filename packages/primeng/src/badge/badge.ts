@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { addClass, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
+import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -9,16 +9,21 @@ import { BadgeStyle } from './style/badgestyle';
 
 const BADGE_INSTANCE = new InjectionToken<Badge>('BADGE_INSTANCE');
 
+const BADGE_DIRECTIVE_INSTANCE = new InjectionToken<BadgeDirective>('BADGE_DIRECTIVE_INSTANCE');
+
 /**
  * Badge Directive is directive usage of badge component.
  * @group Components
  */
 @Directive({
     selector: '[pBadge]',
-    providers: [BadgeStyle],
+    providers: [BadgeStyle, { provide: BADGE_DIRECTIVE_INSTANCE, useExisting: BadgeDirective }, { provide: PARENT_INSTANCE, useExisting: BadgeDirective }],
     standalone: true
 })
 export class BadgeDirective extends BaseComponent {
+    $pcBadgeDirective: BadgeDirective | undefined = inject(BADGE_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    ptBadgeDirective = input<BadgePassThrough | undefined>();
     /**
      * When specified, disables the component.
      * @group Props
@@ -79,6 +84,9 @@ export class BadgeDirective extends BaseComponent {
 
     constructor() {
         super();
+        effect(() => {
+            this.ptBadgeDirective() && this.directivePT.set(this.ptBadgeDirective());
+        });
     }
 
     onChanges(changes: SimpleChanges): void {
@@ -183,10 +191,7 @@ export class BadgeDirective extends BaseComponent {
         }
 
         const el = this.activeElement;
-        const badge = this.document.createElement('span');
-        badge.id = this.id;
-        badge.className = 'p-badge p-component';
-
+        const badge = <HTMLElement>createElement('span', { class: this.cx('root'), id: this.id, 'p-bind': this.ptm('root') });
         this.setSeverity(null, badge);
         this.setSizeClasses(badge);
         this.setValue(badge);

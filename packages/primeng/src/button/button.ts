@@ -8,6 +8,7 @@ import {
     contentChild,
     ContentChildren,
     Directive,
+    effect,
     EventEmitter,
     inject,
     InjectionToken,
@@ -20,7 +21,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, findSingle, isEmpty } from '@primeuix/utils';
+import { addClass, createElement, findSingle, isEmpty } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BadgeModule } from 'primeng/badge';
@@ -36,6 +37,10 @@ const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
 
 const BUTTON_DIRECTIVE_INSTANCE = new InjectionToken<ButtonDirective>('BUTTON_DIRECTIVE_INSTANCE');
 
+const BUTTON_LABEL_INSTANCE = new InjectionToken<ButtonLabel>('BUTTON_LABEL_INSTANCE');
+
+const BUTTON_ICON_INSTANCE = new InjectionToken<ButtonIcon>('BUTTON_ICON_INSTANCE');
+
 export type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
 const INTERNAL_BUTTON_CLASSES = {
@@ -49,26 +54,40 @@ const INTERNAL_BUTTON_CLASSES = {
 
 @Directive({
     selector: '[pButtonLabel]',
-    providers: [ButtonStyle],
+    providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
     standalone: true,
     host: {
         '[class.p-button-label]': 'true'
-    }
+    },
+    hostDirectives: [Bind]
 })
 export class ButtonLabel extends BaseComponent {
     _componentStyle = inject(ButtonStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+    }
 }
 
 @Directive({
     selector: '[pButtonIcon]',
-    providers: [ButtonStyle],
+    providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
     standalone: true,
     host: {
         '[class.p-button-icon]': 'true'
-    }
+    },
+    hostDirectives: [Bind]
 })
 export class ButtonIcon extends BaseComponent {
     _componentStyle = inject(ButtonStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+    }
 }
 /**
  * Button directive is an extension to button component.
@@ -91,10 +110,19 @@ export class ButtonDirective extends BaseComponent {
 
     _componentStyle = inject(ButtonStyle);
 
+    ptButtonDirective = input<any>();
+
     @Input() hostName: any = '';
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+    }
+
+    constructor() {
+        super();
+        effect(() => {
+            this.ptButtonDirective() && this.directivePT.set(this.ptButtonDirective());
+        });
     }
 
     /**
@@ -378,14 +406,8 @@ export class ButtonDirective extends BaseComponent {
     createLabel() {
         const created = findSingle(this.htmlElement, '.p-button-label');
         if (!created && this.label) {
-            let labelElement = this.document.createElement('span');
-            if (this.icon && !this.label) {
-                labelElement.setAttribute('aria-hidden', 'true');
-            }
-
-            labelElement.className = 'p-button-label';
+            let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('label'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
             labelElement.appendChild(this.document.createTextNode(this.label));
-
             this.htmlElement.appendChild(labelElement);
         }
     }
@@ -393,20 +415,9 @@ export class ButtonDirective extends BaseComponent {
     createIcon() {
         const created = findSingle(this.htmlElement, '.p-button-icon');
         if (!created && (this.icon || this.loading)) {
-            let iconElement = this.document.createElement('span');
-            iconElement.className = 'p-button-icon';
-            iconElement.setAttribute('aria-hidden', 'true');
             let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
-
-            if (iconPosClass) {
-                addClass(iconElement, iconPosClass);
-            }
-
             let iconClass = this.getIconClass();
-
-            if (iconClass) {
-                addClass(iconElement, iconClass);
-            }
+            let iconElement: HTMLElement = <HTMLElement>createElement('span', { class: this.cn(this.cx('icon'), iconPosClass, iconClass), 'aria-hidden': 'true', 'p-bind': this.ptm('icon') });
 
             if (!this.loadingIcon && this.loading) {
                 iconElement.innerHTML = this.spinnerIcon;

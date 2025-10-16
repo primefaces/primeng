@@ -1,4 +1,4 @@
-import { booleanAttribute, computed, Directive, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseModelHolder } from 'primeng/basemodelholder';
@@ -24,6 +24,8 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 })
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
     @Input() hostName: any = '';
+
+    ptInputText = input<any>();
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -61,13 +63,20 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
 
     _componentStyle = inject(InputTextStyle);
 
+    constructor() {
+        super();
+        effect(() => {
+            this.ptInputText() && this.directivePT.set(this.ptInputText());
+        });
+    }
+
     onAfterViewInit() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
         this.cd.detectChanges();
     }
 
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
 
     onDoCheck() {

@@ -9,10 +9,6 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
  */
 export interface InputTextPassThroughOptions<I = unknown> {
     /**
-     * Used to pass attributes to the host's DOM element.
-     */
-    host?: PassThroughOption<HTMLInputElement, I>;
-    /**
      * Used to pass attributes to the root's DOM element.
      */
     root?: PassThroughOption<HTMLInputElement, I>;

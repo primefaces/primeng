@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, PLATFORM_ID, Renderer2, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, PLATFORM_ID, Renderer2, signal, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@primeuix/utils';
 import type { Lifecycle, PassThroughOptions } from 'primeng/api';
@@ -81,8 +81,10 @@ export class BaseComponent<PT = any> implements Lifecycle {
     });
 
     $pt = computed(() => {
-        return resolve(this.pt(), this.$params);
+        return resolve(this.pt() || this.directivePT(), this.$params);
     });
+
+    directivePT = signal<any>(undefined);
 
     get $globalPT() {
         return this._getPT(this.config?.pt(), undefined, (value) => resolve(value, this.$params));

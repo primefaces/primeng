@@ -10,10 +10,6 @@ import type { Tooltip } from 'primeng/tooltip';
  */
 export interface TooltipPassThroughOptions<I = unknown> {
     /**
-     * Used to pass attributes to the host's DOM element.
-     */
-    host?: PassThroughOption<HTMLElement, I>;
-    /**
      * Used to pass attributes to the root's DOM element.
      */
     root?: PassThroughOption<HTMLDivElement, I>;

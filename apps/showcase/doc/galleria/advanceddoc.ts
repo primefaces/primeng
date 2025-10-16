@@ -39,7 +39,7 @@ import { Galleria, GalleriaModule } from 'primeng/galleria';
                     </div>
                 </ng-template>
                 <ng-template #footer let-item>
-                    <div class="flex items-stretch bg-surface-950 text-white h-10">
+                    <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
                         <button
                             type="button"
                             pButton
@@ -216,7 +216,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         </div>
     </ng-template>
     <ng-template #footer let-item>
-        <div class="flex items-stretch bg-surface-950 text-white h-10">
+        <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
             <button
                 type="button"
                 pButton

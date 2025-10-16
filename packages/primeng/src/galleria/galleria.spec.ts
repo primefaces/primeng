@@ -979,9 +979,6 @@ describe('Galleria', () => {
             if (itemsContainer) {
                 expect(itemsContainer.classList.contains('custom-items-container-class')).toBe(true);
             }
-
-            // Root element may not render without fullScreen mode
-            expect(ptFixture.componentInstance).toBeTruthy();
         });
 
         it('PT Case 2: should accept objects with class, style, and attributes', async () => {
@@ -1018,9 +1015,6 @@ describe('Galleria', () => {
                 expect(contentElement.classList.contains('custom-content')).toBe(true);
                 expect(contentElement.style.padding).toBe('20px');
             }
-
-            // Root element may not render without fullScreen mode
-            expect(ptFixture.componentInstance).toBeTruthy();
         });
 
         it('PT Case 3: should accept mixed object and string values', async () => {
@@ -1057,9 +1051,6 @@ describe('Galleria', () => {
             if (itemsContainer) {
                 expect(itemsContainer.classList.contains('string-items-container-class')).toBe(true);
             }
-
-            // Root element may not render without fullScreen mode
-            expect(ptFixture.componentInstance).toBeTruthy();
         });
 
         it('PT Case 4: should use instance properties in PT functions', async () => {
@@ -1080,14 +1071,8 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const rootElement = ptFixture.nativeElement.querySelector('[data-pc-section="root"]');
-            if (rootElement) {
-                expect(rootElement.classList.contains('fullscreen-gallery')).toBe(true);
-                expect(rootElement.classList.contains('inline-gallery')).toBe(false);
-            } else {
-                // PT function should have been called - verify component is set up
-                expect(ptFixture.componentInstance).toBeTruthy();
-                expect(ptFixture.componentInstance.fullScreen).toBe(true);
-            }
+            expect(rootElement?.classList.contains('fullscreen-gallery')).toBe(true);
+            expect(rootElement?.classList.contains('inline-gallery')).toBe(false);
         });
 
         it('PT Case 5: should bind events through PT', async () => {
@@ -1115,11 +1100,6 @@ describe('Galleria', () => {
             if (closeButton) {
                 closeButton.click();
                 expect(clicked).toBe(true);
-            } else {
-                // Close button may not render in test environment
-                expect(ptFixture.componentInstance).toBeTruthy();
-                expect(ptFixture.componentInstance.fullScreen).toBe(true);
-                expect(ptFixture.componentInstance.visible).toBe(true);
             }
         });
 
@@ -1148,9 +1128,6 @@ describe('Galleria', () => {
             if (contentElement) {
                 expect(contentElement.classList.contains('inline-content')).toBe(true);
             }
-
-            // Root element may not render without fullScreen mode
-            expect(ptFixture.componentInstance).toBeTruthy();
         });
 
         it('PT Case 9: should apply PT to navigation buttons', async () => {
@@ -1198,10 +1175,6 @@ describe('Galleria', () => {
             if (nextIcon) {
                 expect(nextIcon.classList.contains('custom-next-icon')).toBe(true);
             }
-
-            // Navigation buttons may not render in test environment without interaction
-            expect(ptFixture.componentInstance).toBeTruthy();
-            expect(ptFixture.componentInstance.showItemNavigators).toBe(true);
         });
 
         it('PT Case 10: should apply PT to thumbnail elements', async () => {
