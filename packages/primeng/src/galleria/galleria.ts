@@ -819,7 +819,7 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
             >
                 <button *ngIf="!indicatorFacet && !galleria.indicatorTemplate" type="button" tabIndex="-1" [pBind]="ptm('indicatorButton', getIndicatorPTOptions(index))" [class]="cx('indicatorButton')"></button>
                 <ng-container *ngIf="indicatorFacet || galleria.indicatorTemplate">
-                    <ng-container pGalleriaItemSlot type="indicator" [index]="index" [templates]="templates"></ng-container>
+                    <div pGalleriaItemSlot type="indicator" [index]="index" [templates]="templates"></div>
                 </ng-container>
             </li>
         </ul>
