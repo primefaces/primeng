@@ -321,14 +321,16 @@ export class DesignerService {
         }
     }
 
-    async applyTheme(theme: any) {
+    async applyTheme(theme: any, showMessage = true) {
         if (this.designer().verified) {
             await this.saveTheme(theme);
             this.refreshACTokens();
         }
 
         usePreset(theme.preset);
-        this.messageService.add({ key: 'designer', severity: 'success', summary: 'Success', detail: 'Theme saved.', life: 3000 });
+        if (showMessage) {
+            this.messageService.add({ key: 'designer', severity: 'success', summary: 'Success', detail: 'Theme saved.', life: 3000 });
+        }
     }
 
     async preview() {
