@@ -125,13 +125,6 @@ export class AppConfiguratorComponent {
         }
     }
 
-    ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.onPresetChange(this.configService.appState().preset);
-            this.toggleRTL(this.configService.appState().RTL);
-        }
-    }
-
     surfaces = [
         {
             name: 'slate',
