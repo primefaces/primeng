@@ -25,7 +25,7 @@ catalogs:
         "@angular/platform-browser-dynamic": ^20.0.4
         "@angular/platform-server": ^20.0.4
         "@angular/router": ^20.0.4
-        "@angular/ssr": ^20.0.3
+        "@angular/ssr": ^20.3.6
         "@angular-eslint/eslint-plugin": ^20.0.4
         "@angular-eslint/eslint-plugin-template": ^20.0.4
         "@angular-eslint/schematics": ^20.0.4
