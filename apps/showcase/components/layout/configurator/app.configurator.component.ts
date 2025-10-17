@@ -1,6 +1,6 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { $t, updatePreset, updateSurfacePalette } from '@primeuix/themes';
@@ -126,21 +126,6 @@ export class AppConfiguratorComponent {
         } else {
             htmlElement.removeAttribute('dir');
         }
-    }
-
-    ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.onPresetChange(this.configService.appState().preset);
-            if (this.designerService.designer().theme?.name) {
-                this.applyDesignerTheme();
-            }
-
-            this.toggleRTL(this.configService.appState().RTL);
-        }
-    }
-
-    async applyDesignerTheme() {
-        await this.designerService.applyTheme(this.designerService.designer().theme, false);
     }
 
     surfaces = [
