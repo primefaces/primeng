@@ -30,6 +30,10 @@ export interface ConfirmDialogPassThroughOptions<I = unknown> {
      */
     icon?: PassThroughOption<HTMLElement, I>;
     /**
+     * Used to pass attributes to the message's DOM element.
+     */
+    message?: PassThroughOption<HTMLSpanElement, I>;
+    /**
      * Used to pass attributes to the resize handle's DOM element.
      */
     resizeHandle?: PassThroughOption<HTMLDivElement, I>;
