@@ -223,8 +223,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0 })]), transition(':leave', [style({ opacity: 0 })])])],
     encapsulation: ViewEncapsulation.None,
-    providers: [ContextMenuStyle, { provide: CONTEXTMENUSUB_INSTANCE, useExisting: ContextMenuSub }, { provide: PARENT_INSTANCE, useExisting: ContextMenuSub }],
-    hostDirectives: [Bind]
+    providers: [ContextMenuStyle, { provide: CONTEXTMENUSUB_INSTANCE, useExisting: ContextMenuSub }, { provide: PARENT_INSTANCE, useExisting: ContextMenuSub }]
 })
 export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implements AfterViewChecked {
     @Input({ transform: booleanAttribute }) visible: boolean = false;
@@ -269,15 +268,9 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
 
     _componentStyle = inject(ContextMenuStyle);
 
-    bindDirectiveInstance = inject(Bind, { self: true });
-
     $pcContextMenu: ContextMenu | undefined = inject(CONTEXTMENU_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     $pcContextMenuSub: ContextMenuSub | undefined = inject(CONTEXTMENUSUB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
-    }
 
     constructor(
         public el: ElementRef,
