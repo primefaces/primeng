@@ -131,15 +131,16 @@ export class AppConfiguratorComponent {
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.onPresetChange(this.configService.appState().preset);
-            this.apply();
+            if (this.designerService.designer().theme?.name) {
+                this.applyDesignerTheme();
+            }
+
             this.toggleRTL(this.configService.appState().RTL);
         }
     }
 
-    async apply() {
-        if (this.designerService.designer().theme?.name) {
-            await this.designerService.applyTheme(this.designerService.designer().theme, false);
-        }
+    async applyDesignerTheme() {
+        await this.designerService.applyTheme(this.designerService.designer().theme, false);
     }
 
     surfaces = [
