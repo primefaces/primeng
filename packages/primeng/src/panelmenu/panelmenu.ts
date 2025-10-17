@@ -766,37 +766,37 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                                 <ng-template #htmlLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
                                 <span [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))" *ngIf="getItemProp(item, 'badge')">{{ getItemProp(item, 'badge') }}</span>
                             </a>
+                            <a
+                                *ngIf="getItemProp(item, 'routerLink')"
+                                [routerLink]="getItemProp(item, 'routerLink')"
+                                [queryParams]="getItemProp(item, 'queryParams')"
+                                [routerLinkActive]="'p-panelmenu-item-link-active'"
+                                [routerLinkActiveOptions]="getItemProp(item, 'routerLinkActiveOptions') || { exact: false }"
+                                [target]="getItemProp(item, 'target')"
+                                [class]="cx('headerLink')"
+                                [attr.tabindex]="-1"
+                                [fragment]="getItemProp(item, 'fragment')"
+                                [queryParamsHandling]="getItemProp(item, 'queryParamsHandling')"
+                                [preserveFragment]="getItemProp(item, 'preserveFragment')"
+                                [skipLocationChange]="getItemProp(item, 'skipLocationChange')"
+                                [replaceUrl]="getItemProp(item, 'replaceUrl')"
+                                [state]="getItemProp(item, 'state')"
+                                [attr.data-pc-section]="'headeraction'"
+                            >
+                                <ng-container *ngIf="isItemGroup(item)">
+                                    <ng-container *ngIf="!headerIconTemplate && !_headerIconTemplate">
+                                        <svg data-p-icon="chevron-down" [class]="cx('headerIcon')" *ngIf="isItemActive(item)" />
+                                        <svg data-p-icon="chevron-right" [class]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
+                                    </ng-container>
+                                    <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
+                                </ng-container>
+                                <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
+                                <ng-template #htmlRouteLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                <span *ngIf="getItemProp(item, 'badge')" [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))">{{ getItemProp(item, 'badge') }}</span>
+                            </a>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-                        <a
-                            *ngIf="getItemProp(item, 'routerLink')"
-                            [routerLink]="getItemProp(item, 'routerLink')"
-                            [queryParams]="getItemProp(item, 'queryParams')"
-                            [routerLinkActive]="'p-panelmenu-item-link-active'"
-                            [routerLinkActiveOptions]="getItemProp(item, 'routerLinkActiveOptions') || { exact: false }"
-                            [target]="getItemProp(item, 'target')"
-                            [class]="cx('headerLink')"
-                            [attr.tabindex]="-1"
-                            [fragment]="getItemProp(item, 'fragment')"
-                            [queryParamsHandling]="getItemProp(item, 'queryParamsHandling')"
-                            [preserveFragment]="getItemProp(item, 'preserveFragment')"
-                            [skipLocationChange]="getItemProp(item, 'skipLocationChange')"
-                            [replaceUrl]="getItemProp(item, 'replaceUrl')"
-                            [state]="getItemProp(item, 'state')"
-                            [attr.data-pc-section]="'headeraction'"
-                        >
-                            <ng-container *ngIf="isItemGroup(item)">
-                                <ng-container *ngIf="!headerIconTemplate && !_headerIconTemplate">
-                                    <svg data-p-icon="chevron-down" [class]="cx('headerIcon')" *ngIf="isItemActive(item)" />
-                                    <svg data-p-icon="chevron-right" [class]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
-                                </ng-container>
-                                <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
-                            </ng-container>
-                            <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                            <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                            <span *ngIf="getItemProp(item, 'badge')" [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))">{{ getItemProp(item, 'badge') }}</span>
-                        </a>
                     </div>
                 </div>
                 <div
