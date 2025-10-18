@@ -8,7 +8,7 @@ import { PTComponent } from '@/doc/dynamicdialog/pt/PTComponent';
 import { UsageDoc } from '@/doc/dynamicdialog/usagedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-
+import { PTComponent } from '@/doc/dynamicdialog/pt/PTComponent';
 @Component({
     standalone: true,
     imports: [AppDoc],
@@ -21,10 +21,13 @@ import { AppDoc } from '@/components/doc/app.doc';
             [apiDocs]="['DynamicDialog-Ref', 'DynamicDialog-Config', 'DialogService']"
             [ptDocs]="ptComponent"
             themeDocs="dynamicdialog"
+            [ptDocs]="ptComponent"
         ></app-doc>
     `
 })
 export class DynamicDialogDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

@@ -5,7 +5,117 @@ import type { CheckboxPassThrough } from 'primeng/types/checkbox';
 import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { MultiSelect, MultiSelectItem } from '../../multiselect/multiselect';
+import type { MultiSelect, MultiSelectItem } from 'primeng/multiselect';
+
+/**
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ * @see {@link MultiSelect.pt}
+ * @group Interface
+ */
+export interface MultiSelectPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the label container's DOM element.
+     */
+    labelContainer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the label's DOM element.
+     */
+    label?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the clear icon's DOM element.
+     */
+    clearIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the chip item's DOM element.
+     */
+    chipItem?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the Chip component.
+     * @see {@link ChipPassThrough}
+     */
+    pcChip?: ChipPassThrough;
+    /**
+     * Used to pass attributes to the dropdown's DOM element.
+     */
+    dropdown?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the loading icon's DOM element.
+     */
+    loadingIcon?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the dropdown icon's DOM element.
+     */
+    dropdownIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the overlay's DOM element.
+     */
+    overlay?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the header's DOM element.
+     */
+    header?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the header checkbox component.
+     * @see {@link CheckboxPassThrough}
+     */
+    pcHeaderCheckbox?: CheckboxPassThrough;
+    /**
+     * Used to pass attributes to the IconField component.
+     * @see {@link IconFieldPassThrough}
+     */
+    pcFilterContainer?: IconFieldPassThrough;
+    /**
+     * Used to pass attributes to the InputText component.
+     * @see {@link InputTextPassThrough}
+     */
+    pcFilter?: InputTextPassThrough;
+    /**
+     * Used to pass attributes to the InputIcon component.
+     * @see {@link InputIconPassThrough}
+     */
+    pcFilterIconContainer?: InputIconPassThrough;
+    /**
+     * Used to pass attributes to the filter icon's DOM element.
+     */
+    filterIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass attributes to the list container's DOM element.
+     */
+    listContainer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the list's DOM element.
+     */
+    list?: PassThroughOption<HTMLUListElement, I>;
+    /**
+     * Used to pass attributes to the option group's DOM element.
+     */
+    optionGroup?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the option's DOM element.
+     */
+    option?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the option checkbox component.
+     * @see {@link CheckboxPassThrough}
+     */
+    pcOptionCheckbox?: CheckboxPassThrough;
+    /**
+     * Used to pass attributes to the empty message's DOM element.
+     */
+    emptyMessage?: PassThroughOption<HTMLLIElement, I>;
+}
+
+/**
+ * Defines valid pass-through options in MultiSelect.
+ * @see {@link MultiSelectPassThroughOptions}
+ * @template I Type of instance.
+ */
+export type MultiSelectPassThrough<I = unknown> = PassThrough<I, MultiSelectPassThroughOptions<I>>;
 
 /**
  * Callbacks to invoke on filter or reset.
@@ -242,113 +352,3 @@ export interface MultiSelectTemplates {
      */
     removetokenicon(): TemplateRef<any>;
 }
-
-/**
- * Custom pass-through(pt) options.
- * @template I Type of instance.
- * @see {@link MultiSelectProps.pt}
- * @group Interface
- */
-export interface MultiSelectPassThroughOptions<I = unknown> {
-    /**
-     * Used to pass attributes to the root's DOM element.
-     */
-    root?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the label container's DOM element.
-     */
-    labelContainer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the label's DOM element.
-     */
-    label?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the clear icon's DOM element.
-     */
-    clearIcon?: PassThroughOption<SVGElement, I>;
-    /**
-     * Used to pass attributes to the chip item's DOM element.
-     */
-    chipItem?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the Chip component.
-     * @see {@link ChipPassThrough}
-     */
-    pcChip?: ChipPassThrough;
-    /**
-     * Used to pass attributes to the dropdown's DOM element.
-     */
-    dropdown?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the loading icon's DOM element.
-     */
-    loadingIcon?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the dropdown icon's DOM element.
-     */
-    dropdownIcon?: PassThroughOption<SVGElement, I>;
-    /**
-     * Used to pass attributes to the overlay's DOM element.
-     */
-    overlay?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the header's DOM element.
-     */
-    header?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the header checkbox component.
-     * @see {@link CheckboxPassThrough}
-     */
-    pcHeaderCheckbox?: CheckboxPassThrough;
-    /**
-     * Used to pass attributes to the IconField component.
-     * @see {@link IconFieldPassThrough}
-     */
-    pcFilterContainer?: IconFieldPassThrough;
-    /**
-     * Used to pass attributes to the InputText component.
-     * @see {@link InputTextPassThrough}
-     */
-    pcFilter?: InputTextPassThrough;
-    /**
-     * Used to pass attributes to the InputIcon component.
-     * @see {@link InputIconPassThrough}
-     */
-    pcFilterIconContainer?: InputIconPassThrough;
-    /**
-     * Used to pass attributes to the filter icon's DOM element.
-     */
-    filterIcon?: PassThroughOption<SVGElement, I>;
-    /**
-     * Used to pass attributes to the list container's DOM element.
-     */
-    listContainer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the list's DOM element.
-     */
-    list?: PassThroughOption<HTMLUListElement, I>;
-    /**
-     * Used to pass attributes to the option group's DOM element.
-     */
-    optionGroup?: PassThroughOption<HTMLLIElement, I>;
-    /**
-     * Used to pass attributes to the option's DOM element.
-     */
-    option?: PassThroughOption<HTMLLIElement, I>;
-    /**
-     * Used to pass attributes to the option checkbox component.
-     * @see {@link CheckboxPassThrough}
-     */
-    pcOptionCheckbox?: CheckboxPassThrough;
-    /**
-     * Used to pass attributes to the empty message's DOM element.
-     */
-    emptyMessage?: PassThroughOption<HTMLLIElement, I>;
-}
-
-/**
- * Defines valid pass-through options in MultiSelect.
- * @see {@link MultiSelectPassThroughOptions}
- * @template I Type of instance.
- */
-export type MultiSelectPassThrough<I = unknown> = PassThrough<I, MultiSelectPassThroughOptions<I>>;

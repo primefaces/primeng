@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 
@@ -12,42 +12,23 @@ import { ToastModule } from 'primeng/toast';
     template: `
         <app-docptviewer [docs]="docs">
             <p-toast />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
+            <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
         </app-docptviewer>
-    `,
-    providers: [MessageService]
+    `
 })
 export class PTViewer {
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
             {
-                label: 'Update',
-                command: () => {
-                    this.update();
-                }
+                label: 'Update'
             },
             {
-                label: 'Delete',
-                command: () => {
-                    this.delete();
-                }
+                label: 'Delete'
             },
             { label: 'Angular.dev', url: 'https://angular.dev' }
         ];
-    }
-
-    save() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Saved' });
-    }
-
-    update() {
-        this.messageService.add({ severity: 'success', summary: 'Updated', detail: 'Data Updated' });
-    }
-
-    delete() {
-        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
     }
 
     docs = [

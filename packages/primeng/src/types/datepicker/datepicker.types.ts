@@ -2,12 +2,12 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { DatePicker } from '../../datepicker/datepicker';
+import type { DatePicker } from 'primeng/datepicker';
 
 /**
  * Custom pass-through(pt) options.
  * @template I Type of instance.
- * @see {@link DatePickerProps.pt}
+ * @see {@link DatePicker.pt}
  * @group Interface
  */
 export interface DatePickerPassThroughOptions<I = unknown> {

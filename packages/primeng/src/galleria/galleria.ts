@@ -444,7 +444,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                 <svg data-p-icon="times" *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [pBind]="ptm('closeIcon')" [class]="cx('closeIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate"></ng-template>
             </button>
-            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" pGalleriaItemSlot type="header" [templates]="galleria.templates" [pt]="pt()" [class]="cx('header')"></div>
+            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" pGalleriaItemSlot type="header" [templates]="galleria.templates" [pBind]="ptm('header')" [class]="cx('header')"></div>
             <div [pBind]="ptm('content')" [class]="cx('content')" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
                 <div
                     pGalleriaItem
@@ -486,7 +486,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                     [pt]="pt()"
                 ></div>
             </div>
-            <div *ngIf="shouldRenderFooter()" pGalleriaItemSlot [pt]="pt()" [class]="cx('footer')" type="footer" [templates]="galleria.templates"></div>
+            <div *ngIf="shouldRenderFooter()" pGalleriaItemSlot [pBind]="ptm('footer')" [class]="cx('footer')" type="footer" [templates]="galleria.templates"></div>
         </ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -1058,7 +1058,7 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
                             (touchend)="onItemClick(index)"
                             (keydown.enter)="onItemClick(index)"
                         >
-                            <div pGalleriaItemSlot type="thumbnail" [pt]="pt()" [item]="item" [templates]="templates"></div>
+                            <div pGalleriaItemSlot type="thumbnail" [pBind]="ptm('thumbnailItem')" [item]="item" [templates]="templates"></div>
                         </div>
                     </div>
                 </div>

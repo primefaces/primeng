@@ -45,7 +45,7 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
     template: `
         <div [pBind]="ptm('controls')" [class]="cx('controls')" [attr.data-pc-section]="'controls'">
             <button
-                [pt]="ptm('moveUpButton')"
+                [pt]="ptm('pcMoveUpButton')"
                 type="button"
                 [disabled]="moveDisabled()"
                 pButton
@@ -60,7 +60,7 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
             </button>
             <button
-                [pt]="ptm('moveTopButton')"
+                [pt]="ptm('pcMoveTopButton')"
                 type="button"
                 [disabled]="moveDisabled()"
                 pButton
@@ -75,7 +75,7 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
             </button>
             <button
-                [pt]="ptm('moveDownButton')"
+                [pt]="ptm('pcMoveDownButton')"
                 type="button"
                 [disabled]="moveDisabled()"
                 pButton
@@ -90,7 +90,7 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
             </button>
             <button
-                [pt]="ptm('moveBottomButton')"
+                [pt]="ptm('pcMoveBottomButton')"
                 type="button"
                 [disabled]="moveDisabled()"
                 pButton

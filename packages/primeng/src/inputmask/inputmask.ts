@@ -137,7 +137,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     rootPTOptions() {
         return {
-            root: mergeProps(this.ptm('pcInputText', this.ptmParams)['root'])
+            root: mergeProps(this.ptm('pcInputText', this.ptmParams())['root'], this.ptm('root', this.ptmParams()))
         };
     }
 

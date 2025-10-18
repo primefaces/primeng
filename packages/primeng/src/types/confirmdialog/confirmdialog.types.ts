@@ -1,8 +1,8 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
-import type { DialogPassThrough } from 'primeng/types/dialog';
 import { TemplateRef } from '@angular/core';
 import type { ConfirmDialog } from 'primeng/confirmdialog';
+import { DialogPassThrough } from 'primeng/dialog';
 
 /**
  * Custom pass-through(pt) options.
@@ -18,8 +18,13 @@ export interface ConfirmDialogPassThroughOptions<I = unknown> {
     host?: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the root's DOM element.
+     * @see {@link DialogPassThrough}
      */
-    root?: PassThroughOption<HTMLDivElement, I>;
+    root?: DialogPassThrough;
+    /**
+     * Used to pass attributes to the mask's DOM element.
+     */
+    mask?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the icon's DOM element.
      */
@@ -29,10 +34,34 @@ export interface ConfirmDialogPassThroughOptions<I = unknown> {
      */
     message?: PassThroughOption<HTMLSpanElement, I>;
     /**
-     * Used to pass attributes to the Dialog component.
-     * @see {@link DialogPassThrough}
+     * Used to pass attributes to the resize handle's DOM element.
      */
-    pcDialog?: DialogPassThrough;
+    resizeHandle?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the header's DOM element.
+     */
+    header?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the title's DOM element.
+     */
+    title?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the header actions' DOM element.
+     */
+    headerActions?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the close Button component.
+     * @see {@link ButtonPassThrough}
+     */
+    pcCloseButton?: ButtonPassThrough;
+    /**
+     * Used to pass attributes to the content's DOM element.
+     */
+    content?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the footer's DOM element.
+     */
+    footer?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the accept Button component.
      * @see {@link ButtonPassThrough}

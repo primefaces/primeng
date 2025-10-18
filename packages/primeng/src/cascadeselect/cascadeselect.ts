@@ -104,6 +104,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                     [dirty]="dirty"
                     [optionTemplate]="optionTemplate"
                     [pBind]="ptm('optionList')"
+                    [pt]="pt"
                 ></ul>
             </li>
         </ng-template>
@@ -356,6 +357,7 @@ export class CascadeSelectSub extends BaseComponent {
                             [attr.aria-orientation]="'horizontal'"
                             [pBind]="ptm('list')"
                             [attr.aria-label]="listlabel"
+                            [pt]="pt"
                         ></ul>
                     </div>
                     <span role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('selectedMessageText')">

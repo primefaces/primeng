@@ -1,6 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -13,11 +12,10 @@ import {
     Inject,
     inject,
     Injectable,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
-    OnInit,
     Output,
     PLATFORM_ID,
     QueryList,
@@ -31,8 +29,8 @@ import { RouterModule } from '@angular/router';
 import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { BaseComponent } from 'primeng/basecomponent';
-import { BindModule } from 'primeng/bind';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -42,6 +40,8 @@ import { ZIndexUtils } from 'primeng/utils';
 import { interval, Subject, Subscription } from 'rxjs';
 import { debounce, filter } from 'rxjs/operators';
 import { MenuBarStyle } from './style/menubarstyle';
+
+const MENUBAR_INSTANCE = new InjectionToken<Menubar>('MENUBAR_INSTANCE');
 
 @Injectable()
 export class MenubarService {
@@ -189,6 +189,7 @@ export class MenubarService {
                     (itemClick)="itemClick.emit($event)"
                     (itemMouseEnter)="onItemMouseEnter($event)"
                     [inlineStyles]="sx('submenu', true, { instance: this, processedItem })"
+                    [pt]="pt"
                 ></ul>
             </li>
         </ng-template>
@@ -198,7 +199,6 @@ export class MenubarService {
         '[id]': 'root ? menuId : null',
         '[attr.aria-activedescendant]': 'focusedItemId',
         '[class]': "level === 0 ? cx('rootList') : cx('submenu')",
-        'data-pc-section': 'menu',
         role: 'menubar',
         '[style]': 'inlineStyles'
     }
@@ -387,6 +387,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             (keydown)="onKeyDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
             (mouseleave)="onMouseLeave($event)"
+            [pt]="pt"
         ></ul>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate; else legacy" [pBind]="ptm('end')">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
@@ -399,14 +400,21 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [MenubarService, MenuBarStyle],
+    providers: [MenubarService, MenuBarStyle, { provide: MENUBAR_INSTANCE, useExisting: Menubar }, { provide: PARENT_INSTANCE, useExisting: Menubar }],
     host: {
-        '[class]': 'cn(cx("root"), styleClass)',
-        'data-pc-section': 'root',
-        'data-pc-name': 'menubar'
-    }
+        '[class]': 'cn(cx("root"), styleClass)'
+    },
+    hostDirectives: [Bind]
 })
 export class Menubar extends BaseComponent<MenubarPassThrough> {
+    $pcMenubar: Menubar | undefined = inject(MENUBAR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * An array of menuitems.
      * @group Props

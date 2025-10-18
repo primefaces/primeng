@@ -199,6 +199,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
                         [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
+                        [pt]="pt"
                     ></p-tieredmenusub>
                 </li>
             </ng-template>
@@ -430,6 +431,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
+                [pt]="pt"
             ></p-tieredMenuSub>
         </div>
     `,

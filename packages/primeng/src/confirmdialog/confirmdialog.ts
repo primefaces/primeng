@@ -48,7 +48,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     imports: [CommonModule, Button, Dialog, SharedModule, Bind],
     template: `
         <p-dialog
-            [pt]="ptm('pcDialog')"
+            [pt]="pt"
             #dialog
             [visible]="visible"
             (visibleChange)="onVisibleChange($event)"
@@ -155,7 +155,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     bindDirectiveInstance = inject(Bind, { self: true });
 
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
 
     /**

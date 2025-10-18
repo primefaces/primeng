@@ -1,6 +1,89 @@
 import { ElementRef, TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { Overlay } from 'primeng/overlay';
+import type { CascadeSelect } from 'primeng/cascadeselect';
+
+/**
+ * Custom pass-through(pt) options.
+ * @template I Type of instance.
+ *
+ * @see {@link CascadeSelect.pt}
+ * @group Interface
+ */
+export interface CascadeSelectPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the root's DOM element.
+     */
+    root?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the hidden input wrapper's DOM element.
+     */
+    hiddenInputWrapper?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the hidden input's DOM element.
+     */
+    hiddenInput?: PassThroughOption<HTMLInputElement, I>;
+    /**
+     * Used to pass attributes to the label's DOM element.
+     */
+    label?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the dropdown's DOM element.
+     */
+    dropdown?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the loading icon's DOM element.
+     */
+    loadingIcon?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the dropdown icon's DOM element.
+     */
+    dropdownIcon?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the clear icon's DOM element.
+     */
+    clearIcon?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the overlay's DOM element.
+     */
+    overlay?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the list container's DOM element.
+     */
+    listContainer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the list's DOM element.
+     */
+    list?: PassThroughOption<HTMLUListElement, I>;
+    /**
+     * Used to pass attributes to the option list's DOM element.
+     */
+    optionList?: PassThroughOption<HTMLUListElement, I>;
+    /**
+     * Used to pass attributes to the option's DOM element.
+     */
+    option?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass attributes to the option content's DOM element.
+     */
+    optionContent?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass attributes to the option text's DOM element.
+     */
+    optionText?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass attributes to the group icon's DOM element.
+     */
+    groupIcon?: PassThroughOption<HTMLElement, I>;
+}
+
+/**
+ * Defines valid pass-through options in CascadeSelect.
+ * @see {@link CascadeSelectPassThroughOptions}
+ *
+ * @template I Type of instance.
+ */
+export type CascadeSelectPassThrough<I = unknown> = PassThrough<I, CascadeSelectPassThroughOptions<I>>;
 
 /**
  * Custom panel show event.
@@ -107,85 +190,3 @@ export interface CascadeSelectTemplates {
      */
     loadingicon(): TemplateRef<any>;
 }
-
-/**
- * Custom pass-through(pt) options.
- * @template I Type of instance.
- *
- * @see {@link CascadeSelectProps.pt}
- * @group Interface
- */
-export interface CascadeSelectPassThroughOptions<I = unknown> {
-    /**
-     * Used to pass attributes to the root's DOM element.
-     */
-    root?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the hidden input wrapper's DOM element.
-     */
-    hiddenInputWrapper?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the hidden input's DOM element.
-     */
-    hiddenInput?: PassThroughOption<HTMLInputElement, I>;
-    /**
-     * Used to pass attributes to the label's DOM element.
-     */
-    label?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the dropdown's DOM element.
-     */
-    dropdown?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the loading icon's DOM element.
-     */
-    loadingIcon?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the dropdown icon's DOM element.
-     */
-    dropdownIcon?: PassThroughOption<HTMLElement, I>;
-    /**
-     * Used to pass attributes to the clear icon's DOM element.
-     */
-    clearIcon?: PassThroughOption<HTMLElement, I>;
-    /**
-     * Used to pass attributes to the overlay's DOM element.
-     */
-    overlay?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the list container's DOM element.
-     */
-    listContainer?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the list's DOM element.
-     */
-    list?: PassThroughOption<HTMLUListElement, I>;
-    /**
-     * Used to pass attributes to the option list's DOM element.
-     */
-    optionList?: PassThroughOption<HTMLUListElement, I>;
-    /**
-     * Used to pass attributes to the option's DOM element.
-     */
-    option?: PassThroughOption<HTMLLIElement, I>;
-    /**
-     * Used to pass attributes to the option content's DOM element.
-     */
-    optionContent?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the option text's DOM element.
-     */
-    optionText?: PassThroughOption<HTMLSpanElement, I>;
-    /**
-     * Used to pass attributes to the group icon's DOM element.
-     */
-    groupIcon?: PassThroughOption<HTMLElement, I>;
-}
-
-/**
- * Defines valid pass-through options in CascadeSelect.
- * @see {@link CascadeSelectPassThroughOptions}
- *
- * @template I Type of instance.
- */
-export type CascadeSelectPassThrough<I = unknown> = PassThrough<I, CascadeSelectPassThroughOptions<I>>;

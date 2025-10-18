@@ -6,12 +6,12 @@ import { Component } from '@angular/core';
 import { PTViewer } from './PTViewer';
 
 @Component({
-    selector: 'dynamicdialog-pt-component',
+    selector: 'dynamic-dialog-pt-component',
     standalone: true,
     imports: [CommonModule, AppDocSection],
     template: `<div class="doc-main">
         <div class="doc-intro">
-            <h1>DynamicDialog Pass Through</h1>
+            <h1>Dynamic Dialog Pass Through</h1>
         </div>
         <app-docsection [docs]="docs" />
     </div>`
