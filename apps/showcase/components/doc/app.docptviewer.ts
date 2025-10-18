@@ -159,12 +159,11 @@ export class AppDocPtViewer {
 
         if (componentName === 'ConfirmDialog') cmpName = 'Dialog';
         if (componentName === 'ScrollTop') selector = `[data-pc-extend="button"][data-pc-section="root"]`;
+        if (item.label === 'host') selector = `p-${cmpName.toLowerCase()}[data-pc-section="host"]`;
         else if (item.label === 'root') selector = `[data-pc-name="${cmpName.toLowerCase()}"][data-pc-section="root"]`;
         else if (item.label.startsWith('pc')) selector = `[data-pc-name="${item.label.toLowerCase()}"][data-pc-section="root"]`;
         else if (componentName === 'InputMask') selector = `[data-pc-name="inputtext"][data-pc-section="root"]`;
         else selector = `[data-pc-name="${cmpName.toLowerCase()}"] [data-pc-section="${item.label.toLowerCase()}"]`;
-
-        this.hoveredElements = find(this.container()?.nativeElement, selector);
 
         if (this.hoveredElements.length === 0) {
             const body = document.querySelector('body');
