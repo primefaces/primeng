@@ -8794,8 +8794,15 @@
                                 "name": "root",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "type": "DialogPassThrough",
                                 "description": "Used to pass attributes to the root's DOM element."
+                            },
+                            {
+                                "name": "mask",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the mask's DOM element."
                             },
                             {
                                 "name": "icon",
@@ -8812,11 +8819,53 @@
                                 "description": "Used to pass attributes to the message's DOM element."
                             },
                             {
-                                "name": "pcDialog",
+                                "name": "resizeHandle",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "DialogPassThrough",
-                                "description": "Used to pass attributes to the Dialog component."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the resize handle's DOM element."
+                            },
+                            {
+                                "name": "header",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header's DOM element."
+                            },
+                            {
+                                "name": "title",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the title's DOM element."
+                            },
+                            {
+                                "name": "headerActions",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header actions' DOM element."
+                            },
+                            {
+                                "name": "pcCloseButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ButtonPassThrough",
+                                "description": "Used to pass attributes to the close Button component."
+                            },
+                            {
+                                "name": "content",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the content's DOM element."
+                            },
+                            {
+                                "name": "footer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer's DOM element."
                             },
                             {
                                 "name": "pcAcceptButton",
@@ -12839,7 +12888,7 @@
                             "description": "DynamicDialog instance."
                         }
                     ],
-                    "returnType": "DynamicDialogComponent",
+                    "returnType": "DynamicDialog",
                     "description": "Returns the dynamic dialog component instance."
                 }
             ]
@@ -15714,6 +15763,13 @@
                         "description": "Custom pass-through(pt) options.",
                         "props": [
                             {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
+                            {
                                 "name": "root",
                                 "optional": true,
                                 "readonly": false,
@@ -18457,13 +18513,6 @@
                         "name": "InputTextPassThroughOptions",
                         "description": "Custom pass-through(pt) options.",
                         "props": [
-                            {
-                                "name": "host",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLInputElement, I>",
-                                "description": "Used to pass attributes to the host's DOM element."
-                            },
                             {
                                 "name": "root",
                                 "optional": true,
@@ -23249,38 +23298,38 @@
                                 "description": "Used to pass attributes to the controls container's DOM element."
                             },
                             {
-                                "name": "moveUpButton",
+                                "name": "pcMoveUpButton",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "type": "ButtonPassThrough",
                                 "description": "Used to pass attributes to the move up button's DOM element."
                             },
                             {
-                                "name": "moveTopButton",
+                                "name": "pcMoveTopButton",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "type": "ButtonPassThrough",
                                 "description": "Used to pass attributes to the move top button's DOM element."
                             },
                             {
-                                "name": "moveDownButton",
+                                "name": "pcMoveDownButton",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "type": "ButtonPassThrough",
                                 "description": "Used to pass attributes to the move down button's DOM element."
                             },
                             {
-                                "name": "moveBottomButton",
+                                "name": "pcMoveBottomButton",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "type": "ButtonPassThrough",
                                 "description": "Used to pass attributes to the move bottom button's DOM element."
                             },
                             {
                                 "name": "pcListbox",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any",
+                                "type": "ListBoxPassThrough",
                                 "description": "Used to pass attributes to the Listbox component."
                             }
                         ]
@@ -36951,13 +37000,6 @@
                         "description": "Custom pass-through(pt) options.",
                         "props": [
                             {
-                                "name": "host",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "PassThroughOption<HTMLElement, I>",
-                                "description": "Used to pass attributes to the host's DOM element."
-                            },
-                            {
                                 "name": "root",
                                 "optional": true,
                                 "readonly": false,
@@ -37997,7 +38039,7 @@
                                 "description": "Used to pass attributes to the node toggle icon's DOM element."
                             },
                             {
-                                "name": "nodeCheckbox",
+                                "name": "pcNodeCheckbox",
                                 "optional": true,
                                 "readonly": false,
                                 "type": "CheckboxPassThrough",

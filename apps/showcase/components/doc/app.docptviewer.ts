@@ -163,7 +163,7 @@ export class AppDocPtViewer {
         else if (item.label === 'root') selector = `[data-pc-name="${cmpName.toLowerCase()}"][data-pc-section="root"]`;
         else if (item.label.startsWith('pc')) selector = `[data-pc-name="${item.label.toLowerCase()}"][data-pc-section="root"]`;
         else if (componentName === 'InputMask') selector = `[data-pc-name="inputtext"][data-pc-section="root"]`;
-        else selector = `[data-pc-name="${cmpName.toLowerCase()}"] [data-pc-section="${item.label.toLowerCase()}"]`;
+        else selector = `[data-pc-section="${item.label.toLowerCase()}"]`;
 
         if (this.hoveredElements.length === 0) {
             const body = document.querySelector('body');

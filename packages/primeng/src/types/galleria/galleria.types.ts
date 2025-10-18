@@ -1,5 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { Galleria } from 'primeng/galleria';
 
 /**
@@ -10,6 +10,10 @@ import type { Galleria } from 'primeng/galleria';
  * @group Interface
  */
 export interface GalleriaPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the root's DOM element.
      */
