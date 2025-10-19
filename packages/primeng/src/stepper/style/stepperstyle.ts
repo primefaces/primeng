@@ -10,15 +10,6 @@ const style = /*css*/ `
     .p-steppanel-content.ng-animating {
         overflow: hidden;
     }
-    /* TODO: for dev purposes, will be removed later */
-    p-step-list,
-    p-stepper-separator,
-    p-step-item,
-    p-step,
-    p-step-panel,
-    p-step-panels {
-        display: block;
-    }
 `;
 
 const classes = {
