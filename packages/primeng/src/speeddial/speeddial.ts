@@ -1,7 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -14,7 +12,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     signal,
@@ -26,14 +23,14 @@ import { RouterModule } from '@angular/router';
 import { find, findSingle, focus, hasClass, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { SpeedDialPassThrough } from 'primeng/types/speeddial';
 import { asapScheduler } from 'rxjs';
 import { SpeedDialStyle } from './style/speeddialstyle';
-import { SpeedDialPassThrough } from 'primeng/types/speeddial';
-import { Bind } from 'primeng/bind';
 
 const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE');
 
@@ -66,7 +63,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                     [buttonProps]="buttonProps"
                     [pt]="ptm('pcButton')"
                 >
-                    <svg data-p-icon="plus" pButtonIcon *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
+                    <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" data-pc-section="icon" *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                 </button>
             </ng-container>
@@ -88,7 +85,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
             >
                 <li
                     *ngFor="let item of model; let i = index"
-                    [pBind]="ptm('item')"
+                    [pBind]="getPTOptions(id + '_' + i, 'item')"
                     [ngStyle]="getItemStyle(i)"
                     [class]="cx('item', { item, i })"
                     pTooltip
@@ -96,6 +93,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"
                     role="menuitem"
+                    [attr.data-p-active]="isItemActive(id + '_' + i)"
                 >
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
@@ -116,9 +114,9 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                             (keydown.enter)="onItemClick($event, item)"
                             [attr.aria-label]="item.label"
                             [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                            [pt]="ptm('pcAction')"
+                            [pt]="getPTOptions(id + '_' + i, 'pcAction')"
                         >
-                            <span *ngIf="item.icon" [pBind]="ptm('actionIcon')" [class]="item.icon" pButtonIcon></span>
+                            <span *ngIf="item.icon" pButtonIcon [pt]="getPTOptions(id + '_' + i, 'actionIcon')" [class]="item.icon"></span>
                         </button>
                     </ng-container>
                 </li>
@@ -344,6 +342,19 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
 
     getTooltipOptions(item: MenuItem) {
         return { ...this.tooltipOptions, tooltipLabel: item.label, disabled: !this.tooltipOptions };
+    }
+
+    getPTOptions(id: string, key: string) {
+        return this.ptm(key, {
+            context: {
+                active: this.isItemActive(id),
+                hidden: !this._visible
+            }
+        });
+    }
+
+    isItemActive(id: string) {
+        return id === this.focusedOptionId;
     }
 
     onInit() {
