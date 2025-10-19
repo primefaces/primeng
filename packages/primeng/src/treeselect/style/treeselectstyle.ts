@@ -18,6 +18,10 @@ const style = /*css*/ `
     p-treeselect.ng-invalid.ng-dirty .p-treeselect-label.p-placeholder {
         color: dt('treeselect.invalid.placeholder.color');
     }
+
+    .p-treeselect-clear-icon.p-icon {
+        flex-shrink: 0;
+    }
 `;
 
 const inlineStyles = {
