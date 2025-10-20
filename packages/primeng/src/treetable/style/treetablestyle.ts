@@ -521,7 +521,7 @@ const classes = {
             'p-treetable-flex-scrollable': instance.scrollable && instance.scrollHeight === 'flex'
         }
     ],
-    loading: 'p-treetable-loading', //TODO: required?
+    loading: 'p-treetable-loading',
     mask: 'p-treetable-mask p-overlay-mask',
     loadingIcon: 'p-treetable-loading-icon',
     header: 'p-treetable-header',

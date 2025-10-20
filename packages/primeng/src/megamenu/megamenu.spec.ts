@@ -536,7 +536,7 @@ describe('MegaMenu', () => {
         });
 
         it('should render sub-menu items in mega panels', () => {
-            const subMenus = fixture.debugElement.queryAll(By.css('p-megamenu-sub'));
+            const subMenus = fixture.debugElement.queryAll(By.css('ul[pMegaMenuSub]'));
             expect(subMenus.length).toBeGreaterThanOrEqual(1); // Root menu + submenu items
         });
     });
