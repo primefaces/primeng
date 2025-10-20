@@ -151,7 +151,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                         [focusedItemId]="focusedItemId"
                         [activeItemPath]="activeItemPath"
                         [level]="level + 1"
-                        [pt]="pt"
+                        [pt]="pt()"
                         [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
                         (itemToggle)="onItemToggle($event)"
                     ></ul>
