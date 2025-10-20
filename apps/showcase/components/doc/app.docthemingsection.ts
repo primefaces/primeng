@@ -47,8 +47,10 @@ export class AppDocThemingSection {
 
     createDocs() {
         const docName = this.header.toLowerCase().replace(/\s+/g, '');
-        if (ThemeDoc[docName]) {
-            this.tokensDoc.set(ThemeDoc[docName]);
+        const themeDocKey = docName === 'table' ? 'datatable' : docName;
+
+        if (ThemeDoc[themeDocKey]) {
+            this.tokensDoc.set(ThemeDoc[themeDocKey]);
             this.navItems.update((prev) => [
                 ...prev,
                 {
@@ -60,16 +62,18 @@ export class AppDocThemingSection {
         }
 
         if (APIDoc[docName]) {
-            const classes = APIDoc[docName]['style'] && APIDoc[docName]['style']['classes'] && APIDoc[docName]['style']['classes']['values'];
-            this.classDoc.set({ classes: classes });
+            const classes = APIDoc[docName]['style']?.['classes']?.['values'];
 
-            this.navItems.update((prev) => [
-                {
-                    id: this.header + 'classes',
-                    label: 'CSS Classes'
-                },
-                ...prev
-            ]);
+            if (classes) {
+                this.classDoc.set({ classes });
+                this.navItems.update((prev) => [
+                    {
+                        id: this.header + 'classes',
+                        label: 'CSS Classes'
+                    },
+                    ...prev
+                ]);
+            }
         }
     }
 }
