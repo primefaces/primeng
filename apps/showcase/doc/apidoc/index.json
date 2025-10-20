@@ -524,31 +524,43 @@
                             "name": "acceptButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "any"
+                            "type": "any",
+                            "description": "Accept button properties."
                         },
                         {
                             "name": "rejectButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "any"
+                            "type": "any",
+                            "description": "Reject button properties."
                         },
                         {
                             "name": "closeButtonProps",
                             "optional": true,
                             "readonly": false,
-                            "type": "any"
+                            "type": "any",
+                            "description": "Close button properties."
                         },
                         {
                             "name": "closable",
                             "optional": true,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Defines if the dialog is closable."
                         },
                         {
                             "name": "position",
                             "optional": true,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Defines the dialog position."
+                        },
+                        {
+                            "name": "modal",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Specifies whether the dialog displayed as modal or not."
                         }
                     ]
                 }
@@ -8648,6 +8660,14 @@
                             "readonly": false,
                             "type": "any",
                             "description": "Object literal to define widths per screen size."
+                        },
+                        {
+                            "name": "modal",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Defines if background should be blocked when dialog is displayed."
                         },
                         {
                             "name": "visible",

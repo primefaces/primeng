@@ -55,7 +55,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             role="alertdialog"
             [closable]="option('closable')"
             [styleClass]="cn(cx('root'), styleClass)"
-            [modal]="true"
+            [modal]="option('modal')"
             [header]="option('header')"
             [closeOnEscape]="option('closeOnEscape')"
             [blockScroll]="option('blockScroll')"
@@ -314,6 +314,11 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
      * @group Props
      */
     @Input() breakpoints: any;
+    /**
+     * Defines if background should be blocked when dialog is displayed.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) modal: boolean = true;
     /**
      * Current visible state as a boolean.
      * @group Props
