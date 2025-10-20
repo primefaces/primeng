@@ -54,14 +54,14 @@ export const getPTOptions = (name) => {
                     value: i + 1,
                     label: prop.name,
                     options: options?.props,
-                    description: prop.description
+                    type: prop.type
                 });
             }
         } else {
             data.push({
                 value: i + 1,
                 label: prop.name,
-                description: prop.description
+                type: prop.type
             });
         }
     }
@@ -147,8 +147,6 @@ export class AppDocPtViewer {
                     elemName = elemName.replace(regex, '');
                 }
             }
-
-            text += ` | ${elemName}`;
         }
 
         return text;
