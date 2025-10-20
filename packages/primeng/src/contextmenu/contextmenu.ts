@@ -215,7 +215,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                         [level]="level + 1"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
-                        [pt]="pt"
+                        [pt]="pt()"
                     />
                 </li>
             </ng-template>
@@ -416,7 +416,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
-                [pt]="pt"
+                [pt]="pt()"
             />
         </div>
     `,
