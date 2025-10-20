@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import Aura from '@primeuix/themes/aura';
 import Lara from '@primeuix/themes/lara';
+import Material from '@primeuix/themes/material';
 import Nora from '@primeuix/themes/nora';
 import { MessageService } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
@@ -12,6 +13,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 
 const presets = {
     Aura,
+    Material,
     Lara,
     Nora
 };
@@ -109,6 +111,7 @@ export class DesignCreateTheme {
 
     presetOptions = [
         { label: 'Aura', value: 'Aura' },
+        { label: 'Material', value: 'Material' },
         { label: 'Lara', value: 'Lara' },
         { label: 'Nora', value: 'Nora' }
     ];
