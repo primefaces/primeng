@@ -753,7 +753,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                 (onScrollIndexChange)="onScrollIndexChange.emit($event)"
                 (onLazyLoad)="onLazyLoad.emit($event)"
                 [options]="virtualScrollOptions"
-                [pt]="ptm('pcScroller')"
+                [pt]="ptm('virtualScroller')"
                 hostName="tree"
             >
                 <ng-template #content let-items let-scrollerOptions="options">

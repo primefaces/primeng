@@ -33733,753 +33733,330 @@
                 ]
             }
         },
-        "interfaces": {
+        "types": {
             "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
                 "values": [
                     {
-                        "name": "TableRowSelectEvent",
-                        "description": "Custom select event.",
+                        "name": "ColumnFilterPassThroughOptions",
+                        "description": "Custom pass-through(pt) options for ColumnFilter.",
                         "props": [
                             {
-                                "name": "originalEvent",
+                                "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the filter container element."
                             },
                             {
-                                "name": "data",
+                                "name": "pcColumnFilterButton",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "RowData | RowData[]",
-                                "description": "Row data."
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the column filter button component."
                             },
                             {
-                                "name": "type",
+                                "name": "filterOverlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string",
-                                "description": "Selection type."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the filter overlay element."
                             },
                             {
-                                "name": "index",
+                                "name": "filterConstraintList",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number",
-                                "description": "Index of the selected row."
+                                "type": "PassThroughOption<HTMLUListElement, I>",
+                                "description": "Used to pass attributes to the filter constraint list element."
+                            },
+                            {
+                                "name": "filterConstraint",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the filter constraint element."
+                            },
+                            {
+                                "name": "filterConstraintSeparator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the filter constraint separator element."
+                            },
+                            {
+                                "name": "emtpyFilterLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLLIElement, I>",
+                                "description": "Used to pass attributes to the empty filter label element."
+                            },
+                            {
+                                "name": "filterOperator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the filter operator element."
+                            },
+                            {
+                                "name": "pcFilterOperatorDropdown",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the filter operator dropdown component."
+                            },
+                            {
+                                "name": "filterRuleList",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the filter rule list element."
+                            },
+                            {
+                                "name": "filterRule",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the filter rule element."
+                            },
+                            {
+                                "name": "pcFilterConstraintDropdown",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the filter constraint dropdown component."
+                            },
+                            {
+                                "name": "pcFilterRemoveRuleButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the filter remove rule button component."
+                            },
+                            {
+                                "name": "pcAddRuleButtonLabel",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the add rule button label."
+                            },
+                            {
+                                "name": "filterButtonBar",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the filter button bar element."
+                            },
+                            {
+                                "name": "pcFilterClearButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the filter clear button component."
+                            },
+                            {
+                                "name": "pcFilterApplyButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the filter apply button component."
+                            },
+                            {
+                                "name": "pcFilterInputText",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLInputElement, I>",
+                                "description": "Used to pass attributes to the filter input text component."
+                            },
+                            {
+                                "name": "pcFilterInputNumber",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the filter input number component."
+                            },
+                            {
+                                "name": "pcFilterCheckbox",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "CheckboxPassThrough",
+                                "description": "Used to pass attributes to the filter checkbox component."
+                            },
+                            {
+                                "name": "pcFilterDatePicker",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the filter datepicker component."
                             }
                         ]
                     },
                     {
-                        "name": "TableRowUnSelectEvent",
-                        "description": "Custom unselect event.",
+                        "name": "TablePassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
                         "props": [
                             {
-                                "name": "originalEvent",
+                                "name": "host",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
                             },
                             {
-                                "name": "data",
+                                "name": "root",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "RowData | RowData[]",
-                                "description": "Row data."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
                             },
                             {
-                                "name": "type",
+                                "name": "mask",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string",
-                                "description": "Selection type."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the loading mask element."
                             },
                             {
-                                "name": "index",
+                                "name": "loadingIcon",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number",
-                                "description": "Index of the selected row."
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the loading icon element."
+                            },
+                            {
+                                "name": "header",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header (caption) element."
+                            },
+                            {
+                                "name": "pcPaginator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PaginatorPassThrough",
+                                "description": "Used to pass attributes to the paginator component."
+                            },
+                            {
+                                "name": "tableContainer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the table container element."
+                            },
+                            {
+                                "name": "virtualScroller",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ScrollerPassThrough",
+                                "description": "Used to pass attributes to the virtual scroller component."
+                            },
+                            {
+                                "name": "table",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableElement, I>",
+                                "description": "Used to pass attributes to the table element."
+                            },
+                            {
+                                "name": "thead",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableSectionElement, I>",
+                                "description": "Used to pass attributes to the thead element."
+                            },
+                            {
+                                "name": "tbody",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableSectionElement, I>",
+                                "description": "Used to pass attributes to the tbody element."
+                            },
+                            {
+                                "name": "virtualScrollerSpacer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableSectionElement, I>",
+                                "description": "Used to pass attributes to the virtual scroller spacer element."
+                            },
+                            {
+                                "name": "tfoot",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableSectionElement, I>",
+                                "description": "Used to pass attributes to the tfoot element."
+                            },
+                            {
+                                "name": "footer",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer element."
+                            },
+                            {
+                                "name": "columnResizeIndicator",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the column resize indicator element."
+                            },
+                            {
+                                "name": "rowReorderIndicatorUp",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the row reorder indicator up element."
+                            },
+                            {
+                                "name": "rowReorderIndicatorDown",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the row reorder indicator down element."
+                            },
+                            {
+                                "name": "reorderableRow",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableRowElement, I>",
+                                "description": "Used to pass attributes to the reorderable row element."
+                            },
+                            {
+                                "name": "reorderableRowHandle",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the reorderable row handle element."
+                            },
+                            {
+                                "name": "headerCheckbox",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "CheckboxPassThrough",
+                                "description": "Used to pass attributes to the header checkbox component."
+                            },
+                            {
+                                "name": "pcCheckbox",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "CheckboxPassThrough",
+                                "description": "Used to pass attributes to the checkbox component."
+                            },
+                            {
+                                "name": "columnFilter",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "ColumnFilterPassThroughOptions<I>",
+                                "description": "Used to pass attributes to the column filter component."
+                            },
+                            {
+                                "name": "columnFilterFormElement",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the column filter form element component."
                             }
                         ]
-                    },
-                    {
-                        "name": "TableFilterEvent",
-                        "description": "Custom filter event.",
-                        "props": [
-                            {
-                                "name": "filters",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "{ [s: string]: FilterMetadata }",
-                                "description": "Filter meta."
-                            },
-                            {
-                                "name": "filteredValue",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Value after filter."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableLazyLoadEvent",
-                        "description": "Custom lazy load event.",
-                        "props": [
-                            {
-                                "name": "rows",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "sortField",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string | string[]"
-                            },
-                            {
-                                "name": "sortOrder",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "filters",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "{ [s: string]: FilterMetadata | FilterMetadata[] }"
-                            },
-                            {
-                                "name": "globalFilter",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string | string[]"
-                            },
-                            {
-                                "name": "multiSortMeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "SortMeta[]"
-                            },
-                            {
-                                "name": "forceUpdate",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Function"
-                            },
-                            {
-                                "name": "first",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "First element in viewport."
-                            },
-                            {
-                                "name": "last",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Last element in viewport."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableRowExpandEvent",
-                        "description": "Custom row expand event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "data",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "RowData",
-                                "description": "Row data."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableRowCollapseEvent",
-                        "description": "Custom row collapse event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "data",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Row data."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableContextMenuSelectEvent",
-                        "description": "Custom context menu select event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "data",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "RowData",
-                                "description": "Row data."
-                            },
-                            {
-                                "name": "index",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Row index."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableContextMenuSelectionChangeEvent",
-                        "description": "Custom context menu selection change event.",
-                        "props": [
-                            {
-                                "name": "data",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "RowData",
-                                "description": "Row data."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableColResizeEvent",
-                        "description": "Custom column resize event.",
-                        "props": [
-                            {
-                                "name": "element",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "HTMLElement",
-                                "description": "Instance of resized column."
-                            },
-                            {
-                                "name": "delta",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Position."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableColumnReorderEvent",
-                        "description": "Custom column reorder event.",
-                        "props": [
-                            {
-                                "name": "dragIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the dragged item."
-                            },
-                            {
-                                "name": "dropIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the drop position."
-                            },
-                            {
-                                "name": "columns",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any[]",
-                                "description": "Columns after reorder."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableRowReorderEvent",
-                        "description": "Custom row reorder event.",
-                        "props": [
-                            {
-                                "name": "dragIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the dragged item."
-                            },
-                            {
-                                "name": "dropIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the drop position."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableEditEvent",
-                        "description": "Custom edit event.",
-                        "props": [
-                            {
-                                "name": "field",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Field to be edited."
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "RowData",
-                                "description": "New value."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableEditInitEvent",
-                        "description": "Custom edit init event.",
-                        "props": [
-                            {
-                                "name": "field",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Field to be edited."
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "New value."
-                            },
-                            {
-                                "name": "index",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Edited element index."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableEditCancelEvent",
-                        "description": "Custom edit cancel event.",
-                        "props": [
-                            {
-                                "name": "field",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Field to be edited."
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "New value."
-                            },
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "index",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Edited element index."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableEditCompleteEvent",
-                        "description": "Custom edit complete event.",
-                        "props": [
-                            {
-                                "name": "field",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Field to be edited."
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "New value."
-                            },
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "index",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Edited element index."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableHeaderCheckboxToggleEvent",
-                        "description": "Custom checkbox toggle event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "checked",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Checked state."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TableSelectAllChangeEvent",
-                        "description": "Custom all selection change event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "checked",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Checked state."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "table",
-                        "name": "caption",
-                        "parameters": [],
-                        "description": "Custom caption template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "headergrouped",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Row data.\n  \t rowIndex: number, // Row index.\n  \t columns: any, // Columns.\n  \t editing: boolean, // Editing state.\n  \t frozen: boolean, // Frozen state.\n  }",
-                                "description": "row data."
-                            }
-                        ],
-                        "description": "Custom grouped header template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "header",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: string, // Field.\n  }",
-                                "description": "header data."
-                            }
-                        ],
-                        "description": "Custom grouped header template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "body",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns.\n  \t frozen: boolean, // Frozen state.\n  }",
-                                "description": "body data."
-                            }
-                        ],
-                        "description": "Custom body template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "loadingbody",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t rowspan: number, // Row span.\n  \t rowgroup: number, // Row group.\n  }",
-                                "description": "loading body data."
-                            }
-                        ],
-                        "description": "Custom loading body template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "footer",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: string, // Field.\n  }",
-                                "description": "footer data."
-                            }
-                        ],
-                        "description": "Custom footer template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "footergrouped",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns.\n  }",
-                                "description": "footer data."
-                            }
-                        ],
-                        "description": "Custom footer template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "colgroup",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns.\n  }",
-                                "description": "columns data."
-                            }
-                        ],
-                        "description": "Custom column group template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "summary",
-                        "parameters": [],
-                        "description": "Custom summary template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "expandedrow",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t rowspan: number, // Row span.\n  \t rowgroup: number, // Row group.\n  \t expanded: boolean, // Expanded state.\n  }",
-                                "description": "expanded row data."
-                            }
-                        ],
-                        "description": "Custom expanded row template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "groupheader",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Row data.\n  \t rowIndex: number, // Row index.\n  \t columns: any, // Columns.\n  \t editing: boolean, // Editing state.\n  \t frozen: boolean, // Frozen state.\n  }",
-                                "description": "row data."
-                            }
-                        ],
-                        "description": "Custom group header template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "groupfooter",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Row data.\n  \t rowIndex: number, // Row index.\n  \t columns: any, // Columns.\n  \t editing: boolean, // Editing state.\n  \t frozen: boolean, // Frozen state.\n  }",
-                                "description": "row data."
-                            }
-                        ],
-                        "description": "Custom group footer template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "frozenheader",
-                        "parameters": [],
-                        "description": "Custom frozen header template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "frozenbody",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Row data.\n  \t rowIndex: number, // Row index.\n  \t columns: any, // Columns.\n  \t editing: boolean, // Editing state.\n  \t frozen: boolean, // Frozen state.\n  }",
-                                "description": "row data."
-                            }
-                        ],
-                        "description": "Custom frozen body template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "frozenfooter",
-                        "parameters": [],
-                        "description": "Custom frozen footer template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "frozencolgroup",
-                        "parameters": [],
-                        "description": "Custom frozen column group template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "frozenexpandedrow",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t rowspan: number, // Row span.\n  \t rowgroup: number, // Row group.\n  \t expanded: boolean, // Expanded state.\n  }",
-                                "description": "row data."
-                            }
-                        ],
-                        "description": "Custom frozen expanded row template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "emptymessage",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns\n  \t frozen: boolean, // Frozen state.\n  }"
-                            }
-                        ],
-                        "description": "Custom empty message template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "paginatorleft",
-                        "parameters": [],
-                        "description": "Custom paginator left template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "paginatorright",
-                        "parameters": [],
-                        "description": "Custom paginator right template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "paginatordropdownicon",
-                        "parameters": [],
-                        "description": "Custom paginator dropdown trigger icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "paginatordropdownitem",
-                        "parameters": [],
-                        "description": "Custom paginator dropdown item template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "paginatorfirstpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginator first page link icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "paginatorlastpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginator last page link icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "paginatorpreviouspagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginator previous page link icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "paginatornextpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginator next page link icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "loadingicon",
-                        "parameters": [],
-                        "description": "Custom loading icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "reorderindicatorupicon",
-                        "parameters": [],
-                        "description": "Custom reorder indicator up icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "reorderindicatordownicon",
-                        "parameters": [],
-                        "description": "Custom reorder indicator down icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "sorticon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: number, // Sort order.\n  }"
-                            }
-                        ],
-                        "description": "Custom sort icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "checkboxicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checkbox state.\n  \t partialSelected: boolean, // Partial selection state of row node.\n  }",
-                                "description": "checkbox data."
-                            }
-                        ],
-                        "description": "Custom checkbox icon template."
-                    },
-                    {
-                        "parent": "table",
-                        "name": "headercheckboxicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checked state.\n  }",
-                                "description": "checkbox data."
-                            }
-                        ],
-                        "description": "Custom header checkbox icon template."
                     }
                 ]
             }

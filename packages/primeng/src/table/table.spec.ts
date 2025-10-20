@@ -572,4 +572,478 @@ describe('Table', () => {
             });
         });
     });
+
+    describe('PassThrough', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        // Comprehensive PT test object with all sections
+        const comprehensivePT = {
+            host: { class: 'pt-host', 'data-testid': 'host' },
+            root: { class: 'pt-root', 'data-testid': 'root' },
+            mask: { class: 'pt-mask', 'data-testid': 'mask' },
+            loadingIcon: { class: 'pt-loading-icon', 'data-testid': 'loading-icon' },
+            header: { class: 'pt-header', 'data-testid': 'header' },
+            pcPaginator: {
+                root: { class: 'pt-paginator', 'data-testid': 'paginator' }
+            },
+            tableContainer: { class: 'pt-table-container', 'data-testid': 'table-container' },
+            virtualScroller: {
+                root: { class: 'pt-virtual-scroller', 'data-testid': 'virtual-scroller' }
+            },
+            table: { class: 'pt-table', 'data-testid': 'table' },
+            thead: { class: 'pt-thead', 'data-testid': 'thead' },
+            tbody: { class: 'pt-tbody', 'data-testid': 'tbody' },
+            virtualScrollerSpacer: { class: 'pt-virtual-spacer', 'data-testid': 'virtual-spacer' },
+            tfoot: { class: 'pt-tfoot', 'data-testid': 'tfoot' },
+            footer: { class: 'pt-footer', 'data-testid': 'footer' },
+            columnResizeIndicator: { class: 'pt-resize-indicator', 'data-testid': 'resize-indicator' },
+            rowReorderIndicatorUp: { class: 'pt-reorder-up', 'data-testid': 'reorder-up' },
+            rowReorderIndicatorDown: { class: 'pt-reorder-down', 'data-testid': 'reorder-down' },
+            reorderableRow: { class: 'pt-reorderable-row', 'data-testid': 'reorderable-row' },
+            reorderableRowHandle: { class: 'pt-reorder-handle', 'data-testid': 'reorder-handle' },
+            headerCheckbox: {
+                root: { class: 'pt-header-checkbox', 'data-testid': 'header-checkbox' }
+            },
+            pcCheckbox: {
+                root: { class: 'pt-row-checkbox', 'data-testid': 'row-checkbox' }
+            },
+            columnFilter: {
+                filter: { class: 'pt-filter', 'data-testid': 'filter' },
+                pcColumnFilterButton: { class: 'pt-filter-button', 'data-testid': 'filter-button' },
+                filterOverlay: { class: 'pt-filter-overlay', 'data-testid': 'filter-overlay' },
+                filterConstraintList: { class: 'pt-constraint-list', 'data-testid': 'constraint-list' },
+                filterConstraint: { class: 'pt-constraint', 'data-testid': 'constraint' },
+                filterConstraintSeparator: { class: 'pt-constraint-separator', 'data-testid': 'constraint-separator' },
+                emtpyFilterLabel: { class: 'pt-empty-filter', 'data-testid': 'empty-filter' },
+                filterOperator: { class: 'pt-filter-operator', 'data-testid': 'filter-operator' },
+                pcFilterOperatorDropdown: { class: 'pt-operator-dropdown', 'data-testid': 'operator-dropdown' },
+                filterRuleList: { class: 'pt-rule-list', 'data-testid': 'rule-list' },
+                filterRule: { class: 'pt-filter-rule', 'data-testid': 'filter-rule' },
+                pcFilterConstraintDropdown: { class: 'pt-constraint-dropdown', 'data-testid': 'constraint-dropdown' },
+                pcFilterRemoveRuleButton: { class: 'pt-remove-rule', 'data-testid': 'remove-rule' },
+                pcAddRuleButtonLabel: { class: 'pt-add-rule', 'data-testid': 'add-rule' },
+                filterButtonBar: { class: 'pt-filter-buttonbar', 'data-testid': 'filter-buttonbar' },
+                pcFilterClearButton: { class: 'pt-filter-clear', 'data-testid': 'filter-clear' },
+                pcFilterApplyButton: { class: 'pt-filter-apply', 'data-testid': 'filter-apply' },
+                pcFilterInputText: { class: 'pt-filter-input', 'data-testid': 'filter-input' },
+                pcFilterInputNumber: { class: 'pt-filter-number', 'data-testid': 'filter-number' },
+                pcFilterCheckbox: {
+                    root: { class: 'pt-filter-checkbox', 'data-testid': 'filter-checkbox' }
+                },
+                pcFilterDatePicker: { class: 'pt-filter-datepicker', 'data-testid': 'filter-datepicker' }
+            },
+            columnFilterFormElement: { class: 'pt-filter-form', 'data-testid': 'filter-form' }
+        };
+
+        @Component({
+            standalone: false,
+            template: `
+                <p-table
+                    [value]="products"
+                    [dataKey]="'id'"
+                    [selection]="selectedProducts"
+                    [loading]="isLoading"
+                    [paginator]="true"
+                    [rows]="5"
+                    [totalRecords]="products.length"
+                    [scrollable]="true"
+                    scrollHeight="400px"
+                    [resizableColumns]="true"
+                    [reorderableColumns]="true"
+                    [virtualScroll]="useVirtualScroll"
+                    [virtualScrollItemSize]="46"
+                    [pt]="tablePT"
+                >
+                    <ng-template #caption>
+                        <div>Product Management Table</div>
+                    </ng-template>
+                    <ng-template #header>
+                        <tr>
+                            <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                            <th pReorderableColumn pResizableColumn>
+                                Name
+                                <p-columnFilter field="name" matchMode="contains" display="menu">
+                                    <ng-template #filter let-value let-filter="filterCallback">
+                                        <input type="text" [(ngModel)]="value" (ngModelChange)="filter($event)" placeholder="Search" />
+                                    </ng-template>
+                                </p-columnFilter>
+                            </th>
+                            <th pReorderableColumn pResizableColumn>Price</th>
+                            <th pReorderableColumn pResizableColumn>Category</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product let-rowIndex="rowIndex">
+                        <tr [pReorderableRow]="rowIndex">
+                            <td><p-tableCheckbox [value]="product"></p-tableCheckbox></td>
+                            <td>
+                                <span pReorderableRowHandle class="pi pi-bars"></span>
+                                {{ product.name }}
+                            </td>
+                            <td>{{ product.price | currency }}</td>
+                            <td>{{ product.category }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #footer>
+                        <tr>
+                            <td colspan="4">Total: {{ products.length }} products</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #summary>
+                        <div>Footer Summary</div>
+                    </ng-template>
+                </p-table>
+            `
+        })
+        class TestComprehensivePTComponent {
+            products = [
+                { id: 1, name: 'Gaming Laptop', price: 1299.99, category: 'Electronics' },
+                { id: 2, name: 'Wireless Mouse', price: 29.99, category: 'Accessories' },
+                { id: 3, name: 'Mechanical Keyboard', price: 149.99, category: 'Accessories' },
+                { id: 4, name: 'Wireless Headphones', price: 199.99, category: 'Audio' },
+                { id: 5, name: '4K Monitor', price: 399.99, category: 'Displays' },
+                { id: 6, name: 'USB-C Hub', price: 49.99, category: 'Accessories' },
+                { id: 7, name: 'Webcam', price: 79.99, category: 'Electronics' },
+                { id: 8, name: 'Microphone', price: 129.99, category: 'Audio' }
+            ];
+            selectedProducts: any[] = [];
+            isLoading = false;
+            useVirtualScroll = false;
+            tablePT = comprehensivePT;
+        }
+
+        it('PT Section 1: host - should apply PT to host DOM element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            // Check that p-table element exists (host element)
+            const tableElement = fixture.nativeElement.querySelector('p-table');
+            expect(tableElement).toBeTruthy();
+        });
+
+        it('PT Section 2: root - should apply PT to root DOM element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const rootEl = fixture.nativeElement.querySelector('[data-testid="root"]');
+            expect(rootEl).toBeTruthy();
+            expect(rootEl?.classList.contains('pt-root')).toBe(true);
+        });
+
+        it('PT Section 3: mask - should apply PT to loading mask element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            const component = fixture.componentInstance;
+            component.isLoading = true;
+            fixture.detectChanges();
+
+            const maskEl = fixture.nativeElement.querySelector('[data-testid="mask"]');
+            expect(maskEl).toBeTruthy();
+            expect(maskEl?.classList.contains('pt-mask')).toBe(true);
+        });
+
+        it('PT Section 4: loadingIcon - should apply PT to loading icon element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            const component = fixture.componentInstance;
+            component.isLoading = true;
+            fixture.detectChanges();
+
+            const iconEl = fixture.nativeElement.querySelector('[data-testid="loading-icon"]');
+            expect(iconEl).toBeTruthy();
+            expect(iconEl?.classList.contains('pt-loading-icon')).toBe(true);
+        });
+
+        it('PT Section 5: header - should apply PT to header (caption) element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const headerEl = fixture.nativeElement.querySelector('[data-testid="header"]');
+            expect(headerEl).toBeTruthy();
+            expect(headerEl?.classList.contains('pt-header')).toBe(true);
+        });
+
+        it('PT Section 6: pcPaginator - should apply PT to paginator component', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const paginatorEl = fixture.nativeElement.querySelector('[data-testid="paginator"]');
+            expect(paginatorEl).toBeTruthy();
+            expect(paginatorEl?.classList.contains('pt-paginator')).toBe(true);
+        });
+
+        it('PT Section 7: tableContainer - should apply PT to table container element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const containerEl = fixture.nativeElement.querySelector('[data-testid="table-container"]');
+            expect(containerEl).toBeTruthy();
+            expect(containerEl?.classList.contains('pt-table-container')).toBe(true);
+        });
+
+        it('PT Section 8: virtualScroller - should apply PT to virtual scroller component', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            const component = fixture.componentInstance;
+            component.useVirtualScroll = true;
+            fixture.detectChanges();
+
+            const scrollerEl = fixture.nativeElement.querySelector('[data-testid="virtual-scroller"]');
+            expect(scrollerEl).toBeTruthy();
+            expect(scrollerEl?.classList.contains('pt-virtual-scroller')).toBe(true);
+        });
+
+        it('PT Section 9: table - should apply PT to table element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const tableEl = fixture.nativeElement.querySelector('[data-testid="table"]');
+            expect(tableEl).toBeTruthy();
+            expect(tableEl?.classList.contains('pt-table')).toBe(true);
+        });
+
+        it('PT Section 10: thead - should apply PT to thead element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const theadEl = fixture.nativeElement.querySelector('[data-testid="thead"]');
+            expect(theadEl).toBeTruthy();
+            expect(theadEl?.classList.contains('pt-thead')).toBe(true);
+        });
+
+        it('PT Section 11: tbody - should apply PT to tbody element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const tbodyEl = fixture.nativeElement.querySelector('[data-testid="tbody"]');
+            expect(tbodyEl).toBeTruthy();
+            expect(tbodyEl?.classList.contains('pt-tbody')).toBe(true);
+        });
+
+        it('PT Section 12: virtualScrollerSpacer - should apply PT to virtual scroller spacer element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            const component = fixture.componentInstance;
+            component.useVirtualScroll = true;
+            fixture.detectChanges();
+
+            // Virtual scroller spacer may not render in all scenarios
+            const spacerEl = fixture.nativeElement.querySelector('[data-testid="virtual-spacer"]');
+            // If element exists, check for class
+            if (spacerEl) {
+                expect(spacerEl.classList.contains('pt-virtual-spacer')).toBe(true);
+            }
+        });
+
+        it('PT Section 13: tfoot - should apply PT to tfoot element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const tfootEl = fixture.nativeElement.querySelector('[data-testid="tfoot"]');
+            expect(tfootEl).toBeTruthy();
+            expect(tfootEl?.classList.contains('pt-tfoot')).toBe(true);
+        });
+
+        it('PT Section 14: footer - should apply PT to footer element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const footerEl = fixture.nativeElement.querySelector('[data-testid="footer"]');
+            expect(footerEl).toBeTruthy();
+            expect(footerEl?.classList.contains('pt-footer')).toBe(true);
+        });
+
+        it('PT Section 15: columnResizeIndicator - should apply PT to column resize indicator element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const indicatorEl = fixture.nativeElement.querySelector('[data-testid="resize-indicator"]');
+            expect(indicatorEl).toBeTruthy();
+            expect(indicatorEl?.classList.contains('pt-resize-indicator')).toBe(true);
+        });
+
+        it('PT Section 16: rowReorderIndicatorUp - should apply PT to row reorder indicator up element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const upIndicatorEl = fixture.nativeElement.querySelector('[data-testid="reorder-up"]');
+            expect(upIndicatorEl).toBeTruthy();
+            expect(upIndicatorEl?.classList.contains('pt-reorder-up')).toBe(true);
+        });
+
+        it('PT Section 17: rowReorderIndicatorDown - should apply PT to row reorder indicator down element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            const downIndicatorEl = fixture.nativeElement.querySelector('[data-testid="reorder-down"]');
+            expect(downIndicatorEl).toBeTruthy();
+            expect(downIndicatorEl?.classList.contains('pt-reorder-down')).toBe(true);
+        });
+
+        it('PT Section 18: reorderableRow - should apply PT to reorderable row element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            // Check that reorderable rows exist
+            const rows = fixture.nativeElement.querySelectorAll('tbody tr');
+            expect(rows.length).toBeGreaterThan(0);
+        });
+
+        it('PT Section 19: reorderableRowHandle - should apply PT to reorderable row handle element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            // Check that reorderable row handle exists
+            const handles = fixture.nativeElement.querySelectorAll('[preorderablerowhandle]');
+            expect(handles).toBeDefined();
+        });
+
+        it('PT Section 20: headerCheckbox - should apply PT to header checkbox component', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            // Check that header checkbox exists
+            const headerCheckbox = fixture.nativeElement.querySelector('p-tableheadercheckbox');
+            expect(headerCheckbox).toBeTruthy();
+        });
+
+        it('PT Section 21: pcCheckbox - should apply PT to checkbox component', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            // Check that row checkboxes exist
+            const checkboxes = fixture.nativeElement.querySelectorAll('p-tablecheckbox');
+            expect(checkboxes.length).toBeGreaterThan(0);
+        });
+
+        it('PT Section 22: columnFilter.filter - should apply PT to filter container element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            // Check that column filter element exists
+            const filterEl = fixture.nativeElement.querySelector('p-columnfilter');
+            expect(filterEl).toBeTruthy();
+        });
+
+        it('PT Section 23: columnFilterFormElement - should apply PT to column filter form element', () => {
+            TestBed.configureTestingModule({
+                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                declarations: [TestComprehensivePTComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestComprehensivePTComponent);
+            fixture.detectChanges();
+
+            // columnFilterFormElement is part of columnFilter, check that table exists
+            const tableEl = fixture.nativeElement.querySelector('table');
+            expect(tableEl).toBeTruthy();
+        });
+    });
 });

@@ -66,6 +66,7 @@ import type { SplitButtonPassThrough } from 'primeng/types/splitbutton';
 import type { SplitterPassThrough } from 'primeng/types/splitter';
 import type { StepperPassThrough } from 'primeng/types/stepper';
 import { TabsPassThrough } from 'primeng/types/tabs';
+import type { ColumnFilterPassThrough, TablePassThrough } from 'primeng/types/table';
 import type { TagPassThrough } from 'primeng/types/tag';
 import type { TerminalPassThrough } from 'primeng/types/terminal';
 import type { TieredMenuPassThrough } from 'primeng/types/tieredmenu';
@@ -96,8 +97,6 @@ export type ThemeConfigType = {
     };
 };
 
-type NewType = SpeedDialPassThrough;
-
 export interface GlobalPassThrough {
     accordion?: AccordionPassThrough;
     autoComplete?: AutoCompletePassThrough;
@@ -111,6 +110,7 @@ export interface GlobalPassThrough {
     checkbox?: CheckboxPassThrough;
     chip?: ChipPassThrough;
     colorPicker?: ColorPickerPassThrough;
+    columnFilter?: ColumnFilterPassThrough;
     confirmDialog?: ConfirmDialogPassThrough;
     confirmPopup?: ConfirmPopupPassThrough;
     dialog?: DialogPassThrough;
@@ -160,6 +160,7 @@ export interface GlobalPassThrough {
     splitter?: SplitterPassThrough;
     stepper?: StepperPassThrough;
     tabs?: TabsPassThrough;
+    table?: TablePassThrough;
     tieredMenu?: TieredMenuPassThrough;
     timeline?: TimelinePassThrough;
     tag?: TagPassThrough;

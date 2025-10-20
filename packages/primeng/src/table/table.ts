@@ -10,10 +10,10 @@ import {
     Directive,
     ElementRef,
     EventEmitter,
-    forwardRef,
     HostListener,
     inject,
     Injectable,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -30,7 +30,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { Button, ButtonModule } from 'primeng/button';
 import { CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -54,6 +55,7 @@ import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ColumnFilterPassThrough, TablePassThrough } from 'primeng/types/table';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
@@ -77,6 +79,8 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
+
+const TABLE_INSTANCE = new InjectionToken<Table>('TABLE_INSTANCE');
 
 @Injectable()
 export class TableService {
@@ -120,16 +124,16 @@ export class TableService {
     selector: 'p-table',
     standalone: false,
     template: `
-        <div [class]="cx('mask')" *ngIf="loading && showLoader">
-            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)"></i>
+        <div [class]="cx('mask')" [pBind]="ptm('mask')" *ngIf="loading && showLoader">
+            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)" [pBind]="ptm('loadingIcon')"></i>
             <ng-container *ngIf="!loadingIcon">
-                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
-                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')" />
+                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
         </div>
-        <div *ngIf="captionTemplate || _captionTemplate" [class]="cx('header')">
+        <div *ngIf="captionTemplate || _captionTemplate" [class]="cx('header')" [pBind]="ptm('header')">
             <ng-container *ngTemplateOutlet="captionTemplate || _captionTemplate"></ng-container>
         </div>
         <p-paginator
@@ -154,6 +158,7 @@ export class TableService {
             [showPageLinks]="showPageLinks"
             [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
             [locale]="paginatorLocale"
+            [pt]="ptm('pcPaginator')"
         >
             <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
@@ -176,7 +181,7 @@ export class TableService {
             </ng-template>
         </p-paginator>
 
-        <div #wrapper [class]="cx('tableContainer')" [ngStyle]="sx('tableContainer')">
+        <div #wrapper [class]="cx('tableContainer')" [ngStyle]="sx('tableContainer')" [pBind]="ptm('tableContainer')">
             <p-scroller
                 #scroller
                 *ngIf="virtualScroll"
@@ -197,6 +202,7 @@ export class TableService {
                 [showSpacer]="false"
                 [showLoader]="loadingBodyTemplate || _loadingBodyTemplate"
                 [options]="virtualScrollOptions"
+                [pt]="ptm('virtualScroller')"
             >
                 <ng-template #content let-items let-scrollerOptions="options">
                     <ng-container
@@ -223,9 +229,9 @@ export class TableService {
             </ng-container>
 
             <ng-template #buildInTable let-items let-scrollerOptions="options">
-                <table #table role="table" [class]="cn(cx('table'), tableStyleClass)" [style]="tableStyle" [attr.id]="id + '-table'">
+                <table #table role="table" [class]="cn(cx('table'), tableStyleClass)" [pBind]="ptm('table')" [style]="tableStyle" [attr.id]="id + '-table'">
                     <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                    <thead role="rowgroup" #thead [class]="cx('thead')" [ngStyle]="sx('thead')">
+                    <thead role="rowgroup" #thead [class]="cx('thead')" [ngStyle]="sx('thead')" [pBind]="ptm('thead')">
                         <ng-container
                             *ngTemplateOutlet="
                                 headerGroupedTemplate || headerTemplate || _headerTemplate;
@@ -238,6 +244,7 @@ export class TableService {
                     <tbody
                         role="rowgroup"
                         [class]="cx('tbody')"
+                        [pBind]="ptm('tbody')"
                         *ngIf="frozenValue || frozenBodyTemplate || _frozenBodyTemplate"
                         [value]="frozenValue"
                         [frozenRows]="true"
@@ -248,6 +255,7 @@ export class TableService {
                     <tbody
                         role="rowgroup"
                         [class]="cx('tbody', scrollerOptions.contentStyleClass)"
+                        [pBind]="ptm('tbody')"
                         [style]="scrollerOptions.contentStyle"
                         [value]="dataToRender(scrollerOptions.rows)"
                         [pTableBody]="scrollerOptions.columns"
@@ -259,8 +267,9 @@ export class TableService {
                         *ngIf="scrollerOptions.spacerStyle"
                         [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
                         [class]="cx('virtualScrollerSpacer')"
+                        [pBind]="ptm('virtualScrollerSpacer')"
                     ></tbody>
-                    <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')">
+                    <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')" [pBind]="ptm('tfoot')">
                         <ng-container
                             *ngTemplateOutlet="
                                 footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
@@ -296,6 +305,7 @@ export class TableService {
             [showPageLinks]="showPageLinks"
             [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
             [locale]="paginatorLocale"
+            [pt]="ptm('pcPaginator')"
         >
             <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
@@ -318,28 +328,29 @@ export class TableService {
             </ng-template>
         </p-paginator>
 
-        <div *ngIf="summaryTemplate || _summaryTemplate" [ngClass]="cx('footer')">
+        <div *ngIf="summaryTemplate || _summaryTemplate" [ngClass]="cx('footer')" [pBind]="ptm('footer')">
             <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
         </div>
 
-        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
-            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" />
+        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [pBind]="ptm('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [pBind]="ptm('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" [pBind]="ptm('rowReorderIndicatorUp')['icon']" />
             <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
         </span>
-        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
-            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" />
+        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [pBind]="ptm('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
+            <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" [pBind]="ptm('rowReorderIndicatorDown')['icon']" />
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
     `,
-    providers: [TableService, TableStyle],
+    providers: [TableService, TableStyle, { provide: TABLE_INSTANCE, useExisting: Table }, { provide: PARENT_INSTANCE, useExisting: Table }],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Table<RowData = any> extends BaseComponent implements BlockableUI {
+export class Table<RowData = any> extends BaseComponent<TablePassThrough> implements BlockableUI {
     /**
      * An array of objects to represent dynamic columns that are frozen.
      * @group Props
@@ -1165,6 +1176,12 @@ export class Table<RowData = any> extends BaseComponent implements BlockableUI {
     zone = inject(NgZone);
 
     _componentStyle = inject(TableStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 
     onInit() {
         if (this.lazy && this.lazyLoadOnInit) {
@@ -3140,6 +3157,10 @@ export class Table<RowData = any> extends BaseComponent implements BlockableUI {
         }
     }
 
+    ngAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     onDestroy() {
         this.unbindDocumentEditListener();
         this.editingCell = null;
@@ -3325,6 +3346,8 @@ export class Table<RowData = any> extends BaseComponent implements BlockableUI {
     encapsulation: ViewEncapsulation.None
 })
 export class TableBody extends BaseComponent {
+    hostName = 'Table';
+
     @Input('pTableBody') columns: any[] | undefined;
 
     @Input('pTableBodyTemplate') template: Nullable<TemplateRef<any>>;
@@ -4888,7 +4911,7 @@ export class CellEditor extends BaseComponent {
 @Component({
     selector: 'p-tableRadioButton',
     standalone: false,
-    template: ` <p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
+    template: `<p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
@@ -5017,7 +5040,7 @@ export class TableCheckbox extends BaseComponent {
     selector: 'p-tableHeaderCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
+        <p-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
             @if (dataTable.headerCheckboxIconTemplate || dataTable._headerCheckboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
@@ -5026,9 +5049,18 @@ export class TableCheckbox extends BaseComponent {
         </p-checkbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    hostDirectives: [Bind]
 })
 export class TableHeaderCheckbox extends BaseComponent {
+    hostName = 'Table';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('headerCheckbox'));
+    }
+
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
@@ -5105,9 +5137,18 @@ export class TableHeaderCheckbox extends BaseComponent {
     host: {
         '[class]': "cx('reorderableRowHandle')"
     },
-    providers: [TableStyle]
+    providers: [TableStyle],
+    hostDirectives: [Bind]
 })
 export class ReorderableRowHandle extends BaseComponent {
+    hostName = 'Table';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('reorderableRowHandle'));
+    }
+
     _componentStyle = inject(TableStyle);
 
     constructor(public el: ElementRef) {
@@ -5121,9 +5162,18 @@ export class ReorderableRowHandle extends BaseComponent {
 
 @Directive({
     selector: '[pReorderableRow]',
-    standalone: false
+    standalone: false,
+    hostDirectives: [Bind]
 })
 export class ReorderableRow extends BaseComponent {
+    hostName = 'Table';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('reorderableRow'));
+    }
+
     @Input('pReorderableRow') index: number | undefined;
 
     @Input({ transform: booleanAttribute }) pReorderableRowDisabled: boolean | undefined;
@@ -5256,7 +5306,7 @@ export class ReorderableRow extends BaseComponent {
     selector: 'p-columnFilter, p-column-filter, p-columnfilter',
     standalone: false,
     template: `
-        <div [class]="cx('filter')">
+        <div [class]="cx('filter')" [pBind]="ptm('filter')">
             <p-columnFilterFormElement
                 *ngIf="display === 'row'"
                 class="p-fluid"
@@ -5277,10 +5327,12 @@ export class ReorderableRow extends BaseComponent {
                 [useGrouping]="useGrouping"
                 [showButtons]="showButtons"
                 [filterOn]="filterOn"
+                [pt]="pt()"
             ></p-columnFilterFormElement>
             <p-button
                 *ngIf="showMenuButton"
                 [styleClass]="cx('pcColumnFilterButton')"
+                [pt]="ptm('pcColumnFilterButton')"
                 [attr.aria-haspopup]="true"
                 [ariaLabel]="filterMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayVisible ? overlayId : null"
@@ -5291,9 +5343,9 @@ export class ReorderableRow extends BaseComponent {
             >
                 <ng-template #icon>
                     <ng-container>
-                        <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" />
-                        <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" />
-                        <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate">
+                        <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
+                        <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
+                        <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('pcColumnFilterButton')['icon']">
                             <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
                         </span>
                     </ng-container>
@@ -5303,6 +5355,7 @@ export class ReorderableRow extends BaseComponent {
             <div
                 *ngIf="showMenu && overlayVisible"
                 [class]="cx('filterOverlay')"
+                [pBind]="ptm('filterOverlay')"
                 [id]="overlayId"
                 [attr.aria-modal]="true"
                 role="dialog"
@@ -5313,35 +5366,37 @@ export class ReorderableRow extends BaseComponent {
                 (keydown.escape)="onEscape()"
             >
                 <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: field }"></ng-container>
-                <ul *ngIf="display === 'row'; else menu" [class]="cx('filterConstraintList')">
+                <ul *ngIf="display === 'row'; else menu" [class]="cx('filterConstraintList')" [pBind]="ptm('filterConstraintList')">
                     <li
                         *ngFor="let matchMode of matchModes; let i = index"
                         (click)="onRowMatchModeChange(matchMode.value)"
                         (keydown)="onRowMatchModeKeyDown($event)"
                         (keydown.enter)="onRowMatchModeChange(matchMode.value)"
                         [class]="cx('filterConstraint')"
+                        [pBind]="ptm('filterConstraint', ptmFilterConstraintOptions(matchMode))"
                         [class.p-datatable-filter-constraint-selected]="isRowMatchModeSelected(matchMode.value)"
                         [attr.tabindex]="i === 0 ? '0' : null"
                     >
                         {{ matchMode.label }}
                     </li>
-                    <li [class]="cx('filterConstraintSeparator')"></li>
-                    <li [class]="cx('filterConstraint')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
+                    <li [class]="cx('filterConstraintSeparator')" [pBind]="ptm('filterConstraintSeparator', { context: { index: i } })"></li>
+                    <li [class]="cx('filterConstraint')" [pBind]="ptm('emtpyFilterLabel')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
                         {{ noFilterLabel }}
                     </li>
                 </ul>
                 <ng-template #menu>
-                    <div [class]="cx('filterOperator')" *ngIf="isShowOperator">
-                        <p-select [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" [styleClass]="cx('pcFilterOperatorDropdown')"></p-select>
+                    <div [class]="cx('filterOperator')" [pBind]="ptm('filterOperator')" *ngIf="isShowOperator">
+                        <p-select [options]="operatorOptions" [pt]="ptm('pcFilterOperatorDropdown')" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" [styleClass]="cx('pcFilterOperatorDropdown')"></p-select>
                     </div>
-                    <div [class]="cx('filterRuleList')">
-                        <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')">
+                    <div [class]="cx('filterRuleList')" [pBind]="ptm('filterRuleList')">
+                        <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')" [pBind]="ptm('filterRule')">
                             <p-select
                                 *ngIf="showMatchModes && matchModes"
                                 [options]="matchModes"
                                 [ngModel]="fieldConstraint.matchMode"
                                 (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
                                 [styleClass]="cx('pcFilterConstraintDropdown')"
+                                [pt]="ptm('pcFilterConstraintDropdown')"
                             ></p-select>
                             <p-columnFilterFormElement
                                 [type]="type"
@@ -5359,11 +5414,13 @@ export class ReorderableRow extends BaseComponent {
                                 [currencyDisplay]="currencyDisplay"
                                 [useGrouping]="useGrouping"
                                 [filterOn]="filterOn"
+                                [pt]="pt()"
                             ></p-columnFilterFormElement>
                             <div>
                                 <p-button
                                     *ngIf="showRemoveIcon"
                                     [styleClass]="cx('pcFilterRemoveRuleButton')"
+                                    [pt]="ptm('pcFilterRemoveRuleButton')"
                                     [text]="true"
                                     severity="danger"
                                     size="small"
@@ -5373,16 +5430,17 @@ export class ReorderableRow extends BaseComponent {
                                     [buttonProps]="filterButtonProps?.popover?.removeRule"
                                 >
                                     <ng-template #icon>
-                                        <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" />
+                                        <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" [pBind]="ptm('pcFilterRemoveRuleButton')['icon']" />
                                         <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
                                     </ng-template>
                                 </p-button>
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="isShowAddConstraint">
+                    @if (isShowAddConstraint) {
                         <p-button
                             type="button"
+                            [pt]="ptm('pcAddRuleButtonLabel')"
                             [label]="addRuleButtonLabel"
                             [attr.aria-label]="addRuleButtonLabel"
                             [styleClass]="cx('pcFilterAddRuleButton')"
@@ -5392,14 +5450,23 @@ export class ReorderableRow extends BaseComponent {
                             [buttonProps]="filterButtonProps?.popover?.addRule"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" />
+                                <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" [pBind]="ptm('pcAddRuleButtonLabel')['icon']" />
                                 <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
-                    </div>
-                    <div [class]="cx('filterButtonbar')">
-                        <p-button #clearBtn *ngIf="showClearButton" [outlined]="true" (onClick)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" [buttonProps]="filterButtonProps?.popover?.clear" />
-                        <p-button *ngIf="showApplyButton" (onClick)="applyFilter()" size="small" [label]="applyButtonLabel" [attr.aria-label]="applyButtonLabel" [buttonProps]="filterButtonProps?.popover?.apply" />
+                    }
+                    <div [class]="cx('filterButtonbar')" [pBind]="ptm('filterButtonBar')">
+                        <p-button
+                            #clearBtn
+                            *ngIf="showClearButton"
+                            [outlined]="true"
+                            (onClick)="clearFilter()"
+                            [attr.aria-label]="clearButtonLabel"
+                            [label]="clearButtonLabel"
+                            [buttonProps]="filterButtonProps?.popover?.clear"
+                            [pt]="ptm('pcFilterClearButton')"
+                        />
+                        <p-button *ngIf="showApplyButton" (onClick)="applyFilter()" size="small" [label]="applyButtonLabel" [attr.aria-label]="applyButtonLabel" [buttonProps]="filterButtonProps?.popover?.apply" [pt]="ptm('pcFilterApplyButton')" />
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: field }"></ng-container>
@@ -5407,9 +5474,25 @@ export class ReorderableRow extends BaseComponent {
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('.12s cubic-bezier(0, 0, 0.2, 1)')]), transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])])],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    hostDirectives: [Bind]
 })
 export class ColumnFilter extends BaseComponent {
+    hostName = 'Table';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('columnFilter'));
+    }
+
+    ptmFilterConstraintOptions(matchMode) {
+        return {
+            context: {
+                highlighted: matchMode && this.isRowMatchModeSelected(matchMode.value)
+            }
+        };
+    }
     /**
      * Property represented by the column.
      * @group Props
@@ -5734,10 +5817,6 @@ export class ColumnFilter extends BaseComponent {
     dataTable = inject(Table);
 
     overlayService = inject(OverlayService);
-
-    hostName = 'Table';
-
-    parentInstance = inject(forwardRef(() => Table));
 
     onInit() {
         this.overlayId = UniqueComponentId();
@@ -6200,6 +6279,7 @@ export class ColumnFilter extends BaseComponent {
                     type="text"
                     [ariaLabel]="ariaLabel"
                     pInputText
+                    [pt]="ptm('pcFilterInputText')"
                     [value]="filterConstraint?.value"
                     (input)="onModelChange($event.target.value)"
                     (keydown.enter)="onTextInputEnterKeyDown($event)"
@@ -6223,16 +6303,26 @@ export class ColumnFilter extends BaseComponent {
                     [currency]="currency"
                     [currencyDisplay]="currencyDisplay"
                     [useGrouping]="useGrouping"
+                    [pt]="ptm('pcFilterInputNumber')"
                 ></p-inputNumber>
-                <p-checkbox [indeterminate]="filterConstraint?.value === null" [binary]="true" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" />
+                <p-checkbox [pt]="ptm('pcFilterCheckbox')" [indeterminate]="filterConstraint?.value === null" [binary]="true" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" />
 
-                <p-datepicker [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-datepicker>
+                <p-datepicker [pt]="ptm('pcFilterDatePicker')" [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-datepicker>
             </ng-container>
         </ng-template>
     `,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    hostDirectives: [Bind]
 })
-export class ColumnFilterFormElement extends BaseComponent {
+export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrough> {
+    hostName = 'Table';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('columnFilterFormElement'));
+    }
+
     @Input() field: string | undefined;
 
     @Input() type: string | undefined;
@@ -6333,7 +6423,8 @@ export class ColumnFilterFormElement extends BaseComponent {
         FilterSlashIcon,
         PlusIcon,
         TrashIcon,
-        RadioButtonModule
+        RadioButtonModule,
+        BindModule
     ],
     exports: [
         Table,
