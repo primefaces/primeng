@@ -22,14 +22,18 @@ export class AppDocPtSection {
 
     componentName = input<string>('');
 
-    navItems = computed(() => [
-        {
-            id: 'pt.viewer',
-            label: 'Viewer'
-        },
-        {
-            id: 'pt.doc.options',
-            label: this.componentName().charAt(0).toUpperCase() + this.componentName().slice(1) + ' PT Options'
+    navItems = computed(() => {
+        const component = this.ptComponent();
+        if (!component) {
+            return [];
         }
-    ]);
+
+        const instance = new component();
+        const docs = instance.docs || [];
+
+        return docs.map((doc: any) => ({
+            id: doc.id,
+            label: doc.label
+        }));
+    });
 }

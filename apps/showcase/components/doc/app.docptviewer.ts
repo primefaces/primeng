@@ -32,7 +32,8 @@ export const getPTOptions = (name) => {
         accordionpanel: 'accordion',
         accordionheader: 'accordion',
         accordioncontent: 'accordion',
-        contextmenusub: 'contextmenu'
+        contextmenusub: 'contextmenu',
+        columnfilter: 'table'
     };
 
     const lookupName = componentMapping[name.toLowerCase()] || name.toLowerCase();
