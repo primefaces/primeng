@@ -92,9 +92,7 @@ export class AppDoc implements OnInit, OnChanges {
     public document: Document = inject(DOCUMENT);
 
     ngOnInit() {
-        if (this.router.url.includes('#api')) {
-            this.activateTab(1);
-        }
+        this.navigate();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -109,6 +107,18 @@ export class AppDoc implements OnInit, OnChanges {
 
     activateTab(index) {
         this.docService.activeTab.set(index);
+    }
+
+    navigate() {
+        if (this.router.url.includes('#api')) {
+            this.activateTab(1);
+        }
+        if (this.router.url.toLowerCase().includes('classes') || this.router.url.toLowerCase().includes('designtokens')) {
+            this.activateTab(2);
+        }
+        if (this.router.url.includes('#pt')) {
+            this.activateTab(3);
+        }
     }
 
     ngOnDestroy() {
