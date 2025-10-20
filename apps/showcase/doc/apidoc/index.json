@@ -26857,13 +26857,6 @@
                                 "description": "Used to pass attributes to the target controls' DOM element."
                             },
                             {
-                                "name": "pcButton",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "ButtonPassThrough",
-                                "description": "Used to pass attributes to the Button component."
-                            },
-                            {
                                 "name": "pcSourceMoveUpButton",
                                 "optional": true,
                                 "readonly": false,

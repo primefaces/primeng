@@ -484,10 +484,10 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     hide() {
-        // if (this.getOption('tooltipZIndex') === 'auto') {
-        //     ZIndexUtils.clear(this.container);
-        // }
-        // this.remove();
+        if (this.getOption('tooltipZIndex') === 'auto') {
+            ZIndexUtils.clear(this.container);
+        }
+        this.remove();
     }
 
     updateText() {

@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
-import type { ButtonPassThrough } from 'primeng/types/button';
-import type { ListBoxPassThrough } from 'primeng/types/listbox';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { PickList } from 'primeng/picklist';
+import type { ButtonPassThrough } from 'primeng/types/button';
+import type { ListBoxPassThrough } from 'primeng/types/listbox';
 
 /**
  * Custom pass-through(pt) options.
@@ -36,11 +36,6 @@ export interface PickListPassThroughOptions<I = unknown> {
      * Used to pass attributes to the target controls' DOM element.
      */
     targetControls?: PassThroughOption<HTMLDivElement, I>;
-    /**
-     * Used to pass attributes to the Button component.
-     * @see {@link ButtonPassThrough}
-     */
-    pcButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the source move up Button component.
      * @see {@link ButtonPassThrough}

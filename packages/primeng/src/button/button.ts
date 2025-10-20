@@ -62,12 +62,13 @@ const INTERNAL_BUTTON_CLASSES = {
     hostDirectives: [Bind]
 })
 export class ButtonLabel extends BaseComponent {
-    _componentStyle = inject(ButtonStyle);
+    ptButtonLabel = input<any>();
 
-    bindDirectiveInstance = inject(Bind, { self: true });
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+    constructor() {
+        super();
+        effect(() => {
+            this.ptButtonLabel() && this.directivePT.set(this.ptButtonLabel());
+        });
     }
 }
 
@@ -77,16 +78,16 @@ export class ButtonLabel extends BaseComponent {
     standalone: true,
     host: {
         '[class.p-button-icon]': 'true'
-    },
-    hostDirectives: [Bind]
+    }
 })
 export class ButtonIcon extends BaseComponent {
-    _componentStyle = inject(ButtonStyle);
+    ptButtonIcon = input<any>();
 
-    bindDirectiveInstance = inject(Bind, { self: true });
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+    constructor() {
+        super();
+        effect(() => {
+            this.ptButtonIcon() && this.directivePT.set(this.ptButtonIcon());
+        });
     }
 }
 /**
