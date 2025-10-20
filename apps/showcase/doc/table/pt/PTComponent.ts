@@ -36,8 +36,4 @@ export class PTComponent {
             data: getPTOptions('ColumnFilter')
         }
     ];
-
-    ngOnInit() {
-        console.log(getPTOptions('Table'));
-    }
 }
