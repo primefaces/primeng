@@ -39782,805 +39782,252 @@
                 ]
             }
         },
-        "interfaces": {
+        "types": {
             "components": {},
-            "events": {
-                "description": "Defines the custom events used by the component's emitters.",
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
                 "values": [
                     {
-                        "name": "TreeTableLazyLoadEvent",
-                        "description": "Custom lazy load event.",
+                        "name": "TreeTablePassThroughOptions",
+                        "description": "Custom pass-through(pt) options.",
                         "props": [
                             {
-                                "name": "rows",
+                                "name": "host",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number"
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
                             },
                             {
-                                "name": "sortField",
+                                "name": "root",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string | string[]"
-                            },
-                            {
-                                "name": "sortOrder",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number"
-                            },
-                            {
-                                "name": "filters",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "{ [s: string]: FilterMetadata | FilterMetadata[] }"
-                            },
-                            {
-                                "name": "globalFilter",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string | string[]"
-                            },
-                            {
-                                "name": "multiSortMeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "SortMeta[]"
-                            },
-                            {
-                                "name": "forceUpdate",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Function"
-                            },
-                            {
-                                "name": "first",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "First element in viewport."
-                            },
-                            {
-                                "name": "last",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Last element in viewport."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableColumnReorderEvent",
-                        "description": "Custom column reorder event.",
-                        "props": [
-                            {
-                                "name": "dragIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the dragged item."
-                            },
-                            {
-                                "name": "dropIndex",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Index of the drop position."
-                            },
-                            {
-                                "name": "columns",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any[]",
-                                "description": "Columns after reorder."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableFilterEvent",
-                        "description": "Custom filter event.",
-                        "props": [
-                            {
-                                "name": "filters",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "{ [s: string]: FilterMetadata }",
-                                "description": "Filter meta."
-                            },
-                            {
-                                "name": "filteredValue",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]",
-                                "description": "Value after filter."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableNodeExpandEvent",
-                        "description": "Custom node expand event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeTableNode<T>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableNodeCollapseEvent",
-                        "description": "Custom node collapse event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeTableNode<T>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableSortEvent",
-                        "description": "Custom sort event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]",
-                                "description": "Value to be sorted."
-                            },
-                            {
-                                "name": "mode",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "\"single\" | \"multiple\"",
-                                "description": "Sort mode."
-                            },
-                            {
-                                "name": "field",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Sort field."
-                            },
-                            {
-                                "name": "order",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Sort order."
-                            },
-                            {
-                                "name": "multiSortMeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "SortMeta[]",
-                                "description": "Multiple sort meta."
-                            },
-                            {
-                                "name": "multisortmeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Multiple sort meta."
-                            },
-                            {
-                                "name": "sortMeta",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "SortMeta",
-                                "description": "Sort meta."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableColResizeEvent",
-                        "description": "Custom column resize event.",
-                        "props": [
-                            {
-                                "name": "element",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "HTMLElement",
-                                "description": "Instance of resized column."
-                            },
-                            {
-                                "name": "delta",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Position."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableNodeSelectEvent",
-                        "description": "Custom node select event.",
-                        "props": [
-                            {
-                                "name": "checked",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean"
-                            },
-                            {
-                                "name": "label",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Label of the node."
-                            },
-                            {
-                                "name": "data",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Data represented by the node."
-                            },
-                            {
-                                "name": "icon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Icon of the node to display next to content."
-                            },
-                            {
-                                "name": "expandedIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Icon to use in expanded state."
-                            },
-                            {
-                                "name": "collapsedIcon",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Icon to use in collapsed state."
-                            },
-                            {
-                                "name": "children",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>[]",
-                                "description": "An array of treenodes as children."
-                            },
-                            {
-                                "name": "leaf",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Specifies if the node has children. Used in lazy loading."
-                            },
-                            {
-                                "name": "expanded",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Expanded state of the node."
-                            },
-                            {
-                                "name": "parent",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Parent of the node."
-                            },
-                            {
-                                "name": "partialSelected",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Defines if value is partially selected."
-                            },
-                            {
-                                "name": "style",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "any",
-                                "description": "Inline style of the node."
-                            },
-                            {
-                                "name": "styleClass",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Style class of the node."
-                            },
-                            {
-                                "name": "draggable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Defines if the node is draggable."
-                            },
-                            {
-                                "name": "droppable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Defines if the node is droppable."
-                            },
-                            {
-                                "name": "selectable",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Whether the node is selectable when selection mode is enabled."
-                            },
-                            {
-                                "name": "key",
-                                "optional": true,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Mandatory unique key of the node."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the root's DOM element."
                             },
                             {
                                 "name": "loading",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "boolean",
-                                "description": "Mandatory unique key of the node."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the loading's DOM element."
                             },
                             {
-                                "name": "originalEvent",
+                                "name": "mask",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the mask's DOM element."
                             },
                             {
-                                "name": "rowNode",
+                                "name": "loadingIcon",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any",
-                                "description": "Row of the node."
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the loading icon's DOM element."
                             },
                             {
-                                "name": "node",
+                                "name": "header",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeNode<any>",
-                                "description": "Node instance."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the header's DOM element."
                             },
                             {
-                                "name": "type",
+                                "name": "pcPaginator",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string",
-                                "description": "Selection type."
+                                "type": "PaginatorPassThrough",
+                                "description": "Used to pass attributes to the Paginator component."
                             },
                             {
-                                "name": "index",
+                                "name": "wrapper",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number",
-                                "description": "Node index."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the wrapper's DOM element."
                             },
                             {
-                                "name": "level",
+                                "name": "table",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number",
-                                "description": "Node level."
+                                "type": "PassThroughOption<HTMLTableElement, I>",
+                                "description": "Used to pass attributes to the table's DOM element."
                             },
                             {
-                                "name": "visible",
+                                "name": "thead",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "boolean",
-                                "description": "Boolean value indicates if node is in viewport."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableNodeUnSelectEvent",
-                        "description": "Custom node unselect event.",
-                        "props": [
+                                "type": "PassThroughOption<HTMLTableSectionElement, I>",
+                                "description": "Used to pass attributes to the thead's DOM element."
+                            },
                             {
-                                "name": "originalEvent",
+                                "name": "tbody",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
+                                "type": "PassThroughOption<HTMLTableSectionElement, I>",
+                                "description": "Used to pass attributes to the tbody's DOM element."
                             },
                             {
-                                "name": "node",
+                                "name": "tfoot",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "TreeTableNode<any>",
-                                "description": "Node instance."
+                                "type": "PassThroughOption<HTMLTableSectionElement, I>",
+                                "description": "Used to pass attributes to the tfoot's DOM element."
                             },
                             {
-                                "name": "type",
+                                "name": "footer",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "string",
-                                "description": "Selection type."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableContextMenuSelectEvent",
-                        "description": "Custom context menu select event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the footer's DOM element."
                             },
                             {
-                                "name": "node",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "TreeTableNode<any>",
-                                "description": "Node instance."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableHeaderCheckboxToggleEvent",
-                        "description": "Custom checkbox toggle event.",
-                        "props": [
-                            {
-                                "name": "originalEvent",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "Event",
-                                "description": "Browser event."
-                            },
-                            {
-                                "name": "checked",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "boolean",
-                                "description": "Checked state."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableEditEvent",
-                        "description": "Custom edit event.",
-                        "props": [
-                            {
-                                "name": "field",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Field to be edited."
-                            },
-                            {
-                                "name": "data",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "New value."
-                            }
-                        ]
-                    }
-                ]
-            },
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "treetable",
-                        "name": "caption",
-                        "parameters": [],
-                        "description": "Custom caption template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "header",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "header data."
-                            }
-                        ],
-                        "description": "Custom header template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "body",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: TreeNode, // undefined\n  \t node: TreeNode, // Serialized node.\n  \t rowData: any, // Row data.\n  \t columns: any, // Columns instance.\n  }",
-                                "description": "body data."
-                            }
-                        ],
-                        "description": "Custom body template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "footer",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "footer data."
-                            }
-                        ],
-                        "description": "Custom footer template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "summary",
-                        "parameters": [],
-                        "description": "Custom summary template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "colgroup",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "column group data."
-                            }
-                        ],
-                        "description": "Custom colgroup template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "emptymessage",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  \t frozen: boolean, // Boolean value indicates whether column is frozen.\n  }"
-                            }
-                        ],
-                        "description": "Custom emptymessage template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorleft",
-                        "parameters": [],
-                        "description": "Custom paginator left section template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorright",
-                        "parameters": [],
-                        "description": "Custom paginator right section template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatordropdownitem",
-                        "parameters": [],
-                        "description": "Custom paginator dropdown template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "frozenheader",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "frozen header data."
-                            }
-                        ],
-                        "description": "Custom frozenheader template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "frozenbody",
-                        "parameters": [],
-                        "description": "Custom frozenbody template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "frozenfooter",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "frozen footer data."
-                            }
-                        ],
-                        "description": "Custom frozenfooter template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "frozencolgroup",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: any, // Columns instance.\n  }",
-                                "description": "group data."
-                            }
-                        ],
-                        "description": "Custom frozen column group template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "loadingicon",
-                        "parameters": [],
-                        "description": "Custom loading icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "reorderindicatorupicon",
-                        "parameters": [],
-                        "description": "Custom reorder indicator up icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "reorderindicatordownicon",
-                        "parameters": [],
-                        "description": "Custom reorder indicator down icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "sorticon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: number, // Sort order.\n  }",
-                                "description": "sort data."
-                            }
-                        ],
-                        "description": "Custom sort icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "checkboxicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checkbox state.\n  \t partialSelected: boolean, // Partial selection state of row node.\n  }",
-                                "description": "checkbox data."
-                            }
-                        ],
-                        "description": "Custom checkbox icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "headercheckboxicon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Checkbox state.\n  }",
-                                "description": "checkbox data."
-                            }
-                        ],
-                        "description": "Custom header checkbox icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "togglericon",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: boolean, // Expand state of row node.\n  }",
-                                "description": "toggle icon data."
-                            }
-                        ],
-                        "description": "Custom toggler icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorfirstpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginator first page link icon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorlastpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginatorlastpagelinkicon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatorpreviouspagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginatorpreviouspagelinkicon template."
-                    },
-                    {
-                        "parent": "treetable",
-                        "name": "paginatornextpagelinkicon",
-                        "parameters": [],
-                        "description": "Custom paginatornextpagelinkicon template."
-                    }
-                ]
-            },
-            "interfaces": {
-                "description": "Defines the custom interfaces used by the module.",
-                "values": [
-                    {
-                        "name": "TreeTablePaginatorState",
-                        "description": "Paginator state.",
-                        "props": [
-                            {
-                                "name": "page",
+                                "name": "scrollableWrapper",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number",
-                                "description": "Current page."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the scrollable wrapper's DOM element."
                             },
                             {
-                                "name": "first",
+                                "name": "scrollableHeader",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number",
-                                "description": "Index of the first element."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the scrollable header's DOM element."
                             },
                             {
-                                "name": "rows",
+                                "name": "scrollableHeaderBox",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number",
-                                "description": "Row count."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the scrollable header box's DOM element."
                             },
                             {
-                                "name": "pageCount",
+                                "name": "scrollableHeaderTable",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "number",
-                                "description": "Page count."
-                            }
-                        ]
-                    },
-                    {
-                        "name": "TreeTableFilterOptions",
-                        "description": "Filtering options.",
-                        "props": [
-                            {
-                                "name": "filterField",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Field to be filtered."
+                                "type": "PassThroughOption<HTMLTableElement, I>",
+                                "description": "Used to pass attributes to the scrollable header table's DOM element."
                             },
                             {
-                                "name": "filterValue",
-                                "optional": false,
+                                "name": "virtualScroller",
+                                "optional": true,
                                 "readonly": false,
-                                "type": "any",
-                                "description": "Value to use when filtering."
+                                "type": "ScrollerPassThrough",
+                                "description": "Used to pass attributes to the Scroller component."
                             },
                             {
-                                "name": "filterConstraint",
-                                "optional": false,
+                                "name": "scrollableBody",
+                                "optional": true,
                                 "readonly": false,
-                                "type": "(dataFieldValue: any, filterValue: any, filterLocale: string) => boolean",
-                                "description": "Filter constraints."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the scrollable body's DOM element."
                             },
                             {
-                                "name": "isStrictMode",
-                                "optional": false,
+                                "name": "scrollableFooter",
+                                "optional": true,
                                 "readonly": false,
-                                "type": "boolean",
-                                "description": "Boolean value that defines if strict mode enabled."
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the scrollable footer's DOM element."
+                            },
+                            {
+                                "name": "scrollableFooterBox",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the scrollable footer box's DOM element."
+                            },
+                            {
+                                "name": "scrollableFooterTable",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableElement, I>",
+                                "description": "Used to pass attributes to the scrollable footer table's DOM element."
+                            },
+                            {
+                                "name": "columnResizerHelper",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the column resizer helper's DOM element."
+                            },
+                            {
+                                "name": "reorderIndicatorUp",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the reorder indicator up's DOM element."
+                            },
+                            {
+                                "name": "reorderIndicatorDown",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLSpanElement, I>",
+                                "description": "Used to pass attributes to the reorder indicator down's DOM element."
+                            },
+                            {
+                                "name": "sortableColumn",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableCellElement, I>",
+                                "description": "Used to pass attributes to the sortable column's DOM element."
+                            },
+                            {
+                                "name": "sortableColumnIcon",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the sortable column icon's DOM element."
+                            },
+                            {
+                                "name": "pcSortableColumnBadge",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "BadgePassThrough",
+                                "description": "Used to pass attributes to the Badge component for sortable column."
+                            },
+                            {
+                                "name": "row",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLTableRowElement, I>",
+                                "description": "Used to pass attributes to the row's DOM element."
+                            },
+                            {
+                                "name": "pcRowCheckbox",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "CheckboxPassThrough",
+                                "description": "Used to pass attributes to the Checkbox component for row."
+                            },
+                            {
+                                "name": "pcHeaderCheckbox",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "CheckboxPassThrough",
+                                "description": "Used to pass attributes to the Checkbox component for header."
+                            },
+                            {
+                                "name": "cellEditor",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the cell editor's DOM element."
+                            },
+                            {
+                                "name": "rowToggleButton",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the row toggle button's DOM element."
+                            },
+                            {
+                                "name": "toggler",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLButtonElement, I>",
+                                "description": "Used to pass attributes to the toggler's DOM element."
                             }
                         ]
                     }
