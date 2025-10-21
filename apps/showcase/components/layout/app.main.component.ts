@@ -25,11 +25,10 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
                 </div>
             </div>
             <app-footer />
-            <app-designer />
         </div>
     `,
     standalone: true,
-    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent, AppDesigner]
+    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent]
 })
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);

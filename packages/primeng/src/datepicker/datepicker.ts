@@ -484,32 +484,36 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 </div>
             </div>
             <div [class]="cx('buttonbar')" *ngIf="showButtonBar" [pBind]="ptm('buttonbar')">
-                <p-button
-                    size="small"
-                    [styleClass]="cx('pcTodayButton')"
-                    [label]="getTranslation('today')"
-                    (keydown)="onContainerButtonKeydown($event)"
-                    (onClick)="onTodayButtonClick($event)"
-                    [ngClass]="todayButtonStyleClass"
-                    severity="secondary"
-                    variant="text"
-                    size="small"
-                    [pt]="ptm('pcTodayButton')"
-                    [attr.data-pc-group-section]="'button'"
-                />
-                <p-button
-                    size="small"
-                    [styleClass]="cx('pcClearButton')"
-                    [label]="getTranslation('clear')"
-                    (keydown)="onContainerButtonKeydown($event)"
-                    (onClick)="onClearButtonClick($event)"
-                    [ngClass]="clearButtonStyleClass"
-                    severity="secondary"
-                    variant="text"
-                    size="small"
-                    [pt]="ptm('pcClearButton')"
-                    [attr.data-pc-group-section]="'button'"
-                />
+                @if (buttonBarTemplate || _buttonBarTemplate) {
+                    <ng-container *ngTemplateOutlet="buttonBarTemplate || _buttonBarTemplate; context: { todayCallback: onTodayButtonClick.bind(this), clearCallback: onClearButtonClick.bind(this) }"></ng-container>
+                } @else {
+                    <p-button
+                        size="small"
+                        [styleClass]="cx('pcTodayButton')"
+                        [label]="getTranslation('today')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (onClick)="onTodayButtonClick($event)"
+                        [ngClass]="todayButtonStyleClass"
+                        severity="secondary"
+                        variant="text"
+                        size="small"
+                        [pt]="ptm('pcTodayButton')"
+                        [attr.data-pc-group-section]="'button'"
+                    />
+                    <p-button
+                        size="small"
+                        [styleClass]="cx('pcClearButton')"
+                        [label]="getTranslation('clear')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (onClick)="onClearButtonClick($event)"
+                        [ngClass]="clearButtonStyleClass"
+                        severity="secondary"
+                        variant="text"
+                        size="small"
+                        [pt]="ptm('pcClearButton')"
+                        [attr.data-pc-group-section]="'button'"
+                    />
+                }
             </div>
             <ng-content select="p-footer"></ng-content>
             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
@@ -1179,6 +1183,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      */
     @ContentChild('inputicon', { descendants: false }) inputIconTemplate: Nullable<TemplateRef<any>>;
 
+    /**
+     * Custom template for button bar.
+     * @group Templates
+     */
+    @ContentChild('buttonbar', { descendants: false }) buttonBarTemplate: Nullable<TemplateRef<any>>;
+
     _dateTemplate: TemplateRef<any> | undefined;
 
     _headerTemplate: TemplateRef<any> | undefined;
@@ -1202,6 +1212,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     _incrementIconTemplate: TemplateRef<any> | undefined;
 
     _inputIconTemplate: TemplateRef<any> | undefined;
+
+    _buttonBarTemplate: TemplateRef<any> | undefined;
 
     _disabledDates!: Array<Date>;
 
@@ -1340,6 +1352,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
                 case 'inputicon':
                     this._inputIconTemplate = item.template;
+                    break;
+
+                case 'buttonbar':
+                    this._buttonBarTemplate = item.template;
                     break;
 
                 case 'previousicon':

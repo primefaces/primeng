@@ -16,6 +16,7 @@ import { SupportDoc } from '@/doc/uikit/supportdoc';
 import { TokensDoc } from '@/doc/uikit/faq/tokensdoc';
 import { TokenSetsDoc } from '@/doc/uikit/tokensetsdoc';
 import { TokensStudioSetupDoc } from '@/doc/uikit/workflow/tokensstudiosetupdoc';
+import { CIPipelineDoc } from '@/doc/uikit/workflow/cipipelinedoc';
 import { UpdatePrimeOneDoc } from '@/doc/uikit/updateprimeonedoc';
 import { UpdatesDoc } from '@/doc/uikit/faq/updatesdoc';
 import { UsageDoc } from '@/doc/uikit/faq/usagedoc';
@@ -81,6 +82,11 @@ export class UIKitDemo {
                     id: 'tokens-studio-setup-demo',
                     label: 'Tokens Studio Setup',
                     component: TokensStudioSetupDoc
+                },
+                {
+                    id: 'ci-pipeline',
+                    label: 'CI Pipeline',
+                    component: CIPipelineDoc
                 },
                 {
                     id: 'design-changes-demo',
