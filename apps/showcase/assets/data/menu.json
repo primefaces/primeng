@@ -542,6 +542,10 @@
                     "name": "Accessibility",
                     "routerLink": "/guides/accessibility"
                 },
+                      {
+                    "name": "Pass Through",
+                    "routerLink": "/guides/passthrough"
+                },
                 {
                     "name": "PrimeFlex",
                     "routerLink": "/guides/primeflex"

@@ -77,7 +77,7 @@ export const getPTOptions = (name) => {
         <app-docsectiontext>
             <p>
                 Some sections may not be visible due to the availability of the particular feature. Section names that start with the <i>pc</i> prefix indicate that the element is a PrimeNG component not a DOM element. Visit the
-                <a routerLink="/passthrough/#pcprefix">pass-through</a> documentation for more information.
+                <a routerLink="/guides/passthrough">pass-through</a> documentation for more information.
             </p>
         </app-docsectiontext>
         <div #container class="doc-ptviewerwrapper card">
