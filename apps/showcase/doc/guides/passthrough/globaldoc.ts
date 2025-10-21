@@ -26,17 +26,19 @@ import { providePrimeNG } from 'primeng/config';
 export const appConfig: ApplicationConfig = {
     providers: [
         providePrimeNG({
-            pt: { panel: {
-               header: {
-                   class: 'bg-primary text-primary-contrast'
-               }
-            },
-           autocomplete: {
-               pcInputText: {
-                   root: 'w-64' // OR { class: 'w-64' }
-               }
-           }}
-        }),
+            pt: {
+                panel: {
+                    header: {
+                        class: 'bg-primary text-primary-contrast'
+                    }
+                },
+                autocomplete: {
+                    pcInputText: {
+                        root: 'w-64' // OR { class: 'w-64' }
+                    }
+                }
+            }
+        })
     ]
 };`
     };
