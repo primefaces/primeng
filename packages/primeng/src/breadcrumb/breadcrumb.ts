@@ -20,7 +20,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
     standalone: true,
     imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule, Bind],
     template: `
-        <nav>
+        <nav [pBind]="ptm('root')" [class]="cn(cx('root'), styleClass)" [style]="style">
             <ol [class]="cx('list')" [pBind]="ptm('list')">
                 <li [attr.id]="home.id" [class]="cn(cx('homeItem'), home.styleClass)" [ngStyle]="home.style" *ngIf="home && home.visible !== false" pTooltip [tooltipOptions]="home.tooltipOptions" [pBind]="ptm('homeItem')">
                     @if (itemTemplate || _itemTemplate) {
@@ -146,10 +146,6 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BreadCrumbStyle, { provide: BREADCRUMB_INSTANCE, useExisting: Breadcrumb }, { provide: PARENT_INSTANCE, useExisting: Breadcrumb }],
-    host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[style]': 'style'
-    },
     hostDirectives: [Bind]
 })
 export class Breadcrumb extends BaseComponent<BreadcrumbPassThrough> {
@@ -250,7 +246,7 @@ export class Breadcrumb extends BaseComponent<BreadcrumbPassThrough> {
     }
 
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
 
     getPTOptions(item: MenuItem, index: number, key: string) {
