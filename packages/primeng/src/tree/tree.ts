@@ -424,8 +424,8 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
             const target = event.currentTarget as HTMLElement;
             const dragEl = target.cloneNode(true) as HTMLElement;
-            const toggler = <HTMLElement>dragEl.querySelector('[data-pc-section="toggler"]');
-            const checkbox = <HTMLElement>dragEl.querySelector('[data-pc-name="checkbox"]');
+            const toggler = <HTMLElement>dragEl.querySelector('[data-pc-section="nodetogglebutton"]');
+            const checkbox = <HTMLElement>dragEl.querySelector('[data-pc-name="pcnodecheckbox"]');
 
             target.setAttribute('data-p-dragging', 'true');
             dragEl.style.width = getOuterWidth(target) + 'px';
