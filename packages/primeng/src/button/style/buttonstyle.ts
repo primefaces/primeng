@@ -47,7 +47,7 @@ const classes = {
 export class ButtonStyle extends BaseStyle {
     name = 'button';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

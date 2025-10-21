@@ -13,15 +13,28 @@ import { TemplateDoc } from '@/doc/cascadeselect/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/cascadeselect/templatedrivenformsdoc';
 import { FluidDoc } from '@/doc/cascadeselect/fluiddoc';
 import { ClearIconDoc } from '@/doc/cascadeselect/clearicondoc';
+import { PTComponent } from '@/doc/cascadeselect/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular CascadeSelect Component" header="CascadeSelect" description="CascadeSelect displays a nested structure of options." [docs]="docs" [apiDocs]="['CascadeSelect']" themeDocs="CascadeSelect"></app-doc> `
+    template: `
+        <app-doc
+            docTitle="Angular CascadeSelect Component"
+            header="CascadeSelect"
+            description="CascadeSelect displays a nested structure of options."
+            [docs]="docs"
+            [apiDocs]="['CascadeSelect']"
+            [ptDocs]="ptComponent"
+            themeDocs="CascadeSelect"
+        ></app-doc>
+    `
 })
 export class CascadeSelectDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

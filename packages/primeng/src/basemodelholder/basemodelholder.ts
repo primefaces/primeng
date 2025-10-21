@@ -3,7 +3,7 @@ import { isNotEmpty } from '@primeuix/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
 @Directive({ standalone: true })
-export class BaseModelHolder extends BaseComponent {
+export class BaseModelHolder<PT = any> extends BaseComponent<PT> {
     modelValue = signal<string | string[] | any | undefined>(undefined);
 
     $filled = computed(() => isNotEmpty(this.modelValue()));

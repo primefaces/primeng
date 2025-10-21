@@ -35,7 +35,7 @@ const classes = {
 export class ImageStyle extends BaseStyle {
     name = 'image';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

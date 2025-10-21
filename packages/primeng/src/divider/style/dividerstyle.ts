@@ -29,7 +29,7 @@ const classes = {
 export class DividerStyle extends BaseStyle {
     name = 'divider';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

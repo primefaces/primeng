@@ -1,17 +1,18 @@
 import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppDocService } from './app.doc.service';
-import { AppDocFeaturesSection } from './app.docfeaturessection';
 import { AppDocApiSection } from './app.docapisection';
+import { AppDocFeaturesSection } from './app.docfeaturessection';
+import { AppDocPtSection } from './app.docptsection';
 import { AppDocThemingSection } from './app.docthemingsection';
 
 @Component({
     selector: 'app-doc',
     standalone: true,
-    imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection],
+    imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection, AppDocPtSection],
     providers: [AppDocService],
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu">
@@ -23,22 +24,36 @@ import { AppDocThemingSection } from './app.docthemingsection';
                     <button type="button" (click)="activateTab(1)">API</button>
                 </li>
             }
-            @if (themeDocs) {
+            @if (themeDocs()) {
                 <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 2 }">
                     <button type="button" (click)="activateTab(2)">THEMING</button>
+                </li>
+            }
+            @if (ptDocs()) {
+                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 3 }">
+                    <button type="button" (click)="activateTab(3)">PASSTHROUGH</button>
                 </li>
             }
         </ul>
         <div class="doc-tabpanels">
             @if (docs) {
-                <app-docfeaturessection [header]="header" [description]="description" [docs]="docs" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
+                <app-docfeaturessection [header]="header() ?? _componentName()" [description]="description" [docs]="docs" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
             }
             @if (apiDocs) {
-                <app-docapisection [docs]="apiDocs" [header]="header" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
+                @defer (when docService.activeTab() === 1) {
+                    <app-docapisection [docs]="apiDocs" [header]="header() ?? _componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
+                }
             }
 
-            @if (themeDocs) {
-                <app-docthemingsection [header]="header" [docs]="themeDocs" [componentName]="themeDocs" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+            @if (themeDocs()) {
+                @defer (when docService.activeTab() === 2) {
+                    <app-docthemingsection [header]="header()" [docs]="themeDocs" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+                }
+            }
+            @if (ptDocs()) {
+                @defer (when docService.activeTab() === 3) {
+                    <app-docptsection [ptComponent]="ptDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 3 ? 'flex' : 'none' }" />
+                }
             }
         </div>
     </div>`,
@@ -50,13 +65,21 @@ export class AppDoc implements OnInit, OnChanges {
 
     @Input() docs!: Doc[];
 
-    @Input() header!: string;
-
     @Input() description!: string;
 
     @Input() apiDocs!: string[];
 
-    @Input() themeDocs: string;
+    themeDocs = input<string>('');
+
+    header = input<string>('');
+
+    componentName = input<string>('');
+
+    _componentName = computed(() => {
+        return this.componentName() || this.themeDocs() || this.header();
+    });
+
+    ptDocs = input<any>();
 
     docService = inject(AppDocService);
 
@@ -75,9 +98,7 @@ export class AppDoc implements OnInit, OnChanges {
     public document: Document = inject(DOCUMENT);
 
     ngOnInit() {
-        if (this.router.url.includes('#api')) {
-            this.activateTab(1);
-        }
+        this.navigate();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -92,6 +113,18 @@ export class AppDoc implements OnInit, OnChanges {
 
     activateTab(index) {
         this.docService.activeTab.set(index);
+    }
+
+    navigate() {
+        if (this.router.url.includes('#api')) {
+            this.activateTab(1);
+        }
+        if (this.router.url.toLowerCase().includes('classes') || this.router.url.toLowerCase().includes('designtokens')) {
+            this.activateTab(2);
+        }
+        if (this.router.url.includes('#pt')) {
+            this.activateTab(3);
+        }
     }
 
     ngOnDestroy() {

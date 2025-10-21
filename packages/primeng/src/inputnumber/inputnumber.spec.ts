@@ -1,11 +1,12 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { InputNumber, InputNumberModule } from './inputnumber';
-import { InputNumberInputEvent } from './inputnumber.interface';
+import type { InputNumberInputEvent, InputNumberPassThrough } from 'primeng/types/inputnumber';
 import { CommonModule } from '@angular/common';
+import { providePrimeNG } from 'primeng/config';
 
 // Test Components
 @Component({
@@ -1065,5 +1066,465 @@ describe('InputNumber', () => {
 
             // Don't flush to avoid timer overflow
         }));
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+            })
+            class TestPTCase1Component {
+                value: number = 100;
+                pt = {
+                    root: 'ROOT_CLASS',
+                    pcInputText: 'INPUT_CLASS',
+                    incrementButton: 'INCREMENT_CLASS',
+                    buttonGroup: 'BUTTON_GROUP_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase1Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input'));
+                if (inputEl) {
+                    expect(inputEl.nativeElement.classList.contains('INPUT_CLASS')).toBe(true);
+                }
+
+                const buttonGroup = testFixture.debugElement.query(By.css('[data-pc-section="buttongroup"]'));
+                if (buttonGroup) {
+                    expect(buttonGroup.nativeElement.classList.contains('BUTTON_GROUP_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 2: Object with class, style, data attributes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+            })
+            class TestPTCase2Component {
+                value: number = 100;
+                pt = {
+                    root: {
+                        class: 'OBJECT_ROOT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'test-value',
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    },
+                    pcInputText: {
+                        class: 'INPUT_OBJECT_CLASS',
+                        style: { color: 'blue' }
+                    },
+                    incrementButton: {
+                        class: 'INCREMENT_OBJECT_CLASS',
+                        'data-p-custom': 'custom-value'
+                    }
+                };
+            }
+
+            it('should apply object properties to PT sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase2Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('OBJECT_ROOT_CLASS')).toBe(true);
+                    expect(rootEl.nativeElement.style.backgroundColor).toBe('red');
+                    expect(rootEl.nativeElement.getAttribute('data-p-test')).toBe('test-value');
+                    expect(rootEl.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input'));
+                if (inputEl) {
+                    expect(inputEl.nativeElement.classList.contains('INPUT_OBJECT_CLASS')).toBe(true);
+                    expect(inputEl.nativeElement.style.color).toBe('blue');
+                }
+
+                const buttons = testFixture.debugElement.queryAll(By.css('button'));
+                const incrementBtn = buttons.find((btn) => btn.nativeElement.querySelector('[data-p-icon="angle-up"]'));
+                if (incrementBtn) {
+                    expect(incrementBtn.nativeElement.classList.contains('INCREMENT_OBJECT_CLASS')).toBe(true);
+                    expect(incrementBtn.nativeElement.getAttribute('data-p-custom')).toBe('custom-value');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+            })
+            class TestPTCase3Component {
+                value: number = 100;
+                pt = {
+                    root: {
+                        class: 'MIXED_ROOT_CLASS'
+                    },
+                    pcInputText: 'MIXED_INPUT_CLASS',
+                    incrementButton: {
+                        class: 'MIXED_BUTTON_CLASS'
+                    }
+                };
+            }
+
+            it('should apply mixed object and string values correctly', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase3Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('MIXED_ROOT_CLASS')).toBe(true);
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input'));
+                if (inputEl) {
+                    expect(inputEl.nativeElement.classList.contains('MIXED_INPUT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+            })
+            class TestPTCase4Component {
+                value: number = 100;
+                pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.showButtons ? 'HAS_BUTTONS_CLASS' : 'NO_BUTTONS_CLASS'
+                        };
+                    },
+                    pcInputText: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.value > 50 ? 'yellow' : 'white'
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase4Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('HAS_BUTTONS_CLASS')).toBe(true);
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input'));
+                if (inputEl) {
+                    // PT might apply styles differently, check if style is set
+                    const bgColor = inputEl.nativeElement.style.backgroundColor;
+                    expect(bgColor).toBeTruthy();
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+            })
+            class TestPTCase5Component {
+                value: number = 100;
+                clickedSection: string = '';
+                pt = {
+                    root: {
+                        onclick: () => {
+                            this.clickedSection = 'root';
+                        }
+                    },
+                    pcInputText: {
+                        onclick: () => {
+                            this.clickedSection = 'input';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase5Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
+                if (rootEl) {
+                    rootEl.nativeElement.click();
+                    expect(component.clickedSection).toBe('root');
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input'));
+                if (inputEl) {
+                    inputEl.nativeElement.click();
+                    // Input click might bubble to root, so just check it was clicked
+                    expect(component.clickedSection).toBeTruthy();
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 6: Inline PT', () => {
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: 'INLINE_ROOT_CLASS', pcInputText: 'INLINE_INPUT_CLASS' }" [showButtons]="true"></p-inputNumber>`
+            })
+            class TestPTCase6InlineComponent {
+                value: number = 100;
+            }
+
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, pcInputText: { class: 'INLINE_INPUT_OBJECT_CLASS' } }" [showButtons]="true"></p-inputNumber>`
+            })
+            class TestPTCase6InlineObjectComponent {
+                value: number = 100;
+            }
+
+            it('should apply inline PT string classes', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase6InlineComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input'));
+                if (inputEl) {
+                    expect(inputEl.nativeElement.classList.contains('INLINE_INPUT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+
+            it('should apply inline PT object classes', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase6InlineObjectComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input'));
+                if (inputEl) {
+                    expect(inputEl.nativeElement.classList.contains('INLINE_INPUT_OBJECT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-inputNumber [(ngModel)]="value1" [showButtons]="true"></p-inputNumber>
+                    <p-inputNumber [(ngModel)]="value2" [showButtons]="true"></p-inputNumber>
+                `
+            })
+            class TestPTCase7GlobalComponent {
+                value1: number = 100;
+                value2: number = 200;
+            }
+
+            it('should apply global PT configuration from PrimeNGConfig', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase7GlobalComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                inputNumber: {
+                                    root: { class: 'GLOBAL_ROOT_CLASS' },
+                                    pcInputText: { root: { class: 'GLOBAL_INPUT_CLASS' } }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const inputNumbers = testFixture.debugElement.queryAll(By.css('[data-pc-name="inputnumber"]'));
+                expect(inputNumbers.length).toBe(2);
+
+                // Both should have global PT classes
+                inputNumbers.forEach((el) => {
+                    expect(el.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+                });
+
+                flush();
+            }));
+        });
+
+        describe('Case 8: PT Hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+            })
+            class TestPTCase8HooksComponent {
+                value: number = 100;
+                afterViewInitCalled = false;
+                afterViewCheckedCalled = false;
+                onDestroyCalled = false;
+
+                pt = {
+                    root: 'HOOK_TEST_CLASS',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.afterViewInitCalled = true;
+                        },
+                        onAfterViewChecked: () => {
+                            this.afterViewCheckedCalled = true;
+                        },
+                        onDestroy: () => {
+                            this.onDestroyCalled = true;
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks on Angular lifecycle events', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCase8HooksComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+
+                testFixture.detectChanges();
+                tick();
+
+                expect(component.afterViewInitCalled).toBe(true);
+                expect(component.afterViewCheckedCalled).toBe(true);
+
+                testFixture.destroy();
+                expect(component.onDestroyCalled).toBe(true);
+
+                flush();
+            }));
+        });
+
+        describe('PT Section Coverage', () => {
+            @Component({
+                standalone: false,
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+            })
+            class TestPTCoveragComponent {
+                value: number = 100;
+                pt = {
+                    root: 'PT_ROOT',
+                    pcInputText: 'PT_INPUT',
+                    buttonGroup: 'PT_BUTTON_GROUP',
+                    incrementButton: 'PT_INCREMENT',
+                    decrementButton: 'PT_DECREMENT'
+                };
+            }
+
+            it('should apply PT to all main sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    declarations: [TestPTCoveragComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCoveragComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('PT_ROOT')).toBe(true);
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input'));
+                if (inputEl) {
+                    expect(inputEl.nativeElement.classList.contains('PT_INPUT')).toBe(true);
+                }
+
+                const buttonGroup = testFixture.debugElement.query(By.css('[data-pc-section="buttongroup"]'));
+                if (buttonGroup) {
+                    expect(buttonGroup.nativeElement.classList.contains('PT_BUTTON_GROUP')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
     });
 });

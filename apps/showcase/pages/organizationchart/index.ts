@@ -1,19 +1,29 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/organizationchart/accessibilitydoc';
 import { BasicDoc } from '@/doc/organizationchart/basicdoc';
 import { ColoredDoc } from '@/doc/organizationchart/colored.doc';
 import { ImportDoc } from '@/doc/organizationchart/importdoc';
+import { PTComponent } from '@/doc/organizationchart/pt/PTComponent';
 import { SelectionDoc } from '@/doc/organizationchart/selectiondoc';
 import { TemplateDoc } from '@/doc/organizationchart/templatedoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: ` <app-doc docTitle="Angular Organization Chart Component" header="OrganizationChart" description="OrganizationChart visualizes hierarchical organization data." [docs]="docs" [apiDocs]="['OrganizationChart']"></app-doc>`,
+    template: ` <app-doc
+        docTitle="Angular Organization Chart Component"
+        header="OrganizationChart"
+        description="OrganizationChart visualizes hierarchical organization data."
+        [docs]="docs"
+        [apiDocs]="['OrganizationChart']"
+        componentName="OrganizationChart"
+        [ptDocs]="ptComponent"
+    ></app-doc>`,
     standalone: true,
     imports: [AppDoc],
     styleUrl: './organizationchartdemo.scss'
 })
 export class OrganizationChartDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

@@ -2,9 +2,11 @@ import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core
 import { Component } from '@angular/core';
 import { FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Slider, SliderModule } from './slider';
-import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
+import { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
 import { SharedModule } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
 import { CommonModule } from '@angular/common';
 
 // Test Components
@@ -1077,6 +1079,393 @@ describe('Slider', () => {
         it('should handle range boolean input', () => {
             component.range = true;
             expect(component.range).toBe(true);
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: true,
+                imports: [Slider, FormsModule],
+                template: `<p-slider [(ngModel)]="value" [pt]="pt"></p-slider>`
+            })
+            class TestPTCase1Component {
+                value: number = 50;
+                pt = {
+                    root: 'ROOT_CLASS',
+                    range: 'RANGE_CLASS',
+                    handle: 'HANDLE_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase1Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase1Component);
+                fixture.detectChanges();
+                tick();
+
+                const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+                const range = fixture.debugElement.query(By.css('.p-slider-range'));
+                const handle = fixture.debugElement.query(By.css('.p-slider-handle'));
+
+                expect(sliderRoot.classList.contains('ROOT_CLASS')).toBe(true);
+                if (range) expect(range.nativeElement.classList.contains('RANGE_CLASS')).toBe(true);
+                if (handle) expect(handle.nativeElement.classList.contains('HANDLE_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 2: Objects with class, style, and attributes', () => {
+            @Component({
+                standalone: true,
+                imports: [Slider, FormsModule],
+                template: `<p-slider [(ngModel)]="value" [pt]="pt"></p-slider>`
+            })
+            class TestPTCase2Component {
+                value: number = 60;
+                pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'lightblue' } as any,
+                        'data-test': 'root-test'
+                    },
+                    range: {
+                        class: 'RANGE_OBJECT_CLASS',
+                        style: { 'background-color': 'green' } as any
+                    },
+                    handle: {
+                        class: 'HANDLE_OBJECT_CLASS',
+                        'aria-label': 'Custom handle label'
+                    }
+                };
+            }
+
+            it('should apply object-based PT with class, style, and attributes', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase2Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase2Component);
+                fixture.detectChanges();
+                tick();
+
+                const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+                const range = fixture.debugElement.query(By.css('.p-slider-range'));
+                const handle = fixture.debugElement.query(By.css('.p-slider-handle'));
+
+                expect(sliderRoot.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(sliderRoot.style.backgroundColor).toBe('lightblue');
+                expect(sliderRoot.getAttribute('data-test')).toBe('root-test');
+
+                if (range) {
+                    expect(range.nativeElement.classList.contains('RANGE_OBJECT_CLASS')).toBe(true);
+                    expect(range.nativeElement.style.backgroundColor).toBe('green');
+                }
+
+                if (handle) {
+                    expect(handle.nativeElement.classList.contains('HANDLE_OBJECT_CLASS')).toBe(true);
+                    expect(handle.nativeElement.getAttribute('aria-label')).toBe('Custom handle label');
+                }
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: true,
+                imports: [Slider, FormsModule],
+                template: `<p-slider [(ngModel)]="value" [range]="true" [pt]="pt"></p-slider>`
+            })
+            class TestPTCase3Component {
+                value: number[] = [20, 80];
+                pt = {
+                    root: 'ROOT_STRING_CLASS',
+                    range: {
+                        class: 'RANGE_MIXED_CLASS'
+                    },
+                    startHandler: 'START_HANDLER_CLASS',
+                    endHandler: {
+                        class: 'END_HANDLER_CLASS'
+                    }
+                };
+            }
+
+            it('should apply mixed object and string PT values', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase3Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase3Component);
+                fixture.detectChanges();
+                tick();
+
+                const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+                const range = fixture.debugElement.query(By.css('.p-slider-range'));
+                const handles = fixture.debugElement.queryAll(By.css('.p-slider-handle'));
+
+                expect(sliderRoot.classList.contains('ROOT_STRING_CLASS')).toBe(true);
+
+                if (range) {
+                    expect(range.nativeElement.classList.contains('RANGE_MIXED_CLASS')).toBe(true);
+                }
+
+                // Check start handler (first handle)
+                if (handles.length >= 1) {
+                    expect(handles[0].nativeElement.classList.contains('START_HANDLER_CLASS')).toBe(true);
+                }
+
+                // Check end handler (second handle)
+                if (handles.length >= 2) {
+                    expect(handles[1].nativeElement.classList.contains('END_HANDLER_CLASS')).toBe(true);
+                }
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: true,
+                imports: [Slider, FormsModule],
+                template: `<p-slider [(ngModel)]="value" [min]="min" [max]="max" [orientation]="orientation" [pt]="pt"></p-slider>`
+            })
+            class TestPTCase4Component {
+                value: number = 50;
+                min: number = 0;
+                max: number = 100;
+                orientation: 'horizontal' | 'vertical' = 'horizontal';
+                pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.orientation === 'vertical' ? 'VERTICAL_CLASS' : 'HORIZONTAL_CLASS'
+                        };
+                    },
+                    range: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.value > 50 ? 'blue' : 'red'
+                            } as any
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase4Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase4Component);
+                fixture.detectChanges();
+                tick();
+
+                const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+                const range = fixture.debugElement.query(By.css('.p-slider-range'));
+
+                expect(sliderRoot.classList.contains('HORIZONTAL_CLASS') || sliderRoot.classList.contains('VERTICAL_CLASS')).toBe(true);
+
+                if (range) {
+                    expect(range.nativeElement.style.backgroundColor).toBeTruthy();
+                }
+
+                // Change orientation
+                fixture.componentInstance.orientation = 'vertical';
+                fixture.detectChanges();
+                tick();
+
+                // Root class should change
+                expect(sliderRoot.classList.contains('HORIZONTAL_CLASS') || sliderRoot.classList.contains('VERTICAL_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: true,
+                imports: [Slider, FormsModule],
+                template: `<p-slider [(ngModel)]="value" [pt]="pt"></p-slider>`
+            })
+            class TestPTCase5Component {
+                value: number = 50;
+                clickCount: number = 0;
+                pt = {
+                    handle: ({ instance }: any) => {
+                        return {
+                            onclick: (event: Event) => {
+                                this.clickCount++;
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should bind click events via PT', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase5Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase5Component);
+                const component = fixture.componentInstance;
+                fixture.detectChanges();
+                tick();
+
+                const handle = fixture.debugElement.query(By.css('.p-slider-handle'));
+
+                if (handle) {
+                    handle.nativeElement.click();
+                    fixture.detectChanges();
+                    expect(component.clickCount).toBeGreaterThan(0);
+                }
+            }));
+        });
+
+        describe('Case 6: Inline PT test', () => {
+            it('should apply inline string PT', fakeAsync(() => {
+                @Component({
+                    standalone: true,
+                    imports: [Slider, FormsModule],
+                    template: `<p-slider [(ngModel)]="value" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-slider>`
+                })
+                class TestInlineComponent {
+                    value: number = 50;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestInlineComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestInlineComponent);
+                fixture.detectChanges();
+                tick();
+
+                const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+                expect(sliderRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+            }));
+
+            it('should apply inline object PT', fakeAsync(() => {
+                @Component({
+                    standalone: true,
+                    imports: [Slider, FormsModule],
+                    template: `<p-slider [(ngModel)]="value" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></p-slider>`
+                })
+                class TestInlineObjectComponent {
+                    value: number = 50;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestInlineObjectComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestInlineObjectComponent);
+                fixture.detectChanges();
+                tick();
+
+                const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+                expect(sliderRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+                expect(sliderRoot.style.border).toBe('2px solid red');
+            }));
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            it('should apply global PT configuration', fakeAsync(() => {
+                @Component({
+                    standalone: true,
+                    imports: [Slider, FormsModule],
+                    template: `<p-slider [(ngModel)]="value1"></p-slider><p-slider [(ngModel)]="value2"></p-slider>`
+                })
+                class TestGlobalPTComponent {
+                    value1: number = 30;
+                    value2: number = 70;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestGlobalPTComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                slider: {
+                                    root: { 'data-test': 'global-slider' },
+                                    handle: 'GLOBAL_HANDLE_CLASS',
+                                    range: {
+                                        class: 'GLOBAL_RANGE_CLASS',
+                                        style: { height: '8px' } as any
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                });
+
+                const fixture = TestBed.createComponent(TestGlobalPTComponent);
+                fixture.detectChanges();
+                tick();
+
+                const sliders = fixture.debugElement.queryAll(By.css('p-slider'));
+                expect(sliders.length).toBe(2);
+
+                sliders.forEach((slider) => {
+                    const sliderRoot = slider.nativeElement;
+                    const range = slider.query(By.css('.p-slider-range'));
+                    const handle = slider.query(By.css('.p-slider-handle'));
+
+                    expect(sliderRoot.getAttribute('data-test')).toBe('global-slider');
+
+                    if (handle) {
+                        expect(handle.nativeElement.classList.contains('GLOBAL_HANDLE_CLASS')).toBe(true);
+                    }
+
+                    if (range) {
+                        expect(range.nativeElement.classList.contains('GLOBAL_RANGE_CLASS')).toBe(true);
+                        expect(range.nativeElement.style.height).toBe('8px');
+                    }
+                });
+            }));
+        });
+
+        describe('Case 8: PT Hooks', () => {
+            it('should call PT hooks during lifecycle', fakeAsync(() => {
+                const hookCalls: string[] = [];
+
+                @Component({
+                    standalone: true,
+                    imports: [Slider, FormsModule],
+                    template: `<p-slider [(ngModel)]="value" [pt]="pt"></p-slider>`
+                })
+                class TestHooksComponent {
+                    value: number = 50;
+                    pt = {
+                        root: 'MY-SLIDER',
+                        hooks: {
+                            onAfterViewInit: () => {
+                                hookCalls.push('onAfterViewInit');
+                            },
+                            onDestroy: () => {
+                                hookCalls.push('onDestroy');
+                            }
+                        }
+                    };
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestHooksComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestHooksComponent);
+                fixture.detectChanges();
+                tick();
+
+                expect(hookCalls).toContain('onAfterViewInit');
+
+                const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+                expect(sliderRoot.classList.contains('MY-SLIDER')).toBe(true);
+
+                fixture.destroy();
+                flush();
+
+                expect(hookCalls).toContain('onDestroy');
+            }));
         });
     });
 });

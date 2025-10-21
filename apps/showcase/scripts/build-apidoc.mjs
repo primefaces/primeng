@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const rootDir = path.resolve(__dirname, '../../../packages/primeng');
 const outputPath = path.resolve(__dirname, '../../../apps/showcase/doc/apidoc/');
 
 const staticMessages = {
@@ -26,7 +25,7 @@ async function main() {
         // typedoc options here
         name: 'PrimeNG',
         entryPointStrategy: 'expand',
-        entryPoints: ['../../packages/primeng'],
+        entryPoints: ['../../packages/primeng/'],
         hideGenerator: true,
         excludeExternals: false,
         includeVersion: true,
@@ -81,7 +80,9 @@ async function main() {
         const modules = project.groups.find((g) => g.title === 'Modules');
         if (isProcessable(modules)) {
             modules.children.forEach((module) => {
-                const name = module.name.replace(/.*\//, '');
+                const fullPath = module.name;
+                const name = fullPath.replace(/.*\//, '');
+
                 if (allowed(name)) {
                     if (module.groups) {
                         if (!doc[name]) {
@@ -519,35 +520,89 @@ async function main() {
             });
         }
 
+        // Identify sub-components based on module paths
+        const subComponentMap = {};
+        modules.children.forEach((module) => {
+            const fullPath = module.name;
+            const pathParts = fullPath.split('/');
+
+            // Pattern: stepper/style/stepitemstyle -> stepitem is a sub-component of stepper
+            if (pathParts.length === 3 && pathParts[1] === 'style') {
+                const parentName = pathParts[0];
+                const childStyleName = pathParts[2].replace(/style$/i, '');
+
+                if (parentName !== childStyleName) {
+                    subComponentMap[childStyleName] = parentName;
+                }
+            }
+        });
+
         let mergedDocs = {};
 
         for (const key in doc) {
-            const parentKey = key.includes('style') ? key.replace(/style/g, '') : key.includes('.interface') ? key.split('.')[0] : key;
+            const parentKey = key.includes('style') ? key.replace(/style/g, '') : key.includes('.interface') || key.includes('.types') ? key.split('.')[0] : key;
 
-            if (!mergedDocs[parentKey]) {
-                mergedDocs[parentKey] = {
-                    ...doc[parentKey]
+            // Check if this is a sub-component that should be merged into parent
+            const isSubComponent = subComponentMap[parentKey];
+            const targetParentKey = isSubComponent || parentKey;
+
+            if (!mergedDocs[targetParentKey]) {
+                mergedDocs[targetParentKey] = {
+                    ...doc[targetParentKey]
                 };
             }
 
             if (key.includes('style')) {
                 const styleDoc = doc[key];
-                mergedDocs[parentKey] = {
-                    ...mergedDocs[parentKey],
-                    style: {
-                        ...styleDoc
-                    }
-                };
-            }
 
-            if (key.includes('.interface')) {
-                const interfaceDoc = doc[key];
-                mergedDocs[parentKey] = {
-                    ...mergedDocs[parentKey],
-                    interfaces: {
-                        ...interfaceDoc
+                if (isSubComponent) {
+                    // Merge sub-component style into parent's style.components
+                    if (!mergedDocs[targetParentKey].style) {
+                        mergedDocs[targetParentKey].style = { components: {} };
                     }
-                };
+                    if (!mergedDocs[targetParentKey].style.components) {
+                        mergedDocs[targetParentKey].style.components = {};
+                    }
+                    mergedDocs[targetParentKey].style.components[parentKey] = styleDoc;
+                } else {
+                    // Preserve existing style.components when merging parent style
+                    const existingComponents = mergedDocs[targetParentKey]?.style?.components;
+                    mergedDocs[targetParentKey] = {
+                        ...mergedDocs[targetParentKey],
+                        style: {
+                            ...styleDoc,
+                            ...(existingComponents && { components: existingComponents })
+                        }
+                    };
+                }
+            }
+            if (key.includes('.interface') || key.includes('.types')) {
+                const interfaceDoc = doc[key];
+                const targetKey = key.includes('.interface') ? 'interfaces' : 'types';
+
+                // If types are being added and interfaces already exist, merge them into types.interfaces
+                if (targetKey === 'types' && mergedDocs[parentKey]?.interfaces) {
+                    const existingInterfaces = mergedDocs[parentKey].interfaces;
+                    delete mergedDocs[parentKey].interfaces;
+
+                    mergedDocs[parentKey] = {
+                        ...mergedDocs[parentKey],
+                        types: {
+                            ...interfaceDoc,
+                            interfaces: {
+                                description: staticMessages['interfaces'],
+                                values: [...(interfaceDoc.interfaces?.values || []), ...(existingInterfaces.values || [])]
+                            }
+                        }
+                    };
+                } else {
+                    mergedDocs[parentKey] = {
+                        ...mergedDocs[parentKey],
+                        [targetKey]: {
+                            ...interfaceDoc
+                        }
+                    };
+                }
             }
         }
 

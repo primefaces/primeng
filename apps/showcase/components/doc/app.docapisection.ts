@@ -77,8 +77,8 @@ export class AppDocApiSection {
 
             if (module) {
                 let props =
-                    module.components && module.components[docName.toLowerCase()]
-                        ? module.components[docName.toLowerCase()].props
+                    module.components && module.components[docName]
+                        ? module.components[docName].props
                         : module.props
                           ? module.props
                           : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)

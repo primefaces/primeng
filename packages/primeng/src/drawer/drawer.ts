@@ -1,8 +1,6 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -11,10 +9,10 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     TemplateRef,
@@ -23,13 +21,17 @@ import {
 } from '@angular/core';
 import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { DrawerPassThrough } from 'primeng/types/drawer';
 import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
+
+const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -43,10 +45,13 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 @Component({
     selector: 'p-drawer',
     standalone: true,
-    imports: [CommonModule, Button, TimesIcon, SharedModule],
+    imports: [CommonModule, Button, TimesIcon, SharedModule, Bind],
+    providers: [DrawerStyle, { provide: DRAWER_INSTANCE, useExisting: Drawer }, { provide: PARENT_INSTANCE, useExisting: Drawer }],
+    hostDirectives: [Bind],
     template: `
         <div
             #container
+            [pBind]="ptm('root')"
             [class]="cn(cx('root'), styleClass)"
             *ngIf="visible"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
@@ -61,11 +66,12 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
             } @else {
-                <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
+                <div [pBind]="ptm('header')" [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
+                    <div *ngIf="header" [pBind]="ptm('title')" [class]="cx('title')">{{ header }}</div>
                     <p-button
                         *ngIf="showCloseIcon && closable"
+                        [pt]="ptm('pcCloseButton')"
                         [ngClass]="cx('pcCloseButton')"
                         (onClick)="close($event)"
                         (keydown.enter)="close($event)"
@@ -81,13 +87,13 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
                     </p-button>
                 </div>
 
-                <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
+                <div [pBind]="ptm('content')" [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
 
                 <ng-container *ngIf="footerTemplate || _footerTemplate">
-                    <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
+                    <div [pBind]="ptm('footer')" [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
                         <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                     </div>
                 </ng-container>
@@ -96,10 +102,17 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    providers: [DrawerStyle]
+    encapsulation: ViewEncapsulation.None
 })
-export class Drawer extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class Drawer extends BaseComponent<DrawerPassThrough> {
+    $pcDrawer: Drawer | undefined = inject(DRAWER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -278,8 +291,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     _componentStyle = inject(DrawerStyle);
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.initialized = true;
     }
     /**
@@ -320,7 +332,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -353,7 +365,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     show() {
-        this.container?.setAttribute(this.attrSelector, '');
+        this.container?.setAttribute(this.$attrSelector, '');
 
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex || this.config.zIndex.modal);
@@ -391,9 +403,9 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
             if (this.mask) {
-                setAttribute(this.mask, 'style', this.getMaskStyle());
-                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
                 addClass(this.mask, this.cx('mask'));
+                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
+                setAttribute(this.mask, 'style', this.getMaskStyle());
             }
 
             if (this.dismissible) {
@@ -412,6 +424,11 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     getMaskStyle() {
+        const a = this.maskStyle
+            ? Object.entries(this.maskStyle)
+                  .map(([key, value]) => `${key}: ${value}`)
+                  .join('; ')
+            : '';
         return this.maskStyle
             ? Object.entries(this.maskStyle)
                   .map(([key, value]) => `${key}: ${value}`)
@@ -514,7 +531,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.initialized = false;
 
         if (this.visible && this.modal) {

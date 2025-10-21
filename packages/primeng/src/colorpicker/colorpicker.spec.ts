@@ -4,7 +4,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorPicker } from './colorpicker';
-import { ColorPickerChangeEvent } from './colorpicker.interface';
+import { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
+import { providePrimeNG } from 'primeng/config';
 
 @Component({
     standalone: false,
@@ -327,7 +328,7 @@ describe('ColorPicker', () => {
         });
 
         it('should display color picker panel when inline', () => {
-            const panel = testFixture.debugElement.query(By.css('[data-pc-section="panel"]'));
+            const panel = testFixture.debugElement.query(By.css('.p-colorpicker-panel'));
             expect(panel).toBeTruthy();
         });
 
@@ -337,8 +338,8 @@ describe('ColorPicker', () => {
         });
 
         it('should display color selector and hue controls', () => {
-            const colorSelector = testFixture.debugElement.query(By.css('[data-pc-section="selector"]'));
-            const hueControl = testFixture.debugElement.query(By.css('[data-pc-section="hue"]'));
+            const colorSelector = testFixture.debugElement.query(By.css('.p-colorpicker-color-selector'));
+            const hueControl = testFixture.debugElement.query(By.css('.p-colorpicker-hue'));
 
             expect(colorSelector).toBeTruthy();
             expect(hueControl).toBeTruthy();
@@ -797,6 +798,933 @@ describe('ColorPicker', () => {
                 const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
                 expect(colorPickerInstance).toBeTruthy();
             });
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        // Case 1: Simple string classes for all PT sections
+        it('PT Case 1: should accept simple string classes for all sections', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: 'PT_ROOT_CLASS',
+                                preview: 'PT_PREVIEW_CLASS',
+                                panel: 'PT_PANEL_CLASS',
+                                content: 'PT_CONTENT_CLASS',
+                                colorSelector: 'PT_COLOR_SELECTOR_CLASS',
+                                colorBackground: 'PT_COLOR_BACKGROUND_CLASS',
+                                colorHandle: 'PT_COLOR_HANDLE_CLASS',
+                                hue: 'PT_HUE_CLASS',
+                                hueHandle: 'PT_HUE_HANDLE_CLASS'
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_ROOT_CLASS');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.className).toContain('PT_PANEL_CLASS');
+
+            const content = fixture.nativeElement.querySelector('.p-colorpicker-content');
+            expect(content?.className).toContain('PT_CONTENT_CLASS');
+
+            const colorSelector = fixture.nativeElement.querySelector('.p-colorpicker-color-selector');
+            expect(colorSelector?.className).toContain('PT_COLOR_SELECTOR_CLASS');
+
+            const colorBackground = fixture.nativeElement.querySelector('.p-colorpicker-color-background');
+            expect(colorBackground?.className).toContain('PT_COLOR_BACKGROUND_CLASS');
+
+            const colorHandle = fixture.nativeElement.querySelector('.p-colorpicker-color-handle');
+            expect(colorHandle?.className).toContain('PT_COLOR_HANDLE_CLASS');
+
+            const hue = fixture.nativeElement.querySelector('.p-colorpicker-hue');
+            expect(hue?.className).toContain('PT_HUE_CLASS');
+
+            const hueHandle = fixture.nativeElement.querySelector('.p-colorpicker-hue-handle');
+            expect(hueHandle?.className).toContain('PT_HUE_HANDLE_CLASS');
+        });
+
+        it('PT Case 1: should accept simple string classes for overlay mode with preview', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: 'PT_ROOT_OVERLAY',
+                                preview: 'PT_PREVIEW_INPUT'
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', false);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_ROOT_OVERLAY');
+
+            const preview = fixture.nativeElement.querySelector('input[type="text"]');
+            expect(preview?.className).toContain('PT_PREVIEW_INPUT');
+        });
+
+        // Case 2: Objects with class, style, and attributes
+        it('PT Case 2: should accept object values with class, style, and attributes for all sections', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: {
+                                    class: 'PT_ROOT_OBJ_CLASS',
+                                    style: { 'background-color': 'yellow', padding: '10px' } as any,
+                                    'data-p-root-test': true,
+                                    'aria-label': 'PT_ROOT_ARIA_LABEL'
+                                },
+                                panel: {
+                                    class: 'PT_PANEL_OBJ_CLASS',
+                                    style: { border: '2px solid red' } as any,
+                                    'data-p-panel-test': 'panel-value'
+                                },
+                                content: {
+                                    class: 'PT_CONTENT_OBJ_CLASS',
+                                    'data-p-content': true
+                                },
+                                colorSelector: {
+                                    class: 'PT_SELECTOR_OBJ_CLASS',
+                                    style: { cursor: 'crosshair' } as any,
+                                    'data-p-selector': 'selector-value'
+                                },
+                                hue: {
+                                    class: 'PT_HUE_OBJ_CLASS',
+                                    'data-p-hue': 'hue-test'
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_ROOT_OBJ_CLASS');
+            expect(rootEl.style.backgroundColor).toBe('yellow');
+            expect(rootEl.style.padding).toBe('10px');
+            expect(rootEl.getAttribute('data-p-root-test')).toBe('true');
+            expect(rootEl.getAttribute('aria-label')).toBe('PT_ROOT_ARIA_LABEL');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.className).toContain('PT_PANEL_OBJ_CLASS');
+            expect(panel?.style.border).toBe('2px solid red');
+            expect(panel?.getAttribute('data-p-panel-test')).toBe('panel-value');
+
+            const content = fixture.nativeElement.querySelector('.p-colorpicker-content');
+            expect(content?.className).toContain('PT_CONTENT_OBJ_CLASS');
+            expect(content?.getAttribute('data-p-content')).toBe('true');
+
+            const colorSelector = fixture.nativeElement.querySelector('.p-colorpicker-color-selector');
+            expect(colorSelector?.className).toContain('PT_SELECTOR_OBJ_CLASS');
+            expect(colorSelector?.style.cursor).toBe('crosshair');
+            expect(colorSelector?.getAttribute('data-p-selector')).toBe('selector-value');
+
+            const hue = fixture.nativeElement.querySelector('.p-colorpicker-hue');
+            expect(hue?.className).toContain('PT_HUE_OBJ_CLASS');
+            expect(hue?.getAttribute('data-p-hue')).toBe('hue-test');
+        });
+
+        // Case 3: Mixed object and string values
+        it('PT Case 3: should accept mixed object and string values', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: {
+                                    class: 'PT_ROOT_MIXED_OBJ'
+                                },
+                                preview: 'PT_PREVIEW_MIXED_STRING',
+                                panel: {
+                                    class: 'PT_PANEL_MIXED_OBJ',
+                                    'data-p-panel-mixed': 'mixed-value'
+                                },
+                                content: 'PT_CONTENT_MIXED_STRING',
+                                colorSelector: {
+                                    class: 'PT_SELECTOR_MIXED_OBJ'
+                                },
+                                colorBackground: 'PT_BACKGROUND_MIXED_STRING',
+                                colorHandle: {
+                                    class: 'PT_HANDLE_MIXED_OBJ'
+                                },
+                                hue: 'PT_HUE_MIXED_STRING',
+                                hueHandle: {
+                                    class: 'PT_HUE_HANDLE_MIXED_OBJ'
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_ROOT_MIXED_OBJ');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.className).toContain('PT_PANEL_MIXED_OBJ');
+            expect(panel?.getAttribute('data-p-panel-mixed')).toBe('mixed-value');
+
+            const content = fixture.nativeElement.querySelector('.p-colorpicker-content');
+            expect(content?.className).toContain('PT_CONTENT_MIXED_STRING');
+
+            const colorSelector = fixture.nativeElement.querySelector('.p-colorpicker-color-selector');
+            expect(colorSelector?.className).toContain('PT_SELECTOR_MIXED_OBJ');
+
+            const colorBackground = fixture.nativeElement.querySelector('.p-colorpicker-color-background');
+            expect(colorBackground?.className).toContain('PT_BACKGROUND_MIXED_STRING');
+
+            const colorHandle = fixture.nativeElement.querySelector('.p-colorpicker-color-handle');
+            expect(colorHandle?.className).toContain('PT_HANDLE_MIXED_OBJ');
+
+            const hue = fixture.nativeElement.querySelector('.p-colorpicker-hue');
+            expect(hue?.className).toContain('PT_HUE_MIXED_STRING');
+
+            const hueHandle = fixture.nativeElement.querySelector('.p-colorpicker-hue-handle');
+            expect(hueHandle?.className).toContain('PT_HUE_HANDLE_MIXED_OBJ');
+        });
+
+        // Case 4: Use variables from instance
+        it('PT Case 4: should use instance variables in PT options - inline mode', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: ({ instance }: any) => ({
+                                    class: instance?.inline ? 'PT_INLINE_MODE' : 'PT_OVERLAY_MODE'
+                                }),
+                                panel: ({ instance }: any) => ({
+                                    style: {
+                                        'background-color': instance?.inline ? 'lightblue' : 'lightgreen'
+                                    } as any
+                                }),
+                                preview: ({ instance }: any) => ({
+                                    'data-p-format': instance?.format
+                                }),
+                                content: ({ instance }: any) => ({
+                                    class: instance?.format ? `PT_FORMAT_${instance.format.toUpperCase()}` : 'PT_NO_FORMAT'
+                                })
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.componentRef.setInput('format', 'hex');
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_INLINE_MODE');
+            expect(rootEl.className).not.toContain('PT_OVERLAY_MODE');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.style.backgroundColor).toBe('lightblue');
+
+            const content = fixture.nativeElement.querySelector('.p-colorpicker-content');
+            expect(content?.className).toContain('PT_FORMAT_HEX');
+        });
+
+        it('PT Case 4: should use instance variables - overlay mode and format changes', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: ({ instance }: any) => ({
+                                    class: instance?.inline ? 'PT_INLINE' : 'PT_OVERLAY',
+                                    'data-p-disabled': instance?.$disabled()
+                                }),
+                                preview: ({ instance }: any) => ({
+                                    'data-p-format': instance?.format,
+                                    style: {
+                                        'border-color': instance?.format === 'rgb' ? 'blue' : 'red'
+                                    } as any
+                                })
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', false);
+            fixture.componentRef.setInput('format', 'rgb');
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_OVERLAY');
+            expect(rootEl.className).not.toContain('PT_INLINE');
+
+            const preview = fixture.nativeElement.querySelector('input[type="text"]');
+            expect(preview?.getAttribute('data-p-format')).toBe('rgb');
+            expect(preview?.style.borderColor).toBe('blue');
+
+            // Change format
+            fixture.componentRef.setInput('format', 'hsb');
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const preview2 = fixture.nativeElement.querySelector('input[type="text"]');
+            expect(preview2?.getAttribute('data-p-format')).toBe('hsb');
+            expect(preview2?.style.borderColor).toBe('red');
+        });
+
+        it('PT Case 4: should use instance variables - disabled state', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: ({ instance }: any) => ({
+                                    class: instance?.$disabled() ? 'PT_DISABLED' : 'PT_ENABLED'
+                                }),
+                                colorHandle: ({ instance }: any) => ({
+                                    style: {
+                                        'pointer-events': instance?.$disabled() ? 'none' : 'auto'
+                                    } as any
+                                })
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.componentRef.setInput('disabled', false);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            let rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_ENABLED');
+            expect(rootEl.className).not.toContain('PT_DISABLED');
+
+            const colorHandle = fixture.nativeElement.querySelector('.p-colorpicker-color-handle');
+            expect(colorHandle?.style.pointerEvents).toBe('auto');
+
+            // Change to disabled
+            fixture.componentRef.setInput('disabled', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_DISABLED');
+            expect(rootEl.className).not.toContain('PT_ENABLED');
+
+            const colorHandle2 = fixture.nativeElement.querySelector('.p-colorpicker-color-handle');
+            expect(colorHandle2?.style.pointerEvents).toBe('none');
+        });
+
+        // Case 5: Event binding
+        it('PT Case 5: should support event handlers in PT options', async () => {
+            let clickedSections: string[] = [];
+            let mouseoverSection = '';
+
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: {
+                                    onclick: () => {
+                                        clickedSections.push('root');
+                                    }
+                                },
+                                panel: {
+                                    onclick: (event: Event) => {
+                                        event.stopPropagation();
+                                        clickedSections.push('panel');
+                                    },
+                                    onmouseover: () => {
+                                        mouseoverSection = 'panel';
+                                    }
+                                },
+                                colorSelector: {
+                                    onclick: (event: Event) => {
+                                        event.stopPropagation();
+                                        clickedSections.push('colorSelector');
+                                    }
+                                },
+                                hue: {
+                                    onmouseover: () => {
+                                        mouseoverSection = 'hue';
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            rootEl.click();
+            expect(clickedSections).toContain('root');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            panel?.click();
+            expect(clickedSections).toContain('panel');
+
+            const colorSelector = fixture.nativeElement.querySelector('.p-colorpicker-color-selector');
+            colorSelector?.click();
+            expect(clickedSections).toContain('colorSelector');
+
+            const hue = fixture.nativeElement.querySelector('.p-colorpicker-hue');
+            hue?.dispatchEvent(new MouseEvent('mouseover'));
+            expect(mouseoverSection).toBe('hue');
+
+            panel?.dispatchEvent(new MouseEvent('mouseover'));
+            expect(mouseoverSection).toBe('panel');
+        });
+
+        it('PT Case 5: should support event handlers with instance modifications', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                colorHandle: ({ instance }: any) => ({
+                                    onclick: () => {
+                                        (instance as any)._testProperty = 'HANDLE_CLICKED';
+                                    }
+                                }),
+                                hueHandle: ({ instance }: any) => ({
+                                    onclick: () => {
+                                        (instance as any)._testHueProperty = 'HUE_HANDLE_CLICKED';
+                                    }
+                                })
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const colorPickerInstance = fixture.componentInstance;
+
+            const colorHandle = fixture.nativeElement.querySelector('.p-colorpicker-color-handle');
+            colorHandle?.click();
+            expect((colorPickerInstance as any)._testProperty).toBe('HANDLE_CLICKED');
+
+            const hueHandle = fixture.nativeElement.querySelector('.p-colorpicker-hue-handle');
+            hueHandle?.click();
+            expect((colorPickerInstance as any)._testHueProperty).toBe('HUE_HANDLE_CLICKED');
+        });
+
+        // Case 6: Test emitters (accessing instance methods/emitters)
+        it('PT Case 6: should access instance emitters and properties', async () => {
+            const emittedEvents: string[] = [];
+
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: ({ instance }: any) => {
+                                    if (instance) {
+                                        // Subscribe to onChange emitter
+                                        const subscription = instance.onChange.subscribe(() => {
+                                            emittedEvents.push('onChange');
+                                        });
+                                        // Store subscription for cleanup
+                                        (instance as any)._ptTestSubscription = subscription;
+                                    }
+                                    return {};
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const colorPickerInstance = fixture.componentInstance;
+
+            // Trigger onChange
+            colorPickerInstance.onChange.emit({ originalEvent: new Event('test'), value: '#ff0000' });
+            expect(emittedEvents).toContain('onChange');
+
+            // Cleanup
+            if ((colorPickerInstance as any)._ptTestSubscription) {
+                (colorPickerInstance as any)._ptTestSubscription.unsubscribe();
+            }
+        });
+
+        // Case 7: Inline PT test
+        it('PT Case 7: should work with inline PT binding - string values', async () => {
+            @Component({
+                standalone: true,
+                imports: [ColorPicker, FormsModule],
+                template: `
+                    <p-colorpicker
+                        [pt]="{
+                            root: 'INLINE_PT_ROOT',
+                            panel: 'INLINE_PT_PANEL',
+                            content: 'INLINE_PT_CONTENT'
+                        }"
+                        [inline]="true"
+                    >
+                    </p-colorpicker>
+                `
+            })
+            class TestInlinePTComponent {}
+
+            TestBed.configureTestingModule({
+                imports: [TestInlinePTComponent, NoopAnimationsModule]
+            });
+
+            const fixture = TestBed.createComponent(TestInlinePTComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement.querySelector('p-colorpicker');
+            expect(rootEl.className).toContain('INLINE_PT_ROOT');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.className).toContain('INLINE_PT_PANEL');
+
+            const content = fixture.nativeElement.querySelector('.p-colorpicker-content');
+            expect(content?.className).toContain('INLINE_PT_CONTENT');
+        });
+
+        it('PT Case 7: should work with inline PT binding - object values', async () => {
+            @Component({
+                standalone: true,
+                imports: [ColorPicker, FormsModule],
+                template: `
+                    <p-colorpicker
+                        [pt]="{
+                            root: { class: 'INLINE_OBJ_ROOT' },
+                            panel: {
+                                class: 'INLINE_OBJ_PANEL',
+                                'data-p-inline': 'true'
+                            }
+                        }"
+                        [inline]="true"
+                    >
+                    </p-colorpicker>
+                `
+            })
+            class TestInlineObjectPTComponent {}
+
+            TestBed.configureTestingModule({
+                imports: [TestInlineObjectPTComponent, NoopAnimationsModule]
+            });
+
+            const fixture = TestBed.createComponent(TestInlineObjectPTComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement.querySelector('p-colorpicker');
+            expect(rootEl.className).toContain('INLINE_OBJ_ROOT');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.className).toContain('INLINE_OBJ_PANEL');
+            expect(panel?.getAttribute('data-p-inline')).toBe('true');
+        });
+
+        // Case 8: Test from PrimeNGConfig (global PT)
+        it('PT Case 8a: should apply global PT configuration from PrimeNGConfig', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: {
+                                    'aria-label': 'GLOBAL_COLORPICKER_ARIA',
+                                    'data-testid': 'global-colorpicker-root'
+                                },
+                                panel: {
+                                    class: 'GLOBAL_PANEL_CLASS',
+                                    'data-global-panel': 'true'
+                                },
+                                preview: {
+                                    'data-preview-global': 'preview-value'
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', false);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.getAttribute('aria-label')).toBe('GLOBAL_COLORPICKER_ARIA');
+            expect(rootEl.getAttribute('data-testid')).toBe('global-colorpicker-root');
+
+            const preview = fixture.nativeElement.querySelector('input[type="text"]');
+            expect(preview?.getAttribute('data-preview-global')).toBe('preview-value');
+
+            // Open panel to check panel PT
+            const colorPicker = fixture.componentInstance;
+            colorPicker.show();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.className).toContain('GLOBAL_PANEL_CLASS');
+            expect(panel?.getAttribute('data-global-panel')).toBe('true');
+        });
+
+        it('PT Case 8b: should apply global PT with style attributes', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: {
+                                    class: 'GLOBAL_CSS_ROOT',
+                                    style: {
+                                        border: '2px solid green'
+                                    } as any
+                                },
+                                colorHandle: {
+                                    style: {
+                                        border: '2px solid blue'
+                                    } as any
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('GLOBAL_CSS_ROOT');
+            expect(rootEl.style.border).toBe('2px solid green');
+
+            const colorHandle = fixture.nativeElement.querySelector('.p-colorpicker-color-handle');
+            expect(colorHandle?.style.border).toBe('2px solid blue');
+        });
+
+        it('PT Case 8c: should support ptOptions.mergeProps and mergeSections', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: {
+                                    class: 'GLOBAL_MERGE_ROOT',
+                                    'data-p-global': 'global-value'
+                                },
+                                panel: {
+                                    class: 'GLOBAL_MERGE_PANEL'
+                                }
+                            }
+                        },
+                        ptOptions: {
+                            mergeProps: true,
+                            mergeSections: true
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    class: 'LOCAL_MERGE_ROOT',
+                    'data-p-local': 'local-value'
+                },
+                panel: {
+                    class: 'LOCAL_MERGE_PANEL'
+                }
+            });
+            fixture.componentRef.setInput('inline', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            // With mergeProps, both global and local classes should be present
+            expect(rootEl.className).toContain('GLOBAL_MERGE_ROOT');
+            expect(rootEl.className).toContain('LOCAL_MERGE_ROOT');
+            expect(rootEl.getAttribute('data-p-global')).toBe('global-value');
+            expect(rootEl.getAttribute('data-p-local')).toBe('local-value');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.className).toContain('GLOBAL_MERGE_PANEL');
+            expect(panel?.className).toContain('LOCAL_MERGE_PANEL');
+        });
+
+        it('PT Case 8d: should apply to multiple instances from global config', async () => {
+            @Component({
+                standalone: true,
+                imports: [ColorPicker, FormsModule],
+                template: `
+                    <p-colorpicker [inline]="true" id="picker1"></p-colorpicker>
+                    <p-colorpicker [inline]="true" id="picker2"></p-colorpicker>
+                    <p-colorpicker [inline]="true" id="picker3"></p-colorpicker>
+                `
+            })
+            class TestMultiplePTComponent {}
+
+            TestBed.configureTestingModule({
+                imports: [TestMultiplePTComponent, NoopAnimationsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: 'GLOBAL_MULTI_ROOT',
+                                panel: {
+                                    'data-global-multi': 'true'
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(TestMultiplePTComponent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const pickers = fixture.nativeElement.querySelectorAll('p-colorpicker');
+            expect(pickers.length).toBe(3);
+
+            pickers.forEach((picker: HTMLElement) => {
+                expect(picker.className).toContain('GLOBAL_MULTI_ROOT');
+
+                const panel = picker.querySelector('.p-colorpicker-panel');
+                expect(panel?.getAttribute('data-global-multi')).toBe('true');
+            });
+        });
+
+        // Case 9: Test hooks
+        it('PT Case 9a: should support lifecycle hooks - onInit and onAfterViewInit', async () => {
+            const hooksCalled: string[] = [];
+
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: 'HOOKS_ROOT_CLASS',
+                                hooks: {
+                                    onInit: () => {
+                                        hooksCalled.push('onInit');
+                                    },
+                                    onAfterViewInit: () => {
+                                        hooksCalled.push('onAfterViewInit');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(hooksCalled).toContain('onInit');
+            expect(hooksCalled).toContain('onAfterViewInit');
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('HOOKS_ROOT_CLASS');
+        });
+
+        it('PT Case 9b: should support lifecycle hooks - onDestroy', async () => {
+            const hooksCalled: string[] = [];
+
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                hooks: {
+                                    onInit: () => {
+                                        hooksCalled.push('onInit');
+                                    },
+                                    onDestroy: () => {
+                                        hooksCalled.push('onDestroy');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(hooksCalled).toContain('onInit');
+            expect(hooksCalled).not.toContain('onDestroy');
+
+            // Destroy component
+            fixture.destroy();
+
+            expect(hooksCalled).toContain('onDestroy');
+        });
+
+        it('PT Case 9c: should support multiple lifecycle hooks including onAfterViewChecked', async () => {
+            const hooksCalled: string[] = [];
+
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                hooks: {
+                                    onInit: () => {
+                                        hooksCalled.push('onInit');
+                                    },
+                                    onAfterViewInit: () => {
+                                        hooksCalled.push('onAfterViewInit');
+                                    },
+                                    onAfterViewChecked: () => {
+                                        if (!hooksCalled.includes('onAfterViewChecked')) {
+                                            hooksCalled.push('onAfterViewChecked');
+                                        }
+                                    },
+                                    onDestroy: () => {
+                                        hooksCalled.push('onDestroy');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(hooksCalled).toContain('onInit');
+            expect(hooksCalled).toContain('onAfterViewInit');
+            expect(hooksCalled).toContain('onAfterViewChecked');
+
+            fixture.destroy();
+            expect(hooksCalled).toContain('onDestroy');
+        });
+
+        // Additional comprehensive tests
+        it('PT: should handle complex nested instance-based PT with all sections', async () => {
+            TestBed.configureTestingModule({
+                imports: [ColorPicker, NoopAnimationsModule, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            colorPicker: {
+                                root: ({ instance }: any) => ({
+                                    class: instance?.inline ? 'PT_INLINE' : 'PT_OVERLAY',
+                                    'data-format': instance?.format,
+                                    'data-disabled': instance?.$disabled()
+                                }),
+                                panel: ({ instance }: any) => ({
+                                    class: instance?.inline ? 'PT_PANEL_INLINE' : 'PT_PANEL_OVERLAY',
+                                    style: {
+                                        border: instance?.inline ? '1px solid blue' : '1px solid red'
+                                    } as any
+                                }),
+                                colorSelector: ({ instance }: any) => ({
+                                    'data-disabled': instance?.$disabled()
+                                }),
+                                hue: ({ instance }: any) => ({
+                                    style: {
+                                        opacity: instance?.$disabled() ? '0.5' : '1'
+                                    } as any
+                                })
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(ColorPicker);
+            fixture.componentRef.setInput('inline', true);
+            fixture.componentRef.setInput('format', 'rgb');
+            fixture.componentRef.setInput('disabled', false);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const rootEl = fixture.nativeElement;
+            expect(rootEl.className).toContain('PT_INLINE');
+            expect(rootEl.getAttribute('data-format')).toBe('rgb');
+
+            const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
+            expect(panel?.className).toContain('PT_PANEL_INLINE');
+            expect(panel?.style.border).toBe('1px solid blue');
+
+            const hue = fixture.nativeElement.querySelector('.p-colorpicker-hue');
+            expect(hue?.style.opacity).toBe('1');
         });
     });
 });

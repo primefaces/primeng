@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core
 import APIDoc from '@/doc/apidoc/index.json';
 // import ThemeDoc from '@/doc/apidoc/themedoc.json';
 import { CommonModule } from '@angular/common';
+import ThemeDoc from '@primeuix/themes/tokens';
 import { AppDocApiTable } from './app.docapitable';
 import { AppDocSectionNav } from './app.docsection-nav';
 import { AppDocStyledPreset } from './app.docstyledpreset';
-import ThemeDoc from '@primeuix/themes/tokens';
 @Component({
     selector: 'app-docthemingsection',
     standalone: true,
@@ -47,8 +47,10 @@ export class AppDocThemingSection {
 
     createDocs() {
         const docName = this.header.toLowerCase().replace(/\s+/g, '');
-        if (ThemeDoc[docName]) {
-            this.tokensDoc.set(ThemeDoc[docName]);
+        const themeDocKey = docName === 'table' ? 'datatable' : docName;
+
+        if (ThemeDoc[themeDocKey]) {
+            this.tokensDoc.set(ThemeDoc[themeDocKey]);
             this.navItems.update((prev) => [
                 ...prev,
                 {
@@ -58,17 +60,20 @@ export class AppDocThemingSection {
                 { id: 'built-in-presets', label: 'Built-in Presets' }
             ]);
         }
-        if (APIDoc[docName]) {
-            const classes = APIDoc[docName]['style']['classes']['values'];
-            this.classDoc.set({ classes: classes });
 
-            this.navItems.update((prev) => [
-                {
-                    id: this.header + 'classes',
-                    label: 'CSS Classes'
-                },
-                ...prev
-            ]);
+        if (APIDoc[docName]) {
+            const classes = APIDoc[docName]['style']?.['classes']?.['values'];
+
+            if (classes) {
+                this.classDoc.set({ classes });
+                this.navItems.update((prev) => [
+                    {
+                        id: this.header + 'classes',
+                        label: 'CSS Classes'
+                    },
+                    ...prev
+                ]);
+            }
         }
     }
 }

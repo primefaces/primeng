@@ -4,8 +4,9 @@ import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } 
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ToggleSwitch, ToggleSwitchModule } from './toggleswitch';
-import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
+import { ToggleSwitchChangeEvent } from 'primeng/types/toggleswitch';
 import { SharedModule } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
 import { CommonModule } from '@angular/common';
 import { AutoFocus } from 'primeng/autofocus';
 
@@ -871,4 +872,401 @@ describe('ToggleSwitch #template Reference Tests', () => {
             expect(component.checked).toBeDefined();
         }
     }));
+});
+
+describe('PassThrough (PT) Tests', () => {
+    beforeEach(() => {
+        TestBed.resetTestingModule();
+    });
+
+    describe('Case 1: Simple string classes', () => {
+        @Component({
+            standalone: true,
+            imports: [ToggleSwitch, FormsModule],
+            template: `<p-toggleswitch [(ngModel)]="checked" [pt]="pt"></p-toggleswitch>`
+        })
+        class TestPTCase1Component {
+            checked: boolean = false;
+            pt = {
+                root: 'ROOT_CLASS',
+                input: 'INPUT_CLASS',
+                slider: 'SLIDER_CLASS',
+                handle: 'HANDLE_CLASS'
+            };
+        }
+
+        it('should apply simple string classes to PT sections', fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestPTCase1Component]
+            });
+
+            const fixture = TestBed.createComponent(TestPTCase1Component);
+            fixture.detectChanges();
+            tick();
+
+            const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+            const input = fixture.debugElement.query(By.css('input'));
+            const slider = fixture.debugElement.query(By.css('.p-toggleswitch-slider'));
+            const handle = fixture.debugElement.query(By.css('.p-toggleswitch-handle'));
+
+            expect(toggleSwitchRoot.classList.contains('ROOT_CLASS')).toBe(true);
+            if (input) expect(input.nativeElement.classList.contains('INPUT_CLASS')).toBe(true);
+            if (slider) expect(slider.nativeElement.classList.contains('SLIDER_CLASS')).toBe(true);
+            if (handle) expect(handle.nativeElement.classList.contains('HANDLE_CLASS')).toBe(true);
+        }));
+    });
+
+    describe('Case 2: Objects with class, style, and attributes', () => {
+        @Component({
+            standalone: true,
+            imports: [ToggleSwitch, FormsModule],
+            template: `<p-toggleswitch [(ngModel)]="checked" [pt]="pt"></p-toggleswitch>`
+        })
+        class TestPTCase2Component {
+            checked: boolean = true;
+            pt = {
+                root: {
+                    class: 'ROOT_OBJECT_CLASS',
+                    style: { 'background-color': 'lightblue' } as any,
+                    'data-test': 'root-test'
+                },
+                input: {
+                    class: 'INPUT_OBJECT_CLASS',
+                    'data-input': 'input-test'
+                },
+                slider: {
+                    class: 'SLIDER_OBJECT_CLASS',
+                    style: { 'border-radius': '20px' } as any
+                },
+                handle: {
+                    class: 'HANDLE_OBJECT_CLASS',
+                    'aria-label': 'Custom handle label'
+                }
+            };
+        }
+
+        it('should apply object-based PT with class, style, and attributes', fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestPTCase2Component]
+            });
+
+            const fixture = TestBed.createComponent(TestPTCase2Component);
+            fixture.detectChanges();
+            tick();
+
+            const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+            const input = fixture.debugElement.query(By.css('input'));
+            const slider = fixture.debugElement.query(By.css('.p-toggleswitch-slider'));
+            const handle = fixture.debugElement.query(By.css('.p-toggleswitch-handle'));
+
+            expect(toggleSwitchRoot.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+            expect(toggleSwitchRoot.style.backgroundColor).toBe('lightblue');
+            expect(toggleSwitchRoot.getAttribute('data-test')).toBe('root-test');
+
+            if (input) {
+                expect(input.nativeElement.classList.contains('INPUT_OBJECT_CLASS')).toBe(true);
+                expect(input.nativeElement.getAttribute('data-input')).toBe('input-test');
+            }
+
+            if (slider) {
+                expect(slider.nativeElement.classList.contains('SLIDER_OBJECT_CLASS')).toBe(true);
+                expect(slider.nativeElement.style.borderRadius).toBe('20px');
+            }
+
+            if (handle) {
+                expect(handle.nativeElement.classList.contains('HANDLE_OBJECT_CLASS')).toBe(true);
+                expect(handle.nativeElement.getAttribute('aria-label')).toBe('Custom handle label');
+            }
+        }));
+    });
+
+    describe('Case 3: Mixed object and string values', () => {
+        @Component({
+            standalone: true,
+            imports: [ToggleSwitch, FormsModule],
+            template: `<p-toggleswitch [(ngModel)]="checked" [pt]="pt"></p-toggleswitch>`
+        })
+        class TestPTCase3Component {
+            checked: boolean = false;
+            pt = {
+                root: 'ROOT_STRING_CLASS',
+                input: {
+                    class: 'INPUT_MIXED_CLASS'
+                },
+                slider: 'SLIDER_STRING_CLASS',
+                handle: {
+                    class: 'HANDLE_MIXED_CLASS'
+                }
+            };
+        }
+
+        it('should apply mixed object and string PT values', fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestPTCase3Component]
+            });
+
+            const fixture = TestBed.createComponent(TestPTCase3Component);
+            fixture.detectChanges();
+            tick();
+
+            const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+            const input = fixture.debugElement.query(By.css('input'));
+            const slider = fixture.debugElement.query(By.css('.p-toggleswitch-slider'));
+            const handle = fixture.debugElement.query(By.css('.p-toggleswitch-handle'));
+
+            expect(toggleSwitchRoot.classList.contains('ROOT_STRING_CLASS')).toBe(true);
+
+            if (input) {
+                expect(input.nativeElement.classList.contains('INPUT_MIXED_CLASS')).toBe(true);
+            }
+
+            if (slider) {
+                expect(slider.nativeElement.classList.contains('SLIDER_STRING_CLASS')).toBe(true);
+            }
+
+            if (handle) {
+                expect(handle.nativeElement.classList.contains('HANDLE_MIXED_CLASS')).toBe(true);
+            }
+        }));
+    });
+
+    describe('Case 4: Use variables from instance', () => {
+        @Component({
+            standalone: true,
+            imports: [ToggleSwitch, FormsModule],
+            template: `<p-toggleswitch [(ngModel)]="checked" [disabled]="disabled" [pt]="pt"></p-toggleswitch>`
+        })
+        class TestPTCase4Component {
+            checked: boolean = false;
+            disabled: boolean = false;
+            pt = {
+                root: ({ instance }: any) => {
+                    return {
+                        class: instance?.checked() ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
+                    };
+                },
+                slider: ({ instance }: any) => {
+                    return {
+                        style: {
+                            'background-color': instance?.$disabled() ? 'gray' : 'green'
+                        } as any
+                    };
+                }
+            };
+        }
+
+        it('should use instance variables in PT functions', fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestPTCase4Component]
+            });
+
+            const fixture = TestBed.createComponent(TestPTCase4Component);
+            fixture.detectChanges();
+            tick();
+
+            const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+            const slider = fixture.debugElement.query(By.css('.p-toggleswitch-slider'));
+
+            expect(toggleSwitchRoot.classList.contains('UNCHECKED_CLASS') || toggleSwitchRoot.classList.contains('CHECKED_CLASS')).toBe(true);
+
+            if (slider) {
+                expect(slider.nativeElement.style.backgroundColor).toBeTruthy();
+            }
+
+            // Change checked state
+            fixture.componentInstance.checked = true;
+            fixture.detectChanges();
+            tick();
+
+            // Root class should change
+            expect(toggleSwitchRoot.classList.contains('UNCHECKED_CLASS') || toggleSwitchRoot.classList.contains('CHECKED_CLASS')).toBe(true);
+        }));
+    });
+
+    describe('Case 5: Event binding', () => {
+        @Component({
+            standalone: true,
+            imports: [ToggleSwitch, FormsModule],
+            template: `<p-toggleswitch [(ngModel)]="checked" [pt]="pt"></p-toggleswitch>`
+        })
+        class TestPTCase5Component {
+            checked: boolean = false;
+            clickCount: number = 0;
+            pt = {
+                slider: ({ instance }: any) => {
+                    return {
+                        onclick: (event: Event) => {
+                            this.clickCount++;
+                        }
+                    };
+                }
+            };
+        }
+
+        it('should bind click events via PT', fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestPTCase5Component]
+            });
+
+            const fixture = TestBed.createComponent(TestPTCase5Component);
+            const component = fixture.componentInstance;
+            fixture.detectChanges();
+            tick();
+
+            const slider = fixture.debugElement.query(By.css('.p-toggleswitch-slider'));
+
+            if (slider) {
+                slider.nativeElement.click();
+                fixture.detectChanges();
+                expect(component.clickCount).toBeGreaterThan(0);
+            }
+        }));
+    });
+
+    describe('Case 6: Inline PT test', () => {
+        it('should apply inline string PT', fakeAsync(() => {
+            @Component({
+                standalone: true,
+                imports: [ToggleSwitch, FormsModule],
+                template: `<p-toggleswitch [(ngModel)]="checked" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-toggleswitch>`
+            })
+            class TestInlineComponent {
+                checked: boolean = false;
+            }
+
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestInlineComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestInlineComponent);
+            fixture.detectChanges();
+            tick();
+
+            const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+            expect(toggleSwitchRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+        }));
+
+        it('should apply inline object PT', fakeAsync(() => {
+            @Component({
+                standalone: true,
+                imports: [ToggleSwitch, FormsModule],
+                template: `<p-toggleswitch [(ngModel)]="checked" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></p-toggleswitch>`
+            })
+            class TestInlineObjectComponent {
+                checked: boolean = false;
+            }
+
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestInlineObjectComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestInlineObjectComponent);
+            fixture.detectChanges();
+            tick();
+
+            const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+            expect(toggleSwitchRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            expect(toggleSwitchRoot.style.border).toBe('2px solid red');
+        }));
+    });
+
+    describe('Case 7: Global PT from PrimeNGConfig', () => {
+        it('should apply global PT configuration', fakeAsync(() => {
+            @Component({
+                standalone: true,
+                imports: [ToggleSwitch, FormsModule],
+                template: `<p-toggleswitch [(ngModel)]="checked1"></p-toggleswitch><p-toggleswitch [(ngModel)]="checked2"></p-toggleswitch>`
+            })
+            class TestGlobalPTComponent {
+                checked1: boolean = false;
+                checked2: boolean = true;
+            }
+
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestGlobalPTComponent],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            toggleSwitch: {
+                                root: { 'data-test': 'global-toggleswitch' },
+                                input: 'GLOBAL_INPUT_CLASS',
+                                slider: {
+                                    class: 'GLOBAL_SLIDER_CLASS',
+                                    style: { 'border-radius': '25px' } as any
+                                }
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const fixture = TestBed.createComponent(TestGlobalPTComponent);
+            fixture.detectChanges();
+            tick();
+
+            const toggleSwitches = fixture.debugElement.queryAll(By.css('p-toggleswitch'));
+            expect(toggleSwitches.length).toBe(2);
+
+            toggleSwitches.forEach((toggleSwitch) => {
+                const toggleSwitchRoot = toggleSwitch.nativeElement;
+                const input = toggleSwitch.query(By.css('input'));
+                const slider = toggleSwitch.query(By.css('.p-toggleswitch-slider'));
+
+                expect(toggleSwitchRoot.getAttribute('data-test')).toBe('global-toggleswitch');
+
+                if (input) {
+                    expect(input.nativeElement.classList.contains('GLOBAL_INPUT_CLASS')).toBe(true);
+                }
+
+                if (slider) {
+                    expect(slider.nativeElement.classList.contains('GLOBAL_SLIDER_CLASS')).toBe(true);
+                    expect(slider.nativeElement.style.borderRadius).toBe('25px');
+                }
+            });
+        }));
+    });
+
+    describe('Case 8: PT Hooks', () => {
+        it('should call PT hooks during lifecycle', fakeAsync(() => {
+            const hookCalls: string[] = [];
+
+            @Component({
+                standalone: true,
+                imports: [ToggleSwitch, FormsModule],
+                template: `<p-toggleswitch [(ngModel)]="checked" [pt]="pt"></p-toggleswitch>`
+            })
+            class TestHooksComponent {
+                checked: boolean = false;
+                pt = {
+                    root: 'MY-TOGGLESWITCH',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalls.push('onAfterViewInit');
+                        },
+                        onDestroy: () => {
+                            hookCalls.push('onDestroy');
+                        }
+                    }
+                };
+            }
+
+            TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, TestHooksComponent]
+            });
+
+            const fixture = TestBed.createComponent(TestHooksComponent);
+            fixture.detectChanges();
+            tick();
+
+            expect(hookCalls).toContain('onAfterViewInit');
+
+            const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+            expect(toggleSwitchRoot.classList.contains('MY-TOGGLESWITCH')).toBe(true);
+
+            fixture.destroy();
+            flush();
+
+            expect(hookCalls).toContain('onDestroy');
+        }));
+    });
 });

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeNode } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
 import { of } from 'rxjs';
 import { TreeTable, TreeTableModule } from './treetable';
 
@@ -2854,3 +2855,499 @@ class TestDynamicTreeTableComponent {
         this.treetable.showGridlines = show;
     }
 }
+describe('TreeTable PT', () => {
+    let fixture: ComponentFixture<TreeTable>;
+    let treetable: TreeTable;
+    let testNodes: TreeNode[];
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [TreeTableModule, NoopAnimationsModule]
+        });
+
+        fixture = TestBed.createComponent(TreeTable);
+        treetable = fixture.componentInstance;
+
+        // Sample tree data
+        testNodes = [
+            {
+                data: { name: 'Documents', size: '75kb', type: 'Folder' },
+                children: [{ data: { name: 'Work', size: '55kb', type: 'Folder' } }, { data: { name: 'Home', size: '20kb', type: 'Folder' } }]
+            },
+            {
+                data: { name: 'Pictures', size: '150kb', type: 'Folder' }
+            }
+        ];
+
+        fixture.componentRef.setInput('value', testNodes);
+        fixture.detectChanges();
+    });
+
+    // Case 1: Simple string classes
+    describe('Case 1: Simple string classes', () => {
+        it('should apply string class to host', () => {
+            fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+            fixture.detectChanges();
+
+            const host = fixture.nativeElement;
+            expect(host.classList.contains('HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply string class to wrapper', () => {
+            fixture.componentRef.setInput('pt', { wrapper: 'WRAPPER_CLASS' });
+            fixture.detectChanges();
+
+            const wrapper = fixture.nativeElement.querySelector('.p-treetable-wrapper');
+            expect(wrapper?.classList.contains('WRAPPER_CLASS')).toBe(true);
+        });
+
+        it('should apply string class to table', () => {
+            fixture.componentRef.setInput('pt', { table: 'TABLE_CLASS' });
+            fixture.detectChanges();
+
+            const table = fixture.nativeElement.querySelector('table');
+            expect(table?.classList.contains('TABLE_CLASS')).toBe(true);
+        });
+
+        it('should apply string class to thead', () => {
+            fixture.componentRef.setInput('pt', { thead: 'THEAD_CLASS' });
+            fixture.detectChanges();
+
+            const thead = fixture.nativeElement.querySelector('thead');
+            expect(thead?.classList.contains('THEAD_CLASS')).toBe(true);
+        });
+
+        it('should apply string class to tbody', () => {
+            fixture.componentRef.setInput('pt', { tbody: 'TBODY_CLASS' });
+            fixture.detectChanges();
+
+            const tbody = fixture.nativeElement.querySelector('tbody');
+            expect(tbody?.classList.contains('TBODY_CLASS')).toBe(true);
+        });
+
+        it('should apply string class to tfoot', () => {
+            fixture.componentRef.setInput('pt', { tfoot: 'TFOOT_CLASS' });
+            fixture.detectChanges();
+
+            const tfoot = fixture.nativeElement.querySelector('tfoot');
+            expect(tfoot?.classList.contains('TFOOT_CLASS')).toBe(true);
+        });
+
+        it('should apply string class to header', () => {
+            fixture.componentRef.setInput('pt', { header: 'HEADER_CLASS' });
+            treetable.captionTemplate = {} as any;
+            fixture.detectChanges();
+
+            const header = fixture.nativeElement.querySelector('.p-treetable-header');
+            expect(header?.classList.contains('HEADER_CLASS')).toBe(true);
+        });
+
+        it('should apply string class to footer', () => {
+            fixture.componentRef.setInput('pt', { footer: 'FOOTER_CLASS' });
+            treetable.summaryTemplate = {} as any;
+            fixture.detectChanges();
+
+            const footer = fixture.nativeElement.querySelector('.p-treetable-footer');
+            expect(footer?.classList.contains('FOOTER_CLASS')).toBe(true);
+        });
+    });
+
+    // Case 2: Objects
+    describe('Case 2: Objects', () => {
+        it('should apply object properties to host', () => {
+            fixture.componentRef.setInput('pt', {
+                host: {
+                    class: 'HOST_OBJECT_CLASS',
+                    style: { 'background-color': 'red' },
+                    'data-p-test': 'true',
+                    'aria-label': 'TEST_ARIA_LABEL'
+                }
+            });
+            fixture.detectChanges();
+
+            const host = fixture.nativeElement;
+            expect(host.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
+            expect(host.style.backgroundColor).toBe('red');
+            expect(host.getAttribute('data-p-test')).toBe('true');
+            expect(host.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+        });
+
+        it('should apply object properties to wrapper', () => {
+            fixture.componentRef.setInput('pt', {
+                wrapper: {
+                    class: 'WRAPPER_OBJECT_CLASS',
+                    style: { border: '1px solid blue' },
+                    'data-testid': 'wrapper-test'
+                }
+            });
+            fixture.detectChanges();
+
+            const wrapper = fixture.nativeElement.querySelector('.p-treetable-wrapper');
+            expect(wrapper?.classList.contains('WRAPPER_OBJECT_CLASS')).toBe(true);
+            expect(wrapper?.style.border).toBe('1px solid blue');
+            expect(wrapper?.getAttribute('data-testid')).toBe('wrapper-test');
+        });
+
+        it('should apply object properties to table', () => {
+            fixture.componentRef.setInput('pt', {
+                table: {
+                    class: 'TABLE_OBJECT_CLASS',
+                    'data-table': 'true'
+                }
+            });
+            fixture.detectChanges();
+
+            const table = fixture.nativeElement.querySelector('table');
+            expect(table?.classList.contains('TABLE_OBJECT_CLASS')).toBe(true);
+            expect(table?.getAttribute('data-table')).toBe('true');
+        });
+    });
+
+    // Case 3: Mixed object and string values
+    describe('Case 3: Mixed object and string values', () => {
+        it('should apply mixed PT values', () => {
+            fixture.componentRef.setInput('pt', {
+                host: {
+                    class: 'HOST_MIXED_CLASS'
+                },
+                wrapper: 'WRAPPER_STRING_CLASS',
+                table: {
+                    style: { width: '100%' }
+                }
+            });
+            fixture.detectChanges();
+
+            const host = fixture.nativeElement;
+            const wrapper = fixture.nativeElement.querySelector('.p-treetable-wrapper');
+            const table = fixture.nativeElement.querySelector('table');
+
+            expect(host.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            expect(wrapper?.classList.contains('WRAPPER_STRING_CLASS')).toBe(true);
+            expect(table?.style.width).toBe('100%');
+        });
+    });
+
+    // Case 4: Use variables from instance
+    describe('Case 4: Use variables from instance', () => {
+        it('should use instance properties in PT functions', () => {
+            fixture.componentRef.setInput('scrollable', true);
+            fixture.componentRef.setInput('pt', {
+                host: ({ instance }: any) => ({
+                    class: {
+                        SCROLLABLE_TRUE: instance?.scrollable
+                    }
+                }),
+                wrapper: ({ instance }: any) => ({
+                    style: {
+                        'background-color': instance?.scrollable ? 'yellow' : 'red'
+                    }
+                })
+            });
+            fixture.detectChanges();
+
+            const host = fixture.nativeElement;
+            expect(host.classList.contains('SCROLLABLE_TRUE')).toBe(true);
+        });
+
+        it('should react to loading state in PT', () => {
+            fixture.componentRef.setInput('loading', true);
+            fixture.componentRef.setInput('pt', {
+                loading: ({ instance }: any) => ({
+                    class: {
+                        IS_LOADING: instance?.loading
+                    }
+                })
+            });
+            fixture.detectChanges();
+
+            const loading = fixture.nativeElement.querySelector('.p-treetable-loading');
+            expect(loading?.classList.contains('IS_LOADING')).toBe(true);
+        });
+
+        it('should use paginator state in PT', () => {
+            fixture.componentRef.setInput('paginator', true);
+            fixture.componentRef.setInput('rows', 10);
+            fixture.componentRef.setInput('pt', {
+                host: ({ instance }: any) => ({
+                    'data-paginator': instance?.paginator?.toString(),
+                    'data-rows': instance?.rows?.toString()
+                })
+            });
+            fixture.detectChanges();
+
+            const host = fixture.nativeElement;
+            expect(host.getAttribute('data-paginator')).toBe('true');
+            expect(host.getAttribute('data-rows')).toBe('10');
+        });
+    });
+
+    // Case 5: Event binding
+    describe('Case 5: Event binding', () => {
+        it('should handle onclick event in PT', () => {
+            let clicked = false;
+
+            fixture.componentRef.setInput('pt', {
+                wrapper: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            const wrapper = fixture.nativeElement.querySelector('.p-treetable-wrapper');
+            wrapper?.click();
+
+            expect(clicked).toBe(true);
+        });
+
+        it('should handle custom events on host', () => {
+            let hovered = false;
+
+            fixture.componentRef.setInput('pt', {
+                host: {
+                    onmouseenter: () => {
+                        hovered = true;
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            const host = fixture.nativeElement;
+            host.dispatchEvent(new MouseEvent('mouseenter'));
+
+            expect(hovered).toBe(true);
+        });
+    });
+
+    // Case 6: Test with loading state
+    describe('Loading state PT', () => {
+        it('should show loading elements with PT', () => {
+            fixture.componentRef.setInput('loading', true);
+            fixture.componentRef.setInput('pt', {
+                loading: 'LOADING_CONTAINER_CLASS',
+                mask: 'MASK_CLASS'
+            });
+            fixture.detectChanges();
+
+            const loading = fixture.nativeElement.querySelector('.p-treetable-loading');
+            const mask = fixture.nativeElement.querySelector('.p-treetable-mask');
+
+            expect(loading?.classList.contains('LOADING_CONTAINER_CLASS')).toBe(true);
+            expect(mask?.classList.contains('MASK_CLASS')).toBe(true);
+        });
+    });
+
+    // Case 7: Test with scrollable mode
+    describe('Scrollable mode PT', () => {
+        it('should apply PT to scrollable elements', () => {
+            fixture.componentRef.setInput('scrollable', true);
+            fixture.componentRef.setInput('scrollHeight', '400px');
+            fixture.componentRef.setInput('pt', {
+                scrollableWrapper: 'SCROLLABLE_WRAPPER_CLASS',
+                scrollableHeader: 'SCROLLABLE_HEADER_CLASS',
+                scrollableBody: 'SCROLLABLE_BODY_CLASS'
+            });
+            fixture.detectChanges();
+
+            const scrollableWrapper = fixture.nativeElement.querySelector('.p-treetable-scrollable-wrapper');
+            expect(scrollableWrapper?.classList.contains('SCROLLABLE_WRAPPER_CLASS')).toBe(true);
+
+            const scrollableHeader = fixture.nativeElement.querySelector('.p-treetable-scrollable-header');
+            expect(scrollableHeader?.classList.contains('SCROLLABLE_HEADER_CLASS')).toBe(true);
+
+            const scrollableBody = fixture.nativeElement.querySelector('.p-treetable-scrollable-body');
+            expect(scrollableBody?.classList.contains('SCROLLABLE_BODY_CLASS')).toBe(true);
+        });
+
+        it('should apply PT to scrollable header table', () => {
+            fixture.componentRef.setInput('scrollable', true);
+            fixture.componentRef.setInput('pt', {
+                scrollableHeaderTable: 'SCROLLABLE_HEADER_TABLE_CLASS',
+                scrollableHeaderBox: 'SCROLLABLE_HEADER_BOX_CLASS'
+            });
+            fixture.detectChanges();
+
+            const headerTable = fixture.nativeElement.querySelector('.p-treetable-scrollable-header-table');
+            expect(headerTable?.classList.contains('SCROLLABLE_HEADER_TABLE_CLASS')).toBe(true);
+
+            const headerBox = fixture.nativeElement.querySelector('.p-treetable-scrollable-header-box');
+            expect(headerBox?.classList.contains('SCROLLABLE_HEADER_BOX_CLASS')).toBe(true);
+        });
+
+        it('should apply PT to scrollable footer elements', () => {
+            fixture.componentRef.setInput('scrollable', true);
+            treetable.footerTemplate = {} as any;
+            fixture.componentRef.setInput('pt', {
+                scrollableFooter: 'SCROLLABLE_FOOTER_CLASS',
+                scrollableFooterBox: 'SCROLLABLE_FOOTER_BOX_CLASS',
+                scrollableFooterTable: 'SCROLLABLE_FOOTER_TABLE_CLASS'
+            });
+            fixture.detectChanges();
+
+            const footer = fixture.nativeElement.querySelector('.p-treetable-scrollable-footer');
+            expect(footer?.classList.contains('SCROLLABLE_FOOTER_CLASS')).toBe(true);
+
+            const footerBox = fixture.nativeElement.querySelector('.p-treetable-scrollable-footer-box');
+            expect(footerBox?.classList.contains('SCROLLABLE_FOOTER_BOX_CLASS')).toBe(true);
+
+            const footerTable = fixture.nativeElement.querySelector('.p-treetable-scrollable-footer-table');
+            expect(footerTable?.classList.contains('SCROLLABLE_FOOTER_TABLE_CLASS')).toBe(true);
+        });
+    });
+
+    // Case 8: Test with resizable columns
+    describe('Resizable columns PT', () => {
+        it('should apply PT to column resizer helper', () => {
+            fixture.componentRef.setInput('resizableColumns', true);
+            fixture.componentRef.setInput('pt', {
+                columnResizerHelper: 'RESIZER_HELPER_CLASS'
+            });
+            fixture.detectChanges();
+
+            const resizerHelper = fixture.nativeElement.querySelector('.p-column-resizer-helper');
+            expect(resizerHelper?.classList.contains('RESIZER_HELPER_CLASS')).toBe(true);
+        });
+    });
+
+    // Case 9: Test with reorderable columns
+    describe('Reorderable columns PT', () => {
+        it('should apply PT to reorder indicators', () => {
+            fixture.componentRef.setInput('reorderableColumns', true);
+            fixture.componentRef.setInput('pt', {
+                reorderIndicatorUp: 'REORDER_UP_CLASS',
+                reorderIndicatorDown: 'REORDER_DOWN_CLASS'
+            });
+            fixture.detectChanges();
+
+            const indicatorUp = fixture.nativeElement.querySelector('.p-treetable-reorder-indicator-up');
+            const indicatorDown = fixture.nativeElement.querySelector('.p-treetable-reorder-indicator-down');
+
+            expect(indicatorUp?.classList.contains('REORDER_UP_CLASS')).toBe(true);
+            expect(indicatorDown?.classList.contains('REORDER_DOWN_CLASS')).toBe(true);
+        });
+    });
+
+    // Case 10: Test PT hooks
+    describe('Case 10: PT Hooks', () => {
+        it('should execute onAfterViewInit hook', (done) => {
+            let hookCalled = false;
+
+            fixture.componentRef.setInput('pt', {
+                host: 'TEST_CLASS',
+                hooks: {
+                    onAfterViewInit: () => {
+                        hookCalled = true;
+                        done();
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            setTimeout(() => {
+                expect(hookCalled).toBe(true);
+            }, 100);
+        });
+    });
+});
+
+// Case 11: Global PT from PrimeNGConfig
+describe('TreeTable Global PT', () => {
+    let fixture: ComponentFixture<TreeTable>;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [TreeTableModule, NoopAnimationsModule],
+            providers: [
+                providePrimeNG({
+                    pt: {
+                        treeTable: {
+                            host: { 'aria-label': 'GLOBAL_ARIA_LABEL' },
+                            wrapper: 'GLOBAL_WRAPPER_CLASS'
+                        }
+                    }
+                })
+            ]
+        });
+
+        fixture = TestBed.createComponent(TreeTable);
+        fixture.componentRef.setInput('value', [{ data: { name: 'Test', size: '10kb', type: 'File' } }]);
+        fixture.detectChanges();
+    });
+
+    it('should apply global PT from config', () => {
+        const host = fixture.nativeElement;
+        const wrapper = fixture.nativeElement.querySelector('.p-treetable-wrapper');
+
+        expect(host.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
+        expect(wrapper?.classList.contains('GLOBAL_WRAPPER_CLASS')).toBe(true);
+    });
+
+    it('should merge local PT with global PT', () => {
+        fixture.componentRef.setInput('pt', {
+            host: { class: 'LOCAL_HOST_CLASS' },
+            wrapper: 'LOCAL_WRAPPER_CLASS'
+        });
+        fixture.detectChanges();
+
+        const host = fixture.nativeElement;
+        const wrapper = fixture.nativeElement.querySelector('.p-treetable-wrapper');
+
+        expect(host.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
+        expect(host.classList.contains('LOCAL_HOST_CLASS')).toBe(true);
+        expect(wrapper?.classList.contains('GLOBAL_WRAPPER_CLASS')).toBe(true);
+        expect(wrapper?.classList.contains('LOCAL_WRAPPER_CLASS')).toBe(true);
+    });
+});
+
+// Case 12: Inline PT test with template
+@Component({
+    template: `
+        <p-treetable [value]="nodes" [pt]="{ host: 'INLINE_HOST_CLASS', wrapper: 'INLINE_WRAPPER_CLASS' }">
+            <ng-template #header>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode">
+                    <td>{{ rowData.name }}</td>
+                </tr>
+            </ng-template>
+        </p-treetable>
+    `,
+    standalone: true,
+    imports: [TreeTableModule]
+})
+class InlineTestComponent {
+    nodes: TreeNode[] = [{ data: { name: 'Test' } }];
+}
+
+describe('TreeTable Inline PT', () => {
+    let fixture: ComponentFixture<InlineTestComponent>;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [InlineTestComponent, NoopAnimationsModule]
+        });
+
+        fixture = TestBed.createComponent(InlineTestComponent);
+        fixture.detectChanges();
+    });
+
+    it('should apply inline PT classes', () => {
+        const host = fixture.nativeElement.querySelector('p-treetable');
+        const wrapper = fixture.nativeElement.querySelector('.p-treetable-wrapper');
+
+        expect(host?.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+        expect(wrapper?.classList.contains('INLINE_WRAPPER_CLASS')).toBe(true);
+    });
+
+    it('should apply inline PT with object notation', () => {
+        fixture.componentInstance.nodes = [{ data: { name: 'Updated' } }];
+        fixture.detectChanges();
+
+        const host = fixture.nativeElement.querySelector('p-treetable');
+        expect(host?.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+    });
+});

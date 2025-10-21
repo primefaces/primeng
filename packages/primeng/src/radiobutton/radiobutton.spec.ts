@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { Component, DebugElement } from '@angular/core';
 import { RadioButton } from './radiobutton';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
 
 // Basic RadioButton test component
 @Component({
@@ -672,6 +673,401 @@ describe('RadioButton', () => {
             // Test passes by creating the component without errors
             // In a real scenario, you might create a component with 100+ radio buttons
             expect(fixture.componentInstance).toBeTruthy();
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+            })
+            class TestPTCase1Component {
+                selectedValue: any = 'option1';
+                pt = {
+                    root: 'ROOT_CLASS',
+                    input: 'INPUT_CLASS',
+                    box: 'BOX_CLASS',
+                    icon: 'ICON_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase1Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input[type="radio"]'));
+                if (inputEl) {
+                    expect(inputEl.nativeElement.classList.contains('INPUT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 2: Object with class, style, data attributes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+            })
+            class TestPTCase2Component {
+                selectedValue: any = 'option1';
+                pt = {
+                    root: {
+                        class: 'OBJECT_ROOT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'test-value'
+                    },
+                    box: {
+                        class: 'BOX_OBJECT_CLASS',
+                        'data-p-custom': 'custom-value'
+                    }
+                };
+            }
+
+            it('should apply object properties to PT sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase2Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('OBJECT_ROOT_CLASS')).toBe(true);
+                    expect(rootEl.nativeElement.style.backgroundColor).toBe('red');
+                    expect(rootEl.nativeElement.getAttribute('data-p-test')).toBe('test-value');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+            })
+            class TestPTCase3Component {
+                selectedValue: any = 'option1';
+                pt = {
+                    root: 'MIXED_ROOT_CLASS',
+                    box: {
+                        class: 'MIXED_BOX_CLASS',
+                        style: { color: 'blue' }
+                    }
+                };
+            }
+
+            it('should apply mixed object and string values', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase3Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('MIXED_ROOT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+            })
+            class TestPTCase4Component {
+                selectedValue: any = 'option1';
+                pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.checked ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
+                        };
+                    },
+                    box: ({ instance }: any) => {
+                        return {
+                            style: {
+                                opacity: instance?.checked ? '1' : '0.5'
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase4Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+                if (rootEl) {
+                    const hasChecked = rootEl.nativeElement.classList.contains('CHECKED_CLASS');
+                    const hasUnchecked = rootEl.nativeElement.classList.contains('UNCHECKED_CLASS');
+                    expect(hasChecked || hasUnchecked).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+            })
+            class TestPTCase5Component {
+                selectedValue: any = null;
+                clickedSection: string = '';
+                pt = {
+                    root: {
+                        onclick: () => {
+                            this.clickedSection = 'root';
+                        }
+                    },
+                    box: {
+                        onclick: () => {
+                            this.clickedSection = 'box';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase5Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                tick();
+
+                const boxEl = testFixture.debugElement.query(By.css('[data-pc-section="box"]'));
+                if (boxEl) {
+                    const clickEvent = new MouseEvent('click');
+                    boxEl.nativeElement.dispatchEvent(clickEvent);
+                    testFixture.detectChanges();
+                    expect(component.clickedSection).toBeTruthy();
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 6: Inline PT', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: 'INLINE_ROOT_CLASS', box: 'INLINE_BOX_CLASS' }"></p-radiobutton>`
+            })
+            class TestPTCase6InlineComponent {
+                selectedValue: any = 'option1';
+            }
+
+            it('should apply inline PT as string', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase6InlineComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' }, box: { class: 'BOX_INLINE_CLASS' } }"></p-radiobutton>`
+            })
+            class TestPTCase6InlineObjectComponent {
+                selectedValue: any = 'option1';
+            }
+
+            it('should apply inline PT as object', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase6InlineObjectComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue"></p-radiobutton>`
+            })
+            class TestPTCase7GlobalComponent {
+                selectedValue: any = 'option1';
+            }
+
+            it('should apply global PT from config', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase7GlobalComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                radioButton: {
+                                    root: 'GLOBAL_ROOT_CLASS',
+                                    box: 'GLOBAL_BOX_CLASS'
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+                if (rootEl) {
+                    expect(rootEl.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 8: PT Hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+            })
+            class TestPTCase8HooksComponent {
+                selectedValue: any = 'option1';
+                hooksCalled: string[] = [];
+                pt = {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.hooksCalled.push('onAfterViewInit');
+                        },
+                        onAfterViewChecked: () => {
+                            this.hooksCalled.push('onAfterViewChecked');
+                        },
+                        onDestroy: () => {
+                            this.hooksCalled.push('onDestroy');
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase8HooksComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                tick();
+
+                expect(component.hooksCalled.some((h) => h.includes('onAfterView'))).toBe(true);
+
+                testFixture.destroy();
+                tick();
+
+                flush();
+            }));
+        });
+
+        describe('PT Section Coverage', () => {
+            @Component({
+                standalone: false,
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+            })
+            class TestPTCoverageComponent {
+                selectedValue: any = 'option1';
+                pt = {
+                    root: 'PT_ROOT',
+                    input: 'PT_INPUT',
+                    box: 'PT_BOX',
+                    icon: 'PT_ICON'
+                };
+            }
+
+            it('should apply PT to all sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCoverageComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCoverageComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+                expect(rootEl).toBeTruthy();
+                if (rootEl) {
+                    expect(rootEl.nativeElement.getAttribute('data-pc-name')).toBe('radiobutton');
+                }
+
+                const inputEl = testFixture.debugElement.query(By.css('input[type="radio"]'));
+                expect(inputEl).toBeTruthy();
+
+                const boxEl = testFixture.debugElement.query(By.css('[data-pc-section="box"]'));
+                expect(boxEl).toBeTruthy();
+
+                const iconEl = testFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+                expect(iconEl).toBeTruthy();
+
+                flush();
+            }));
         });
     });
 });

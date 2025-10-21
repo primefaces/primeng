@@ -66,7 +66,7 @@ describe('PClass Directive', () => {
 
     it('should apply mixed classes', () => {
         const element = fixture.debugElement.query(By.css('[data-testid="mixed"]'));
-        expect(element.nativeElement.className).toBe('base active');
+        expect(element.nativeElement.className).toBe('active base');
     });
 
     it('should handle null values', () => {

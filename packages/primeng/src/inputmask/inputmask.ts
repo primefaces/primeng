@@ -27,7 +27,6 @@
 */
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -37,9 +36,9 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     Input,
     NgModule,
-    OnInit,
     Output,
     QueryList,
     TemplateRef,
@@ -47,15 +46,20 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { getUserAgent, isClient } from '@primeuix/utils';
+import { getUserAgent, isClient, mergeProps } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
+import { Bind, BindModule } from 'primeng/bind';
 import { TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
-import { Caret } from './inputmask.interface';
+import type { Caret } from 'primeng/types/inputmask';
+import { InputMaskPassThrough } from 'primeng/types/inputmask';
 import { InputMaskStyle } from './style/inputmaskstyle';
+
+const INPUTMASK_INSTANCE = new InjectionToken<InputMask>('INPUTMASK_INSTANCE');
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -69,11 +73,12 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputmask, p-inputMask, p-input-mask',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule, BindModule],
     template: `
         <input
             #input
             pInputText
+            [pt]="rootPTOptions()"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name()"
@@ -102,25 +107,48 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [pAutoFocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
-            [attr.data-pc-name]="'inputmask'"
-            [attr.data-pc-section]="'root'"
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="value != null && $filled() && showClear && !$disabled()">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear()" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear()">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
     `,
-    providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle],
+    providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle, { provide: INPUTMASK_INSTANCE, useExisting: InputMask }, { provide: PARENT_INSTANCE, useExisting: InputMask }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    hostDirectives: [Bind],
     host: {
         '[class]': "cx('root')"
     }
 })
-export class InputMask extends BaseInput implements OnInit, AfterContentInit {
+export class InputMask extends BaseInput<InputMaskPassThrough> {
+    _componentStyle = inject(InputMaskStyle);
+
+    $pcInputMask: InputMask | undefined = inject(INPUTMASK_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
+    rootPTOptions() {
+        return {
+            root: mergeProps(this.ptm('pcInputText', this.ptmParams())['root'], this.ptm('root', this.ptmParams()))
+        };
+    }
+
+    ptmParams() {
+        return {
+            context: {
+                filled: this.$variant() === 'filled'
+            }
+        };
+    }
+
     /**
      * HTML5 input type.
      * @group Props
@@ -306,10 +334,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
 
     focused: Nullable<boolean>;
 
-    _componentStyle = inject(InputMaskStyle);
-
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (isPlatformBrowser(this.platformId)) {
             let ua = navigator.userAgent;
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
@@ -320,7 +345,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit {
 
     _clearIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':

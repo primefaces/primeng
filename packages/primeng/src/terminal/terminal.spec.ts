@@ -2,6 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { providePrimeNG } from 'primeng/config';
 import { Terminal } from './terminal';
 import { TerminalService } from './terminalservice';
 
@@ -826,6 +827,422 @@ describe('Terminal', () => {
 
             expect(terminalInstance.commands[0].response).toBe('Test Response');
             expect(terminalInstance.commandProcessed).toBe(true);
+        });
+    });
+
+    describe('PT (PassThrough) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+            })
+            class TestPTCase1Component {
+                pt = {
+                    host: 'HOST_CLASS',
+                    root: 'ROOT_CLASS',
+                    welcomeMessage: 'WELCOME_CLASS',
+                    commandList: 'COMMANDLIST_CLASS',
+                    command: 'COMMAND_CLASS',
+                    promptLabel: 'PROMPTLABEL_CLASS',
+                    commandValue: 'COMMANDVALUE_CLASS',
+                    commandResponse: 'COMMANDRESPONSE_CLASS',
+                    prompt: 'PROMPT_CLASS',
+                    promptValue: 'PROMPTVALUE_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to all PT sections', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase1Component],
+                    imports: [Terminal, FormsModule],
+                    providers: [TerminalService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.detectChanges();
+
+                const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+                expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
+                expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
+
+                const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+                if (welcomeMessage) {
+                    expect(welcomeMessage.nativeElement.classList.contains('WELCOME_CLASS')).toBe(true);
+                }
+
+                const commandList = testFixture.debugElement.query(By.css('[data-pc-section="commandList"]'));
+                if (commandList) {
+                    expect(commandList.nativeElement.classList.contains('COMMANDLIST_CLASS')).toBe(true);
+                }
+
+                const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+                if (prompt) {
+                    expect(prompt.nativeElement.classList.contains('PROMPT_CLASS')).toBe(true);
+                }
+
+                const promptValue = testFixture.debugElement.query(By.css('[data-pc-section="promptValue"]'));
+                if (promptValue) {
+                    expect(promptValue.nativeElement.classList.contains('PROMPTVALUE_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 2: Objects with class, style, data attributes and aria-label', () => {
+            @Component({
+                standalone: false,
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+            })
+            class TestPTCase2Component {
+                pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    },
+                    welcomeMessage: {
+                        class: 'WELCOME_OBJECT_CLASS',
+                        style: { color: 'blue' },
+                        'data-p-welcome': true
+                    },
+                    prompt: {
+                        class: 'PROMPT_OBJECT_CLASS',
+                        style: { padding: '10px' }
+                    }
+                };
+            }
+
+            it('should apply object properties (class, style, data attributes) to PT sections', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase2Component],
+                    imports: [Terminal, FormsModule],
+                    providers: [TerminalService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.detectChanges();
+
+                const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+                expect(hostElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(hostElement.style.backgroundColor).toBe('red');
+                expect(hostElement.getAttribute('data-p-test')).toBe('true');
+                expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+
+                const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+                if (welcomeMessage) {
+                    expect(welcomeMessage.nativeElement.classList.contains('WELCOME_OBJECT_CLASS')).toBe(true);
+                    expect(welcomeMessage.nativeElement.style.color).toBe('blue');
+                    expect(welcomeMessage.nativeElement.getAttribute('data-p-welcome')).toBe('true');
+                }
+
+                const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+                if (prompt) {
+                    expect(prompt.nativeElement.classList.contains('PROMPT_OBJECT_CLASS')).toBe(true);
+                    expect(prompt.nativeElement.style.padding).toBe('10px');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+            })
+            class TestPTCase3Component {
+                pt = {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    welcomeMessage: 'WELCOME_STRING_CLASS',
+                    prompt: {
+                        class: 'PROMPT_MIXED_CLASS'
+                    },
+                    promptValue: 'PROMPTVALUE_STRING_CLASS'
+                };
+            }
+
+            it('should apply mixed object and string values correctly', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase3Component],
+                    imports: [Terminal, FormsModule],
+                    providers: [TerminalService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.detectChanges();
+
+                const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+                expect(hostElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+
+                const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+                if (welcomeMessage) {
+                    expect(welcomeMessage.nativeElement.classList.contains('WELCOME_STRING_CLASS')).toBe(true);
+                }
+
+                const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+                if (prompt) {
+                    expect(prompt.nativeElement.classList.contains('PROMPT_MIXED_CLASS')).toBe(true);
+                }
+
+                const promptValue = testFixture.debugElement.query(By.css('[data-pc-section="promptValue"]'));
+                if (promptValue) {
+                    expect(promptValue.nativeElement.classList.contains('PROMPTVALUE_STRING_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-terminal [pt]="pt" [welcomeMessage]="welcomeMsg" [prompt]="promptText"></p-terminal>`
+            })
+            class TestPTCase4Component {
+                welcomeMsg = 'Instance Welcome';
+                promptText = 'cmd> ';
+                pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.welcomeMessage ? 'HAS-WELCOME' : 'NO-WELCOME'
+                        };
+                    },
+                    welcomeMessage: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.welcomeMessage ? 'yellow' : 'transparent'
+                            }
+                        };
+                    },
+                    prompt: ({ instance }: any) => {
+                        return {
+                            class: instance?.prompt ? 'HAS_PROMPT_CLASS' : 'NO_PROMPT_CLASS'
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase4Component],
+                    imports: [Terminal, FormsModule],
+                    providers: [TerminalService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.detectChanges();
+
+                const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+                expect(hostElement.classList.contains('HAS-WELCOME')).toBe(true);
+
+                const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+                if (welcomeMessage) {
+                    expect(welcomeMessage.nativeElement.style.backgroundColor).toBe('yellow');
+                }
+
+                const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+                if (prompt) {
+                    expect(prompt.nativeElement.classList.contains('HAS_PROMPT_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+            })
+            class TestPTCase5Component {
+                clickedSection: string = '';
+                pt = {
+                    welcomeMessage: {
+                        onclick: () => {
+                            this.clickedSection = 'welcomeMessage';
+                        }
+                    },
+                    prompt: {
+                        onclick: () => {
+                            this.clickedSection = 'prompt';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase5Component],
+                    imports: [Terminal, FormsModule],
+                    providers: [TerminalService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+                if (welcomeMessage) {
+                    welcomeMessage.nativeElement.click();
+                    expect(component.clickedSection).toBe('welcomeMessage');
+                }
+
+                const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+                if (prompt) {
+                    prompt.nativeElement.click();
+                    expect(component.clickedSection).toBe('prompt');
+                }
+            });
+        });
+
+        describe('Case 6: Inline test', () => {
+            @Component({
+                standalone: false,
+                template: `<p-terminal [pt]="{ root: 'INLINE_ROOT_CLASS', welcomeMessage: 'INLINE_WELCOME_CLASS' }" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+            })
+            class TestPTCase6InlineComponent {}
+
+            @Component({
+                standalone: false,
+                template: `<p-terminal [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, prompt: { class: 'INLINE_PROMPT_CLASS' } }" prompt="$ "></p-terminal>`
+            })
+            class TestPTCase6InlineObjectComponent {}
+
+            it('should apply inline PT string classes', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineComponent],
+                    imports: [Terminal, FormsModule],
+                    providers: [TerminalService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.detectChanges();
+
+                const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+                expect(hostElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+
+                const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+                if (welcomeMessage) {
+                    expect(welcomeMessage.nativeElement.classList.contains('INLINE_WELCOME_CLASS')).toBe(true);
+                }
+            });
+
+            it('should apply inline PT object classes', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [Terminal, FormsModule],
+                    providers: [TerminalService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.detectChanges();
+
+                const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+                expect(hostElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
+
+                const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+                if (prompt) {
+                    expect(prompt.nativeElement.classList.contains('INLINE_PROMPT_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-terminal welcomeMessage="Terminal 1" prompt="1$ "></p-terminal>
+                    <p-terminal welcomeMessage="Terminal 2" prompt="2$ "></p-terminal>
+                `
+            })
+            class TestPTCase7GlobalComponent {}
+
+            it('should apply global PT configuration from PrimeNGConfig to multiple instances', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [Terminal, FormsModule],
+                    providers: [
+                        TerminalService,
+                        providePrimeNG({
+                            pt: {
+                                terminal: {
+                                    host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
+                                    root: { class: 'GLOBAL_ROOT_CLASS' },
+                                    welcomeMessage: { class: 'GLOBAL_WELCOME_CLASS' }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+
+                const terminals = testFixture.debugElement.queryAll(By.directive(Terminal));
+                expect(terminals.length).toBe(2);
+
+                terminals.forEach((terminalDebug) => {
+                    const hostElement = terminalDebug.nativeElement;
+                    expect(hostElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+                    expect(hostElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+
+                    const welcomeMessage = terminalDebug.query(By.css('[data-pc-section="welcomeMessage"]'));
+                    if (welcomeMessage) {
+                        expect(welcomeMessage.nativeElement.classList.contains('GLOBAL_WELCOME_CLASS')).toBe(true);
+                    }
+                });
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+            })
+            class TestPTCase8HooksComponent {
+                afterViewInitCalled = false;
+                afterViewCheckedCalled = false;
+                onDestroyCalled = false;
+
+                pt = {
+                    root: 'HOOK_TEST_CLASS',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.afterViewInitCalled = true;
+                        },
+                        onAfterViewChecked: () => {
+                            this.afterViewCheckedCalled = true;
+                        },
+                        onDestroy: () => {
+                            this.onDestroyCalled = true;
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks on Angular lifecycle events', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase8HooksComponent],
+                    imports: [Terminal, FormsModule],
+                    providers: [TerminalService]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+
+                testFixture.detectChanges();
+
+                expect(component.afterViewInitCalled).toBe(true);
+                expect(component.afterViewCheckedCalled).toBe(true);
+
+                testFixture.destroy();
+                expect(component.onDestroyCalled).toBe(true);
+            });
         });
     });
 });

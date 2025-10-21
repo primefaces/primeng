@@ -1,7 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
@@ -10,11 +8,10 @@ import {
     EventEmitter,
     HostBinding,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     NgZone,
-    OnDestroy,
-    OnInit,
     Output,
     QueryList,
     SimpleChanges,
@@ -24,11 +21,14 @@ import {
 } from '@angular/core';
 import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@primeuix/utils';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { SpinnerIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+import { ScrollerLazyLoadEvent, ScrollerPassThrough, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from 'primeng/types/scroller';
 import { ScrollerStyle } from './style/scrollerstyle';
+
+const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
 
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
@@ -36,23 +36,23 @@ import { ScrollerStyle } from './style/scrollerstyle';
  */
 @Component({
     selector: 'p-scroller, p-virtualscroller, p-virtual-scroller, p-virtualScroller',
-    imports: [CommonModule, SpinnerIcon, SharedModule],
+    imports: [CommonModule, SpinnerIcon, SharedModule, Bind],
     standalone: true,
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
-            <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [attr.data-pc-name]="'scroller'" [attr.data-pc-section]="'root'">
+            <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [pBind]="ptm('root')">
                 <ng-container *ngIf="contentTemplate || _contentTemplate; else buildInContent">
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 </ng-container>
                 <ng-template #buildInContent>
-                    <div #content [class]="cn(cx('content'), contentStyleClass)" [style]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [style]="contentStyle" [pBind]="ptm('content')">
                         <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
                         </ng-container>
                     </div>
                 </ng-template>
-                <div *ngIf="_showSpacer" [class]="cx('spacer')" [ngStyle]="spacerStyle" [attr.data-pc-section]="'spacer'"></div>
-                <div *ngIf="!loaderDisabled && _showLoader && d_loading" [class]="cx('loader')" [attr.data-pc-section]="'loader'">
+                <div *ngIf="_showSpacer" [class]="cx('spacer')" [ngStyle]="spacerStyle" [pBind]="ptm('spacer')"></div>
+                <div *ngIf="!loaderDisabled && _showLoader && d_loading" [class]="cx('loader')" [pBind]="ptm('loader')">
                     <ng-container *ngIf="loaderTemplate || _loaderTemplate; else buildInLoader">
                         <ng-container *ngFor="let item of loaderArr; let index = index">
                             <ng-container
@@ -70,7 +70,7 @@ import { ScrollerStyle } from './style/scrollerstyle';
                             <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [attr.data-pc-section]="'loadingIcon'" />
+                            <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [pBind]="ptm('loadingIcon')" />
                         </ng-template>
                     </ng-template>
                 </div>
@@ -85,9 +85,15 @@ import { ScrollerStyle } from './style/scrollerstyle';
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    providers: [ScrollerStyle]
+    providers: [ScrollerStyle, { provide: SCROLLER_INSTANCE, useExisting: Scroller }, { provide: PARENT_INSTANCE, useExisting: Scroller }],
+    hostDirectives: [Bind]
 })
-export class Scroller extends BaseComponent implements OnInit, AfterContentInit, AfterViewChecked, OnDestroy {
+export class Scroller extends BaseComponent<ScrollerPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcScroller: Scroller | undefined = inject(SCROLLER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    @Input() hostName = '';
     /**
      * Unique identifier of the element.
      * @group Props
@@ -552,13 +558,11 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.setInitialState();
     }
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
+    onChanges(simpleChanges: SimpleChanges) {
         let isLoadingChanged = false;
         if (this.scrollHeight == '100%') {
             this.height = '100%';
@@ -607,7 +611,7 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -633,25 +637,24 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         Promise.resolve().then(() => {
             this.viewInit();
         });
     }
 
-    ngAfterViewChecked() {
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
         if (!this.initialized) {
             this.viewInit();
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindResizeListener();
 
         this.contentEl = null;
         this.initialized = false;
-        super.ngOnDestroy();
     }
 
     viewInit() {

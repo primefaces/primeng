@@ -1,13 +1,17 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, numberAttribute, OnDestroy, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { getWindowScrollTop } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { ChevronUpIcon } from 'primeng/icons';
+import { ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import { ZIndexUtils } from 'primeng/utils';
 import { ScrollTopStyle } from './style/scrolltopstyle';
+
+const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
 
 /**
  * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
@@ -28,6 +32,7 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
             (@animation.done)="onLeave($event)"
             [attr.aria-label]="buttonAriaLabel"
             (click)="onClick()"
+            [pt]="ptm('pcButton')"
             [styleClass]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             type="button"
@@ -63,9 +68,18 @@ import { ScrollTopStyle } from './style/scrolltopstyle';
         ])
     ],
 
-    providers: [ScrollTopStyle]
+    providers: [ScrollTopStyle, { provide: SCROLLTOP_INSTANCE, useExisting: ScrollTop }, { provide: PARENT_INSTANCE, useExisting: ScrollTop }],
+    hostDirectives: [Bind]
 })
-export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
+    $pcScrollTop: ScrollTop | undefined = inject(SCROLLTOP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Class of the element.
      * @group Props
@@ -144,13 +158,12 @@ export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit
 
     _componentStyle = inject(ScrollTopStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.target === 'window') this.bindDocumentScrollListener();
         else if (this.target === 'parent') this.bindParentScrollListener();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
@@ -225,7 +238,7 @@ export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.target === 'window') this.unbindDocumentScrollListener();
         else if (this.target === 'parent') this.unbindParentScrollListener();
 
@@ -233,7 +246,6 @@ export class ScrollTop extends BaseComponent implements OnInit, AfterContentInit
             ZIndexUtils.clear(this.overlay);
             this.overlay = null;
         }
-        super.ngOnDestroy();
     }
 }
 

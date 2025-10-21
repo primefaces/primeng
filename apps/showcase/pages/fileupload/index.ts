@@ -3,6 +3,7 @@ import { AdvancedDoc } from '@/doc/fileupload/advanceddoc';
 import { AutoDoc } from '@/doc/fileupload/autodoc';
 import { BasicDoc } from '@/doc/fileupload/basicdoc';
 import { ImportDoc } from '@/doc/fileupload/importdoc';
+import { PTComponent } from '@/doc/fileupload/pt/PTComponent';
 import { TemplateDoc } from '@/doc/fileupload/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
@@ -16,6 +17,7 @@ import { AppDoc } from '@/components/doc/app.doc';
         description="FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations."
         [docs]="docs"
         [apiDocs]="['FileUpload']"
+        [ptDocs]="ptComponent"
         themeDocs="fileupload"
     ></app-doc>`
 })
@@ -52,4 +54,6 @@ export class FileUploadDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }
