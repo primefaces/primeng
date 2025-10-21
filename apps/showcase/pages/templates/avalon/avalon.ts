@@ -41,7 +41,8 @@ export class AvalonPage {
         description:
             'An elegantly designed admin template offering 7 menu layouts with light and dark modes. The layout is mobile-friendly and cross-browser compatible, built with SASS, CSS3 and HTML5 ensuring excellent performance to get you started with your next project!',
         liveHref: 'https://avalon.primeng.org/',
-        docHref: 'https://avalon.primeng.org/documentation'
+        docHref: 'https://avalon.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/avalon'
     };
 
     features2Data = [

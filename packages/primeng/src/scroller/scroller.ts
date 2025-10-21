@@ -672,16 +672,14 @@ export class Scroller extends BaseComponent implements OnInit, AfterContentInit,
 
     init() {
         if (!this._disabled) {
+            this.bindResizeListener();
             this.setSpacerSize();
             // wait for the next tick
             setTimeout(() => {
                 this.setSize();
+                this.calculateOptions();
+                this.cd.detectChanges();
             }, 1);
-            this.calculateOptions();
-
-            this.bindResizeListener();
-
-            this.cd.detectChanges();
         }
     }
 

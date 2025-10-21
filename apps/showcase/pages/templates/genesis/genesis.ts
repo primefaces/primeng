@@ -39,7 +39,8 @@ export class GenesisPage {
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/genesis/dashboard-1.png',
         description: 'Genesis, crafted by Prime, is the ultimate multi-purpose website template built with Angular. It offers unmatched versatility and performance with a suite of example pages to elevate your projects.',
         liveHref: 'https://genesis.primeng.org',
-        isMultipurpose: true
+        isMultipurpose: true,
+        storeHref: 'https://primeui.store/templates/angular/genesis'
     };
 
     featuresData = [

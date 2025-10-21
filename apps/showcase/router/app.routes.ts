@@ -297,7 +297,7 @@ export const routes: Routes = [
                 loadChildren: () => import('@/pages/classnames/routes')
             },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
-            { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) },
+            { path: 'guides', loadChildren: () => import('@/pages/guides/routes') },
             {
                 path: 'designer',
                 loadChildren: () => import('@/pages/designer/routes')

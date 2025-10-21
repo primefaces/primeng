@@ -21,7 +21,7 @@ import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Chart Component" header="Charts" description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library." [docs]="docs" [apiDocs]="apiDocs"></app-doc> `
+    template: ` <app-doc docTitle="Angular Chart Component" header="Charts" description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library." [docs]="docs" [apiDocs]="['Chart']"></app-doc> `
 })
 export class ChartDemo {
     docs = [
@@ -99,19 +99,6 @@ export class ChartDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
         }
     ];
 }

@@ -515,6 +515,10 @@
                 {
                     "name": "Guide",
                     "routerLink": "/designer/guide"
+                },
+                {
+                    "name": "CI Pipeline",
+                    "routerLink": "/designer/ci"
                 }
             ]
 
@@ -540,6 +544,10 @@
                 {
                     "name": "PrimeTV",
                     "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                },
+                   {
+                    "name": "RTL",
+                    "routerLink": "/guides/rtl"
                 }
             ]
         },
@@ -606,7 +614,7 @@
                 },
                 {
                     "name": "Store",
-                    "href": "https://www.primefaces.org/store/"
+                    "href": "https://primeui.store"
                 },
                 {
                     "name": "Twitter",
