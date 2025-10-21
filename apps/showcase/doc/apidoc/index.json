@@ -10925,6 +10925,12 @@
                             "description": "Custom template for input icon.",
                             "type": "TemplateRef<any>",
                             "parameters": []
+                        },
+                        {
+                            "name": "buttonbar",
+                            "description": "Custom template for button bar.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
                         }
                     ]
                 }
@@ -12448,7 +12454,7 @@
                             "name": "dragEffect",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"link\" | \"none\" | \"copy\" | \"move\" | \"copyLink\" | \"copyMove\" | \"linkMove\" | \"all\" | \"uninitialized\"",
+                            "type": "\"link\" | \"none\" | \"copy\" | \"all\" | \"move\" | \"copyLink\" | \"copyMove\" | \"linkMove\" | \"uninitialized\"",
                             "description": "Defines the cursor style."
                         },
                         {
@@ -21928,7 +21934,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
+                            "type": "\"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"in\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -22927,7 +22933,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
+                            "type": "\"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"in\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
@@ -24672,7 +24678,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"end\" | \"center\" | \"start\"",
+                            "type": "\"center\" | \"end\" | \"start\"",
                             "default": "end",
                             "description": "Position of the icons."
                         },
@@ -29387,7 +29393,7 @@
                             "name": "filterMatchMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"gt\" | \"lt\" | \"in\" | \"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"lte\" | \"gte\"",
+                            "type": "\"startsWith\" | \"contains\" | \"endsWith\" | \"equals\" | \"notEquals\" | \"in\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
                             "default": "contains",
                             "description": "Defines how the items are filtered."
                         },
