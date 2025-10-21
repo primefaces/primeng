@@ -210,7 +210,7 @@ import { TagModule } from 'primeng/tag';
                                     </li>
                                 </ul>
                                 <hr class="mb-4 mx-0 border-t border-0 border-surface mt-auto" />
-                                <a href="https://www.primefaces.org/store/lts.xhtml" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                                <a href="https://primeui.store/lts" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -250,7 +250,7 @@ import { TagModule } from 'primeng/tag';
                                     </li>
                                 </ul>
                                 <hr class="mb-4 mx-0 border-t border-0 border-surface" />
-                                <a href="https://www.primefaces.org/store/lts.xhtml" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                                <a href="https://primeui.store/lts" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -260,7 +260,7 @@ import { TagModule } from 'primeng/tag';
                 <div class="text-2xl text-surface-900 dark:text-surface-0 font-semibold mb-4">Usage</div>
                 <p class="m-0 leading-normal mb-8 text-secondary text-lg text-surface-800 dark:text-surface-50">
                     LTS versions require a license key and a pass key to be verified at your main app component or main.ts before bootstrap process. The keys would be available at
-                    <a href="https://www.primefaces.org/store/lts.xhtml" class="text-primary font-medium hover:underline">PrimeStore</a>
+                    <a href="https://primeui.store/lts" class="text-primary font-medium hover:underline">PrimeStore</a>
                     under LTS Licenses section.
                 </p>
                 <app-code [code]="code" [hideToggleCode]="true"></app-code>

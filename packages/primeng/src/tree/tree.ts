@@ -336,18 +336,18 @@ export class UITreeNode extends BaseComponent implements OnInit {
         }
 
         const position = this.dropPosition();
-        let subNodes = this.subNodes || [];
+        const subNodes = this.subNodes || [];
+        const index = this.index || 0;
+        const dropIndex = dragNodeSubNodes === subNodes ? (dragNodeIndex > index ? index : index - 1) : index;
 
         dragNodeSubNodes.splice(dragNodeIndex, 1);
 
         if (position < 0) {
             // insert before a Node
-            const index = this.index || 0;
-            const dropIndex = dragNodeSubNodes === subNodes ? (dragNodeIndex > index ? index : index - 1) : index;
             subNodes.splice(dropIndex, 0, dragNode);
         } else if (position > 0) {
             // insert after a Node
-            subNodes.push(dragNode);
+            subNodes.splice(dropIndex + 1, 0, dragNode);
         } else {
             // insert as child of a Node
             this.node.children = this.node.children || [];

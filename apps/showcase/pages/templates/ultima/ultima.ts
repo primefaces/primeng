@@ -44,7 +44,8 @@ export class UltimaPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard2.png',
         liveHref: 'https://ultima.primeng.org',
-        docHref: 'https://ultima.primeng.org/documentation'
+        docHref: 'https://ultima.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/ultima'
     };
 
     features2Data = [

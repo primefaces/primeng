@@ -35,7 +35,7 @@ import { TemplateHeroRectangle } from './templateherorectangle';
                             Live Demo
                         </a>
                         <a
-                            [href]="templateHeroData?.storeHref ?? 'https://www.primefaces.org/store/'"
+                            [href]="templateHeroData?.storeHref ?? 'https://primeui.store'"
                             target="_blank"
                             class="flex-1 rounded-full border text-center font-semibold w-full bg-primary-600 border-primary-600 hover:bg-primary-700 text-surface-0 py-3.5 transition-all leading-none"
                         >

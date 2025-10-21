@@ -60,7 +60,7 @@ import { RouterModule } from '@angular/router';
                                 >
                             </li>
                             <li class="mb-6">
-                                <a href="https://www.primefaces.org/store/" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Store</a>
+                                <a href="https://primeui.store" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Store</a>
                             </li>
                             <li class="mb-6">
                                 <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"
