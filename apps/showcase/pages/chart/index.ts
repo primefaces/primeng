@@ -15,13 +15,25 @@ import { StackedBarDoc } from '@/doc/chart/stackedbardoc';
 import { VerticalBarDoc } from '@/doc/chart/verticalbardoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-
+import { PTComponent } from '@/doc/chart/pt/PTComponent';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Chart Component" header="Charts" description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library." [docs]="docs" [apiDocs]="['Chart']" themeDocs="chart"></app-doc> `
+    template: `
+        <app-doc
+            docTitle="Angular Chart Component"
+            header="Charts"
+            description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library."
+            [docs]="docs"
+            [apiDocs]="['Chart']"
+            themeDocs="chart"
+            [ptDocs]="ptComponent"
+        ></app-doc>
+    `
 })
 export class ChartDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
