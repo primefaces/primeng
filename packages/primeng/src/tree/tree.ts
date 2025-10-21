@@ -400,6 +400,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onNodeDragStart(event: any) {
         if (this.isNodeDraggable()) {
+            event.dataTransfer.effectAllowed = 'all';
             event.dataTransfer?.setData('text', 'data');
 
             const target = event.currentTarget as HTMLElement;
@@ -432,12 +433,12 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     onNodeDragOver(event: any) {
-        event.dataTransfer.dropEffect = 'move';
-
         if (this.isDroppable()) {
+            event.dataTransfer.dropEffect = 'copy';
+
             const nodeElement = event.currentTarget as HTMLElement;
             const rect = nodeElement.getBoundingClientRect();
-            const y = event.clientY - rect.top;
+            const y = event.clientY - parseInt(rect.top as any);
 
             this.isPrevDropPointHovered.set(false);
             this.isNextDropPointHovered.set(false);
@@ -450,6 +451,8 @@ export class UITreeNode extends BaseComponent implements OnInit {
             } else if (this.isNodeDroppable()) {
                 this.isNodeDropHovered.set(true);
             }
+        } else {
+            event.dataTransfer.dropEffect = 'none';
         }
 
         if (this.tree.droppableNodes) {
@@ -1559,16 +1562,20 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     }
 
     onDragOver(event: DragEvent) {
-        if (this.droppableNodes && (!this.value || (<any>this.value).length === 0)) {
-            (<any>event).dataTransfer.dropEffect = 'move';
+        if (this.droppableNodes && this.allowDrop(<TreeNode>this.dragNode, null, this.dragNodeScope)) {
+            (<any>event).dataTransfer.dropEffect = 'copy';
             event.preventDefault();
         }
     }
 
     onDrop(event: DragEvent) {
-        if (this.droppableNodes && (!this.value || (<any>this.value).length === 0)) {
+        if (this.droppableNodes) {
             event.preventDefault();
             let dragNode = this.dragNode as TreeNode;
+
+            if (this.isSameTreeScope(this.dragNodeScope)) {
+                return;
+            }
 
             if (this.allowDrop(dragNode, null, this.dragNodeScope)) {
                 let dragNodeIndex = <number>this.dragNodeIndex;
@@ -1615,7 +1622,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     onDragLeave(event: DragEvent) {
         if (this.droppableNodes) {
             let rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
-            if (event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
+            if (event.x > parseInt(rect.left as any) + rect.width || event.x < parseInt(rect.left as any) || event.y > parseInt(rect.top as any) + rect.height || event.y < parseInt(rect.top as any)) {
                 this.dragHover = false;
             }
         }
@@ -1648,27 +1655,35 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         }
     }
 
-    isValidDragScope(dragScope: any): boolean {
-        let dropScope = this.droppableScope;
-
-        if (dropScope) {
-            if (typeof dropScope === 'string') {
-                if (typeof dragScope === 'string') return dropScope === dragScope;
-                else if (Array.isArray(dragScope)) return (<Array<any>>dragScope).indexOf(dropScope) != -1;
-            } else if (Array.isArray(dropScope)) {
-                if (typeof dragScope === 'string') {
-                    return (<Array<any>>dropScope).indexOf(dragScope) != -1;
-                } else if (Array.isArray(dragScope)) {
-                    for (let s of dropScope) {
-                        for (let ds of dragScope) {
-                            if (s === ds) {
-                                return true;
-                            }
+    hasCommonScope(dragScope: any, dropScope: any): boolean {
+        if (typeof dropScope === 'string') {
+            if (typeof dragScope === 'string') return dropScope === dragScope;
+            else if (Array.isArray(dragScope)) return (<Array<any>>dragScope).indexOf(dropScope) != -1;
+        } else if (Array.isArray(dropScope)) {
+            if (typeof dragScope === 'string') {
+                return (<Array<any>>dropScope).indexOf(dragScope) != -1;
+            } else if (Array.isArray(dragScope)) {
+                for (let s of dropScope) {
+                    for (let ds of dragScope) {
+                        if (s === ds) {
+                            return true;
                         }
                     }
                 }
             }
-            return false;
+        }
+        return false;
+    }
+
+    isSameTreeScope(dragScope: any): boolean {
+        return this.hasCommonScope(dragScope, this.draggableScope);
+    }
+
+    isValidDragScope(dragScope: any): boolean {
+        let dropScope = this.droppableScope;
+
+        if (dropScope) {
+            return this.hasCommonScope(dragScope, dropScope);
         } else {
             return true;
         }
