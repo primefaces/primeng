@@ -515,6 +515,10 @@
                 {
                     "name": "Guide",
                     "routerLink": "/designer/guide"
+                },
+                {
+                    "name": "CI Pipeline",
+                    "routerLink": "/designer/ci"
                 }
             ]
 

@@ -63,10 +63,13 @@ import { ToastModule } from 'primeng/toast';
             <div *ngFor="let theme of designerService.designer().themes" class="flex flex-col gap-2 relative">
                 <button
                     type="button"
-                    class="rounded-xl h-32 w-32 px-4 overflow-hidden text-ellipsis bg-transparent border border-surface-200 dark:border-surface-700 hover:border-surface-400 dark:hover:border-surface-500 text-black dark:text-white"
+                    class="relative rounded-xl h-32 w-32 px-4 overflow-hidden text-ellipsis bg-transparent border border-surface-200 dark:border-surface-700 hover:border-surface-400 dark:hover:border-surface-500 text-black dark:text-white"
                     (click)="loadTheme(theme)"
                 >
                     <span class="text-2xl uppercase font-bold">{{ abbrThemeName(theme) }}</span>
+                    @if (theme.t_origin !== 'web') {
+                        <span class="absolute bottom-2 start-0 text-xs text-muted-color ms-start w-full">View Only</span>
+                    }
                 </button>
                 <div class="flex flex-col items-center gap-1">
                     <div class="group flex items-center gap-2 relative">
@@ -76,11 +79,14 @@ import { ToastModule } from 'primeng/toast';
                             class="w-24 text-sm px-2 text-center pr-4t bg-transparent"
                             [ngClass]="{ 'bg-red-50 dark:bg-red-500/30': !theme.t_name, 'bg-transparent': theme.t_name }"
                             maxlength="100"
+                            [disabled]="theme.t_origin !== 'web'"
                             (blur)="renameTheme(theme)"
                             (keydown.enter)="onThemeNameEnterKey($event)"
                             (keydown.escape)="onThemeNameEscape($event)"
                         />
-                        <i class="!hidden group-hover:!block pi pi-pencil !text-xs absolute top-50 text-muted-color" style="right: 2px"></i>
+                        @if (theme.t_origin === 'web') {
+                            <i class="!hidden group-hover:!block pi pi-pencil !text-xs absolute top-50 text-muted-color" style="right: 2px"></i>
+                        }
                     </div>
                     <span class="text-muted-color text-xs">{{ formatTimestamp(theme.t_last_updated) }}</span>
                 </div>

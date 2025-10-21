@@ -138,7 +138,7 @@ import { TooltipModule } from 'primeng/tooltip';
                 </div>
                 <div class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">AUTOMATED</div>
-                    <div class="text-5xl font-bold mb-4">Figma to Theme</div>
+                    <div class="text-5xl font-bold mb-4">Figma to Theme Code</div>
                     <p class="mb-4 text-lg">
                         <i>This feature requires a <a routerLink="/designer" class="doc-link">Theme Designer</a> subscription.</i>
                     </p>
@@ -155,6 +155,14 @@ import { TooltipModule } from 'primeng/tooltip';
                         <li class="flex items-center w-6/12 p-4">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
                             <span class="font-bold">Eliminate Handoff</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">CI Pipeline</span>
+                        </li>
+                        <li class="flex items-center w-6/12 p-4">
+                            <i class="pi pi-check-circle text-green-600 mr-2"></i>
+                            <span class="font-bold">Live Preview</span>
                         </li>
                         <li class="flex items-center w-6/12 p-4">
                             <i class="pi pi-check-circle text-green-600 mr-2"></i>
