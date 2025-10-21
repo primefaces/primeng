@@ -40,14 +40,20 @@ import { AppDocThemingSection } from './app.docthemingsection';
                 <app-docfeaturessection [header]="header() ?? _componentName()" [description]="description" [docs]="docs" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
             }
             @if (apiDocs) {
-                <app-docapisection [docs]="apiDocs" [header]="header() ?? _componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
+                @defer (when docService.activeTab() === 1) {
+                    <app-docapisection [docs]="apiDocs" [header]="header() ?? _componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
+                }
             }
 
             @if (themeDocs) {
-                <app-docthemingsection [header]="header()" [docs]="themeDocs" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+                @defer (when docService.activeTab() === 2) {
+                    <app-docthemingsection [header]="header()" [docs]="themeDocs" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+                }
             }
             @if (ptDocs()) {
-                <app-docptsection [ptComponent]="ptDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 3 ? 'flex' : 'none' }" />
+                @defer (when docService.activeTab() === 3) {
+                    <app-docptsection [ptComponent]="ptDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 3 ? 'flex' : 'none' }" />
+                }
             }
         </div>
     </div>`,
