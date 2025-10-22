@@ -348,7 +348,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
         return this.ptm(key, {
             context: {
                 active: this.isItemActive(id),
-                hidden: !this._visible
+                hidden: !this.visible
             }
         });
     }
@@ -537,7 +537,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     onEnterKey(event: any) {
-        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
         const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
         if (itemIndex !== -1 && this.model && this.model[itemIndex]) {
@@ -619,7 +619,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     findPrevOptionIndex(index) {
-        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
 
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[filteredItems.length - 1].id : index;
@@ -631,7 +631,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     findNextOptionIndex(index) {
-        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[0].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
@@ -642,7 +642,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     }
 
     changeFocusedOptionIndex(index) {
-        const items = find(this.container?.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
         const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
 
         if (filteredItems[index]) {

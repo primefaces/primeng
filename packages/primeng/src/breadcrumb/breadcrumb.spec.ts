@@ -4,8 +4,8 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
-import { Breadcrumb } from './breadcrumb';
 import { BreadcrumbItemClickEvent } from 'primeng/types/breadcrumb';
+import { Breadcrumb } from './breadcrumb';
 
 @Component({
     standalone: false,
@@ -315,7 +315,7 @@ describe('Breadcrumb', () => {
             component.home = { label: 'Home', icon: 'pi pi-home' };
             fixture.detectChanges();
 
-            const homeElement = fixture.debugElement.query(By.css('[data-pc-section="home"]'));
+            const homeElement = fixture.debugElement.query(By.css('[data-pc-section="homeitem"]'));
             expect(homeElement).toBeTruthy();
         });
 
@@ -323,7 +323,7 @@ describe('Breadcrumb', () => {
             component.home = undefined as any;
             fixture.detectChanges();
 
-            const homeElement = fixture.debugElement.query(By.css('[data-pc-section="home"]'));
+            const homeElement = fixture.debugElement.query(By.css('[data-pc-section="homeitem"]'));
             expect(homeElement).toBeFalsy();
         });
 
@@ -412,7 +412,7 @@ describe('Breadcrumb', () => {
             ];
             fixture.detectChanges();
 
-            const menuItems = fixture.debugElement.queryAll(By.css('[data-pc-section="menuitem"]'));
+            const menuItems = fixture.debugElement.queryAll(By.css('[data-pc-section="item"]'));
             expect(menuItems.length).toBe(2);
         });
 
@@ -724,7 +724,7 @@ describe('Breadcrumb', () => {
             const olElement = fixture.debugElement.query(By.css('ol'));
 
             expect(olElement).toBeTruthy();
-            expect(olElement.nativeElement.getAttribute('data-pc-section')).toBe('menu');
+            expect(olElement.nativeElement.getAttribute('data-pc-section')).toBe('list');
         });
 
         it('should apply individual item styles', () => {

@@ -1,10 +1,10 @@
-import { Code } from '@/domain/code';
-import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit } from '@angular/core';
-import { TreeDragDropService, TreeNode } from 'primeng/api';
-import { TreeModule } from 'primeng/tree';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { NodeService } from '@/service/nodeservice';
+import { Component, OnInit, signal } from '@angular/core';
+import { TreeDragDropService, TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'drag-drop-doc',
@@ -15,29 +15,31 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
+            <p-tree [value]="files()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
     `,
     providers: [TreeDragDropService]
 })
 export class DragDropDoc implements OnInit {
-    files!: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => (this.files = data));
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />`,
+        basic: `<p-tree [value]="files()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
+    <p-tree [value]="files()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, signal } from '@angular/core';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -50,12 +52,14 @@ import { Tree } from 'primeng/tree';
     providers: [TreeDragDropService, NodeService]
 })
 export class TreeDragDropDemo implements OnInit {
-    files!: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => (this.files = data));
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
     }
 }`,
 
