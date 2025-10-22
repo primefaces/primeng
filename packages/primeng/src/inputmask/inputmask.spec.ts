@@ -1117,9 +1117,9 @@ describe('InputMask', () => {
 
     describe('PassThrough (PT) Support', () => {
         describe('Case 1: Simple string classes', () => {
-            it('should apply PT with simple string classes to root', () => {
+            it('should apply PT with simple string classes to pcInputText', () => {
                 const pt = {
-                    root: 'PT_ROOT_CLASS'
+                    pcInputText: { root: 'PT_INPUT_CLASS' }
                 };
 
                 fixture.componentRef.setInput('pt', pt);
@@ -1127,7 +1127,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
-                expect(inputElement.classList.contains('PT_ROOT_CLASS')).toBe(true);
+                expect(inputElement?.classList.contains('PT_INPUT_CLASS')).toBe(true);
             });
 
             it('should apply PT with simple string classes to clearIcon', () => {
@@ -1149,13 +1149,15 @@ describe('InputMask', () => {
         });
 
         describe('Case 2: Objects', () => {
-            it('should apply PT with object properties to root', () => {
+            it('should apply PT with object properties to pcInputText', () => {
                 const pt = {
-                    root: {
-                        class: 'PT_OBJECT_CLASS',
-                        style: { 'background-color': 'red' },
-                        'data-p-test': 'true',
-                        'aria-label': 'PT_ARIA_LABEL'
+                    pcInputText: {
+                        root: {
+                            class: 'PT_OBJECT_CLASS',
+                            style: { 'background-color': 'red' },
+                            'data-p-test': 'true',
+                            'aria-label': 'PT_ARIA_LABEL'
+                        }
                     }
                 };
 
@@ -1164,10 +1166,10 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
-                expect(inputElement.classList.contains('PT_OBJECT_CLASS')).toBe(true);
-                expect(inputElement.style.backgroundColor).toBe('red');
-                expect(inputElement.getAttribute('data-p-test')).toBe('true');
-                expect(inputElement.getAttribute('aria-label')).toBe('PT_ARIA_LABEL');
+                expect(inputElement?.classList.contains('PT_OBJECT_CLASS')).toBe(true);
+                expect(inputElement?.style.backgroundColor).toBe('red');
+                expect(inputElement?.getAttribute('data-p-test')).toBe('true');
+                expect(inputElement?.getAttribute('aria-label')).toBe('PT_ARIA_LABEL');
             });
 
             it('should apply PT with object properties to clearIcon', () => {
@@ -1197,8 +1199,10 @@ describe('InputMask', () => {
         describe('Case 3: Mixed object and string values', () => {
             it('should apply mixed PT values correctly', () => {
                 const pt = {
-                    root: {
-                        class: 'PT_ROOT_OBJECT_CLASS'
+                    pcInputText: {
+                        root: {
+                            class: 'PT_INPUT_OBJECT_CLASS'
+                        }
                     },
                     clearIcon: 'PT_CLEAR_ICON_STRING_CLASS'
                 };
@@ -1210,23 +1214,25 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
-                expect(inputElement.classList.contains('PT_ROOT_OBJECT_CLASS')).toBe(true);
+                expect(inputElement?.classList.contains('PT_INPUT_OBJECT_CLASS')).toBe(true);
 
                 const clearIconElement = fixture.nativeElement.querySelector('svg');
                 if (clearIconElement) {
-                    expect(clearIconElement.classList.contains('PT_CLEAR_ICON_STRING_CLASS')).toBe(true);
+                    expect(clearIconElement?.classList.contains('PT_CLEAR_ICON_STRING_CLASS')).toBe(true);
                 }
             });
         });
 
         describe('Case 4: Use variables from instance', () => {
-            it('should apply PT using instance variables for root', () => {
+            it('should apply PT using instance variables for pcInputText', () => {
                 const pt = {
-                    root: ({ instance }: any) => {
+                    pcInputText: ({ instance }: any) => {
                         return {
-                            class: {
-                                PT_DISABLED: instance?.disabled,
-                                PT_READONLY: instance?.readonly
+                            root: {
+                                class: {
+                                    PT_DISABLED: instance?.disabled,
+                                    PT_READONLY: instance?.readonly
+                                }
                             }
                         };
                     }
@@ -1239,8 +1245,8 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
-                expect(inputElement.classList.contains('PT_DISABLED')).toBe(true);
-                expect(inputElement.classList.contains('PT_READONLY')).toBe(false);
+                expect(inputElement?.classList.contains('PT_DISABLED')).toBe(true);
+                expect(inputElement?.classList.contains('PT_READONLY')).toBe(false);
             });
 
             it('should apply PT using instance variables for clearIcon', () => {
@@ -1268,14 +1274,16 @@ describe('InputMask', () => {
         });
 
         describe('Case 5: Event binding', () => {
-            it('should handle onclick event in PT', () => {
+            it('should handle onclick event in pcInputText PT', () => {
                 let clickedValue = '';
 
                 const pt = {
-                    root: ({ instance }: any) => {
+                    pcInputText: ({ instance }: any) => {
                         return {
-                            onclick: () => {
-                                clickedValue = instance.value || 'clicked';
+                            root: {
+                                onclick: () => {
+                                    clickedValue = instance.value || 'clicked';
+                                }
                             }
                         };
                     }
@@ -1287,7 +1295,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
-                inputElement.click();
+                inputElement?.click();
                 fixture.detectChanges();
 
                 expect(clickedValue).toBe('123-45-6789');
@@ -1325,7 +1333,7 @@ describe('InputMask', () => {
             @Component({
                 standalone: true,
                 imports: [InputMask, FormsModule],
-                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ root: 'INLINE_PT_CLASS' }" />`
+                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ pcInputText: { root: 'INLINE_PT_CLASS' } }" />`
             })
             class InlineTestComponent {}
 
@@ -1334,13 +1342,13 @@ describe('InputMask', () => {
                 inlineFixture.detectChanges();
 
                 const inputElement = inlineFixture.nativeElement.querySelector('input');
-                expect(inputElement.classList.contains('INLINE_PT_CLASS')).toBe(true);
+                expect(inputElement?.classList.contains('INLINE_PT_CLASS')).toBe(true);
             });
 
             @Component({
                 standalone: true,
                 imports: [InputMask, FormsModule],
-                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ root: { class: 'INLINE_PT_OBJECT_CLASS' } }" />`
+                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ pcInputText: { root: { class: 'INLINE_PT_OBJECT_CLASS' } } }" />`
             })
             class InlineObjectTestComponent {}
 
@@ -1349,7 +1357,7 @@ describe('InputMask', () => {
                 inlineFixture.detectChanges();
 
                 const inputElement = inlineFixture.nativeElement.querySelector('input');
-                expect(inputElement.classList.contains('INLINE_PT_OBJECT_CLASS')).toBe(true);
+                expect(inputElement?.classList.contains('INLINE_PT_OBJECT_CLASS')).toBe(true);
             });
         });
 
@@ -1364,7 +1372,7 @@ describe('InputMask', () => {
                             useValue: {
                                 pt: {
                                     inputmask: {
-                                        root: { 'aria-label': 'GLOBAL_PT_ARIA_LABEL' }
+                                        pcInputText: { root: { 'aria-label': 'GLOBAL_PT_ARIA_LABEL' } }
                                     }
                                 }
                             }
@@ -1387,7 +1395,7 @@ describe('InputMask', () => {
                 let onInitCalled = false;
 
                 const pt = {
-                    root: 'PT_HOOKS_CLASS',
+                    pcInputText: { root: 'PT_HOOKS_CLASS' },
                     hooks: {
                         onInit: () => {
                             onInitCalled = true;
@@ -1428,6 +1436,116 @@ describe('InputMask', () => {
 
                 expect(onDestroyCalled).toBe(true);
             }));
+        });
+
+        describe('Case 9: Host/Root PT tests', () => {
+            it('should apply PT with simple string class to host', () => {
+                const pt = {
+                    host: 'PT_HOST_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                // Host element is the component's root element
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(hostElement?.classList.contains('PT_HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply PT with object properties to host', () => {
+                const pt = {
+                    host: {
+                        class: 'PT_HOST_OBJECT_CLASS',
+                        style: { border: '2px solid green' },
+                        'data-host-test': 'true'
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(hostElement?.classList.contains('PT_HOST_OBJECT_CLASS')).toBe(true);
+                expect(hostElement?.style.border).toBe('2px solid green');
+                expect(hostElement?.getAttribute('data-host-test')).toBe('true');
+            });
+
+            it('should apply PT with simple string class to root', () => {
+                const pt = {
+                    root: 'PT_ROOT_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(hostElement?.classList.contains('PT_ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT with object properties to root', () => {
+                const pt = {
+                    root: {
+                        class: 'PT_ROOT_OBJECT_CLASS',
+                        style: { padding: '10px' },
+                        'data-root-test': 'true'
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(hostElement?.classList.contains('PT_ROOT_OBJECT_CLASS')).toBe(true);
+                expect(hostElement?.style.padding).toBe('10px');
+                expect(hostElement?.getAttribute('data-root-test')).toBe('true');
+            });
+
+            it('should merge host and root PT properties', () => {
+                const pt = {
+                    host: 'PT_HOST_MERGED',
+                    root: 'PT_ROOT_MERGED'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                // Both classes should be applied since host and root target the same element
+                expect(hostElement?.classList.contains('PT_HOST_MERGED')).toBe(true);
+                expect(hostElement?.classList.contains('PT_ROOT_MERGED')).toBe(true);
+            });
+
+            it('should apply PT using instance variables for host', () => {
+                // Test verifies PT function can access instance properties
+                let capturedInstance: any = null;
+
+                const pt = {
+                    host: ({ instance }: any) => {
+                        capturedInstance = instance;
+                        return {
+                            'data-has-disabled': instance?.disabled !== undefined ? 'true' : 'false',
+                            'data-has-readonly': instance?.readonly !== undefined ? 'true' : 'false'
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('disabled', true);
+                fixture.componentRef.setInput('readonly', false);
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(capturedInstance).toBeDefined();
+                expect(capturedInstance.disabled).toBeDefined();
+                expect(hostElement?.getAttribute('data-has-disabled')).toBe('true');
+                expect(hostElement?.getAttribute('data-has-readonly')).toBe('true');
+            });
         });
     });
 });

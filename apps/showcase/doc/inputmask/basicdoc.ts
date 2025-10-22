@@ -14,25 +14,13 @@ import { InputMaskModule } from 'primeng/inputmask';
             <p>InputMask is used as a controlled input with <i>ngModel</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-inputmask mask="99-999999" [disabled]="true" [readonly]="true" [(ngModel)]="value" placeholder="99-999999" [pt]="pt" />
+            <p-inputmask mask="99-999999" [disabled]="true" [readonly]="true" [(ngModel)]="value" placeholder="99-999999" />
         </div>
         <app-code [code]="code" selector="input-mask-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
     value: string | undefined;
-
-    pt = {
-        root: ({ instance }: any) => {
-            return {
-                class: {
-                    PT_DISABLED: instance?.disabled,
-                    PT_READONLY: instance?.readonly
-                }
-            };
-        },
-        pcInputText: 'helloworld'
-    };
 
     code: Code = {
         basic: `<p-inputmask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" />`,
