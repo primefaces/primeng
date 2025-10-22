@@ -171,7 +171,8 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
         }
     `,
     encapsulation: ViewEncapsulation.None,
-    providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }]
+    providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UITreeNode extends BaseComponent<TreePassThrough> {
     $pcTreeNode: UITreeNode | undefined = inject(TREENODE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -820,7 +821,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         </div>
         <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [TreeStyle, { provide: TREE_INSTANCE, useExisting: Tree }, { provide: PARENT_INSTANCE, useExisting: Tree }],
     host: {
