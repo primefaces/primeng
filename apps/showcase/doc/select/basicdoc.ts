@@ -22,20 +22,12 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [pt]="pt" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-basic-demo"></app-code>
     `
 })
 export class BasicDoc implements OnInit {
-    pt = {
-        root: {
-            class: 'ROOT-CLASS'
-        },
-        item: {
-            class: 'ROOT-CLASS'
-        }
-    };
     cities: City[];
 
     selectedCity: City | undefined;

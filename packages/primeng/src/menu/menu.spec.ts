@@ -528,7 +528,7 @@ describe('Menu', () => {
             commandFixture.detectChanges();
 
             const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="menuitem"]'));
-            const contentElement = itemElement.query(By.css('div[data-pc-section="content"]'));
+            const contentElement = itemElement.query(By.css('div[data-pc-section="itemcontent"]'));
 
             contentElement.nativeElement.click();
             tick();
