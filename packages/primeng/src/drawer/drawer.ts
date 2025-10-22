@@ -422,11 +422,6 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     }
 
     getMaskStyle() {
-        const a = this.maskStyle
-            ? Object.entries(this.maskStyle)
-                  .map(([key, value]) => `${key}: ${value}`)
-                  .join('; ')
-            : '';
         return this.maskStyle
             ? Object.entries(this.maskStyle)
                   .map(([key, value]) => `${key}: ${value}`)
