@@ -30,6 +30,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { DrawerPassThrough } from 'primeng/types/drawer';
 import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
+import { FocusTrapModule } from 'primeng/focustrap';
 
 const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
 
@@ -45,7 +46,7 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 @Component({
     selector: 'p-drawer',
     standalone: true,
-    imports: [CommonModule, Button, TimesIcon, SharedModule, Bind],
+    imports: [CommonModule, Button, TimesIcon, SharedModule, Bind, FocusTrapModule],
     providers: [DrawerStyle, { provide: DRAWER_INSTANCE, useExisting: Drawer }, { provide: PARENT_INSTANCE, useExisting: Drawer }],
     hostDirectives: [Bind],
     template: `
@@ -62,6 +63,7 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
             [attr.data-pc-name]="'sidebar'"
             [attr.data-pc-section]="'root'"
             (keydown)="onKeyDown($event)"
+            pFocusTrap
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
