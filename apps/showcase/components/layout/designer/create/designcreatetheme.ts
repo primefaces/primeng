@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import Aura from '@primeuix/themes/aura';
 import Lara from '@primeuix/themes/lara';
+import Material from '@primeuix/themes/material';
 import Nora from '@primeuix/themes/nora';
 import { MessageService } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
@@ -12,6 +13,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 
 const presets = {
     Aura,
+    Material,
     Lara,
     Nora
 };
@@ -52,9 +54,7 @@ const presets = {
                         <button type="button" (click)="createThemeFromPreset()" class="btn-design">Create</button>
                     </div>
                 </div>
-
                 <p-divider>OR</p-divider>
-
                 <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4">
                     <div class="flex items-center gap-1">
                         <svg width="20px" height="20px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +74,6 @@ const presets = {
                     </div>
                 </div>
                 <p-divider>OR</p-divider>
-
                 <div class="flex flex-col gap-4 border border-surface-200 dark:border-surface-700 rounded-md p-4">
                     <div class="flex items-center gap-1">
                         <svg width="20px" height="20px" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,6 +108,7 @@ export class DesignCreateTheme {
 
     presetOptions = [
         { label: 'Aura', value: 'Aura' },
+        { label: 'Material', value: 'Material' },
         { label: 'Lara', value: 'Lara' },
         { label: 'Nora', value: 'Nora' }
     ];

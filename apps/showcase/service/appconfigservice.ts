@@ -1,5 +1,5 @@
 import { AppState } from '@/domain/appstate';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { computed, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 @Injectable({
     providedIn: 'root'
@@ -26,31 +26,19 @@ export class AppConfigService {
 
     darkMode = computed(() => this.appState().darkTheme);
 
+    primaryPalette = computed(() => this.appState().primary);
+
+    surfacePalette = computed(() => this.appState().surface);
+
     constructor() {
         effect(() => {
             const isDarkMode = this.darkMode();
+            const currentPrimaryPalette = this.primaryPalette();
+            const currentSurfacePalette = this.surfacePalette();
 
-            this.handleDarkModeTransition(isDarkMode);
+            this.toggleDarkMode(isDarkMode);
+            this.onTransitionEnd();
         });
-    }
-
-    private handleDarkModeTransition(darkMode: boolean): void {
-        if (isPlatformBrowser(this.platformId)) {
-            if ((document as any).startViewTransition) {
-                this.startViewTransition(darkMode);
-            } else {
-                this.toggleDarkMode(darkMode);
-                this.onTransitionEnd();
-            }
-        }
-    }
-
-    private startViewTransition(darkMode: boolean): void {
-        const transition = (document as any).startViewTransition(() => {
-            this.toggleDarkMode(darkMode);
-        });
-
-        transition.ready.then(() => this.onTransitionEnd());
     }
 
     private toggleDarkMode(darkMode: boolean): void {

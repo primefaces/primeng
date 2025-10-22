@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'override-doc',
@@ -60,7 +60,7 @@ export class OverrideDoc {
 
     code4 = {
         basic: `@import "tailwindcss";
-@plugin "tailwindcss-primeui";`
+@import "tailwindcss-primeui";`
     };
 
     code5 = {
