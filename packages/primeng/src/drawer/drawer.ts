@@ -59,8 +59,6 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
             (@panelState.done)="onAnimationEnd($event)"
             [style]="style"
             role="complementary"
-            [attr.data-pc-name]="'sidebar'"
-            [attr.data-pc-section]="'root'"
             (keydown)="onKeyDown($event)"
         >
             @if (headlessTemplate || _headlessTemplate) {
@@ -77,7 +75,6 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
                         (keydown.enter)="close($event)"
                         [buttonProps]="closeButtonProps"
                         [ariaLabel]="ariaCloseLabel"
-                        [attr.data-pc-section]="'closebutton'"
                         [attr.data-pc-group-section]="'iconcontainer'"
                     >
                         <ng-template #icon>
@@ -402,10 +399,11 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
+
             if (this.mask) {
-                addClass(this.mask, this.cx('mask'));
-                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
                 setAttribute(this.mask, 'style', this.getMaskStyle());
+                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
+                addClass(this.mask, this.cx('mask'));
             }
 
             if (this.dismissible) {
