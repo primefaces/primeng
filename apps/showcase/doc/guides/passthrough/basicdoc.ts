@@ -35,11 +35,15 @@ export class BasicDoc {
             style: {
                 'user-select': 'none'
             },
-            class: ['flex items-center justify-between text-primary font-bold']
+            class: ['!text-primary font-bold !p-0']
         }),
-        content: { class: 'text-primary-700 dark:text-primary-200' },
+        content: { class: 'text-primary-700 dark:text-primary-200 !p-0 mt-2' },
         title: 'text-xl',
-        toggler: () => 'bg-primary text-primary-contrast hover:text-primary hover:bg-primary-contrast'
+        pcToggleButton: {
+            icon: {
+                class: 'text-primary'
+            }
+        }
     };
 
     code: Code = {
@@ -68,18 +72,22 @@ import { PanelModule } from 'primeng/panel';
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-   pt = {
+    pt = {
         root: '!border !border-primary !rounded-xl p-4',
         header: (options) => ({
             id: 'myPanelHeader',
             style: {
                 'user-select': 'none'
             },
-            class: ['flex items-center justify-between text-primary font-bold']
+            class: ['!text-primary font-bold !p-0']
         }),
-        content: { class: 'text-primary-700 dark:text-primary-200' },
+        content: { class: 'text-primary-700 dark:text-primary-200 !p-0 mt-2' },
         title: 'text-xl',
-        toggler: () => 'bg-primary text-primary-contrast hover:text-primary hover:bg-primary-contrast'
+        pcToggleButton: {
+            icon: {
+                class: 'text-primary'
+            }
+        }
     };
 }`
     };
