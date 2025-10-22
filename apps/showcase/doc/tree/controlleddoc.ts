@@ -1,11 +1,11 @@
-import { Code } from '@/domain/code';
-import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { TreeModule } from 'primeng/tree';
-import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { NodeService } from '@/service/nodeservice';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'controlled-doc',
@@ -20,28 +20,31 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
                 <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
             </div>
-            <p-tree [value]="files" class="w-full md:w-[30rem]" />
+            <p-tree [value]="files()" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="tree-controlled-demo"></app-code>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlledDoc implements OnInit {
-    files!: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => (this.files = data));
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
     }
 
     expandAll() {
-        this.files.forEach((node) => {
+        this.files().forEach((node) => {
             this.expandRecursive(node, true);
         });
     }
 
     collapseAll() {
-        this.files.forEach((node) => {
+        this.files().forEach((node) => {
             this.expandRecursive(node, false);
         });
     }
@@ -60,17 +63,17 @@ export class ControlledDoc implements OnInit {
     <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
     <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
 </div>
-<p-tree [value]="files" class="w-full md:w-[30rem]" />`,
+<p-tree [value]="files()" class="w-full md:w-[30rem]" />`,
 
         html: `<div class="card">
     <div class="flex flex-wrap gap-2 mb-6">
         <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
         <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
     </div>
-    <p-tree [value]="files" class="w-full md:w-[30rem]" />
+    <p-tree [value]="files()" class="w-full md:w-[30rem]" />
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { ButtonModule } from 'primeng/button';
@@ -83,22 +86,24 @@ import { ButtonModule } from 'primeng/button';
     providers: [NodeService]
 })
 export class TreeControlledDemo implements OnInit {
-    files!: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => (this.files = data));
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
     }
 
     expandAll() {
-        this.files.forEach((node) => {
+        this.files().forEach((node) => {
             this.expandRecursive(node, true);
         });
     }
 
     collapseAll() {
-        this.files.forEach((node) => {
+        this.files().forEach((node) => {
             this.expandRecursive(node, false);
         });
     }
@@ -111,6 +116,7 @@ export class TreeControlledDemo implements OnInit {
             });
         }
     }
+
 }`,
 
         service: ['NodeService'],

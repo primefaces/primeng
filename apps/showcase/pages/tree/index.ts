@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/tree/accessibilitydoc';
 import { BasicDoc } from '@/doc/tree/basicdoc';
 import { CheckboxDoc } from '@/doc/tree/checkboxdoc';
@@ -14,13 +15,13 @@ import { SingleDoc } from '@/doc/tree/singledoc';
 import { TemplateDoc } from '@/doc/tree/templatedoc';
 import { VirtualScrollDoc } from '@/doc/tree/virtualscrolldoc';
 import { LazyVirtualScrollDoc } from '@/doc/tree/virtualscrolllazydoc';
-import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Tree Component" header="Tree" description="Tree is used to display hierarchical data." [docs]="docs" [apiDocs]="['Tree', 'TreeNode']" [ptDocs]="ptComponent" themeDocs="tree"></app-doc>`,
     standalone: true,
-    imports: [AppDoc]
+    imports: [AppDoc],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TreeDemo {
     ptComponent = PTComponent;

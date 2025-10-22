@@ -1,12 +1,12 @@
-import { Code } from '@/domain/code';
-import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit } from '@angular/core';
-import { MessageService, TreeNode } from 'primeng/api';
-import { FormsModule } from '@angular/forms';
-import { TreeModule } from 'primeng/tree';
-import { ToastModule } from 'primeng/toast';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { NodeService } from '@/service/nodeservice';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MessageService, TreeNode } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'event-doc',
@@ -31,10 +31,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </div>
         <app-code [code]="code" selector="tree-events-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventDoc implements OnInit {
-    files!: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
     selectedFile!: TreeNode;
 
@@ -44,7 +45,9 @@ export class EventDoc implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => (this.files = data));
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
     }
 
     nodeExpand(event: any) {
@@ -64,14 +67,14 @@ export class EventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />`,
+        basic: `<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />`,
 
         html: `<div class="card">
     <p-toast />
-    <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />
+    <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" />
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, signal } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -85,14 +88,19 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService, NodeService]
 })
 export class TreeEventsDemo implements OnInit {
-    files!: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
     selectedFile!: TreeNode;
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
+    constructor(
+        private nodeService: NodeService,
+        private messageService: MessageService
+    ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => (this.files = data));
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
     }
 
     nodeExpand(event: any) {
