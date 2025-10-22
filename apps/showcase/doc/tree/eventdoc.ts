@@ -19,7 +19,7 @@ import { TreeModule } from 'primeng/tree';
         <div class="card">
             <p-toast />
             <p-tree
-                [value]="files"
+                [value]="files()"
                 class="w-full md:w-[30rem]"
                 selectionMode="single"
                 [(selection)]="selectedFile"
