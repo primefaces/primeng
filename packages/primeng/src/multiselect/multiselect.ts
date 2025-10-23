@@ -231,7 +231,6 @@ export class MultiSelectItem extends BaseComponent {
                                                     [class]="cx('chipIcon')"
                                                     *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate"
                                                     (click)="removeOption(item, $event)"
-                                                    [attr.data-pc-section]="'clearicon'"
                                                     [attr.aria-hidden]="true"
                                                     [pBind]="ptm('chipIcon')"
                                                 >
