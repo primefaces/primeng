@@ -113,7 +113,7 @@ export class FileContent extends BaseComponent {
     standalone: true,
     imports: [CommonModule, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule, FileContent, Bind],
     template: `
-        <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" *ngIf="mode === 'advanced'" [attr.data-pc-name]="'fileupload'" [pBind]="ptm('root')">
+        <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" *ngIf="mode === 'advanced'" [pBind]="ptm('root')">
             <input
                 [attr.aria-label]="browseFilesLabel"
                 #advancedfileinput
@@ -270,7 +270,7 @@ export class FileContent extends BaseComponent {
                 }
             </div>
         </div>
-        <div [class]="cn(cx('root'), styleClass)" *ngIf="mode === 'basic'" [attr.data-pc-name]="'fileupload'">
+        <div [class]="cn(cx('root'), styleClass)" *ngIf="mode === 'basic'" [pBind]="ptm('root')">
             @for (message of msgs; track message) {
                 <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')"></p-message>
             }
