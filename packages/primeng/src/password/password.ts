@@ -629,6 +629,15 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @Input({ transform: numberAttribute }) tabindex?: number;
     /**
+     * Sets the visibility of the password field.
+     * @defaultValue false
+     * @type boolean
+     * @group Props
+     */
+    @Input() set showPassword(show: boolean) {
+        this.unmasked = show
+    }
+    /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
      * @group Props
