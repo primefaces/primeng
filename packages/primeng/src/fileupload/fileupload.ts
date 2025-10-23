@@ -123,7 +123,6 @@ export class FileContent extends BaseComponent {
                 [accept]="accept"
                 [disabled]="disabled || isChooseDisabled()"
                 [attr.title]="''"
-                [attr.data-pc-section]="'input'"
                 [style.display]="'none'"
                 [pBind]="ptm('input')"
             />
@@ -137,7 +136,6 @@ export class FileContent extends BaseComponent {
                         (blur)="onBlur()"
                         (onClick)="choose()"
                         (keydown.enter)="choose()"
-                        [attr.data-pc-section]="'choosebutton'"
                         [buttonProps]="chooseButtonProps"
                         [pt]="ptm('pcChooseButton')"
                     >
@@ -150,14 +148,13 @@ export class FileContent extends BaseComponent {
                             [accept]="accept"
                             [disabled]="disabled || isChooseDisabled()"
                             [attr.title]="''"
-                            [attr.data-pc-section]="'input'"
                             [pBind]="ptm('input')"
                         />
                         <ng-template #icon>
-                            <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
+                            <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon"></span>
                             <ng-container *ngIf="!chooseIcon">
-                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
-                                <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'">
+                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon" />
+                                <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon">
                                     <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
                                 </span>
                             </ng-container>
@@ -174,10 +171,10 @@ export class FileContent extends BaseComponent {
                         [pt]="ptm('pcUploadButton')"
                     >
                         <ng-template #icon>
-                            <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true"></span>
+                            <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon"></span>
                             <ng-container *ngIf="!uploadIcon">
-                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" />
-                                <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true">
+                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [pBind]="ptm('pcUploadButton')?.icon" />
+                                <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon">
                                     <ng-template *ngTemplateOutlet="uploadIconTemplate || _uploadIconTemplate"></ng-template>
                                 </span>
                             </ng-container>
@@ -217,7 +214,7 @@ export class FileContent extends BaseComponent {
                 ></ng-container>
                 <ng-container *ngTemplateOutlet="toolbarTemplate || _toolbarTemplate"></ng-container>
             </div>
-            <div #content [class]="cx('content')" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [attr.data-pc-section]="'content'" [pBind]="ptm('content')">
+            <div #content [class]="cx('content')" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [pBind]="ptm('content')">
                 @if (contentTemplate || _contentTemplate) {
                     <ng-container
                         *ngTemplateOutlet="
@@ -288,34 +285,22 @@ export class FileContent extends BaseComponent {
                 >
                     <ng-template #icon>
                         @if (hasFiles() && !auto) {
-                            <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon"></span>
+                            <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
                             <ng-container *ngIf="!uploadIcon">
-                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [class]="'p-button-icon p-button-icon-left'" />
-                                <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left">
+                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [class]="'p-button-icon p-button-icon-left'" [pBind]="ptm('pcChooseButton')?.icon" />
+                                <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left" [pBind]="ptm('pcChooseButton')?.icon">
                                     <ng-template *ngTemplateOutlet="_uploadIconTemplate || uploadIconTemplate"></ng-template>
                                 </span>
                             </ng-container>
                         } @else {
-                            <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon"></span>
+                            <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
                             <ng-container *ngIf="!chooseIcon">
-                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.data-pc-section]="'uploadicon'" />
+                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [pBind]="ptm('pcChooseButton')?.icon" />
                                 <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
                             </ng-container>
                         }
                     </ng-template>
-                    <input
-                        [attr.aria-label]="browseFilesLabel"
-                        #basicfileinput
-                        type="file"
-                        [accept]="accept"
-                        [multiple]="multiple"
-                        [disabled]="disabled"
-                        (change)="onFileSelect($event)"
-                        (focus)="onFocus()"
-                        (blur)="onBlur()"
-                        [attr.data-pc-section]="'input'"
-                        [pBind]="ptm('input')"
-                    />
+                    <input [attr.aria-label]="browseFilesLabel" #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" (focus)="onFocus()" (blur)="onBlur()" [pBind]="ptm('input')" />
                 </p-button>
                 @if (!auto) {
                     @if (!fileLabelTemplate && !_fileLabelTemplate) {
