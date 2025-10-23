@@ -10,7 +10,7 @@ import { TimesIcon } from 'primeng/icons';
     imports: [CommonModule, AppDocPtViewer, DrawerModule, TimesIcon],
     template: `
         <app-docptviewer [docs]="docs" class="!justify-start" #docref>
-            <p-drawer [(visible)]="visible" styleClass="!relative !h-[450px] !w-80" header="Drawer" [appendTo]="docref?.nativeElement" [baseZIndex]="2" [modal]="false">
+            <p-drawer [(visible)]="visible" styleClass="!relative !h-[450px] !w-80" header="Drawer" [appendTo]="docref?.nativeElement" [modal]="false">
                 <ng-template #headless>
                     <span class="p-hidden-accessible p-hidden-focusable" tabindex="0" role="presentation" aria-hidden="true" data-p-hidden-accessible="true" data-p-hidden-focusable="true" data-pc-section="firstfocusableelement"></span>
                     <div class="p-drawer-header" data-pc-section="header">
