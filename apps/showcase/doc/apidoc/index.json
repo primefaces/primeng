@@ -39528,6 +39528,13 @@
                                 "description": "Used to pass attributes to the scrollable wrapper's DOM element."
                             },
                             {
+                                "name": "scrollableView",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLDivElement, I>",
+                                "description": "Used to pass attributes to the scrollable container's DOM element."
+                            },
+                            {
                                 "name": "scrollableHeader",
                                 "optional": true,
                                 "readonly": false,
