@@ -3906,7 +3906,7 @@ export class TTRow extends BaseComponent {
         return {
             context: {
                 selectable: this.treeTable?.rowHover || this.treeTable.selectionMode === 'row',
-                selected: this.treeTable.isSelected((<any>this.rowNode).node),
+                selected: this.treeTable.isSelected((<any>this.rowNode)?.node),
                 scrollable: this.treeTable?.scrollable,
                 rowNode: this.rowNode
             }
