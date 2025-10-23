@@ -4,7 +4,8 @@ import { BasicDoc } from '@/doc/tree/basicdoc';
 import { CheckboxDoc } from '@/doc/tree/checkboxdoc';
 import { ContextMenuDoc } from '@/doc/tree/contextmenudoc';
 import { ControlledDoc } from '@/doc/tree/controlleddoc';
-import { DragDropDoc } from '@/doc/tree/dragdropdoc';
+import { SingleDragDropDoc } from '@/doc/tree/dragdrop/singledragdropdoc';
+import { MultipleDragDropDoc } from '@/doc/tree/dragdrop/multipledragdropdoc';
 import { EventDoc } from '@/doc/tree/eventdoc';
 import { FilterDoc } from '@/doc/tree/filterdoc';
 import { ImportDoc } from '@/doc/tree/importdoc';
@@ -102,7 +103,19 @@ export class TreeDemo {
         {
             id: 'dragdrop',
             label: 'DragDrop',
-            component: DragDropDoc
+
+            children: [
+                {
+                    id: 'dragdrop-single',
+                    label: 'Single',
+                    component: SingleDragDropDoc
+                },
+                {
+                    id: 'dragdrop-multiple',
+                    label: 'Multiple',
+                    component: MultipleDragDropDoc
+                }
+            ]
         },
         {
             id: 'contextmenu',

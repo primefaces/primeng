@@ -72,7 +72,6 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                 [attr.aria-posinset]="getAriaPosInset(index)"
                 [ngStyle]="getItemProp(processedItem, 'style')"
                 [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
-                [attr.data-pc-section]="'item'"
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 [pBind]="getPTOptions(processedItem, index, 'item')"

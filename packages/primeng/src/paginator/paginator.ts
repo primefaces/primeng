@@ -141,8 +141,6 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [PaginatorStyle, { provide: PAGINATOR_INSTANCE, useExisting: Paginator }, { provide: PARENT_INSTANCE, useExisting: Paginator }],
     host: {
-        '[attr.data-pc-name]': "'paginator'",
-        '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('paginator'), styleClass)"
     },
     hostDirectives: [Bind]

@@ -69,14 +69,13 @@ export class MenubarService {
                 [style]="getItemProp(processedItem, 'style')"
                 [class]="cn(cx('separator'), processedItem?.styleClass)"
                 role="separator"
-                [attr.data-pc-section]="'separator'"
+                [pBind]="ptm('separator')"
             ></li>
             <li
                 #listItem
                 *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
                 role="menuitem"
                 [attr.id]="getItemId(processedItem)"
-                [attr.data-pc-section]="'menuitem'"
                 [attr.data-p-highlight]="isItemActive(processedItem)"
                 [attr.data-p-focused]="isItemFocused(processedItem)"
                 [attr.data-p-disabled]="isItemDisabled(processedItem)"
@@ -92,13 +91,12 @@ export class MenubarService {
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
             >
-                <div [class]="cx('itemContent')" [attr.data-pc-section]="'content'" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                     <ng-container *ngIf="!itemTemplate">
                         <a
                             *ngIf="!getItemProp(processedItem, 'routerLink')"
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
-                            [attr.data-pc-section]="'action'"
                             [attr.target]="getItemProp(processedItem, 'target')"
                             [class]="cx('itemLink')"
                             [attr.tabindex]="-1"
@@ -109,25 +107,24 @@ export class MenubarService {
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                 [style]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             >
                             </span>
-                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
                                 {{ getItemLabel(processedItem) }}
                             </span>
                             <ng-template #htmlLabel>
-                                <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
+                                <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
                             </ng-template>
                             <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [pt]="getPTOptions(processedItem, index, 'pcBadge')" />
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
-                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" *ngIf="root" [attr.data-pc-section]="'submenuicon'" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
-                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
+                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" *ngIf="root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
+                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" *ngIf="!root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
                                 </ng-container>
-                                <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
                             </ng-container>
                         </a>
                         <a
@@ -135,7 +132,6 @@ export class MenubarService {
                             [routerLink]="getItemProp(processedItem, 'routerLink')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                             [attr.tabindex]="-1"
-                            [attr.data-pc-section]="'action'"
                             [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-menubar-item-link-active'"
                             [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
@@ -154,19 +150,18 @@ export class MenubarService {
                                 [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             ></span>
                             <span [class]="cx('itemLabel')" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemLabel(processedItem) }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
+                            <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
                             <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [pt]="getPTOptions(processedItem, index, 'pcBadge')" />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
-                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
-                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
+                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" *ngIf="root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
+                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" *ngIf="!root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
                                 </ng-container>
-                                <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
                             </ng-container>
                         </a>
                     </ng-container>
@@ -355,7 +350,6 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             [attr.aria-expanded]="mobileActive"
             [attr.aria-controls]="id"
             [attr.aria-label]="config.translation.aria.navigation"
-            [attr.data-pc-section]="'button'"
             *ngIf="model && model.length > 0"
             [class]="cx('button')"
             [pBind]="ptm('button')"
@@ -1133,7 +1127,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
             const element = <any>findSingle(this.rootmenu?.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
+            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="itemlink"]') || findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
         }

@@ -43,7 +43,7 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
         <div #content [pBind]="ptm('content')" [class]="cx('content')" (scroll)="onScroll($event)">
             <div #tabs [pBind]="ptm('tabList')" [class]="cx('tabList')" role="tablist">
                 <ng-content />
-                <span #inkbar [pBind]="ptm('activeBar')" role="presentation" [class]="cx('activeBar')" [attr.data-pc-section]="'inkbar'"></span>
+                <span #inkbar [pBind]="ptm('activeBar')" role="presentation" [class]="cx('activeBar')"></span>
             </div>
         </div>
         @if (showNavigators() && isNextButtonEnabled()) {

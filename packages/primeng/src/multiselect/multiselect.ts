@@ -97,7 +97,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         '[attr.data-p-disabled]': 'disabled',
         '[attr.aria-checked]': 'selected',
         '(click)': 'onOptionClick($event)',
-        '(mouseenter)': 'onOptionMouseEnter($event)'
+        '(mouseenter)': 'onOptionMouseEnter($event)',
+        '[class]': "cx('option')"
     }
 })
 export class MultiSelectItem extends BaseComponent {
@@ -230,7 +231,6 @@ export class MultiSelectItem extends BaseComponent {
                                                     [class]="cx('chipIcon')"
                                                     *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate"
                                                     (click)="removeOption(item, $event)"
-                                                    [attr.data-pc-section]="'clearicon'"
                                                     [attr.aria-hidden]="true"
                                                     [pBind]="ptm('chipIcon')"
                                                 >
@@ -320,7 +320,7 @@ export class MultiSelectItem extends BaseComponent {
                                 #headerCheckbox
                             >
                                 <ng-template #icon let-klass="class">
-                                    <svg data-p-icon="check" *ngIf="!headerCheckboxIconTemplate && !_headerCheckboxIconTemplate && allSelected()" [class]="klass" [attr.data-pc-section]="'icon'" />
+                                    <svg data-p-icon="check" *ngIf="!headerCheckboxIconTemplate && !_headerCheckboxIconTemplate && allSelected()" [class]="klass" [pBind]="getHeaderCheckboxPTOptions('pcHeaderCheckbox.icon')" />
                                     <ng-template
                                         *ngTemplateOutlet="
                                             headerCheckboxIconTemplate || _headerCheckboxIconTemplate;
@@ -404,7 +404,6 @@ export class MultiSelectItem extends BaseComponent {
                                             pMultiSelectItem
                                             pRipple
                                             [pBind]="getPTOptions(option, getItemOptions, i, 'option')"
-                                            [class]="cx('option')"
                                             [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                             [option]="option"
                                             [selected]="isSelected(option)"
