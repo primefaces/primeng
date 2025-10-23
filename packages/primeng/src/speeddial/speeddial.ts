@@ -63,7 +63,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                     [buttonProps]="buttonProps"
                     [pt]="ptm('pcButton')"
                 >
-                    <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" data-pc-section="icon" *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
+                    <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                 </button>
             </ng-container>
