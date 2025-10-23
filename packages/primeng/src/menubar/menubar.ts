@@ -150,19 +150,18 @@ export class MenubarService {
                                 [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             ></span>
                             <span [class]="cx('itemLabel')" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemLabel(processedItem) }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
+                            <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
                             <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [pt]="getPTOptions(processedItem, index, 'pcBadge')" />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
-                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
-                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" [attr.data-pc-section]="'submenuicon'" *ngIf="!root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
+                                    <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" *ngIf="root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
+                                    <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" *ngIf="!root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
                                 </ng-container>
-                                <ng-template *ngTemplateOutlet="submenuiconTemplate" [attr.data-pc-section]="'submenuicon'"></ng-template>
+                                <ng-template *ngTemplateOutlet="submenuiconTemplate"></ng-template>
                             </ng-container>
                         </a>
                     </ng-container>
@@ -351,7 +350,6 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             [attr.aria-expanded]="mobileActive"
             [attr.aria-controls]="id"
             [attr.aria-label]="config.translation.aria.navigation"
-            [attr.data-pc-section]="'button'"
             *ngIf="model && model.length > 0"
             [class]="cx('button')"
             [pBind]="ptm('button')"
