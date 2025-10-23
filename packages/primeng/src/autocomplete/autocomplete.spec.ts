@@ -4,9 +4,9 @@ import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsMo
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'primeng/types/autocomplete';
 import { BehaviorSubject } from 'rxjs';
 import { AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete, AutoCompleteModule } from './autocomplete';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'primeng/types/autocomplete';
 
 const mockCountries = [
     { name: 'Afghanistan', code: 'AF' },
@@ -2334,8 +2334,8 @@ describe('AutoComplete', () => {
                 fixture.detectChanges();
                 tick(300);
 
-                const overlay = document.querySelector('p-overlay') as HTMLElement;
-                expect(overlay).toBeTruthy();
+                const overlay = document.querySelector('.p-overlay') as HTMLElement;
+                expect(overlay.classList).toContain('PC_OVERLAY_CLASS');
             }));
 
             it('should apply pcChip pt to Chip components in multiple mode', fakeAsync(() => {
@@ -2351,18 +2351,44 @@ describe('AutoComplete', () => {
         });
 
         describe('Case 4: PT with overlay elements', () => {
-            it('should apply overlay class from pt when visible', fakeAsync(() => {
+            it('should apply overlay pt attributes and classes to host, root, and content sections', fakeAsync(() => {
                 fixture.componentRef.setInput('suggestions', mockCountries);
-                fixture.componentRef.setInput('pt', { overlay: 'OVERLAY_CLASS' });
+                fixture.componentRef.setInput('pt', {
+                    pcOverlay: {
+                        host: {
+                            'data-host': true,
+                            class: 'PC_OVERLAY_HOST'
+                        },
+                        root: {
+                            class: 'PC_OVERLAY_ROOT',
+                            'data-root': true
+                        },
+                        content: {
+                            class: { PC_OVERLAY_CONTENT: true },
+                            'data-content': true
+                        }
+                    }
+                });
                 fixture.detectChanges();
 
-                // Open overlay
                 fixture.componentInstance.show();
                 fixture.detectChanges();
                 tick(300);
 
-                const overlayDiv = document.body.querySelector('.p-autocomplete-overlay') as HTMLElement;
-                expect(overlayDiv?.classList.contains('OVERLAY_CLASS')).toBe(true);
+                const hostElement = document.body.querySelector('p-overlay[data-pc-section="host"]') as HTMLElement;
+                expect(hostElement).toBeTruthy();
+                expect(hostElement?.classList.contains('PC_OVERLAY_HOST')).toBe(true);
+                expect(hostElement?.getAttribute('data-host')).toBe('true');
+
+                const rootElement = document.body.querySelector('.p-overlay[data-pc-section="root"]') as HTMLElement;
+                expect(rootElement).toBeTruthy();
+                expect(rootElement?.classList.contains('PC_OVERLAY_ROOT')).toBe(true);
+                expect(rootElement?.getAttribute('data-root')).toBe('true');
+
+                const contentElement = document.body.querySelector('[data-pc-section="content"]') as HTMLElement;
+                expect(contentElement).toBeTruthy();
+                expect(contentElement?.classList.contains('PC_OVERLAY_CONTENT')).toBe(true);
+                expect(contentElement?.getAttribute('data-content')).toBe('true');
             }));
 
             it('should apply list class from pt when overlay is visible', fakeAsync(() => {
@@ -2509,26 +2535,14 @@ describe('AutoComplete', () => {
                     dropdown: ({ instance }) => ({
                         class: 'FUNC_DROPDOWN',
                         'data-has-suggestions': instance?.suggestions?.length > 0
-                    }),
-                    overlay: {
-                        class: 'OBJ_OVERLAY',
-                        style: { 'max-width': '300px' }
-                    }
+                    })
                 });
                 fixture.detectChanges();
                 tick();
 
-                const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+                const dropdownButton = autocompleteElement.querySelector('[data-pc-section="dropdown"]') as HTMLButtonElement;
                 expect(dropdownButton?.classList.contains('FUNC_DROPDOWN')).toBe(true);
                 expect(dropdownButton?.getAttribute('data-has-suggestions')).toBe('true');
-
-                // Open overlay
-                fixture.componentInstance.show();
-                fixture.detectChanges();
-                tick(300);
-
-                const overlayDiv = document.body.querySelector('.p-autocomplete-overlay') as HTMLElement;
-                expect(overlayDiv?.classList.contains('OBJ_OVERLAY')).toBe(true);
             }));
         });
     });
