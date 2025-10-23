@@ -197,8 +197,17 @@ export class TreeTableService {
                 [frozen]="true"
                 [ngStyle]="{ width: frozenWidth }"
                 [scrollHeight]="scrollHeight"
+                [pBind]="ptm('scrollableView')"
             ></div>
-            <div [class]="cx('scrollableView')" #scrollableView [ttScrollableView]="columns" [frozen]="false" [scrollHeight]="scrollHeight" [ngStyle]="{ left: frozenWidth, width: 'calc(100% - ' + frozenWidth + ')' }"></div>
+            <div
+                [class]="cx('scrollableView')"
+                [pBind]="ptm('scrollableView')"
+                #scrollableView
+                [ttScrollableView]="columns"
+                [frozen]="false"
+                [scrollHeight]="scrollHeight"
+                [ngStyle]="{ left: frozenWidth, width: 'calc(100% - ' + frozenWidth + ')' }"
+            ></div>
         </div>
 
         <p-paginator
@@ -269,7 +278,6 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
-
     /**
      * An array of objects to represent dynamic columns.
      * @group Props
@@ -2301,10 +2309,6 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
             this.documentEditListener();
             this.documentEditListener = null;
         }
-    }
-
-    ngAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
     onDestroy() {

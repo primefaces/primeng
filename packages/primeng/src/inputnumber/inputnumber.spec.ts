@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { InputNumber, InputNumberModule } from './inputnumber';
-import type { InputNumberInputEvent, InputNumberPassThrough } from 'primeng/types/inputnumber';
-import { CommonModule } from '@angular/common';
 import { providePrimeNG } from 'primeng/config';
+import type { InputNumberInputEvent } from 'primeng/types/inputnumber';
+import { InputNumber, InputNumberModule } from './inputnumber';
 
 // Test Components
 @Component({
@@ -1078,8 +1078,9 @@ describe('InputNumber', () => {
                 value: number = 100;
                 pt = {
                     root: 'ROOT_CLASS',
-                    pcInputText: 'INPUT_CLASS',
+                    pcInputText: { root: 'INPUT_CLASS' },
                     incrementButton: 'INCREMENT_CLASS',
+                    decrementButton: 'DECREMENT_CLASS',
                     buttonGroup: 'BUTTON_GROUP_CLASS'
                 };
             }
@@ -1095,20 +1096,20 @@ describe('InputNumber', () => {
                 testFixture.detectChanges();
                 tick();
 
-                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
-                }
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+                expect(rootEl?.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
-                if (inputEl) {
-                    expect(inputEl.nativeElement.classList.contains('INPUT_CLASS')).toBe(true);
-                }
+                expect(inputEl?.nativeElement.classList.contains('INPUT_CLASS')).toBe(true);
 
                 const buttonGroup = testFixture.debugElement.query(By.css('[data-pc-section="buttongroup"]'));
-                if (buttonGroup) {
-                    expect(buttonGroup.nativeElement.classList.contains('BUTTON_GROUP_CLASS')).toBe(true);
-                }
+                expect(buttonGroup?.nativeElement.classList.contains('BUTTON_GROUP_CLASS')).toBe(true);
+
+                const incrementButton = testFixture.debugElement.query(By.css('[data-pc-section="incrementbutton"]'));
+                expect(incrementButton?.nativeElement.classList.contains('INCREMENT_CLASS')).toBe(true);
+
+                const decrementButton = testFixture.debugElement.query(By.css('[data-pc-section="decrementbutton"]'));
+                expect(decrementButton?.nativeElement.classList.contains('DECREMENT_CLASS')).toBe(true);
 
                 flush();
             }));
@@ -1129,8 +1130,10 @@ describe('InputNumber', () => {
                         'aria-label': 'TEST_ARIA_LABEL'
                     },
                     pcInputText: {
-                        class: 'INPUT_OBJECT_CLASS',
-                        style: { color: 'blue' }
+                        root: {
+                            class: 'INPUT_OBJECT_CLASS',
+                            style: { color: 'blue' }
+                        }
                     },
                     incrementButton: {
                         class: 'INCREMENT_OBJECT_CLASS',
@@ -1150,26 +1153,19 @@ describe('InputNumber', () => {
                 testFixture.detectChanges();
                 tick();
 
-                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('OBJECT_ROOT_CLASS')).toBe(true);
-                    expect(rootEl.nativeElement.style.backgroundColor).toBe('red');
-                    expect(rootEl.nativeElement.getAttribute('data-p-test')).toBe('test-value');
-                    expect(rootEl.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
-                }
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+                expect(rootEl?.nativeElement.classList.contains('OBJECT_ROOT_CLASS')).toBe(true);
+                expect(rootEl?.nativeElement.style.backgroundColor).toBe('red');
+                expect(rootEl?.nativeElement.getAttribute('data-p-test')).toBe('test-value');
+                expect(rootEl?.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
-                if (inputEl) {
-                    expect(inputEl.nativeElement.classList.contains('INPUT_OBJECT_CLASS')).toBe(true);
-                    expect(inputEl.nativeElement.style.color).toBe('blue');
-                }
+                expect(inputEl?.nativeElement.classList.contains('INPUT_OBJECT_CLASS')).toBe(true);
+                expect(inputEl?.nativeElement.style.color).toBe('blue');
 
-                const buttons = testFixture.debugElement.queryAll(By.css('button'));
-                const incrementBtn = buttons.find((btn) => btn.nativeElement.querySelector('[data-p-icon="angle-up"]'));
-                if (incrementBtn) {
-                    expect(incrementBtn.nativeElement.classList.contains('INCREMENT_OBJECT_CLASS')).toBe(true);
-                    expect(incrementBtn.nativeElement.getAttribute('data-p-custom')).toBe('custom-value');
-                }
+                const incrementBtn = testFixture.debugElement.query(By.css('[data-pc-section="incrementbutton"]'));
+                expect(incrementBtn?.nativeElement.classList.contains('INCREMENT_OBJECT_CLASS')).toBe(true);
+                expect(incrementBtn?.nativeElement.getAttribute('data-p-custom')).toBe('custom-value');
 
                 flush();
             }));
@@ -1186,7 +1182,7 @@ describe('InputNumber', () => {
                     root: {
                         class: 'MIXED_ROOT_CLASS'
                     },
-                    pcInputText: 'MIXED_INPUT_CLASS',
+                    pcInputText: { root: { class: 'MIXED_INPUT_CLASS' } },
                     incrementButton: {
                         class: 'MIXED_BUTTON_CLASS'
                     }
@@ -1204,15 +1200,11 @@ describe('InputNumber', () => {
                 testFixture.detectChanges();
                 tick();
 
-                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('MIXED_ROOT_CLASS')).toBe(true);
-                }
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+                expect(rootEl?.nativeElement.classList.contains('MIXED_ROOT_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
-                if (inputEl) {
-                    expect(inputEl.nativeElement.classList.contains('MIXED_INPUT_CLASS')).toBe(true);
-                }
+                expect(inputEl?.nativeElement.classList.contains('MIXED_INPUT_CLASS')).toBe(true);
 
                 flush();
             }));
@@ -1224,20 +1216,20 @@ describe('InputNumber', () => {
                 template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
             })
             class TestPTCase4Component {
-                value: number = 100;
+                value: number = 20;
                 pt = {
                     root: ({ instance }: any) => {
                         return {
                             class: instance?.showButtons ? 'HAS_BUTTONS_CLASS' : 'NO_BUTTONS_CLASS'
                         };
                     },
-                    pcInputText: ({ instance }: any) => {
-                        return {
+                    pcInputText: ({ instance }) => ({
+                        root: {
                             style: {
-                                'background-color': instance?.value > 50 ? 'yellow' : 'white'
+                                'background-color': instance?.showButtons ? 'yellow' : 'white'
                             }
-                        };
-                    }
+                        }
+                    })
                 };
             }
 
@@ -1250,19 +1242,15 @@ describe('InputNumber', () => {
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
                 testFixture.detectChanges();
-                tick();
+                tick(); // Wait for ngModel to update
+                tick(); // Additional tick for any pending async operations
 
-                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('HAS_BUTTONS_CLASS')).toBe(true);
-                }
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+                expect(rootEl?.nativeElement.classList.contains('HAS_BUTTONS_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
-                if (inputEl) {
-                    // PT might apply styles differently, check if style is set
-                    const bgColor = inputEl.nativeElement.style.backgroundColor;
-                    expect(bgColor).toBeTruthy();
-                }
+                const bgColor = inputEl.nativeElement.style.backgroundColor;
+                expect(bgColor).toBe('yellow');
 
                 flush();
             }));
@@ -1283,8 +1271,10 @@ describe('InputNumber', () => {
                         }
                     },
                     pcInputText: {
-                        onclick: () => {
-                            this.clickedSection = 'input';
+                        root: {
+                            onclick: () => {
+                                this.clickedSection = 'input';
+                            }
                         }
                     }
                 };
@@ -1302,18 +1292,13 @@ describe('InputNumber', () => {
                 testFixture.detectChanges();
                 tick();
 
-                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
-                if (rootEl) {
-                    rootEl.nativeElement.click();
-                    expect(component.clickedSection).toBe('root');
-                }
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+                rootEl?.nativeElement.click();
+                expect(component.clickedSection).toBe('root');
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
-                if (inputEl) {
-                    inputEl.nativeElement.click();
-                    // Input click might bubble to root, so just check it was clicked
-                    expect(component.clickedSection).toBeTruthy();
-                }
+                inputEl?.nativeElement.click();
+                expect(component.clickedSection).toBeTruthy();
 
                 flush();
             }));
@@ -1322,7 +1307,7 @@ describe('InputNumber', () => {
         describe('Case 6: Inline PT', () => {
             @Component({
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: 'INLINE_ROOT_CLASS', pcInputText: 'INLINE_INPUT_CLASS' }" [showButtons]="true"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: 'INLINE_ROOT_CLASS', pcInputText: { root: 'INLINE_INPUT_CLASS' } }" [showButtons]="true"></p-inputNumber>`
             })
             class TestPTCase6InlineComponent {
                 value: number = 100;
@@ -1330,7 +1315,7 @@ describe('InputNumber', () => {
 
             @Component({
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, pcInputText: { class: 'INLINE_INPUT_OBJECT_CLASS' } }" [showButtons]="true"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, pcInputText: { root: { class: 'INLINE_INPUT_OBJECT_CLASS' } } }" [showButtons]="true"></p-inputNumber>`
             })
             class TestPTCase6InlineObjectComponent {
                 value: number = 100;
@@ -1347,15 +1332,11 @@ describe('InputNumber', () => {
                 testFixture.detectChanges();
                 tick();
 
-                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
-                }
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+                expect(rootEl?.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
-                if (inputEl) {
-                    expect(inputEl.nativeElement.classList.contains('INLINE_INPUT_CLASS')).toBe(true);
-                }
+                expect(inputEl?.nativeElement.classList.contains('INLINE_INPUT_CLASS')).toBe(true);
 
                 flush();
             }));
@@ -1371,15 +1352,11 @@ describe('InputNumber', () => {
                 testFixture.detectChanges();
                 tick();
 
-                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
-                }
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+                expect(rootEl?.nativeElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
-                if (inputEl) {
-                    expect(inputEl.nativeElement.classList.contains('INLINE_INPUT_OBJECT_CLASS')).toBe(true);
-                }
+                expect(inputEl?.nativeElement.classList.contains('INLINE_INPUT_OBJECT_CLASS')).toBe(true);
 
                 flush();
             }));
@@ -1422,7 +1399,6 @@ describe('InputNumber', () => {
                 const inputNumbers = testFixture.debugElement.queryAll(By.css('[data-pc-name="inputnumber"]'));
                 expect(inputNumbers.length).toBe(2);
 
-                // Both should have global PT classes
                 inputNumbers.forEach((el) => {
                     expect(el.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
                 });
@@ -1490,7 +1466,7 @@ describe('InputNumber', () => {
                 value: number = 100;
                 pt = {
                     root: 'PT_ROOT',
-                    pcInputText: 'PT_INPUT',
+                    pcInputText: { root: 'PT_INPUT' },
                     buttonGroup: 'PT_BUTTON_GROUP',
                     incrementButton: 'PT_INCREMENT',
                     decrementButton: 'PT_DECREMENT'
@@ -1508,10 +1484,8 @@ describe('InputNumber', () => {
                 testFixture.detectChanges();
                 tick();
 
-                const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="inputnumber"]'));
-                if (rootEl) {
-                    expect(rootEl.nativeElement.classList.contains('PT_ROOT')).toBe(true);
-                }
+                const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+                expect(rootEl?.nativeElement.classList.contains('PT_ROOT')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
                 if (inputEl) {

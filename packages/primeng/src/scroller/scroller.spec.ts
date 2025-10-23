@@ -1330,12 +1330,12 @@ describe('Scroller', () => {
             component.tabindex = 5;
             fixture.detectChanges();
 
-            const scrollerElement = fixture.debugElement.query(By.css('[data-pc-name="scroller"]'));
+            const scrollerElement = fixture.debugElement.query(By.css('[data-pc-section="root"]'));
             expect(scrollerElement?.nativeElement.getAttribute('tabindex')).toBe('5');
         });
 
         it('should apply data attributes for accessibility', () => {
-            const scrollerElement = fixture.debugElement.query(By.css('[data-pc-name="scroller"]'));
+            const scrollerElement = fixture.debugElement.query(By.css('[data-pc-section="root"]'));
             expect(scrollerElement?.nativeElement.getAttribute('data-pc-name')).toBe('scroller');
             expect(scrollerElement?.nativeElement.getAttribute('data-pc-section')).toBe('root');
         });
@@ -1531,7 +1531,7 @@ describe('Scroller', () => {
             component.styleClass = 'custom-scroller-class';
             fixture.detectChanges();
 
-            const scrollerElement = fixture.debugElement.query(By.css('[data-pc-name="scroller"]'));
+            const scrollerElement = fixture.debugElement.query(By.css('[data-pc-section="root"]'));
             expect(scrollerElement?.nativeElement.className).toContain('custom-scroller-class');
         });
 
@@ -3434,30 +3434,30 @@ describe('Scroller', () => {
             it('should apply string class to loader when loading', fakeAsync(() => {
                 fixture.componentRef.setInput('showLoader', true);
                 fixture.componentRef.setInput('loading', true);
+                scrollerInstance.d_loading = true;
+
                 fixture.componentRef.setInput('pt', { loader: 'CUSTOM_LOADER_CLASS' });
                 fixture.detectChanges();
                 tick();
                 fixture.detectChanges();
 
                 const loader = fixture.debugElement.query(By.css('.p-virtualscroller-loader'));
-                if (loader) {
-                    expect(loader.nativeElement.classList.contains('CUSTOM_LOADER_CLASS')).toBeTruthy();
-                }
+                expect(loader?.nativeElement.classList.contains('CUSTOM_LOADER_CLASS')).toBeTruthy();
                 flush();
             }));
 
             it('should apply string class to loadingIcon when loading', fakeAsync(() => {
                 fixture.componentRef.setInput('showLoader', true);
                 fixture.componentRef.setInput('loading', true);
+                scrollerInstance.d_loading = true;
+
                 fixture.componentRef.setInput('pt', { loadingIcon: 'CUSTOM_LOADING_ICON_CLASS' });
                 fixture.detectChanges();
                 tick();
                 fixture.detectChanges();
 
                 const loadingIcon = fixture.debugElement.query(By.css('[data-p-icon="spinner"]'));
-                if (loadingIcon) {
-                    expect(loadingIcon.nativeElement.classList.contains('CUSTOM_LOADING_ICON_CLASS')).toBeTruthy();
-                }
+                expect(loadingIcon?.nativeElement.classList.contains('CUSTOM_LOADING_ICON_CLASS')).toBeTruthy();
                 flush();
             }));
         });
@@ -3529,38 +3529,43 @@ describe('Scroller', () => {
         });
 
         describe('Case 4: Use variables from instance', () => {
-            it('should apply PT based on instance state', () => {
+            it('should apply PT based on instance state', fakeAsync(() => {
                 fixture.componentRef.setInput('loading', true);
                 fixture.componentRef.setInput('showLoader', true);
+                scrollerInstance.d_loading = true;
+
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }) => ({
                         class: {
-                            IS_LOADING: instance.d_loading
+                            IS_LOADING: instance.loading
                         }
                     }),
                     loader: ({ instance }) => ({
                         style: {
-                            'background-color': instance.d_loading ? 'yellow' : 'transparent'
+                            'background-color': instance.loading ? 'yellow' : 'transparent'
                         }
                     })
                 });
                 fixture.detectChanges();
+                tick();
 
                 const root = fixture.debugElement.query(By.css('.p-virtualscroller'));
                 const loader = fixture.debugElement.query(By.css('.p-virtualscroller-loader'));
 
                 expect(root.nativeElement.classList.contains('IS_LOADING')).toBeTruthy();
                 expect(loader?.nativeElement.style.backgroundColor).toBe('yellow');
-            });
+
+                flush();
+            }));
         });
 
         describe('Case 5: Event binding', () => {
             it('should handle onclick event in PT', () => {
-                let clickCount = 0;
+                let clicked = false;
                 fixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
-                            clickCount++;
+                            clicked = true;
                         }
                     }
                 });
@@ -3569,7 +3574,7 @@ describe('Scroller', () => {
                 const root = fixture.debugElement.query(By.css('.p-virtualscroller'));
                 root.nativeElement.click();
 
-                expect(clickCount).toBe(1);
+                expect(clicked).toBe(true);
             });
         });
 

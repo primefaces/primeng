@@ -644,7 +644,7 @@ export class Scroller extends BaseComponent<ScrollerPassThrough> {
     }
 
     onAfterViewChecked() {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
         if (!this.initialized) {
             this.viewInit();
         }

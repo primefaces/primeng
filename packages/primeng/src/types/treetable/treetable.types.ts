@@ -70,6 +70,10 @@ export interface TreeTablePassThroughOptions<I = unknown> {
      */
     scrollableWrapper?: PassThroughOption<HTMLDivElement, I>;
     /**
+     * Used to pass attributes to the scrollable container's DOM element.
+     */
+    scrollableView?: PassThroughOption<HTMLDivElement, I>;
+    /**
      * Used to pass attributes to the scrollable header's DOM element.
      */
     scrollableHeader?: PassThroughOption<HTMLDivElement, I>;

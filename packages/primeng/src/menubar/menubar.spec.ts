@@ -436,7 +436,7 @@ describe('Menubar', () => {
 
     describe('Menu Display Tests', () => {
         it('should render menu items', () => {
-            const menuItems = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const menuItems = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
 
             // Should have 3 regular items (excluding separator)
             expect(menuItems.length).toBe(3);
@@ -484,7 +484,7 @@ describe('Menubar', () => {
 
     describe('Item Interaction Tests', () => {
         it('should handle item click', () => {
-            const firstItem = fixture.debugElement.query(By.css('li[data-pc-section="menuitem"] div[data-pc-section="content"]'));
+            const firstItem = fixture.debugElement.query(By.css('li[data-pc-section="item"] div[data-pc-section="itemcontent"]'));
 
             spyOn(menubarInstance, 'onItemClick');
 
@@ -498,7 +498,7 @@ describe('Menubar', () => {
             const commandComponent = commandFixture.componentInstance;
             commandFixture.detectChanges();
 
-            const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="menuitem"] div[data-pc-section="content"]'));
+            const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="item"] div[data-pc-section="itemcontent"]'));
             itemElement.nativeElement.click();
 
             expect(commandComponent.commandExecuted).toBeDefined();
@@ -506,7 +506,7 @@ describe('Menubar', () => {
         });
 
         it('should handle mouse enter on item', () => {
-            const firstItemContent = fixture.debugElement.query(By.css('li[data-pc-section="menuitem"] div[data-pc-section="content"]'));
+            const firstItemContent = fixture.debugElement.query(By.css('li[data-pc-section="item"] div[data-pc-section="itemcontent"]'));
 
             spyOn(menubarInstance, 'onItemMouseEnter');
 
@@ -764,7 +764,7 @@ describe('Menubar', () => {
         });
 
         it('should have proper ARIA attributes on menu items', () => {
-            const menuItems = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const menuItems = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
 
             menuItems.forEach((item) => {
                 expect(item.nativeElement.getAttribute('role')).toBe('menuitem');

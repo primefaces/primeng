@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputText } from './inputtext';
 
@@ -394,14 +394,6 @@ describe('InputText', () => {
 
                 expect(inputEl.classList.contains('ROOT_CLASS')).toBe(true);
             }));
-
-            it('should apply host class from pt', fakeAsync(() => {
-                component.pt = { host: 'HOST_CLASS' };
-                fixture.detectChanges();
-                tick();
-
-                expect(inputEl.classList.contains('HOST_CLASS')).toBe(true);
-            }));
         });
 
         describe('Case 2: Objects', () => {
@@ -422,41 +414,9 @@ describe('InputText', () => {
                 expect(inputEl.getAttribute('data-p-test')).toBe('true');
                 expect(inputEl.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
             }));
-
-            it('should apply host object with multiple attributes', fakeAsync(() => {
-                component.pt = {
-                    host: {
-                        class: 'HOST_OBJECT_CLASS',
-                        style: { padding: '10px' },
-                        'data-custom': 'custom-value'
-                    }
-                };
-                fixture.detectChanges();
-                tick();
-
-                expect(inputEl.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
-                expect(inputEl.style.padding).toBe('10px');
-                expect(inputEl.getAttribute('data-custom')).toBe('custom-value');
-            }));
         });
 
-        describe('Case 3: Mixed object and string values', () => {
-            it('should apply mixed pt with root object and host string', fakeAsync(() => {
-                component.pt = {
-                    root: {
-                        class: 'ROOT_MIXED_CLASS'
-                    },
-                    host: 'HOST_MIXED_CLASS'
-                };
-                fixture.detectChanges();
-                tick();
-
-                expect(inputEl.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
-                expect(inputEl.classList.contains('HOST_MIXED_CLASS')).toBe(true);
-            }));
-        });
-
-        describe('Case 4: Use variables from instance', () => {
+        describe('Case 3: Use variables from instance', () => {
             it('should apply pt function that accesses instance', fakeAsync(() => {
                 component.invalid = true;
                 component.pt = {
@@ -501,7 +461,7 @@ describe('InputText', () => {
             }));
         });
 
-        describe('Case 5: Event binding', () => {
+        describe('Case 4: Event binding', () => {
             it('should handle onclick event from pt', fakeAsync(() => {
                 let clicked = false;
                 component.pt = {
@@ -551,7 +511,7 @@ describe('InputText', () => {
             }));
         });
 
-        describe('Case 6: Inline test', () => {
+        describe('Case 5: Inline test', () => {
             it('should apply inline pt with string class', fakeAsync(() => {
                 component.pt = { root: 'INLINE_CLASS' };
                 fixture.detectChanges();
@@ -570,18 +530,6 @@ describe('InputText', () => {
         });
 
         describe('Combined PT scenarios', () => {
-            it('should apply multiple pt sections simultaneously', fakeAsync(() => {
-                component.pt = {
-                    host: 'HOST_MULTI',
-                    root: 'ROOT_MULTI'
-                };
-                fixture.detectChanges();
-                tick();
-
-                expect(inputEl.classList.contains('HOST_MULTI')).toBe(true);
-                expect(inputEl.classList.contains('ROOT_MULTI')).toBe(true);
-            }));
-
             it('should apply complex pt with functions and objects', fakeAsync(() => {
                 component.fluid = true;
                 component.pt = {
@@ -591,15 +539,13 @@ describe('InputText', () => {
                             border: '1px solid green'
                         },
                         'data-fluid': instance?.hasFluid
-                    }),
-                    host: 'COMPLEX_HOST'
+                    })
                 };
                 fixture.detectChanges();
                 tick();
 
                 expect(inputEl.classList.contains('COMPLEX_CLASS')).toBe(true);
                 expect(inputEl.style.border).toBe('1px solid green');
-                expect(inputEl.classList.contains('COMPLEX_HOST')).toBe(true);
                 expect(inputEl.getAttribute('data-fluid')).toBe('true');
             }));
 

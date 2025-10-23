@@ -5,9 +5,9 @@ import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { SharedModule, TreeNode } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from 'primeng/types/treeselect';
 import { BehaviorSubject } from 'rxjs';
 import { TreeSelect, TreeSelectModule } from './treeselect';
-import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from 'primeng/types/treeselect';
 
 const mockTreeNodes: TreeNode[] = [
     {
@@ -1325,7 +1325,7 @@ describe('TreeSelect', () => {
             fixture.componentInstance.options = mockTreeNodes;
             fixture.detectChanges();
 
-            const root = fixture.debugElement.query(By.css('.p-treeselect'));
+            const root = fixture.debugElement;
             expect(root.nativeElement.classList.contains('custom-root-class')).toBe(true);
         });
 
@@ -1348,8 +1348,7 @@ describe('TreeSelect', () => {
             const fixture = TestBed.createComponent(TreeSelect);
             fixture.componentInstance.options = mockTreeNodes;
             fixture.detectChanges();
-
-            const root = fixture.debugElement.query(By.css('.p-treeselect'));
+            const root = fixture.debugElement;
             expect(root.nativeElement.classList.contains('pt-root-test')).toBe(true);
         });
 
@@ -1374,7 +1373,7 @@ describe('TreeSelect', () => {
             fixture.componentInstance.options = mockTreeNodes;
             fixture.detectChanges();
 
-            const root = fixture.debugElement.query(By.css('.p-treeselect'));
+            const root = fixture.debugElement;
             expect(root.nativeElement.classList.contains('string-root')).toBe(true);
         });
 
@@ -1401,7 +1400,7 @@ describe('TreeSelect', () => {
             fixture.componentInstance.options = mockTreeNodes;
             fixture.detectChanges();
 
-            const root = fixture.debugElement.query(By.css('.p-treeselect'));
+            const root = fixture.debugElement;
             root.nativeElement.click();
 
             expect(clickSpy).toHaveBeenCalled();
@@ -1431,7 +1430,7 @@ describe('TreeSelect', () => {
             fixture.componentInstance.options = mockTreeNodes;
             fixture.detectChanges();
 
-            const root = fixture.debugElement.query(By.css('.p-treeselect'));
+            const root = fixture.debugElement;
             expect(root.nativeElement.classList.contains('global-root')).toBe(true);
         });
     });
