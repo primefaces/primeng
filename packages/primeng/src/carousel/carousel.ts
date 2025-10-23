@@ -127,7 +127,7 @@ import { CarouselStyle } from './style/carouselstyle';
                 </p-button>
             </div>
             <ul #indicatorContent [class]="cx('indicatorList')" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)" [pBind]="ptm('indicatorList')">
-                <li *ngFor="let totalDot of totalDotsArray(); let i = index" [class]="cx('indicator', { index: i })" [attr.data-pc-section]="'indicator'" [attr.data-p-active]="_page === i" [pBind]="getIndicatorPTOptions('indicator', i)">
+                <li *ngFor="let totalDot of totalDotsArray(); let i = index" [class]="cx('indicator', { index: i })" [attr.data-p-active]="_page === i" [pBind]="getIndicatorPTOptions('indicator', i)">
                     <button
                         type="button"
                         [class]="cx('indicatorButton')"
@@ -806,7 +806,7 @@ export class Carousel extends BaseComponent {
     }
 
     onEndKey() {
-        const indicators = [...find(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"]r')];
+        const indicators = [...find(this.indicatorContent?.nativeElement, '[data-pc-section="indicator"]')];
         const activeIndex = this.findFocusedIndicatorIndex();
 
         this.changedFocusedIndicator(activeIndex, indicators.length - 1);
