@@ -152,14 +152,23 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                     <ng-template *ngTemplateOutlet="emptyFilterMessageTemplate || _emptyFilterMessageTemplate"></ng-template>
                 </ng-template>
             </ng-container>
+            <ng-container *ngIf="filterIconTemplate || _filterIconTemplate">
+                <ng-template #filtericon>
+                    <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="filterTemplate || _filterTemplate">
+                <ng-template #filter let-options="options">
+                    <ng-template *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: options }"></ng-template>
+                </ng-template>
+            </ng-container>
         </p-listbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [OrderListStyle, { provide: ORDERLIST_INSTANCE, useExisting: OrderList }, { provide: PARENT_INSTANCE, useExisting: OrderList }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-pc-section]': "'root'"
+        '[class]': "cn(cx('root'), styleClass)"
     },
     hostDirectives: [Bind]
 })
