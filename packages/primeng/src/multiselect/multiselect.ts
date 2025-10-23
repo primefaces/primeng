@@ -321,7 +321,7 @@ export class MultiSelectItem extends BaseComponent {
                                 #headerCheckbox
                             >
                                 <ng-template #icon let-klass="class">
-                                    <svg data-p-icon="check" *ngIf="!headerCheckboxIconTemplate && !_headerCheckboxIconTemplate && allSelected()" [class]="klass" [attr.data-pc-section]="'icon'" />
+                                    <svg data-p-icon="check" *ngIf="!headerCheckboxIconTemplate && !_headerCheckboxIconTemplate && allSelected()" [class]="klass" [pBind]="getHeaderCheckboxPTOptions('pcHeaderCheckbox.icon')" />
                                     <ng-template
                                         *ngTemplateOutlet="
                                             headerCheckboxIconTemplate || _headerCheckboxIconTemplate;
