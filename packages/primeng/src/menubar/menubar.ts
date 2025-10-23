@@ -69,7 +69,7 @@ export class MenubarService {
                 [style]="getItemProp(processedItem, 'style')"
                 [class]="cn(cx('separator'), processedItem?.styleClass)"
                 role="separator"
-                [attr.data-pc-section]="'separator'"
+                [pBind]="ptm('separator')"
             ></li>
             <li
                 #listItem
