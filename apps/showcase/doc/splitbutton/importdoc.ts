@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SplitButtonModule } from 'primeng/splitbutton';`
+        typescript: `import { SplitButton } from 'primeng/splitbutton';`
     };
 }

@@ -10,7 +10,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { IconFieldModule } from 'primeng/iconfield';
+        typescript: `import { IconField } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';`
     };
 }

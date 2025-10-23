@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { RatingModule } from 'primeng/rating';`
+        typescript: `import { Rating } from 'primeng/rating';`
     };
 }
