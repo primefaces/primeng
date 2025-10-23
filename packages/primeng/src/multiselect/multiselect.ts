@@ -97,7 +97,8 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         '[attr.data-p-disabled]': 'disabled',
         '[attr.aria-checked]': 'selected',
         '(click)': 'onOptionClick($event)',
-        '(mouseenter)': 'onOptionMouseEnter($event)'
+        '(mouseenter)': 'onOptionMouseEnter($event)',
+        '[class]': "cx('option')"
     }
 })
 export class MultiSelectItem extends BaseComponent {
@@ -404,7 +405,6 @@ export class MultiSelectItem extends BaseComponent {
                                             pMultiSelectItem
                                             pRipple
                                             [pBind]="getPTOptions(option, getItemOptions, i, 'option')"
-                                            [class]="cx('option')"
                                             [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                             [option]="option"
                                             [selected]="isSelected(option)"
