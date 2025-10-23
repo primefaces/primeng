@@ -40,9 +40,7 @@ const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [TimelineStyle, { provide: TIMELINE_INSTANCE, useExisting: Timeline }, { provide: PARENT_INSTANCE, useExisting: Timeline }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-pc-section]': "'root'",
-        '[attr.data-pc-name]': "'timeline'"
+        '[class]': "cn(cx('root'), styleClass)"
     },
     hostDirectives: [Bind]
 })
