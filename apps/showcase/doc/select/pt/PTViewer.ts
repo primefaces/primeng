@@ -21,7 +21,7 @@ interface Country {
     imports: [CommonModule, AppDocPtViewer, SelectModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-select [(ngModel)]="selectedCity" [filter]="true" [options]="groupedCities" optionLabel="label" optionGroupLabel="label" optionGroupChildren="items" [showClear]="true" placeholder="Select a City" styleClass="w-full md:w-56">
+            <p-select [(ngModel)]="selectedCity" [filter]="true" [options]="groupedCities" optionLabel="label" optionGroupLabel="label" optionGroupChildren="items" [showClear]="true" placeholder="Select a City" styleClass="w-full md:w-56" checkmark>
                 <ng-template #group let-group>
                     <div class="flex items-center">
                         <img [alt]="group.label" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.code.toLowerCase()" style="width: 18px" />

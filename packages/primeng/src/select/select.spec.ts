@@ -3429,7 +3429,9 @@ describe('Select PT (PassThrough)', () => {
                 header: 'PT_HEADER_CLASS',
                 listContainer: 'PT_LIST_CONTAINER_CLASS',
                 list: 'PT_LIST_CLASS',
-                pcFilter: { class: 'PT_FILTER_CLASS' }
+                pcFilter: {
+                    root: { class: 'PT_FILTER_CLASS' }
+                }
             };
             fixture.detectChanges();
 
@@ -3439,8 +3441,8 @@ describe('Select PT (PassThrough)', () => {
 
             const header = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
             const listContainer = fixture.debugElement.query(By.css('[data-pc-section="listcontainer"]'));
-            const list = fixture.debugElement.query(By.css('[role="listbox"]'));
-            const filterInput = fixture.debugElement.query(By.css('input[role="searchbox"]'));
+            const list = fixture.debugElement.query(By.css('[data-pc-section="list"]'));
+            const filterInput = fixture.debugElement.query(By.css('[data-pc-name="pcfilter"]'));
 
             if (header) expect(header.nativeElement.classList.contains('PT_HEADER_CLASS')).toBeTruthy();
             if (listContainer) expect(listContainer.nativeElement.classList.contains('PT_LIST_CONTAINER_CLASS')).toBeTruthy();
@@ -3758,12 +3760,9 @@ describe('Select PT (PassThrough)', () => {
             };
             fixture.detectChanges();
             tick();
-
+            fixture.detectChanges();
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
-            if (clearIcon) {
-                expect(clearIcon.nativeElement.classList.contains('PT_CLEAR_ICON_CLASS')).toBeTruthy();
-            }
-
+            expect(clearIcon?.nativeElement.classList.contains('PT_CLEAR_ICON_CLASS')).toBeTruthy();
             flush();
         }));
 
@@ -3867,15 +3866,16 @@ describe('Select PT (PassThrough)', () => {
             component.pt = {
                 optionCheckIcon: { class: 'CUSTOM_CHECK_ICON', 'data-check': 'true' }
             };
-            selectInstance.show();
+            fixture.detectChanges();
             tick();
+
+            selectInstance.show();
+            tick(150);
             fixture.detectChanges();
 
             const checkIcon = fixture.debugElement.query(By.css('[data-p-icon="check"]'));
-            if (checkIcon) {
-                expect(checkIcon.nativeElement.classList.contains('CUSTOM_CHECK_ICON')).toBeTruthy();
-                expect(checkIcon.nativeElement.getAttribute('data-check')).toBe('true');
-            }
+            expect(checkIcon?.nativeElement.classList.contains('CUSTOM_CHECK_ICON')).toBeTruthy();
+            expect(checkIcon?.nativeElement.getAttribute('data-check')).toBe('true');
             flush();
         }));
 
@@ -4155,7 +4155,7 @@ describe('Select PT (PassThrough)', () => {
         it('should apply PT to pcFilter input', fakeAsync(() => {
             component.filter = true;
             component.pt = {
-                pcFilter: { class: 'CUSTOM_FILTER_INPUT' }
+                pcFilter: { root: { class: 'CUSTOM_FILTER_INPUT' } }
             };
             fixture.detectChanges();
             tick();
