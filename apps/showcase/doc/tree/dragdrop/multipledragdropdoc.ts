@@ -29,7 +29,14 @@ import { TreeModule } from 'primeng/tree';
         </div>
         <app-code [code]="code" selector="tree-multiple-drag-drop-demo"></app-code>
     `,
-    providers: [TreeDragDropService]
+    providers: [TreeDragDropService],
+    styles: [
+        `
+            .p-tree-node-dragover {
+                border: 1px dashed var(--p-primary-color);
+            }
+        `
+    ]
 })
 export class MultipleDragDropDoc implements OnInit {
     value1 = signal<TreeNode[]>(undefined);
@@ -207,7 +214,12 @@ import { Tree } from 'primeng/tree';
     templateUrl: './tree-multiple-drag-drop-demo.html',
     standalone: true,
     imports: [Tree],
-    providers: [TreeDragDropService]
+    providers: [TreeDragDropService],
+        styles: [
+        \`.p-tree-node-dragover {
+                border: 1px dashed var(--p-primary-color);
+        }\`
+    ],
 })
 export class TreeMultipleDragDropDemo implements OnInit {
     value1 = signal<TreeNode[]>(undefined);
