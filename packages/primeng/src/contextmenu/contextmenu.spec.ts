@@ -1368,5 +1368,193 @@ describe('ContextMenu', () => {
                 expect(root.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
             });
         });
+
+        describe('Case 4: ContextMenuSub getPTOptions - Basic String PT Test', () => {
+            @Component({
+                standalone: true,
+                imports: [ContextMenu],
+                template: `<p-contextmenu #cm [model]="model" [pt]="pt" [global]="true"></p-contextmenu>`
+            })
+            class PTBasicStringTestComponent {
+                @ViewChild('cm') contextMenu!: ContextMenu;
+                model: MenuItem[] = [
+                    { label: 'Item 1', icon: 'pi pi-file' },
+                    { label: 'Item 2', icon: 'pi pi-pencil', disabled: true }
+                ];
+                pt = {
+                    item: 'custom-item-class',
+                    itemContent: 'custom-content-class',
+                    itemLink: 'custom-link-class',
+                    itemIcon: 'custom-icon-class',
+                    itemLabel: 'custom-label-class'
+                };
+            }
+
+            beforeEach(fakeAsync(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTBasicStringTestComponent, NoopAnimationsModule]
+                }).createComponent(PTBasicStringTestComponent);
+                ptFixture.detectChanges();
+
+                // Trigger context menu to show
+                const event = new MouseEvent('contextmenu', { bubbles: true });
+                document.dispatchEvent(event);
+                ptFixture.detectChanges();
+                tick(300);
+            }));
+
+            it('should apply string PT class to item elements', () => {
+                const items = ptFixture.debugElement.queryAll(By.css('[role="menuitem"]'));
+                expect(items.length).toBeGreaterThan(0);
+                expect(items[0].nativeElement.classList.contains('custom-item-class')).toBe(true);
+            });
+
+            it('should apply string PT class to itemContent elements', () => {
+                const contents = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-item-content'));
+                expect(contents.length).toBeGreaterThan(0);
+                expect(contents[0].nativeElement.classList.contains('custom-content-class')).toBe(true);
+            });
+
+            it('should apply string PT class to itemLink elements', () => {
+                const links = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-item-link'));
+                expect(links.length).toBeGreaterThan(0);
+                expect(links[0].nativeElement.classList.contains('custom-link-class')).toBe(true);
+            });
+
+            it('should apply string PT class to itemIcon elements', () => {
+                const icons = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-item-icon'));
+                expect(icons.length).toBeGreaterThan(0);
+                expect(icons[0].nativeElement.classList.contains('custom-icon-class')).toBe(true);
+            });
+
+            it('should apply string PT class to itemLabel elements', () => {
+                const labels = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-item-label'));
+                expect(labels.length).toBeGreaterThan(0);
+                expect(labels[0].nativeElement.classList.contains('custom-label-class')).toBe(true);
+            });
+        });
+
+        describe('Case 5: ContextMenuSub getPTOptions - Object PT with Context', () => {
+            @Component({
+                standalone: true,
+                imports: [ContextMenu],
+                template: `<p-contextmenu #cm [model]="model" [pt]="pt" [global]="true"></p-contextmenu>`
+            })
+            class PTObjectContextTestComponent {
+                @ViewChild('cm') contextMenu!: ContextMenu;
+                model: MenuItem[] = [
+                    { label: 'Item 0', icon: 'pi pi-file' },
+                    { label: 'Disabled Item', icon: 'pi pi-ban', disabled: true },
+                    {
+                        label: 'Parent Item',
+                        icon: 'pi pi-folder',
+                        items: [{ label: 'Child 1' }]
+                    }
+                ];
+
+                pt = {
+                    item: {
+                        class: 'custom-item-pt',
+                        'data-pt-test': 'item'
+                    },
+                    itemContent: {
+                        class: 'custom-content-pt',
+                        'data-pt-test': 'content'
+                    },
+                    itemLink: {
+                        class: 'custom-link-pt',
+                        'data-pt-test': 'link'
+                    },
+                    itemIcon: {
+                        class: 'custom-icon-pt',
+                        'data-pt-test': 'icon'
+                    },
+                    itemLabel: {
+                        class: 'custom-label-pt',
+                        'data-pt-test': 'label'
+                    },
+                    submenuIcon: {
+                        class: 'custom-submenu-icon-pt',
+                        'data-pt-test': 'submenuicon'
+                    }
+                };
+            }
+
+            beforeEach(fakeAsync(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTObjectContextTestComponent, NoopAnimationsModule]
+                }).createComponent(PTObjectContextTestComponent);
+                ptFixture.detectChanges();
+
+                // Trigger context menu to show
+                const event = new MouseEvent('contextmenu', { bubbles: true });
+                document.dispatchEvent(event);
+                ptFixture.detectChanges();
+                tick(300);
+            }));
+
+            it('should apply PT object to all item elements', () => {
+                const items = ptFixture.debugElement.queryAll(By.css('[role="menuitem"]'));
+                expect(items.length).toBeGreaterThan(0);
+
+                items.forEach((item) => {
+                    expect(item.nativeElement.classList.contains('custom-item-pt')).toBe(true);
+                    expect(item.nativeElement.getAttribute('data-pt-test')).toBe('item');
+                });
+            });
+
+            it('should apply PT object to all itemContent elements', () => {
+                const contents = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-item-content'));
+                expect(contents.length).toBeGreaterThan(0);
+
+                contents.forEach((content) => {
+                    expect(content.nativeElement.classList.contains('custom-content-pt')).toBe(true);
+                    expect(content.nativeElement.getAttribute('data-pt-test')).toBe('content');
+                });
+            });
+
+            it('should apply PT object to all itemLink elements', () => {
+                const links = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-item-link'));
+                expect(links.length).toBeGreaterThan(0);
+
+                links.forEach((link) => {
+                    expect(link.nativeElement.classList.contains('custom-link-pt')).toBe(true);
+                    expect(link.nativeElement.getAttribute('data-pt-test')).toBe('link');
+                });
+            });
+
+            it('should apply PT object to all itemIcon elements', () => {
+                const icons = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-item-icon'));
+                expect(icons.length).toBeGreaterThan(0);
+
+                icons.forEach((icon) => {
+                    expect(icon.nativeElement.classList.contains('custom-icon-pt')).toBe(true);
+                    expect(icon.nativeElement.getAttribute('data-pt-test')).toBe('icon');
+                });
+            });
+
+            it('should apply PT object to all itemLabel elements', () => {
+                const labels = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-item-label'));
+                expect(labels.length).toBeGreaterThan(0);
+
+                labels.forEach((label) => {
+                    expect(label.nativeElement.classList.contains('custom-label-pt')).toBe(true);
+                    expect(label.nativeElement.getAttribute('data-pt-test')).toBe('label');
+                });
+            });
+
+            it('should apply PT object to submenuIcon elements for items with children', () => {
+                const submenuIcons = ptFixture.debugElement.queryAll(By.css('.p-contextmenu-submenu-icon'));
+
+                if (submenuIcons.length > 0) {
+                    submenuIcons.forEach((icon) => {
+                        expect(icon.nativeElement.classList.contains('custom-submenu-icon-pt')).toBe(true);
+                        expect(icon.nativeElement.getAttribute('data-pt-test')).toBe('submenuicon');
+                    });
+                }
+            });
+        });
     });
 });
