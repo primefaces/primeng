@@ -4,8 +4,8 @@ import { BasicDoc } from '@/doc/tree/basicdoc';
 import { CheckboxDoc } from '@/doc/tree/checkboxdoc';
 import { ContextMenuDoc } from '@/doc/tree/contextmenudoc';
 import { ControlledDoc } from '@/doc/tree/controlleddoc';
-import { SingleDragDropDoc } from '@/doc/tree/dragdrop/singledragdropdoc';
 import { MultipleDragDropDoc } from '@/doc/tree/dragdrop/multipledragdropdoc';
+import { SingleDragDropDoc } from '@/doc/tree/dragdrop/singledragdropdoc';
 import { EventDoc } from '@/doc/tree/eventdoc';
 import { FilterDoc } from '@/doc/tree/filterdoc';
 import { ImportDoc } from '@/doc/tree/importdoc';
@@ -16,13 +16,12 @@ import { SingleDoc } from '@/doc/tree/singledoc';
 import { TemplateDoc } from '@/doc/tree/templatedoc';
 import { VirtualScrollDoc } from '@/doc/tree/virtualscrolldoc';
 import { LazyVirtualScrollDoc } from '@/doc/tree/virtualscrolllazydoc';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     template: `<app-doc docTitle="Angular Tree Component" header="Tree" description="Tree is used to display hierarchical data." [docs]="docs" [apiDocs]="['Tree', 'TreeNode']" [ptDocs]="ptComponent" themeDocs="tree"></app-doc>`,
     standalone: true,
-    imports: [AppDoc],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    imports: [AppDoc]
 })
 export class TreeDemo {
     ptComponent = PTComponent;

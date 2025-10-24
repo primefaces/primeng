@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
@@ -24,8 +24,7 @@ import { TreeModule } from 'primeng/tree';
         </div>
         <app-code [code]="code" selector="tree-context-menu-demo"></app-code>
     `,
-    providers: [MessageService],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    providers: [MessageService]
 })
 export class ContextMenuDoc implements OnInit {
     files = signal<TreeNode[]>(undefined);

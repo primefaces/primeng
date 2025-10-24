@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 
@@ -18,8 +18,7 @@ import { TreeModule } from 'primeng/tree';
             <p-tree [value]="files()" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="tree-basic-demo"></app-code>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    `
 })
 export class BasicDoc implements OnInit {
     files = signal<TreeNode[]>(undefined);

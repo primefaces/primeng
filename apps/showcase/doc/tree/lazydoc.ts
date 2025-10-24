@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 
@@ -27,8 +27,7 @@ import { TreeModule } from 'primeng/tree';
             </div>
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    `
 })
 export class LazyDoc implements OnInit {
     loading: boolean = false;

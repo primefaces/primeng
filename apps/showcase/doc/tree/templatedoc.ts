@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 
@@ -25,8 +25,7 @@ import { TreeModule } from 'primeng/tree';
             </p-tree>
         </div>
         <app-code [code]="code" selector="tree-template-demo"></app-code>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    `
 })
 export class TemplateDoc implements OnInit {
     nodes = signal<TreeNode[]>(undefined);

@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 
@@ -18,8 +18,7 @@ import { TreeModule } from 'primeng/tree';
             <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
-    `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    `
 })
 export class VirtualScrollDoc implements OnInit {
     nodes = signal<TreeNode[]>(undefined);
