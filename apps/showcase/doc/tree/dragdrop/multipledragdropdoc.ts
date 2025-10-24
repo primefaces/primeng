@@ -17,13 +17,13 @@ import { TreeModule } from 'primeng/tree';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-col md:flex-row gap-4">
-            <p-tree [value]="value1()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="none">
+            <p-tree [value]="value1()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="none">
                 <ng-template #empty> No Items Left </ng-template>
             </p-tree>
-            <p-tree [value]="value2()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
+            <p-tree [value]="value2()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
                 <ng-template #empty> Drag Nodes Here </ng-template>
             </p-tree>
-            <p-tree [value]="value3()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" [droppableScope]="['first', 'second']">
+            <p-tree [value]="value3()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" [droppableScope]="['first', 'second']">
                 <ng-template #empty> Drag Nodes Here </ng-template>
             </p-tree>
         </div>
@@ -176,24 +176,24 @@ export class MultipleDragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="value1()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="none">
+        basic: `<p-tree [value]="value1()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="none">
     <ng-template #empty> No Items Left </ng-template>
 </p-tree>
-<p-tree [value]="value2()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
+<p-tree [value]="value2()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
     <ng-template #empty> Drag Nodes Here </ng-template>
 </p-tree>
-<p-tree [value]="value3()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" [droppableScope]="['first', 'second']">
+<p-tree [value]="value3()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" [droppableScope]="['first', 'second']">
     <ng-template #empty> Drag Nodes Here </ng-template>
 </p-tree>`,
 
         html: `<div class="card flex flex-col md:flex-row gap-4">
-    <p-tree [value]="value1()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="none">
+    <p-tree [value]="value1()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="first" droppableScope="none">
         <ng-template #empty> No Items Left </ng-template>
     </p-tree>
-    <p-tree [value]="value2()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
+    <p-tree [value]="value2()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" draggableScope="second" droppableScope="first">
         <ng-template #empty> Drag Nodes Here </ng-template>
     </p-tree>
-    <p-tree [value]="value3()" class="w-full md:w-[30rem]" [draggableNodes]="true" [droppableNodes]="true" [droppableScope]="['first', 'second']">
+    <p-tree [value]="value3()" class="flex-1 border border-surface rounded-lg" [draggableNodes]="true" [droppableNodes]="true" [droppableScope]="['first', 'second']">
         <ng-template #empty> Drag Nodes Here </ng-template>
     </p-tree>
 </div>`,
