@@ -1,3 +1,2 @@
-import { TabViewDesignTokens } from '../../types/tabview';
-declare const _default: TabViewDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/tabview';
+export { default } from '@primeuix/themes/aura/tabview';

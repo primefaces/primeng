@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, ViewEncapsulation } from '@angular/core';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
+import { TabPanelsStyle } from './style/tabpanelsstyle';
+import { TabPanelsPassThrough } from 'primeng/types/tabs';
+
+const TABPANELS_INSTANCE = new InjectionToken<TabPanels>('TABPANELS_INSTANCE');
 
 /**
  * TabPanels is a helper component for Tabs component.
@@ -9,15 +14,25 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-tabpanels',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-tabpanels]': 'true',
-        '[class.p-component]': 'true',
-        '[attr.data-pc-name]': '"tabpanels"',
+        '[class]': 'cx("root")',
         '[attr.role]': '"presentation"'
-    }
+    },
+    providers: [TabPanelsStyle, { provide: TABPANELS_INSTANCE, useExisting: TabPanels }, { provide: PARENT_INSTANCE, useExisting: TabPanels }],
+    hostDirectives: [Bind]
 })
-export class TabPanels extends BaseComponent {}
+export class TabPanels extends BaseComponent<TabPanelsPassThrough> {
+    $pcTabPanels: TabPanels | undefined = inject(TABPANELS_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(TabPanelsStyle);
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+}

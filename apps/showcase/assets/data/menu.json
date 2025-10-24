@@ -56,8 +56,7 @@
                         },
                         {
                             "name": "FloatLabel",
-                            "routerLink": "/floatlabel",
-                            "badge": "NEW"
+                            "routerLink": "/floatlabel"
                         },
                         {
                             "name": "IconField",
@@ -65,8 +64,7 @@
                         },
                         {
                             "name": "IftaLabel",
-                            "routerLink": "/iftalabel",
-                            "badge": "NEW"
+                            "routerLink": "/iftalabel"
                         },
                         {
                             "name": "InputGroup",
@@ -327,10 +325,6 @@
                             "routerLink": "/panelmenu"
                         },
                         {
-                            "name": "Steps",
-                            "routerLink": "/steps"
-                        },
-                        {
                             "name": "TieredMenu",
                             "routerLink": "/tieredmenu"
                         }
@@ -375,8 +369,7 @@
                         },
                         {
                             "name": "ImageCompare",
-                            "routerLink": "/imagecompare",
-                            "badge":"NEW"
+                            "routerLink": "/imagecompare"
                         }
                     ]
                 },
@@ -424,12 +417,14 @@
                             "routerLink": "/metergroup"
                         },
                         {
-                            "name": "ScrollTop",
-                            "routerLink": "/scrolltop"
+                            "name": "ClassNames",
+                            "routerLink": "/classnames",
+                            "badge": "NEW"
                         },
                         {
-                            "name": "Skeleton",
-                            "routerLink": "/skeleton"
+                            "name": "Bind",
+                            "routerLink": "/bind",
+                            "badge": "NEW"
                         },
                         {
                             "name": "ProgressBar",
@@ -442,6 +437,14 @@
                         {
                             "name": "Ripple",
                             "routerLink": "/ripple"
+                        },
+                        {
+                            "name": "ScrollTop",
+                            "routerLink": "/scrolltop"
+                        },
+                        {
+                            "name": "Skeleton",
+                            "routerLink": "/skeleton"
                         },
                         {
                             "name": "StyleClass",
@@ -490,7 +493,16 @@
         {
             "name": "Figma UI Kit",
             "icon": "pi pi-pencil",
-            "routerLink": "/uikit"
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/uikit"
+                },
+                {
+                    "name": "Guide",
+                    "routerLink": "/uikit/guide"
+                }
+            ]
         },
         {
             "name": "Templates",
@@ -498,9 +510,29 @@
             "routerLink": "/templates"
         },
         {
+            "name": "Theme Designer",
+            "icon": "pi pi-sparkles",
+            "children": [
+                {
+                    "name": "Overview",
+                    "routerLink": "/designer"
+                },
+                {
+                    "name": "Guide",
+                    "routerLink": "/designer/guide"
+                },
+                {
+                    "name": "CI Pipeline",
+                    "routerLink": "/designer/ci"
+                }
+            ]
+
+        },
+        {
             "name": "PrimeBlocks",
             "icon": "pi pi-server",
-            "href": "https://blocks.primeng.org"
+            "href": "https://primeblocks.org",
+            "badge": "NEW"
         },
         {
             "name": "Guides",
@@ -510,9 +542,9 @@
                     "name": "Accessibility",
                     "routerLink": "/guides/accessibility"
                 },
-                {
-                    "name": "Migration to v18+",
-                    "routerLink": "/guides/migration"
+                      {
+                    "name": "Pass Through",
+                    "routerLink": "/guides/passthrough"
                 },
                 {
                     "name": "PrimeFlex",
@@ -521,6 +553,24 @@
                 {
                     "name": "PrimeTV",
                     "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                },
+                   {
+                    "name": "RTL",
+                    "routerLink": "/guides/rtl"
+                }
+            ]
+        },
+        {
+            "name": "Migration",
+            "icon": "pi pi-arrow-up",
+            "children": [
+                {
+                    "name": "Updating to v20",
+                    "routerLink": "/migration/v20"
+                },
+                {
+                    "name": "Updating to v19",
+                    "routerLink": "/migration/v19"
                 }
             ]
         },
@@ -569,12 +619,11 @@
                 {
                     "name": "Contribution",
                     "routerLink": "/contribution",
-                    "icon": "pi pi-users",
-                    "badge": "NEW"
+                    "icon": "pi pi-users"
                 },
                 {
                     "name": "Store",
-                    "href": "https://www.primefaces.org/store/"
+                    "href": "https://primeui.store"
                 },
                 {
                     "name": "Twitter",

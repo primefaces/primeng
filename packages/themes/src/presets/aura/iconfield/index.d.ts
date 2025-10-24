@@ -1,3 +1,2 @@
-import { IconFieldDesignTokens } from '../../types/iconfield';
-declare const _default: IconFieldDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/iconfield';
+export { default } from '@primeuix/themes/aura/iconfield';

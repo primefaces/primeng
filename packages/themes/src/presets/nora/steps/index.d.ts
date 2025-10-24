@@ -1,3 +1,2 @@
-import { StepsDesignTokens } from '../../types/steps';
-declare const _default: StepsDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/steps';
+export { default } from '@primeuix/themes/nora/steps';

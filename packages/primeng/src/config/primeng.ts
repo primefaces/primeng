@@ -1,42 +1,38 @@
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { ElementRef, inject, Injectable, PLATFORM_ID, signal, TemplateRef } from '@angular/core';
 import { FilterMatchMode, OverlayOptions, Translation } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { ThemeConfigType, ThemeProvider } from './themeprovider';
-
-// Type for zIndex
-export type ZIndex = {
-    modal: number;
-    overlay: number;
-    menu: number;
-    tooltip: number;
-};
-
-export type PrimeNGConfigType = {
-    ripple?: boolean;
-    inputStyle?: 'outlined' | 'filled';
-    inputVariant?: 'outlined' | 'filled';
-    csp?: {
-        nonce: string | undefined;
-    };
-    overlayOptions?: OverlayOptions;
-    translation?: Translation;
-    zIndex?: ZIndex;
-    filterMatchModeOptions?: any;
-} & ThemeConfigType;
+import type { PrimeNGConfigType, ThemeConfigType, ZIndex } from './primeng.types';
+import { ThemeProvider } from './themeprovider';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNG extends ThemeProvider {
     ripple = signal<boolean>(false);
 
     public platformId: any = inject(PLATFORM_ID);
+    /**
+     * @deprecated Since v20. Use `inputVariant` instead.
+     */
+    inputStyle = signal<'outlined' | 'filled' | null>(null);
 
-    inputStyle = signal<'outlined' | 'filled'>(null);
+    inputVariant = signal<'outlined' | 'filled' | null>(null);
 
-    inputVariant = signal<'outlined' | 'filled'>(null);
+    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
 
     overlayOptions: OverlayOptions = {};
 
     csp = signal<{ nonce: string | undefined }>({ nonce: undefined });
+
+    /**
+     * Indicates whether the component should be rendered without styles.
+     *
+     * @experimental
+     * This property is not yet implemented. It will be available in a future release.
+     */
+    unstyled = signal<boolean | undefined>(undefined);
+
+    pt = signal<PrimeNGConfigType['pt']>(undefined);
+
+    ptOptions = signal<PrimeNGConfigType['ptOptions']>(undefined);
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
@@ -73,6 +69,7 @@ export class PrimeNG extends ThemeProvider {
         accept: 'Yes',
         reject: 'No',
         choose: 'Choose',
+        completed: 'Completed',
         upload: 'Upload',
         cancel: 'Cancel',
         pending: 'Pending',
@@ -169,7 +166,8 @@ export class PrimeNG extends ThemeProvider {
             selectColor: 'Select a color',
             removeLabel: 'Remove',
             browseFiles: 'Browse Files',
-            maximizeLabel: 'Maximize'
+            maximizeLabel: 'Maximize',
+            minimizeLabel: 'Minimize'
         }
     };
 
@@ -194,14 +192,20 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex, ptOptions, pt, unstyled } = config || {};
 
         if (csp) this.csp.set(csp);
+        if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
         if (ripple) this.ripple.set(ripple);
         if (inputStyle) this.inputStyle.set(inputStyle);
         if (inputVariant) this.inputVariant.set(inputVariant);
         if (overlayOptions) this.overlayOptions = overlayOptions;
         if (translation) this.setTranslation(translation);
+        if (filterMatchModeOptions) this.filterMatchModeOptions = filterMatchModeOptions;
+        if (zIndex) this.zIndex = zIndex;
+        if (pt) this.pt.set(pt);
+        if (ptOptions) this.ptOptions.set(ptOptions);
+        if (unstyled) this.unstyled.set(unstyled);
 
         if (theme)
             this.setThemeConfig({

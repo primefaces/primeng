@@ -4,10 +4,15 @@ import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { TableModule } from 'primeng/table';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'removable-sort-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>
         </app-docsectiontext>
@@ -17,20 +22,28 @@ import { Table } from 'primeng/table';
                     <ng-template #header>
                         <tr>
                             <th pSortableColumn="code">
-                                Code
-                                <p-sortIcon field="code" />
+                                <div class="flex items-center gap-2">
+                                    Code
+                                    <p-sortIcon field="code" />
+                                </div>
                             </th>
                             <th pSortableColumn="name">
-                                Name
-                                <p-sortIcon field="name" />
+                                <div class="flex items-center gap-2">
+                                    Name
+                                    <p-sortIcon field="name" />
+                                </div>
                             </th>
                             <th pSortableColumn="category">
-                                Category
-                                <p-sortIcon field="category" />
+                                <div class="flex items-center gap-2">
+                                    Category
+                                    <p-sortIcon field="category" />
+                                </div>
                             </th>
                             <th pSortableColumn="quantity">
-                                Quantity
-                                <p-sortIcon field="quantity" />
+                                <div class="flex items-center gap-2">
+                                    Quantity
+                                    <p-sortIcon field="quantity" />
+                                </div>
                             </th>
                         </tr>
                     </ng-template>
@@ -100,16 +113,28 @@ export class RemovableSortDoc {
     <ng-template #header>
         <tr>
             <th pSortableColumn="code">
-                Code <p-sortIcon field="code" />
+                <div class="flex items-center gap-2">
+                    Code
+                    <p-sortIcon field="code" />
+                </div>
             </th>
             <th pSortableColumn="name">
-                Name <p-sortIcon field="name" />
+                <div class="flex items-center gap-2">
+                    Name
+                    <p-sortIcon field="name" />
+                </div>
             </th>
             <th pSortableColumn="category">
-                Category <p-sortIcon field="category" />
+                <div class="flex items-center gap-2">
+                    Category
+                    <p-sortIcon field="category" />
+                </div>
             </th>
             <th pSortableColumn="quantity">
-                Quantity <p-sortIcon field="quantity" />
+                <div class="flex items-center gap-2">
+                    Quantity
+                    <p-sortIcon field="quantity" />
+                </div>
             </th>
         </tr>
     </ng-template>
@@ -128,16 +153,28 @@ export class RemovableSortDoc {
         <ng-template #header>
             <tr>
                 <th pSortableColumn="code">
-                    Code <p-sortIcon field="code" />
+                    <div class="flex items-center gap-2">
+                        Code
+                        <p-sortIcon field="code" />
+                    </div>
                 </th>
                 <th pSortableColumn="name">
-                    Name <p-sortIcon field="name" />
+                    <div class="flex items-center gap-2">
+                        Name
+                        <p-sortIcon field="name" />
+                    </div>
                 </th>
                 <th pSortableColumn="category">
-                    Category <p-sortIcon field="category" />
+                    <div class="flex items-center gap-2">
+                        Category
+                        <p-sortIcon field="category" />
+                    </div>
                 </th>
                 <th pSortableColumn="quantity">
-                    Quantity <p-sortIcon field="quantity" />
+                    <div class="flex items-center gap-2">
+                        Quantity
+                        <p-sortIcon field="quantity" />
+                    </div>
                 </th>
             </tr>
         </ng-template>

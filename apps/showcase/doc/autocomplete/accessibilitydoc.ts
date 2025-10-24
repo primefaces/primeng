@@ -1,9 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'autocomplete-accessibility-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>

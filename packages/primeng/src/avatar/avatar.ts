@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, inject, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, inject, InjectionToken, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
+import { AvatarPassThrough } from 'primeng/types/avatar';
 import { AvatarStyle } from './style/avatarstyle';
+
+const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');
 
 /**
  * Avatar represents people using icons, labels and images.
@@ -11,30 +15,31 @@ import { AvatarStyle } from './style/avatarstyle';
 @Component({
     selector: 'p-avatar',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, Bind],
     template: `
         <ng-content></ng-content>
-        <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-        <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-        <ng-template #imageTemplate> <img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
+        <span [pBind]="ptm('label')" [class]="cx('label')" *ngIf="label; else iconTemplate">{{ label }}</span>
+        <ng-template #iconTemplate><span [pBind]="ptm('icon')" [class]="icon" [ngClass]="cx('icon')" *ngIf="icon; else imageTemplate"></span></ng-template>
+        <ng-template #imageTemplate><img [pBind]="ptm('image')" [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-avatar]': 'true',
-        '[class.p-component]': 'true',
-        '[class.p-avatar-circle]': 'shape === "circle"',
-        '[class.p-avatar-lg]': 'size === "large"',
-        '[class.p-avatar-xl]': 'size === "xlarge"',
-        '[class.p-avatar-image]': 'image != null',
-        '[attr.data-pc-name]': '"avatar"',
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.aria-label]': 'ariaLabel',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[style]': 'style'
+        '[attr.aria-labelledby]': 'ariaLabelledBy'
     },
-    providers: [AvatarStyle]
+    providers: [AvatarStyle, { provide: AVATAR_INSTANCE, useExisting: Avatar }, { provide: PARENT_INSTANCE, useExisting: Avatar }],
+    hostDirectives: [Bind]
 })
-export class Avatar extends BaseComponent {
+export class Avatar extends BaseComponent<AvatarPassThrough> {
+    $pcAvatar: Avatar | undefined = inject(AVATAR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Defines the text to display.
      * @group Props
@@ -61,12 +66,8 @@ export class Avatar extends BaseComponent {
      */
     @Input() shape: 'square' | 'circle' | undefined = 'square';
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -91,10 +92,6 @@ export class Avatar extends BaseComponent {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
-    }
-
-    @HostBinding('class') get hostClass(): any {
-        return this.styleClass;
     }
 }
 

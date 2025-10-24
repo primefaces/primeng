@@ -2,10 +2,20 @@ import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { DataViewModule } from 'primeng/dataview';
+import { SkeletonModule } from 'primeng/skeleton';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'data-view-loading-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, RouterModule, DataViewModule, SkeletonModule, SelectButtonModule, AppCode, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>While data is being loaded. <a routerLink="/skeleton">Skeleton</a> component may be used to indicate the busy state.</p>
@@ -25,7 +35,7 @@ import { Component, signal } from '@angular/core';
                     <div class="flex flex-col">
                         <div *ngFor="let i of counterArray(6); let first = first">
                             <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                                <p-skeleton styleClass="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
+                                <p-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
                                 <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
                                     <div class="flex flex-col items-center sm:items-start gap-4">
                                         <p-skeleton width="8rem" height="2rem" />
@@ -54,7 +64,7 @@ import { Component, signal } from '@angular/core';
                                     <p-skeleton width="3rem" height="1rem" />
                                 </div>
                                 <div class="flex flex-col items-center gap-4 py-8">
-                                    <p-skeleton height="10rem" class="w-3/4" styleClass="w-3/4" />
+                                    <p-skeleton height="10rem" class="w-3/4" class="w-3/4" />
                                     <p-skeleton width="8rem" height="2rem" />
                                     <p-skeleton width="6rem" height="1rem" />
                                 </div>
@@ -97,7 +107,7 @@ export class LoadingDoc {
                     class="flex flex-col xl:flex-row xl:items-start p-6 gap-6"
                     [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
                 >
-                    <p-skeleton styleClass="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
+                    <p-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
                     <div
                         class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6"
                     >
@@ -133,7 +143,7 @@ export class LoadingDoc {
                         <p-skeleton width="3rem" height="1rem" />
                     </div>
                     <div class="flex flex-col items-center gap-4 py-8">
-                        <p-skeleton height="10rem" class="w-3/4" styleClass="w-3/4" />
+                        <p-skeleton height="10rem" class="w-3/4" class="w-3/4" />
                         <p-skeleton width="8rem" height="2rem" />
                         <p-skeleton width="6rem" height="1rem" />
                     </div>
@@ -165,7 +175,7 @@ export class LoadingDoc {
                         class="flex flex-col xl:flex-row xl:items-start p-6 gap-6"
                         [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }"
                     >
-                        <p-skeleton styleClass="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
+                        <p-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
                         <div
                             class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6"
                         >
@@ -201,7 +211,7 @@ export class LoadingDoc {
                             <p-skeleton width="3rem" height="1rem" />
                         </div>
                         <div class="flex flex-col items-center gap-4 py-8">
-                            <p-skeleton height="10rem" class="w-3/4" styleClass="w-3/4" />
+                            <p-skeleton height="10rem" class="w-3/4" class="w-3/4" />
                             <p-skeleton width="8rem" height="2rem" />
                             <p-skeleton width="6rem" height="1rem" />
                         </div>

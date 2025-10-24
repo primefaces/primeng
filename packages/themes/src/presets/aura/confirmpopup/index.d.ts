@@ -1,3 +1,2 @@
-import { ConfirmPopupDesignTokens } from '../../types/confirmpopup';
-declare const _default: ConfirmPopupDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/confirmpopup';
+export { default } from '@primeuix/themes/aura/confirmpopup';

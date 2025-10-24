@@ -1,8 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, Input, NgModule } from '@angular/core';
+import { Component, inject, InjectionToken, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
+import { InputGroupPassThrough } from 'primeng/types/inputgroup';
 import { InputGroupStyle } from './style/inputgroupstyle';
+
+const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE');
 
 /**
  * InputGroup displays text, icon, buttons and other content can be grouped next to an input.
@@ -11,29 +14,31 @@ import { InputGroupStyle } from './style/inputgroupstyle';
 @Component({
     selector: 'p-inputgroup, p-inputGroup, p-input-group',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [BindModule],
     template: ` <ng-content></ng-content> `,
-    providers: [InputGroupStyle],
+    providers: [InputGroupStyle, { provide: INPUTGROUP_INSTANCE, useExisting: InputGroup }, { provide: PARENT_INSTANCE, useExisting: InputGroup }],
+    hostDirectives: [Bind],
     host: {
-        class: 'p-inputgroup',
-        '[attr.data-pc-name]': '"inputgroup"',
-        '[class]': 'styleClass',
-        '[style]': 'style'
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class InputGroup extends BaseComponent {
-    /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
+export class InputGroup extends BaseComponent<InputGroupPassThrough> {
+    _componentStyle = inject(InputGroupStyle);
+
+    $pcInputGroup: InputGroup | undefined = inject(INPUTGROUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
-
-    _componentStyle = inject(InputGroupStyle);
 }
 
 @NgModule({

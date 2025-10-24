@@ -86,8 +86,8 @@ export class KeyFilter implements Validator {
 
         if (_pattern instanceof RegExp) {
             this.regex = _pattern;
-        } else if (_pattern in DEFAULT_MASKS) {
-            this.regex = DEFAULT_MASKS[_pattern];
+        } else if (_pattern && _pattern in DEFAULT_MASKS) {
+            this.regex = DEFAULT_MASKS[_pattern as keyof typeof DEFAULT_MASKS];
         } else {
             this.regex = /./;
         }
@@ -240,7 +240,18 @@ export class KeyFilter implements Validator {
 
     @HostListener('paste', ['$event'])
     onPaste(e: ClipboardEvent) {
-        const clipboardData = e.clipboardData || (<any>this.document.defaultView).clipboardData.getData('text');
+        let clipboardData = e.clipboardData;
+
+        // Fallback for older browsers
+        if (!clipboardData && this.document.defaultView) {
+            const windowClipboard = (<any>this.document.defaultView).clipboardData;
+            if (windowClipboard) {
+                clipboardData = {
+                    getData: (_format: string) => windowClipboard.getData('text')
+                } as DataTransfer;
+            }
+        }
+
         if (clipboardData) {
             let pattern = /\{[0-9]+\}/;
             const pastedText = clipboardData.getData('text');
@@ -260,7 +271,7 @@ export class KeyFilter implements Validator {
         }
     }
 
-    validate(c: AbstractControl): { [key: string]: any } | any {
+    validate(_c: AbstractControl): { [key: string]: any } | any {
         if (this.pValidateOnly) {
             let value = this.el.nativeElement.value;
             if (value && !this.regex.test(value)) {

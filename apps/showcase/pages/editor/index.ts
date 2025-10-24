@@ -1,19 +1,22 @@
 import { AccessibilityDoc } from '@/doc/editor/accessibilitydoc';
 import { BasicDoc } from '@/doc/editor/basicdoc';
 import { CustomToolbarDoc } from '@/doc/editor/customtoolbardoc';
-import { EditorDocModule } from '@/doc/editor/editordoc.module';
 import { ImportDoc } from '@/doc/editor/importdoc';
+import { PTComponent } from '@/doc/editor/pt/PTComponent';
 import { QuillDoc } from '@/doc/editor/quilldoc';
 import { ReactiveFormsDoc } from '@/doc/editor/reactiveformsdoc';
 import { ReadOnlyDoc } from '@/doc/editor/readonlydoc';
+import { TemplateDrivenFormsDoc } from '@/doc/editor/templatedrivenformsdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [EditorDocModule],
-    template: ` <app-doc docTitle="Angular Editor Component" header="Editor" description="Editor is rich text editor component based on Quill." [docs]="docs" [apiDocs]="['Editor']" themeDocs="editor"></app-doc> `
+    imports: [AppDoc],
+    template: ` <app-doc docTitle="Angular Editor Component" header="Editor" description="Editor is rich text editor component based on Quill." [docs]="docs" [apiDocs]="['Editor']" [ptDocs]="ptComponent" themeDocs="editor"></app-doc> `
 })
 export class EditorDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',
@@ -31,11 +34,6 @@ export class EditorDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'readonly',
             label: 'ReadOnly',
             component: ReadOnlyDoc
@@ -45,7 +43,14 @@ export class EditorDemo {
             label: 'Template',
             component: CustomToolbarDoc
         },
-
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
+        },
         {
             id: 'accessibility',
             label: 'Accessibility',

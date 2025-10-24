@@ -2,10 +2,15 @@ import { Code } from '@/domain/code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'horizontal-scroll-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Horizontal scrollbar is displayed when table width exceeds the parent width.</p>
         </app-docsectiontext>
@@ -39,7 +44,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                         </tr>
                     </ng-template>
                     <ng-template #footer>
-                        <tr>
+                        <tr class="font-bold">
                             <td>Id</td>
                             <td>Name</td>
                             <td>Country</td>
@@ -105,7 +110,7 @@ export class HorizontalScrollDoc {
         </tr>
     </ng-template>
     <ng-template #footer>
-        <tr>
+        <tr class="font-bold">
             <td>Id</td>
             <td>Name</td>
             <td>Country</td>
@@ -147,7 +152,7 @@ export class HorizontalScrollDoc {
             </tr>
         </ng-template>
         <ng-template #footer>
-            <tr>
+            <tr class="font-bold">
                 <td>Id</td>
                 <td>Name</td>
                 <td>Country</td>

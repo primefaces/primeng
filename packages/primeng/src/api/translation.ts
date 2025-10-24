@@ -8,6 +8,7 @@ export interface Translation {
     notContains?: string;
     endsWith?: string;
     equals?: string;
+    completed?: string;
     notEquals?: string;
     noFilter?: string;
     lt?: string;
@@ -134,4 +135,5 @@ export interface Aria {
     removeLabel?: string;
     browseFiles?: string;
     maximizeLabel?: string;
+    minimizeLabel?: string;
 }

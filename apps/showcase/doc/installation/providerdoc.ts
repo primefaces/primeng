@@ -1,9 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'provider-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Add <i>providePrimeNG</i> and <i>provideAnimationsAsync</i> to the list of providers in your <i>app.config.ts</i> and use the <i>theme</i> property to configure a theme such as Aura.</p>
@@ -16,7 +19,7 @@ export class ProviderDoc {
         typescript: `import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [

@@ -1,6 +1,6 @@
 {
-    "id": 91,
-    "content": "Remastered Poseidon Template is Here! 🚀",
-    "linkText": "View Demo",
-    "linkHref": "https://poseidon.primeng.org"
+    "id": 90,
+    "content": "Introducing CI Pipeline for Figma to Theme Code ⭐️",
+    "linkText": "Learn More",
+    "routerLink": "/designer/ci"
 }

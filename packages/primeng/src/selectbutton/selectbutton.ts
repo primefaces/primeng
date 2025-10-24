@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -9,6 +10,8 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -17,13 +20,17 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind, BindModule } from 'primeng/bind';
 import { ToggleButton } from 'primeng/togglebutton';
-import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
+import { SelectButtonChangeEvent, SelectButtonOptionClickEvent, SelectButtonPassThrough } from 'primeng/types/selectbutton';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
+
+const SELECTBUTTON_INSTANCE = new InjectionToken<SelectButton>('SELECTBUTTON_INSTANCE');
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -37,42 +44,41 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton, p-selectbutton, p-select-button',
     standalone: true,
-    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleButton, FormsModule, CommonModule, SharedModule, BindModule],
     template: `
-        @for (option of options; track option; let i = $index) {
-            <p-toggleButton
+        @for (option of options; track getOptionLabel(option); let i = $index) {
+            <p-togglebutton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
                 [ngModel]="isSelected(option)"
                 [onLabel]="this.getOptionLabel(option)"
                 [offLabel]="this.getOptionLabel(option)"
-                [disabled]="disabled || isOptionDisabled(option)"
+                [disabled]="$disabled() || isOptionDisabled(option)"
                 (onChange)="onOptionSelect($event, option, i)"
-                [allowEmpty]="allowEmpty"
-                [size]="size"
+                [allowEmpty]="getAllowEmpty()"
+                [size]="size()"
+                [fluid]="fluid()"
+                [pt]="ptm('pcToggleButton')"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
                         <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, index: i }"></ng-container>
                     </ng-template>
                 }
-            </p-toggleButton>
+            </p-togglebutton>
         }
     `,
-    providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
+    providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle, { provide: SELECTBUTTON_INSTANCE, useExisting: SelectButton }, { provide: PARENT_INSTANCE, useExisting: SelectButton }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class.p-selectbutton]': 'true',
-        '[class.p-component]': 'true',
-        '[style]': 'style',
+        '[class]': "cx('root')",
         '[attr.role]': '"group"',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.data-pc-section]': "'root'",
-        '[attr.data-pc-name]': "'selectbutton'"
-    }
+        '[attr.aria-labelledby]': 'ariaLabelledBy'
+    },
+    hostDirectives: [Bind]
 })
-export class SelectButton extends BaseComponent implements AfterContentInit, ControlValueAccessor {
+export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> implements AfterViewChecked {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -97,7 +103,17 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * Whether selection can be cleared.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) unselectable: boolean = false;
+    get unselectable(): boolean {
+        return this._unselectable;
+    }
+    private _unselectable: boolean = false;
+
+    @Input({ transform: booleanAttribute })
+    set unselectable(value: boolean) {
+        this._unselectable = value;
+        this.allowEmpty = !value;
+    }
+
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -114,11 +130,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      */
     @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: any;
-    /**
      * Style class of the component.
      * @group Props
      */
@@ -129,16 +140,6 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
@@ -148,6 +149,18 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
@@ -174,13 +187,24 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
 
     value: any;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     focusedIndex: number = 0;
 
     _componentStyle = inject(SelectButtonStyle);
+
+    $pcSelectButton: SelectButton | undefined = inject(SELECTBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    getAllowEmpty() {
+        if (this.multiple) {
+            return this.allowEmpty || this.value?.length !== 1;
+        }
+        return this.allowEmpty;
+    }
 
     getOptionLabel(option: any) {
         return this.optionLabel ? resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
@@ -194,26 +218,8 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
         return this.optionDisabled ? resolveFieldData(option, this.optionDisabled) : option.disabled !== undefined ? option.disabled : false;
     }
 
-    writeValue(value: any): void {
-        this.value = value;
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     onOptionSelect(event, option, index) {
-        if (this.disabled || this.isOptionDisabled(option)) {
+        if (this.$disabled() || this.isOptionDisabled(option)) {
             return;
         }
 
@@ -227,7 +233,7 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
         let newValue;
 
         if (this.multiple) {
-            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey));
+            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey || undefined));
             else newValue = this.value ? [...this.value, optionValue] : [optionValue];
         } else {
             if (selected && !this.allowEmpty) {
@@ -238,6 +244,7 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
 
         this.focusedIndex = index;
         this.value = newValue;
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
 
         this.onChange.emit({
@@ -297,7 +304,7 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
                 }
             }
         } else {
-            selected = equals(this.getOptionValue(option), this.value, this.equalityKey);
+            selected = equals(this.getOptionValue(option), this.value, this.equalityKey || undefined);
         }
 
         return selected;
@@ -305,7 +312,7 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -313,6 +320,18 @@ export class SelectButton extends BaseComponent implements AfterContentInit, Con
                     break;
             }
         });
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+        this.cd.markForCheck();
     }
 }
 

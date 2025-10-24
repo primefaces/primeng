@@ -1,0 +1,4 @@
+{
+    "$schema": "ng-packagr/ng-package.schema.json",
+    "lib": {}
+}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const inlineStyles = {
-    root: { position: 'relative' }
+    root: ({ instance }) => ({ display: 'block', position: 'relative', width: instance.width, height: instance.height })
 };
 
 const classes = {

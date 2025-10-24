@@ -1,3 +1,2 @@
-import { ChipDesignTokens } from '../../types/chip';
-declare const _default: ChipDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/chip';
+export { default } from '@primeuix/themes/nora/chip';

@@ -1,3 +1,2 @@
-import { InputGroupDesignTokens } from '../../types/inputgroup';
-declare const _default: InputGroupDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/inputgroup';
+export { default } from '@primeuix/themes/lara/inputgroup';

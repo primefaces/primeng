@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
+import { OverlayBadgePassThrough } from 'primeng/types/overlaybadge';
 import { OverlayBadgeStyle } from './style/overlaybadgestyle';
+
+const OVERLAYBADGE_INSTANCE = new InjectionToken<OverlayBadge>('OVERLAYBADGE_INSTANCE');
 
 /**
  * OverlayPanel is a container component positioned as connected to its target.
@@ -12,18 +16,23 @@ import { OverlayBadgeStyle } from './style/overlaybadgestyle';
 @Component({
     selector: 'p-overlayBadge, p-overlay-badge, p-overlaybadge',
     standalone: true,
-    imports: [CommonModule, BadgeModule, SharedModule],
+    imports: [CommonModule, BadgeModule, SharedModule, Bind],
     template: `
-        <div class="p-overlaybadge">
+        <div [class]="cx('root')" [pBind]="ptm('root')">
             <ng-content></ng-content>
-            <p-badge [styleClass]="styleClass" [style]="style" [badgeSize]="badgeSize" [severity]="severity" [value]="value" [badgeDisabled]="badgeDisabled" />
+            <p-badge [pt]="ptm('pcBadge')" [styleClass]="styleClass" [style]="style" [badgeSize]="badgeSize" [severity]="severity" [value]="value" [badgeDisabled]="badgeDisabled" />
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [OverlayBadgeStyle]
+    providers: [OverlayBadgeStyle, { provide: OVERLAYBADGE_INSTANCE, useExisting: OverlayBadge }, { provide: PARENT_INSTANCE, useExisting: OverlayBadge }],
+    hostDirectives: [Bind]
 })
-export class OverlayBadge extends BaseComponent {
+export class OverlayBadge extends BaseComponent<OverlayBadgePassThrough> {
+    $pcOverlayBadge: OverlayBadge | undefined = inject(OVERLAYBADGE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     /**
      * Class of the element.
      * @group Props
@@ -67,6 +76,10 @@ export class OverlayBadge extends BaseComponent {
         return this._size;
     }
     _size: 'large' | 'xlarge' | 'small' | undefined | null;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
 
     _componentStyle = inject(OverlayBadgeStyle);
 

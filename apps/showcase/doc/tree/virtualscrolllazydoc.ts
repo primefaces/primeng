@@ -1,72 +1,59 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'lazy-virtual-scroll-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
+        <div class="card">
+            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
     `
 })
 export class LazyVirtualScrollDoc implements OnInit {
-    loading: boolean = false;
+    loading = signal<boolean>(false);
 
-    files!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
-    virtualFiles!: TreeNode[];
-
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.loading = true;
+        this.loading.set(true);
         setTimeout(() => {
-            this.nodeService.getLazyFiles().then((files) => (this.files = this.duplicateData(files, 50)));
-            this.loading = false;
-            this.cd.markForCheck();
+            this.nodes.set(this.nodeService.generateNodes(150));
+            this.loading.set(false);
         }, 1000);
-    }
-
-    duplicateData(data: TreeNode[], count: number): TreeNode[] {
-        let duplicatedData: TreeNode[] = [];
-        for (let i = 0; i < count; i++) {
-            duplicatedData = [...duplicatedData, ...data.map((item) => ({ ...item }))];
-        }
-        return duplicatedData;
     }
 
     nodeExpand(event: any) {
         if (event.node) {
-            this.loading = true;
+            this.loading.set(true);
             setTimeout(() => {
-                this.nodeService.getLazyFiles().then((nodes) => {
-                    event.node.children = nodes;
-                    this.files = [...this.files, event.node.children];
-                });
-                this.loading = false;
-                this.cd.markForCheck();
+                event.node.children = this.nodeService.createNodes(5, event.node.key);
+                this.loading.set(false);
+                this.nodes.set([...this.nodes()]);
             }, 200);
         }
     }
 
     code: Code = {
-        basic: `<p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />`,
+        basic: `<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-tree styleClass="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
+        html: `<div class="card">
+    <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
 </div>`,
 
-        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -79,41 +66,27 @@ import { Tree } from 'primeng/tree';
     providers: [NodeService]
 })
 export class TreeVirtualScrollLazyDemo implements OnInit {
-    loading: boolean = false;
+    loading = signal<boolean>(false);
 
-    files!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
-    virtualFiles!: TreeNode[];
-
-    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.loading = true;
+        this.loading.set(true);
         setTimeout(() => {
-            this.nodeService.getLazyFiles().then((files) => (this.files = this.duplicateData(files, 50)));
-            this.loading = false;
-            this.cd.markForCheck();
+            this.nodes.set(this.nodeService.generateNodes(150));
+            this.loading.set(false);
         }, 1000);
-    }
-
-    duplicateData(data: TreeNode[], count: number): TreeNode[] {
-        let duplicatedData: TreeNode[] = [];
-        for (let i = 0; i < count; i++) {
-            duplicatedData = [...duplicatedData, ...data.map((item) => ({ ...item }))];
-        }
-        return duplicatedData;
     }
 
     nodeExpand(event: any) {
         if (event.node) {
-            this.loading = true;
+            this.loading.set(true);
             setTimeout(() => {
-                this.nodeService.getLazyFiles().then((nodes) => {
-                    event.node.children = nodes;
-                    this.files = [...this.files, event.node.children];
-                });
-                this.loading = false;
-                this.cd.markForCheck();
+                event.node.children = this.nodeService.createNodes(5, event.node.key);
+                this.loading.set(false);
+                this.nodes.set([...this.nodes()]);
             }, 200);
         }
     }
@@ -121,32 +94,30 @@ export class TreeVirtualScrollLazyDemo implements OnInit {
         service: ['NodeService'],
 
         data: `
-    /* NodeService */
-{
-    key: '0',
-    label: 'Documents',
-    data: 'Documents Folder',
-    icon: 'pi pi-fw pi-inbox',
-    children: [
-        {
-            key: '0-0',
-            label: 'Work',
-            data: 'Work Folder',
-            icon: 'pi pi-fw pi-cog',
-            children: [
-                { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-            ]
-        },
-        {
-            key: '0-1',
-            label: 'Home',
-            data: 'Home Folder',
-            icon: 'pi pi-fw pi-home',
-            children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
-        }
-    ]
-},
-...`
+import { Injectable } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+
+@Injectable()
+export class NodeService {
+    generateNodes(count: number): TreeNode[] {
+        return this.createNodes(count);
+    }
+
+    createNodes(length: number, parentKey?: string): TreeNode[] {
+        const _createNodes = (length: number, level: number, parentKey?: string): TreeNode[] => {
+            const nodes: TreeNode[] = [];
+            for (let i = 0; i < length; i++) {
+                const key = parentKey ? \`\${parentKey}-\${i}\` : \`\${i}\`;
+                nodes.push({
+                    key,
+                    label: \`Node \${key}\`,
+                    children: level < 2 ? _createNodes(5, level + 1, key) : []
+                });
+            }
+            return nodes;
+        };
+        return _createNodes(length, 0, parentKey);
+    }
+}`
     };
 }

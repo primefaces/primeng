@@ -1,3 +1,2 @@
-import { AvatarDesignTokens } from '../../types/avatar';
-declare const _default: AvatarDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/avatar';
+export { default } from '@primeuix/themes/material/avatar';

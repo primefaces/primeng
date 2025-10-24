@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'overview-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -10,8 +12,8 @@ import { Component } from '@angular/core';
                 Bootstrap, Tailwind offers primitive classes like <i>bg-blue-500</i>, <i>rounded</i> and <i>p-4</i> to apply a button.
             </p>
             <p>
-                Tailwind is an outstanding CSS library, however it lacks a true comprehensive UI suite when combined with Vue.js, this is where PrimeNG comes in by providing a wide range of highly accessible and feature rich UI component library. The
-                core of PrimeNG does not depend on Tailwind CSS, instead we provide the necessary integration points such as the primeui tailwind plugin.
+                Tailwind is an outstanding CSS library, however it lacks a true comprehensive UI suite when combined with Angular, this is where PrimeNG comes in by providing a wide range of highly accessible and feature rich UI component library.
+                The core of PrimeNG does not depend on Tailwind CSS, instead we provide the necessary integration points such as the primeui tailwind plugin.
             </p>
         </app-docsectiontext>
     `

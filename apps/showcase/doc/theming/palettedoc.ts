@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'palette-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Returns shades and tints of a given color from 50 to 950 as an array.</p>
@@ -13,7 +16,7 @@ import { Component } from '@angular/core';
 })
 export class PaletteDoc {
     code1 = {
-        typescript: `import { palette } from '@primeng/themes';`
+        typescript: `import { palette } from '@primeuix/themes';`
     };
 
     code2 = {

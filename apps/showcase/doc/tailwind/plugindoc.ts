@@ -1,8 +1,11 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 
 @Component({
     selector: 'plugin-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -19,6 +22,10 @@ import { Component } from '@angular/core';
             <h3>Tailwind v4</h3>
             <p>In the CSS file that contains the tailwindcss import, add the <i>tailwindcss-primeui</i> import as well.</p>
             <app-code [code]="code2" [importCode]="true" [hideToggleCode]="true" [hideStackBlitz]="true" />
+            <p class="mt-4">
+                For a comprehensive starter guide, review the <a href="https://github.com/primefaces/primeng-examples/tree/main/primeng-quickstart-tailwind" target="_blank" rel="noopener noreferrer">primeng-quickstart-tailwind</a> repository which
+                demonstrates the integration.
+            </p>
             <h3>Tailwind v3</h3>
             <p>Use the plugins option in your Tailwind config file to configure the plugin.</p>
             <app-code [code]="code3" [importCode]="true" [hideToggleCode]="true" [hideStackBlitz]="true" />

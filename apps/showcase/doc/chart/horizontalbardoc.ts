@@ -3,10 +3,14 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-horizontal-bar-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ChartModule],
     template: `
         <app-docsectiontext>
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>

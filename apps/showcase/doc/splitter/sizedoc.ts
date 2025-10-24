@@ -1,15 +1,19 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     selector: 'size-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, SplitterModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>When no panelSizes are defined, panels are split 50/50, use the <i>panelSizes</i> property to give relative widths e.g. [25, 75].</p>
         </app-docsectiontext>
         <div class="card">
-            <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-8">
+            <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 1</div>
                 </ng-template>
@@ -23,7 +27,7 @@ import { Component } from '@angular/core';
 })
 export class SizeDoc {
     code: Code = {
-        basic: `<p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-8">
+        basic: `<p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
     <ng-template #panel>
         <div class="flex items-center justify-center h-full">Panel 1</div>
     </ng-template>
@@ -33,7 +37,7 @@ export class SizeDoc {
 </p-splitter>`,
 
         html: `<div class="card">
-    <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-8">
+    <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
         <ng-template #panel>
             <div class="flex items-center justify-center h-full">Panel 1</div>
         </ng-template>

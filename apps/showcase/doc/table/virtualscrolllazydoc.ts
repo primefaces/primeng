@@ -3,6 +3,12 @@ import { Code } from '@/domain/code';
 import { CarService } from '@/service/carservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TableLazyLoadEvent } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { SkeletonModule } from 'primeng/skeleton';
 
 interface Column {
     field: string;
@@ -11,7 +17,8 @@ interface Column {
 
 @Component({
     selector: 'virtual-scroll-lazy-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo, SkeletonModule],
     template: ` <app-docsectiontext>
             <p>
                 VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also
@@ -142,6 +149,7 @@ import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { SkeletonModule } from 'primeng/skeleton';
 
 interface Column {
     field: string;
@@ -152,7 +160,7 @@ interface Column {
     selector: 'table-virtual-scroll-lazy-demo',
     templateUrl: 'table-virtual-scroll-lazy-demo.html',
     standalone: true,
-    imports: [TableModule, CommonModule],
+    imports: [TableModule, CommonModule, SkeletonModule],
     providers: [CarService]
 })
 export class TableVirtualScrollLazyDemo implements OnInit{

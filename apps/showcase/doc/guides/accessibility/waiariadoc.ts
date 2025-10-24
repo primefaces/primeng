@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     selector: 'wai-aria-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCodeModule, CheckboxModule],
     template: `
         <app-docsectiontext>
             <p>

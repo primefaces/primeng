@@ -5,11 +5,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -23,16 +26,20 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { addClass, appendChild, blockBodyScroll, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
+import { addClass, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
+import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { DialogPassThrough } from 'primeng/types/dialog';
 import { ZIndexUtils } from 'primeng/utils';
 import { DialogStyle } from './style/dialogstyle';
+
+const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -44,32 +51,16 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-dialog',
     standalone: true,
-    imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule],
+    imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind],
     template: `
-        <div
-            *ngIf="maskVisible"
-            [ngClass]="maskClass"
-            [class]="maskStyleClass"
-            [ngStyle]="{
-                position: 'fixed',
-                height: '100%',
-                width: '100%',
-                left: 0,
-                top: 0,
-                display: 'flex',
-                'justify-content': position === 'left' || position === 'topleft' || position === 'bottomleft' ? 'flex-start' : position === 'right' || position === 'topright' || position === 'bottomright' ? 'flex-end' : 'center',
-                'align-items': position === 'top' || position === 'topleft' || position === 'topright' ? 'flex-start' : position === 'bottom' || position === 'bottomleft' || position === 'bottomright' ? 'flex-end' : 'center',
-                'pointer-events': modal ? 'auto' : 'none'
-            }"
-            [style]="maskStyle"
-        >
+        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle" [pBind]="ptm('mask')">
             <div
                 *ngIf="visible"
                 #container
-                [class]="styleClass"
-                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximizable && maximized }"
-                [ngStyle]="{ display: 'flex', 'flex-direction': 'column', 'pointer-events': 'auto' }"
-                [style]="style"
+                [class]="cn(cx('root'), styleClass)"
+                [style]="sx('root')"
+                [ngStyle]="style"
+                [pBind]="ptm('root')"
                 pFocusTrap
                 [pFocusTrapDisabled]="focusTrap === false"
                 [@animation]="{
@@ -87,29 +78,49 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-container>
 
                 <ng-template #notHeadless>
-                    <div *ngIf="resizable" [ngClass]="cx('resizeHandle')" style="z-index: 90;" (mousedown)="initResize($event)"></div>
-                    <div #titlebar [ngClass]="cx('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                        <span [id]="ariaLabelledBy" [ngClass]="cx('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
+                    <div *ngIf="resizable" [class]="cx('resizeHandle')" [pBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
+                    <div #titlebar [class]="cx('header')" [pBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
+                        <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
                         <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>
-                        <div [ngClass]="cx('headerActions')">
-                            <p-button *ngIf="maximizable" [styleClass]="cx('pcMaximizeButton')" (onClick)="maximize()" (keydown.enter)="maximize()" [tabindex]="maximizable ? '0' : '-1'" [ariaLabel]="maximizeLabel" [buttonProps]="maximizeButtonProps">
-                                <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                                <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
-                                    <WindowMaximizeIcon *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
-                                    <WindowMinimizeIcon *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
-                                </ng-container>
-                                <ng-container *ngIf="!maximized">
-                                    <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
-                                </ng-container>
-                                <ng-container *ngIf="maximized">
-                                    <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
-                                </ng-container>
+                        <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
+                            <p-button
+                                [pt]="ptm('pcMaximizeButton')"
+                                *ngIf="maximizable"
+                                [styleClass]="cx('pcMaximizeButton')"
+                                [ariaLabel]="maximized ? minimizeLabel : maximizeLabel"
+                                (onClick)="maximize()"
+                                (keydown.enter)="maximize()"
+                                [tabindex]="maximizable ? '0' : '-1'"
+                                [buttonProps]="maximizeButtonProps"
+                            >
+                                <ng-template #icon>
+                                    <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                                    <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
+                                        <svg data-p-icon="window-maximize" *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
+                                        <svg data-p-icon="window-minimize" *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
+                                    </ng-container>
+                                    <ng-container *ngIf="!maximized">
+                                        <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
+                                    </ng-container>
+                                    <ng-container *ngIf="maximized">
+                                        <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
+                                    </ng-container>
+                                </ng-template>
                             </p-button>
-                            <p-button *ngIf="closable" [styleClass]="cx('pcCloseButton')" [ariaLabel]="closeAriaLabel" (onClick)="close($event)" (keydown.enter)="close($event)" [tabindex]="closeTabindex" [buttonProps]="closeButtonProps">
+                            <p-button
+                                [pt]="ptm('pcCloseButton')"
+                                *ngIf="closable"
+                                [styleClass]="cx('pcCloseButton')"
+                                [ariaLabel]="closeAriaLabel"
+                                (onClick)="close($event)"
+                                (keydown.enter)="close($event)"
+                                [tabindex]="closeTabindex"
+                                [buttonProps]="closeButtonProps"
+                            >
                                 <ng-template #icon>
                                     <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
-                                        <span *ngIf="closeIcon" [ngClass]="closeIcon"></span>
-                                        <TimesIcon *ngIf="!closeIcon" />
+                                        <span *ngIf="closeIcon" [class]="closeIcon"></span>
+                                        <svg data-p-icon="times" *ngIf="!closeIcon" />
                                     </ng-container>
                                     <span *ngIf="_closeiconTemplate || closeIconTemplate || closeIconT">
                                         <ng-template *ngTemplateOutlet="_closeiconTemplate || closeIconTemplate || closeIconT"></ng-template>
@@ -118,11 +129,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             </p-button>
                         </div>
                     </div>
-                    <div #content [ngClass]="cx('content')" [class]="contentStyleClass" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [pBind]="ptm('content')">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                     </div>
-                    <div #footer [ngClass]="cx('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
+                    <div #footer [class]="cx('footer')" [pBind]="ptm('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
                         <ng-content select="p-footer"></ng-content>
                         <ng-container *ngTemplateOutlet="_footerTemplate || footerTemplate || footerT"></ng-container>
                     </div>
@@ -133,9 +144,20 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DialogStyle]
+    providers: [DialogStyle, { provide: DIALOG_INSTANCE, useExisting: Dialog }, { provide: PARENT_INSTANCE, useExisting: Dialog }],
+    hostDirectives: [Bind]
 })
-export class Dialog extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
+export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, AfterContentInit, OnDestroy {
+    @Input() hostName: string = '';
+
+    $pcDialog: Dialog | undefined = inject(DIALOG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Title text of the dialog.
      * @group Props
@@ -151,28 +173,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      * @group Props
      */
     @Input({ transform: booleanAttribute }) resizable: boolean = true;
-    /**
-     * Defines the left offset of dialog.
-     * @group Props
-     * @deprecated positionLeft property is deprecated.
-     */
-    @Input() get positionLeft(): number {
-        return 0;
-    }
-    set positionLeft(_positionLeft: number) {
-        console.log('positionLeft property is deprecated.');
-    }
-    /**
-     * Defines the top offset of dialog.
-     * @group Props
-     * @deprecated positionTop property is deprecated.
-     */
-    @Input() get positionTop(): number {
-        return 0;
-    }
-    set positionTop(_positionTop: number) {
-        console.log('positionTop property is deprecated.');
-    }
     /**
      * Style of the content section.
      * @group Props
@@ -209,22 +209,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
-     * Defines if the component is responsive.
-     * @group Props
-     * @deprecated Responsive property is deprecated.
-     */
-    @Input() get responsive(): boolean {
-        return false;
-    }
-    set responsive(_responsive: boolean) {
-        console.log('Responsive property is deprecated.');
-    }
-    /**
-     * Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Object literal to define widths per screen size.
      * @group Props
      */
@@ -249,17 +233,6 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showHeader: boolean = true;
-    /**
-     * Defines the breakpoint of the component responsive.
-     * @group Props
-     * @deprecated Breakpoint property is not utilized and deprecated. Use breakpoints or CSS media queries instead.
-     */
-    @Input() get breakpoint(): number {
-        return 649;
-    }
-    set breakpoint(_breakpoint: number) {
-        console.log('Breakpoint property is not utilized and deprecated, use breakpoints or CSS media queries instead.');
-    }
     /**
      * Whether background scroll should be blocked when dialog is visible.
      * @group Props
@@ -341,7 +314,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input() closeButtonProps: ButtonProps = {
         severity: 'secondary',
-        text: true,
+        variant: 'text',
         rounded: true
     };
     /**
@@ -350,7 +323,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      */
     @Input() maximizeButtonProps: ButtonProps = {
         severity: 'secondary',
-        text: true,
+        variant: 'text',
         rounded: true
     };
     /**
@@ -417,6 +390,12 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
      * @group Emits
      */
     @Input() role: string = 'dialog';
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Callback to invoke when dialog is shown.
      * @group Emits
@@ -512,6 +491,8 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     @ContentChild('headless', { descendants: false }) _headlessTemplate: TemplateRef<any> | undefined;
 
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
     _visible: boolean = false;
 
     maskVisible: boolean | undefined;
@@ -522,7 +503,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     dragging: boolean | undefined;
 
-    ariaLabelledBy: string = this.getAriaLabelledBy();
+    ariaLabelledBy: string | null = this.getAriaLabelledBy();
 
     documentDragListener: VoidListener;
 
@@ -586,8 +567,14 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     headlessT: TemplateRef<any> | undefined;
 
+    private zIndexForLayering?: number;
+
     get maximizeLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
+    }
+
+    get minimizeLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['minimizeLabel'];
     }
     zone: NgZone = inject(NgZone);
 
@@ -602,8 +589,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         };
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -611,7 +597,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
@@ -687,7 +673,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         return false;
     }
 
-    focus(focusParentElement?: HTMLElement) {
+    focus(focusParentElement: HTMLElement = this.contentViewChild?.nativeElement) {
         let focused = this._focus(focusParentElement);
 
         if (!focused) {
@@ -764,6 +750,8 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
             (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
+        } else {
+            this.zIndexForLayering = ZIndexUtils.generateZIndex('modal', (this.baseZIndex ?? 0) + this.config.zIndex.modal);
         }
     }
 
@@ -772,6 +760,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
                 let innerHTML = '';
                 for (let breakpoint in this.breakpoints) {
@@ -791,7 +780,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     initDrag(event: MouseEvent) {
-        if (hasClass(event.target as any, 'p-dialog-maximize-icon') || hasClass(event.target as any, 'p-dialog-header-close-icon') || hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        if (hasClass(event.target as any, 'p-dialog-maximize-icon') || hasClass(event.target as any, 'p-dialog-header-close-icon') || hasClass((<HTMLElement>event.target)?.parentElement as HTMLElement, 'p-dialog-header-icon')) {
             return;
         }
 
@@ -806,14 +795,14 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     onDrag(event: MouseEvent) {
-        if (this.dragging) {
-            const containerWidth = getOuterWidth(this.container);
-            const containerHeight = getOuterHeight(this.container);
+        if (this.dragging && this.container) {
+            const containerWidth = getOuterWidth(this.container as HTMLDivElement);
+            const containerHeight = getOuterHeight(this.container as HTMLDivElement);
             const deltaX = event.pageX - (this.lastPageX as number);
             const deltaY = event.pageY - (this.lastPageY as number);
             const offset = this.container.getBoundingClientRect();
 
-            const containerComputedStyle = getComputedStyle(this.container);
+            const containerComputedStyle = getComputedStyle(this.container as HTMLDivElement);
 
             const leftMargin = parseFloat(containerComputedStyle.marginLeft);
             const topMargin = parseFloat(containerComputedStyle.marginTop);
@@ -880,8 +869,8 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         if (this.resizing) {
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = getOuterWidth(this.container);
-            let containerHeight = getOuterHeight(this.container);
+            let containerWidth = getOuterWidth(this.container as HTMLDivElement);
+            let containerHeight = getOuterHeight(this.container as HTMLDivElement);
             let contentHeight = getOuterHeight(this.contentViewChild?.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
@@ -998,7 +987,10 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.key == 'Escape') {
-                this.close(event);
+                const currentZIndex = ZIndexUtils.getCurrent();
+                if (parseInt((this.container as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
+                    this.close(event);
+                }
             }
         });
     }
@@ -1011,14 +1003,14 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else appendChild(this.appendTo, this.wrapper);
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
+            else appendChild(this.$appendTo(), this.wrapper as HTMLElement);
         }
     }
 
     restoreAppend() {
-        if (this.container && this.appendTo) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.wrapper);
         }
     }
@@ -1028,6 +1020,7 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container?.parentElement;
+                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
                 this.appendContainer();
                 this.moveOnTop();
                 this.bindGlobalListeners();
@@ -1098,6 +1091,9 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         if (this.container && this.autoZIndex) {
             ZIndexUtils.clear(this.container);
         }
+        if (this.zIndexForLayering) {
+            ZIndexUtils.revertZIndex(this.zIndexForLayering);
+        }
 
         this.container = null;
         this.wrapper = null;
@@ -1112,14 +1108,13 @@ export class Dialog extends BaseComponent implements OnInit, AfterContentInit, O
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.container) {
             this.restoreAppend();
             this.onContainerDestroy();
         }
 
         this.destroyStyle();
-        super.ngOnDestroy();
     }
 }
 

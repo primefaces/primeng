@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, RadioButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>RadioButtons can be generated using a list of values.</p>
@@ -36,7 +42,7 @@ export class DynamicDoc implements OnInit {
     code: Code = {
         basic: `<div class="flex flex-col gap-4">
     <div *ngFor="let category of categories" class="field-checkbox">
-        <p-radiobutton [inputId]="category.key"name="category" [value]="category" [(ngModel)]="selectedCategory" />
+        <p-radiobutton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
         <label [for]="category.key" class="ml-2">{{ category.name }}</label>
     </div>
 </div>`,

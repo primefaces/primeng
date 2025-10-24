@@ -1,12 +1,16 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, Directive, ElementRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
+import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
+
+const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 
 /**
  * Tooltip directive provides advisory information for a component.
@@ -15,9 +19,11 @@ import { TooltipStyle } from './style/tooltipstyle';
 @Directive({
     selector: '[pTooltip]',
     standalone: true,
-    providers: [TooltipStyle]
+    providers: [TooltipStyle, { provide: TOOLTIP_INSTANCE, useExisting: Tooltip }, { provide: PARENT_INSTANCE, useExisting: Tooltip }]
 })
-export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
+export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
+    $pcTooltip: Tooltip | undefined = inject(TOOLTIP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     /**
      * Position of the tooltip.
      * @group Props
@@ -28,11 +34,6 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() tooltipEvent: 'hover' | 'focus' | 'both' | string | any = 'hover';
-    /**
-     *  Target element to attach the overlay, valid values are "body", "target" or a local ng-F variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Type of CSS position.
      * @group Props
@@ -115,6 +116,14 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() tooltipOptions: TooltipOptions | undefined;
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     _tooltipOptions = {
         tooltipLabel: null,
@@ -144,6 +153,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     tooltipText: any;
 
+    rootPTClasses: string = '';
+
     showTimeout: any;
 
     hideTimeout: any;
@@ -172,15 +183,19 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     interactionInProgress = false;
 
+    ptTooltip = input<any>();
+
     constructor(
         public zone: NgZone,
         private viewContainer: ViewContainerRef
     ) {
         super();
+        effect(() => {
+            this.ptTooltip() && this.directivePT.set(this.ptTooltip());
+        });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 const tooltipEvent = this.getOption('tooltipEvent');
@@ -210,8 +225,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         if (simpleChange.tooltipPosition) {
             this.setOption({ tooltipPosition: simpleChange.tooltipPosition.currentValue });
         }
@@ -360,7 +374,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             if (this.getOption('hideOnEscape')) {
                 this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
                     this.deactivate();
-                    this.documentEscapeListener();
+                    this.documentEscapeListener?.();
                 });
             }
             this.interactionInProgress = true;
@@ -392,16 +406,10 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             this.remove();
         }
 
-        this.container = document.createElement('div');
-        this.container.setAttribute('id', this.getOption('id'));
-        this.container.setAttribute('role', 'tooltip');
-
-        let tooltipArrow = document.createElement('div');
-        tooltipArrow.className = 'p-tooltip-arrow';
+        this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
+        let tooltipArrow = createElement('div', { class: 'p-tooltip-arrow', 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
         this.container.appendChild(tooltipArrow);
-
-        this.tooltipText = document.createElement('div');
-        this.tooltipText.className = 'p-tooltip-text';
+        this.tooltipText = createElement('div', { class: 'p-tooltip-text', 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
 
         this.updateText();
 
@@ -479,13 +487,12 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.getOption('tooltipZIndex') === 'auto') {
             ZIndexUtils.clear(this.container);
         }
-
         this.remove();
     }
 
     updateText() {
         const content = this.getOption('tooltipLabel');
-        if (content instanceof TemplateRef) {
+        if (content && typeof (content as TemplateRef<any>).createEmbeddedView === 'function') {
             const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
             embeddedViewRef.detectChanges();
             embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
@@ -498,7 +505,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     align() {
-        let position = this.getOption('tooltipPosition');
+        const position = this.getOption('tooltipPosition') as keyof typeof positionPriority;
 
         const positionPriority = {
             top: [this.alignTop, this.alignBottom, this.alignRight, this.alignLeft],
@@ -507,7 +514,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             right: [this.alignRight, this.alignLeft, this.alignTop, this.alignBottom]
         };
 
-        for (let [index, alignmentFn] of positionPriority[position].entries()) {
+        const alignFns = positionPriority[position] || [];
+        for (let [index, alignmentFn] of alignFns.entries()) {
             if (index === 0) alignmentFn.call(this);
             else if (this.isOutOfBounds()) alignmentFn.call(this);
             else break;
@@ -527,7 +535,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     private get activeElement(): HTMLElement {
-        return this.el.nativeElement.nodeName.startsWith('P-') ? findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
+        return this.el.nativeElement.nodeName.startsWith('P-') ? (findSingle(this.el.nativeElement, '.p-component') as HTMLElement) : this.el.nativeElement;
     }
 
     alignRight() {
@@ -536,27 +544,63 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         const offsetLeft = getOuterWidth(el);
         const offsetTop = (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
         this.alignTooltip(offsetLeft, offsetTop);
+        let arrowElement = this.getArrowElement();
+
+        arrowElement.style.top = '50%';
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = '0';
     }
 
     alignLeft() {
         this.preAlign('left');
+        let arrowElement = this.getArrowElement();
         let offsetLeft = getOuterWidth(this.container);
         let offsetTop = (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
         this.alignTooltip(-offsetLeft, offsetTop);
+
+        arrowElement.style.top = '50%';
+        arrowElement.style.right = '0';
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = null;
     }
 
     alignTop() {
         this.preAlign('top');
+        let arrowElement = this.getArrowElement();
+        let hostOffset = this.getHostOffset();
+        let elementWidth = getOuterWidth(this.container);
+
         let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.container);
         this.alignTooltip(offsetLeft, -offsetTop);
+
+        let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
+        arrowElement.style.top = null;
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = '0';
+        arrowElement.style.left = elementRelativeCenter + 'px';
+    }
+
+    getArrowElement(): any {
+        return findSingle(this.container, '[data-pc-section="arrow"]');
     }
 
     alignBottom() {
         this.preAlign('bottom');
+        let arrowElement = this.getArrowElement();
+        let elementWidth = getOuterWidth(this.container);
+        let hostOffset = this.getHostOffset();
         let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.el.nativeElement);
         this.alignTooltip(offsetLeft, offsetTop);
+
+        let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
+
+        arrowElement.style.top = '0';
+        arrowElement.style.right = null;
+        arrowElement.style.bottom = null;
+        arrowElement.style.left = elementRelativeCenter + 'px';
     }
 
     alignTooltip(offsetLeft, offsetTop) {
@@ -582,9 +626,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     preAlign(position: string) {
         this.container.style.left = -999 + 'px';
         this.container.style.top = -999 + 'px';
-
-        let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;
-        this.container.className = this.getOption('tooltipStyleClass') ? defaultClassName + ' ' + this.getOption('tooltipStyleClass') : defaultClassName;
+        this.container.className = this.cn(this.cx('root'), this.ptm('root')?.class, 'p-tooltip-' + position, this.getOption('tooltipStyleClass'));
     }
 
     isOutOfBounds(): boolean {
@@ -689,9 +731,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         this.clearHideTimeout();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindEvents();
-        super.ngOnDestroy();
 
         if (this.container) {
             ZIndexUtils.clear(this.container);
@@ -711,7 +752,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [Tooltip],
-    exports: [Tooltip]
+    imports: [Tooltip, BindModule],
+    exports: [Tooltip, BindModule]
 })
 export class TooltipModule {}

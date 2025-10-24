@@ -1,28 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    inject,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    QueryList,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, removeClass, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
+import { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
+
+const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTANCE');
 
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
@@ -31,60 +17,65 @@ import { ScrollPanelStyle } from './style/scrollpanelstyle';
 @Component({
     selector: 'p-scroll-panel, p-scrollPanel, p-scrollpanel',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'scrollpanel'">
-            <div class="p-scrollpanel-content-container" [attr.data-pc-section]="'wrapper'">
-                <div #content class="p-scrollpanel-content" [attr.data-pc-section]="'content'" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
-                    @if (!contentTemplate && !_contentTemplate) {
-                        <ng-content></ng-content>
-                    }
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </div>
+        <div [pBind]="ptm('contentContainer')" [class]="cx('contentContainer')">
+            <div #content [pBind]="ptm('content')" [class]="cx('content')" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
+                @if (!contentTemplate && !_contentTemplate) {
+                    <ng-content></ng-content>
+                }
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
-            <div
-                #xBar
-                class="p-scrollpanel-bar p-scrollpanel-bar-x"
-                tabindex="0"
-                role="scrollbar"
-                [attr.aria-orientation]="'horizontal'"
-                [attr.aria-valuenow]="lastScrollLeft"
-                [attr.data-pc-section]="'barx'"
-                [attr.aria-controls]="contentId"
-                (mousedown)="onXBarMouseDown($event)"
-                (keydown)="onKeyDown($event)"
-                (keyup)="onKeyUp()"
-                (focus)="onFocus($event)"
-                (blur)="onBlur()"
-            ></div>
-            <div
-                #yBar
-                class="p-scrollpanel-bar p-scrollpanel-bar-y"
-                tabindex="0"
-                role="scrollbar"
-                [attr.aria-orientation]="'vertical'"
-                [attr.aria-valuenow]="lastScrollTop"
-                [attr.data-pc-section]="'bary'"
-                [attr.aria-controls]="contentId"
-                (mousedown)="onYBarMouseDown($event)"
-                (keydown)="onKeyDown($event)"
-                (keyup)="onKeyUp()"
-                (focus)="onFocus($event)"
-            ></div>
         </div>
+        <div
+            #xBar
+            [pBind]="ptm('barX')"
+            [class]="cx('barX')"
+            tabindex="0"
+            role="scrollbar"
+            [attr.aria-orientation]="'horizontal'"
+            [attr.aria-valuenow]="lastScrollLeft"
+            [attr.aria-controls]="contentId"
+            (mousedown)="onXBarMouseDown($event)"
+            (keydown)="onKeyDown($event)"
+            (keyup)="onKeyUp()"
+            (focus)="onFocus($event)"
+            (blur)="onBlur()"
+        ></div>
+        <div
+            #yBar
+            [pBind]="ptm('barY')"
+            [class]="cx('barY')"
+            tabindex="0"
+            role="scrollbar"
+            [attr.aria-orientation]="'vertical'"
+            [attr.aria-valuenow]="lastScrollTop"
+            [attr.aria-controls]="contentId"
+            (mousedown)="onYBarMouseDown($event)"
+            (keydown)="onKeyDown($event)"
+            (keyup)="onKeyUp()"
+            (focus)="onFocus($event)"
+        ></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ScrollPanelStyle]
+    providers: [ScrollPanelStyle, { provide: SCROLLPANEL_INSTANCE, useExisting: ScrollPanel }, { provide: PARENT_INSTANCE, useExisting: ScrollPanel }],
+    host: {
+        '[class]': 'cn(cx("root"), styleClass)'
+    },
+    hostDirectives: [Bind]
 })
-export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
+export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
+    $pcScrollPanel: ScrollPanel | undefined = inject(SCROLLPANEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -93,8 +84,6 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
      * @group Props
      */
     @Input({ transform: numberAttribute }) step: number = 5;
-
-    @ViewChild('container') containerViewChild: ElementRef | undefined;
 
     @ViewChild('content') contentViewChild: ElementRef | undefined;
 
@@ -155,13 +144,11 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
 
     zone: NgZone = inject(NgZone);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.contentId = uuid('pn_id_') + '_content';
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.moveBar();
@@ -183,7 +170,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -198,7 +185,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     calculateContainerHeight() {
-        let container = (this.containerViewChild as ElementRef).nativeElement;
+        let container = (this.el as ElementRef).nativeElement;
         let content = (this.contentViewChild as ElementRef).nativeElement;
         let xBar = (this.xBarViewChild as ElementRef).nativeElement;
         const window = this.document.defaultView as Window;
@@ -217,7 +204,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     moveBar() {
-        let container = (this.containerViewChild as ElementRef).nativeElement;
+        let container = (this.el as ElementRef).nativeElement;
         let content = (this.contentViewChild as ElementRef).nativeElement;
 
         /* horizontal scroll */
@@ -333,7 +320,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     repeat(bar, step) {
-        this.contentViewChild.nativeElement[bar] += step;
+        this.contentViewChild?.nativeElement && (this.contentViewChild.nativeElement[bar] += step);
         this.moveBar();
     }
 
@@ -380,10 +367,10 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
 
     onYBarMouseDown(e: MouseEvent) {
         this.isYBarClicked = true;
-        this.yBarViewChild.nativeElement.focus();
+        this.yBarViewChild?.nativeElement?.focus();
         this.lastPageY = e.pageY;
 
-        this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'true');
+        this.yBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'true');
         addClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'true');
@@ -394,10 +381,10 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
 
     onXBarMouseDown(e: MouseEvent) {
         this.isXBarClicked = true;
-        this.xBarViewChild.nativeElement.focus();
+        this.xBarViewChild?.nativeElement?.focus();
         this.lastPageX = e.pageX;
 
-        this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
+        this.xBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'false');
         addClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
 
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
@@ -447,9 +434,9 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     onFocus(event) {
-        if (this.xBarViewChild.nativeElement.isSameNode(event.target)) {
+        if (this.xBarViewChild?.nativeElement?.isSameNode(event.target)) {
             this.orientation = 'horizontal';
-        } else if (this.yBarViewChild.nativeElement.isSameNode(event.target)) {
+        } else if (this.yBarViewChild?.nativeElement?.isSameNode(event.target)) {
             this.orientation = 'vertical';
         }
     }
@@ -461,9 +448,9 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
     }
 
     onDocumentMouseUp(e: Event) {
-        this.yBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
+        this.yBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'false');
         removeClass((this.yBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
-        this.xBarViewChild.nativeElement.setAttribute('data-p-scrollpanel-grabbed', 'false');
+        this.xBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'false');
         removeClass((this.xBarViewChild as ElementRef).nativeElement, 'p-scrollpanel-grabbed');
         this.document.body.setAttribute('data-p-scrollpanel-grabbed', 'false');
         removeClass(this.document.body, 'p-scrollpanel-grabbed');
@@ -505,7 +492,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.initialized) {
             this.unbindListeners();
         }
@@ -520,7 +507,7 @@ export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterCo
 }
 
 @NgModule({
-    imports: [ScrollPanel, SharedModule],
-    exports: [ScrollPanel, SharedModule]
+    imports: [ScrollPanel, SharedModule, BindModule],
+    exports: [ScrollPanel, SharedModule, BindModule]
 })
 export class ScrollPanelModule {}

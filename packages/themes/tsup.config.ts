@@ -21,5 +21,7 @@ export default defineConfig({
     },
     external: [/^@primeuix\/(.*)$/, /^@primeng\/themes\/(.*)$/],
     sourcemap: true,
-    splitting: false
+    splitting: false,
+    clean: true,
+    minify: true
 });

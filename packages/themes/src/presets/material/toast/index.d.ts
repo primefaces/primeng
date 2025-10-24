@@ -1,3 +1,2 @@
-import { ToastDesignTokens } from '../../types/toast';
-declare const _default: ToastDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/toast';
+export { default } from '@primeuix/themes/material/toast';

@@ -1,3 +1,4 @@
+import { AppDesigner } from '@/components/layout/designer/app.designer';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CarService } from '@/service/carservice';
 import { CountryService } from '@/service/countryservice';
@@ -11,12 +12,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { AppDesignerComponent } from './designer/app.designer.component';
+
 @Component({
     selector: 'app-root',
-    template: `<app-designer /> <router-outlet></router-outlet>`,
+    template: `<router-outlet></router-outlet> <app-designer />`,
     standalone: true,
-    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppDesignerComponent],
+    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppDesigner],
     providers: [
         CarService,
         CountryService,
@@ -46,15 +47,9 @@ export class AppComponent {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();
             }
-            setTimeout(() => {
-                document.body.style.visibility = 'visible';
-                document.body.style.opacity = '1';
-            });
 
             this.bindRouteEvents();
         });
-
-        // this.primeng.theme.set(Noir);
     }
 
     injectScripts() {

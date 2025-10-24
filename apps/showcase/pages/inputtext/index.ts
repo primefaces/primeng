@@ -6,25 +6,31 @@ import { FloatLabelDoc } from '@/doc/inputtext/floatlabeldoc';
 import { HelpTextDoc } from '@/doc/inputtext/helptextdoc';
 import { IftaLabelDoc } from '@/doc/inputtext/iftalabeldoc';
 import { ImportDoc } from '@/doc/inputtext/importdoc';
-import { InputtextDocModule } from '@/doc/inputtext/inputtextdoc.module';
 import { InvalidDoc } from '@/doc/inputtext/invaliddoc';
+import { PTComponent } from '@/doc/inputtext/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputtext/sizesdoc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputtext/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/inputtext/fluiddoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
-    imports: [InputtextDocModule],
+    imports: [AppDoc],
     template: `<app-doc
         docTitle="Angular InputText Component"
         header="InputText"
         description="InputText is an extension to standard input element with theming and keyfiltering."
         [apiDocs]="['InputText']"
         [docs]="docs"
+        [ptDocs]="ptComponent"
         themeDocs="inputtext"
     ></app-doc> `
 })
 export class InputTextDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -35,11 +41,6 @@ export class InputTextDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'floatlabel',
@@ -57,6 +58,11 @@ export class InputTextDemo {
             component: SizesDoc
         },
         {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
+        },
+        {
             id: 'helptext',
             label: 'Help Text',
             component: HelpTextDoc
@@ -67,16 +73,23 @@ export class InputTextDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

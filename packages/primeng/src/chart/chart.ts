@@ -1,7 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, Output, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ChartStyle } from './style/chartstyle';
+import { Bind, BindModule } from 'primeng/bind';
+import type { ChartPassThrough } from 'primeng/types/chart';
+
+const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
 
 /**
  * Chart groups a collection of contents in tabs.
@@ -10,16 +16,36 @@ import { SharedModule } from 'primeng/api';
 @Component({
     selector: 'p-chart',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
-            <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
-        </div>
+        <canvas
+            role="img"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.width]="responsive && !width ? null : width"
+            [attr.height]="responsive && !height ? null : height"
+            (click)="onCanvasClick($event)"
+            [pBind]="ptm('canvas')"
+        ></canvas>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class]': "cx('root')",
+        '[style]': "sx('root')"
+    },
+    providers: [ChartStyle, { provide: CHART_INSTANCE, useExisting: UIChart }],
+    hostDirectives: [Bind]
 })
-export class UIChart implements AfterViewInit, OnDestroy {
+export class UIChart extends BaseComponent<ChartPassThrough> {
+    $pcChart: UIChart | undefined = inject(CHART_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Type of the chart.
      * @group Props
@@ -93,13 +119,16 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     chart: any;
 
+    _componentStyle = inject(ChartStyle);
+
     constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
         public el: ElementRef,
         private zone: NgZone
-    ) {}
+    ) {
+        super();
+    }
 
-    ngAfterViewInit() {
+    onAfterViewInit() {
         this.initChart();
         this.initialized = true;
     }
@@ -126,7 +155,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
             }
 
             this.zone.runOutsideAngular(() => {
-                this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+                this.chart = new Chart(this.el.nativeElement.children[0], {
                     type: this.type,
                     data: this.data,
                     options: this.options,
@@ -137,7 +166,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
     }
 
     getCanvas() {
-        return this.el.nativeElement.children[0].children[0];
+        return this.el.nativeElement.children[0];
     }
 
     getBase64Image() {
@@ -163,7 +192,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.chart) {
             this.chart.destroy();
             this.initialized = false;

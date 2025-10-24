@@ -1,7 +1,2 @@
-import { BlockUIDesignTokens } from '../../../../types/blockui';
-
-export default {
-    root: {
-        borderRadius: '{content.border.radius}'
-    }
-} as BlockUIDesignTokens;
+export * from '@primeuix/themes/aura/blockui';
+export { default } from '@primeuix/themes/aura/blockui';
