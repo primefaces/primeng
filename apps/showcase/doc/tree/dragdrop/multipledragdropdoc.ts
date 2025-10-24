@@ -215,7 +215,7 @@ import { Tree } from 'primeng/tree';
     standalone: true,
     imports: [Tree],
     providers: [TreeDragDropService],
-        styles: [
+    styles: [
         \`.p-tree-node-dragover {
                 border: 1px dashed var(--p-primary-color);
         }\`
