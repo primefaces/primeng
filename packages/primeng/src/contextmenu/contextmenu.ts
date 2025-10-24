@@ -50,7 +50,7 @@ import {
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
@@ -265,6 +265,8 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
     @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('sublist') sublistViewChild: ElementRef;
+
+    hostName = 'ContextMenu';
 
     _componentStyle = inject(ContextMenuStyle);
 
