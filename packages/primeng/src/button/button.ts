@@ -64,11 +64,19 @@ const INTERNAL_BUTTON_CLASSES = {
 export class ButtonLabel extends BaseComponent {
     ptButtonLabel = input<any>();
 
+    $pcButtonLabel: ButtonLabel | undefined = inject(BUTTON_LABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
     constructor() {
         super();
         effect(() => {
             this.ptButtonLabel() && this.directivePT.set(this.ptButtonLabel());
         });
+    }
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
 
@@ -78,16 +86,25 @@ export class ButtonLabel extends BaseComponent {
     standalone: true,
     host: {
         '[class.p-button-icon]': 'true'
-    }
+    },
+    hostDirectives: [Bind]
 })
 export class ButtonIcon extends BaseComponent {
     ptButtonIcon = input<any>();
+
+    $pcButtonIcon: ButtonIcon | undefined = inject(BUTTON_ICON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
 
     constructor() {
         super();
         effect(() => {
             this.ptButtonIcon() && this.directivePT.set(this.ptButtonIcon());
         });
+    }
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
 /**
