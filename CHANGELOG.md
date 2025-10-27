@@ -2,6 +2,20 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [20.3.0-rc.1](https://github.com/primefaces/primeng/tree/20.3.0-rc.1) (2025-10-27)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.2.0...20.3.0-rc.1)
+
+**Fixed bugs:**
+- pFocusTrap doesn't work with Drawer [#19005](https://github.com/primefaces/primeng/issues/19005)
+- Scroller/Tree/TreeTable/Table: VirtualScrolling does not work after upgrading to PrimeNG 18 from 17.18.12 [#17102](https://github.com/primefaces/primeng/issues/17102)
+- DnD Tree is not working as expected [#18952](https://github.com/primefaces/primeng/issues/18952)
+- OrderList | filtericon & filter templates do not work [#19027](https://github.com/primefaces/primeng/issues/19027)
+
+**Implemented New Features and Enhancements:**
+- New Directive | pBind [\#18956](https://github.com/primefaces/primeng/issues/18956)
+- PassThrough Implementation [\#19020](https://github.com/primefaces/primeng/issues/19020)
+- Datepicker - Add buttonbar template [\#18980](https://github.com/primefaces/primeng/issues/18980)
+
 ## [20.2.0](https://github.com/primefaces/primeng/tree/20.2.0) (2025-09-26)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.1.2...20.2.0)
 
