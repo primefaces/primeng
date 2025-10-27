@@ -42,7 +42,7 @@ export class ExamplesDoc {
 
     code: Code = {
         basic: `<div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-blue-500 text-center p-4 rounded w-[7rem] text-primary-contrast' }">
-        <div [pBind]="boxBinding1">
+    <div [pBind]="boxBinding1">
         <p class="m-0">Basic</p>
     </div>
 
@@ -52,7 +52,7 @@ export class ExamplesDoc {
 </div>`,
 
         html: `<div class="card flex justify-center gap-4">
-    <div <div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-blue-500 text-center p-4 rounded w-[7rem] text-primary-contrast' }">
+    <div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-blue-500 text-center p-4 rounded w-[7rem] text-primary-contrast' }">
         <p class="m-0">Basic</p>
     </div>
 
