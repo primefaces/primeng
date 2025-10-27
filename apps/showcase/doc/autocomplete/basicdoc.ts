@@ -1,10 +1,10 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -22,11 +22,27 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
+            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [pt]="pt" />
         </div>
         <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`
 })
 export class BasicDoc {
+    pt = {
+        pcOverlay: {
+            host: {
+                'data-host': true,
+                class: 'PC_OVERLAY_HOST'
+            },
+            root: {
+                class: 'PC_OVERLAY_ROOT',
+                'data-root': true
+            },
+            content: {
+                class: { PC_OVERLAY_CONTENT: true },
+                'data-content': true
+            }
+        }
+    };
     items: any[] = [];
 
     value: any;
