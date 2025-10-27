@@ -33,7 +33,8 @@
         "format:check": "prettier --check \"**/*.{js,mjs,ts,mts,d.ts,html}\"",
         "lint": "eslint --ext \".js,.mjs,.ts,.mts\" --ignore-path .gitignore . --cache",
         "lint:fix": "eslint --fix --ext \".js,.mjs,.ts,.mts\" --ignore-path .gitignore .",
-        "test:unit": "pnpm --filter primeng test:unit"
+        "test:unit": "pnpm --filter primeng test:unit",
+        "test:coverage": "pnpm --filter primeng test:unit --code-coverage"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "catalog:angular20",
