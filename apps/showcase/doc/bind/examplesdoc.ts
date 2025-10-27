@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { BindModule } from 'primeng/bind';
 import { TooltipModule } from 'primeng/tooltip';
 
@@ -12,16 +12,12 @@ import { TooltipModule } from 'primeng/tooltip';
     imports: [AppCode, BindModule, TooltipModule, CommonModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>The <i>pBind</i> directive dynamically binds attributes, properties, classes, styles, and event listeners to HTML elements.</p>
+            <p>The <i>pBind</i> is a directive that accepts an object of HTML attributes.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center gap-4">
-            <div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-blue-500 text-center p-4 rounded w-[7rem] text-primary-contrast' }">
-                <p class="m-0">Basic</p>
-            </div>
+        <div class="card flex flex-wrap justify-center gap-4">
+            <div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-primary text-primary-contrast flex items-center justify-center p-4 rounded-lg w-32 font-medium' }">Static</div>
 
-            <div [pBind]="boxBinding" pTooltip="Click to change color">
-                <p class="m-0">Advanced</p>
-            </div>
+            <div [pBind]="boxBinding()" pTooltip="Click to change color">Dynamic</div>
         </div>
         <app-code [code]="code" selector="bind-examples-demo"></app-code>
     `
@@ -29,35 +25,33 @@ import { TooltipModule } from 'primeng/tooltip';
 export class ExamplesDoc {
     isActive = signal<boolean>(false);
 
-    get boxBinding() {
+    boxBinding = computed(() => {
         return {
-            class: ['text-center p-4 rounded select-none w-[7rem] text-primary-contrast', this.isActive() ? 'bg-green-500' : 'bg-gray-500'],
+            class: ['flex items-center justify-center p-4 rounded-lg select-none w-[7rem] border border-primary font-medium', this.isActive() ? 'bg-primary text-primary-contrast' : 'bg-transparent text-primary-600 dark:text-primary-400'],
             style: { cursor: 'pointer', transition: 'all 0.3s' },
             'data-state': this.isActive() ? 'active' : 'inactive',
             onclick: () => {
                 this.isActive.set(!this.isActive());
             }
         };
-    }
+    });
 
     code: Code = {
-        basic: `<div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-blue-500 text-center p-4 rounded w-[7rem] text-primary-contrast' }">
-    <div [pBind]="boxBinding1">
-        <p class="m-0">Basic</p>
-    </div>
+        basic: `<div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-primary text-primary-contrast flex items-center justify-center p-4 rounded-lg w-32 font-medium' }">
+    Static
+</div>
 
-    <div [pBind]="boxBinding" pTooltip="Click to change color">
-        <p class="m-0">Advanced</p>
-    </div>
+<div [pBind]="boxBinding" pTooltip="Click to change color">
+    Dynamic
 </div>`,
 
-        html: `<div class="card flex justify-center gap-4">
-    <div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-blue-500 text-center p-4 rounded w-[7rem] text-primary-contrast' }">
-        <p class="m-0">Basic</p>
+        html: `<div class="card flex flex-wrap justify-center gap-4">
+    <div [pBind]="{ 'aria-label': 'basic-box', class: 'bg-primary text-primary-contrast flex items-center justify-center p-4 rounded-lg w-32 font-medium' }">
+        Static
     </div>
 
     <div [pBind]="boxBinding" pTooltip="Click to change color">
-        <p class="m-0">Advanced</p>
+        Dynamic
     </div>
 </div>`,
 
@@ -74,16 +68,16 @@ import { TooltipModule } from 'primeng/tooltip';
 export class BindExamplesDemo {
     isActive = signal<boolean>(false);
 
-    get boxBinding() {
+    boxBinding = computed(() => {
         return {
-            class: ['text-center p-4 rounded select-none w-[7rem] text-primary-contrast', this.isActive() ? 'bg-green-500' : 'bg-gray-500'],
+            class: ['flex items-center justify-center p-4 rounded-lg select-none w-[7rem] border border-primary font-medium', this.isActive() ? 'bg-primary text-primary-contrast' : 'bg-transparent text-primary-600 dark:text-primary-400'],
             style: { cursor: 'pointer', transition: 'all 0.3s' },
             'data-state': this.isActive() ? 'active' : 'inactive',
             onclick: () => {
                 this.isActive.set(!this.isActive());
             }
         };
-    }
+    });
 }`
     };
 }
