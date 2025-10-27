@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -33,3 +34,19 @@ export interface ProgressBarPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type ProgressBarPassThrough<I = unknown> = PassThrough<I, ProgressBarPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in ProgressBar.
+ * @group Templates
+ */
+export interface ProgressBarTemplates {
+    /**
+     * Custom template of content.
+     */
+    content(context: {
+        /**
+         * Value of the progressbar.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: number | undefined }>;
+}

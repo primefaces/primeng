@@ -1,33 +1,13 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
-import {
-    AfterContentInit,
-    afterNextRender,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    forwardRef,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    OnDestroy,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@primeuix/utils';
 import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { BindModule } from 'primeng/bind';
+import { Bind, BindModule } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
-import { EditorPassThrough } from 'primeng/types/editor';
-import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
+import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
 import { EditorStyle } from './style/editorstyle';
 
 const EDITOR_INSTANCE = new InjectionToken<Editor>('EDITOR_INSTANCE');

@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -45,3 +46,20 @@ export interface DockPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type DockPassThrough<I = unknown> = PassThrough<I, DockPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in Dock.
+ * @group Templates
+ */
+export interface DockTemplates {
+    /**
+     * Custom template of item.
+     * @param {Object} context - item data.
+     */
+    item(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
+}

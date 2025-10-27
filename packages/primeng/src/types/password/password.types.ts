@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 
@@ -63,3 +64,34 @@ export interface PasswordPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type PasswordPassThrough<I = unknown> = PassThrough<I, PasswordPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in Password.
+ * @group Templates
+ */
+export interface PasswordTemplates {
+    /**
+     * Custom template of header.
+     */
+    header(): TemplateRef<any>;
+    /**
+     * Custom template of content.
+     */
+    content(): TemplateRef<any>;
+    /**
+     * Custom template of footer.
+     */
+    footer(): TemplateRef<any>;
+    /**
+     * Custom template of clear icon.
+     */
+    clearicon(): TemplateRef<any>;
+    /**
+     * Custom template of hide icon.
+     */
+    hideicon(): TemplateRef<any>;
+    /**
+     * Custom template of show icon.
+     */
+    showicon(): TemplateRef<any>;
+}

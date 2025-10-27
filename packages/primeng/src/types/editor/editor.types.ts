@@ -1,5 +1,5 @@
-import { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
+import { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom passthrough(pt) options.

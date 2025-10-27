@@ -25,7 +25,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'primeng/icons';
-import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
+import { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 import { CarouselStyle } from './style/carouselstyle';
 
 /**

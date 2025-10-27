@@ -36,10 +36,9 @@ import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, Chevr
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { DatePickerPassThrough } from 'primeng/types/datepicker';
+import { DatePickerMonthChangeEvent, DatePickerPassThrough, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from 'primeng/types/datepicker';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { DatePickerMonthChangeEvent, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from './datepicker.interface';
 import { DatePickerStyle } from './style/datepickerstyle';
 
 export const DATEPICKER_VALUE_ACCESSOR: any = {

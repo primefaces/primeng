@@ -249,54 +249,205 @@ export type DatePickerPassThrough<I = unknown> = PassThrough<I, DatePickerPassTh
 export interface DatePickerTemplates {
     /**
      * Custom header template.
-     */
-    header(): TemplateRef<any>;
-    /**
-     * Custom date template.
-     * @param {Object} context - date data.
+     * @param {Object} context - date value instance.
      */
     date(context: {
         /**
-         * Date value.
+         * Date value of the component.
          */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+        $implicit: Date;
+    }): TemplateRef<{ $implicit: Date }>;
     /**
-     * Custom decade template.
-     * @param {Object} context - decade data.
+     * Custom decade template
+     * @param {Object} context - date value instance.
      */
     decade(context: {
         /**
-         * Years array.
+         * An array containing the start and and year of a decade to display at header of the year picker.
          */
-        $implicit: string[];
-    }): TemplateRef<{ $implicit: string[] }>;
+        $implicit: Date;
+    }): TemplateRef<{ $implicit: Date }>;
     /**
-     * Custom footer template.
+     * Custom disabled date template.
      */
-    footer(): TemplateRef<any>;
+    disabledDate(): TemplateRef<any>;
+    /**
+     * Custom header template.
+     */
+    header(): TemplateRef<any>;
     /**
      * Custom input icon template.
+     * @param {Object} context - input icon template params.
      */
-    inputicon(): TemplateRef<any>;
-    /**
-     * Custom dropdown icon template.
-     */
-    dropdownicon(): TemplateRef<any>;
+    inputIconTemplate(context: {
+        /**
+         * Click callback
+         */
+        clickCallBack: () => void;
+    }): TemplateRef<{ clickCallBack: Function }>;
     /**
      * Custom previous icon template.
      */
-    previcon(): TemplateRef<any>;
+    previousicon(): TemplateRef<any>;
     /**
      * Custom next icon template.
      */
     nexticon(): TemplateRef<any>;
     /**
-     * Custom increment icon template.
+     * Custom dropdown trigger icon template.
      */
-    incrementicon(): TemplateRef<any>;
+    triggericon(): TemplateRef<any>;
+    /**
+     * Custom clear icon template.
+     */
+    clearicon(): TemplateRef<any>;
     /**
      * Custom decrement icon template.
      */
     decrementicon(): TemplateRef<any>;
+    /**
+     * Custom increment icon template.
+     */
+    incrementicon(): TemplateRef<any>;
+    /**
+     * Custom footer template.
+     */
+    footer(): TemplateRef<any>;
+    /**
+     * Custom button bar template.
+     * @param {Object} context - button bar template params.
+     */
+    buttonbar(context: {
+        /**
+         * Today button click callback
+         */
+        todayCallback: () => void;
+        /**
+         * Clear button click callback
+         */
+        clearCallback: () => void;
+    }): TemplateRef<{ todayCallback: Function; clearCallback: Function }>;
+}
+/**
+ * Locale settings options.
+ * @group Interface
+ */
+export interface LocaleSettings {
+    /**
+     * Day value.
+     */
+    firstDayOfWeek?: number;
+    /**
+     * Day names.
+     */
+    dayNames?: string[];
+    /**
+     * Shortened day names.
+     */
+    dayNamesShort?: string[];
+    /**
+     * Minimum days names.
+     */
+    dayNamesMin?: string[];
+    /**
+     * Month names.
+     */
+    monthNames?: string[];
+    /**
+     * Shortened month names.
+     */
+    monthNamesShort?: string[];
+    /**
+     * Value of today date string.
+     */
+    today?: string;
+    /**
+     * Clear.
+     */
+    clear?: string;
+    /**
+     * Date format.
+     */
+    dateFormat?: string;
+    /**
+     * Week header.
+     */
+    weekHeader?: string;
+}
+/**
+ * Month interface.
+ * @group Interface
+ */
+export interface Month {
+    /**
+     * Mont value.
+     */
+    month?: number;
+    /**
+     * Year value.
+     */
+    year?: number;
+    /**
+     * Array of dates.
+     */
+    dates?: Date[];
+    /**
+     * Array of week numbers.
+     */
+    weekNumbers?: number[];
+}
+/**
+ * Custom DatePicker responsive options metadata.
+ * @group Interface
+ */
+export interface DatePickerResponsiveOptions {
+    /**
+     * Breakpoint for responsive mode. Exp; @media screen and (max-width: ${breakpoint}) {...}
+     */
+    breakpoint?: string;
+    /**
+     * The number of visible months on breakpoint.
+     */
+    numMonths?: number;
+}
+/**
+ * Custom type for the DatePicker views.
+ * @group Types
+ */
+export type DatePickerTypeView = 'date' | 'month' | 'year';
+/**
+ * Custom type for the DatePicker navigation state.
+ * @group Types
+ */
+export type NavigationState = { backward?: boolean; button?: boolean };
+
+/**
+ * Custom DatePicker year change event.
+ * @see {@link DatePicker.onYearChange}
+ * @group Events
+ */
+export interface DatePickerYearChangeEvent {
+    /**
+     * New month.
+     */
+    month?: number;
+    /**
+     * New year.
+     */
+    year?: number;
+}
+/**
+ * Custom DatePicker month change event.
+ * @see {@link DatePicker.onMonthChange}
+ * @group Events
+ */
+export interface DatePickerMonthChangeEvent {
+    /**
+     * New month.
+     */
+    month?: number;
+    /**
+     * New year.
+     */
+    year?: number;
 }

@@ -55,11 +55,8 @@ import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { SelectModule } from 'primeng/select';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ColumnFilterPassThrough, TablePassThrough } from 'primeng/types/table';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { Subject, Subscription } from 'rxjs';
-import { TableStyle } from './style/tablestyle';
 import {
+    ColumnFilterPassThrough,
     ExportCSVOptions,
     TableColResizeEvent,
     TableColumnReorderEvent,
@@ -72,13 +69,17 @@ import {
     TableHeaderCheckboxToggleEvent,
     TableLazyLoadEvent,
     TablePageEvent,
+    TablePassThrough,
     TableRowCollapseEvent,
     TableRowExpandEvent,
     TableRowReorderEvent,
     TableRowSelectEvent,
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
-} from './table.interface';
+} from 'primeng/types/table';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { Subject, Subscription } from 'rxjs';
+import { TableStyle } from './style/tablestyle';
 
 const TABLE_INSTANCE = new InjectionToken<Table>('TABLE_INSTANCE');
 

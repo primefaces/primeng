@@ -1,4 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import { TemplateRef } from '@angular/core';
+import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom pass-through(pt) options.
@@ -89,3 +90,23 @@ export interface PanelMenuPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type PanelMenuPassThrough<I = unknown> = PassThrough<I, PanelMenuPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in PanelMenu.
+ * @group Templates
+ */
+export interface PanelMenuTemplates {
+    /**
+     * Custom item template.
+     */
+    item(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: MenuItem;
+    }): TemplateRef<{ $implicit: MenuItem }>;
+    /**
+     * Custom template of submenuicon.
+     */
+    submenuicon(): TemplateRef<any>;
+}

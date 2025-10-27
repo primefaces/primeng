@@ -58,9 +58,6 @@ import { PaginatorModule } from 'primeng/paginator';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { TreeTablePassThrough } from 'primeng/types/treetable';
-import { Subject, Subscription } from 'rxjs';
-import { TreeTableStyle } from './style/treetablestyle';
 import {
     TreeTableColResizeEvent,
     TreeTableColumnReorderEvent,
@@ -74,8 +71,11 @@ import {
     TreeTableNodeExpandEvent,
     TreeTableNodeUnSelectEvent,
     TreeTablePaginatorState,
+    TreeTablePassThrough,
     TreeTableSortEvent
-} from './treetable.interface';
+} from 'primeng/types/treetable';
+import { Subject, Subscription } from 'rxjs';
+import { TreeTableStyle } from './style/treetablestyle';
 
 const TREETABLE_INSTANCE = new InjectionToken<TreeTable>('TREETABLE_INSTANCE');
 

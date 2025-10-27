@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 
@@ -39,3 +40,22 @@ export interface InplacePassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type InplacePassThrough<I = unknown> = PassThrough<I, InplacePassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in Inplace.
+ * @group Templates
+ */
+export interface InplaceTemplates {
+    /**
+     * Custom template of display.
+     */
+    display(): TemplateRef<any>;
+    /**
+     * Custom template of content.
+     */
+    content(): TemplateRef<any>;
+    /**
+     * Custom template of close icon.
+     */
+    closeicon(): TemplateRef<any>;
+}

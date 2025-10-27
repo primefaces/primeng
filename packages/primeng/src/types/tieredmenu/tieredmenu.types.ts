@@ -1,3 +1,4 @@
+import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -57,3 +58,27 @@ export interface TieredMenuPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type TieredMenuPassThrough<I = unknown> = PassThrough<I, TieredMenuPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in TieredMenu.
+ * @group Templates
+ */
+export interface TieredMenuTemplates {
+    /**
+     * Custom template of item.
+     */
+    item(context: {
+        /**
+         * Item instance.
+         */
+        $implicit: any;
+        /**
+         * Submenu control of the item.
+         */
+        hasSubmenu: boolean;
+    }): TemplateRef<{ $implicit: any; hasSubmenu: boolean }>;
+    /**
+     * Custom template of submenuicon.
+     */
+    submenuicon(): TemplateRef<any>;
+}

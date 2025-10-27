@@ -1,5 +1,6 @@
-import type { ButtonPassThrough } from 'primeng/types/button';
+import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
  * Custom pass-through(pt) options.
@@ -31,3 +32,19 @@ export interface ScrollTopPassThroughOptions<I = unknown> {
  * @template I Type of instance.
  */
 export type ScrollTopPassThrough<I = unknown> = PassThrough<I, ScrollTopPassThroughOptions<I>>;
+
+/**
+ * Defines valid templates in ScrollTop.
+ * @group Templates
+ */
+export interface ScrollTopTemplates {
+    /**
+     * Icon of the component.
+     */
+    icon(context: {
+        /**
+         * Style class of the icon.
+         */
+        styleClass: string;
+    }): TemplateRef<{ styleClass: string }>;
+}
