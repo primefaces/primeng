@@ -21,12 +21,65 @@
                             "type": "InputSignalWithTransform<any, boolean>",
                             "default": "false",
                             "description": "Disables the tab when enabled."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AccordionPanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }
             },
             "AccordionHeader": {
                 "description": "AccordionHeader is a helper component for Accordion component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AccordionHeaderPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                },
                 "templates": {
                     "description": "Defines the templates used by the component.",
                     "values": [
@@ -97,6 +150,30 @@
                             "type": "string",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the animation."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AccordionPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 },
@@ -339,6 +416,30 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Whether the scroll event listener should be removed after initial run."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }
@@ -4017,6 +4118,30 @@
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AutoCompletePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -4792,6 +4917,30 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }
@@ -4863,6 +5012,30 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AvatarPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 },
@@ -4972,6 +5145,30 @@
                             "readonly": false,
                             "type": "{ [klass: string]: any }",
                             "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<AvatarGroupPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }
@@ -5073,6 +5270,30 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Class of the element."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }
@@ -5130,6 +5351,30 @@
                             "type": "InputSignalWithTransform<boolean, boolean>",
                             "default": "...",
                             "description": "When specified, disables the component."
+                        },
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<BadgePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
                         }
                     ]
                 }
@@ -5223,6 +5468,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<BlockUIPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "target",
                             "optional": false,
@@ -5334,6 +5603,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<BreadcrumbPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "model",
                             "optional": false,
@@ -5530,6 +5823,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "text",
                             "optional": false,
                             "readonly": false,
@@ -5645,6 +5962,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ButtonPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "type",
                             "optional": false,
@@ -6038,6 +6379,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<CardPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "header",
                             "optional": false,
                             "readonly": false,
@@ -6215,6 +6580,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "page",
                             "optional": false,
@@ -6597,6 +6986,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<CascadeSelectPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -7448,6 +7861,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ChartPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "type",
                             "optional": false,
                             "readonly": false,
@@ -7585,6 +8022,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<CheckboxPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -7912,6 +8373,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ChipPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "label",
                             "optional": false,
                             "readonly": false,
@@ -8144,6 +8629,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ColorPickerPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -8473,6 +8982,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ConfirmDialogPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "header",
                             "optional": false,
@@ -8950,6 +9483,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ConfirmPopupPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "key",
                             "optional": false,
                             "readonly": false,
@@ -9173,6 +9730,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ContextMenuPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "model",
                             "optional": false,
@@ -9463,6 +10044,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<DataViewPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "paginator",
                             "optional": false,
@@ -10174,6 +10779,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<DatePickerPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -11577,6 +12206,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<DialogPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "header",
                             "optional": false,
                             "readonly": false,
@@ -12171,6 +12824,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<DividerPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -12256,6 +12933,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<DockPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "id",
                             "optional": false,
@@ -12569,6 +13270,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<DrawerPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "appendTo",
                             "optional": false,
@@ -13465,6 +14190,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<EditorPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -13937,6 +14686,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<FieldsetPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "legend",
                             "optional": false,
                             "readonly": false,
@@ -14225,6 +14998,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<FileUploadPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "name",
                             "optional": false,
@@ -15235,6 +16032,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<FloatLabelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
@@ -15293,7 +16114,36 @@
     "fluid": {
         "components": {
             "Fluid": {
-                "description": "Fluid is a layout component to make descendant components span full width of their container."
+                "description": "Fluid is a layout component to make descendant components span full width of their container.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<FluidPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             }
         },
         "style": {
@@ -15344,6 +16194,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "pFocusTrapDisabled",
                             "optional": false,
                             "readonly": false,
@@ -15363,6 +16237,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<GalleriaPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "activeIndex",
                             "optional": false,
@@ -16060,6 +16958,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<IconFieldPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "iconPosition",
                             "optional": false,
                             "readonly": false,
@@ -16288,7 +17210,36 @@
     "iftalabel": {
         "components": {
             "IftaLabel": {
-                "description": "IftaLabel is used to create infield top aligned labels."
+                "description": "IftaLabel is used to create infield top aligned labels.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<IftaLabelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             }
         },
         "style": {
@@ -16342,6 +17293,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ImagePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "imageClass",
                             "optional": false,
@@ -16716,6 +17691,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ImageComparePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "tabindex",
                             "optional": false,
                             "readonly": false,
@@ -16809,6 +17808,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InplacePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "active",
                             "optional": false,
@@ -17021,6 +18044,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InputGroupPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -17080,6 +18127,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InputGroupAddonPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -17137,6 +18208,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InputIconPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -17188,6 +18283,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InputMaskPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -17615,6 +18734,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InputNumberPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -18218,6 +19361,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InputOtpPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -18527,6 +19694,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<InputTextPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "pSize",
                             "optional": false,
                             "readonly": false,
@@ -18646,6 +19837,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<KnobPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -18895,6 +20110,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ListBoxPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -19950,6 +21189,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<MegaMenuPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "model",
                             "optional": false,
                             "readonly": false,
@@ -20334,6 +21597,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<MenuPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "model",
                             "optional": false,
                             "readonly": false,
@@ -20697,6 +21984,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<MenubarPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "model",
                             "optional": false,
@@ -21072,6 +22383,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<MessagePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
@@ -21324,6 +22659,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<MeterGroupPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -21601,6 +22960,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<MultiSelectPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -22834,6 +24217,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<OrderListPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "header",
                             "optional": false,
                             "readonly": false,
@@ -23432,6 +24839,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<OrganizationChartPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -23813,6 +25244,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "visible",
                             "optional": false,
                             "readonly": false,
@@ -24048,6 +25503,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<OverlayBadgePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -24148,6 +25627,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PaginatorPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "pageLinkSize",
                             "optional": false,
@@ -24652,6 +26155,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "toggleable",
                             "optional": false,
                             "readonly": false,
@@ -24972,6 +26499,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PanelMenuPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "model",
                             "optional": false,
                             "readonly": false,
@@ -25281,6 +26832,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -25391,6 +26966,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PasswordPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -25863,6 +27462,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "source",
                             "optional": false,
@@ -27027,6 +28650,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PopoverPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "ariaLabel",
                             "optional": false,
                             "readonly": false,
@@ -27269,6 +28916,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ProgressBarPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -27395,6 +29066,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ProgressSpinnerPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -27506,6 +29201,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<RadioButtonPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -27760,6 +29479,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<RatingPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -28038,7 +29781,36 @@
     "ripple": {
         "components": {
             "Ripple": {
-                "description": "Ripple directive adds ripple effect to the host element."
+                "description": "Ripple directive adds ripple effect to the host element.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             }
         },
         "style": {
@@ -28060,6 +29832,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ScrollerPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "id",
                             "optional": false,
@@ -28698,6 +30494,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ScrollPanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -28844,6 +30664,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ScrollTopPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "styleClass",
                             "optional": false,
@@ -28993,6 +30837,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<SelectPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -30214,6 +32082,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<SelectButtonPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -30511,6 +32403,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<SkeletonPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -30607,6 +32523,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<SliderPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "required",
                             "optional": false,
@@ -30888,6 +32828,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<SpeedDialPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "id",
                             "optional": false,
@@ -31283,6 +33247,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<SplitButtonPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "model",
                             "optional": false,
                             "readonly": false,
@@ -31638,6 +33626,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<SplitterPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -31864,13 +33876,66 @@
     "stepper": {
         "components": {
             "StepperSeparator": {
-                "description": "StepperSeparator is a helper component for Stepper component used in vertical orientation."
+                "description": "StepperSeparator is a helper component for Stepper component used in vertical orientation.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepperSeparatorPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             },
             "StepItem": {
                 "description": "StepItem is a helper component for Stepper component used in vertical orientation.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepItemPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -31887,6 +33952,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -31923,6 +34012,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepPanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -31955,6 +34068,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<StepperPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -32365,6 +34502,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TablePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "frozenColumns",
                             "optional": false,
@@ -33291,6 +35452,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<any>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "field",
                             "optional": false,
                             "readonly": false,
@@ -34127,6 +36312,35 @@
         "components": {
             "TabList": {
                 "description": "TabList is a helper component for Tabs component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabListPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                },
                 "templates": {
                     "description": "Defines the templates used by the component.",
                     "values": [
@@ -34181,7 +36395,36 @@
     "tabpanels": {
         "components": {
             "TabPanels": {
-                "description": "TabPanels is a helper component for Tabs component."
+                "description": "TabPanels is a helper component for Tabs component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabPanelsPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
             }
         },
         "style": {
@@ -34203,6 +36446,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabPanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "lazy",
                             "optional": false,
@@ -34253,6 +36520,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabsPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -34465,6 +36756,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -34503,6 +36818,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TagPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "styleClass",
                             "optional": false,
@@ -34624,6 +36963,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TerminalPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "welcomeMessage",
                             "optional": false,
@@ -34789,6 +37152,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TextareaPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "autoResize",
                             "optional": false,
                             "readonly": false,
@@ -34893,6 +37280,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TieredMenuPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "model",
                             "optional": false,
@@ -35253,6 +37664,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TimelinePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
@@ -35464,6 +37899,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ToastPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "key",
                             "optional": false,
@@ -35782,6 +38241,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ToggleButtonPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -36091,6 +38574,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ToggleSwitchPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -36336,6 +38843,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<ToolbarPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -36473,6 +39004,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TooltipPassThroughOptions<unknown>>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "tooltipPosition",
                             "optional": false,
@@ -36671,6 +39226,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TreePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "value",
                             "optional": false,
@@ -37725,6 +40304,30 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TreeSelectPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
                             "name": "required",
                             "optional": false,
                             "readonly": false,
@@ -38556,6 +41159,30 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Generates scoped CSS variables using design tokens for the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TreeTablePassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
                         {
                             "name": "columns",
                             "optional": false,
