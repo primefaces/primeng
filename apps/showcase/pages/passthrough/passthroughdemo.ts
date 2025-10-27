@@ -1,6 +1,6 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { CustomCssDoc } from '@/doc/guides/passthrough/customcssdoc';
 import { GlobalDoc } from '@/doc/guides/passthrough/globaldoc';
+import { InstanceDoc } from '@/doc/guides/passthrough/instancedoc';
 import { IntroductionDoc } from '@/doc/guides/passthrough/introductiondoc';
 import { LifeCycleDoc } from '@/doc/guides/passthrough/lifecycledoc';
 import { PcPrefixDoc } from '@/doc/guides/passthrough/pcprefixdoc';
@@ -26,6 +26,11 @@ export class PassThroughDemoComponent {
             component: PcPrefixDoc
         },
         {
+            id: 'instance',
+            label: 'Instance',
+            component: InstanceDoc
+        },
+        {
             id: 'life-cycle',
             label: 'Lifecycle',
             component: LifeCycleDoc
@@ -34,11 +39,6 @@ export class PassThroughDemoComponent {
             id: 'global',
             label: 'Global',
             component: GlobalDoc
-        },
-        {
-            id: 'custom-css',
-            label: 'Custom CSS',
-            component: CustomCssDoc
         },
         {
             id: 'use-pt',
