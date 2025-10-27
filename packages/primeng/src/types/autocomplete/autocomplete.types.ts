@@ -1,11 +1,11 @@
 import { TemplateRef } from '@angular/core';
-import { ScrollerOptions } from 'primeng/api';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
+import { ScrollerOptions } from 'primeng/api';
+import type { AutoComplete } from 'primeng/autocomplete';
 import type { ChipPassThrough } from 'primeng/types/chip';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 import type { OverlayPassThrough } from 'primeng/types/overlay';
-import type { ScrollerPassThrough } from 'primeng/types/scroller';
-import type { AutoComplete } from 'primeng/autocomplete';
+import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
 
 /**
  * Custom pass-through(pt) options.
@@ -76,9 +76,9 @@ export interface AutoCompletePassThroughOptions<I = unknown> {
     listContainer?: PassThroughOption<HTMLDivElement, I>;
     /**
      * Used to pass attributes to the Scroller component.
-     * @see {@link ScrollerPassThrough}
+     * @see {@link VirtualScrollerPassThrough}
      */
-    pcScroller?: ScrollerPassThrough;
+    pcScroller?: VirtualScrollerPassThrough;
     /**
      * Used to pass attributes to the list's DOM element.
      */

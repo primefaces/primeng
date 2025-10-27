@@ -25,7 +25,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { SpinnerIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ScrollerLazyLoadEvent, ScrollerPassThrough, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from 'primeng/types/scroller';
+import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType, VirtualScrollerPassThrough } from 'primeng/types/scroller';
 import { ScrollerStyle } from './style/scrollerstyle';
 
 const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
@@ -88,7 +88,9 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     providers: [ScrollerStyle, { provide: SCROLLER_INSTANCE, useExisting: Scroller }, { provide: PARENT_INSTANCE, useExisting: Scroller }],
     hostDirectives: [Bind]
 })
-export class Scroller extends BaseComponent<ScrollerPassThrough> {
+export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
+    componentName = 'virtualScroller';
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcScroller: Scroller | undefined = inject(SCROLLER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;

@@ -2,7 +2,7 @@ import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { BadgePassThrough } from 'primeng/types/badge';
 import type { CheckboxPassThrough } from 'primeng/types/checkbox';
 import type { PaginatorPassThrough } from 'primeng/types/paginator';
-import type { ScrollerPassThrough } from 'primeng/types/scroller';
+import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
 
 /**
  * Custom pass-through(pt) options.
@@ -87,9 +87,9 @@ export interface TreeTablePassThroughOptions<I = unknown> {
     scrollableHeaderTable?: PassThroughOption<HTMLTableElement, I>;
     /**
      * Used to pass attributes to the Scroller component.
-     * @see {@link ScrollerPassThrough}
+     * @see {@link VirtualScrollerPassThrough}
      */
-    virtualScroller?: ScrollerPassThrough;
+    virtualScroller?: VirtualScrollerPassThrough;
     /**
      * Used to pass attributes to the scrollable body's DOM element.
      */

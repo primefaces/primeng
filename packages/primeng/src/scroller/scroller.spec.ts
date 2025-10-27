@@ -1336,7 +1336,7 @@ describe('Scroller', () => {
 
         it('should apply data attributes for accessibility', () => {
             const scrollerElement = fixture.debugElement.query(By.css('[data-pc-section="root"]'));
-            expect(scrollerElement?.nativeElement.getAttribute('data-pc-name')).toBe('scroller');
+            expect(scrollerElement?.nativeElement.getAttribute('data-pc-name')).toBe('virtualscroller');
             expect(scrollerElement?.nativeElement.getAttribute('data-pc-section')).toBe('root');
         });
 
@@ -3644,7 +3644,7 @@ describe('Scroller', () => {
                         provideNoopAnimations(),
                         providePrimeNG({
                             pt: {
-                                scroller: {
+                                virtualScroller: {
                                     root: { 'aria-label': 'GLOBAL_SCROLLER_LABEL', class: 'GLOBAL_CLASS' }
                                 }
                             }
@@ -3672,7 +3672,7 @@ describe('Scroller', () => {
                         provideNoopAnimations(),
                         providePrimeNG({
                             pt: {
-                                scroller: {
+                                virtualScroller: {
                                     root: { class: 'GLOBAL_ROOT' },
                                     content: { class: 'GLOBAL_CONTENT' }
                                 }

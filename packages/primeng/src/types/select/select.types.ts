@@ -1,11 +1,11 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption, ScrollerOptions } from 'primeng/api';
-import type { OverlayPassThrough } from 'primeng/types/overlay';
+import type { Select } from 'primeng/select';
 import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { ScrollerPassThrough } from 'primeng/types/scroller';
-import type { Select } from 'primeng/select';
+import type { OverlayPassThrough } from 'primeng/types/overlay';
+import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
 
 /**
  * Custom pass-through(pt) options.
@@ -72,7 +72,7 @@ export interface SelectPassThroughOptions<I = unknown> {
      * Used to pass attributes to the VirtualScroller component.
      * @see {@link ScrollerOptions}
      */
-    virtualScroller?: ScrollerPassThrough;
+    virtualScroller?: VirtualScrollerPassThrough;
     /**
      * Used to pass attributes to the list's DOM element.
      */

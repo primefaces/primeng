@@ -75,7 +75,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
     $attrSelector = uuid('pc');
 
     get $name() {
-        return this.constructor?.name?.replace(/^_/, '') || 'UnknownComponent';
+        return this['componentName'] || this.constructor?.name?.replace(/^_/, '') || 'UnknownComponent';
     }
 
     private get $hostName() {

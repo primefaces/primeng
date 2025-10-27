@@ -1,5 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { Scroller } from 'primeng/scroller';
 
 /**
@@ -9,7 +9,11 @@ import type { Scroller } from 'primeng/scroller';
  * @see {@link Scroller.pt}
  * @group Interface
  */
-export interface ScrollerPassThroughOptions<I = unknown> {
+export interface VirtualScrollerPassThroughOptions<I = unknown> {
+    /**
+     * Used to pass attributes to the host's DOM element.
+     */
+    host?: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the root's DOM element.
      */
@@ -33,12 +37,12 @@ export interface ScrollerPassThroughOptions<I = unknown> {
 }
 
 /**
- * Defines valid pass-through options in Scroller.
- * @see {@link ScrollerPassThroughOptions}
+ * Defines valid pass-through options in VirtualScroller.
+ * @see {@link VirtualScrollerPassThroughOptions}
  *
  * @template I Type of instance.
  */
-export type ScrollerPassThrough<I = unknown> = PassThrough<I, ScrollerPassThroughOptions<I>>;
+export type VirtualScrollerPassThrough<I = unknown> = PassThrough<I, VirtualScrollerPassThroughOptions<I>>;
 
 /**
  * Options of the scroll direction.

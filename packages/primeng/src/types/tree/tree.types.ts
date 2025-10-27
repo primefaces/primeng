@@ -1,12 +1,12 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { ScrollerOptions, TreeNode } from 'primeng/api';
-import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { ScrollerPassThrough } from 'primeng/types/scroller';
+import type { Tree } from 'primeng/tree';
 import type { CheckboxPassThrough } from 'primeng/types/checkbox';
 import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';
-import type { Tree } from 'primeng/tree';
+import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
 
 /**
  * Custom pass-through(pt) options.
@@ -51,7 +51,7 @@ export interface TreePassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the Scroller component.
      */
-    pcScroller?: ScrollerPassThrough;
+    pcScroller?: VirtualScrollerPassThrough;
     /**
      * Used to pass attributes to the wrapper's DOM element.
      */
