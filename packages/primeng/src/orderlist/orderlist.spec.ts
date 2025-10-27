@@ -1134,8 +1134,6 @@ describe('OrderList', () => {
             orderList.resetFilter();
             fixture.detectChanges();
 
-            console.log(orderList.filterValue);
-
             expect(orderList.filterValue).toBe('');
         });
 

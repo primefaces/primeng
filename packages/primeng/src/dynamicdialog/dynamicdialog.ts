@@ -94,8 +94,6 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
-
-        console.log(this.ptms(['host', 'root']));
     }
 
     visible: boolean = true;
