@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Checkbox } from './checkbox';
-import { CheckboxChangeEvent } from './checkbox.interface';
+import { CheckboxChangeEvent } from 'primeng/types/checkbox';
 import { SharedModule } from 'primeng/api';
 
 // Mock data for testing
@@ -1216,5 +1216,308 @@ describe('Checkbox', () => {
             const checkboxInstance = checkboxElement.componentInstance;
             expect(checkboxInstance).toBeTruthy();
         }));
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        let fixture: ComponentFixture<Checkbox>;
+        let checkboxElement: HTMLElement;
+        let inputElement: HTMLInputElement;
+        let boxElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(Checkbox);
+            fixture.componentRef.setInput('binary', true);
+            fixture.detectChanges();
+            checkboxElement = fixture.nativeElement;
+            inputElement = checkboxElement.querySelector('input') as HTMLInputElement;
+            boxElement = checkboxElement.querySelector('.p-checkbox-box') as HTMLElement;
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            it('should apply host class from pt', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.classList.contains('HOST_CLASS')).toBe(true);
+            }));
+
+            it('should apply root class from pt', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.classList.contains('ROOT_CLASS')).toBe(true);
+            }));
+
+            it('should apply input class from pt', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', { input: 'INPUT_CLASS' });
+                fixture.detectChanges();
+                tick();
+
+                expect(inputElement.classList.contains('INPUT_CLASS')).toBe(true);
+            }));
+
+            it('should apply box class from pt', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', { box: 'BOX_CLASS' });
+                fixture.detectChanges();
+                tick();
+
+                expect(boxElement.classList.contains('BOX_CLASS')).toBe(true);
+            }));
+
+            it('should apply icon class from pt when checked', fakeAsync(() => {
+                fixture.componentRef.setInput('binary', true);
+                fixture.componentRef.setInput('pt', { icon: 'ICON_CLASS' });
+                fixture.detectChanges();
+
+                // Check the checkbox programmatically
+                fixture.componentInstance.writeValue(true);
+                fixture.detectChanges();
+                tick();
+
+                const iconElement = boxElement.querySelector('.p-checkbox-icon') as HTMLElement;
+                if (iconElement) {
+                    expect(iconElement.classList.contains('ICON_CLASS')).toBe(true);
+                }
+            }));
+        });
+
+        describe('Case 2: Objects', () => {
+            it('should apply root object with class, style, data attributes, and aria-label', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(checkboxElement.style.backgroundColor).toBe('red');
+                expect(checkboxElement.getAttribute('data-p-test')).toBe('true');
+                expect(checkboxElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            }));
+
+            it('should apply input object with class, style, and aria attributes', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    input: {
+                        class: 'INPUT_OBJECT_CLASS',
+                        style: { border: '2px solid blue' },
+                        'aria-label': 'INPUT_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(inputElement.classList.contains('INPUT_OBJECT_CLASS')).toBe(true);
+                expect(inputElement.style.border).toBe('2px solid blue');
+                expect(inputElement.getAttribute('aria-label')).toBe('INPUT_ARIA_LABEL');
+            }));
+
+            it('should apply box object with class and style', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    box: {
+                        class: 'BOX_OBJECT_CLASS',
+                        style: { 'border-radius': '10px' }
+                    }
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(boxElement.classList.contains('BOX_OBJECT_CLASS')).toBe(true);
+                expect(boxElement.style.borderRadius).toBe('10px');
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed pt with root object and input string', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    input: 'INPUT_MIXED_CLASS'
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+                expect(inputElement.classList.contains('INPUT_MIXED_CLASS')).toBe(true);
+            }));
+
+            it('should apply mixed pt with box string and root object', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_MIXED'
+                    },
+                    box: 'BOX_STRING_MIXED'
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.classList.contains('ROOT_OBJECT_MIXED')).toBe(true);
+                expect(boxElement.classList.contains('BOX_STRING_MIXED')).toBe(true);
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should apply pt function that accesses instance', fakeAsync(() => {
+                fixture.componentRef.setInput('binary', true);
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => ({
+                        class: 'INSTANCE_ACCESSED',
+                        'data-binary': instance?.binary
+                    })
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.classList.contains('INSTANCE_ACCESSED')).toBe(true);
+                expect(checkboxElement.getAttribute('data-binary')).toBe('true');
+            }));
+
+            it('should apply pt style based on instance disabled state', fakeAsync(() => {
+                fixture.componentRef.setInput('disabled', true);
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => ({
+                        style: {
+                            opacity: instance?.$disabled() ? '0.5' : '1'
+                        }
+                    })
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.style.opacity).toBe('0.5');
+            }));
+
+            it('should apply pt based on instance readonly state', fakeAsync(() => {
+                fixture.componentRef.setInput('readonly', true);
+                fixture.componentRef.setInput('pt', {
+                    input: ({ instance }) => ({
+                        class: {
+                            READONLY_CLASS: instance?.readonly
+                        }
+                    })
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(inputElement.classList.contains('READONLY_CLASS')).toBe(true);
+            }));
+
+            it('should apply pt based on instance indeterminate state', fakeAsync(() => {
+                fixture.componentRef.setInput('indeterminate', true);
+                fixture.componentRef.setInput('pt', {
+                    box: ({ instance }) => ({
+                        style: {
+                            'background-color': instance?._indeterminate() ? 'yellow' : 'transparent'
+                        }
+                    })
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(boxElement.style.backgroundColor).toBe('yellow');
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should handle onclick event from pt', fakeAsync(() => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+                tick();
+
+                checkboxElement.click();
+                expect(clicked).toBe(true);
+            }));
+
+            it('should handle box onclick event from pt', fakeAsync(() => {
+                let boxClicked = false;
+                fixture.componentRef.setInput('pt', {
+                    box: {
+                        onclick: () => {
+                            boxClicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+                tick();
+
+                boxElement.click();
+                expect(boxClicked).toBe(true);
+            }));
+        });
+
+        describe('Case 6: Inline test', () => {
+            it('should apply inline pt with string class', fakeAsync(() => {
+                const inlineFixture = TestBed.createComponent(Checkbox);
+                inlineFixture.componentRef.setInput('pt', { root: 'INLINE_CLASS' });
+                inlineFixture.detectChanges();
+                tick();
+
+                const inlineElement = inlineFixture.nativeElement;
+                expect(inlineElement.classList.contains('INLINE_CLASS')).toBe(true);
+            }));
+
+            it('should apply inline pt with object class', fakeAsync(() => {
+                const inlineFixture = TestBed.createComponent(Checkbox);
+                inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
+                inlineFixture.detectChanges();
+                tick();
+
+                const inlineElement = inlineFixture.nativeElement;
+                expect(inlineElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Combined PT scenarios', () => {
+            it('should apply multiple pt sections simultaneously', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', {
+                    host: 'HOST_MULTI',
+                    root: 'ROOT_MULTI',
+                    input: 'INPUT_MULTI',
+                    box: 'BOX_MULTI'
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.classList.contains('HOST_MULTI')).toBe(true);
+                expect(checkboxElement.classList.contains('ROOT_MULTI')).toBe(true);
+                expect(inputElement.classList.contains('INPUT_MULTI')).toBe(true);
+                expect(boxElement.classList.contains('BOX_MULTI')).toBe(true);
+            }));
+
+            it('should apply complex pt with functions and objects', fakeAsync(() => {
+                fixture.componentRef.setInput('binary', true);
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => ({
+                        class: 'COMPLEX_CLASS',
+                        style: {
+                            border: '1px solid green'
+                        },
+                        'data-binary': instance?.binary
+                    }),
+                    input: 'COMPLEX_INPUT'
+                });
+                fixture.detectChanges();
+                tick();
+
+                expect(checkboxElement.classList.contains('COMPLEX_CLASS')).toBe(true);
+                expect(checkboxElement.style.border).toBe('1px solid green');
+                expect(inputElement.classList.contains('COMPLEX_INPUT')).toBe(true);
+                expect(checkboxElement.getAttribute('data-binary')).toBe('true');
+            }));
+        });
     });
 });

@@ -1,10 +1,10 @@
-import { Code } from '@/domain/code';
-import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { TreeModule } from 'primeng/tree';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { NodeService } from '@/service/nodeservice';
+import { Component, OnInit, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'virtual-scroll-doc',
@@ -15,28 +15,28 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
+            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
     `
 })
 export class VirtualScrollDoc implements OnInit {
-    nodes!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodes = this.nodeService.generateNodes(150);
+        this.nodes.set(this.nodeService.generateNodes(150));
     }
 
     code: Code = {
-        basic: `<p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />`,
+        basic: `<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />`,
 
         html: `<div class="card">
-    <p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
+    <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
 </div>`,
 
-        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -49,12 +49,12 @@ import { Tree } from 'primeng/tree';
     providers: [NodeService]
 })
 export class TreeVirtualScrollDemo implements OnInit {
-    nodes!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.nodes = this.nodeService.generateNodes(150);
+        this.nodes.set(this.nodeService.generateNodes(150));
     }
 }`,
         service: ['NodeService'],

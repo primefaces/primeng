@@ -29,7 +29,7 @@ const classes = {
 export class MeterGroupStyle extends BaseStyle {
     name = 'metergroup';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

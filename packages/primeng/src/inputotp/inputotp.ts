@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -10,6 +11,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -22,9 +24,14 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
+import { InputOtpPassThrough } from 'primeng/types/inputotp';
 import { InputOtpStyle } from './style/inputotpstyle';
+
+const INPUTOTP_INSTANCE = new InjectionToken<InputOtp>('INPUTOTP_INSTANCE');
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -80,7 +87,7 @@ export interface InputOtpInputTemplateContext {
 @Component({
     selector: 'p-inputOtp, p-inputotp, p-input-otp',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, SharedModule, BindModule],
     template: `
         <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
             <ng-container *ngIf="!inputTemplate && !_inputTemplate">
@@ -105,6 +112,7 @@ export interface InputOtpInputTemplateContext {
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
+                    [pt]="ptm('pcInputText')"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate || _inputTemplate">
@@ -114,12 +122,23 @@ export interface InputOtpInputTemplateContext {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle],
+    providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle, { provide: INPUTOTP_INSTANCE, useExisting: InputOtp }, { provide: PARENT_INSTANCE, useExisting: InputOtp }],
+    hostDirectives: [Bind],
     host: {
         '[class]': "cx('root')"
     }
 })
-export class InputOtp extends BaseEditableHolder implements AfterContentInit {
+export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements AfterViewChecked {
+    _componentStyle = inject(InputOtpStyle);
+
+    $pcInputOtp: InputOtp | undefined = inject(INPUTOTP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
@@ -210,9 +229,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
         return this.mask ? 'password' : 'text';
     }
 
-    _componentStyle = inject(InputOtpStyle);
-
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'input':

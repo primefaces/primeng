@@ -17,6 +17,7 @@ import { TemplateDrivenFormsDoc } from '@/doc/treeselect/templatedrivenformsdoc'
 import { VirtualScrollDoc } from '@/doc/treeselect/virtualscrolldoc';
 import { FluidDoc } from '@/doc/treeselect/fluiddoc';
 import { ClearIconDoc } from '@/doc/treeselect/clearicondoc';
+import { PTComponent } from '@/doc/treeselect/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -27,12 +28,14 @@ import { AppDoc } from '@/components/doc/app.doc';
         description="TreeSelect is a form component to choose from hierarchical data."
         [docs]="docs"
         [apiDocs]="['TreeSelect', 'TreeNode']"
+        [ptDocs]="ptComponent"
         themeDocs="treeselect"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class TreeSelectDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

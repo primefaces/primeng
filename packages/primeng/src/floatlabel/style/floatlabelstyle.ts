@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/floatlabel';
+import { style as floatlabel_style } from '@primeuix/styles/floatlabel';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${floatlabel_style}
 
     /* For PrimeNG */
     .p-floatlabel:has(.ng-invalid.ng-dirty) label {
@@ -26,7 +26,7 @@ const classes = {
 export class FloatLabelStyle extends BaseStyle {
     name = 'floatlabel';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

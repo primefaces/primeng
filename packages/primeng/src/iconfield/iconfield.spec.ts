@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { IconField } from './iconfield';
 import { InputIcon } from 'primeng/inputicon';
+import { providePrimeNG } from 'primeng/config';
 
 @Component({
     standalone: true,
@@ -198,3 +199,169 @@ describe('IconField', () => {
         });
     });
 });
+
+describe('IconField PassThrough Tests', () => {
+    let fixture: ComponentFixture<IconField>;
+    let component: IconField;
+    let hostElement: HTMLElement;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [IconField, FormsModule]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(IconField);
+        component = fixture.componentInstance;
+        hostElement = fixture.nativeElement;
+    });
+
+    describe('PT Case 1: Simple string classes', () => {
+        it('should apply simple string class to host', () => {
+            fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply simple string class to root', () => {
+            fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PT Case 2: Objects with properties', () => {
+        it('should apply object with class to root', () => {
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    style: { color: 'red' },
+                    'data-test': 'value'
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('PT_ROOT_CLASS')).toBe(true);
+            expect(hostElement.style.color).toBe('red');
+            expect(hostElement.getAttribute('data-test')).toBe('value');
+        });
+    });
+
+    describe('PT Case 3: Instance variables', () => {
+        it('should access instance variables in PT function', () => {
+            component.iconPosition = 'right';
+            fixture.componentRef.setInput('pt', {
+                root: ({ instance }: any) => ({
+                    class: instance?.iconPosition === 'right' ? 'ICON_RIGHT' : ''
+                })
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('ICON_RIGHT')).toBe(true);
+        });
+    });
+
+    describe('PT Case 4: Event binding', () => {
+        it('should handle onclick event through PT', (done) => {
+            let clicked = false;
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                        done();
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            hostElement.click();
+            expect(clicked).toBe(true);
+        });
+    });
+
+    describe('PT Case 5: Global PT from PrimeNGConfig', () => {
+        it('should apply global PT configuration', async () => {
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [IconField, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            iconField: {
+                                host: { 'aria-label': 'GLOBAL_LABEL' },
+                                root: 'GLOBAL_CLASS'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const globalFixture = TestBed.createComponent(IconField);
+            globalFixture.detectChanges();
+
+            const globalHostElement = globalFixture.nativeElement;
+            expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
+            expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_LABEL');
+        });
+    });
+
+    describe('PT Case 6: Lifecycle hooks', () => {
+        it('should support lifecycle hooks', async () => {
+            const hooksCalled: string[] = [];
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [IconField, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            iconField: {
+                                hooks: {
+                                    onInit: () => {
+                                        hooksCalled.push('onInit');
+                                    },
+                                    onAfterViewChecked: () => {
+                                        if (!hooksCalled.includes('onAfterViewChecked')) {
+                                            hooksCalled.push('onAfterViewChecked');
+                                        }
+                                    },
+                                    onDestroy: () => {
+                                        hooksCalled.push('onDestroy');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const hookFixture = TestBed.createComponent(IconField);
+            hookFixture.detectChanges();
+
+            expect(hooksCalled).toContain('onInit');
+            expect(hooksCalled).toContain('onAfterViewChecked');
+
+            hookFixture.destroy();
+
+            expect(hooksCalled).toContain('onDestroy');
+        });
+    });
+});
+
+// Test components for inline PT tests
+@Component({
+    standalone: true,
+    imports: [IconField, FormsModule],
+    template: `<p-iconfield [pt]="{ root: 'INLINE_STRING' }"><input /></p-iconfield>`
+})
+class TestInlineStringPTComponent {}
+
+@Component({
+    standalone: true,
+    imports: [IconField, FormsModule],
+    template: `
+        <p-iconfield><input /></p-iconfield>
+        <p-iconfield><input /></p-iconfield>
+    `
+})
+class TestMultipleInstancesComponent {}

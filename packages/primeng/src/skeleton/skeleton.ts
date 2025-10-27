@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
+import { SkeletonPassThrough } from 'primeng/types/skeleton';
 import { SkeletonStyle } from './style/skeletonstyle';
+
+const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');
 
 /**
  * Skeleton is a placeholder to display instead of the actual content.
@@ -15,16 +19,23 @@ import { SkeletonStyle } from './style/skeletonstyle';
     template: ``,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [SkeletonStyle],
+    providers: [SkeletonStyle, { provide: SKELETON_INSTANCE, useExisting: Skeleton }, { provide: PARENT_INSTANCE, useExisting: Skeleton }],
     host: {
         '[attr.aria-hidden]': 'true',
-        '[attr.data-pc-name]': "'skeleton'",
-        '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)",
         '[style]': 'containerStyle'
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Skeleton extends BaseComponent {
+export class Skeleton extends BaseComponent<SkeletonPassThrough> {
+    $pcSkeleton: Skeleton | undefined = inject(SKELETON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Class of the element.
      * @deprecated since v20.0.0, use `class` instead.

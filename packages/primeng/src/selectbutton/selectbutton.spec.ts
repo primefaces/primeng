@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SelectButton, SelectButtonModule } from './selectbutton';
 import { SharedModule } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { providePrimeNG } from 'primeng/config';
 
 describe('SelectButton', () => {
     let component: SelectButton;
@@ -640,3 +641,502 @@ describe('SelectButton #template Reference Tests', () => {
         }
     }));
 });
+
+describe('SelectButton PassThrough Tests', () => {
+    let fixture: ComponentFixture<SelectButton>;
+    let component: SelectButton;
+    let hostElement: HTMLElement;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(SelectButton);
+        component = fixture.componentInstance;
+        component.options = ['One-Way', 'Return'];
+        hostElement = fixture.nativeElement;
+    });
+
+    describe('PT Case 1: Simple string classes', () => {
+        it('should apply simple string class to host', () => {
+            fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply simple string class to root', () => {
+            fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
+        });
+
+        it('should apply simple string classes to both host and root', () => {
+            fixture.componentRef.setInput('pt', {
+                host: 'HOST_CLASS',
+                root: 'ROOT_CLASS'
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
+            expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PT Case 2: Objects with class, style, and attributes', () => {
+        it('should apply object with class to root', () => {
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    class: 'PT_ROOT_OBJECT_CLASS'
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('PT_ROOT_OBJECT_CLASS')).toBe(true);
+        });
+
+        it('should apply object with style to root', () => {
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    style: { 'background-color': 'red' }
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.style.backgroundColor).toBe('red');
+        });
+
+        it('should apply object with data attributes to root', () => {
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    'data-p-test': 'true'
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.getAttribute('data-p-test')).toBe('true');
+        });
+
+        it('should apply object with aria attributes to root', () => {
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    'aria-label': 'TEST_ARIA_LABEL'
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+        });
+
+        it('should apply multiple properties at once', () => {
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    class: 'MULTI_CLASS',
+                    style: { color: 'blue' },
+                    'data-test': 'value',
+                    'aria-label': 'MULTI_ARIA'
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('MULTI_CLASS')).toBe(true);
+            expect(hostElement.style.color).toBe('blue');
+            expect(hostElement.getAttribute('data-test')).toBe('value');
+            expect(hostElement.getAttribute('aria-label')).toBe('MULTI_ARIA');
+        });
+    });
+
+    describe('PT Case 3: Mixed object and string values', () => {
+        it('should apply mixed string and object PT options', () => {
+            fixture.componentRef.setInput('pt', {
+                host: 'HOST_STRING',
+                root: {
+                    class: 'ROOT_OBJECT_CLASS',
+                    style: { 'border-color': 'green' }
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('HOST_STRING')).toBe(true);
+            expect(hostElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+            expect(hostElement.style.borderColor).toBe('green');
+        });
+    });
+
+    describe('PT Case 4: Use variables from instance', () => {
+        it('should access instance variables in PT function', () => {
+            component.value = 'One-Way';
+            fixture.componentRef.setInput('pt', {
+                root: ({ instance }: any) => ({
+                    class: instance?.value ? 'HAS_VALUE' : ''
+                })
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('HAS_VALUE')).toBe(true);
+        });
+
+        it('should conditionally apply styles based on instance state', () => {
+            component.value = 'Return';
+            fixture.componentRef.setInput('pt', {
+                root: ({ instance }: any) => ({
+                    style: {
+                        'background-color': instance?.value === 'Return' ? 'yellow' : 'red'
+                    }
+                })
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.style.backgroundColor).toBe('yellow');
+        });
+
+        it('should access multiple instance properties', () => {
+            component.value = 'One-Way';
+            component.multiple = true;
+            fixture.componentRef.setInput('pt', {
+                root: ({ instance }: any) => ({
+                    class: (instance?.multiple ? 'MULTIPLE_MODE ' : '') + (instance?.value ? 'HAS_SELECTION' : '')
+                })
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('MULTIPLE_MODE')).toBe(true);
+            expect(hostElement.classList.contains('HAS_SELECTION')).toBe(true);
+        });
+    });
+
+    describe('PT Case 5: Event binding', () => {
+        it('should handle onclick event through PT', (done) => {
+            let clicked = false;
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                        done();
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            hostElement.click();
+            expect(clicked).toBe(true);
+        });
+
+        it('should modify instance through PT event', () => {
+            fixture.componentRef.setInput('pt', {
+                root: ({ instance }: any) => ({
+                    onclick: () => {
+                        instance.value = 'MODIFIED';
+                    }
+                })
+            });
+            fixture.detectChanges();
+
+            hostElement.click();
+            expect(component.value).toBe('MODIFIED');
+        });
+    });
+
+    describe('PT Case 6: Inline PT', () => {
+        it('should work with inline string PT', () => {
+            const inlineFixture = TestBed.createComponent(TestInlineStringPTComponent);
+            inlineFixture.detectChanges();
+
+            const inlineHostElement = inlineFixture.nativeElement.querySelector('p-selectbutton');
+            expect(inlineHostElement.classList.contains('INLINE_STRING')).toBe(true);
+        });
+
+        it('should work with inline object PT', () => {
+            const inlineFixture = TestBed.createComponent(TestInlineObjectPTComponent);
+            inlineFixture.detectChanges();
+
+            const inlineHostElement = inlineFixture.nativeElement.querySelector('p-selectbutton');
+            expect(inlineHostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            expect(inlineHostElement.getAttribute('data-inline')).toBe('true');
+        });
+    });
+
+    describe('PT Case 7: Global PT from PrimeNGConfig', () => {
+        it('should apply global PT configuration to all instances', async () => {
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            selectButton: {
+                                host: { 'aria-label': 'GLOBAL_ARIA_LABEL' },
+                                root: 'GLOBAL_CLASS'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const globalFixture = TestBed.createComponent(SelectButton);
+            const globalComponent = globalFixture.componentInstance;
+            globalComponent.options = ['One', 'Two'];
+            globalFixture.detectChanges();
+
+            const globalHostElement = globalFixture.nativeElement;
+            expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
+            expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
+        });
+
+        it('should apply global PT to multiple component instances', async () => {
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule, TestMultipleInstancesComponent],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            selectButton: {
+                                root: {
+                                    class: 'MULTI_GLOBAL_CLASS',
+                                    'data-global': 'true'
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const multiFixture = TestBed.createComponent(TestMultipleInstancesComponent);
+            multiFixture.detectChanges();
+
+            const selectButtons = multiFixture.nativeElement.querySelectorAll('p-selectbutton');
+            expect(selectButtons.length).toBe(2);
+
+            selectButtons.forEach((btn: HTMLElement) => {
+                expect(btn.classList.contains('MULTI_GLOBAL_CLASS')).toBe(true);
+                expect(btn.getAttribute('data-global')).toBe('true');
+            });
+        });
+    });
+
+    describe('PT Case 8: Lifecycle hooks', () => {
+        it('should support onInit hook', async () => {
+            const hooksCalled: string[] = [];
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            selectButton: {
+                                hooks: {
+                                    onInit: () => {
+                                        hooksCalled.push('onInit');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const hookFixture = TestBed.createComponent(SelectButton);
+            const hookComponent = hookFixture.componentInstance;
+            hookComponent.options = ['A', 'B'];
+            hookFixture.detectChanges();
+
+            expect(hooksCalled).toContain('onInit');
+        });
+
+        it('should support onAfterViewInit hook', async () => {
+            const hooksCalled: string[] = [];
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            selectButton: {
+                                hooks: {
+                                    onAfterViewInit: () => {
+                                        hooksCalled.push('onAfterViewInit');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const hookFixture = TestBed.createComponent(SelectButton);
+            const hookComponent = hookFixture.componentInstance;
+            hookComponent.options = ['X', 'Y'];
+            hookFixture.detectChanges();
+
+            expect(hooksCalled).toContain('onAfterViewInit');
+        });
+
+        it('should support onAfterViewChecked hook', async () => {
+            const hooksCalled: string[] = [];
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            selectButton: {
+                                hooks: {
+                                    onAfterViewChecked: () => {
+                                        if (!hooksCalled.includes('onAfterViewChecked')) {
+                                            hooksCalled.push('onAfterViewChecked');
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const hookFixture = TestBed.createComponent(SelectButton);
+            const hookComponent = hookFixture.componentInstance;
+            hookComponent.options = ['M', 'N'];
+            hookFixture.detectChanges();
+
+            expect(hooksCalled).toContain('onAfterViewChecked');
+        });
+
+        it('should support onDestroy hook', async () => {
+            const hooksCalled: string[] = [];
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            selectButton: {
+                                hooks: {
+                                    onDestroy: () => {
+                                        hooksCalled.push('onDestroy');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const hookFixture = TestBed.createComponent(SelectButton);
+            const hookComponent = hookFixture.componentInstance;
+            hookComponent.options = ['P', 'Q'];
+            hookFixture.detectChanges();
+
+            hookFixture.destroy();
+
+            expect(hooksCalled).toContain('onDestroy');
+        });
+
+        it('should support multiple lifecycle hooks', async () => {
+            const hooksCalled: string[] = [];
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            selectButton: {
+                                hooks: {
+                                    onInit: () => {
+                                        hooksCalled.push('onInit');
+                                    },
+                                    onAfterViewInit: () => {
+                                        hooksCalled.push('onAfterViewInit');
+                                    },
+                                    onAfterViewChecked: () => {
+                                        if (!hooksCalled.includes('onAfterViewChecked')) {
+                                            hooksCalled.push('onAfterViewChecked');
+                                        }
+                                    },
+                                    onDestroy: () => {
+                                        hooksCalled.push('onDestroy');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const hookFixture = TestBed.createComponent(SelectButton);
+            const hookComponent = hookFixture.componentInstance;
+            hookComponent.options = ['R', 'S'];
+            hookFixture.detectChanges();
+
+            expect(hooksCalled).toContain('onInit');
+            expect(hooksCalled).toContain('onAfterViewInit');
+            expect(hooksCalled).toContain('onAfterViewChecked');
+
+            hookFixture.destroy();
+
+            expect(hooksCalled).toContain('onDestroy');
+        });
+    });
+
+    describe('PT Case 9: pcToggleButton passthrough', () => {
+        it('should pass PT options to child ToggleButton component', () => {
+            fixture.componentRef.setInput('pt', {
+                pcToggleButton: {
+                    root: 'TOGGLE_BUTTON_CLASS'
+                }
+            });
+            fixture.detectChanges();
+
+            const toggleButtons = hostElement.querySelectorAll('p-togglebutton');
+            expect(toggleButtons.length).toBeGreaterThan(0);
+        });
+
+        it('should pass complex PT options to ToggleButton', () => {
+            fixture.componentRef.setInput('pt', {
+                pcToggleButton: {
+                    root: {
+                        class: 'TOGGLE_ROOT_CLASS',
+                        'data-toggle': 'true'
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            const toggleButtons = hostElement.querySelectorAll('p-togglebutton');
+            expect(toggleButtons.length).toBeGreaterThan(0);
+        });
+    });
+});
+
+// Test components for inline PT tests
+@Component({
+    standalone: true,
+    imports: [SelectButton, FormsModule, CommonModule],
+    template: `<p-selectbutton [options]="options" [pt]="{ root: 'INLINE_STRING' }" />`
+})
+class TestInlineStringPTComponent {
+    options = ['One', 'Two'];
+}
+
+@Component({
+    standalone: true,
+    imports: [SelectButton, FormsModule, CommonModule],
+    template: `<p-selectbutton [options]="options" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', 'data-inline': 'true' } }" />`
+})
+class TestInlineObjectPTComponent {
+    options = ['One', 'Two'];
+}
+
+@Component({
+    standalone: true,
+    imports: [SelectButton, FormsModule, CommonModule],
+    template: `
+        <p-selectbutton [options]="options1" />
+        <p-selectbutton [options]="options2" />
+    `
+})
+class TestMultipleInstancesComponent {
+    options1 = ['A', 'B'];
+    options2 = ['X', 'Y'];
+}

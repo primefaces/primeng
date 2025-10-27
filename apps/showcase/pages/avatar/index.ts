@@ -10,15 +10,25 @@ import { LabelDoc } from '@/doc/avatar/labeldoc';
 import { ShapeDoc } from '@/doc/avatar/shapedoc';
 import { SizeDoc } from '@/doc/avatar/sizedoc';
 import { TemplateDoc } from '@/doc/avatar/templatedoc';
+import { PTComponent } from '@/doc/avatar/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Avatar Component" header="Avatar" description="Avatar represents people using icons, labels and images." [docs]="docs" [apiDocs]="['Avatar', 'AvatarGroup']" [themeDocs]="'Avatar'"></app-doc>`
+    template: ` <app-doc
+        docTitle="Angular Avatar Component"
+        header="Avatar"
+        description="Avatar represents people using icons, labels and images."
+        [docs]="docs"
+        [apiDocs]="['Avatar', 'AvatarGroup']"
+        [ptDocs]="ptComponent"
+        [themeDocs]="'Avatar'"
+    ></app-doc>`
 })
 export class AvatarDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

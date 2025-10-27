@@ -89,9 +89,29 @@ export interface Confirmation {
      * An event emitter for the reject event.
      */
     rejectEvent?: EventEmitter<any>;
+    /**
+     * Accept button properties.
+     */
     acceptButtonProps?: any;
+    /**
+     * Reject button properties.
+     */
     rejectButtonProps?: any;
+    /**
+     * Close button properties.
+     */
     closeButtonProps?: any;
+    /**
+     * Defines if the dialog is closable.
+     */
     closable?: boolean;
+    /**
+     * Defines the dialog position.
+     */
     position?: string;
+    /**
+     * Specifies whether the dialog displayed as modal or not.
+     * @defaultValue true
+     */
+    modal?: boolean;
 }

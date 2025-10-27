@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, ViewChild, input } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -1272,5 +1272,412 @@ describe('Inplace', () => {
             expect(inplaceComponent.active).toBe(true);
             flush();
         }));
+    });
+
+    describe('PassThrough API', () => {
+        @Component({
+            standalone: true,
+            imports: [Inplace, InplaceDisplay, InplaceContent],
+            template: `<p-inplace [active]="active()" [closable]="closable()" [disabled]="disabled()" [closeIcon]="closeIcon()" [pt]="pt()">
+                <p-inplacedisplay>
+                    <span class="test-display">Display Content</span>
+                </p-inplacedisplay>
+                <p-inplacecontent>
+                    <input type="text" class="test-input" value="Content" />
+                </p-inplacecontent>
+            </p-inplace>`
+        })
+        class TestPTInplaceComponent {
+            active = input<boolean>(false);
+            closable = input<boolean>(false);
+            disabled = input<boolean>(false);
+            closeIcon = input<string | undefined>();
+            pt = input<any>();
+        }
+
+        let fixture: ComponentFixture<TestPTInplaceComponent>;
+        let inplaceElement: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestPTInplaceComponent);
+            fixture.detectChanges();
+            inplaceElement = fixture.debugElement.query(By.css('p-inplace'));
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            it('should apply string class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to root section', () => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to display section', () => {
+                fixture.componentRef.setInput('pt', { display: 'DISPLAY_CLASS' });
+                fixture.detectChanges();
+
+                const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+                expect(displayElement?.classList.contains('DISPLAY_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to content section', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
+                fixture.componentRef.setInput('active', true);
+                fixture.detectChanges();
+                tick();
+
+                const contentElement = inplaceElement.nativeElement.querySelector('[data-pc-section="content"]');
+                expect(contentElement?.classList.contains('CONTENT_CLASS')).toBe(true);
+                flush();
+            }));
+        });
+
+        describe('Case 2: Objects (class, style, data, aria)', () => {
+            it('should apply object with class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: { class: 'HOST_OBJ_CLASS' } });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('HOST_OBJ_CLASS')).toBe(true);
+            });
+
+            it('should apply object with style to host section', () => {
+                fixture.componentRef.setInput('pt', { host: { style: { color: 'red', fontSize: '20px' } } });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.style.color).toBe('red');
+                expect(inplaceElement.nativeElement.style.fontSize).toBe('20px');
+            });
+
+            it('should apply object with data attributes to host section', () => {
+                fixture.componentRef.setInput('pt', { host: { 'data-test-id': 'host-test' } });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.getAttribute('data-test-id')).toBe('host-test');
+            });
+
+            it('should apply object with aria attributes to host section', () => {
+                fixture.componentRef.setInput('pt', { host: { 'aria-label': 'Inplace Test' } });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.getAttribute('aria-label')).toBe('Inplace Test');
+            });
+
+            it('should apply object with multiple properties to root section', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJ_CLASS',
+                        style: { backgroundColor: 'blue' },
+                        'data-section': 'root'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('ROOT_OBJ_CLASS')).toBe(true);
+                expect(inplaceElement.nativeElement.style.backgroundColor).toBe('blue');
+                expect(inplaceElement.nativeElement.getAttribute('data-section')).toBe('root');
+            });
+
+            it('should apply object with class to display section', () => {
+                fixture.componentRef.setInput('pt', { display: { class: 'DISPLAY_OBJ_CLASS' } });
+                fixture.detectChanges();
+
+                const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+                expect(displayElement?.classList.contains('DISPLAY_OBJ_CLASS')).toBe(true);
+            });
+
+            it('should apply object with style to display section', () => {
+                fixture.componentRef.setInput('pt', { display: { style: { padding: '10px' } } });
+                fixture.detectChanges();
+
+                const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+                expect(displayElement?.style.padding).toBe('10px');
+            });
+
+            it('should apply object to content section', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', { content: { class: 'CONTENT_OBJ_CLASS' } });
+                fixture.componentRef.setInput('active', true);
+                fixture.detectChanges();
+                tick();
+
+                const contentElement = inplaceElement.nativeElement.querySelector('[data-pc-section="content"]');
+                expect(contentElement?.classList.contains('CONTENT_OBJ_CLASS')).toBe(true);
+                flush();
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed values to host section', () => {
+                fixture.componentRef.setInput('pt', {
+                    host: {
+                        class: 'HOST_MIXED_CLASS',
+                        stringValue: 'some-value'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            });
+
+            it('should apply mixed values to root section', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS',
+                        style: { margin: '5px' }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+                expect(inplaceElement.nativeElement.style.margin).toBe('5px');
+            });
+
+            it('should apply mixed values to display section', () => {
+                fixture.componentRef.setInput('pt', {
+                    display: {
+                        class: 'DISPLAY_MIXED_CLASS',
+                        style: { fontWeight: 'bold' }
+                    }
+                });
+                fixture.detectChanges();
+
+                const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+                expect(displayElement?.classList.contains('DISPLAY_MIXED_CLASS')).toBe(true);
+                expect(displayElement?.style.fontWeight).toBe('bold');
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should access active property from instance in pt', () => {
+                fixture.componentRef.setInput('active', true);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    host: ({ instance }: any) => ({
+                        class: instance?.active ? 'ACTIVE_CLASS' : 'INACTIVE_CLASS'
+                    })
+                });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('ACTIVE_CLASS')).toBe(true);
+            });
+
+            it('should access disabled property from instance in pt', () => {
+                fixture.componentRef.setInput('disabled', true);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => ({
+                        class: instance?.disabled ? 'DISABLED_CLASS' : 'ENABLED_CLASS'
+                    })
+                });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('DISABLED_CLASS')).toBe(true);
+            });
+
+            it('should access closable property from instance in pt', () => {
+                fixture.componentRef.setInput('closable', true);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    display: ({ instance }: any) => ({
+                        class: instance?.closable ? 'CLOSABLE_CLASS' : 'NOT_CLOSABLE_CLASS'
+                    })
+                });
+                fixture.detectChanges();
+
+                const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+                expect(displayElement?.classList.contains('CLOSABLE_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should bind onclick event to host section', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    host: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                inplaceElement.nativeElement.click();
+                expect(clicked).toBe(true);
+            });
+
+            it('should bind onclick event to display section', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    display: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+                displayElement?.click();
+                expect(clicked).toBe(true);
+            });
+        });
+
+        describe('Case 6: Test emitters', () => {
+            it('should access onActivate emitter through instance in pt', () => {
+                let emitterAccessed = false;
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        if (instance.onActivate) {
+                            emitterAccessed = true;
+                        }
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(emitterAccessed).toBe(true);
+            });
+
+            it('should access onDeactivate emitter through instance in pt', () => {
+                let emitterAccessed = false;
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        if (instance.onDeactivate) {
+                            emitterAccessed = true;
+                        }
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(emitterAccessed).toBe(true);
+            });
+        });
+
+        describe('Case 7: Inline test', () => {
+            it('should apply inline styles and classes for host section', () => {
+                fixture.componentRef.setInput('pt', {
+                    host: {
+                        class: 'inline-test-host',
+                        style: { display: 'block', padding: '15px' }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('inline-test-host')).toBe(true);
+                expect(inplaceElement.nativeElement.style.display).toBe('block');
+                expect(inplaceElement.nativeElement.style.padding).toBe('15px');
+            });
+
+            it('should apply inline styles and classes for root section', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'inline-test-root',
+                        style: { width: '100%' }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(inplaceElement.nativeElement.classList.contains('inline-test-root')).toBe(true);
+                expect(inplaceElement.nativeElement.style.width).toBe('100%');
+            });
+
+            it('should apply inline styles and classes for display section', () => {
+                fixture.componentRef.setInput('pt', {
+                    display: {
+                        class: 'inline-test-display',
+                        style: { border: '1px solid black' }
+                    }
+                });
+                fixture.detectChanges();
+
+                const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+                expect(displayElement?.classList.contains('inline-test-display')).toBe(true);
+                expect(displayElement?.style.border).toBe('1px solid black');
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            it('should call onAfterViewInit hook in pt', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                expect(hookCalled).toBe(true);
+                hookFixture.destroy();
+                flush();
+            }));
+
+            it('should call onAfterContentInit hook in pt', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterContentInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                expect(hookCalled).toBe(true);
+                hookFixture.destroy();
+                flush();
+            }));
+
+            it('should call onAfterViewChecked hook in pt', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                expect(hookCalled).toBe(true);
+                hookFixture.destroy();
+                flush();
+            }));
+
+            it('should call onDestroy hook in pt', fakeAsync(() => {
+                let hookCalled = false;
+                const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
+                hookFixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onDestroy: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                hookFixture.detectChanges();
+                tick();
+
+                hookFixture.destroy();
+                expect(hookCalled).toBe(true);
+                flush();
+            }));
+        });
     });
 });

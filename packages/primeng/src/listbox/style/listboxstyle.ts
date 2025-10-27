@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/listbox';
+import { style as listbox_style } from '@primeuix/styles/listbox';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${listbox_style}
 
     /* For PrimeNG */
     .p-listbox.ng-invalid.ng-dirty {
@@ -37,7 +37,7 @@ const theme = /*css*/ `
         color: inherit !important;
     }
 
-    .cdk-drag-placeholder { 
+    .cdk-drag-placeholder {
         pointer-events: none;
     }
 `;
@@ -74,7 +74,7 @@ const classes = {
 export class ListBoxStyle extends BaseStyle {
     name = 'listbox';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

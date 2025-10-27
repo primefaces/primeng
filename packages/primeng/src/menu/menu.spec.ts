@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
 import { Menu } from './menu';
 
 @Component({
@@ -527,7 +528,7 @@ describe('Menu', () => {
             commandFixture.detectChanges();
 
             const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="menuitem"]'));
-            const contentElement = itemElement.query(By.css('div[data-pc-section="content"]'));
+            const contentElement = itemElement.query(By.css('div[data-pc-section="itemcontent"]'));
 
             contentElement.nativeElement.click();
             tick();
@@ -1364,6 +1365,684 @@ describe('Menu', () => {
 
             menuInstance.focused = false;
             expect(menuInstance.activedescendant()).toBeUndefined();
+        });
+    });
+
+    describe('PassThrough (PT)', () => {
+        describe('Case 1: Simple string classes', () => {
+            it('should apply simple string class to root', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.className).toContain('ROOT_CLASS');
+            });
+
+            it('should apply simple string class to list', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('pt', { list: 'LIST_CLASS' });
+                ptFixture.detectChanges();
+
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement.nativeElement.className).toContain('LIST_CLASS');
+            });
+
+            it('should apply multiple simple string classes to different sections', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'ROOT_CLASS',
+                    list: 'LIST_CLASS'
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
+                expect(rootElement.nativeElement.className).toContain('ROOT_CLASS');
+                expect(listElement.nativeElement.className).toContain('LIST_CLASS');
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            it('should apply object with class to root', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'OBJECT_CLASS'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.className).toContain('OBJECT_CLASS');
+            });
+
+            it('should apply object with style to root', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        style: { 'background-color': 'red' }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.style.backgroundColor).toBe('red');
+            });
+
+            it('should apply object with data attribute to root', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        'data-p-test': true
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.getAttribute('data-p-test')).toBe('true');
+            });
+
+            it('should apply object with aria-label to root', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply multiple object properties to list', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('pt', {
+                    list: {
+                        class: 'LIST_OBJECT_CLASS',
+                        style: { color: 'blue' },
+                        'data-test': 'value',
+                        'aria-hidden': 'true'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement?.nativeElement.className).toContain('LIST_OBJECT_CLASS');
+                expect(listElement?.nativeElement.style.color).toBe('blue');
+                expect(listElement?.nativeElement.getAttribute('data-test')).toBe('value');
+                expect(listElement?.nativeElement.getAttribute('aria-hidden')).toBe('true');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed object and string values to different sections', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS'
+                    },
+                    list: 'LIST_STRING_CLASS'
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
+                expect(rootElement.nativeElement.className).toContain('ROOT_OBJECT_CLASS');
+                expect(listElement.nativeElement.className).toContain('LIST_STRING_CLASS');
+            });
+
+            it('should handle string for root and object for list', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'ROOT_STRING_CLASS',
+                    list: {
+                        class: 'LIST_OBJECT_CLASS',
+                        style: { 'font-weight': 'bold' }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
+                expect(rootElement.nativeElement.className).toContain('ROOT_STRING_CLASS');
+                expect(listElement?.nativeElement.className).toContain('LIST_OBJECT_CLASS');
+                expect(listElement?.nativeElement.style.fontWeight).toBe('bold');
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should use instance popup property in PT function', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('popup', false);
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: instance.popup ? 'POPUP_MENU' : 'STATIC_MENU'
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement?.nativeElement.className).toContain('STATIC_MENU');
+            });
+
+            it('should use instance model property in PT function', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }, { label: 'Item 2' }]);
+                ptFixture.componentRef.setInput('pt', {
+                    list: ({ instance }) => {
+                        return {
+                            style: {
+                                'border-color': instance.model?.length > 1 ? 'green' : 'red'
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement?.nativeElement.style.borderColor).toBe('green');
+            });
+
+            it('should use instance tabindex property in PT function', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('tabindex', 5);
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: instance.tabindex === 5 ? 'CUSTOM_TABINDEX' : ''
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.className).toContain('CUSTOM_TABINDEX');
+            });
+
+            it('should use multiple instance properties in PT function', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('popup', false);
+                ptFixture.componentRef.setInput('tabindex', 0);
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            class: !instance.popup && instance.tabindex === 0 ? 'STATIC_WITH_TABINDEX' : ''
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.className).toContain('STATIC_WITH_TABINDEX');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should bind onclick event via PT', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                let clicked = false;
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                rootElement.nativeElement.click();
+                expect(clicked).toBe(true);
+            });
+
+            it('should bind onclick event to list via PT', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                let listClicked = false;
+                ptFixture.componentRef.setInput('pt', {
+                    list: {
+                        onclick: () => {
+                            listClicked = true;
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+                listElement.nativeElement.click();
+                expect(listClicked).toBe(true);
+            });
+
+            it('should bind onclick event with instance reference', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Test Item' }]);
+                let instanceModelLength = 0;
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        return {
+                            onclick: () => {
+                                instanceModelLength = instance.model?.length || 0;
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                rootElement.nativeElement.click();
+                expect(instanceModelLength).toBe(1);
+            });
+        });
+
+        describe('Case 6: Inline test', () => {
+            it('should apply inline PT with string class', () => {
+                @Component({
+                    standalone: true,
+                    imports: [Menu],
+                    template: `<p-menu [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-menu>`
+                })
+                class TestInlinePTStringComponent {}
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [TestInlinePTStringComponent, NoopAnimationsModule]
+                });
+
+                const inlineFixture = TestBed.createComponent(TestInlinePTStringComponent);
+                inlineFixture.detectChanges();
+
+                const menuElement = inlineFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(menuElement.nativeElement.className).toContain('INLINE_ROOT_CLASS');
+            });
+
+            it('should apply inline PT with object class', () => {
+                @Component({
+                    standalone: true,
+                    imports: [Menu],
+                    template: `<p-menu [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></p-menu>`
+                })
+                class TestInlinePTObjectComponent {}
+
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [TestInlinePTObjectComponent, NoopAnimationsModule]
+                });
+
+                const inlineFixture = TestBed.createComponent(TestInlinePTObjectComponent);
+                inlineFixture.detectChanges();
+
+                const menuElement = inlineFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(menuElement.nativeElement.className).toContain('INLINE_OBJECT_CLASS');
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: true,
+                imports: [Menu],
+                template: `
+                    <p-menu></p-menu>
+                    <p-menu></p-menu>
+                `
+            })
+            class TestGlobalPTComponent {}
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                TestBed.configureTestingModule({
+                    imports: [TestGlobalPTComponent, NoopAnimationsModule],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                menu: {
+                                    root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
+                                    list: { class: 'GLOBAL_LIST_CLASS' }
+                                }
+                            }
+                        })
+                    ]
+                });
+            });
+
+            it('should apply global PT configuration from PrimeNG config', () => {
+                const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+                globalFixture.detectChanges();
+
+                const menus = globalFixture.debugElement.queryAll(By.css('[data-pc-name="menu"]'));
+                expect(menus.length).toBe(2);
+
+                menus.forEach((menu) => {
+                    expect(menu.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+                });
+            });
+
+            it('should apply global PT to multiple instances of the component', () => {
+                const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+                globalFixture.componentInstance['model'] = [{ label: 'Item' }];
+                globalFixture.detectChanges();
+
+                const lists = globalFixture.debugElement.queryAll(By.css('ul[role="menu"]'));
+                lists.forEach((list) => {
+                    expect(list.nativeElement.className).toContain('GLOBAL_LIST_CLASS');
+                });
+            });
+
+            it('should merge local PT with global PT', () => {
+                @Component({
+                    standalone: true,
+                    imports: [Menu],
+                    template: `<p-menu [pt]="{ root: { class: 'LOCAL_CLASS' } }"></p-menu>`
+                })
+                class TestMergedPTComponent {}
+
+                TestBed.configureTestingModule({
+                    imports: [TestMergedPTComponent, NoopAnimationsModule]
+                });
+
+                const mergedFixture = TestBed.createComponent(TestMergedPTComponent);
+                mergedFixture.detectChanges();
+
+                const menuElement = mergedFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(menuElement.nativeElement.className).toContain('LOCAL_CLASS');
+                expect(menuElement.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+            });
+        });
+
+        describe('Case 8: PT configuration', () => {
+            it('should apply PT with root class configuration', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'MY_MENU'
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.className).toContain('MY_MENU');
+            });
+
+            it('should apply PT with list class configuration', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('pt', {
+                    list: 'LIST_CLASS'
+                });
+                ptFixture.detectChanges();
+
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(listElement.nativeElement.className).toContain('LIST_CLASS');
+            });
+
+            it('should handle PT configuration changes', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'INITIAL_PT_CLASS'
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.className).toContain('INITIAL_PT_CLASS');
+
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'UPDATED_PT_CLASS'
+                });
+                ptFixture.detectChanges();
+                expect(rootElement.nativeElement.className).toContain('UPDATED_PT_CLASS');
+            });
+        });
+
+        describe('PT Complex Scenarios', () => {
+            it('should handle PT updates dynamically', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('pt', { root: 'INITIAL_CLASS' });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.className).toContain('INITIAL_CLASS');
+
+                ptFixture.componentRef.setInput('pt', { root: 'UPDATED_CLASS' });
+                ptFixture.detectChanges();
+                expect(rootElement.nativeElement.className).toContain('UPDATED_CLASS');
+                expect(rootElement.nativeElement.className).not.toContain('INITIAL_CLASS');
+            });
+
+            it('should combine PT with component inputs', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('popup', false);
+                ptFixture.componentRef.setInput('pt', { root: 'CUSTOM_PT_CLASS' });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                expect(rootElement.nativeElement.className).toContain('p-menu');
+                expect(rootElement.nativeElement.className).toContain('CUSTOM_PT_CLASS');
+            });
+
+            it('should apply PT to all sections simultaneously', () => {
+                const ptFixture = TestBed.createComponent(Menu);
+                ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'PT_ROOT',
+                    list: 'PT_LIST'
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+                const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
+                expect(rootElement.nativeElement.className).toContain('PT_ROOT');
+                expect(listElement?.nativeElement.className).toContain('PT_LIST');
+            });
+        });
+    });
+
+    describe('getPTOptions Method', () => {
+        it('should call ptm with correct parameters', () => {
+            const fixture = TestBed.createComponent(Menu);
+            const menu = fixture.componentInstance;
+            const testItem = { label: 'Test Item', disabled: false };
+            const testIndex = 0;
+            const testId = 'test-item-id';
+
+            fixture.componentRef.setInput('model', [testItem]);
+            fixture.detectChanges();
+
+            spyOn(menu, 'ptm').and.callThrough();
+
+            menu.getPTOptions('item', testItem, testIndex, testId);
+
+            expect(menu.ptm).toHaveBeenCalledWith('item', {
+                context: {
+                    item: testItem,
+                    index: testIndex,
+                    focused: jasmine.any(Boolean),
+                    disabled: jasmine.any(Boolean)
+                }
+            });
+        });
+
+        it('should return value from ptm method', () => {
+            const fixture = TestBed.createComponent(Menu);
+            const menu = fixture.componentInstance;
+            const testItem = { label: 'Test Item' };
+            const testId = 'test-item-id';
+
+            fixture.componentRef.setInput('model', [testItem]);
+            fixture.detectChanges();
+
+            const result = menu.getPTOptions('item', testItem, 0, testId);
+
+            expect(result).toBeDefined();
+        });
+
+        it('should determine focused state correctly', () => {
+            const fixture = TestBed.createComponent(Menu);
+            const menu = fixture.componentInstance;
+            const testItem = { label: 'Test Item' };
+            const testId = 'menu_0';
+
+            fixture.componentRef.setInput('model', [testItem]);
+            fixture.componentRef.setInput('id', 'menu');
+            fixture.detectChanges();
+
+            spyOn(menu, 'isItemFocused').and.returnValue(true);
+            spyOn(menu, 'ptm').and.callThrough();
+
+            menu.getPTOptions('item', testItem, 0, testId);
+
+            expect(menu.isItemFocused).toHaveBeenCalledWith(testId);
+            expect(menu.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    focused: true
+                })
+            });
+        });
+
+        it('should determine disabled state correctly for boolean', () => {
+            const fixture = TestBed.createComponent(Menu);
+            const menu = fixture.componentInstance;
+            const disabledItem = { label: 'Disabled Item', disabled: true };
+            const testId = 'test-item-id';
+
+            fixture.componentRef.setInput('model', [disabledItem]);
+            fixture.detectChanges();
+
+            spyOn(menu, 'disabled').and.returnValue(true);
+            spyOn(menu, 'ptm').and.callThrough();
+
+            menu.getPTOptions('item', disabledItem, 0, testId);
+
+            expect(menu.disabled).toHaveBeenCalledWith(true);
+            expect(menu.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    disabled: true
+                })
+            });
+        });
+
+        it('should determine disabled state correctly for function', () => {
+            const fixture = TestBed.createComponent(Menu);
+            const menu = fixture.componentInstance;
+            const disabledFn = () => true;
+            const testItem = { label: 'Test Item', disabled: disabledFn };
+            const testId = 'test-item-id';
+
+            fixture.componentRef.setInput('model', [testItem]);
+            fixture.detectChanges();
+
+            spyOn(menu, 'disabled').and.returnValue(true);
+            spyOn(menu, 'ptm').and.callThrough();
+
+            menu.getPTOptions('item', testItem, 0, testId);
+
+            expect(menu.disabled).toHaveBeenCalledWith(disabledFn);
+            expect(menu.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    disabled: true
+                })
+            });
+        });
+
+        it('should work with different PT keys', () => {
+            const fixture = TestBed.createComponent(Menu);
+            const menu = fixture.componentInstance;
+            const testItem = { label: 'Test Item' };
+            const testId = 'test-item-id';
+
+            fixture.componentRef.setInput('model', [testItem]);
+            fixture.detectChanges();
+
+            spyOn(menu, 'ptm').and.callThrough();
+
+            menu.getPTOptions('item', testItem, 0, testId);
+            expect(menu.ptm).toHaveBeenCalledWith('item', jasmine.any(Object));
+
+            menu.getPTOptions('itemLink', testItem, 0, testId);
+            expect(menu.ptm).toHaveBeenCalledWith('itemLink', jasmine.any(Object));
+
+            menu.getPTOptions('itemContent', testItem, 0, testId);
+            expect(menu.ptm).toHaveBeenCalledWith('itemContent', jasmine.any(Object));
+        });
+
+        it('should pass correct index for multiple items', () => {
+            const fixture = TestBed.createComponent(Menu);
+            const menu = fixture.componentInstance;
+            const items = [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }];
+
+            fixture.componentRef.setInput('model', items);
+            fixture.detectChanges();
+
+            spyOn(menu, 'ptm').and.callThrough();
+
+            menu.getPTOptions('item', items[0], 0, 'menu_0');
+            expect(menu.ptm).toHaveBeenCalledWith(
+                'item',
+                jasmine.objectContaining({
+                    context: jasmine.objectContaining({ index: 0 })
+                })
+            );
+
+            menu.getPTOptions('item', items[1], 1, 'menu_1');
+            expect(menu.ptm).toHaveBeenCalledWith(
+                'item',
+                jasmine.objectContaining({
+                    context: jasmine.objectContaining({ index: 1 })
+                })
+            );
+
+            menu.getPTOptions('item', items[2], 2, 'menu_2');
+            expect(menu.ptm).toHaveBeenCalledWith(
+                'item',
+                jasmine.objectContaining({
+                    context: jasmine.objectContaining({ index: 2 })
+                })
+            );
+        });
+
+        it('should update focused state when focus changes', () => {
+            const fixture = TestBed.createComponent(Menu);
+            const menu = fixture.componentInstance;
+            const testItem = { label: 'Test Item' };
+            const id1 = 'menu_0';
+            const id2 = 'menu_1';
+
+            fixture.componentRef.setInput('model', [testItem, { label: 'Item 2' }]);
+            fixture.detectChanges();
+
+            menu.focusedOptionIndex.set(id1);
+            spyOn(menu, 'ptm').and.callThrough();
+
+            menu.getPTOptions('item', testItem, 0, id1);
+            expect(menu.ptm).toHaveBeenCalledWith(
+                'item',
+                jasmine.objectContaining({
+                    context: jasmine.objectContaining({ focused: true })
+                })
+            );
+
+            (menu.ptm as jasmine.Spy).calls.reset();
+            menu.focusedOptionIndex.set(id2);
+
+            menu.getPTOptions('item', testItem, 0, id1);
+            expect(menu.ptm).toHaveBeenCalledWith(
+                'item',
+                jasmine.objectContaining({
+                    context: jasmine.objectContaining({ focused: false })
+                })
+            );
         });
     });
 });

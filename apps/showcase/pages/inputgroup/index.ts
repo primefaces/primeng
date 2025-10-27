@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/inputgroup/accessibilitydoc';
 import { BasicDoc } from '@/doc/inputgroup/basicdoc';
 import { ButtonDoc } from '@/doc/inputgroup/buttondoc';
@@ -6,15 +7,17 @@ import { FloatLabelDoc } from '@/doc/inputgroup/floatlabeldoc';
 import { IftaLabelDoc } from '@/doc/inputgroup/iftalabeldoc';
 import { ImportDoc } from '@/doc/inputgroup/importdoc';
 import { MultipleDoc } from '@/doc/inputgroup/multipledoc';
+import { PTComponent } from '@/doc/inputgroup/pt/PTComponent';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" themeDocs="inputgroup"></app-doc> `,
+    template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" [ptDocs]="ptComponent" themeDocs="inputgroup"></app-doc> `,
     standalone: true,
     imports: [AppDoc]
 })
 export class InputGroupDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

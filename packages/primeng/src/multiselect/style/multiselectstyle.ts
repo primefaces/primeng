@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/multiselect';
+import { style as multiselect_style } from '@primeuix/styles/multiselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${multiselect_style}
 
     /* For PrimeNG */
    .p-multiselect.ng-invalid.ng-dirty {
@@ -71,7 +71,7 @@ const classes = {
 export class MultiSelectStyle extends BaseStyle {
     name = 'multiselect';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

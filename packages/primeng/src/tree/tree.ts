@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -12,12 +11,10 @@ import {
     forwardRef,
     HostListener,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
     Optional,
     Output,
     QueryList,
@@ -31,7 +28,8 @@ import { FormsModule } from '@angular/forms';
 import { find, findSingle, focus, getOuterHeight, getOuterWidth, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
 import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from 'primeng/icons';
@@ -40,8 +38,6 @@ import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
-import { Subscription } from 'rxjs';
-import { TreeStyle } from './style/treestyle';
 import {
     TreeFilterEvent,
     TreeLazyLoadEvent,
@@ -52,14 +48,20 @@ import {
     TreeNodeExpandEvent,
     TreeNodeSelectEvent,
     TreeNodeUnSelectEvent,
+    TreePassThrough,
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
-} from './tree.interface';
+} from 'primeng/types/tree';
+import { Subscription } from 'rxjs';
+import { TreeStyle } from './style/treestyle';
+
+const TREE_INSTANCE = new InjectionToken<Tree>('TREE_INSTANCE');
+const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
 
 @Component({
     selector: 'p-treeNode',
     standalone: true,
-    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule],
+    imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule, BindModule],
     template: `
         @if (node) {
             <li
@@ -77,9 +79,10 @@ import {
                 [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
+                [pBind]="getPTOptions('node')"
             >
                 @if (isPrevDropPointActive()) {
-                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true"></div>
+                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="getPTOptions('dropPoint')"></div>
                 }
                 <div
                     [class]="cx('nodeContent')"
@@ -94,18 +97,19 @@ import {
                     (dragleave)="onNodeDragLeave($event)"
                     (dragend)="onNodeDragEnd($event)"
                     [draggable]="tree.draggableNodes"
+                    [pBind]="getPTOptions('nodeContent')"
                 >
-                    <button type="button" [attr.data-pc-section]="'toggler'" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1">
+                    <button type="button" [class]="cx('nodeToggleButton')" (click)="toggle($event)" pRipple tabindex="-1" [pBind]="getPTOptions('nodeToggleButton')">
                         <ng-container *ngIf="!tree.togglerIconTemplate && !tree._togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                <svg data-p-icon="chevron-right" *ngIf="!node.expanded" [class]="cx('nodeToggleIcon')" />
-                                <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleIcon')" />
+                                <svg data-p-icon="chevron-right" *ngIf="!node.expanded" [class]="cx('nodeToggleIcon')" [pBind]="getPTOptions('nodeToggleIcon')" />
+                                <svg data-p-icon="chevron-down" *ngIf="node.expanded" [class]="cx('nodeToggleIcon')" [pBind]="getPTOptions('nodeToggleIcon')" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
-                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin />
+                                <svg data-p-icon="spinner" [class]="cx('nodeToggleIcon')" spin [pBind]="getPTOptions('nodeToggleIcon')" />
                             </ng-container>
                         </ng-container>
-                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')">
+                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')" [pBind]="getPTOptions('nodeToggleIcon')">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate || tree._togglerIconTemplate; context: { $implicit: node.expanded, loading: node.loading }"></ng-template>
                         </span>
                     </button>
@@ -121,6 +125,7 @@ import {
                         [attr.data-p-partialchecked]="node.partialSelected"
                         [tabindex]="-1"
                         (click)="$event.preventDefault()"
+                        [pt]="getPTOptions('pcNodeCheckbox')"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
@@ -138,8 +143,8 @@ import {
                         </ng-container>
                     </p-checkbox>
 
-                    <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
-                    <span [class]="cx('nodeLabel')">
+                    <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon" [pBind]="getPTOptions('nodeIcon')"></span>
+                    <span [class]="cx('nodeLabel')" [pBind]="getPTOptions('nodeLabel')">
                         <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
                         <span *ngIf="tree.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
@@ -147,9 +152,9 @@ import {
                     </span>
                 </div>
                 @if (isNextDropPointActive()) {
-                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true"></div>
+                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="getPTOptions('dropPoint')"></div>
                 }
-                <ul [class]="cx('nodeChildren')" *ngIf="!tree.virtualScroll && node.children && node.expanded" role="group">
+                <ul [class]="cx('nodeChildren')" *ngIf="!tree.virtualScroll && node.children && node.expanded" role="group" [pBind]="ptm('nodeChildren')">
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy.bind(this)"
                         [node]="childNode"
@@ -166,9 +171,12 @@ import {
         }
     `,
     encapsulation: ViewEncapsulation.None,
-    providers: [TreeStyle]
+    providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UITreeNode extends BaseComponent implements OnInit {
+export class UITreeNode extends BaseComponent<TreePassThrough> {
+    $pcTreeNode: UITreeNode | undefined = inject(TREENODE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     static ICON_CLASS: string = 'p-tree-node-icon ';
 
     @Input() rowNode: any;
@@ -233,8 +241,21 @@ export class UITreeNode extends BaseComponent implements OnInit {
         return this.node?.parent ? this.node.parent.children : this.tree.value;
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    getPTOptions(key: string) {
+        return this.ptm(key, {
+            context: {
+                node: this.node,
+                index: this.index,
+                expanded: this.node?.expanded,
+                selected: this.selected,
+                checked: this.checked,
+                partialChecked: this.node?.partialSelected,
+                leaf: this.isLeaf()
+            }
+        });
+    }
+
+    onInit() {
         (<TreeNode>this.node).parent = this.parentNode;
         const nativeElement = this.tree.el.nativeElement;
         const pDialogWrapper = nativeElement.closest('p-dialog');
@@ -400,12 +421,13 @@ export class UITreeNode extends BaseComponent implements OnInit {
 
     onNodeDragStart(event: any) {
         if (this.isNodeDraggable()) {
+            event.dataTransfer.effectAllowed = 'all';
             event.dataTransfer?.setData('text', 'data');
 
             const target = event.currentTarget as HTMLElement;
             const dragEl = target.cloneNode(true) as HTMLElement;
-            const toggler = <HTMLElement>dragEl.querySelector('[data-pc-section="toggler"]');
-            const checkbox = <HTMLElement>dragEl.querySelector('[data-pc-name="checkbox"]');
+            const toggler = <HTMLElement>dragEl.querySelector('[data-pc-section="nodetogglebutton"]');
+            const checkbox = <HTMLElement>dragEl.querySelector('[data-pc-name="pcnodecheckbox"]');
 
             target.setAttribute('data-p-dragging', 'true');
             dragEl.style.width = getOuterWidth(target) + 'px';
@@ -432,12 +454,12 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     onNodeDragOver(event: any) {
-        event.dataTransfer.dropEffect = 'move';
-
         if (this.isDroppable()) {
+            event.dataTransfer.dropEffect = 'copy';
+
             const nodeElement = event.currentTarget as HTMLElement;
             const rect = nodeElement.getBoundingClientRect();
-            const y = event.clientY - rect.top;
+            const y = event.clientY - parseInt(rect.top as any);
 
             this.isPrevDropPointHovered.set(false);
             this.isNextDropPointHovered.set(false);
@@ -450,6 +472,8 @@ export class UITreeNode extends BaseComponent implements OnInit {
             } else if (this.isNodeDroppable()) {
                 this.isNodeDropHovered.set(true);
             }
+        } else {
+            event.dataTransfer.dropEffect = 'none';
         }
 
         if (this.tree.droppableNodes) {
@@ -518,7 +542,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     onArrowUp(event: KeyboardEvent) {
-        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : (<HTMLDivElement>event.target).parentElement;
+        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'nodetogglebutton' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : (<HTMLDivElement>event.target).parentElement;
 
         if (nodeElement?.previousElementSibling) {
             this.focusRowChange(nodeElement, nodeElement.previousElementSibling, this.findLastVisibleDescendant(nodeElement.previousElementSibling));
@@ -534,7 +558,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     onArrowDown(event: KeyboardEvent) {
-        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
+        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'nodetogglebutton' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
         const listElement = nodeElement?.children[1];
 
         if (listElement && listElement.children.length > 0) {
@@ -566,7 +590,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     }
 
     onArrowLeft(event: KeyboardEvent) {
-        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'toggler' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
+        const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'nodetogglebutton' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
 
         if (this.level === 0 && !this.node?.expanded) {
             return false;
@@ -681,13 +705,13 @@ export class UITreeNode extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-tree',
     standalone: true,
-    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule],
+    imports: [CommonModule, Scroller, SharedModule, SearchIcon, SpinnerIcon, InputText, FormsModule, IconField, InputIcon, UITreeNode, AutoFocusModule, Bind],
     template: `
-        <div [class]="cx('mask')" *ngIf="loading && loadingMode === 'mask'">
-            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
+        <div [class]="cx('mask')" *ngIf="loading && loadingMode === 'mask'" [pBind]="ptm('mask')">
+            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)" [pBind]="ptm('loadingIcon')"></i>
             <ng-container *ngIf="!loadingIcon">
-                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" spin [class]="cx('loadingIcon')" />
-                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" spin [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')" />
+                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')">
                     <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -696,7 +720,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         @if (filterTemplate || _filterTemplate) {
             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
         } @else {
-            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')">
+            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')" [pt]="ptm('pcFilterContainer')">
                 <input
                     #filter
                     [pAutoFocus]="filterInputAutoFocus"
@@ -707,10 +731,11 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()"
                     (input)="_filter($event.target?.value)"
+                    [pt]="ptm('pcFilterInput')"
                 />
-                <p-inputicon>
-                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" />
-                    <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')">
+                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')" />
+                    <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                     </span>
                 </p-inputicon>
@@ -732,9 +757,21 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 (onScrollIndexChange)="onScrollIndexChange.emit($event)"
                 (onLazyLoad)="onLazyLoad.emit($event)"
                 [options]="virtualScrollOptions"
+                [pt]="ptm('virtualScroller')"
+                hostName="tree"
             >
                 <ng-template #content let-items let-scrollerOptions="options">
-                    <ul *ngIf="items" #content [class]="cx('rootChildren')" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                    <ul
+                        *ngIf="items"
+                        #content
+                        [class]="cx('rootChildren')"
+                        [ngClass]="scrollerOptions.contentStyleClass"
+                        [style]="scrollerOptions.contentStyle"
+                        role="tree"
+                        [attr.aria-label]="ariaLabel"
+                        [attr.aria-labelledby]="ariaLabelledBy"
+                        [pBind]="ptm('rootChildren')"
+                    >
                         <p-treeNode
                             #treeNode
                             *ngFor="let rowNode of items; let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
@@ -748,6 +785,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                             [itemSize]="scrollerOptions.itemSize"
                             [indentation]="indentation"
                             [loadingMode]="loadingMode"
+                            [pt]="pt"
                         ></p-treeNode>
                     </ul>
                 </ng-template>
@@ -758,8 +796,8 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 </ng-container>
             </p-scroller>
             <ng-container *ngIf="!virtualScroll">
-                <div #wrapper [class]="cx('wrapper')" [style.max-height]="scrollHeight">
-                    <ul #content [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                <div #wrapper [class]="cx('wrapper')" [style.max-height]="scrollHeight" [pBind]="ptm('wrapper')">
+                    <ul #content [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [pBind]="ptm('rootChildren')">
                         <p-treeNode
                             *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy.bind(this)"
                             [node]="node"
@@ -768,13 +806,14 @@ export class UITreeNode extends BaseComponent implements OnInit {
                             [index]="index"
                             [level]="0"
                             [loadingMode]="loadingMode"
+                            [pt]="pt"
                         ></p-treeNode>
                     </ul>
                 </div>
             </ng-container>
         </ng-container>
 
-        <div [class]="cx('emptyMessage')" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
+        <div [class]="cx('emptyMessage')" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)" [pBind]="ptm('emptyMessage')">
             <ng-container *ngIf="!emptyMessageTemplate && !_emptyMessageTemplate; else emptyFilter">
                 {{ emptyMessageLabel }}
             </ng-container>
@@ -782,14 +821,22 @@ export class UITreeNode extends BaseComponent implements OnInit {
         </div>
         <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [TreeStyle],
+    providers: [TreeStyle, { provide: TREE_INSTANCE, useExisting: Tree }, { provide: PARENT_INSTANCE, useExisting: Tree }],
     host: {
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
+export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcTree: Tree | undefined = inject(TREE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * An array of treenodes.
      * @group Props
@@ -1127,7 +1174,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
 
     _filterTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         if ((this.templates as QueryList<PrimeTemplate>).length) {
             this._templateMap = {};
         }
@@ -1223,8 +1270,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.filterBy) {
             this.filterOptions = {
                 filter: (value) => this._filter(value),
@@ -1251,8 +1297,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         }
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
             this.updateSerializedValue();
             if (this.hasFilterActive()) {
@@ -1559,16 +1604,20 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     }
 
     onDragOver(event: DragEvent) {
-        if (this.droppableNodes && (!this.value || (<any>this.value).length === 0)) {
-            (<any>event).dataTransfer.dropEffect = 'move';
+        if (this.droppableNodes && this.allowDrop(<TreeNode>this.dragNode, null, this.dragNodeScope)) {
+            (<any>event).dataTransfer.dropEffect = 'copy';
             event.preventDefault();
         }
     }
 
     onDrop(event: DragEvent) {
-        if (this.droppableNodes && (!this.value || (<any>this.value).length === 0)) {
+        if (this.droppableNodes) {
             event.preventDefault();
             let dragNode = this.dragNode as TreeNode;
+
+            if (this.isSameTreeScope(this.dragNodeScope)) {
+                return;
+            }
 
             if (this.allowDrop(dragNode, null, this.dragNodeScope)) {
                 let dragNodeIndex = <number>this.dragNodeIndex;
@@ -1615,7 +1664,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
     onDragLeave(event: DragEvent) {
         if (this.droppableNodes) {
             let rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
-            if (event.x > rect.left + rect.width || event.x < rect.left || event.y > rect.top + rect.height || event.y < rect.top) {
+            if (event.x > parseInt(rect.left as any) + rect.width || event.x < parseInt(rect.left as any) || event.y > parseInt(rect.top as any) + rect.height || event.y < parseInt(rect.top as any)) {
                 this.dragHover = false;
             }
         }
@@ -1648,27 +1697,35 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         }
     }
 
-    isValidDragScope(dragScope: any): boolean {
-        let dropScope = this.droppableScope;
-
-        if (dropScope) {
-            if (typeof dropScope === 'string') {
-                if (typeof dragScope === 'string') return dropScope === dragScope;
-                else if (Array.isArray(dragScope)) return (<Array<any>>dragScope).indexOf(dropScope) != -1;
-            } else if (Array.isArray(dropScope)) {
-                if (typeof dragScope === 'string') {
-                    return (<Array<any>>dropScope).indexOf(dragScope) != -1;
-                } else if (Array.isArray(dragScope)) {
-                    for (let s of dropScope) {
-                        for (let ds of dragScope) {
-                            if (s === ds) {
-                                return true;
-                            }
+    hasCommonScope(dragScope: any, dropScope: any): boolean {
+        if (typeof dropScope === 'string') {
+            if (typeof dragScope === 'string') return dropScope === dragScope;
+            else if (Array.isArray(dragScope)) return (<Array<any>>dragScope).indexOf(dropScope) != -1;
+        } else if (Array.isArray(dropScope)) {
+            if (typeof dragScope === 'string') {
+                return (<Array<any>>dropScope).indexOf(dragScope) != -1;
+            } else if (Array.isArray(dragScope)) {
+                for (let s of dropScope) {
+                    for (let ds of dragScope) {
+                        if (s === ds) {
+                            return true;
                         }
                     }
                 }
             }
-            return false;
+        }
+        return false;
+    }
+
+    isSameTreeScope(dragScope: any): boolean {
+        return this.hasCommonScope(dragScope, this.draggableScope);
+    }
+
+    isValidDragScope(dragScope: any): boolean {
+        let dropScope = this.droppableScope;
+
+        if (dropScope) {
+            return this.hasCommonScope(dragScope, dropScope);
         } else {
             return true;
         }
@@ -1787,7 +1844,7 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         return this.el.nativeElement.children[0];
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.dragStartSubscription) {
             this.dragStartSubscription.unsubscribe();
         }
@@ -1795,8 +1852,6 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
         if (this.dragStopSubscription) {
             this.dragStopSubscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 @NgModule({

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/datatable';
+import { style as datatable_style } from '@primeuix/styles/datatable';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${datatable_style}
 
     /* For PrimeNG */
     .p-datatable-scrollable-table > .p-datatable-thead {
@@ -231,7 +231,7 @@ const inlineStyles = {
 export class TableStyle extends BaseStyle {
     name = 'datatable';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

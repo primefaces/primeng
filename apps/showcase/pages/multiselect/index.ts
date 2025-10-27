@@ -17,15 +17,25 @@ import { TemplateDrivenFormsDoc } from '@/doc/multiselect/templatedrivenformsdoc
 import { VirtualScrollDoc } from '@/doc/multiselect/virtualscrolldoc';
 import { ClearIconDoc } from '@/doc/multiselect/clearicondoc';
 import { FluidDoc } from '@/doc/multiselect/fluiddoc';
+import { PTComponent } from '@/doc/multiselect/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular MultiSelect Component" header="MultiSelect" description="MultiSelect is used to select multiple items from a collection." [docs]="docs" [apiDocs]="['MultiSelect']" themeDocs="multiselect"></app-doc> `,
+    template: `<app-doc
+        docTitle="Angular MultiSelect Component"
+        header="MultiSelect"
+        description="MultiSelect is used to select multiple items from a collection."
+        [docs]="docs"
+        [apiDocs]="['MultiSelect']"
+        [ptDocs]="ptComponent"
+        themeDocs="multiselect"
+    ></app-doc> `,
     standalone: true,
     imports: [AppDoc]
 })
 export class MultiSelectDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

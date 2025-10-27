@@ -2,15 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
-
-export type ThemeType = { preset?: any; options?: any } | 'none' | boolean | undefined;
-
-export type ThemeConfigType = {
-    theme?: ThemeType;
-    csp?: {
-        nonce: string | undefined;
-    };
-};
+import type { ThemeConfigType } from './primeng.types';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeProvider {
@@ -69,7 +61,7 @@ export class ThemeProvider {
             this.baseStyle.load(primitive?.css, { name: 'primitive-variables', ...styleOptions });
             this.baseStyle.load(semantic?.css, { name: 'semantic-variables', ...styleOptions });
             this.baseStyle.load(global?.css, { name: 'global-variables', ...styleOptions });
-            this.baseStyle.loadGlobalTheme({ name: 'global-style', ...styleOptions }, style);
+            this.baseStyle.loadBaseStyle({ name: 'global-style', ...styleOptions }, style);
 
             Theme.setLoadedStyleName('common');
         }

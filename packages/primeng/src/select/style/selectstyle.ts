@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/select';
+import { style as select_style } from '@primeuix/styles/select';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${select_style}
 
     /* For PrimeNG */
     .p-select-label.p-placeholder {
@@ -72,7 +72,7 @@ const classes = {
 export class SelectStyle extends BaseStyle {
     name = 'select';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

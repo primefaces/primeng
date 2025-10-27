@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { IftaLabel } from './iftalabel';
+import { providePrimeNG } from 'primeng/config';
 
 @Component({
     standalone: true,
@@ -126,5 +127,152 @@ describe('IftaLabel', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
             expect(inputElement.nativeElement.value).toBe('' as any);
         }));
+    });
+});
+
+describe('IftaLabel PassThrough Tests', () => {
+    let fixture: ComponentFixture<IftaLabel>;
+    let component: IftaLabel;
+    let hostElement: HTMLElement;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [IftaLabel, FormsModule]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(IftaLabel);
+        component = fixture.componentInstance;
+        hostElement = fixture.nativeElement;
+    });
+
+    describe('PT Case 1: Simple string classes', () => {
+        it('should apply simple string class to host', () => {
+            fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply simple string class to root', () => {
+            fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PT Case 2: Objects with properties', () => {
+        it('should apply object with class to root', () => {
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    style: { color: 'blue' },
+                    'data-testid': 'iftalabel'
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('PT_ROOT_CLASS')).toBe(true);
+            expect(hostElement.style.color).toBe('blue');
+            expect(hostElement.getAttribute('data-testid')).toBe('iftalabel');
+        });
+    });
+
+    describe('PT Case 3: Instance variables', () => {
+        it('should access instance variables in PT function', () => {
+            fixture.componentRef.setInput('pt', {
+                root: ({ instance }: any) => ({
+                    class: instance ? 'HAS_INSTANCE' : ''
+                })
+            });
+            fixture.detectChanges();
+
+            expect(hostElement.classList.contains('HAS_INSTANCE')).toBe(true);
+        });
+    });
+
+    describe('PT Case 4: Event binding', () => {
+        it('should handle onclick event through PT', (done) => {
+            let clicked = false;
+            fixture.componentRef.setInput('pt', {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                        done();
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            hostElement.click();
+            expect(clicked).toBe(true);
+        });
+    });
+
+    describe('PT Case 5: Global PT from PrimeNGConfig', () => {
+        it('should apply global PT configuration', async () => {
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [IftaLabel, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            iftaLabel: {
+                                host: { 'aria-label': 'GLOBAL_LABEL' },
+                                root: 'GLOBAL_CLASS'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const globalFixture = TestBed.createComponent(IftaLabel);
+            globalFixture.detectChanges();
+
+            const globalHostElement = globalFixture.nativeElement;
+            expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
+            expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_LABEL');
+        });
+    });
+
+    describe('PT Case 6: Lifecycle hooks', () => {
+        it('should support lifecycle hooks', async () => {
+            const hooksCalled: string[] = [];
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [IftaLabel, FormsModule],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            iftaLabel: {
+                                hooks: {
+                                    onInit: () => {
+                                        hooksCalled.push('onInit');
+                                    },
+                                    onAfterViewChecked: () => {
+                                        if (!hooksCalled.includes('onAfterViewChecked')) {
+                                            hooksCalled.push('onAfterViewChecked');
+                                        }
+                                    },
+                                    onDestroy: () => {
+                                        hooksCalled.push('onDestroy');
+                                    }
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const hookFixture = TestBed.createComponent(IftaLabel);
+            hookFixture.detectChanges();
+
+            expect(hooksCalled).toContain('onInit');
+            expect(hooksCalled).toContain('onAfterViewChecked');
+
+            hookFixture.destroy();
+
+            expect(hooksCalled).toContain('onDestroy');
+        });
     });
 });

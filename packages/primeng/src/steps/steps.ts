@@ -84,7 +84,7 @@ import { StepsStyle } from './style/stepsstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [StepsStyle]
 })
-export class Steps extends BaseComponent implements OnInit, OnDestroy {
+export class Steps extends BaseComponent {
     /**
      * Index of the active item.
      * @group Props
@@ -132,8 +132,7 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
     }
 
@@ -288,12 +287,10 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
         return item.tabindex ?? '-1';
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

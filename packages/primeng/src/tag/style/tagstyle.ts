@@ -23,7 +23,7 @@ const classes = {
 export class TagStyle extends BaseStyle {
     name = 'tag';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

@@ -4,9 +4,9 @@ import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsMo
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'primeng/types/autocomplete';
 import { BehaviorSubject } from 'rxjs';
 import { AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete, AutoCompleteModule } from './autocomplete';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 
 const mockCountries = [
     { name: 'Afghanistan', code: 'AF' },
@@ -2232,6 +2232,318 @@ describe('AutoComplete', () => {
                 expect(testComponent.selectedValue).toContain('Test Item');
                 expect(testComponent.selectedValue).not.toContain('  Test Item  ');
             });
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        let fixture: ComponentFixture<AutoComplete>;
+        let autocompleteElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(AutoComplete);
+            fixture.componentRef.setInput('suggestions', mockCountries);
+            fixture.detectChanges();
+            autocompleteElement = fixture.nativeElement;
+        });
+
+        describe('Case 1: Template-based PT elements', () => {
+            it('should apply dropdown class from pt', fakeAsync(() => {
+                fixture.componentRef.setInput('dropdown', true);
+                fixture.componentRef.setInput('pt', { dropdown: 'DROPDOWN_CLASS' });
+                fixture.detectChanges();
+                tick();
+
+                const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+                expect(dropdownButton?.classList.contains('DROPDOWN_CLASS')).toBe(true);
+            }));
+
+            it('should apply inputMultiple class from pt in multiple mode', fakeAsync(() => {
+                fixture.componentRef.setInput('multiple', true);
+                fixture.componentRef.setInput('pt', { inputMultiple: 'INPUT_MULTIPLE_CLASS' });
+                fixture.detectChanges();
+                tick();
+
+                const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
+                expect(inputMultiple?.classList.contains('INPUT_MULTIPLE_CLASS')).toBe(true);
+            }));
+
+            it('should apply chipItem class from pt when multiple values selected', fakeAsync(() => {
+                fixture.componentRef.setInput('multiple', true);
+                fixture.componentRef.setInput('pt', { chipItem: 'CHIP_ITEM_CLASS' });
+                fixture.componentInstance.writeValue([mockCountries[0], mockCountries[1]]);
+                fixture.detectChanges();
+                tick();
+
+                const chipItems = autocompleteElement.querySelectorAll('li');
+                const chipItem = Array.from(chipItems).find((li) => li.getAttribute('role') === 'option');
+                expect(chipItem?.classList.contains('CHIP_ITEM_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 2: PT with objects', () => {
+            it('should apply dropdown object with class and style', fakeAsync(() => {
+                fixture.componentRef.setInput('dropdown', true);
+                fixture.componentRef.setInput('pt', {
+                    dropdown: {
+                        class: 'DROPDOWN_OBJECT_CLASS',
+                        style: { 'border-radius': '5px' }
+                    }
+                });
+                fixture.detectChanges();
+                tick();
+
+                const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+                expect(dropdownButton?.classList.contains('DROPDOWN_OBJECT_CLASS')).toBe(true);
+                expect(dropdownButton?.style.borderRadius).toBe('5px');
+            }));
+
+            it('should apply inputMultiple object with data attributes', fakeAsync(() => {
+                fixture.componentRef.setInput('multiple', true);
+                fixture.componentRef.setInput('pt', {
+                    inputMultiple: {
+                        class: 'MULTI_OBJECT_CLASS',
+                        'data-test-id': 'multiple-container'
+                    }
+                });
+                fixture.detectChanges();
+                tick();
+
+                const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
+                expect(inputMultiple?.classList.contains('MULTI_OBJECT_CLASS')).toBe(true);
+                expect(inputMultiple?.getAttribute('data-test-id')).toBe('multiple-container');
+            }));
+        });
+
+        describe('Case 3: PT with component references', () => {
+            it('should apply pcInputText pt to nested InputText component', fakeAsync(() => {
+                fixture.componentRef.setInput('pt', { pcInputText: { root: 'PC_INPUT_CLASS' } });
+                fixture.detectChanges();
+                tick();
+
+                const input = autocompleteElement.querySelector('input') as HTMLInputElement;
+                expect(input?.classList.contains('PC_INPUT_CLASS')).toBe(true);
+            }));
+
+            it('should apply pcOverlay pt to Overlay component', fakeAsync(() => {
+                fixture.componentRef.setInput('suggestions', mockCountries);
+                fixture.componentRef.setInput('pt', { pcOverlay: { root: 'PC_OVERLAY_CLASS' } });
+                fixture.detectChanges();
+
+                // Open overlay
+                fixture.componentInstance.show();
+                fixture.detectChanges();
+                tick(300);
+
+                const overlay = document.querySelector('.p-overlay') as HTMLElement;
+                expect(overlay.classList).toContain('PC_OVERLAY_CLASS');
+            }));
+
+            it('should apply pcChip pt to Chip components in multiple mode', fakeAsync(() => {
+                fixture.componentRef.setInput('multiple', true);
+                fixture.componentRef.setInput('pt', { pcChip: { root: 'PC_CHIP_CLASS' } });
+                fixture.componentInstance.writeValue([mockCountries[0]]);
+                fixture.detectChanges();
+                tick();
+
+                const chip = autocompleteElement.querySelector('p-chip') as HTMLElement;
+                expect(chip).toBeTruthy();
+            }));
+        });
+
+        describe('Case 4: PT with overlay elements', () => {
+            it('should apply overlay pt attributes and classes to host, root, and content sections', fakeAsync(() => {
+                fixture.componentRef.setInput('suggestions', mockCountries);
+                fixture.componentRef.setInput('pt', {
+                    pcOverlay: {
+                        host: {
+                            'data-host': true,
+                            class: 'PC_OVERLAY_HOST'
+                        },
+                        root: {
+                            class: 'PC_OVERLAY_ROOT',
+                            'data-root': true
+                        },
+                        content: {
+                            class: { PC_OVERLAY_CONTENT: true },
+                            'data-content': true
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                fixture.componentInstance.show();
+                fixture.detectChanges();
+                tick(300);
+
+                const hostElement = document.body.querySelector('p-overlay[data-pc-section="host"]') as HTMLElement;
+                expect(hostElement).toBeTruthy();
+                expect(hostElement?.classList.contains('PC_OVERLAY_HOST')).toBe(true);
+                expect(hostElement?.getAttribute('data-host')).toBe('true');
+
+                const rootElement = document.body.querySelector('.p-overlay[data-pc-section="root"]') as HTMLElement;
+                expect(rootElement).toBeTruthy();
+                expect(rootElement?.classList.contains('PC_OVERLAY_ROOT')).toBe(true);
+                expect(rootElement?.getAttribute('data-root')).toBe('true');
+
+                const contentElement = document.body.querySelector('[data-pc-section="content"]') as HTMLElement;
+                expect(contentElement).toBeTruthy();
+                expect(contentElement?.classList.contains('PC_OVERLAY_CONTENT')).toBe(true);
+                expect(contentElement?.getAttribute('data-content')).toBe('true');
+            }));
+
+            it('should apply list class from pt when overlay is visible', fakeAsync(() => {
+                fixture.componentRef.setInput('suggestions', mockCountries);
+                fixture.componentRef.setInput('pt', { list: 'LIST_CLASS' });
+                fixture.detectChanges();
+
+                // Open overlay
+                fixture.componentInstance.show();
+                fixture.detectChanges();
+                tick(300);
+
+                const list = document.body.querySelector('ul[role="listbox"]') as HTMLElement;
+                expect(list?.classList.contains('LIST_CLASS')).toBe(true);
+            }));
+
+            it('should apply listContainer class from pt', fakeAsync(() => {
+                fixture.componentRef.setInput('suggestions', mockCountries);
+                fixture.componentRef.setInput('pt', { listContainer: 'LIST_CONTAINER_CLASS' });
+                fixture.detectChanges();
+
+                // Open overlay
+                fixture.componentInstance.show();
+                fixture.detectChanges();
+                tick(300);
+
+                const listContainer = document.body.querySelector('.p-autocomplete-list-container') as HTMLElement;
+                expect(listContainer?.classList.contains('LIST_CONTAINER_CLASS')).toBe(true);
+            }));
+
+            it('should apply emptyMessage class from pt when no results', fakeAsync(() => {
+                fixture.componentRef.setInput('suggestions', []);
+                fixture.componentRef.setInput('showEmptyMessage', true);
+                fixture.componentRef.setInput('pt', { emptyMessage: 'EMPTY_MESSAGE_CLASS' });
+                fixture.detectChanges();
+
+                // Open overlay
+                fixture.componentInstance.show();
+                fixture.detectChanges();
+                tick(300);
+
+                const emptyMessage = document.body.querySelector('.p-autocomplete-empty-message') as HTMLElement;
+                expect(emptyMessage?.classList.contains('EMPTY_MESSAGE_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 5: PT with functions and context', () => {
+            it('should apply dropdown pt with function accessing instance', fakeAsync(() => {
+                fixture.componentRef.setInput('dropdown', true);
+                fixture.componentRef.setInput('pt', {
+                    dropdown: ({ instance }) => ({
+                        class: instance?.dropdown ? 'DROPDOWN_ENABLED' : 'DROPDOWN_DISABLED',
+                        'data-dropdown': instance?.dropdown
+                    })
+                });
+                fixture.detectChanges();
+                tick();
+
+                const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+                expect(dropdownButton?.classList.contains('DROPDOWN_ENABLED')).toBe(true);
+                expect(dropdownButton?.getAttribute('data-dropdown')).toBe('true');
+            }));
+
+            it('should apply option pt with context for each option', fakeAsync(() => {
+                fixture.componentRef.setInput('suggestions', mockCountries);
+                fixture.componentRef.setInput('pt', {
+                    option: ({ context }) => ({
+                        'data-index': context?.index,
+                        class: {
+                            'OPTION-FOCUSED': context?.focused,
+                            'OPTION-SELECTED': context?.selected
+                        }
+                    })
+                });
+                fixture.detectChanges();
+
+                // Open overlay
+                fixture.componentInstance.show();
+                fixture.detectChanges();
+                tick(300);
+
+                const options = document.body.querySelectorAll('li[role="option"]');
+                expect(options.length).toBeGreaterThan(0);
+                if (options.length > 0) {
+                    expect(options[0].hasAttribute('data-index')).toBe(true);
+                }
+            }));
+        });
+
+        describe('Case 6: PT with grouped options', () => {
+            it('should apply optionGroup class from pt', fakeAsync(() => {
+                const groupedData = [
+                    {
+                        label: 'Group A',
+                        items: [
+                            { name: 'Australia', code: 'AU' },
+                            { name: 'Austria', code: 'AT' }
+                        ]
+                    }
+                ];
+
+                fixture.componentRef.setInput('suggestions', groupedData);
+                fixture.componentRef.setInput('group', true);
+                fixture.componentRef.setInput('pt', { optionGroup: 'OPTION_GROUP_CLASS' });
+                fixture.detectChanges();
+
+                // Open overlay
+                fixture.componentInstance.show();
+                fixture.detectChanges();
+                tick(300);
+
+                const optionGroups = document.body.querySelectorAll('li[role="option"]');
+                // First option should be the group
+                if (optionGroups.length > 0) {
+                    expect(optionGroups[0].classList.contains('OPTION_GROUP_CLASS')).toBe(true);
+                }
+            }));
+        });
+
+        describe('Case 7: Combined PT scenarios', () => {
+            it('should apply multiple pt sections simultaneously', fakeAsync(() => {
+                fixture.componentRef.setInput('dropdown', true);
+                fixture.componentRef.setInput('multiple', true);
+                fixture.componentRef.setInput('pt', {
+                    dropdown: 'DROPDOWN_MULTI',
+                    inputMultiple: 'MULTIPLE_MULTI',
+                    pcInputText: { root: 'INPUT_MULTI' }
+                });
+                fixture.componentInstance.writeValue([mockCountries[0]]);
+                fixture.detectChanges();
+                tick();
+
+                const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+                expect(dropdownButton?.classList.contains('DROPDOWN_MULTI')).toBe(true);
+
+                const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
+                expect(inputMultiple?.classList.contains('MULTIPLE_MULTI')).toBe(true);
+            }));
+
+            it('should apply complex pt with functions and objects', fakeAsync(() => {
+                fixture.componentRef.setInput('dropdown', true);
+                fixture.componentRef.setInput('suggestions', mockCountries);
+                fixture.componentRef.setInput('pt', {
+                    dropdown: ({ instance }) => ({
+                        class: 'FUNC_DROPDOWN',
+                        'data-has-suggestions': instance?.suggestions?.length > 0
+                    })
+                });
+                fixture.detectChanges();
+                tick();
+
+                const dropdownButton = autocompleteElement.querySelector('[data-pc-section="dropdown"]') as HTMLButtonElement;
+                expect(dropdownButton?.classList.contains('FUNC_DROPDOWN')).toBe(true);
+                expect(dropdownButton?.getAttribute('data-has-suggestions')).toBe('true');
+            }));
         });
     });
 });

@@ -4,9 +4,10 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { SharedModule, TreeNode } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
+import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from 'primeng/types/treeselect';
 import { BehaviorSubject } from 'rxjs';
 import { TreeSelect, TreeSelectModule } from './treeselect';
-import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
 
 const mockTreeNodes: TreeNode[] = [
     {
@@ -1295,6 +1296,142 @@ describe('TreeSelect', () => {
 
             const treeSelectInstance = testFixture.debugElement.query(By.directive(TreeSelect)).componentInstance;
             expect(treeSelectInstance.autofocus).toBe(true);
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        it('PT: should accept simple string values', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TreeSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            treeSelect: {
+                                root: 'custom-root-class',
+                                label: 'custom-label-class',
+                                dropdown: 'custom-dropdown-class'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TreeSelect);
+            fixture.componentInstance.options = mockTreeNodes;
+            fixture.detectChanges();
+
+            const root = fixture.debugElement;
+            expect(root.nativeElement.classList.contains('custom-root-class')).toBe(true);
+        });
+
+        it('PT: should accept object values with class', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TreeSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            treeSelect: {
+                                root: { class: 'pt-root-test' },
+                                label: { class: 'pt-label-test' }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TreeSelect);
+            fixture.componentInstance.options = mockTreeNodes;
+            fixture.detectChanges();
+            const root = fixture.debugElement;
+            expect(root.nativeElement.classList.contains('pt-root-test')).toBe(true);
+        });
+
+        it('PT: should accept mixed object and string values', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TreeSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            treeSelect: {
+                                root: 'string-root',
+                                label: { class: 'object-label' },
+                                dropdown: { class: 'dropdown-class' }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TreeSelect);
+            fixture.componentInstance.options = mockTreeNodes;
+            fixture.detectChanges();
+
+            const root = fixture.debugElement;
+            expect(root.nativeElement.classList.contains('string-root')).toBe(true);
+        });
+
+        it('PT: should support event handlers in PT options', async () => {
+            const clickSpy = jasmine.createSpy('clickHandler');
+
+            await TestBed.configureTestingModule({
+                imports: [TreeSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            treeSelect: {
+                                root: {
+                                    onClick: clickSpy
+                                }
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TreeSelect);
+            fixture.componentInstance.options = mockTreeNodes;
+            fixture.detectChanges();
+
+            const root = fixture.debugElement;
+            root.nativeElement.click();
+
+            expect(clickSpy).toHaveBeenCalled();
+        });
+
+        it('PT: should support ptOptions.mergeProps and ptOptions.mergeSections', async () => {
+            await TestBed.configureTestingModule({
+                imports: [TreeSelectModule, FormsModule],
+                providers: [
+                    provideNoopAnimations(),
+                    providePrimeNG({
+                        pt: {
+                            treeSelect: {
+                                root: 'global-root',
+                                label: 'global-label'
+                            }
+                        },
+                        ptOptions: {
+                            mergeProps: true,
+                            mergeSections: true
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(TreeSelect);
+            fixture.componentInstance.options = mockTreeNodes;
+            fixture.detectChanges();
+
+            const root = fixture.debugElement;
+            expect(root.nativeElement.classList.contains('global-root')).toBe(true);
         });
     });
 });

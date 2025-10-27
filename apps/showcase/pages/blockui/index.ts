@@ -2,13 +2,14 @@ import { AccessibilityDoc } from '@/doc/blockui/accessibilitydoc';
 import { BasicDoc } from '@/doc/blockui/basicdoc';
 import { DocumentDoc } from '@/doc/blockui/documentdoc';
 import { ImportDoc } from '@/doc/blockui/importdoc';
+import { PTComponent } from '@/doc/blockui/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular BlockUI Component" header="BlockUI" description="BlockUI can either block other components or the whole page." [docs]="docs" [apiDocs]="['BlockUI']" themeDocs="BlockUI"></app-doc>`,
+    template: ` <app-doc docTitle="Angular BlockUI Component" header="BlockUI" description="BlockUI can either block other components or the whole page." [docs]="docs" [apiDocs]="['BlockUI']" [ptDocs]="ptComponent" themeDocs="BlockUI"></app-doc>`,
     styles: [
         `
             :host ::ng-deep button {
@@ -44,6 +45,8 @@ import { Component } from '@angular/core';
     ]
 })
 export class BlockUIDemo {
+    ptComponent = PTComponent;
+
     blockedPanel: boolean = false;
 
     blockedDocument: boolean = false;
