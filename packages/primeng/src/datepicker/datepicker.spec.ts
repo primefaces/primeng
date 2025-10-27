@@ -5,8 +5,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { DatePicker } from './datepicker';
-import { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from './datepicker.interface';
-
+import type { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from 'primeng/types/datepicker';
 @Component({
     standalone: false,
     template: `

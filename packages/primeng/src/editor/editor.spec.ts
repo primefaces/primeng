@@ -7,8 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Editor } from './editor';
-import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
-
+import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
 // Test Components for different scenarios
 @Component({
     standalone: false,

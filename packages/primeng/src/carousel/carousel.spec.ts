@@ -7,7 +7,7 @@ import { providePrimeNG } from 'primeng/config';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Carousel } from './carousel';
-import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
+import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 
 // Mock data for testing
 const mockProducts = [
