@@ -1,7 +1,6 @@
 import { AppDoc } from '@/components/doc/app.doc';
-import { BasicDoc } from '@/doc/guides/passthrough/basicdoc';
-import { CustomCssDoc } from '@/doc/guides/passthrough/customcssdoc';
 import { GlobalDoc } from '@/doc/guides/passthrough/globaldoc';
+import { InstanceDoc } from '@/doc/guides/passthrough/instancedoc';
 import { IntroductionDoc } from '@/doc/guides/passthrough/introductiondoc';
 import { LifeCycleDoc } from '@/doc/guides/passthrough/lifecycledoc';
 import { PcPrefixDoc } from '@/doc/guides/passthrough/pcprefixdoc';
@@ -12,7 +11,7 @@ import { Component } from '@angular/core';
     selector: 'passthrough',
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="PrimeNG - Pass Through" header="Pass Through" description="The Pass Through attributes is an API to access the internal DOM Structure of the components." [docs]="docs"></app-doc> `
+    template: ` <app-doc docTitle="PrimeNG - Pass Through" header="Pass Through" description="The Pass Through attributes is an API to customize the internal DOM Structure of the components." [docs]="docs"></app-doc> `
 })
 export class PassThroughDemoComponent {
     docs = [
@@ -22,14 +21,14 @@ export class PassThroughDemoComponent {
             component: IntroductionDoc
         },
         {
-            id: 'basic',
-            label: 'Basic',
-            component: BasicDoc
-        },
-        {
             id: 'pc-prefix',
             label: 'PC Prefix',
             component: PcPrefixDoc
+        },
+        {
+            id: 'instance',
+            label: 'Instance',
+            component: InstanceDoc
         },
         {
             id: 'life-cycle',
@@ -40,11 +39,6 @@ export class PassThroughDemoComponent {
             id: 'global',
             label: 'Global',
             component: GlobalDoc
-        },
-        {
-            id: 'custom-css',
-            label: 'Custom CSS',
-            component: CustomCssDoc
         },
         {
             id: 'use-pt',
