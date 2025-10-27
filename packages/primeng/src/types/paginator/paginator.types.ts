@@ -1,8 +1,7 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import { SelectPassThrough } from 'primeng/select';
-import { InputNumberPassThrough } from 'primeng/inputnumber';
-import type { Paginator } from 'primeng/paginator';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
+import { InputNumberPassThrough } from 'primeng/types/inputnumber';
+import { SelectPassThrough } from 'primeng/types/select';
 
 /**
  * Custom pass-through(pt) options.

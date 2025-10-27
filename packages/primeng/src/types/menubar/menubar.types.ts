@@ -1,7 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { MenuItem } from 'primeng/api';
-import type { Menubar } from 'primeng/menubar';
 import type { BadgePassThrough } from 'primeng/types/badge';
 
 /**

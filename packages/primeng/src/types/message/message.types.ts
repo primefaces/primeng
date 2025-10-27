@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Message } from 'primeng/message';
 
 /**
  * Custom pass-through(pt) options.

@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Avatar } from 'primeng/avatar';
 
 /**
  * Custom pass-through(pt) options.

@@ -1,7 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { ScrollerOptions } from 'primeng/api';
-import type { AutoComplete } from 'primeng/autocomplete';
 import type { ChipPassThrough } from 'primeng/types/chip';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 import type { OverlayPassThrough } from 'primeng/types/overlay';

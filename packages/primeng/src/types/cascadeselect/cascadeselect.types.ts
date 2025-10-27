@@ -1,7 +1,5 @@
 import { ElementRef, TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { Overlay } from 'primeng/overlay';
-import type { CascadeSelect } from 'primeng/cascadeselect';
 
 /**
  * Custom pass-through(pt) options.
@@ -94,11 +92,11 @@ export interface CascadeSelectShowEvent {
     /**
      * Overlay element.
      */
-    overlay?: Overlay | ElementRef | TemplateRef<any> | HTMLElement | null | undefined;
+    overlay?: ElementRef | TemplateRef<any> | HTMLElement | null | undefined;
     /**
      * Target element.
      */
-    target?: Overlay | ElementRef | TemplateRef<any> | HTMLElement | null | undefined;
+    target?: ElementRef | TemplateRef<any> | HTMLElement | null | undefined;
     /**
      * Overlay mode.
      */

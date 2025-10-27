@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Terminal } from 'primeng/terminal';
 
 /**
  * Custom pass-through(pt) options.

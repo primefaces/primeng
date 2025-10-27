@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption, ScrollerOptions } from 'primeng/api';
-import type { Select } from 'primeng/select';
 import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';

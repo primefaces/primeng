@@ -1,7 +1,6 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,

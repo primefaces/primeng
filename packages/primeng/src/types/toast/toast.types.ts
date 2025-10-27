@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption, ToastMessageOptions } from 'primeng/api';
-import type { Toast } from 'primeng/toast';
 
 /**
  * Custom pass-through(pt) options for Toast.

@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Fluid } from 'primeng/fluid';
 
 /**
  * Custom pass-through(pt) options.

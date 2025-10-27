@@ -1,5 +1,4 @@
 import { PassThrough, PassThroughOption } from 'primeng/api';
-import type { RadioButton } from 'primeng/radiobutton';
 
 /**
  * Custom passthrough(pt) options.

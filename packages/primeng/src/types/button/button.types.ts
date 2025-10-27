@@ -2,7 +2,6 @@ import { NgClass } from '@angular/common';
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { BadgePassThrough } from 'primeng/types/badge';
-import type { Button } from 'primeng/button';
 
 /**
  * Custom pass-through(pt) options.

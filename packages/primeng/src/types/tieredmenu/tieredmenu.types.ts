@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { TieredMenu } from 'primeng/tieredmenu';
 
 /**
  * Custom pass-through(pt) options.

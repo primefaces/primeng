@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { InputMask } from 'primeng/inputmask';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 
 /**

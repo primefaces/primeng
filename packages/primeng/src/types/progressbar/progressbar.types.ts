@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ProgressBar } from 'primeng/progressbar';
 
 /**
  * Custom pass-through(pt) options.

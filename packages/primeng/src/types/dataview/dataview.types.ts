@@ -1,7 +1,6 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
 import { PaginatorPassThrough } from 'primeng/types/paginator';
-import type { DataView } from 'primeng/dataview';
 
 /**
  * Custom pass-through(pt) options.

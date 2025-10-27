@@ -1,11 +1,10 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption, ScrollerOptions } from 'primeng/api';
-import type { ChipPassThrough } from 'primeng/types/chip';
 import type { CheckboxPassThrough } from 'primeng/types/checkbox';
+import type { ChipPassThrough } from 'primeng/types/chip';
 import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { MultiSelect, MultiSelectItem } from 'primeng/multiselect';
 
 /**
  * Custom pass-through(pt) options.
@@ -227,7 +226,7 @@ export interface MultiSelectRemoveEvent {
     /**
      * Removed value.
      */
-    removed: MultiSelectItem;
+    removed: unknown;
 }
 
 /**
@@ -257,7 +256,7 @@ export interface MultiSelectTemplates {
         /**
          * Function to remove chip.
          */
-        removeChip: (chip: MultiSelectItem, event: MouseEvent) => void;
+        removeChip: (chip: unknown, event: MouseEvent) => void;
     }): TemplateRef<{ $implicit: any; removeChip: Function }>;
     /**
      * Custom header template.

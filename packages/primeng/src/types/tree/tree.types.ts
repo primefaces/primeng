@@ -1,7 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { ScrollerOptions, TreeNode } from 'primeng/api';
-import type { Tree } from 'primeng/tree';
 import type { CheckboxPassThrough } from 'primeng/types/checkbox';
 import type { IconFieldPassThrough } from 'primeng/types/iconfield';
 import type { InputIconPassThrough } from 'primeng/types/inputicon';

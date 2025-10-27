@@ -4185,7 +4185,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
@@ -4866,7 +4866,7 @@
                                 "name": "pcScroller",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "ScrollerPassThrough",
+                                "type": "VirtualScrollerPassThrough",
                                 "description": "Used to pass attributes to the Scroller component."
                             },
                             {
@@ -7298,7 +7298,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "undefined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -7546,14 +7546,14 @@
                                 "name": "overlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any> | Overlay",
+                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
                                 "description": "Overlay element."
                             },
                             {
                                 "name": "target",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any> | Overlay",
+                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
                                 "description": "Target element."
                             },
                             {
@@ -7573,14 +7573,14 @@
                                 "name": "overlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any> | Overlay",
+                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
                                 "description": "Overlay element."
                             },
                             {
                                 "name": "target",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any> | Overlay",
+                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
                                 "description": "Target element."
                             },
                             {
@@ -7600,14 +7600,14 @@
                                 "name": "overlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any> | Overlay",
+                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
                                 "description": "Overlay element."
                             },
                             {
                                 "name": "target",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any> | Overlay",
+                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
                                 "description": "Target element."
                             },
                             {
@@ -7627,14 +7627,14 @@
                                 "name": "overlay",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any> | Overlay",
+                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
                                 "description": "Overlay element."
                             },
                             {
                                 "name": "target",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any> | Overlay",
+                                "type": "HTMLElement | ElementRef<any> | TemplateRef<any>",
                                 "description": "Target element."
                             },
                             {
@@ -8201,7 +8201,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "undefined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -8705,7 +8705,7 @@
                             "name": "format",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"hex\" | \"rgb\" | \"hsb\"",
+                            "type": "\"rgb\" | \"hex\" | \"hsb\"",
                             "default": "hex",
                             "description": "Format to use in value binding."
                         },
@@ -10847,7 +10847,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
@@ -11141,7 +11141,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"single\" | \"multiple\" | \"range\"",
+                            "type": "\"multiple\" | \"single\" | \"range\"",
                             "default": "single",
                             "description": "Defines the quantity of the selection, valid values are \"single\", \"multiple\" and \"range\"."
                         },
@@ -13155,7 +13155,7 @@
                             "name": "dragEffect",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"link\" | \"none\" | \"copy\" | \"all\" | \"move\" | \"copyLink\" | \"copyMove\" | \"linkMove\" | \"uninitialized\"",
+                            "type": "\"link\" | \"none\" | \"copy\" | \"move\" | \"all\" | \"copyLink\" | \"copyMove\" | \"linkMove\" | \"uninitialized\"",
                             "description": "Defines the cursor style."
                         },
                         {
@@ -17406,7 +17406,7 @@
                             "name": "loading",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"lazy\" | \"eager\"",
+                            "type": "\"eager\" | \"lazy\"",
                             "description": "Attribute of the image element."
                         },
                         {
@@ -17586,6 +17586,69 @@
         },
         "types": {
             "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "types",
+                        "name": "indicator",
+                        "parameters": [],
+                        "description": "Custom template of indicator."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "image",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t class: any, // Style class of the image element.\n  \t style: any, // Style of the image element.\n  \t errorCallback: Function, // Image click function.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of image."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "preview",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t errorCallback: Function, // Preview click function.\n  }"
+                            }
+                        ],
+                        "description": "Custom preview template."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "rotaterighticon",
+                        "parameters": [],
+                        "description": "Custom template of rotaterighticon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "rotatelefticon",
+                        "parameters": [],
+                        "description": "Custom template of rotatelefticon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "zoomouticon",
+                        "parameters": [],
+                        "description": "Custom template of zoomouticon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "zoominicon",
+                        "parameters": [],
+                        "description": "Custom template of zoominicon."
+                    },
+                    {
+                        "parent": "types",
+                        "name": "closeicon",
+                        "parameters": [],
+                        "description": "Custom template of closeicon."
+                    }
+                ]
+            },
             "interfaces": {
                 "description": "Defines the custom interfaces used by the module.",
                 "values": [
@@ -18351,7 +18414,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
@@ -18802,7 +18865,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
@@ -19475,7 +19538,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "undefined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -19728,7 +19791,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "undefined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -22410,7 +22473,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"error\" | \"success\" | \"info\" | \"warn\" | \"secondary\" | \"contrast\"",
+                            "type": "\"success\" | \"info\" | \"warn\" | \"secondary\" | \"contrast\" | \"error\"",
                             "default": "'info'",
                             "description": "Severity level of the message."
                         },
@@ -22718,7 +22781,7 @@
                             "name": "labelPosition",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"end\" | \"start\"",
+                            "type": "\"start\" | \"end\"",
                             "default": "end",
                             "description": "Specifies the label position of the component, valid values are 'start' and 'end'."
                         },
@@ -23478,7 +23541,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "undefined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -23872,7 +23935,7 @@
                                 "name": "removed",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "MultiSelectItem",
+                                "type": "unknown",
                                 "description": "Removed value."
                             }
                         ]
@@ -24881,7 +24944,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"single\" | \"multiple\"",
+                            "type": "\"multiple\" | \"single\"",
                             "description": "Defines the selection mode."
                         },
                         {
@@ -26212,7 +26275,7 @@
                             "name": "iconPos",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"end\" | \"start\"",
+                            "type": "\"center\" | \"start\" | \"end\"",
                             "default": "end",
                             "description": "Position of the icons."
                         },
@@ -26938,7 +27001,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
@@ -27034,7 +27097,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
@@ -29320,7 +29383,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "undefined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -29844,7 +29907,7 @@
                             "name": "pt",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<ScrollerPassThrough>",
+                            "type": "InputSignal<VirtualScrollerPassThrough>",
                             "default": "undefined",
                             "description": "Used to pass attributes to DOM elements inside the component."
                         },
@@ -30243,9 +30306,16 @@
                 "description": "Defines the custom interfaces used by the module.",
                 "values": [
                     {
-                        "name": "ScrollerPassThroughOptions",
+                        "name": "VirtualScrollerPassThroughOptions",
                         "description": "Custom pass-through(pt) options.",
                         "props": [
+                            {
+                                "name": "host",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "PassThroughOption<HTMLElement, I>",
+                                "description": "Used to pass attributes to the host's DOM element."
+                            },
                             {
                                 "name": "root",
                                 "optional": true,
@@ -30474,7 +30544,7 @@
                         "description": "Options of the scroll direction."
                     },
                     {
-                        "name": "ScrollerOrientationType",
+                        "name": "VirtualScrollerOrientationType",
                         "value": "\"vertical\" | \"horizontal\" | \"both\"",
                         "description": "Options of the scroller orientation."
                     },
@@ -30905,7 +30975,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "'outlined'",
                             "description": "Specifies the input variant of the component."
                         },
@@ -31870,7 +31940,7 @@
                                 "name": "label",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "PassThroughOption<HTMLInputElement | HTMLSpanElement, I>",
+                                "type": "PassThroughOption<HTMLSpanElement | HTMLInputElement, I>",
                                 "description": "Used to pass attributes to the label's DOM element."
                             },
                             {
@@ -31954,7 +32024,7 @@
                                 "name": "virtualScroller",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "ScrollerPassThrough",
+                                "type": "VirtualScrollerPassThrough",
                                 "description": "Used to pass attributes to the VirtualScroller component."
                             },
                             {
@@ -33787,7 +33857,7 @@
                                 "name": "originalEvent",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "MouseEvent | TouchEvent",
+                                "type": "TouchEvent | MouseEvent",
                                 "description": "Browser event."
                             },
                             {
@@ -33807,7 +33877,7 @@
                                 "name": "originalEvent",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "MouseEvent | TouchEvent",
+                                "type": "TouchEvent | MouseEvent",
                                 "description": "Browser event."
                             },
                             {
@@ -34683,7 +34753,7 @@
                             "name": "sortMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"single\" | \"multiple\"",
+                            "type": "\"multiple\" | \"single\"",
                             "default": "single",
                             "description": "Defines whether sorting works on single column or on multiple columns."
                         },
@@ -34699,7 +34769,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"single\" | \"multiple\"",
+                            "type": "\"multiple\" | \"single\"",
                             "description": "Specifies the selection mode, valid values are \"single\" and \"multiple\"."
                         },
                         {
@@ -34845,7 +34915,7 @@
                             "name": "rowExpandMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"single\" | \"multiple\"",
+                            "type": "\"multiple\" | \"single\"",
                             "default": "multiple",
                             "description": "Whether multiple rows can be expanded at any time. Valid values are \"multiple\" and \"single\"."
                         },
@@ -36194,7 +36264,7 @@
                                 "name": "virtualScroller",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "ScrollerPassThrough",
+                                "type": "VirtualScrollerPassThrough",
                                 "description": "Used to pass attributes to the virtual scroller component."
                             },
                             {
@@ -37194,7 +37264,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "undefined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -39261,7 +39331,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"checkbox\" | \"single\" | \"multiple\"",
+                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
                             "description": "Defines the selection mode."
                         },
                         {
@@ -40203,7 +40273,7 @@
                                 "name": "pcScroller",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "ScrollerPassThrough",
+                                "type": "VirtualScrollerPassThrough",
                                 "description": "Used to pass attributes to the Scroller component."
                             },
                             {
@@ -40394,7 +40464,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"checkbox\" | \"single\" | \"multiple\"",
+                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
                             "default": "single",
                             "description": "Defines the selection mode."
                         },
@@ -40628,7 +40698,7 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "InputSignal<\"filled\" | \"outlined\">",
+                            "type": "InputSignal<\"outlined\" | \"filled\">",
                             "default": "undefined",
                             "description": "Specifies the input variant of the component."
                         },
@@ -41356,7 +41426,7 @@
                             "name": "sortMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"single\" | \"multiple\"",
+                            "type": "\"multiple\" | \"single\"",
                             "default": "single",
                             "description": "Defines whether sorting works on single column or on multiple columns."
                         },
@@ -42186,7 +42256,7 @@
                                 "name": "virtualScroller",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "ScrollerPassThrough",
+                                "type": "VirtualScrollerPassThrough",
                                 "description": "Used to pass attributes to the Scroller component."
                             },
                             {

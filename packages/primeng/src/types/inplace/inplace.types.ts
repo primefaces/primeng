@@ -1,6 +1,5 @@
-import type { ButtonPassThrough } from 'primeng/types/button';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Inplace } from 'primeng/inplace';
+import type { ButtonPassThrough } from 'primeng/types/button';
 
 /**
  * Custom pass-through(pt) options.

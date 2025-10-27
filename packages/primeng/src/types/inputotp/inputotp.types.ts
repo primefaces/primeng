@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { InputOtp } from 'primeng/inputotp';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
 
 /**

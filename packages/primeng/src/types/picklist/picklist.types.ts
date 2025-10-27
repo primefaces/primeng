@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { PickList } from 'primeng/picklist';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { ListBoxPassThrough } from 'primeng/types/listbox';
 

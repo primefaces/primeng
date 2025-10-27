@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Toolbar } from 'primeng/toolbar';
 
 /**
  * Custom pass-through(pt) options.

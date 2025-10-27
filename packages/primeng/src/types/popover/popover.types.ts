@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Popover } from 'primeng/popover';
 
 /**
  * Custom pass-through(pt) options.

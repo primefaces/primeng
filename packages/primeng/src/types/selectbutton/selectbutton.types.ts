@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { SelectButton } from 'primeng/selectbutton';
 import type { ToggleButtonPassThrough } from 'primeng/types/togglebutton';
 
 /**

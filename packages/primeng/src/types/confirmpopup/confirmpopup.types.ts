@@ -1,7 +1,6 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import { TemplateRef } from '@angular/core';
-import type { ConfirmPopup } from 'primeng/confirmpopup';
 
 /**
  * Custom pass-through(pt) options.

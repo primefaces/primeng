@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
-import type { MegaMenu } from 'primeng/megamenu';
 
 /**
  * Custom pass-through(pt) options.

@@ -1,6 +1,5 @@
 import type { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { MeterGroup } from 'primeng/metergroup';
 
 /**
  * Custom pass-through(pt) options.

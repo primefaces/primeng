@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Dock } from 'primeng/dock';
 
 /**
  * Custom pass-through(pt) options.

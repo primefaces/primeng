@@ -1,10 +1,8 @@
-import type { TreeNode } from 'primeng/api';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import type { TreeSelect } from 'primeng/treeselect';
-import { TreePassThrough } from 'primeng/tree';
+import type { PassThrough, PassThroughOption, TreeNode } from 'primeng/api';
+import { ChipPassThrough } from 'primeng/types/chip';
 import { OverlayPassThrough } from 'primeng/types/overlay';
-import { ChipPassThrough } from 'primeng/chip';
+import { TreePassThrough } from 'primeng/types/tree';
 
 /**
  * Custom pass-through(pt) options.

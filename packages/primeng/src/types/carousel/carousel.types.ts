@@ -1,6 +1,5 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThroughOptions } from 'primeng/button';
-import type { Carousel } from 'primeng/carousel';
+import type { ButtonPassThroughOptions } from 'primeng/types/button';
 
 /**
  * Custom pass-through(pt) options.

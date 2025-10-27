@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Fieldset } from 'primeng/fieldset';
 
 /**
  * Custom passthrough(pt) options.

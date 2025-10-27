@@ -1,6 +1,5 @@
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ScrollTop } from 'primeng/scrolltop';
 
 /**
  * Custom pass-through(pt) options.

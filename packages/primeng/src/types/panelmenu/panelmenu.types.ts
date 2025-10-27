@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { PanelMenu } from 'primeng/panelmenu';
 
 /**
  * Custom pass-through(pt) options.

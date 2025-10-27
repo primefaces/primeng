@@ -1,6 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import type { Timeline } from 'primeng/timeline';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom pass-through(pt) options.

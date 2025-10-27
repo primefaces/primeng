@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { IftaLabel } from 'primeng/iftalabel';
 
 /**
  * Custom pass-through(pt) options.

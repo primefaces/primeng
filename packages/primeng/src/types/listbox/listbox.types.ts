@@ -1,6 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import type { Listbox } from 'primeng/listbox';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 /**
  * Defines valid pass-through options in ListBox component.
  * @template I Type of instance.

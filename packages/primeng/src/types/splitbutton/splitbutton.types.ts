@@ -2,7 +2,6 @@ import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import { MenuPassThrough } from 'primeng/types/menu';
-import type { SplitButton } from 'primeng/splitbutton';
 
 /**
  * Custom pass-through(pt) options.

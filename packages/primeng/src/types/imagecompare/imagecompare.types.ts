@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ImageCompare } from 'primeng/imagecompare';
 
 /**
  * Custom pass-through(pt) options.

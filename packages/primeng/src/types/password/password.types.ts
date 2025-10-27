@@ -1,6 +1,5 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { Password } from 'primeng/password';
 
 /**
  * Custom pass-through(pt) options.

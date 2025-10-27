@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Galleria } from 'primeng/galleria';
 
 /**
  * Custom pass-through(pt) options.

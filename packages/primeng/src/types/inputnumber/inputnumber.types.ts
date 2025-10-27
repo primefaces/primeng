@@ -1,7 +1,6 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { InputNumber } from 'primeng/inputnumber';
 
 /**
  * Custom pass-through(pt) options.

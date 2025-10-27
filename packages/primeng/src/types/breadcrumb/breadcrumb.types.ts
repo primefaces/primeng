@@ -1,6 +1,4 @@
-import type { MenuItem } from 'primeng/api';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Breadcrumb } from 'primeng/breadcrumb';
+import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom pass-through(pt) options.

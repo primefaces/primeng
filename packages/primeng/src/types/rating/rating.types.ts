@@ -1,6 +1,5 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import { TemplateRef } from '@angular/core';
-import type { Rating } from 'primeng/rating';
 
 /**
  * Custom pass-through(pt) options.

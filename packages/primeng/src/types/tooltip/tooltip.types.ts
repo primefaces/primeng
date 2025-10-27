@@ -1,5 +1,4 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { Tooltip } from 'primeng/tooltip';
 
 /**
  * Custom pass-through(pt) options.
