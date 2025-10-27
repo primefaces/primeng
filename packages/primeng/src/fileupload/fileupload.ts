@@ -34,8 +34,19 @@ import { Message } from 'primeng/message';
 import { ProgressBar } from 'primeng/progressbar';
 import { VoidListener } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
-import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent, RemoveUploadedFileEvent, FileUploadPassThrough } from '../types/fileupload';
-import { FileUploadTemplates } from './fileupload.interface';
+import {
+    FileBeforeUploadEvent,
+    FileProgressEvent,
+    FileRemoveEvent,
+    FileSelectEvent,
+    FileUploadTemplates,
+    FileSendEvent,
+    FileUploadErrorEvent,
+    FileUploadEvent,
+    FileUploadHandlerEvent,
+    RemoveUploadedFileEvent,
+    FileUploadPassThrough
+} from 'primeng/types/fileupload';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
 const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE');
