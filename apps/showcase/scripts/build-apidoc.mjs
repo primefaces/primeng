@@ -33,7 +33,7 @@ async function main() {
         disableSources: true,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/**/*spec.ts', 'src/**/*public_api.ts']
+        exclude: ['node_modules', 'src/**/*spec.ts']
     });
 
     const project = await app.convert();
@@ -81,12 +81,16 @@ async function main() {
         if (isProcessable(modules)) {
             modules.children.forEach((module) => {
                 const fullPath = module.name;
-                const name = fullPath.replace(/.*\//, '');
+                const pathParts = fullPath.split('/');
+                const name = pathParts[pathParts.length - 1];
+
+                // For public_api files, use the parent component name
+                const actualName = name === 'public_api' && pathParts.length > 1 ? pathParts[pathParts.length - 2] : name;
 
                 if (allowed(name)) {
                     if (module.groups) {
-                        if (!doc[name]) {
-                            doc[name] = {
+                        if (!doc[actualName]) {
+                            doc[actualName] = {
                                 components: {}
                             };
                         }
@@ -136,7 +140,7 @@ async function main() {
                                 }
                             });
 
-                            doc[name]['classes'] = classes;
+                            doc[actualName]['classes'] = classes;
                         }
 
                         if (isProcessable(module_components_group)) {
@@ -144,7 +148,7 @@ async function main() {
                                 const componentName = component.name;
                                 const comment = component.comment;
 
-                                doc[name]['components'][componentName] = {
+                                doc[actualName]['components'][componentName] = {
                                     description: comment && comment.summary.map((s) => s.text || '').join(' ')
                                 };
 
@@ -178,7 +182,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['props'] = props;
+                                    doc[actualName]['components'][componentName]['props'] = props;
                                 }
 
                                 const component_emits_group = component.groups.find((g) => g.title === 'Emits');
@@ -202,7 +206,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['emits'] = emits;
+                                    doc[actualName]['components'][componentName]['emits'] = emits;
                                 }
 
                                 const component_methods_group = component.groups.find((g) => g.title === 'Method');
@@ -227,7 +231,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['methods'] = methods;
+                                    doc[actualName]['components'][componentName]['methods'] = methods;
                                 }
 
                                 const component_events_group = component.groups.find((g) => g.title === 'Events');
@@ -254,7 +258,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['events'] = events;
+                                    doc[actualName]['components'][componentName]['events'] = events;
                                 }
 
                                 const component_templates_group = component.groups.find((g) => g.title === 'Templates');
@@ -281,7 +285,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['components'][componentName]['templates'] = templates;
+                                    doc[actualName]['components'][componentName]['templates'] = templates;
                                 }
 
                                 const component_types_group = component.groups.find((g) => g.title === 'Types');
@@ -299,7 +303,7 @@ async function main() {
                                             deprecated: getDeprecatedText(type)
                                         });
                                     });
-                                    doc[name]['components'][componentName]['types'] = types;
+                                    doc[actualName]['components'][componentName]['types'] = types;
                                 }
                             });
                         }
@@ -327,7 +331,7 @@ async function main() {
                                 });
                             });
 
-                            doc[name]['events'] = events;
+                            doc[actualName]['events'] = events;
                         }
 
                         if (isProcessable(module_templates_group)) {
@@ -378,7 +382,7 @@ async function main() {
                                 });
                             });
 
-                            doc[name]['templates'] = templates;
+                            doc[actualName]['templates'] = templates;
                         }
 
                         if (isProcessable(module_interface_group)) {
@@ -404,11 +408,11 @@ async function main() {
                                 });
                             });
 
-                            doc[name]['interfaces'] = interfaces;
+                            doc[actualName]['interfaces'] = interfaces;
                         }
 
                         if (isProcessable(module_service_group)) {
-                            doc[name] = {
+                            doc[actualName] = {
                                 description: staticMessages['service']
                             };
 
@@ -436,7 +440,7 @@ async function main() {
                                         });
                                     });
 
-                                    doc[name]['methods'] = methods;
+                                    doc[actualName]['methods'] = methods;
                                 }
                             });
                         }
@@ -513,7 +517,7 @@ async function main() {
                                 });
                             });
 
-                            doc[name]['types'] = types;
+                            doc[actualName]['types'] = types;
                         }
                     }
                 }
@@ -522,6 +526,7 @@ async function main() {
 
         // Identify sub-components based on module paths
         const subComponentMap = {};
+
         modules.children.forEach((module) => {
             const fullPath = module.name;
             const pathParts = fullPath.split('/');

@@ -48,32 +48,34 @@ export class AppDocThemingSection {
     createDocs() {
         const docName = this.header.toLowerCase().replace(/\s+/g, '');
         const themeDocKey = docName === 'table' ? 'datatable' : docName;
+        const navItems = [];
 
-        if (ThemeDoc[themeDocKey]) {
-            this.tokensDoc.set(ThemeDoc[themeDocKey]);
-            this.navItems.update((prev) => [
-                ...prev,
-                {
-                    id: this.header + 'DesignTokens',
-                    label: 'Design Tokens'
-                },
-                { id: 'built-in-presets', label: 'Built-in Presets' }
-            ]);
-        }
+        // Check for CSS classes in the new structure
+        if (APIDoc[docName]?.style?.classes?.values) {
+            const classes = APIDoc[docName].style.classes.values;
 
-        if (APIDoc[docName]) {
-            const classes = APIDoc[docName]['style']?.['classes']?.['values'];
-
-            if (classes) {
+            if (classes && classes.length > 0) {
                 this.classDoc.set({ classes });
-                this.navItems.update((prev) => [
-                    {
-                        id: this.header + 'classes',
-                        label: 'CSS Classes'
-                    },
-                    ...prev
-                ]);
+                navItems.push({
+                    id: this.header + 'Classes',
+                    label: 'CSS Classes'
+                });
             }
         }
+
+        // Check for design tokens
+        if (ThemeDoc[themeDocKey]) {
+            this.tokensDoc.set(ThemeDoc[themeDocKey]);
+            navItems.push({
+                id: this.header + 'DesignTokens',
+                label: 'Design Tokens'
+            });
+            navItems.push({
+                id: 'built-in-presets',
+                label: 'Built-in Presets'
+            });
+        }
+
+        this.navItems.set(navItems);
     }
 }

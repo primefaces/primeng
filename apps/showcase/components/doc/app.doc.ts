@@ -1,6 +1,6 @@
 import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppDocService } from './app.doc.service';
@@ -26,7 +26,7 @@ import { AppDocThemingSection } from './app.docthemingsection';
                     <button type="button" (click)="activateTab(1)">API</button>
                 </li>
             }
-            @if (themeDocs()) {
+            @if (_componentName() || themeDocs()) {
                 <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 2 }">
                     <button type="button" (click)="activateTab(2)">THEMING</button>
                 </li>
@@ -47,7 +47,7 @@ import { AppDocThemingSection } from './app.docthemingsection';
                 }
             }
 
-            @if (themeDocs()) {
+            @if (_componentName() || themeDocs()) {
                 @defer (when docService.activeTab() === 2) {
                     <app-docthemingsection [header]="header()" [docs]="themeDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
                 }

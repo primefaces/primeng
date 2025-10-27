@@ -363,9 +363,6 @@
             }
         }
     },
-    "public_api": {
-        "components": {}
-    },
     "animateonscroll": {
         "components": {
             "AnimateOnScroll": {
@@ -1792,6 +1789,9 @@
         "components": {}
     },
     "passthrough": {
+        "components": {}
+    },
+    "api": {
         "components": {}
     },
     "scrolleroptions": {
@@ -9058,6 +9058,9 @@
     "provideprimeng": {
         "components": {}
     },
+    "config": {
+        "components": {}
+    },
     "themeprovider": {
         "components": {}
     },
@@ -13493,6 +13496,9 @@
     "domhandler": {
         "components": {}
     },
+    "dom": {
+        "components": {}
+    },
     "dragdrop": {
         "components": {
             "Draggable": {
@@ -17484,6 +17490,9 @@
     "filter": {
         "components": {}
     },
+    "filterfill": {
+        "components": {}
+    },
     "filterslash": {
         "components": {}
     },
@@ -17500,6 +17509,9 @@
         "components": {}
     },
     "plus": {
+        "components": {}
+    },
+    "icons": {
         "components": {}
     },
     "refresh": {
@@ -37629,211 +37641,6 @@
             }
         }
     },
-    "tablist": {
-        "components": {
-            "TabList": {
-                "description": "TabList is a helper component for Tabs component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<TabListPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "previcon",
-                            "description": "A template reference variable that represents the previous icon in a UI component.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        },
-                        {
-                            "name": "nexticon",
-                            "description": "A template reference variable that represents the next icon in a UI component.",
-                            "type": "TemplateRef<any>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-tablist",
-                        "description": "Class name of the root element"
-                    },
-                    {
-                        "class": "p-tablist-content",
-                        "description": "Class name of the content element"
-                    },
-                    {
-                        "class": "p-tablist-tab-list",
-                        "description": "Class name of the tabs element"
-                    },
-                    {
-                        "class": "p-tablist-active-bar",
-                        "description": "Class name of the activebar element"
-                    },
-                    {
-                        "class": "p-tablist-prev-button",
-                        "description": "Class name of the previous button element"
-                    },
-                    {
-                        "class": "p-tablist-next-button",
-                        "description": "Class name of the next button element"
-                    }
-                ]
-            }
-        }
-    },
-    "tabpanels": {
-        "components": {
-            "TabPanels": {
-                "description": "TabPanels is a helper component for Tabs component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<TabPanelsPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-tabpanels",
-                        "description": "Class name of the root element"
-                    }
-                ]
-            }
-        }
-    },
-    "tabpanel": {
-        "components": {
-            "TabPanel": {
-                "description": "TabPanel is a helper component for Tabs component.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "dt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<Object>",
-                            "default": "undefined",
-                            "description": "Defines scoped design tokens of the component."
-                        },
-                        {
-                            "name": "pt",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<TabPanelPassThrough>",
-                            "default": "undefined",
-                            "description": "Used to pass attributes to DOM elements inside the component."
-                        },
-                        {
-                            "name": "ptOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignal<PassThroughOptions>",
-                            "default": "undefined",
-                            "description": "Used to configure passthrough(pt) options of the component."
-                        },
-                        {
-                            "name": "lazy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "InputSignalWithTransform<boolean, unknown>",
-                            "default": "false",
-                            "description": "When enabled, tab is not rendered until activation."
-                        },
-                        {
-                            "name": "value",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ModelSignal<string | number>",
-                            "default": "undefined",
-                            "description": "Value of the active tab."
-                        }
-                    ]
-                },
-                "templates": {
-                    "description": "Defines the templates used by the component.",
-                    "values": [
-                        {
-                            "name": "content",
-                            "description": "Template for initializing complex content when lazy is enabled.",
-                            "type": "Signal<unknown>",
-                            "parameters": []
-                        }
-                    ]
-                }
-            }
-        },
-        "style": {
-            "components": {},
-            "classes": {
-                "values": [
-                    {
-                        "class": "p-tabpanel",
-                        "description": "Class name of the root element"
-                    }
-                ]
-            }
-        }
-    },
     "tabs": {
         "components": {
             "Tabs": {
@@ -38064,6 +37871,211 @@
                                 "description": "Used to pass attributes to the root's DOM element."
                             }
                         ]
+                    }
+                ]
+            }
+        }
+    },
+    "tablist": {
+        "components": {
+            "TabList": {
+                "description": "TabList is a helper component for Tabs component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabListPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "previcon",
+                            "description": "A template reference variable that represents the previous icon in a UI component.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        },
+                        {
+                            "name": "nexticon",
+                            "description": "A template reference variable that represents the next icon in a UI component.",
+                            "type": "TemplateRef<any>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-tablist",
+                        "description": "Class name of the root element"
+                    },
+                    {
+                        "class": "p-tablist-content",
+                        "description": "Class name of the content element"
+                    },
+                    {
+                        "class": "p-tablist-tab-list",
+                        "description": "Class name of the tabs element"
+                    },
+                    {
+                        "class": "p-tablist-active-bar",
+                        "description": "Class name of the activebar element"
+                    },
+                    {
+                        "class": "p-tablist-prev-button",
+                        "description": "Class name of the previous button element"
+                    },
+                    {
+                        "class": "p-tablist-next-button",
+                        "description": "Class name of the next button element"
+                    }
+                ]
+            }
+        }
+    },
+    "tabpanels": {
+        "components": {
+            "TabPanels": {
+                "description": "TabPanels is a helper component for Tabs component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabPanelsPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-tabpanels",
+                        "description": "Class name of the root element"
+                    }
+                ]
+            }
+        }
+    },
+    "tabpanel": {
+        "components": {
+            "TabPanel": {
+                "description": "TabPanel is a helper component for Tabs component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "dt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<Object>",
+                            "default": "undefined",
+                            "description": "Defines scoped design tokens of the component."
+                        },
+                        {
+                            "name": "pt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<TabPanelPassThrough>",
+                            "default": "undefined",
+                            "description": "Used to pass attributes to DOM elements inside the component."
+                        },
+                        {
+                            "name": "ptOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<PassThroughOptions>",
+                            "default": "undefined",
+                            "description": "Used to configure passthrough(pt) options of the component."
+                        },
+                        {
+                            "name": "lazy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignalWithTransform<boolean, unknown>",
+                            "default": "false",
+                            "description": "When enabled, tab is not rendered until activation."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ModelSignal<string | number>",
+                            "default": "undefined",
+                            "description": "Value of the active tab."
+                        }
+                    ]
+                },
+                "templates": {
+                    "description": "Defines the templates used by the component.",
+                    "values": [
+                        {
+                            "name": "content",
+                            "description": "Template for initializing complex content when lazy is enabled.",
+                            "type": "Signal<unknown>",
+                            "parameters": []
+                        }
+                    ]
+                }
+            }
+        },
+        "style": {
+            "components": {},
+            "classes": {
+                "values": [
+                    {
+                        "class": "p-tabpanel",
+                        "description": "Class name of the root element"
                     }
                 ]
             }
@@ -44447,6 +44459,9 @@
             }
         }
     },
+    "ts-helpers": {
+        "components": {}
+    },
     "use": {
         "style": {
             "components": {}
@@ -44456,6 +44471,9 @@
         "components": {}
     },
     "objectutils": {
+        "components": {}
+    },
+    "utils": {
         "components": {}
     },
     "uniquecomponentid": {
