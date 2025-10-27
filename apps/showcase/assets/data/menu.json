@@ -393,12 +393,22 @@
                             "routerLink": "/badge"
                         },
                         {
+                            "name": "Bind",
+                            "routerLink": "/bind",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "BlockUI",
                             "routerLink": "/blockui"
                         },
                         {
                             "name": "Chip",
                             "routerLink": "/chip"
+                        },
+                        {
+                            "name": "ClassNames",
+                            "routerLink": "/classnames",
+                            "badge": "NEW"
                         },
                         {
                             "name": "FocusTrap",
@@ -415,16 +425,6 @@
                         {
                             "name": "MeterGroup",
                             "routerLink": "/metergroup"
-                        },
-                        {
-                            "name": "ClassNames",
-                            "routerLink": "/classnames",
-                            "badge": "NEW"
-                        },
-                        {
-                            "name": "Bind",
-                            "routerLink": "/bind",
-                            "badge": "NEW"
                         },
                         {
                             "name": "ProgressBar",

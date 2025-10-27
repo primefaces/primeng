@@ -28,7 +28,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -60,7 +60,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -157,7 +157,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -423,7 +423,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -4123,7 +4123,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -4924,7 +4924,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -5019,7 +5019,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -5152,7 +5152,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -5277,7 +5277,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -5358,7 +5358,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -5474,7 +5474,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -5609,7 +5609,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -5828,7 +5828,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -5968,7 +5968,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -6384,7 +6384,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -6586,7 +6586,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -6992,7 +6992,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -7866,7 +7866,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -8028,7 +8028,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -8378,7 +8378,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -8635,7 +8635,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -8988,7 +8988,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -9488,7 +9488,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -9736,7 +9736,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -10050,7 +10050,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -10785,7 +10785,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -12211,7 +12211,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -12829,7 +12829,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -12939,7 +12939,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -13276,7 +13276,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -14195,7 +14195,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -14691,7 +14691,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -15004,7 +15004,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -16037,7 +16037,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -16124,7 +16124,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -16199,7 +16199,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -16243,7 +16243,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -16963,7 +16963,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -17220,7 +17220,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -17299,7 +17299,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -17696,7 +17696,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -17814,7 +17814,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -18049,7 +18049,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -18132,7 +18132,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -18213,7 +18213,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -18289,7 +18289,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -18740,7 +18740,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -19366,7 +19366,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -19699,7 +19699,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -19843,7 +19843,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -20116,7 +20116,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -21194,7 +21194,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -21602,7 +21602,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -21990,7 +21990,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -22388,7 +22388,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -22665,7 +22665,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -22966,7 +22966,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -24222,7 +24222,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -24844,7 +24844,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -25249,7 +25249,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -25508,7 +25508,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -25633,7 +25633,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -26160,7 +26160,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -26504,7 +26504,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -26837,7 +26837,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -26972,7 +26972,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -27468,7 +27468,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -28655,7 +28655,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -28921,7 +28921,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -29071,7 +29071,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -29207,7 +29207,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -29485,7 +29485,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -29791,7 +29791,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -29838,7 +29838,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -30499,7 +30499,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -30670,7 +30670,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -30843,7 +30843,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -32087,7 +32087,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -32408,7 +32408,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -32529,7 +32529,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -32834,7 +32834,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -33252,7 +33252,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -33631,7 +33631,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -33886,7 +33886,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -33918,7 +33918,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -33958,7 +33958,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -34017,7 +34017,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -34074,7 +34074,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -34508,7 +34508,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -35457,7 +35457,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -36321,7 +36321,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -36405,7 +36405,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -36452,7 +36452,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -36526,7 +36526,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -36761,7 +36761,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -36824,7 +36824,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -36969,7 +36969,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -37157,7 +37157,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -37286,7 +37286,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -37669,7 +37669,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -37905,7 +37905,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -38246,7 +38246,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -38579,7 +38579,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -38848,7 +38848,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -39010,7 +39010,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -39232,7 +39232,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -40309,7 +40309,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
@@ -41165,7 +41165,7 @@
                             "readonly": false,
                             "type": "InputSignal<Object>",
                             "default": "undefined",
-                            "description": "Generates scoped CSS variables using design tokens for the component."
+                            "description": "Defines scoped design tokens of the component."
                         },
                         {
                             "name": "pt",
