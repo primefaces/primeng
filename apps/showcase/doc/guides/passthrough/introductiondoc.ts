@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PanelModule } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
     selector: 'introduction-doc',
@@ -47,13 +47,13 @@ import { PanelModule } from 'primeng/panel';
     `
 })
 export class IntroductionDoc {
-    pt = {
+    pt: PanelPassThrough<Panel> = {
         root: '!border !border-transparent !rounded-2xl !p-4 !bg-gradient-to-br !from-indigo-600 !to-indigo-400',
         header: {
             id: 'myPanelHeader',
             'data-custom': 'prime',
             style: {
-                'user-select': 'none'
+                userSelect: 'none'
             },
             class: ['!text-white font-bold !p-0 !bg-transparent !border-none'],
             onclick: () => {
@@ -66,7 +66,7 @@ export class IntroductionDoc {
 
     code: Code = {
         typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
     selector: 'panel-pt-demo',
@@ -79,13 +79,13 @@ import { PanelModule } from 'primeng/panel';
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-    pt = {
+     pt: PanelPassThrough<Panel> = {
         root: '!border !border-transparent !rounded-2xl !p-4 !bg-gradient-to-br !from-indigo-600 !to-indigo-400',
         header: {
             id: 'myPanelHeader',
             'data-custom': 'prime',
             style: {
-                'user-select': 'none'
+                userSelect: 'none'
             },
             class: ['!text-white font-bold !p-0 !bg-transparent !border-none'],
             onclick: () => {
