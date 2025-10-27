@@ -25,14 +25,15 @@ import { PanelModule } from 'primeng/panel';
 
 @Component({
     template: \`
-        <p-panel header="Header" [pt]="panelPT">
+        <p-panel header="Header" [pt]="pt">
             Content
-        </p-panel>\`,
+        </p-panel>
+    \`,
     standalone: true,
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-   panelPT = {
+   pt = {
         hooks: {
             onInit: () => {
                 //panel ngOnInit

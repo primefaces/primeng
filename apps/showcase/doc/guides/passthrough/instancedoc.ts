@@ -21,16 +21,17 @@ export class InstanceDoc {
 import { PanelModule } from 'primeng/panel';
 
 @Component({
+    selector: 'panel-pt-demo',
     template: \`
         <p-panel header="Header" [pt]="pt">
             Content
-        </p-panel>\`,
+        </p-panel>
+    \`,
     standalone: true,
     imports: [PanelModule]
 })
 export class PanelPtDemo {
    pt = {
-        root: '!border !border-indigo !rounded-2xl !p-4 !bg-gradient-to-br !from-indigo-600 !to-indigo-400',
         header: (context: PassThroughContext<Panel>) => {
             const instance = context.instance;
             const element = instance.el;
@@ -41,11 +42,9 @@ export class PanelPtDemo {
                 style: {
                     'user-select': 'none'
                 },
-                class: ['!text-white font-bold !p-0 !bg-transparent !border-none', { 'overflow-hidden': instance.toggleable }]
+                class: [{ 'overflow-hidden': instance.toggleable }, '!text-white font-bold !p-0 !bg-transparent !border-none']
             };
-        },
-        content: { class: '!text-white dark:text-primary-200 !p-0 mt-2 !font-medium' },
-        title: 'text-xl'
+        }
     };
 }`
     };

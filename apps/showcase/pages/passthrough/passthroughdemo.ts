@@ -4,7 +4,7 @@ import { InstanceDoc } from '@/doc/guides/passthrough/instancedoc';
 import { IntroductionDoc } from '@/doc/guides/passthrough/introductiondoc';
 import { LifeCycleDoc } from '@/doc/guides/passthrough/lifecycledoc';
 import { PcPrefixDoc } from '@/doc/guides/passthrough/pcprefixdoc';
-import { UsePassThroughDoc } from '@/doc/guides/passthrough/usepassthroughdoc';
+import { PTOptionsDoc } from '@/doc/guides/passthrough/ptoptionsdoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -41,9 +41,9 @@ export class PassThroughDemoComponent {
             component: GlobalDoc
         },
         {
-            id: 'use-pt',
-            label: 'UsePassThrough',
-            component: UsePassThroughDoc
+            id: 'ptoptions',
+            label: 'PT Options',
+            component: PTOptionsDoc
         }
     ];
 }
