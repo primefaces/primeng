@@ -46,6 +46,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     /**
      * Generates scoped CSS variables using design tokens for the component.
+     * @defaultValue undefined
+     * @group Props
      */
     dt = input<Object | undefined>();
     /**
@@ -57,10 +59,14 @@ export class BaseComponent<PT = any> implements Lifecycle {
     unstyled = input<boolean | undefined>();
     /**
      * Used to pass attributes to DOM elements inside the component.
+     * @defaultValue undefined
+     * @group Props
      */
     pt = input<PT | undefined>();
     /**
      * Used to configure passthrough(pt) options of the component.
+     * @group Props
+     * @defaultValue undefined
      */
     ptOptions = input<PassThroughOptions | undefined>();
 
