@@ -45,7 +45,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
     /******************** Inputs ********************/
 
     /**
-     * Generates scoped CSS variables using design tokens for the component.
+     * Defines scoped design tokens of the component.
      * @defaultValue undefined
      * @group Props
      */
