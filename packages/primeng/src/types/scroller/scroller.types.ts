@@ -53,7 +53,7 @@ export type ScrollerToType = 'to-start' | 'to-end' | undefined;
  * Options of the scroller orientation.
  * @group Types
  */
-export type ScrollerOrientationType = 'vertical' | 'horizontal' | 'both';
+export type VirtualScrollerOrientationType = 'vertical' | 'horizontal' | 'both';
 /**
  * Loader icon options.
  * @group Types

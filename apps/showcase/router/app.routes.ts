@@ -310,11 +310,6 @@ export const routes: Routes = [
             {
                 path: 'migration',
                 loadChildren: () => import('@/pages/migration/routes')
-            },
-            // TODO: this route will be removed later
-            {
-                path: 'pt-playground',
-                loadChildren: () => import('@/pages/pt_playground/routes')
             }
         ]
     },

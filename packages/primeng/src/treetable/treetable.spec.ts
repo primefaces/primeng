@@ -3040,31 +3040,30 @@ describe('TreeTable PT', () => {
     });
 
     // Case 3: Mixed object and string values
-    // TODO: enable after primeuix/utils/mergeProps fix
-    // describe('Case 3: Mixed object and string values', () => {
-    //     xit('should apply mixed PT values', () => {
-    //         fixture.componentRef.setInput('scrollable', true);
-    //         fixture.componentRef.setInput('scrollHeight', '200px');
-    //         fixture.componentRef.setInput('pt', {
-    //             host: {
-    //                 class: 'HOST_MIXED_CLASS'
-    //             },
-    //             scrollableWrapper: 'WRAPPER_STRING_CLASS',
-    //             table: {
-    //                 style: { width: '100%' }
-    //             }
-    //         });
-    //         fixture.detectChanges();
+    describe('Case 3: Mixed object and string values', () => {
+        xit('should apply mixed PT values', () => {
+            fixture.componentRef.setInput('scrollable', true);
+            fixture.componentRef.setInput('scrollHeight', '200px');
+            fixture.componentRef.setInput('pt', {
+                host: {
+                    class: 'HOST_MIXED_CLASS'
+                },
+                scrollableWrapper: 'WRAPPER_STRING_CLASS',
+                table: {
+                    style: { width: '100%' }
+                }
+            });
+            fixture.detectChanges();
 
-    //         const host = fixture.nativeElement;
-    //         const wrapper = fixture.nativeElement.querySelector('.p-treetable-scrollable-wrapper');
-    //         const table = fixture.nativeElement.querySelector('table');
+            const host = fixture.nativeElement;
+            const wrapper = fixture.nativeElement.querySelector('.p-treetable-scrollable-wrapper');
+            const table = fixture.nativeElement.querySelector('table');
 
-    //         expect(host.classList.contains('HOST_MIXED_CLASS')).toBe(true);
-    //         expect(wrapper?.classList.contains('WRAPPER_STRING_CLASS')).toBe(true);
-    //         expect(table?.style.width).toBe('100%');
-    //     });
-    // });
+            expect(host.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            expect(wrapper?.classList.contains('WRAPPER_STRING_CLASS')).toBe(true);
+            expect(table?.style.width).toBe('100%');
+        });
+    });
 
     // Case 4: Use variables from instance
     // TODO: feature works, test throws error, will be debugged
