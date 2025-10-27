@@ -4,12 +4,12 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'life-cycle-doc',
+    selector: 'instance-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
-            <p>In cases where you need to access the UI Component instance, define a function that receives a <i>PassThroughContext</i> as parameter.</p>
+            <p>In cases where you need to access the UI Component instance, define a component passthrough type that exposes the component instance or a function that receives a <i>PassThroughContext</i> as parameter.</p>
         </app-docsectiontext>
 
         <app-code [code]="code" hideToggleCode importCode hideStackBlitz />
@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
 export class InstanceDoc {
     code: Code = {
         typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { PassThroughContext } from 'primeng/api';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
     selector: 'panel-pt-demo',
@@ -31,7 +32,7 @@ import { PanelModule } from 'primeng/panel';
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-   pt = {
+   pt: PanelPassThrough<Panel> = {
         header: (context: PassThroughContext<Panel>) => {
             const instance = context.instance;
             const element = instance.el;
@@ -40,7 +41,7 @@ export class PanelPtDemo {
                 id: 'myPanelHeader',
                 'data-custom': 'prime',
                 style: {
-                    'user-select': 'none'
+                    userSelect: 'none'
                 },
                 class: [{ 'overflow-hidden': instance.toggleable }, '!text-white font-bold !p-0 !bg-transparent !border-none']
             };

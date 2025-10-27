@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
 export class LifeCycleDoc {
     code: Code = {
         typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
     template: \`
@@ -33,7 +33,7 @@ import { PanelModule } from 'primeng/panel';
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-   pt = {
+   pt: PanelPassThrough<Panel> = {
         hooks: {
             onInit: () => {
                 //panel ngOnInit

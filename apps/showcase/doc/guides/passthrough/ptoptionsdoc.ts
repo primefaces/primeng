@@ -55,7 +55,7 @@ export const appConfig: ApplicationConfig = {
 
     codeComponent: Code = {
         typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
     selector: 'panel-pt-demo',
@@ -68,13 +68,13 @@ import { PanelModule } from 'primeng/panel';
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-    pt = {
-         header: {
+    pt: PanelPassThrough<Panel> = {
+        header: {
             class: 'border border-primary'
         }
     };
 }
-    
+
 // Output:
 // panel.header.data-custom => 'acme-panel'
 // panel.header.class => 'border border-primary'
@@ -83,7 +83,7 @@ export class PanelPtDemo {
 
     codeComponentTrueTrue: Code = {
         typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
     selector: 'panel-pt-demo',
@@ -96,13 +96,13 @@ import { PanelModule } from 'primeng/panel';
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-    pt = {
-         header: {
+    pt: PanelPassThrough<Panel> = {
+        header: {
             class: 'bg-primary text-primary-contrast'
         }
     };
 }
-    
+
 // Output:
 // panel.header.data-custom => 'acme-panel'
 // panel.header.class => 'bg-primary text-primary-contrast border border-primary'
@@ -111,7 +111,7 @@ export class PanelPtDemo {
 
     codeComponentFalseTrue: Code = {
         typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
     selector: 'panel-pt-demo',
@@ -124,20 +124,20 @@ import { PanelModule } from 'primeng/panel';
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-    pt = {
-         header: {
+    pt: PanelPassThrough<Panel> = {
+        header: {
             class: 'bg-primary text-primary-contrast'
         }
     };
 }
-    
+
 // Output:
 // panel.header.class => 'bg-primary text-primary-contrast border border-primary'`
     };
 
     codeComponentFalseFalse: Code = {
         typescript: `import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
     selector: 'panel-pt-demo',
@@ -150,13 +150,13 @@ import { PanelModule } from 'primeng/panel';
     imports: [PanelModule]
 })
 export class PanelPtDemo {
-    pt = {
-         header: {
+    pt: PanelPassThrough<Panel> = {
+        header: {
             class: 'bg-primary text-primary-contrast'
         }
     };
 }
-    
+
 // Output:
 // panel.header.class => 'border border-primary'`
     };
