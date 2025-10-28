@@ -20,7 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
+import { addClass, addStyle, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -482,6 +482,7 @@ export class Overlay extends BaseComponent {
 
                 this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
                 DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+                addStyle(this.overlayEl, { position: 'absolute', top: '0' });
                 this.alignOverlay();
                 break;
 

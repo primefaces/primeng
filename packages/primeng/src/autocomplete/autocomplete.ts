@@ -103,6 +103,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (paste)="onInputPaste($event)"
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
+            [unstyled]="unstyled()"
         />
         <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
@@ -136,7 +137,15 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-posinset]="i + 1"
                 [attr.aria-selected]="true"
             >
-                <p-chip [pt]="ptm('pcChip')" [class]="cx('pcChip')" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [disabled]="$disabled()" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
+                <p-chip
+                    [pt]="ptm('pcChip')"
+                    [class]="cx('pcChip')"
+                    [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)"
+                    [disabled]="$disabled()"
+                    [removable]="true"
+                    (onRemove)="!readonly ? removeOption($event, i) : ''"
+                    [unstyled]="unstyled()"
+                >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <ng-template #removeicon>
                         <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [pBind]="ptm('chipIcon')" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
@@ -214,6 +223,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [hideTransitionOptions]="hideTransitionOptions"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
+            [unstyled]="unstyled()"
         >
             <ng-template #content>
                 <div [pBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">

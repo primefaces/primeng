@@ -261,6 +261,7 @@ export class SelectItem extends BaseComponent {
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
+            [unstyled]="unstyled()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
         >
@@ -283,7 +284,7 @@ export class SelectItem extends BaseComponent {
                             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
-                            <p-iconfield [pt]="ptm('pcFilterContainer')">
+                            <p-iconfield [pt]="ptm('pcFilterContainer')" [unstyled]="unstyled()">
                                 <input
                                     #filter
                                     pInputText
@@ -302,8 +303,9 @@ export class SelectItem extends BaseComponent {
                                     (keydown)="onFilterKeyDown($event)"
                                     (blur)="onFilterBlur($event)"
                                     [pt]="ptm('pcFilter')"
+                                    [unstyled]="unstyled()"
                                 />
-                                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                                <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
                                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [pBind]="ptm('filterIcon')" />
                                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('filterIcon')">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
@@ -361,6 +363,7 @@ export class SelectItem extends BaseComponent {
                                             [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                             [ariaSetSize]="ariaSetSize"
                                             [index]="i"
+                                            [unstyled]="unstyled()"
                                             [scrollerOptions]="scrollerOptions"
                                             (onClick)="onOptionSelect($event, option)"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"

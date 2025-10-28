@@ -24,11 +24,11 @@ export class PrimeNG extends ThemeProvider {
 
     /**
      * Indicates whether the component should be rendered without styles.
-     *
+     * @todo remove this comment when the feature is implemented
      * @experimental
      * This property is not yet implemented. It will be available in a future release.
      */
-    unstyled = signal<boolean | undefined>(undefined);
+    unstyled = signal<boolean | undefined>(true);
 
     pt = signal<PrimeNGConfigType['pt']>(undefined);
 
