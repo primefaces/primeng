@@ -103,7 +103,6 @@ export class AppDoc implements OnInit, OnChanges {
 
     ngOnInit() {
         this.navigate();
-        console.log(this.activeTab());
     }
 
     ngOnChanges(changes: SimpleChanges) {
