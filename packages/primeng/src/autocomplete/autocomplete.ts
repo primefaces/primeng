@@ -117,6 +117,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             #multiContainer
             [pBind]="ptm('inputMultiple')"
             [class]="cx('inputMultiple')"
+            [attr.data-p]="inputMultipleDataP"
             [tabindex]="-1"
             role="listbox"
             [attr.aria-orientation]="'horizontal'"
@@ -224,6 +225,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onHide)="hide()"
             [unstyled]="unstyled()"
+            [attr.data-p]="overlayDataP"
         >
             <ng-template #content>
                 <div [pBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
@@ -274,6 +276,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                         role="option"
                                         [attr.aria-label]="getOptionLabel(option)"
                                         [attr.aria-selected]="isSelected(option)"
+                                        [attr.data-p-selected]="isSelected(option)"
                                         [attr.aria-disabled]="isOptionDisabled(option)"
                                         [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                         [attr.aria-setsize]="ariaSetSize"
@@ -315,7 +318,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
 })
@@ -1778,7 +1782,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
+            this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-name="pcoverlay"]');
 
             if (this.virtualScroll) {
                 this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
@@ -1792,7 +1796,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-autocomplete-item.p-highlight');
+                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '[data-pc-section="option"][data-p-selected="true"]');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
@@ -1800,6 +1804,36 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                 }
             }
         }
+    }
+
+    get containerDataP() {
+        return this.cn({
+            fluid: this.fluid()
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            [`overlay-${this.$appendTo()}`]: true
+        });
+    }
+
+    get inputMultipleDataP() {
+        const data: any = {
+            invalid: this.invalid(),
+            disabled: this.disabled(),
+            focus: this.focused,
+            fluid: this.fluid(),
+            filled: this.$variant() === 'filled',
+            empty: !this.$filled()
+        };
+
+        const sz = this.size();
+        if (sz !== null && sz !== undefined) {
+            data[sz] = sz;
+        }
+
+        return this.cn(data);
     }
 
     /**
