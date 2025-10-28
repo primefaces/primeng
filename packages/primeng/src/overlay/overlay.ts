@@ -1,6 +1,7 @@
-import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
+import { animate, animation, AnimationEvent, style } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    AnimationCallbackEvent,
     ChangeDetectionStrategy,
     Component,
     computed,
@@ -46,28 +47,20 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     template: `
         <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" (click)="onOverlayClick()">
             <div
-                *ngIf="visible"
                 #content
                 [class]="cn(cx('content'), contentStyleClass)"
                 [pBind]="ptm('content')"
                 (click)="onOverlayContentClick($event)"
-                [@overlayContentAnimation]="{
-                    value: 'visible',
-                    params: {
-                        showTransitionParams: showTransitionOptions,
-                        hideTransitionParams: hideTransitionOptions,
-                        transform: transformOptions[modal ? overlayResponsiveDirection : 'default']
-                    }
-                }"
-                (@overlayContentAnimation.start)="onOverlayContentAnimationStart($event)"
-                (@overlayContentAnimation.done)="onOverlayContentAnimationDone($event)"
+                [class.overlay-enter]="visible"
+                [class.overlay-leave]="!visible"
+                (animate.enter)="onOverlayEnter($event)"
+                (animate.leave)="onOverlayLeave($event)"
             >
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
             </div>
         </div>
     `,
-    animations: [trigger('overlayContentAnimation', [transition(':enter', [useAnimation(showOverlayContentAnimation)]), transition(':leave', [useAnimation(hideOverlayContentAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [OverlayStyle, { provide: OVERLAY_INSTANCE, useExisting: Overlay }, { provide: PARENT_INSTANCE, useExisting: Overlay }]
@@ -281,13 +274,13 @@ export class Overlay extends BaseComponent {
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onAnimationStart: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    @Output() onAnimationStart: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when the animation is done.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    @Output() onAnimationDone: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
 
@@ -471,58 +464,32 @@ export class Overlay extends BaseComponent {
         this.isOverlayContentClicked = true;
     }
 
-    onOverlayContentAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-
-                if (this.autoZIndex) {
-                    ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
-                }
-
-                this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
-                DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
-                this.alignOverlay();
-                break;
-
-            case 'void':
-                this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-
-                this.modal && addClass(this.overlayEl, 'p-overlay-mask-leave');
-
-                break;
+    onOverlayEnter(event: AnimationCallbackEvent) {
+        this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+        const container = this.overlayEl || event.target;
+        this.show(container, true);
+        this.bindListeners();
+        if (this.autoZIndex) {
+            ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
         }
+        this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
+        DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+        this.alignOverlay();
 
+        event.animationComplete();
         this.handleEvents('onAnimationStart', event);
     }
 
-    onOverlayContentAnimationDone(event: AnimationEvent) {
-        const container = this.overlayEl || event.element.parentElement;
-
-        switch (event.toState) {
-            case 'visible':
-                if (this.visible) {
-                    this.show(container, true);
-                    this.bindListeners();
-                }
-
-                break;
-
-            case 'void':
-                if (!this.visible) {
-                    this.hide(container, true);
-                    this.modalVisible = false;
-                    this.unbindListeners();
-
-                    DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
-                    ZIndexUtils.clear(container);
-                    this.cd.markForCheck();
-
-                    break;
-                }
-        }
-
+    onOverlayLeave(event: AnimationCallbackEvent) {
+        const container = this.overlayEl || event.target;
+        this.hide(container, true);
+        this.modalVisible = false;
+        this.unbindListeners();
+        DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
+        ZIndexUtils.clear(container);
+        this.cd.markForCheck();
         this.handleEvents('onAnimationDone', event);
+        event.animationComplete();
     }
 
     handleEvents(name: string, params: any) {

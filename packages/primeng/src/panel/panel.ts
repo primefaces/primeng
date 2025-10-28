@@ -1,24 +1,5 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -87,26 +68,8 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             [attr.aria-labelledby]="id + '_header'"
             [attr.aria-hidden]="collapsed"
             [attr.tabindex]="collapsed ? '-1' : undefined"
-            [@panelContent]="
-                collapsed
-                    ? {
-                          value: 'hidden',
-                          params: {
-                              transitionParams: animating() ? transitionOptions : '0ms',
-                              height: '0',
-                              opacity: '0'
-                          }
-                      }
-                    : {
-                          value: 'visible',
-                          params: {
-                              transitionParams: animating() ? transitionOptions : '0ms',
-                              height: '*',
-                              opacity: '1'
-                          }
-                      }
-            "
-            (@panelContent.done)="onToggleDone($event)"
+            [class.panelvisible]="!collapsed"
+            [class.panelhidden]="collapsed"
         >
             <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
                 <ng-content></ng-content>
@@ -119,32 +82,6 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             </div>
         </div>
     `,
-    animations: [
-        trigger('panelContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'void',
-                style({
-                    height: '{{height}}'
-                }),
-                { params: { height: '0' } }
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => hidden', animate('{{transitionParams}}')),
-            transition('void => visible', animate('{{transitionParams}}'))
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [PanelStyle, { provide: PANEL_INSTANCE, useExisting: Panel }, { provide: PARENT_INSTANCE, useExisting: Panel }],
@@ -257,8 +194,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
 
-    animating = signal<boolean>(false);
-
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
     /**
      * Defines template option for header.
@@ -336,11 +271,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     }
 
     toggle(event: MouseEvent) {
-        if (this.animating()) {
-            return false;
-        }
-
-        this.animating.set(true);
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
         if (this.toggleable) {
@@ -349,6 +279,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         }
 
         event.preventDefault();
+        console.log(this.collapsed);
     }
 
     expand() {
@@ -388,7 +319,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     }
 
     onToggleDone(event: any) {
-        this.animating.set(false);
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
     }
 

@@ -262,6 +262,7 @@ export class SelectItem extends BaseComponent {
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
+            (onOverlayAnimationDone)="onOverlayAnimationDone($event)"
             (onHide)="hide()"
         >
             <ng-template #content>
@@ -1386,39 +1387,38 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
-            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+    onOverlayAnimationStart(event: any) {
+        this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
+        this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
-            if (this.options && this.options.length) {
-                if (this.virtualScroll) {
-                    const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
-                    if (selectedIndex !== -1) {
-                        this.scroller?.scrollToIndex(selectedIndex);
-                    }
-                } else {
-                    let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-select-option.p-select-option-selected');
-                    if (selectedListItem) {
-                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-                    }
+        if (this.options && this.options.length) {
+            if (this.virtualScroll) {
+                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                if (selectedIndex !== -1) {
+                    this.scroller?.scrollToIndex(selectedIndex);
+                }
+            } else {
+                let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-select-option.p-select-option-selected');
+                if (selectedListItem) {
+                    selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                 }
             }
+        }
 
-            if (this.filterViewChild && this.filterViewChild.nativeElement) {
-                this.preventModelTouched = true;
+        if (this.filterViewChild && this.filterViewChild.nativeElement) {
+            this.preventModelTouched = true;
 
-                if (this.autofocusFilter && !this.editable) {
-                    this.filterViewChild.nativeElement.focus();
-                }
+            if (this.autofocusFilter && !this.editable) {
+                this.filterViewChild.nativeElement.focus();
             }
-            this.onShow.emit(event);
         }
-        if (event.toState === 'void') {
-            this.itemsWrapper = null;
-            this.onModelTouched();
-            this.onHide.emit(event);
-        }
+        this.onShow.emit(event);
+    }
+
+    onOverlayAnimationDone(event: any) {
+        this.itemsWrapper = null;
+        this.onModelTouched();
+        this.onHide.emit(event);
     }
     /**
      * Hides the panel.
