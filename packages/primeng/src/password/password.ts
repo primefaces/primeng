@@ -450,13 +450,33 @@ export const Password_VALUE_ACCESSOR: any = {
 
         <ng-container *ngIf="toggleMask">
             <ng-container *ngIf="unmasked">
-                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" />
+                <svg
+                    data-p-icon="eyeslash"
+                    [class]="cx('maskIcon')"
+                    [pBind]="ptm('maskIcon')"
+                    *ngIf="!hideIconTemplate && !_hideIconTemplate"
+                    (click)="onMaskToggle()"
+                    (keypress)="onMaskToggle()"
+                    [aria-label]="showIconLabel"
+                    role="button"
+                    tabindex="0"
+                />
                 <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()" [pBind]="ptm('maskIcon')">
                     <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
                 </span>
             </ng-container>
             <ng-container *ngIf="!unmasked">
-                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" [pBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
+                <svg
+                    data-p-icon="eye"
+                    *ngIf="!showIconTemplate && !_showIconTemplate"
+                    [class]="cx('unmaskIcon')"
+                    [pBind]="ptm('unmaskIcon')"
+                    (click)="onMaskToggle()"
+                    (keypress)="onMaskToggle()"
+                    [aria-label]="hideIconLabel"
+                    role="button"
+                    tabindex="0"
+                />
                 <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()" [pBind]="ptm('unmaskIcon')">
                     <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
                 </span>
@@ -577,6 +597,16 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) toggleMask: boolean | undefined;
+    /**
+     * Aria label of the show password icon.
+     * @group Props
+     */
+    @Input() showIconLabel: string | undefined = 'Show password';
+    /**
+     * Aria label of the hide password icon.
+     * @group Props
+     */
+    @Input() hideIconLabel: string | undefined = 'Hide password';
     /**
      * Style class of the input field.
      * @group Props
