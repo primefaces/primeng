@@ -88,3 +88,82 @@ button {
 textarea {
    resize: none;
 }
+
+.p-slide-in {
+    animation-name: p-anim-slide-in;
+    animation-duration: 1000ms;
+    animation-timing-function: ease-in-out;
+}
+
+.p-slide-out {
+    animation-name: p-anim-slide-out;
+    animation-duration: 450ms;
+    animation-timing-function: cubic-bezier(0, 1, 0, 1);
+}
+
+.p-popover-enter {
+    animation-name: p-anim-popover-enter;
+    animation-duration: 120ms;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-popover-leave {
+    animation-name: p-anim-popover-leave;
+    animation-duration: 100ms;
+    animation-timing-function: linear;
+}
+
+@keyframes p-anim-popover-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
+    }
+}
+
+@keyframes p-anim-popover-leave {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes p-anim-slide-in {
+    from {
+        max-height: 0;
+        overflow: hidden
+    }
+    to {
+        max-height: 1000px;
+    }
+}
+
+@keyframes p-anim-slide-out {
+    from {
+        max-height: 1000px;
+    }
+    to {
+        overflow: hidden;
+        max-height: 0;
+    }
+}
+
+
+
+.p-toggleable-content-enter-from,
+    .p-toggleable-content-leave-to {
+        max-height: 0;
+    }
+
+    .p-toggleable-content-enter-to,
+    .p-toggleable-content-leave-from {
+        max-height: 1000px;
+    }
+
+    .p-toggleable-content-leave-active {
+        overflow: hidden;
+        transition: max-height 0.45s cubic-bezier(0, 1, 0, 1);
+    }
+
+    .p-toggleable-content-enter-active {
+        overflow: hidden;
+        transition: max-height 1s ease-in-out;
+    }

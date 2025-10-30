@@ -5,7 +5,7 @@ import { BaseStyle } from 'primeng/base';
 const style = /*css*/ `
     ${panel_style}
 
-    /* For PrimeNG */
+    /* For PrimeNG 
     .p-panel-content-container {
         overflow: hidden;
         transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
@@ -17,7 +17,7 @@ const style = /*css*/ `
 
     .p-panel-content-container.panelhidden {
         max-height: 0;
-    }
+    }*/
 `;
 
 const classes = {

@@ -1,7 +1,6 @@
 import { animate, animation, AnimationEvent, style } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AnimationCallbackEvent,
     ChangeDetectionStrategy,
     Component,
     computed,
@@ -46,19 +45,21 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     hostDirectives: [Bind],
     template: `
         <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" (click)="onOverlayClick()">
-            <div
-                #content
-                [class]="cn(cx('content'), contentStyleClass)"
-                [pBind]="ptm('content')"
-                (click)="onOverlayContentClick($event)"
-                [class.overlay-enter]="visible"
-                [class.overlay-leave]="!visible"
-                (animate.enter)="onOverlayEnter($event)"
-                (animate.leave)="onOverlayLeave($event)"
-            >
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
-            </div>
+            @if (visible) {
+                <div
+                    #content
+                    [class]="cn(cx('content'), contentStyleClass)"
+                    [pBind]="ptm('content')"
+                    (click)="onOverlayContentClick($event)"
+                    animate.enter="p-popover-enter"
+                    animate.leave="p-popover-leave"
+                    (animationstart)="_onAnimationStart($event)"
+                    (animationend)="_onAnimationEnd($event)"
+                >
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
+                </div>
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -464,7 +465,19 @@ export class Overlay extends BaseComponent {
         this.isOverlayContentClicked = true;
     }
 
-    onOverlayEnter(event: AnimationCallbackEvent) {
+    _onAnimationStart(event: Event) {
+        if (event['animationName'] === 'p-anim-popover-enter') {
+            this.onOverlayEnter(event);
+        }
+    }
+
+    _onAnimationEnd(event: Event) {
+        if (event['animationName'] === 'p-anim-popover-leave') {
+            this.onOverlayLeave(event);
+        }
+    }
+
+    onOverlayEnter(event: Event) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         const container = this.overlayEl || event.target;
         this.show(container, true);
@@ -476,11 +489,11 @@ export class Overlay extends BaseComponent {
         DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
         this.alignOverlay();
 
-        event.animationComplete();
+        //event.animationComplete();
         this.handleEvents('onAnimationStart', event);
     }
 
-    onOverlayLeave(event: AnimationCallbackEvent) {
+    onOverlayLeave(event: Event) {
         const container = this.overlayEl || event.target;
         this.hide(container, true);
         this.modalVisible = false;
@@ -489,7 +502,7 @@ export class Overlay extends BaseComponent {
         ZIndexUtils.clear(container);
         this.cd.markForCheck();
         this.handleEvents('onAnimationDone', event);
-        event.animationComplete();
+        //event.animationComplete();
     }
 
     handleEvents(name: string, params: any) {

@@ -20,20 +20,6 @@ const style = /*css*/ `
 
 .p-overlay-content {
     transform-origin: inherit;
-    opacity: 0;
-    transform: scaleY(0.8);
-}
-
-/* CSS Animations */
-.p-overlay-content.overlay-enter {
-    opacity: 1;
-    transform: scaleY(1);
-    transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.p-overlay-content.overlay-leave {
-    opacity: 0;
-    transition: opacity 0.1s linear;
 }
 
 /* Github Issue #18560 */
