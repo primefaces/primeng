@@ -1461,9 +1461,9 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                     if (newColumnWidth > 15 && nextColumnWidth > parseInt(nextColumnMinWidth)) {
                         if (this.scrollable) {
                             let scrollableView = this.findParentScrollableView(column);
-                            let scrollableBodyTable = <any>findSingle(scrollableView, '.p-treetable-scrollable-body table') || findSingle(scrollableView, '.p-scroller-viewport table');
-                            let scrollableHeaderTable = <any>findSingle(scrollableView, 'table.p-treetable-scrollable-header-table');
-                            let scrollableFooterTable = <any>findSingle(scrollableView, 'table.p-treetable-scrollable-footer-table');
+                            let scrollableBodyTable = <any>findSingle(scrollableView, '[data-pc-section="scrollablebody"] table') || findSingle(scrollableView, '[data-pc-name="virtualscroller"] table');
+                            let scrollableHeaderTable = <any>findSingle(scrollableView, '[data-pc-section="scrollableheadertable"]');
+                            let scrollableFooterTable = <any>findSingle(scrollableView, '[data-pc-section="scrollablefootertable"]');
                             let resizeColumnIndex = getIndex(column);
 
                             this.resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, nextColumnWidth);
@@ -1480,12 +1480,12 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
             } else if (this.columnResizeMode === 'expand') {
                 if (this.scrollable) {
                     let scrollableView = this.findParentScrollableView(column);
-                    let scrollableBody = <any>findSingle(scrollableView, '.p-treetable-scrollable-body') || findSingle(scrollableView, '.p-scroller-viewport');
-                    let scrollableHeader = <any>findSingle(scrollableView, '.p-treetable-scrollable-header');
-                    let scrollableFooter = <any>findSingle(scrollableView, '.p-treetable-scrollable-footer');
-                    let scrollableBodyTable = <any>findSingle(scrollableView, '.p-treetable-scrollable-body table') || findSingle(scrollableView, '.p-scroller-viewport table');
-                    let scrollableHeaderTable = <any>findSingle(scrollableView, 'table.p-treetable-scrollable-header-table');
-                    let scrollableFooterTable = <any>findSingle(scrollableView, 'table.p-treetable-scrollable-footer-table');
+                    let scrollableBody = <any>findSingle(scrollableView, '[data-pc-section="scrollablebody"]') || findSingle(scrollableView, '[data-pc-name="virtualscroller"]');
+                    let scrollableHeader = <any>findSingle(scrollableView, '[data-pc-section="scrollableheader"]');
+                    let scrollableFooter = <any>findSingle(scrollableView, '[data-pc-section="scrollablefooter"]');
+                    let scrollableBodyTable = <any>findSingle(scrollableView, '[data-pc-section="scrollablebody"] table') || findSingle(scrollableView, '[data-pc-name="virtualscroller"] table');
+                    let scrollableHeaderTable = <any>findSingle(scrollableView, '[data-pc-section="scrollableheadertable"]');
+                    let scrollableFooterTable = <any>findSingle(scrollableView, '[data-pc-section="scrollablefootertable"]');
                     scrollableBodyTable.style.width = scrollableBodyTable.offsetWidth + delta + 'px';
                     scrollableHeaderTable.style.width = scrollableHeaderTable.offsetWidth + delta + 'px';
                     if (scrollableFooterTable) {
@@ -2550,8 +2550,8 @@ export class TTScrollableView extends BaseComponent {
 
                 let frozenView = this.el.nativeElement.previousElementSibling;
                 if (frozenView) {
-                    if (this.tt.virtualScroll) this.frozenSiblingBody = findSingle(frozenView, '.p-scroller-viewport');
-                    else this.frozenSiblingBody = findSingle(frozenView, '.p-treetable-scrollable-body');
+                    if (this.tt.virtualScroll) this.frozenSiblingBody = findSingle(frozenView, '[data-pc-name="virtualscroller"]');
+                    else this.frozenSiblingBody = findSingle(frozenView, '[data-pc-section="scrollablebody"]');
                 }
 
                 if (this.scrollHeight) {
@@ -3887,7 +3887,7 @@ export class TTRow extends BaseComponent {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
                 const container = this.tt.el?.nativeElement;
-                const tbody = findSingle(container, '.p-treetable-tbody');
+                const tbody = findSingle(container, '[data-pc-section="tbody"]');
                 const row = tbody?.children?.[<number>index || this.tt.toggleRowIndex || 0];
                 const rows = [...find(container, 'tr')];
 
