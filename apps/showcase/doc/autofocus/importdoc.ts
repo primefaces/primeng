@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AutoFocusModule } from 'primeng/autofocus';`
+        typescript: `import { AutoFocus } from 'primeng/autofocus';`
     };
 }
