@@ -1808,7 +1808,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     get containerDataP() {
         return this.cn({
-            fluid: this.fluid()
+            fluid: this.hasFluid
         });
     }
 
@@ -1821,9 +1821,9 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     get inputMultipleDataP() {
         const data: any = {
             invalid: this.invalid(),
-            disabled: this.disabled(),
+            disabled: this.$disabled(),
             focus: this.focused,
-            fluid: this.fluid(),
+            fluid: this.hasFluid,
             filled: this.$variant() === 'filled',
             empty: !this.$filled()
         };
