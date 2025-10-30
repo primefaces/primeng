@@ -737,8 +737,8 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         if (this.$disabled()) {
             return;
         }
-
-        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target) && !hasClass(event.target, 'p-treeselect-close') && !hasClass(event.target, 'p-checkbox-box') && !hasClass(event.target, 'p-checkbox-icon')) {
+        const section = event.target?.getAttribute?.('data-pc-section');
+        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target) && section !== 'box' && section !== 'icon') {
             if (this.overlayVisible) {
                 this.hide();
             } else {
