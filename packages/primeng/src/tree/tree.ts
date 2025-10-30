@@ -1349,7 +1349,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
             }
 
             if (this.hasFilteredNodes()) {
-                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.filteredNodes) as TreeNode;
+                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.value) as TreeNode;
                 if (!node) {
                     return;
                 }
