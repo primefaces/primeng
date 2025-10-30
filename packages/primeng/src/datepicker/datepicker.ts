@@ -254,6 +254,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                                 (click)="onDateSelect($event, date)"
                                                 draggable="false"
                                                 [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
+                                                [attr.data-p-disabled]="$disabled() || !date.selectable"
                                                 (keydown)="onDateCellKeydown($event, date, i)"
                                                 pRipple
                                                 [pBind]="ptm('day')"
@@ -277,7 +278,16 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                     </div>
                 </div>
                 <div [class]="cx('monthView')" *ngIf="currentView === 'month'" [pBind]="ptm('monthView')">
-                    <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event, i)" [class]="cx('month', { month: m, index: i })" pRipple [pBind]="ptm('month')">
+                    <span
+                        *ngFor="let m of monthPickerValues(); let i = index"
+                        (click)="onMonthSelect($event, i)"
+                        (keydown)="onMonthCellKeydown($event, i)"
+                        [class]="cx('month', { month: m, index: i })"
+                        pRipple
+                        [pBind]="ptm('month')"
+                        [attr.data-p-disabled]="isMonthDisabled(i)"
+                        [attr.data-p-selected]="isMonthSelected(i)"
+                    >
                         {{ m }}
                         <div *ngIf="isMonthSelected(i)" class="p-hidden-accessible" aria-live="polite">
                             {{ m }}
@@ -285,7 +295,16 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                     </span>
                 </div>
                 <div [class]="cx('yearView')" *ngIf="currentView === 'year'" [pBind]="ptm('yearView')">
-                    <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" [class]="cx('year', { year: y })" pRipple [pBind]="ptm('year')">
+                    <span
+                        *ngFor="let y of yearPickerValues()"
+                        (click)="onYearSelect($event, y)"
+                        (keydown)="onYearCellKeydown($event, y)"
+                        [class]="cx('year', { year: y })"
+                        pRipple
+                        [pBind]="ptm('year')"
+                        [attr.data-p-disabled]="isYearDisabled(y)"
+                        [attr.data-p-selected]="isYearSelected(y)"
+                    >
                         {{ y }}
                         <div *ngIf="isYearSelected(y)" class="p-hidden-accessible" aria-live="polite">
                             {{ y }}
@@ -2185,7 +2204,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     this.trapFocus(event);
                 }
                 if (this.inline) {
-                    const headerElements = findSingle(this.el?.nativeElement, '.p-datepicker-header');
+                    const headerElements = findSingle(this.el?.nativeElement, '[data-pc-section="header"]');
                     const element = event.target;
                     if (this.timeOnly) {
                         return;
@@ -2350,7 +2369,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 cellContent.tabIndex = '-1';
                 const dateToFocus = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate());
                 const focusKey = this.formatDateKey(dateToFocus);
-                this.navigateToMonth(true, groupIndex, `span[data-date='${focusKey}']:not(.p-disabled):not(.p-ink)`);
+                this.navigateToMonth(true, groupIndex, `span[data-date='${focusKey}']:not([data-p-disabled="true"]):not([data-p-ink="true"])`);
                 event.preventDefault();
                 break;
             }
@@ -2360,7 +2379,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 cellContent.tabIndex = '-1';
                 const dateToFocus = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, currentDate.getDate());
                 const focusKey = this.formatDateKey(dateToFocus);
-                this.navigateToMonth(false, groupIndex, `span[data-date='${focusKey}']:not(.p-disabled):not(.p-ink)`);
+                this.navigateToMonth(false, groupIndex, `span[data-date='${focusKey}']:not([data-p-disabled="true"]):not([data-p-ink="true"])`);
                 event.preventDefault();
                 break;
             }
@@ -2370,7 +2389,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 cellContent.tabIndex = '-1';
                 const firstDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
                 const firstDayDateKey = this.formatDateKey(firstDayDate);
-                const firstDayCell = <any>findSingle(cellContent.offsetParent, `span[data-date='${firstDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+                const firstDayCell = <any>findSingle(cellContent.offsetParent, `span[data-date='${firstDayDateKey}']:not([data-p-disabled="true"]):not([data-p-ink="true"])`);
                 if (firstDayCell) {
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
@@ -2383,7 +2402,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 cellContent.tabIndex = '-1';
                 const lastDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
                 const lastDayDateKey = this.formatDateKey(lastDayDate);
-                const lastDayCell = <any>findSingle(cellContent.offsetParent, `span[data-date='${lastDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+                const lastDayCell = <any>findSingle(cellContent.offsetParent, `span[data-date='${lastDayDateKey}']:not([data-p-disabled="true"]):not([data-p-ink="true"])`);
                 if (lastDayDate) {
                     lastDayCell.tabIndex = '0';
                     lastDayCell.focus();
@@ -2571,7 +2590,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 } else {
-                    let cells = <any>find(prevMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    let cells = <any>find(prevMonthContainer, '[data-pc-section="calendar"] td span:not([data-p-disabled="true"]):not([data-p-ink="true"])');
                     let focusCell = cells[cells.length - 1];
                     focusCell.tabIndex = '0';
                     focusCell.focus();
@@ -2589,7 +2608,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 } else {
-                    let focusCell = <any>findSingle(nextMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    let focusCell = <any>findSingle(nextMonthContainer, '[data-pc-section="calendar"] td span:not([data-p-disabled="true"]):not([data-p-ink="true"])');
                     focusCell.tabIndex = '0';
                     focusCell.focus();
                 }
@@ -2604,18 +2623,18 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             if (this.navigationState.button) {
                 this.initFocusableCell();
 
-                if (this.navigationState.backward) (findSingle(this.contentViewChild.nativeElement, '.p-datepicker-prev-button') as any).focus();
-                else (findSingle(this.contentViewChild.nativeElement, '.p-datepicker-next-button') as any).focus();
+                if (this.navigationState.backward) (findSingle(this.contentViewChild.nativeElement, '[data-pc-name="pcprevbutton"]') as any).focus();
+                else (findSingle(this.contentViewChild.nativeElement, '[data-pc-name="pcnextbutton"]') as any).focus();
             } else {
                 if (this.navigationState.backward) {
                     let cells;
 
                     if (this.currentView === 'month') {
-                        cells = find(this.contentViewChild.nativeElement, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
+                        cells = find(this.contentViewChild.nativeElement, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true")]');
                     } else if (this.currentView === 'year') {
-                        cells = find(this.contentViewChild.nativeElement, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
+                        cells = find(this.contentViewChild.nativeElement, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true")]');
                     } else {
-                        cells = find(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                        cells = find(this.contentViewChild.nativeElement, this._focusKey || '[data-pc-section="calendar"] td span:not([data-p-disabled="true")]:not([data-p-ink="true"])');
                     }
 
                     if (cells && cells.length > 0) {
@@ -2623,11 +2642,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     }
                 } else {
                     if (this.currentView === 'month') {
-                        cell = findSingle(this.contentViewChild.nativeElement, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
+                        cell = findSingle(this.contentViewChild.nativeElement, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true")]');
                     } else if (this.currentView === 'year') {
-                        cell = findSingle(this.contentViewChild.nativeElement, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
+                        cell = findSingle(this.contentViewChild.nativeElement, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true")]');
                     } else {
-                        cell = findSingle(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                        cell = findSingle(this.contentViewChild.nativeElement, this._focusKey || '[data-pc-section="calendar"] td span:not([data-p-disabled="true")]:not([data-p-ink="true"])');
                     }
                 }
 
@@ -2649,31 +2668,31 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         let cell!: any;
 
         if (this.currentView === 'month') {
-            let cells = find(contentEl, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
-            let selectedCell = <any>findSingle(contentEl, '.p-datepicker-month-view .p-datepicker-month.p-highlight');
+            let cells = find(contentEl, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true")]');
+            let selectedCell = <any>findSingle(contentEl, '[data-pc-section="monthview"] [data-pc-section="month"][data-p-selected="true"]');
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = find(contentEl, '.p-datepicker-month-view .p-datepicker-month.p-disabled[tabindex = "0"]');
+                let disabledCells = find(contentEl, '[data-pc-section="monthview"] [data-pc-section="month"][data-p-disabled="true")][tabindex = "0"]');
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else if (this.currentView === 'year') {
-            let cells = find(contentEl, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
-            let selectedCell = findSingle(contentEl, '.p-datepicker-year-view .p-datepicker-year.p-highlight');
+            let cells = find(contentEl, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true")]');
+            let selectedCell = findSingle(contentEl, '[data-pc-section="yearview"] [data-pc-section="year"][data-p-selected="true"]');
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
-                let disabledCells = find(contentEl, '.p-datepicker-year-view .p-datepicker-year.p-disabled[tabindex = "0"]');
+                let disabledCells = find(contentEl, '[data-pc-section="yearview"] [data-pc-section="year"][data-p-disabled="true")][tabindex = "0"]');
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else {
-            cell = findSingle(contentEl, 'span.p-highlight');
+            cell = findSingle(contentEl, 'span[data-p-selected="true"]');
             if (!cell) {
-                let todayCell = findSingle(contentEl, 'td.p-datepicker-today span:not(.p-disabled):not(.p-ink)');
+                let todayCell = findSingle(contentEl, 'td[data-p-today="true"] span:not([data-p-disabled="true"]):not([data-p-ink="true"])');
                 if (todayCell) cell = todayCell;
-                else cell = findSingle(contentEl, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                else cell = findSingle(contentEl, '[data-pc-section="calendar"] td span:not([data-p-disabled="true"]):not([data-p-ink="true"])');
             }
         }
 
