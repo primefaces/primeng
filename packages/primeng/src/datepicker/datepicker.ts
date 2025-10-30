@@ -24,7 +24,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
+import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getAttribute, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -167,6 +167,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 [ariaLabel]="prevIconAriaLabel"
                                 [pt]="ptm('pcPrevButton')"
                                 [attr.data-pc-group-section]="'navigator'"
+                                #previousButton
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-left" *ngIf="!previousIconTemplate && !_previousIconTemplate" />
@@ -220,6 +221,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 [ariaLabel]="nextIconAriaLabel"
                                 [pt]="ptm('pcNextButton')"
                                 [attr.data-pc-group-section]="'navigator'"
+                                #nextButton
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-right" *ngIf="!nextIconTemplate && !_nextIconTemplate" />
@@ -1062,6 +1064,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     _componentStyle = inject(DatePickerStyle);
 
     contentViewChild!: ElementRef;
+
+    @ViewChild('previousButton') previousButtonViewChild: Nullable<Button>;
+
+    @ViewChild('nextButton') nextButtonViewChild: Nullable<Button>;
 
     value: any;
 
@@ -2264,7 +2270,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 let nextRow = cell.parentElement.nextElementSibling;
                 if (nextRow) {
                     let focusCell = nextRow.children[cellIndex].children[0];
-                    if (hasClass(focusCell, 'p-disabled')) {
+                    if (getAttribute(focusCell, 'data-p-disabled')) {
                         this.navigationState = { backward: false };
                         this.navForward(event);
                     } else {
@@ -2286,7 +2292,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 let prevRow = cell.parentElement.previousElementSibling;
                 if (prevRow) {
                     let focusCell = prevRow.children[cellIndex].children[0];
-                    if (hasClass(focusCell, 'p-disabled')) {
+                    if (getAttribute(focusCell, 'data-p-disabled')) {
                         this.navigationState = { backward: true };
                         this.navBackward(event);
                     } else {
@@ -2307,7 +2313,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 let prevCell = cell.previousElementSibling;
                 if (prevCell) {
                     let focusCell = prevCell.children[0];
-                    if (hasClass(focusCell, 'p-disabled') || hasClass(focusCell.parentElement, 'p-datepicker-weeknumber')) {
+                    if (getAttribute(focusCell, 'data-p-disabled') || getAttribute(focusCell.parentElement, 'data-pc-section') == 'weeknumber') {
                         this.navigateToMonth(true, groupIndex);
                     } else {
                         focusCell.tabIndex = '0';
@@ -2326,7 +2332,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 let nextCell = cell.nextElementSibling;
                 if (nextCell) {
                     let focusCell = nextCell.children[0];
-                    if (hasClass(focusCell, 'p-disabled')) {
+                    if (getAttribute(focusCell, 'data-p-disabled')) {
                         this.navigateToMonth(false, groupIndex);
                     } else {
                         focusCell.tabIndex = '0';
@@ -2634,7 +2640,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     } else if (this.currentView === 'year') {
                         cells = find(this.contentViewChild.nativeElement, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true")]');
                     } else {
-                        cells = find(this.contentViewChild.nativeElement, this._focusKey || '[data-pc-section="calendar"] td span:not([data-p-disabled="true")]:not([data-p-ink="true"])');
+                        cells = find(this.contentViewChild.nativeElement, this._focusKey || 'table td span:not([data-p-disabled="true"]):not([data-p-ink="true"])');
                     }
 
                     if (cells && cells.length > 0) {
@@ -2646,7 +2652,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     } else if (this.currentView === 'year') {
                         cell = findSingle(this.contentViewChild.nativeElement, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true")]');
                     } else {
-                        cell = findSingle(this.contentViewChild.nativeElement, this._focusKey || '[data-pc-section="calendar"] td span:not([data-p-disabled="true")]:not([data-p-ink="true"])');
+                        cell = findSingle(this.contentViewChild.nativeElement, this._focusKey || 'table td span:not([data-p-disabled="true"]):not([data-p-ink="true"])');
                     }
                 }
 
@@ -3799,8 +3805,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         return !(this.el.nativeElement.isSameNode(event.target) || this.isNavIconClicked(event) || this.el.nativeElement.contains(event.target) || (this.overlay && this.overlay.contains(<Node>event.target)));
     }
 
-    isNavIconClicked(event: any) {
-        return hasClass(event.target, 'p-datepicker-prev-button') || hasClass(event.target, 'p-datepicker-prev-icon') || hasClass(event.target, 'p-datepicker-next-button') || hasClass(event.target, 'p-datepicker-next-icon');
+    isNavIconClicked(event: Event) {
+        return (
+            (this.previousButtonViewChild && (this.previousButtonViewChild.el.nativeElement.isSameNode(event.target) || this.previousButtonViewChild.el.nativeElement.contains(event.target))) ||
+            (this.nextButtonViewChild && (this.nextButtonViewChild.el.nativeElement.isSameNode(event.target) || this.nextButtonViewChild.el.nativeElement.contains(event.target)))
+        );
     }
 
     onWindowResize() {
