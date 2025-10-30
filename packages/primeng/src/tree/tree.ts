@@ -617,7 +617,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
     }
 
     setAllNodesTabIndexes() {
-        const nodes = <any>find(this.tree.el.nativeElement, '.p-tree-node');
+        const nodes = <any>find(this.tree.el.nativeElement, '[data-pc-section="node"]');
 
         const hasSelectedNode = [...nodes].some((node) => node.getAttribute('aria-selected') === 'true' || node.getAttribute('aria-checked') === 'true');
 
