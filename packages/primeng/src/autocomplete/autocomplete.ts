@@ -1828,9 +1828,10 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             empty: !this.$filled()
         };
 
-        const sz = this.size();
-        if (sz !== null && sz !== undefined) {
-            data[sz] = sz;
+        const size = this.size();
+
+        if (size != null) {
+            data[size] = size;
         }
 
         return this.cn(data);
