@@ -173,6 +173,8 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     blurListener: Nullable<Function>;
 
+    touchStartListener: EventListener;
+
     documentEscapeListener: Nullable<Function>;
 
     scrollHandler: any;
@@ -221,6 +223,9 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);
                 }
+
+                //Mobile touch event support
+                this.bindTouchStartListener();
             });
         }
     }
@@ -351,6 +356,14 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     onInputClick(e: Event) {
         this.deactivate();
+    }
+
+    onTouchStart(e: TouchEvent) {
+        const targetElement = this.getTarget(this.el.nativeElement);
+        if (targetElement.contains(e.target as Node)) {
+            e.preventDefault();
+            this.activate();
+        }
     }
 
     activate() {
@@ -666,13 +679,26 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
                 }
             });
         }
-
         this.scrollHandler.bindScrollListener();
     }
 
     unbindScrollListener() {
         if (this.scrollHandler) {
             this.scrollHandler.unbindScrollListener();
+        }
+    }
+
+    bindTouchStartListener() {
+        this.zone.runOutsideAngular(() => {
+            this.touchStartListener = this.onTouchStart.bind(this);
+            window.addEventListener('touchstart', this.touchStartListener);
+        });
+    }
+
+    unbindTouchStartListener() {
+        if (this.touchStartListener) {
+            window.removeEventListener('touchstart', this.touchStartListener);
+            this.touchStartListener = null;
         }
     }
 
@@ -694,6 +720,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             target.removeEventListener('focus', this.focusListener);
             target.removeEventListener('blur', this.blurListener);
         }
+        this.unbindTouchStartListener();
         this.unbindDocumentResizeListener();
     }
 
