@@ -52,7 +52,9 @@ export class Ripple extends BaseComponent {
             return;
         }
 
-        removeClass(ink, 'p-ink-active');
+        !this.unstyled() && removeClass(ink, 'p-ink-active');
+        ink.setAttribute('data-p-ink-active', 'false');
+
         if (!getHeight(ink) && !getWidth(ink)) {
             let d = Math.max(getOuterWidth(this.el.nativeElement), getOuterHeight(this.el.nativeElement));
             ink.style.height = d + 'px';
@@ -65,12 +67,15 @@ export class Ripple extends BaseComponent {
 
         this.renderer.setStyle(ink, 'top', y + 'px');
         this.renderer.setStyle(ink, 'left', x + 'px');
-        addClass(ink, 'p-ink-active');
+
+        !this.unstyled() && addClass(ink, 'p-ink-active');
+        ink.setAttribute('data-p-ink-active', 'true');
 
         this.timeout = setTimeout(() => {
             let ink = this.getInk();
             if (ink) {
-                removeClass(ink, 'p-ink-active');
+                !this.unstyled() && removeClass(ink, 'p-ink-active');
+                ink.setAttribute('data-p-ink-active', 'false');
             }
         }, 401);
     }
@@ -88,7 +93,8 @@ export class Ripple extends BaseComponent {
     resetInk() {
         let ink = this.getInk();
         if (ink) {
-            removeClass(ink, 'p-ink-active');
+            !this.unstyled() && removeClass(ink, 'p-ink-active');
+            ink.setAttribute('data-p-ink-active', 'false');
         }
     }
 
@@ -96,13 +102,17 @@ export class Ripple extends BaseComponent {
         if (this.timeout) {
             clearTimeout(this.timeout);
         }
-        removeClass(event.currentTarget as any, 'p-ink-active');
+
+        !this.unstyled() && removeClass(event.currentTarget as any, 'p-ink-active');
+        (event.currentTarget as any).setAttribute('data-p-ink-active', 'false');
     }
 
     create() {
         let ink = this.renderer.createElement('span');
         this.renderer.addClass(ink, 'p-ink');
         this.renderer.appendChild(this.el.nativeElement, ink);
+        this.renderer.setAttribute(ink, 'data-p-ink', 'true');
+        this.renderer.setAttribute(ink, 'data-p-ink-active', 'false');
         this.renderer.setAttribute(ink, 'aria-hidden', 'true');
         this.renderer.setAttribute(ink, 'role', 'presentation');
 
