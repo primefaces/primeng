@@ -22,30 +22,15 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" [pt]="pt" />
+            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />
         </div>
         <app-code [code]="code" selector="autocomplete-basic-demo"></app-code>`
 })
 export class BasicDoc {
-    pt = {
-        pcOverlay: {
-            host: {
-                'data-host': true,
-                class: 'PC_OVERLAY_HOST'
-            },
-            root: {
-                class: 'PC_OVERLAY_ROOT',
-                'data-root': true
-            },
-            content: {
-                class: { PC_OVERLAY_CONTENT: true },
-                'data-content': true
-            }
-        }
-    };
     items: any[] = [];
 
     value: any;
+
     code: Code = {
         basic: `<p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" />`,
 
