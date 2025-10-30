@@ -662,7 +662,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
     }
 
     findLastVisibleDescendant(nodeElement: any): any {
-        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el: any) => hasClass(el, 'p-tree-node'));
+        const listElement = <HTMLElement>Array.from(nodeElement.children).find((el: any) => el.getAttribute('data-pc-section') === 'node');
         const childrenListElement = listElement?.children[1];
         if (childrenListElement && childrenListElement.children.length > 0) {
             const lastChildElement = childrenListElement.children[childrenListElement.children.length - 1];
@@ -1336,7 +1336,8 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
-        if (hasClass(eventTarget, 'p-tree-toggler') || hasClass(eventTarget, 'p-tree-toggler-icon')) {
+        const section = eventTarget?.getAttribute?.('data-pc-section');
+        if (section === 'nodetogglebutton' || section === 'nodetoggleicon') {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {
@@ -1444,8 +1445,9 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
     onNodeRightClick(event: MouseEvent, node: TreeNode<any>) {
         if (this.contextMenu) {
             let eventTarget = <Element>event.target;
+            const section = eventTarget.getAttribute('data-pc-section');
 
-            if (eventTarget.className && eventTarget.className.indexOf('p-tree-toggler') === 0) {
+            if (section === 'nodetogglebutton' || section === 'nodetoggleicon') {
                 return;
             } else {
                 let index = this.findIndexInSelection(node);
