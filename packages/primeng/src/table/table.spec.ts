@@ -119,6 +119,37 @@ describe('Table', () => {
     @Component({
         standalone: false,
         template: `
+            <p-table [value]="products" [sortField]="sortField" [sortOrder]="sortOrder" [lazy]="true">
+                <ng-template #header>
+                    <tr>
+                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-product>
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>{{ product.category }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        `
+    })
+    class TestSingleSortingTableComponent {
+        sortField = 'name';
+        sortOrder = -1;
+        products = [
+            { id: '1001', name: 'Gaming Laptop', price: 1299.99, category: 'Electronics' },
+            { id: '1002', name: 'Wireless Mouse', price: 29.99, category: 'Accessories' },
+            { id: '1003', name: 'Mechanical Keyboard', price: 149.99, category: 'Accessories' }
+        ];
+    }
+
+    @Component({
+        standalone: false,
+        template: `
             <p-table [value]="products" [globalFilterFields]="['name', 'category']">
                 <ng-template #header>
                     <tr>
@@ -263,7 +294,7 @@ describe('Table', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [Table, TestBasicTableComponent, TestSelectionTableComponent, TestSortingTableComponent, TestFilteringTableComponent, TestVirtualScrollTableComponent, TestLazyLoadTableComponent, TestTemplatesTableComponent],
+            declarations: [Table, TestBasicTableComponent, TestSelectionTableComponent, TestSortingTableComponent, TestSingleSortingTableComponent, TestFilteringTableComponent, TestVirtualScrollTableComponent, TestLazyLoadTableComponent, TestTemplatesTableComponent],
             imports: [CommonModule, FormsModule, NoopAnimationsModule, TableModule, SharedModule],
             providers: [TableService]
         }).compileComponents();
@@ -358,6 +389,78 @@ describe('Table', () => {
         it('should have sortable columns', () => {
             const sortableColumns = testFixture.debugElement.queryAll(By.css('[pSortableColumn]'));
             expect(sortableColumns.length).toBe(3);
+        });
+    });
+
+    describe('Single Sorting', () => {
+        let testComponent: TestSingleSortingTableComponent;
+        let testFixture: ComponentFixture<TestSingleSortingTableComponent>;
+
+        beforeEach(() => {
+            testFixture = TestBed.createComponent(TestSingleSortingTableComponent);
+            testComponent = testFixture.componentInstance;
+            testFixture.detectChanges();
+        });
+
+        it('should be in single sort mode', () => {
+            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            expect(tableInstance.sortMode).toBe('single');
+        });
+
+        it('should render sort icons', () => {
+            const sortIcons = testFixture.debugElement.queryAll(By.css('p-sortIcon'));
+            expect(sortIcons.length).toBe(3);
+        });
+
+        it('should have sortable columns', () => {
+            const sortableColumns = testFixture.debugElement.queryAll(By.css('[pSortableColumn]'));
+            expect(sortableColumns.length).toBe(3);
+        });
+
+        it('should only emit one sort event when only order changes', () => {
+            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const emitterSpy = spyOn(tableInstance.onSort, 'emit');
+
+            expect(tableInstance.sortField).toBe('name');
+            expect(tableInstance.sortOrder).toBe(-1);
+
+            testComponent.sortOrder = 1;
+            testFixture.detectChanges();
+
+            expect(tableInstance.sortField).toBe('name');
+            expect(tableInstance.sortOrder).toBe(1);
+            expect(emitterSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('should only emit one sort event when only field changes', () => {
+            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const emitterSpy = spyOn(tableInstance.onSort, 'emit');
+
+            expect(tableInstance.sortField).toBe('name');
+            expect(tableInstance.sortOrder).toBe(-1);
+
+            testComponent.sortField = 'price';
+            testFixture.detectChanges();
+
+            expect(tableInstance.sortField).toBe('price');
+            expect(tableInstance.sortOrder).toBe(-1);
+            expect(emitterSpy).toHaveBeenCalledTimes(1);
+        });
+
+        it('should only emit one sort event when both sort inputs change', () => {
+            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const emitterSpy = spyOn(tableInstance.onSort, 'emit');
+
+            expect(tableInstance.sortField).toBe('name');
+            expect(tableInstance.sortOrder).toBe(-1);
+
+            testComponent.sortField = 'price';
+            testComponent.sortOrder = 1;
+            testFixture.detectChanges();
+
+            expect(tableInstance.sortField).toBe('price');
+            expect(tableInstance.sortOrder).toBe(1);
+            expect(emitterSpy).toHaveBeenCalledTimes(1);
         });
     });
 
