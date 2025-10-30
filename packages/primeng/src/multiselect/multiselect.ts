@@ -92,6 +92,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         '[attr.aria-setsize]': 'ariaSetSize',
         '[attr.aria-posinset]': 'ariaPosInset',
         '[attr.aria-selected]': 'selected',
+        '[attr.data-p-selected]': 'selected',
         '[attr.data-p-focused]': 'focused',
         '[attr.data-p-highlight]': 'selected',
         '[attr.data-p-disabled]': 'disabled',
@@ -1954,7 +1955,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-list-container');
+            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
             this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1964,7 +1965,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
+                    let selectedListItem = findSingle(this.itemsWrapper, '[data-pc-section="option"][data-p-selected="true"]');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
