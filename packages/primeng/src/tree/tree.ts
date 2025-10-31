@@ -171,8 +171,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
         }
     `,
     encapsulation: ViewEncapsulation.None,
-    providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    providers: [TreeStyle, { provide: TREENODE_INSTANCE, useExisting: UITreeNode }, { provide: PARENT_INSTANCE, useExisting: UITreeNode }]
 })
 export class UITreeNode extends BaseComponent<TreePassThrough> {
     $pcTreeNode: UITreeNode | undefined = inject(TREENODE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
