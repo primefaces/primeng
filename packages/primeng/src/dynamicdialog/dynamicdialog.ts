@@ -47,7 +47,7 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             [maximizeIcon]="maximizeIcon"
             [closeButtonProps]="{ severity: 'secondary', variant: 'text', rounded: true }"
             [maximizeButtonProps]="{ severity: 'secondary', variant: 'text', rounded: true }"
-            [style]="ddconfig?.style"
+            [style]="dialogStyle"
             [position]="position"
             (onHide)="onDialogHide($event)"
             (onMaximize)="onDialogMaximize($event)"
@@ -172,6 +172,14 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
 
     get closeIconTemplate() {
         return this.ddconfig?.templates?.closeicon;
+    }
+
+    get dialogStyle() {
+        return {
+            ...(this.ddconfig?.style || {}),
+            ...(this.ddconfig?.width && { width: this.ddconfig.width }),
+            ...(this.ddconfig?.height && { height: this.ddconfig.height })
+        };
     }
 
     get header() {
