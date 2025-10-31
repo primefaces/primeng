@@ -26,7 +26,7 @@ import { AppDocThemingSection } from './app.docthemingsection';
                     <button type="button" (click)="activateTab(1)">API</button>
                 </li>
             }
-            @if (_componentName() || themeDocs()) {
+            @if (themeDocs()) {
                 <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 2 }">
                     <button type="button" (click)="activateTab(2)">THEMING</button>
                 </li>
@@ -47,7 +47,7 @@ import { AppDocThemingSection } from './app.docthemingsection';
                 }
             }
 
-            @if (_componentName() || themeDocs()) {
+            @if (themeDocs()) {
                 @defer (when docService.activeTab() === 2) {
                     <app-docthemingsection [header]="header()" [docs]="themeDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
                 }
