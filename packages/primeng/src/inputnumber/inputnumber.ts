@@ -91,8 +91,10 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             [pt]="ptm('pcInputText')"
+            [unstyled]="unstyled()"
             [pAutoFocus]="autofocus"
             [fluid]="hasFluid"
+            [attr.data-p]="dataP"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" />
@@ -100,7 +102,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <span [pBind]="ptm('buttonGroup')" [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'">
+        <span [pBind]="ptm('buttonGroup')" [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-p]="dataP">
             <button
                 type="button"
                 [pBind]="ptm('incrementButton')"
@@ -113,6 +115,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (keydown)="onUpButtonKeyDown($event)"
                 (keyup)="onUpButtonKeyUp()"
                 [attr.aria-hidden]="true"
+                [attr.data-p]="dataP"
             >
                 <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
@@ -133,6 +136,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
                 (keyup)="onDownButtonKeyUp()"
+                [attr.data-p]="dataP"
             >
                 <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
@@ -154,6 +158,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (mouseleave)="onUpButtonMouseLeave()"
             (keydown)="onUpButtonKeyDown($event)"
             (keyup)="onUpButtonKeyUp()"
+            [attr.data-p]="dataP"
         >
             <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
             <ng-container *ngIf="!incrementButtonIcon">
@@ -174,6 +179,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (mouseleave)="onDownButtonMouseLeave()"
             (keydown)="onDownButtonKeyDown($event)"
             (keyup)="onDownButtonKeyUp()"
+            [attr.data-p]="dataP"
         >
             <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
             <ng-container *ngIf="!decrementButtonIcon">
@@ -186,7 +192,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle, { provide: INPUTNUMBER_INSTANCE, useExisting: InputNumber }, { provide: PARENT_INSTANCE, useExisting: InputNumber }],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -1445,6 +1452,23 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         }
     }
 
+    get dataP() {
+        const size = this.size?.();
+        const layout = this.showButtons && this.buttonLayout ? this.buttonLayout : null;
+
+        const data: any = {
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            empty: !this.$filled(),
+            ...(size ? { [size]: true } : {}),
+            ...(layout ? { [layout]: true } : {})
+        };
+
+        return this.cn(data);
+    }
     /**
      * @override
      *
