@@ -96,6 +96,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [fluid]="hasFluid"
                 [invalid]="invalid()"
                 [pt]="ptm('pcInputText')"
+                [unstyled]="unstyled()"
             />
             <ng-container *ngIf="showClear && !$disabled() && inputfieldViewChild?.nativeElement?.value">
                 <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()" />
@@ -123,7 +124,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 </ng-container>
             </button>
             <ng-container *ngIf="iconDisplay === 'input' && showIcon">
-                <span [class]="cx('inputIconContainer')" [pBind]="ptm('inputIconContainer')">
+                <span [class]="cx('inputIconContainer')" [pBind]="ptm('inputIconContainer')" [attr.data-p]="inputIconDataP">
                     <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" [pBind]="ptm('inputIcon')" />
 
                     <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
@@ -148,6 +149,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
             (click)="onOverlayClick($event)"
             *ngIf="inline || overlayVisible"
             [pBind]="ptm('panel')"
+            [attr.data-p]="panelDataP"
         >
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
@@ -156,6 +158,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                     <div [class]="cx('calendar')" *ngFor="let month of months; let i = index" [pBind]="ptm('calendar')">
                         <div [class]="cx('header')" [pBind]="ptm('header')">
                             <p-button
+                                #previousButton
                                 rounded
                                 variant="text"
                                 severity="secondary"
@@ -166,8 +169,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 type="button"
                                 [ariaLabel]="prevIconAriaLabel"
                                 [pt]="ptm('pcPrevButton')"
+                                [unstyled]="unstyled()"
                                 [attr.data-pc-group-section]="'navigator'"
-                                #previousButton
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-left" *ngIf="!previousIconTemplate && !_previousIconTemplate" />
@@ -211,6 +214,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 </span>
                             </div>
                             <p-button
+                                #nextButton
                                 rounded
                                 variant="text"
                                 severity="secondary"
@@ -220,8 +224,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                 [ariaLabel]="nextIconAriaLabel"
                                 [pt]="ptm('pcNextButton')"
+                                [unstyled]="unstyled()"
                                 [attr.data-pc-group-section]="'navigator'"
-                                #nextButton
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-right" *ngIf="!nextIconTemplate && !_nextIconTemplate" />
@@ -252,7 +256,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                     <td *ngFor="let date of week" [attr.aria-label]="date.day" [class]="cx('dayCell', { date })" [pBind]="ptm('dayCell')">
                                         <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                             <span
-                                                [ngClass]="dayClass(date)"
+                                                [class]="cx('day', { date })"
                                                 (click)="onDateSelect($event, date)"
                                                 draggable="false"
                                                 [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
@@ -260,6 +264,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                                 (keydown)="onDateCellKeydown($event, date, i)"
                                                 pRipple
                                                 [pBind]="ptm('day')"
+                                                [attr.data-p]="dayDataP(date)"
                                             >
                                                 <ng-container *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
                                                 <ng-container *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
@@ -314,7 +319,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                     </span>
                 </div>
             </ng-container>
-            <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'" [pBind]="ptm('timePicker')">
+            <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'" [pBind]="ptm('timePicker')" [attr.data-p]="timePickerDataP">
                 <div [class]="cx('hourPicker')" [pBind]="ptm('hourPicker')">
                     <p-button
                         rounded
@@ -331,6 +336,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextHour')"
                         [pt]="ptm('pcIncrementButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
@@ -354,6 +360,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevHour')"
                         [pt]="ptm('pcDecrementButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
@@ -381,6 +388,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextMinute')"
                         [pt]="ptm('pcIncrementButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
@@ -404,6 +412,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevMinute')"
                         [pt]="ptm('pcDecrementButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
@@ -431,6 +440,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextSecond')"
                         [pt]="ptm('pcIncrementButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
@@ -454,6 +464,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevSecond')"
                         [pt]="ptm('pcDecrementButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
@@ -476,6 +487,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         (keydown.enter)="toggleAMPM($event)"
                         [attr.aria-label]="getTranslation('am')"
                         [pt]="ptm('pcIncrementButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
@@ -494,6 +506,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         (keydown.enter)="toggleAMPM($event)"
                         [attr.aria-label]="getTranslation('pm')"
                         [pt]="ptm('pcDecrementButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
@@ -518,6 +531,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         variant="text"
                         size="small"
                         [pt]="ptm('pcTodayButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'button'"
                     />
                     <p-button
@@ -531,6 +545,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         variant="text"
                         size="small"
                         [pt]="ptm('pcClearButton')"
+                        [unstyled]="unstyled()"
                         [attr.data-pc-group-section]="'button'"
                     />
                 }
@@ -567,7 +582,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'containerDataP'
     }
 })
 export class DatePicker extends BaseInput<DatePickerPassThrough> {
@@ -1131,8 +1147,37 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     preventDocumentListener: Nullable<boolean>;
 
-    dayClass(date) {
-        return this._componentStyle.classes.day({ instance: this, date: date });
+    get containerDataP() {
+        return this.cn({
+            fluid: this.hasFluid
+        });
+    }
+
+    get panelDataP() {
+        return this.cn({
+            inline: this.inline,
+            ['overlay-' + this.appendTo()]: 'overlay-' + this.appendTo()
+        });
+    }
+
+    get inputIconDataP() {
+        const size = this.size();
+        return this.cn(size ? { [size]: size } : {});
+    }
+
+    get timePickerDataP() {
+        return this.cn({
+            'time-only': this.timeOnly
+        });
+    }
+
+    dayDataP(date: any) {
+        return this.cn({
+            today: date.today,
+            'other-month': date.otherMonth,
+            selected: this.isSelected(date),
+            disabled: !date.selectable
+        });
     }
 
     /**
@@ -2636,9 +2681,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     let cells;
 
                     if (this.currentView === 'month') {
-                        cells = find(this.contentViewChild.nativeElement, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true")]');
+                        cells = find(this.contentViewChild.nativeElement, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true"])');
                     } else if (this.currentView === 'year') {
-                        cells = find(this.contentViewChild.nativeElement, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true")]');
+                        cells = find(this.contentViewChild.nativeElement, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true"])');
                     } else {
                         cells = find(this.contentViewChild.nativeElement, this._focusKey || 'table td span:not([data-p-disabled="true"]):not([data-p-ink="true"])');
                     }
@@ -2648,9 +2693,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     }
                 } else {
                     if (this.currentView === 'month') {
-                        cell = findSingle(this.contentViewChild.nativeElement, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true")]');
+                        cell = findSingle(this.contentViewChild.nativeElement, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true"])');
                     } else if (this.currentView === 'year') {
-                        cell = findSingle(this.contentViewChild.nativeElement, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true")]');
+                        cell = findSingle(this.contentViewChild.nativeElement, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true"])');
                     } else {
                         cell = findSingle(this.contentViewChild.nativeElement, this._focusKey || 'table td span:not([data-p-disabled="true"]):not([data-p-ink="true"])');
                     }
@@ -2674,7 +2719,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         let cell!: any;
 
         if (this.currentView === 'month') {
-            let cells = find(contentEl, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true")]');
+            let cells = find(contentEl, '[data-pc-section="monthview"] [data-pc-section="month"]:not([data-p-disabled="true"])');
             let selectedCell = <any>findSingle(contentEl, '[data-pc-section="monthview"] [data-pc-section="month"][data-p-selected="true"]');
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
@@ -2684,7 +2729,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else if (this.currentView === 'year') {
-            let cells = find(contentEl, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true")]');
+            let cells = find(contentEl, '[data-pc-section="yearview"] [data-pc-section="year"]:not([data-p-disabled="true"])');
             let selectedCell = findSingle(contentEl, '[data-pc-section="yearview"] [data-pc-section="year"][data-p-selected="true"]');
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
