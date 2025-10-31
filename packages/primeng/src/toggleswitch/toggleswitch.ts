@@ -77,8 +77,8 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [pAutoFocus]="autofocus"
             [pBind]="ptm('input')"
         />
-        <div [class]="cx('slider')" [pBind]="ptm('slider')">
-            <div [class]="cx('handle')" [pBind]="ptm('handle')">
+        <div [class]="cx('slider')" [pBind]="ptm('slider')" [attr.data-p]="dataP">
+            <div [class]="cx('handle')" [pBind]="ptm('handle')" [attr.data-p]="dataP">
                 @if (handleTemplate || _handleTemplate) {
                     <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
                 }
@@ -91,7 +91,9 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
-        '[attr.data-pc-name]': "'toggleswitch'"
+        '[attr.data-p-checked]': 'checked()',
+        '[attr.data-p-disabled]': '$disabled()',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -238,6 +240,14 @@ export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
         setModelValue(value);
         this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            checked: this.checked(),
+            disabled: this.$disabled(),
+            invalid: this.invalid()
+        });
     }
 }
 
