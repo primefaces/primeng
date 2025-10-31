@@ -1072,7 +1072,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
         if (this.maximized) {
             removeClass(this.document.body, 'p-overflow-hidden');
-            this.document.body.style.removeProperty('--scrollbar;-width');
+            this.document.body.style.removeProperty('--scrollbar-width');
             this.maximized = false;
         }
 
