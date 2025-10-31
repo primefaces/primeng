@@ -440,6 +440,7 @@ export const Password_VALUE_ACCESSOR: any = {
             (keyup)="onKeyUp($event)"
             [pAutoFocus]="autofocus"
             [pt]="ptm('pcInputText')"
+            [unstyled]="unstyled()"
         />
         <ng-container *ngIf="showClear && value != null">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [pBind]="ptm('clearIcon')" />
@@ -466,6 +467,7 @@ export const Password_VALUE_ACCESSOR: any = {
         <div
             #overlay
             *ngIf="overlayVisible"
+            [attr.data-p]="overlayDataP"
             [class]="cx('overlay')"
             [style]="sx('overlay')"
             (click)="onOverlayClick($event)"
@@ -484,7 +486,7 @@ export const Password_VALUE_ACCESSOR: any = {
             <ng-template #content>
                 <div [class]="cx('content')" [pBind]="ptm('content')">
                     <div [class]="cx('meter')" [pBind]="ptm('meter')">
-                        <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')"></div>
+                        <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
                     </div>
                     <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
                 </div>
@@ -498,7 +500,8 @@ export const Password_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
 })
@@ -968,6 +971,25 @@ export class Password extends BaseInput<PasswordPassThrough> {
         this.onModelChange(this.value);
         this.writeValue(this.value);
         this.onClear.emit();
+    }
+
+    get containerDataP() {
+        return this.cn({
+            fluid: this.hasFluid
+        });
+    }
+
+    get meterDataP() {
+        const strength = this.meter?.strength;
+        return this.cn({
+            ...(strength && { [strength]: strength })
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            ['overlay-' + this.$appendTo()]: 'overlay-' + this.$appendTo()
+        });
     }
 
     /**
