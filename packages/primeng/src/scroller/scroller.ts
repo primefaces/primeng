@@ -924,10 +924,18 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     setSize() {
         if (this.elementViewChild?.nativeElement) {
-            const parentElement = this.elementViewChild.nativeElement.parentElement.parentElement;
-            const width = this._scrollWidth || `${this.elementViewChild.nativeElement.offsetWidth || parentElement.offsetWidth}px`;
-            const height = this._scrollHeight || `${this.elementViewChild.nativeElement.offsetHeight || parentElement.offsetHeight}px`;
-            const setProp = (_name: string, _value: any) => ((<ElementRef>this.elementViewChild).nativeElement.style[_name] = _value);
+            const nativeElement = this.elementViewChild.nativeElement;
+            const parentElement = nativeElement.parentElement?.parentElement;
+
+            const elementWidth = nativeElement.offsetWidth;
+            const parentWidth = parentElement?.offsetWidth || 0;
+            const width = this._scrollWidth || `${elementWidth || parentWidth}px`;
+
+            const elementHeight = nativeElement.offsetHeight;
+            const parentHeight = parentElement?.offsetHeight || 0;
+            const height = this._scrollHeight || `${elementHeight || parentHeight}px`;
+
+            const setProp = (_name: string, _value: any) => (nativeElement.style[_name] = _value);
 
             if (this.both || this.horizontal) {
                 setProp('height', height);
