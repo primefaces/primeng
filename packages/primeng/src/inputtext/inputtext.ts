@@ -17,7 +17,8 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
     selector: '[pInputText]',
     standalone: true,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cx('root')",
+        '[attr.data-p]': 'dataP'
     },
     providers: [InputTextStyle, { provide: INPUTTEXT_INSTANCE, useExisting: InputText }, { provide: PARENT_INSTANCE, useExisting: InputText }],
     hostDirectives: [Bind]
@@ -90,6 +91,19 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
+    }
+
+    get dataP() {
+        const size = this.pSize;
+
+        const data: Record<string, any> = {
+            invalid: this.invalid(),
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            ...(size != null && { [size]: size })
+        };
+
+        return this.cn(data);
     }
 }
 
