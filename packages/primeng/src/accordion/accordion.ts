@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -320,11 +319,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [CommonModule, BindModule],
     standalone: true,
-    template: `<div
-        [class]="cx('content')"
-        [@content]="active() ? { value: 'visible', params: { transitionParams: pcAccordion.transitionOptions } } : { value: 'hidden', params: { transitionParams: pcAccordion.transitionOptions } }"
-        [pBind]="ptm('content', ptParams())"
-    >
+    template: `<div [pBind]="ptm('content', ptParams())">
         <ng-content />
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -334,34 +329,11 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
         '[attr.id]': 'id()',
         '[attr.role]': '"region"',
         '[attr.data-p-active]': 'active()',
-        '[attr.aria-labelledby]': 'ariaLabelledby()'
+        '[attr.aria-labelledby]': 'ariaLabelledby()',
+        '[class.p-collapsible-enter]': 'active()',
+        '[class.p-collapsible-leave]': '!active()'
     },
     hostDirectives: [Bind],
-    animations: [
-        trigger('content', [
-            state(
-                'hidden',
-                style({
-                    height: '0',
-                    // To prevent memory leak, Angular issue. https://github.com/primefaces/primeng/issues/18546
-                    paddingBlockStart: '0',
-                    paddingBlockEnd: '0',
-                    borderBlockStartWidth: '0',
-                    borderBlockEndWidth: '0',
-                    //
-                    visibility: 'hidden'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
-    ],
     providers: [AccordionStyle, { provide: ACCORDION_CONTENT_INSTANCE, useExisting: AccordionContent }, { provide: PARENT_INSTANCE, useExisting: AccordionContent }]
 })
 export class AccordionContent extends BaseComponent<AccordionContentPassThrough> {

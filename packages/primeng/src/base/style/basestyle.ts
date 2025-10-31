@@ -27,7 +27,7 @@ const css = /*css*/ `
 }
 `;
 
-const style = `
+const extendedStyle = `
     ${base_style} 
     
     .p-collapsible-enter {
@@ -40,6 +40,7 @@ const style = `
         animation-name: p-animate-collapsible-leave;
         animation-duration: 450ms;
         animation-timing-function: cubic-bezier(0, 1, 0, 1);
+        animation-fill-mode: forwards;
     }
 
     @keyframes p-animate-collapsible-enter {
@@ -96,7 +97,7 @@ export class BaseStyle {
     };
 
     loadBaseStyle = (options: any = {}, style: string = '') => {
-        return this.load(style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
+        return this.load(extendedStyle, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
     };
 
     getCommonTheme = (params?) => {
