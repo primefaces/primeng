@@ -189,6 +189,7 @@ export class SelectItem extends BaseComponent {
             [attr.aria-required]="required()"
             [attr.required]="required() ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
+            [attr.data-p]="labelDataP"
         >
             <ng-container *ngIf="!selectedItemTemplate && !_selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
             <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && !isSelectedOptionEmpty()" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
@@ -222,6 +223,7 @@ export class SelectItem extends BaseComponent {
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
+            [attr.data-p]="labelDataP"
         />
         <ng-container *ngIf="isVisibleClearIcon">
             <svg data-p-icon="times" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
@@ -266,7 +268,7 @@ export class SelectItem extends BaseComponent {
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')">
+                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -405,6 +407,7 @@ export class SelectItem extends BaseComponent {
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.id]': 'id',
+        '[attr.data-p]': 'containerDataP',
         '(click)': 'onContainerClick($event)'
     },
     providers: [SELECT_VALUE_ACCESSOR, SelectStyle, { provide: SELECT_INSTANCE, useExisting: Select }, { provide: PARENT_INSTANCE, useExisting: Select }],
@@ -1947,6 +1950,46 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         setModelValue(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
+    }
+
+    get containerDataP() {
+        const size = this.size();
+
+        const data: any = {
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            ...(size ? { [size]: true } : {})
+        };
+
+        return this.cn(data);
+    }
+
+    get labelDataP() {
+        const size = this.size();
+        return this.cn({
+            placeholder: this.label === this.placeholder,
+            clearable: this.showClear,
+            disabled: this.disabled,
+            ...(size ? { [size]: true } : {}),
+            empty: !this.editable && !this.selectedItemTemplate && (!this.label?.() || this.label() === 'p-emptylabel' || this.label()?.length === 0)
+        });
+    }
+
+    get dropdownIconDataP() {
+        const size = this.size();
+
+        return this.cn({
+            ...(size ? { [size]: true } : {})
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            ['overlay-' + this.$appendTo()]: 'overlay-' + this.$appendTo()
+        });
     }
 }
 
