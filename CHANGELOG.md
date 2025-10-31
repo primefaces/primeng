@@ -2,6 +2,18 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [20.3.0](https://github.com/primefaces/primeng/tree/20.3.0) (2025-10-31)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.3.0-rc.1...20.3.0)
+
+**Fixed bugs:**
+- CSP Trusted Types fails for BadgeDirective [#19035](https://github.com/primefaces/primeng/issues/19035)
+- Data Table column filter styles broken [#19037](https://github.com/primefaces/primeng/issues/19037)
+- DatePicker selectionMode="range" timing error [#18479](https://github.com/primefaces/primeng/issues/18479)
+- v20.3rc1 Dynamic Dialog width/height values ignored [#19049](https://github.com/primefaces/primeng/issues/19049)
+- TreeView single selection mode not working in 20.3 rc 1 [#19040](https://github.com/primefaces/primeng/issues/19040)
+- InputText nested within Select Component does not focus on click [#19047](https://github.com/primefaces/primeng/issues/19047)
+- PrimeNGConfigType is not exported in public_api [#19052](https://github.com/primefaces/primeng/issues/19052)
+
 ## [20.3.0-rc.1](https://github.com/primefaces/primeng/tree/20.3.0-rc.1) (2025-10-27)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.2.0...20.3.0-rc.1)
 
