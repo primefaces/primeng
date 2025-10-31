@@ -713,7 +713,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             }
 
             // for nested dialogs w/modal
-            const scrollBlockers = document.querySelectorAll('.p-dialog-mask-scrollblocker');
+            const scrollBlockers = document.querySelectorAll('[data-pc-section="mask"]');
 
             if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
                 unblockBodyScroll();
@@ -1030,9 +1030,9 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                     this.enableModality();
                 }
 
-                // if (!this.modal && this.blockScroll) {
-                //     addClass(this.document.body, 'p-overflow-hidden');
-                // }
+                if (!this.modal && this.blockScroll) {
+                    addClass(this.document.body, 'p-overflow-hidden');
+                }
 
                 if (this.focusOnShow) {
                     this.focus();
@@ -1071,7 +1071,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         this.maskVisible = false;
 
         if (this.maximized) {
-            // removeClass(this.document.body, 'p-overflow-hidden')
+            removeClass(this.document.body, 'p-overflow-hidden');
             this.document.body.style.removeProperty('--scrollbar;-width');
             this.maximized = false;
         }
@@ -1080,11 +1080,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             this.disableModality();
         }
 
-        // if (this.blockScroll) {
-        //      removeClass(this.document.body, 'p-overflow-hidden');
-        // }
-
-        if (hasClass(this.document.body, 'p-overflow-hidden')) {
+        if (this.blockScroll && hasClass(this.document.body, 'p-overflow-hidden')) {
             removeClass(this.document.body, 'p-overflow-hidden');
         }
 
