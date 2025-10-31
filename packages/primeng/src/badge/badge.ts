@@ -147,7 +147,7 @@ export class BadgeDirective extends BaseComponent {
             removeClass(badge, 'p-badge-circle');
         }
 
-        badge.innerHTML = '';
+        badge.textContent = '';
         const badgeValue = this.value != null ? String(this.value) : '';
         this.renderer.appendChild(badge, this.document.createTextNode(badgeValue));
     }
