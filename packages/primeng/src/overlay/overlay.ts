@@ -1,4 +1,3 @@
-import { animate, animation, AnimationEvent, style } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -31,9 +30,6 @@ import { OverlayStyle } from './style/overlaystyle';
 
 const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
 
-const showOverlayContentAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
-
-const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 /**
  * This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
  * @group Components
@@ -51,10 +47,10 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
                     [class]="cn(cx('content'), contentStyleClass)"
                     [pBind]="ptm('content')"
                     (click)="onOverlayContentClick($event)"
-                    animate.enter="p-popover-enter"
-                    animate.leave="p-popover-leave"
-                    (animationstart)="_onAnimationStart($event)"
-                    (animationend)="_onAnimationEnd($event)"
+                    animate.enter="p-overlay-enter"
+                    animate.leave="p-overlay-leave"
+                    (animationstart)="handleAnimationStart($event)"
+                    (animationend)="handleAnimationEnd($event)"
                 >
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
@@ -465,14 +461,14 @@ export class Overlay extends BaseComponent {
         this.isOverlayContentClicked = true;
     }
 
-    _onAnimationStart(event: Event) {
-        if (event['animationName'] === 'p-anim-popover-enter') {
+    handleAnimationStart(event: Event) {
+        if (event['animationName'] === 'p-animate-overlay-enter') {
             this.onOverlayEnter(event);
         }
     }
 
-    _onAnimationEnd(event: Event) {
-        if (event['animationName'] === 'p-anim-popover-leave') {
+    handleAnimationEnd(event: Event) {
+        if (event['animationName'] === 'p-animate-overlay-leave') {
             this.onOverlayLeave(event);
         }
     }

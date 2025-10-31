@@ -69,8 +69,8 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
                 [attr.tabindex]="collapsed ? '-1' : undefined"
-                animate.enter="p-slide-in"
-                animate.leave="p-slide-out"
+                animate.enter="p-collapsible-enter"
+                animate.leave="p-collapsible-leave"
             >
                 <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
                     <ng-content></ng-content>
