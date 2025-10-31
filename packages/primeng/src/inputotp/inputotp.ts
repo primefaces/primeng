@@ -113,6 +113,7 @@ export interface InputOtpInputTemplateContext {
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
                     [pt]="ptm('pcInputText')"
+                    [unstyled]="unstyled()"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate || _inputTemplate">
