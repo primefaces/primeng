@@ -1,24 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as panel_style } from '@primeuix/styles/panel';
+import { style } from '@primeuix/styles/panel';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-    ${panel_style}
-
-    /* For PrimeNG 
-    .p-panel-content-container {
-        overflow: hidden;
-        transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
-    }
-
-    .p-panel-content-container.panelvisible {
-        max-height: 1000px;
-    }
-
-    .p-panel-content-container.panelhidden {
-        max-height: 0;
-    }*/
-`;
 
 const classes = {
     root: ({ instance }) => [

@@ -47,8 +47,8 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
                     [class]="cn(cx('content'), contentStyleClass)"
                     [pBind]="ptm('content')"
                     (click)="onOverlayContentClick($event)"
-                    animate.enter="p-overlay-enter"
-                    animate.leave="p-overlay-leave"
+                    [animate.enter]="enterAnimation"
+                    [animate.leave]="leaveAnimation"
                     (animationstart)="handleAnimationStart($event)"
                     (animationend)="handleAnimationEnd($event)"
                 >
@@ -66,6 +66,10 @@ export class Overlay extends BaseComponent {
     $pcOverlay: Overlay | undefined = inject(OVERLAY_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     @Input() hostName: string = '';
+
+    @Input() enterAnimation: string = 'p-overlay-enter';
+
+    @Input() leaveAnimation: string = 'p-overlay-leave';
 
     /**
      * The visible property is an input that determines the visibility of the component.
@@ -462,13 +466,13 @@ export class Overlay extends BaseComponent {
     }
 
     handleAnimationStart(event: Event) {
-        if (event['animationName'] === 'p-animate-overlay-enter') {
+        if (this.visible) {
             this.onOverlayEnter(event);
         }
     }
 
     handleAnimationEnd(event: Event) {
-        if (event['animationName'] === 'p-animate-overlay-leave') {
+        if (!this.visible) {
             this.onOverlayLeave(event);
         }
     }

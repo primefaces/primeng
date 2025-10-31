@@ -263,6 +263,8 @@ export class SelectItem extends BaseComponent {
             [appendTo]="$appendTo()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onOverlayAnimationDone)="onOverlayAnimationDone($event)"
+            [enterAnimation]="enterAnimation"
+            [leaveAnimation]="leaveAnimation"
             (onHide)="hide()"
         >
             <ng-template #content>
@@ -412,6 +414,10 @@ export class SelectItem extends BaseComponent {
 })
 export class Select extends BaseInput<SelectPassThrough> implements AfterViewInit, AfterViewChecked {
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    @Input() enterAnimation: string;
+
+    @Input() leaveAnimation: string;
 
     /**
      * Unique identifier of the component
