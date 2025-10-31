@@ -2147,7 +2147,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         return this.cn(data);
     }
 
-    labelDataP() {
+    get labelDataP() {
         const size = this.size();
         return this.cn({
             placeholder: this.label === this.placeholder,
@@ -2159,14 +2159,14 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         });
     }
 
-    dropdownIconDataP() {
+    get dropdownIconDataP() {
         const size = this.size();
         return this.cn({
             ...(size ? { [size]: true } : {})
         });
     }
 
-    overlayDataP() {
+    get overlayDataP() {
         return this.cn({
             ['overlay-' + this.appendTo]: 'overlay-' + this.appendTo
         });
