@@ -37,6 +37,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
             }"
             [attr.data-pc-section]="'range'"
+            [attr.data-p]="dataP"
             [pBind]="ptm('range')"
         ></span>
         <span
@@ -48,6 +49,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
             }"
             [attr.data-pc-section]="'range'"
+            [attr.data-p]="dataP"
             [pBind]="ptm('range')"
         ></span>
         <span *ngIf="!range && orientation == 'vertical'" [class]="cx('range')" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', height: handleValue + '%' }" [pBind]="ptm('range')"></span>
@@ -78,6 +80,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'handle'"
             [pAutoFocus]="autofocus"
             [pBind]="ptm('handle')"
+            [attr.data-p]="dataP"
         ></span>
         <span
             *ngIf="range"
@@ -101,6 +104,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'startHandler'"
             [pAutoFocus]="autofocus"
             [pBind]="ptm('startHandler')"
+            [attr.data-p]="dataP"
         ></span>
         <span
             *ngIf="range"
@@ -123,6 +127,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.aria-orientation]="orientation"
             [attr.data-pc-section]="'endHandler'"
             [pBind]="ptm('endHandler')"
+            [attr.data-p]="dataP"
         ></span>
     `,
     providers: [SLIDER_VALUE_ACCESSOR, SliderStyle, { provide: SLIDER_INSTANCE, useExisting: Slider }, { provide: PARENT_INSTANCE, useExisting: Slider }],
@@ -131,7 +136,9 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'slider'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'dataP',
+        '[attr.data-p-sliding]': 'false'
     },
     hostDirectives: [Bind]
 })
@@ -294,6 +301,8 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
             return;
         }
 
+        this.el.nativeElement.setAttribute('data-p-sliding', true);
+
         var touchobj = event.changedTouches[0];
         this.startHandleValue = this.range ? this.handleValues[index as number] : this.handleValue;
         this.dragging = true;
@@ -343,6 +352,7 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
         }
 
         this.dragging = false;
+        this.el.nativeElement.setAttribute('data-p-sliding', false);
 
         if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values as number[] });
         else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
@@ -456,6 +466,7 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
                 if (!this.dragListener) {
                     this.dragListener = this.renderer.listen(documentTarget, 'mousemove', (event) => {
                         if (this.dragging) {
+                            this.el.nativeElement.setAttribute('data-p-sliding', true);
                             this.ngZone.run(() => {
                                 this.handleChange(event);
                             });
@@ -467,6 +478,7 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
                     this.mouseupListener = this.renderer.listen(documentTarget, 'mouseup', (event) => {
                         if (this.dragging) {
                             this.dragging = false;
+                            this.el.nativeElement.setAttribute('data-p-sliding', false);
                             this.ngZone.run(() => {
                                 if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values as number[] });
                                 else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
@@ -699,6 +711,12 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
         this.updateHandleValue();
         this.updateDiffAndOffset();
         this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            ...(this.orientation ? { [this.orientation]: true } : {})
+        });
     }
 }
 
