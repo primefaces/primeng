@@ -53,7 +53,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     standalone: true,
     imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind],
     template: `
-        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle" [pBind]="ptm('mask')">
+        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle" [pBind]="ptm('mask')" [attr.data-p-scrollblocker-active]="modal || blockScroll">
             <div
                 *ngIf="visible"
                 #container
@@ -713,7 +713,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             }
 
             // for nested dialogs w/modal
-            const scrollBlockers = document.querySelectorAll('[data-pc-section="mask"]');
+            const scrollBlockers = document.querySelectorAll('[data-p-scrollblocker-active="true"]');
 
             if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
                 unblockBodyScroll();
