@@ -25,7 +25,20 @@ export interface CheckboxTemplates {
     /**
      * Custom checkbox icon template
      */
-    icon(): TemplateRef<any>;
+    icon(context: {
+        /**
+         * State of the checkbox.
+         */
+        checked: boolean;
+        /**
+         * Class of the icon.
+         */
+        class: string;
+        /**
+         * DataP attributes.
+         */
+        dataP: string;
+    }): TemplateRef<{ checked: boolean; class: string; dataP: string }>;
 }
 
 /**
