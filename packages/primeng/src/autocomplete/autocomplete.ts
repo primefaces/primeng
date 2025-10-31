@@ -1633,7 +1633,10 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     updateModel(options) {
-        const value = this.multiple ? options.map((option) => this.getOptionValue(option)) : this.getOptionValue(options);
+        let value = null;
+        if (options) {
+            value = this.multiple ? options.map((option) => this.getOptionValue(option)) : this.getOptionValue(options);
+        }
 
         this.value = value;
         this.writeModelValue(options);
