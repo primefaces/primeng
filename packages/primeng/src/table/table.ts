@@ -5307,7 +5307,7 @@ export class ReorderableRow extends BaseComponent {
     selector: 'p-columnFilter, p-column-filter, p-columnfilter',
     standalone: false,
     template: `
-        <div [class]="cx('filter')" [pBind]="ptm('filter')">
+        <div [class]="cx('filter')">
             <p-columnFilterFormElement
                 *ngIf="display === 'row'"
                 class="p-fluid"
@@ -5474,6 +5474,7 @@ export class ReorderableRow extends BaseComponent {
             </div>
         </div>
     `,
+    providers: [TableStyle],
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('.12s cubic-bezier(0, 0, 0.2, 1)')]), transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])])],
     encapsulation: ViewEncapsulation.None,
     hostDirectives: [Bind]
@@ -5482,6 +5483,8 @@ export class ColumnFilter extends BaseComponent {
     hostName = 'Table';
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(TableStyle);
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('columnFilter'));
