@@ -1728,7 +1728,7 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
             }
         }
 
-        if (this.hideOnDateTimeSelect && (this.isSingleSelection() || (this.isRangeSelection() && this.value[1]))) {
+        if (this.hideOnDateTimeSelect && (this.isSingleSelection() || (this.isRangeSelection() && !this.showTime && this.value[1]))) {
             setTimeout(() => {
                 event.preventDefault();
                 this.hideOverlay();
@@ -2903,6 +2903,13 @@ export class DatePicker extends BaseComponent implements OnInit, AfterContentIni
 
     toggleAMPMIfNotMinDate(newPM: boolean) {
         let value = this.value;
+
+        if (this.isRangeSelection() && Array.isArray(value) && value.length > 0) {
+            value = value[1] || value[0];
+        } else if (this.isMultipleSelection() && Array.isArray(value) && value.length > 0) {
+            value = value[value.length - 1];
+        }
+
         const valueDateString = value ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         if (isMinDate && this.minDate.getHours() >= 12) {
