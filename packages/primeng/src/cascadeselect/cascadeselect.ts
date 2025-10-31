@@ -105,6 +105,7 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
                     [optionTemplate]="optionTemplate"
                     [pBind]="ptm('optionList')"
                     [pt]="pt"
+                    [unstyled]="unstyled()"
                 ></ul>
             </li>
         </ng-template>
@@ -328,6 +329,7 @@ export class CascadeSelectSub extends BaseComponent {
             (onBeforeHide)="onBeforeHide.emit($event)"
             (onHide)="hide($event)"
             [pt]="ptm('pcOverlay')"
+            [unstyled]="unstyled()"
         >
             <ng-template #content>
                 <div #panel [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')">
@@ -358,6 +360,7 @@ export class CascadeSelectSub extends BaseComponent {
                             [pBind]="ptm('list')"
                             [attr.aria-label]="listlabel"
                             [pt]="pt"
+                            [unstyled]="unstyled()"
                         ></ul>
                     </div>
                     <span role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('selectedMessageText')">
