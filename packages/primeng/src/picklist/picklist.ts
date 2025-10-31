@@ -1390,7 +1390,7 @@ export class PickList extends BaseComponent {
                 if (this.isItemVisible(this.source[i], this.SOURCE_LIST)) {
                     let removedItem = this.source.splice(i, 1)[0];
                     if (this.target) {
-                        this.target = [...this.target, removedItem];
+                        this.target.push(removedItem);
                     }
 
                     movedItems.push(removedItem);
@@ -1456,7 +1456,7 @@ export class PickList extends BaseComponent {
                 if (this.isItemVisible(this.target[i], this.TARGET_LIST)) {
                     let removedItem = this.target.splice(i, 1)[0];
                     if (this.source) {
-                        this.source = [...this.source, removedItem];
+                        this.source.push(removedItem);
                     }
                     movedItems.push(removedItem);
                     i--;
