@@ -1,28 +1,8 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterViewChecked,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    InjectionToken,
-    input,
-    Input,
-    NgModule,
-    OnDestroy,
-    Output,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, isTouchDevice, relativePosition } from '@primeuix/utils';
+import { absolutePosition, addClass, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -280,6 +260,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
 
         this.colorDragging = true;
         this.pickColor(event, (event as TouchEvent).changedTouches[0]);
+        this.el.nativeElement.setAttribute('p-colorpicker-dragging', 'true');
     }
 
     pickHue(event: MouseEvent | TouchEvent, position?: any) {
@@ -324,7 +305,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     onDragEnd() {
         this.colorDragging = false;
         this.hueDragging = false;
-
+        this.el.nativeElement.setAttribute('p-colorpicker-dragging', 'false');
         this.unbindDocumentMousemoveListener();
         this.unbindDocumentMouseupListener();
     }
