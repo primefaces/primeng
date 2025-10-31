@@ -80,6 +80,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             #input
             pInputText
             [pt]="ptm('pcInputText', ptmParams())"
+            [unstyled]="unstyled()"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name()"
