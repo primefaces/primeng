@@ -59,6 +59,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [size]="size()"
                 [fluid]="fluid()"
                 [pt]="ptm('pcToggleButton')"
+                [unstyled]="unstyled()"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
@@ -74,7 +75,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     host: {
         '[class]': "cx('root')",
         '[attr.role]': '"group"',
-        '[attr.aria-labelledby]': 'ariaLabelledBy'
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -332,6 +334,12 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
         this.value = value;
         setModelValue(this.value);
         this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid()
+        });
     }
 }
 
