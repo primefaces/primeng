@@ -25,7 +25,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { find, findSingle, focus, getOuterHeight, getOuterWidth, hasClass, removeAccents, resolveFieldData } from '@primeuix/utils';
+import { find, findSingle, focus, getOuterHeight, getOuterWidth, removeAccents, resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -126,6 +126,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                         [tabindex]="-1"
                         (click)="$event.preventDefault()"
                         [pt]="getPTOptions('pcNodeCheckbox')"
+                        [unstyled]="unstyled()"
                     >
                         <ng-container *ngIf="tree.checkboxIconTemplate || tree._checkboxIconTemplate">
                             <ng-template #icon>
@@ -165,6 +166,8 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                         [itemSize]="itemSize"
                         [level]="level + 1"
                         [loadingMode]="loadingMode"
+                        [pt]="pt"
+                        [unstyled]="unstyled()"
                     ></p-treeNode>
                 </ul>
             </li>
@@ -720,7 +723,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         @if (filterTemplate || _filterTemplate) {
             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
         } @else {
-            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')" [pt]="ptm('pcFilterContainer')">
+            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')" [pt]="ptm('pcFilterContainer')" [unstyled]="unstyled()">
                 <input
                     #filter
                     [pAutoFocus]="filterInputAutoFocus"
@@ -732,8 +735,9 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                     (keydown.enter)="$event.preventDefault()"
                     (input)="_filter($event.target?.value)"
                     [pt]="ptm('pcFilterInput')"
+                    [unstyled]="unstyled()"
                 />
-                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')" />
                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')" [pBind]="ptm('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
@@ -759,6 +763,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                 [options]="virtualScrollOptions"
                 [pt]="ptm('virtualScroller')"
                 hostName="tree"
+                [attr.data-p]="wrapperDataP"
             >
                 <ng-template #content let-items let-scrollerOptions="options">
                     <ul
@@ -786,6 +791,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                             [indentation]="indentation"
                             [loadingMode]="loadingMode"
                             [pt]="pt"
+                            [unstyled]="unstyled()"
                         ></p-treeNode>
                     </ul>
                 </ng-template>
@@ -796,7 +802,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                 </ng-container>
             </p-scroller>
             <ng-container *ngIf="!virtualScroll">
-                <div #wrapper [class]="cx('wrapper')" [style.max-height]="scrollHeight" [pBind]="ptm('wrapper')">
+                <div #wrapper [class]="cx('wrapper')" [style.max-height]="scrollHeight" [pBind]="ptm('wrapper')" [attr.data-p]="wrapperDataP">
                     <ul #content [class]="cx('rootChildren')" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [pBind]="ptm('rootChildren')">
                         <p-treeNode
                             *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy.bind(this)"
@@ -807,6 +813,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                             [level]="0"
                             [loadingMode]="loadingMode"
                             [pt]="pt"
+                            [unstyled]="unstyled()"
                         ></p-treeNode>
                     </ul>
                 </div>
@@ -825,7 +832,8 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
     encapsulation: ViewEncapsulation.None,
     providers: [TreeStyle, { provide: TREE_INSTANCE, useExisting: Tree }, { provide: PARENT_INSTANCE, useExisting: Tree }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
 })
@@ -1854,6 +1862,19 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
         if (this.dragStopSubscription) {
             this.dragStopSubscription.unsubscribe();
         }
+    }
+
+    get containerDataP() {
+        return this.cn({
+            loading: this.loading,
+            scrollable: this.scrollHeight === 'flex'
+        });
+    }
+
+    get wrapperDataP() {
+        return this.cn({
+            scrollable: this.scrollHeight === 'flex'
+        });
     }
 }
 @NgModule({
