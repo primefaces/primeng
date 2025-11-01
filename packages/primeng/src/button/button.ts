@@ -507,6 +507,9 @@ export class ButtonDirective extends BaseComponent {
             [attr.tabindex]="tabindex || buttonProps?.tabindex"
             [pAutoFocus]="autofocus || buttonProps?.autofocus"
             [pBind]="ptm('root')"
+            [attr.data-p]="dataP"
+            [attr.data-p-disabled]="disabled || loading || buttonProps?.disabled"
+            [attr.data-p-severity]="severity || buttonProps?.severity"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
@@ -518,11 +521,11 @@ export class ButtonDirective extends BaseComponent {
                 <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cn('icon', iconClass())" [pBind]="ptm('icon')"></span>
+                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cn('icon', iconClass())" [pBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
                 <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
             </ng-container>
-            <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [pBind]="ptm('label')">{{ label }}</span>
-            <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity" [pt]="ptm('pcBadge')"></p-badge>
+            <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [pBind]="ptm('label')" [attr.data-p]="dataLabelP">{{ label }}</span>
+            <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity" [pt]="ptm('pcBadge')" [unstyled]="unstyled()"></p-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -752,6 +755,10 @@ export class Button extends BaseComponent<ButtonPassThrough> {
         return this.fluid() ?? !!this.pcFluid;
     }
 
+    get hasIcon() {
+        return this.icon || this.buttonProps?.icon || this.iconTemplate || this._iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate;
+    }
+
     _contentTemplate: TemplateRef<any> | undefined;
 
     _iconTemplate: TemplateRef<any> | undefined;
@@ -796,6 +803,35 @@ export class Button extends BaseComponent<ButtonPassThrough> {
             'p-button-icon-top': this.iconPos === 'top' && this.label,
             'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
         };
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.size as string]: this.size,
+            'icon-only': this.hasIcon && !this.label && !this.badge,
+            loading: this.loading,
+            fluid: this.hasFluid,
+            rounded: this.rounded,
+            raised: this.raised,
+            outlined: this.outlined || this.variant === 'outlined',
+            text: this.text || this.variant === 'text',
+            link: this.link,
+            vertical: (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label
+        });
+    }
+
+    get dataIconP() {
+        return this.cn({
+            [this.iconPos]: this.iconPos,
+            [this.size as string]: this.size
+        });
+    }
+
+    get dataLabelP() {
+        return this.cn({
+            [this.size as string]: this.size,
+            'icon-only': this.hasIcon && !this.label && !this.badge
+        });
     }
 }
 

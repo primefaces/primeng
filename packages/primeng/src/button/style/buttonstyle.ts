@@ -6,10 +6,7 @@ const classes = {
     root: ({ instance }) => [
         'p-button p-component',
         {
-            'p-button-icon-only':
-                (instance.icon || instance.buttonProps?.icon || instance.iconTemplate || instance._iconTemplate || instance.loadingIcon || instance.loadingIconTemplate || instance._loadingIconTemplate) &&
-                !instance.label &&
-                !instance.buttonProps?.label,
+            'p-button-icon-only': instance.hasIcon && !instance.label && !instance.buttonProps?.label && !instance.badge,
             'p-button-vertical': (instance.iconPos === 'top' || instance.iconPos === 'bottom') && instance.label,
             'p-button-loading': instance.loading || instance.buttonProps?.loading,
             'p-button-link': instance.link || instance.buttonProps?.link,
