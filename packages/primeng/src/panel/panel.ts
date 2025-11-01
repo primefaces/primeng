@@ -40,7 +40,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
     standalone: true,
     imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule],
     template: `
-        <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
+        <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
             <span [pBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
@@ -62,6 +62,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                     (keydown)="onKeyDown($event)"
                     [buttonProps]="toggleButtonProps"
                     [pt]="ptm('pcToggleButton')"
+                    [unstyled]="unstyled()"
                 >
                     <ng-template #icon>
                         <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
@@ -424,7 +425,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         });
     }
 
-    dataP() {
+    get dataP() {
         return this.cn({
             toggleable: this.toggleable
         });
