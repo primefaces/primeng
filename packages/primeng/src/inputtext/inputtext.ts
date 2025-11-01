@@ -39,7 +39,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * Defines the size of the component.
      * @group Props
      */
-    @Input('pSize') pSize: 'large' | 'small';
+    @Input('pSize') pSize: 'large' | 'small' | undefined;
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
