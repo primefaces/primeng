@@ -66,6 +66,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [pTooltip]="tooltip"
                 [tooltipOptions]="tooltipOptions"
                 [pt]="ptm('pcButton')"
+                [unstyled]="unstyled()"
             >
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </button>
@@ -92,6 +93,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [pTooltip]="tooltip"
                 [tooltipOptions]="tooltipOptions"
                 [pt]="ptm('pcButton')"
+                [unstyled]="unstyled()"
             ></button>
         </ng-template>
         <button
@@ -111,6 +113,7 @@ type SplitButtonIconPosition = 'left' | 'right';
             [attr.aria-expanded]="menuButtonProps?.['ariaExpanded'] || isExpanded()"
             [attr.aria-controls]="menuButtonProps?.['ariaControls'] || ariaId"
             [pt]="ptm('pcDropdown')"
+            [unstyled]="unstyled()"
         >
             <span *ngIf="dropdownIcon" [class]="dropdownIcon"></span>
             <ng-container *ngIf="!dropdownIcon">
@@ -131,13 +134,15 @@ type SplitButtonIconPosition = 'left' | 'right';
             (onHide)="onHide()"
             (onShow)="onShow()"
             [pt]="ptm('pcMenu')"
+            [unstyled]="unstyled()"
         ></p-tieredmenu>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [SplitButtonStyle, { provide: SPLITBUTTON_INSTANCE, useExisting: SplitButton }, { provide: PARENT_INSTANCE, useExisting: SplitButton }],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p-severity]': 'severity'
     },
     hostDirectives: [Bind]
 })
