@@ -62,6 +62,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                     (keydown)="onTogglerKeydown($event)"
                     [buttonProps]="buttonProps"
                     [pt]="ptm('pcButton')"
+                    [unstyled]="unstyled()"
                 >
                     <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
@@ -115,6 +116,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                             [attr.aria-label]="item.label"
                             [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
                             [pt]="getPTOptions(id + '_' + i, 'pcAction')"
+                            [unstyled]="unstyled()"
                         >
                             <span *ngIf="item.icon" pButtonIcon [pt]="getPTOptions(id + '_' + i, 'actionIcon')" [class]="item.icon"></span>
                         </button>
@@ -364,8 +366,8 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
     onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.type !== 'linear') {
-                const button = <any>findSingle(this.container?.nativeElement, '.p-speeddial-button');
-                const firstItem = <any>findSingle(this.list?.nativeElement, '.p-speeddial-item');
+                const button = <any>findSingle(this.container?.nativeElement, '[data-pc-name="pcbutton"]');
+                const firstItem = <any>findSingle(this.list?.nativeElement, '[data-pc-section="item"]');
 
                 if (button && firstItem) {
                     const wDiff = Math.abs(button.offsetWidth - firstItem.offsetWidth);
