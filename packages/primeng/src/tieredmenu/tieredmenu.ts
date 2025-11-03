@@ -93,6 +93,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                     [pBind]="getPTOptions(processedItem, index, 'item')"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                    [unstyled]="unstyled()"
                 >
                     <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
@@ -200,6 +201,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                         (itemMouseEnter)="onItemMouseEnter($event)"
                         [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
                         [pt]="pt()"
+                        [unstyled]="unstyled()"
                     ></p-tieredmenusub>
                 </li>
             </ng-template>
@@ -432,6 +434,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
                 [pt]="pt()"
+                [unstyled]="unstyled()"
             ></p-tieredMenuSub>
         </div>
     `,
