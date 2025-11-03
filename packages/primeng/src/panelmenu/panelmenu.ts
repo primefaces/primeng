@@ -58,6 +58,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                 [unstyled]="unstyled()"
                 [pBind]="getPTOptions(processedItem, index, 'item')"
                 [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                [attr.data-p-focused]="isItemFocused(processedItem)"
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
             >
                 <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)">
