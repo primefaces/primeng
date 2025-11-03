@@ -36,6 +36,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
             [attr.aria-orientation]="'horizontal'"
             [attr.aria-valuenow]="lastScrollLeft"
             [attr.aria-controls]="contentId"
+            [attr.data-pc-group-section]="'bar'"
             (mousedown)="onXBarMouseDown($event)"
             (keydown)="onKeyDown($event)"
             (keyup)="onKeyUp()"
@@ -55,6 +56,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
             (keydown)="onKeyDown($event)"
             (keyup)="onKeyUp()"
             (focus)="onFocus($event)"
+            [attr.data-pc-group-section]="'bar'"
         ></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
