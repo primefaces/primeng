@@ -1,26 +1,6 @@
 import { animate, animateChild, AnimationEvent, query, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import {
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    NgZone,
-    numberAttribute,
-    OnDestroy,
-    OnInit,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -57,6 +37,7 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
             role="alert"
             aria-live="assertive"
             aria-atomic="true"
+            [attr.data-p]="dataP"
         >
             @if (headlessTemplate) {
                 <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"></ng-container>
@@ -84,17 +65,26 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                                 }
                             }
                         }
-                        <div [pBind]="ptm('messageText')" [ngClass]="cx('messageText')">
-                            <div [pBind]="ptm('summary')" [ngClass]="cx('summary')">
+                        <div [pBind]="ptm('messageText')" [ngClass]="cx('messageText')" [attr.data-p]="dataP">
+                            <div [pBind]="ptm('summary')" [ngClass]="cx('summary')" [attr.data-p]="dataP">
                                 {{ message.summary }}
                             </div>
-                            <div [pBind]="ptm('detail')" [ngClass]="cx('detail')">{{ message.detail }}</div>
+                            <div [pBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message.detail }}</div>
                         </div>
                     </ng-container>
                     <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                     @if (message?.closable !== false) {
                         <div>
-                            <button [pBind]="ptm('closeButton')" type="button" [attr.class]="cx('closeButton')" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" [attr.aria-label]="closeAriaLabel" autofocus>
+                            <button
+                                [pBind]="ptm('closeButton')"
+                                type="button"
+                                [attr.class]="cx('closeButton')"
+                                (click)="onCloseIconClick($event)"
+                                (keydown.enter)="onCloseIconClick($event)"
+                                [attr.aria-label]="closeAriaLabel"
+                                [attr.data-p]="dataP"
+                                autofocus
+                            >
                                 @if (message.closeIcon) {
                                     <span [pBind]="ptm('closeIcon')" *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
                                 } @else {
@@ -222,6 +212,12 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     onDestroy() {
         this.clearTimeout();
     }
+
+    get dataP() {
+        return this.cn({
+            [this.message?.severity as string]: this.message?.severity
+        });
+    }
 }
 
 /**
@@ -249,6 +245,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             [showTransitionOptions]="showTransitionOptions"
             [hideTransitionOptions]="hideTransitionOptions"
             [pt]="pt"
+            [unstyled]="unstyled()"
         ></p-toastItem>
     `,
     animations: [trigger('toastAnimation', [transition(':enter, :leave', [query('@*', animateChild())])])],
@@ -257,7 +254,8 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     providers: [ToastStyle, { provide: TOAST_INSTANCE, useExisting: Toast }, { provide: PARENT_INSTANCE, useExisting: Toast }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -546,6 +544,12 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         }
 
         this.destroyStyle();
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.position]: this.position
+        });
     }
 }
 
