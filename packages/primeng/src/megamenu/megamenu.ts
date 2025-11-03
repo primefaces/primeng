@@ -75,6 +75,7 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 [pBind]="getPTOptions(processedItem, index, 'item')"
+                [unstyled]="unstyled()"
             >
                 <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                     <ng-container *ngIf="!itemTemplate">
@@ -102,7 +103,7 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                             <ng-template #htmlLabel>
                                 <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
                             </ng-template>
-                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
                                     @if (orientation === 'horizontal' || mobileActive) {
@@ -142,7 +143,7 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                             ></span>
                             <span [class]="cx('itemLabel')" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemLabel(processedItem) }}</span>
                             <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
-                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!megaMenu.submenuIconTemplate && !megaMenu._submenuIconTemplate">
                                     <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
@@ -174,6 +175,7 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                                 (itemClick)="itemClick.emit($event)"
                                 (itemMouseEnter)="onItemMouseEnter($event)"
                                 [pt]="pt()"
+                                [unstyled]="unstyled()"
                             ></ul>
                         </div>
                     </div>
@@ -394,6 +396,7 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
             [queryMatches]="queryMatches"
             [scrollHeight]="scrollHeight"
             [pt]="pt()"
+            [unstyled]="unstyled()"
         ></ul>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate" [pBind]="ptm('end')">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
