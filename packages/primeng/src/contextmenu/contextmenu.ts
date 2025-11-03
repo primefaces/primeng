@@ -368,13 +368,17 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
         const viewport = getViewport();
         const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : getHiddenElementOuterWidth(sublist);
         const itemOuterWidth = <any>getOuterWidth(parentItem.children[0]);
-
-        sublist.style.top = '0px';
+        const sublistHeight = sublist.offsetParent ? sublist.offsetHeight : getHiddenElementOuterHeight(sublist);
 
         if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - calculateScrollbarWidth()) {
-            sublist.style.left = -1 * sublistWidth + 'px';
+            sublist.style.right = sublistWidth + 'px';
         } else {
             sublist.style.left = itemOuterWidth + 'px';
+        }
+        if (parseInt(containerOffset.top, 10) + sublistHeight > viewport.height - calculateScrollbarWidth()) {
+            sublist.style.bottom = '0px';
+        } else {
+            sublist.style.top = '0px';
         }
     }
 }
