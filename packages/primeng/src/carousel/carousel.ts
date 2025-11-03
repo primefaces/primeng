@@ -19,7 +19,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { find, findSingle, getAttribute, setAttribute, uuid } from '@primeuix/utils';
+import { addClass, find, findSingle, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -51,6 +51,7 @@ import { CarouselStyle } from './style/carouselstyle';
                     [text]="true"
                     [buttonProps]="prevButtonProps"
                     [pt]="ptm('pcPrevButton')"
+                    [unstyled]="unstyled()"
                     attr.data-pc-group-section="navigator"
                 >
                     <ng-template #icon>
@@ -113,6 +114,7 @@ import { CarouselStyle } from './style/carouselstyle';
                     [buttonProps]="nextButtonProps"
                     [text]="true"
                     [pt]="ptm('pcNextButton')"
+                    [unstyled]="unstyled()"
                     attr.data-pc-group-section="navigator"
                 >
                     <ng-template #icon>
@@ -605,7 +607,7 @@ export class Carousel extends BaseComponent {
 			}
         `;
 
-        if (this.responsiveOptions) {
+        if (this.responsiveOptions && !this.unstyled()) {
             this.responsiveOptions.sort((data1, data2) => {
                 const value1 = data1.breakpoint;
                 const value2 = data2.breakpoint;
@@ -873,6 +875,7 @@ export class Carousel extends BaseComponent {
         }
 
         if (this.itemsContainer) {
+            !this.unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
@@ -916,6 +919,7 @@ export class Carousel extends BaseComponent {
 
     onTransitionEnd() {
         if (this.itemsContainer) {
+            !this.unstyled() && addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transition = '';
 
             if ((this.page === 0 || this.page === this.totalDots() - 1) && this.isCircular()) {
