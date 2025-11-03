@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Component, DebugElement } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Image, ImageModule } from './image';
 import { SharedModule } from 'primeng/api';
+import { Image, ImageModule } from './image';
 
 // Using image paths from photoservice.ts to ensure consistency
 const mockImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg';
@@ -439,7 +439,7 @@ describe('Image', () => {
             mockWrapper.appendChild(mockElement);
 
             imageInstance.closeButton = mockCloseButton as any;
-            imageInstance.attrSelector = 'test-attr';
+            imageInstance.$attrSelector = 'test-attr';
 
             spyOn(mockCloseButton.nativeElement, 'focus');
             spyOn(imageInstance, 'appendContainer');
@@ -551,7 +551,7 @@ describe('Image', () => {
             mockWrapper.appendChild(mockElement);
 
             imageInstance.closeButton = mockCloseButton as any;
-            imageInstance.attrSelector = 'test-attr';
+            imageInstance.$attrSelector = 'test-attr';
 
             const animationEvent = {
                 toState: 'visible',
@@ -724,6 +724,407 @@ describe('Image', () => {
             // Test that the method exists and can be called
             expect(imageInstance.onAnimationStart).toBeDefined();
             expect(imageInstance.onAnimationEnd).toBeDefined();
+        });
+    });
+
+    describe('Pass Through (PT)', () => {
+        describe('Case 1: Simple string classes', () => {
+            beforeEach(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                }).compileComponents();
+            });
+
+            it('should apply PT string classes to all sections', () => {
+                const testFixture = TestBed.createComponent(Image);
+
+                const pt = {
+                    root: 'ROOT_CLASS',
+                    image: 'IMAGE_CLASS',
+                    previewMask: 'PREVIEW_MASK_CLASS',
+                    previewIcon: 'PREVIEW_ICON_CLASS'
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('preview', true);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                const imageElement = testFixture.debugElement.query(By.css('img'));
+                const previewButton = testFixture.debugElement.query(By.css('button'));
+
+                expect(testFixture.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+                expect(imageElement.nativeElement.classList.contains('IMAGE_CLASS')).toBe(true);
+                expect(previewButton.nativeElement.classList.contains('PREVIEW_MASK_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects with class, style, data attributes, and aria-label', () => {
+            beforeEach(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                }).compileComponents();
+            });
+
+            it('should apply PT object properties to root', () => {
+                const testFixture = TestBed.createComponent(Image);
+                const pt = {
+                    root: {
+                        class: 'COLLAPSED',
+                        style: { 'background-color': 'red' },
+                        'data-p-TEST': true,
+                        'aria-label': 'TEST ARIA LABEL'
+                    }
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                expect(testFixture.nativeElement.classList.contains('COLLAPSED')).toBe(true);
+                expect(testFixture.nativeElement.style.backgroundColor).toBe('red');
+                expect(testFixture.nativeElement.getAttribute('data-p-TEST')).toBe('true');
+                expect(testFixture.nativeElement.getAttribute('aria-label')).toBe('TEST ARIA LABEL');
+            });
+
+            it('should apply PT object properties to image', () => {
+                const testFixture = TestBed.createComponent(Image);
+                const pt = {
+                    image: {
+                        class: 'IMAGE_CUSTOM',
+                        style: { border: '2px solid blue' },
+                        'data-test-image': 'test-value'
+                    }
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                const imageElement = testFixture.debugElement.query(By.css('img'));
+                expect(imageElement.nativeElement.classList.contains('IMAGE_CUSTOM')).toBe(true);
+                expect(imageElement.nativeElement.style.border).toBe('2px solid blue');
+                expect(imageElement.nativeElement.getAttribute('data-test-image')).toBe('test-value');
+            });
+
+            it('should apply PT object properties to previewMask', () => {
+                const testFixture = TestBed.createComponent(Image);
+                const pt = {
+                    previewMask: {
+                        class: 'PREVIEW_CUSTOM',
+                        style: { opacity: '0.8' },
+                        'aria-label': 'CUSTOM_PREVIEW_LABEL'
+                    }
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('preview', true);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                const previewButton = testFixture.debugElement.query(By.css('button'));
+                expect(previewButton.nativeElement.classList.contains('PREVIEW_CUSTOM')).toBe(true);
+                expect(previewButton.nativeElement.style.opacity).toBe('0.8');
+                expect(previewButton.nativeElement.getAttribute('aria-label')).toBe('CUSTOM_PREVIEW_LABEL');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            beforeEach(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                }).compileComponents();
+            });
+
+            it('should handle mixed PT values', () => {
+                const testFixture = TestBed.createComponent(Image);
+                const pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS'
+                    },
+                    image: 'IMAGE_STRING_CLASS',
+                    previewMask: {
+                        class: 'PREVIEW_OBJECT_CLASS'
+                    }
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('preview', true);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                const imageElement = testFixture.debugElement.query(By.css('img'));
+                const previewButton = testFixture.debugElement.query(By.css('button'));
+
+                expect(testFixture.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(imageElement.nativeElement.classList.contains('IMAGE_STRING_CLASS')).toBe(true);
+                expect(previewButton.nativeElement.classList.contains('PREVIEW_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            beforeEach(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                }).compileComponents();
+            });
+
+            it('should accept PT functions with instance parameter', () => {
+                const testFixture = TestBed.createComponent(Image);
+                let instanceReceived = false;
+                const pt = {
+                    root: ({ instance }: any) => {
+                        if (instance) {
+                            instanceReceived = true;
+                        }
+                        return { class: 'PT_FUNCTION_CLASS' };
+                    }
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                expect(instanceReceived).toBe(true);
+                expect(testFixture.nativeElement.classList.contains('PT_FUNCTION_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            beforeEach(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                }).compileComponents();
+            });
+
+            it('should handle onclick event in PT', fakeAsync(() => {
+                const testFixture = TestBed.createComponent(Image);
+                let clicked = false;
+                const pt = {
+                    image: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                const imageElement = testFixture.debugElement.query(By.css('img'));
+                imageElement.nativeElement.click();
+                tick();
+
+                expect(clicked).toBe(true);
+            }));
+
+            it('should handle onclick with instance access', fakeAsync(() => {
+                const testFixture = TestBed.createComponent(Image);
+                const testComponent = testFixture.componentInstance;
+                const pt = {
+                    previewMask: ({ instance }: any) => {
+                        return {
+                            onclick: () => {
+                                instance.scale = 2.0;
+                            }
+                        };
+                    }
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('preview', true);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                const previewButton = testFixture.debugElement.query(By.css('button'));
+                previewButton.nativeElement.click();
+                tick();
+
+                expect(testComponent.scale).toBe(2.0);
+            }));
+        });
+
+        describe('Case 6: Test emitters', () => {
+            beforeEach(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                }).compileComponents();
+            });
+
+            it('should access emitters through instance in PT', fakeAsync(() => {
+                const testFixture = TestBed.createComponent(Image);
+                const testComponent = testFixture.componentInstance;
+                let emitterCalled = false;
+                const pt = {
+                    root: ({ instance }: any) => {
+                        if (instance?.onShow) {
+                            instance.onShow.subscribe(() => {
+                                emitterCalled = true;
+                            });
+                        }
+                        return {};
+                    }
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('preview', true);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+                tick();
+
+                testComponent.onImageClick();
+                tick();
+                testFixture.detectChanges();
+
+                const animationEvent = {
+                    toState: 'visible'
+                } as any;
+                testComponent.onAnimationEnd(animationEvent);
+                tick();
+
+                expect(emitterCalled).toBe(true);
+            }));
+        });
+
+        describe('Case 7: Inline test', () => {
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+            });
+
+            it('should accept inline PT with string class', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-image [src]="src" [pt]="{ root: 'TEST_INLINE_CLASS' }" />`
+                })
+                class TestInlineComponent {
+                    src = mockImageSrc;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [ImageModule, NoopAnimationsModule],
+                    declarations: [TestInlineComponent]
+                });
+
+                const testFixture = TestBed.createComponent(TestInlineComponent);
+                testFixture.detectChanges();
+
+                const rootElement = testFixture.debugElement.query(By.directive(Image));
+                expect(rootElement.nativeElement.classList.contains('TEST_INLINE_CLASS')).toBe(true);
+            });
+
+            it('should accept inline PT with object class', () => {
+                @Component({
+                    standalone: false,
+                    template: `<p-image [src]="src" [pt]="{ root: { class: 'TEST_INLINE_OBJECT_CLASS' } }" />`
+                })
+                class TestInlineObjectComponent {
+                    src = mockImageSrc;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [ImageModule, NoopAnimationsModule],
+                    declarations: [TestInlineObjectComponent]
+                });
+
+                const testFixture = TestBed.createComponent(TestInlineObjectComponent);
+                testFixture.detectChanges();
+
+                const rootElement = testFixture.debugElement.query(By.directive(Image));
+                expect(rootElement.nativeElement.classList.contains('TEST_INLINE_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 8: Test from PrimeNGConfig', () => {
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+            });
+
+            it('should apply global PT configuration from PrimeNGConfig', async () => {
+                const { providePrimeNG } = await import('primeng/config');
+
+                @Component({
+                    standalone: false,
+                    template: `
+                        <p-image [src]="src1" />
+                        <p-image [src]="src2" />
+                    `
+                })
+                class TestGlobalPTComponent {
+                    src1 = mockImageSrc;
+                    src2 = mockImageSrc;
+                }
+
+                await TestBed.configureTestingModule({
+                    imports: [ImageModule, NoopAnimationsModule],
+                    declarations: [TestGlobalPTComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                image: {
+                                    root: {
+                                        class: 'GLOBAL_ROOT_CLASS',
+                                        'aria-label': 'TEST_GLOBAL_ARIA_LABEL'
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestGlobalPTComponent);
+                testFixture.detectChanges();
+
+                const imageComponents = testFixture.debugElement.queryAll(By.directive(Image));
+                expect(imageComponents.length).toBe(2);
+
+                imageComponents.forEach((imgComp) => {
+                    expect(imgComp.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+                    expect(imgComp.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+                });
+            });
+        });
+
+        describe('Case 9: Additional PT sections', () => {
+            beforeEach(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [ImageModule, SharedModule, NoopAnimationsModule]
+                }).compileComponents();
+            });
+
+            it('should accept PT for all available sections', () => {
+                const testFixture = TestBed.createComponent(Image);
+                const pt = {
+                    root: 'ROOT_PT',
+                    image: 'IMAGE_PT',
+                    previewMask: 'PREVIEW_MASK_PT',
+                    mask: 'MASK_PT',
+                    toolbar: 'TOOLBAR_PT',
+                    rotateRightButton: 'ROTATE_RIGHT_PT',
+                    rotateLeftButton: 'ROTATE_LEFT_PT',
+                    zoomInButton: 'ZOOM_IN_PT',
+                    zoomOutButton: 'ZOOM_OUT_PT',
+                    closeButton: 'CLOSE_PT',
+                    original: 'ORIGINAL_PT'
+                };
+
+                testFixture.componentRef.setInput('src', mockImageSrc);
+                testFixture.componentRef.setInput('preview', true);
+                testFixture.componentRef.setInput('pt', pt);
+                testFixture.detectChanges();
+
+                // Verify basic PT sections are applied
+                expect(testFixture.nativeElement.classList.contains('ROOT_PT')).toBe(true);
+                const imageElement = testFixture.debugElement.query(By.css('img'));
+                expect(imageElement.nativeElement.classList.contains('IMAGE_PT')).toBe(true);
+            });
         });
     });
 });

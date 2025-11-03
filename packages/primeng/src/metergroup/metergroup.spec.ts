@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MeterGroup, MeterGroupModule, MeterGroupLabel } from './metergroup';
-import { MeterItem } from './metergroup.interface';
+import { MeterItem } from 'primeng/types/metergroup';
 
 @Component({
     standalone: false,

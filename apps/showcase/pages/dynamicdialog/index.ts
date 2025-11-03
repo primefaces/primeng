@@ -1,12 +1,13 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { CloseDoc } from '@/doc/dynamicdialog/closedoc';
 import { CustomizationDoc } from '@/doc/dynamicdialog/customizationdoc';
 import { ExampleDoc } from '@/doc/dynamicdialog/exampledoc';
 import { ImportDoc } from '@/doc/dynamicdialog/importdoc';
 import { OpenDoc } from '@/doc/dynamicdialog/opendoc';
 import { PassingDataDoc } from '@/doc/dynamicdialog/passingdatadoc';
+import { PTComponent } from '@/doc/dynamicdialog/pt/PTComponent';
 import { UsageDoc } from '@/doc/dynamicdialog/usagedoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
@@ -18,11 +19,15 @@ import { AppDoc } from '@/components/doc/app.doc';
             description="Dialogs can be created dynamically with any component as the content using a DialogService."
             [docs]="docs"
             [apiDocs]="['DynamicDialog-Ref', 'DynamicDialog-Config', 'DialogService']"
+            [ptDocs]="ptComponent"
             themeDocs="dynamicdialog"
+            [ptDocs]="ptComponent"
         ></app-doc>
     `
 })
 export class DynamicDialogDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

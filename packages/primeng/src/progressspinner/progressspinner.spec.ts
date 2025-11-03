@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ProgressSpinner } from './progressspinner';
@@ -127,7 +127,7 @@ describe('ProgressSpinner', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
             expect(svgElement).toBeTruthy();
             expect(svgElement.nativeElement.getAttribute('viewBox')).toBe('25 25 50 50');
-            expect(svgElement.nativeElement.getAttribute('data-pc-section')).toBe('root');
+            expect(svgElement.nativeElement.getAttribute('data-pc-section')).toBe('spin');
         });
 
         it('should render circle element with correct attributes', () => {
@@ -457,6 +457,341 @@ describe('ProgressSpinner', () => {
             expect(spinnerInstance.strokeWidth).toBe('2');
             expect(spinnerInstance.fill).toBe('none');
             expect(spinnerInstance.animationDuration).toBe('2s');
+        });
+    });
+
+    describe('PassThrough API', () => {
+        @Component({
+            standalone: true,
+            imports: [ProgressSpinner],
+            template: `<p-progressspinner [strokeWidth]="strokeWidth()" [fill]="fill()" [animationDuration]="animationDuration()" [ariaLabel]="ariaLabel()" [pt]="pt()"></p-progressspinner>`
+        })
+        class TestPTProgressSpinnerComponent {
+            strokeWidth = input<string>('2');
+            fill = input<string>('none');
+            animationDuration = input<string>('2s');
+            ariaLabel = input<string | undefined>();
+            pt = input<any>();
+        }
+
+        describe('Case 1: Simple string classes', () => {
+            let fixture: ComponentFixture<TestPTProgressSpinnerComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+            });
+
+            it('should apply string class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to root section', () => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to spin section', () => {
+                fixture.componentRef.setInput('pt', { spin: 'SPIN_CLASS' });
+                fixture.detectChanges();
+
+                const spinElement = fixture.debugElement.query(By.css('svg'));
+                expect(spinElement.nativeElement.classList.contains('SPIN_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to circle section', () => {
+                fixture.componentRef.setInput('pt', { circle: 'CIRCLE_CLASS' });
+                fixture.detectChanges();
+
+                const circleElement = fixture.debugElement.query(By.css('circle'));
+                expect(circleElement.nativeElement.classList.contains('CIRCLE_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            let fixture: ComponentFixture<TestPTProgressSpinnerComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+            });
+
+            it('should apply object with class, style, data and aria attributes to root', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(element.style.backgroundColor).toBe('red');
+                expect(element.getAttribute('data-p-test')).toBe('true');
+                expect(element.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object with class, style, data and aria attributes to spin', () => {
+                fixture.componentRef.setInput('pt', {
+                    spin: {
+                        class: 'SPIN_OBJECT_CLASS',
+                        style: { width: '100px' },
+                        'data-p-spin': 'test'
+                    }
+                });
+                fixture.detectChanges();
+
+                const spinElement = fixture.debugElement.query(By.css('svg'));
+                expect(spinElement.nativeElement.classList.contains('SPIN_OBJECT_CLASS')).toBe(true);
+                expect(spinElement.nativeElement.style.width).toBe('100px');
+                expect(spinElement.nativeElement.getAttribute('data-p-spin')).toBe('test');
+            });
+
+            it('should apply object with class, style, data and aria attributes to circle', () => {
+                fixture.componentRef.setInput('pt', {
+                    circle: {
+                        class: 'CIRCLE_OBJECT_CLASS',
+                        style: { stroke: 'blue' },
+                        'data-p-circle': 'spinner'
+                    }
+                });
+                fixture.detectChanges();
+
+                const circleElement = fixture.debugElement.query(By.css('circle'));
+                expect(circleElement.nativeElement.classList.contains('CIRCLE_OBJECT_CLASS')).toBe(true);
+                expect(circleElement.nativeElement.style.stroke).toBe('blue');
+                expect(circleElement.nativeElement.getAttribute('data-p-circle')).toBe('spinner');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            let fixture: ComponentFixture<TestPTProgressSpinnerComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+            });
+
+            it('should apply mixed pt with object and string values', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    spin: 'SPIN_MIXED_CLASS'
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+
+                const spinElement = fixture.debugElement.query(By.css('svg'));
+                expect(spinElement.nativeElement.classList.contains('SPIN_MIXED_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            let fixture: ComponentFixture<TestPTProgressSpinnerComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+            });
+
+            it('should use instance strokeWidth in pt function for root', () => {
+                fixture.componentRef.setInput('strokeWidth', '4');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.strokeWidth === '4' ? 'THICK_STROKE' : 'THIN_STROKE'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('THICK_STROKE')).toBe(true);
+            });
+
+            it('should use instance fill in pt function for circle', () => {
+                fixture.componentRef.setInput('fill', 'red');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    circle: ({ instance }: any) => {
+                        return {
+                            'data-fill': instance?.fill
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const circleElement = fixture.debugElement.query(By.css('circle'));
+                expect(circleElement.nativeElement.getAttribute('data-fill')).toBe('red');
+            });
+
+            it('should use instance animationDuration in pt function for spin', () => {
+                fixture.componentRef.setInput('animationDuration', '3s');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    spin: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'animation-duration': instance?.animationDuration
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const spinElement = fixture.debugElement.query(By.css('svg'));
+                expect(spinElement.nativeElement.style.animationDuration).toBe('3s');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            let fixture: ComponentFixture<TestPTProgressSpinnerComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+            });
+
+            it('should bind onclick event to root through pt', () => {
+                let clickCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clickCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                element.click();
+                element.click();
+
+                expect(clickCount).toBe(2);
+            });
+
+            it('should bind onclick event to spin through pt', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    spin: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const spinElement = fixture.debugElement.query(By.css('svg'));
+                spinElement.nativeElement.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+                expect(clicked).toBe(true);
+            });
+        });
+
+        describe('Case 7: Inline test', () => {
+            it('should apply inline pt with string class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+                inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+                expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
+            });
+
+            it('should apply inline pt with object class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+                inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+                expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            let fixture: ComponentFixture<TestPTProgressSpinnerComponent>;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+            });
+
+            it('should call onAfterViewInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterContentInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterContentInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterViewChecked hook', () => {
+                let checkCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            checkCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(checkCount).toBeGreaterThan(0);
+            });
+
+            it('should call onDestroy hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onDestroy: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+                fixture.destroy();
+
+                expect(hookCalled).toBe(true);
+            });
         });
     });
 });

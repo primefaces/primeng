@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
 import { TieredMenu } from './tieredmenu';
 
 @Component({
@@ -649,7 +650,7 @@ describe('TieredMenu', () => {
             component.styleClass = 'my-custom-class';
             fixture.detectChanges();
 
-            const container = fixture.debugElement.query(By.css('[data-pc-name="tieredmenu"]'));
+            const container = fixture.debugElement.query(By.css('.p-tieredmenu'));
             expect(container.nativeElement.classList.contains('my-custom-class')).toBe(true);
         });
 
@@ -657,13 +658,13 @@ describe('TieredMenu', () => {
             component.style = { 'background-color': 'red', border: '1px solid blue' };
             fixture.detectChanges();
 
-            const container = fixture.debugElement.query(By.css('[data-pc-name="tieredmenu"]'));
+            const container = fixture.debugElement.query(By.css('.p-tieredmenu'));
             expect(container.nativeElement.style.backgroundColor).toBe('red');
             expect(container.nativeElement.style.border).toBe('1px solid blue');
         });
 
         it('should have default CSS classes', () => {
-            const container = fixture.debugElement.query(By.css('[data-pc-name="tieredmenu"]'));
+            const container = fixture.debugElement.query(By.css('.p-tieredmenu'));
             expect(container).toBeTruthy();
         });
     });
@@ -916,6 +917,439 @@ describe('TieredMenu', () => {
             const unbindSpy = spyOn(tieredMenu, 'unbindMatchMediaListener');
             tieredMenu.ngOnDestroy();
             expect(unbindSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<any>;
+
+        afterEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: true,
+                imports: [TieredMenu],
+                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+            })
+            class PTStringTestComponent {
+                model: MenuItem[] = [
+                    {
+                        label: 'File',
+                        items: [{ label: 'New' }, { label: 'Open' }]
+                    }
+                ];
+                pt = {
+                    root: 'ROOT_CLASS',
+                    rootList: 'ROOT_LIST_CLASS',
+                    submenu: 'SUBMENU_CLASS',
+                    item: 'ITEM_CLASS',
+                    itemContent: 'ITEM_CONTENT_CLASS',
+                    itemLink: 'ITEM_LINK_CLASS',
+                    itemIcon: 'ITEM_ICON_CLASS',
+                    itemLabel: 'ITEM_LABEL_CLASS',
+                    submenuIcon: 'SUBMENU_ICON_CLASS',
+                    separator: 'SEPARATOR_CLASS'
+                };
+            }
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTStringTestComponent, BrowserAnimationsModule]
+                }).createComponent(PTStringTestComponent);
+                ptFixture.detectChanges();
+            });
+
+            it('should apply PT string class to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT string class to rootList', () => {
+                const rootList = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(rootList.nativeElement.classList.contains('ROOT_LIST_CLASS')).toBe(true);
+            });
+
+            it('should apply PT string class to item', () => {
+                const items = ptFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+                expect(items[0].nativeElement.classList.contains('ITEM_CLASS')).toBe(true);
+            });
+
+            it('should apply PT string class to itemContent', () => {
+                const itemContent = ptFixture.debugElement.query(By.css('.p-tieredmenu-item-content'));
+                expect(itemContent.nativeElement.classList.contains('ITEM_CONTENT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT string class to itemLink', () => {
+                const itemLink = ptFixture.debugElement.query(By.css('.p-tieredmenu-item-link'));
+                expect(itemLink.nativeElement.classList.contains('ITEM_LINK_CLASS')).toBe(true);
+            });
+
+            it('should apply PT string class to itemLabel', () => {
+                const itemLabel = ptFixture.debugElement.query(By.css('.p-tieredmenu-item-label'));
+                expect(itemLabel.nativeElement.classList.contains('ITEM_LABEL_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects (class, style, data-p, aria)', () => {
+            @Component({
+                standalone: true,
+                imports: [TieredMenu],
+                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+            })
+            class PTObjectTestComponent {
+                model: MenuItem[] = [
+                    {
+                        label: 'File',
+                        items: [{ label: 'New' }]
+                    }
+                ];
+                pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'true',
+                        'aria-label': 'TEST_ROOT_ARIA_LABEL'
+                    },
+                    item: {
+                        class: 'ITEM_OBJECT_CLASS',
+                        'data-p-custom': 'item-data'
+                    },
+                    itemLabel: {
+                        style: { color: 'blue' },
+                        'aria-label': 'TEST_LABEL_ARIA'
+                    }
+                };
+            }
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTObjectTestComponent, BrowserAnimationsModule]
+                }).createComponent(PTObjectTestComponent);
+                ptFixture.detectChanges();
+            });
+
+            it('should apply PT object class to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT object style to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.style.backgroundColor).toBe('red');
+            });
+
+            it('should apply PT object data attribute to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.getAttribute('data-p-test')).toBe('true');
+            });
+
+            it('should apply PT object aria-label to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.getAttribute('aria-label')).toBe('TEST_ROOT_ARIA_LABEL');
+            });
+
+            it('should apply PT object class to item', () => {
+                const items = ptFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+                expect(items[0].nativeElement.classList.contains('ITEM_OBJECT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT object style to itemLabel', () => {
+                const itemLabel = ptFixture.debugElement.query(By.css('.p-tieredmenu-item-label'));
+                expect(itemLabel.nativeElement.style.color).toBe('blue');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: true,
+                imports: [TieredMenu],
+                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+            })
+            class PTMixedTestComponent {
+                model: MenuItem[] = [
+                    {
+                        label: 'File',
+                        items: [{ label: 'New' }]
+                    }
+                ];
+                pt = {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    rootList: 'ROOT_LIST_STRING',
+                    item: {
+                        class: 'ITEM_MIXED_CLASS',
+                        style: 'padding: 10px'
+                    },
+                    itemLabel: 'LABEL_STRING_CLASS'
+                };
+            }
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTMixedTestComponent, BrowserAnimationsModule]
+                }).createComponent(PTMixedTestComponent);
+                ptFixture.detectChanges();
+            });
+
+            it('should apply PT mixed object class to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+            });
+
+            it('should apply PT string class to rootList', () => {
+                const rootList = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+                expect(rootList.nativeElement.classList.contains('ROOT_LIST_STRING')).toBe(true);
+            });
+
+            it('should apply PT mixed object to item', () => {
+                const items = ptFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+                expect(items[0].nativeElement.classList.contains('ITEM_MIXED_CLASS')).toBe(true);
+                expect(items[0].nativeElement.style.padding).toBe('10px');
+            });
+
+            it('should apply PT string class to itemLabel', () => {
+                const itemLabel = ptFixture.debugElement.query(By.css('.p-tieredmenu-item-label'));
+                expect(itemLabel.nativeElement.classList.contains('LABEL_STRING_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: true,
+                imports: [TieredMenu],
+                template: `<p-tieredmenu [model]="model" [pt]="pt" [disabled]="disabled"></p-tieredmenu>`
+            })
+            class PTInstanceTestComponent {
+                disabled = true;
+                model: MenuItem[] = [
+                    {
+                        label: 'File',
+                        items: [{ label: 'New' }]
+                    }
+                ];
+                pt = {
+                    root: ({ instance }: any) => ({
+                        class: {
+                            DISABLED: instance?.disabled
+                        }
+                    }),
+                    item: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.disabled ? 'yellow' : 'red'
+                        }
+                    })
+                };
+            }
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTInstanceTestComponent, BrowserAnimationsModule]
+                }).createComponent(PTInstanceTestComponent);
+                ptFixture.detectChanges();
+            });
+
+            it('should apply PT based on instance disabled state to root', () => {
+                const root = ptFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.classList.contains('DISABLED')).toBe(true);
+            });
+
+            it('should apply PT style based on instance disabled state to item', () => {
+                const items = ptFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+                expect(items[0].nativeElement.style.backgroundColor).toBe('yellow');
+            });
+
+            it('should update PT when instance property changes', fakeAsync(() => {
+                const component = ptFixture.componentInstance;
+                component.disabled = false;
+                ptFixture.detectChanges();
+                tick();
+
+                const items = ptFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+                expect(items[0].nativeElement.style.backgroundColor).toBe('red');
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: true,
+                imports: [TieredMenu],
+                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+            })
+            class PTEventTestComponent {
+                clickedValue = '';
+                model: MenuItem[] = [
+                    {
+                        label: 'File',
+                        items: [{ label: 'New' }]
+                    }
+                ];
+                pt = {
+                    itemLabel: ({ instance }: any) => ({
+                        onclick: () => {
+                            this.clickedValue = 'LABEL_CLICKED';
+                        }
+                    })
+                };
+            }
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTEventTestComponent, BrowserAnimationsModule]
+                }).createComponent(PTEventTestComponent);
+                ptFixture.detectChanges();
+            });
+
+            it('should handle onclick event via PT', fakeAsync(() => {
+                const component = ptFixture.componentInstance;
+                const itemLabel = ptFixture.debugElement.query(By.css('.p-tieredmenu-item-label'));
+
+                itemLabel.nativeElement.click();
+                tick();
+
+                expect(component.clickedValue).toBe('LABEL_CLICKED');
+            }));
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: true,
+                imports: [TieredMenu],
+                template: `
+                    <p-tieredmenu [model]="model1"></p-tieredmenu>
+                    <p-tieredmenu [model]="model2"></p-tieredmenu>
+                `
+            })
+            class PTGlobalConfigTestComponent {
+                model1: MenuItem[] = [{ label: 'Menu1', items: [{ label: 'Item1' }] }];
+                model2: MenuItem[] = [{ label: 'Menu2', items: [{ label: 'Item2' }] }];
+            }
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTGlobalConfigTestComponent, BrowserAnimationsModule],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                tieredMenu: {
+                                    root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL', class: 'GLOBAL_ROOT_CLASS' },
+                                    item: { class: 'GLOBAL_ITEM_CLASS' }
+                                },
+                                global: {
+                                    css: `.p-tieredmenu { border: 1px solid red !important; }`
+                                }
+                            }
+                        })
+                    ]
+                }).createComponent(PTGlobalConfigTestComponent);
+                ptFixture.detectChanges();
+            });
+
+            it('should apply global PT to all instances', () => {
+                const tieredMenus = ptFixture.debugElement.queryAll(By.css('.p-tieredmenu'));
+                expect(tieredMenus.length).toBe(2);
+
+                tieredMenus.forEach((menu) => {
+                    expect(menu.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+                    expect(menu.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+                });
+            });
+
+            it('should apply global PT to all items', () => {
+                const items = ptFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+                items.forEach((item) => {
+                    expect(item.nativeElement.classList.contains('GLOBAL_ITEM_CLASS')).toBe(true);
+                });
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            @Component({
+                standalone: true,
+                imports: [TieredMenu],
+                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+            })
+            class PTHooksTestComponent {
+                hookCalled = false;
+                model: MenuItem[] = [{ label: 'File', items: [{ label: 'New' }] }];
+                pt = {
+                    root: 'HOOK_TEST_CLASS',
+                    hooks: {
+                        onInit: () => {
+                            this.hookCalled = true;
+                        }
+                    }
+                };
+            }
+
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+                ptFixture = TestBed.configureTestingModule({
+                    imports: [PTHooksTestComponent, BrowserAnimationsModule]
+                }).createComponent(PTHooksTestComponent);
+            });
+
+            it('should call PT hook onInit', fakeAsync(() => {
+                const component = ptFixture.componentInstance;
+                ptFixture.detectChanges();
+                tick();
+
+                expect(component.hookCalled).toBe(true);
+            }));
+        });
+
+        describe('Inline PT tests', () => {
+            beforeEach(() => {
+                TestBed.resetTestingModule();
+            });
+
+            it('should apply inline PT with string', fakeAsync(() => {
+                @Component({
+                    standalone: true,
+                    imports: [TieredMenu],
+                    template: `<p-tieredmenu [model]="model" [pt]="{ root: 'INLINE_STRING_CLASS' }"></p-tieredmenu>`
+                })
+                class InlineStringComponent {
+                    model: MenuItem[] = [{ label: 'File' }];
+                }
+
+                const inlineFixture = TestBed.configureTestingModule({
+                    imports: [InlineStringComponent, BrowserAnimationsModule]
+                }).createComponent(InlineStringComponent);
+                inlineFixture.detectChanges();
+                tick();
+
+                const root = inlineFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.classList.contains('INLINE_STRING_CLASS')).toBe(true);
+            }));
+
+            it('should apply inline PT with object', fakeAsync(() => {
+                @Component({
+                    standalone: true,
+                    imports: [TieredMenu],
+                    template: `<p-tieredmenu [model]="model" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></p-tieredmenu>`
+                })
+                class InlineObjectComponent {
+                    model: MenuItem[] = [{ label: 'File' }];
+                }
+
+                const inlineFixture = TestBed.configureTestingModule({
+                    imports: [InlineObjectComponent, BrowserAnimationsModule]
+                }).createComponent(InlineObjectComponent);
+                inlineFixture.detectChanges();
+                tick();
+
+                const root = inlineFixture.debugElement.query(By.css('.p-tieredmenu'));
+                expect(root.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            }));
         });
     });
 });

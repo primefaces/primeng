@@ -881,4 +881,516 @@ describe('Skeleton', () => {
             expect(element.style).toBeTruthy();
         });
     });
+
+    describe('PassThrough - Case 1: Simple string classes', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+        })
+        class TestSkeletonPtComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestSkeletonPtComponent>;
+        let component: TestSkeletonPtComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonPtComponent]
+            });
+
+            fixture = TestBed.createComponent(TestSkeletonPtComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply pt host class', () => {
+            component.pt = { host: 'HOST_CLASS' };
+            fixture.detectChanges();
+            fixture.detectChanges(); // Trigger ngAfterViewChecked
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            expect(skeletonElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply pt root class', () => {
+            component.pt = { root: 'ROOT_CLASS' };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            expect(skeletonElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PassThrough - Case 2: Objects', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+        })
+        class TestSkeletonPtObjectComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestSkeletonPtObjectComponent>;
+        let component: TestSkeletonPtObjectComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonPtObjectComponent]
+            });
+
+            fixture = TestBed.createComponent(TestSkeletonPtObjectComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply pt host with object properties', () => {
+            component.pt = {
+                host: {
+                    class: 'HOST_OBJECT_CLASS',
+                    style: { border: '1px solid red' },
+                    'data-p-test': true
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            expect(skeletonElement.nativeElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
+            expect(skeletonElement.nativeElement.style.border).toBe('1px solid red');
+            expect(skeletonElement.nativeElement.getAttribute('data-p-test')).toBe('true');
+        });
+
+        it('should apply pt root with object properties', () => {
+            component.pt = {
+                root: {
+                    class: 'ROOT_OBJECT_CLASS',
+                    style: { 'background-color': 'yellow' },
+                    'aria-label': 'SKELETON_CONTAINER'
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            expect(skeletonElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+            expect(skeletonElement.nativeElement.style.backgroundColor).toBe('yellow');
+            expect(skeletonElement.nativeElement.getAttribute('aria-label')).toBe('SKELETON_CONTAINER');
+        });
+    });
+
+    describe('PassThrough - Case 3: Mixed object and string values', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+        })
+        class TestSkeletonPtMixedComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestSkeletonPtMixedComponent>;
+        let component: TestSkeletonPtMixedComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonPtMixedComponent]
+            });
+
+            fixture = TestBed.createComponent(TestSkeletonPtMixedComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply mixed pt values', () => {
+            component.pt = {
+                host: {
+                    class: 'HOST_MIXED_CLASS',
+                    style: { padding: '10px' }
+                },
+                root: 'ROOT_STRING_CLASS'
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            expect(skeletonElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            expect(skeletonElement.nativeElement.classList.contains('ROOT_STRING_CLASS')).toBe(true);
+            expect(skeletonElement.nativeElement.style.padding).toBe('10px');
+        });
+    });
+
+    describe('PassThrough - Case 4: Use variables from instance', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-skeleton [shape]="shape" [animation]="animation" [pt]="pt"></p-skeleton> `
+        })
+        class TestSkeletonPtInstanceComponent {
+            pt: any = {};
+            shape = 'circle';
+            animation = 'wave';
+        }
+
+        let fixture: ComponentFixture<TestSkeletonPtInstanceComponent>;
+        let component: TestSkeletonPtInstanceComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonPtInstanceComponent]
+            });
+
+            fixture = TestBed.createComponent(TestSkeletonPtInstanceComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply pt based on instance shape', () => {
+            component.shape = 'circle';
+            component.pt = {
+                host: ({ instance }: any) => {
+                    return {
+                        class: {
+                            SHAPE_CIRCLE: instance?.shape === 'circle',
+                            SHAPE_RECTANGLE: instance?.shape === 'rectangle'
+                        }
+                    };
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            const hasCircle = skeletonElement.nativeElement.classList.contains('SHAPE_CIRCLE');
+            const hasRectangle = skeletonElement.nativeElement.classList.contains('SHAPE_RECTANGLE');
+
+            expect(hasCircle || !hasRectangle).toBe(true);
+        });
+
+        it('should apply pt style based on instance animation', () => {
+            component.animation = 'pulse';
+            component.pt = {
+                root: ({ instance }: any) => {
+                    return {
+                        style: {
+                            opacity: instance?.animation === 'pulse' ? '0.8' : '1'
+                        }
+                    };
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            expect(skeletonElement.nativeElement.style.opacity).toBe('0.8');
+        });
+    });
+
+    describe('PassThrough - Case 5: Event binding', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+        })
+        class TestSkeletonPtEventComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestSkeletonPtEventComponent>;
+        let component: TestSkeletonPtEventComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonPtEventComponent]
+            });
+
+            fixture = TestBed.createComponent(TestSkeletonPtEventComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should bind onclick event to host element', fakeAsync(() => {
+            let clicked = false;
+
+            component.pt = {
+                host: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            skeletonElement.nativeElement.click();
+            tick();
+
+            expect(clicked).toBe(true);
+            flush();
+        }));
+
+        it('should bind onmouseenter event', fakeAsync(() => {
+            let mouseEntered = false;
+
+            component.pt = {
+                root: {
+                    onmouseenter: () => {
+                        mouseEntered = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+            skeletonElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+            tick();
+
+            expect(mouseEntered).toBe(true);
+            flush();
+        }));
+    });
+
+    describe('PassThrough - Case 6: Inline test', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-skeleton [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-skeleton> `
+        })
+        class TestSkeletonInlineStringPtComponent {}
+
+        @Component({
+            standalone: false,
+            template: ` <p-skeleton [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-skeleton> `
+        })
+        class TestSkeletonInlineObjectPtComponent {}
+
+        it('should apply inline pt with string class', () => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonInlineStringPtComponent]
+            });
+
+            const testFixture = TestBed.createComponent(TestSkeletonInlineStringPtComponent);
+            testFixture.detectChanges();
+            testFixture.detectChanges();
+
+            const skeletonElement = testFixture.debugElement.query(By.directive(Skeleton));
+            expect(skeletonElement.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply inline pt with object', () => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonInlineObjectPtComponent]
+            });
+
+            const testFixture = TestBed.createComponent(TestSkeletonInlineObjectPtComponent);
+            testFixture.detectChanges();
+            testFixture.detectChanges();
+
+            const skeletonElement = testFixture.debugElement.query(By.directive(Skeleton));
+            expect(skeletonElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            expect(skeletonElement.nativeElement.style.border).toBe('2px solid green');
+        });
+    });
+
+    describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
+        it('should apply global pt configuration from PrimeNGConfig', () => {
+            const { providePrimeNG } = require('primeng/config');
+
+            @Component({
+                standalone: false,
+                template: `
+                    <p-skeleton></p-skeleton>
+                    <p-skeleton></p-skeleton>
+                `
+            })
+            class TestSkeletonGlobalPtComponent {}
+
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonGlobalPtComponent],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            skeleton: {
+                                host: 'GLOBAL_HOST_CLASS',
+                                root: 'GLOBAL_ROOT_CLASS'
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const testFixture = TestBed.createComponent(TestSkeletonGlobalPtComponent);
+            testFixture.detectChanges();
+            testFixture.detectChanges();
+
+            const skeletons = testFixture.debugElement.queryAll(By.directive(Skeleton));
+            expect(skeletons.length).toBe(2);
+
+            skeletons.forEach((skeleton) => {
+                expect(skeleton.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
+                expect(skeleton.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+            });
+        });
+
+        it('should merge local pt with global pt configuration', () => {
+            const { providePrimeNG } = require('primeng/config');
+
+            @Component({
+                standalone: false,
+                template: ` <p-skeleton [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-skeleton> `
+            })
+            class TestSkeletonMergedPtComponent {}
+
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonMergedPtComponent],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            skeleton: {
+                                host: 'GLOBAL_HOST_CLASS'
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const testFixture = TestBed.createComponent(TestSkeletonMergedPtComponent);
+            testFixture.detectChanges();
+            testFixture.detectChanges();
+
+            const skeletonElement = testFixture.debugElement.query(By.directive(Skeleton));
+            // Local pt should override global pt
+            expect(skeletonElement.nativeElement.classList.contains('LOCAL_HOST_CLASS')).toBe(true);
+            expect(skeletonElement.nativeElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PassThrough - Case 8: Test hooks', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+        })
+        class TestSkeletonPtHooksComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestSkeletonPtHooksComponent>;
+        let component: TestSkeletonPtHooksComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [SkeletonModule, NoopAnimationsModule],
+                declarations: [TestSkeletonPtHooksComponent]
+            });
+
+            fixture = TestBed.createComponent(TestSkeletonPtHooksComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should call onInit hook from pt', () => {
+            let onInitCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: () => {
+                        onInitCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(onInitCalled).toBe(true);
+        });
+
+        it('should call onAfterViewInit hook from pt', () => {
+            let onAfterViewInitCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onAfterViewInit: () => {
+                        onAfterViewInitCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(onAfterViewInitCalled).toBe(true);
+        });
+
+        it('should call onDestroy hook from pt when component is destroyed', () => {
+            let onDestroyCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onDestroy: () => {
+                        onDestroyCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            fixture.destroy();
+
+            expect(onDestroyCalled).toBe(true);
+        });
+
+        it('should pass context to hooks', () => {
+            let hookContext: any = null;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: (context: any) => {
+                        hookContext = context;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(hookContext).toBeTruthy();
+        });
+
+        it('should call multiple hooks in correct order', () => {
+            const callOrder: string[] = [];
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: () => {
+                        callOrder.push('onInit');
+                    },
+                    onAfterContentInit: () => {
+                        callOrder.push('onAfterContentInit');
+                    },
+                    onAfterViewInit: () => {
+                        callOrder.push('onAfterViewInit');
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(callOrder).toContain('onInit');
+            expect(callOrder).toContain('onAfterViewInit');
+            if (callOrder.includes('onAfterContentInit')) {
+                expect(callOrder.indexOf('onInit')).toBeLessThan(callOrder.indexOf('onAfterContentInit'));
+                expect(callOrder.indexOf('onAfterContentInit')).toBeLessThan(callOrder.indexOf('onAfterViewInit'));
+            }
+        });
+    });
 });

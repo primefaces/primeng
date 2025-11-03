@@ -849,7 +849,7 @@ describe('Drawer', () => {
             testFixture.detectChanges();
             tick();
 
-            const drawerContainer = testFixture.debugElement.query(By.css('[data-pc-name="sidebar"]'));
+            const drawerContainer = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
             expect(drawerContainer).toBeTruthy();
             expect(drawerContainer.nativeElement.getAttribute('data-pc-section')).toBe('root');
         }));
@@ -1042,5 +1042,419 @@ describe('Drawer', () => {
             const content = emptyFixture.debugElement.query(By.css('[data-pc-section="content"]'));
             expect(content).toBeTruthy();
         }));
+    });
+
+    describe('PT (PassThrough) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+            })
+            class TestPTCase1Component {
+                visible = true;
+                pt = {
+                    root: 'ROOT_CLASS',
+                    header: 'HEADER_CLASS',
+                    title: 'TITLE_CLASS',
+                    content: 'CONTENT_CLASS',
+                    footer: 'FOOTER_CLASS',
+                    pcCloseButton: 'CLOSE_BUTTON_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase1Component],
+                    imports: [Drawer, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.detectChanges();
+                tick();
+
+                const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+                if (root) {
+                    expect(root.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 2: Objects with class, style, and attributes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+            })
+            class TestPTCase2Component {
+                visible = true;
+                pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { border: '2px solid blue' },
+                        'data-test': 'root-test'
+                    },
+                    header: {
+                        class: 'HEADER_OBJECT_CLASS',
+                        style: { padding: '20px' }
+                    },
+                    content: {
+                        class: 'CONTENT_OBJECT_CLASS',
+                        'aria-label': 'Drawer content'
+                    }
+                };
+            }
+
+            it('should apply object properties to PT sections', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase2Component],
+                    imports: [Drawer, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.detectChanges();
+                tick();
+
+                const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+                if (root) {
+                    expect(root.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                    expect(root.nativeElement.style.border).toBe('2px solid blue');
+                    expect(root.nativeElement.getAttribute('data-test')).toBe('root-test');
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_OBJECT_CLASS')).toBe(true);
+                    expect(header.nativeElement.style.padding).toBe('20px');
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
+                    expect(content.nativeElement.getAttribute('aria-label')).toBe('Drawer content');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+            })
+            class TestPTCase3Component {
+                visible = true;
+                pt = {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    header: 'HEADER_STRING_CLASS',
+                    content: {
+                        class: 'CONTENT_MIXED_CLASS'
+                    }
+                };
+            }
+
+            it('should apply mixed object and string values correctly', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase3Component],
+                    imports: [Drawer, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.detectChanges();
+                tick();
+
+                const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+                if (root) {
+                    expect(root.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_STRING_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" [position]="position" header="Test Drawer">Content</p-drawer>`
+            })
+            class TestPTCase4Component {
+                visible = true;
+                position = 'right';
+                pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.visible ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
+                        };
+                    },
+                    header: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.position === 'right' ? 'lightblue' : 'white'
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase4Component],
+                    imports: [Drawer, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.detectChanges();
+                tick();
+
+                const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+                if (root) {
+                    expect(root.nativeElement.classList.contains('VISIBLE_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.style.backgroundColor).toBe('lightblue');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+            })
+            class TestPTCase5Component {
+                visible = true;
+                clickedSection: string = '';
+                pt = {
+                    header: {
+                        onclick: () => {
+                            this.clickedSection = 'header';
+                        }
+                    },
+                    content: {
+                        onclick: () => {
+                            this.clickedSection = 'content';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase5Component],
+                    imports: [Drawer, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                tick();
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    header.nativeElement.click();
+                    expect(component.clickedSection).toBe('header');
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    content.nativeElement.click();
+                    expect(component.clickedSection).toBe('content');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 6: Inline test', () => {
+            @Component({
+                standalone: false,
+                template: `<p-drawer [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+            })
+            class TestPTCase6InlineComponent {
+                visible = true;
+            }
+
+            @Component({
+                standalone: false,
+                template: `<p-drawer [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+            })
+            class TestPTCase6InlineObjectComponent {
+                visible = true;
+            }
+
+            it('should apply inline PT string classes', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineComponent],
+                    imports: [Drawer, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+                if (root) {
+                    expect(root.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('INLINE_HEADER_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+
+            it('should apply inline PT object classes', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [Drawer, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+                if (root) {
+                    expect(root.nativeElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('INLINE_CONTENT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-drawer [(visible)]="visible1" header="Drawer 1">Content 1</p-drawer>
+                    <p-drawer [(visible)]="visible2" header="Drawer 2">Content 2</p-drawer>
+                `
+            })
+            class TestPTCase7GlobalComponent {
+                visible1 = true;
+                visible2 = true;
+            }
+
+            it('should apply global PT configuration from PrimeNGConfig', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [Drawer, NoopAnimationsModule],
+                    providers: [
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    drawer: {
+                                        root: { class: 'GLOBAL_ROOT_CLASS' },
+                                        header: { class: 'GLOBAL_HEADER_CLASS' }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const drawers = testFixture.debugElement.queryAll(By.directive(Drawer));
+                expect(drawers.length).toBe(2);
+
+                flush();
+            }));
+        });
+
+        describe('Case 8: Test hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+            })
+            class TestPTCase8HooksComponent {
+                visible = true;
+                afterViewInitCalled = false;
+                afterViewCheckedCalled = false;
+                onDestroyCalled = false;
+
+                pt = {
+                    root: 'HOOK_TEST_CLASS',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.afterViewInitCalled = true;
+                        },
+                        onAfterViewChecked: () => {
+                            this.afterViewCheckedCalled = true;
+                        },
+                        onDestroy: () => {
+                            this.onDestroyCalled = true;
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks on Angular lifecycle events', fakeAsync(async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase8HooksComponent],
+                    imports: [Drawer, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+
+                testFixture.detectChanges();
+                tick();
+
+                expect(component.afterViewInitCalled).toBe(true);
+                expect(component.afterViewCheckedCalled).toBe(true);
+
+                testFixture.destroy();
+                expect(component.onDestroyCalled).toBe(true);
+
+                flush();
+            }));
+        });
     });
 });

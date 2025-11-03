@@ -39,7 +39,7 @@ const classes = {
 export class TieredMenuStyle extends BaseStyle {
     name = 'tieredmenu';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

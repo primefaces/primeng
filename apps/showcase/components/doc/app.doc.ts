@@ -1,44 +1,61 @@
 import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppDocService } from './app.doc.service';
-import { AppDocFeaturesSection } from './app.docfeaturessection';
 import { AppDocApiSection } from './app.docapisection';
+import { AppDocFeaturesSection } from './app.docfeaturessection';
+import { AppDocPtSection } from './app.docptsection';
 import { AppDocThemingSection } from './app.docthemingsection';
 
 @Component({
     selector: 'app-doc',
     standalone: true,
-    imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection],
+    imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection, AppDocPtSection],
     providers: [AppDocService],
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu">
-            @if (docs && apiDocs) {
+            @if (isComponentDoc()) {
                 <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 0 }">
                     <button type="button" (click)="activateTab(0)">FEATURES</button>
                 </li>
-                <li *ngIf="apiDocs" [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 1 }">
+            }
+            @if (apiDocs()) {
+                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 1 }">
                     <button type="button" (click)="activateTab(1)">API</button>
                 </li>
             }
-            @if (themeDocs) {
+            @if (themeDocs()) {
                 <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 2 }">
                     <button type="button" (click)="activateTab(2)">THEMING</button>
                 </li>
             }
+            @if (ptDocs()) {
+                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 3 }">
+                    <button type="button" (click)="activateTab(3)">PASSTHROUGH</button>
+                </li>
+            }
         </ul>
         <div class="doc-tabpanels">
-            @if (docs) {
-                <app-docfeaturessection [header]="header" [description]="description" [docs]="docs" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
+            @if (docs()) {
+                <app-docfeaturessection [header]="header() ?? _componentName()" [description]="description()" [docs]="docs()" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
             }
-            @if (apiDocs) {
-                <app-docapisection [docs]="apiDocs" [header]="header" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
+            @if (apiDocs()) {
+                @defer (when docService.activeTab() === 1) {
+                    <app-docapisection [docs]="apiDocs()" [header]="header() ?? _componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
+                }
             }
 
-            @if (themeDocs) {
-                <app-docthemingsection [header]="header" [docs]="themeDocs" [componentName]="themeDocs" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+            @if (themeDocs()) {
+                @defer (when docService.activeTab() === 2) {
+                    <app-docthemingsection [header]="header()" [docs]="themeDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+                }
+            }
+            @if (ptDocs()) {
+                @defer (when docService.activeTab() === 3) {
+                    <app-docptsection [ptComponent]="ptDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 3 ? 'flex' : 'none' }" />
+                }
             }
         </div>
     </div>`,
@@ -46,17 +63,27 @@ import { AppDocThemingSection } from './app.docthemingsection';
     encapsulation: ViewEncapsulation.None
 })
 export class AppDoc implements OnInit, OnChanges {
-    @Input() docTitle!: string;
+    docTitle = input<string>('');
 
-    @Input() docs!: Doc[];
+    docs = input<Doc[]>();
 
-    @Input() header!: string;
+    description = input<string>('');
 
-    @Input() description!: string;
+    apiDocs = input<string[]>();
 
-    @Input() apiDocs!: string[];
+    themeDocs = input<string>('');
 
-    @Input() themeDocs: string;
+    header = input<string>('');
+
+    componentName = input<string>('');
+
+    _componentName = computed(() => {
+        return this.componentName() || this.themeDocs() || this.header();
+    });
+
+    isComponentDoc = computed(() => !!(this.docs() && (this.apiDocs() || this.themeDocs() || this.ptDocs())));
+
+    ptDocs = input<any>();
 
     docService = inject(AppDocService);
 
@@ -75,9 +102,7 @@ export class AppDoc implements OnInit, OnChanges {
     public document: Document = inject(DOCUMENT);
 
     ngOnInit() {
-        if (this.router.url.includes('#api')) {
-            this.activateTab(1);
-        }
+        this.navigate();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -92,6 +117,18 @@ export class AppDoc implements OnInit, OnChanges {
 
     activateTab(index) {
         this.docService.activeTab.set(index);
+    }
+
+    navigate() {
+        if (this.router.url.includes('#api')) {
+            this.activateTab(1);
+        }
+        if (this.router.url.toLowerCase().includes('classes') || this.router.url.toLowerCase().includes('designtokens')) {
+            this.activateTab(2);
+        }
+        if (this.router.url.includes('#pt')) {
+            this.activateTab(3);
+        }
     }
 
     ngOnDestroy() {

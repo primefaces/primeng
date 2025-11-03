@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -10,12 +9,11 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     Injector,
     Input,
     NgModule,
     numberAttribute,
-    OnChanges,
-    OnInit,
     Output,
     QueryList,
     SimpleChanges,
@@ -27,12 +25,16 @@ import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { getSelection } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
+import { Bind, BindModule } from 'primeng/bind';
 import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
-import { InputNumberInputEvent } from './inputnumber.interface';
+import type { InputNumberInputEvent, InputNumberPassThrough } from 'primeng/types/inputnumber';
 import { InputNumberStyle } from './style/inputnumberstyle';
+
+const INPUTNUMBER_INSTANCE = new InjectionToken<InputNumber>('INPUTNUMBER_INSTANCE');
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -46,7 +48,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputNumber, p-inputnumber, p-input-number',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon, SharedModule, BindModule],
     template: `
         <input
             pInputText
@@ -88,19 +90,20 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (click)="onInputClick()"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
-            [attr.data-pc-section]="'input'"
+            [pt]="ptm('pcInputText')"
             [pAutoFocus]="autofocus"
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" (click)="clear()" [class]="cx('clearIcon')" [attr.data-pc-section]="'clearIcon'">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [pBind]="ptm('clearIcon')" (click)="clear()" [class]="cx('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <span [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
+        <span [pBind]="ptm('buttonGroup')" [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'">
             <button
                 type="button"
+                [pBind]="ptm('incrementButton')"
                 [class]="cn(cx('incrementButton'), incrementButtonClass)"
                 [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
@@ -110,17 +113,17 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (keydown)="onUpButtonKeyDown($event)"
                 (keyup)="onUpButtonKeyUp()"
                 [attr.aria-hidden]="true"
-                [attr.data-pc-section]="'incrementbutton'"
             >
-                <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
+                <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <svg data-p-icon="angle-up" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
+                    <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
                     <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
 
             <button
                 type="button"
+                [pBind]="ptm('decrementButton')"
                 [class]="cn(cx('decrementButton'), decrementButtonClass)"
                 [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
@@ -130,11 +133,10 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
                 (keyup)="onDownButtonKeyUp()"
-                [attr.data-pc-section]="'decrementbutton'"
             >
-                <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
+                <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
-                    <svg data-p-icon="angle-down" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
+                    <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
                     <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
@@ -142,6 +144,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
+            [pBind]="ptm('incrementButton')"
             [class]="cn(cx('incrementButton'), incrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
@@ -151,17 +154,17 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (mouseleave)="onUpButtonMouseLeave()"
             (keydown)="onUpButtonKeyDown($event)"
             (keyup)="onUpButtonKeyUp()"
-            [attr.data-pc-section]="'incrementbutton'"
         >
-            <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
+            <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
             <ng-container *ngIf="!incrementButtonIcon">
-                <svg data-p-icon="angle-up" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
+                <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
                 <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
+            [pBind]="ptm('decrementButton')"
             [class]="cn(cx('decrementButton'), decrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
@@ -171,25 +174,33 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (mouseleave)="onDownButtonMouseLeave()"
             (keydown)="onDownButtonKeyDown($event)"
             (keyup)="onDownButtonKeyUp()"
-            [attr.data-pc-section]="'decrementbutton'"
         >
-            <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
+            <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
             <ng-container *ngIf="!decrementButtonIcon">
-                <svg data-p-icon="angle-down" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
+                <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
                 <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle],
+    providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle, { provide: INPUTNUMBER_INSTANCE, useExisting: InputNumber }, { provide: PARENT_INSTANCE, useExisting: InputNumber }],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.data-pc-name]': "'inputnumber'",
-        '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class InputNumber extends BaseInput implements OnInit, AfterContentInit, OnChanges {
+export class InputNumber extends BaseInput<InputNumberPassThrough> {
+    $pcInputNumber: InputNumber | undefined = inject(INPUTNUMBER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    _componentStyle = inject(InputNumberStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Displays spinner buttons.
      * @group Props
@@ -451,25 +462,20 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
 
     _index: number | any;
 
-    _componentStyle = inject(InputNumberStyle);
-
     private ngControl: NgControl | null = null;
 
     constructor(public readonly injector: Injector) {
         super();
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
         if (props.some((p) => !!simpleChange[p])) {
             this.updateConstructParser();
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
-
+    onInit() {
         this.ngControl = this.injector.get(NgControl, null, { optional: true });
 
         this.constructParser();
@@ -477,7 +483,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         this.initialized = true;
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':

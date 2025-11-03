@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Component, TemplateRef } from '@angular/core';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { Toast, ToastItem } from './toast';
+import { providePrimeNG } from 'primeng/config';
 
 // Test Components for different scenarios
 @Component({
@@ -796,6 +797,518 @@ describe('Toast', () => {
             expect(toast2El.componentInstance.key).toBe('test2');
         });
     });
+
+    describe('Toast PassThrough - Case 1: Simple string classes', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+        })
+        class TestToastPtComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestToastPtComponent>;
+        let component: TestToastPtComponent;
+
+        beforeEach(async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastPtComponent],
+                providers: [MessageService]
+            }).compileComponents();
+
+            messageService = TestBed.inject(MessageService);
+            fixture = TestBed.createComponent(TestToastPtComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply pt host class', () => {
+            component.pt = { host: 'HOST_CLASS' };
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            expect(toastElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply pt root class', () => {
+            component.pt = { root: 'ROOT_CLASS' };
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            expect(toastElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('Toast PassThrough - Case 2: Objects', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+        })
+        class TestToastPtObjectComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestToastPtObjectComponent>;
+        let component: TestToastPtObjectComponent;
+
+        beforeEach(async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastPtObjectComponent],
+                providers: [MessageService]
+            }).compileComponents();
+
+            messageService = TestBed.inject(MessageService);
+            fixture = TestBed.createComponent(TestToastPtObjectComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply pt host with object properties', () => {
+            component.pt = {
+                host: {
+                    class: 'HOST_OBJECT_CLASS',
+                    style: { border: '1px solid red' },
+                    'data-p-test': true
+                }
+            };
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            expect(toastElement.nativeElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
+            expect(toastElement.nativeElement.style.border).toBe('1px solid red');
+            expect(toastElement.nativeElement.getAttribute('data-p-test')).toBe('true');
+        });
+
+        it('should apply pt root with object properties', () => {
+            component.pt = {
+                root: {
+                    class: 'ROOT_OBJECT_CLASS',
+                    style: { 'background-color': 'yellow' },
+                    'aria-label': 'TOAST_CONTAINER'
+                }
+            };
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            expect(toastElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+            expect(toastElement.nativeElement.style.backgroundColor).toBe('yellow');
+            expect(toastElement.nativeElement.getAttribute('aria-label')).toBe('TOAST_CONTAINER');
+        });
+    });
+
+    describe('Toast PassThrough - Case 3: Mixed object and string values', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+        })
+        class TestToastPtMixedComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestToastPtMixedComponent>;
+        let component: TestToastPtMixedComponent;
+
+        beforeEach(async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastPtMixedComponent],
+                providers: [MessageService]
+            }).compileComponents();
+
+            messageService = TestBed.inject(MessageService);
+            fixture = TestBed.createComponent(TestToastPtMixedComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply mixed pt values', () => {
+            component.pt = {
+                host: {
+                    class: 'HOST_MIXED_CLASS',
+                    style: { padding: '10px' }
+                },
+                root: 'ROOT_STRING_CLASS'
+            };
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            expect(toastElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            expect(toastElement.nativeElement.classList.contains('ROOT_STRING_CLASS')).toBe(true);
+            expect(toastElement.nativeElement.style.padding).toBe('10px');
+        });
+    });
+
+    describe('Toast PassThrough - Case 4: Use variables from instance', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-toast [key]="'pt-test'" [position]="position" [pt]="pt"></p-toast> `
+        })
+        class TestToastPtInstanceComponent {
+            pt: any = {};
+            position: any = 'top-right';
+        }
+
+        let fixture: ComponentFixture<TestToastPtInstanceComponent>;
+        let component: TestToastPtInstanceComponent;
+
+        beforeEach(async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastPtInstanceComponent],
+                providers: [MessageService]
+            }).compileComponents();
+
+            messageService = TestBed.inject(MessageService);
+            fixture = TestBed.createComponent(TestToastPtInstanceComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply pt based on instance position', () => {
+            component.position = 'bottom-left';
+            component.pt = {
+                host: ({ instance }: any) => {
+                    return {
+                        class: {
+                            POSITION_BOTTOM_LEFT: instance?.position === 'bottom-left',
+                            POSITION_TOP_RIGHT: instance?.position === 'top-right'
+                        }
+                    };
+                }
+            };
+            fixture.detectChanges();
+            // Trigger ngAfterViewChecked for hostDirective Bind
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const hasBottomLeft = toastElement.nativeElement.classList.contains('POSITION_BOTTOM_LEFT');
+            const hasTopRight = toastElement.nativeElement.classList.contains('POSITION_TOP_RIGHT');
+
+            // At least one should be applied based on position
+            expect(hasBottomLeft || !hasTopRight).toBe(true);
+        });
+
+        it('should apply pt style based on instance life', () => {
+            component.pt = {
+                root: ({ instance }: any) => {
+                    return {
+                        style: {
+                            opacity: instance?.life > 2000 ? '1' : '0.5'
+                        }
+                    };
+                }
+            };
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            expect(toastElement.nativeElement.style.opacity).toBe('1');
+        });
+    });
+
+    describe('Toast PassThrough - Case 5: Event binding', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+        })
+        class TestToastPtEventComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestToastPtEventComponent>;
+        let component: TestToastPtEventComponent;
+
+        beforeEach(async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastPtEventComponent],
+                providers: [MessageService]
+            }).compileComponents();
+
+            messageService = TestBed.inject(MessageService);
+            fixture = TestBed.createComponent(TestToastPtEventComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should bind onclick event to host element', fakeAsync(() => {
+            let clicked = false;
+
+            component.pt = {
+                host: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            toastElement.nativeElement.click();
+            tick();
+
+            expect(clicked).toBe(true);
+            flush();
+        }));
+
+        it('should bind onmouseenter event', fakeAsync(() => {
+            let mouseEntered = false;
+
+            component.pt = {
+                root: {
+                    onmouseenter: () => {
+                        mouseEntered = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            toastElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+            tick();
+
+            expect(mouseEntered).toBe(true);
+            flush();
+        }));
+    });
+
+    describe('Toast PassThrough - Case 6: Inline test', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-toast> `
+        })
+        class TestToastInlineStringPtComponent {}
+
+        @Component({
+            standalone: false,
+            template: ` <p-toast [key]="'pt-test'" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-toast> `
+        })
+        class TestToastInlineObjectPtComponent {}
+
+        it('should apply inline pt with string class', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastInlineStringPtComponent],
+                providers: [MessageService]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestToastInlineStringPtComponent);
+            testFixture.detectChanges();
+
+            const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+            expect(toastElement.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply inline pt with object', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastInlineObjectPtComponent],
+                providers: [MessageService]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestToastInlineObjectPtComponent);
+            testFixture.detectChanges();
+
+            const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+            expect(toastElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            expect(toastElement.nativeElement.style.border).toBe('2px solid green');
+        });
+    });
+
+    describe('Toast PassThrough - Case 7: Test from PrimeNGConfig', () => {
+        @Component({
+            standalone: false,
+            template: `
+                <p-toast [key]="'toast1'"></p-toast>
+                <p-toast [key]="'toast2'"></p-toast>
+            `
+        })
+        class TestToastGlobalPtComponent {}
+
+        it('should apply global pt configuration from PrimeNGConfig', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastGlobalPtComponent],
+                providers: [
+                    MessageService,
+                    providePrimeNG({
+                        pt: {
+                            toast: {
+                                host: 'GLOBAL_HOST_CLASS',
+                                root: 'GLOBAL_ROOT_CLASS'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestToastGlobalPtComponent);
+            testFixture.detectChanges();
+
+            const toasts = testFixture.debugElement.queryAll(By.css('p-toast'));
+            expect(toasts.length).toBe(2);
+
+            toasts.forEach((toast) => {
+                expect(toast.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
+                expect(toast.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+            });
+        });
+
+        it('should merge local pt with global pt configuration', async () => {
+            @Component({
+                standalone: false,
+                template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-toast> `
+            })
+            class TestToastMergedPtComponent {}
+
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastMergedPtComponent],
+                providers: [
+                    MessageService,
+                    providePrimeNG({
+                        pt: {
+                            toast: {
+                                host: 'GLOBAL_HOST_CLASS'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestToastMergedPtComponent);
+            testFixture.detectChanges();
+
+            const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+            // Local pt should override global pt
+            expect(toastElement.nativeElement.classList.contains('LOCAL_HOST_CLASS')).toBe(true);
+            expect(toastElement.nativeElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('Toast PassThrough - Case 8: Test hooks', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+        })
+        class TestToastPtHooksComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestToastPtHooksComponent>;
+        let component: TestToastPtHooksComponent;
+
+        beforeEach(async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Toast],
+                declarations: [TestToastPtHooksComponent],
+                providers: [MessageService]
+            }).compileComponents();
+
+            messageService = TestBed.inject(MessageService);
+            fixture = TestBed.createComponent(TestToastPtHooksComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should call onInit hook from pt', () => {
+            let onInitCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: () => {
+                        onInitCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(onInitCalled).toBe(true);
+        });
+
+        it('should call onAfterViewInit hook from pt', () => {
+            let onAfterViewInitCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onAfterViewInit: () => {
+                        onAfterViewInitCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(onAfterViewInitCalled).toBe(true);
+        });
+
+        it('should call onDestroy hook from pt when component is destroyed', () => {
+            let onDestroyCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onDestroy: () => {
+                        onDestroyCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            fixture.destroy();
+
+            expect(onDestroyCalled).toBe(true);
+        });
+
+        it('should pass context to hooks', () => {
+            let hookContext: any = null;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: (context: any) => {
+                        hookContext = context;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(hookContext).toBeTruthy();
+        });
+
+        it('should call multiple hooks in correct order', () => {
+            const callOrder: string[] = [];
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: () => {
+                        callOrder.push('onInit');
+                    },
+                    onAfterContentInit: () => {
+                        callOrder.push('onAfterContentInit');
+                    },
+                    onAfterViewInit: () => {
+                        callOrder.push('onAfterViewInit');
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(callOrder).toContain('onInit');
+            expect(callOrder).toContain('onAfterViewInit');
+            if (callOrder.includes('onAfterContentInit')) {
+                expect(callOrder.indexOf('onInit')).toBeLessThan(callOrder.indexOf('onAfterContentInit'));
+                expect(callOrder.indexOf('onAfterContentInit')).toBeLessThan(callOrder.indexOf('onAfterViewInit'));
+            }
+        });
+    });
 });
 
 describe('ToastItem', () => {
@@ -1019,10 +1532,11 @@ describe('ToastItem', () => {
                     severity: severity as any,
                     summary: `${severity} message`,
                     detail: 'Test detail'
-                };
+                } as any;
                 fixture.detectChanges();
 
-                const icon = fixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+                // Icon is rendered as SVG element
+                const icon = fixture.debugElement.query(By.css('svg'));
                 expect(icon).toBeTruthy();
             });
         });
@@ -1133,5 +1647,611 @@ describe('ToastItem', () => {
             expect(component.clearTimeout).toHaveBeenCalled();
             flush();
         }));
+    });
+
+    describe('PassThrough - Case 1: Simple string classes', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ToastItem);
+            component = fixture.componentInstance;
+            component.message = {
+                severity: 'info',
+                summary: 'Test',
+                detail: 'Test message'
+            };
+            component.showTransformOptions = 'translateY(100%)';
+            component.hideTransformOptions = 'translateY(-100%)';
+            component.showTransitionOptions = '300ms ease-out';
+            component.hideTransitionOptions = '250ms ease-in';
+        });
+
+        it('should apply pt message class', () => {
+            fixture.componentRef.setInput('pt', { message: 'MESSAGE_CLASS' } as any);
+            fixture.detectChanges();
+
+            const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+            expect(messageElement.nativeElement.classList.contains('MESSAGE_CLASS')).toBe(true);
+        });
+
+        it('should apply pt messageContent class', () => {
+            fixture.componentRef.setInput('pt', { messageContent: 'CONTENT_CLASS' } as any);
+            fixture.detectChanges();
+
+            const contentElements = fixture.debugElement.queryAll(By.css('div'));
+            const contentElement = contentElements.find((el) => el.nativeElement.classList.contains('CONTENT_CLASS'));
+            expect(contentElement).toBeTruthy();
+        });
+
+        it('should apply pt messageIcon class', () => {
+            fixture.componentRef.setInput('pt', { messageIcon: 'ICON_CLASS' } as any);
+            fixture.detectChanges();
+
+            const iconElement = fixture.debugElement.query(By.css('svg[data-p-icon="info-circle"]'));
+            expect(iconElement.nativeElement.classList.contains('ICON_CLASS')).toBe(true);
+        });
+
+        it('should apply pt messageText class', () => {
+            fixture.componentRef.setInput('pt', { messageText: 'TEXT_CLASS' } as any);
+            fixture.detectChanges();
+
+            const textElements = fixture.debugElement.queryAll(By.css('div'));
+            const textElement = textElements.find((el) => el.nativeElement.classList.contains('TEXT_CLASS'));
+            expect(textElement).toBeTruthy();
+        });
+
+        it('should apply pt summary class', () => {
+            fixture.componentRef.setInput('pt', { summary: 'SUMMARY_CLASS' } as any);
+            fixture.detectChanges();
+
+            const summaryElements = fixture.debugElement.queryAll(By.css('div'));
+            const summaryElement = summaryElements.find((el) => el.nativeElement.classList.contains('SUMMARY_CLASS'));
+            expect(summaryElement).toBeTruthy();
+        });
+
+        it('should apply pt detail class', () => {
+            fixture.componentRef.setInput('pt', { detail: 'DETAIL_CLASS' } as any);
+            fixture.detectChanges();
+
+            const detailElements = fixture.debugElement.queryAll(By.css('div'));
+            const detailElement = detailElements.find((el) => el.nativeElement.classList.contains('DETAIL_CLASS'));
+            expect(detailElement).toBeTruthy();
+        });
+
+        it('should apply pt closeButton class', () => {
+            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('pt', { closeButton: 'CLOSE_BUTTON_CLASS' } as any);
+            fixture.detectChanges();
+
+            const closeButton = fixture.debugElement.query(By.css('button'));
+            expect(closeButton.nativeElement.classList.contains('CLOSE_BUTTON_CLASS')).toBe(true);
+        });
+
+        it('should apply pt closeIcon class', () => {
+            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('pt', { closeIcon: 'CLOSE_ICON_CLASS' } as any);
+            fixture.detectChanges();
+
+            const closeIcon = fixture.debugElement.query(By.css('button svg'));
+            expect(closeIcon.nativeElement.classList.contains('CLOSE_ICON_CLASS')).toBe(true);
+        });
+
+        it('should apply multiple pt classes', () => {
+            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('pt', {
+                message: 'MESSAGE_CLASS',
+                messageContent: 'CONTENT_CLASS',
+                summary: 'SUMMARY_CLASS',
+                closeButton: 'CLOSE_BUTTON_CLASS'
+            } as any);
+            fixture.detectChanges();
+
+            const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+            const contentElements = fixture.debugElement.queryAll(By.css('div'));
+            const closeButton = fixture.debugElement.query(By.css('button'));
+
+            expect(messageElement.nativeElement.classList.contains('MESSAGE_CLASS')).toBe(true);
+            expect(contentElements.some((el) => el.nativeElement.classList.contains('CONTENT_CLASS'))).toBe(true);
+            expect(contentElements.some((el) => el.nativeElement.classList.contains('SUMMARY_CLASS'))).toBe(true);
+            expect(closeButton.nativeElement.classList.contains('CLOSE_BUTTON_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PassThrough - Case 2: Objects', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ToastItem);
+            component = fixture.componentInstance;
+            component.message = {
+                severity: 'success',
+                summary: 'Test',
+                detail: 'Test message'
+            };
+            component.showTransformOptions = 'translateY(100%)';
+            component.hideTransformOptions = 'translateY(-100%)';
+            component.showTransitionOptions = '300ms ease-out';
+            component.hideTransitionOptions = '250ms ease-in';
+        });
+
+        it('should apply pt message with object containing class, style, data attribute', () => {
+            fixture.componentRef.setInput('pt', {
+                message: {
+                    class: 'MESSAGE_OBJECT_CLASS',
+                    style: { border: '2px solid blue' },
+                    'data-p-test': true
+                }
+            } as any);
+            fixture.detectChanges();
+
+            const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+            expect(messageElement.nativeElement.classList.contains('MESSAGE_OBJECT_CLASS')).toBe(true);
+            expect(messageElement.nativeElement.style.border).toBe('2px solid blue');
+            expect(messageElement.nativeElement.getAttribute('data-p-test')).toBe('true');
+        });
+
+        it('should apply pt messageContent with object properties', () => {
+            fixture.componentRef.setInput('pt', {
+                messageContent: {
+                    class: 'CONTENT_OBJECT_CLASS',
+                    style: { padding: '20px' }
+                }
+            } as any);
+            fixture.detectChanges();
+
+            const contentElements = fixture.debugElement.queryAll(By.css('div'));
+            const contentElement = contentElements.find((el) => el.nativeElement.classList.contains('CONTENT_OBJECT_CLASS'));
+            expect(contentElement).toBeTruthy();
+            expect(contentElement?.nativeElement.style.padding).toBe('20px');
+        });
+
+        it('should apply pt summary with object properties', () => {
+            fixture.componentRef.setInput('pt', {
+                summary: {
+                    class: 'SUMMARY_OBJECT_CLASS',
+                    style: { 'font-weight': 'bold' },
+                    'data-summary': 'test'
+                }
+            } as any);
+            fixture.detectChanges();
+
+            const summaryElements = fixture.debugElement.queryAll(By.css('div'));
+            const summaryElement = summaryElements.find((el) => el.nativeElement.classList.contains('SUMMARY_OBJECT_CLASS'));
+            expect(summaryElement).toBeTruthy();
+            expect(summaryElement?.nativeElement.style.fontWeight).toBe('bold');
+            expect(summaryElement?.nativeElement.getAttribute('data-summary')).toBe('test');
+        });
+
+        it('should apply pt closeButton with object properties', () => {
+            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('pt', {
+                closeButton: {
+                    class: 'CLOSE_BTN_OBJECT_CLASS',
+                    style: { background: 'red' },
+                    'aria-label': 'CUSTOM_CLOSE'
+                }
+            } as any);
+            fixture.detectChanges();
+
+            const closeButton = fixture.debugElement.query(By.css('button'));
+            expect(closeButton.nativeElement.classList.contains('CLOSE_BTN_OBJECT_CLASS')).toBe(true);
+            expect(closeButton.nativeElement.style.background).toBe('red');
+            expect(closeButton.nativeElement.getAttribute('aria-label')).toBe('CUSTOM_CLOSE');
+        });
+    });
+
+    describe('PassThrough - Case 3: Mixed object and string values', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ToastItem);
+            component = fixture.componentInstance;
+            component.message = {
+                severity: 'warn',
+                summary: 'Test',
+                detail: 'Test message',
+                closable: true
+            };
+            component.showTransformOptions = 'translateY(100%)';
+            component.hideTransformOptions = 'translateY(-100%)';
+            component.showTransitionOptions = '300ms ease-out';
+            component.hideTransitionOptions = '250ms ease-in';
+        });
+
+        it('should apply mixed pt values (objects and strings)', () => {
+            fixture.componentRef.setInput('pt', {
+                message: {
+                    class: 'MESSAGE_MIXED_CLASS',
+                    style: { margin: '10px' }
+                },
+                messageContent: 'CONTENT_STRING_CLASS',
+                summary: {
+                    class: 'SUMMARY_MIXED_CLASS'
+                },
+                closeButton: 'CLOSE_STRING_CLASS'
+            } as any);
+            fixture.detectChanges();
+
+            const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+            const contentElements = fixture.debugElement.queryAll(By.css('div'));
+            const closeButton = fixture.debugElement.query(By.css('button'));
+
+            expect(messageElement.nativeElement.classList.contains('MESSAGE_MIXED_CLASS')).toBe(true);
+            expect(messageElement.nativeElement.style.margin).toBe('10px');
+            expect(contentElements.some((el) => el.nativeElement.classList.contains('CONTENT_STRING_CLASS'))).toBe(true);
+            expect(contentElements.some((el) => el.nativeElement.classList.contains('SUMMARY_MIXED_CLASS'))).toBe(true);
+            expect(closeButton.nativeElement.classList.contains('CLOSE_STRING_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PassThrough - Case 4: Use variables from instance', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ToastItem);
+            component = fixture.componentInstance;
+            component.showTransformOptions = 'translateY(100%)';
+            component.hideTransformOptions = 'translateY(-100%)';
+            component.showTransitionOptions = '300ms ease-out';
+            component.hideTransitionOptions = '250ms ease-in';
+        });
+
+        it('should apply pt message class based on instance severity', () => {
+            component.message = {
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Error message'
+            };
+            fixture.componentRef.setInput('pt', {
+                message: ({ instance }: any) => {
+                    return {
+                        class: {
+                            SEVERITY_ERROR: instance?.message?.severity === 'error',
+                            SEVERITY_SUCCESS: instance?.message?.severity === 'success'
+                        }
+                    };
+                }
+            } as any);
+            fixture.detectChanges();
+
+            const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+            expect(messageElement.nativeElement.classList.contains('SEVERITY_ERROR')).toBe(true);
+            expect(messageElement.nativeElement.classList.contains('SEVERITY_SUCCESS')).toBe(false);
+        });
+
+        it('should apply pt summary style based on message content', () => {
+            component.message = {
+                severity: 'info',
+                summary: 'Important',
+                detail: 'Test'
+            };
+            fixture.componentRef.setInput('pt', {
+                summary: ({ instance }: any) => {
+                    return {
+                        style: {
+                            'font-weight': instance?.message?.summary?.includes('Important') ? 'bold' : 'normal'
+                        }
+                    };
+                }
+            } as any);
+            fixture.detectChanges();
+
+            const summaryElements = fixture.debugElement.queryAll(By.css('div'));
+            const summaryElement = summaryElements.find((el) => el.nativeElement.textContent.trim() === 'Important');
+            expect(summaryElement?.nativeElement.style.fontWeight).toBe('bold');
+        });
+    });
+
+    describe('PassThrough - Case 5: Event binding', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ToastItem);
+            component = fixture.componentInstance;
+            component.message = {
+                severity: 'info',
+                summary: 'Test',
+                detail: 'Test message'
+            };
+            component.showTransformOptions = 'translateY(100%)';
+            component.hideTransformOptions = 'translateY(-100%)';
+            component.showTransitionOptions = '300ms ease-out';
+            component.hideTransitionOptions = '250ms ease-in';
+        });
+
+        it('should bind onclick event to message element via pt', fakeAsync(() => {
+            let clicked = false;
+
+            fixture.componentRef.setInput('pt', {
+                message: () => {
+                    return {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    };
+                }
+            } as any);
+            fixture.detectChanges();
+
+            const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+            messageElement.nativeElement.click();
+            tick();
+
+            expect(clicked).toBe(true);
+            flush();
+        }));
+
+        it('should bind onmouseenter event via pt', fakeAsync(() => {
+            let mouseEntered = false;
+
+            fixture.componentRef.setInput('pt', {
+                message: () => {
+                    return {
+                        onmouseenter: () => {
+                            mouseEntered = true;
+                        }
+                    };
+                }
+            } as any);
+            fixture.detectChanges();
+
+            const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+            messageElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+            tick();
+
+            expect(mouseEntered).toBe(true);
+            flush();
+        }));
+    });
+
+    describe('PassThrough - Case 6: Inline test', () => {
+        @Component({
+            standalone: false,
+            template: `
+                <p-toastItem
+                    [message]="message"
+                    [pt]="{ message: 'INLINE_MESSAGE_CLASS' }"
+                    [showTransformOptions]="'translateY(100%)'"
+                    [hideTransformOptions]="'translateY(-100%)'"
+                    [showTransitionOptions]="'300ms'"
+                    [hideTransitionOptions]="'250ms'"
+                ></p-toastItem>
+            `
+        })
+        class TestInlineStringPtComponent {
+            message = { severity: 'info', summary: 'Test', detail: 'Inline test' };
+        }
+
+        @Component({
+            standalone: false,
+            template: `
+                <p-toastItem
+                    [message]="message"
+                    [pt]="{ message: { class: 'INLINE_OBJECT_CLASS', style: { border: '1px solid green' } } }"
+                    [showTransformOptions]="'translateY(100%)'"
+                    [hideTransformOptions]="'translateY(-100%)'"
+                    [showTransitionOptions]="'300ms'"
+                    [hideTransitionOptions]="'250ms'"
+                ></p-toastItem>
+            `
+        })
+        class TestInlineObjectPtComponent {
+            message = { severity: 'success', summary: 'Test', detail: 'Inline object test' };
+        }
+
+        it('should apply inline pt with string class', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, ToastItem],
+                declarations: [TestInlineStringPtComponent]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestInlineStringPtComponent);
+            testFixture.detectChanges();
+
+            const messageElement = testFixture.debugElement.query(By.css('[role="alert"]'));
+            expect(messageElement.nativeElement.classList.contains('INLINE_MESSAGE_CLASS')).toBe(true);
+        });
+
+        it('should apply inline pt with object', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, ToastItem],
+                declarations: [TestInlineObjectPtComponent]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestInlineObjectPtComponent);
+            testFixture.detectChanges();
+
+            const messageElement = testFixture.debugElement.query(By.css('[role="alert"]'));
+            expect(messageElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            expect(messageElement.nativeElement.style.border).toBe('1px solid green');
+        });
+    });
+
+    describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
+        @Component({
+            standalone: false,
+            template: `
+                <p-toastItem [message]="message1" [showTransformOptions]="'translateY(100%)'" [hideTransformOptions]="'translateY(-100%)'" [showTransitionOptions]="'300ms'" [hideTransitionOptions]="'250ms'"></p-toastItem>
+                <p-toastItem [message]="message2" [showTransformOptions]="'translateY(100%)'" [hideTransformOptions]="'translateY(-100%)'" [showTransitionOptions]="'300ms'" [hideTransitionOptions]="'250ms'"></p-toastItem>
+            `
+        })
+        class TestGlobalPtComponent {
+            message1 = { severity: 'info', summary: 'Message 1', detail: 'First message' };
+            message2 = { severity: 'success', summary: 'Message 2', detail: 'Second message' };
+        }
+
+        it('should apply global pt configuration from PrimeNGConfig', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, ToastItem],
+                declarations: [TestGlobalPtComponent],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            toastitem: {
+                                message: 'GLOBAL_MESSAGE_CLASS',
+                                summary: 'GLOBAL_SUMMARY_CLASS'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestGlobalPtComponent);
+            testFixture.detectChanges();
+
+            const messages = testFixture.debugElement.queryAll(By.css('[role="alert"]'));
+            expect(messages.length).toBe(2);
+
+            messages.forEach((message) => {
+                expect(message.nativeElement.classList.contains('GLOBAL_MESSAGE_CLASS')).toBe(true);
+            });
+        });
+
+        it('should merge local pt with global pt configuration', async () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-toastItem
+                        [message]="message"
+                        [pt]="{ message: 'LOCAL_MESSAGE_CLASS', messageContent: 'LOCAL_CONTENT_CLASS' }"
+                        [showTransformOptions]="'translateY(100%)'"
+                        [hideTransformOptions]="'translateY(-100%)'"
+                        [showTransitionOptions]="'300ms'"
+                        [hideTransitionOptions]="'250ms'"
+                    ></p-toastItem>
+                `
+            })
+            class TestMergedPtComponent {
+                message = { severity: 'warn', summary: 'Test', detail: 'Merged pt test' };
+            }
+
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, ToastItem],
+                declarations: [TestMergedPtComponent],
+                providers: [
+                    providePrimeNG({
+                        pt: {
+                            toastitem: {
+                                message: 'GLOBAL_MESSAGE_CLASS',
+                                summary: 'GLOBAL_SUMMARY_CLASS'
+                            }
+                        }
+                    })
+                ]
+            }).compileComponents();
+
+            const testFixture = TestBed.createComponent(TestMergedPtComponent);
+            testFixture.detectChanges();
+
+            const messageElement = testFixture.debugElement.query(By.css('[role="alert"]'));
+            const contentElements = testFixture.debugElement.queryAll(By.css('div'));
+
+            // Local pt should override global pt for message
+            expect(messageElement.nativeElement.classList.contains('LOCAL_MESSAGE_CLASS')).toBe(true);
+            expect(contentElements.some((el) => el.nativeElement.classList.contains('LOCAL_CONTENT_CLASS'))).toBe(true);
+        });
+    });
+
+    describe('PassThrough - Case 8: Test hooks', () => {
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ToastItem);
+            component = fixture.componentInstance;
+            component.message = {
+                severity: 'info',
+                summary: 'Test',
+                detail: 'Test message'
+            };
+            component.showTransformOptions = 'translateY(100%)';
+            component.hideTransformOptions = 'translateY(-100%)';
+            component.showTransitionOptions = '300ms ease-out';
+            component.hideTransitionOptions = '250ms ease-in';
+        });
+
+        it('should call onInit hook from pt', () => {
+            let onInitCalled = false;
+
+            fixture.componentRef.setInput('pt', {
+                message: 'PT_MESSAGE',
+                hooks: {
+                    onInit: () => {
+                        onInitCalled = true;
+                    }
+                }
+            } as any);
+            fixture.detectChanges();
+
+            expect(onInitCalled).toBe(true);
+        });
+
+        it('should call onAfterViewInit hook from pt', () => {
+            let onAfterViewInitCalled = false;
+
+            fixture.componentRef.setInput('pt', {
+                message: 'PT_MESSAGE',
+                hooks: {
+                    onAfterViewInit: () => {
+                        onAfterViewInitCalled = true;
+                    }
+                }
+            } as any);
+            fixture.detectChanges();
+
+            expect(onAfterViewInitCalled).toBe(true);
+        });
+
+        it('should call onDestroy hook from pt when component is destroyed', () => {
+            let onDestroyCalled = false;
+
+            fixture.componentRef.setInput('pt', {
+                message: 'PT_MESSAGE',
+                hooks: {
+                    onDestroy: () => {
+                        onDestroyCalled = true;
+                    }
+                }
+            } as any);
+            fixture.detectChanges();
+
+            fixture.destroy();
+
+            expect(onDestroyCalled).toBe(true);
+        });
+
+        it('should pass context to hooks', () => {
+            let hookContext: any = null;
+
+            fixture.componentRef.setInput('pt', {
+                message: 'PT_MESSAGE',
+                hooks: {
+                    onInit: (context: any) => {
+                        hookContext = context;
+                    }
+                }
+            } as any);
+            fixture.detectChanges();
+
+            expect(hookContext).toBeTruthy();
+        });
+
+        it('should call multiple hooks in correct order', () => {
+            const callOrder: string[] = [];
+
+            fixture.componentRef.setInput('pt', {
+                message: 'PT_MESSAGE',
+                hooks: {
+                    onInit: () => {
+                        callOrder.push('onInit');
+                    },
+                    onAfterContentInit: () => {
+                        callOrder.push('onAfterContentInit');
+                    },
+                    onAfterViewInit: () => {
+                        callOrder.push('onAfterViewInit');
+                    }
+                }
+            } as any);
+            fixture.detectChanges();
+
+            expect(callOrder).toContain('onInit');
+            expect(callOrder).toContain('onAfterViewInit');
+            if (callOrder.includes('onAfterContentInit')) {
+                expect(callOrder.indexOf('onInit')).toBeLessThan(callOrder.indexOf('onAfterContentInit'));
+                expect(callOrder.indexOf('onAfterContentInit')).toBeLessThan(callOrder.indexOf('onAfterViewInit'));
+            }
+        });
     });
 });

@@ -3,6 +3,7 @@ import { BasicDoc } from '@/doc/confirmdialog/basicdoc';
 import { HeadlessDoc } from '@/doc/confirmdialog/headlessdoc';
 import { ImportDoc } from '@/doc/confirmdialog/importdoc';
 import { PositionDoc } from '@/doc/confirmdialog/positiondoc';
+import { PTComponent } from '@/doc/confirmdialog/pt/PTComponent';
 import { TemplateDoc } from '@/doc/confirmdialog/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
@@ -16,11 +17,14 @@ import { AppDoc } from '@/components/doc/app.doc';
             description="ConfirmDialog is backed by a service utilizing Observables to display confirmation windows easily that can be shared by multiple actions on the same component."
             [docs]="docs"
             [apiDocs]="['ConfirmDialog', 'ConfirmationService', 'Confirmation']"
+            [ptDocs]="ptComponent"
             themeDocs="confirmDialog"
         ></app-doc>
     `
 })
 export class ConfirmDialogDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

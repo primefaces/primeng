@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -116,6 +116,21 @@ class TestDynamicAvatarComponent {
     onImageError(event: Event) {
         this.imageError = event;
     }
+}
+
+@Component({
+    standalone: true,
+    imports: [Avatar],
+    template: `<p-avatar [label]="label()" [icon]="icon()" [image]="image()" [size]="size()" [shape]="shape()" [ariaLabel]="ariaLabel()" [pt]="pt()"></p-avatar>`
+})
+class TestPTAvatarComponent {
+    label = input<string | undefined>('PT');
+    icon = input<string | undefined>();
+    image = input<string | undefined>();
+    size = input<'normal' | 'large' | 'xlarge' | undefined>();
+    shape = input<'square' | 'circle' | undefined>();
+    ariaLabel = input<string | undefined>();
+    pt = input<any>();
 }
 
 describe('Avatar', () => {
@@ -855,6 +870,458 @@ describe('Avatar', () => {
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
             expect(element.classList.contains('p-avatar-xl')).toBe(true);
             expect(element.classList.contains('p-avatar-circle')).toBe(false);
+        });
+    });
+
+    describe('PassThrough API', () => {
+        describe('Case 1: Simple string classes', () => {
+            let fixture: ComponentFixture<TestPTAvatarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTAvatarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Avatar)).nativeElement;
+            });
+
+            it('should apply string class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to root section', () => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to label section', () => {
+                fixture.componentRef.setInput('pt', { label: 'LABEL_CLASS' });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+                expect(labelElement.nativeElement.classList.contains('LABEL_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to icon section', () => {
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('icon', 'pi pi-user');
+                fixture.componentRef.setInput('pt', { icon: 'ICON_CLASS' });
+                fixture.detectChanges();
+
+                const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+                expect(iconElement.nativeElement.classList.contains('ICON_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to image section', () => {
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('image', '/path/to/image.jpg');
+                fixture.componentRef.setInput('pt', { image: 'IMAGE_CLASS' });
+                fixture.detectChanges();
+
+                const imageElement = fixture.debugElement.query(By.css('img'));
+                expect(imageElement.nativeElement.classList.contains('IMAGE_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            let fixture: ComponentFixture<TestPTAvatarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTAvatarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Avatar)).nativeElement;
+            });
+
+            it('should apply object with class, style, data and aria attributes to root', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(element.style.backgroundColor).toBe('red');
+                expect(element.getAttribute('data-p-test')).toBe('true');
+                expect(element.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object with class, style, data and aria attributes to label', () => {
+                fixture.componentRef.setInput('pt', {
+                    label: {
+                        class: 'LABEL_OBJECT_CLASS',
+                        style: { color: 'blue' },
+                        'data-p-label': 'test',
+                        'aria-hidden': 'true'
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+                expect(labelElement.nativeElement.classList.contains('LABEL_OBJECT_CLASS')).toBe(true);
+                expect(labelElement.nativeElement.style.color).toBe('blue');
+                expect(labelElement.nativeElement.getAttribute('data-p-label')).toBe('test');
+                expect(labelElement.nativeElement.getAttribute('aria-hidden')).toBe('true');
+            });
+
+            it('should apply object with class, style, data and aria attributes to icon', () => {
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('icon', 'pi pi-user');
+                fixture.detectChanges();
+                fixture.componentRef.setInput('pt', {
+                    icon: {
+                        class: 'ICON_OBJECT_CLASS',
+                        style: { 'font-size': '2rem' },
+                        'data-p-icon': 'custom',
+                        'aria-hidden': 'false'
+                    }
+                });
+                fixture.detectChanges();
+
+                const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+                expect(iconElement.nativeElement.classList.contains('ICON_OBJECT_CLASS')).toBe(true);
+                expect(iconElement.nativeElement.style.fontSize).toBe('2rem');
+                expect(iconElement.nativeElement.getAttribute('data-p-icon')).toBe('custom');
+                expect(iconElement.nativeElement.getAttribute('aria-hidden')).toBe('false');
+            });
+
+            it('should apply object with class, style, data and aria attributes to image', () => {
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('image', '/path/to/image.jpg');
+                fixture.detectChanges();
+                fixture.componentRef.setInput('pt', {
+                    image: {
+                        class: 'IMAGE_OBJECT_CLASS',
+                        style: { border: '2px solid black' },
+                        'data-p-image': 'avatar',
+                        'aria-label': 'IMAGE_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                const imageElement = fixture.debugElement.query(By.css('img'));
+                expect(imageElement.nativeElement.classList.contains('IMAGE_OBJECT_CLASS')).toBe(true);
+                expect(imageElement.nativeElement.style.border).toBe('2px solid black');
+                expect(imageElement.nativeElement.getAttribute('data-p-image')).toBe('avatar');
+                expect(imageElement.nativeElement.getAttribute('aria-label')).toBe('IMAGE_ARIA_LABEL');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            let fixture: ComponentFixture<TestPTAvatarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTAvatarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Avatar)).nativeElement;
+            });
+
+            it('should apply mixed pt with object and string values', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    label: 'LABEL_MIXED_CLASS'
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+
+                const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+                expect(labelElement.nativeElement.classList.contains('LABEL_MIXED_CLASS')).toBe(true);
+            });
+
+            it('should apply mixed pt across all sections', () => {
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('icon', 'pi pi-user');
+                fixture.detectChanges();
+                fixture.componentRef.setInput('pt', {
+                    host: 'HOST_STRING',
+                    root: { class: 'ROOT_OBJECT' },
+                    icon: 'ICON_STRING'
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HOST_STRING')).toBe(true);
+                expect(element.classList.contains('ROOT_OBJECT')).toBe(true);
+
+                const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+                expect(iconElement.nativeElement.classList.contains('ICON_STRING')).toBe(true);
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            let fixture: ComponentFixture<TestPTAvatarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTAvatarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Avatar)).nativeElement;
+            });
+
+            it('should use instance size in pt function for root', () => {
+                fixture.componentRef.setInput('size', 'large');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.size === 'large' ? 'LARGE_SIZE' : 'NORMAL_SIZE'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('LARGE_SIZE')).toBe(true);
+            });
+
+            it('should use instance shape in pt function for label', () => {
+                fixture.componentRef.setInput('shape', 'circle');
+                fixture.detectChanges();
+                fixture.componentRef.setInput('pt', {
+                    label: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.shape === 'circle' ? 'yellow' : 'red'
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+                expect(labelElement.nativeElement.style.backgroundColor).toBe('yellow');
+            });
+
+            it('should use instance label in pt function for icon', () => {
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('icon', 'pi pi-user');
+                fixture.componentRef.setInput('label', 'TEST');
+                fixture.componentRef.setInput('pt', {
+                    icon: ({ instance }: any) => {
+                        return {
+                            class: {
+                                HAS_LABEL: !!instance?.label
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                // Label has priority, so icon won't show, but we can test with no label
+                fixture.componentRef.setInput('label', undefined);
+                fixture.detectChanges();
+
+                const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+                expect(iconElement.nativeElement.classList.contains('HAS_LABEL')).toBe(false);
+            });
+
+            it('should use instance ariaLabel in pt function for image', () => {
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('image', '/path/to/image.jpg');
+                fixture.componentRef.setInput('ariaLabel', 'Test Avatar');
+                fixture.detectChanges();
+                fixture.componentRef.setInput('pt', {
+                    image: ({ instance }: any) => {
+                        return {
+                            'data-has-aria': instance?.ariaLabel ? 'true' : 'false'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const imageElement = fixture.debugElement.query(By.css('img'));
+                expect(imageElement.nativeElement.getAttribute('data-has-aria')).toBe('true');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            let fixture: ComponentFixture<TestPTAvatarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTAvatarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(Avatar)).nativeElement;
+            });
+
+            it('should bind onclick event to label through pt', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    label: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+                labelElement.nativeElement.click();
+
+                expect(clicked).toBe(true);
+            });
+
+            it('should bind onclick event to root through pt', () => {
+                let clickCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clickCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                element.click();
+                element.click();
+
+                expect(clickCount).toBe(2);
+            });
+
+            it('should bind onclick event to icon through pt', () => {
+                fixture.componentRef.setInput('label', undefined);
+                let iconClicked = false;
+                fixture.componentRef.setInput('icon', 'pi pi-user');
+                fixture.detectChanges();
+                fixture.componentRef.setInput('pt', {
+                    icon: {
+                        onclick: () => {
+                            iconClicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+                iconElement.nativeElement.click();
+
+                expect(iconClicked).toBe(true);
+            });
+        });
+
+        describe('Case 6: Test emitters', () => {
+            let fixture: ComponentFixture<TestPTAvatarComponent>;
+            let avatarComponent: Avatar;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTAvatarComponent);
+                fixture.detectChanges();
+                avatarComponent = fixture.debugElement.query(By.directive(Avatar)).componentInstance;
+            });
+
+            it('should access onImageError emitter through instance in pt', () => {
+                let emitterCalled = false;
+                fixture.componentRef.setInput('label', undefined);
+                fixture.componentRef.setInput('image', '/path/to/image.jpg');
+                fixture.detectChanges();
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        if (instance.onImageError) {
+                            emitterCalled = true;
+                        }
+                        return {};
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(emitterCalled).toBe(true);
+            });
+        });
+
+        describe('Case 7: Inline test', () => {
+            it('should apply inline pt with string class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTAvatarComponent);
+                inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(Avatar)).nativeElement;
+                expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
+            });
+
+            it('should apply inline pt with object class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTAvatarComponent);
+                inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(Avatar)).nativeElement;
+                expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            let fixture: ComponentFixture<TestPTAvatarComponent>;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTAvatarComponent);
+            });
+
+            it('should call onAfterViewInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterContentInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterContentInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterViewChecked hook', () => {
+                let checkCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            checkCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(checkCount).toBeGreaterThan(0);
+            });
+
+            it('should call onDestroy hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onDestroy: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+                fixture.destroy();
+
+                expect(hookCalled).toBe(true);
+            });
         });
     });
 });

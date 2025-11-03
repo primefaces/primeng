@@ -13,7 +13,7 @@ const classes = {
 export class KnobStyle extends BaseStyle {
     name = 'knob';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

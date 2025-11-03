@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -89,6 +89,29 @@ class TestTemplateStepperComponent {
     value = 1;
 }
 
+@Component({
+    standalone: false,
+    template: `
+        <p-stepper [value]="1" [pt]="pt">
+            <p-step-list>
+                <p-step [value]="1">PT Test Step 1</p-step>
+                <p-step [value]="2">PT Test Step 2</p-step>
+            </p-step-list>
+            <p-step-panels>
+                <p-step-panel [value]="1">
+                    <div>PT Test Panel 1</div>
+                </p-step-panel>
+                <p-step-panel [value]="2">
+                    <div>PT Test Panel 2</div>
+                </p-step-panel>
+            </p-step-panels>
+        </p-stepper>
+    `
+})
+class TestPTStepperComponent {
+    @Input() pt: any;
+}
+
 describe('Stepper', () => {
     let fixture: ComponentFixture<TestStepperComponent>;
     let component: TestStepperComponent;
@@ -98,7 +121,7 @@ describe('Stepper', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, NoopAnimationsModule],
-            declarations: [TestStepperComponent, TestVerticalStepperComponent, TestTemplateStepperComponent]
+            declarations: [TestStepperComponent, TestVerticalStepperComponent, TestTemplateStepperComponent, TestPTStepperComponent]
         });
 
         fixture = TestBed.createComponent(TestStepperComponent);
@@ -618,5 +641,133 @@ describe('Stepper', () => {
             expect(panel1Instance.isVertical()).toBe(true);
             expect(panel1Instance.isVisible()).toBe(true);
         });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTStepperComponent>;
+        let ptComponent: TestPTStepperComponent;
+        let ptStepper: Stepper;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTStepperComponent);
+            ptComponent = ptFixture.componentInstance;
+        });
+
+        it('should apply simple string classes to PT sections', fakeAsync(() => {
+            ptComponent.pt = {
+                root: 'ROOT_CLASS',
+                host: 'HOST_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+            const classList = stepperEl.nativeElement.className;
+
+            expect(classList).toContain('ROOT_CLASS');
+            expect(classList).toContain('HOST_CLASS');
+
+            flush();
+        }));
+
+        it('should apply object-based PT options with class and attributes', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    'data-test': 'stepper-test',
+                    'aria-label': 'PT Stepper Label',
+                    'data-role': 'stepper-role'
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+
+            expect(stepperEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(stepperEl.nativeElement.getAttribute('data-test')).toBe('stepper-test');
+            expect(stepperEl.nativeElement.getAttribute('aria-label')).toBe('PT Stepper Label');
+            expect(stepperEl.nativeElement.getAttribute('data-role')).toBe('stepper-role');
+
+            flush();
+        }));
+
+        it('should apply mixed object and string PT values', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS'
+                },
+                host: 'PT_HOST_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+            const classList = stepperEl.nativeElement.className;
+
+            expect(classList).toContain('PT_ROOT_CLASS');
+            expect(classList).toContain('PT_HOST_CLASS');
+
+            flush();
+        }));
+
+        it('should use instance variables in PT functions', fakeAsync(() => {
+            ptComponent.pt = {
+                root: ({ instance }) => {
+                    return {
+                        class: instance?.linear() ? 'LINEAR' : 'NON_LINEAR',
+                        'data-value': instance?.value()
+                    };
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+            ptStepper = ptFixture.debugElement.query(By.directive(Stepper)).componentInstance;
+
+            expect(stepperEl.nativeElement.className).toContain('NON_LINEAR');
+            expect(stepperEl.nativeElement.getAttribute('data-value')).toBe('1');
+
+            flush();
+        }));
+
+        it('should handle event binding in PT options', fakeAsync(() => {
+            let clicked = false;
+            ptComponent.pt = {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+            stepperEl.nativeElement.click();
+
+            expect(clicked).toBe(true);
+
+            flush();
+        }));
+
+        it('should apply PT options using setInput', fakeAsync(() => {
+            ptFixture.componentRef.setInput('pt', { root: 'SETINPUT_ROOT_CLASS' });
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+
+            expect(stepperEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
+
+            flush();
+        }));
     });
 });

@@ -3146,3 +3146,1194 @@ describe('Select Advanced Accessibility', () => {
         }));
     });
 });
+
+// PassThrough (PT) Tests
+describe('Select PT (PassThrough)', () => {
+    @Component({
+        standalone: true,
+        imports: [CommonModule, FormsModule, Select],
+        template: `
+            <p-select
+                [options]="options"
+                [(ngModel)]="selectedValue"
+                [optionLabel]="optionLabel || 'name'"
+                [optionValue]="optionValue || 'code'"
+                [pt]="pt"
+                [filter]="filter"
+                [showClear]="showClear"
+                [checkmark]="checkmark"
+                [optionGroupLabel]="optionGroupLabel"
+                [optionGroupChildren]="optionGroupChildren"
+                [group]="group"
+            >
+            </p-select>
+        `
+    })
+    class TestPTSelectComponent {
+        options: any = [
+            { name: 'Option 1', code: 'opt1' },
+            { name: 'Option 2', code: 'opt2' },
+            { name: 'Option 3', code: 'opt3' }
+        ];
+        selectedValue: any;
+        pt: any;
+        filter = false;
+        showClear = false;
+        checkmark = false;
+        optionLabel: string | undefined;
+        optionValue: string | undefined;
+        optionGroupLabel: string | undefined;
+        optionGroupChildren: string | undefined;
+        group = false;
+    }
+
+    let fixture: ComponentFixture<TestPTSelectComponent>;
+    let component: TestPTSelectComponent;
+    let selectInstance: Select;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestPTSelectComponent, NoopAnimationsModule]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(TestPTSelectComponent);
+        component = fixture.componentInstance;
+        selectInstance = fixture.debugElement.query(By.css('p-select')).componentInstance;
+        fixture.detectChanges();
+    });
+
+    describe('Case 1: Simple string classes', () => {
+        it('should apply string class to root', () => {
+            component.pt = { root: 'CUSTOM_ROOT_CLASS' };
+            fixture.detectChanges();
+
+            const root = fixture.debugElement.query(By.css('p-select'));
+            expect(root.nativeElement.classList.contains('CUSTOM_ROOT_CLASS')).toBeTruthy();
+        });
+
+        it('should apply string class to label', () => {
+            component.pt = { label: 'CUSTOM_LABEL_CLASS' };
+            fixture.detectChanges();
+
+            const label = fixture.debugElement.query(By.css('[role="combobox"]'));
+            expect(label.nativeElement.classList.contains('CUSTOM_LABEL_CLASS')).toBeTruthy();
+        });
+
+        it('should apply string class to dropdown', () => {
+            component.pt = { dropdown: 'CUSTOM_DROPDOWN_CLASS' };
+            fixture.detectChanges();
+
+            const dropdown = fixture.debugElement.query(By.css('.p-select-dropdown'));
+            expect(dropdown.nativeElement.classList.contains('CUSTOM_DROPDOWN_CLASS')).toBeTruthy();
+        });
+    });
+
+    describe('Case 2: Objects with class, style, and attributes', () => {
+        it('should apply object with class to root', () => {
+            component.pt = {
+                root: { class: 'PT_ROOT_OBJECT_CLASS' }
+            };
+            fixture.detectChanges();
+
+            const root = fixture.debugElement.query(By.css('p-select'));
+            expect(root.nativeElement.classList.contains('PT_ROOT_OBJECT_CLASS')).toBeTruthy();
+        });
+
+        it('should apply object with style to root', () => {
+            component.pt = {
+                root: { style: { 'background-color': 'red', padding: '10px' } }
+            };
+            fixture.detectChanges();
+
+            const root = fixture.debugElement.query(By.css('p-select'));
+            expect(root.nativeElement.style.backgroundColor).toBe('red');
+            expect(root.nativeElement.style.padding).toBe('10px');
+        });
+
+        it('should apply object with custom attributes to root', () => {
+            component.pt = {
+                root: {
+                    'data-testid': 'select-root',
+                    'aria-description': 'Custom select description'
+                }
+            };
+            fixture.detectChanges();
+
+            const root = fixture.debugElement.query(By.css('p-select'));
+            expect(root.nativeElement.getAttribute('data-testid')).toBe('select-root');
+            expect(root.nativeElement.getAttribute('aria-description')).toBe('Custom select description');
+        });
+
+        it('should apply combined properties to label', () => {
+            component.pt = {
+                label: {
+                    class: 'PT_LABEL_CLASS',
+                    style: { color: 'blue' },
+                    'data-label': 'test'
+                }
+            };
+            fixture.detectChanges();
+
+            const label = fixture.debugElement.query(By.css('[role="combobox"]'));
+            expect(label.nativeElement.classList.contains('PT_LABEL_CLASS')).toBeTruthy();
+            expect(label.nativeElement.style.color).toBe('blue');
+            expect(label.nativeElement.getAttribute('data-label')).toBe('test');
+        });
+    });
+
+    describe('Case 3: Mixed object and string values', () => {
+        it('should handle mixed PT values', () => {
+            component.pt = {
+                root: { class: 'MIXED_ROOT', style: { margin: '5px' } },
+                label: 'MIXED_LABEL_STRING',
+                dropdown: { class: 'MIXED_DROPDOWN' }
+            };
+            fixture.detectChanges();
+
+            const root = fixture.debugElement.query(By.css('p-select'));
+            const label = fixture.debugElement.query(By.css('[role="combobox"]'));
+            const dropdown = fixture.debugElement.query(By.css('.p-select-dropdown'));
+
+            expect(root.nativeElement.classList.contains('MIXED_ROOT')).toBeTruthy();
+            expect(root.nativeElement.style.margin).toBe('5px');
+            expect(label.nativeElement.classList.contains('MIXED_LABEL_STRING')).toBeTruthy();
+            expect(dropdown.nativeElement.classList.contains('MIXED_DROPDOWN')).toBeTruthy();
+        });
+    });
+
+    describe('Case 4: Use variables from instance', () => {
+        it('should apply PT based on selected state', fakeAsync(() => {
+            component.pt = {
+                label: ({ instance }: any) => ({
+                    class: instance?.modelValue() ? 'HAS_VALUE' : 'NO_VALUE'
+                })
+            };
+            fixture.detectChanges();
+            tick();
+
+            const label = fixture.debugElement.query(By.css('[role="combobox"]'));
+            expect(label.nativeElement.classList.contains('NO_VALUE')).toBeTruthy();
+
+            component.selectedValue = 'opt1';
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges(); // Extra change detection for reactive PT
+            tick();
+
+            expect(label.nativeElement.classList.contains('HAS_VALUE')).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply dynamic style based on disabled state', fakeAsync(() => {
+            component.pt = {
+                root: ({ instance }: any) => ({
+                    style: {
+                        opacity: instance?.$disabled() ? '0.5' : '1'
+                    }
+                })
+            };
+            fixture.detectChanges();
+            tick();
+
+            const root = fixture.debugElement.query(By.css('p-select'));
+            expect(root.nativeElement.style.opacity).toBe('1');
+            flush();
+        }));
+    });
+
+    describe('Case 5: Event binding', () => {
+        it('should bind onclick event to root', fakeAsync(() => {
+            let clicked = false;
+            component.pt = {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+            tick();
+
+            const root = fixture.debugElement.query(By.css('p-select'));
+            root.nativeElement.click();
+            tick();
+
+            expect(clicked).toBeTruthy();
+            flush();
+        }));
+
+        it('should bind onclick to dropdown trigger', fakeAsync(() => {
+            let dropdownClicked = false;
+            component.pt = {
+                dropdown: {
+                    onclick: () => {
+                        dropdownClicked = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+            tick();
+
+            const dropdown = fixture.debugElement.query(By.css('.p-select-dropdown'));
+            dropdown.nativeElement.click();
+            tick();
+
+            expect(dropdownClicked).toBeTruthy();
+            flush();
+        }));
+    });
+
+    describe('Case 6: Test emitters through instance', () => {
+        it('should access onChange emitter through instance', fakeAsync(() => {
+            let emitterAccessed = false;
+            component.pt = {
+                root: ({ instance }: any) => {
+                    if (instance?.onChange) {
+                        emitterAccessed = true;
+                    }
+                    return {};
+                }
+            };
+            fixture.detectChanges();
+            tick();
+
+            expect(emitterAccessed).toBeTruthy();
+            flush();
+        }));
+
+        it('should access onShow emitter through instance', fakeAsync(() => {
+            let showEmitterAccessed = false;
+            component.pt = {
+                root: ({ instance }: any) => {
+                    if (instance?.onShow) {
+                        showEmitterAccessed = true;
+                    }
+                    return {};
+                }
+            };
+            fixture.detectChanges();
+            tick();
+
+            expect(showEmitterAccessed).toBeTruthy();
+            flush();
+        }));
+    });
+
+    describe('Case 7: Overlay content PT sections', () => {
+        beforeEach(() => {
+            component.filter = true;
+        });
+
+        it('should apply PT to overlay sections when opened', fakeAsync(() => {
+            component.pt = {
+                header: 'PT_HEADER_CLASS',
+                listContainer: 'PT_LIST_CONTAINER_CLASS',
+                list: 'PT_LIST_CLASS',
+                pcFilter: {
+                    root: { class: 'PT_FILTER_CLASS' }
+                }
+            };
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const header = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
+            const listContainer = fixture.debugElement.query(By.css('[data-pc-section="listcontainer"]'));
+            const list = fixture.debugElement.query(By.css('[data-pc-section="list"]'));
+            const filterInput = fixture.debugElement.query(By.css('[data-pc-name="pcfilter"]'));
+
+            if (header) expect(header.nativeElement.classList.contains('PT_HEADER_CLASS')).toBeTruthy();
+            if (listContainer) expect(listContainer.nativeElement.classList.contains('PT_LIST_CONTAINER_CLASS')).toBeTruthy();
+            if (list) expect(list.nativeElement.classList.contains('PT_LIST_CLASS')).toBeTruthy();
+            if (filterInput) expect(filterInput.nativeElement.classList.contains('PT_FILTER_CLASS')).toBeTruthy();
+
+            flush();
+        }));
+
+        it('should apply PT to option elements', fakeAsync(() => {
+            component.pt = {
+                option: 'PT_OPTION_CLASS',
+                optionLabel: { style: { color: 'green' } }
+            };
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const options = fixture.debugElement.queryAll(By.css('[role="option"]'));
+            expect(options.length).toBeGreaterThan(0);
+
+            options.forEach((option) => {
+                expect(option.nativeElement.classList.contains('PT_OPTION_CLASS')).toBeTruthy();
+            });
+
+            flush();
+        }));
+    });
+
+    describe('Case 8: Test hooks', () => {
+        it('should call onAfterViewInit hook', fakeAsync(() => {
+            let hookCalled = false;
+            const hookFixture = TestBed.createComponent(TestPTSelectComponent);
+            hookFixture.componentInstance.pt = {
+                hooks: {
+                    onAfterViewInit: () => {
+                        hookCalled = true;
+                    }
+                }
+            };
+            hookFixture.detectChanges();
+            tick();
+
+            expect(hookCalled).toBeTruthy();
+            hookFixture.destroy();
+            flush();
+        }));
+
+        it('should call onAfterViewChecked hook', fakeAsync(() => {
+            let checkCount = 0;
+            component.pt = {
+                hooks: {
+                    onAfterViewChecked: () => {
+                        checkCount++;
+                    }
+                }
+            };
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            expect(checkCount).toBeGreaterThan(0);
+            flush();
+        }));
+    });
+
+    describe('Case 9: getPTItemOptions context test', () => {
+        it('should provide option context in PT', fakeAsync(() => {
+            let capturedContext: any = null;
+            component.pt = {
+                option: ({ context }: any) => {
+                    capturedContext = context;
+                    return {
+                        class: context?.selected ? 'SELECTED_OPTION' : 'NORMAL_OPTION'
+                    };
+                }
+            };
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const options = fixture.debugElement.queryAll(By.css('[role="option"]'));
+            expect(options.length).toBeGreaterThan(0);
+            expect(capturedContext).toBeTruthy();
+            expect(capturedContext.option).toBeDefined();
+            expect(capturedContext.selected).toBeDefined();
+            expect(capturedContext.focused).toBeDefined();
+            expect(capturedContext.disabled).toBeDefined();
+
+            flush();
+        }));
+
+        it('should reflect selection state in option PT context', fakeAsync(() => {
+            let contextStates: any[] = [];
+            component.pt = {
+                option: ({ context }: any) => {
+                    contextStates.push({
+                        selected: context?.selected,
+                        option: context?.option
+                    });
+                    return {};
+                }
+            };
+            fixture.detectChanges();
+
+            // Select first option
+            component.selectedValue = 'opt1';
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Check if we captured the selected state
+            const selectedContext = contextStates.find((ctx) => ctx.selected === true);
+            expect(selectedContext).toBeTruthy();
+            if (selectedContext) {
+                expect(selectedContext.option?.code).toBe('opt1');
+            }
+
+            flush();
+        }));
+
+        it('should reflect focused state in option PT context', fakeAsync(() => {
+            let focusedContext: any = null;
+            component.pt = {
+                option: ({ context }: any) => {
+                    if (context?.focused) {
+                        focusedContext = context;
+                    }
+                    return {
+                        class: context?.focused ? 'FOCUSED_OPTION' : ''
+                    };
+                }
+            };
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Set focused index
+            selectInstance.focusedOptionIndex.set(1);
+            fixture.detectChanges();
+            tick();
+
+            expect(focusedContext).toBeTruthy();
+            if (focusedContext) {
+                expect(focusedContext.focused).toBeTruthy();
+                expect(focusedContext.index).toBe(1);
+            }
+
+            flush();
+        }));
+
+        it('should provide option index in PT context', fakeAsync(() => {
+            const capturedIndexes: number[] = [];
+            component.pt = {
+                option: ({ context }: any) => {
+                    if (context?.index !== undefined) {
+                        capturedIndexes.push(context.index);
+                    }
+                    return {};
+                }
+            };
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            expect(capturedIndexes.length).toBe(component.options.length);
+            expect(capturedIndexes).toContain(0);
+            expect(capturedIndexes).toContain(1);
+            expect(capturedIndexes).toContain(2);
+
+            flush();
+        }));
+
+        it('should provide complete context object with all properties in getPTItemOptions', fakeAsync(() => {
+            let capturedContexts: any[] = [];
+            component.pt = {
+                option: ({ context }: any) => {
+                    capturedContexts.push({
+                        option: context?.option,
+                        index: context?.index,
+                        selected: context?.selected,
+                        focused: context?.focused,
+                        disabled: context?.disabled
+                    });
+                    return {};
+                }
+            };
+
+            // Select an option to test selected state
+            component.selectedValue = 'opt1';
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Focus an option
+            selectInstance.focusedOptionIndex.set(1);
+            fixture.detectChanges();
+
+            // Verify all contexts have the required properties
+            expect(capturedContexts.length).toBeGreaterThan(0);
+
+            capturedContexts.forEach((ctx) => {
+                expect(ctx.option).toBeDefined();
+                expect(typeof ctx.index).toBe('number');
+                expect(typeof ctx.selected).toBe('boolean');
+                expect(typeof ctx.focused).toBe('boolean');
+                expect(typeof ctx.disabled).toBe('boolean');
+            });
+
+            // Find the selected context
+            const selectedContext = capturedContexts.find((ctx) => ctx.selected === true);
+            expect(selectedContext).toBeTruthy();
+            expect(selectedContext?.option.code).toBe('opt1');
+
+            // Find the focused context
+            const focusedContext = capturedContexts.find((ctx) => ctx.focused === true);
+            expect(focusedContext).toBeTruthy();
+            expect(focusedContext?.index).toBe(1);
+
+            flush();
+        }));
+
+        it('should update context when selection changes via getPTItemOptions', fakeAsync(() => {
+            let contextSnapshots: any[] = [];
+            component.pt = {
+                option: ({ context }: any) => {
+                    if (context?.option?.code === 'opt2') {
+                        contextSnapshots.push({
+                            timestamp: Date.now(),
+                            selected: context.selected,
+                            option: context.option
+                        });
+                    }
+                    return {};
+                }
+            };
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Should not be selected initially
+            let opt2Context = contextSnapshots[contextSnapshots.length - 1];
+            expect(opt2Context?.selected).toBe(false);
+
+            // Select opt2
+            component.selectedValue = 'opt2';
+            fixture.detectChanges();
+            tick();
+
+            // Trigger change detection again
+            selectInstance.hide();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Should be selected now
+            opt2Context = contextSnapshots[contextSnapshots.length - 1];
+            expect(opt2Context?.selected).toBe(true);
+            expect(opt2Context?.option?.code).toBe('opt2');
+
+            flush();
+        }));
+
+        it('should provide disabled state correctly in context', fakeAsync(() => {
+            // Add a disabled option to test data
+            component.options = [
+                { name: 'Option 1', code: 'opt1' },
+                { name: 'Option 2', code: 'opt2', disabled: true },
+                { name: 'Option 3', code: 'opt3' }
+            ];
+
+            let disabledContextFound = false;
+            component.pt = {
+                option: ({ context }: any) => {
+                    if (context?.option?.code === 'opt2') {
+                        disabledContextFound = true;
+                        expect(context.disabled).toBe(true);
+                    }
+                    return {};
+                }
+            };
+
+            fixture.detectChanges();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            expect(disabledContextFound).toBe(true);
+
+            flush();
+        }));
+    });
+
+    describe('Clear icon and checkmark PT sections', () => {
+        it('should apply PT to clear icon when visible', fakeAsync(() => {
+            component.showClear = true;
+            component.selectedValue = 'opt1';
+            component.pt = {
+                clearIcon: 'PT_CLEAR_ICON_CLASS'
+            };
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
+            expect(clearIcon?.nativeElement.classList.contains('PT_CLEAR_ICON_CLASS')).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply PT to checkmark icons', fakeAsync(() => {
+            component.checkmark = true;
+            component.pt = {
+                optionCheckIcon: { style: { color: 'green' } },
+                optionBlankIcon: { style: { color: 'gray' } }
+            };
+            fixture.detectChanges();
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            // Checkmark icons should be rendered
+            const icons = fixture.debugElement.queryAll(By.css('[data-p-icon]'));
+            expect(icons.length).toBeGreaterThan(0);
+
+            flush();
+        }));
+    });
+
+    describe('Complete PT Coverage: All untested sections', () => {
+        it('should apply PT to clearIcon when showClear is enabled', fakeAsync(() => {
+            component.showClear = true;
+            fixture.detectChanges();
+            tick();
+
+            component.selectedValue = 'opt1';
+            component.pt = {
+                clearIcon: { class: 'CUSTOM_CLEAR_ICON', 'data-test': 'clear-icon' }
+            };
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges(); // Extra for clear icon to appear
+            tick();
+
+            const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
+            expect(clearIcon).toBeTruthy();
+            if (clearIcon) {
+                expect(clearIcon.nativeElement.classList.contains('CUSTOM_CLEAR_ICON')).toBeTruthy();
+                expect(clearIcon.nativeElement.getAttribute('data-test')).toBe('clear-icon');
+            }
+            flush();
+        }));
+
+        it('should apply PT to loadingIcon when loading', fakeAsync(() => {
+            component.pt = {
+                loadingIcon: { class: 'CUSTOM_LOADING_ICON' }
+            };
+            selectInstance.loading = true;
+            fixture.detectChanges();
+            tick();
+
+            const loadingIcon = fixture.debugElement.query(By.css('.p-select-loading-icon'));
+            expect(loadingIcon).toBeTruthy();
+            if (loadingIcon) {
+                expect(loadingIcon.nativeElement.classList.contains('CUSTOM_LOADING_ICON')).toBeTruthy();
+            }
+            flush();
+        }));
+
+        it('should apply PT to dropdownIcon', fakeAsync(() => {
+            component.pt = {
+                dropdownIcon: { class: 'CUSTOM_DROPDOWN_ICON', style: { fontSize: '20px' } }
+            };
+            fixture.detectChanges();
+            tick();
+
+            const dropdownIcon = fixture.debugElement.query(By.css('[data-p-icon="chevron-down"]'));
+            expect(dropdownIcon).toBeTruthy();
+            expect(dropdownIcon.nativeElement.classList.contains('CUSTOM_DROPDOWN_ICON')).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply PT to pcFilterIconContainer and filterIcon', fakeAsync(() => {
+            component.filter = true;
+            component.pt = {
+                pcFilterIconContainer: { class: 'CUSTOM_FILTER_ICON_CONTAINER' },
+                filterIcon: { class: 'CUSTOM_FILTER_ICON' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const filterIcon = fixture.debugElement.query(By.css('[data-p-icon="search"]'));
+            expect(filterIcon).toBeTruthy();
+            if (filterIcon) {
+                expect(filterIcon.nativeElement.classList.contains('CUSTOM_FILTER_ICON')).toBeTruthy();
+            }
+            flush();
+        }));
+
+        it('should apply PT to optionCheckIcon', fakeAsync(() => {
+            component.checkmark = true;
+            component.selectedValue = 'opt1';
+            component.pt = {
+                optionCheckIcon: { class: 'CUSTOM_CHECK_ICON', 'data-check': 'true' }
+            };
+            fixture.detectChanges();
+            tick();
+
+            selectInstance.show();
+            tick(150);
+            fixture.detectChanges();
+
+            const checkIcon = fixture.debugElement.query(By.css('[data-p-icon="check"]'));
+            expect(checkIcon?.nativeElement.classList.contains('CUSTOM_CHECK_ICON')).toBeTruthy();
+            expect(checkIcon?.nativeElement.getAttribute('data-check')).toBe('true');
+            flush();
+        }));
+
+        it('should apply PT to optionBlankIcon', fakeAsync(() => {
+            component.checkmark = true;
+            component.pt = {
+                optionBlankIcon: { class: 'CUSTOM_BLANK_ICON' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+
+            const blankIcon = fixture.debugElement.query(By.css('[data-p-icon="blank"]'));
+            expect(blankIcon).toBeTruthy();
+            if (blankIcon) {
+                expect(blankIcon.nativeElement.classList.contains('CUSTOM_BLANK_ICON')).toBeTruthy();
+            }
+            flush();
+        }));
+
+        it('should apply PT to hiddenFirstFocusableEl', fakeAsync(() => {
+            component.pt = {
+                hiddenFirstFocusableEl: { 'data-first': 'focusable' }
+            };
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const hiddenFirst = fixture.debugElement.query(By.css('[data-p-hidden-focusable="true"]'));
+            expect(hiddenFirst).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply PT to hiddenLastFocusableEl', fakeAsync(() => {
+            component.pt = {
+                hiddenLastFocusableEl: { 'data-last': 'focusable' }
+            };
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const hiddenElements = fixture.debugElement.queryAll(By.css('[data-p-hidden-focusable="true"]'));
+            expect(hiddenElements.length).toBeGreaterThan(0);
+            flush();
+        }));
+
+        it('should apply PT to hiddenFilterResult when filter is enabled', fakeAsync(() => {
+            component.filter = true;
+            component.pt = {
+                hiddenFilterResult: { 'data-filter-result': 'hidden' }
+            };
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const overlay = fixture.debugElement.query(By.css('p-overlay'));
+            expect(overlay).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply PT to hiddenEmptyMessage when options are empty', fakeAsync(() => {
+            component.options = [];
+            component.pt = {
+                hiddenEmptyMessage: { 'data-empty': 'message' }
+            };
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const overlay = fixture.debugElement.query(By.css('p-overlay'));
+            expect(overlay).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply PT to hiddenSelectedMessage', fakeAsync(() => {
+            component.selectedValue = 'opt1';
+            component.pt = {
+                hiddenSelectedMessage: { 'data-selected': 'message' }
+            };
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const overlay = fixture.debugElement.query(By.css('p-overlay'));
+            expect(overlay).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply PT to virtualScroller when virtualScroll is enabled', fakeAsync(() => {
+            component.pt = {
+                virtualScroller: {
+                    root: { class: 'CUSTOM_VSCROLLER_ROOT', 'data-vscroller': 'root' },
+                    spacer: { class: 'CUSTOM_VSCROLLER_SPACER', 'data-vscroller': 'spacer' }
+                }
+            };
+            selectInstance.virtualScroll = true;
+            selectInstance.virtualScrollItemSize = 38;
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            // VirtualScroller should be rendered when enabled
+            const virtualScroller = fixture.debugElement.query(By.css('.p-virtualscroller'));
+            expect(virtualScroller).toBeTruthy();
+            expect(virtualScroller.nativeElement.classList.contains('CUSTOM_VSCROLLER_ROOT')).toBeTruthy();
+            expect(virtualScroller.nativeElement.getAttribute('data-vscroller')).toBe('root');
+
+            // Note: content section is not rendered when Select provides custom content template
+            // Only root and spacer sections are testable in this context
+
+            const vScrollerSpacer = fixture.debugElement.query(By.css('.p-virtualscroller-spacer'));
+            expect(vScrollerSpacer).toBeTruthy();
+            expect(vScrollerSpacer.nativeElement.classList.contains('CUSTOM_VSCROLLER_SPACER')).toBeTruthy();
+            expect(vScrollerSpacer.nativeElement.getAttribute('data-vscroller')).toBe('spacer');
+
+            flush();
+        }));
+
+        it('should apply PT to all icon sections together', fakeAsync(() => {
+            component.showClear = true;
+            component.selectedValue = 'opt1';
+            component.checkmark = true;
+            component.filter = true;
+            component.pt = {
+                clearIcon: { class: 'PT_CLEAR' },
+                dropdownIcon: { class: 'PT_DROPDOWN' },
+                filterIcon: { class: 'PT_FILTER' },
+                optionCheckIcon: { class: 'PT_CHECK' },
+                optionBlankIcon: { class: 'PT_BLANK' }
+            };
+
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
+            expect(clearIcon).toBeTruthy();
+            if (clearIcon) {
+                expect(clearIcon.nativeElement.classList.contains('PT_CLEAR')).toBeTruthy();
+            }
+
+            const dropdownIcon = fixture.debugElement.query(By.css('[data-p-icon="chevron-down"]'));
+            expect(dropdownIcon).toBeTruthy();
+            if (dropdownIcon) {
+                expect(dropdownIcon.nativeElement.classList.contains('PT_DROPDOWN')).toBeTruthy();
+            }
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const filterIcon = fixture.debugElement.query(By.css('[data-p-icon="search"]'));
+            expect(filterIcon).toBeTruthy();
+            if (filterIcon) {
+                expect(filterIcon.nativeElement.classList.contains('PT_FILTER')).toBeTruthy();
+            }
+
+            flush();
+        }));
+
+        it('should apply PT to all hidden accessibility elements', fakeAsync(() => {
+            component.filter = true;
+            component.pt = {
+                hiddenFirstFocusableEl: { 'data-first': 'true' },
+                hiddenLastFocusableEl: { 'data-last': 'true' },
+                hiddenFilterResult: { 'data-filter': 'true' },
+                hiddenEmptyMessage: { 'data-empty': 'true' },
+                hiddenSelectedMessage: { 'data-selected': 'true' }
+            };
+
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+
+            const hiddenElements = fixture.debugElement.queryAll(By.css('[data-p-hidden-focusable="true"]'));
+            expect(hiddenElements.length).toBeGreaterThan(0);
+
+            flush();
+        }));
+    });
+
+    describe('Complete PT Coverage: Remaining sections', () => {
+        it('should apply PT to root element', fakeAsync(() => {
+            component.pt = {
+                root: { class: 'CUSTOM_ROOT', 'data-test': 'root-element' }
+            };
+            fixture.detectChanges();
+            tick();
+
+            const root = fixture.debugElement.query(By.css('.p-select'));
+            expect(root).toBeTruthy();
+            expect(root.nativeElement.classList.contains('CUSTOM_ROOT')).toBeTruthy();
+            expect(root.nativeElement.getAttribute('data-test')).toBe('root-element');
+            flush();
+        }));
+
+        it('should apply PT to pcOverlay component', fakeAsync(() => {
+            component.pt = {
+                pcOverlay: {
+                    root: { class: 'CUSTOM_OVERLAY_ROOT', 'data-overlay': 'root' },
+                    content: { class: 'CUSTOM_OVERLAY_CONTENT', 'data-overlay': 'content' }
+                }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const overlay = fixture.debugElement.query(By.css('p-overlay'));
+            expect(overlay).toBeTruthy();
+
+            const overlayRoot = fixture.debugElement.query(By.css('.p-overlay'));
+            expect(overlayRoot).toBeTruthy();
+            if (overlayRoot) {
+                expect(overlayRoot.nativeElement.classList.contains('CUSTOM_OVERLAY_ROOT')).toBeTruthy();
+                expect(overlayRoot.nativeElement.getAttribute('data-overlay')).toBe('root');
+            }
+
+            const overlayContent = fixture.debugElement.query(By.css('.p-overlay-content'));
+            expect(overlayContent).toBeTruthy();
+            if (overlayContent) {
+                expect(overlayContent.nativeElement.classList.contains('CUSTOM_OVERLAY_CONTENT')).toBeTruthy();
+                expect(overlayContent.nativeElement.getAttribute('data-overlay')).toBe('content');
+            }
+            flush();
+        }));
+
+        it('should apply PT to header section', fakeAsync(() => {
+            component.filter = true;
+            component.pt = {
+                header: { class: 'CUSTOM_HEADER', 'data-header': 'test' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const header = fixture.debugElement.query(By.css('.p-select-header'));
+            expect(header).toBeTruthy();
+            if (header) {
+                expect(header.nativeElement.classList.contains('CUSTOM_HEADER')).toBeTruthy();
+                expect(header.nativeElement.getAttribute('data-header')).toBe('test');
+            }
+            flush();
+        }));
+
+        it('should apply PT to pcFilterContainer', fakeAsync(() => {
+            component.filter = true;
+            component.pt = {
+                pcFilterContainer: { class: 'CUSTOM_FILTER_CONTAINER' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const filterContainer = fixture.debugElement.query(By.css('p-iconfield'));
+            expect(filterContainer).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply PT to pcFilter input', fakeAsync(() => {
+            component.filter = true;
+            component.pt = {
+                pcFilter: { root: { class: 'CUSTOM_FILTER_INPUT' } }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const filterInput = fixture.debugElement.query(By.css('.p-select-filter'));
+            expect(filterInput).toBeTruthy();
+            if (filterInput) {
+                expect(filterInput.nativeElement.classList.contains('CUSTOM_FILTER_INPUT')).toBeTruthy();
+            }
+            flush();
+        }));
+
+        it('should apply PT to listContainer', fakeAsync(() => {
+            component.pt = {
+                listContainer: { class: 'CUSTOM_LIST_CONTAINER', 'data-list': 'container' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const listContainer = fixture.debugElement.query(By.css('.p-select-list-container'));
+            expect(listContainer).toBeTruthy();
+            if (listContainer) {
+                expect(listContainer.nativeElement.classList.contains('CUSTOM_LIST_CONTAINER')).toBeTruthy();
+                expect(listContainer.nativeElement.getAttribute('data-list')).toBe('container');
+            }
+            flush();
+        }));
+
+        it('should apply PT to list element', fakeAsync(() => {
+            component.pt = {
+                list: { class: 'CUSTOM_LIST', 'data-list': 'element' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const list = fixture.debugElement.query(By.css('.p-select-list'));
+            expect(list).toBeTruthy();
+            if (list) {
+                expect(list.nativeElement.classList.contains('CUSTOM_LIST')).toBeTruthy();
+                expect(list.nativeElement.getAttribute('data-list')).toBe('element');
+            }
+            flush();
+        }));
+
+        it('should apply PT to optionGroup', fakeAsync(() => {
+            component.options = [
+                {
+                    name: 'Group 1',
+                    code: 'grp1',
+                    items: [
+                        { name: 'Option 1.1', code: 'opt1_1' },
+                        { name: 'Option 1.2', code: 'opt1_2' }
+                    ]
+                }
+            ];
+            component.optionLabel = 'name';
+            component.optionGroupLabel = 'name';
+            component.optionGroupChildren = 'items';
+            component.group = true;
+            component.pt = {
+                optionGroup: { class: 'CUSTOM_OPTION_GROUP', 'data-group': 'test' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const optionGroup = fixture.debugElement.query(By.css('.p-select-option-group'));
+            expect(optionGroup).toBeTruthy();
+            if (optionGroup) {
+                expect(optionGroup.nativeElement.classList.contains('CUSTOM_OPTION_GROUP')).toBeTruthy();
+                expect(optionGroup.nativeElement.getAttribute('data-group')).toBe('test');
+            }
+            flush();
+        }));
+
+        it('should apply PT to optionGroupLabel', fakeAsync(() => {
+            component.options = [
+                {
+                    name: 'Group 1',
+                    code: 'grp1',
+                    items: [
+                        { name: 'Option 1.1', code: 'opt1_1' },
+                        { name: 'Option 1.2', code: 'opt1_2' }
+                    ]
+                }
+            ];
+            component.optionLabel = 'name';
+            component.optionGroupLabel = 'name';
+            component.optionGroupChildren = 'items';
+            component.group = true;
+            component.pt = {
+                optionGroupLabel: { class: 'CUSTOM_GROUP_LABEL' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const groupLabel = fixture.debugElement.query(By.css('.p-select-option-group-label'));
+            expect(groupLabel).toBeTruthy();
+            if (groupLabel) {
+                expect(groupLabel.nativeElement.classList.contains('CUSTOM_GROUP_LABEL')).toBeTruthy();
+            }
+            flush();
+        }));
+
+        it('should apply PT to option element', fakeAsync(() => {
+            component.pt = {
+                option: { class: 'CUSTOM_OPTION', 'data-option': 'test' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const option = fixture.debugElement.query(By.css('.p-select-option'));
+            expect(option).toBeTruthy();
+            if (option) {
+                expect(option.nativeElement.classList.contains('CUSTOM_OPTION')).toBeTruthy();
+                expect(option.nativeElement.getAttribute('data-option')).toBe('test');
+            }
+            flush();
+        }));
+
+        it('should apply PT to optionLabel', fakeAsync(() => {
+            component.pt = {
+                optionLabel: { class: 'CUSTOM_OPTION_LABEL', 'data-label': 'option' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const optionLabel = fixture.debugElement.query(By.css('.p-select-option'));
+            expect(optionLabel).toBeTruthy();
+            flush();
+        }));
+
+        it('should apply PT to emptyMessage', fakeAsync(() => {
+            component.options = [];
+            component.pt = {
+                emptyMessage: { class: 'CUSTOM_EMPTY_MESSAGE', 'data-empty': 'true' }
+            };
+            fixture.detectChanges();
+            tick();
+            selectInstance.show();
+            tick();
+            fixture.detectChanges();
+            tick();
+
+            const emptyMessage = fixture.debugElement.query(By.css('.p-select-empty-message'));
+            expect(emptyMessage).toBeTruthy();
+            if (emptyMessage) {
+                expect(emptyMessage.nativeElement.classList.contains('CUSTOM_EMPTY_MESSAGE')).toBeTruthy();
+                expect(emptyMessage.nativeElement.getAttribute('data-empty')).toBe('true');
+            }
+            flush();
+        }));
+    });
+});

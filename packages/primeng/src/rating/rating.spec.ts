@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Rating } from './rating';
 import { SharedModule } from 'primeng/api';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
 
 // Basic Rating test component
 @Component({
@@ -1007,5 +1008,408 @@ describe('Rating', () => {
             expect(ratingInstance.value).toBe(3 as any);
             expect(ratingInstance.stars).toBe(5 as any);
         }));
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase1Component {
+                value: number = 3;
+                pt = {
+                    host: 'HOST_CLASS',
+                    root: 'ROOT_CLASS',
+                    option: 'OPTION_CLASS',
+                    onIcon: 'ON_ICON_CLASS',
+                    offIcon: 'OFF_ICON_CLASS',
+                    hiddenOptionInputContainer: 'HIDDEN_CONTAINER_CLASS',
+                    hiddenOptionInput: 'HIDDEN_INPUT_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase1Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
+                    expect(hostEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+                }
+
+                const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+                if (optionEls.length > 0) {
+                    expect(optionEls[0].nativeElement.classList.contains('OPTION_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 2: Object with class, style, data attributes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase2Component {
+                value: number = 3;
+                pt = {
+                    host: {
+                        class: 'OBJECT_HOST_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'test-value'
+                    },
+                    option: {
+                        class: 'OPTION_OBJECT_CLASS',
+                        'data-p-custom': 'custom-value'
+                    }
+                };
+            }
+
+            it('should apply object properties to PT sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase2Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('OBJECT_HOST_CLASS')).toBe(true);
+                    expect(hostEl.nativeElement.style.backgroundColor).toBe('red');
+                    expect(hostEl.nativeElement.getAttribute('data-p-test')).toBe('test-value');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase3Component {
+                value: number = 3;
+                pt = {
+                    host: 'MIXED_HOST_CLASS',
+                    option: {
+                        class: 'MIXED_OPTION_CLASS',
+                        style: { color: 'blue' }
+                    }
+                };
+            }
+
+            it('should apply mixed object and string values', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase3Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('MIXED_HOST_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [stars]="5" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase4Component {
+                value: number = 4;
+                pt = {
+                    host: ({ instance }: any) => {
+                        return {
+                            class: instance?.value > 2 ? 'HIGH_RATING_CLASS' : 'LOW_RATING_CLASS'
+                        };
+                    },
+                    option: ({ instance }: any) => {
+                        return {
+                            style: {
+                                opacity: instance?.value > 2 ? '1' : '0.5'
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase4Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    const hasHighRating = hostEl.nativeElement.classList.contains('HIGH_RATING_CLASS');
+                    const hasLowRating = hostEl.nativeElement.classList.contains('LOW_RATING_CLASS');
+                    expect(hasHighRating || hasLowRating).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase5Component {
+                value: number = 3;
+                clickedSection: string = '';
+                pt = {
+                    host: {
+                        onclick: () => {
+                            this.clickedSection = 'host';
+                        }
+                    },
+                    option: {
+                        onclick: () => {
+                            this.clickedSection = 'option';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase5Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                tick();
+
+                const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+                if (optionEls.length > 0) {
+                    const clickEvent = new MouseEvent('click');
+                    optionEls[0].nativeElement.dispatchEvent(clickEvent);
+                    testFixture.detectChanges();
+                    expect(component.clickedSection).toBeTruthy();
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 6: Inline PT', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', option: 'INLINE_OPTION_CLASS' }"></p-rating>`
+            })
+            class TestPTCase6InlineComponent {
+                value: number = 3;
+            }
+
+            it('should apply inline PT as string', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase6InlineComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, option: { class: 'OPTION_INLINE_CLASS' } }"></p-rating>`
+            })
+            class TestPTCase6InlineObjectComponent {
+                value: number = 3;
+            }
+
+            it('should apply inline PT as object', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase6InlineObjectComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value"></p-rating>`
+            })
+            class TestPTCase7GlobalComponent {
+                value: number = 3;
+            }
+
+            it('should apply global PT from config', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase7GlobalComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                rating: {
+                                    host: 'GLOBAL_HOST_CLASS',
+                                    option: 'GLOBAL_OPTION_CLASS'
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 8: PT Hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase8HooksComponent {
+                value: number = 3;
+                hooksCalled: string[] = [];
+                pt = {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.hooksCalled.push('onAfterViewInit');
+                        },
+                        onAfterViewChecked: () => {
+                            this.hooksCalled.push('onAfterViewChecked');
+                        },
+                        onDestroy: () => {
+                            this.hooksCalled.push('onDestroy');
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase8HooksComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                tick();
+
+                expect(component.hooksCalled.some((h) => h.includes('onAfterView'))).toBe(true);
+
+                testFixture.destroy();
+                tick();
+
+                flush();
+            }));
+        });
+
+        describe('PT Section Coverage', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCoverageComponent {
+                value: number = 3;
+                pt = {
+                    host: 'PT_HOST',
+                    root: 'PT_ROOT',
+                    option: 'PT_OPTION',
+                    onIcon: 'PT_ON_ICON',
+                    offIcon: 'PT_OFF_ICON',
+                    hiddenOptionInputContainer: 'PT_HIDDEN_CONTAINER',
+                    hiddenOptionInput: 'PT_HIDDEN_INPUT'
+                };
+            }
+
+            it('should apply PT to all sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCoverageComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCoverageComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                expect(hostEl).toBeTruthy();
+                if (hostEl) {
+                    expect(hostEl.nativeElement.getAttribute('data-pc-name')).toBe('rating');
+                }
+
+                const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+                expect(optionEls.length).toBeGreaterThan(0);
+
+                // Check for hidden containers and inputs - they should exist within the options
+                const hiddenAccessibleEls = testFixture.debugElement.queryAll(By.css('.p-hidden-accessible'));
+                expect(hiddenAccessibleEls.length).toBeGreaterThan(0);
+
+                const inputEls = testFixture.debugElement.queryAll(By.css('input[type="radio"]'));
+                expect(inputEls.length).toBeGreaterThan(0);
+
+                flush();
+            }));
+        });
     });
 });

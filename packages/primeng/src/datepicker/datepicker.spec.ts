@@ -5,8 +5,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { DatePicker } from './datepicker';
-import { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from './datepicker.interface';
-
+import type { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from 'primeng/types/datepicker';
 @Component({
     standalone: false,
     template: `
@@ -1531,6 +1530,252 @@ describe('DatePicker', () => {
                 // Template should handle decade context
                 expect(mockDecadeContext.decade.year).toBe(2020);
             }).not.toThrow();
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        it('PT Case 1: should accept simple string values', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('pt', {
+                root: 'custom-root-class',
+                panel: 'custom-panel-class',
+                calendar: 'custom-calendar-class'
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            const root = ptFixture.nativeElement;
+            expect(root.classList.contains('custom-root-class')).toBe(true);
+        });
+
+        it('PT Case 2: should accept objects with class, style, and attributes', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('pt', {
+                root: {
+                    class: 'custom-root',
+                    style: { backgroundColor: 'lightblue' },
+                    'data-testid': 'datepicker-root'
+                },
+                panel: {
+                    class: 'custom-panel',
+                    style: { padding: '20px' }
+                }
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            const root = ptFixture.nativeElement;
+            expect(root.classList.contains('custom-root')).toBe(true);
+            expect(root.getAttribute('data-testid')).toBe('datepicker-root');
+        });
+
+        it('PT Case 3: should accept mixed object and string values', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('pt', {
+                root: 'string-root-class',
+                panel: {
+                    class: 'object-panel-class',
+                    style: { border: '1px solid red' }
+                },
+                calendar: 'string-calendar-class'
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            const root = ptFixture.nativeElement;
+            expect(root.classList.contains('string-root-class')).toBe(true);
+        });
+
+        it('PT Case 4: should use instance properties in PT functions', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('pt', {
+                root: (options: any) => ({
+                    class: options.instance.inline ? 'inline-calendar' : 'popup-calendar'
+                })
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            const root = ptFixture.nativeElement;
+            expect(root.classList.contains('inline-calendar')).toBe(true);
+        });
+
+        it('PT Case 5: should bind events through PT', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            let clicked = false;
+            ptFixture.componentRef.setInput('pt', {
+                root: {
+                    onClick: () => {
+                        clicked = true;
+                    }
+                }
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            const root = ptFixture.nativeElement;
+            root.click();
+            expect(clicked).toBe(true);
+        });
+
+        it('PT Case 6: should support inline PT binding', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('ptOptions', { mergeSections: true, mergeProps: true });
+            ptFixture.componentRef.setInput('pt', {
+                root: 'inline-root',
+                panel: 'inline-panel'
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            const root = ptFixture.nativeElement;
+            expect(root.classList.contains('inline-root')).toBe(true);
+        });
+
+        it('PT Case 9: should apply PT to nested Button components', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('pt', {
+                pcPrevButton: {
+                    class: 'custom-prev-button',
+                    root: 'prev-button-root'
+                },
+                pcNextButton: {
+                    class: 'custom-next-button',
+                    root: 'next-button-root'
+                },
+                pcTodayButton: 'today-button-class',
+                pcClearButton: 'clear-button-class'
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.componentRef.setInput('showButtonBar', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            expect(ptFixture.componentInstance).toBeTruthy();
+        });
+
+        it('PT Case 10: should apply PT to calendar structure', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('pt', {
+                calendarContainer: 'custom-calendar-container',
+                calendar: 'custom-calendar',
+                header: {
+                    class: 'custom-header',
+                    style: { fontWeight: 'bold' }
+                },
+                title: 'custom-title',
+                selectMonth: 'custom-select-month',
+                selectYear: 'custom-select-year'
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            expect(ptFixture.componentInstance).toBeTruthy();
+        });
+
+        it('PT Case 11: should apply PT to table elements', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('pt', {
+                table: 'custom-table',
+                tableHeader: 'custom-table-header',
+                tableHeaderRow: 'custom-header-row',
+                weekDay: 'custom-week-day',
+                tableBody: 'custom-table-body',
+                tableBodyRow: 'custom-body-row',
+                dayCell: 'custom-day-cell',
+                day: {
+                    class: 'custom-day',
+                    'data-day': 'true'
+                }
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            expect(ptFixture.componentInstance).toBeTruthy();
+        });
+
+        it('PT Case 12: should apply PT to time picker elements', async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [DatePicker, FormsModule, NoopAnimationsModule]
+            }).compileComponents();
+
+            const ptFixture = TestBed.createComponent(DatePicker);
+            ptFixture.componentRef.setInput('pt', {
+                timePicker: 'custom-time-picker',
+                hourPicker: 'custom-hour-picker',
+                hour: 'custom-hour',
+                minutePicker: 'custom-minute-picker',
+                minute: 'custom-minute',
+                secondPicker: 'custom-second-picker',
+                second: 'custom-second',
+                separatorContainer: 'custom-separator-container',
+                separator: 'custom-separator',
+                ampmPicker: 'custom-ampm-picker',
+                ampm: 'custom-ampm',
+                pcIncrementButton: 'custom-increment',
+                pcDecrementButton: 'custom-decrement'
+            });
+            ptFixture.componentRef.setInput('inline', true);
+            ptFixture.componentRef.setInput('showTime', true);
+            ptFixture.componentRef.setInput('showSeconds', true);
+            ptFixture.detectChanges();
+            await ptFixture.whenStable();
+
+            expect(ptFixture.componentInstance).toBeTruthy();
         });
     });
 });

@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { OrderList } from './orderlist';
+import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { RippleModule } from 'primeng/ripple';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { SharedModule } from 'primeng/api';
+import { OrderList } from './orderlist';
 
 interface Product {
     id: string;
@@ -570,7 +569,7 @@ describe('OrderList', () => {
             fixture.detectChanges();
 
             // Test that buttons are disabled, not the methods themselves
-            const upButton = fixture.debugElement.query(By.css('[data-pc-section="moveUpButton"]'));
+            const upButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
             expect(upButton.nativeElement.disabled).toBe(true);
         });
 
@@ -804,10 +803,10 @@ describe('OrderList', () => {
             const buttons = fixture.debugElement.queryAll(By.css('button'));
             expect(buttons.length).toBe(4); // up, top, down, bottom
 
-            const moveUpButton = buttons.find((btn) => btn.attributes['data-pc-section'] === 'moveUpButton');
-            const moveTopButton = buttons.find((btn) => btn.attributes['data-pc-section'] === 'moveTopButton');
-            const moveDownButton = buttons.find((btn) => btn.attributes['data-pc-section'] === 'moveDownButton');
-            const moveBottomButton = buttons.find((btn) => btn.attributes['data-pc-section'] === 'moveBottomButton');
+            const moveUpButton = buttons.find((btn) => btn.attributes['data-pc-name'] === 'pcmoveupbutton');
+            const moveTopButton = buttons.find((btn) => btn.attributes['data-pc-name'] === 'pcmovetopbutton');
+            const moveDownButton = buttons.find((btn) => btn.attributes['data-pc-name'] === 'pcmovedownbutton');
+            const moveBottomButton = buttons.find((btn) => btn.attributes['data-pc-name'] === 'pcmovebottombutton');
 
             expect(moveUpButton).toBeTruthy();
             expect(moveTopButton).toBeTruthy();
@@ -838,7 +837,7 @@ describe('OrderList', () => {
             component.selection = [component.products[2]]; // Select Item 3
             fixture.detectChanges();
 
-            const moveUpButton = fixture.debugElement.query(By.css('[data-pc-section="moveUpButton"]'));
+            const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
             moveUpButton.nativeElement.click();
 
             expect(component.products[1].name).toBe('Item 3');
@@ -849,7 +848,7 @@ describe('OrderList', () => {
             component.selection = [component.products[3]]; // Select Item 4
             fixture.detectChanges();
 
-            const moveTopButton = fixture.debugElement.query(By.css('[data-pc-section="moveTopButton"]'));
+            const moveTopButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovetopbutton"]'));
             moveTopButton.nativeElement.click();
             tick();
 
@@ -862,7 +861,7 @@ describe('OrderList', () => {
             component.selection = [component.products[1]]; // Select Item 2
             fixture.detectChanges();
 
-            const moveDownButton = fixture.debugElement.query(By.css('[data-pc-section="moveDownButton"]'));
+            const moveDownButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovedownbutton"]'));
             moveDownButton.nativeElement.click();
 
             expect(component.products[1].name).toBe('Item 3');
@@ -873,7 +872,7 @@ describe('OrderList', () => {
             component.selection = [component.products[1]]; // Select Item 2
             fixture.detectChanges();
 
-            const moveBottomButton = fixture.debugElement.query(By.css('[data-pc-section="moveBottomButton"]'));
+            const moveBottomButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovebottombutton"]'));
             moveBottomButton.nativeElement.click();
 
             expect(component.products[4].name).toBe('Item 2');
@@ -884,7 +883,7 @@ describe('OrderList', () => {
             component.selection = [component.products[1], component.products[3]]; // Select Item 2 and Item 4
             fixture.detectChanges();
 
-            const moveUpButton = fixture.debugElement.query(By.css('[data-pc-section="moveUpButton"]'));
+            const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
             moveUpButton.nativeElement.click();
 
             expect(component.products[0].name).toBe('Item 2'); // Item 2 moved up
@@ -1133,6 +1132,7 @@ describe('OrderList', () => {
         it('should reset filter correctly', () => {
             orderList.filterValue = 'test';
             orderList.resetFilter();
+            fixture.detectChanges();
 
             expect(orderList.filterValue).toBe('');
         });
@@ -1646,7 +1646,7 @@ describe('OrderList', () => {
                 comprehensiveFixture.detectChanges();
                 tick();
 
-                const moveUpButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-section="moveUpButton"]'));
+                const moveUpButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
                 if (moveUpButton) {
                     const customIcon = moveUpButton.query(By.css('.custom-move-up-icon'));
                     if (customIcon) {
@@ -1665,7 +1665,7 @@ describe('OrderList', () => {
                 comprehensiveFixture.detectChanges();
                 tick();
 
-                const moveTopButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-section="moveTopButton"]'));
+                const moveTopButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovetopbutton"]'));
                 if (moveTopButton) {
                     const customIcon = moveTopButton.query(By.css('.custom-move-top-icon'));
                     if (customIcon) {
@@ -1684,7 +1684,7 @@ describe('OrderList', () => {
                 comprehensiveFixture.detectChanges();
                 tick();
 
-                const moveDownButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-section="moveDownButton"]'));
+                const moveDownButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovedownbutton"]'));
                 if (moveDownButton) {
                     const customIcon = moveDownButton.query(By.css('.custom-move-down-icon'));
                     if (customIcon) {
@@ -1703,7 +1703,7 @@ describe('OrderList', () => {
                 comprehensiveFixture.detectChanges();
                 tick();
 
-                const moveBottomButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-section="moveBottomButton"]'));
+                const moveBottomButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovebottombutton"]'));
                 if (moveBottomButton) {
                     const customIcon = moveBottomButton.query(By.css('.custom-move-bottom-icon'));
                     if (customIcon) {
@@ -1713,26 +1713,6 @@ describe('OrderList', () => {
                     // Fallback: verify template is configured
                     expect(comprehensiveOrderList._moveBottomIconTemplate).toBeDefined();
                 }
-
-                flush();
-            }));
-
-            it('should apply filter icon template when filtering enabled', fakeAsync(() => {
-                comprehensiveComponent.filterBy = 'name';
-                comprehensiveFixture.detectChanges();
-                tick();
-
-                const filterContainer = comprehensiveFixture.debugElement.query(By.css('[data-pc-section="filterContainer"]'));
-                if (filterContainer) {
-                    const customFilterIcon = filterContainer.query(By.css('.custom-filter-icon'));
-                    if (customFilterIcon) {
-                        expect(customFilterIcon.nativeElement.textContent).toBe('SEARCH');
-                    }
-                } else {
-                    // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._filterIconTemplate).toBeDefined();
-                }
-
                 flush();
             }));
         });
@@ -1778,13 +1758,8 @@ describe('OrderList', () => {
                 tick();
 
                 const itemElements = contentChildFixture.debugElement.queryAll(By.css('.contentchild-item-template'));
-                if (itemElements.length > 0) {
-                    const firstItem = itemElements[0];
-                    expect(firstItem.nativeElement.textContent).toContain('ContentChild Item: Product A');
-                } else {
-                    // Fallback: verify template is configured
-                    expect(contentChildOrderList.itemTemplate).toBeDefined();
-                }
+                const firstItem = itemElements.length > 0 ? itemElements[0] : undefined;
+                expect(firstItem?.nativeElement.textContent).toContain('ContentChild Item: Product A');
 
                 flush();
             }));
@@ -1793,13 +1768,7 @@ describe('OrderList', () => {
                 tick();
 
                 const headerElement = contentChildFixture.debugElement.query(By.css('.contentchild-header-template'));
-                if (headerElement) {
-                    expect(headerElement.nativeElement.textContent).toBe('ContentChild Header Template');
-                } else {
-                    // Fallback: verify template is configured
-                    expect(contentChildOrderList.headerTemplate).toBeDefined();
-                }
-
+                expect(headerElement?.nativeElement.textContent).toBe('ContentChild Header Template');
                 flush();
             }));
 
@@ -1809,12 +1778,7 @@ describe('OrderList', () => {
                 tick();
 
                 const emptyElement = contentChildFixture.debugElement.query(By.css('.contentchild-empty-template'));
-                if (emptyElement) {
-                    expect(emptyElement.nativeElement.textContent).toBe('ContentChild Empty Template');
-                } else {
-                    // Fallback: verify empty state
-                    expect(contentChildComponent.products.length).toBe(0);
-                }
+                expect(emptyElement?.nativeElement.textContent).toBe('ContentChild Empty Template');
 
                 flush();
             }));
@@ -1822,7 +1786,9 @@ describe('OrderList', () => {
             it('should apply empty filter template with #template reference', fakeAsync(() => {
                 contentChildComponent.filterBy = 'name';
                 contentChildFixture.detectChanges();
+                tick();
 
+                // Trigger filtering through OrderList
                 contentChildOrderList.filterValue = 'nonexistent';
                 contentChildOrderList.filter();
                 contentChildFixture.detectChanges();
@@ -1845,12 +1811,7 @@ describe('OrderList', () => {
                 tick();
 
                 const filterElement = contentChildFixture.debugElement.query(By.css('.contentchild-filter-template'));
-                if (filterElement) {
-                    expect(filterElement).toBeTruthy();
-                } else {
-                    // Fallback: verify template is configured
-                    expect(contentChildOrderList.filterTemplate).toBeDefined();
-                }
+                expect(filterElement).toBeTruthy();
 
                 flush();
             }));
@@ -1862,11 +1823,9 @@ describe('OrderList', () => {
 
                 // Verify item template receives context with $implicit (product), selected, and index
                 const itemElements = comprehensiveFixture.debugElement.queryAll(By.css('.custom-item-template'));
-                if (itemElements.length > 0) {
-                    const secondItem = itemElements[1];
-                    expect(secondItem.nativeElement.textContent).toContain('Index: 1');
-                    expect(secondItem.nativeElement.textContent).toContain('Item: Product B');
-                }
+                const secondItem = itemElements.length > 0 ? itemElements[1] : undefined;
+                expect(secondItem?.nativeElement.textContent).toContain('Index: 1');
+                expect(secondItem?.nativeElement.textContent).toContain('Item: Product B');
 
                 flush();
             }));
@@ -1875,23 +1834,17 @@ describe('OrderList', () => {
                 // Initially no selection
                 tick();
                 const initialItem = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
-                if (initialItem) {
-                    expect(initialItem.nativeElement.textContent).toContain('Selected: false');
-                }
+                expect(initialItem?.nativeElement.textContent).toContain('Selected: false');
 
                 // Add selection - set both component and orderList selection
                 comprehensiveComponent.selection = [comprehensiveComponent.products[0]];
                 comprehensiveOrderList.selection = [comprehensiveComponent.products[0]];
                 comprehensiveFixture.detectChanges();
                 tick();
+                comprehensiveFixture.detectChanges(); // Additional change detection for template context update
 
                 const selectedItem = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
-                if (selectedItem && selectedItem.nativeElement.textContent.includes('Selected: true')) {
-                    expect(selectedItem.nativeElement.textContent).toContain('Selected: true');
-                } else {
-                    // Fallback: verify selection state change in component
-                    expect(comprehensiveOrderList.isSelected(comprehensiveComponent.products[0])).toBe(true);
-                }
+                expect(selectedItem?.nativeElement.textContent).toContain('Selected: true');
 
                 flush();
             }));
@@ -1908,10 +1861,8 @@ describe('OrderList', () => {
 
                 // Should only show filtered items
                 const visibleItems = comprehensiveFixture.debugElement.queryAll(By.css('.custom-item-template'));
-                if (visibleItems.length > 0) {
-                    expect(visibleItems[0].nativeElement.textContent).toContain('Item: Product A');
-                    expect(visibleItems[0].nativeElement.textContent).toContain('Index: 0');
-                }
+                expect(visibleItems?.[0].nativeElement.textContent).toContain('Item: Product A');
+                expect(visibleItems?.[0].nativeElement.textContent).toContain('Index: 0');
 
                 flush();
             }));

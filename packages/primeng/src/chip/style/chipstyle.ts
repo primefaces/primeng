@@ -19,7 +19,7 @@ const classes = {
 export class ChipStyle extends BaseStyle {
     name = 'chip';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

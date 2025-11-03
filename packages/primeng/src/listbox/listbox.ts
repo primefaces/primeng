@@ -1,7 +1,6 @@
 import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
@@ -9,10 +8,9 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
+    InjectionToken,
     Input,
     NgModule,
-    OnDestroy,
-    OnInit,
     Output,
     QueryList,
     TemplateRef,
@@ -29,7 +27,9 @@ import {
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind, BindModule } from 'primeng/bind';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
 import { BlankIcon, CheckIcon, SearchIcon } from 'primeng/icons';
@@ -38,9 +38,11 @@ import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Scroller, ScrollerLazyLoadEvent } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
+import { ListBoxPassThrough, ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from 'primeng/types/listbox';
 import { Subscription } from 'rxjs';
-import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { ListBoxStyle } from './style/listboxstyle';
+
+const LISTBOX_INSTANCE = new InjectionToken<Listbox>('LISTBOX_INSTANCE');
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -54,14 +56,23 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox, p-listBox, p-list-box',
     standalone: true,
-    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule],
+    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule, BindModule],
     template: `
-        <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!$disabled() ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
-        <div [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">
+        <span
+            #firstHiddenFocusableElement
+            role="presentation"
+            class="p-hidden-accessible p-hidden-focusable"
+            [tabindex]="!$disabled() ? tabindex : -1"
+            (focus)="onFirstHiddenFocus($event)"
+            [attr.data-p-hidden-focusable]="true"
+            [pBind]="ptm('hiddenFirstFocusableElement')"
+        >
+        </span>
+        <div [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate" [pBind]="ptm('header')">
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
         </div>
-        <div [class]="cx('header')" *ngIf="(checkbox && multiple && showToggleAll) || filter">
+        <div [class]="cx('header')" *ngIf="(checkbox && multiple && showToggleAll) || filter" [pBind]="ptm('header')">
             <p-checkbox
                 #headerchkbox
                 (onChange)="onToggleAll($event)"
@@ -73,6 +84,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                 [binary]="true"
                 [attr.aria-label]="toggleAllAriaLabel"
+                [pt]="ptm('pcCheckbox')"
             >
                 <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                     <ng-template #icon>
@@ -85,7 +97,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             </ng-container>
             <ng-template #builtInFilterElement>
                 @if (filter) {
-                    <p-iconfield>
+                    <p-iconfield [pt]="ptm('pcFilterContainer')" hostName="listbox">
                         <input
                             #filterInput
                             pInputText
@@ -102,16 +114,18 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             (input)="onFilterChange($event)"
                             (keydown)="onFilterKeyDown($event)"
                             (blur)="onFilterBlur($event)"
+                            [pt]="ptm('pcFilter')"
+                            hostName="listbox"
                         />
-                        <p-inputicon>
-                            <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [attr.aria-hidden]="true" />
+                        <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                            <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [attr.aria-hidden]="true" [pBind]="ptm('filterIcon')" />
                             <span *ngIf="filterIconTemplate || _filterIconTemplate" [attr.aria-hidden]="true">
                                 <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                             </span>
                         </p-inputicon>
                     </p-iconfield>
                 }
-                <span role="status" [attr.aria-live]="'polite'" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+                <span role="status" [pBind]="ptm('hiddenFilterResult')" [attr.aria-live]="'polite'" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                     {{ filterResultMessageText }}
                 </span>
             </ng-template>
@@ -126,9 +140,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             (cdkDropListDropped)="drop($event)"
             (cdkDropListEntered)="onDragEntered()"
             (cdkDropListExited)="onDragExited()"
+            [pBind]="ptm('listContainer')"
         >
             @if (hasFilter() && isEmpty()) {
-                <div [class]="cx('emptyMessage')">
+                <div [class]="cx('emptyMessage')" [pBind]="ptm('emptyMessage')">
                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !_emptyTemplate && !emptyTemplate) {
                         {{ emptyFilterMessageText }}
                     } @else {
@@ -136,7 +151,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     }
                 </div>
             } @else if (!hasFilter() && isEmpty()) {
-                <div [class]="cx('emptyMessage')">
+                <div [class]="cx('emptyMessage')" [pBind]="ptm('emptyMessage')">
                     @if (!emptyTemplate && !_emptyTemplate) {
                         {{ emptyMessage }}
                     } @else {
@@ -145,6 +160,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </div>
             } @else {
                 <p-scroller
+                    [pt]="ptm('virtualScroller')"
+                    hostName="listbox"
                     #scroller
                     *ngIf="virtualScroll"
                     [items]="visibleOptions()"
@@ -185,12 +202,14 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         (focus)="onListFocus($event)"
                         (blur)="onListBlur($event)"
                         (keydown)="onListKeyDown($event)"
+                        [pBind]="ptm('list')"
                     >
                         <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                             <ng-container *ngIf="isOptionGroup(option)">
                                 <li
                                     [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                     [class]="cx('optionGroup')"
+                                    [pBind]="getPTOptions(option.optionGroup, scrollerOptions, i, 'optionGroup')"
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     role="option"
                                     cdkDrag
@@ -215,8 +234,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     [attr.aria-disabled]="isOptionDisabled(option)"
                                     [attr.aria-setsize]="ariaSetSize"
                                     [attr.ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
-                                    [attr.data-pc-section]="'item'"
                                     [attr.data-p-selected]="isSelected(option)"
+                                    [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
+                                    [attr.data-p-disabled]="isOptionDisabled(option)"
+                                    [pBind]="getPTOptions(option, scrollerOptions, i, 'option')"
                                     (click)="onOptionSelect($event, option, getOptionIndex(i, scrollerOptions))"
                                     (dblclick)="onOptionDoubleClick($event, option)"
                                     (mousedown)="onOptionMouseDown($event, getOptionIndex(i, scrollerOptions))"
@@ -237,6 +258,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [tabindex]="-1"
                                         [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
                                         [binary]="true"
+                                        [pt]="ptm('pcCheckbox')"
+                                        hostName="listbox"
                                     >
                                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                                             <ng-template #icon>
@@ -246,8 +269,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     </p-checkbox>
                                     <ng-container *ngIf="checkmark">
                                         <ng-container *ngIf="!checkmarkTemplate && !_checkmarkTemplate">
-                                            <svg data-p-icon="blank" *ngIf="!isSelected(option)" [class]="cx('optionBlankIcon')" />
-                                            <svg data-p-icon="check" *ngIf="isSelected(option)" [class]="cx('optionCheckIcon')" />
+                                            <svg data-p-icon="blank" *ngIf="!isSelected(option)" [class]="cx('optionBlankIcon')" [pBind]="ptm('optionBlankIcon')" />
+                                            <svg data-p-icon="check" *ngIf="isSelected(option)" [class]="cx('optionCheckIcon')" [pBind]="ptm('optionCheckIcon')" />
                                         </ng-container>
                                         <ng-container *ngTemplateOutlet="checkmarkTemplate || _checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
                                     </ng-container>
@@ -274,13 +297,22 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <ng-content select="p-footer"></ng-content>
             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
         </div>
-        <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible">
+        <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('hiddenEmptyMessage')">
             {{ emptyMessage }}
         </span>
-        <span role="status" aria-live="polite" class="p-hidden-accessible">
+        <span role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('hiddenSelectedMessage')">
             {{ selectedMessageText }}
         </span>
-        <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!$disabled() ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
+        <span
+            #lastHiddenFocusableElement
+            role="presentation"
+            class="p-hidden-accessible p-hidden-focusable"
+            [tabindex]="!$disabled() ? tabindex : -1"
+            (focus)="onLastHiddenFocus($event)"
+            [attr.data-p-hidden-focusable]="true"
+            [pBind]="ptm('hiddenLastFocusableEl')"
+        >
+        </span>
     `,
     providers: [
         LISTBOX_VALUE_ACCESSOR,
@@ -290,16 +322,29 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             useValue: {
                 zIndex: 1200
             }
-        }
+        },
+        { provide: LISTBOX_INSTANCE, useExisting: Listbox },
+        { provide: PARENT_INSTANCE, useExisting: Listbox }
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
         '[class]': "cn(cx('root'), styleClass, { 'p-listbox-dragging': isDragging() })"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Listbox extends BaseEditableHolder implements AfterContentInit, OnInit, OnDestroy {
+export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
+    @Input() hostName: any = '';
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcListbox: Listbox | undefined = inject(LISTBOX_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Unique identifier of the component.
      * @group Props
@@ -838,8 +883,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.id = this.id || uuid('pn_id_');
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.cd.markForCheck();
@@ -855,7 +899,7 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -1390,6 +1434,16 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         );
     }
 
+    getPTOptions(option: any, itemOptions: any, index: number, key: string) {
+        return this.ptm(key, {
+            context: {
+                selected: this.isSelected(option),
+                focused: this.focusedOptionIndex() === this.getOptionIndex(index, itemOptions),
+                disabled: this.isOptionDisabled(option)
+            }
+        });
+    }
+
     hasSelectedOption() {
         return isNotEmpty(this.modelValue());
     }
@@ -1653,12 +1707,10 @@ export class Listbox extends BaseEditableHolder implements AfterContentInit, OnI
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

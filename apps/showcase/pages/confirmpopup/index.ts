@@ -2,6 +2,7 @@ import { AccessibilityDoc } from '@/doc/confirmpopup/accessibilitydoc';
 import { BasicDoc } from '@/doc/confirmpopup/basicdoc';
 import { HeadlessDoc } from '@/doc/confirmpopup/headlessdoc';
 import { ImportDoc } from '@/doc/confirmpopup/importdoc';
+import { PTComponent } from '@/doc/confirmpopup/pt/PTComponent';
 import { TemplateDoc } from '@/doc/confirmpopup/templatedoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
@@ -16,11 +17,14 @@ import { AppDoc } from '@/components/doc/app.doc';
             description="ConfirmPopup displays a confirmation overlay displayed relatively to its target."
             [docs]="docs"
             [apiDocs]="['ConfirmPopup', 'Confirmation', 'ConfirmationService']"
+            [ptDocs]="ptComponent"
             themeDocs="confirmPopup"
         ></app-doc>
     `
 })
 export class ConfirmPopupDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

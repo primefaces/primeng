@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { providePrimeNG } from 'primeng/config';
 import { PickList } from './picklist';
 import {
     PickListMoveAllToSourceEvent,
@@ -14,7 +15,7 @@ import {
     PickListSourceSelectEvent,
     PickListTargetReorderEvent,
     PickListTargetSelectEvent
-} from './picklist.interface';
+} from 'primeng/types/picklist';
 
 @Component({
     standalone: false,
@@ -1090,5 +1091,727 @@ describe('PickList', () => {
                 expect(picklistComponent.selectedItemsTarget).toContain(item);
             });
         }));
+    });
+
+    // PassThrough (PT) Tests
+    describe('PassThrough Tests', () => {
+        let ptFixture: ComponentFixture<PickList>;
+        let ptPicklist: PickList;
+
+        beforeEach(async () => {
+            await TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                imports: [PickList, CommonModule],
+                providers: [provideNoopAnimations()]
+            }).compileComponents();
+
+            ptFixture = TestBed.createComponent(PickList);
+            ptPicklist = ptFixture.componentInstance;
+            ptPicklist.source = [
+                { label: 'Item 1', value: 'i1' },
+                { label: 'Item 2', value: 'i2' },
+                { label: 'Item 3', value: 'i3' }
+            ];
+            ptPicklist.target = [
+                { label: 'Item 4', value: 'i4' },
+                { label: 'Item 5', value: 'i5' }
+            ];
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            it('should apply string class to root via host', () => {
+                ptFixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                ptFixture.detectChanges();
+
+                const hostElement = ptFixture.debugElement.nativeElement;
+                expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to sourceControls', () => {
+                ptFixture.componentRef.setInput('pt', { sourceControls: 'SOURCE_CONTROLS_CLASS' });
+                ptFixture.detectChanges();
+
+                const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+                if (sourceControlsEl) {
+                    expect(sourceControlsEl.nativeElement.classList.contains('SOURCE_CONTROLS_CLASS')).toBe(true);
+                }
+            });
+
+            it('should apply string class to sourceListContainer', () => {
+                ptFixture.componentRef.setInput('pt', { sourceListContainer: 'SOURCE_CONTAINER_CLASS' });
+                ptFixture.detectChanges();
+
+                const containerEl = ptFixture.debugElement.query(By.css('.p-picklist-source-controls + div'));
+                expect(containerEl?.nativeElement.classList.contains('SOURCE_CONTAINER_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to transferControls', () => {
+                ptFixture.componentRef.setInput('pt', { transferControls: 'TRANSFER_CONTROLS_CLASS' });
+                ptFixture.detectChanges();
+
+                const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+                if (transferControlsEl) {
+                    expect(transferControlsEl.nativeElement.classList.contains('TRANSFER_CONTROLS_CLASS')).toBe(true);
+                }
+            });
+
+            it('should apply string class to targetListContainer', () => {
+                ptFixture.componentRef.setInput('pt', { targetListContainer: 'TARGET_CONTAINER_CLASS' });
+                ptFixture.detectChanges();
+
+                // Get all divs with p-picklist class name
+                const picklistDivs = ptFixture.debugElement.queryAll(By.css('[class*="p-picklist"]'));
+                // Filter to find the targetListContainer (comes after transferControls)
+                const targetContainerEl = picklistDivs.find((el) => el.nativeElement.className.includes('target') && el.nativeElement.className.includes('list'));
+
+                expect(targetContainerEl?.nativeElement.classList.contains('TARGET_CONTAINER_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to targetControls', () => {
+                ptFixture.componentRef.setInput('pt', { targetControls: 'TARGET_CONTROLS_CLASS' });
+                ptFixture.detectChanges();
+
+                const targetControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-target-controls"]'));
+                if (targetControlsEl) {
+                    expect(targetControlsEl.nativeElement.classList.contains('TARGET_CONTROLS_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 2: Objects with class, style, data attributes', () => {
+            it('should apply object with class, style, and data attributes to root via host', () => {
+                ptFixture.componentRef.setInput('pt', {
+                    host: {
+                        class: 'HOST_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'true',
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const hostElement = ptFixture.debugElement.nativeElement;
+                expect(hostElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
+                expect(hostElement.style.backgroundColor).toBe('red');
+                expect(hostElement.getAttribute('data-p-test')).toBe('true');
+                expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object to sourceControls', () => {
+                ptFixture.componentRef.setInput('pt', {
+                    sourceControls: {
+                        class: 'SOURCE_CONTROLS_OBJECT_CLASS',
+                        style: { padding: '10px' }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+                if (sourceControlsEl) {
+                    expect(sourceControlsEl.nativeElement.classList.contains('SOURCE_CONTROLS_OBJECT_CLASS')).toBe(true);
+                    expect(sourceControlsEl.nativeElement.style.padding).toBe('10px');
+                }
+            });
+
+            it('should apply object to transferControls', () => {
+                ptFixture.componentRef.setInput('pt', {
+                    transferControls: {
+                        class: 'TRANSFER_CONTROLS_OBJECT_CLASS',
+                        style: { margin: '5px' }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+                if (transferControlsEl) {
+                    expect(transferControlsEl.nativeElement.classList.contains('TRANSFER_CONTROLS_OBJECT_CLASS')).toBe(true);
+                    expect(transferControlsEl.nativeElement.style.margin).toBe('5px');
+                }
+            });
+        });
+
+        describe('Case 3: Child component PT', () => {
+            it('should pass PT to button components', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcSourceMoveUpButton: { root: { class: 'CUSTOM_BUTTON_CLASS' } }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+                // Check if any button has custom styling from PT
+                expect(buttons.length).toBeGreaterThan(0);
+            }));
+
+            it('should pass PT to listbox components', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: { host: { class: 'CUSTOM_LISTBOX_CLASS' } }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2); // source and target
+            }));
+        });
+
+        describe('Case 4: Inline test', () => {
+            @Component({
+                standalone: true,
+                imports: [PickList],
+                template: `<p-picklist [source]="source" [target]="target" [pt]="{ host: 'INLINE_HOST_CLASS' }" />`
+            })
+            class InlineTestComponent {
+                source = [
+                    { label: 'Item 1', value: 'i1' },
+                    { label: 'Item 2', value: 'i2' }
+                ];
+                target: any[] = [];
+            }
+
+            it('should apply inline PT with string class', () => {
+                const inlineFixture = TestBed.createComponent(InlineTestComponent);
+                inlineFixture.detectChanges();
+
+                const hostElement = inlineFixture.debugElement.query(By.css('p-picklist')).nativeElement;
+                expect(hostElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+            });
+
+            @Component({
+                standalone: true,
+                imports: [PickList],
+                template: `<p-picklist [source]="source" [target]="target" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' } }" />`
+            })
+            class InlineObjectTestComponent {
+                source = [
+                    { label: 'Item 1', value: 'i1' },
+                    { label: 'Item 2', value: 'i2' }
+                ];
+                target: any[] = [];
+            }
+
+            it('should apply inline PT with object class', () => {
+                const inlineFixture = TestBed.createComponent(InlineObjectTestComponent);
+                inlineFixture.detectChanges();
+
+                const hostElement = inlineFixture.debugElement.query(By.css('p-picklist')).nativeElement;
+                expect(hostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 5: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: true,
+                imports: [PickList],
+                template: `
+                    <p-picklist [source]="source1" [target]="target1" />
+                    <p-picklist [source]="source2" [target]="target2" />
+                `
+            })
+            class GlobalPTTestComponent {
+                source1 = [{ label: 'Item 1', value: 'i1' }];
+                target1: any[] = [];
+                source2 = [{ label: 'Item 2', value: 'i2' }];
+                target2: any[] = [];
+            }
+
+            it('should apply global PT configuration to all instances', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [PickList],
+                    providers: [
+                        provideNoopAnimations(),
+                        providePrimeNG({
+                            pt: {
+                                picklist: {
+                                    host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(GlobalPTTestComponent);
+                globalFixture.detectChanges();
+
+                const picklists = globalFixture.debugElement.queryAll(By.css('p-picklist'));
+                expect(picklists.length).toBe(2);
+
+                picklists.forEach((picklistEl) => {
+                    expect(picklistEl.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
+                });
+            });
+
+            it('should apply global CSS via PT', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [PickList],
+                    providers: [
+                        provideNoopAnimations(),
+                        providePrimeNG({
+                            pt: {
+                                picklist: {
+                                    host: { class: 'GLOBAL_CLASS' },
+                                    global: {
+                                        css: `
+                                            .p-picklist-transfer-controls {
+                                                border: 1px solid red !important;
+                                            }
+                                        `
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(GlobalPTTestComponent);
+                globalFixture.detectChanges();
+
+                const picklists = globalFixture.debugElement.queryAll(By.css('p-picklist'));
+                picklists.forEach((picklistEl) => {
+                    expect(picklistEl.nativeElement.classList.contains('GLOBAL_CLASS')).toBe(true);
+                });
+            });
+        });
+
+        describe('Case 6: Event binding', () => {
+            it('should bind onclick event via PT to sourceControls', fakeAsync(() => {
+                let clickedFromPT = false;
+                ptFixture.componentRef.setInput('pt', {
+                    sourceControls: {
+                        onclick: () => {
+                            clickedFromPT = true;
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+                sourceControlsEl?.nativeElement.click();
+                tick();
+
+                expect(clickedFromPT).toBe(true);
+            }));
+
+            it('should bind onclick event via PT to transferControls', fakeAsync(() => {
+                let transferClicked = false;
+                ptFixture.componentRef.setInput('pt', {
+                    transferControls: {
+                        onclick: () => {
+                            transferClicked = true;
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+                transferControlsEl?.nativeElement.click();
+                tick();
+
+                expect(transferClicked).toBe(true);
+            }));
+        });
+
+        describe('Case 7: Test with different configurations', () => {
+            it('should apply PT when showSourceControls is true', () => {
+                ptPicklist.showSourceControls = true;
+                ptFixture.componentRef.setInput('pt', { sourceControls: 'SOURCE_VISIBLE_CLASS' });
+                ptFixture.detectChanges();
+
+                const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+                if (sourceControlsEl) {
+                    expect(sourceControlsEl.nativeElement.classList.contains('SOURCE_VISIBLE_CLASS')).toBe(true);
+                }
+            });
+
+            it('should apply PT when showTargetControls is true', () => {
+                ptPicklist.showTargetControls = true;
+                ptFixture.componentRef.setInput('pt', { targetControls: 'TARGET_VISIBLE_CLASS' });
+                ptFixture.detectChanges();
+
+                const targetControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-target-controls"]'));
+                if (targetControlsEl) {
+                    expect(targetControlsEl.nativeElement.classList.contains('TARGET_VISIBLE_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 8: Multiple button PT variations', () => {
+            it('should apply PT to all source control buttons', fakeAsync(() => {
+                ptPicklist.showSourceControls = true;
+                ptFixture.componentRef.setInput('pt', {
+                    pcSourceMoveUpButton: { root: { class: 'MOVE_UP_CLASS' } },
+                    pcSourceMoveTopButton: { root: { class: 'MOVE_TOP_CLASS' } },
+                    pcSourceMoveDownButton: { root: { class: 'MOVE_DOWN_CLASS' } },
+                    pcSourceMoveBottomButton: { root: { class: 'MOVE_BOTTOM_CLASS' } }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+                expect(buttons.length).toBeGreaterThan(0);
+            }));
+
+            it('should apply PT to transfer control buttons', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcMoveToTargetButton: { root: { class: 'TO_TARGET_CLASS' } },
+                    pcMoveAllToTargetButton: { root: { class: 'ALL_TO_TARGET_CLASS' } },
+                    pcMoveToSourceButton: { root: { class: 'TO_SOURCE_CLASS' } },
+                    pcMoveAllToSourceButton: { root: { class: 'ALL_TO_SOURCE_CLASS' } }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+                expect(buttons.length).toBeGreaterThan(0);
+            }));
+
+            it('should apply PT to target control buttons', fakeAsync(() => {
+                ptPicklist.showTargetControls = true;
+                ptFixture.componentRef.setInput('pt', {
+                    pcTargetMoveUpButton: { root: { class: 'TARGET_UP_CLASS' } },
+                    pcTargetMoveTopButton: { root: { class: 'TARGET_TOP_CLASS' } },
+                    pcTargetMoveDownButton: { root: { class: 'TARGET_DOWN_CLASS' } },
+                    pcTargetMoveBottomButton: { root: { class: 'TARGET_BOTTOM_CLASS' } }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+                expect(buttons.length).toBeGreaterThan(0);
+            }));
+        });
+
+        describe('Case 9: Instance-based PT tests with callbacks', () => {
+            it('should access instance.disabled property in PT callback', fakeAsync(() => {
+                ptPicklist.disabled = true;
+                ptFixture.componentRef.setInput('pt', {
+                    sourceControls: ({ instance }) => {
+                        return {
+                            class: {
+                                DISABLED_STATE: instance?.disabled
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+                if (sourceControlsEl) {
+                    expect(sourceControlsEl.nativeElement.classList.contains('DISABLED_STATE')).toBe(true);
+                }
+            }));
+
+            it('should access instance.showSourceControls property in PT callback', fakeAsync(() => {
+                ptPicklist.showSourceControls = true;
+                ptFixture.componentRef.setInput('pt', {
+                    host: ({ instance }) => {
+                        return {
+                            class: {
+                                SOURCE_CONTROLS_VISIBLE: instance?.showSourceControls
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                // host is the component's root element
+                const hostEl = ptFixture.debugElement.nativeElement;
+                expect(hostEl.classList.contains('SOURCE_CONTROLS_VISIBLE')).toBe(true);
+            }));
+
+            it('should access instance.showTargetControls property in PT callback', fakeAsync(() => {
+                ptPicklist.showTargetControls = true;
+                ptFixture.componentRef.setInput('pt', {
+                    host: ({ instance }) => {
+                        return {
+                            class: {
+                                TARGET_CONTROLS_VISIBLE: instance?.showTargetControls
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                // host is the component's root element
+                const hostEl = ptFixture.debugElement.nativeElement;
+                expect(hostEl.classList.contains('TARGET_CONTROLS_VISIBLE')).toBe(true);
+            }));
+
+            it('should access instance.source array in PT callback', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    sourceListContainer: ({ instance }) => {
+                        const sourceLength = instance?.source?.length || 0;
+                        return {
+                            'data-source-count': sourceLength.toString()
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const containerEl = ptFixture.debugElement.query(By.css('.p-picklist-source-controls + div'));
+                if (containerEl) {
+                    expect(containerEl.nativeElement.getAttribute('data-source-count')).toBe('3');
+                }
+            }));
+
+            it('should access instance.target array in PT callback', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    targetListContainer: ({ instance }) => {
+                        const targetLength = instance?.target?.length || 0;
+                        return {
+                            'data-target-count': targetLength.toString()
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const picklistDivs = ptFixture.debugElement.queryAll(By.css('[class*="p-picklist"]'));
+                const targetContainerEl = picklistDivs.find((el) => el.nativeElement.className.includes('target') && el.nativeElement.className.includes('list'));
+                if (targetContainerEl) {
+                    expect(targetContainerEl.nativeElement.getAttribute('data-target-count')).toBe('2');
+                }
+            }));
+
+            it('should apply conditional styling based on instance.disabled in transferControls', fakeAsync(() => {
+                ptPicklist.disabled = false;
+                ptFixture.componentRef.setInput('pt', {
+                    transferControls: ({ instance }) => {
+                        return {
+                            style: {
+                                'background-color': instance?.disabled ? 'gray' : 'blue'
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+                if (transferControlsEl) {
+                    expect(transferControlsEl.nativeElement.style.backgroundColor).toBe('blue');
+                }
+            }));
+
+            it('should access instance.viewChanged property in PT callback', fakeAsync(() => {
+                ptPicklist.viewChanged = false;
+                ptFixture.componentRef.setInput('pt', {
+                    transferControls: ({ instance }) => {
+                        return {
+                            class: {
+                                VIEW_CHANGED: instance?.viewChanged
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+                if (transferControlsEl) {
+                    expect(transferControlsEl.nativeElement.classList.contains('VIEW_CHANGED')).toBe(false);
+                }
+            }));
+
+            it('should access instance.$pcPickList in nested picklist PT callback', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    host: ({ instance }) => {
+                        return {
+                            class: 'NESTED_TEST',
+                            'data-has-parent': instance?.$pcPickList ? 'true' : 'false'
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                // In standalone picklist, $pcPickList should be undefined
+                expect(ptPicklist.$pcPickList).toBeUndefined();
+                // host is the component's root element
+                const hostEl = ptFixture.debugElement.nativeElement;
+                expect(hostEl.getAttribute('data-has-parent')).toBe('false');
+            }));
+
+            it('should use instance properties for complex conditional PT', fakeAsync(() => {
+                ptPicklist.disabled = false;
+                ptPicklist.showSourceControls = true;
+                ptFixture.componentRef.setInput('pt', {
+                    sourceControls: ({ instance }) => {
+                        return {
+                            class: {
+                                ENABLED_AND_VISIBLE: !instance?.disabled && instance?.showSourceControls
+                            },
+                            'data-test-state': 'active'
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+                if (sourceControlsEl) {
+                    expect(sourceControlsEl.nativeElement.classList.contains('ENABLED_AND_VISIBLE')).toBe(true);
+                    expect(sourceControlsEl.nativeElement.getAttribute('data-test-state')).toBe('active');
+                }
+            }));
+        });
+
+        describe('Case 10: Listbox child component PT tests', () => {
+            it('should pass PT to listbox host', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: {
+                        host: { class: 'CUSTOM_LISTBOX_HOST' }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+                listboxes.forEach((listbox) => {
+                    expect(listbox.nativeElement.classList.contains('CUSTOM_LISTBOX_HOST')).toBe(true);
+                });
+            }));
+
+            it('should pass PT to listbox root', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: {
+                        root: { class: 'CUSTOM_LISTBOX_ROOT' }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+            }));
+
+            it('should pass PT to listbox list container', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: {
+                        listContainer: { class: 'CUSTOM_LIST_CONTAINER' }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+            }));
+
+            it('should pass PT to listbox list items', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: {
+                        option: { class: 'CUSTOM_OPTION_CLASS' }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+            }));
+
+            it('should pass PT to listbox filter input when filterBy is enabled', fakeAsync(() => {
+                ptPicklist.filterBy = 'label';
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: {
+                        pcFilter: {
+                            root: { class: 'CUSTOM_FILTER_ROOT' }
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+            }));
+
+            it('should pass PT with instance callback to listbox', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: ({ instance }) => {
+                        return {
+                            root: {
+                                class: {
+                                    LISTBOX_DISABLED: instance?.disabled
+                                }
+                            }
+                        };
+                    }
+                });
+                ptPicklist.disabled = true;
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+            }));
+
+            it('should pass multiple PT sections to listbox', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: {
+                        host: { class: 'LISTBOX_HOST' },
+                        root: { class: 'LISTBOX_ROOT' },
+                        listContainer: { class: 'LISTBOX_LIST_CONTAINER' },
+                        option: { class: 'LISTBOX_OPTION' }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+                listboxes.forEach((listbox) => {
+                    expect(listbox.nativeElement.classList.contains('LISTBOX_HOST')).toBe(true);
+                });
+            }));
+
+            it('should pass PT with style to listbox', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: {
+                        host: {
+                            style: { border: '2px solid red' }
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+                listboxes.forEach((listbox) => {
+                    expect(listbox.nativeElement.style.border).toBe('2px solid red');
+                });
+            }));
+
+            it('should pass PT with data attributes to listbox', fakeAsync(() => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcListbox: {
+                        host: {
+                            'data-testid': 'picklist-listbox',
+                            'aria-label': 'Picklist Listbox'
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+                tick();
+
+                const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+                expect(listboxes.length).toBe(2);
+                listboxes.forEach((listbox) => {
+                    expect(listbox.nativeElement.getAttribute('data-testid')).toBe('picklist-listbox');
+                    expect(listbox.nativeElement.getAttribute('aria-label')).toBe('Picklist Listbox');
+                });
+            }));
+        });
     });
 });

@@ -1,5 +1,5 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, Input, TemplateRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Toolbar, ToolbarModule } from './toolbar';
@@ -159,6 +159,26 @@ class TestDynamicToolbarComponent {
     showEnd = true;
 }
 
+@Component({
+    standalone: false,
+    template: `
+        <p-toolbar [pt]="pt">
+            <ng-template pTemplate="start">
+                <button>PT Test Start</button>
+            </ng-template>
+            <ng-template pTemplate="center">
+                <span>PT Test Center</span>
+            </ng-template>
+            <ng-template pTemplate="end">
+                <button>PT Test End</button>
+            </ng-template>
+        </p-toolbar>
+    `
+})
+class TestPTToolbarComponent {
+    @Input() pt: any;
+}
+
 describe('Toolbar', () => {
     let fixture: ComponentFixture<TestBasicToolbarComponent>;
     let component: TestBasicToolbarComponent;
@@ -177,7 +197,8 @@ describe('Toolbar', () => {
                 TestDynamicToolbarComponent,
                 TestStartOnlyToolbarComponent,
                 TestCenterOnlyToolbarComponent,
-                TestEndOnlyToolbarComponent
+                TestEndOnlyToolbarComponent,
+                TestPTToolbarComponent
             ]
         });
 
@@ -648,5 +669,151 @@ describe('Toolbar', () => {
             // Verify toolbar maintains its structure
             expect(toolbar.nativeElement.getAttribute('role')).toBe('toolbar');
         });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTToolbarComponent>;
+        let ptComponent: TestPTToolbarComponent;
+        let ptToolbar: Toolbar;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTToolbarComponent);
+            ptComponent = ptFixture.componentInstance;
+        });
+
+        it('should apply simple string classes to PT sections', fakeAsync(() => {
+            ptComponent.pt = {
+                root: 'ROOT_CLASS',
+                host: 'HOST_CLASS',
+                start: 'START_CLASS',
+                center: 'CENTER_CLASS',
+                end: 'END_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
+            const startSection = ptFixture.debugElement.query(By.css('.p-toolbar-start'));
+            const centerSection = ptFixture.debugElement.query(By.css('.p-toolbar-center'));
+            const endSection = ptFixture.debugElement.query(By.css('.p-toolbar-end'));
+
+            expect(toolbarEl.nativeElement.className).toContain('ROOT_CLASS');
+            expect(toolbarEl.nativeElement.className).toContain('HOST_CLASS');
+            expect(startSection.nativeElement.className).toContain('START_CLASS');
+            expect(centerSection.nativeElement.className).toContain('CENTER_CLASS');
+            expect(endSection.nativeElement.className).toContain('END_CLASS');
+
+            flush();
+        }));
+
+        it('should apply object-based PT options with class and attributes', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    'data-test': 'toolbar-test',
+                    'aria-label': 'PT Toolbar Label',
+                    'data-role': 'toolbar-role'
+                },
+                start: {
+                    class: 'PT_START_CLASS',
+                    'data-section': 'start'
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
+            const startSection = ptFixture.debugElement.query(By.css('.p-toolbar-start'));
+
+            expect(toolbarEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(toolbarEl.nativeElement.getAttribute('data-test')).toBe('toolbar-test');
+            expect(toolbarEl.nativeElement.getAttribute('aria-label')).toBe('PT Toolbar Label');
+            expect(toolbarEl.nativeElement.getAttribute('data-role')).toBe('toolbar-role');
+            expect(startSection.nativeElement.className).toContain('PT_START_CLASS');
+            expect(startSection.nativeElement.getAttribute('data-section')).toBe('start');
+
+            flush();
+        }));
+
+        it('should apply mixed object and string PT values', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS'
+                },
+                host: 'PT_HOST_CLASS',
+                start: 'PT_START_STRING'
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
+            const startSection = ptFixture.debugElement.query(By.css('.p-toolbar-start'));
+
+            expect(toolbarEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(toolbarEl.nativeElement.className).toContain('PT_HOST_CLASS');
+            expect(startSection.nativeElement.className).toContain('PT_START_STRING');
+
+            flush();
+        }));
+
+        it('should use instance variables in PT functions', fakeAsync(() => {
+            ptComponent.pt = {
+                root: ({ instance }) => {
+                    return {
+                        class: instance?.ariaLabelledBy ? 'HAS_ARIA' : 'NO_ARIA',
+                        'data-styleclass': instance?.styleClass
+                    };
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
+            ptToolbar = ptFixture.debugElement.query(By.directive(Toolbar)).componentInstance;
+
+            expect(toolbarEl.nativeElement.className).toContain('NO_ARIA');
+
+            flush();
+        }));
+
+        it('should handle event binding in PT options', fakeAsync(() => {
+            let clicked = false;
+            ptComponent.pt = {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
+            toolbarEl.nativeElement.click();
+
+            expect(clicked).toBe(true);
+
+            flush();
+        }));
+
+        it('should apply PT options using setInput', fakeAsync(() => {
+            ptFixture.componentRef.setInput('pt', { root: 'SETINPUT_ROOT_CLASS', start: 'SETINPUT_START_CLASS' });
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
+            const startSection = ptFixture.debugElement.query(By.css('.p-toolbar-start'));
+
+            expect(toolbarEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
+            expect(startSection.nativeElement.className).toContain('SETINPUT_START_CLASS');
+
+            flush();
+        }));
     });
 });
