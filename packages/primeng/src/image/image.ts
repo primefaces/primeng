@@ -1,4 +1,3 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
@@ -94,46 +93,34 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                     <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                 </button>
             </div>
-            <div
-                *ngIf="previewVisible"
-                [@animation]="{
-                    value: 'visible',
-                    params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                }"
-                (@animation.start)="onAnimationStart($event)"
-                (@animation.done)="onAnimationEnd($event)"
-            >
-                <ng-container *ngIf="!previewTemplate && !_previewTemplate">
-                    <img
-                        [attr.src]="previewImageSrc ? previewImageSrc : src"
-                        [attr.srcset]="previewImageSrcSet"
-                        [attr.sizes]="previewImageSizes"
-                        [class]="cx('original')"
-                        [ngStyle]="imagePreviewStyle()"
-                        (click)="onPreviewImageClick()"
-                        [pBind]="ptm('original')"
-                    />
-                </ng-container>
-                <ng-container
-                    *ngTemplateOutlet="
-                        previewTemplate || _previewTemplate;
-                        context: {
-                            class: cx('original'),
-                            style: imagePreviewStyle(),
-                            previewCallback: onPreviewImageClick.bind(this)
-                        }
-                    "
-                >
-                </ng-container>
-            </div>
+            @if (previewVisible) {
+                <div [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart($event)" (animationend)="onAnimationEnd($event)">
+                    <ng-container *ngIf="!previewTemplate && !_previewTemplate">
+                        <img
+                            [attr.src]="previewImageSrc ? previewImageSrc : src"
+                            [attr.srcset]="previewImageSrcSet"
+                            [attr.sizes]="previewImageSizes"
+                            [class]="cx('original')"
+                            [ngStyle]="imagePreviewStyle()"
+                            (click)="onPreviewImageClick()"
+                            [pBind]="ptm('original')"
+                        />
+                    </ng-container>
+                    <ng-container
+                        *ngTemplateOutlet="
+                            previewTemplate || _previewTemplate;
+                            context: {
+                                class: cx('original'),
+                                style: imagePreviewStyle(),
+                                previewCallback: onPreviewImageClick.bind(this)
+                            }
+                        "
+                    >
+                    </ng-container>
+                </div>
+            }
         </div>
     `,
-    animations: [
-        trigger('animation', [
-            transition('void => visible', [style({ transform: 'scale(0.7)', opacity: 0 }), animate('{{showTransitionParams}}')]),
-            transition('visible => void', [animate('{{hideTransitionParams}}', style({ transform: 'scale(0.7)', opacity: 0 }))])
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [ImageStyle, { provide: IMAGE_INSTANCE, useExisting: Image }, { provide: PARENT_INSTANCE, useExisting: Image }],
@@ -227,6 +214,18 @@ export class Image extends BaseComponent<ImagePassThrough> {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-image-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | null | undefined>('p-image-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-image-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | null | undefined>('p-image-leave');
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
@@ -336,10 +335,6 @@ export class Image extends BaseComponent<ImagePassThrough> {
         max: 1.5,
         min: 0.5
     };
-
-    constructor() {
-        super();
-    }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -461,39 +456,29 @@ export class Image extends BaseComponent<ImagePassThrough> {
         this.previewClick = true;
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.container = event.element;
-                this.wrapper = this.container?.parentElement;
-                this.$attrSelector && this.wrapper?.setAttribute(this.$attrSelector, '');
-                this.appendContainer();
-                this.moveOnTop();
-
-                setTimeout(() => {
-                    focus(this.closeButton?.nativeElement);
-                }, 25);
-                break;
-
-            case 'void':
-                if (this.wrapper) addClass(this.wrapper, 'p-overlay-mask-leave');
-                break;
+    onAnimationStart(event: any) {
+        if (this.previewVisible) {
+            this.container = event.target;
+            this.wrapper = this.container?.parentElement;
+            this.$attrSelector && this.wrapper?.setAttribute(this.$attrSelector, '');
+            this.appendContainer();
+            this.moveOnTop();
+            this.onShow.emit({});
+            setTimeout(() => {
+                focus(this.closeButton?.nativeElement);
+            }, 25);
         }
     }
 
-    onAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                ZIndexUtils.clear(this.wrapper);
-                this.maskVisible = false;
-                this.container = null;
-                this.wrapper = null;
-                this.cd.markForCheck();
-                this.onHide.emit({});
-                break;
-            case 'visible':
-                this.onShow.emit({});
-                break;
+    onAnimationEnd(event: any) {
+        if (!this.previewVisible) {
+            if (this.wrapper) addClass(this.wrapper, 'p-overlay-mask-leave');
+            ZIndexUtils.clear(this.wrapper);
+            this.maskVisible = false;
+            this.container = null;
+            this.wrapper = null;
+            this.onHide.emit({});
+            this.cd.markForCheck();
         }
     }
 
