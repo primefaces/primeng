@@ -33,20 +33,8 @@ import { PlusIcon, TimesIcon, UploadIcon } from 'primeng/icons';
 import { Message } from 'primeng/message';
 import { ProgressBar } from 'primeng/progressbar';
 import { VoidListener } from 'primeng/ts-helpers';
+import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent, FileUploadPassThrough, RemoveUploadedFileEvent } from 'primeng/types/fileupload';
 import { Subscription } from 'rxjs';
-import {
-    FileBeforeUploadEvent,
-    FileProgressEvent,
-    FileRemoveEvent,
-    FileSelectEvent,
-    FileUploadTemplates,
-    FileSendEvent,
-    FileUploadErrorEvent,
-    FileUploadEvent,
-    FileUploadHandlerEvent,
-    RemoveUploadedFileEvent,
-    FileUploadPassThrough
-} from 'primeng/types/fileupload';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
 const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE');
@@ -61,9 +49,9 @@ const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE'
                 <div [class]="cx('fileName')" [pBind]="$pcFileUpload.ptm('fileName')">{{ file.name }}</div>
                 <span [class]="cx('fileSize')" [pBind]="$pcFileUpload.ptm('fileSize')">{{ formatSize(file.size) }}</span>
             </div>
-            <p-badge [value]="badgeValue()" [severity]="badgeSeverity()" [class]="cx('pcFileBadge')" [pt]="$pcFileUpload.ptm('pcFileBadge')" />
+            <p-badge [value]="badgeValue()" [severity]="badgeSeverity()" [class]="cx('pcFileBadge')" [pt]="$pcFileUpload.ptm('pcFileBadge')" [unstyled]="unstyled()" />
             <div [class]="cx('fileActions')" [pBind]="$pcFileUpload.ptm('fileActions')">
-                <p-button (onClick)="onRemoveClick($event, index)" [styleClass]="cx('pcFileRemoveButton')" text rounded severity="danger" [pt]="$pcFileUpload.ptm('pcFileRemoveButton')">
+                <p-button (onClick)="onRemoveClick($event, index)" [styleClass]="cx('pcFileRemoveButton')" text rounded severity="danger" [pt]="$pcFileUpload.ptm('pcFileRemoveButton')" [unstyled]="unstyled()">
                     <ng-template #icon let-iconClass="class">
                         @if (fileRemoveIconTemplate()) {
                             <ng-template *ngTemplateOutlet="fileRemoveIconTemplate(); context: { class: iconClass, file: file, index: index }"></ng-template>
@@ -125,18 +113,7 @@ export class FileContent extends BaseComponent {
     imports: [CommonModule, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule, FileContent, Bind],
     template: `
         <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" *ngIf="mode === 'advanced'" [pBind]="ptm('root')">
-            <input
-                [attr.aria-label]="browseFilesLabel"
-                #advancedfileinput
-                type="file"
-                (change)="onFileSelect($event)"
-                [multiple]="multiple"
-                [accept]="accept"
-                [disabled]="disabled || isChooseDisabled()"
-                [attr.title]="''"
-                [style.display]="'none'"
-                [pBind]="ptm('input')"
-            />
+            <input [attr.aria-label]="browseFilesLabel" #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [pBind]="ptm('input')" />
             <div [class]="cx('header')" [pBind]="ptm('header')">
                 <ng-container *ngIf="!headerTemplate && !_headerTemplate">
                     <p-button
@@ -149,6 +126,7 @@ export class FileContent extends BaseComponent {
                         (keydown.enter)="choose()"
                         [buttonProps]="chooseButtonProps"
                         [pt]="ptm('pcChooseButton')"
+                        [unstyled]="unstyled()"
                     >
                         <input
                             [attr.aria-label]="browseFilesLabel"
@@ -180,6 +158,7 @@ export class FileContent extends BaseComponent {
                         [styleClass]="cn(cx('pcUploadButton'), uploadStyleClass)"
                         [buttonProps]="uploadButtonProps"
                         [pt]="ptm('pcUploadButton')"
+                        [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
                             <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon"></span>
@@ -199,6 +178,7 @@ export class FileContent extends BaseComponent {
                         [styleClass]="cn(cx('pcCancelButton'), cancelStyleClass)"
                         [buttonProps]="cancelButtonProps"
                         [pt]="ptm('pcCancelButton')"
+                        [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
                             <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
@@ -245,14 +225,22 @@ export class FileContent extends BaseComponent {
                 } @else {
                     <p-progressbar [value]="progress" [showValue]="false" *ngIf="hasFiles()" [pt]="ptm('pcProgressBar')"></p-progressbar>
                     @for (message of msgs; track message) {
-                        <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')"></p-message>
+                        <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
                     }
 
                     @if (hasFiles()) {
                         <div [class]="cx('fileList')" [pBind]="ptm('fileList')">
                             <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate || _fileTemplate"></ng-template>
                             @if (!fileTemplate && !_fileTemplate) {
-                                <div pFileContent [files]="files" (onRemove)="onRemoveClick($event)" [badgeValue]="pendingLabel" [previewWidth]="previewWidth" [fileRemoveIconTemplate]="cancelIconTemplate || _cancelIconTemplate"></div>
+                                <div
+                                    pFileContent
+                                    [unstyled]="unstyled()"
+                                    [files]="files"
+                                    (onRemove)="onRemoveClick($event)"
+                                    [badgeValue]="pendingLabel"
+                                    [previewWidth]="previewWidth"
+                                    [fileRemoveIconTemplate]="cancelIconTemplate || _cancelIconTemplate"
+                                ></div>
                             }
                         </div>
                     }
@@ -262,6 +250,7 @@ export class FileContent extends BaseComponent {
                             @if (!fileTemplate && !_fileTemplate) {
                                 <div
                                     pFileContent
+                                    [unstyled]="unstyled()"
                                     [files]="uploadedFiles"
                                     (onRemove)="onRemoveUploadedFileClick($event)"
                                     [badgeValue]="completedLabel()"
@@ -280,7 +269,7 @@ export class FileContent extends BaseComponent {
         </div>
         <div [class]="cn(cx('root'), styleClass)" *ngIf="mode === 'basic'" [pBind]="ptm('root')">
             @for (message of msgs; track message) {
-                <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')"></p-message>
+                <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
             }
 
             <div [class]="cx('basicContent')" [pBind]="ptm('basicContent')">
@@ -293,6 +282,7 @@ export class FileContent extends BaseComponent {
                     (keydown)="onBasicKeydown($event)"
                     [buttonProps]="chooseButtonProps"
                     [pt]="ptm('pcChooseButton')"
+                    [unstyled]="unstyled()"
                 >
                     <ng-template #icon>
                         @if (hasFiles() && !auto) {
@@ -1123,7 +1113,8 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     onDragOver(e: DragEvent) {
         if (!this.disabled) {
-            addClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            !this.unstyled() && addClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            this.content?.nativeElement.setAttribute('data-p-highlight', true);
             this.dragHighlight = true;
             e.stopPropagation();
             e.preventDefault();
@@ -1132,13 +1123,15 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     onDragLeave(event: DragEvent) {
         if (!this.disabled) {
-            removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            !this.unstyled() && removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            this.content?.nativeElement.setAttribute('data-p-highlight', false);
         }
     }
 
     onDrop(event: any) {
         if (!this.disabled) {
-            removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            !this.unstyled() && removeClass(this.content?.nativeElement, 'p-fileupload-highlight');
+            this.content?.nativeElement.setAttribute('data-p-highlight', false);
             event.stopPropagation();
             event.preventDefault();
 
