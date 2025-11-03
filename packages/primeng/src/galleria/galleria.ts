@@ -64,6 +64,7 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                     [ngStyle]="containerStyle"
                     [fullScreen]="fullScreen"
                     [pt]="pt()"
+                    [unstyled]="unstyled()"
                     pFocusTrap
                     [pFocusTrapDisabled]="!fullScreen"
                 ></div>
@@ -71,7 +72,7 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
         </div>
 
         <ng-template #windowed>
-            <div pGalleriaContent [pt]="pt()" [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></div>
+            <div pGalleriaContent [pt]="pt()" [unstyled]="unstyled()" [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></div>
         </ng-template>
     `,
     animations: [
@@ -392,7 +393,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                 break;
 
             case 'void':
-                addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
+                !this.unstyled() && addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
                 break;
         }
     }
@@ -440,12 +441,12 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     standalone: false,
     template: `
         <ng-container *ngIf="value && value.length > 0">
-            <button *ngIf="galleria.fullScreen" type="button" [pBind]="ptm('closeButton')" [class]="cx('closeButton')" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()">
-                <svg data-p-icon="times" *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [pBind]="ptm('closeIcon')" [class]="cx('closeIcon')" />
+            <button *ngIf="galleria.fullScreen" type="button" [pBind]="getPTOptions('closeButton')" [class]="cx('closeButton')" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()">
+                <svg data-p-icon="times" *ngIf="!galleria.closeIconTemplate && !galleria._closeIconTemplate" [pBind]="getPTOptions('closeIcon')" [class]="cx('closeIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate"></ng-template>
             </button>
-            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" pGalleriaItemSlot type="header" [templates]="galleria.templates" [pBind]="ptm('header')" [class]="cx('header')"></div>
-            <div [pBind]="ptm('content')" [class]="cx('content')" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
+            <div *ngIf="galleria.templates && (galleria.headerFacet || galleria.headerTemplate)" pGalleriaItemSlot [unstyled]="unstyled()" type="header" [templates]="galleria.templates" [pBind]="getPTOptions('header')" [class]="cx('header')"></div>
+            <div [pBind]="getPTOptions('content')" [class]="cx('content')" [attr.aria-live]="galleria.autoPlay ? 'polite' : 'off'">
                 <div
                     pGalleriaItem
                     [id]="id"
@@ -464,6 +465,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                     (startSlideShow)="startSlideShow()"
                     (stopSlideShow)="stopSlideShow()"
                     [pt]="pt()"
+                    [unstyled]="unstyled()"
                     [class]="cx('itemsContainer')"
                 ></div>
 
@@ -484,9 +486,10 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                     [slideShowActive]="slideShowActive"
                     (stopSlideShow)="stopSlideShow()"
                     [pt]="pt()"
+                    [unstyled]="unstyled()"
                 ></div>
             </div>
-            <div *ngIf="shouldRenderFooter()" pGalleriaItemSlot [pBind]="ptm('footer')" [class]="cx('footer')" type="footer" [templates]="galleria.templates"></div>
+            <div *ngIf="shouldRenderFooter()" pGalleriaItemSlot [pBind]="getPTOptions('footer')" [class]="cx('footer')" type="footer" [templates]="galleria.templates" [unstyled]="unstyled()"></div>
         </ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -505,7 +508,7 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+        this.bindDirectiveInstance.setAttrs(this.getPTOptions('root'));
     }
 
     @Input() get activeIndex(): number {
@@ -623,6 +626,15 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
 
     closeAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
+    }
+
+    getPTOptions(key: string) {
+        return this.ptm(key, {
+            context: {
+                pt: this.pt(),
+                unstyled: this.unstyled()
+            }
+        });
     }
 }
 
@@ -782,6 +794,7 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
             <div
                 pGalleriaItemSlot
                 [pBind]="ptm('item')"
+                [unstyled]="unstyled()"
                 [class]="cx('item')"
                 [item]="activeItem"
                 [templates]="templates"
@@ -805,7 +818,7 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                 <svg data-p-icon="chevron-right" *ngIf="!galleria.itemNextIconTemplate && !galleria._itemNextIconTemplate" [pBind]="ptm('nextIcon')" [class]="cx('nextIcon')" />
                 <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate || galleria._itemNextIconTemplate"></ng-template>
             </button>
-            <div *ngIf="captionFacet || galleria.captionTemplate" pGalleriaItemSlot [pBind]="ptm('caption')" [class]="cx('caption')" type="caption" [item]="activeItem" [templates]="templates"></div>
+            <div *ngIf="captionFacet || galleria.captionTemplate" pGalleriaItemSlot [pBind]="ptm('caption')" [unstyled]="unstyled()" [class]="cx('caption')" type="caption" [item]="activeItem" [templates]="templates"></div>
         </div>
         <ul *ngIf="showIndicators" [pBind]="ptm('indicatorList')" [class]="cx('indicatorList')">
             <li
@@ -820,10 +833,11 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                 [attr.aria-selected]="activeIndex === index"
                 [attr.aria-controls]="id + '_item_' + index"
                 [pBind]="ptm('indicator', getIndicatorPTOptions(index))"
+                [attr.data-p-active]="isIndicatorItemActive(index)"
             >
                 <button *ngIf="!indicatorFacet && !galleria.indicatorTemplate" type="button" tabIndex="-1" [pBind]="ptm('indicatorButton', getIndicatorPTOptions(index))" [class]="cx('indicatorButton')"></button>
                 <ng-container *ngIf="indicatorFacet || galleria.indicatorTemplate">
-                    <div pGalleriaItemSlot type="indicator" [index]="index" [templates]="templates" [pBind]="ptm('item')"></div>
+                    <div pGalleriaItemSlot type="indicator" [index]="index" [templates]="templates" [pBind]="ptm('item')" [unstyled]="unstyled()"></div>
                 </ng-container>
             </li>
         </ul>
@@ -1058,7 +1072,7 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
                             (touchend)="onItemClick(index)"
                             (keydown.enter)="onItemClick(index)"
                         >
-                            <div pGalleriaItemSlot type="thumbnail" [pBind]="ptm('thumbnailItem')" [item]="item" [templates]="templates"></div>
+                            <div pGalleriaItemSlot type="thumbnail" [pBind]="ptm('thumbnailItem')" [item]="item" [templates]="templates" [unstyled]="unstyled()"></div>
                         </div>
                     </div>
                 </div>
@@ -1203,7 +1217,8 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
             }
 
             if (this._oldactiveIndex !== this._activeIndex) {
-                removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+                this.document.body.setAttribute('data-p-items-hidden', 'false');
+                !this.unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
                 this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
             }
 
@@ -1231,7 +1246,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
             }
         `;
 
-        if (this.responsiveOptions) {
+        if (this.responsiveOptions && !this.unstyled()) {
             this.sortedResponsiveOptions = [...this.responsiveOptions];
             this.sortedResponsiveOptions.sort((data1, data2) => {
                 const value1 = data1.breakpoint;
@@ -1459,7 +1474,8 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
         }
 
         if (this.itemsContainer) {
-            removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            this.document.body.setAttribute('data-p-items-hidden', 'false');
+            !this.unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
@@ -1495,7 +1511,8 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
     onTransitionEnd() {
         if (this.itemsContainer && this.itemsContainer.nativeElement) {
-            addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            this.document.body.setAttribute('data-p-items-hidden', 'true');
+            !this.unstyled() && addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transition = '';
         }
     }
