@@ -1,26 +1,5 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterViewChecked,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    InjectionToken,
-    input,
-    Input,
-    NgModule,
-    OnDestroy,
-    Output,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
@@ -30,9 +9,9 @@ import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import type { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
 import { ColorPickerPassThrough } from 'primeng/types/colorpicker';
 import { ZIndexUtils } from 'primeng/utils';
-import type { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
 import { ColorPickerStyle } from './style/colorpickerstyle';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
@@ -70,32 +49,30 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
             [pAutoFocus]="autofocus"
             [pBind]="ptm('preview')"
         />
-        <div
-            *ngIf="inline || overlayVisible"
-            [class]="cx('panel')"
-            (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{
-                value: 'visible',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            [@.disabled]="inline === true"
-            (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-            (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-            [pBind]="ptm('panel')"
-        >
-            <div [class]="cx('content')" [pBind]="ptm('content')">
-                <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [pBind]="ptm('colorSelector')">
-                    <div [class]="cx('colorBackground')" [pBind]="ptm('colorBackground')">
-                        <div #colorHandle [class]="cx('colorHandle')" [pBind]="ptm('colorHandle')"></div>
+        @if (inline || overlayVisible) {
+            <div
+                #overlay
+                [class]="cx('panel')"
+                (click)="onOverlayClick($event)"
+                [animate.enter]="!inline ? enterAnimation : undefined"
+                [animate.leave]="!inline ? leaveAnimation : undefined"
+                (animationstart)="handleAnimationStart($event)"
+                (animationend)="handleAnimationEnd($event)"
+                [pBind]="ptm('panel')"
+            >
+                <div [class]="cx('content')" [pBind]="ptm('content')">
+                    <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [pBind]="ptm('colorSelector')">
+                        <div [class]="cx('colorBackground')" [pBind]="ptm('colorBackground')">
+                            <div #colorHandle [class]="cx('colorHandle')" [pBind]="ptm('colorHandle')"></div>
+                        </div>
+                    </div>
+                    <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [pBind]="ptm('hue')">
+                        <div #hueHandle [class]="cx('hueHandle')" [pBind]="ptm('hueHandle')"></div>
                     </div>
                 </div>
-                <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [pBind]="ptm('hue')">
-                    <div #hueHandle [class]="cx('hueHandle')" [pBind]="ptm('hueHandle')"></div>
-                </div>
             </div>
-        </div>
+        }
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle, { provide: COLORPICKER_INSTANCE, useExisting: ColorPicker }, { provide: PARENT_INSTANCE, useExisting: ColorPicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -118,6 +95,16 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Enter animation class name.
+     * @group Props
+     */
+    @Input() enterAnimation: string = 'p-overlay-enter';
+    /**
+     * Leave animation class name.
+     * @group Props
+     */
+    @Input() leaveAnimation: string = 'p-overlay-leave';
     /**
      * Whether to display as an overlay or not.
      * @group Props
@@ -143,16 +130,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
-    /**
-     * Transition options of the show animation.
-     * @group Props
-     */
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     */
-    @Input() hideTransitionOptions: string = '.1s linear';
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
@@ -188,6 +165,8 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
+    @ViewChild('overlay') overlayViewChild!: ElementRef<HTMLDivElement>;
+
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     value: any = { h: 0, s: 100, b: 100 };
@@ -209,8 +188,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     documentHueMoveListener: VoidListener;
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
-
-    selfClick: Nullable<boolean>;
 
     colorDragging: Nullable<boolean>;
 
@@ -402,65 +379,62 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                if (!this.inline) {
-                    this.overlay = event.element;
-                    this.$attrSelector && this.overlay?.setAttribute(this.$attrSelector, '');
-                    this.appendOverlay();
-
-                    if (this.autoZIndex) {
-                        ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-                    }
-
-                    this.alignOverlay();
-                    this.bindDocumentClickListener();
-                    this.bindDocumentResizeListener();
-                    this.bindScrollListener();
-
-                    this.updateColorSelector();
-                    this.updateUI();
-                }
-                break;
-
-            case 'void':
-                this.onOverlayHide();
-                break;
+    handleAnimationStart(event: Event) {
+        if (this.overlayVisible && !this.inline) {
+            this.onOverlayEnter(event);
         }
     }
 
-    onOverlayAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                if (!this.inline) {
-                    this.onShow.emit({});
-                }
-                break;
+    handleAnimationEnd(event: Event) {
+        if (!this.overlayVisible && !this.inline) {
+            this.onOverlayLeave(event);
+        }
+    }
 
-            case 'void':
-                if (this.autoZIndex) {
-                    ZIndexUtils.clear(event.element);
-                }
+    onOverlayEnter(event: Event) {
+        if (!this.inline) {
+            this.$attrSelector && this.overlayViewChild?.nativeElement?.setAttribute(this.$attrSelector, '');
+            this.appendOverlay();
 
-                this.onHide.emit({});
-                break;
+            if (this.autoZIndex) {
+                ZIndexUtils.set('overlay', this.overlayViewChild?.nativeElement, this.config.zIndex.overlay);
+            }
+
+            this.alignOverlay();
+            this.bindDocumentClickListener();
+            this.bindDocumentResizeListener();
+            this.bindScrollListener();
+
+            this.updateColorSelector();
+            this.updateUI();
+            this.onShow.emit({});
+        }
+    }
+
+    onOverlayLeave(event: Event) {
+        if (!this.inline) {
+            if (this.autoZIndex) {
+                ZIndexUtils.clear(event.target as HTMLElement);
+            }
+
+            this.onOverlayHide();
+            this.onHide.emit({});
         }
     }
 
     appendOverlay() {
-        DomHandler.appendOverlay(this.overlay, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+        DomHandler.appendOverlay(this.overlayViewChild?.nativeElement, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     restoreOverlayAppend() {
         if (this.overlay && this.$appendTo() !== 'self') {
-            this.renderer.appendChild(this.inputViewChild?.nativeElement, this.overlay);
+            this.renderer.appendChild(this.inputViewChild?.nativeElement, this.overlayViewChild?.nativeElement);
         }
     }
 
     alignOverlay() {
-        if (this.$appendTo() === 'self') relativePosition(this.overlay as HTMLElement, this.inputViewChild?.nativeElement);
-        else absolutePosition(this.overlay as HTMLElement, this.inputViewChild?.nativeElement);
+        if (this.$appendTo() === 'self') relativePosition(this.overlayViewChild?.nativeElement, this.inputViewChild?.nativeElement);
+        else absolutePosition(this.overlayViewChild?.nativeElement, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -469,7 +443,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     }
 
     onInputClick() {
-        this.selfClick = true;
         this.togglePanel();
     }
 
@@ -501,22 +474,22 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
             originalEvent: event,
             target: this.el.nativeElement
         });
-
-        this.selfClick = true;
     }
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', () => {
-                if (!this.selfClick) {
+            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event: Event) => {
+                const isOverlayClicked = this.overlayViewChild?.nativeElement && (this.overlayViewChild.nativeElement.isSameNode(<HTMLElement>event.target) || this.overlayViewChild.nativeElement.contains(event.target as Node));
+                const isInputClicked = this.inputViewChild?.nativeElement && (this.inputViewChild.nativeElement.isSameNode(event.target) || this.inputViewChild.nativeElement.contains(event.target as Node));
+                const isOutsideClicked = !isOverlayClicked && !isInputClicked;
+
+                if (isOutsideClicked) {
                     this.overlayVisible = false;
                     this.unbindDocumentClickListener();
+                    this.cd.markForCheck();
                 }
-
-                this.selfClick = false;
-                this.cd.markForCheck();
             });
         }
     }
@@ -750,7 +723,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         this.unbindScrollListener();
         this.unbindDocumentResizeListener();
         this.unbindDocumentClickListener();
-        this.overlay = null;
     }
 
     onAfterViewInit() {
@@ -796,8 +768,8 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
             this.scrollHandler = null;
         }
 
-        if (this.overlay && this.autoZIndex) {
-            ZIndexUtils.clear(this.overlay);
+        if (this.overlayViewChild?.nativeElement && this.autoZIndex) {
+            ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
         }
 
         this.restoreOverlayAppend();

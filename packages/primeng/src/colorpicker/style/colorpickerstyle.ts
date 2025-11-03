@@ -1,7 +1,36 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/colorpicker';
+import { style as colorpicker_style } from '@primeuix/styles/colorpicker';
 import { BaseStyle } from 'primeng/base';
 
+const style = /*css*/ `
+${colorpicker_style}
+
+/* Animations */
+.p-overlay-enter {
+    animation-name: p-animate-overlay-enter;
+    animation-duration: 120ms;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-overlay-leave {
+    animation-name: p-animate-overlay-leave;
+    animation-duration: 100ms;
+    animation-timing-function: linear;
+}
+
+@keyframes p-animate-overlay-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
+    }
+}
+
+@keyframes p-animate-overlay-leave {
+    to {
+        opacity: 0;
+    }
+}
+`;
 const classes = {
     root: ({ instance }) => ['p-colorpicker p-component', { 'p-colorpicker-overlay': !instance.inline, 'p-colorpicker-dragging': instance.colorDragging || instance.hueDragging }],
     preview: ({ instance }) => ['p-colorpicker-preview', { 'p-disabled': instance.$disabled() }],
