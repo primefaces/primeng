@@ -17,13 +17,13 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
     standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
-        <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.width]="value + '%'" [style.display]="'flex'" [style.background]="color">
-            <div [class]="cx('label')" [pBind]="ptm('label')">
+        <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.width]="value + '%'" [style.display]="'flex'" [style.background]="color" [attr.data-p]="dataP">
+            <div [class]="cx('label')" [pBind]="ptm('label')" [attr.data-p]="dataP">
                 <div *ngIf="showValue && !contentTemplate && !_contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'">{{ value }}{{ unit }}</div>
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: value }"></ng-container>
             </div>
         </div>
-        <div *ngIf="mode === 'indeterminate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.background]="color"></div>
+        <div *ngIf="mode === 'indeterminate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.background]="color" [attr.data-p]="dataP"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -33,7 +33,8 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
         '[attr.aria-valuenow]': 'value',
         '[attr.aria-valuemax]': '100',
         '[attr.aria-level]': 'value + unit',
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -70,9 +71,10 @@ export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
     @Input() unit: string = '%';
     /**
      * Defines the mode of the progress
+     * @defaultValue 'determinate'
      * @group Props
      */
-    @Input() mode: string = 'determinate';
+    @Input() mode: 'determinate' | 'indeterminate' = 'determinate';
     /**
      * Color for the background of the progress.
      * @group Props
@@ -103,6 +105,13 @@ export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
                 default:
                     this._contentTemplate = item.template;
             }
+        });
+    }
+
+    get dataP() {
+        return this.cn({
+            determinate: this.mode === 'determinate',
+            indeterminate: this.mode === 'indeterminate'
         });
     }
 }
