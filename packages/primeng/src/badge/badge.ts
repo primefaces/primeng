@@ -258,7 +258,8 @@ export class BadgeDirective extends BaseComponent {
     providers: [BadgeStyle, { provide: BADGE_INSTANCE, useExisting: Badge }, { provide: PARENT_INSTANCE, useExisting: Badge }],
     host: {
         '[class]': "cn(cx('root'), styleClass())",
-        '[style.display]': 'badgeDisabled() ? "none" : null'
+        '[style.display]': 'badgeDisabled() ? "none" : null',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -303,6 +304,16 @@ export class Badge extends BaseComponent<BadgePassThrough> {
     badgeDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
 
     _componentStyle = inject(BadgeStyle);
+
+    get dataP() {
+        return this.cn({
+            circle: this.value() != null && String(this.value()).length === 1,
+            empty: this.value() == null,
+            disabled: this.badgeDisabled(),
+            [this.severity() as string]: this.severity(),
+            [this.size() as string]: this.size()
+        });
+    }
 }
 
 @NgModule({
