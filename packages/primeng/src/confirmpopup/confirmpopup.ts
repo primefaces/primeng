@@ -91,6 +91,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                         [attr.aria-label]="rejectButtonLabel"
                         [buttonProps]="getRejectButtonProps()"
                         [autofocus]="autoFocusReject"
+                        [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
                             <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
@@ -109,6 +110,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                         [attr.aria-label]="acceptButtonLabel"
                         [buttonProps]="getAcceptButtonProps()"
                         [autofocus]="autoFocusAccept"
+                        [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
                             <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
@@ -373,7 +375,8 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
 
         if (containerOffset && targetOffset && containerOffset.top < targetOffset.top) {
-            addClass(this.container as HTMLDivElement, 'p-confirm-popup-flipped');
+            (this.container as HTMLElement).setAttribute('data-p-confirmpopup-flipped', 'true');
+            !this.unstyled() && addClass(this.container as HTMLDivElement, 'p-confirm-popup-flipped');
         }
     }
 
