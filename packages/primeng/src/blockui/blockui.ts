@@ -18,7 +18,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
+import { addClass, blockBodyScroll, removeClass, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -157,10 +157,9 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
 
     unblock() {
         if (isPlatformBrowser(this.platformId) && this.el && !this.animationEndListener) {
-            // this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
-            // TODO Add animation
+            this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
+            addClass(this.el.nativeElement, 'p-overlay-mask-leave');
             this.destroyModal();
-            // addClass(this.el.nativeElement, 'p-overlay-mask-leave');
         }
     }
 
@@ -168,7 +167,7 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
         this._blocked = false;
         if (this.el && isPlatformBrowser(this.platformId)) {
             ZIndexUtils.clear(this.el.nativeElement);
-            // removeClass(this.el.nativeElement, 'p-overlay-mask-leave');
+            removeClass(this.el.nativeElement, 'p-overlay-mask-leave');
             this.renderer.removeChild(this.el.nativeElement, this.el.nativeElement);
             //@ts-ignore
             unblockBodyScroll();
