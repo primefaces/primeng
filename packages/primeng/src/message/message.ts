@@ -26,6 +26,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                 [attr.aria-live]="'polite'"
                 [class]="cn(cx('root'), styleClass)"
                 [attr.role]="'alert'"
+                [attr.data-p]="dataP"
                 [@messageAnimation]="{
                     value: 'visible()',
                     params: {
@@ -34,39 +35,39 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                     }
                 }"
             >
-                <div [pBind]="ptm('content')" [class]="cx('content')">
+                <div [pBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
                     @if (iconTemplate || _iconTemplate) {
                         <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                     }
                     @if (icon) {
-                        <i [pBind]="ptm('icon')" [class]="cn(cx('icon'), icon)"></i>
+                        <i [pBind]="ptm('icon')" [class]="cn(cx('icon'), icon)" [attr.data-p]="dataP"></i>
                     }
 
                     @if (containerTemplate || _containerTemplate) {
                         <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
                     } @else {
                         <div *ngIf="!escape; else escapeOut">
-                            <span [pBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text"></span>
+                            <span [pBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
                         </div>
 
                         <ng-template #escapeOut>
-                            <span [pBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')">{{ text }}</span>
+                            <span [pBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
                         </ng-template>
 
-                        <span [pBind]="ptm('text')" [ngClass]="cx('text')">
+                        <span [pBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">
                             <ng-content></ng-content>
                         </span>
                     }
                     @if (closable) {
-                        <button [pBind]="ptm('closeButton')" pRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel">
+                        <button [pBind]="ptm('closeButton')" pRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel" [attr.data-p]="dataP">
                             @if (closeIcon) {
-                                <i [pBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon"></i>
+                                <i [pBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
                             }
                             @if (closeIconTemplate || _closeIconTemplate) {
                                 <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
                             }
                             @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
-                                <svg [pBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" />
+                                <svg [pBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.data-p]="dataP" />
                             }
                         </button>
                     }
@@ -258,6 +259,15 @@ export class Message extends BaseComponent<MessagePassThrough> {
     public close(event: Event) {
         this.visible.set(false);
         this.onClose.emit({ originalEvent: event });
+    }
+
+    get dataP() {
+        return this.cn({
+            outlined: this.variant === 'outlined',
+            simple: this.variant === 'simple',
+            [this.severity as string]: this.severity,
+            [this.size as string]: this.size
+        });
     }
 }
 
