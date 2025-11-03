@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/galleria/accessibilitydoc';
 import { AdvancedDoc } from '@/doc/galleria/advanceddoc';
 import { AutoPlayDoc } from '@/doc/galleria/autoplaydoc';
@@ -16,18 +17,19 @@ import { HoverDoc } from '@/doc/galleria/navigator/hoverdoc';
 import { IndicatorsDoc } from '@/doc/galleria/navigator/indicatorsdoc';
 import { ItemThumbnailsDoc } from '@/doc/galleria/navigator/itemthumbnailsdoc';
 import { ItemWithoutThumbnailsDoc } from '@/doc/galleria/navigator/itemwithoutthumbnailsdoc';
+import { PTComponent } from '@/doc/galleria/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/galleria/responsivedoc';
 import { ThumbnailDoc } from '@/doc/galleria/thumbnaildoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: ` <app-doc docTitle="Angular Gallery Component" header="Galleria" description="Galleria is an advanced content gallery component." [docs]="docs" [apiDocs]="['Galleria']"></app-doc>`,
+    template: ` <app-doc docTitle="Angular Gallery Component" header="Galleria" description="Galleria is an advanced content gallery component." [docs]="docs" [apiDocs]="['Galleria']" [ptDocs]="ptComponent" componentName="Galleria"></app-doc>`,
     standalone: true,
     imports: [AppDoc],
     styleUrl: './galleriademo.scss'
 })
 export class GalleriaDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

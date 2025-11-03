@@ -1,9 +1,9 @@
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-import { Component, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Tooltip } from './tooltip';
 import { TooltipOptions } from 'primeng/api';
+import { Tooltip } from './tooltip';
 
 @Component({
     standalone: false,
@@ -597,5 +597,219 @@ describe('Tooltip', () => {
             expect(tooltipDirective.getOption('tooltipLabel')).toBe('New label');
             expect(tooltipDirective._tooltipOptions).not.toEqual(initialOptions);
         });
+    });
+
+    describe('PassThrough', () => {
+        @Component({
+            standalone: false,
+            template: ` <input #inputElement pTooltip="PT Test Tooltip" [pt]="pt" type="text" /> `
+        })
+        class TestPTTooltipComponent {
+            @ViewChild('inputElement', { read: ElementRef }) inputElement!: ElementRef;
+            testValue = false;
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestPTTooltipComponent>;
+        let component: TestPTTooltipComponent;
+        let tooltipDirective: Tooltip;
+        let inputEl: HTMLElement;
+
+        beforeEach(async () => {
+            await TestBed.configureTestingModule({
+                imports: [NoopAnimationsModule, Tooltip],
+                declarations: [TestPTTooltipComponent]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestPTTooltipComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+
+            const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+            tooltipDirective = debugElement.injector.get(Tooltip);
+            inputEl = component.inputElement.nativeElement;
+        });
+
+        // Case 1: Simple string classes
+        it('should apply simple string classes via PT', fakeAsync(() => {
+            component.pt = {
+                root: 'ROOT_CLASS'
+            };
+            fixture.detectChanges();
+
+            tooltipDirective.activate();
+            tick();
+
+            const tooltipContainer = document.querySelector('.p-tooltip');
+            expect(tooltipContainer?.classList.contains('ROOT_CLASS')).toBeTruthy();
+
+            tooltipDirective.deactivate();
+            flush();
+        }));
+
+        it('should apply PT classes to dynamically created elements', fakeAsync(() => {
+            component.pt = {
+                root: 'ROOT_CLASS',
+                arrow: 'ARROW_CLASS',
+                text: 'TEXT_CLASS'
+            };
+            fixture.detectChanges();
+
+            tooltipDirective.activate();
+            tick();
+
+            const tooltipContainer = document.querySelector('.p-tooltip');
+            const tooltipArrow = document.querySelector('.p-tooltip-arrow');
+            const tooltipText = document.querySelector('.p-tooltip-text');
+
+            expect(tooltipContainer?.classList.contains('ROOT_CLASS')).toBeTruthy();
+            expect(tooltipArrow?.classList.contains('ARROW_CLASS')).toBeTruthy();
+            expect(tooltipText?.classList.contains('TEXT_CLASS')).toBeTruthy();
+
+            tooltipDirective.deactivate();
+            flush();
+        }));
+
+        // Case 2: Objects with class, style, data attributes
+        it('should apply PT object attributes', fakeAsync(() => {
+            component.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    style: { 'background-color': 'yellow' },
+                    'data-test-id': 'host-test',
+                    'aria-label': 'Host Aria Label'
+                }
+            };
+            fixture.detectChanges();
+
+            tooltipDirective.activate();
+            tick();
+
+            const tooltipContainer = document.querySelector('.p-tooltip') as HTMLElement;
+
+            expect(tooltipContainer?.classList.contains('PT_ROOT_CLASS')).toBeTruthy();
+            expect(tooltipContainer?.style.backgroundColor).toBe('yellow');
+            expect(tooltipContainer?.getAttribute('data-test-id')).toBe('host-test');
+            expect(tooltipContainer?.getAttribute('aria-label')).toBe('Host Aria Label');
+
+            tooltipDirective.deactivate();
+            flush();
+        }));
+
+        it('should apply PT object to dynamic elements', fakeAsync(() => {
+            component.pt = {
+                root: {
+                    class: 'ROOT_PT_CLASS',
+                    style: { border: '2px solid blue' },
+                    'data-root-id': 'root-test'
+                },
+                text: {
+                    class: 'TEXT_PT_CLASS',
+                    'aria-label': 'Tooltip Text'
+                }
+            };
+            fixture.detectChanges();
+
+            tooltipDirective.activate();
+            tick();
+
+            const tooltipContainer = document.querySelector('.p-tooltip') as HTMLElement;
+            const tooltipText = document.querySelector('.p-tooltip-text') as HTMLElement;
+
+            expect(tooltipContainer?.classList.contains('ROOT_PT_CLASS')).toBeTruthy();
+            expect(tooltipContainer?.style.border).toBe('2px solid blue');
+            expect(tooltipContainer?.getAttribute('data-root-id')).toBe('root-test');
+            expect(tooltipText?.classList.contains('TEXT_PT_CLASS')).toBeTruthy();
+            expect(tooltipText?.getAttribute('aria-label')).toBe('Tooltip Text');
+
+            tooltipDirective.deactivate();
+            flush();
+        }));
+
+        // Case 3: Mixed object and string values
+        it('should handle mixed PT values', fakeAsync(() => {
+            component.pt = {
+                root: 'SIMPLE_ROOT_CLASS',
+                arrow: {
+                    class: 'OBJECT_ARROW_CLASS'
+                }
+            };
+            fixture.detectChanges();
+
+            tooltipDirective.activate();
+            tick();
+
+            const tooltipContainer = document.querySelector('.p-tooltip');
+            const tooltipArrow = document.querySelector('.p-tooltip-arrow');
+
+            expect(tooltipContainer?.classList.contains('SIMPLE_ROOT_CLASS')).toBeTruthy();
+            expect(tooltipArrow?.classList.contains('OBJECT_ARROW_CLASS')).toBeTruthy();
+
+            tooltipDirective.deactivate();
+            flush();
+        }));
+
+        // Case 5: Event binding
+        it('should handle PT event bindings', fakeAsync(() => {
+            let clicked = false;
+            component.pt = {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            tooltipDirective.activate();
+            tick();
+
+            const tooltipContainer = document.querySelector('.p-tooltip') as HTMLElement;
+            tooltipContainer.click();
+            expect(clicked).toBeTruthy();
+
+            tooltipDirective.deactivate();
+            flush();
+        }));
+
+        // Additional test: PT on all tooltip sections
+        it('should apply PT to all tooltip sections', fakeAsync(() => {
+            component.pt = {
+                root: 'ROOT_PT',
+                arrow: 'ARROW_PT',
+                text: 'TEXT_PT'
+            };
+            fixture.detectChanges();
+            tick();
+
+            tooltipDirective.activate();
+            tick();
+
+            const container = document.querySelector('.p-tooltip');
+            const arrow = document.querySelector('.p-tooltip-arrow');
+            const text = document.querySelector('.p-tooltip-text');
+
+            expect(container?.classList.contains('ROOT_PT')).toBeTruthy();
+            expect(arrow?.classList.contains('ARROW_PT')).toBeTruthy();
+            expect(text?.classList.contains('TEXT_PT')).toBeTruthy();
+
+            tooltipDirective.deactivate();
+            flush();
+        }));
+
+        // Test PT attribute removal
+        it('should remove attributes when PT value is null', fakeAsync(() => {
+            const container = document.querySelector('.p-tooltip');
+            component.pt = {
+                root: {
+                    'data-test': null
+                }
+            };
+            fixture.detectChanges();
+            tick();
+
+            expect(container?.hasAttribute('data-test')).toBeFalsy();
+            flush();
+        }));
     });
 });

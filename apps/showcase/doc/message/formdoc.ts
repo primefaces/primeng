@@ -1,12 +1,12 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputMaskModule } from 'primeng/inputmask';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
 
 @Component({
     selector: 'form-doc',

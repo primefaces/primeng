@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
+import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
     standalone: true,
@@ -19,7 +19,7 @@ import { ButtonModule } from 'primeng/button';
 export class InfoDemo implements OnInit {
     totalProducts: number = 0;
 
-    instance: DynamicDialogComponent | undefined;
+    instance: DynamicDialog | undefined;
 
     constructor(
         public ref: DynamicDialogRef,

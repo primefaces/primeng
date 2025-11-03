@@ -4,11 +4,20 @@ import { CurrentPageReportDoc } from '@/doc/paginator/currentpagereportdoc';
 import { ImagesDoc } from '@/doc/paginator/imagesdoc';
 import { ImportDoc } from '@/doc/paginator/importdoc';
 import { TemplateDoc } from '@/doc/paginator/templatedoc';
+import { PTComponent } from '@/doc/paginator/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Paginator Component" header="Paginator" description="Paginator displays data in paged format and provides navigation between pages." [docs]="docs" [apiDocs]="['Paginator']" themeDocs="paginator"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular Paginator Component"
+        header="Paginator"
+        description="Paginator displays data in paged format and provides navigation between pages."
+        [docs]="docs"
+        [apiDocs]="['Paginator']"
+        [ptDocs]="ptComponent"
+        themeDocs="paginator"
+    ></app-doc>`,
     standalone: true,
     imports: [AppDoc],
     styles: `
@@ -19,6 +28,8 @@ import { AppDoc } from '@/components/doc/app.doc';
     `
 })
 export class PaginatorDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

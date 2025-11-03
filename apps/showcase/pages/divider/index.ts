@@ -1,17 +1,18 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/divider/accessibilitydoc';
 import { BasicDoc } from '@/doc/divider/basicdoc';
 import { ContentDoc } from '@/doc/divider/contentdoc';
 import { ImportDoc } from '@/doc/divider/importdoc';
 import { LoginDoc } from '@/doc/divider/logindoc';
+import { PTComponent } from '@/doc/divider/pt/PTComponent';
 import { TypeDoc } from '@/doc/divider/typedoc';
 import { VerticalDoc } from '@/doc/divider/verticaldoc';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Divider Component" header="Divider" description="Divider is used to separate contents." [docs]="docs" [apiDocs]="['Divider']" themeDocs="divider"></app-doc> `
+    template: ` <app-doc docTitle="Angular Divider Component" header="Divider" description="Divider is used to separate contents." [docs]="docs" [apiDocs]="['Divider']" themeDocs="divider" [ptDocs]="ptComponent"></app-doc> `
 })
 export class DividerDemo {
     docs = [
@@ -51,4 +52,6 @@ export class DividerDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

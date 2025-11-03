@@ -10,6 +10,7 @@ import { GroupDoc } from '@/doc/listbox/groupdoc';
 import { ImportDoc } from '@/doc/listbox/importdoc';
 import { InvalidDoc } from '@/doc/listbox/invaliddoc';
 import { MultipleDoc } from '@/doc/listbox/multipledoc';
+import { PTComponent } from '@/doc/listbox/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/listbox/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/listbox/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenformsdoc';
@@ -17,7 +18,15 @@ import { VirtualScrollDoc } from '@/doc/listbox/virtualscrolldoc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Listbox Component" header="Listbox" description="Listbox is used to select one or more values from a list of items." [docs]="docs" [apiDocs]="['Listbox']" themeDocs="listbox"></app-doc> `,
+    template: `<app-doc
+        docTitle="Angular Listbox Component"
+        header="Listbox"
+        description="Listbox is used to select one or more values from a list of items."
+        [docs]="docs"
+        [apiDocs]="['Listbox']"
+        themeDocs="listbox"
+        [ptDocs]="ptComponent"
+    ></app-doc> `,
     standalone: true,
     imports: [AppDoc]
 })
@@ -97,4 +106,6 @@ export class ListboxDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

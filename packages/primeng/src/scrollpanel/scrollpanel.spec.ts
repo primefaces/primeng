@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, Input, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -62,6 +62,20 @@ class TestContentTemplateScrollPanelComponent {}
 })
 class TestNoScrollScrollPanelComponent {}
 
+@Component({
+    standalone: false,
+    template: `
+        <p-scrollpanel [pt]="pt" style="width: 400px; height: 200px;">
+            <div style="width: 800px; height: 600px; padding: 20px;">
+                <h2>PT Test Content</h2>
+            </div>
+        </p-scrollpanel>
+    `
+})
+class TestPTScrollPanelComponent {
+    @Input() pt: any;
+}
+
 describe('ScrollPanel', () => {
     let fixture: ComponentFixture<TestScrollPanelComponent>;
     let component: TestScrollPanelComponent;
@@ -71,7 +85,7 @@ describe('ScrollPanel', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ScrollPanel, NoopAnimationsModule],
-            declarations: [TestScrollPanelComponent, TestTemplateScrollPanelComponent, TestContentTemplateScrollPanelComponent, TestNoScrollScrollPanelComponent]
+            declarations: [TestScrollPanelComponent, TestTemplateScrollPanelComponent, TestContentTemplateScrollPanelComponent, TestNoScrollScrollPanelComponent, TestPTScrollPanelComponent]
         });
 
         fixture = TestBed.createComponent(TestScrollPanelComponent);
@@ -118,24 +132,24 @@ describe('ScrollPanel', () => {
 
     describe('DOM Structure', () => {
         it('should render content container', () => {
-            const contentContainer = fixture.debugElement.query(By.css('[data-pc-section="wrapper"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
             expect(contentContainer).toBeTruthy();
         });
 
         it('should render content area', () => {
-            const content = fixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = fixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
         });
 
         it('should render horizontal scrollbar', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             expect(xBar).toBeTruthy();
             expect(xBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(xBar.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
         });
 
         it('should render vertical scrollbar', () => {
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             expect(yBar).toBeTruthy();
             expect(yBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(yBar.nativeElement.getAttribute('aria-orientation')).toBe('vertical');
@@ -167,8 +181,8 @@ describe('ScrollPanel', () => {
         });
 
         it('should apply correct CSS classes to scrollbars', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.className).toContain('p-scrollpanel-bar-x');
             expect(yBar.nativeElement.className).toContain('p-scrollpanel-bar-y');
@@ -305,7 +319,7 @@ describe('ScrollPanel', () => {
         it('should handle arrow key navigation in vertical orientation', fakeAsync(() => {
             scrollPanel.orientation = 'vertical';
 
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             const arrowDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             const arrowUpEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
@@ -354,8 +368,8 @@ describe('ScrollPanel', () => {
         }));
 
         it('should update orientation on focus', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.onFocus({ target: xBar.nativeElement });
             expect(scrollPanel.orientation).toBe('horizontal');
@@ -377,7 +391,7 @@ describe('ScrollPanel', () => {
         }));
 
         it('should handle vertical bar mouse down', fakeAsync(() => {
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: false });
 
@@ -396,7 +410,7 @@ describe('ScrollPanel', () => {
         }));
 
         it('should handle horizontal bar mouse down', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageX', { value: 150, writable: false });
 
@@ -445,8 +459,8 @@ describe('ScrollPanel', () => {
             scrollPanel.isXBarClicked = true;
             scrollPanel.isYBarClicked = true;
 
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.onDocumentMouseUp(new MouseEvent('mouseup'));
 
@@ -472,7 +486,7 @@ describe('ScrollPanel', () => {
             expect(templateScrollPanel.templates).toBeDefined();
 
             // Verify pTemplate content container is rendered
-            const content = templateFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = templateFixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
 
             flush();
@@ -492,7 +506,7 @@ describe('ScrollPanel', () => {
             expect(contentScrollPanel.contentTemplate).toBeDefined();
 
             // Verify content container is rendered
-            const content = contentTemplateFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = contentTemplateFixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
 
             flush();
@@ -574,8 +588,8 @@ describe('ScrollPanel', () => {
 
     describe('Accessibility', () => {
         it('should have correct ARIA attributes on scrollbars', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(xBar.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
@@ -589,8 +603,8 @@ describe('ScrollPanel', () => {
         });
 
         it('should update aria-valuenow on scroll', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.lastScrollLeft = 50;
             scrollPanel.lastScrollTop = 75;
@@ -603,8 +617,8 @@ describe('ScrollPanel', () => {
         }));
 
         it('should be keyboard navigable', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.tabIndex).toBe(0);
             expect(yBar.nativeElement.tabIndex).toBe(0);
@@ -750,20 +764,20 @@ describe('ScrollPanel', () => {
 
     describe('Data Attributes', () => {
         it('should have correct data-pc-section attributes', () => {
-            const wrapper = fixture.debugElement.query(By.css('[data-pc-section="wrapper"]'));
-            const content = fixture.debugElement.query(By.css('[data-pc-section="content"]'));
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
+            const content = fixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            expect(wrapper.nativeElement.getAttribute('data-pc-section')).toBe('wrapper');
-            expect(content.nativeElement.getAttribute('data-pc-section')).toBe('content');
-            expect(xBar.nativeElement.getAttribute('data-pc-section')).toBe('barx');
-            expect(yBar.nativeElement.getAttribute('data-pc-section')).toBe('bary');
+            expect(contentContainer?.nativeElement.getAttribute('data-pc-section')).toBe('contentcontainer');
+            expect(content?.nativeElement.getAttribute('data-pc-section')).toBe('content');
+            expect(xBar?.nativeElement.getAttribute('data-pc-section')).toBe('barx');
+            expect(yBar?.nativeElement.getAttribute('data-pc-section')).toBe('bary');
         });
 
         it('should update grabbed state data attributes', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: false });
@@ -779,8 +793,8 @@ describe('ScrollPanel', () => {
         });
 
         it('should update scrollbar hidden state attributes', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             // moveBar sets attributes based on scroll ratios
             scrollPanel.moveBar();
@@ -850,6 +864,171 @@ describe('ScrollPanel', () => {
                 scrollPanel.moveBar();
                 tick(50);
             }).not.toThrow();
+
+            flush();
+        }));
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTScrollPanelComponent>;
+        let ptComponent: TestPTScrollPanelComponent;
+        let ptScrollPanel: ScrollPanel;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTScrollPanelComponent);
+            ptComponent = ptFixture.componentInstance;
+        });
+
+        it('should apply simple string classes to PT sections', fakeAsync(() => {
+            ptComponent.pt = {
+                host: 'HOST_CLASS',
+                root: 'ROOT_CLASS',
+                contentContainer: 'CONTENT_CONTAINER_CLASS',
+                content: 'CONTENT_CLASS',
+                barX: 'BAR_X_CLASS',
+                barY: 'BAR_Y_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const contentContainer = ptFixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
+            const content = ptFixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            const barX = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const barY = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
+
+            expect(hostEl.nativeElement.className).toContain('HOST_CLASS');
+            expect(hostEl.nativeElement.className).toContain('ROOT_CLASS');
+            expect(contentContainer.nativeElement.className).toContain('CONTENT_CONTAINER_CLASS');
+            expect(content.nativeElement.className).toContain('CONTENT_CLASS');
+            expect(barX.nativeElement.className).toContain('BAR_X_CLASS');
+            expect(barY.nativeElement.className).toContain('BAR_Y_CLASS');
+
+            flush();
+        }));
+
+        it('should apply object-based PT options with class, style, and attributes', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'ROOT_OBJECT_CLASS',
+                    'data-test': 'root-test',
+                    'aria-label': 'ROOT_ARIA_LABEL'
+                },
+                contentContainer: {
+                    class: 'CONTAINER_OBJECT_CLASS',
+                    'data-test': 'container-test'
+                },
+                barX: {
+                    class: 'BARX_CLASS',
+                    'aria-label': 'BARX_ARIA_LABEL'
+                }
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const contentContainer = ptFixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
+            const barX = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+
+            expect(hostEl.nativeElement.className).toContain('ROOT_OBJECT_CLASS');
+            expect(hostEl.nativeElement.getAttribute('data-test')).toBe('root-test');
+            expect(hostEl.nativeElement.getAttribute('aria-label')).toBe('ROOT_ARIA_LABEL');
+            expect(contentContainer.nativeElement.className).toContain('CONTAINER_OBJECT_CLASS');
+            expect(contentContainer.nativeElement.getAttribute('data-test')).toBe('container-test');
+            expect(barX.nativeElement.className).toContain('BARX_CLASS');
+            expect(barX.nativeElement.getAttribute('aria-label')).toBe('BARX_ARIA_LABEL');
+
+            flush();
+        }));
+
+        it('should apply mixed object and string PT values', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'MIXED_ROOT_CLASS'
+                },
+                content: 'MIXED_CONTENT_CLASS',
+                barY: {
+                    style: 'opacity: 0.5'
+                }
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const content = ptFixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            const barY = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
+
+            expect(hostEl.nativeElement.className).toContain('MIXED_ROOT_CLASS');
+            expect(content.nativeElement.className).toContain('MIXED_CONTENT_CLASS');
+            expect(barY.nativeElement.style.opacity).toBe('0.5');
+
+            flush();
+        }));
+
+        it('should use instance variables in PT functions', fakeAsync(() => {
+            ptScrollPanel = ptFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
+            ptScrollPanel.initialized = true;
+            ptScrollPanel.orientation = 'horizontal';
+
+            ptComponent.pt = {
+                root: ({ instance }) => ({
+                    class: instance?.initialized ? 'INITIALIZED' : 'NOT_INITIALIZED'
+                }),
+                barX: ({ instance }) => {
+                    const bgColor = instance?.orientation === 'horizontal' ? 'yellow' : 'blue';
+                    return {
+                        class: 'INSTANCE_BAR',
+                        'data-orientation': instance?.orientation
+                    };
+                }
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const barX = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+
+            expect(hostEl.nativeElement.className).toContain('INITIALIZED');
+            expect(barX.nativeElement.className).toContain('INSTANCE_BAR');
+            expect(barX.nativeElement.getAttribute('data-orientation')).toBe('horizontal');
+
+            flush();
+        }));
+
+        it('should handle event binding in PT options', fakeAsync(() => {
+            let clicked = false;
+            ptComponent.pt = {
+                content: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.detectChanges();
+            tick(100);
+
+            const content = ptFixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            content.nativeElement.click();
+            tick(50);
+
+            expect(clicked).toBe(true);
+
+            flush();
+        }));
+
+        it('should apply PT options using setInput', fakeAsync(() => {
+            ptFixture.componentRef.setInput('pt', {
+                root: 'SET_INPUT_CLASS',
+                barY: { class: 'BARY_SET_INPUT' }
+            });
+            ptFixture.detectChanges();
+            tick(100);
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const barY = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
+
+            expect(hostEl.nativeElement.className).toContain('SET_INPUT_CLASS');
+            expect(barY.nativeElement.className).toContain('BARY_SET_INPUT');
 
             flush();
         }));

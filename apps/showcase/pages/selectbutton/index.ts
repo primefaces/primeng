@@ -9,6 +9,7 @@ import { SizesDoc } from '@/doc/selectbutton/sizesdoc';
 import { TemplateDoc } from '@/doc/selectbutton/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/selectbutton/templatedrivenformsdoc';
 import { FluidDoc } from '@/doc/selectbutton/fluiddoc';
+import { PTComponent } from '@/doc/selectbutton/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -19,12 +20,15 @@ import { Component } from '@angular/core';
         description="SelectButton is used to choose single or multiple items from a list using buttons."
         [docs]="docs"
         [apiDocs]="['SelectButton']"
+        [ptDocs]="ptComponent"
         themeDocs="selectbutton"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class SelectButtonDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

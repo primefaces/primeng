@@ -17,7 +17,7 @@ import { RippleStyle } from './style/ripplestyle';
     standalone: true,
     providers: [RippleStyle]
 })
-export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
+export class Ripple extends BaseComponent {
     zone: NgZone = inject(NgZone);
 
     _componentStyle = inject(RippleStyle);
@@ -44,9 +44,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-    }
+    onAfterViewInit() {}
 
     onMouseDown(event: MouseEvent) {
         let ink = this.getInk();
@@ -125,12 +123,10 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.config && this.config.ripple()) {
             this.remove();
         }
-
-        super.ngOnDestroy();
     }
 }
 

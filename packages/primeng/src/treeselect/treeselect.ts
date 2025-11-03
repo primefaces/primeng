@@ -2,6 +2,7 @@ import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -13,6 +14,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -26,21 +28,26 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, hasClass, isNotEmpty, uuid } from '@primeuix/utils';
 import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
 import { Chip } from 'primeng/chip';
 import { Fluid } from 'primeng/fluid';
 import { ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { Nullable } from 'primeng/ts-helpers';
+import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent, TreeSelectPassThrough } from 'primeng/types/treeselect';
 import { TreeSelectStyle } from './style/treeselectstyle';
-import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => TreeSelect),
     multi: true
 };
+
+const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE');
+
 /**
  * TreeSelect is a form component to choose from hierarchical data.
  * @group Components
@@ -48,9 +55,10 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-treeSelect, p-treeselect, p-tree-select',
     standalone: true,
-    imports: [CommonModule, Overlay, SharedModule, Tree, AutoFocus, TimesIcon, ChevronDownIcon, Chip],
+    imports: [CommonModule, Overlay, SharedModule, Tree, AutoFocus, TimesIcon, ChevronDownIcon, Chip, Bind],
+    hostDirectives: [Bind],
     template: `
-        <div class="p-hidden-accessible">
+        <div class="p-hidden-accessible" [pBind]="ptm('hiddenInputContainer')" [attr.data-p-hidden-accessible]="true">
             <input
                 #focusInput
                 type="text"
@@ -68,10 +76,11 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-label]="ariaLabel || (label === 'p-emptylabel' ? undefined : label)"
                 [pAutoFocus]="autofocus"
+                [pBind]="ptm('hiddenInput')"
             />
         </div>
-        <div [class]="cx('labelContainer')">
-            <div [class]="cn(cx('label'), labelStyleClass)" [ngStyle]="labelStyle">
+        <div [class]="cx('labelContainer')" [pBind]="ptm('labelContainer')">
+            <div [class]="cn(cx('label'), labelStyleClass)" [ngStyle]="labelStyle" [pBind]="ptm('label')">
                 <ng-container *ngIf="valueTemplate || _valueTemplate; else defaultValueTemplate">
                     <ng-container *ngTemplateOutlet="valueTemplate || _valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
                 </ng-container>
@@ -80,8 +89,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                         {{ label || 'empty' }}
                     </ng-container>
                     <ng-template #chipsValueTemplate>
-                        <div *ngFor="let node of value" [class]="cx('chipItem')">
-                            <p-chip [label]="node.label" [class]="cx('pcChip')" />
+                        <div *ngFor="let node of value" [class]="cx('chipItem')" [pBind]="ptm('chipItem')">
+                            <p-chip [label]="node.label" [class]="cx('pcChip')" [pt]="ptm('pcChip')" />
                         </div>
                         <ng-container *ngIf="emptyValue">{{ placeholder || 'empty' }}</ng-container>
                     </ng-template>
@@ -89,31 +98,32 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             </div>
         </div>
         <ng-container *ngIf="checkValue() && !$disabled() && showClear">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" />
-            <span *ngIf="clearIconTemplate || clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [pBind]="ptm('clearIcon')" />
+            <span *ngIf="clearIconTemplate || clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [pBind]="ptm('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <div [class]="cx('dropdown')" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible ?? false" [attr.aria-label]="'treeselect trigger'">
-            <svg data-p-icon="chevron-down" *ngIf="!triggerIconTemplate && !_triggerIconTemplate && !dropdownIconTemplate && !_dropdownIconTemplate" [class]="cx('dropdownIcon')" />
-            <span *ngIf="triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')">
+        <div [class]="cx('dropdown')" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible ?? false" [attr.aria-label]="'treeselect trigger'" [pBind]="ptm('dropdown')">
+            <svg data-p-icon="chevron-down" *ngIf="!triggerIconTemplate && !_triggerIconTemplate && !dropdownIconTemplate && !_dropdownIconTemplate" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')" />
+            <span *ngIf="triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')">
                 <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
             </span>
         </div>
         <p-overlay
             #overlay
-            [hostAttrSelector]="attrSelector"
+            [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
+            [pt]="ptm('pcOverlay')"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onBeforeHide)="onOverlayBeforeHide($event)"
             (onShow)="onShow.emit($event)"
             (onHide)="hide($event)"
         >
             <ng-template #content>
-                <div #panel [attr.id]="listId" [class]="cn(cx('panel'), panelStyleClass, panelClass)" [ngStyle]="panelStyle">
+                <div #panel [attr.id]="listId" [class]="cn(cx('panel'), panelStyleClass, panelClass)" [ngStyle]="panelStyle" [pBind]="ptm('panel')">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -122,10 +132,11 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                         (focus)="onFirstHiddenFocus($event)"
                         [attr.data-p-hidden-accessible]="true"
                         [attr.data-p-hidden-focusable]="true"
+                        [pBind]="ptm('hiddenFirstFocusableEl')"
                     >
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: value, options: options }"></ng-container>
-                    <div [class]="cx('treeContainer')" [ngStyle]="{ 'max-height': scrollHeight }">
+                    <div [class]="cx('treeContainer')" [ngStyle]="{ 'max-height': scrollHeight }" [pBind]="ptm('treeContainer')">
                         <p-tree
                             #tree
                             [value]="options"
@@ -152,6 +163,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                             [_templateMap]="templateMap"
                             [loading]="loading"
                             [filterInputAutoFocus]="filterInputAutoFocus"
+                            [pt]="ptm('pcTree')"
                         >
                             <ng-container *ngIf="emptyTemplate || _emptyTemplate">
                                 <ng-template #empty>
@@ -178,20 +190,42 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                         (focus)="onLastHiddenFocus($event)"
                         [attr.data-p-hidden-accessible]="true"
                         [attr.data-p-hidden-focusable]="true"
+                        [pBind]="ptm('hiddenLastFocusableEl')"
                     ></span>
                 </div>
             </ng-template>
         </p-overlay>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TREESELECT_VALUE_ACCESSOR, TreeSelectStyle],
+    providers: [
+        TREESELECT_VALUE_ACCESSOR,
+        TreeSelectStyle,
+        {
+            provide: TREESELECT_INSTANCE,
+            useExisting: TreeSelect
+        },
+        {
+            provide: PARENT_INSTANCE,
+            useExisting: TreeSelect
+        }
+    ],
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), containerStyleClass)",
         '[style]': "sx('root')"
     }
 })
-export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
+export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
+    $pcTreeSelect: TreeSelect | undefined = inject(TREESELECT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    _componentStyle = inject(TreeSelectStyle);
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Identifier of the underlying input element.
      * @group Props
@@ -595,20 +629,17 @@ export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
 
     listId: string = '';
 
-    _componentStyle = inject(TreeSelectStyle);
-
     @HostListener('click', ['$event'])
     onHostClick(event: MouseEvent) {
         this.onClick(event);
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.listId = uuid('pn_id_') + '_list';
         this.updateTreeState();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         if ((this.templates as QueryList<PrimeTemplate>).length) {
             this.templateMap = {};
         }

@@ -5,15 +5,17 @@ import { IftaLabelDoc } from '@/doc/iconfield/iftalabeldoc';
 import { ImportDoc } from '@/doc/iconfield/importdoc';
 import { SizesDoc } from '@/doc/iconfield/sizesdoc';
 import { TemplateDoc } from '@/doc/iconfield/templatedoc';
+import { PTComponent } from '@/doc/iconfield/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: ` <app-doc docTitle="Angular IconField Component" header="IconField" description="IconField wraps an input and an icon." [docs]="docs" [apiDocs]="['IconField', 'InputIcon']" themeDocs="iconfield"></app-doc>`,
+    template: ` <app-doc docTitle="Angular IconField Component" header="IconField" description="IconField wraps an input and an icon." [docs]="docs" [ptDocs]="ptComponent" [apiDocs]="['IconField', 'InputIcon']" themeDocs="iconfield"></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class IconFieldDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

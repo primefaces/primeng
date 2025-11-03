@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
+const style = /*css*/ `
 /* For PrimeNG */
 .p-treetable {
     position: relative;
@@ -521,7 +521,7 @@ const classes = {
             'p-treetable-flex-scrollable': instance.scrollable && instance.scrollHeight === 'flex'
         }
     ],
-    loading: 'p-treetable-loading', //TODO: required?
+    loading: 'p-treetable-loading',
     mask: 'p-treetable-mask p-overlay-mask',
     loadingIcon: 'p-treetable-loading-icon',
     header: 'p-treetable-header',
@@ -582,7 +582,7 @@ const classes = {
 export class TreeTableStyle extends BaseStyle {
     name = 'treetable';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

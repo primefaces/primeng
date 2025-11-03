@@ -2,13 +2,14 @@ import { AccessibilityDoc } from '@/doc/dock/accessibilitydoc';
 import { AdvancedDoc } from '@/doc/dock/advanceddoc';
 import { BasicDoc } from '@/doc/dock/basicdoc';
 import { ImportDoc } from '@/doc/dock/importdoc';
+import { PTComponent } from '@/doc/dock/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Dock Component" header="Dock" description="Dock is a navigation component consisting of menuitems." [docs]="docs" [apiDocs]="['Dock', 'MenuItem']" themeDocs="dock"></app-doc> `
+    template: ` <app-doc docTitle="Angular Dock Component" header="Dock" description="Dock is a navigation component consisting of menuitems." [docs]="docs" [apiDocs]="['Dock', 'MenuItem']" [ptDocs]="ptComponent" themeDocs="dock"></app-doc> `
 })
 export class DockDemo {
     docs = [
@@ -33,4 +34,6 @@ export class DockDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

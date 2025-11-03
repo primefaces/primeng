@@ -5,6 +5,7 @@ import { ImportDoc } from '@/doc/metergroup/importdoc';
 import { LabelDoc } from '@/doc/metergroup/labeldoc';
 import { MinMaxDoc } from '@/doc/metergroup/minmaxdoc';
 import { MultipleDoc } from '@/doc/metergroup/multipledoc';
+import { PTComponent } from '@/doc/metergroup/pt/PTComponent';
 import { TemplateDoc } from '@/doc/metergroup/templatedoc';
 import { VerticalDoc } from '@/doc/metergroup/verticaldoc';
 import { Component } from '@angular/core';
@@ -13,9 +14,19 @@ import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular MeterGroup Component" header="MeterGroup" description="MeterGroup displays scalar measurements within a known range." [docs]="docs" [apiDocs]="['MeterGroup']" themeDocs="metergroup"></app-doc>`
+    template: ` <app-doc
+        docTitle="Angular MeterGroup Component"
+        header="MeterGroup"
+        description="MeterGroup displays scalar measurements within a known range."
+        [docs]="docs"
+        [ptDocs]="ptComponent"
+        [apiDocs]="['MeterGroup']"
+        themeDocs="metergroup"
+    ></app-doc>`
 })
 export class MeterGroupDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

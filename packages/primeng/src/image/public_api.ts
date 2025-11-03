@@ -1,3 +1,3 @@
+export * from 'primeng/types/image';
 export * from './image';
-export * from './image.interface';
 export * from './style/imagestyle';

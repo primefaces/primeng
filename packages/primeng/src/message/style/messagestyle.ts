@@ -15,7 +15,7 @@ const classes = {
 export class MessageStyle extends BaseStyle {
     name = 'message';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

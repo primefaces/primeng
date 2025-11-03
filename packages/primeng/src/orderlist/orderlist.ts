@@ -1,7 +1,6 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -10,6 +9,7 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
@@ -22,14 +22,17 @@ import {
 import { FormsModule } from '@angular/forms';
 import { findIndexInList, setAttribute, uuid } from '@primeuix/utils';
 import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'primeng/icons';
 import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
+import { OrderListFilterEvent, OrderListFilterOptions, OrderListPassThrough, OrderListSelectionChangeEvent } from 'primeng/types/orderlist';
 import { OrderListStyle } from './style/orderliststyle';
+
+const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
 
 /**
  * OrderList is used to manage the order of a collection.
@@ -38,27 +41,28 @@ import { OrderListStyle } from './style/orderliststyle';
 @Component({
     selector: 'p-orderList, p-orderlist, p-order-list',
     standalone: true,
-    imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule],
+    imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule, Bind],
     template: `
-        <div [class]="cx('controls')" [attr.data-pc-section]="'controls'">
-            <button type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [attr.data-pc-section]="'moveUpButton'" [buttonProps]="getButtonProps('up')">
-                <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [attr.data-pc-section]="'moveupicon'" pButtonIcon />
+        <div [pBind]="ptm('controls')" [class]="cx('controls')">
+            <button [pt]="ptm('pcMoveUpButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [buttonProps]="getButtonProps('up')" hostName="orderlist">
+                <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" pButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
             </button>
-            <button type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [attr.data-pc-section]="'moveTopButton'" [buttonProps]="getButtonProps('top')">
-                <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" [attr.data-pc-section]="'movetopicon'" pButtonIcon />
+            <button [pt]="ptm('pcMoveTopButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [buttonProps]="getButtonProps('top')" hostName="orderlist">
+                <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" pButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
             </button>
-            <button type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [attr.data-pc-section]="'moveDownButton'" [buttonProps]="getButtonProps('down')">
-                <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" [attr.data-pc-section]="'movedownicon'" pButtonIcon />
+            <button [pt]="ptm('pcMoveDownButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveDown()" [attr.aria-label]="moveDownAriaLabel" [buttonProps]="getButtonProps('down')" hostName="orderlist">
+                <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" pButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
             </button>
-            <button type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveBottom()" [attr.aria-label]="moveBottomAriaLabel" [attr.data-pc-section]="'moveBottomButton'" [buttonProps]="getButtonProps('bottom')">
-                <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" [attr.data-pc-section]="'movebottomicon'" pButtonIcon />
+            <button [pt]="ptm('pcMoveBottomButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveBottom()" [attr.aria-label]="moveBottomAriaLabel" [buttonProps]="getButtonProps('bottom')" hostName="orderlist">
+                <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" pButtonIcon [pt]="ptm('pcMoveBottomButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
             </button>
         </div>
         <p-listbox
+            [pt]="ptm('pcListbox')"
             #listelement
             [multiple]="true"
             [options]="value"
@@ -82,6 +86,7 @@ import { OrderListStyle } from './style/orderliststyle';
             [filterPlaceHolder]="filterPlaceholder"
             [dragdrop]="dragdrop"
             (onDrop)="onDrop($event)"
+            hostName="orderlist"
         >
             <ng-container *ngIf="headerTemplate || _headerTemplate">
                 <ng-template #header>
@@ -103,17 +108,34 @@ import { OrderListStyle } from './style/orderliststyle';
                     <ng-template *ngTemplateOutlet="emptyFilterMessageTemplate || _emptyFilterMessageTemplate"></ng-template>
                 </ng-template>
             </ng-container>
+            <ng-container *ngIf="filterIconTemplate || _filterIconTemplate">
+                <ng-template #filtericon>
+                    <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="filterTemplate || _filterTemplate">
+                <ng-template #filter let-options="options">
+                    <ng-template *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: options }"></ng-template>
+                </ng-template>
+            </ng-container>
         </p-listbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [OrderListStyle],
+    providers: [OrderListStyle, { provide: ORDERLIST_INSTANCE, useExisting: OrderList }, { provide: PARENT_INSTANCE, useExisting: OrderList }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-pc-section]': "'root'"
-    }
+        '[class]': "cn(cx('root'), styleClass)"
+    },
+    hostDirectives: [Bind]
 })
-export class OrderList extends BaseComponent implements AfterContentInit {
+export class OrderList extends BaseComponent<OrderListPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcOrderList: OrderList | undefined = inject(ORDERLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Text for the caption.
      * @group Props
@@ -465,8 +487,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.responsive) {
             this.createStyle();
         }
@@ -506,7 +527,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
     _filterIconTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
@@ -857,21 +878,21 @@ export class OrderList extends BaseComponent implements AfterContentInit {
 
                 let innerHTML = `
                     @media screen and (max-width: ${this.breakpoint}) {
-                        .p-orderlist[${this.attrSelector}] {
+                        .p-orderlist[${this.$attrSelector}] {
                             flex-direction: column;
                         }
 
-                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls {
+                        .p-orderlist[${this.$attrSelector}] .p-orderlist-controls {
                             padding: var(--content-padding);
                             flex-direction: row;
                         }
 
-                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls .p-button {
+                        .p-orderlist[${this.$attrSelector}] .p-orderlist-controls .p-button {
                             margin-right: var(--inline-spacing);
                             margin-bottom: 0;
                         }
 
-                        .p-orderlist[${this.attrSelector}] .p-orderlist-controls .p-button:last-child {
+                        .p-orderlist[${this.$attrSelector}] .p-orderlist-controls .p-button:last-child {
                             margin-right: 0;
                         }
                     }
@@ -892,9 +913,8 @@ export class OrderList extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.destroyStyle();
-        super.ngOnDestroy();
     }
 }
 

@@ -6,6 +6,7 @@ import { DynamicDoc } from '@/doc/accordion/dynamicdoc';
 import { ImportDoc } from '@/doc/accordion/importdoc';
 import { MultipleDoc } from '@/doc/accordion/multipledoc';
 import { TemplateDoc } from '@/doc/accordion/templatedoc';
+import { PTComponent } from '@/doc/accordion/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 import { AppDocService } from '@/components/doc/app.doc.service';
@@ -17,6 +18,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
         description="Accordion groups a collection of contents in tabs."
         [docs]="docs"
         [apiDocs]="['Accordion', 'AccordionPanel', 'AccordionHeader']"
+        [ptDocs]="ptComponent"
         themeDocs="accordion"
     ></app-doc>`,
     imports: [AppDoc],
@@ -24,6 +26,7 @@ import { AppDocService } from '@/components/doc/app.doc.service';
     standalone: true
 })
 export class AccordionDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

@@ -39,7 +39,7 @@ const classes = {
 export class MenuBarStyle extends BaseStyle {
     name = 'menubar';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

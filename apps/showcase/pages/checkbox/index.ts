@@ -7,6 +7,7 @@ import { ImportDoc } from '@/doc/checkbox/importdoc';
 import { IndeterminateDoc } from '@/doc/checkbox/indeterminatedoc';
 import { InvalidDoc } from '@/doc/checkbox/invaliddoc';
 import { MultipleDoc } from '@/doc/checkbox/multipledoc';
+import { PTComponent } from '@/doc/checkbox/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/checkbox/reactiveformsdoc';
 import { SizesDoc } from '@/doc/checkbox/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/checkbox/templatedrivenformsdoc';
@@ -16,9 +17,13 @@ import { Component } from '@angular/core';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Checkbox Component" header="Checkbox" description="Checkbox is an extension to standard checkbox element with theming." [docs]="docs" [apiDocs]="['Checkbox']" themeDocs="checkbox"></app-doc> `
+    template: `
+        <app-doc docTitle="Angular Checkbox Component" header="Checkbox" description="Checkbox is an extension to standard checkbox element with theming." [docs]="docs" [apiDocs]="['Checkbox']" [ptDocs]="ptComponent" themeDocs="checkbox"></app-doc>
+    `
 })
 export class CheckboxDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

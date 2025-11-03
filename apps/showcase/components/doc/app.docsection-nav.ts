@@ -77,7 +77,7 @@ export class AppDocSectionNav implements OnInit {
             lightImage: 'https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/ads/primeblocks-menu-light.jpg',
             darkImage: 'https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/ads/primeblocks-menu-dark.jpg',
             title: 'PrimeBlocks',
-            details: '490+ ready to use UI blocks crafted with PrimeVue and Tailwind CSS.',
+            details: '490+ ready to use UI blocks crafted with PrimeNG and Tailwind CSS.',
             href: 'https://primeblocks.org'
         },
         {

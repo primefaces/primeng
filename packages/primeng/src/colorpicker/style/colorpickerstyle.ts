@@ -24,7 +24,7 @@ const classes = {
 export class ColorPickerStyle extends BaseStyle {
     name = 'colorpicker';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

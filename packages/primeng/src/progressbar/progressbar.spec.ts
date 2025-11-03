@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, input } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ProgressBar } from './progressbar';
@@ -595,6 +595,346 @@ describe('ProgressBar', () => {
 
             expect(templateProgressBar).toBeTruthy();
             expect(templateProgressBar.templates !== undefined || templateProgressBar.contentTemplate !== undefined).toBe(true);
+        });
+    });
+
+    describe('PassThrough API', () => {
+        @Component({
+            standalone: true,
+            imports: [ProgressBar],
+            template: `<p-progressbar [value]="value()" [mode]="mode()" [showValue]="showValue()" [unit]="unit()" [color]="color()" [pt]="pt()"></p-progressbar>`
+        })
+        class TestPTProgressBarComponent {
+            value = input<number | undefined>(50);
+            mode = input<string>('determinate');
+            showValue = input<boolean>(true);
+            unit = input<string>('%');
+            color = input<string | undefined>();
+            pt = input<any>();
+        }
+
+        describe('Case 1: Simple string classes', () => {
+            let fixture: ComponentFixture<TestPTProgressBarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressBarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
+            });
+
+            it('should apply string class to host section', () => {
+                fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to root section', () => {
+                fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to value section', () => {
+                fixture.componentRef.setInput('pt', { value: 'VALUE_CLASS' });
+                fixture.detectChanges();
+
+                const valueElement = fixture.debugElement.query(By.css('.p-progressbar-value'));
+                expect(valueElement.nativeElement.classList.contains('VALUE_CLASS')).toBe(true);
+            });
+
+            it('should apply string class to label section', () => {
+                fixture.componentRef.setInput('pt', { label: 'LABEL_CLASS' });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-progressbar-label'));
+                expect(labelElement.nativeElement.classList.contains('LABEL_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            let fixture: ComponentFixture<TestPTProgressBarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressBarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
+            });
+
+            it('should apply object with class, style, data and aria attributes to root', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(element.style.backgroundColor).toBe('red');
+                expect(element.getAttribute('data-p-test')).toBe('true');
+                expect(element.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object with class, style, data and aria attributes to value', () => {
+                fixture.componentRef.setInput('pt', {
+                    value: {
+                        class: 'VALUE_OBJECT_CLASS',
+                        style: { border: '1px solid blue' },
+                        'data-p-value': 'test',
+                        'aria-hidden': 'true'
+                    }
+                });
+                fixture.detectChanges();
+
+                const valueElement = fixture.debugElement.query(By.css('.p-progressbar-value'));
+                expect(valueElement.nativeElement.classList.contains('VALUE_OBJECT_CLASS')).toBe(true);
+                expect(valueElement.nativeElement.style.border).toBe('1px solid blue');
+                expect(valueElement.nativeElement.getAttribute('data-p-value')).toBe('test');
+                expect(valueElement.nativeElement.getAttribute('aria-hidden')).toBe('true');
+            });
+
+            it('should apply object with class, style, data and aria attributes to label', () => {
+                fixture.componentRef.setInput('pt', {
+                    label: {
+                        class: 'LABEL_OBJECT_CLASS',
+                        style: { color: 'green' },
+                        'data-p-label': 'progress',
+                        'aria-live': 'polite'
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-progressbar-label'));
+                expect(labelElement.nativeElement.classList.contains('LABEL_OBJECT_CLASS')).toBe(true);
+                expect(labelElement.nativeElement.style.color).toBe('green');
+                expect(labelElement.nativeElement.getAttribute('data-p-label')).toBe('progress');
+                expect(labelElement.nativeElement.getAttribute('aria-live')).toBe('polite');
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            let fixture: ComponentFixture<TestPTProgressBarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressBarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
+            });
+
+            it('should apply mixed pt with object and string values', () => {
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_MIXED_CLASS'
+                    },
+                    value: 'VALUE_MIXED_CLASS'
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+
+                const valueElement = fixture.debugElement.query(By.css('.p-progressbar-value'));
+                expect(valueElement.nativeElement.classList.contains('VALUE_MIXED_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            let fixture: ComponentFixture<TestPTProgressBarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressBarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
+            });
+
+            it('should use instance value in pt function for root', () => {
+                fixture.componentRef.setInput('value', 75);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.value >= 50 ? 'HIGH_VALUE' : 'LOW_VALUE'
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(element.classList.contains('HIGH_VALUE')).toBe(true);
+            });
+
+            it('should use instance mode in pt function for value', () => {
+                fixture.componentRef.setInput('mode', 'indeterminate');
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    value: ({ instance }: any) => {
+                        return {
+                            'data-mode': instance?.mode
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const valueElement = fixture.debugElement.query(By.css('.p-progressbar-value'));
+                expect(valueElement.nativeElement.getAttribute('data-mode')).toBe('indeterminate');
+            });
+
+            it('should use instance showValue in pt function for label', () => {
+                fixture.componentRef.setInput('showValue', true);
+                fixture.detectChanges();
+
+                fixture.componentRef.setInput('pt', {
+                    label: ({ instance }: any) => {
+                        return {
+                            style: {
+                                display: instance?.showValue ? 'flex' : 'none'
+                            }
+                        };
+                    }
+                });
+                fixture.detectChanges();
+
+                const labelElement = fixture.debugElement.query(By.css('.p-progressbar-label'));
+                expect(labelElement.nativeElement.style.display).toBe('flex');
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            let fixture: ComponentFixture<TestPTProgressBarComponent>;
+            let element: HTMLElement;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressBarComponent);
+                fixture.detectChanges();
+                element = fixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
+            });
+
+            it('should bind onclick event to root through pt', () => {
+                let clickCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: () => {
+                            clickCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                element.click();
+                element.click();
+
+                expect(clickCount).toBe(2);
+            });
+
+            it('should bind onclick event to value through pt', () => {
+                let clicked = false;
+                fixture.componentRef.setInput('pt', {
+                    value: {
+                        onclick: () => {
+                            clicked = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                const valueElement = fixture.debugElement.query(By.css('.p-progressbar-value'));
+                valueElement.nativeElement.click();
+
+                expect(clicked).toBe(true);
+            });
+        });
+
+        describe('Case 7: Inline test', () => {
+            it('should apply inline pt with string class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTProgressBarComponent);
+                inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
+                expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
+            });
+
+            it('should apply inline pt with object class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTProgressBarComponent);
+                inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
+                inlineFixture.detectChanges();
+
+                const element = inlineFixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
+                expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            let fixture: ComponentFixture<TestPTProgressBarComponent>;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(TestPTProgressBarComponent);
+            });
+
+            it('should call onAfterViewInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterContentInit hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterContentInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(hookCalled).toBe(true);
+            });
+
+            it('should call onAfterViewChecked hook', () => {
+                let checkCount = 0;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onAfterViewChecked: () => {
+                            checkCount++;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+
+                expect(checkCount).toBeGreaterThan(0);
+            });
+
+            it('should call onDestroy hook', () => {
+                let hookCalled = false;
+                fixture.componentRef.setInput('pt', {
+                    hooks: {
+                        onDestroy: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                fixture.detectChanges();
+                fixture.destroy();
+
+                expect(hookCalled).toBe(true);
+            });
         });
     });
 });

@@ -1,13 +1,13 @@
-import { Code } from '@/domain/code';
-import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService, TreeNode } from 'primeng/api';
-import { FormsModule } from '@angular/forms';
-import { TreeModule } from 'primeng/tree';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { ToastModule } from 'primeng/toast';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { NodeService } from '@/service/nodeservice';
+import { Component, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MenuItem, MessageService, TreeNode } from 'primeng/api';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { ToastModule } from 'primeng/toast';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'context-menu-doc',
@@ -18,7 +18,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+            <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
             <p-contextmenu #cm [model]="items" />
             <p-toast />
         </div>
@@ -27,7 +27,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [MessageService]
 })
 export class ContextMenuDoc implements OnInit {
-    files!: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
     selectedFile!: TreeNode | null;
 
@@ -39,8 +39,9 @@ export class ContextMenuDoc implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((files) => (this.files = files));
-
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
         this.items = [
             { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
             { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
@@ -56,17 +57,17 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+        basic: `<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
 <p-contextmenu #cm [model]="items" />
 <p-toast />`,
 
         html: `<div class="card">
-    <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+    <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
     <p-contextmenu #cm [model]="items" />
     <p-toast />
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, signal } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -81,30 +82,27 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService, NodeService]
 })
 export class TreeContextMenuDemo implements OnInit {
-    files!: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
     selectedFile!: TreeNode | null;
 
     items!: MenuItem[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
+    constructor(
+        private nodeService: NodeService,
+        private messageService: MessageService
+    ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((files) => (this.files = files));
-
+        this.nodeService.getFiles().then((data) => {
+            this.files.set(data);
+        });
         this.items = [
             { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
             { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
         ];
     }
 
-    viewFile(file: TreeNode) {
-        this.messageService.add({ severity: 'info', summary: 'Node Details', detail: file.label });
-    }
-
-    unselectFile() {
-        this.selectedFile = null;
-    }
 }`,
 
         service: ['NodeService'],
