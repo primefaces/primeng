@@ -83,8 +83,9 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
     providers: [ChipStyle, { provide: CHIP_INSTANCE, useExisting: Chip }, { provide: PARENT_INSTANCE, useExisting: Chip }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style.display]': '!visible && "none"',
-        '[attr.aria-label]': 'label'
+        '[style]': "sx('root')",
+        '[attr.aria-label]': 'label',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -236,6 +237,12 @@ export class Chip extends BaseComponent<ChipPassThrough> {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
+    }
+
+    get dataP() {
+        return this.cn({
+            removable: this.removable
+        });
     }
 }
 
