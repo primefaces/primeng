@@ -105,7 +105,11 @@ export interface MeterGroupTemplates {
          * Total percent of the metergroup items
          */
         totalPercent?: number;
-    }): TemplateRef<any>;
+        /**
+         * DataP attributes.
+         */
+        dataP?: string;
+    }): TemplateRef<{ $implicit?: MeterItem; index?: number; class?: string; orientation?: string; size?: string; totalPercent?: number; dataP?: string }>;
     /**
      * Custom start template.
      */
@@ -122,7 +126,7 @@ export interface MeterGroupTemplates {
          * Array of sequential sum of values of metergroup items.
          */
         percentages?: number;
-    }): TemplateRef<any>;
+    }): TemplateRef<{ $implicit?: MeterItem; totalPercent?: number; percentages?: number }>;
     /**
      * Custom start template.
      */
@@ -139,7 +143,7 @@ export interface MeterGroupTemplates {
          * Array of sequential sum of values of metergroup items.
          */
         percentages?: number;
-    }): TemplateRef<any>;
+    }): TemplateRef<{ $implicit?: MeterItem; totalPercent?: number; percentages?: number }>;
     /**
      * Custom icon template.
      */
@@ -152,7 +156,7 @@ export interface MeterGroupTemplates {
          * Style class of the icon.
          */
         class?: string;
-    }): TemplateRef<any>;
+    }): TemplateRef<{ $implicit?: MeterItem; class?: string }>;
 }
 /**
  * Represents a meter item configuration.
