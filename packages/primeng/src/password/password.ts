@@ -1,4 +1,3 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     booleanAttribute,
@@ -462,37 +461,34 @@ export const Password_VALUE_ACCESSOR: any = {
                 </span>
             </ng-container>
         </ng-container>
-
-        <div
-            #overlay
-            *ngIf="overlayVisible"
-            [class]="cx('overlay')"
-            [style]="sx('overlay')"
-            (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{
-                value: 'visible',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            (@overlayAnimation.start)="onAnimationStart($event)"
-            (@overlayAnimation.done)="onAnimationEnd($event)"
-            [pBind]="ptm('overlay')"
-        >
-            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-            <ng-container *ngIf="contentTemplate || _contentTemplate; else content">
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-            </ng-container>
-            <ng-template #content>
-                <div [class]="cx('content')" [pBind]="ptm('content')">
-                    <div [class]="cx('meter')" [pBind]="ptm('meter')">
-                        <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')"></div>
+        @if (overlayVisible) {
+            <div
+                #overlay
+                [class]="cx('overlay')"
+                [style]="sx('overlay')"
+                (click)="onOverlayClick($event)"
+                [animate.enter]="enterAnimation()"
+                [animate.leave]="leaveAnimation()"
+                (animationstart)="onAnimationStart($event)"
+                (animationend)="onAnimationEnd($event)"
+                [pBind]="ptm('overlay')"
+            >
+                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                <ng-container *ngIf="contentTemplate || _contentTemplate; else content">
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                </ng-container>
+                <ng-template #content>
+                    <div [class]="cx('content')" [pBind]="ptm('content')">
+                        <div [class]="cx('meter')" [pBind]="ptm('meter')">
+                            <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')"></div>
+                        </div>
+                        <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
                     </div>
-                    <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
-                </div>
-            </ng-template>
-            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-        </div>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+            </div>
+        }
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     providers: [Password_VALUE_ACCESSOR, PasswordStyle, { provide: PASSWORD_INSTANCE, useExisting: Password }, { provide: PARENT_INSTANCE, useExisting: Password }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -604,6 +600,18 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
+     * Enter animation class name.
+     * @defaultValue 'p-password-overlay-enter'
+     * @group Props
+     */
+    enterAnimation = input<string>('p-password-overlay-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-password-overlay-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string>('p-password-overlay-leave');
+    /**
      * Specify automated assistance in filling out password by browser.
      * @group Props
      */
@@ -652,6 +660,8 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
 
+    @ViewChild('overlay') overlayViewChild!: ElementRef<HTMLElement>;
+
     @ViewChild('input') input!: ElementRef;
 
     @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
@@ -699,8 +709,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
     resizeListener: VoidListener;
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
-
-    overlay: any;
 
     value: Nullable<string> = null;
 
@@ -753,42 +761,33 @@ export class Password extends BaseInput<PasswordPassThrough> {
         });
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.overlay = event.element;
-                ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-                this.$attrSelector && this.overlay.setAttribute(this.$attrSelector, '');
-                this.appendContainer();
-                this.alignOverlay();
-                this.bindScrollListener();
-                this.bindResizeListener();
-                break;
-
-            case 'void':
-                this.unbindScrollListener();
-                this.unbindResizeListener();
-                this.overlay = null;
-                break;
+    onAnimationStart(event: any) {
+        if (this.overlayVisible) {
+            ZIndexUtils.set('overlay', this.overlayViewChild?.nativeElement, this.config.zIndex.overlay);
+            this.$attrSelector && this.overlayViewChild?.nativeElement?.setAttribute(this.$attrSelector, '');
+            this.appendContainer();
+            this.alignOverlay();
+            this.bindScrollListener();
+            this.bindResizeListener();
         }
     }
 
-    onAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                ZIndexUtils.clear(event.element);
-                break;
+    onAnimationEnd(event: any) {
+        if (!this.overlayVisible) {
+            ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
+            this.unbindScrollListener();
+            this.unbindResizeListener();
         }
     }
 
     appendContainer() {
-        DomHandler.appendOverlay(this.overlay, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+        DomHandler.appendOverlay(this.overlayViewChild?.nativeElement, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     alignOverlay() {
-        (this.overlay as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
-        if (this.$appendTo() === 'self') relativePosition(this.overlay as HTMLElement, this.input?.nativeElement);
-        else absolutePosition(this.overlay as HTMLElement, this.input?.nativeElement);
+        (this.overlayViewChild?.nativeElement as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
+        if (this.$appendTo() === 'self') relativePosition(this.overlayViewChild?.nativeElement as HTMLElement, this.input?.nativeElement);
+        else absolutePosition(this.overlayViewChild?.nativeElement as HTMLElement, this.input?.nativeElement);
     }
 
     onInput(event: Event) {
@@ -949,9 +948,9 @@ export class Password extends BaseInput<PasswordPassThrough> {
     }
 
     restoreAppend() {
-        if (this.overlay && this.$appendTo()) {
-            if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.overlay);
-            else (this.document as any).getElementById(this.$appendTo()).removeChild(this.overlay);
+        if (this.overlayViewChild?.nativeElement && this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.overlayViewChild?.nativeElement);
+            else (this.document as any).getElementById(this.$appendTo()).removeChild(this.overlayViewChild?.nativeElement);
         }
     }
 
@@ -986,9 +985,8 @@ export class Password extends BaseInput<PasswordPassThrough> {
     }
 
     onDestroy() {
-        if (this.overlay) {
-            ZIndexUtils.clear(this.overlay);
-            this.overlay = null;
+        if (this.overlayViewChild?.nativeElement) {
+            ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
         }
 
         this.restoreAppend();

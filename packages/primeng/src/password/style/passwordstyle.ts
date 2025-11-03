@@ -21,6 +21,29 @@ const style = /*css*/ `
     .p-password-fluid-directive {
         width: 100%;
     }
+
+    /* Animations */
+
+    .p-password-overlay-enter {
+        animation: p-animate-password-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .p-password-overlay-leave {
+        animation: p-animate-password-overlay-leave 100ms linear;
+    }
+
+    @keyframes p-animate-password-overlay-enter {
+        from {
+            opacity: 0;
+            transform: scaleY(0.8);
+        }
+    }
+
+    @keyframes p-animate-password-overlay-leave {
+        to {
+            opacity: 0;
+        }
+    }
 `;
 
 const inlineStyles = {
