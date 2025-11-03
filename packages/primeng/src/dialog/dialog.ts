@@ -26,7 +26,7 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { addClass, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { addClass, addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -53,7 +53,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     standalone: true,
     imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind],
     template: `
-        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle" [pBind]="ptm('mask')" [attr.data-p-scrollblocker-active]="modal || blockScroll">
+        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle" [pBind]="ptm('mask')" [attr.data-p-scrollblocker-active]="modal || blockScroll" [attr.data-p]="dataP">
             <div
                 *ngIf="visible"
                 #container
@@ -72,6 +72,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.role]="role"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
+                [attr.data-p]="dataP"
             >
                 <ng-container *ngIf="_headlessTemplate || headlessTemplate || headlessT; else notHeadless">
                     <ng-container *ngTemplateOutlet="_headlessTemplate || headlessTemplate || headlessT"></ng-container>
@@ -92,6 +93,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 (keydown.enter)="maximize()"
                                 [tabindex]="maximizable ? '0' : '-1'"
                                 [buttonProps]="maximizeButtonProps"
+                                [unstyled]="unstyled()"
+                                [attr.data-pc-group-section]="'headericon'"
                             >
                                 <ng-template #icon>
                                     <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
@@ -116,6 +119,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 (keydown.enter)="close($event)"
                                 [tabindex]="closeTabindex"
                                 [buttonProps]="closeButtonProps"
+                                [unstyled]="unstyled()"
+                                [attr.data-pc-group-section]="'headericon'"
                             >
                                 <ng-template #icon>
                                     <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
@@ -129,7 +134,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             </p-button>
                         </div>
                     </div>
-                    <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [pBind]="ptm('content')">
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [pBind]="ptm('content')" [attr.data-p]="dataP">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                     </div>
@@ -757,7 +762,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
     createStyle() {
         if (isPlatformBrowser(this.platformId)) {
-            if (!this.styleElement) {
+            if (!this.styleElement && !this.unstyled()) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
                 setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
@@ -780,7 +785,10 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     initDrag(event: MouseEvent) {
-        if (hasClass(event.target as any, 'p-dialog-maximize-icon') || hasClass(event.target as any, 'p-dialog-header-close-icon') || hasClass((<HTMLElement>event.target)?.parentElement as HTMLElement, 'p-dialog-header-icon')) {
+        const target = event.target as HTMLElement;
+        const closestDiv = target.closest('div');
+
+        if (closestDiv?.getAttribute('data-pc-section') === 'headeractions') {
             return;
         }
 
@@ -790,7 +798,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             this.lastPageY = event.pageY;
 
             (this.container as HTMLDivElement).style.margin = '0';
-            addClass(this.document.body, 'p-unselectable-text');
+            this.document.body.setAttribute('data-p-unselectable-text', 'true');
+            !this.unstyled() && addStyle(this.document.body, { 'user-select': 'none' });
         }
     }
 
@@ -837,7 +846,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     endDrag(event: DragEvent) {
         if (this.dragging) {
             this.dragging = false;
-            removeClass(this.document.body, 'p-unselectable-text');
+            this.document.body.removeAttribute('data-p-unselectable-text');
+            !this.unstyled() && (this.document.body.style['user-select'] = '');
             this.cd.detectChanges();
             this.onDragEnd.emit(event);
         }
@@ -860,7 +870,9 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             this.resizing = true;
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
-            addClass(this.document.body, 'p-unselectable-text');
+
+            this.document.body.setAttribute('data-p-unselectable-text', 'true');
+            !this.unstyled() && addStyle(this.document.body, { 'user-select': 'none' });
             this.onResizeInit.emit(event);
         }
     }
@@ -907,7 +919,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     resizeEnd(event: MouseEvent) {
         if (this.resizing) {
             this.resizing = false;
-            removeClass(this.document.body, 'p-unselectable-text');
+            this.document.body.removeAttribute('data-p-unselectable-text');
+            !this.unstyled() && (this.document.body.style['user-select'] = '');
             this.onResizeEnd.emit(event);
         }
     }
@@ -1041,7 +1054,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
             case 'void':
                 if (this.wrapper && this.modal) {
-                    addClass(this.wrapper, 'p-overlay-mask-leave');
+                    !this.unstyled() && addClass(this.wrapper, 'p-overlay-mask-leave');
                 }
                 break;
         }
@@ -1111,6 +1124,13 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
 
         this.destroyStyle();
+    }
+
+    get dataP() {
+        return this.cn({
+            maximized: this.maximized,
+            modal: this.modal
+        });
     }
 }
 
