@@ -604,13 +604,13 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * @defaultValue 'p-password-overlay-enter'
      * @group Props
      */
-    enterAnimation = input<string>('p-password-overlay-enter');
+    enterAnimation = input<string | null | undefined>('p-password-overlay-enter');
     /**
      * Leave animation class name.
      * @defaultValue 'p-password-overlay-leave'
      * @group Props
      */
-    leaveAnimation = input<string>('p-password-overlay-leave');
+    leaveAnimation = input<string | null | undefined>('p-password-overlay-leave');
     /**
      * Specify automated assistance in filling out password by browser.
      * @group Props
