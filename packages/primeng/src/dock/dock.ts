@@ -84,6 +84,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                 [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                 pTooltip
                                 [tooltipOptions]="item.tooltipOptions"
+                                [unstyled]="unstyled()"
                                 [fragment]="item.fragment"
                                 [queryParamsHandling]="item.queryParamsHandling"
                                 [preserveFragment]="item.preserveFragment"
@@ -104,6 +105,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                     pRipple
                                     pTooltip
                                     [tooltipOptions]="item.tooltipOptions"
+                                    [unstyled]="unstyled()"
                                     [target]="item.target"
                                     [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
@@ -123,8 +125,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [DockStyle, { provide: DOCK_INSTANCE, useExisting: Dock }, { provide: PARENT_INSTANCE, useExisting: Dock }],
     host: {
-        '[class]': 'cn(cx("root"), styleClass)',
-        'data-pc-name': 'dock'
+        '[class]': 'cn(cx("root"), styleClass)'
     },
     hostDirectives: [Bind]
 })
