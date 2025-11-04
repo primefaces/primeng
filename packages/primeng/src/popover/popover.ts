@@ -306,7 +306,6 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     restoreAppend() {
         if (this.container && this.$appendTo()) {
             if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.container);
-            else (this.document as any).getElementById(this.$appendTo()).removeChild(this.container);
         }
     }
 

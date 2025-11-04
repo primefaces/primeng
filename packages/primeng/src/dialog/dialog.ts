@@ -1023,7 +1023,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     onAnimationStart(event: any) {
-        if (this.visible) {
+        if (this.visible && !this.container) {
             this.container = event.target;
             this.wrapper = this.container?.parentElement;
             this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
