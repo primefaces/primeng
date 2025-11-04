@@ -164,7 +164,11 @@ const classes = {
         'p-datatable-filter-overlay-popover': instance.display === 'menu'
     }),
     filterConstraintList: 'p-datatable-filter-constraint-list',
-    filterConstraint: 'p-datatable-filter-constraint',
+
+    filterConstraint: ({ selected }) => ({
+        'p-datatable-filter-constraint': true,
+        'p-datatable-filter-constraint-selected': selected
+    }),
     filterConstraintSeparator: 'p-datatable-filter-constraint-separator',
     filterOperator: 'p-datatable-filter-operator',
     pcFilterOperatorDropdown: 'p-datatable-filter-operator-dropdown',
@@ -215,7 +219,14 @@ const classes = {
     }),
     resizableColumn: 'p-datatable-resizable-column',
     reorderableColumn: 'p-datatable-reorderable-column',
-    rowEditorCancel: 'p-datatable-row-editor-cancel'
+    rowEditorCancel: 'p-datatable-row-editor-cancel',
+    frozenColumn: ({ instance }) => ({
+        'p-datatable-frozen-column': instance.frozen,
+        'p-datatable-frozen-column-left': instance.alignFrozenLeft === 'left'
+    }),
+    contextMenuRowSelected: ({ instance }) => ({
+        'p-datatable-contextmenu-row-selected': instance.selected
+    })
 };
 
 const inlineStyles = {
@@ -224,7 +235,10 @@ const inlineStyles = {
         overflow: 'auto'
     }),
     thead: { position: 'sticky' },
-    tfoot: { position: 'sticky' }
+    tfoot: { position: 'sticky' },
+    rowGroupHeader: ({ frozenRowGroupHeaderStickyPosition }) => ({
+        top: frozenRowGroupHeaderStickyPosition
+    })
 };
 
 @Injectable()
@@ -463,5 +477,13 @@ export enum TableClasses {
     /**
      * Class name of the row editor cancel element
      */
-    rowEditorCancel = 'p-datatable-row-editor-cancel'
+    rowEditorCancel = 'p-datatable-row-editor-cancel',
+    /**
+     * Class name of the frozen column element
+     */
+    frozenColumn = 'p-datatable-frozen-column',
+    /**
+     * Class name of the contextmenu row selected element
+     */
+    contextMenuRowSelected = 'p-datatable-contextmenu-row-selected'
 }

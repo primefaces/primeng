@@ -1,9 +1,13 @@
 import { TemplateRef } from '@angular/core';
 import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from 'primeng/api';
-import { ButtonProps } from 'primeng/types/button';
+import type { ButtonPassThrough, ButtonProps } from 'primeng/types/button';
 import type { CheckboxPassThrough } from 'primeng/types/checkbox';
 import type { PaginatorPassThrough } from 'primeng/types/paginator';
 import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
+import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { SelectPassThrough } from 'primeng/types/select';
+import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
+import type { DatePickerPassThrough } from 'primeng/types/datepicker';
 
 /**
  * Custom pass-through(pt) options for ColumnFilter.
@@ -19,7 +23,7 @@ export interface ColumnFilterPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the column filter button component.
      */
-    pcColumnFilterButton?: PassThroughOption<HTMLButtonElement, I>;
+    pcColumnFilterButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the filter overlay element.
      */
@@ -47,7 +51,7 @@ export interface ColumnFilterPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the filter operator dropdown component.
      */
-    pcFilterOperatorDropdown?: PassThroughOption<HTMLElement, I>;
+    pcFilterOperatorDropdown?: SelectPassThrough;
     /**
      * Used to pass attributes to the filter rule list element.
      */
@@ -59,15 +63,15 @@ export interface ColumnFilterPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the filter constraint dropdown component.
      */
-    pcFilterConstraintDropdown?: PassThroughOption<HTMLElement, I>;
+    pcFilterConstraintDropdown?: SelectPassThrough;
     /**
      * Used to pass attributes to the filter remove rule button component.
      */
-    pcFilterRemoveRuleButton?: PassThroughOption<HTMLButtonElement, I>;
+    pcFilterRemoveRuleButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the add rule button label.
      */
-    pcAddRuleButtonLabel?: PassThroughOption<HTMLButtonElement, I>;
+    pcAddRuleButtonLabel?: ButtonPassThrough;
     /**
      * Used to pass attributes to the filter button bar element.
      */
@@ -75,19 +79,19 @@ export interface ColumnFilterPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the filter clear button component.
      */
-    pcFilterClearButton?: PassThroughOption<HTMLButtonElement, I>;
+    pcFilterClearButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the filter apply button component.
      */
-    pcFilterApplyButton?: PassThroughOption<HTMLButtonElement, I>;
+    pcFilterApplyButton?: ButtonPassThrough;
     /**
      * Used to pass attributes to the filter input text component.
      */
-    pcFilterInputText?: PassThroughOption<HTMLInputElement, I>;
+    pcFilterInputText?: InputTextPassThrough;
     /**
      * Used to pass attributes to the filter input number component.
      */
-    pcFilterInputNumber?: PassThroughOption<HTMLElement, I>;
+    pcFilterInputNumber?: InputNumberPassThrough;
     /**
      * Used to pass attributes to the filter checkbox component.
      */
@@ -95,7 +99,7 @@ export interface ColumnFilterPassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the filter datepicker component.
      */
-    pcFilterDatePicker?: PassThroughOption<HTMLElement, I>;
+    pcFilterDatePicker?: DatePickerPassThrough;
 }
 
 /**
