@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/panel';
+import { style as panel_style } from '@primeuix/styles/panel';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${panel_style}
 
     /* For PrimeNG */
-    .p-panel-collapsed > .p-panel-content-container,
+    .p-panel-collapsed .p-panel-content-container,
     .p-panel-content-container.ng-animating {
-        overflow: hidden;
+        overflow: hidden !important;
     }
+
 `;
 
 const classes = {
@@ -17,21 +18,20 @@ const classes = {
         'p-panel p-component',
         {
             'p-panel-toggleable': instance.toggleable,
-            'p-panel-expanded': !instance.collapsed && instance.toggleable,
-            'p-panel-collapsed': instance.collapsed && instance.toggleable
+            'p-panel-expanded': !instance._collapsed && instance.toggleable,
+            'p-panel-collapsed': instance._collapsed && instance.toggleable
         }
     ],
-    icons: ({ instance }) => [
-        'p-panel-icons',
+    header: 'p-panel-header',
+    title: 'p-panel-title',
+    headerActions: ({ instance }) => [
+        'p-panel-header-actions',
         {
             'p-panel-icons-start': instance.iconPos === 'start',
             'p-panel-icons-end': instance.iconPos === 'end',
             'p-panel-icons-center': instance.iconPos === 'center'
         }
     ],
-    header: 'p-panel-header',
-    title: 'p-panel-title',
-    headerActions: 'p-panel-header-actions',
     pcToggleButton: 'p-panel-toggle-button',
     contentContainer: 'p-panel-content-container',
     content: 'p-panel-content',
@@ -41,7 +41,7 @@ const classes = {
 export class PanelStyle extends BaseStyle {
     name = 'panel';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

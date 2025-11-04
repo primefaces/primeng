@@ -2,6 +2,11 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { TreeTableModule } from 'primeng/treetable';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Column {
     field: string;
@@ -10,7 +15,8 @@ interface Column {
 
 @Component({
     selector: 'resize-fit-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.</p>

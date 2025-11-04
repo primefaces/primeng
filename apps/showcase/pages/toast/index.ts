@@ -9,15 +9,17 @@ import { ResponsiveDoc } from '@/doc/toast/responsivedoc';
 import { SeverityDoc } from '@/doc/toast/severitydoc';
 import { StickyDoc } from '@/doc/toast/stickydoc';
 import { TemplateDoc } from '@/doc/toast/templatedoc';
-import { ToastDocModule } from '@/doc/toast/toastdoc.module';
+import { PTComponent } from '@/doc/toast/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Toast Component" header="Toast" description="Toast is used to display messages in an overlay." [docs]="docs" [apiDocs]="['Toast', 'ToastMessage']" themeDocs="toast"></app-doc> `,
+    template: `<app-doc docTitle="Angular Toast Component" header="Toast" description="Toast is used to display messages in an overlay." [docs]="docs" [apiDocs]="['Toast', 'ToastMessage']" [ptDocs]="ptComponent" themeDocs="toast"></app-doc> `,
     standalone: true,
-    imports: [ToastDocModule]
+    imports: [AppDoc]
 })
 export class ToastDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

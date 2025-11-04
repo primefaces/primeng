@@ -1,9 +1,16 @@
 import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'headless-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppCode, AppDocSectionText, ButtonModule, DialogModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>A headless PrimeNG dialog with a custom UI.</p>

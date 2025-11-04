@@ -1,5 +1,11 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -11,7 +17,8 @@ interface EventItem {
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AppDocSectionText, TimelineModule, CardModule, ButtonModule, AppCode],
     template: `
         <app-docsectiontext>
             <p>Sample implementation with custom content and styled markers.</p>

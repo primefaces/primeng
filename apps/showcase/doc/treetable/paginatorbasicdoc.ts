@@ -1,6 +1,11 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { TreeTableModule } from 'primeng/treetable';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Column {
     field: string;
@@ -9,7 +14,8 @@ interface Column {
 
 @Component({
     selector: 'paginator-basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: ` <app-docsectiontext>
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
         </app-docsectiontext>

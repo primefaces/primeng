@@ -1,8 +1,9 @@
 import { AnimationDoc } from '@/doc/styleclass/animationdoc';
+import { HideOnResizeDoc } from '@/doc/styleclass/hideonresizedoc';
 import { ImportDoc } from '@/doc/styleclass/importdoc';
-import { StyleClassDocModule } from '@/doc/styleclass/styleclassdoc.module';
 import { ToggleClassDoc } from '@/doc/styleclass/toggleclassdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -13,7 +14,7 @@ import { Component } from '@angular/core';
         [apiDocs]="['StyleClass']"
     ></app-doc>`,
     standalone: true,
-    imports: [StyleClassDocModule]
+    imports: [AppDoc]
 })
 export class StyleClassDemo {
     docs = [
@@ -31,6 +32,11 @@ export class StyleClassDemo {
             id: 'animation',
             label: 'Animation',
             component: AnimationDoc
+        },
+        {
+            id: 'hideonresize',
+            label: 'Hide On Resize',
+            component: HideOnResizeDoc
         }
     ];
 }

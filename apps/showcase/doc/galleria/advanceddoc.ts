@@ -1,12 +1,16 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Galleria } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
+import { Galleria, GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-advanced-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria can be extended further to implement complex requirements.</p>
@@ -35,7 +39,7 @@ import { Galleria } from 'primeng/galleria';
                     </div>
                 </ng-template>
                 <ng-template #footer let-item>
-                    <div class="flex items-stretch bg-surface-950 text-white h-10">
+                    <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
                         <button
                             type="button"
                             pButton
@@ -212,7 +216,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         </div>
     </ng-template>
     <ng-template #footer let-item>
-        <div class="flex items-stretch bg-surface-950 text-white h-10">
+        <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
             <button
                 type="button"
                 pButton

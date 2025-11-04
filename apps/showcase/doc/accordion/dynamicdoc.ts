@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AccordionModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>AccordionPanel can be generated dynamically using the standard <i>&#64;for</i> block.</p>

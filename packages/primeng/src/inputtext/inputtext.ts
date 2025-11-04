@@ -1,8 +1,13 @@
-import { AfterViewInit, booleanAttribute, computed, Directive, DoCheck, HostListener, inject, input, Input, NgModule } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseModelHolder } from 'primeng/basemodelholder';
+import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
+import { InputTextPassThrough } from 'primeng/types/inputtext';
 import { InputTextStyle } from './style/inputtextstyle';
+
+const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -14,12 +19,21 @@ import { InputTextStyle } from './style/inputtextstyle';
     host: {
         '[class]': "cx('root')"
     },
-    providers: [InputTextStyle]
+    providers: [InputTextStyle, { provide: INPUTTEXT_INSTANCE, useExisting: InputText }, { provide: PARENT_INSTANCE, useExisting: InputText }],
+    hostDirectives: [Bind]
 })
-export class InputText extends BaseModelHolder implements DoCheck, AfterViewInit {
+export class InputText extends BaseModelHolder<InputTextPassThrough> {
+    @Input() hostName: any = '';
+
+    ptInputText = input<any>();
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcInputText: InputText | undefined = inject(INPUTTEXT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     ngControl = inject(NgControl, { optional: true, self: true });
 
-    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
     /**
      * Defines the size of the component.
@@ -49,13 +63,23 @@ export class InputText extends BaseModelHolder implements DoCheck, AfterViewInit
 
     _componentStyle = inject(InputTextStyle);
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    constructor() {
+        super();
+        effect(() => {
+            this.ptInputText() && this.directivePT.set(this.ptInputText());
+        });
+    }
+
+    onAfterViewInit() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
         this.cd.detectChanges();
     }
 
-    ngDoCheck() {
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
+    }
+
+    onDoCheck() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 

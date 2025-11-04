@@ -7,15 +7,25 @@ import { PreselectionDoc } from '@/doc/toggleswitch/preselectiondoc';
 import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveformsdoc';
 import { TemplateDoc } from '@/doc/toggleswitch/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenformsdoc';
-import { ToggleSwitchDocModule } from '@/doc/toggleswitch/toggleswitchdoc.module';
+import { PTComponent } from '@/doc/toggleswitch/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular ToggleSwitch Component" header="ToggleSwitch" description="ToggleSwitch is used to select a boolean value." [docs]="docs" [apiDocs]="['ToggleSwitch']" themeDocs="toggleswitch"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular ToggleSwitch Component"
+        header="ToggleSwitch"
+        description="ToggleSwitch is used to select a boolean value."
+        [docs]="docs"
+        [apiDocs]="['ToggleSwitch']"
+        [ptDocs]="ptComponent"
+        themeDocs="toggleswitch"
+    ></app-doc>`,
     standalone: true,
-    imports: [ToggleSwitchDocModule]
+    imports: [AppDoc]
 })
 export class ToggleSwitchDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

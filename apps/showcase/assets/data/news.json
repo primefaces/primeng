@@ -1,6 +1,6 @@
 {
-    "id": 94,
-    "content": "PrimeNG v20.0.0-rc.3 has arrived! 🛩️",
+    "id": 91,
+    "content": "PassThrough Attributes just landed ✅",
     "linkText": "Learn More",
-    "routerLink": "/migration/v20"
+    "routerLink": "/passthrough"
 }

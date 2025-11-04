@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/datatable';
+import { style as datatable_style } from '@primeuix/styles/datatable';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${datatable_style}
 
     /* For PrimeNG */
     .p-datatable-scrollable-table > .p-datatable-thead {
@@ -20,23 +20,7 @@ const theme = /*css*/ `
         z-index: 1;
     }
 
-    .p-datatable-scrollable > tr:not(:has(.p-datatable-selectable-row)) > .p-datatable-frozen-column {
-        position: sticky;
-        background: dt('datatable.header.cell.background');
-    }
-
-    .p-datatable-scrollable th.p-datatable-frozen-column {
-        z-index: 1;
-        position: sticky;
-        background: dt('datatable.header.cell.background');
-    }
-    .p-datatable-scrollable td.p-datatable-frozen-column {
-        z-index: 1;
-        position: sticky;
-        background: dt('datatable.header.cell.background');
-    }
-
-    .p-datatable-mask {
+    .p-datatable-mask.p-overlay-mask {
         position: absolute;
         display: flex;
         align-items: center;
@@ -116,7 +100,7 @@ const theme = /*css*/ `
         color: dt('datatable.row.selected.color');
     }
 
-    p-sortIcon {
+    p-sortIcon, p-sort-icon, p-sorticon {
         display: inline-flex;
         align-items: center;
         gap: dt('datatable.header.cell.gap');
@@ -247,7 +231,7 @@ const inlineStyles = {
 export class TableStyle extends BaseStyle {
     name = 'datatable';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

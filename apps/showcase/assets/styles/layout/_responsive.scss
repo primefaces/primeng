@@ -9,7 +9,6 @@
         max-width: 1728px;
         margin: 0 auto;
     }
-
 }
 
 @media screen and (max-width: 1199px) {
@@ -89,8 +88,12 @@
             top: 0;
             left: 0;
             background-color: rgba(0, 0, 0, 0.4);
-            transition: background-color .5s;
+            transition: background-color 0.5s;
         }
+    }
+
+    .doc-section-nav-container {
+        display: none;
     }
 
     .doc-section-nav {
@@ -131,6 +134,19 @@
 @media (max-width: 768px) {
     .DocSearch-Container {
         position: fixed !important;
+    }
+      .doc-ptviewerwrapper {
+        flex-direction: column;
+
+        .doc-ptviewer {
+            width: 100%;
+            border-width: 0 0 1px 0;
+        }
+
+        .doc-ptoptions {
+            width: 100%;
+            padding: 1rem;
+        }
     }
 }
 

@@ -24,8 +24,7 @@ import { BaseIcon } from 'primeng/icons/baseicon';
 export class InfoCircleIcon extends BaseIcon {
     pathId: string;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.pathId = 'url(#' + uuid() + ')';
     }
 }

@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'indeterminate-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ProgressBarModule, AppCode, AppDocSectionText],
+    providers: [MessageService],
     template: `
         <app-docsectiontext>
             <p>For progresses with no value to track, set the <i>mode</i> property to <i>indeterminate</i>.</p>
@@ -13,8 +18,7 @@ import { MessageService } from 'primeng/api';
             <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
         </div>
         <app-code [code]="code" selector="progress-bar-indeterminate-demo"></app-code>
-    `,
-    providers: [MessageService]
+    `
 })
 export class IndeterminateDoc {
     code: Code = {

@@ -1,8 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -13,13 +11,12 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
     NgZone,
     numberAttribute,
-    OnDestroy,
-    OnInit,
     Output,
     QueryList,
     TemplateRef,
@@ -30,16 +27,18 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
+import { Bind, BindModule } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { DatePickerMonthChangeEvent, DatePickerPassThrough, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from 'primeng/types/datepicker';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { DatePickerMonthChangeEvent, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from './datepicker.interface';
 import { DatePickerStyle } from './style/datepickerstyle';
 
 export const DATEPICKER_VALUE_ACCESSOR: any = {
@@ -47,6 +46,9 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => DatePicker),
     multi: true
 };
+
+const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE');
+
 /**
  * DatePicker is a form component to work with dates.
  * @group Components
@@ -54,7 +56,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-datePicker, p-datepicker, p-date-picker',
     standalone: true,
-    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule],
+    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule, BindModule],
+    hostDirectives: [Bind],
     template: `
         <ng-template [ngIf]="!inline">
             <input
@@ -92,10 +95,11 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [variant]="$variant()"
                 [fluid]="hasFluid"
                 [invalid]="invalid()"
+                [pt]="ptm('pcInputText')"
             />
-            <ng-container *ngIf="showClear && !$disabled() && value != null">
-                <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" />
-                <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()">
+            <ng-container *ngIf="showClear && !$disabled() && inputfieldViewChild?.nativeElement?.value">
+                <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()" />
+                <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -110,16 +114,17 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                 [class]="cx('dropdown')"
                 [disabled]="$disabled()"
                 tabindex="0"
+                [pBind]="ptm('dropdown')"
             >
-                <span *ngIf="icon" [ngClass]="icon"></span>
+                <span *ngIf="icon" [ngClass]="icon" [pBind]="ptm('dropdownIcon')"></span>
                 <ng-container *ngIf="!icon">
-                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" />
+                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" [pBind]="ptm('dropdownIcon')" />
                     <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
                 </ng-container>
             </button>
             <ng-container *ngIf="iconDisplay === 'input' && showIcon">
-                <span [class]="cx('inputIconContainer')">
-                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" />
+                <span [class]="cx('inputIconContainer')" [pBind]="ptm('inputIconContainer')">
+                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" [pBind]="ptm('inputIcon')" />
 
                     <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                 </span>
@@ -142,13 +147,14 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
             (@overlayAnimation.done)="onOverlayAnimationDone($event)"
             (click)="onOverlayClick($event)"
             *ngIf="inline || overlayVisible"
+            [pBind]="ptm('panel')"
         >
             <ng-content select="p-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
             <ng-container *ngIf="!timeOnly">
-                <div [class]="cx('calendarContainer')">
-                    <div [class]="cx('calendar')" *ngFor="let month of months; let i = index">
-                        <div [class]="cx('header')">
+                <div [class]="cx('calendarContainer')" [pBind]="ptm('calendarContainer')">
+                    <div [class]="cx('calendar')" *ngFor="let month of months; let i = index" [pBind]="ptm('calendar')">
+                        <div [class]="cx('header')" [pBind]="ptm('header')">
                             <p-button
                                 rounded
                                 variant="text"
@@ -159,6 +165,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
                                 type="button"
                                 [ariaLabel]="prevIconAriaLabel"
+                                [pt]="ptm('pcPrevButton')"
+                                [attr.data-pc-group-section]="'navigator'"
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-left" *ngIf="!previousIconTemplate && !_previousIconTemplate" />
@@ -167,7 +175,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     </span>
                                 </ng-template>
                             </p-button>
-                            <div [class]="cx('title')">
+                            <div [class]="cx('title')" [pBind]="ptm('title')">
                                 <button
                                     *ngIf="currentView === 'date'"
                                     type="button"
@@ -177,6 +185,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
                                     [attr.aria-label]="this.getTranslation('chooseMonth')"
                                     pRipple
+                                    [pBind]="ptm('selectMonth')"
+                                    [attr.data-pc-group-section]="'navigator'"
                                 >
                                     {{ getMonthName(month.month) }}
                                 </button>
@@ -189,10 +199,12 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                     [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
                                     [attr.aria-label]="getTranslation('chooseYear')"
                                     pRipple
+                                    [pBind]="ptm('selectYear')"
+                                    [attr.data-pc-group-section]="'navigator'"
                                 >
                                     {{ getYear(month) }}
                                 </button>
-                                <span [class]="cx('decade')" *ngIf="currentView === 'year'">
+                                <span [class]="cx('decade')" *ngIf="currentView === 'year'" [pBind]="ptm('decade')">
                                     <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
                                     <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                 </span>
@@ -206,6 +218,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 (onClick)="onNextButtonClick($event)"
                                 [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                 [ariaLabel]="nextIconAriaLabel"
+                                [pt]="ptm('pcNextButton')"
+                                [attr.data-pc-group-section]="'navigator'"
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="chevron-right" *ngIf="!nextIconTemplate && !_nextIconTemplate" />
@@ -215,27 +229,35 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                                 </ng-template>
                             </p-button>
                         </div>
-                        <table [class]="cx('dayView')" role="grid" *ngIf="currentView === 'date'">
-                            <thead>
-                                <tr>
-                                    <th *ngIf="showWeek" [class]="cx('weekHeader')">
-                                        <span>{{ getTranslation('weekHeader') }}</span>
+                        <table [class]="cx('dayView')" role="grid" *ngIf="currentView === 'date'" [pBind]="ptm('table')">
+                            <thead [pBind]="ptm('tableHeader')">
+                                <tr [pBind]="ptm('tableHeaderRow')">
+                                    <th *ngIf="showWeek" [class]="cx('weekHeader')" [pBind]="ptm('weekHeader')">
+                                        <span [pBind]="ptm('weekHeaderLabel')">{{ getTranslation('weekHeader') }}</span>
                                     </th>
-                                    <th [class]="cx('weekDayCell')" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last">
-                                        <span [class]="cx('weekDay')">{{ weekDay }}</span>
+                                    <th [class]="cx('weekDayCell')" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last" [pBind]="ptm('weekDayCell')">
+                                        <span [class]="cx('weekDay')" [pBind]="ptm('weekDay')">{{ weekDay }}</span>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr *ngFor="let week of month.dates; let j = index">
-                                    <td *ngIf="showWeek" [class]="cx('weekNumber')">
-                                        <span [class]="cx('weekLabelContainer')">
+                            <tbody [pBind]="ptm('tableBody')">
+                                <tr *ngFor="let week of month.dates; let j = index" [pBind]="ptm('tableBodyRow')">
+                                    <td *ngIf="showWeek" [class]="cx('weekNumber')" [pBind]="ptm('weekNumber')">
+                                        <span [class]="cx('weekLabelContainer')" [pBind]="ptm('weekLabelContainer')">
                                             {{ month.weekNumbers[j] }}
                                         </span>
                                     </td>
-                                    <td *ngFor="let date of week" [attr.aria-label]="date.day" [class]="cx('dayCell', { date })">
+                                    <td *ngFor="let date of week" [attr.aria-label]="date.day" [class]="cx('dayCell', { date })" [pBind]="ptm('dayCell')">
                                         <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
-                                            <span [ngClass]="dayClass(date)" (click)="onDateSelect($event, date)" draggable="false" [attr.data-date]="formatDateKey(formatDateMetaToDate(date))" (keydown)="onDateCellKeydown($event, date, i)" pRipple>
+                                            <span
+                                                [ngClass]="dayClass(date)"
+                                                (click)="onDateSelect($event, date)"
+                                                draggable="false"
+                                                [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
+                                                (keydown)="onDateCellKeydown($event, date, i)"
+                                                pRipple
+                                                [pBind]="ptm('day')"
+                                            >
                                                 <ng-container *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
                                                 <ng-container *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
                                                     <ng-container *ngTemplateOutlet="dateTemplate || _dateTemplate; context: { $implicit: date }"></ng-container>
@@ -254,16 +276,16 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         </table>
                     </div>
                 </div>
-                <div [class]="cx('monthView')" *ngIf="currentView === 'month'">
-                    <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event, i)" [class]="cx('month', { month: m, index: i })" pRipple>
+                <div [class]="cx('monthView')" *ngIf="currentView === 'month'" [pBind]="ptm('monthView')">
+                    <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event, i)" [class]="cx('month', { month: m, index: i })" pRipple [pBind]="ptm('month')">
                         {{ m }}
                         <div *ngIf="isMonthSelected(i)" class="p-hidden-accessible" aria-live="polite">
                             {{ m }}
                         </div>
                     </span>
                 </div>
-                <div [class]="cx('yearView')" *ngIf="currentView === 'year'">
-                    <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" [class]="cx('year', { year: y })" pRipple>
+                <div [class]="cx('yearView')" *ngIf="currentView === 'year'" [pBind]="ptm('yearView')">
+                    <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" [class]="cx('year', { year: y })" pRipple [pBind]="ptm('year')">
                         {{ y }}
                         <div *ngIf="isYearSelected(y)" class="p-hidden-accessible" aria-live="polite">
                             {{ y }}
@@ -271,8 +293,8 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                     </span>
                 </div>
             </ng-container>
-            <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'">
-                <div [class]="cx('hourPicker')">
+            <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'" [pBind]="ptm('timePicker')">
+                <div [class]="cx('hourPicker')" [pBind]="ptm('hourPicker')">
                     <p-button
                         rounded
                         variant="text"
@@ -287,13 +309,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextHour')"
+                        [pt]="ptm('pcIncrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
-                    <span><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
+                    <span [pBind]="ptm('hour')"><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
                     <p-button
                         rounded
                         variant="text"
@@ -308,17 +332,19 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevHour')"
+                        [pt]="ptm('pcDecrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
-                <div class="p-datepicker-separator">
-                    <span>{{ timeSeparator }}</span>
+                <div class="p-datepicker-separator" [pBind]="ptm('separatorContainer')">
+                    <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
                 </div>
-                <div [class]="cx('minutePicker')">
+                <div [class]="cx('minutePicker')" [pBind]="ptm('minutePicker')">
                     <p-button
                         rounded
                         variant="text"
@@ -333,13 +359,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextMinute')"
+                        [pt]="ptm('pcIncrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
-                    <span><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
+                    <span [pBind]="ptm('minute')"><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
                     <p-button
                         rounded
                         variant="text"
@@ -354,17 +382,19 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevMinute')"
+                        [pt]="ptm('pcDecrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
-                <div [class]="cx('separator')" *ngIf="showSeconds">
-                    <span>{{ timeSeparator }}</span>
+                <div [class]="cx('separator')" *ngIf="showSeconds" [pBind]="ptm('separatorContainer')">
+                    <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
                 </div>
-                <div [class]="cx('secondPicker')" *ngIf="showSeconds">
+                <div [class]="cx('secondPicker')" *ngIf="showSeconds" [pBind]="ptm('secondPicker')">
                     <p-button
                         rounded
                         variant="text"
@@ -379,13 +409,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('nextSecond')"
+                        [pt]="ptm('pcIncrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
-                    <span><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
+                    <span [pBind]="ptm('second')"><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
                     <p-button
                         rounded
                         variant="text"
@@ -400,17 +432,19 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (keyup.space)="onTimePickerElementMouseUp($event)"
                         (mouseleave)="onTimePickerElementMouseLeave()"
                         [attr.aria-label]="getTranslation('prevSecond')"
+                        [pt]="ptm('pcDecrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
-                <div [class]="cx('separator')" *ngIf="hourFormat == '12'">
-                    <span>{{ timeSeparator }}</span>
+                <div [class]="cx('separator')" *ngIf="hourFormat == '12'" [pBind]="ptm('separatorContainer')">
+                    <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
                 </div>
-                <div [class]="cx('ampmPicker')" *ngIf="hourFormat == '12'">
+                <div [class]="cx('ampmPicker')" *ngIf="hourFormat == '12'" [pBind]="ptm('ampmPicker')">
                     <p-button
                         text
                         rounded
@@ -420,13 +454,15 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (onClick)="toggleAMPM($event)"
                         (keydown.enter)="toggleAMPM($event)"
                         [attr.aria-label]="getTranslation('am')"
+                        [pt]="ptm('pcIncrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" />
+                            <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
-                    <span>{{ pm ? 'PM' : 'AM' }}</span>
+                    <span [pBind]="ptm('ampm')">{{ pm ? 'PM' : 'AM' }}</span>
                     <p-button
                         text
                         rounded
@@ -436,37 +472,47 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
                         (click)="toggleAMPM($event)"
                         (keydown.enter)="toggleAMPM($event)"
                         [attr.aria-label]="getTranslation('pm')"
+                        [pt]="ptm('pcDecrementButton')"
+                        [attr.data-pc-group-section]="'timepickerbutton'"
                     >
                         <ng-template #icon>
-                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" />
+                            <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
                             <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 </div>
             </div>
-            <div [class]="cx('buttonbar')" *ngIf="showButtonBar">
-                <p-button
-                    size="small"
-                    [styleClass]="cx('pcTodayButton')"
-                    [label]="getTranslation('today')"
-                    (keydown)="onContainerButtonKeydown($event)"
-                    (onClick)="onTodayButtonClick($event)"
-                    [ngClass]="todayButtonStyleClass"
-                    severity="secondary"
-                    variant="text"
-                    size="small"
-                />
-                <p-button
-                    size="small"
-                    [styleClass]="cx('pcClearButton')"
-                    [label]="getTranslation('clear')"
-                    (keydown)="onContainerButtonKeydown($event)"
-                    (onClick)="onClearButtonClick($event)"
-                    [ngClass]="clearButtonStyleClass"
-                    severity="secondary"
-                    variant="text"
-                    size="small"
-                />
+            <div [class]="cx('buttonbar')" *ngIf="showButtonBar" [pBind]="ptm('buttonbar')">
+                @if (buttonBarTemplate || _buttonBarTemplate) {
+                    <ng-container *ngTemplateOutlet="buttonBarTemplate || _buttonBarTemplate; context: { todayCallback: onTodayButtonClick.bind(this), clearCallback: onClearButtonClick.bind(this) }"></ng-container>
+                } @else {
+                    <p-button
+                        size="small"
+                        [styleClass]="cx('pcTodayButton')"
+                        [label]="getTranslation('today')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (onClick)="onTodayButtonClick($event)"
+                        [ngClass]="todayButtonStyleClass"
+                        severity="secondary"
+                        variant="text"
+                        size="small"
+                        [pt]="ptm('pcTodayButton')"
+                        [attr.data-pc-group-section]="'button'"
+                    />
+                    <p-button
+                        size="small"
+                        [styleClass]="cx('pcClearButton')"
+                        [label]="getTranslation('clear')"
+                        (keydown)="onContainerButtonKeydown($event)"
+                        (onClick)="onClearButtonClick($event)"
+                        [ngClass]="clearButtonStyleClass"
+                        severity="secondary"
+                        variant="text"
+                        size="small"
+                        [pt]="ptm('pcClearButton')"
+                        [attr.data-pc-group-section]="'button'"
+                    />
+                }
             </div>
             <ng-content select="p-footer"></ng-content>
             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
@@ -495,7 +541,7 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
             ])
         ])
     ],
-    providers: [DATEPICKER_VALUE_ACCESSOR, DatePickerStyle],
+    providers: [DATEPICKER_VALUE_ACCESSOR, DatePickerStyle, { provide: DATEPICKER_INSTANCE, useExisting: DatePicker }, { provide: PARENT_INSTANCE, useExisting: DatePicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -503,7 +549,11 @@ export const DATEPICKER_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')"
     }
 })
-export class DatePicker extends BaseInput implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
+export class DatePicker extends BaseInput<DatePickerPassThrough> {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcDatePicker: DatePicker | undefined = inject(DATEPICKER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     @Input() iconDisplay: 'input' | 'button' = 'button';
     /**
      * Style class of the component.
@@ -883,11 +933,11 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
      * Set the date to highlight on first opening if the field is blank.
      * @group Props
      */
-    @Input() get defaultDate(): Date {
+    @Input() get defaultDate(): Date | null {
         return this._defaultDate;
     }
-    set defaultDate(defaultDate: Date) {
-        this._defaultDate = defaultDate;
+    set defaultDate(defaultDate: Date | null) {
+        this._defaultDate = defaultDate!;
 
         if (this.initialized) {
             const date = defaultDate || new Date();
@@ -1132,6 +1182,12 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
      */
     @ContentChild('inputicon', { descendants: false }) inputIconTemplate: Nullable<TemplateRef<any>>;
 
+    /**
+     * Custom template for button bar.
+     * @group Templates
+     */
+    @ContentChild('buttonbar', { descendants: false }) buttonBarTemplate: Nullable<TemplateRef<any>>;
+
     _dateTemplate: TemplateRef<any> | undefined;
 
     _headerTemplate: TemplateRef<any> | undefined;
@@ -1155,6 +1211,8 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     _incrementIconTemplate: TemplateRef<any> | undefined;
 
     _inputIconTemplate: TemplateRef<any> | undefined;
+
+    _buttonBarTemplate: TemplateRef<any> | undefined;
 
     _disabledDates!: Array<Date>;
 
@@ -1226,8 +1284,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.window = this.document.defaultView as Window;
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.attributeSelector = uuid('pn_id_');
         this.panelId = this.attributeSelector + '_panel';
         const date = this.defaultDate || new Date();
@@ -1252,8 +1309,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.initialized = true;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.inline) {
             this.contentViewChild && this.contentViewChild.nativeElement.setAttribute(this.attributeSelector, '');
 
@@ -1268,9 +1324,13 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         }
     }
 
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'date':
@@ -1291,6 +1351,10 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
                 case 'inputicon':
                     this._inputIconTemplate = item.template;
+                    break;
+
+                case 'buttonbar':
+                    this._buttonBarTemplate = item.template;
                     break;
 
                 case 'previousicon':
@@ -1351,7 +1415,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     }
 
     monthPickerValues() {
-        let monthPickerValues = [];
+        let monthPickerValues: any[] = [];
         for (let i = 0; i <= 11; i++) {
             monthPickerValues.push(this.config.getTranslation('monthNamesShort')[i]);
         }
@@ -1360,7 +1424,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     }
 
     yearPickerValues() {
-        let yearPickerValues = [];
+        let yearPickerValues: any[] = [];
         let base = <number>this.currentYear - (<number>this.currentYear % 10);
         for (let i = 0; i < 10; i++) {
             yearPickerValues.push(base + i);
@@ -1408,7 +1472,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         let monthRows = Math.ceil((daysLength + firstDay) / 7);
 
         for (let i = 0; i < monthRows; i++) {
-            let week = [];
+            let week: any[] = [];
 
             if (i == 0) {
                 for (let j = prevMonthDaysLength - firstDay + 1; j <= prevMonthDaysLength; j++) {
@@ -1461,10 +1525,10 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
 
             if (this.showWeek) {
-                weekNumbers.push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day)));
+                (weekNumbers as any[]).push(this.getWeekNumber(new Date(week[0].year, week[0].month, week[0].day)));
             }
 
-            dates.push(week);
+            (dates as any[]).push(week);
         }
 
         return {
@@ -1480,7 +1544,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
         if (this.showTime) {
             this.currentMinute = date.getMinutes();
-            this.currentSecond = date.getSeconds();
+            this.currentSecond = this.showSeconds ? date.getSeconds() : 0;
             this.setCurrentHourPM(date.getHours());
         } else if (this.timeOnly) {
             this.currentMinute = 0;
@@ -1801,7 +1865,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             if (this.isSingleSelection()) {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
-                let stringArrValue = null;
+                let stringArrValue: any[] | null = null;
                 if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
@@ -2126,7 +2190,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
                     if (this.timeOnly) {
                         return;
                     } else {
-                        if (element == headerElements.children[headerElements?.children?.length - 1]) {
+                        if (element == headerElements?.children[headerElements?.children?.length! - 1]) {
                             this.initFocusableCell();
                         }
                     }
@@ -2701,7 +2765,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
 
     constrainTime(hour: number, minute: number, second: number, pm: boolean) {
         let returnTimeTriple: number[] = [hour, minute, second];
-        let minHoursExceeds12: boolean;
+        let minHoursExceeds12: boolean = false;
         let value = this.value;
         const convertedHour = this.convertTo24Hour(hour, pm);
         const isRange = this.isRangeSelection(),
@@ -2724,49 +2788,49 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
 
         if (isMinDate) {
-            minHoursExceeds12 = this.minDate.getHours() >= 12;
+            minHoursExceeds12 = this.minDate!.getHours() >= 12;
         }
 
         switch (
             true // intentional fall through
         ) {
-            case isMinDate && minHoursExceeds12 && this.minDate.getHours() === 12 && this.minDate.getHours() > convertedHour:
+            case isMinDate && minHoursExceeds12 && this.minDate!.getHours() === 12 && this.minDate!.getHours() > convertedHour:
                 returnTimeTriple[0] = 11;
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
-                returnTimeTriple[1] = this.minDate.getMinutes();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
-                returnTimeTriple[2] = this.minDate.getSeconds();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate!.getMinutes();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
-            case isMinDate && !minHoursExceeds12 && this.minDate.getHours() - 1 === convertedHour && this.minDate.getHours() > convertedHour:
+            case isMinDate && !minHoursExceeds12 && this.minDate!.getHours() - 1 === convertedHour && this.minDate!.getHours() > convertedHour:
                 returnTimeTriple[0] = 11;
                 this.pm = true;
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
-                returnTimeTriple[1] = this.minDate.getMinutes();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
-                returnTimeTriple[2] = this.minDate.getSeconds();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate!.getMinutes();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
 
-            case isMinDate && minHoursExceeds12 && this.minDate.getHours() > convertedHour && convertedHour !== 12:
-                this.setCurrentHourPM(this.minDate.getHours());
-                returnTimeTriple[0] = this.currentHour;
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
-                returnTimeTriple[1] = this.minDate.getMinutes();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
-                returnTimeTriple[2] = this.minDate.getSeconds();
+            case isMinDate && minHoursExceeds12 && this.minDate!.getHours() > convertedHour && convertedHour !== 12:
+                this.setCurrentHourPM(this.minDate!.getHours());
+                returnTimeTriple[0] = this.currentHour || 0;
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate!.getMinutes();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
-            case isMinDate && this.minDate.getHours() > convertedHour:
-                returnTimeTriple[0] = this.minDate.getHours();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
-                returnTimeTriple[1] = this.minDate.getMinutes();
-            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
-                returnTimeTriple[2] = this.minDate.getSeconds();
+            case isMinDate && this.minDate!.getHours() > convertedHour:
+                returnTimeTriple[0] = this.minDate!.getHours();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate!.getMinutes();
+            case isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate!.getSeconds();
                 break;
-            case isMaxDate && this.maxDate.getHours() < convertedHour:
-                returnTimeTriple[0] = this.maxDate.getHours();
-            case isMaxDate && this.maxDate.getHours() === convertedHour && this.maxDate.getMinutes() < minute:
-                returnTimeTriple[1] = this.maxDate.getMinutes();
-            case isMaxDate && this.maxDate.getHours() === convertedHour && this.maxDate.getMinutes() === minute && this.maxDate.getSeconds() < second:
-                returnTimeTriple[2] = this.maxDate.getSeconds();
+            case isMaxDate && this.maxDate!.getHours() < convertedHour:
+                returnTimeTriple[0] = this.maxDate!.getHours();
+            case isMaxDate && this.maxDate!.getHours() === convertedHour && this.maxDate!.getMinutes() < minute:
+                returnTimeTriple[1] = this.maxDate!.getMinutes();
+            case isMaxDate && this.maxDate!.getHours() === convertedHour && this.maxDate!.getMinutes() === minute && this.maxDate!.getSeconds() < second:
+                returnTimeTriple[2] = this.maxDate!.getSeconds();
                 break;
         }
 
@@ -2785,7 +2849,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
             newHour = newHour >= 13 ? newHour - 12 : newHour;
         }
-        this.toggleAMPMIfNotMinDate(newPM);
+        this.toggleAMPMIfNotMinDate(newPM!);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         event.preventDefault();
     }
@@ -2794,7 +2858,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         let value = this.value;
         const valueDateString = value ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
-        if (isMinDate && this.minDate.getHours() >= 12) {
+        if (isMinDate && this.minDate!.getHours() >= 12) {
             this.pm = true;
         } else {
             this.pm = newPM;
@@ -2869,7 +2933,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
             newHour = newHour <= 0 ? 12 + newHour : newHour;
         }
-        this.toggleAMPMIfNotMinDate(newPM);
+        this.toggleAMPMIfNotMinDate(newPM!);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         event.preventDefault();
     }
@@ -2877,28 +2941,28 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     incrementMinute(event: any) {
         let newMinute = (this.currentMinute ?? 0) + this.stepMinute;
         newMinute = newMinute > 59 ? newMinute - 60 : newMinute;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond!, this.pm!);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, newMinute, this.currentSecond!, this.pm!);
         event.preventDefault();
     }
 
     decrementMinute(event: any) {
         let newMinute = (this.currentMinute ?? 0) - this.stepMinute;
         newMinute = newMinute < 0 ? 60 + newMinute : newMinute;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, newMinute, this.currentSecond || 0, this.pm!);
         event.preventDefault();
     }
 
     incrementSecond(event: any) {
         let newSecond = <any>this.currentSecond + this.stepSecond;
         newSecond = newSecond > 59 ? newSecond - 60 : newSecond;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, newSecond, this.pm!);
         event.preventDefault();
     }
 
     decrementSecond(event: any) {
         let newSecond = <any>this.currentSecond - this.stepSecond;
         newSecond = newSecond < 0 ? 60 + newSecond : newSecond;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, newSecond, this.pm!);
         event.preventDefault();
     }
 
@@ -2938,7 +3002,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     toggleAMPM(event: any) {
         const newPM = !this.pm;
         this.pm = newPM;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, this.currentSecond, newPM);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, this.currentSecond || 0, newPM);
         this.updateTime();
         event.preventDefault();
     }
@@ -3059,7 +3123,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         if (this.showTime || this.timeOnly) {
             this.setCurrentHourPM(val.getHours());
             this.currentMinute = val.getMinutes();
-            this.currentSecond = val.getSeconds();
+            this.currentSecond = this.showSeconds ? val.getSeconds() : 0;
         }
     }
 
@@ -3104,9 +3168,9 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             case 'visibleTouchUI':
                 if (!this.inline) {
                     this.overlay = event.element;
-                    this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
+                    this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
                     const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
-                    addStyle(this.overlay, styles);
+                    addStyle(this.overlay!, styles || {});
 
                     this.appendOverlay();
                     this.updateFocus();
@@ -3149,13 +3213,13 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
     appendOverlay() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') this.document.body.appendChild(<HTMLElement>this.overlay);
-            else appendChild(this.$appendTo(), this.overlay);
+            else appendChild(this.$appendTo(), this.overlay!);
         }
     }
 
     restoreOverlayAppend() {
         if (this.overlay && this.$appendTo() !== 'self') {
-            this.el.nativeElement.appendChild(this.overlay);
+            this.el.nativeElement.appendChild(this.overlay!);
         }
     }
 
@@ -3189,7 +3253,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1));
             let maskStyleClass = 'p-overlay-mask p-datepicker-mask p-datepicker-mask-scrollblocker p-overlay-mask p-overlay-mask-enter';
-            addClass(this.mask, maskStyleClass);
+            addClass(this.mask!, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
                 this.disableModality();
@@ -3442,17 +3506,17 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
                 let names = [];
 
                 for (let i = 0; i < arr.length; i++) {
-                    names.push([i, arr[i]]);
+                    (names as any[]).push([i, arr[i]]);
                 }
-                names.sort((a, b) => {
-                    return -(a[1].length - b[1].length);
+                (names as any[]).sort((a, b) => {
+                    return -((a as any)[1].length - (b as any)[1].length);
                 });
 
-                for (let i = 0; i < names.length; i++) {
-                    let name = names[i][1];
-                    if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
-                        index = names[i][0];
-                        iValue += name.length;
+                for (let i = 0; i < (names as any[]).length; i++) {
+                    let name = (names as any[])[i][1];
+                    if (value.substr(iValue, (name as string).length).toLowerCase() === (name as string).toLowerCase()) {
+                        index = (names as any[])[i][0];
+                        iValue += (name as string).length;
                         break;
                     }
                 }
@@ -3611,6 +3675,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 (<HTMLStyleElement>this.responsiveStyleElement).type = 'text/css';
+                setAttribute(this.responsiveStyleElement!, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.body, this.responsiveStyleElement);
             }
 
@@ -3643,7 +3708,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
             }
 
             (<HTMLStyleElement>this.responsiveStyleElement).innerHTML = innerHTML;
-            setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
+            setAttribute(this.responsiveStyleElement!, 'nonce', this.config?.csp()?.nonce);
         }
     }
 
@@ -3761,7 +3826,7 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
@@ -3779,8 +3844,6 @@ export class DatePicker extends BaseInput implements OnInit, AfterContentInit, A
         this.clearTimePickerTimer();
         this.restoreOverlayAppend();
         this.onOverlayHide();
-
-        super.ngOnDestroy();
     }
 }
 

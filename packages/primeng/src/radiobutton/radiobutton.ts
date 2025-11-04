@@ -1,12 +1,38 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, Injectable, Injector, input, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Injectable,
+    InjectionToken,
+    Injector,
+    input,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
-import { RadioButtonClickEvent } from './radiobutton.interface';
+import { RadioButtonPassThrough } from 'primeng/types/radiobutton';
+import type { RadioButtonClickEvent } from 'primeng/types/radiobutton';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
+
+const RADIOBUTTON_INSTANCE = new InjectionToken<RadioButton>('RADIOBUTTON_INSTANCE');
 
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -53,7 +79,7 @@ export class RadioControlRegistry {
 @Component({
     selector: 'p-radioButton, p-radiobutton, p-radio-button',
     standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule],
+    imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <input
             #input
@@ -67,26 +93,34 @@ export class RadioControlRegistry {
             [attr.value]="modelValue()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
-            [attr.tabindex]="tabindex"
             [attr.aria-checked]="checked"
+            [attr.tabindex]="tabindex"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (change)="onChange($event)"
             [pAutoFocus]="autofocus"
+            [pBind]="ptm('input')"
         />
-        <div [class]="cx('box')" [attr.data-pc-section]="'input'">
-            <div [class]="cx('icon')" [attr.data-pc-section]="'icon'"></div>
+        <div [class]="cx('box')" [pBind]="ptm('box')">
+            <div [class]="cx('icon')" [pBind]="ptm('icon')"></div>
         </div>
     `,
-    providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle],
+    providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle, { provide: RADIOBUTTON_INSTANCE, useExisting: RadioButton }, { provide: PARENT_INSTANCE, useExisting: RadioButton }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[attr.data-pc-name]': "'radiobutton'",
-        '[attr.data-pc-section]': "'root'",
         '[class]': "cx('root')"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class RadioButton extends BaseEditableHolder implements OnInit, OnDestroy {
+export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
+    $pcRadioButton: RadioButton | undefined = inject(RADIOBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Value of the radiobutton.
      * @group Props
@@ -175,8 +209,7 @@ export class RadioButton extends BaseEditableHolder implements OnInit, OnDestroy
 
     registry = inject(RadioControlRegistry);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.control = this.injector.get(NgControl);
         this.registry.add(this.control, this);
     }
@@ -228,9 +261,8 @@ export class RadioButton extends BaseEditableHolder implements OnInit, OnDestroy
         this.cd.markForCheck();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.registry.remove(this);
-        super.ngOnDestroy();
     }
 }
 

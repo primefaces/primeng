@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { KnobModule } from 'primeng/knob';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'color-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, KnobModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Colors are customized with the <i>textColor</i>, <i>rangeColor</i> and <i>valueColor</i> properties.</p>

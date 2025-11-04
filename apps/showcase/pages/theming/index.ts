@@ -4,6 +4,7 @@ import { ColorsDoc } from '@/doc/theming/colorsdoc';
 import { ComponentDoc } from '@/doc/theming/componentdoc';
 import { DarkModeDoc } from '@/doc/theming/darkmodedoc';
 import { DefinePresetDoc } from '@/doc/theming/definepresetdoc';
+import { ColorSchemeDoc } from '@/doc/theming/colorschemedoc';
 import { DtDoc } from '@/doc/theming/dtdoc';
 import { ExtendDoc } from '@/doc/theming/extenddoc';
 import { FocusRingDoc } from '@/doc/theming/focusringdoc';
@@ -20,16 +21,16 @@ import { ScopedTokensDoc } from '@/doc/theming/scopedtokensdoc';
 import { SpecificityDoc } from '@/doc/theming/specificitydoc';
 import { SurfaceDoc } from '@/doc/theming/surfacedoc';
 import { ThemeDoc } from '@/doc/theming/themedoc';
-import { ThemingDocModule } from '@/doc/theming/themingdoc.module';
 import { UpdatePresetDoc } from '@/doc/theming/updatepresetdoc';
 import { UpdatePrimaryPaletteDoc } from '@/doc/theming/updateprimarypalettedoc';
 import { UpdateSurfacePaletteDoc } from '@/doc/theming/updatesurfacepalettedoc';
 import { UsePresetDoc } from '@/doc/theming/usepresetdoc';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Theming - PrimeNG" header="Theming" description="Choose from a variety of pre-styled themes or develop your own." [docs]="docs"></app-doc>`,
-    imports: [ThemingDocModule],
+    imports: [AppDoc],
     standalone: true
 })
 export class ThemingDemo {
@@ -83,6 +84,11 @@ export class ThemingDemo {
                     id: 'definepreset',
                     label: 'definePreset',
                     component: DefinePresetDoc
+                },
+                {
+                    id: 'colorscheme',
+                    label: 'Color Scheme',
+                    component: ColorSchemeDoc
                 },
                 {
                     id: 'primary',

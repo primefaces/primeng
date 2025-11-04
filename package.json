@@ -1,6 +1,6 @@
 {
     "name": "@primeng/monorepo",
-    "version": "20.0.0-rc.3",
+    "version": "20.3.0",
     "author": "PrimeTek Informatics",
     "homepage": "https://primeng.org/",
     "repository": {
@@ -20,7 +20,7 @@
         "release:beta": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary --tag beta",
         "release:rc": "pnpm run build && pnpm recursive publish --filter './packages/*' --no-git-checks --report-summary --tag rc",
         "build": "cross-env NODE_ENV=production pnpm run build:check && pnpm run build:packages",
-        "build:check": "pnpm run format:check && pnpm run security:check",
+        "build:check": "pnpm run format:check && pnpm run security:check && pnpm run test:unit",
         "build:packages": "pnpm run build:lib && pnpm run build:themes && pnpm run build:showcase",
         "build:lib": "pnpm --filter primeng build",
         "build:themes": "pnpm --filter themes build",
@@ -33,7 +33,8 @@
         "format:check": "prettier --check \"**/*.{js,mjs,ts,mts,d.ts,html}\"",
         "lint": "eslint --ext \".js,.mjs,.ts,.mts\" --ignore-path .gitignore . --cache",
         "lint:fix": "eslint --fix --ext \".js,.mjs,.ts,.mts\" --ignore-path .gitignore .",
-        "test:unit": "pnpm --filter primeng test:unit"
+        "test:unit": "pnpm --filter primeng test:unit",
+        "test:coverage": "pnpm --filter primeng test:unit --code-coverage"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "catalog:angular20",

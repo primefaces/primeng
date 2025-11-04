@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -9,6 +10,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -21,10 +23,14 @@ import {
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind, BindModule } from 'primeng/bind';
 import { ToggleButton } from 'primeng/togglebutton';
-import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
+import { SelectButtonChangeEvent, SelectButtonOptionClickEvent, SelectButtonPassThrough } from 'primeng/types/selectbutton';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
+
+const SELECTBUTTON_INSTANCE = new InjectionToken<SelectButton>('SELECTBUTTON_INSTANCE');
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -38,7 +44,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton, p-selectbutton, p-select-button',
     standalone: true,
-    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleButton, FormsModule, CommonModule, SharedModule, BindModule],
     template: `
         @for (option of options; track getOptionLabel(option); let i = $index) {
             <p-togglebutton
@@ -52,6 +58,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 [allowEmpty]="getAllowEmpty()"
                 [size]="size()"
                 [fluid]="fluid()"
+                [pt]="ptm('pcToggleButton')"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
@@ -61,18 +68,17 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             </p-togglebutton>
         }
     `,
-    providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
+    providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle, { provide: SELECTBUTTON_INSTANCE, useExisting: SelectButton }, { provide: PARENT_INSTANCE, useExisting: SelectButton }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
         '[attr.role]': '"group"',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.data-pc-section]': '"root"',
-        '[attr.data-pc-name]': '"selectbutton"'
-    }
+        '[attr.aria-labelledby]': 'ariaLabelledBy'
+    },
+    hostDirectives: [Bind]
 })
-export class SelectButton extends BaseEditableHolder implements AfterContentInit {
+export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> implements AfterViewChecked {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -185,6 +191,14 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
 
     _componentStyle = inject(SelectButtonStyle);
 
+    $pcSelectButton: SelectButton | undefined = inject(SELECTBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     getAllowEmpty() {
         if (this.multiple) {
             return this.allowEmpty || this.value?.length !== 1;
@@ -219,7 +233,7 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
         let newValue;
 
         if (this.multiple) {
-            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey));
+            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey || undefined));
             else newValue = this.value ? [...this.value, optionValue] : [optionValue];
         } else {
             if (selected && !this.allowEmpty) {
@@ -290,7 +304,7 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
                 }
             }
         } else {
-            selected = equals(this.getOptionValue(option), this.value, this.equalityKey);
+            selected = equals(this.getOptionValue(option), this.value, this.equalityKey || undefined);
         }
 
         return selected;
@@ -298,7 +312,7 @@ export class SelectButton extends BaseEditableHolder implements AfterContentInit
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':

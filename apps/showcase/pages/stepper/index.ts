@@ -1,8 +1,9 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/stepper/accessibilitydoc';
 import { BasicDoc } from '@/doc/stepper/basicdoc';
 import { ImportDoc } from '@/doc/stepper/importdoc';
 import { LinearDoc } from '@/doc/stepper/lineardoc';
-import { StepperDocModule } from '@/doc/stepper/stepperdoc.module';
+import { PTComponent } from '@/doc/stepper/pt/PTComponent';
 import { StepsOnlyDoc } from '@/doc/stepper/stepsonly';
 import { TemplateDoc } from '@/doc/stepper/templatedoc';
 import { VerticalDoc } from '@/doc/stepper/verticaldoc';
@@ -14,11 +15,12 @@ import { Component } from '@angular/core';
         header="Stepper"
         description="The Stepper component displays a wizard-like workflow by guiding users through the multi-step progression."
         [docs]="docs"
-        [apiDocs]="['Stepper', 'StepItem', 'StepPanel']"
+        [apiDocs]="['Stepper']"
         themeDocs="stepper"
+        [ptDocs]="ptComponent"
     ></app-doc>`,
     standalone: true,
-    imports: [StepperDocModule]
+    imports: [AppDoc]
 })
 export class StepperDemo {
     docs = [
@@ -58,4 +60,6 @@ export class StepperDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

@@ -31,6 +31,7 @@ export const routes: Routes = [
                 path: 'customicons',
                 loadChildren: () => import('@/pages/customicons/routes')
             },
+            { path: 'passthrough', loadChildren: () => import('@/pages/passthrough/routes') },
             { path: 'accordion', loadChildren: () => import('@/pages/accordion/routes') },
             { path: 'avatar', loadChildren: () => import('@/pages/avatar/routes') },
             { path: 'blockui', loadChildren: () => import('@/pages/blockui/routes') },
@@ -292,8 +293,16 @@ export const routes: Routes = [
                 path: 'animateonscroll',
                 loadChildren: () => import('@/pages/animateonscroll/routes')
             },
+            {
+                path: 'classnames',
+                loadChildren: () => import('@/pages/classnames/routes')
+            },
+            {
+                path: 'bind',
+                loadChildren: () => import('@/pages/bind/routes')
+            },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
-            { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) },
+            { path: 'guides', loadChildren: () => import('@/pages/guides/routes') },
             {
                 path: 'designer',
                 loadChildren: () => import('@/pages/designer/routes')

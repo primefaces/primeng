@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DragDropModule } from 'primeng/dragdrop';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'drag-drop-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, DragDropModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

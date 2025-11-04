@@ -2,13 +2,12 @@ import { AccessibilityDoc } from '@/doc/ripple/accessibilitydoc';
 import { CustomDoc } from '@/doc/ripple/customdoc';
 import { DefaultDoc } from '@/doc/ripple/defaultdoc';
 import { ImportDoc } from '@/doc/ripple/importdoc';
-import { RippleDocModule } from '@/doc/ripple/rippledoc.module';
 import { Component } from '@angular/core';
-
+import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     template: `<app-doc docTitle="Angular Ripple Component" header="Ripple" description="Ripple directive adds ripple effect to the host element." [docs]="docs" themeDocs="ripple"></app-doc>`,
     standalone: true,
-    imports: [RippleDocModule],
+    imports: [AppDoc],
     styleUrl: './rippledemo.scss'
 })
 export class RippleDemo {
@@ -28,7 +27,6 @@ export class RippleDemo {
             label: 'Custom',
             component: CustomDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

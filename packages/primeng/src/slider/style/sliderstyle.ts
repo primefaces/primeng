@@ -26,7 +26,7 @@ const classes = {
 export class SliderStyle extends BaseStyle {
     name = 'slider';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

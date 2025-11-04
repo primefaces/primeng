@@ -1,6 +1,10 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -9,7 +13,8 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-advanced-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],
     template: `
         <app-docsectiontext>
             <p>Advanced uploader provides dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p>

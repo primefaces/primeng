@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -12,10 +11,10 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
-    OnChanges,
     Output,
     QueryList,
     signal,
@@ -27,119 +26,138 @@ import {
 import { RouterModule } from '@angular/router';
 import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
+import { PanelMenuPassThrough } from 'primeng/types/panelmenu';
 import { PanelMenuStyle } from './style/panelmenustyle';
 
+const PANELMENU_INSTANCE = new InjectionToken<PanelMenu>('PANELMENU_INSTANCE');
+const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INSTANCE');
+
 @Component({
-    selector: 'p-panelMenuSub, p-panelmenu-sub',
-    imports: [CommonModule, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule],
+    selector: 'ul[pPanelMenuSub]',
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule],
     standalone: true,
     template: `
-        <ul
-            #list
-            [class]="root ? cn(cx('rootList'), cx('submenu')) : cx('submenu')"
-            role="tree"
-            [tabindex]="-1"
-            [attr.aria-activedescendant]="focusedItemId"
-            [attr.data-pc-section]="'menu'"
-            [attr.aria-hidden]="!parentExpanded"
-            (focusin)="menuFocus.emit($event)"
-            (focusout)="menuBlur.emit($event)"
-            (keydown)="menuKeyDown.emit($event)"
-        >
-            <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
-                <li *ngIf="processedItem.separator" [class]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))" role="separator"></li>
-                <li
-                    *ngIf="!processedItem.separator && isItemVisible(processedItem)"
-                    role="treeitem"
-                    [attr.id]="getItemId(processedItem)"
-                    [attr.aria-label]="getItemProp(processedItem, 'label')"
-                    [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
-                    [attr.aria-level]="level + 1"
-                    [attr.aria-setsize]="getAriaSetSize()"
-                    [attr.aria-posinset]="getAriaPosInset(index)"
-                    [class]="cn(cx('item', { processedItem }, processedItem.styleClass))"
-                    [ngStyle]="getItemProp(processedItem, 'style')"
-                    [pTooltip]="getItemProp(processedItem, 'tooltip')"
-                    [attr.data-p-disabled]="isItemDisabled(processedItem)"
-                    [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
-                >
-                    <div [class]="cx('itemContent')" (click)="onItemClick($event, processedItem)">
-                        <ng-container *ngIf="!itemTemplate">
-                            <a
-                                *ngIf="!getItemProp(processedItem, 'routerLink')"
-                                [attr.href]="getItemProp(processedItem, 'url')"
-                                [class]="cx('itemLink')"
-                                [target]="getItemProp(processedItem, 'target')"
-                                [attr.data-pc-section]="'action'"
-                                [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
-                            >
-                                <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
-                                        <svg data-p-icon="chevron-down" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <svg data-p-icon="chevron-right" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" *ngIf="!isItemActive(processedItem)" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                    </ng-container>
-                                    <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate || panelMenu._submenuIconTemplate"></ng-template>
+        <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
+            <li *ngIf="processedItem.separator" [class]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))" role="separator" [pBind]="ptm('separator')"></li>
+            <li
+                *ngIf="!processedItem.separator && isItemVisible(processedItem)"
+                role="treeitem"
+                [attr.id]="getItemId(processedItem)"
+                [attr.aria-label]="getItemProp(processedItem, 'label')"
+                [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
+                [attr.aria-level]="level + 1"
+                [attr.aria-setsize]="getAriaSetSize()"
+                [attr.aria-posinset]="getAriaPosInset(index)"
+                [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
+                [ngStyle]="getItemProp(processedItem, 'style')"
+                [pTooltip]="getItemProp(processedItem, 'tooltip')"
+                [pBind]="getPTOptions(processedItem, index, 'item')"
+                [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+            >
+                <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)">
+                    <ng-container *ngIf="!itemTemplate">
+                        <a
+                            *ngIf="!getItemProp(processedItem, 'routerLink')"
+                            [attr.href]="getItemProp(processedItem, 'url')"
+                            [class]="cx('itemLink')"
+                            [target]="getItemProp(processedItem, 'target')"
+                            [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
+                            [pBind]="getPTOptions(processedItem, index, 'itemLink')"
+                        >
+                            <ng-container *ngIf="isItemGroup(processedItem)">
+                                <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
+                                    <svg
+                                        data-p-icon="chevron-down"
+                                        [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))"
+                                        *ngIf="isItemActive(processedItem)"
+                                        [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
+                                    />
+                                    <svg
+                                        data-p-icon="chevron-right"
+                                        [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))"
+                                        *ngIf="!isItemActive(processedItem)"
+                                        [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
+                                    />
                                 </ng-container>
-                                <span [class]="cx('itemIcon', { processedItem })" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                                <span [class]="cx('itemLabel')" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
-                            </a>
-                            <a
-                                *ngIf="getItemProp(processedItem, 'routerLink')"
-                                [routerLink]="getItemProp(processedItem, 'routerLink')"
-                                [queryParams]="getItemProp(processedItem, 'queryParams')"
-                                [routerLinkActive]="'p-panelmenu-item-link-active'"
-                                [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
-                                [class]="cx('itemLink')"
-                                [target]="getItemProp(processedItem, 'target')"
-                                [attr.title]="getItemProp(processedItem, 'title')"
-                                [fragment]="getItemProp(processedItem, 'fragment')"
-                                [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
-                                [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
-                                [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
-                                [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
-                                [state]="getItemProp(processedItem, 'state')"
-                                [attr.data-pc-section]="'action'"
-                                [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
-                            >
-                                <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
-                                        <svg data-p-icon="chevron-down" *ngIf="isItemActive(processedItem)" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                        <svg data-p-icon="chevron-right" *ngIf="!isItemActive(processedItem)" [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))" [ngStyle]="getItemProp(processedItem, 'iconStyle')" />
-                                    </ng-container>
-                                    <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate && panelMenu._submenuIconTemplate"></ng-template>
+                                <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate || panelMenu._submenuIconTemplate"></ng-template>
+                            </ng-container>
+                            <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')" [pBind]="getPTOptions(processedItem, index, 'itemIcon')"></span>
+                            <span [class]="cx('itemLabel')" *ngIf="processedItem.item?.escape !== false; else htmlLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemProp(processedItem, 'label') }}</span>
+                            <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
+                        </a>
+                        <a
+                            *ngIf="getItemProp(processedItem, 'routerLink')"
+                            [routerLink]="getItemProp(processedItem, 'routerLink')"
+                            [queryParams]="getItemProp(processedItem, 'queryParams')"
+                            [routerLinkActive]="'p-panelmenu-item-link-active'"
+                            [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
+                            [class]="cx('itemLink')"
+                            [target]="getItemProp(processedItem, 'target')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
+                            [fragment]="getItemProp(processedItem, 'fragment')"
+                            [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
+                            [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
+                            [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
+                            [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
+                            [state]="getItemProp(processedItem, 'state')"
+                            [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
+                            [pBind]="getPTOptions(processedItem, index, 'itemLink')"
+                        >
+                            <ng-container *ngIf="isItemGroup(processedItem)">
+                                <ng-container *ngIf="!panelMenu.submenuIconTemplate && !panelMenu._submenuIconTemplate">
+                                    <svg
+                                        data-p-icon="chevron-down"
+                                        *ngIf="isItemActive(processedItem)"
+                                        [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))"
+                                        [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
+                                    />
+                                    <svg
+                                        data-p-icon="chevron-right"
+                                        *ngIf="!isItemActive(processedItem)"
+                                        [class]="cn(cx('submenuIcon'), getItemProp(processedItem, 'icon'))"
+                                        [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
+                                    />
                                 </ng-container>
-                                <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
-                                <span *ngIf="getItemProp(processedItem, 'label')" [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')"></span>
+                                <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate && panelMenu._submenuIconTemplate"></ng-template>
+                            </ng-container>
+                            <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')" [pBind]="getPTOptions(processedItem, index, 'itemIcon')"></span>
+                            <span *ngIf="getItemProp(processedItem, 'label')" [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
 
-                                <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="processedItem.badge">{{ processedItem.badge }}</span>
-                            </a>
-                        </ng-container>
-                        <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
-                        </ng-container>
-                    </div>
-                    <div [@submenu]="getAnimation(processedItem)">
-                        <p-panelmenu-sub
-                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
-                            [id]="getItemId(processedItem) + '_list'"
-                            [panelId]="panelId"
-                            [items]="processedItem?.items"
-                            [itemTemplate]="itemTemplate"
-                            [transitionOptions]="transitionOptions"
-                            [focusedItemId]="focusedItemId"
-                            [activeItemPath]="activeItemPath"
-                            [level]="level + 1"
-                            [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
-                            (itemToggle)="onItemToggle($event)"
-                        ></p-panelmenu-sub>
-                    </div>
-                </li>
-            </ng-template>
-        </ul>
+                            <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="processedItem.badge">{{ processedItem.badge }}</span>
+                        </a>
+                    </ng-container>
+                    <ng-container *ngIf="itemTemplate">
+                        <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                    </ng-container>
+                </div>
+                <div [@submenu]="getAnimation(processedItem)">
+                    <ul
+                        pPanelMenuSub
+                        *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
+                        [id]="getItemId(processedItem) + '_list'"
+                        [panelId]="panelId"
+                        [items]="processedItem?.items"
+                        [itemTemplate]="itemTemplate"
+                        [transitionOptions]="transitionOptions"
+                        [focusedItemId]="focusedItemId"
+                        [activeItemPath]="activeItemPath"
+                        [level]="level + 1"
+                        [pt]="pt()"
+                        [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
+                        (itemToggle)="onItemToggle($event)"
+                    ></ul>
+                </div>
+            </li>
+        </ng-template>
     `,
     animations: [
         trigger('submenu', [
@@ -160,7 +178,18 @@ import { PanelMenuStyle } from './style/panelmenustyle';
         ])
     ],
     encapsulation: ViewEncapsulation.None,
-    providers: [PanelMenuStyle]
+    providers: [PanelMenuStyle, { provide: PANELMENUSUB_INSTANCE, useExisting: PanelMenuSub }, { provide: PARENT_INSTANCE, useExisting: PanelMenuSub }],
+    host: {
+        '[class]': 'root ? cn(cx("rootList"), cx("submenu")) : cx("submenu")',
+        role: 'tree',
+        '[tabindex]': '-1',
+        '[attr.aria-activedescendant]': 'focusedItemId',
+        '[attr.aria-hidden]': '!parentExpanded',
+        '(focusin)': 'menuFocus.emit($event)',
+        '(focusout)': 'menuBlur.emit($event)',
+        '(keydown)': 'menuKeyDown.emit($event)'
+    },
+    hostDirectives: [Bind]
 })
 export class PanelMenuSub extends BaseComponent {
     @Input() panelId: string | undefined;
@@ -191,11 +220,31 @@ export class PanelMenuSub extends BaseComponent {
 
     @Output() menuKeyDown: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('list') listViewChild: ElementRef;
+    listViewChild: ElementRef = inject(ElementRef);
 
     panelMenu: PanelMenu = inject(forwardRef(() => PanelMenu));
 
     _componentStyle = inject(PanelMenuStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcPanelMenu: PanelMenu | undefined = inject(PANELMENU_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm(this.root ? 'rootList' : 'submenu'));
+    }
+
+    getPTOptions(processedItem: any, index: number, key: string) {
+        return this.ptm(key, {
+            context: {
+                item: processedItem.item,
+                index,
+                active: this.isItemActive(processedItem),
+                focused: this.isItemFocused(processedItem),
+                disabled: this.isItemDisabled(processedItem)
+            }
+        });
+    }
 
     getItemId(processedItem) {
         return processedItem.item?.id ?? `${this.panelId}_${processedItem.key}`;
@@ -270,13 +319,14 @@ export class PanelMenuSub extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-panelMenuList, p-panel-menu-list',
+    selector: 'ul[pPanelMenuList]',
     imports: [CommonModule, PanelMenuSub, RouterModule, TooltipModule, SharedModule],
     standalone: true,
     template: `
-        <p-panelmenu-sub
+        <ul
+            pPanelMenuSub
             #submenu
-            [root]="true"
+            [root]="root"
             [id]="panelId + '_list'"
             [panelId]="panelId"
             [tabindex]="tabindex"
@@ -290,12 +340,13 @@ export class PanelMenuSub extends BaseComponent {
             (keydown)="onKeyDown($event)"
             (menuFocus)="onFocus($event)"
             (menuBlur)="onBlur($event)"
-        ></p-panelmenu-sub>
+            [pt]="pt()"
+        ></ul>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class PanelMenuList extends BaseComponent implements OnChanges {
+export class PanelMenuList extends BaseComponent {
     @Input() panelId: string | undefined;
 
     @Input() id: string | undefined;
@@ -344,7 +395,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         return focusedItem && focusedItem.item?.id ? focusedItem.item.id : isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    onChanges(changes: SimpleChanges) {
         this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
     }
 
@@ -373,7 +424,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     isElementInPanel(event, element) {
-        const panel = event.currentTarget.closest('[data-pc-section="panel"]');
+        const panel = event.currentTarget.closest('[data-pc-name="panelmenu"]');
 
         return panel && panel.contains(element);
     }
@@ -405,11 +456,11 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
             parentNode = parentNode?.parentNode as Element;
         }
 
-        return parentNode?.id && this.visibleItems().find((processedItem) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
+        return parentNode?.id && this.visibleItems().find((processedItem: any) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
     }
 
     createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
-        const processedItems = [];
+        const processedItems: any = [];
         items &&
             items.forEach((item, index) => {
                 const key = (parentKey !== '' ? parentKey + '_' : '') + index;
@@ -448,7 +499,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         processedItems &&
             processedItems.forEach((processedItem) => {
                 if (this.isVisibleItem(processedItem)) {
-                    processedFlattenItems.push(processedItem);
+                    (processedFlattenItems as any[]).push(processedItem);
                     this.flatItems(processedItem.items, processedFlattenItems);
                 }
             });
@@ -632,7 +683,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     onEnterKey(event) {
         if (isNotEmpty(this.focusedItem())) {
             const element = <any>findSingle(this.subMenuViewChild.listViewChild.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
-            const anchorElement = element && (<any>findSingle(element, '[data-pc-section="action"]') || findSingle(element, 'a,button'));
+            const anchorElement = element && (<HTMLElement>findSingle(element, 'a') || <HTMLElement>findSingle(element, 'button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
         }
@@ -645,7 +696,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     findNextItem(processedItem) {
-        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+        const index = this.visibleItems().findIndex((item: any) => item.key === processedItem.key);
 
         const matchedItem =
             index < this.visibleItems().length - 1
@@ -657,7 +708,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     }
 
     findPrevItem(processedItem) {
-        const index = this.visibleItems().findIndex((item) => item.key === processedItem.key);
+        const index = this.visibleItems().findIndex((item: any) => item.key === processedItem.key);
         const matchedItem = index > 0 ? findLast(this.visibleItems().slice(0, index), (pItem) => this.isValidItem(pItem)) : undefined;
 
         return matchedItem || processedItem;
@@ -670,18 +721,19 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         let matched = false;
 
         if (isNotEmpty(this.focusedItem())) {
-            const focusedItemIndex = this.visibleItems().findIndex((processedItem) => processedItem.key === this.focusedItem().key);
+            const focusedItemIndex = this.visibleItems().findIndex((processedItem: any) => processedItem.key === this.focusedItem().key);
 
-            matchedItem = this.visibleItems()
-                .slice(focusedItemIndex)
-                .find((processedItem) => this.isItemMatched(processedItem));
+            matchedItem =
+                this.visibleItems()
+                    .slice(focusedItemIndex)
+                    .find((processedItem: any) => this.isItemMatched(processedItem)) || null;
             matchedItem = isEmpty(matchedItem)
                 ? this.visibleItems()
                       .slice(0, focusedItemIndex)
-                      .find((processedItem) => this.isItemMatched(processedItem))
+                      .find((processedItem: any) => this.isItemMatched(processedItem)) || null
                 : matchedItem;
         } else {
-            matchedItem = this.visibleItems().find((processedItem) => this.isItemMatched(processedItem));
+            matchedItem = this.visibleItems().find((processedItem: any) => this.isItemMatched(processedItem)) || null;
         }
 
         if (isNotEmpty(matchedItem)) {
@@ -689,7 +741,7 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
         }
 
         if (isEmpty(matchedItem) && isEmpty(this.focusedItem())) {
-            matchedItem = this.findFirstItem();
+            matchedItem = this.findFirstItem() || null;
         }
 
         if (isNotEmpty(matchedItem)) {
@@ -719,11 +771,11 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
  */
 @Component({
     selector: 'p-panelMenu, p-panelmenu, p-panel-menu',
-    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule],
+    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule],
     standalone: true,
     template: `
         <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
-            <div *ngIf="isItemVisible(item)" [class]="cn(cx('panel'), getItemProp(item, 'headerClass'))" [ngStyle]="getItemProp(item, 'style')" [attr.data-pc-section]="'panel'">
+            <div *ngIf="isItemVisible(item)" [class]="cn(cx('panel'), getItemProp(item, 'headerClass'))" [ngStyle]="getItemProp(item, 'style')" [pBind]="ptm('panel')">
                 <div
                     [class]="cn(cx('header', { item }), getItemProp(item, 'styleClass'))"
                     [ngStyle]="getItemProp(item, 'style')"
@@ -738,11 +790,11 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                     [attr.aria-disabled]="isItemDisabled(item)"
                     [attr.data-p-highlight]="isItemActive(item)"
                     [attr.data-p-disabled]="isItemDisabled(item)"
-                    [attr.data-pc-section]="'header'"
+                    [pBind]="getPTOptions('header', item, i)"
                     (click)="onHeaderClick($event, item, i)"
                     (keydown)="onHeaderKeyDown($event, item, i)"
                 >
-                    <div [class]="cx('headerContent')">
+                    <div [class]="cx('headerContent')" [pBind]="getPTOptions('headerContent', item, i)">
                         <ng-container *ngIf="!itemTemplate && !_itemTemplate">
                             <a
                                 *ngIf="!getItemProp(item, 'routerLink')"
@@ -751,18 +803,18 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                                 [target]="getItemProp(item, 'target')"
                                 [attr.title]="getItemProp(item, 'title')"
                                 [class]="cx('headerLink')"
-                                [attr.data-pc-section]="'headeraction'"
+                                [pBind]="getPTOptions('headerLink', item, i)"
                             >
                                 <ng-container *ngIf="isItemGroup(item)">
                                     <ng-container *ngIf="!headerIconTemplate && !_headerIconTemplate">
-                                        <svg data-p-icon="chevron-down" [class]="cx('headerIcon')" *ngIf="isItemActive(item)" />
-                                        <svg data-p-icon="chevron-right" [class]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
+                                        <svg data-p-icon="chevron-down" [class]="cx('submenuIcon')" *ngIf="isItemActive(item)" [pBind]="getPTOptions('submenuIcon', item, i)" />
+                                        <svg data-p-icon="chevron-right" [class]="cx('submenuIcon')" *ngIf="!isItemActive(item)" [pBind]="getPTOptions('submenuIcon', item, i)" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                                 </ng-container>
-                                <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                                <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
-                                <ng-template #htmlLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
+                                <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel" [pBind]="getPTOptions('headerLabel', item, i)">{{ getItemProp(item, 'label') }}</span>
+                                <ng-template #htmlLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')" [pBind]="getPTOptions('headerLabel', item, i)"></span></ng-template>
                                 <span [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))" *ngIf="getItemProp(item, 'badge')">{{ getItemProp(item, 'badge') }}</span>
                             </a>
                         </ng-container>
@@ -782,18 +834,18 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                             [skipLocationChange]="getItemProp(item, 'skipLocationChange')"
                             [replaceUrl]="getItemProp(item, 'replaceUrl')"
                             [state]="getItemProp(item, 'state')"
-                            [attr.data-pc-section]="'headeraction'"
+                            [pBind]="getPTOptions('headerLink', item, i)"
                         >
                             <ng-container *ngIf="isItemGroup(item)">
                                 <ng-container *ngIf="!headerIconTemplate && !_headerIconTemplate">
-                                    <svg data-p-icon="chevron-down" [class]="cx('headerIcon')" *ngIf="isItemActive(item)" />
-                                    <svg data-p-icon="chevron-right" [class]="cx('headerIcon')" *ngIf="!isItemActive(item)" />
+                                    <svg data-p-icon="chevron-down" [class]="cx('submenuIcon')" *ngIf="isItemActive(item)" [pBind]="getPTOptions('submenuIcon', item, i)" />
+                                    <svg data-p-icon="chevron-right" [class]="cx('submenuIcon')" *ngIf="!isItemActive(item)" [pBind]="getPTOptions('submenuIcon', item, i)" />
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                             </ng-container>
-                            <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                            <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                            <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
+                            <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel" [pBind]="getPTOptions('headerLabel', item, i)">{{ getItemProp(item, 'label') }}</span>
+                            <ng-template #htmlRouteLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')" [pBind]="getPTOptions('headerLabel', item, i)"></span></ng-template>
                             <span *ngIf="getItemProp(item, 'badge')" [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))">{{ getItemProp(item, 'badge') }}</span>
                         </a>
                     </div>
@@ -806,10 +858,11 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                     role="region"
                     [attr.id]="getContentId(item, i)"
                     [attr.aria-labelledby]="getHeaderId(item, i)"
-                    [attr.data-pc-section]="'toggleablecontent'"
+                    [pBind]="ptm('contentContainer')"
                 >
-                    <div [class]="cx('content')" [attr.data-pc-section]="'menucontent'">
-                        <p-panelMenuList
+                    <div [class]="cx('content')" [pBind]="ptm('content')">
+                        <ul
+                            pPanelMenuList
                             [panelId]="getPanelId(i, item)"
                             [items]="getItemProp(item, 'items')"
                             [itemTemplate]="itemTemplate || _itemTemplate"
@@ -819,7 +872,8 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
                             [tabindex]="tabindex"
                             [parentExpanded]="isItemActive(item)"
                             (headerFocus)="updateFocusedHeader($event)"
-                        ></p-panelMenuList>
+                            [pt]="pt()"
+                        ></ul>
                     </div>
                 </div>
             </div>
@@ -847,14 +901,13 @@ export class PanelMenuList extends BaseComponent implements OnChanges {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PanelMenuStyle],
+    providers: [PanelMenuStyle, { provide: PANELMENU_INSTANCE, useExisting: PanelMenu }, { provide: PARENT_INSTANCE, useExisting: PanelMenu }],
     host: {
-        '[class]': 'cn(cx("root"), styleClass)',
-        'data-pc-section': 'root',
-        'data-pc-name': 'panelmenu'
-    }
+        '[class]': 'cn(cx("root"), styleClass)'
+    },
+    hostDirectives: [Bind]
 })
-export class PanelMenu extends BaseComponent implements AfterContentInit {
+export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
     /**
      * An array of menuitems.
      * @group Props
@@ -918,12 +971,29 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(PanelMenuStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcPanelMenu: PanelMenu | undefined = inject(PANELMENU_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    getPTOptions(key: string, item: any, index: number) {
+        return this.ptm(key, {
+            context: {
+                item: item,
+                index,
+                active: this.isItemActive(item)
+            }
+        });
+    }
+
+    onInit() {
         this.id = this.id || uuid('pn_id_');
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'submenuicon':
@@ -1013,8 +1083,8 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 
     updateFocusedHeader(event) {
         const { originalEvent, focusOnNext, selfCheck } = event;
-        const panelElement = originalEvent.currentTarget.closest('[data-pc-section="panel"]');
-        const header = selfCheck ? findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
+        const panelElement = originalEvent.currentTarget.closest('.p-panelmenu-panel');
+        const header = selfCheck ? findSingle(panelElement, '.p-panelmenu-header') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
 
         header ? this.changeFocusedHeader(originalEvent, header) : focusOnNext ? this.onHeaderHomeKey(originalEvent) : this.onHeaderEndKey(originalEvent);
     }
@@ -1025,24 +1095,24 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 
     findNextHeader(panelElement, selfCheck = false) {
         const nextPanelElement = selfCheck ? panelElement : panelElement.nextElementSibling;
-        const headerElement = findSingle(nextPanelElement, '[data-pc-section="header"]');
+        const headerElement = findSingle(nextPanelElement, '.p-panelmenu-header');
 
         return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
     }
 
     findPrevHeader(panelElement, selfCheck = false) {
         const prevPanelElement = selfCheck ? panelElement : panelElement.previousElementSibling;
-        const headerElement = findSingle(prevPanelElement, '[data-pc-section="header"]');
+        const headerElement = findSingle(prevPanelElement, '.p-panelmenu-header');
 
         return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
     }
 
     findFirstHeader() {
-        return this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true);
+        return this.containerViewChild?.nativeElement ? this.findNextHeader(this.containerViewChild.nativeElement.firstElementChild, true) : null;
     }
 
     findLastHeader() {
-        return this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true);
+        return this.containerViewChild?.nativeElement ? this.findPrevHeader(this.containerViewChild.nativeElement.lastElementChild, true) : null;
     }
 
     onHeaderClick(event, item, index) {
@@ -1099,7 +1169,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     onHeaderArrowDownKey(event) {
-        const rootList = getAttribute(event.currentTarget, 'data-p-highlight') === true ? <any>findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="menu"]') : null;
+        const rootList = getAttribute(event.currentTarget, 'data-p-highlight') === true ? <any>findSingle(event.currentTarget.nextElementSibling, 'ul.p-panelmenu-root-list') : null;
 
         rootList ? focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
         event.preventDefault();
@@ -1107,7 +1177,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
 
     onHeaderArrowUpKey(event) {
         const prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
-        const rootList = getAttribute(prevHeader, 'data-p-highlight') === true ? <any>findSingle(prevHeader.nextElementSibling, '[data-pc-section="menu"]') : null;
+        const rootList = getAttribute(prevHeader, 'data-p-highlight') === true ? <any>findSingle(prevHeader.nextElementSibling, 'ul.p-panelmenu-root-list') : null;
 
         rootList ? focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
         event.preventDefault();
@@ -1124,7 +1194,7 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
     }
 
     onHeaderEnterKey(event, item, index) {
-        const headerAction = <any>findSingle(event.currentTarget, '[data-pc-section="headeraction"]');
+        const headerAction = <any>findSingle(event.currentTarget, 'a.p-panelmenu-header-link');
 
         headerAction ? headerAction.click() : this.onHeaderClick(event, item, index);
         event.preventDefault();

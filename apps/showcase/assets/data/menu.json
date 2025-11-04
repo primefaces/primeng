@@ -393,12 +393,22 @@
                             "routerLink": "/badge"
                         },
                         {
+                            "name": "Bind",
+                            "routerLink": "/bind",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "BlockUI",
                             "routerLink": "/blockui"
                         },
                         {
                             "name": "Chip",
                             "routerLink": "/chip"
+                        },
+                        {
+                            "name": "ClassNames",
+                            "routerLink": "/classnames",
+                            "badge": "NEW"
                         },
                         {
                             "name": "FocusTrap",
@@ -417,14 +427,6 @@
                             "routerLink": "/metergroup"
                         },
                         {
-                            "name": "ScrollTop",
-                            "routerLink": "/scrolltop"
-                        },
-                        {
-                            "name": "Skeleton",
-                            "routerLink": "/skeleton"
-                        },
-                        {
                             "name": "ProgressBar",
                             "routerLink": "/progressbar"
                         },
@@ -435,6 +437,14 @@
                         {
                             "name": "Ripple",
                             "routerLink": "/ripple"
+                        },
+                        {
+                            "name": "ScrollTop",
+                            "routerLink": "/scrolltop"
+                        },
+                        {
+                            "name": "Skeleton",
+                            "routerLink": "/skeleton"
                         },
                         {
                             "name": "StyleClass",
@@ -462,11 +472,6 @@
             ]
         },
         {
-            "name": "Tailwind CSS",
-            "icon": "pi pi-heart",
-            "routerLink": "/tailwind"
-        },
-        {
             "name": "Icons",
             "icon": "pi pi-eye",
             "children": [
@@ -479,6 +484,17 @@
                     "routerLink": "/customicons"
                 }
             ]
+        },
+        {
+            "name": "Pass Through",
+            "icon": "pi pi-directions",
+            "routerLink": "/passthrough",
+            "badge": "NEW"
+        },
+        {
+            "name": "Tailwind CSS",
+            "icon": "pi pi-heart",
+            "routerLink": "/tailwind"
         },
         {
             "name": "Figma UI Kit",
@@ -510,15 +526,19 @@
                 {
                     "name": "Guide",
                     "routerLink": "/designer/guide"
+                },
+                {
+                    "name": "CI Pipeline",
+                    "routerLink": "/designer/ci"
                 }
             ]
 
         },
         {
-            "name": "New PrimeBlocks",
+            "name": "PrimeBlocks",
             "icon": "pi pi-server",
             "href": "https://primeblocks.org",
-            "badge": "Soon"
+            "badge": "NEW"
         },
         {
             "name": "Guides",
@@ -535,6 +555,10 @@
                 {
                     "name": "PrimeTV",
                     "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                },
+                   {
+                    "name": "RTL",
+                    "routerLink": "/guides/rtl"
                 }
             ]
         },
@@ -601,7 +625,7 @@
                 },
                 {
                     "name": "Store",
-                    "href": "https://www.primefaces.org/store/"
+                    "href": "https://primeui.store"
                 },
                 {
                     "name": "Twitter",

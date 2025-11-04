@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/accordion';
+import { style as accordion_style } from '@primeuix/styles/accordion';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${accordion_style}
 
     /*For PrimeNG*/
     .p-accordionpanel:not(.p-accordionpanel-active) > .p-accordioncontent,
@@ -18,6 +18,15 @@ const theme = /*css*/ `
     .p-accordionheader:has(.p-accordionheader-toggle-icon.icon-start) {
         justify-content: flex-start;
         gap: dt('accordion.header.padding');
+    }
+
+    .p-accordioncontent.ng-animating {
+        overflow: hidden;
+    }
+
+    .p-accordionheader.p-ripple {
+        overflow: hidden;
+        position: relative;
     }
 `;
 
@@ -40,7 +49,7 @@ const classes = {
 export class AccordionStyle extends BaseStyle {
     name = 'accordion';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

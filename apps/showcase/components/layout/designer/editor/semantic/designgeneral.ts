@@ -15,7 +15,13 @@ import { FieldsetModule } from 'primeng/fieldset';
         <section class="flex justify-between items-center mb-4 gap-8">
             <div class="flex gap-2 items-center">
                 <span class="text-sm">Primary</span>
-                <input [value]="designerService.resolveColor(designerService.designer().theme.preset.semantic.primary['500'])" (input)="onPrimaryColorChange($event)" type="color" />
+                <input
+                    [value]="designerService.resolveColor(designerService.designer().theme.preset.semantic.primary['500'])"
+                    (input)="onPrimaryColorChange($event)"
+                    type="color"
+                    [disabled]="designerService.isThemeViewOnly()"
+                    [class]="{ '!cursor-not-allowed': designerService.isThemeViewOnly() }"
+                />
             </div>
             <design-color-palette [value]="semantic()?.primary" />
         </section>

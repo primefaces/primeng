@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'usage-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ButtonModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

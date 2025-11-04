@@ -30,10 +30,14 @@
                         ],
                         "stylePreprocessorOptions": {
                             "sass": {
-                                "silenceDeprecations": ["import"]
+                                "silenceDeprecations": [
+                                    "import"
+                                ]
                             }
                         },
-                        "styles": ["assets/styles/global.scss"],
+                        "styles": [
+                            "assets/styles/global.scss"
+                        ],
                         "scripts": [
                             "./node_modules/prismjs/prism.js",
                             "./node_modules/prismjs/components/prism-typescript.js",

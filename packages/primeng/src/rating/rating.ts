@@ -8,6 +8,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
@@ -22,11 +23,17 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
 import { StarFillIcon, StarIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
-import { RatingRateEvent } from './rating.interface';
+import { RatingPassThrough } from 'primeng/types/rating';
+import type { RatingRateEvent } from 'primeng/types/rating';
 import { RatingStyle } from './style/ratingstyle';
+
+const RATING_INSTANCE = new InjectionToken<Rating>('RATING_INSTANCE');
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -39,12 +46,12 @@ export const RATING_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'p-rating',
-    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, SharedModule],
+    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, SharedModule, BindModule],
     standalone: true,
     template: `
         <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
-            <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)">
-                <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+            <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)" [pBind]="ptm('option')">
+                <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true" [pBind]="ptm('hiddenOptionInputContainer')">
                     <input
                         type="radio"
                         [value]="star + 1"
@@ -59,36 +66,44 @@ export const RATING_VALUE_ACCESSOR: any = {
                         (blur)="onInputBlur($event)"
                         (change)="onChange($event, star + 1)"
                         [pAutoFocus]="autofocus"
+                        [pBind]="ptm('hiddenOptionInput')"
                     />
                 </span>
                 @if (star + 1 <= value) {
                     @if (onIconTemplate || _onIconTemplate) {
                         <ng-container *ngTemplateOutlet="onIconTemplate || _onIconTemplate; context: { $implicit: star + 1, class: cx('onIcon') }"></ng-container>
                     } @else {
-                        <span [class]="cx('onIcon')" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
-                        <svg data-p-icon="star-fill" *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [class]="cx('onIcon')" [attr.data-pc-section]="'onIcon'" />
+                        <span [class]="cx('onIcon')" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [pBind]="ptm('onIcon')"></span>
+                        <svg data-p-icon="star-fill" *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [class]="cx('onIcon')" [pBind]="ptm('onIcon')" />
                     }
                 } @else {
                     @if (offIconTemplate || _offIconTemplate) {
                         <ng-container *ngTemplateOutlet="offIconTemplate || _offIconTemplate; context: { $implicit: star + 1, class: cx('offIcon') }"></ng-container>
                     } @else {
-                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
-                        <svg data-p-icon="star" *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [class]="cx('offIcon')" [attr.data-pc-section]="'offIcon'" />
+                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [pBind]="ptm('offIcon')"></span>
+                        <svg data-p-icon="star" *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [class]="cx('offIcon')" [pBind]="ptm('offIcon')" />
                     }
                 }
             </div>
         </ng-template>
     `,
-    providers: [RATING_VALUE_ACCESSOR, RatingStyle],
+    providers: [RATING_VALUE_ACCESSOR, RatingStyle, { provide: RATING_INSTANCE, useExisting: Rating }, { provide: PARENT_INSTANCE, useExisting: Rating }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
-        '[attr.data-pc-name]': "'rating'",
-        '[attr.data-pc-section]': "'root'"
-    }
+        '[class]': "cx('root')"
+    },
+    hostDirectives: [Bind]
 })
-export class Rating extends BaseEditableHolder implements OnInit {
+export class Rating extends BaseEditableHolder<RatingPassThrough> {
+    $pcRating: Rating | undefined = inject(RATING_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * When present, changing the value is not possible.
      * @group Props
@@ -171,8 +186,7 @@ export class Rating extends BaseEditableHolder implements OnInit {
 
     _offIconTemplate: TemplateRef<any> | undefined;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.nameattr = this.nameattr || uuid('pn_id_');
         this.starsArray = [];
         for (let i = 0; i < this.stars; i++) {
@@ -180,7 +194,7 @@ export class Rating extends BaseEditableHolder implements OnInit {
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'onicon':
@@ -247,7 +261,7 @@ export class Rating extends BaseEditableHolder implements OnInit {
     }
 
     starAriaLabel(value) {
-        return value === 1 ? this.config.translation.aria.star : this.config.translation.aria.stars.replace(/{star}/g, value);
+        return value === 1 ? this.config.translation.aria?.star : this.config.translation.aria?.stars?.replace(/{star}/g, value);
     }
 
     getIconTemplate(i: number): Nullable<TemplateRef<any>> {

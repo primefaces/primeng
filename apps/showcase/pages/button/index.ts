@@ -1,7 +1,6 @@
 import { AccessibilityDoc } from '@/doc/button/accessibilitydoc';
 import { BadgeDoc } from '@/doc/button/badgedoc';
 import { BasicDoc } from '@/doc/button/basicdoc';
-import { ButtonDocModule } from '@/doc/button/buttondoc.module';
 import { ButtonGroupDoc } from '@/doc/button/buttongroupdoc';
 import { DirectiveDoc } from '@/doc/button/directivedoc';
 import { DisabledDoc } from '@/doc/button/disableddoc';
@@ -18,16 +17,27 @@ import { SeverityDoc } from '@/doc/button/severitydoc';
 import { SizesDoc } from '@/doc/button/sizesdoc';
 import { TemplateDoc } from '@/doc/button/templatedoc';
 import { TextDoc } from '@/doc/button/textdoc';
+import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
-
+import { PTComponent } from '@/doc/button/pt/PTComponent';
 @Component({
     standalone: true,
-    imports: [ButtonDocModule],
+    imports: [AppDoc],
     template: `
-        <app-doc docTitle="Angular Button Component" header="Button" description="Button is an extension to standard button element with icons and theming." [docs]="docs" [apiDocs]="['Button', 'ButtonDirective']" themeDocs="button"></app-doc>
+        <app-doc
+            docTitle="Angular Button Component"
+            header="Button"
+            description="Button is an extension to standard button element with icons and theming."
+            [docs]="docs"
+            [apiDocs]="['Button', 'ButtonDirective']"
+            themeDocs="button"
+            [ptDocs]="ptComponent"
+        ></app-doc>
     `
 })
 export class ButtonDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

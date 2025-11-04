@@ -11,6 +11,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -24,9 +25,15 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
+import { ToggleSwitchPassThrough } from 'primeng/types/toggleswitch';
+import type { ToggleSwitchChangeEvent } from 'primeng/types/toggleswitch';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
-import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
+
+const TOGGLESWITCH_INSTANCE = new InjectionToken<ToggleSwitch>('TOGGLESWITCH_INSTANCE');
 
 /**
  * Context interface for the handle template.
@@ -49,7 +56,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleswitch, p-toggleSwitch, p-toggle-switch',
     standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule],
+    imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <input
             #input
@@ -67,28 +74,36 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [attr.tabindex]="tabindex"
             (focus)="onFocus()"
             (blur)="onBlur()"
-            [attr.data-pc-section]="'hiddenInput'"
             [pAutoFocus]="autofocus"
+            [pBind]="ptm('input')"
         />
-        <div [class]="cx('slider')" [attr.data-pc-section]="'slider'">
-            <div [class]="cx('handle')">
+        <div [class]="cx('slider')" [pBind]="ptm('slider')">
+            <div [class]="cx('handle')" [pBind]="ptm('handle')">
                 @if (handleTemplate || _handleTemplate) {
                     <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
                 }
             </div>
         </div>
     `,
-    providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
+    providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle, { provide: TOGGLESWITCH_INSTANCE, useExisting: ToggleSwitch }, { provide: PARENT_INSTANCE, useExisting: ToggleSwitch }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
-        '[attr.data-pc-name]': "'toggleswitch'",
-        '[attr.data-pc-section]': "'root'"
-    }
+        '[attr.data-pc-name]': "'toggleswitch'"
+    },
+    hostDirectives: [Bind]
 })
-export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit {
+export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
+    $pcToggleSwitch: ToggleSwitch | undefined = inject(TOGGLESWITCH_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -174,7 +189,7 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
         this.onClick(event);
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'handle':

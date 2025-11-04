@@ -84,7 +84,7 @@ const classes = {
 export class GalleriaStyle extends BaseStyle {
     name = 'galleria';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }
