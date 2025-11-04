@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
@@ -12,6 +11,7 @@ import {
     forwardRef,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -139,10 +139,11 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                         <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                     </ng-container>
                 </div>
-                <div [@submenu]="getAnimation(processedItem)">
+                @if (isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)) {
                     <ul
+                        [animate.enter]="!root ? enterAnimation() : undefined"
+                        [animate.leave]="!root ? leaveAnimation() : undefined"
                         pPanelMenuSub
-                        *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
                         [id]="getItemId(processedItem) + '_list'"
                         [panelId]="panelId"
                         [items]="processedItem?.items"
@@ -155,28 +156,10 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                         [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
                         (itemToggle)="onItemToggle($event)"
                     ></ul>
-                </div>
+                }
             </li>
         </ng-template>
     `,
-    animations: [
-        trigger('submenu', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
-    ],
     encapsulation: ViewEncapsulation.None,
     providers: [PanelMenuStyle, { provide: PANELMENUSUB_INSTANCE, useExisting: PanelMenuSub }, { provide: PARENT_INSTANCE, useExisting: PanelMenuSub }],
     host: {
@@ -187,7 +170,8 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
         '[attr.aria-hidden]': '!parentExpanded',
         '(focusin)': 'menuFocus.emit($event)',
         '(focusout)': 'menuBlur.emit($event)',
-        '(keydown)': 'menuKeyDown.emit($event)'
+        '(keydown)': 'menuKeyDown.emit($event)',
+        '[class.p-collapsible-enter]': 'root'
     },
     hostDirectives: [Bind]
 })
@@ -223,6 +207,10 @@ export class PanelMenuSub extends BaseComponent {
     listViewChild: ElementRef = inject(ElementRef);
 
     panelMenu: PanelMenu = inject(forwardRef(() => PanelMenu));
+
+    enterAnimation = computed(() => this.panelMenu.enterAnimation());
+
+    leaveAnimation = computed(() => this.panelMenu.leaveAnimation());
 
     _componentStyle = inject(PanelMenuStyle);
 
@@ -292,10 +280,6 @@ export class PanelMenuSub extends BaseComponent {
 
     isItemGroup(processedItem) {
         return isNotEmpty(processedItem.items);
-    }
-
-    getAnimation(processedItem) {
-        return this.isItemActive(processedItem) ? { value: 'visible', params: { transitionParams: this.transitionOptions, height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 
     getAriaSetSize() {
@@ -850,55 +834,32 @@ export class PanelMenuList extends BaseComponent {
                         </a>
                     </div>
                 </div>
-                <div
-                    *ngIf="isItemGroup(item)"
-                    [class]="cx('contentContainer', { processedItem: item })"
-                    [@rootItem]="getAnimation(item)"
-                    (@rootItem.done)="onToggleDone()"
-                    role="region"
-                    [attr.id]="getContentId(item, i)"
-                    [attr.aria-labelledby]="getHeaderId(item, i)"
-                    [pBind]="ptm('contentContainer')"
-                >
-                    <div [class]="cx('content')" [pBind]="ptm('content')">
-                        <ul
-                            pPanelMenuList
-                            [panelId]="getPanelId(i, item)"
-                            [items]="getItemProp(item, 'items')"
-                            [itemTemplate]="itemTemplate || _itemTemplate"
-                            [transitionOptions]="transitionOptions"
-                            [root]="true"
-                            [activeItem]="activeItem()"
-                            [tabindex]="tabindex"
-                            [parentExpanded]="isItemActive(item)"
-                            (headerFocus)="updateFocusedHeader($event)"
-                            [pt]="pt()"
-                        ></ul>
+                @if (isItemGroup(item)) {
+                    <div [class]="cx('contentContainer', { processedItem: item })" role="region" [attr.id]="getContentId(item, i)" [attr.aria-labelledby]="getHeaderId(item, i)" [pBind]="ptm('contentContainer')">
+                        <div [class]="cx('content')" [pBind]="ptm('content')">
+                            @if (isItemActive(item)) {
+                                <ul
+                                    [animate.enter]="enterAnimation()"
+                                    [animate.leave]="enterAnimation()"
+                                    pPanelMenuList
+                                    [panelId]="getPanelId(i, item)"
+                                    [items]="getItemProp(item, 'items')"
+                                    [itemTemplate]="itemTemplate || _itemTemplate"
+                                    [transitionOptions]="transitionOptions"
+                                    [root]="true"
+                                    [activeItem]="activeItem()"
+                                    [tabindex]="tabindex"
+                                    [parentExpanded]="isItemActive(item)"
+                                    (headerFocus)="updateFocusedHeader($event)"
+                                    [pt]="pt()"
+                                ></ul>
+                            }
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </ng-container>
     `,
-    animations: [
-        trigger('rootItem', [
-            state(
-                'hidden',
-                style({
-                    height: '0',
-                    visibility: 'hidden'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*',
-                    visibility: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [PanelMenuStyle, { provide: PANELMENU_INSTANCE, useExisting: PanelMenu }, { provide: PARENT_INSTANCE, useExisting: PanelMenu }],
@@ -929,6 +890,18 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-collapsible-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | null | undefined>('p-collapsible-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-collapsible-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | null | undefined>('p-collapsible-leave');
     /**
      * Current id state as a string.
      * @group Props
@@ -964,8 +937,6 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
     _headerIconTemplate: TemplateRef<any> | undefined;
 
     _itemTemplate: TemplateRef<any> | undefined;
-
-    public animating: boolean | undefined;
 
     activeItem = signal<any>(null);
 
@@ -1029,20 +1000,11 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
         this.cd.detectChanges();
     }
 
-    onToggleDone() {
-        this.animating = false;
-        this.cd.markForCheck();
-    }
-
     changeActiveItem(event, item, index?: number, selfActive = false) {
         if (!this.isItemDisabled(item)) {
             const activeItem = selfActive ? item : this.activeItem && equals(item, this.activeItem) ? null : item;
             this.activeItem.set(activeItem);
         }
-    }
-
-    getAnimation(item: MenuItem) {
-        return item.expanded ? { value: 'visible', params: { transitionParams: this.animating ? this.transitionOptions : '0ms', height: '*' } } : { value: 'hidden', params: { transitionParams: this.transitionOptions, height: '0' } };
     }
 
     getItemProp(item, name): any {
@@ -1136,7 +1098,6 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
         item.expanded = !item.expanded;
         this.changeActiveItem(event, item, index);
-        this.animating = true;
         focus(event.currentTarget as HTMLElement);
     }
 
