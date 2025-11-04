@@ -1,7 +1,35 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/tieredmenu';
+import { style as tieredmenu_style } from '@primeuix/styles/tieredmenu';
 import { BaseStyle } from 'primeng/base';
+const style = /*css*/ `
+${tieredmenu_style}
 
+/* Animations */
+.p-tieredmenu-overlay {
+    position: absolute;
+    top: 0;
+}
+.p-tieredmenu-enter {
+    animation: p-animate-tieredmenu-enter 120ms linear;
+}
+
+.p-tieredmenu-leave {
+    animation: p-animate-tieredmenu-leave 120ms linear;
+}
+
+@keyframes p-animate-tieredmenu-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
+    }
+}
+
+@keyframes p-animate-tieredmenu-leave {
+    to {
+        opacity: 0;
+    }
+}
+`;
 const inlineStyles = {
     submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'flex' : 'none' })
 };
