@@ -26,6 +26,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                 [attr.aria-live]="'polite'"
                 [class]="cn(cx('root'), styleClass)"
                 [attr.role]="'alert'"
+                []
                 [@messageAnimation]="{
                     value: 'visible()',
                     params: {
