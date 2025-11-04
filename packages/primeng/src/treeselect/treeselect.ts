@@ -1,8 +1,5 @@
-import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -117,8 +114,8 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             [pt]="ptm('pcOverlay')"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onBeforeHide)="onOverlayBeforeHide($event)"
+            (onAnimationStart)="onOverlayAnimationStart()"
+            (onBeforeHide)="onOverlayBeforeHide()"
             (onShow)="onShow.emit($event)"
             (onHide)="hide($event)"
         >
@@ -702,24 +699,20 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         });
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                if (this.filter) {
-                    isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
-                    this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
-                } else {
-                    let focusableElements = <any>getFocusableElements(this.panelEl?.nativeElement!);
+    onOverlayAnimationStart() {
+        if (this.filter) {
+            isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
+            this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
+        } else {
+            let focusableElements = <any>getFocusableElements(this.panelEl?.nativeElement!);
 
-                    if (focusableElements && focusableElements.length > 0) {
-                        focusableElements[0].focus();
-                    }
-                }
-                break;
+            if (focusableElements && focusableElements.length > 0) {
+                focusableElements[0].focus();
+            }
         }
     }
 
-    onOverlayBeforeHide(event: any) {
+    onOverlayBeforeHide() {
         let focusableElements = <any>getFocusableElements(this.el.nativeElement);
 
         if (focusableElements && focusableElements.length > 0) {

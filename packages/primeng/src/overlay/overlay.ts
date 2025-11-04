@@ -500,6 +500,7 @@ export class Overlay extends BaseComponent {
     }
 
     onOverlayLeave(event: Event) {
+        this.handleEvents('onBeforeHide', event);
         const container = this.overlayEl || event.target;
         this.hide(container, true);
         this.modalVisible = false;

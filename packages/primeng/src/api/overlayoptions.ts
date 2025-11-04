@@ -1,5 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
-
 /**
  * Represents the type of overlay mode, which can be 'modal', 'overlay', or undefined.
  * @group Types

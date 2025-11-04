@@ -1,4 +1,3 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     booleanAttribute,
@@ -433,7 +432,6 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
             </div>
         }
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [TieredMenuStyle, { provide: TIEREDMENU_INSTANCE, useExisting: TieredMenu }, { provide: PARENT_INSTANCE, useExisting: TieredMenu }],
@@ -1055,9 +1053,9 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         }
     }
 
-    onOverlayAnimationEnd(event: AnimationEvent) {
+    onOverlayAnimationEnd(event: any) {
         if (!this.visible && this.popup) {
-            ZIndexUtils.clear(event.element);
+            ZIndexUtils.clear(event.target);
             this.onOverlayHide();
             this.onHide.emit({});
         }
