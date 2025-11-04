@@ -1,4 +1,3 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     booleanAttribute,
@@ -11,6 +10,7 @@ import {
     HostListener,
     inject,
     InjectionToken,
+    input,
     Input,
     KeyValueDiffers,
     NgModule,
@@ -47,26 +47,25 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
             <div *ngIf="maskVisible" #mask [pBind]="ptm('mask')" [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined" (click)="onMaskHide($event)">
-                <div
-                    pGalleriaContent
-                    *ngIf="visible"
-                    [@animation]="{
-                        value: 'visible',
-                        params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-                    }"
-                    (@animation.start)="onAnimationStart($event)"
-                    (@animation.done)="onAnimationEnd($event)"
-                    [value]="value"
-                    [activeIndex]="activeIndex"
-                    [numVisible]="numVisibleLimit || numVisible"
-                    (maskHide)="onMaskHide()"
-                    (activeItemChange)="onActiveItemChange($event)"
-                    [ngStyle]="containerStyle"
-                    [fullScreen]="fullScreen"
-                    [pt]="pt()"
-                    pFocusTrap
-                    [pFocusTrapDisabled]="!fullScreen"
-                ></div>
+                @if (visible) {
+                    <div
+                        pGalleriaContent
+                        [animate.enter]="enterAnimation()"
+                        [animate.leave]="leaveAnimation()"
+                        (animationstart)="onAnimationStart($event)"
+                        (animationend)="onAnimationEnd($event)"
+                        [value]="value"
+                        [activeIndex]="activeIndex"
+                        [numVisible]="numVisibleLimit || numVisible"
+                        (maskHide)="onMaskHide()"
+                        (activeItemChange)="onActiveItemChange($event)"
+                        [ngStyle]="containerStyle"
+                        [fullScreen]="fullScreen"
+                        [pt]="pt()"
+                        pFocusTrap
+                        [pFocusTrapDisabled]="!fullScreen"
+                    ></div>
+                }
             </div>
         </div>
 
@@ -74,12 +73,6 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
             <div pGalleriaContent [pt]="pt()" [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></div>
         </ng-template>
     `,
-    animations: [
-        trigger('animation', [
-            transition('void => visible', [style({ transform: 'scale(0.7)', opacity: 0 }), animate('{{showTransitionParams}}')]),
-            transition('visible => void', [animate('{{hideTransitionParams}}', style({ transform: 'scale(0.7)', opacity: 0 }))])
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [GalleriaStyle, { provide: GALLERIA_INSTANCE, useExisting: Galleria }, { provide: PARENT_INSTANCE, useExisting: Galleria }],
@@ -229,6 +222,18 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-galleria-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | undefined | null>('p-galleria-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-galleria-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | undefined | null>('p-galleria-leave');
     /**
      * Specifies the visibility of the mask on fullscreen mode.
      * @group Props
@@ -381,27 +386,20 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         }
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.enableModality();
-                setTimeout(() => {
-                    const focusTarget = findSingle(this.container?.nativeElement, '[data-pc-section="closebutton"]');
-                    if (focusTarget) focus(focusTarget as HTMLElement);
-                }, 25);
-                break;
-
-            case 'void':
-                addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
-                break;
+    onAnimationStart(event: any) {
+        if (this.visible) {
+            this.enableModality();
+            setTimeout(() => {
+                const focusTarget = findSingle(this.container?.nativeElement, '[data-pc-section="closebutton"]');
+                if (focusTarget) focus(focusTarget as HTMLElement);
+            }, 25);
         }
     }
 
-    onAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                this.disableModality();
-                break;
+    onAnimationEnd(event: any) {
+        if (!this.visible) {
+            addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
+            this.disableModality();
         }
     }
 
