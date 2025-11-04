@@ -1,6 +1,6 @@
 {
-    "id": 90,
-    "content": "Introducing CI Pipeline for Figma to Theme Code ⭐️",
+    "id": 91,
+    "content": "PassThrough Attributes just landed ✅",
     "linkText": "Learn More",
-    "routerLink": "/designer/ci"
+    "routerLink": "/passthrough"
 }
