@@ -185,6 +185,11 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      * @group Props
      */
     templates?: DynamicDialogTemplates;
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @group Props
+     */
+    unstyled?: boolean;
 }
 
 /**
