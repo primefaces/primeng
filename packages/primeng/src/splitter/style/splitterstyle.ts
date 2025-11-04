@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/splitter';
+import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: ({ instance }) => ['p-splitter p-component', 'p-splitter-' + instance.layout],
@@ -17,7 +17,7 @@ const inlineStyles = {
 export class SplitterStyle extends BaseStyle {
     name = 'splitter';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

@@ -8,7 +8,7 @@ import { Select } from 'primeng/select';
 import { InputNumber } from 'primeng/inputnumber';
 import { Ripple } from 'primeng/ripple';
 import { SharedModule } from 'primeng/api';
-import { PaginatorState } from './paginator.interface';
+import { PaginatorState } from 'primeng/types/paginator';
 
 // Test component for basic paginator functionality
 @Component({

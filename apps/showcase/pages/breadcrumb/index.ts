@@ -3,6 +3,7 @@ import { BasicDoc } from '@/doc/breadcrumb/basicdoc';
 import { ImportDoc } from '@/doc/breadcrumb/importdoc';
 import { RouterDoc } from '@/doc/breadcrumb/routerdoc';
 import { TemplateDoc } from '@/doc/breadcrumb/templatedoc';
+import { PTComponent } from '@/doc/breadcrumb/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
@@ -10,10 +11,19 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: [AppDoc],
     template: `
-        <app-doc docTitle="Angular Breadcrumb Component" header="Breadcrumb" description="Breadcrumb provides contextual information about page hierarchy." [docs]="docs" [apiDocs]="['Breadcrumb', 'MenuItem']" themeDocs="Breadcrumb"></app-doc>
+        <app-doc
+            docTitle="Angular Breadcrumb Component"
+            header="Breadcrumb"
+            description="Breadcrumb provides contextual information about page hierarchy."
+            [docs]="docs"
+            [apiDocs]="['Breadcrumb', 'MenuItem']"
+            [ptDocs]="ptComponent"
+            themeDocs="Breadcrumb"
+        ></app-doc>
     `
 })
 export class BreadcrumbDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

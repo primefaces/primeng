@@ -1,12 +1,16 @@
 import { isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, computed, Directive, ElementRef, inject, input, Input, NgModule, NgZone, numberAttribute, OnDestroy, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { appendChild, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
+import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
+
+const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 
 /**
  * Tooltip directive provides advisory information for a component.
@@ -15,9 +19,11 @@ import { TooltipStyle } from './style/tooltipstyle';
 @Directive({
     selector: '[pTooltip]',
     standalone: true,
-    providers: [TooltipStyle]
+    providers: [TooltipStyle, { provide: TOOLTIP_INSTANCE, useExisting: Tooltip }, { provide: PARENT_INSTANCE, useExisting: Tooltip }]
 })
-export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
+export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
+    $pcTooltip: Tooltip | undefined = inject(TOOLTIP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     /**
      * Position of the tooltip.
      * @group Props
@@ -147,6 +153,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     tooltipText: any;
 
+    rootPTClasses: string = '';
+
     showTimeout: any;
 
     hideTimeout: any;
@@ -175,15 +183,19 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     interactionInProgress = false;
 
+    ptTooltip = input<any>();
+
     constructor(
         public zone: NgZone,
         private viewContainer: ViewContainerRef
     ) {
         super();
+        effect(() => {
+            this.ptTooltip() && this.directivePT.set(this.ptTooltip());
+        });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 const tooltipEvent = this.getOption('tooltipEvent');
@@ -213,8 +225,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         if (simpleChange.tooltipPosition) {
             this.setOption({ tooltipPosition: simpleChange.tooltipPosition.currentValue });
         }
@@ -395,17 +406,10 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
             this.remove();
         }
 
-        this.container = document.createElement('div');
-        this.container.setAttribute('id', this.getOption('id'));
-        this.container.setAttribute('role', 'tooltip');
-
-        let tooltipArrow = document.createElement('div');
-        tooltipArrow.className = 'p-tooltip-arrow';
-        tooltipArrow.setAttribute('data-pc-section', 'arrow');
+        this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
+        let tooltipArrow = createElement('div', { class: 'p-tooltip-arrow', 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
         this.container.appendChild(tooltipArrow);
-
-        this.tooltipText = document.createElement('div');
-        this.tooltipText.className = 'p-tooltip-text';
+        this.tooltipText = createElement('div', { class: 'p-tooltip-text', 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
 
         this.updateText();
 
@@ -483,7 +487,6 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         if (this.getOption('tooltipZIndex') === 'auto') {
             ZIndexUtils.clear(this.container);
         }
-
         this.remove();
     }
 
@@ -623,9 +626,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     preAlign(position: string) {
         this.container.style.left = -999 + 'px';
         this.container.style.top = -999 + 'px';
-
-        let defaultClassName = 'p-tooltip p-component p-tooltip-' + position;
-        this.container.className = this.getOption('tooltipStyleClass') ? defaultClassName + ' ' + this.getOption('tooltipStyleClass') : defaultClassName;
+        this.container.className = this.cn(this.cx('root'), this.ptm('root')?.class, 'p-tooltip-' + position, this.getOption('tooltipStyleClass'));
     }
 
     isOutOfBounds(): boolean {
@@ -730,9 +731,8 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
         this.clearHideTimeout();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindEvents();
-        super.ngOnDestroy();
 
         if (this.container) {
             ZIndexUtils.clear(this.container);
@@ -752,7 +752,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [Tooltip],
-    exports: [Tooltip]
+    imports: [Tooltip, BindModule],
+    exports: [Tooltip, BindModule]
 })
 export class TooltipModule {}

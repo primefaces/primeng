@@ -1,3 +1,3 @@
+export * from 'primeng/types/multiselect';
 export * from './multiselect';
-export * from './multiselect.interface';
 export * from './style/multiselectstyle';

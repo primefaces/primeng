@@ -45,7 +45,7 @@ const classes = {
 export class SpeedDialStyle extends BaseStyle {
     name = 'speeddial';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core
 import { Component, DebugElement } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Knob } from './knob';
+import { providePrimeNG } from 'primeng/config';
 
 // Temel test component'i
 @Component({
@@ -777,5 +779,444 @@ describe('Knob', () => {
             expect(duration).toBeLessThan(1000);
             flush();
         }));
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+            })
+            class TestPTCase1Component {
+                value: number = 50;
+                pt = {
+                    host: 'HOST_CLASS',
+                    root: 'ROOT_CLASS',
+                    svg: 'SVG_CLASS',
+                    range: 'RANGE_CLASS',
+                    value: 'VALUE_CLASS',
+                    text: 'TEXT_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase1Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
+                    expect(hostEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+                }
+
+                const svgEl = testFixture.debugElement.query(By.css('svg'));
+                if (svgEl) {
+                    expect(svgEl.nativeElement.classList.contains('SVG_CLASS')).toBe(true);
+                }
+
+                const rangePath = testFixture.debugElement.query(By.css('[data-pc-section="range"]'));
+                if (rangePath) {
+                    expect(rangePath.nativeElement.classList.contains('RANGE_CLASS')).toBe(true);
+                }
+
+                const valuePath = testFixture.debugElement.query(By.css('[data-pc-section="value"]'));
+                if (valuePath) {
+                    expect(valuePath.nativeElement.classList.contains('VALUE_CLASS')).toBe(true);
+                }
+
+                const textEl = testFixture.debugElement.query(By.css('[data-pc-section="text"]'));
+                if (textEl) {
+                    expect(textEl.nativeElement.classList.contains('TEXT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 2: Object with class, style, data attributes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+            })
+            class TestPTCase2Component {
+                value: number = 50;
+                pt = {
+                    host: {
+                        class: 'OBJECT_HOST_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'test-value'
+                    },
+                    svg: {
+                        class: 'SVG_OBJECT_CLASS',
+                        'data-p-custom': 'custom-value'
+                    },
+                    range: {
+                        class: 'RANGE_OBJECT_CLASS'
+                    }
+                };
+            }
+
+            it('should apply object properties to PT sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase2Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('OBJECT_HOST_CLASS')).toBe(true);
+                    expect(hostEl.nativeElement.style.backgroundColor).toBe('red');
+                    expect(hostEl.nativeElement.getAttribute('data-p-test')).toBe('test-value');
+                }
+
+                const svgEl = testFixture.debugElement.query(By.css('svg'));
+                if (svgEl) {
+                    expect(svgEl.nativeElement.classList.contains('SVG_OBJECT_CLASS')).toBe(true);
+                    expect(svgEl.nativeElement.getAttribute('data-p-custom')).toBe('custom-value');
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+            })
+            class TestPTCase3Component {
+                value: number = 50;
+                pt = {
+                    host: 'MIXED_HOST_CLASS',
+                    svg: {
+                        class: 'MIXED_SVG_CLASS',
+                        style: { color: 'blue' }
+                    },
+                    range: 'MIXED_RANGE_CLASS'
+                };
+            }
+
+            it('should apply mixed object and string values', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase3Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('MIXED_HOST_CLASS')).toBe(true);
+                }
+
+                const svgEl = testFixture.debugElement.query(By.css('svg'));
+                if (svgEl) {
+                    expect(svgEl.nativeElement.classList.contains('MIXED_SVG_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [min]="0" [max]="100" [showValue]="true" [pt]="pt"></p-knob>`
+            })
+            class TestPTCase4Component {
+                value: number = 75;
+                pt = {
+                    host: ({ instance }: any) => {
+                        return {
+                            class: instance?.value > 50 ? 'HIGH_VALUE_CLASS' : 'LOW_VALUE_CLASS'
+                        };
+                    },
+                    text: ({ instance }: any) => {
+                        return {
+                            style: {
+                                fill: instance?.value > 50 ? 'green' : 'red'
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase4Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+                if (hostEl) {
+                    const hasHighValue = hostEl.nativeElement.classList.contains('HIGH_VALUE_CLASS');
+                    const hasLowValue = hostEl.nativeElement.classList.contains('LOW_VALUE_CLASS');
+                    expect(hasHighValue || hasLowValue).toBe(true);
+                }
+
+                const textEl = testFixture.debugElement.query(By.css('[data-pc-section="text"]'));
+                if (textEl) {
+                    const fillColor = textEl.nativeElement.getAttribute('fill');
+                    expect(fillColor).toBeTruthy();
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+            })
+            class TestPTCase5Component {
+                value: number = 50;
+                clickedSection: string = '';
+                pt = {
+                    host: {
+                        onclick: () => {
+                            this.clickedSection = 'host';
+                        }
+                    },
+                    svg: {
+                        onclick: () => {
+                            this.clickedSection = 'svg';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase5Component]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                tick();
+
+                const svgEl = testFixture.debugElement.query(By.css('svg'));
+                if (svgEl) {
+                    const clickEvent = new MouseEvent('click');
+                    svgEl.nativeElement.dispatchEvent(clickEvent);
+                    testFixture.detectChanges();
+                    expect(component.clickedSection).toBeTruthy();
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 6: Inline PT', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', svg: 'INLINE_SVG_CLASS' }"></p-knob>`
+            })
+            class TestPTCase6InlineComponent {
+                value: number = 50;
+            }
+
+            it('should apply inline PT as string', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase6InlineComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, svg: { class: 'SVG_INLINE_CLASS' } }"></p-knob>`
+            })
+            class TestPTCase6InlineObjectComponent {
+                value: number = 50;
+            }
+
+            it('should apply inline PT as object', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase6InlineObjectComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value"></p-knob>`
+            })
+            class TestPTCase7GlobalComponent {
+                value: number = 50;
+            }
+
+            it('should apply global PT from config', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase7GlobalComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                knob: {
+                                    host: 'GLOBAL_HOST_CLASS',
+                                    svg: 'GLOBAL_SVG_CLASS'
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
+                }
+
+                flush();
+            }));
+        });
+
+        describe('Case 8: PT Hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+            })
+            class TestPTCase8HooksComponent {
+                value: number = 50;
+                hooksCalled: string[] = [];
+                pt = {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.hooksCalled.push('onAfterViewInit');
+                        },
+                        onAfterViewChecked: () => {
+                            this.hooksCalled.push('onAfterViewChecked');
+                        },
+                        onDestroy: () => {
+                            this.hooksCalled.push('onDestroy');
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCase8HooksComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                tick();
+
+                expect(component.hooksCalled.some((h) => h.includes('onAfterView'))).toBe(true);
+
+                testFixture.destroy();
+                tick();
+
+                flush();
+            }));
+        });
+
+        describe('PT Section Coverage', () => {
+            @Component({
+                standalone: false,
+                template: `<p-knob [(ngModel)]="value" [showValue]="true" [pt]="pt"></p-knob>`
+            })
+            class TestPTCoverageComponent {
+                value: number = 50;
+                pt = {
+                    host: 'PT_HOST',
+                    root: 'PT_ROOT',
+                    svg: 'PT_SVG',
+                    range: 'PT_RANGE',
+                    value: 'PT_VALUE',
+                    text: 'PT_TEXT'
+                };
+            }
+
+            it('should apply PT to all sections', fakeAsync(async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    declarations: [TestPTCoverageComponent]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCoverageComponent);
+                testFixture.detectChanges();
+                tick();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+                expect(hostEl).toBeTruthy();
+                if (hostEl) {
+                    expect(hostEl.nativeElement.getAttribute('data-pc-name')).toBe('knob');
+                }
+
+                const svgEl = testFixture.debugElement.query(By.css('[data-pc-section="svg"]'));
+                expect(svgEl).toBeTruthy();
+
+                const rangeEl = testFixture.debugElement.query(By.css('[data-pc-section="range"]'));
+                expect(rangeEl).toBeTruthy();
+
+                const valueEl = testFixture.debugElement.query(By.css('[data-pc-section="value"]'));
+                expect(valueEl).toBeTruthy();
+
+                const textEl = testFixture.debugElement.query(By.css('[data-pc-section="text"]'));
+                expect(textEl).toBeTruthy();
+
+                flush();
+            }));
+        });
     });
 });

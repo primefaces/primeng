@@ -1,3 +1,3 @@
+export * from 'primeng/types/selectbutton';
 export * from './selectbutton';
-export * from './selectbutton.interface';
 export * from './style/selectbuttonstyle';

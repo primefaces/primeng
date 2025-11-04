@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, Input } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -116,6 +116,26 @@ class TestCustomIconAccordionComponent {
     value: string | undefined = undefined as any;
 }
 
+@Component({
+    standalone: true,
+    imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
+    template: `
+        <p-accordion [value]="'tab1'" [pt]="pt">
+            <p-accordion-panel [value]="'tab1'">
+                <p-accordion-header>PT Test Header 1</p-accordion-header>
+                <p-accordion-content>PT Test Content 1</p-accordion-content>
+            </p-accordion-panel>
+            <p-accordion-panel [value]="'tab2'">
+                <p-accordion-header>PT Test Header 2</p-accordion-header>
+                <p-accordion-content>PT Test Content 2</p-accordion-content>
+            </p-accordion-panel>
+        </p-accordion>
+    `
+})
+class TestPTAccordionComponent {
+    @Input() pt: any;
+}
+
 describe('Accordion', () => {
     let fixture: ComponentFixture<TestAccordionComponent>;
     let component: TestAccordionComponent;
@@ -124,7 +144,7 @@ describe('Accordion', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TestAccordionComponent, TestDynamicAccordionComponent, TestCustomIconAccordionComponent]
+            imports: [NoopAnimationsModule, TestAccordionComponent, TestDynamicAccordionComponent, TestCustomIconAccordionComponent, TestPTAccordionComponent]
         });
 
         fixture = TestBed.createComponent(TestAccordionComponent);
@@ -876,5 +896,130 @@ describe('Accordion', () => {
 
             expect(panels[0].nativeElement.getAttribute('data-p-disabled')).toBe('true');
         });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTAccordionComponent>;
+        let ptComponent: TestPTAccordionComponent;
+        let ptAccordion: Accordion;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTAccordionComponent);
+            ptComponent = ptFixture.componentInstance;
+        });
+
+        it('should apply simple string classes to PT sections', fakeAsync(() => {
+            ptComponent.pt = {
+                root: 'ROOT_CLASS'
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            const classList = accordionEl.nativeElement.className;
+
+            expect(classList).toContain('ROOT_CLASS');
+
+            flush();
+        }));
+
+        it('should apply object-based PT options with class and attributes', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    'data-test': 'accordion-test',
+                    'aria-label': 'PT Accordion Label',
+                    'data-role': 'accordion-role'
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+
+            expect(accordionEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(accordionEl.nativeElement.getAttribute('data-test')).toBe('accordion-test');
+            expect(accordionEl.nativeElement.getAttribute('aria-label')).toBe('PT Accordion Label');
+            expect(accordionEl.nativeElement.getAttribute('data-role')).toBe('accordion-role');
+
+            flush();
+        }));
+
+        it('should apply mixed object and string PT values', fakeAsync(() => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    'data-custom': 'custom-value'
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+
+            expect(accordionEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(accordionEl.nativeElement.getAttribute('data-custom')).toBe('custom-value');
+
+            flush();
+        }));
+
+        it('should use instance variables in PT functions', fakeAsync(() => {
+            ptComponent.pt = {
+                root: ({ instance }) => {
+                    return {
+                        class: instance?.multiple() ? 'MULTIPLE' : 'SINGLE',
+                        'data-select-on-focus': instance?.selectOnFocus()
+                    };
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            ptAccordion = ptFixture.debugElement.query(By.directive(Accordion)).componentInstance;
+
+            expect(accordionEl.nativeElement.className).toContain('SINGLE');
+            expect(accordionEl.nativeElement.getAttribute('data-select-on-focus')).toBe('false');
+
+            flush();
+        }));
+
+        it('should handle event binding in PT options', fakeAsync(() => {
+            let clicked = false;
+            ptComponent.pt = {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            accordionEl.nativeElement.click();
+
+            expect(clicked).toBe(true);
+
+            flush();
+        }));
+
+        it('should apply PT options using setInput', fakeAsync(() => {
+            ptFixture.componentRef.setInput('pt', { root: 'SETINPUT_ROOT_CLASS' });
+            ptFixture.detectChanges();
+            tick();
+            ptFixture.detectChanges();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+
+            expect(accordionEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
+
+            flush();
+        }));
     });
 });

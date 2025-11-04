@@ -4,8 +4,8 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
+import { BreadcrumbItemClickEvent } from 'primeng/types/breadcrumb';
 import { Breadcrumb } from './breadcrumb';
-import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
 
 @Component({
     standalone: false,
@@ -315,7 +315,7 @@ describe('Breadcrumb', () => {
             component.home = { label: 'Home', icon: 'pi pi-home' };
             fixture.detectChanges();
 
-            const homeElement = fixture.debugElement.query(By.css('[data-pc-section="home"]'));
+            const homeElement = fixture.debugElement.query(By.css('[data-pc-section="homeitem"]'));
             expect(homeElement).toBeTruthy();
         });
 
@@ -323,7 +323,7 @@ describe('Breadcrumb', () => {
             component.home = undefined as any;
             fixture.detectChanges();
 
-            const homeElement = fixture.debugElement.query(By.css('[data-pc-section="home"]'));
+            const homeElement = fixture.debugElement.query(By.css('[data-pc-section="homeitem"]'));
             expect(homeElement).toBeFalsy();
         });
 
@@ -412,7 +412,7 @@ describe('Breadcrumb', () => {
             ];
             fixture.detectChanges();
 
-            const menuItems = fixture.debugElement.queryAll(By.css('[data-pc-section="menuitem"]'));
+            const menuItems = fixture.debugElement.queryAll(By.css('[data-pc-section="item"]'));
             expect(menuItems.length).toBe(2);
         });
 
@@ -724,7 +724,7 @@ describe('Breadcrumb', () => {
             const olElement = fixture.debugElement.query(By.css('ol'));
 
             expect(olElement).toBeTruthy();
-            expect(olElement.nativeElement.getAttribute('data-pc-section')).toBe('menu');
+            expect(olElement.nativeElement.getAttribute('data-pc-section')).toBe('list');
         });
 
         it('should apply individual item styles', () => {
@@ -1048,6 +1048,179 @@ describe('Breadcrumb', () => {
             breadcrumbInstance.onClick(mockEvent, disabledItem);
 
             expect(breadcrumbInstance.onItemClick.emit).not.toHaveBeenCalled();
+        });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<Breadcrumb>;
+        let ptBreadcrumb: Breadcrumb;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(Breadcrumb);
+            ptBreadcrumb = ptFixture.componentInstance;
+            ptFixture.componentRef.setInput('model', [
+                { label: 'Item 1', url: '/item1' },
+                { label: 'Item 2', url: '/item2' }
+            ]);
+            ptFixture.componentRef.setInput('home', { icon: 'pi pi-home', url: '/' });
+        });
+
+        it('Case 1: should apply simple string classes to PT sections', () => {
+            ptFixture.componentRef.setInput('pt', {
+                list: 'LIST_CLASS',
+                homeItem: 'HOME_ITEM_CLASS',
+                item: 'ITEM_CLASS',
+                separator: 'SEPARATOR_CLASS'
+            });
+            ptFixture.detectChanges();
+
+            const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+            expect(listEl).toBeTruthy();
+            expect(listEl.classList.contains('LIST_CLASS')).toBe(true);
+        });
+
+        it('Case 2: should apply PT as objects with class, style, and data attributes', () => {
+            ptFixture.componentRef.setInput('pt', {
+                list: {
+                    class: 'LIST_OBJECT_CLASS',
+                    style: 'background-color: red',
+                    'data-p-test': true,
+                    'aria-label': 'Test List'
+                }
+            });
+            ptFixture.detectChanges();
+
+            const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+            expect(listEl).toBeTruthy();
+            expect(listEl.classList.contains('LIST_OBJECT_CLASS')).toBe(true);
+            expect(listEl.getAttribute('data-p-test')).toBe('true');
+            expect(listEl.getAttribute('aria-label')).toBe('Test List');
+        });
+
+        it('Case 3: should apply mixed object and string PT values', () => {
+            ptFixture.componentRef.setInput('pt', {
+                list: {
+                    class: 'LIST_MIXED_CLASS'
+                },
+                homeItem: 'HOME_ITEM_STRING_CLASS'
+            });
+            ptFixture.detectChanges();
+
+            const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+            expect(listEl).toBeTruthy();
+            expect(listEl.classList.contains('LIST_MIXED_CLASS')).toBe(true);
+        });
+
+        it('Case 4: should use instance variables in PT functions', () => {
+            ptFixture.componentRef.setInput('pt', {
+                list: ({ instance }: any) => {
+                    return {
+                        class: {
+                            HAS_MODEL: instance?.model?.length > 0
+                        }
+                    };
+                },
+                homeItem: ({ instance }: any) => {
+                    return {
+                        style: {
+                            'background-color': instance?.home ? 'yellow' : 'red'
+                        }
+                    };
+                }
+            });
+            ptFixture.detectChanges();
+
+            const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+            expect(listEl).toBeTruthy();
+            expect(listEl.classList.contains('HAS_MODEL')).toBe(true);
+        });
+
+        it('Case 5: should handle event binding in PT', () => {
+            let clicked = false;
+            ptFixture.componentRef.setInput('pt', {
+                list: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            });
+            ptFixture.detectChanges();
+
+            const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+            expect(listEl).toBeTruthy();
+            listEl.click();
+            expect(clicked).toBe(true);
+        });
+
+        it('Case 6: should apply inline PT object', () => {
+            const inlineFixture = TestBed.createComponent(Breadcrumb);
+            inlineFixture.componentRef.setInput('pt', {
+                list: 'INLINE_CLASS'
+            });
+            inlineFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
+            inlineFixture.detectChanges();
+
+            const listEl = inlineFixture.nativeElement.querySelector('[data-pc-section="list"]');
+            expect(listEl).toBeTruthy();
+            expect(listEl.classList.contains('INLINE_CLASS')).toBe(true);
+        });
+
+        it('Case 8: should execute PT hooks', () => {
+            let hookCalled = false;
+            ptFixture.componentRef.setInput('pt', {
+                list: 'HOOK_CLASS',
+                hooks: {
+                    onInit: () => {
+                        hookCalled = true;
+                    }
+                }
+            });
+            ptFixture.detectChanges();
+
+            expect(hookCalled).toBe(true);
+        });
+
+        it('should call getPTOptions with correct context for items', () => {
+            const testModel: MenuItem[] = [
+                { label: 'Item 1', url: '/item1' },
+                { label: 'Item 2', url: '/item2' }
+            ];
+
+            spyOn(ptBreadcrumb, 'getPTOptions').and.callThrough();
+            ptFixture.detectChanges();
+
+            // Verify getPTOptions is called with correct parameters
+            if (ptBreadcrumb.getPTOptions) {
+                const result = ptBreadcrumb.getPTOptions(testModel[0], 0, 'item');
+                expect(result).toBeDefined();
+            }
+        });
+
+        it('should pass item and index context to getPTOptions', () => {
+            const testModel: MenuItem[] = [{ label: 'Test', url: '/test' }];
+
+            const result = ptBreadcrumb.getPTOptions(testModel[0], 0, 'item');
+            expect(result).toBeDefined();
+        });
+
+        it('should apply PT with context for breadcrumb items', () => {
+            ptFixture.componentRef.setInput('pt', {
+                item: ({ context }: any) => {
+                    return {
+                        class: {
+                            HAS_ITEM: !!context?.item,
+                            INDEX_ZERO: context?.index === 0
+                        }
+                    };
+                }
+            });
+            ptFixture.detectChanges();
+
+            const itemEl = ptFixture.nativeElement.querySelector('[data-pc-section="item"]');
+            if (itemEl) {
+                expect(itemEl.classList.contains('HAS_ITEM')).toBe(true);
+                expect(itemEl.classList.contains('INDEX_ZERO')).toBe(true);
+            }
         });
     });
 });

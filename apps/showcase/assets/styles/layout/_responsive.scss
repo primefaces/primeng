@@ -135,6 +135,19 @@
     .DocSearch-Container {
         position: fixed !important;
     }
+      .doc-ptviewerwrapper {
+        flex-direction: column;
+
+        .doc-ptviewer {
+            width: 100%;
+            border-width: 0 0 1px 0;
+        }
+
+        .doc-ptoptions {
+            width: 100%;
+            padding: 1rem;
+        }
+    }
 }
 
 @media screen and (max-width: 575px) {

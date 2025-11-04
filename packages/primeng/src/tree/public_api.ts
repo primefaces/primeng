@@ -1,3 +1,3 @@
+export * from 'primeng/types/tree';
 export * from './tree';
-export * from './tree.interface';
 export * from './style/treestyle';

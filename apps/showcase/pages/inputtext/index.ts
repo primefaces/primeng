@@ -7,6 +7,7 @@ import { HelpTextDoc } from '@/doc/inputtext/helptextdoc';
 import { IftaLabelDoc } from '@/doc/inputtext/iftalabeldoc';
 import { ImportDoc } from '@/doc/inputtext/importdoc';
 import { InvalidDoc } from '@/doc/inputtext/invaliddoc';
+import { PTComponent } from '@/doc/inputtext/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputtext/sizesdoc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputtext/templatedrivenformsdoc';
@@ -23,10 +24,13 @@ import { AppDoc } from '@/components/doc/app.doc';
         description="InputText is an extension to standard input element with theming and keyfiltering."
         [apiDocs]="['InputText']"
         [docs]="docs"
+        [ptDocs]="ptComponent"
         themeDocs="inputtext"
     ></app-doc> `
 })
 export class InputTextDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

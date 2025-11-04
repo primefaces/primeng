@@ -5,8 +5,9 @@ import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
 import { ToggleButton } from './togglebutton';
-import { ToggleButtonChangeEvent } from './togglebutton.interface';
+import { ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
 
 @Component({
     standalone: false,
@@ -890,5 +891,395 @@ describe('ToggleButton', () => {
                 expect(component.checked).toBeDefined();
             }
         }));
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase1Component {
+                checked: boolean = false;
+                pt = {
+                    root: 'ROOT_CLASS',
+                    content: 'CONTENT_CLASS',
+                    icon: 'ICON_CLASS',
+                    label: 'LABEL_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase1Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase1Component);
+                fixture.detectChanges();
+                tick();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+                const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
+
+                expect(toggleButtonRoot.classList.contains('ROOT_CLASS')).toBe(true);
+                if (content) expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
+                if (label) expect(label.nativeElement.classList.contains('LABEL_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 2: Objects with class, style, and attributes', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase2Component {
+                checked: boolean = true;
+                pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'lightblue' } as any,
+                        'data-test': 'root-test'
+                    },
+                    content: {
+                        class: 'CONTENT_OBJECT_CLASS',
+                        style: { padding: '10px' } as any
+                    },
+                    icon: {
+                        class: 'ICON_OBJECT_CLASS',
+                        'data-icon': 'icon-test'
+                    },
+                    label: {
+                        class: 'LABEL_OBJECT_CLASS',
+                        'aria-label': 'Custom label'
+                    }
+                };
+            }
+
+            it('should apply object-based PT with class, style, and attributes', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase2Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase2Component);
+                fixture.detectChanges();
+                tick();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+                const icon = fixture.debugElement.query(By.css('.pi'));
+                const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
+
+                expect(toggleButtonRoot.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(toggleButtonRoot.style.backgroundColor).toBe('lightblue');
+                expect(toggleButtonRoot.getAttribute('data-test')).toBe('root-test');
+
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
+                    expect(content.nativeElement.style.padding).toBe('10px');
+                }
+
+                if (icon) {
+                    expect(icon.nativeElement.classList.contains('ICON_OBJECT_CLASS')).toBe(true);
+                    expect(icon.nativeElement.getAttribute('data-icon')).toBe('icon-test');
+                }
+
+                if (label) {
+                    expect(label.nativeElement.classList.contains('LABEL_OBJECT_CLASS')).toBe(true);
+                    expect(label.nativeElement.getAttribute('aria-label')).toBe('Custom label');
+                }
+            }));
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase3Component {
+                checked: boolean = false;
+                pt = {
+                    root: 'ROOT_STRING_CLASS',
+                    content: {
+                        class: 'CONTENT_MIXED_CLASS'
+                    },
+                    icon: 'ICON_STRING_CLASS',
+                    label: {
+                        class: 'LABEL_MIXED_CLASS'
+                    }
+                };
+            }
+
+            it('should apply mixed object and string PT values', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase3Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase3Component);
+                fixture.detectChanges();
+                tick();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+                const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
+
+                expect(toggleButtonRoot.classList.contains('ROOT_STRING_CLASS')).toBe(true);
+
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
+                }
+
+                if (label) {
+                    expect(label.nativeElement.classList.contains('LABEL_MIXED_CLASS')).toBe(true);
+                }
+            }));
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" [disabled]="disabled" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase4Component {
+                checked: boolean = false;
+                disabled: boolean = false;
+                pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.checked ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
+                        };
+                    },
+                    content: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.$disabled() ? 'gray' : 'green'
+                            } as any
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase4Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase4Component);
+                fixture.detectChanges();
+                tick();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+
+                expect(toggleButtonRoot.classList.contains('UNCHECKED_CLASS') || toggleButtonRoot.classList.contains('CHECKED_CLASS')).toBe(true);
+
+                if (content) {
+                    expect(content.nativeElement.style.backgroundColor).toBeTruthy();
+                }
+
+                // Change checked state
+                fixture.componentInstance.checked = true;
+                fixture.detectChanges();
+                tick();
+
+                // Root class should change
+                expect(toggleButtonRoot.classList.contains('UNCHECKED_CLASS') || toggleButtonRoot.classList.contains('CHECKED_CLASS')).toBe(true);
+            }));
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase5Component {
+                checked: boolean = false;
+                clickCount: number = 0;
+                pt = {
+                    content: ({ instance }: any) => {
+                        return {
+                            onclick: (event: Event) => {
+                                this.clickCount++;
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should bind click events via PT', fakeAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestPTCase5Component]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase5Component);
+                const component = fixture.componentInstance;
+                fixture.detectChanges();
+                tick();
+
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+
+                if (content) {
+                    content.nativeElement.click();
+                    fixture.detectChanges();
+                    expect(component.clickCount).toBeGreaterThan(0);
+                }
+            }));
+        });
+
+        describe('Case 6: Inline PT test', () => {
+            it('should apply inline string PT', fakeAsync(() => {
+                @Component({
+                    standalone: true,
+                    imports: [ToggleButton, FormsModule],
+                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-togglebutton>`
+                })
+                class TestInlineComponent {
+                    checked: boolean = false;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestInlineComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestInlineComponent);
+                fixture.detectChanges();
+                tick();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                expect(toggleButtonRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+            }));
+
+            it('should apply inline object PT', fakeAsync(() => {
+                @Component({
+                    standalone: true,
+                    imports: [ToggleButton, FormsModule],
+                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></p-togglebutton>`
+                })
+                class TestInlineObjectComponent {
+                    checked: boolean = false;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestInlineObjectComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestInlineObjectComponent);
+                fixture.detectChanges();
+                tick();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                expect(toggleButtonRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+                expect(toggleButtonRoot.style.border).toBe('2px solid red');
+            }));
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            it('should apply global PT configuration', fakeAsync(() => {
+                @Component({
+                    standalone: true,
+                    imports: [ToggleButton, FormsModule],
+                    template: `<p-togglebutton [(ngModel)]="checked1"></p-togglebutton><p-togglebutton [(ngModel)]="checked2"></p-togglebutton>`
+                })
+                class TestGlobalPTComponent {
+                    checked1: boolean = false;
+                    checked2: boolean = true;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestGlobalPTComponent],
+                    providers: [
+                        providePrimeNG({
+                            pt: {
+                                toggleButton: {
+                                    root: { 'data-test': 'global-togglebutton' },
+                                    content: 'GLOBAL_CONTENT_CLASS',
+                                    label: {
+                                        class: 'GLOBAL_LABEL_CLASS',
+                                        style: { 'font-weight': 'bold' } as any
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                });
+
+                const fixture = TestBed.createComponent(TestGlobalPTComponent);
+                fixture.detectChanges();
+                tick();
+
+                const toggleButtons = fixture.debugElement.queryAll(By.css('p-togglebutton'));
+                expect(toggleButtons.length).toBe(2);
+
+                toggleButtons.forEach((toggleButton) => {
+                    const toggleButtonRoot = toggleButton.nativeElement;
+                    const content = toggleButton.query(By.css('.p-togglebutton-content'));
+                    const label = toggleButton.query(By.css('.p-togglebutton-label'));
+
+                    expect(toggleButtonRoot.getAttribute('data-test')).toBe('global-togglebutton');
+
+                    if (content) {
+                        expect(content.nativeElement.classList.contains('GLOBAL_CONTENT_CLASS')).toBe(true);
+                    }
+
+                    if (label) {
+                        expect(label.nativeElement.classList.contains('GLOBAL_LABEL_CLASS')).toBe(true);
+                        expect(label.nativeElement.style.fontWeight).toBe('bold');
+                    }
+                });
+            }));
+        });
+
+        describe('Case 8: PT Hooks', () => {
+            it('should call PT hooks during lifecycle', fakeAsync(() => {
+                const hookCalls: string[] = [];
+
+                @Component({
+                    standalone: true,
+                    imports: [ToggleButton, FormsModule],
+                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+                })
+                class TestHooksComponent {
+                    checked: boolean = false;
+                    pt = {
+                        root: 'MY-TOGGLEBUTTON',
+                        hooks: {
+                            onAfterViewInit: () => {
+                                hookCalls.push('onAfterViewInit');
+                            },
+                            onDestroy: () => {
+                                hookCalls.push('onDestroy');
+                            }
+                        }
+                    };
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [NoopAnimationsModule, TestHooksComponent]
+                });
+
+                const fixture = TestBed.createComponent(TestHooksComponent);
+                fixture.detectChanges();
+                tick();
+
+                expect(hookCalls).toContain('onAfterViewInit');
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                expect(toggleButtonRoot.classList.contains('MY-TOGGLEBUTTON')).toBe(true);
+
+                fixture.destroy();
+                flush();
+
+                expect(hookCalls).toContain('onDestroy');
+            }));
+        });
     });
 });

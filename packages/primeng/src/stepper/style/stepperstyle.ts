@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/stepper';
+import { style as stepper_style } from '@primeuix/styles/stepper';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${stepper_style}
 
     /* For PrimeNG */
     .p-steppanel:not(.p-steppanel-active) > .p-steppanel-content,
@@ -26,7 +26,7 @@ const classes = {
 export class StepperStyle extends BaseStyle {
     name = 'stepper';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

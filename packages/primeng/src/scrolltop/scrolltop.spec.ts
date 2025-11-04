@@ -928,4 +928,529 @@ describe('ScrollTop', () => {
             expect(scrollTop.el.nativeElement.parentElement).toBe(innerContainer.firstElementChild);
         });
     });
+
+    describe('PassThrough - Case 1: Simple string classes', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+        })
+        class TestScrollTopPtComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestScrollTopPtComponent>;
+        let component: TestScrollTopPtComponent;
+        let scrollTop: ScrollTop;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopPtComponent],
+                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            });
+
+            fixture = TestBed.createComponent(TestScrollTopPtComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
+        });
+
+        it('should apply pt host class', () => {
+            component.pt = { host: 'HOST_CLASS' };
+            fixture.detectChanges();
+            fixture.detectChanges(); // Trigger ngAfterViewChecked
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            expect(scrollTopElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply pt root class', () => {
+            component.pt = { root: 'ROOT_CLASS' };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            expect(scrollTopElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PassThrough - Case 2: Objects', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+        })
+        class TestScrollTopPtObjectComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestScrollTopPtObjectComponent>;
+        let component: TestScrollTopPtObjectComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopPtObjectComponent],
+                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            });
+
+            fixture = TestBed.createComponent(TestScrollTopPtObjectComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply pt host with object properties', () => {
+            component.pt = {
+                host: {
+                    class: 'HOST_OBJECT_CLASS',
+                    style: { border: '1px solid red' },
+                    'data-p-test': true
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            expect(scrollTopElement.nativeElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
+            expect(scrollTopElement.nativeElement.style.border).toBe('1px solid red');
+            expect(scrollTopElement.nativeElement.getAttribute('data-p-test')).toBe('true');
+        });
+
+        it('should apply pt root with object properties', () => {
+            component.pt = {
+                root: {
+                    class: 'ROOT_OBJECT_CLASS',
+                    style: { 'background-color': 'yellow' },
+                    'aria-label': 'SCROLL_TOP_CONTAINER'
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            expect(scrollTopElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+            expect(scrollTopElement.nativeElement.style.backgroundColor).toBe('yellow');
+            expect(scrollTopElement.nativeElement.getAttribute('aria-label')).toBe('SCROLL_TOP_CONTAINER');
+        });
+    });
+
+    describe('PassThrough - Case 3: Mixed object and string values', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+        })
+        class TestScrollTopPtMixedComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestScrollTopPtMixedComponent>;
+        let component: TestScrollTopPtMixedComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopPtMixedComponent],
+                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            });
+
+            fixture = TestBed.createComponent(TestScrollTopPtMixedComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply mixed pt values', () => {
+            component.pt = {
+                host: {
+                    class: 'HOST_MIXED_CLASS',
+                    style: { padding: '10px' }
+                },
+                root: 'ROOT_STRING_CLASS'
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            expect(scrollTopElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
+            expect(scrollTopElement.nativeElement.classList.contains('ROOT_STRING_CLASS')).toBe(true);
+            expect(scrollTopElement.nativeElement.style.padding).toBe('10px');
+        });
+    });
+
+    describe('PassThrough - Case 4: Use variables from instance', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-scrolltop [threshold]="threshold" [target]="target" [pt]="pt"></p-scrolltop> `
+        })
+        class TestScrollTopPtInstanceComponent {
+            pt: any = {};
+            threshold = 200;
+            target: 'window' | 'parent' = 'window';
+        }
+
+        let fixture: ComponentFixture<TestScrollTopPtInstanceComponent>;
+        let component: TestScrollTopPtInstanceComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopPtInstanceComponent],
+                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            });
+
+            fixture = TestBed.createComponent(TestScrollTopPtInstanceComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should apply pt based on instance target', () => {
+            component.target = 'parent';
+            component.pt = {
+                host: ({ instance }: any) => {
+                    return {
+                        class: {
+                            TARGET_PARENT: instance?.target === 'parent',
+                            TARGET_WINDOW: instance?.target === 'window'
+                        }
+                    };
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            const hasParent = scrollTopElement.nativeElement.classList.contains('TARGET_PARENT');
+            const hasWindow = scrollTopElement.nativeElement.classList.contains('TARGET_WINDOW');
+
+            expect(hasParent || !hasWindow).toBe(true);
+        });
+
+        it('should apply pt style based on instance threshold', () => {
+            component.threshold = 500;
+            component.pt = {
+                root: ({ instance }: any) => {
+                    return {
+                        style: {
+                            opacity: instance?.threshold > 400 ? '1' : '0.5'
+                        }
+                    };
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            expect(scrollTopElement.nativeElement.style.opacity).toBe('1');
+        });
+    });
+
+    describe('PassThrough - Case 5: Event binding', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+        })
+        class TestScrollTopPtEventComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestScrollTopPtEventComponent>;
+        let component: TestScrollTopPtEventComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopPtEventComponent],
+                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            });
+
+            fixture = TestBed.createComponent(TestScrollTopPtEventComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should bind onclick event to host element', fakeAsync(() => {
+            let clicked = false;
+
+            component.pt = {
+                host: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            scrollTopElement.nativeElement.click();
+            tick();
+
+            expect(clicked).toBe(true);
+            flush();
+        }));
+
+        it('should bind onmouseenter event', fakeAsync(() => {
+            let mouseEntered = false;
+
+            component.pt = {
+                root: {
+                    onmouseenter: () => {
+                        mouseEntered = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+            fixture.detectChanges();
+
+            const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+            scrollTopElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+            tick();
+
+            expect(mouseEntered).toBe(true);
+            flush();
+        }));
+    });
+
+    describe('PassThrough - Case 6: Inline test', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-scrolltop> `
+        })
+        class TestScrollTopInlineStringPtComponent {}
+
+        @Component({
+            standalone: false,
+            template: ` <p-scrolltop [threshold]="100" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-scrolltop> `
+        })
+        class TestScrollTopInlineObjectPtComponent {}
+
+        it('should apply inline pt with string class', () => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopInlineStringPtComponent],
+                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            });
+
+            const testFixture = TestBed.createComponent(TestScrollTopInlineStringPtComponent);
+            testFixture.detectChanges();
+            testFixture.detectChanges();
+
+            const scrollTopElement = testFixture.debugElement.query(By.directive(ScrollTop));
+            expect(scrollTopElement.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+        });
+
+        it('should apply inline pt with object', () => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopInlineObjectPtComponent],
+                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            });
+
+            const testFixture = TestBed.createComponent(TestScrollTopInlineObjectPtComponent);
+            testFixture.detectChanges();
+            testFixture.detectChanges();
+
+            const scrollTopElement = testFixture.debugElement.query(By.directive(ScrollTop));
+            expect(scrollTopElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+            expect(scrollTopElement.nativeElement.style.border).toBe('2px solid green');
+        });
+    });
+
+    describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
+        it('should apply global pt configuration from PrimeNGConfig', () => {
+            const { providePrimeNG } = require('primeng/config');
+
+            @Component({
+                standalone: false,
+                template: `
+                    <p-scrolltop [threshold]="100"></p-scrolltop>
+                    <p-scrolltop [threshold]="200"></p-scrolltop>
+                `
+            })
+            class TestScrollTopGlobalPtComponent {}
+
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopGlobalPtComponent],
+                providers: [
+                    { provide: PLATFORM_ID, useValue: 'browser' },
+                    providePrimeNG({
+                        pt: {
+                            scrolltop: {
+                                host: 'GLOBAL_HOST_CLASS',
+                                root: 'GLOBAL_ROOT_CLASS'
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const testFixture = TestBed.createComponent(TestScrollTopGlobalPtComponent);
+            testFixture.detectChanges();
+            testFixture.detectChanges();
+
+            const scrollTops = testFixture.debugElement.queryAll(By.directive(ScrollTop));
+            expect(scrollTops.length).toBe(2);
+
+            scrollTops.forEach((scrollTop) => {
+                expect(scrollTop.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
+                expect(scrollTop.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+            });
+        });
+
+        it('should merge local pt with global pt configuration', () => {
+            const { providePrimeNG } = require('primeng/config');
+
+            @Component({
+                standalone: false,
+                template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-scrolltop> `
+            })
+            class TestScrollTopMergedPtComponent {}
+
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopMergedPtComponent],
+                providers: [
+                    { provide: PLATFORM_ID, useValue: 'browser' },
+                    providePrimeNG({
+                        pt: {
+                            scrolltop: {
+                                host: 'GLOBAL_HOST_CLASS'
+                            }
+                        }
+                    })
+                ]
+            });
+
+            const testFixture = TestBed.createComponent(TestScrollTopMergedPtComponent);
+            testFixture.detectChanges();
+            testFixture.detectChanges();
+
+            const scrollTopElement = testFixture.debugElement.query(By.directive(ScrollTop));
+            // Local pt should override global pt
+            expect(scrollTopElement.nativeElement.classList.contains('LOCAL_HOST_CLASS')).toBe(true);
+            expect(scrollTopElement.nativeElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
+        });
+    });
+
+    describe('PassThrough - Case 8: Test hooks', () => {
+        @Component({
+            standalone: false,
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+        })
+        class TestScrollTopPtHooksComponent {
+            pt: any = {};
+        }
+
+        let fixture: ComponentFixture<TestScrollTopPtHooksComponent>;
+        let component: TestScrollTopPtHooksComponent;
+
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+            TestBed.configureTestingModule({
+                imports: [ScrollTopModule, NoopAnimationsModule],
+                declarations: [TestScrollTopPtHooksComponent],
+                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            });
+
+            fixture = TestBed.createComponent(TestScrollTopPtHooksComponent);
+            component = fixture.componentInstance;
+        });
+
+        it('should call onInit hook from pt', () => {
+            let onInitCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: () => {
+                        onInitCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(onInitCalled).toBe(true);
+        });
+
+        it('should call onAfterViewInit hook from pt', () => {
+            let onAfterViewInitCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onAfterViewInit: () => {
+                        onAfterViewInitCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(onAfterViewInitCalled).toBe(true);
+        });
+
+        it('should call onDestroy hook from pt when component is destroyed', () => {
+            let onDestroyCalled = false;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onDestroy: () => {
+                        onDestroyCalled = true;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            fixture.destroy();
+
+            expect(onDestroyCalled).toBe(true);
+        });
+
+        it('should pass context to hooks', () => {
+            let hookContext: any = null;
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: (context: any) => {
+                        hookContext = context;
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(hookContext).toBeTruthy();
+        });
+
+        it('should call multiple hooks in correct order', () => {
+            const callOrder: string[] = [];
+
+            component.pt = {
+                host: 'PT_HOST',
+                hooks: {
+                    onInit: () => {
+                        callOrder.push('onInit');
+                    },
+                    onAfterContentInit: () => {
+                        callOrder.push('onAfterContentInit');
+                    },
+                    onAfterViewInit: () => {
+                        callOrder.push('onAfterViewInit');
+                    }
+                }
+            };
+            fixture.detectChanges();
+
+            expect(callOrder).toContain('onInit');
+            expect(callOrder).toContain('onAfterViewInit');
+            if (callOrder.includes('onAfterContentInit')) {
+                expect(callOrder.indexOf('onInit')).toBeLessThan(callOrder.indexOf('onAfterContentInit'));
+                expect(callOrder.indexOf('onAfterContentInit')).toBeLessThan(callOrder.indexOf('onAfterViewInit'));
+            }
+        });
+    });
 });

@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Component, DebugElement } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Timeline } from './timeline';
 
@@ -207,7 +207,7 @@ describe('Timeline', () => {
             expect(events.length).toBe(4);
 
             // Should have default marker when no custom marker template
-            const markers = fixture.debugElement.queryAll(By.css('[data-pc-section="marker"]'));
+            const markers = fixture.debugElement.queryAll(By.css('[data-pc-section="eventmarker"]'));
             expect(markers.length).toBe(4);
         });
 
@@ -259,7 +259,7 @@ describe('Timeline', () => {
         });
 
         it('should render events with connectors', () => {
-            const connectors = fixture.debugElement.queryAll(By.css('[data-pc-section="separator"] .p-timeline-event-connector'));
+            const connectors = fixture.debugElement.queryAll(By.css('[data-pc-section="eventconnector"]'));
 
             // Should have connectors for all events except the last one
             expect(connectors.length).toBe(3); // 4 events - 1 = 3 connectors
@@ -281,9 +281,9 @@ describe('Timeline', () => {
         });
 
         it('should render event content sections', () => {
-            const contents = fixture.debugElement.queryAll(By.css('[data-pc-section="content"]'));
-            const opposites = fixture.debugElement.queryAll(By.css('[data-pc-section="opposite"]'));
-            const separators = fixture.debugElement.queryAll(By.css('[data-pc-section="separator"]'));
+            const contents = fixture.debugElement.queryAll(By.css('[data-pc-section="eventcontent"]'));
+            const opposites = fixture.debugElement.queryAll(By.css('[data-pc-section="eventopposite"]'));
+            const separators = fixture.debugElement.queryAll(By.css('[data-pc-section="eventseparator"]'));
 
             expect(contents.length).toBe(4);
             expect(opposites.length).toBe(4);
@@ -434,10 +434,10 @@ describe('Timeline', () => {
 
         it('should render correct data-pc-section attributes', () => {
             const event = fixture.debugElement.query(By.css('[data-pc-section="event"]'));
-            const opposite = fixture.debugElement.query(By.css('[data-pc-section="opposite"]'));
-            const separator = fixture.debugElement.query(By.css('[data-pc-section="separator"]'));
-            const marker = fixture.debugElement.query(By.css('[data-pc-section="marker"]'));
-            const content = fixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const opposite = fixture.debugElement.query(By.css('[data-pc-section="eventopposite"]'));
+            const separator = fixture.debugElement.query(By.css('[data-pc-section="eventseparator"]'));
+            const marker = fixture.debugElement.query(By.css('[data-pc-section="eventmarker"]'));
+            const content = fixture.debugElement.query(By.css('[data-pc-section="eventcontent"]'));
 
             expect(event).toBeTruthy();
             expect(opposite).toBeTruthy();
@@ -558,9 +558,9 @@ describe('Timeline', () => {
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
 
             events.forEach((event) => {
-                const content = event.query(By.css('[data-pc-section="content"]'));
-                const opposite = event.query(By.css('[data-pc-section="opposite"]'));
-                const separator = event.query(By.css('[data-pc-section="separator"]'));
+                const content = event.query(By.css('[data-pc-section="eventcontent"]'));
+                const opposite = event.query(By.css('[data-pc-section="eventopposite"]'));
+                const separator = event.query(By.css('[data-pc-section="eventseparator"]'));
 
                 expect(content).toBeTruthy();
                 expect(opposite).toBeTruthy();

@@ -82,7 +82,7 @@ const classes = {
 export class MegaMenuStyle extends BaseStyle {
     name = 'megamenu';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

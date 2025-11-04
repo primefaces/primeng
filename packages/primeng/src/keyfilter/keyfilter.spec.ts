@@ -3,8 +3,7 @@ import { Component, DebugElement } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { PLATFORM_ID } from '@angular/core';
-import { KeyFilter, KeyFilterModule } from './keyfilter';
-import { KeyFilterPattern } from './keyfilter.interface';
+import { KeyFilter, KeyFilterModule, KeyFilterPattern } from './keyfilter';
 import { CommonModule } from '@angular/common';
 
 // Test Components

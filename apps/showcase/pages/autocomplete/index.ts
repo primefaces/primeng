@@ -16,6 +16,7 @@ import { ImportDoc } from '@/doc/autocomplete/importdoc';
 import { InvalidDoc } from '@/doc/autocomplete/invaliddoc';
 import { MultipleDoc } from '@/doc/autocomplete/multipledoc';
 import { ObjectsDoc } from '@/doc/autocomplete/objectsdoc';
+import { PTComponent } from '@/doc/autocomplete/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/autocomplete/reactiveformsdoc';
 import { SizesDoc } from '@/doc/autocomplete/sizesdoc';
 import { TemplateDoc } from '@/doc/autocomplete/templatedoc';
@@ -30,6 +31,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         description="AutoComplete is an input component that provides real-time suggestions when being typed."
         [docs]="docs"
         [apiDocs]="['AutoComplete']"
+        [ptDocs]="ptComponent"
         themeDocs="AutoComplete"
     ></app-doc>`,
     standalone: true,
@@ -37,6 +39,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

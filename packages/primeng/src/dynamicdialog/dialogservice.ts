@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { ApplicationRef, ComponentRef, EmbeddedViewRef, Inject, Injectable, Injector, Type, createComponent } from '@angular/core';
 import { appendChild } from '@primeuix/utils';
-import { DynamicDialogComponent } from './dynamicdialog';
+import { DynamicDialog } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogRef } from './dynamicdialog-ref';
@@ -12,7 +12,7 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
  */
 @Injectable()
 export class DialogService {
-    dialogComponentRefMap: Map<DynamicDialogRef<any>, ComponentRef<DynamicDialogComponent>> = new Map();
+    dialogComponentRefMap: Map<DynamicDialogRef<any>, ComponentRef<DynamicDialog>> = new Map();
 
     constructor(
         private appRef: ApplicationRef,
@@ -67,7 +67,7 @@ export class DialogService {
             sub.unsubscribe();
         });
 
-        const componentRef = createComponent(DynamicDialogComponent, {
+        const componentRef = createComponent(DynamicDialog, {
             environmentInjector: this.appRef.injector,
             elementInjector: new DynamicDialogInjector(this.injector, map)
         });

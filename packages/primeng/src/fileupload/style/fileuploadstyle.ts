@@ -25,7 +25,7 @@ const classes = {
 export class FileUploadStyle extends BaseStyle {
     name = 'fileupload';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

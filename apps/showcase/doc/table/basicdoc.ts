@@ -1,11 +1,11 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { Table, TableModule, TablePassThrough } from 'primeng/table';
 
 @Component({
     selector: 'basic-doc',
@@ -41,6 +41,9 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 })
 export class BasicDoc {
     products!: Product[];
+
+    table: Table;
+    pt: TablePassThrough;
 
     constructor(
         private productService: ProductService,

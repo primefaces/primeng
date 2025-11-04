@@ -59,7 +59,7 @@ const classes = {
 export class DialogStyle extends BaseStyle {
     name = 'dialog';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 

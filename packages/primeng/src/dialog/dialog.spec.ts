@@ -1344,4 +1344,392 @@ describe('Dialog', () => {
             expect(component.onDragEndEvent).toHaveBeenCalledWith(dragEvent);
         });
     });
+
+    describe('PT (PassThrough) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase1Component {
+                visible = true;
+                pt = {
+                    mask: 'MASK_CLASS',
+                    header: 'HEADER_CLASS',
+                    title: 'TITLE_CLASS',
+                    headerActions: 'HEADER_ACTIONS_CLASS',
+                    content: 'CONTENT_CLASS',
+                    footer: 'FOOTER_CLASS',
+                    pcCloseButton: 'CLOSE_BUTTON_CLASS',
+                    pcMaximizeButton: 'MAXIMIZE_BUTTON_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase1Component],
+                    imports: [Dialog, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.detectChanges();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('MASK_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 2: Objects with class, style, and attributes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase2Component {
+                visible = true;
+                pt = {
+                    mask: {
+                        class: 'MASK_OBJECT_CLASS',
+                        style: { 'background-color': 'rgba(0,0,0,0.5)' },
+                        'data-test': 'mask-test'
+                    },
+                    header: {
+                        class: 'HEADER_OBJECT_CLASS',
+                        style: { padding: '20px' }
+                    },
+                    content: {
+                        class: 'CONTENT_OBJECT_CLASS',
+                        'aria-label': 'Dialog content'
+                    }
+                };
+            }
+
+            it('should apply object properties to PT sections', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase2Component],
+                    imports: [Dialog, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.detectChanges();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('MASK_OBJECT_CLASS')).toBe(true);
+                    expect(mask.nativeElement.getAttribute('data-test')).toBe('mask-test');
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_OBJECT_CLASS')).toBe(true);
+                    expect(header.nativeElement.style.padding).toBe('20px');
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
+                    expect(content.nativeElement.getAttribute('aria-label')).toBe('Dialog content');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase3Component {
+                visible = true;
+                pt = {
+                    mask: {
+                        class: 'MASK_MIXED_CLASS'
+                    },
+                    header: 'HEADER_STRING_CLASS',
+                    content: {
+                        class: 'CONTENT_MIXED_CLASS'
+                    }
+                };
+            }
+
+            it('should apply mixed object and string values correctly', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase3Component],
+                    imports: [Dialog, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.detectChanges();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('MASK_MIXED_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_STRING_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" [maximizable]="isMaximizable" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase4Component {
+                visible = true;
+                isMaximizable = true;
+                pt = {
+                    mask: ({ instance }: any) => {
+                        return {
+                            class: instance?.visible ? 'VISIBLE_MASK' : 'HIDDEN_MASK'
+                        };
+                    },
+                    header: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.maximizable ? 'lightblue' : 'white'
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase4Component],
+                    imports: [Dialog, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.detectChanges();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('VISIBLE_MASK')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.style.backgroundColor).toBe('lightblue');
+                }
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase5Component {
+                visible = true;
+                clickedSection: string = '';
+                pt = {
+                    header: {
+                        onclick: () => {
+                            this.clickedSection = 'header';
+                        }
+                    },
+                    content: {
+                        onclick: () => {
+                            this.clickedSection = 'content';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase5Component],
+                    imports: [Dialog, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    header.nativeElement.click();
+                    expect(component.clickedSection).toBe('header');
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    content.nativeElement.click();
+                    expect(component.clickedSection).toBe('content');
+                }
+            });
+        });
+
+        describe('Case 6: Inline test', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="{ mask: 'INLINE_MASK_CLASS', header: 'INLINE_HEADER_CLASS' }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase6InlineComponent {
+                visible = true;
+            }
+
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="{ mask: { class: 'INLINE_MASK_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase6InlineObjectComponent {
+                visible = true;
+            }
+
+            it('should apply inline PT string classes', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineComponent],
+                    imports: [Dialog, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.detectChanges();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('INLINE_MASK_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('INLINE_HEADER_CLASS')).toBe(true);
+                }
+            });
+
+            it('should apply inline PT object classes', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [Dialog, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.detectChanges();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('INLINE_MASK_OBJECT_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('INLINE_CONTENT_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-dialog [visible]="visible1" header="Dialog 1">Content 1</p-dialog>
+                    <p-dialog [visible]="visible2" header="Dialog 2">Content 2</p-dialog>
+                `
+            })
+            class TestPTCase7GlobalComponent {
+                visible1 = true;
+                visible2 = true;
+            }
+
+            it('should apply global PT configuration from PrimeNGConfig', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [Dialog, NoopAnimationsModule],
+                    providers: [
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    dialog: {
+                                        mask: { class: 'GLOBAL_MASK_CLASS' },
+                                        header: { class: 'GLOBAL_HEADER_CLASS' }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+
+                const dialogs = testFixture.debugElement.queryAll(By.directive(Dialog));
+                expect(dialogs.length).toBe(2);
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase8HooksComponent {
+                visible = true;
+                afterViewInitCalled = false;
+                afterViewCheckedCalled = false;
+                onDestroyCalled = false;
+
+                pt = {
+                    mask: 'HOOK_TEST_CLASS',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.afterViewInitCalled = true;
+                        },
+                        onAfterViewChecked: () => {
+                            this.afterViewCheckedCalled = true;
+                        },
+                        onDestroy: () => {
+                            this.onDestroyCalled = true;
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks on Angular lifecycle events', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase8HooksComponent],
+                    imports: [Dialog, NoopAnimationsModule]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+
+                testFixture.detectChanges();
+
+                expect(component.afterViewInitCalled).toBe(true);
+                expect(component.afterViewCheckedCalled).toBe(true);
+
+                testFixture.destroy();
+                expect(component.onDestroyCalled).toBe(true);
+            });
+        });
+    });
 });

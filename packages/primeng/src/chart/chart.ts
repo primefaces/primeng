@@ -1,9 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, Output, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ChartStyle } from './style/chartstyle';
+import { Bind, BindModule } from 'primeng/bind';
+import type { ChartPassThrough } from 'primeng/types/chart';
+
+const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
 
 /**
  * Chart groups a collection of contents in tabs.
@@ -12,9 +16,17 @@ import { ChartStyle } from './style/chartstyle';
 @Component({
     selector: 'p-chart',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
+        <canvas
+            role="img"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.width]="responsive && !width ? null : width"
+            [attr.height]="responsive && !height ? null : height"
+            (click)="onCanvasClick($event)"
+            [pBind]="ptm('canvas')"
+        ></canvas>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -22,9 +34,18 @@ import { ChartStyle } from './style/chartstyle';
         '[class]': "cx('root')",
         '[style]': "sx('root')"
     },
-    providers: [ChartStyle]
+    providers: [ChartStyle, { provide: CHART_INSTANCE, useExisting: UIChart }],
+    hostDirectives: [Bind]
 })
-export class UIChart extends BaseComponent implements AfterViewInit, OnDestroy {
+export class UIChart extends BaseComponent<ChartPassThrough> {
+    $pcChart: UIChart | undefined = inject(CHART_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Type of the chart.
      * @group Props
@@ -107,8 +128,7 @@ export class UIChart extends BaseComponent implements AfterViewInit, OnDestroy {
         super();
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.initChart();
         this.initialized = true;
     }
@@ -172,8 +192,7 @@ export class UIChart extends BaseComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
-        super.ngOnDestroy();
+    onDestroy() {
         if (this.chart) {
             this.chart.destroy();
             this.initialized = false;
