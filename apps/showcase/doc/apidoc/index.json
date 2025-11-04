@@ -8780,6 +8780,22 @@
                             "deprecated": "since v20.0.0, use "
                         },
                         {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "p-overlay-enter",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "p-overlay-leave",
+                            "description": "Leave animation class name."
+                        },
+                        {
                             "name": "inline",
                             "optional": false,
                             "readonly": false,
@@ -8816,22 +8832,6 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Whether to automatically manage layering."
-                        },
-                        {
-                            "name": "showTransitionOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
-                            "description": "Transition options of the show animation."
-                        },
-                        {
-                            "name": "hideTransitionOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": ".1s linear",
-                            "description": "Transition options of the hide animation."
                         },
                         {
                             "name": "autofocus",
@@ -9627,6 +9627,22 @@
                             "description": "Transition options of the hide animation."
                         },
                         {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-confirmpopup-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-confirmpopup-leave'",
+                            "description": "Leave animation class name."
+                        },
+                        {
                             "name": "autoZIndex",
                             "optional": false,
                             "readonly": false,
@@ -9947,6 +9963,22 @@
                             "type": "InputSignal<any>",
                             "default": "'self'",
                             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-contextmenu-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-contextmenu-leave'",
+                            "description": "Leave animation class name."
                         }
                     ]
                 },
@@ -11383,6 +11415,22 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-datepicker-overlay-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-datepicker-overlay-leave'",
+                            "description": "Leave animation class name."
                         },
                         {
                             "name": "tabindex",
@@ -12886,6 +12934,22 @@
                             "readonly": false,
                             "type": "TemplateRef<any>",
                             "description": "Headless template."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-dialog-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-dialog-leave'",
+                            "description": "Leave animation class name."
                         }
                     ]
                 },
@@ -13653,9 +13717,9 @@
                             "name": "appendTo",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
-                            "default": "body",
-                            "description": "Target element to attach the dialog, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
                             "name": "blockScroll",
@@ -13762,15 +13826,33 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "InputSignal<string>",
+                            "default": "'left'",
                             "description": "Specifies the position of the drawer, valid values are \"left\", \"right\", \"bottom\" and \"top\"."
                         },
                         {
                             "name": "fullScreen",
                             "optional": false,
                             "readonly": false,
-                            "type": "boolean",
+                            "type": "InputSignal<boolean>",
+                            "default": "false",
                             "description": "Adds a close icon to the header to hide the dialog."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-drawer-enter-left'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-drawer-enter-right'",
+                            "description": "Leave animation class name."
                         },
                         {
                             "name": "header",
@@ -15108,6 +15190,22 @@
                             "type": "string",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the panel animation."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-collapsible-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-collapsible-leave'",
+                            "description": "Leave animation class name."
                         }
                     ]
                 },
@@ -16818,6 +16916,22 @@
                             "description": "Transition options of the hide animation."
                         },
                         {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-galleria-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-galleria-leave'",
+                            "description": "Leave animation class name."
+                        },
+                        {
                             "name": "visible",
                             "optional": false,
                             "readonly": false,
@@ -17793,6 +17907,22 @@
                             "type": "string",
                             "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
                             "description": "Transition options of the hide animation"
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-image-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-image-leave'",
+                            "description": "Leave animation class name."
                         },
                         {
                             "name": "appendTo",
@@ -22126,6 +22256,22 @@
                             "description": "Transition options of the hide animation."
                         },
                         {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-menu-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-menu-leave'",
+                            "description": "Leave animation class name."
+                        },
+                        {
                             "name": "ariaLabel",
                             "optional": false,
                             "readonly": false,
@@ -22967,6 +23113,22 @@
                             "type": "string",
                             "default": "'200ms cubic-bezier(0.86, 0, 0.07, 1)'",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-message-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-message-leave'",
+                            "description": "Leave animation class name."
                         },
                         {
                             "name": "size",
@@ -25751,6 +25913,22 @@
                             "description": "Used to configure passthrough(pt) options of the component."
                         },
                         {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "p-overlay-enter",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "p-overlay-leave",
+                            "description": "Leave animation class name."
+                        },
+                        {
                             "name": "visible",
                             "optional": false,
                             "readonly": false,
@@ -25915,8 +26093,8 @@
                             "name": "onAnimationStart",
                             "parameters": [
                                 {
-                                    "name": "event",
-                                    "type": "AnimationEvent"
+                                    "name": "value",
+                                    "type": "any"
                                 }
                             ],
                             "description": "Callback to invoke when the animation is started."
@@ -25925,8 +26103,8 @@
                             "name": "onAnimationDone",
                             "parameters": [
                                 {
-                                    "name": "event",
-                                    "type": "AnimationEvent"
+                                    "name": "value",
+                                    "type": "any"
                                 }
                             ],
                             "description": "Callback to invoke when the animation is done."
@@ -26724,6 +26902,22 @@
                             "description": "Transition options of the animation."
                         },
                         {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-collapsible-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-collapsible-leave'",
+                            "description": "Leave animation class name."
+                        },
+                        {
                             "name": "toggleButtonProps",
                             "optional": false,
                             "readonly": false,
@@ -27035,6 +27229,22 @@
                             "type": "string",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the animation."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-collapsible-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-collapsible-leave'",
+                            "description": "Leave animation class name."
                         },
                         {
                             "name": "id",
@@ -27740,6 +27950,22 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-password-overlay-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-password-overlay-leave'",
+                            "description": "Leave animation class name."
                         },
                         {
                             "name": "autocomplete",
@@ -29259,9 +29485,9 @@
                             "name": "appendTo",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
-                            "default": "body",
-                            "description": "Target element to attach the panel, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                            "type": "InputSignal<any>",
+                            "default": "'self'",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
                             "name": "autoZIndex",
@@ -29309,6 +29535,22 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-popover-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-popover-leave'",
+                            "description": "Leave animation class name."
                         }
                     ]
                 },
@@ -31317,6 +31559,22 @@
                             "type": "string",
                             "default": ".15s",
                             "description": "A string value used to determine the hiding transition options."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-scrolltop-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-scrolltop-leave'",
+                            "description": "Leave animation class name."
                         },
                         {
                             "name": "buttonAriaLabel",
@@ -34700,6 +34958,22 @@
                             "type": "InputSignal<string>",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the animation."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-collapsible-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-collapsible-leave'",
+                            "description": "Leave animation class name."
                         }
                     ]
                 }
@@ -36270,6 +36544,22 @@
                             "type": "TableFilterButtonPropsOptions",
                             "default": "{\n     filter: { severity: 'secondary', text: true, rounded: true },\n     inline: {\n        clear: { severity: 'secondary', text: true, rounded: true }\n     },\n     popover: {\n         addRule: { severity: 'info', text: true, size: 'small' },\n         removeRule: { severity: 'danger', text: true, size: 'small' },\n         apply: { size: 'small' },\n         clear: { outlined: true, size: 'small' }\n        }\n     }",
                             "description": "Used to pass all filter button property object"
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-columnfilter-overlay-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-columnfilter-overlay-leave'",
+                            "description": "Leave animation class name."
                         }
                     ]
                 },
@@ -38715,6 +39005,22 @@
                             "description": "Transition options of the hide animation."
                         },
                         {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-tieredmenu-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-tieredmenu-leave'",
+                            "description": "Leave animation class name."
+                        },
+                        {
                             "name": "id",
                             "optional": false,
                             "readonly": false,
@@ -39371,6 +39677,22 @@
                             "type": "string",
                             "default": "250ms ease-in",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "enterAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-toast-enter'",
+                            "description": "Enter animation class name."
+                        },
+                        {
+                            "name": "leaveAnimation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "InputSignal<string>",
+                            "default": "'p-toast-leave'",
+                            "description": "Leave animation class name."
                         },
                         {
                             "name": "breakpoints",
