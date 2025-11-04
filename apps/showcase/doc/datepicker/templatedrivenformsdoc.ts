@@ -1,10 +1,18 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { DatePickerModule } from 'primeng/datepicker';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-driven-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
@@ -20,7 +28,7 @@ import { MessageService } from 'primeng/api';
             </form>
         </div>
 
-        <app-code [code]="code" selector="datepicker-template-driven-forms-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-template-driven-forms-demo"></app-code>
     `
 })
 export class TemplateDrivenFormsDoc {
@@ -68,8 +76,8 @@ import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'datepicker-template-driven-forms-demo',
-    templateUrl: './datepicker-template-driven-forms-demo.html',
+    selector: 'date-picker-template-driven-forms-demo',
+    templateUrl: './date-picker-template-driven-forms-demo.html',
     standalone: true,
     imports: [FormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
 })

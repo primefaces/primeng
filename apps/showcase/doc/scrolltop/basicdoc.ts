@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { ScrollTop, ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, ScrollTopModule],
     template: `
         <app-docsectiontext>
             <p>ScrollTop listens window scroll by default.</p>

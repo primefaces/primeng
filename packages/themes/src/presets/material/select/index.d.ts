@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/select';
+export * from '@primeuix/themes/material/select';
+export { default } from '@primeuix/themes/material/select';

@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'datepicker-year-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Specifying <i>view</i> as <i>year</i> in addition to a suitable <i>dateFormat</i> enables the year picker.</p>
@@ -11,7 +16,7 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
         </div>
-        <app-code [code]="code" selector="datepicker-year-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-year-demo"></app-code>
     `
 })
 export class YearDoc {
@@ -29,8 +34,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-year-demo',
-    templateUrl: './datepicker-year-demo.html',
+    selector: 'date-picker-year-demo',
+    templateUrl: './date-picker-year-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

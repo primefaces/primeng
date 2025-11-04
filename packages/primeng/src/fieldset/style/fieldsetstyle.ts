@@ -1,12 +1,23 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/fieldset';
+import { style as fieldset_style } from '@primeuix/styles/fieldset';
 import { BaseStyle } from 'primeng/base';
+
+const style = /*css*/ `
+    ${fieldset_style}
+
+    /* For PrimeNG */
+    .p-fieldset-collapsed > .p-fieldset-content-container,
+    .p-fieldset-content-container.ng-animating {
+        overflow: hidden;
+    }
+`;
 
 const classes = {
     root: ({ instance }) => [
         'p-fieldset p-component',
         {
-            'p-fieldset-toggleable': instance.toggleable
+            'p-fieldset-toggleable': instance.toggleable,
+            'p-fieldset-collapsed': instance.collapsed && instance.toggleable
         }
     ],
     legend: 'p-fieldset-legend',
@@ -21,7 +32,7 @@ const classes = {
 export class FieldsetStyle extends BaseStyle {
     name = 'fieldset';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

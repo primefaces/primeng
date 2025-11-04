@@ -2,15 +2,26 @@ import { AccessibilityDoc } from '@/doc/progressspinner/accessibilitydoc';
 import { BasicDoc } from '@/doc/progressspinner/basicdoc';
 import { CustomDoc } from '@/doc/progressspinner/customdoc';
 import { ImportDoc } from '@/doc/progressspinner/importdoc';
-import { ProgressSpinnerDocModule } from '@/doc/progressspinner/progressspinnerdoc.module';
+import { PTComponent } from '@/doc/progressspinner/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular ProgressSpinner Component" header="ProgressSpinner" description="ProgressSpinner is a process status indicator." [docs]="docs" [apiDocs]="['ProgressSpinner']" themeDocs="progressspinner"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular ProgressSpinner Component"
+        header="ProgressSpinner"
+        description="ProgressSpinner is a process status indicator."
+        [docs]="docs"
+        [ptDocs]="ptComponent"
+        [apiDocs]="['ProgressSpinner']"
+        themeDocs="progressspinner"
+    ></app-doc>`,
     standalone: true,
-    imports: [ProgressSpinnerDocModule]
+    imports: [AppDoc]
 })
 export class ProgressSpinnerDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -27,7 +38,6 @@ export class ProgressSpinnerDemo {
             label: 'Custom',
             component: CustomDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

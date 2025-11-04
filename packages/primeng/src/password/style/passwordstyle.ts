@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
-import { style } from '@primeuix/styles/password';
+import { style as password_style } from '@primeuix/styles/password';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${password_style}
 
     /* For PrimeNG */
-    .p-password-overlay {
-        position: absolute;
-    }
-
     p-password.ng-invalid.ng-dirty .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 
     p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
-        border-color: ${dt('inputtext.focus.border.color')};
+        border-color: dt('inputtext.focus.border.color');
     }
 
     p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
-        color: ${dt('inputtext.invalid.placeholder.color')};
+        color: dt('inputtext.invalid.placeholder.color');
     }
 
     .p-password-fluid-directive {
@@ -29,7 +24,8 @@ const theme = css`
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined }),
+    overlay: { position: 'absolute' }
 };
 
 const classes = {
@@ -65,7 +61,7 @@ const classes = {
 export class PasswordStyle extends BaseStyle {
     name = 'password';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

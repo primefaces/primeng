@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/datepicker';
+export * from '@primeuix/themes/aura/datepicker';
+export { default } from '@primeuix/themes/aura/datepicker';

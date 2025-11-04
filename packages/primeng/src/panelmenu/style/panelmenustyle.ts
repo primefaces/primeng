@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
-import { style } from '@primeuix/styles/panelmenu';
+import { style as panelmenu_style } from '@primeuix/styles/panelmenu';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${panelmenu_style}
     /*For PrimeNG*/
     .p-panelmenu-item:not(.ng-animating) {
         overflow: hidden;
@@ -40,7 +39,6 @@ const classes = {
     rootList: 'p-panelmenu-root-list',
     item: ({ instance, processedItem }) => [
         'p-panelmenu-item',
-        processedItem.styleClass,
         {
             'p-focus': instance.isItemFocused(processedItem) && !instance.isItemDisabled(processedItem),
             'p-disabled': instance.isItemDisabled(processedItem)
@@ -60,7 +58,7 @@ const classes = {
 export class PanelMenuStyle extends BaseStyle {
     name = 'panelmenu';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

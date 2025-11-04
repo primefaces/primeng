@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { StepperModule } from 'primeng/stepper';
 
 @Component({
     selector: 'steps-only-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, StepperModule],
     template: `
         <app-docsectiontext>
             <p>Use Stepper with a <i>StepList</i> only for custom requirements where a progress indicator is needed.</p>

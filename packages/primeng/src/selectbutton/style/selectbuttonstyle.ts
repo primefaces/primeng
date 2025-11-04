@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/selectbutton';
-import { css, dt } from '@primeuix/styled';
+import { style as selectbutton_style } from '@primeuix/styles/selectbutton';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${selectbutton_style}
 
     /* For PrimeNG */
     .p-selectbutton.ng-invalid.ng-dirty {
-        outline: 1px solid ${dt('selectbutton.invalid.border.color')};
+        outline: 1px solid dt('selectbutton.invalid.border.color');
         outline-offset: 0;
     }
 `;
@@ -17,7 +16,8 @@ const classes = {
     root: ({ instance }) => [
         'p-selectbutton p-component',
         {
-            'p-invalid': instance.invalid()
+            'p-invalid': instance.invalid(),
+            'p-selectbutton-fluid': instance.fluid()
         }
     ]
 };
@@ -26,7 +26,7 @@ const classes = {
 export class SelectButtonStyle extends BaseStyle {
     name = 'selectbutton';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

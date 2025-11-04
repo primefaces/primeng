@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
-import { style } from '@primeuix/styles/scrollpanel';
+import { style as scrollpanel_style } from '@primeuix/styles/scrollpanel';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${scrollpanel_style}
 
     .p-scrollpanel {
         display: block;
@@ -23,7 +22,7 @@ const classes = {
 export class ScrollPanelStyle extends BaseStyle {
     name = 'scrollpanel';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

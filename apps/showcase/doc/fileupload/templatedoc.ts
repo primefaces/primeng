@@ -1,11 +1,20 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { PrimeNG } from 'primeng/config';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { BadgeModule } from 'primeng/badge';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'file-upload-template-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FileUploadModule, ToastModule, ButtonModule, BadgeModule, ProgressBarModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -24,7 +33,7 @@ import { PrimeNG } from 'primeng/config';
                             <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                             <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                         </div>
-                        <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" styleClass="md:w-20rem h-1 w-full md:ml-auto">
+                        <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
                             <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
                         </p-progressbar>
                     </div>
@@ -142,7 +151,7 @@ export class TemplateDoc {
                 <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                 <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
             </div>
-            <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" styleClass="md:w-20rem h-1 w-full md:ml-auto">
+            <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
                 <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
             </p-progressbar>
         </div>
@@ -197,7 +206,7 @@ export class TemplateDoc {
                     <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
                     <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                 </div>
-                <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" styleClass="md:w-20rem h-1 w-full md:ml-auto">
+                <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
                     <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
                 </p-progressbar>
             </div>

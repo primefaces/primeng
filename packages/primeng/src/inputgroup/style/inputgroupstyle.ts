@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
+import { style as inputgroup_style } from '@primeuix/styles/inputgroup';
 import { BaseStyle } from 'primeng/base';
-import { css, dt } from '@primeuix/styled';
-import { style } from '@primeuix/styles/inputgroup';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${inputgroup_style}
 
     /*For PrimeNG*/
 
@@ -25,13 +24,17 @@ const theme = css`
     }
 
     .p-inputgroup:has(> p-button:first-child) .p-button {
-        border-start-start-radius: ${dt('inputgroup.addon.border.radius')};
-        border-end-start-radius: ${dt('inputgroup.addon.border.radius')};
+        border-start-start-radius: dt('inputgroup.addon.border.radius');
+        border-end-start-radius: dt('inputgroup.addon.border.radius');
     }
 
     .p-inputgroup:has(> p-button:last-child) .p-button {
-        border-start-end-radius: ${dt('inputgroup.addon.border.radius')};
-        border-end-end-radius: ${dt('inputgroup.addon.border.radius')};
+        border-start-end-radius: dt('inputgroup.addon.border.radius');
+        border-end-end-radius: dt('inputgroup.addon.border.radius');
+    }
+
+    .p-inputgroup > p-inputmask > .p-inputtext {
+        width: 100%;
     }
 `;
 
@@ -48,7 +51,7 @@ const classes = {
 export class InputGroupStyle extends BaseStyle {
     name = 'inputgroup';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

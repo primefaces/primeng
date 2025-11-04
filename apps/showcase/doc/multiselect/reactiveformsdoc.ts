@@ -1,7 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -10,11 +17,14 @@ interface City {
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ReactiveFormsModule, MultiSelectModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText, CommonModule],
+    providers: [MessageService],
     template: `
         <app-docsectiontext>
             <p>MultiSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
+        <p-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 w-full md:w-80">
                 <div class="flex flex-col gap-1">
@@ -65,12 +75,31 @@ export class ReactiveFormsDoc {
     }
 
     code: Code = {
-        basic: `<form [formGroup]="formGroup" class="card flex justify-center">
-    <p-multiselect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" styleClass="w-full md:w-80" />
+        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 w-full md:w-80">
+    <div class="flex flex-col gap-1">
+        <p-multiselect [options]="cities" formControlName="city" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" [fluid]="true" [invalid]="isInvalid('city')" />
+        @if (isInvalid('city')) {
+            <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+        }
+    </div>
+    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>`,
 
+        html: `<p-toast />
+<div class="card flex justify-center">
+    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex justify-center flex-col gap-4 w-full md:w-80">
+        <div class="flex flex-col gap-1">
+            <p-multiselect [options]="cities" formControlName="city" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" [fluid]="true" [invalid]="isInvalid('city')" />
+            @if (isInvalid('city')) {
+                <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+            }
+        </div>
+        <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+    </form>
+</div>`,
+
         typescript: `import {Component, inject} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Message } from 'primeng/message';
 import { Button } from 'primeng/button';
@@ -88,7 +117,7 @@ interface City {
     imports: [ReactiveFormsModule, MultiSelectModule, Message, Button, Toast]
 })
 export class MultiSelectReactiveFormsDemo implements OnInit {
-       messageService = inject(MessageService);
+    messageService = inject(MessageService);
 
     cities: City[] = [
         { name: 'New York', code: 'NY' },

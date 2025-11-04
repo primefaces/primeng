@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, CheckboxModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Checkboxes can be generated using a list of values.</p>

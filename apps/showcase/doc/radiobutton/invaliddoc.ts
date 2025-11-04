@@ -1,12 +1,17 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'invalid-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, RadioButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Invalid state is displayed using the <i>invalid</i> prop to indicate a failed validation. You can use this style when integrating with form validation libraries.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-radiobutton [(ngModel)]="value" [invalid]="!value" />

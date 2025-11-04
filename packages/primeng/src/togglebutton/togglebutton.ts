@@ -1,12 +1,37 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, HostListener, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    HostListener,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnInit,
+    Output,
+    QueryList,
+    TemplateRef
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
+import { ToggleButtonPassThrough, ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
-import { ToggleButtonChangeEvent } from './togglebutton.interface';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
+
+const TOGGLEBUTTON_INSTANCE = new InjectionToken<ToggleButton>('TOGGLEBUTTON_INSTANCE');
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -18,39 +43,46 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-togglebutton',
+    selector: 'p-toggleButton, p-togglebutton, p-toggle-button',
     standalone: true,
-    imports: [CommonModule, SharedModule],
-    hostDirectives: [{ directive: Ripple }],
+    imports: [CommonModule, SharedModule, BindModule],
+    hostDirectives: [{ directive: Ripple }, Bind],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[attr.tabindex]': 'tabindex',
-        '[attr.disabled]': 'disabled()',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.aria-pressed]': 'checked',
-        '[attr.data-p-checked]': 'active',
-        '[attr.data-p-disabled]': 'disabled()',
-        '[attr.required]': 'required()',
-        '[attr.type]': '"button"'
+        '[attr.aria-label]': 'ariaLabel',
+        '[attr.aria-pressed]': 'checked ? "true" : "false"',
+        '[attr.role]': '"button"',
+        '[attr.tabindex]': 'tabindex !== undefined ? tabindex : (!$disabled() ? 0 : -1)',
+        '[attr.data-pc-name]': "'togglebutton'"
     },
-    template: `<span [class]="cx('content')">
+    template: `<span [class]="cx('content')" [pBind]="ptm('content')">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
         @if (!contentTemplate) {
             @if (!iconTemplate) {
                 @if (onIcon || offIcon) {
-                    <span [class]="cn(cx('icon'), checked ? this.onIcon : this.offIcon, iconPos === 'left' ? cx('iconLeft') : cx('iconRight'))" [attr.data-pc-section]="'icon'"></span>
+                    <span [class]="cn(cx('icon'), checked ? this.onIcon : this.offIcon, iconPos === 'left' ? cx('iconLeft') : cx('iconRight'))" [pBind]="ptm('icon')"></span>
                 }
             } @else {
                 <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { $implicit: checked }"></ng-container>
             }
-            <span [class]="cx('label')" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : ' ') : hasOffLabel ? offLabel : ' ' }}</span>
+            <span [class]="cx('label')" [pBind]="ptm('label')">{{ checked ? (hasOnLabel ? onLabel : ' ') : hasOffLabel ? offLabel : ' ' }}</span>
         }
     </span>`,
-    providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
+    providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle, { provide: TOGGLEBUTTON_INSTANCE, useExisting: ToggleButton }, { provide: PARENT_INSTANCE, useExisting: ToggleButton }],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
-    @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
+    $pcToggleButton: ToggleButton | undefined = inject(TOGGLEBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    @HostListener('keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
                 this.toggle(event);
@@ -63,8 +95,9 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
         }
     }
 
-    @HostListener('click', ['$event']) toggle(event: Event) {
-        if (!this.disabled() && !(this.allowEmpty === false && this.checked)) {
+    @HostListener('click', ['$event'])
+    toggle(event: Event) {
+        if (!this.$disabled() && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;
             this.writeModelValue(this.checked);
             this.onModelChange(this.checked);
@@ -144,6 +177,12 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
      */
     @Input() allowEmpty: boolean | undefined;
     /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
      * Callback to invoke on value change.
      * @param {ToggleButtonChangeEvent} event - Custom change event.
      * @group Emits
@@ -164,9 +203,11 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
 
     checked: boolean = false;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
+    onInit() {
+        if (this.checked === null || this.checked === undefined) {
+            this.checked = false;
+        }
+    }
 
     _componentStyle = inject(ToggleButtonStyle);
 
@@ -174,26 +215,12 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
         this.onModelTouched();
     }
 
-    writeValue(value: any): void {
-        this.checked = value;
-        this.writeModelValue(value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
     get hasOnLabel(): boolean {
         return (this.onLabel && this.onLabel.length > 0) as boolean;
     }
 
     get hasOffLabel(): boolean {
-        return (this.onLabel && this.onLabel.length > 0) as boolean;
+        return (this.offLabel && this.offLabel.length > 0) as boolean;
     }
 
     get active() {
@@ -204,7 +231,7 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
 
     _contentTemplate: TemplateRef<any> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
@@ -218,6 +245,18 @@ export class ToggleButton extends BaseEditableHolder implements AfterContentInit
                     break;
             }
         });
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.checked = value;
+        setModelValue(value);
+        this.cd.markForCheck();
     }
 }
 

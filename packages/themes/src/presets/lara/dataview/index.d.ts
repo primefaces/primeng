@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/dataview';
+export * from '@primeuix/themes/lara/dataview';
+export { default } from '@primeuix/themes/lara/dataview';

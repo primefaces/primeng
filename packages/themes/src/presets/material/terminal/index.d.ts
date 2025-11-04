@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/terminal';
+export * from '@primeuix/themes/material/terminal';
+export { default } from '@primeuix/themes/material/terminal';

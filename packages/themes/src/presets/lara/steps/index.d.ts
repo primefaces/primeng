@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/steps';
+export * from '@primeuix/themes/lara/steps';
+export { default } from '@primeuix/themes/lara/steps';

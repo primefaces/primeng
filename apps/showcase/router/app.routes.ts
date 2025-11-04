@@ -31,6 +31,7 @@ export const routes: Routes = [
                 path: 'customicons',
                 loadChildren: () => import('@/pages/customicons/routes')
             },
+            { path: 'passthrough', loadChildren: () => import('@/pages/passthrough/routes') },
             { path: 'accordion', loadChildren: () => import('@/pages/accordion/routes') },
             { path: 'avatar', loadChildren: () => import('@/pages/avatar/routes') },
             { path: 'blockui', loadChildren: () => import('@/pages/blockui/routes') },
@@ -71,7 +72,6 @@ export const routes: Routes = [
                 path: 'dataview',
                 loadChildren: () => import('@/pages/dataview/routes')
             },
-            { path: 'defer', loadChildren: () => import('@/pages/defer/routes') },
             { path: 'dialog', loadChildren: () => import('@/pages/dialog/routes') },
             { path: 'dock', loadChildren: () => import('@/pages/dock/routes') },
             { path: 'divider', loadChildren: () => import('@/pages/divider/routes') },
@@ -242,7 +242,6 @@ export const routes: Routes = [
                 loadChildren: () => import('@/pages/splitter/routes')
             },
             { path: 'stepper', loadChildren: () => import('@/pages/stepper/routes') },
-            { path: 'steps', loadChildren: () => import('@/pages/steps/routes') },
             { path: 'support', loadChildren: () => import('@/pages/support/routes') },
             {
                 path: 'styleclass',
@@ -294,11 +293,23 @@ export const routes: Routes = [
                 path: 'animateonscroll',
                 loadChildren: () => import('@/pages/animateonscroll/routes')
             },
+            {
+                path: 'classnames',
+                loadChildren: () => import('@/pages/classnames/routes')
+            },
+            {
+                path: 'bind',
+                loadChildren: () => import('@/pages/bind/routes')
+            },
             { path: 'templates', loadChildren: () => import('@/pages/templates/templates.module').then((m) => m.TemplatesModule) },
-            { path: 'guides', loadChildren: () => import('@/pages/guides/guides.module').then((m) => m.GuidesModule) },
+            { path: 'guides', loadChildren: () => import('@/pages/guides/routes') },
             {
                 path: 'designer',
                 loadChildren: () => import('@/pages/designer/routes')
+            },
+            {
+                path: 'migration',
+                loadChildren: () => import('@/pages/migration/routes')
             }
         ]
     },

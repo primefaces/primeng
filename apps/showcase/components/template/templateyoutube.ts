@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
-import { Dialog } from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'template-youtube',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, DialogModule],
     template: `
         <div class="template-youtube-wrapper">
             <div class="template-youtube">
@@ -69,10 +69,3 @@ export class TemplateYoutube {
         this.iframeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(this.youtubeLink);
     }
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule, Dialog],
-    exports: [TemplateYoutube, SharedModule],
-    declarations: [TemplateYoutube]
-})
-export class TemplateYoutubeModule {}

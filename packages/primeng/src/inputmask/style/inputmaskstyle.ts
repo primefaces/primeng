@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => css`
+const style = /*css*/ `
     /* For PrimeNG */
     p-inputmask {
         position: relative;
@@ -13,32 +12,38 @@ const theme = ({ dt }) => css`
         top: 50%;
         margin-top: -0.5rem;
         cursor: pointer;
-        inset-inline-end: ${dt('form.field.padding.x')};
-        color: ${dt('form.field.icon.color')};
+        inset-inline-end: dt('form.field.padding.x');
+        color: dt('form.field.icon.color');
+    }
+
+    p-inputMask:has(.p-inputtext-fluid),
+    p-input-mask:has(.p-inputtext-fluid),
+    p-inputmask:has(.p-inputtext-fluid) {
+        width: 100%;
     }
 
     p-inputMask.ng-invalid.ng-dirty > .p-inputtext,
     p-input-mask.ng-invalid.ng-dirty > .p-inputtext,
     p-inputmask.ng-invalid.ng-dirty > .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
+        border-color: dt('inputtext.invalid.border.color');
     }
 
     p-inputMask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
     p-input-mask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus,
     p-inputmask.ng-invalid.ng-dirty > .p-inputtext:enabled:focus {
-        border-color: ${dt('inputtext.focus.border.color')};
+        border-color: dt('inputtext.focus.border.color');
     }
 
     p-inputMask.ng-invalid.ng-dirty > .p-inputtext::placeholder,
     p-input-mask.ng-invalid.ng-dirty > .p-inputtext::placeholder,
     p-inputmask.ng-invalid.ng-dirty > .p-inputtext::placeholder {
-        color: ${dt('inputtext.invalid.placeholder.color')};
+        color: dt('inputtext.invalid.placeholder.color');
     }
 `;
 
 const classes = {
     root: ({ instance }) => [
-        'p-inputmask',
+        'p-inputmask p-component p-inputwrapper',
         {
             'p-variant-filled': instance.$variant() === 'filled'
         }
@@ -50,7 +55,7 @@ const classes = {
 export class InputMaskStyle extends BaseStyle {
     name = 'inputmask';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

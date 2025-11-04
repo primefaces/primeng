@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
-import { style } from '@primeuix/styles/drawer';
+import { style as drawer_style } from '@primeuix/styles/drawer';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${drawer_style}
 
     /** For PrimeNG **/
     .p-drawer {
@@ -97,7 +96,7 @@ const classes = {
 export class DrawerStyle extends BaseStyle {
     name = 'drawer';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

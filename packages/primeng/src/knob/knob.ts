@@ -1,11 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@primeuix/styled';
 import { SharedModule } from 'primeng/api';
-import { VoidListener } from 'primeng/ts-helpers';
-import { KnobStyle } from './style/knobstyle';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
+import { VoidListener } from 'primeng/ts-helpers';
+import { KnobPassThrough } from 'primeng/types/knob';
+import { KnobStyle } from './style/knobstyle';
+
+const KNOB_INSTANCE = new InjectionToken<Knob>('KNOB_INSTANCE');
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -19,7 +25,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-knob',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
         <svg
             viewBox="0 0 100 100"
@@ -34,35 +40,37 @@ export const KNOB_VALUE_ACCESSOR: any = {
             (touchend)="onTouchEnd($event)"
             [attr.aria-valuemin]="min"
             [attr.aria-valuemax]="max"
-            [attr.required]="required()"
+            [attr.required]="required() ? '' : undefined"
             [attr.aria-valuenow]="_value"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
-            [attr.tabindex]="readonly || disabled() ? -1 : tabindex"
-            [attr.data-pc-section]="'svg'"
+            [attr.tabindex]="readonly || $disabled() ? -1 : tabindex"
+            [pBind]="ptm('svg')"
         >
-            <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" [class]="cx('range')"></path>
-            <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" [class]="cx('value')"></path>
-            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name()">
+            <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" [class]="cx('range')" [pBind]="ptm('range')"></path>
+            <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" [class]="cx('value')" [pBind]="ptm('value')"></path>
+            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name()" [pBind]="ptm('text')">
                 {{ valueToDisplay() }}
             </text>
         </svg>
     `,
-    providers: [KNOB_VALUE_ACCESSOR, KnobStyle],
+    providers: [KNOB_VALUE_ACCESSOR, KnobStyle, { provide: KNOB_INSTANCE, useExisting: Knob }, { provide: PARENT_INSTANCE, useExisting: Knob }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.data-pc-name]': "'knob'",
-        '[attr.data-pc-section]': "'root'",
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.disabled]': 'disabled()',
-        '[attr.name]': 'name()',
-        '[attr.min]': 'min',
-        '[attr.required]': 'required()',
-        '[attr.step]': 'step'
-    }
+        '[class]': "cn(cx('root'), styleClass)"
+    },
+    hostDirectives: [Bind]
 })
-export class Knob extends BaseEditableHolder {
+export class Knob extends BaseEditableHolder<KnobPassThrough> {
+    $pcKnob: Knob | undefined = inject(KNOB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -166,10 +174,6 @@ export class Knob extends BaseEditableHolder {
 
     windowTouchEndListener: VoidListener;
 
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
     _componentStyle = inject(KnobStyle);
 
     mapRange(x: number, inMin: number, inMax: number, outMin: number, outMax: number) {
@@ -177,7 +181,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onClick(event: MouseEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             this.updateValue(event.offsetX, event.offsetY);
         }
     }
@@ -204,7 +208,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onMouseDown(event: MouseEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             const window = this.document.defaultView || 'window';
             this.windowMouseMoveListener = this.renderer.listen(window, 'mousemove', this.onMouseMove.bind(this));
             this.windowMouseUpListener = this.renderer.listen(window, 'mouseup', this.onMouseUp.bind(this));
@@ -213,7 +217,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onMouseUp(event: MouseEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             if (this.windowMouseMoveListener) {
                 this.windowMouseMoveListener();
                 this.windowMouseUpListener = null;
@@ -228,7 +232,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onTouchStart(event: TouchEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             const window = this.document.defaultView || 'window';
             this.windowTouchMoveListener = this.renderer.listen(window, 'touchmove', this.onTouchMove.bind(this));
             this.windowTouchEndListener = this.renderer.listen(window, 'touchend', this.onTouchEnd.bind(this));
@@ -237,7 +241,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onTouchEnd(event: TouchEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             if (this.windowTouchMoveListener) {
                 this.windowTouchMoveListener();
             }
@@ -251,14 +255,14 @@ export class Knob extends BaseEditableHolder {
     }
 
     onMouseMove(event: MouseEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             this.updateValue(event.offsetX, event.offsetY);
             event.preventDefault();
         }
     }
 
     onTouchMove(event: Event) {
-        if (!this.disabled() && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
+        if (!this.$disabled() && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
             const rect = this.el.nativeElement.children[0].getBoundingClientRect();
             const touch = event.targetTouches.item(0);
             if (touch) {
@@ -280,7 +284,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     onKeyDown(event: KeyboardEvent) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             switch (event.code) {
                 case 'ArrowRight':
 
@@ -324,20 +328,6 @@ export class Knob extends BaseEditableHolder {
                 }
             }
         }
-    }
-
-    writeValue(value: any): void {
-        this.value = value;
-        this.writeModelValue(this.value);
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     rangePath() {
@@ -403,6 +393,18 @@ export class Knob extends BaseEditableHolder {
 
     get _value(): number {
         return this.value != null ? this.value : this.min;
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        this.value = value;
+        setModelValue(this.value);
+        this.cd.markForCheck();
     }
 }
 

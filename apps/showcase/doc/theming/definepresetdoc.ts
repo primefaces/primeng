@@ -1,9 +1,12 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'define-preset-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>definePreset</i> utility is used to customize an existing preset during the PrimeNG setup. The first parameter is the preset to customize and the second is the design tokens to override.</p>

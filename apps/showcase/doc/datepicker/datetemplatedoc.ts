@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'datepicker-datetemplate-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Custom content can be placed inside date cells with the <i>ng-template</i> property that takes a Date as a parameter.</p>
@@ -16,7 +22,7 @@ import { Component } from '@angular/core';
                 </ng-template>
             </p-datepicker>
         </div>
-        <app-code [code]="code" selector="datepicker-datetemplate-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-datetemplate-demo"></app-code>
     `
 })
 export class DateTemplateDoc {
@@ -44,8 +50,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-datetemplate-demo',
-    templateUrl: './datepicker-datetemplate-demo.html',
+    selector: 'date-picker-datetemplate-demo',
+    templateUrl: './date-picker-datetemplate-demo.html',
     standalone: true,
     imports: [FormsModule, DatePickerModule]
 })

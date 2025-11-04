@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+import { FluidModule } from 'primeng/fluid';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'datepicker-icon-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, FluidModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>An additional icon is displayed next to the input field when <i>showIcon</i> is present.</p>
@@ -28,7 +34,7 @@ import { Component } from '@angular/core';
                 </p-datepicker>
             </div>
         </p-fluid>
-        <app-code [code]="code" selector="datepicker-icon-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-icon-demo"></app-code>
     `
 })
 export class IconDoc {
@@ -76,8 +82,8 @@ import { FormsModule } from '@angular/forms';
 import { FluidModule } from 'primeng/fluid';
 
 @Component({
-    selector: 'datepicker-icon-demo',
-    templateUrl: './datepicker-icon-demo.html',
+    selector: 'date-picker-icon-demo',
+    templateUrl: './date-picker-icon-demo.html',
     standalone: true,
     imports: [DatePickerModule, FormsModule, FluidModule]
 })

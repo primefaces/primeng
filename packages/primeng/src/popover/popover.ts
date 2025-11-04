@@ -11,6 +11,7 @@ import {
     EventEmitter,
     HostListener,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     NgZone,
@@ -22,15 +23,19 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
+import { $dt } from '@primeuix/styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
-import { $dt } from '@primeuix/styled';
+
+const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
 
 /**
  * Popover is a container component that can overlay other components on page.
@@ -39,10 +44,13 @@ import { $dt } from '@primeuix/styled';
 @Component({
     selector: 'p-popover',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, Bind],
+    providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
+    hostDirectives: [Bind],
     template: `
         <div
             *ngIf="render"
+            [pBind]="ptm('root')"
             [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             (click)="onOverlayClick($event)"
@@ -57,7 +65,7 @@ import { $dt } from '@primeuix/styled';
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
         >
-            <div [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+            <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
                 <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
             </div>
@@ -90,10 +98,17 @@ import { $dt } from '@primeuix/styled';
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    providers: [PopoverStyle]
+    encapsulation: ViewEncapsulation.None
 })
-export class Popover extends BaseComponent implements AfterContentInit, OnDestroy {
+export class Popover extends BaseComponent<PopoverPassThrough> {
+    $pcPopover: Popover | undefined = inject(POPOVER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -207,7 +222,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
     overlayService = inject(OverlayService);
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -308,8 +323,8 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
+            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container!);
+            else appendChild(this.appendTo, this.container!);
         }
     }
 
@@ -324,7 +339,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
             ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
         }
 
-        absolutePosition(this.container, this.target, false);
+        absolutePosition(this.container!, this.target, false);
 
         const containerOffset = <any>getOffset(this.container);
         const targetOffset = <any>getOffset(this.target);
@@ -337,15 +352,15 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         this.container?.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            this.container.setAttribute('data-p-popover-flipped', 'true');
-            addClass(this.container, 'p-popover-flipped');
+            this.container?.setAttribute('data-p-popover-flipped', 'true');
+            addClass(this.container!, 'p-popover-flipped');
         }
     }
 
     onAnimationStart(event: AnimationEvent) {
         if (event.toState === 'open') {
             this.container = event.element;
-            this.container?.setAttribute(this.attrSelector, '');
+            this.container?.setAttribute(this.$attrSelector, '');
             this.appendContainer();
             this.align();
             this.bindDocumentClickListener();
@@ -401,7 +416,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
     }
 
     focus() {
-        let focusable = <any>findSingle(this.container, '[autofocus]');
+        let focusable = <any>findSingle(this.container!, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
@@ -479,7 +494,7 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         this.unbindScrollListener();
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
@@ -502,7 +517,6 @@ export class Popover extends BaseComponent implements AfterContentInit, OnDestro
         if (this.overlaySubscription) {
             this.overlaySubscription.unsubscribe();
         }
-        super.ngOnDestroy();
     }
 }
 

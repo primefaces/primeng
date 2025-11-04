@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'palette-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Colors palette consists of 13 main colors where each color provides tints/shades from 50 to 900.</p>

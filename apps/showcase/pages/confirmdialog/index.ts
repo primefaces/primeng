@@ -1,15 +1,15 @@
 import { AccessibilityDoc } from '@/doc/confirmdialog/accessibilitydoc';
 import { BasicDoc } from '@/doc/confirmdialog/basicdoc';
-import { ConfirmDialogDocModule } from '@/doc/confirmdialog/confirmdialogdoc.module';
 import { HeadlessDoc } from '@/doc/confirmdialog/headlessdoc';
 import { ImportDoc } from '@/doc/confirmdialog/importdoc';
 import { PositionDoc } from '@/doc/confirmdialog/positiondoc';
+import { PTComponent } from '@/doc/confirmdialog/pt/PTComponent';
 import { TemplateDoc } from '@/doc/confirmdialog/templatedoc';
 import { Component } from '@angular/core';
-
+import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
-    imports: [ConfirmDialogDocModule],
+    imports: [AppDoc],
     template: `
         <app-doc
             docTitle="Angular ConfirmDialog Component"
@@ -17,11 +17,14 @@ import { Component } from '@angular/core';
             description="ConfirmDialog is backed by a service utilizing Observables to display confirmation windows easily that can be shared by multiple actions on the same component."
             [docs]="docs"
             [apiDocs]="['ConfirmDialog', 'ConfirmationService', 'Confirmation']"
+            [ptDocs]="ptComponent"
             themeDocs="confirmDialog"
         ></app-doc>
     `
 })
 export class ConfirmDialogDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

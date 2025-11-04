@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FieldsetModule } from 'primeng/fieldset';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'fieldset-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FieldsetModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A simple Fieldset is created with a <i>legend</i> property along with the content as children.</p>

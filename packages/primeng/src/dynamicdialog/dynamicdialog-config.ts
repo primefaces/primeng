@@ -156,7 +156,7 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     minimizeIcon?: string;
     /**
-     * Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".
+     * Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright".
      * @group Props
      */
     position?: string;

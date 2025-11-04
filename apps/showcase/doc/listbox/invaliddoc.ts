@@ -1,5 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface City {
     name: string;
@@ -8,10 +12,11 @@ interface City {
 
 @Component({
     selector: 'listbox-invalid-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Invalid state is displayed using the <i>invalid</i> prop to indicate a failed validation. You can use this style when integrating with form validation libraries.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />

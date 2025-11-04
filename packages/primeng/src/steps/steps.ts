@@ -84,7 +84,7 @@ import { StepsStyle } from './style/stepsstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [StepsStyle]
 })
-export class Steps extends BaseComponent implements OnInit, OnDestroy {
+export class Steps extends BaseComponent {
     /**
      * Index of the active item.
      * @group Props
@@ -132,8 +132,7 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
     }
 
@@ -185,10 +184,10 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
             }
 
             case 'Tab':
-                if (i !== this.activeIndex) {
-                    const siblings = <any>find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+                if (i !== (this.activeIndex ?? -1)) {
+                    const siblings = <any>find(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
                     siblings[i].children[0].tabIndex = '-1';
-                    siblings[this.activeIndex].children[0].tabIndex = '0';
+                    siblings[this.activeIndex ?? 0].children[0].tabIndex = '0';
                 }
                 break;
 
@@ -241,13 +240,13 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
     }
 
     findFirstItem() {
-        const firstSibling = findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const firstSibling = findSingle(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
 
         return firstSibling ? firstSibling.children[0] : null;
     }
 
     findLastItem() {
-        const siblings = find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const siblings = find(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
 
         return siblings ? siblings[siblings.length - 1].children[0] : null;
     }
@@ -288,12 +287,10 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
         return item.tabindex ?? '-1';
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

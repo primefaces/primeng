@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/menu';
+export * from '@primeuix/themes/material/menu';
+export { default } from '@primeuix/themes/material/menu';

@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/virtualscroller';
+export * from '@primeuix/themes/material/virtualscroller';
+export { default } from '@primeuix/themes/material/virtualscroller';

@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/textarea';
-import { css, dt } from '@primeuix/styled';
+import { style as textarea_style } from '@primeuix/styles/textarea';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${textarea_style}
 
     /* For PrimeNG */
     .p-textarea.ng-invalid.ng-dirty {
-        border-color: ${dt('textarea.invalid.border.color')};
+        border-color: dt('textarea.invalid.border.color');
     }
     .p-textarea.ng-invalid.ng-dirty::placeholder {
-        color: ${dt('textarea.invalid.placeholder.color')};
+        color: dt('textarea.invalid.placeholder.color');
     }
 `;
 
@@ -23,10 +22,9 @@ const classes = {
             'p-textarea-resizable ': instance.autoResize,
             'p-variant-filled': instance.$variant() === 'filled',
             'p-textarea-fluid': instance.hasFluid,
-            'p-inputfield-sm p-textarea-sm': instance.size() === 'small',
-            'p-textarea-lg p-inputfield-lg': instance.size() === 'large',
-            'p-invalid': instance.invalid(),
-            'p-disabled': instance.disabled()
+            'p-inputfield-sm p-textarea-sm': instance.pSize === 'small',
+            'p-textarea-lg p-inputfield-lg': instance.pSize === 'large',
+            'p-invalid': instance.invalid()
         }
     ]
 };
@@ -35,7 +33,7 @@ const classes = {
 export class TextareaStyle extends BaseStyle {
     name = 'textarea';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { css, dt } from '@primeuix/styled';
-import { style } from '@primeuix/styles/rating';
+import { style as rating_style } from '@primeuix/styles/rating';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${rating_style}
 
     /* For PrimeNG */
     p-rating.ng-invalid.ng-dirty > .p-rating > .p-rating-icon {
-        stroke: ${dt('rating.invalid.icon.color')};
+        stroke: dt('rating.invalid.icon.color');
     }
 `;
 
@@ -17,7 +16,7 @@ const classes = {
         'p-rating',
         {
             'p-readonly': instance.readonly,
-            'p-disabled': instance.disabled()
+            'p-disabled': instance.$disabled()
         }
     ],
     option: ({ instance, star, value }) => [
@@ -36,7 +35,7 @@ const classes = {
 export class RatingStyle extends BaseStyle {
     name = 'rating';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

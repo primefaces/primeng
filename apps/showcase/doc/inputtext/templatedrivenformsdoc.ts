@@ -1,10 +1,17 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { AppCodeModule } from '@/components/doc/app.code';
 
 @Component({
     selector: 'template-driven-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCodeModule],
     template: `
         <p-toast />
         <div class="card flex justify-center">

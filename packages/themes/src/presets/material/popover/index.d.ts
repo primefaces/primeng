@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/popover';
+export * from '@primeuix/themes/material/popover';
+export { default } from '@primeuix/themes/material/popover';

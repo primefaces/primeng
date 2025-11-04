@@ -1,11 +1,20 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'template-driven-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, RadioButtonModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText, CommonModule],
+    providers: [MessageService],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />

@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/skeleton';
+export * from '@primeuix/themes/material/skeleton';
+export { default } from '@primeuix/themes/material/skeleton';

@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'lazy-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -15,7 +20,6 @@ import { TreeNode } from 'primeng/api';
         <div class="card flex justify-center">
             <p-treeselect
                 class="w-full md:w-80"
-                containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
                 [loading]="loading"
                 (onNodeExpand)="onNodeExpand($event)"
@@ -93,10 +97,10 @@ export class LazyDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>`,
+        basic: `<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>
+    <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

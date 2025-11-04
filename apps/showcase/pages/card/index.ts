@@ -1,14 +1,15 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/card/accessibilitydoc';
 import { AdvancedDoc } from '@/doc/card/advanceddoc';
 import { BasicDoc } from '@/doc/card/basicdoc';
-import { CardDocModule } from '@/doc/card/carddoc.module';
 import { ImportDoc } from '@/doc/card/importdoc';
+import { PTComponent } from '@/doc/card/pt/PTComponent';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [CardDocModule],
-    template: ` <app-doc docTitle="Angular Card Component" header="Card" description="Card is a flexible container component." [docs]="docs" [apiDocs]="['Card']" themeDocs="Card"></app-doc> `
+    imports: [AppDoc],
+    template: ` <app-doc docTitle="Angular Card Component" header="Card" description="Card is a flexible container component." [docs]="docs" [apiDocs]="['Card']" themeDocs="Card" [ptDocs]="ptComponent"></app-doc> `
 })
 export class CardDemo {
     docs = [
@@ -34,4 +35,6 @@ export class CardDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

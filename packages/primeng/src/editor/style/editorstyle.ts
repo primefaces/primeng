@@ -17,7 +17,7 @@ const classes = {
 export class EditorStyle extends BaseStyle {
     name = 'editor';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

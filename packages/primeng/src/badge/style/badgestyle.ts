@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
-import { style } from '@primeuix/styles/badge';
+import { style as badge_style } from '@primeuix/styles/badge';
 import { isEmpty, isNotEmpty } from '@primeuix/utils';
 import { BaseStyle } from 'primeng/base';
 
-const theme = css`
-    ${style}
+const style = /*css*/ `
+    ${badge_style}
 
     /* For PrimeNG (directive)*/
     .p-overlay-badge {
@@ -23,29 +22,36 @@ const theme = css`
 `;
 
 const classes = {
-    root: ({ instance }) => [
-        'p-badge p-component',
-        {
-            'p-badge-circle': isNotEmpty(instance.value()) && String(instance.value()).length === 1,
-            'p-badge-dot': isEmpty(instance.value()),
-            'p-badge-sm': instance.size() === 'small' || instance.badgeSize() === 'small',
-            'p-badge-lg': instance.size() === 'large' || instance.badgeSize() === 'large',
-            'p-badge-xl': instance.size() === 'xlarge' || instance.badgeSize() === 'xlarge',
-            'p-badge-info': instance.severity() === 'info',
-            'p-badge-success': instance.severity() === 'success',
-            'p-badge-warn': instance.severity() === 'warn',
-            'p-badge-danger': instance.severity() === 'danger',
-            'p-badge-secondary': instance.severity() === 'secondary',
-            'p-badge-contrast': instance.severity() === 'contrast'
-        }
-    ]
+    root: ({ instance }) => {
+        const value = typeof instance.value === 'function' ? instance.value() : instance.value;
+        const size = typeof instance.size === 'function' ? instance.size() : instance.size;
+        const badgeSize = typeof instance.badgeSize === 'function' ? instance.badgeSize() : instance.badgeSize;
+        const severity = typeof instance.severity === 'function' ? instance.severity() : instance.severity;
+
+        return [
+            'p-badge p-component',
+            {
+                'p-badge-circle': isNotEmpty(value) && String(value).length === 1,
+                'p-badge-dot': isEmpty(value),
+                'p-badge-sm': size === 'small' || badgeSize === 'small',
+                'p-badge-lg': size === 'large' || badgeSize === 'large',
+                'p-badge-xl': size === 'xlarge' || badgeSize === 'xlarge',
+                'p-badge-info': severity === 'info',
+                'p-badge-success': severity === 'success',
+                'p-badge-warn': severity === 'warn',
+                'p-badge-danger': severity === 'danger',
+                'p-badge-secondary': severity === 'secondary',
+                'p-badge-contrast': severity === 'contrast'
+            }
+        ];
+    }
 };
 
 @Injectable()
 export class BadgeStyle extends BaseStyle {
     name = 'badge';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

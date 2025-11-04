@@ -7,6 +7,7 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
@@ -20,60 +21,70 @@ import {
 } from '@angular/core';
 import { resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { SpinnerIcon } from 'primeng/icons';
 import { PaginatorModule } from 'primeng/paginator';
 import { Nullable } from 'primeng/ts-helpers';
+import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPassThrough, DataViewPaginatorState, DataViewSortEvent } from 'primeng/types/dataview';
 import { Subscription } from 'rxjs';
-import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
 import { DataViewStyle } from './style/dataviewstyle';
+
+const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
 
 /**
  * DataView displays data in grid or list layout with pagination and sorting features.
  * @group Components
  */
 @Component({
-    selector: 'p-dataview',
+    selector: 'p-dataView, p-dataview, p-data-view',
     standalone: true,
-    imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule],
+    imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule, Bind],
     template: `
-        <div [class]="cx('loading')" *ngIf="loading">
-            <div [class]="cx('loadingOverlay')">
-                <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
-                <ng-container *ngIf="!loadingIcon">
-                    <SpinnerIcon *ngIf="!loadingicon" [spin]="true" [styleClass]="cx('loadingIcon')" />
-                    <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
-                </ng-container>
+        @if (loading) {
+            <div [pBind]="ptm('loading')" [class]="cx('loading')">
+                <div [pBind]="ptm('loadingOverlay')" [class]="cx('loadingOverlay')">
+                    @if (loadingIcon) {
+                        <i [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
+                    } @else {
+                        <ng-container>
+                            <svg [pBind]="ptm('loadingIcon')" data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" />
+                            <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
+                        </ng-container>
+                    }
+                </div>
             </div>
-        </div>
-        <div [class]="cx('header')" *ngIf="header || headerTemplate">
-            <ng-content select="p-header"></ng-content>
-            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-        </div>
-        <p-paginator
-            [rows]="rows"
-            [first]="first"
-            [totalRecords]="totalRecords"
-            [pageLinkSize]="pageLinks"
-            [alwaysShow]="alwaysShowPaginator"
-            (onPageChange)="paginate($event)"
-            [styleClass]="cx('pcPaginator', { position: 'top' })"
-            [rowsPerPageOptions]="rowsPerPageOptions"
-            *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
-            [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-            [templateLeft]="paginatorleft"
-            [templateRight]="paginatorright"
-            [currentPageReportTemplate]="currentPageReportTemplate"
-            [showFirstLastIcon]="showFirstLastIcon"
-            [dropdownItemTemplate]="paginatordropdownitem"
-            [showCurrentPageReport]="showCurrentPageReport"
-            [showJumpToPageDropdown]="showJumpToPageDropdown"
-            [showPageLinks]="showPageLinks"
-            [styleClass]="paginatorStyleClass"
-        ></p-paginator>
-
-        <div [class]="cx('content')">
+        }
+        @if (header || headerTemplate) {
+            <div [pBind]="ptm('header')" [class]="cx('header')">
+                <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+            </div>
+        }
+        @if (paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')) {
+            <p-paginator
+                [rows]="rows"
+                [first]="first"
+                [totalRecords]="totalRecords"
+                [pageLinkSize]="pageLinks"
+                [alwaysShow]="alwaysShowPaginator"
+                (onPageChange)="paginate($event)"
+                [rowsPerPageOptions]="rowsPerPageOptions"
+                [appendTo]="paginatorDropdownAppendTo"
+                [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+                [templateLeft]="paginatorleft"
+                [templateRight]="paginatorright"
+                [currentPageReportTemplate]="currentPageReportTemplate"
+                [showFirstLastIcon]="showFirstLastIcon"
+                [dropdownItemTemplate]="paginatordropdownitem"
+                [showCurrentPageReport]="showCurrentPageReport"
+                [showJumpToPageDropdown]="showJumpToPageDropdown"
+                [showPageLinks]="showPageLinks"
+                [styleClass]="cn(cx('pcPaginator', { position: 'top' }), paginatorStyleClass)"
+                [pt]="ptm('pcPaginator')"
+            ></p-paginator>
+        }
+        <div [pBind]="ptm('content')" [class]="cx('content')">
             @if (layout === 'list') {
                 <ng-container
                     *ngTemplateOutlet="
@@ -94,50 +105,62 @@ import { DataViewStyle } from './style/dataviewstyle';
                     "
                 ></ng-container>
             }
-            <div *ngIf="isEmpty() && !loading">
-                <div [class]="cx('emptyMessage')">
+            @if (isEmpty() && !loading) {
+                <div [pBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')">
                     <ng-container *ngIf="!emptymessageTemplate; else empty">
                         {{ emptyMessageLabel }}
                     </ng-container>
                     <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
                 </div>
+            }
+        </div>
+        @if (paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')) {
+            <p-paginator
+                [rows]="rows"
+                [first]="first"
+                [totalRecords]="totalRecords"
+                [pageLinkSize]="pageLinks"
+                [alwaysShow]="alwaysShowPaginator"
+                (onPageChange)="paginate($event)"
+                [rowsPerPageOptions]="rowsPerPageOptions"
+                [appendTo]="paginatorDropdownAppendTo"
+                [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+                [templateLeft]="paginatorleft"
+                [templateRight]="paginatorright"
+                [currentPageReportTemplate]="currentPageReportTemplate"
+                [showFirstLastIcon]="showFirstLastIcon"
+                [dropdownItemTemplate]="paginatordropdownitem"
+                [showCurrentPageReport]="showCurrentPageReport"
+                [showJumpToPageDropdown]="showJumpToPageDropdown"
+                [showPageLinks]="showPageLinks"
+                [styleClass]="cn(cx('pcPaginator', { position: 'bottom' }), paginatorStyleClass)"
+                [pt]="ptm('pcPaginator')"
+            ></p-paginator>
+        }
+        @if (footer || footerTemplate) {
+            <div [pBind]="ptm('footer')" [class]="cx('footer')">
+                <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
-        </div>
-        <p-paginator
-            [rows]="rows"
-            [first]="first"
-            [totalRecords]="totalRecords"
-            [pageLinkSize]="pageLinks"
-            [alwaysShow]="alwaysShowPaginator"
-            (onPageChange)="paginate($event)"
-            [styleClass]="cx('pcPaginator', { position: 'bottom' })"
-            [rowsPerPageOptions]="rowsPerPageOptions"
-            *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
-            [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-            [templateLeft]="paginatorleft"
-            [templateRight]="paginatorright"
-            [currentPageReportTemplate]="currentPageReportTemplate"
-            [showFirstLastIcon]="showFirstLastIcon"
-            [dropdownItemTemplate]="paginatordropdownitem"
-            [showCurrentPageReport]="showCurrentPageReport"
-            [showJumpToPageDropdown]="showJumpToPageDropdown"
-            [showPageLinks]="showPageLinks"
-            [styleClass]="paginatorStyleClass"
-        ></p-paginator>
-        <div [class]="cx('footer')" *ngIf="footer || footerTemplate">
-            <ng-content select="p-footer"></ng-content>
-            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-        </div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DataViewStyle],
+    providers: [DataViewStyle, { provide: DATAVIEW_INSTANCE, useExisting: DataView }, { provide: PARENT_INSTANCE, useExisting: DataView }],
     host: {
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class DataView extends BaseComponent implements OnInit, OnDestroy, BlockableUI, OnChanges {
+export class DataView extends BaseComponent<DataViewPassThrough> implements BlockableUI {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcDataView: DataView | undefined = inject(DATAVIEW_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * When specified as true, enables the pagination.
      * @group Props
@@ -392,8 +415,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
 
     filterService = inject(FilterService);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -404,12 +426,9 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
         this.initialized = true;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-    }
+    onAfterViewInit() {}
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
+    onChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.layout && !simpleChanges.layout.firstChange) {
             this.onChangeLayout.emit({ layout: simpleChanges.layout.currentValue });
         }
@@ -457,7 +476,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
             this.value.sort((data1, data2) => {
                 let value1 = resolveFieldData(data1, this.sortField);
                 let value2 = resolveFieldData(data2, this.sortField);
-                let result = null;
+                let result: number;
 
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;
@@ -521,11 +540,10 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
         return this.filterValue && this.filterValue.trim().length > 0;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-        super.ngOnDestroy();
     }
 }
 

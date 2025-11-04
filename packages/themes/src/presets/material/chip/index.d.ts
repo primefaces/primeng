@@ -1,1 +1,2 @@
-export * from '@primeuix/themes/types/chip';
+export * from '@primeuix/themes/material/chip';
+export { default } from '@primeuix/themes/material/chip';

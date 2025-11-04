@@ -1,10 +1,17 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { BadgeModule } from 'primeng/badge';
+import { CommonModule } from '@angular/common';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TieredMenuModule, BadgeModule, CommonModule, RippleModule],
     template: `
         <app-docsectiontext>
             <p>TieredMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>

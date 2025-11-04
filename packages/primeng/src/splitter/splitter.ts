@@ -1,45 +1,15 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    contentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    Input,
-    NgModule,
-    numberAttribute,
-    Output,
-    QueryList,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, QueryList, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
+import type { SplitterResizeEndEvent, SplitterResizeStartEvent } from 'primeng/types/splitter';
 import { SplitterStyle } from './style/splitterstyle';
+import { SplitterPassThrough } from 'primeng/types/splitter';
 
-@Component({
-    selector: 'p-splitter-panel',
-    standalone: true,
-    imports: [CommonModule],
-    template: `<ng-content></ng-content>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        class: 'p-splitterpanel'
-    }
-})
-export class SplitterPanel extends BaseComponent {
-    splitter = contentChild(forwardRef(() => Splitter));
-
-    nestedState = computed(() => this.splitter());
-}
+const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
 
 /**
  * Splitter is utilized to separate and resize panels.
@@ -48,58 +18,57 @@ export class SplitterPanel extends BaseComponent {
 @Component({
     selector: 'p-splitter',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <div
-            #container
-            [ngClass]="containerClass()"
-            [class]="styleClass"
-            [ngStyle]="style"
-            [style]="{ display: 'flex', 'flex-wrap': 'nowrap', 'flex-direction': layout === 'vertical' ? 'column' : '' }"
-            [attr.data-pc-name]="'splitter'"
-            [attr.data-p-gutter-resizing]="false"
-            [attr.data-pc-section]="'root'"
-        >
-            <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
-                <div [ngClass]="panelContainerClass()" [class]="panelStyleClass" [ngStyle]="panelStyle" tabindex="-1" [attr.data-pc-name]="'splitter'" [attr.data-pc-section]="'root'">
-                    <ng-container *ngTemplateOutlet="panel"></ng-container>
-                </div>
+        <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
+            <div [pBind]="ptm('panel')" [class]="cn(cx('panel'), panelStyleClass)" [ngStyle]="panelStyle" tabindex="-1">
+                <ng-container *ngTemplateOutlet="panel"></ng-container>
+            </div>
+            <div
+                *ngIf="i !== panels.length - 1"
+                [pBind]="ptm('gutter')"
+                [class]="cx('gutter')"
+                role="separator"
+                tabindex="-1"
+                (mousedown)="onGutterMouseDown($event, i)"
+                (touchstart)="onGutterTouchStart($event, i)"
+                (touchmove)="onGutterTouchMove($event)"
+                (touchend)="onGutterTouchEnd($event)"
+                [attr.data-p-gutter-resizing]="false"
+            >
                 <div
-                    *ngIf="i !== panels.length - 1"
-                    class="p-splitter-gutter"
-                    role="separator"
-                    tabindex="-1"
-                    (mousedown)="onGutterMouseDown($event, i)"
-                    (touchstart)="onGutterTouchStart($event, i)"
-                    (touchmove)="onGutterTouchMove($event)"
-                    (touchend)="onGutterTouchEnd($event)"
-                    [attr.data-p-gutter-resizing]="false"
-                    [attr.data-pc-section]="'gutter'"
-                >
-                    <div
-                        class="p-splitter-gutter-handle"
-                        tabindex="0"
-                        [ngStyle]="gutterStyle()"
-                        [attr.aria-orientation]="layout"
-                        [attr.aria-valuenow]="prevSize"
-                        [attr.data-pc-section]="'gutterhandle'"
-                        (keyup)="onGutterKeyUp($event)"
-                        (keydown)="onGutterKeyDown($event, i)"
-                    ></div>
-                </div>
-            </ng-template>
-        </div>
+                    [pBind]="ptm('gutterHandle')"
+                    [class]="cx('gutterHandle')"
+                    tabindex="0"
+                    [ngStyle]="gutterStyle()"
+                    [attr.aria-orientation]="layout"
+                    [attr.aria-valuenow]="prevSize"
+                    (keyup)="onGutterKeyUp($event)"
+                    (keydown)="onGutterKeyDown($event, i)"
+                ></div>
+            </div>
+        </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class.p-splitterpanel-nested]': 'nested'
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p-gutter-resizing]': 'false'
     },
-    providers: [SplitterStyle]
+    providers: [SplitterStyle, { provide: SPLITTER_INSTANCE, useExisting: Splitter }, { provide: PARENT_INSTANCE, useExisting: Splitter }],
+    hostDirectives: [Bind]
 })
-export class Splitter extends BaseComponent implements AfterContentInit {
+export class Splitter extends BaseComponent<SplitterPassThrough> {
+    $pcSplitter: Splitter | undefined = inject(SPLITTER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Style class of the component.
+     * @deprecated since v20. Use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -108,11 +77,6 @@ export class Splitter extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() panelStyleClass: string | undefined;
-    /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
     /**
      * Inline style of the panel.
      * @group Props
@@ -159,12 +123,13 @@ export class Splitter extends BaseComponent implements AfterContentInit {
         this._panelSizes = val;
 
         if (this.el && this.el.nativeElement && this.panels.length > 0) {
-            let children = [...this.el.nativeElement.children[0].children].filter((child) => hasClass(child, 'p-splitterpanel'));
-            let _panelSizes = [];
+            let children = [...this.el.nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
+            let _panelSizes: any = [];
 
             this.panels.map((panel, i) => {
                 let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
                 let panelSize = panelInitialSize || 100 / this.panels.length;
+
                 _panelSizes[i] = panelSize;
                 children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });
@@ -183,13 +148,13 @@ export class Splitter extends BaseComponent implements AfterContentInit {
      */
     @Output() onResizeStart: EventEmitter<SplitterResizeStartEvent> = new EventEmitter<SplitterResizeStartEvent>();
 
-    @ViewChild('container', { static: false }) containerViewChild: Nullable<ElementRef>;
-
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @ContentChildren('panel', { descendants: false }) panelChildren!: QueryList<ElementRef>;
 
-    nested: boolean = false;
+    splitter = contentChild(forwardRef(() => Splitter));
+
+    nestedState = computed(() => this.splitter());
 
     panels: any[] = [];
 
@@ -227,12 +192,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
     _componentStyle = inject(SplitterStyle);
 
-    ngOnInit() {
-        super.ngOnInit();
-        this.nested = this.isNested();
-    }
-
-    ngAfterContentInit() {
+    onAfterContentInit() {
         if (this.templates && this.templates.toArray().length > 0) {
             this.templates.forEach((item) => {
                 switch (item.getType()) {
@@ -252,8 +212,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.panels && this.panels.length) {
                 let initialized = false;
@@ -262,12 +221,13 @@ export class Splitter extends BaseComponent implements AfterContentInit {
                 }
 
                 if (!initialized) {
-                    let children = [...this.el.nativeElement.children[0].children].filter((child) => hasClass(child, 'p-splitterpanel'));
-                    let _panelSizes = [];
+                    let children = [...this.el.nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
+                    let _panelSizes: any = [];
 
                     this.panels.map((panel, i) => {
                         let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
                         let panelSize = panelInitialSize || 100 / this.panels.length;
+
                         _panelSizes[i] = panelSize;
                         children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
                     });
@@ -282,7 +242,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
     resizeStart(event: TouchEvent | MouseEvent, index: number, isKeyDown?: boolean) {
         this.gutterElement = (event.currentTarget as HTMLElement) || (event.target as HTMLElement).parentElement;
-        this.size = this.horizontal() ? getWidth((this.containerViewChild as ElementRef).nativeElement) : getHeight((this.containerViewChild as ElementRef).nativeElement);
+        this.size = this.horizontal() ? getWidth((this.el as ElementRef).nativeElement) : getHeight((this.el as ElementRef).nativeElement);
 
         if (!isKeyDown) {
             this.dragging = true;
@@ -303,8 +263,8 @@ export class Splitter extends BaseComponent implements AfterContentInit {
         this.prevPanelIndex = index;
         addClass(this.gutterElement, 'p-splitter-gutter-resizing');
         this.gutterElement.setAttribute('data-p-gutter-resizing', 'true');
-        addClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
-        this.containerViewChild.nativeElement.setAttribute('data-p-resizing', 'true');
+        addClass((this.el as ElementRef).nativeElement, 'p-splitter-resizing');
+        this.el.nativeElement.setAttribute('data-p-resizing', 'true');
         this.onResizeStart.emit({ originalEvent: event, sizes: this._panelSizes as number[] });
     }
 
@@ -313,21 +273,21 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
         if (isKeyDown) {
             if (this.horizontal()) {
-                newPrevPanelSize = (100 * (this.prevPanelSize + step)) / this.size;
-                newNextPanelSize = (100 * (this.nextPanelSize - step)) / this.size;
+                newPrevPanelSize = (100 * ((this.prevPanelSize ?? 0) + (step ?? 0))) / (this.size ?? 1);
+                newNextPanelSize = (100 * ((this.nextPanelSize ?? 0) - (step ?? 0))) / (this.size ?? 1);
             } else {
-                newPrevPanelSize = (100 * (this.prevPanelSize - step)) / this.size;
-                newNextPanelSize = (100 * (this.nextPanelSize + step)) / this.size;
+                newPrevPanelSize = (100 * ((this.prevPanelSize ?? 0) - (step ?? 0))) / (this.size ?? 1);
+                newNextPanelSize = (100 * ((this.nextPanelSize ?? 0) + (step ?? 0))) / (this.size ?? 1);
             }
         } else {
             if (this.horizontal()) {
                 if (isRTL(this.el.nativeElement)) {
-                    newPos = ((this.startPos - event.pageX) * 100) / this.size;
+                    newPos = (((this.startPos ?? 0) - event.pageX) * 100) / (this.size ?? 1);
                 } else {
-                    newPos = ((event.pageX - this.startPos) * 100) / this.size;
+                    newPos = ((event.pageX - (this.startPos ?? 0)) * 100) / (this.size ?? 1);
                 }
             } else {
-                newPos = ((event.pageY - this.startPos) * 100) / this.size;
+                newPos = ((event.pageY - (this.startPos ?? 0)) * 100) / (this.size ?? 1);
             }
 
             newPrevPanelSize = (this.prevPanelSize as number) + newPos;
@@ -351,7 +311,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 
         this.onResizeEnd.emit({ originalEvent: event, sizes: this._panelSizes });
         removeClass(this.gutterElement as any, 'p-splitter-gutter-resizing');
-        removeClass((this.containerViewChild as ElementRef).nativeElement, 'p-splitter-resizing');
+        removeClass((this.el as ElementRef).nativeElement, 'p-splitter-resizing');
         this.clear();
     }
 
@@ -526,19 +486,6 @@ export class Splitter extends BaseComponent implements AfterContentInit {
         this.prevPanelIndex = null;
     }
 
-    isNested() {
-        if (this.el.nativeElement) {
-            let parent = this.el.nativeElement.parentElement;
-            while (parent && !hasClass(parent, 'p-splitter')) {
-                parent = parent.parentElement;
-            }
-
-            return parent !== null;
-        } else {
-            return false;
-        }
-    }
-
     isStateful() {
         return this.stateKey != null;
     }
@@ -547,10 +494,10 @@ export class Splitter extends BaseComponent implements AfterContentInit {
         if (isPlatformBrowser(this.platformId)) {
             switch (this.stateStorage) {
                 case 'local':
-                    return this.document.defaultView.localStorage;
+                    return this.document.defaultView?.localStorage;
 
                 case 'session':
-                    return this.document.defaultView.sessionStorage;
+                    return this.document.defaultView?.sessionStorage;
 
                 default:
                     throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
@@ -561,16 +508,16 @@ export class Splitter extends BaseComponent implements AfterContentInit {
     }
 
     saveState() {
-        this.getStorage().setItem(this.stateKey as string, JSON.stringify(this._panelSizes));
+        this.getStorage()?.setItem(this.stateKey as string, JSON.stringify(this._panelSizes));
     }
 
     restoreState() {
         const storage = this.getStorage();
-        const stateString = storage.getItem(this.stateKey as string);
+        const stateString = storage?.getItem(this.stateKey as string);
 
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);
-            let children = [...(this.containerViewChild as ElementRef).nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
+            let children = [...(this.el as ElementRef).nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
             children.forEach((child, i) => {
                 child.style.flexBasis = 'calc(' + this._panelSizes[i] + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });
@@ -579,21 +526,6 @@ export class Splitter extends BaseComponent implements AfterContentInit {
         }
 
         return false;
-    }
-
-    containerClass() {
-        return {
-            'p-splitter p-component': true,
-            'p-splitter-horizontal': this.layout === 'horizontal',
-            'p-splitter-vertical': this.layout === 'vertical'
-        };
-    }
-
-    panelContainerClass() {
-        return {
-            'p-splitterpanel': true,
-            'p-splitterpanel-nested': true
-        };
     }
 
     gutterStyle() {
@@ -607,7 +539,7 @@ export class Splitter extends BaseComponent implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [Splitter, SplitterPanel, SharedModule],
-    exports: [Splitter, SplitterPanel, SharedModule]
+    imports: [Splitter, SharedModule, BindModule],
+    exports: [Splitter, SharedModule, BindModule]
 })
 export class SplitterModule {}

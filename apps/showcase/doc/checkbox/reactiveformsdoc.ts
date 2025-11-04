@@ -1,11 +1,19 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, CheckboxModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Checkbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -144,7 +152,7 @@ import { MessageModule } from 'primeng/message';
     standalone: true,
     imports: [ReactiveFormsModule, CheckboxModule, ToastModule, ButtonModule, MessageModule]
 })
-export class CheckboxReactiveFormsDemo implements OnInit{
+export class CheckboxReactiveFormsDemo {
     messageService = inject(MessageService);
 
     formSubmitted: boolean = false;
