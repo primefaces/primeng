@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/toast/accessibilitydoc';
 import { AnimationDoc } from '@/doc/toast/animationdoc';
 import { BasicDoc } from '@/doc/toast/basicdoc';
@@ -5,13 +6,12 @@ import { HeadlessDoc } from '@/doc/toast/headlessdoc';
 import { ImportDoc } from '@/doc/toast/importdoc';
 import { MultipleDoc } from '@/doc/toast/multipledoc';
 import { PositionDoc } from '@/doc/toast/positiondoc';
+import { PTComponent } from '@/doc/toast/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/toast/responsivedoc';
 import { SeverityDoc } from '@/doc/toast/severitydoc';
 import { StickyDoc } from '@/doc/toast/stickydoc';
 import { TemplateDoc } from '@/doc/toast/templatedoc';
-import { PTComponent } from '@/doc/toast/pt/PTComponent';
 import { Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc docTitle="Angular Toast Component" header="Toast" description="Toast is used to display messages in an overlay." [docs]="docs" [apiDocs]="['Toast', 'ToastMessage']" [ptDocs]="ptComponent" themeDocs="toast"></app-doc> `,
@@ -71,7 +71,6 @@ export class ToastDemo {
             label: 'Animation',
             component: AnimationDoc
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',
