@@ -91,15 +91,11 @@ const style = /*css*/ `
 
 /* Animations */
 .p-overlay-enter {
-    animation-name: p-animate-overlay-enter;
-    animation-duration: 120ms;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    animation: p-animate-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .p-overlay-leave {
-    animation-name: p-animate-overlay-leave;
-    animation-duration: 100ms;
-    animation-timing-function: linear;
+    animation: p-animate-overlay-leave 100ms linear;
 }
 
 @keyframes p-animate-overlay-enter {
