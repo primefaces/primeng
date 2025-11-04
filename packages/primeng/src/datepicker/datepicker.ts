@@ -3151,7 +3151,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     onOverlayAnimationStart(event: any) {
         if (!this.inline && this.overlayVisible) {
             this.overlay = event.target;
-            console.log(event.target);
             this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
 
             this.appendOverlay();
