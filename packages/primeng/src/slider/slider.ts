@@ -715,7 +715,7 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
 
     get dataP() {
         return this.cn({
-            ...(this.orientation ? { [this.orientation]: true } : {})
+            [this.orientation as string]: this.orientation
         });
     }
 }

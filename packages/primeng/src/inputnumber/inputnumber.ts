@@ -1452,23 +1452,6 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         }
     }
 
-    get dataP() {
-        const size = this.size?.();
-        const layout = this.showButtons && this.buttonLayout ? this.buttonLayout : null;
-
-        const data: any = {
-            invalid: this.invalid(),
-            disabled: this.$disabled(),
-            focus: this.focused,
-            fluid: this.hasFluid,
-            filled: this.$variant() === 'filled',
-            empty: !this.$filled(),
-            ...(size ? { [size]: true } : {}),
-            ...(layout ? { [layout]: true } : {})
-        };
-
-        return this.cn(data);
-    }
     /**
      * @override
      *
@@ -1485,6 +1468,19 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         if (this.timer) {
             clearInterval(this.timer);
         }
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            empty: !this.$filled(),
+            [this.size() as string]: this.size(),
+            [this.buttonLayout]: this.showButtons && this.buttonLayout
+        });
     }
 }
 

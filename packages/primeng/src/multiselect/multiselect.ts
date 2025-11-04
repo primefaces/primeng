@@ -2133,36 +2133,30 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     get containerDataP() {
-        const size = this.size();
-
-        const data: any = {
+        return this.cn({
             invalid: this.invalid(),
             disabled: this.$disabled(),
             focus: this.focused,
             fluid: this.hasFluid,
             filled: this.$variant() === 'filled',
-            ...(size ? { [size]: true } : {})
-        };
-
-        return this.cn(data);
+            [this.size() as string]: this.size()
+        });
     }
 
     get labelDataP() {
-        const size = this.size();
         return this.cn({
             placeholder: this.label === this.placeholder,
             clearable: this.showClear,
             disabled: this.disabled,
-            ...(size ? { [size]: true } : {}),
+            [this.size() as string]: this.size(),
             'has-chip': this.display === 'chip' && this.value && this.value.length && (this.maxSelectedLabels ? this.value.length <= this.maxSelectedLabels : true),
             empty: !this.placeholder && !this.$filled
         });
     }
 
     get dropdownIconDataP() {
-        const size = this.size();
         return this.cn({
-            ...(size ? { [size]: true } : {})
+            [this.size() as string]: this.size()
         });
     }
 

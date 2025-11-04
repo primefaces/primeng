@@ -264,7 +264,7 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
         return this.cn({
             checked: this.active,
             invalid: this.invalid(),
-            ...(this.size ? { [this.size]: true } : {})
+            [this.size as string]: this.size
         });
     }
 }

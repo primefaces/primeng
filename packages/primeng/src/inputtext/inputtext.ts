@@ -94,16 +94,12 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
     }
 
     get dataP() {
-        const size = this.pSize;
-
-        const data: Record<string, any> = {
+        return this.cn({
             invalid: this.invalid(),
             fluid: this.hasFluid,
             filled: this.$variant() === 'filled',
-            ...(size != null && { [size]: size })
-        };
-
-        return this.cn(data);
+            [this.pSize]: this.pSize
+        });
     }
 }
 

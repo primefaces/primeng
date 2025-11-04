@@ -268,13 +268,6 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
         return !this.value || i >= this.value ? this.offIconTemplate || this._offIconTemplate : this.onIconTemplate || this.offIconTemplate;
     }
 
-    get dataP() {
-        return this.cn({
-            readonly: this.readonly,
-            disabled: this.$disabled()
-        });
-    }
-
     /**
      * @override
      *
@@ -288,6 +281,13 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
 
     get isCustomIcon(): boolean {
         return !!(this.onIconTemplate || this._onIconTemplate || this.offIconTemplate || this._offIconTemplate);
+    }
+
+    get dataP() {
+        return this.cn({
+            readonly: this.readonly,
+            disabled: this.$disabled()
+        });
     }
 }
 

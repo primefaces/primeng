@@ -326,20 +326,13 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
     }
 
     get dataP() {
-        const data: any = {
+        return this.cn({
             invalid: this.invalid(),
             checked: this.checked,
             disabled: this.$disabled(),
-            filled: this.$variant() === 'filled'
-        };
-
-        const size = this.size();
-
-        if (size != null) {
-            data[size] = size;
-        }
-
-        return this.cn(data);
+            filled: this.$variant() === 'filled',
+            [this.size() as string]: this.size()
+        });
     }
 }
 

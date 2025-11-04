@@ -269,13 +269,12 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
     }
 
     get dataP() {
-        const size = this.size();
         return this.cn({
             invalid: this.invalid(),
             checked: this.checked,
             disabled: this.$disabled(),
             filled: this.$variant() === 'filled',
-            ...(size ? { [size]: true } : {})
+            [this.size() as string]: this.size()
         });
     }
 }

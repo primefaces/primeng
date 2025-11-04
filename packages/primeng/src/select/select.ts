@@ -1953,36 +1953,29 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     get containerDataP() {
-        const size = this.size();
-
-        const data: any = {
+        return this.cn({
             invalid: this.invalid(),
             disabled: this.$disabled(),
             focus: this.focused,
             fluid: this.hasFluid,
             filled: this.$variant() === 'filled',
-            ...(size ? { [size]: true } : {})
-        };
-
-        return this.cn(data);
+            [this.size() as string]: this.size()
+        });
     }
 
     get labelDataP() {
-        const size = this.size();
         return this.cn({
             placeholder: this.label === this.placeholder,
             clearable: this.showClear,
             disabled: this.disabled,
-            ...(size ? { [size]: true } : {}),
+            [this.size() as string]: this.size(),
             empty: !this.editable && !this.selectedItemTemplate && (!this.label?.() || this.label() === 'p-emptylabel' || this.label()?.length === 0)
         });
     }
 
     get dropdownIconDataP() {
-        const size = this.size();
-
         return this.cn({
-            ...(size ? { [size]: true } : {})
+            [this.size() as string]: this.size()
         });
     }
 

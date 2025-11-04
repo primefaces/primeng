@@ -973,25 +973,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
         this.onClear.emit();
     }
 
-    get containerDataP() {
-        return this.cn({
-            fluid: this.hasFluid
-        });
-    }
-
-    get meterDataP() {
-        const strength = this.meter?.strength;
-        return this.cn({
-            ...(strength && { [strength]: strength })
-        });
-    }
-
-    get overlayDataP() {
-        return this.cn({
-            ['overlay-' + this.$appendTo()]: 'overlay-' + this.$appendTo()
-        });
-    }
-
     /**
      * @override
      *
@@ -1024,6 +1005,24 @@ export class Password extends BaseInput<PasswordPassThrough> {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
+    }
+
+    get containerDataP() {
+        return this.cn({
+            fluid: this.hasFluid
+        });
+    }
+
+    get meterDataP() {
+        return this.cn({
+            [this.meter?.strength as string]: this.meter?.strength
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            ['overlay-' + this.$appendTo()]: 'overlay-' + this.$appendTo()
+        });
     }
 }
 

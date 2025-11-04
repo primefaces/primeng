@@ -1161,8 +1161,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     get inputIconDataP() {
-        const size = this.size();
-        return this.cn(size ? { [size]: size } : {});
+        return this.cn({ [this.size() as string]: this.size() });
     }
 
     get timePickerDataP() {
