@@ -1,6 +1,5 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -57,41 +56,26 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 </ng-template>
             </legend>
-            <div
-                [attr.id]="id + '_content'"
-                role="region"
-                [class]="cx('contentContainer')"
-                [pBind]="ptm('contentContainer')"
-                [@fieldsetContent]="collapsed ? { value: 'hidden', params: { transitionParams: transitionOptions, height: '0' } } : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*' } }"
-                [attr.aria-labelledby]="id + '_header'"
-                [attr.aria-hidden]="collapsed"
-                (@fieldsetContent.done)="onToggleDone()"
-            >
-                <div [class]="cx('content')" [pBind]="ptm('content')">
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+            @if (!collapsed) {
+                <div
+                    [attr.id]="id + '_content'"
+                    role="region"
+                    [class]="cx('contentContainer')"
+                    [pBind]="ptm('contentContainer')"
+                    [attr.aria-labelledby]="id + '_header'"
+                    [attr.aria-hidden]="collapsed"
+                    [animate.enter]="enterAnimation()"
+                    [animate.leave]="leaveAnimation()"
+                    (animationend)="onToggleDone()"
+                >
+                    <div [class]="cx('content')" [pBind]="ptm('content')">
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                    </div>
                 </div>
-            </div>
+            }
         </fieldset>
     `,
-    animations: [
-        trigger('fieldsetContent', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
-            transition('void => *', animate(0))
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [FieldsetStyle, { provide: FIELDSET_INSTANCE, useExisting: Fieldset }, { provide: PARENT_INSTANCE, useExisting: Fieldset }],
@@ -145,6 +129,18 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-collapsible-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | null | undefined>('p-collapsible-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-collapsible-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | null | undefined>('p-collapsible-leave');
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.
