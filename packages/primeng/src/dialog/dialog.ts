@@ -1,4 +1,3 @@
-import { animate, animation, AnimationEvent, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
@@ -41,9 +40,6 @@ import { DialogStyle } from './style/dialogstyle';
 
 const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
 
-const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
-
-const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 /**
  * Dialog is a container to display content in an overlay window.
  * @group Components
@@ -54,94 +50,92 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind],
     template: `
         <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle" [pBind]="ptm('mask')">
-            <div
-                *ngIf="visible"
-                #container
-                [class]="cn(cx('root'), styleClass)"
-                [style]="sx('root')"
-                [ngStyle]="style"
-                [pBind]="ptm('root')"
-                pFocusTrap
-                [pFocusTrapDisabled]="focusTrap === false"
-                [@animation]="{
-                    value: 'visible',
-                    params: { transform: transformOptions, transition: transitionOptions }
-                }"
-                (@animation.start)="onAnimationStart($event)"
-                (@animation.done)="onAnimationEnd($event)"
-                [attr.role]="role"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-modal]="true"
-            >
-                <ng-container *ngIf="_headlessTemplate || headlessTemplate || headlessT; else notHeadless">
-                    <ng-container *ngTemplateOutlet="_headlessTemplate || headlessTemplate || headlessT"></ng-container>
-                </ng-container>
+            @if (visible) {
+                <div
+                    #container
+                    [class]="cn(cx('root'), styleClass)"
+                    [style]="sx('root')"
+                    [ngStyle]="style"
+                    [pBind]="ptm('root')"
+                    pFocusTrap
+                    [pFocusTrapDisabled]="focusTrap === false"
+                    [animate.enter]="enterAnimation()"
+                    [animate.leave]="leaveAnimation()"
+                    (animationstart)="onAnimationStart($event)"
+                    (animationend)="onAnimationEnd($event)"
+                    [attr.role]="role"
+                    [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-modal]="true"
+                >
+                    <ng-container *ngIf="_headlessTemplate || headlessTemplate || headlessT; else notHeadless">
+                        <ng-container *ngTemplateOutlet="_headlessTemplate || headlessTemplate || headlessT"></ng-container>
+                    </ng-container>
 
-                <ng-template #notHeadless>
-                    <div *ngIf="resizable" [class]="cx('resizeHandle')" [pBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
-                    <div #titlebar [class]="cx('header')" [pBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                        <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
-                        <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>
-                        <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
-                            <p-button
-                                [pt]="ptm('pcMaximizeButton')"
-                                *ngIf="maximizable"
-                                [styleClass]="cx('pcMaximizeButton')"
-                                [ariaLabel]="maximized ? minimizeLabel : maximizeLabel"
-                                (onClick)="maximize()"
-                                (keydown.enter)="maximize()"
-                                [tabindex]="maximizable ? '0' : '-1'"
-                                [buttonProps]="maximizeButtonProps"
-                            >
-                                <ng-template #icon>
-                                    <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                                    <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
-                                        <svg data-p-icon="window-maximize" *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
-                                        <svg data-p-icon="window-minimize" *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
-                                    </ng-container>
-                                    <ng-container *ngIf="!maximized">
-                                        <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
-                                    </ng-container>
-                                    <ng-container *ngIf="maximized">
-                                        <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
-                                    </ng-container>
-                                </ng-template>
-                            </p-button>
-                            <p-button
-                                [pt]="ptm('pcCloseButton')"
-                                *ngIf="closable"
-                                [styleClass]="cx('pcCloseButton')"
-                                [ariaLabel]="closeAriaLabel"
-                                (onClick)="close($event)"
-                                (keydown.enter)="close($event)"
-                                [tabindex]="closeTabindex"
-                                [buttonProps]="closeButtonProps"
-                            >
-                                <ng-template #icon>
-                                    <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
-                                        <span *ngIf="closeIcon" [class]="closeIcon"></span>
-                                        <svg data-p-icon="times" *ngIf="!closeIcon" />
-                                    </ng-container>
-                                    <span *ngIf="_closeiconTemplate || closeIconTemplate || closeIconT">
-                                        <ng-template *ngTemplateOutlet="_closeiconTemplate || closeIconTemplate || closeIconT"></ng-template>
-                                    </span>
-                                </ng-template>
-                            </p-button>
+                    <ng-template #notHeadless>
+                        <div *ngIf="resizable" [class]="cx('resizeHandle')" [pBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
+                        <div #titlebar [class]="cx('header')" [pBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
+                            <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
+                            <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT"></ng-container>
+                            <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
+                                <p-button
+                                    [pt]="ptm('pcMaximizeButton')"
+                                    *ngIf="maximizable"
+                                    [styleClass]="cx('pcMaximizeButton')"
+                                    [ariaLabel]="maximized ? minimizeLabel : maximizeLabel"
+                                    (onClick)="maximize()"
+                                    (keydown.enter)="maximize()"
+                                    [tabindex]="maximizable ? '0' : '-1'"
+                                    [buttonProps]="maximizeButtonProps"
+                                >
+                                    <ng-template #icon>
+                                        <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                                        <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
+                                            <svg data-p-icon="window-maximize" *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
+                                            <svg data-p-icon="window-minimize" *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
+                                        </ng-container>
+                                        <ng-container *ngIf="!maximized">
+                                            <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
+                                        </ng-container>
+                                        <ng-container *ngIf="maximized">
+                                            <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
+                                        </ng-container>
+                                    </ng-template>
+                                </p-button>
+                                <p-button
+                                    [pt]="ptm('pcCloseButton')"
+                                    *ngIf="closable"
+                                    [styleClass]="cx('pcCloseButton')"
+                                    [ariaLabel]="closeAriaLabel"
+                                    (onClick)="close($event)"
+                                    (keydown.enter)="close($event)"
+                                    [tabindex]="closeTabindex"
+                                    [buttonProps]="closeButtonProps"
+                                >
+                                    <ng-template #icon>
+                                        <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
+                                            <span *ngIf="closeIcon" [class]="closeIcon"></span>
+                                            <svg data-p-icon="times" *ngIf="!closeIcon" />
+                                        </ng-container>
+                                        <span *ngIf="_closeiconTemplate || closeIconTemplate || closeIconT">
+                                            <ng-template *ngTemplateOutlet="_closeiconTemplate || closeIconTemplate || closeIconT"></ng-template>
+                                        </span>
+                                    </ng-template>
+                                </p-button>
+                            </div>
                         </div>
-                    </div>
-                    <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [pBind]="ptm('content')">
-                        <ng-content></ng-content>
-                        <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
-                    </div>
-                    <div #footer [class]="cx('footer')" [pBind]="ptm('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
-                        <ng-content select="p-footer"></ng-content>
-                        <ng-container *ngTemplateOutlet="_footerTemplate || footerTemplate || footerT"></ng-container>
-                    </div>
-                </ng-template>
-            </div>
+                        <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [pBind]="ptm('content')">
+                            <ng-content></ng-content>
+                            <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
+                        </div>
+                        <div #footer [class]="cx('footer')" [pBind]="ptm('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
+                            <ng-content select="p-footer"></ng-content>
+                            <ng-container *ngTemplateOutlet="_footerTemplate || footerTemplate || footerT"></ng-container>
+                        </div>
+                    </ng-template>
+                </div>
+            }
         </div>
     `,
-    animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [DialogStyle, { provide: DIALOG_INSTANCE, useExisting: Dialog }, { provide: PARENT_INSTANCE, useExisting: Dialog }],
@@ -476,6 +470,18 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * @group Props
      */
     @Input() headlessTemplate: TemplateRef<any> | undefined;
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-dialog-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | null | undefined>('p-dialog-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-dialog-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | null | undefined>('p-dialog-leave');
 
     @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any> | undefined;
 
@@ -688,7 +694,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     close(event: Event) {
-        this.visibleChange.emit(false);
+        this.visible = false;
+        this.visibleChange.emit(this.visible);
         event.preventDefault();
     }
 
@@ -1015,52 +1022,37 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.container = event.element;
-                this.wrapper = this.container?.parentElement;
-                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-                this.appendContainer();
-                this.moveOnTop();
-                this.bindGlobalListeners();
-                this.container?.setAttribute(this.id, '');
+    onAnimationStart(event: any) {
+        if (this.visible) {
+            this.container = event.target;
+            this.wrapper = this.container?.parentElement;
+            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+            this.appendContainer();
+            this.moveOnTop();
+            this.bindGlobalListeners();
+            this.container?.setAttribute(this.id, '');
 
-                if (this.modal) {
-                    this.enableModality();
-                }
+            if (this.modal) {
+                this.enableModality();
+            }
 
-                // if (!this.modal && this.blockScroll) {
-                //     addClass(this.document.body, 'p-overflow-hidden');
-                // }
-
-                if (this.focusOnShow) {
-                    this.focus();
-                }
-                break;
-
-            case 'void':
-                if (this.wrapper && this.modal) {
-                    addClass(this.wrapper, 'p-overlay-mask-leave');
-                }
-                break;
+            if (this.focusOnShow) {
+                this.focus();
+            }
+            this.onShow.emit({});
         }
     }
 
-    onAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                this.onContainerDestroy();
-                this.onHide.emit({});
-                this.cd.markForCheck();
+    onAnimationEnd(event: any) {
+        if (!this.visible) {
+            if (this.wrapper && this.modal) {
+                addClass(this.wrapper, 'p-overlay-mask-leave');
+            }
 
-                if (this.maskVisible !== this.visible) {
-                    this.maskVisible = this.visible;
-                }
-                break;
-            case 'visible':
-                this.onShow.emit({});
-                break;
+            this.maskVisible = false;
+            this.onContainerDestroy();
+            this.onHide.emit({});
+            this.cd.markForCheck();
         }
     }
 
