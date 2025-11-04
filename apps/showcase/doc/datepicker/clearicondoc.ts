@@ -16,7 +16,7 @@ import { DatePickerModule } from 'primeng/datepicker';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" [showClear]="true" inputStyleClass="w-56" />
         </div>
-        <app-code [code]="code" selector="datepicker-clear-icon-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-clear-icon-demo"></app-code>
     `
 })
 export class ClearIconDoc {
@@ -34,8 +34,8 @@ import { DatePicker } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'datepicker-clear-icon-demo',
-    templateUrl: './datepicker-clear-icon-demo.html',
+    selector: 'date-picker-clear-icon-demo',
+    templateUrl: './date-picker-clear-icon-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

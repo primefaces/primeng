@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-range-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-range-demo"></app-code>
     `
 })
 export class RangeDoc {
@@ -34,8 +34,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-range-demo',
-    templateUrl: './datepicker-range-demo.html',
+    selector: 'date-picker-range-demo',
+    templateUrl: './date-picker-range-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

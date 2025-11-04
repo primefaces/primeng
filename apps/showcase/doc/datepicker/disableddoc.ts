@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" [disabled]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-disabled-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-disabled-demo"></app-code>
     `
 })
 export class DisabledDoc {
@@ -34,8 +34,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-disabled-demo',
-    templateUrl: './datepicker-disabled-demo.html',
+    selector: 'date-picker-disabled-demo',
+    templateUrl: './date-picker-disabled-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

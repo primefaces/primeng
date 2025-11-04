@@ -29,7 +29,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
             </form>
         </div>
-        <app-code [code]="code" selector="datepicker-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-reactive-forms-demo"></app-code>
     `
 })
 export class ReactiveFormsDoc {
@@ -90,8 +90,8 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'datepicker-reactive-forms-demo',
-    templateUrl: './datepicker-reactive-forms-demo.html',
+    selector: 'date-picker-reactive-forms-demo',
+    templateUrl: './date-picker-reactive-forms-demo.html',
     standalone: true,
     imports: [ReactiveFormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
 })

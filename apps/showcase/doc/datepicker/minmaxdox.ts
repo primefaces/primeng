@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-minmax-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-minmax-demo"></app-code>
     `
 })
 export class MinMaxDoc implements OnInit {
@@ -54,8 +54,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-minmax-demo',
-    templateUrl: './datepicker-minmax-demo.html',
+    selector: 'date-picker-minmax-demo',
+    templateUrl: './date-picker-minmax-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" [numberOfMonths]="2" />
         </div>
-        <app-code [code]="code" selector="datepicker-multiplemonths-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-multiplemonths-demo"></app-code>
     `
 })
 export class MultipleMonthDoc {
@@ -33,8 +33,8 @@ export class MultipleMonthDoc {
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-multiplemonths-demo',
-    templateUrl: './datepicker-multiplemonths-demo.html',
+    selector: 'date-picker-multiplemonths-demo',
+    templateUrl: './date-picker-multiplemonths-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

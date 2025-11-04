@@ -34,7 +34,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </p-datepicker>
             </div>
         </p-fluid>
-        <app-code [code]="code" selector="datepicker-icon-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-icon-demo"></app-code>
     `
 })
 export class IconDoc {
@@ -82,8 +82,8 @@ import { FormsModule } from '@angular/forms';
 import { FluidModule } from 'primeng/fluid';
 
 @Component({
-    selector: 'datepicker-icon-demo',
-    templateUrl: './datepicker-icon-demo.html',
+    selector: 'date-picker-icon-demo',
+    templateUrl: './date-picker-icon-demo.html',
     standalone: true,
     imports: [DatePickerModule, FormsModule, FluidModule]
 })

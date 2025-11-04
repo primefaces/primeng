@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-touchui-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-touchui-demo"></app-code>
     `
 })
 export class TouchUIDoc {
@@ -40,8 +40,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-touchui-demo',
-    templateUrl: './datepicker-touchui-demo.html',
+    selector: 'date-picker-touchui-demo',
+    templateUrl: './date-picker-touchui-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

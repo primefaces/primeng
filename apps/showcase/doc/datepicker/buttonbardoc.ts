@@ -31,7 +31,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-datepicker>
         </div>
-        <app-code [code]="code" selector="datepicker-buttonbar-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-buttonbar-demo"></app-code>
     `
 })
 export class ButtonBarDoc {
@@ -80,8 +80,8 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'datepicker-buttonbar-demo',
-    templateUrl: './datepicker-buttonbar-demo.html',
+    selector: 'date-picker-buttonbar-demo',
+    templateUrl: './date-picker-buttonbar-demo.html',
     standalone: true,
     imports: [FormsModule, DatePickerModule, ButtonModule]
 })

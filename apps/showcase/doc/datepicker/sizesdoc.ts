@@ -18,7 +18,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
             <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
         </div>
-        <app-code [code]="code" selector="datepicker-sizes-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-sizes-demo"></app-code>
     `
 })
 export class SizesDoc {
@@ -44,8 +44,8 @@ import { DatePicker } from 'primeng/datepicker';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'datepicker-sizes-demo',
-    templateUrl: './datepicker-sizes-demo.html',
+    selector: 'date-picker-sizes-demo',
+    templateUrl: './date-picker-sizes-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

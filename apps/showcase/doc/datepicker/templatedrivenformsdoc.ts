@@ -28,7 +28,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </form>
         </div>
 
-        <app-code [code]="code" selector="datepicker-template-driven-forms-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-template-driven-forms-demo"></app-code>
     `
 })
 export class TemplateDrivenFormsDoc {
@@ -76,8 +76,8 @@ import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'datepicker-template-driven-forms-demo',
-    templateUrl: './datepicker-template-driven-forms-demo.html',
+    selector: 'date-picker-template-driven-forms-demo',
+    templateUrl: './date-picker-template-driven-forms-demo.html',
     standalone: true,
     imports: [FormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
 })

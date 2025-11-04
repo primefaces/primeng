@@ -30,7 +30,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </div>
         </p-fluid>
 
-        <app-code [code]="code" selector="datepicker-time-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-time-demo"></app-code>
     `
 })
 export class TimeDoc {
@@ -68,8 +68,8 @@ import { DatePicker } from 'primeng/datepicker';
 import { Fluid } from 'primeng/fluid';
 
 @Component({
-    selector: 'datepicker-time-demo',
-    templateUrl: './datepicker-time-demo.html',
+    selector: 'date-picker-time-demo',
+    templateUrl: './date-picker-time-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker, Fluid]
 })
