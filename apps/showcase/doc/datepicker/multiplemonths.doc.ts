@@ -1,12 +1,12 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'datepicker-multiplemonths-demo',
+    selector: 'date-picker-multiplemonths-demo',
     standalone: true,
     imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
@@ -33,7 +33,7 @@ export class MultipleMonthDoc {
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-multiplemonths-demo',
+    selector: 'date-picker-multiplemonths-demo',
     templateUrl: './datepicker-multiplemonths-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]

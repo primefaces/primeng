@@ -1,13 +1,13 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-driven-forms-doc',
@@ -76,7 +76,7 @@ import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'datepicker-template-driven-forms-demo',
+    selector: 'date-picker-template-driven-forms-demo',
     templateUrl: './datepicker-template-driven-forms-demo.html',
     standalone: true,
     imports: [FormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
