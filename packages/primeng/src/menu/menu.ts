@@ -197,24 +197,34 @@ export class MenuItemContent extends BaseComponent {
                 (keydown)="onListKeyDown($event)"
             >
                 <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="submenu.separator && submenu.visible !== false" role="separator" [attr.data-pc-section]="'separator'"></li>
-                    <li
-                        [class]="cx('submenuLabel')"
-                        [pBind]="ptm('submenuLabel')"
-                        [attr.data-automationid]="submenu.automationId"
-                        *ngIf="!submenu.separator"
-                        pTooltip
-                        [tooltipOptions]="submenu.tooltipOptions"
-                        role="none"
-                        [attr.id]="menuitemId(submenu, id, i)"
-                        [attr.data-pc-section]="'submenulabel'"
-                    >
-                        <ng-container *ngIf="!submenuHeaderTemplate && !_submenuHeaderTemplate">
-                            <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                            <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
-                        </ng-container>
-                        <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
-                    </li>
+                    @if (submenu.visible !== false) {
+                        @if (submenu.separator) {
+                            <li [class]="cx('separator')" [pBind]="ptm('separator')" role="separator" [attr.data-pc-section]="'separator'"></li>
+                        } @else {
+                            <li
+                                [class]="cx('submenuLabel')"
+                                [pBind]="ptm('submenuLabel')"
+                                [attr.data-automationid]="submenu.automationId"
+                                pTooltip
+                                [tooltipOptions]="submenu.tooltipOptions"
+                                role="none"
+                                [attr.id]="menuitemId(submenu, id, i)"
+                                [attr.data-pc-section]="'submenulabel'"
+                            >
+                                @let subMenuHeader = submenuHeaderTemplate ?? _submenuHeaderTemplate;
+                                @if (!subMenuHeader) {
+                                    @if (submenu.escape === false) {
+                                        <span [innerHTML]="submenu.label ?? '' | safeHtml"></span>
+                                    } @else {
+                                        <span>{{ submenu.label }}</span>
+                                    }
+                                } @else {
+                                    <ng-container *ngTemplateOutlet="subMenuHeader; context: { $implicit: submenu }" />
+                                }
+                            </li>
+                        }
+                    }
+
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator" [attr.data-pc-section]="'separator'"></li>
                         <li
