@@ -20,6 +20,7 @@ const style = /*css*/ `
 
 .p-overlay-content {
     transform-origin: inherit;
+    will-change: transform;
 }
 
 /* Github Issue #18560 */
@@ -91,23 +92,24 @@ const style = /*css*/ `
 
 /* Animations */
 .p-overlay-enter {
-    animation: p-animate-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+    animation: p-animate-overlay-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
 .p-overlay-leave {
-    animation: p-animate-overlay-leave 100ms linear;
+    animation: p-animate-overlay-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
 @keyframes p-animate-overlay-enter {
     from {
         opacity: 0;
-        transform: scaleY(0.8);
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-overlay-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;
