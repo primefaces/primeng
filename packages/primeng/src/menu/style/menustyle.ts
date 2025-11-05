@@ -2,30 +2,30 @@ import { Injectable } from '@angular/core';
 import { style as menu_style } from '@primeuix/styles/menu';
 import { BaseStyle } from 'primeng/base';
 const style = /*css*/ `
-    ${menu_style}
+${menu_style}
 
-    /* Animations */
+/* Animations */
 
-    .p-menu-enter {
-        animation: p-animate-menu-enter 120ms linear;
+.p-menu-enter {
+    animation: p-animate-menu-enter 120ms linear;
+}
+
+.p-menu-leave {
+    animation: p-animate-menu-leave 120ms linear;
+}
+
+@keyframes p-animate-menu-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
     }
+}
 
-    .p-menu-leave {
-        animation: p-animate-menu-leave 120ms linear;
+@keyframes p-animate-menu-leave {
+    to {
+        opacity: 0;
     }
-
-    @keyframes p-animate-menu-enter {
-        from {
-            opacity: 0;
-            transform: scaleY(0.8);
-        }
-    }
-
-    @keyframes p-animate-menu-leave {
-        to {
-            opacity: 0;
-        }
-    }
+}
 `;
 const inlineStyles = {
     root: ({ instance }) => ({ position: instance.popup ? 'absolute' : 'relative' })

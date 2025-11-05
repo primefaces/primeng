@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as fieldset_style } from '@primeuix/styles/fieldset';
+import { style } from '@primeuix/styles/fieldset';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-    ${fieldset_style}
-
-    /* For PrimeNG */
-    .p-fieldset-collapsed > .p-fieldset-content-container,
-    .p-fieldset-content-container.ng-animating {
-        overflow: hidden;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [

@@ -4,27 +4,27 @@ import { BaseStyle } from 'primeng/base';
 const style = /*css*/ `
     ${image_style}
 
-    /* Animations */
-    .p-image-enter {
-        animation: p-animate-image-enter 150ms cubic-bezier(0, 0, 0.2, 1);
-    }
+/* Animations */
+.p-image-enter {
+    animation: p-animate-image-enter 150ms cubic-bezier(0, 0, 0.2, 1);
+}
 
-    .p-image-leave {
-        animation: p-animate-image-leave 150ms cubic-bezier(0, 0, 0.2, 1);
-    }
+.p-image-leave {
+    animation: p-animate-image-leave 150ms cubic-bezier(0, 0, 0.2, 1);
+}
 
-    @keyframes p-animate-image-enter {
-        from {
-            opacity: 0;
-            transform: scale(0.7);
-        }
+@keyframes p-animate-image-enter {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
     }
+}
 
-    @keyframes p-animate-image-leave {
-        to {
-            opacity: 0;
-        }
+@keyframes p-animate-image-leave {
+    to {
+        opacity: 0;
     }
+}
 `;
 const classes = {
     root: ({ instance }) => [

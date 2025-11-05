@@ -11,7 +11,7 @@ const style = /*css*/ `
 }
 
 .p-panelmenu-enter {
-    animation: p-animate-panelmenu-enter 400ms ease-in-out;
+    animation: p-animate-panelmenu-enter 450ms cubic-bezier(0, 1, 0, 1);
     overflow: hidden;
 }
 

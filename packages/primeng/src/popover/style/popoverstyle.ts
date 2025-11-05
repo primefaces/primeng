@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
+/*For PrimeNG*/
 .p-popover {
     margin-top: dt('popover.gutter');
     background: dt('popover.background');
@@ -21,6 +22,7 @@ const style = /*css*/ `
     margin-bottom: dt('popover.gutter');
 }
 
+/* Arrow styles */
 .p-popover:after,
 .p-popover:before {
     bottom: 100%;
@@ -65,7 +67,6 @@ const style = /*css*/ `
 }
 
 /* Animations */
-
 .p-popover-enter {
     animation: p-animate-popover-enter 120ms cubic-bezier(0, 0, 0.2, 1);
 }

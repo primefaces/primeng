@@ -1,16 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as stepper_style } from '@primeuix/styles/stepper';
+import { style } from '@primeuix/styles/stepper';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-    ${stepper_style}
-
-    /* For PrimeNG */
-    .p-steppanel:not(.p-steppanel-active) > .p-steppanel-content,
-    .p-steppanel-content.ng-animating {
-        overflow: hidden;
-    }
-`;
 
 const classes = {
     root: ({ instance }) => [
