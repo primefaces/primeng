@@ -141,8 +141,6 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                 </div>
                 @if (isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)) {
                     <ul
-                        [animate.enter]="!root ? enterAnimation() : undefined"
-                        [animate.leave]="!root ? leaveAnimation() : undefined"
                         pPanelMenuSub
                         [id]="getItemId(processedItem) + '_list'"
                         [panelId]="panelId"
@@ -170,8 +168,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
         '[attr.aria-hidden]': '!parentExpanded',
         '(focusin)': 'menuFocus.emit($event)',
         '(focusout)': 'menuBlur.emit($event)',
-        '(keydown)': 'menuKeyDown.emit($event)',
-        '[class.p-collapsible-enter]': 'root'
+        '(keydown)': 'menuKeyDown.emit($event)'
     },
     hostDirectives: [Bind]
 })
@@ -839,8 +836,6 @@ export class PanelMenuList extends BaseComponent {
                         <div [class]="cx('content')" [pBind]="ptm('content')">
                             @if (isItemActive(item)) {
                                 <ul
-                                    [animate.enter]="enterAnimation()"
-                                    [animate.leave]="enterAnimation()"
                                     pPanelMenuList
                                     [panelId]="getPanelId(i, item)"
                                     [items]="getItemProp(item, 'items')"
