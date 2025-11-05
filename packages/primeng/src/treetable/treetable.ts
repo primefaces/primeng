@@ -1440,7 +1440,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
     onColumnResize(event: MouseEvent) {
         let containerLeft = <any>getOffset(this.el?.nativeElement).left;
         this.el?.nativeElement.setAttribute('data-p-unselectable-text', 'true');
-        !this.unstyled() && addStyle(this.el.nativeElement, { 'user-select': 'none' });
+        !this.$unstyled() && addStyle(this.el.nativeElement, { 'user-select': 'none' });
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.el?.nativeElement.scrollLeft + 'px';
@@ -1535,7 +1535,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         (this.resizeHelperViewChild as ElementRef).nativeElement.style.display = 'none';
 
         this.el.nativeElement.removeAttribute('data-p-unselectable-text');
-        !this.unstyled() && (this.el.nativeElement.style['user-select'] = '');
+        !this.$unstyled() && (this.el.nativeElement.style['user-select'] = '');
     }
 
     findParentScrollableView(column: any) {
@@ -2300,7 +2300,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         if (!this.documentEditListener) {
             this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
-                    !this.unstyled() && removeClass(this.editingCell, 'p-cell-editing');
+                    !this.$unstyled() && removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
                     this.onEditComplete.emit({ field: this.editingCellField, data: this.editingCellData });
                     this.editingCellField = null;
@@ -2932,7 +2932,7 @@ export class TTResizableColumn extends BaseComponent {
             if (this.isEnabled()) {
                 addClass(this.el.nativeElement, 'p-resizable-column');
                 this.resizer = this.renderer.createElement('span');
-                !this.unstyled() && this.renderer.addClass(this.resizer, 'p-column-resizer');
+                !this.$unstyled() && this.renderer.addClass(this.resizer, 'p-column-resizer');
                 (this.resizer as HTMLElement).setAttribute('data-pc-section', 'columnresizer');
                 this.renderer.appendChild(this.el.nativeElement, this.resizer);
 
@@ -3512,7 +3512,7 @@ export class TTEditableColumn extends BaseComponent {
 
     onAfterViewInit() {
         if (this.isEnabled()) {
-            !this.unstyled() && addClass(this.el.nativeElement, 'p-editable-column');
+            !this.$unstyled() && addClass(this.el.nativeElement, 'p-editable-column');
             this.el?.nativeElement.setAttribute('data-p-editable-column', 'true');
         }
     }
@@ -3528,7 +3528,7 @@ export class TTEditableColumn extends BaseComponent {
                         return;
                     }
 
-                    if (this.tt.editingCell) !this.unstyled() && removeClass(this.tt.editingCell, 'p-cell-editing');
+                    if (this.tt.editingCell) !this.$unstyled() && removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.openCell();
                 }
             } else {
@@ -3539,7 +3539,7 @@ export class TTEditableColumn extends BaseComponent {
 
     openCell() {
         this.tt.updateEditingCell(this.el.nativeElement, this.data, this.field);
-        !this.unstyled() && addClass(this.el.nativeElement, 'p-cell-editing');
+        !this.$unstyled() && addClass(this.el.nativeElement, 'p-cell-editing');
         this.el?.nativeElement.setAttribute('data-p-cell-editing', 'true');
         this.tt.onEditInit.emit({ field: this.field, data: this.data });
         this.tt.editingCellClick = true;
@@ -3554,7 +3554,7 @@ export class TTEditableColumn extends BaseComponent {
     }
 
     closeEditingCell() {
-        if (this.tt.editingCell) !this.unstyled() && removeClass(this.tt.editingCell, 'p-checkbox-icon');
+        if (this.tt.editingCell) !this.$unstyled() && removeClass(this.tt.editingCell, 'p-checkbox-icon');
         this.tt.editingCell = null;
         this.tt.unbindDocumentEditListener();
     }
@@ -3566,7 +3566,7 @@ export class TTEditableColumn extends BaseComponent {
             if (event.keyCode == 13 && !event.shiftKey) {
                 if (this.tt.isEditingCellValid()) {
                     if (this.tt.editingCell) {
-                        !this.unstyled() && removeClass(this.tt.editingCell, 'p-cell-editing');
+                        !this.$unstyled() && removeClass(this.tt.editingCell, 'p-cell-editing');
                         this.el?.nativeElement.setAttribute('data-p-cell-editing', 'false');
                     }
                     this.closeEditingCell();
@@ -3580,7 +3580,7 @@ export class TTEditableColumn extends BaseComponent {
             else if (event.keyCode == 27) {
                 if (this.tt.isEditingCellValid()) {
                     if (this.tt.editingCell) {
-                        !this.unstyled() && removeClass(this.tt.editingCell, 'p-cell-editing');
+                        !this.$unstyled() && removeClass(this.tt.editingCell, 'p-cell-editing');
                         this.el?.nativeElement.setAttribute('data-p-cell-editing', 'false');
                     }
                     this.closeEditingCell();

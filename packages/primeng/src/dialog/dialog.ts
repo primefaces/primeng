@@ -762,7 +762,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
     createStyle() {
         if (isPlatformBrowser(this.platformId)) {
-            if (!this.styleElement && !this.unstyled()) {
+            if (!this.styleElement && !this.$unstyled()) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
                 setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
@@ -799,7 +799,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
             (this.container as HTMLDivElement).style.margin = '0';
             this.document.body.setAttribute('data-p-unselectable-text', 'true');
-            !this.unstyled() && addStyle(this.document.body, { 'user-select': 'none' });
+            !this.$unstyled() && addStyle(this.document.body, { 'user-select': 'none' });
         }
     }
 
@@ -847,7 +847,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         if (this.dragging) {
             this.dragging = false;
             this.document.body.removeAttribute('data-p-unselectable-text');
-            !this.unstyled() && (this.document.body.style['user-select'] = '');
+            !this.$unstyled() && (this.document.body.style['user-select'] = '');
             this.cd.detectChanges();
             this.onDragEnd.emit(event);
         }
@@ -872,7 +872,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             this.lastPageY = event.pageY;
 
             this.document.body.setAttribute('data-p-unselectable-text', 'true');
-            !this.unstyled() && addStyle(this.document.body, { 'user-select': 'none' });
+            !this.$unstyled() && addStyle(this.document.body, { 'user-select': 'none' });
             this.onResizeInit.emit(event);
         }
     }
@@ -920,7 +920,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         if (this.resizing) {
             this.resizing = false;
             this.document.body.removeAttribute('data-p-unselectable-text');
-            !this.unstyled() && (this.document.body.style['user-select'] = '');
+            !this.$unstyled() && (this.document.body.style['user-select'] = '');
             this.onResizeEnd.emit(event);
         }
     }
@@ -1054,7 +1054,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
             case 'void':
                 if (this.wrapper && this.modal) {
-                    !this.unstyled() && addClass(this.wrapper, 'p-overlay-mask-leave');
+                    !this.$unstyled() && addClass(this.wrapper, 'p-overlay-mask-leave');
                 }
                 break;
         }

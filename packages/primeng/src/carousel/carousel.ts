@@ -607,7 +607,7 @@ export class Carousel extends BaseComponent {
 			}
         `;
 
-        if (this.responsiveOptions && !this.unstyled()) {
+        if (this.responsiveOptions && !this.$unstyled()) {
             this.responsiveOptions.sort((data1, data2) => {
                 const value1 = data1.breakpoint;
                 const value2 = data2.breakpoint;
@@ -875,7 +875,7 @@ export class Carousel extends BaseComponent {
         }
 
         if (this.itemsContainer) {
-            !this.unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            !this.$unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transform = this.isVertical() ? `translate3d(0, ${totalShiftedItems * (100 / this._numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this._numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
@@ -919,7 +919,7 @@ export class Carousel extends BaseComponent {
 
     onTransitionEnd() {
         if (this.itemsContainer) {
-            !this.unstyled() && addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            !this.$unstyled() && addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transition = '';
 
             if ((this.page === 0 || this.page === this.totalDots() - 1) && this.isCircular()) {

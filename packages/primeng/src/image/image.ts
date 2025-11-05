@@ -476,7 +476,7 @@ export class Image extends BaseComponent<ImagePassThrough> {
                 break;
 
             case 'void':
-                if (this.wrapper && !this.unstyled()) addClass(this.wrapper, 'p-overlay-mask-leave');
+                if (this.wrapper && !this.$unstyled()) addClass(this.wrapper, 'p-overlay-mask-leave');
                 break;
         }
     }

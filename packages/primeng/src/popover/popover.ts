@@ -1,7 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -16,7 +15,6 @@ import {
     NgModule,
     NgZone,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     TemplateRef,
@@ -353,7 +351,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
         if (containerOffset.top < targetOffset.top) {
             this.container?.setAttribute('data-p-popover-flipped', 'true');
-            !this.unstyled() && addClass(this.container!, 'p-popover-flipped');
+            !this.$unstyled() && addClass(this.container!, 'p-popover-flipped');
         }
     }
 

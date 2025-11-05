@@ -25,12 +25,12 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
+import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { DrawerPassThrough } from 'primeng/types/drawer';
 import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
-import { FocusTrapModule } from 'primeng/focustrap';
 
 const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
 
@@ -437,8 +437,8 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
     disableModality() {
         if (this.mask) {
-            !this.unstyled() && removeClass(this.mask, 'p-overlay-mask-enter');
-            !this.unstyled() && addClass(this.mask, 'p-overlay-mask-leave');
+            !this.$unstyled() && removeClass(this.mask, 'p-overlay-mask-enter');
+            !this.$unstyled() && addClass(this.mask, 'p-overlay-mask-leave');
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }

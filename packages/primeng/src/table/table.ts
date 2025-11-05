@@ -28,6 +28,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { find, isClickable, setAttribute } from '@primeuix/utils';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -80,7 +81,6 @@ import {
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
-import { find, isClickable, setAttribute } from '@primeuix/utils';
 
 const TABLE_INSTANCE = new InjectionToken<Table>('TABLE_INSTANCE');
 
@@ -2611,7 +2611,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     onColumnResize(event: any) {
         let containerLeft = DomHandler.getOffset(this.el?.nativeElement).left;
-        !this.unstyled() && DomHandler.addClass(this.el?.nativeElement, 'p-unselectable-text');
+        !this.$unstyled() && DomHandler.addClass(this.el?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         if (event.type == 'touchmove') {
@@ -2806,14 +2806,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
 
                 this.droppedRowIndex = index;
-                if (prevRowElement && !this.unstyled()) DomHandler.addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
-                else !this.unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
+                if (prevRowElement && !this.$unstyled()) DomHandler.addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+                else !this.$unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
             } else {
-                if (prevRowElement && !this.unstyled()) DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
-                else !this.unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
+                if (prevRowElement && !this.$unstyled()) DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+                else !this.$unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
 
                 this.droppedRowIndex = index + 1;
-                !this.unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-bottom');
+                !this.$unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-bottom');
             }
         }
     }
@@ -2821,11 +2821,11 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     onRowDragLeave(event: Event, rowElement: any) {
         let prevRowElement = rowElement.previousElementSibling;
         if (prevRowElement) {
-            !this.unstyled() && DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+            !this.$unstyled() && DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
         }
 
-        !this.unstyled() && DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
-        !this.unstyled() && DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
+        !this.$unstyled() && DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
+        !this.$unstyled() && DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
     }
 
     onRowDragEnd(event: Event) {
@@ -4270,7 +4270,7 @@ export class ResizableColumn extends BaseComponent {
             if (this.isEnabled()) {
                 this.resizer = this.renderer.createElement('span');
                 setAttribute(this.resizer as HTMLElement, 'data-pc-column-resizer', 'true');
-                !this.unstyled() && this.renderer.addClass(this.resizer, 'p-datatable-column-resizer');
+                !this.$unstyled() && this.renderer.addClass(this.resizer, 'p-datatable-column-resizer');
                 this.renderer.appendChild(this.el.nativeElement, this.resizer);
 
                 this.zone.runOutsideAngular(() => {
@@ -4505,7 +4505,7 @@ export class EditableColumn extends BaseComponent {
 
     onAfterViewInit() {
         if (this.isEnabled()) {
-            !this.unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-editable-column');
+            !this.$unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-editable-column');
         }
     }
 
@@ -4531,7 +4531,7 @@ export class EditableColumn extends BaseComponent {
 
     openCell() {
         this.dataTable.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
-        !this.unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
+        !this.$unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         setAttribute(this.el.nativeElement, 'data-p-cell-editing', 'true');
 
         this.dataTable.onEditInit.emit({

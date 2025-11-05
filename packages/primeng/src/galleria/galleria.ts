@@ -393,7 +393,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                 break;
 
             case 'void':
-                !this.unstyled() && addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
+                !this.$unstyled() && addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
                 break;
         }
     }
@@ -1218,7 +1218,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
             if (this._oldactiveIndex !== this._activeIndex) {
                 this.document.body.setAttribute('data-p-items-hidden', 'false');
-                !this.unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+                !this.$unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
                 this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
             }
 
@@ -1246,7 +1246,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
             }
         `;
 
-        if (this.responsiveOptions && !this.unstyled()) {
+        if (this.responsiveOptions && !this.$unstyled()) {
             this.sortedResponsiveOptions = [...this.responsiveOptions];
             this.sortedResponsiveOptions.sort((data1, data2) => {
                 const value1 = data1.breakpoint;
@@ -1475,7 +1475,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
         if (this.itemsContainer) {
             this.document.body.setAttribute('data-p-items-hidden', 'false');
-            !this.unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            !this.$unstyled() && removeClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transform = this.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / this.d_numVisible)}%, 0)` : `translate3d(${totalShiftedItems * (100 / this.d_numVisible)}%, 0, 0)`;
             this.itemsContainer.nativeElement.style.transition = 'transform 500ms ease 0s';
         }
@@ -1512,7 +1512,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
     onTransitionEnd() {
         if (this.itemsContainer && this.itemsContainer.nativeElement) {
             this.document.body.setAttribute('data-p-items-hidden', 'true');
-            !this.unstyled() && addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
+            !this.$unstyled() && addClass(this.itemsContainer.nativeElement, 'p-items-hidden');
             this.itemsContainer.nativeElement.style.transition = '';
         }
     }

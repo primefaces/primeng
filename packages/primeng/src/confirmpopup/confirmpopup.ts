@@ -1,7 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -17,7 +16,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     QueryList,
     Renderer2,
     TemplateRef,
@@ -376,7 +374,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
         if (containerOffset && targetOffset && containerOffset.top < targetOffset.top) {
             (this.container as HTMLElement).setAttribute('data-p-confirmpopup-flipped', 'true');
-            !this.unstyled() && addClass(this.container as HTMLDivElement, 'p-confirm-popup-flipped');
+            !this.$unstyled() && addClass(this.container as HTMLDivElement, 'p-confirm-popup-flipped');
         }
     }
 
