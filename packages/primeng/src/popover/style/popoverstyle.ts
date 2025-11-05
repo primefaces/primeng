@@ -21,23 +21,6 @@ const style = /*css*/ `
     margin-bottom: dt('popover.gutter');
 }
 
-.p-popover-enter-from {
-    opacity: 0;
-    transform: scaleY(0.8);
-}
-
-.p-popover-leave-to {
-    opacity: 0;
-}
-
-.p-popover-enter-active {
-    transition: transform 0.12s cubic-bezier(0, 0, 0.2, 1), opacity 0.12s cubic-bezier(0, 0, 0.2, 1);
-}
-
-.p-popover-leave-active {
-    transition: opacity 0.1s linear;
-}
-
 .p-popover:after,
 .p-popover:before {
     bottom: 100%;
@@ -102,9 +85,7 @@ const style = /*css*/ `
     to {
         opacity: 0;
     }
-}
-
-`;
+}`;
 
 const classes = {
     root: 'p-popover p-component',
