@@ -1,7 +1,7 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
@@ -12,7 +12,7 @@ import { FieldsetModule } from 'primeng/fieldset';
         <app-docsectiontext>
             <p>Content of the fieldset can be expanded and collapsed using <i>toggleable</i> option, default state is defined with collapsed option.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card">
             <p-fieldset legend="Header" [toggleable]="true">
                 <p style="margin:0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -31,7 +31,7 @@ export class ToggleableDoc {
     </p>
 </p-fieldset>`,
 
-        html: `<div class="card flex justify-center">
+        html: `<div class="card">
     <p-fieldset legend="Header" [toggleable]="true">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

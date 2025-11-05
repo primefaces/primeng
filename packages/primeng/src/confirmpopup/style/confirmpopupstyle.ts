@@ -1,7 +1,32 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/confirmpopup';
+import { style as confirmpopup_style } from '@primeuix/styles/confirmpopup';
 import { BaseStyle } from 'primeng/base';
+const style = /*css*/ `
+${confirmpopup_style}
 
+/* Animations */
+
+.p-confirmpopup-enter {
+    animation: p-animate-confirmpopup-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-confirmpopup-leave {
+    animation: p-animate-confirmpopup-leave 100ms linear;
+}
+
+@keyframes p-animate-confirmpopup-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
+    }
+}
+
+@keyframes p-animate-confirmpopup-leave {
+    to {
+        opacity: 0;
+    }
+}
+`;
 const classes = {
     root: () => ['p-confirmpopup p-component'],
     content: 'p-confirmpopup-content',

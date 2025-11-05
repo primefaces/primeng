@@ -3,117 +3,139 @@ import { style as datatable_style } from '@primeuix/styles/datatable';
 import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
-    ${datatable_style}
+${datatable_style}
 
-    /* For PrimeNG */
-    .p-datatable-scrollable-table > .p-datatable-thead {
-        top: 0;
-        z-index: 2;
-    }
+/* For PrimeNG */
+.p-datatable-scrollable-table > .p-datatable-thead {
+    top: 0;
+    z-index: 2;
+}
 
-    .p-datatable-scrollable-table > .p-datatable-frozen-tbody {
-        position: sticky;
-        z-index: 2;
-    }
+.p-datatable-scrollable-table > .p-datatable-frozen-tbody {
+    position: sticky;
+    z-index: 2;
+}
 
-    .p-datatable-scrollable-table > .p-datatable-frozen-tbody + .p-datatable-frozen-tbody {
-        z-index: 1;
-    }
+.p-datatable-scrollable-table > .p-datatable-frozen-tbody + .p-datatable-frozen-tbody {
+    z-index: 1;
+}
 
-    .p-datatable-mask.p-overlay-mask {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 3;
-    }
+.p-datatable-mask.p-overlay-mask {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
 
-    .p-datatable-filter-overlay {
-        position: absolute;
-        background: dt('datatable.filter.overlay.select.background');
-        color: dt('datatable.filter.overlay.select.color');
-        border: 1px solid dt('datatable.filter.overlay.select.border.color');
-        border-radius: dt('datatable.filter.overlay.select.border.radius');
-        box-shadow: dt('datatable.filter.overlay.select.shadow');
-        min-width: 12.5rem;
-    }
+.p-datatable-filter-overlay {
+    position: absolute;
+    background: dt('datatable.filter.overlay.select.background');
+    color: dt('datatable.filter.overlay.select.color');
+    border: 1px solid dt('datatable.filter.overlay.select.border.color');
+    border-radius: dt('datatable.filter.overlay.select.border.radius');
+    box-shadow: dt('datatable.filter.overlay.select.shadow');
+    min-width: 12.5rem;
+}
 
-    .p-datatable-filter-rule {
-        border-bottom: 1px solid dt('datatable.filter.rule.border.color');
-    }
+.p-datatable-filter-rule {
+    border-bottom: 1px solid dt('datatable.filter.rule.border.color');
+}
 
-    .p-datatable-filter-rule:last-child {
-        border-bottom: 0 none;
-    }
+.p-datatable-filter-rule:last-child {
+    border-bottom: 0 none;
+}
 
-    .p-datatable-filter-add-rule-button,
-    .p-datatable-filter-remove-rule-button {
-        width: 100%;
-    }
+.p-datatable-filter-add-rule-button,
+.p-datatable-filter-remove-rule-button {
+    width: 100%;
+}
 
-    .p-datatable-filter-remove-button {
-        width: 100%;
-    }
+.p-datatable-filter-remove-button {
+    width: 100%;
+}
 
-    .p-datatable-thead > tr > th {
-        padding: dt('datatable.header.cell.padding');
-        background: dt('datatable.header.cell.background');
-        border-color: dt('datatable.header.cell.border.color');
-        border-style: solid;
-        border-width: 0 0 1px 0;
-        color: dt('datatable.header.cell.color');
-        font-weight: dt('datatable.column.title.font.weight');
-        text-align: start;
-        transition:
-            background dt('datatable.transition.duration'),
-            color dt('datatable.transition.duration'),
-            border-color dt('datatable.transition.duration'),
-            outline-color dt('datatable.transition.duration'),
-            box-shadow dt('datatable.transition.duration');
-    }
+.p-datatable-thead > tr > th {
+    padding: dt('datatable.header.cell.padding');
+    background: dt('datatable.header.cell.background');
+    border-color: dt('datatable.header.cell.border.color');
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    color: dt('datatable.header.cell.color');
+    font-weight: dt('datatable.column.title.font.weight');
+    text-align: start;
+    transition:
+        background dt('datatable.transition.duration'),
+        color dt('datatable.transition.duration'),
+        border-color dt('datatable.transition.duration'),
+        outline-color dt('datatable.transition.duration'),
+        box-shadow dt('datatable.transition.duration');
+}
 
-    .p-datatable-thead > tr > th p-columnfilter {
-        font-weight: normal;
-    }
+.p-datatable-thead > tr > th p-columnfilter {
+    font-weight: normal;
+}
 
-    .p-datatable-thead > tr > th,
-    .p-datatable-sort-icon,
-    .p-datatable-sort-badge {
-        vertical-align: middle;
-    }
+.p-datatable-thead > tr > th,
+.p-datatable-sort-icon,
+.p-datatable-sort-badge {
+    vertical-align: middle;
+}
 
-    .p-datatable-thead > tr > th.p-datatable-column-sorted {
-        background: dt('datatable.header.cell.selected.background');
-        color: dt('datatable.header.cell.selected.color');
-    }
+.p-datatable-thead > tr > th.p-datatable-column-sorted {
+    background: dt('datatable.header.cell.selected.background');
+    color: dt('datatable.header.cell.selected.color');
+}
 
-    .p-datatable-thead > tr > th.p-datatable-column-sorted .p-datatable-sort-icon {
-        color: dt('datatable.header.cell.selected.color');
-    }
+.p-datatable-thead > tr > th.p-datatable-column-sorted .p-datatable-sort-icon {
+    color: dt('datatable.header.cell.selected.color');
+}
 
-    .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
-        background: dt('datatable.row.striped.background');
-    }
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd) {
+    background: dt('datatable.row.striped.background');
+}
 
-    .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd).p-datatable-row-selected {
-        background: dt('datatable.row.selected.background');
-        color: dt('datatable.row.selected.color');
-    }
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(odd).p-datatable-row-selected {
+    background: dt('datatable.row.selected.background');
+    color: dt('datatable.row.selected.color');
+}
 
-    p-sortIcon, p-sort-icon, p-sorticon {
-        display: inline-flex;
-        align-items: center;
-        gap: dt('datatable.header.cell.gap');
-    }
+p-sortIcon, p-sort-icon, p-sorticon {
+    display: inline-flex;
+    align-items: center;
+    gap: dt('datatable.header.cell.gap');
+}
 
-    .p-datatable .p-editable-column.p-cell-editing {
-        padding: 0;
-    }
+.p-datatable .p-editable-column.p-cell-editing {
+    padding: 0;
+}
 
-    .p-datatable .p-editable-column.p-cell-editing p-celleditor {
-        display: block;
-        width: 100%;
+.p-datatable .p-editable-column.p-cell-editing p-celleditor {
+    display: block;
+    width: 100%;
+}
+
+/* Animations */
+.p-columnfilter-overlay-enter {
+    animation: p-animate-columnfilter-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-columnfilter-overlay-leave {
+    animation: p-animate-columnfilter-overlay-leave 100ms linear;
+}
+
+@keyframes p-animate-columnfilter-overlay-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
     }
+}
+
+@keyframes p-animate-columnfilter-overlay-leave {
+    to {
+        opacity: 0;
+    }
+}
 `;
 
 const classes = {

@@ -1,13 +1,13 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-buttonbar-demo',
+    selector: 'date-picker-buttonbar-demo',
     standalone: true,
     imports: [FormsModule, DatePickerModule, ButtonModule, AppCode, AppDocSectionText],
     template: `

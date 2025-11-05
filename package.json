@@ -42,7 +42,6 @@
         "@angular-eslint/eslint-plugin-template": "catalog:angular20",
         "@angular-eslint/schematics": "catalog:angular20",
         "@angular-eslint/template-parser": "catalog:angular20",
-        "@angular/animations": "catalog:angular20",
         "@angular/cli": "catalog:angular20",
         "@angular/common": "catalog:angular20",
         "@angular/compiler": "catalog:angular20",

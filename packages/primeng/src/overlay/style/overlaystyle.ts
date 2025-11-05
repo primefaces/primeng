@@ -88,6 +88,28 @@ const style = /*css*/ `
 .p-overlay-content ~ .p-overlay-content {
     display: none;
 }
+
+/* Animations */
+.p-overlay-enter {
+    animation: p-animate-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-overlay-leave {
+    animation: p-animate-overlay-leave 100ms linear;
+}
+
+@keyframes p-animate-overlay-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
+    }
+}
+
+@keyframes p-animate-overlay-leave {
+    to {
+        opacity: 0;
+    }
+}
 `;
 
 const classes = {

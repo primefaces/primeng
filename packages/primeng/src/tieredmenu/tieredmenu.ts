@@ -1,4 +1,3 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     booleanAttribute,
@@ -28,7 +27,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
+import { absolutePosition, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -395,47 +394,44 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     standalone: true,
     imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule],
     template: `
-        <div
-            #container
-            [id]="id"
-            [class]="cn(cx('root'), styleClass)"
-            [ngStyle]="style"
-            [pBind]="ptm('root')"
-            (click)="onOverlayClick($event)"
-            [@overlayAnimation]="{
-                value: 'visible',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            [@.disabled]="popup !== true"
-            (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-            (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-            *ngIf="!popup || visible"
-        >
-            <p-tieredMenuSub
-                #rootmenu
-                [root]="true"
-                [items]="processedItems"
-                [itemTemplate]="itemTemplate || _itemTemplate"
-                [menuId]="id"
-                [tabindex]="!disabled ? tabindex : -1"
-                [ariaLabel]="ariaLabel"
-                [ariaLabelledBy]="ariaLabelledBy"
-                [baseZIndex]="baseZIndex"
-                [autoZIndex]="autoZIndex"
-                [autoDisplay]="autoDisplay"
-                [popup]="popup"
-                [focusedItemId]="focused ? focusedItemId : undefined"
-                [activeItemPath]="activeItemPath()"
-                (itemClick)="onItemClick($event)"
-                (menuFocus)="onMenuFocus($event)"
-                (menuBlur)="onMenuBlur($event)"
-                (menuKeydown)="onKeyDown($event)"
-                (itemMouseEnter)="onItemMouseEnter($event)"
-                [pt]="pt()"
-            ></p-tieredMenuSub>
-        </div>
+        @if (!popup || visible) {
+            <div
+                #container
+                [id]="id"
+                [class]="cn(cx('root'), styleClass)"
+                [ngStyle]="style"
+                [pBind]="ptm('root')"
+                (click)="onOverlayClick($event)"
+                [animate.enter]="popup ? enterAnimation() : null"
+                [animate.leave]="popup ? leaveAnimation() : null"
+                (animationstart)="onOverlayAnimationStart($event)"
+                (animationend)="onOverlayAnimationEnd()"
+            >
+                <p-tieredMenuSub
+                    #rootmenu
+                    [root]="true"
+                    [items]="processedItems"
+                    [itemTemplate]="itemTemplate || _itemTemplate"
+                    [menuId]="id"
+                    [tabindex]="!disabled ? tabindex : -1"
+                    [ariaLabel]="ariaLabel"
+                    [ariaLabelledBy]="ariaLabelledBy"
+                    [baseZIndex]="baseZIndex"
+                    [autoZIndex]="autoZIndex"
+                    [autoDisplay]="autoDisplay"
+                    [popup]="popup"
+                    [focusedItemId]="focused ? focusedItemId : undefined"
+                    [activeItemPath]="activeItemPath()"
+                    (itemClick)="onItemClick($event)"
+                    (menuFocus)="onMenuFocus($event)"
+                    (menuBlur)="onMenuBlur($event)"
+                    (menuKeydown)="onKeyDown($event)"
+                    (itemMouseEnter)="onItemMouseEnter($event)"
+                    [pt]="pt()"
+                ></p-tieredMenuSub>
+            </div>
+        }
     `,
-    animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [TieredMenuStyle, { provide: TIEREDMENU_INSTANCE, useExisting: TieredMenu }, { provide: PARENT_INSTANCE, useExisting: TieredMenu }],
@@ -499,6 +495,18 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-tieredmenu-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | null | undefined>('p-tieredmenu-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-tieredmenu-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | null | undefined>('p-tieredmenu-leave');
     /**
      * Current id state as a string.
      * @group Props
@@ -1016,29 +1024,21 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                if (this.popup) {
-                    this.container = event.element;
-                    this.moveOnTop();
-                    this.onShow.emit({});
-                    addStyle(this.containerViewChild?.nativeElement, { position: 'absolute', top: 0 });
-                    this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-                    this.appendOverlay();
-                    this.alignOverlay();
-                    this.bindOutsideClickListener();
-                    this.bindResizeListener();
-                    this.bindScrollListener();
+        if (this.visible) {
+            if (this.popup) {
+                this.container = <HTMLDivElement>event.target;
+                this.moveOnTop();
+                this.onShow.emit({});
+                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+                this.appendOverlay();
+                this.alignOverlay();
+                this.bindOutsideClickListener();
+                this.bindResizeListener();
+                this.bindScrollListener();
 
-                    focus(this.rootmenu?.sublistViewChild?.nativeElement);
-                    this.scrollInView();
-                }
-                break;
-
-            case 'void':
-                this.onOverlayHide();
-                this.onHide.emit({});
-                break;
+                focus(this.rootmenu?.sublistViewChild?.nativeElement);
+                this.scrollInView();
+            }
         }
     }
 
@@ -1053,11 +1053,11 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         }
     }
 
-    onOverlayAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                ZIndexUtils.clear(event.element);
-                break;
+    onOverlayAnimationEnd() {
+        if (!this.visible && this.popup) {
+            ZIndexUtils.clear(this.container);
+            this.onOverlayHide();
+            this.onHide.emit({});
         }
     }
 

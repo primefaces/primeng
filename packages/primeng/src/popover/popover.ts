@@ -1,10 +1,9 @@
-import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -12,11 +11,11 @@ import {
     HostListener,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
     NgZone,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     TemplateRef,
@@ -24,11 +23,11 @@ import {
     ViewRef
 } from '@angular/core';
 import { $dt } from '@primeuix/styled';
-import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { absolutePosition, addClass, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
@@ -48,55 +47,28 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
     hostDirectives: [Bind],
     template: `
-        <div
-            *ngIf="render"
-            [pBind]="ptm('root')"
-            [class]="cn(cx('root'), styleClass)"
-            [ngStyle]="style"
-            (click)="onOverlayClick($event)"
-            [@animation]="{
-                value: overlayVisible ? 'open' : 'close',
-                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
-            }"
-            (@animation.start)="onAnimationStart($event)"
-            (@animation.done)="onAnimationEnd($event)"
-            role="dialog"
-            [attr.aria-modal]="overlayVisible"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledBy]="ariaLabelledBy"
-        >
-            <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
-                <ng-content></ng-content>
-                <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
+        @if (render && overlayVisible) {
+            <div
+                [pBind]="ptm('root')"
+                [class]="cn(cx('root'), styleClass)"
+                [ngStyle]="style"
+                (click)="onOverlayClick($event)"
+                [animate.enter]="enterAnimation()"
+                [animate.leave]="leaveAnimation()"
+                (animationstart)="onAnimationStart($event)"
+                (animationend)="onAnimationEnd()"
+                role="dialog"
+                [attr.aria-modal]="overlayVisible"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledBy]="ariaLabelledBy"
+            >
+                <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+                    <ng-content></ng-content>
+                    <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
+                </div>
             </div>
-        </div>
+        }
     `,
-    animations: [
-        trigger('animation', [
-            state(
-                'void',
-                style({
-                    transform: 'scaleY(0.8)',
-                    opacity: 0
-                })
-            ),
-            state(
-                'close',
-                style({
-                    opacity: 0
-                })
-            ),
-            state(
-                'open',
-                style({
-                    transform: 'translateY(0)',
-                    opacity: 1
-                })
-            ),
-            transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => close', animate('{{hideTransitionParams}}'))
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
@@ -135,10 +107,11 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      */
     @Input() styleClass: string | undefined;
     /**
-     * Target element to attach the panel, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -170,6 +143,18 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
+     * Enter animation class name.
+     * @defaultValue 'p-popover-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | null | undefined>('p-popover-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-popover-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | null | undefined>('p-popover-leave');
+    /**
      * Callback to invoke when an overlay becomes visible.
      * @group Emits
      */
@@ -180,13 +165,13 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
     container: Nullable<HTMLDivElement>;
 
     overlayVisible: boolean = false;
 
     render: boolean = false;
-
-    isOverlayAnimationInProgress: boolean = false;
 
     selfClick: boolean = false;
 
@@ -269,10 +254,6 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @group Method
      */
     toggle(event: any, target?: any) {
-        if (this.isOverlayAnimationInProgress) {
-            return;
-        }
-
         if (this.overlayVisible) {
             if (this.hasTargetChanged(event, target)) {
                 this.destroyCallback = () => {
@@ -293,9 +274,6 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      */
     show(event: any, target?: any) {
         target && event && event.stopPropagation();
-        if (this.isOverlayAnimationInProgress) {
-            return;
-        }
 
         this.target = target || event.currentTarget || event.target;
         this.overlayVisible = true;
@@ -322,15 +300,12 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container!);
-            else appendChild(this.appendTo, this.container!);
-        }
+        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     restoreAppend() {
-        if (this.container && this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.container);
+        if (this.container && this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.container);
         }
     }
 
@@ -358,8 +333,8 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     }
 
     onAnimationStart(event: AnimationEvent) {
-        if (event.toState === 'open') {
-            this.container = event.element;
+        if (this.overlayVisible && this.render) {
+            this.container = <HTMLDivElement>event.target;
             this.container?.setAttribute(this.$attrSelector, '');
             this.appendContainer();
             this.align();
@@ -380,39 +355,27 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
             this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
             this.onShow.emit(null);
         }
-
-        this.isOverlayAnimationInProgress = true;
     }
 
-    onAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                if (this.destroyCallback) {
-                    this.destroyCallback();
-                    this.destroyCallback = null;
-                }
+    onAnimationEnd() {
+        if (!this.overlayVisible) {
+            if (this.destroyCallback) {
+                this.destroyCallback();
+                this.destroyCallback = null;
 
                 if (this.overlaySubscription) {
                     this.overlaySubscription.unsubscribe();
                 }
-                break;
 
-            case 'close':
                 if (this.autoZIndex) {
                     ZIndexUtils.clear(this.container);
-                }
-
-                if (this.overlaySubscription) {
-                    this.overlaySubscription.unsubscribe();
                 }
 
                 this.onContainerDestroy();
                 this.onHide.emit({});
                 this.render = false;
-                break;
+            }
         }
-
-        this.isOverlayAnimationInProgress = false;
     }
 
     focus() {

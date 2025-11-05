@@ -1,6 +1,5 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -21,19 +20,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
     imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind],
     template: `
         @if (visible()) {
-            <div
-                [pBind]="ptm('root')"
-                [attr.aria-live]="'polite'"
-                [class]="cn(cx('root'), styleClass)"
-                [attr.role]="'alert'"
-                [@messageAnimation]="{
-                    value: 'visible()',
-                    params: {
-                        showTransitionParams: showTransitionOptions,
-                        hideTransitionParams: hideTransitionOptions
-                    }
-                }"
-            >
+            <div [pBind]="ptm('root')" [attr.aria-live]="'polite'" [class]="cn(cx('root'), styleClass)" [attr.role]="'alert'" [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()">
                 <div [pBind]="ptm('content')" [class]="cx('content')">
                     @if (iconTemplate || _iconTemplate) {
                         <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
@@ -77,25 +64,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [MessageStyle, { provide: MESSAGE_INSTANCE, useExisting: Message }, { provide: PARENT_INSTANCE, useExisting: Message }],
-    hostDirectives: [Bind],
-    animations: [
-        trigger('messageAnimation', [
-            transition(':enter', [style({ opacity: 0, transform: 'translateY(-25%)' }), animate('{{showTransitionParams}}')]),
-            transition(':leave', [
-                animate(
-                    '{{hideTransitionParams}}',
-                    style({
-                        height: 0,
-                        marginTop: 0,
-                        marginBottom: 0,
-                        marginLeft: 0,
-                        marginRight: 0,
-                        opacity: 0
-                    })
-                )
-            ])
-        ])
-    ]
+    hostDirectives: [Bind]
 })
 export class Message extends BaseComponent<MessagePassThrough> {
     _componentStyle = inject(MessageStyle);
@@ -171,6 +140,18 @@ export class Message extends BaseComponent<MessagePassThrough> {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-message-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | null | undefined>('p-message-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-message-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | null | undefined>('p-message-leave');
     /**
      * Defines the size of the component.
      * @group Props

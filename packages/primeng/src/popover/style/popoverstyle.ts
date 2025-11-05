@@ -81,6 +81,29 @@ const style = /*css*/ `
     border-top-color: dt('popover.border.color');
 }
 
+/* Animations */
+
+.p-popover-enter {
+    animation: p-animate-popover-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-popover-leave {
+    animation: p-animate-popover-leave 100ms linear;
+}
+
+@keyframes p-animate-popover-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
+    }
+}
+
+@keyframes p-animate-popover-leave {
+    to {
+        opacity: 0;
+    }
+}
+
 `;
 
 const classes = {

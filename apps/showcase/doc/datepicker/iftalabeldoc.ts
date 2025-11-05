@@ -1,14 +1,14 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DatePickerModule } from 'primeng/datepicker';
 import { IftaLabelModule } from 'primeng/iftalabel';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'datepicker-ifta-label-demo',
+    selector: 'date-picker-ifta-label-demo',
     standalone: true,
     imports: [FormsModule, RouterModule, DatePickerModule, IftaLabelModule, AppCode, AppDocSectionText],
     template: `

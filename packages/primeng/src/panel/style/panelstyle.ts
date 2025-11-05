@@ -1,17 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as panel_style } from '@primeuix/styles/panel';
+import { style } from '@primeuix/styles/panel';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-    ${panel_style}
-
-    /* For PrimeNG */
-    .p-panel-collapsed .p-panel-content-container,
-    .p-panel-content-container.ng-animating {
-        overflow: hidden !important;
-    }
-
-`;
 
 const classes = {
     root: ({ instance }) => [

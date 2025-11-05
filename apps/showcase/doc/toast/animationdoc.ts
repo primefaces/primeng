@@ -1,10 +1,10 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'animation-doc',
@@ -12,13 +12,48 @@ import { ButtonModule } from 'primeng/button';
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule],
     template: `
         <app-docsectiontext>
-            <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties.</p>
+            <p>Transition of the animations can be customized using the <i>enterAnimation</i>, <i>leaveAnimation</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast [showTransitionOptions]="'250ms'" [showTransformOptions]="'translateX(100%)'" [hideTransitionOptions]="'150ms'" [hideTransformOptions]="'translateX(100%)'" />
+            <p-toast enterAnimation="custom-enter-animation" leaveAnimation="custom-leave-animation" />
             <p-button (click)="show()" label="Show" />
         </div>
         <app-code [code]="code" selector="toast-animation-demo"></app-code>
+    `,
+    styles: `
+        :host ::ng-deep .custom-enter-animation {
+            animation: custom-enter-animation 450ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        :host ::ng-deep .custom-leave-animation {
+            animation: custom-leave-animation 250ms cubic-bezier(0.4, 0, 1, 1);
+        }
+
+        @keyframes custom-enter-animation {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-50%);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes custom-leave-animation {
+            from {
+                max-height: 1000px;
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                max-height: 0;
+                opacity: 0;
+                transform: scale(0.8);
+                margin-bottom: 0;
+                overflow: hidden;
+            }
+        }
     `,
     providers: [MessageService]
 })
@@ -30,10 +65,10 @@ export class AnimationDoc {
     }
 
     code: Code = {
-        basic: `<p-toast [showTransitionOptions]="'250ms'" [showTransformOptions]="'translateX(100%)'" [hideTransitionOptions]="'150ms'" [hideTransformOptions]="'translateX(100%)'" />
+        basic: `<p-toast enterAnimation="custom-enter-animation" leaveAnimation="custom-leave-animation" />
 <p-button (click)="show()" label="Show" />`,
         html: `<div class="card flex justify-center">
-    <p-toast [showTransitionOptions]="'250ms'" [showTransformOptions]="'translateX(100%)'" [hideTransitionOptions]="'150ms'" [hideTransformOptions]="'translateX(100%)'" />
+    <p-toast enterAnimation="custom-enter-animation" leaveAnimation="custom-leave-animation" />
     <p-button (click)="show()" label="Show" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
@@ -54,6 +89,41 @@ export class ToastAnimationDemo {
     show() {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
     }
-}`
+}`,
+        scss: `
+:host ::ng-deep .custom-enter-animation {
+    animation: custom-enter-animation 450ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host ::ng-deep .custom-leave-animation {
+    animation: custom-leave-animation 250ms cubic-bezier(0.4, 0, 1, 1);
+}
+
+@keyframes custom-enter-animation {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes custom-leave-animation {
+    from {
+        max-height: 1000px;
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        max-height: 0;
+        opacity: 0;
+        transform: scale(0.8);
+        margin-bottom: 0;
+        overflow: hidden;
+    }
+}
+        `
     };
 }

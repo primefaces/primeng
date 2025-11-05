@@ -3,12 +3,39 @@ import { style as datepicker_style } from '@primeuix/styles/datepicker';
 import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
-    ${datepicker_style}
+${datepicker_style}
 
-    /* For PrimeNG */
-    .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
-        border-color: dt('inputtext.invalid.border.color');
+/* For PrimeNG */
+.p-datepicker.ng-invalid.ng-dirty .p-inputtext {
+    border-color: dt('inputtext.invalid.border.color');
+}
+
+/* Animations */
+.p-datepicker-panel:not(.p-datepicker-panel-inline) {
+    position: absolute;
+    top: 0;
+}
+
+.p-datepicker-overlay-enter {
+    animation: p-animate-datepicker-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-datepicker-overlay-leave {
+    animation: p-animate-datepicker-overlay-leave 100ms linear;
+}
+
+@keyframes p-animate-datepicker-overlay-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
     }
+}
+
+@keyframes p-animate-datepicker-overlay-leave {
+    to {
+        opacity: 0;
+    }
+}
 `;
 
 const inlineStyles = {

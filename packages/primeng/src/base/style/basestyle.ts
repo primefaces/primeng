@@ -27,6 +27,43 @@ const css = /*css*/ `
 }
 `;
 
+const extendedStyle = `
+    ${base_style} 
+    
+    .p-collapsible-enter {
+        animation-name: p-animate-collapsible-enter;
+        animation-duration: 1000ms;
+        animation-timing-function: ease-in-out;
+    }
+
+    .p-collapsible-leave {
+        animation-name: p-animate-collapsible-leave;
+        animation-duration: 450ms;
+        animation-timing-function: cubic-bezier(0, 1, 0, 1);
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes p-animate-collapsible-enter {
+        from {
+            max-height: 0;
+            overflow: hidden
+        }
+        to {
+            max-height: 1000px;
+        }
+    }
+
+    @keyframes p-animate-collapsible-leave {
+        from {
+            max-height: 1000px;
+        }
+        to {
+            overflow: hidden;
+            max-height: 0;
+        }
+    }
+`;
+
 @Injectable({ providedIn: 'root' })
 export class BaseStyle {
     name = 'base';
@@ -60,7 +97,7 @@ export class BaseStyle {
     };
 
     loadBaseStyle = (options: any = {}, style: string = '') => {
-        return this.load(base_style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
+        return this.load(extendedStyle, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
     };
 
     getCommonTheme = (params?) => {

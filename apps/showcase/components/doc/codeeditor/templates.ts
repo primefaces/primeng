@@ -13,7 +13,6 @@ export interface Props {
 const version = require('package.json').version;
 
 const dependencies = {
-    '@angular/animations': '^20.0.4',
     '@angular/cdk': '^20.0.3',
     '@angular/cli': '^20.0.3',
     '@angular/common': '^20.0.4',

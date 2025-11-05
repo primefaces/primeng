@@ -1,4 +1,3 @@
-import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
@@ -35,9 +34,6 @@ import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
 const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_INSTANCE');
 
-const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
-
-const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 /**
  * ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
  * @group Components
@@ -143,7 +139,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             </ng-template>
         </p-dialog>
     `,
-    animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [ConfirmDialogStyle, { provide: CONFIRMDIALOG_INSTANCE, useExisting: ConfirmDialog }, { provide: PARENT_INSTANCE, useExisting: ConfirmDialog }],

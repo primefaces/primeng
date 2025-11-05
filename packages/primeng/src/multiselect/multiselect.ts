@@ -1,4 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
@@ -285,6 +284,7 @@ export class MultiSelectItem extends BaseComponent {
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
+            (onOverlayAnimationDone)="onOverlayAnimationDone($event)"
             (onHide)="onOverlayHide($event)"
             [pt]="ptm('pcOverlay')"
         >
@@ -1952,41 +1952,40 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        if (event.toState === 'visible') {
-            this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-list-container');
-            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+    onOverlayAnimationStart(event: any) {
+        this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-list-container');
+        this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
-            if (this.options && this.options.length) {
-                if (this.virtualScroll) {
-                    const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
-                    if (selectedIndex !== -1) {
-                        this.scroller?.scrollToIndex(selectedIndex);
-                    }
-                } else {
-                    let selectedListItem = findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
+        if (this.options && this.options.length) {
+            if (this.virtualScroll) {
+                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                if (selectedIndex !== -1) {
+                    this.scroller?.scrollToIndex(selectedIndex);
+                }
+            } else {
+                let selectedListItem = findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
 
-                    if (selectedListItem) {
-                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-                    }
+                if (selectedListItem) {
+                    selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                 }
             }
+        }
 
-            if (this.filterInputChild && this.filterInputChild.nativeElement) {
-                this.preventModelTouched = true;
+        if (this.filterInputChild && this.filterInputChild.nativeElement) {
+            this.preventModelTouched = true;
 
-                if (this.autofocusFilter) {
-                    this.filterInputChild.nativeElement.focus();
-                }
+            if (this.autofocusFilter) {
+                this.filterInputChild.nativeElement.focus();
             }
+        }
 
-            this.onPanelShow.emit(event);
-        }
-        if (event.toState === 'void') {
-            this.itemsWrapper = null;
-            this.onModelTouched();
-            this.onPanelHide.emit(event);
-        }
+        this.onPanelShow.emit(event);
+    }
+
+    onOverlayAnimationDone(event: any) {
+        this.itemsWrapper = null;
+        this.onModelTouched();
+        this.onPanelHide.emit(event);
     }
 
     resetFilter() {

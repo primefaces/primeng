@@ -1,7 +1,63 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/toast';
+import { style as toast_style } from '@primeuix/styles/toast';
 import { BaseStyle } from 'primeng/base';
+const style = /*css*/ `
+${toast_style}
+/* Animations */
+.p-toast-enter {
+    animation: p-toast-enter-animation 450ms cubic-bezier(0, 1, 0, 1);
+}
 
+.p-toast-leave {
+    animation: p-toast-leave-animation 250ms ease-out;
+}
+
+/* Bottom positions - slide down on leave */
+.p-toast.p-toast-bottom-left .p-toast-message.p-toast-leave,
+.p-toast.p-toast-bottom-right .p-toast-message.p-toast-leave,
+.p-toast.p-toast-bottom-center .p-toast-message.p-toast-leave {
+    animation: p-toast-leave-bottom-animation 250ms ease-out;
+}
+
+@keyframes p-toast-enter-animation {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes p-toast-leave-animation {
+    from {
+        max-height: 1000px;
+        opacity: 1;
+    }
+    to {
+        max-height: 0;
+        opacity: 0;
+        margin-bottom: 0;
+        overflow: hidden;
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes p-toast-leave-bottom-animation {
+    from {
+        max-height: 1000px;
+        opacity: 1;
+    }
+    to {
+        max-height: 0;
+        opacity: 0;
+        margin-bottom: 0;
+        overflow: hidden;
+        transform: translateY(100%);
+    }
+}
+`;
 // Position
 const inlineStyles = {
     root: ({ instance }) => {

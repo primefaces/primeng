@@ -23,7 +23,6 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -316,17 +315,13 @@ export class Step extends BaseComponent<StepPassThrough> {
         @if (isSeparatorVisible()) {
             <p-stepper-separator />
         }
-        <div
-            [pBind]="ptm('content')"
-            [class]="cx('content')"
-            [@content]="isVertical() ? (active() ? { value: 'visible', params: { transitionParams: transitionOptions() } } : { value: 'hidden', params: { transitionParams: transitionOptions() } }) : undefined"
-            (@content.start)="onAnimationStart($event)"
-            (@content.done)="onAnimationEnd($event)"
-        >
-            @if (isVisible()) {
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
-            }
-        </div>
+        @if (active()) {
+            <div [pBind]="ptm('content')" [class]="cx('content')" [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart()" (animationend)="onAnimationEnd()">
+                @if (isVisible()) {
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+                }
+            </div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -337,24 +332,6 @@ export class Step extends BaseComponent<StepPassThrough> {
         '[attr.id]': 'id()',
         '[attr.data-p-active]': 'active()'
     },
-    animations: [
-        trigger('content', [
-            state(
-                'hidden',
-                style({
-                    height: '0'
-                })
-            ),
-            state(
-                'visible',
-                style({
-                    height: '*'
-                })
-            ),
-            transition('visible <=> hidden', [animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')]),
-            transition('void => *', animate(0))
-        ])
-    ],
     providers: [StepPanelStyle, { provide: STEPPANEL_INSTANCE, useExisting: StepPanel }, { provide: PARENT_INSTANCE, useExisting: StepPanel }],
     hostDirectives: [Bind]
 })
@@ -366,6 +343,10 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
     pcStepper = inject(forwardRef(() => Stepper));
 
     transitionOptions = computed(() => this.pcStepper.transitionOptions());
+
+    enterAnimation = computed(() => (this.isVertical() ? this.pcStepper.enterAnimation() : undefined));
+
+    leaveAnimation = computed(() => (this.isVertical() ? this.pcStepper.leaveAnimation() : undefined));
     /**
      * Active value of stepper.
      * @type {number}
@@ -419,15 +400,15 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
         });
     }
 
-    onAnimationStart(event: any) {
-        if (event.toState === 'visible') {
+    onAnimationStart() {
+        if (this.active()) {
             this.visible.set(true);
         }
     }
 
-    onAnimationEnd(event: any) {
-        if (event.toState === 'hidden') {
-            this.visible.set(false);
+    onAnimationEnd() {
+        if (!this.active()) {
+            this.visible.set(true);
         }
     }
 
@@ -516,6 +497,18 @@ export class Stepper extends BaseComponent<StepperPassThrough> {
      * @group Props
      */
     transitionOptions: InputSignal<string> = input<string>('400ms cubic-bezier(0.86, 0, 0.07, 1)');
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-collapsible-enter'
+     * @group Props
+     */
+    enterAnimation = input<string | null | undefined>('p-collapsible-enter');
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-collapsible-leave'
+     * @group Props
+     */
+    leaveAnimation = input<string | null | undefined>('p-collapsible-leave');
 
     id = signal<string>(uuid('pn_id_'));
 

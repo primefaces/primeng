@@ -1,7 +1,39 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/galleria';
+import { style as galleria_style } from '@primeuix/styles/galleria';
 import { BaseStyle } from 'primeng/base';
 
+const style = /*css*/ `
+${galleria_style}
+
+/* Animations */
+.p-galleria-enter {
+    animation: p-animate-galleria-enter 150ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-galleria-leave {
+    animation: p-animate-galleria-leave 150ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+@keyframes p-animate-galleria-enter {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes p-animate-galleria-leave {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+}
+`;
 const classes = {
     mask: 'p-galleria-mask p-overlay-mask p-overlay-mask-enter',
     root: ({ instance }) => {

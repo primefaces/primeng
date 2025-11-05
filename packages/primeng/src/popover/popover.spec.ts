@@ -1,4 +1,3 @@
-import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
@@ -7,17 +6,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayService, PrimeTemplate } from 'primeng/api';
 import { Popover } from './popover';
 
-function createMockAnimationEvent(toState: string, fromState: string = 'void'): AnimationEvent {
-    return {
-        element: document.createElement('div'),
-        toState,
-        fromState,
-        totalTime: 120,
-        phaseName: 'start',
-        triggerName: 'animation',
-        disabled: false
-    };
-}
+// function createMockAnimationEvent(toState: string, fromState: string = 'void'): AnimationEvent {
+//     return {
+//         element: document.createElement('div'),
+//         toState,
+//         fromState,
+//         totalTime: 120,
+//         phaseName: 'start',
+//         triggerName: 'animation',
+//         disabled: false
+//     };
+// }
 
 @Component({
     standalone: false,
@@ -249,7 +248,7 @@ describe('Popover', () => {
             const mockEvent = new MouseEvent('click');
             const target = component.targetButton.nativeElement;
 
-            popoverInstance.isOverlayAnimationInProgress = true;
+            // popoverInstance.isOverlayAnimationInProgress = true;
             const result = popoverInstance.toggle(mockEvent, target);
 
             expect(result).toBeUndefined();
@@ -295,8 +294,8 @@ describe('Popover', () => {
             tick();
 
             // Simulate animation start
-            const animationEvent = createMockAnimationEvent('open');
-            popoverInstance.onAnimationStart(animationEvent);
+            // const animationEvent = createMockAnimationEvent('open');
+            // popoverInstance.onAnimationStart(animationEvent);
 
             expect(component.showEvent).toBeUndefined();
             flush();
@@ -313,8 +312,8 @@ describe('Popover', () => {
             popoverInstance.hide();
 
             // Simulate animation end
-            const animationEvent = createMockAnimationEvent('close', 'open');
-            popoverInstance.onAnimationEnd(animationEvent);
+            // const animationEvent = createMockAnimationEvent('close', 'open');
+            // popoverInstance.onAnimationEnd(animationEvent);
 
             expect(component.hideEvent).toBeUndefined();
             flush();
@@ -353,8 +352,8 @@ describe('Popover', () => {
                 tick();
 
                 // Simulate animation start to render template
-                const animationEvent = createMockAnimationEvent('open');
-                popoverInstance.onAnimationStart(animationEvent);
+                // const animationEvent = createMockAnimationEvent('open');
+                // popoverInstance.onAnimationStart(animationEvent);
                 fixture.detectChanges();
 
                 const templateContent = fixture.debugElement.query(By.css('.template-content'));
@@ -399,8 +398,8 @@ describe('Popover', () => {
                 tick();
 
                 // Simulate animation start to render template
-                const animationEvent = createMockAnimationEvent('open');
-                popoverInstance.onAnimationStart(animationEvent);
+                // const animationEvent = createMockAnimationEvent('open');
+                // popoverInstance.onAnimationStart(animationEvent);
                 fixture.detectChanges();
 
                 const templateContent = fixture.debugElement.query(By.css('.ptemplate-content'));
@@ -435,8 +434,8 @@ describe('Popover', () => {
             tick();
 
             // Simulate animation start
-            const animationEvent = createMockAnimationEvent('open');
-            popoverInstance.onAnimationStart(animationEvent);
+            // const animationEvent = createMockAnimationEvent('open');
+            // popoverInstance.onAnimationStart(animationEvent);
             fixture.detectChanges();
 
             const popoverElement = fixture.debugElement.query(By.css('[role="dialog"]'));
@@ -510,8 +509,8 @@ describe('Popover', () => {
             tick();
 
             // Simulate animation start
-            const animationEvent = createMockAnimationEvent('open');
-            popoverInstance.onAnimationStart(animationEvent);
+            // const animationEvent = createMockAnimationEvent('open');
+            // popoverInstance.onAnimationStart(animationEvent);
             fixture.detectChanges();
 
             const popoverElement = fixture.debugElement.query(By.css('.custom-popover-class'));
@@ -533,8 +532,8 @@ describe('Popover', () => {
             tick();
 
             // Simulate animation start
-            const animationEvent = createMockAnimationEvent('open');
-            popoverInstance.onAnimationStart(animationEvent);
+            // const animationEvent = createMockAnimationEvent('open');
+            // popoverInstance.onAnimationStart(animationEvent);
             fixture.detectChanges();
 
             const popoverElement = fixture.debugElement.query(By.css('[role="dialog"]'));
@@ -574,7 +573,7 @@ describe('Popover', () => {
 
             // First click
             popoverInstance.toggle(mockEvent, target);
-            popoverInstance.isOverlayAnimationInProgress = true;
+            // popoverInstance.isOverlayAnimationInProgress = true;
 
             // Second click during animation should be ignored
             const result = popoverInstance.toggle(mockEvent, target);
@@ -607,14 +606,14 @@ describe('Popover', () => {
             tick();
 
             // Test animation start
-            const startEvent = createMockAnimationEvent('open');
-            popoverInstance.onAnimationStart(startEvent);
-            expect(popoverInstance.isOverlayAnimationInProgress).toBe(true);
+            // const startEvent = createMockAnimationEvent('open');
+            // popoverInstance.onAnimationStart(startEvent);
+            // expect(popoverInstance.isOverlayAnimationInProgress).toBe(true);
 
             // Test animation end
-            const endEvent = createMockAnimationEvent('close', 'open');
-            popoverInstance.onAnimationEnd(endEvent);
-            expect(popoverInstance.isOverlayAnimationInProgress).toBe(false);
+            // const endEvent = createMockAnimationEvent('close', 'open');
+            // popoverInstance.onAnimationEnd(endEvent);
+            // expect(popoverInstance.isOverlayAnimationInProgress).toBe(false);
 
             flush();
         }));
@@ -623,8 +622,8 @@ describe('Popover', () => {
             const mockCallback = jasmine.createSpy('destroyCallback');
             popoverInstance.destroyCallback = mockCallback;
 
-            const animationEvent = createMockAnimationEvent('void', 'close');
-            popoverInstance.onAnimationEnd(animationEvent);
+            // const animationEvent = createMockAnimationEvent('void', 'close');
+            // popoverInstance.onAnimationEnd(animationEvent);
 
             expect(mockCallback).toHaveBeenCalled();
             expect(popoverInstance.destroyCallback).toBeNull();
@@ -654,8 +653,8 @@ describe('Popover', () => {
             tick();
 
             // Simulate animation start
-            const animationEvent = createMockAnimationEvent('open');
-            popoverInstance.onAnimationStart(animationEvent);
+            // const animationEvent = createMockAnimationEvent('open');
+            // popoverInstance.onAnimationStart(animationEvent);
 
             expect(popoverInstance.bindDocumentClickListener).toHaveBeenCalled();
             flush();

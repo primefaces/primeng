@@ -3,24 +3,47 @@ import { style as password_style } from '@primeuix/styles/password';
 import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
-    ${password_style}
+${password_style}
 
-    /* For PrimeNG */
-    p-password.ng-invalid.ng-dirty .p-inputtext {
-        border-color: dt('inputtext.invalid.border.color');
-    }
+/* For PrimeNG */
+p-password.ng-invalid.ng-dirty .p-inputtext {
+    border-color: dt('inputtext.invalid.border.color');
+}
 
-    p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
-        border-color: dt('inputtext.focus.border.color');
-    }
+p-password.ng-invalid.ng-dirty .p-inputtext:enabled:focus {
+    border-color: dt('inputtext.focus.border.color');
+}
 
-    p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
-        color: dt('inputtext.invalid.placeholder.color');
-    }
+p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
+    color: dt('inputtext.invalid.placeholder.color');
+}
 
-    .p-password-fluid-directive {
-        width: 100%;
+.p-password-fluid-directive {
+    width: 100%;
+}
+
+/* Animations */
+
+.p-password-overlay-enter {
+    animation: p-animate-password-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.p-password-overlay-leave {
+    animation: p-animate-password-overlay-leave 100ms linear;
+}
+
+@keyframes p-animate-password-overlay-enter {
+    from {
+        opacity: 0;
+        transform: scaleY(0.8);
     }
+}
+
+@keyframes p-animate-password-overlay-leave {
+    to {
+        opacity: 0;
+    }
+}
 `;
 
 const inlineStyles = {
