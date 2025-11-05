@@ -26,7 +26,7 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
                 [animate.enter]="enterAnimation()"
                 [animate.leave]="leaveAnimation()"
                 (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd($event)"
+                (animationend)="onAnimationEnd()"
                 [attr.aria-label]="buttonAriaLabel"
                 (click)="onClick()"
                 [pt]="ptm('pcButton')"
@@ -172,7 +172,7 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
         });
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart(event: AnimationEvent) {
         if (this.visible) {
             this.overlay = event.target;
             this.overlay.style.position = 'fixed';
@@ -180,7 +180,7 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.visible) {
             ZIndexUtils.clear(this.overlay);
             this.overlay = null;

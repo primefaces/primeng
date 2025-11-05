@@ -3148,9 +3148,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
     }
 
-    onOverlayAnimationStart(event: any) {
+    onOverlayAnimationStart(event: AnimationEvent) {
         if (!this.inline && this.overlayVisible) {
-            this.overlay = event.target;
+            this.overlay = <HTMLDivElement>event.target;
             this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
 
             this.appendOverlay();
@@ -3170,10 +3170,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
     }
 
-    onOverlayAnimationDone(event: any) {
+    onOverlayAnimationDone(event: AnimationEvent) {
         if (!this.overlayVisible && !this.inline) {
             if (this.autoZIndex) {
-                ZIndexUtils.clear(event.element);
+                ZIndexUtils.clear(event.target);
             }
             this.onOverlayHide();
             this.onClose.emit(event);

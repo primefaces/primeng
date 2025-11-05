@@ -55,7 +55,7 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
                 [animate.enter]="$enterAnimation()"
                 [animate.leave]="$leaveAnimation()"
                 (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd($event)"
+                (animationend)="onAnimationEnd()"
                 [style]="style"
                 role="complementary"
                 (keydown)="onKeyDown($event)"
@@ -438,9 +438,9 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this.mask = null;
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart(event: AnimationEvent) {
         if (this.visible) {
-            this.container = event.target;
+            this.container = <HTMLDivElement>event.target;
             this.appendContainer();
             this.show();
 
@@ -450,7 +450,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.visible) {
             this.hide(false);
             ZIndexUtils.clear(this.container);

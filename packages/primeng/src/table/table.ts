@@ -6072,9 +6072,9 @@ export class ColumnFilter extends BaseComponent {
         this.selfClick = true;
     }
 
-    onOverlayAnimationStart(event: any) {
+    onOverlayAnimationStart(event: AnimationEvent) {
         if (this.overlayVisible) {
-            this.overlay = event.target;
+            this.overlay = <HTMLDivElement>event.target;
             if (this.overlay && this.overlay.parentElement !== this.document.body) {
                 const buttonEl = <HTMLButtonElement>findSingle(this.el.nativeElement, '[data-pc-name="pccolumnfilterbutton"]');
                 appendChild(this.document.body, this.overlay);
@@ -6098,14 +6098,14 @@ export class ColumnFilter extends BaseComponent {
         }
     }
 
-    onOverlayAnimationEnd(event: any) {
+    onOverlayAnimationEnd(event: AnimationEvent) {
         if (!this.overlayVisible) {
             this.onOverlayHide();
 
             if (this.overlaySubscription) {
                 this.overlaySubscription.unsubscribe();
             }
-            ZIndexUtils.clear(event.element);
+            ZIndexUtils.clear(this.overlay);
             this.onHide.emit({ originalEvent: event });
         }
     }

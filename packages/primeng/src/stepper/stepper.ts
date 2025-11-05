@@ -316,7 +316,7 @@ export class Step extends BaseComponent<StepPassThrough> {
             <p-stepper-separator />
         }
         @if (active()) {
-            <div [pBind]="ptm('content')" [class]="cx('content')" [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart($event)" (animationend)="onAnimationEnd($event)">
+            <div [pBind]="ptm('content')" [class]="cx('content')" [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart()" (animationend)="onAnimationEnd()">
                 @if (isVisible()) {
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
                 }
@@ -400,13 +400,13 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
         });
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart() {
         if (this.active()) {
             this.visible.set(true);
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.active()) {
             this.visible.set(true);
         }

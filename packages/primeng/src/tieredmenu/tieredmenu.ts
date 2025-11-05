@@ -405,7 +405,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
                 [animate.enter]="popup ? enterAnimation() : null"
                 [animate.leave]="popup ? leaveAnimation() : null"
                 (animationstart)="onOverlayAnimationStart($event)"
-                (animationend)="onOverlayAnimationEnd($event)"
+                (animationend)="onOverlayAnimationEnd()"
             >
                 <p-tieredMenuSub
                     #rootmenu
@@ -1023,10 +1023,10 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         this.dirty = false;
     }
 
-    onOverlayAnimationStart(event: any) {
+    onOverlayAnimationStart(event: AnimationEvent) {
         if (this.visible) {
             if (this.popup) {
-                this.container = event.target;
+                this.container = <HTMLDivElement>event.target;
                 this.moveOnTop();
                 this.onShow.emit({});
                 this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
@@ -1053,9 +1053,9 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         }
     }
 
-    onOverlayAnimationEnd(event: any) {
+    onOverlayAnimationEnd() {
         if (!this.visible && this.popup) {
-            ZIndexUtils.clear(event.target);
+            ZIndexUtils.clear(this.container);
             this.onOverlayHide();
             this.onHide.emit({});
         }

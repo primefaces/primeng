@@ -281,13 +281,13 @@ export class Overlay extends BaseComponent {
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onAnimationStart: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onAnimationStart: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
      * Callback to invoke when the animation is done.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onAnimationDone: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
 
     @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
 
@@ -471,19 +471,19 @@ export class Overlay extends BaseComponent {
         this.isOverlayContentClicked = true;
     }
 
-    handleAnimationStart(event: Event) {
+    handleAnimationStart(event: AnimationEvent) {
         if (this.visible) {
             this.onOverlayEnter(event);
         }
     }
 
-    handleAnimationEnd(event: Event) {
+    handleAnimationEnd(event: AnimationEvent) {
         if (!this.visible) {
             this.onOverlayLeave(event);
         }
     }
 
-    onOverlayEnter(event: Event) {
+    onOverlayEnter(event: AnimationEvent) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         const container = this.overlayEl || event.target;
         this.show(container, true);
@@ -495,12 +495,11 @@ export class Overlay extends BaseComponent {
         DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
         this.alignOverlay();
 
-        //event.animationComplete();
         this.handleEvents('onAnimationStart', event);
     }
 
-    onOverlayLeave(event: Event) {
-        this.handleEvents('onBeforeHide', event);
+    onOverlayLeave(event: AnimationEvent) {
+        this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         const container = this.overlayEl || event.target;
         this.hide(container, true);
         this.modalVisible = false;
@@ -509,7 +508,6 @@ export class Overlay extends BaseComponent {
         ZIndexUtils.clear(container);
         this.cd.markForCheck();
         this.handleEvents('onAnimationDone', event);
-        //event.animationComplete();
     }
 
     handleEvents(name: string, params: any) {

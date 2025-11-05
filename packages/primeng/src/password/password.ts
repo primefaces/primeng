@@ -469,8 +469,8 @@ export const Password_VALUE_ACCESSOR: any = {
                 (click)="onOverlayClick($event)"
                 [animate.enter]="enterAnimation()"
                 [animate.leave]="leaveAnimation()"
-                (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd($event)"
+                (animationstart)="onAnimationStart()"
+                (animationend)="onAnimationEnd()"
                 [pBind]="ptm('overlay')"
             >
                 <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
@@ -761,7 +761,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
         });
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart() {
         if (this.overlayVisible) {
             ZIndexUtils.set('overlay', this.overlayViewChild?.nativeElement, this.config.zIndex.overlay);
             this.$attrSelector && this.overlayViewChild?.nativeElement?.setAttribute(this.$attrSelector, '');
@@ -772,7 +772,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.overlayVisible) {
             ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
             this.unbindScrollListener();

@@ -75,7 +75,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                 [pBind]="_ptm(root ? 'rootList' : 'submenu')"
                 [animate.enter]="enterAnimation()"
                 [animate.leave]="leaveAnimation()"
-                (animationstart)="onEnter($event, sublist)"
+                (animationstart)="onEnter($event)"
                 [attr.id]="menuId + '_list'"
                 [tabindex]="tabindex"
                 [attr.aria-label]="ariaLabel"
@@ -342,7 +342,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
 
-    onEnter(event: any) {
+    onEnter(event: AnimationEvent) {
         if (this.visible) {
             const sublist = event.target;
             this.position(sublist);
@@ -402,7 +402,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
                 [animate.enter]="enterAnimation()"
                 [animate.leave]="leaveAnimation()"
                 (animationstart)="onOverlayAnimationStart($event)"
-                (animationend)="onOverlayAnimationEnd($event)"
+                (animationend)="onOverlayAnimationEnd()"
             >
                 <p-contextmenu-sub
                     #rootmenu
@@ -538,7 +538,7 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
 
     @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
 
-    container: HTMLDivElement | null | undefined;
+    container: HTMLElement | null | undefined;
 
     outsideClickListener: VoidListener;
 
@@ -1037,9 +1037,9 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         this.searchValue = '';
     }
 
-    onOverlayAnimationStart(event: any) {
+    onOverlayAnimationStart(event: AnimationEvent) {
         if (this.visible()) {
-            this.container = event.target;
+            this.container = <HTMLElement>event.target;
             this.position();
             this.moveOnTop();
             this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
@@ -1049,7 +1049,7 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         }
     }
 
-    onOverlayAnimationEnd(event: any) {
+    onOverlayAnimationEnd() {
         if (!this.visible()) {
             this.onOverlayHide();
         }

@@ -379,19 +379,19 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         this.cd.markForCheck();
     }
 
-    handleAnimationStart(event: Event) {
+    handleAnimationStart(event: AnimationEvent) {
         if (this.overlayVisible && !this.inline) {
             this.onOverlayEnter(event);
         }
     }
 
-    handleAnimationEnd(event: Event) {
+    handleAnimationEnd(event: AnimationEvent) {
         if (!this.overlayVisible && !this.inline) {
             this.onOverlayLeave(event);
         }
     }
 
-    onOverlayEnter(event: Event) {
+    onOverlayEnter(event: AnimationEvent) {
         if (!this.inline) {
             this.$attrSelector && this.overlayViewChild?.nativeElement?.setAttribute(this.$attrSelector, '');
             this.appendOverlay();
@@ -411,7 +411,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         }
     }
 
-    onOverlayLeave(event: Event) {
+    onOverlayLeave(event: AnimationEvent) {
         if (!this.inline) {
             if (this.autoZIndex) {
                 ZIndexUtils.clear(event.target as HTMLElement);

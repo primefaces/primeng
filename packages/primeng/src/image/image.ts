@@ -94,7 +94,7 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                 </button>
             </div>
             @if (previewVisible) {
-                <div [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart($event)" (animationend)="onAnimationEnd($event)">
+                <div [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart($event)" (animationend)="onAnimationEnd()">
                     <ng-container *ngIf="!previewTemplate && !_previewTemplate">
                         <img
                             [attr.src]="previewImageSrc ? previewImageSrc : src"
@@ -456,9 +456,9 @@ export class Image extends BaseComponent<ImagePassThrough> {
         this.previewClick = true;
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart(event: AnimationEvent) {
         if (this.previewVisible) {
-            this.container = event.target;
+            this.container = <HTMLDivElement>event.target;
             this.wrapper = this.container?.parentElement;
             this.$attrSelector && this.wrapper?.setAttribute(this.$attrSelector, '');
             this.appendContainer();
@@ -470,7 +470,7 @@ export class Image extends BaseComponent<ImagePassThrough> {
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.previewVisible) {
             if (this.wrapper) addClass(this.wrapper, 'p-overlay-mask-leave');
             ZIndexUtils.clear(this.wrapper);

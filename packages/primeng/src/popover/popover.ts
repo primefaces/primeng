@@ -56,7 +56,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
                 [animate.enter]="enterAnimation()"
                 [animate.leave]="leaveAnimation()"
                 (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd($event)"
+                (animationend)="onAnimationEnd()"
                 role="dialog"
                 [attr.aria-modal]="overlayVisible"
                 [attr.aria-label]="ariaLabel"
@@ -332,9 +332,9 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart(event: AnimationEvent) {
         if (this.overlayVisible && this.render) {
-            this.container = event.target;
+            this.container = <HTMLDivElement>event.target;
             this.container?.setAttribute(this.$attrSelector, '');
             this.appendContainer();
             this.align();
@@ -357,7 +357,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.overlayVisible) {
             if (this.destroyCallback) {
                 this.destroyCallback();

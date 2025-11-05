@@ -59,7 +59,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                 [animate.enter]="enterAnimation()"
                 [animate.leave]="leaveAnimation()"
                 (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd($event)"
+                (animationend)="onAnimationEnd()"
             >
                 <ng-container *ngIf="headlessTemplate || _headlessTemplate; else notHeadless">
                     <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate; context: { $implicit: confirmation }"></ng-container>
@@ -322,9 +322,9 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart(event: AnimationEvent) {
         if (this.visible) {
-            this.container = event.target;
+            this.container = <HTMLDivElement>event.target;
             DomHandler.appendOverlay(this.document.body, this.container);
             this.align();
             this.handleFocus();
@@ -341,7 +341,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.visible) {
             this.onContainerDestroy();
         }

@@ -130,17 +130,17 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     leaveAnimation = input<string>('');
 
-    onAnimationStart = output<any>();
+    onAnimationStart = output<AnimationEvent>();
 
-    onAnimationEnd = output<any>();
+    onAnimationEnd = output<AnimationEvent>();
 
-    handleAnimationStart(event: any) {
+    handleAnimationStart(event: AnimationEvent) {
         if (this.visible()) {
             this.onAnimationStart.emit(event);
         }
     }
 
-    handleAnimationEnd(event: any) {
+    handleAnimationEnd(event: AnimationEvent) {
         if (!this.visible() && !this.isDestroyed) {
             this.onClose.emit({
                 index: <number>this.index,
@@ -237,7 +237,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             [headlessTemplate]="headlessTemplate || _headlessTemplate"
             [enterAnimation]="enterAnimation()"
             [leaveAnimation]="leaveAnimation()"
-            (onAnimationStart)="onAnimationStart($event)"
+            (onAnimationStart)="onAnimationStart()"
             [showTransformOptions]="showTransformOptions"
             [hideTransformOptions]="hideTransformOptions"
             [showTransitionOptions]="showTransitionOptions"
@@ -488,7 +488,7 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         this.cd.detectChanges();
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart() {
         this.renderer.setAttribute(this.el?.nativeElement, this.id, '');
         if (this.autoZIndex && this.el?.nativeElement.style.zIndex === '') {
             ZIndexUtils.set('modal', this.el?.nativeElement, this.baseZIndex || this.config.zIndex.modal);

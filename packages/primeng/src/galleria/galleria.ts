@@ -52,8 +52,8 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                         pGalleriaContent
                         [animate.enter]="enterAnimation()"
                         [animate.leave]="leaveAnimation()"
-                        (animationstart)="onAnimationStart($event)"
-                        (animationend)="onAnimationEnd($event)"
+                        (animationstart)="onAnimationStart()"
+                        (animationend)="onAnimationEnd()"
                         [value]="value"
                         [activeIndex]="activeIndex"
                         [numVisible]="numVisibleLimit || numVisible"
@@ -386,7 +386,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         }
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart() {
         if (this.visible) {
             this.enableModality();
             setTimeout(() => {
@@ -396,7 +396,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.visible) {
             addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
             this.disableModality();

@@ -169,7 +169,7 @@ export class MenuItemContent extends BaseComponent {
                 [animate.enter]="popup ? enterAnimation() : null"
                 [animate.leave]="popup ? leaveAnimation() : null"
                 (animationstart)="onOverlayAnimationStart($event)"
-                (animationend)="onOverlayAnimationEnd($event)"
+                (animationend)="onOverlayAnimationEnd()"
                 [attr.id]="id"
                 [pBind]="ptm('root')"
             >
@@ -527,9 +527,9 @@ export class Menu extends BaseComponent<MenuPassThrough> {
         return this.tabindex !== undefined ? this.tabindex.toString() : null;
     }
 
-    onOverlayAnimationStart(event: any) {
+    onOverlayAnimationStart(event: AnimationEvent) {
         if (this.overlayVisible && this.popup) {
-            this.container = event.target;
+            this.container = <HTMLDivElement>event.target;
             this.moveOnTop();
             this.onShow.emit({});
             this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
@@ -542,12 +542,12 @@ export class Menu extends BaseComponent<MenuPassThrough> {
         }
     }
 
-    onOverlayAnimationEnd(event: any) {
+    onOverlayAnimationEnd() {
         if (!this.overlayVisible && this.popup) {
             this.onOverlayHide();
             this.onHide.emit({});
             if (this.autoZIndex) {
-                ZIndexUtils.clear(event.target);
+                ZIndexUtils.clear(this.container);
             }
         }
     }

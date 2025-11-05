@@ -62,7 +62,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                     [animate.enter]="enterAnimation()"
                     [animate.leave]="leaveAnimation()"
                     (animationstart)="onAnimationStart($event)"
-                    (animationend)="onAnimationEnd($event)"
+                    (animationend)="onAnimationEnd()"
                     [attr.role]="role"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-modal]="true"
@@ -1022,9 +1022,9 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
     }
 
-    onAnimationStart(event: any) {
+    onAnimationStart(event: AnimationEvent) {
         if (this.visible && !this.container) {
-            this.container = event.target;
+            this.container = <HTMLDivElement>event.target;
             this.wrapper = this.container?.parentElement;
             this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
             this.appendContainer();
@@ -1043,7 +1043,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
     }
 
-    onAnimationEnd(event: any) {
+    onAnimationEnd() {
         if (!this.visible) {
             if (this.wrapper && this.modal) {
                 addClass(this.wrapper, 'p-overlay-mask-leave');
