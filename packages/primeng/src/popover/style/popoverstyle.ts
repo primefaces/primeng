@@ -68,23 +68,24 @@ const style = /*css*/ `
 
 /* Animations */
 .p-popover-enter {
-    animation: p-animate-popover-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+    animation: p-animate-popover-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
 .p-popover-leave {
-    animation: p-animate-popover-leave 100ms linear;
+    animation: p-animate-popover-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
 @keyframes p-animate-popover-enter {
     from {
         opacity: 0;
-        transform: scaleY(0.8);
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-popover-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }`;
 
