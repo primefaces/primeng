@@ -37,24 +37,21 @@ export class ControlledDoc implements OnInit {
     }
 
     expandAll() {
-        this.files().forEach((node) => {
-            this.expandRecursive(node, true);
-        });
+        const updatedFiles = this.files().map((node) => this.expandRecursive(node, true));
+        this.files.set(updatedFiles);
     }
 
     collapseAll() {
-        this.files().forEach((node) => {
-            this.expandRecursive(node, false);
-        });
+        const updatedFiles = this.files().map((node) => this.expandRecursive(node, false));
+        this.files.set(updatedFiles);
     }
 
-    private expandRecursive(node: TreeNode, isExpand: boolean) {
-        node.expanded = isExpand;
-        if (node.children) {
-            node.children.forEach((childNode) => {
-                this.expandRecursive(childNode, isExpand);
-            });
-        }
+    private expandRecursive(node: TreeNode, isExpand: boolean): TreeNode {
+        return {
+            ...node,
+            expanded: isExpand,
+            children: node.children ? node.children.map((child) => this.expandRecursive(child, isExpand)) : node.children
+        };
     }
 
     code: Code = {
@@ -96,24 +93,21 @@ export class TreeControlledDemo implements OnInit {
     }
 
     expandAll() {
-        this.files().forEach((node) => {
-            this.expandRecursive(node, true);
-        });
+        const updatedFiles = this.files().map((node) => this.expandRecursive(node, true));
+        this.files.set(updatedFiles);
     }
 
     collapseAll() {
-        this.files().forEach((node) => {
-            this.expandRecursive(node, false);
-        });
+        const updatedFiles = this.files().map((node) => this.expandRecursive(node, false));
+        this.files.set(updatedFiles);
     }
 
-    private expandRecursive(node: TreeNode, isExpand: boolean) {
-        node.expanded = isExpand;
-        if (node.children) {
-            node.children.forEach((childNode) => {
-                this.expandRecursive(childNode, isExpand);
-            });
-        }
+    private expandRecursive(node: TreeNode, isExpand: boolean): TreeNode {
+        return {
+            ...node,
+            expanded: isExpand,
+            children: node.children ? node.children.map((child) => this.expandRecursive(child, isExpand)) : node.children
+        };
     }
 
 }`,
