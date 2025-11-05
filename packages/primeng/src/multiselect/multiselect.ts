@@ -284,7 +284,7 @@ export class MultiSelectItem extends BaseComponent {
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onOverlayAnimationDone)="onOverlayAnimationDone($event)"
+            (onAnimationDone)="onOverlayAnimationDone($event)"
             (onHide)="onOverlayHide($event)"
             [pt]="ptm('pcOverlay')"
         >

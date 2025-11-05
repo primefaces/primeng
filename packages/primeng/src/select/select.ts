@@ -254,16 +254,13 @@ export class SelectItem extends BaseComponent {
         <p-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
-            hostName="select"
             [pt]="ptm('pcOverlay')"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onOverlayAnimationDone)="onOverlayAnimationDone($event)"
-            [enterAnimation]="enterAnimation"
-            [leaveAnimation]="leaveAnimation"
+            (onAnimationDone)="onOverlayAnimationDone($event)"
             (onHide)="hide()"
         >
             <ng-template #content>
@@ -413,10 +410,6 @@ export class SelectItem extends BaseComponent {
 })
 export class Select extends BaseInput<SelectPassThrough> implements AfterViewInit, AfterViewChecked {
     bindDirectiveInstance = inject(Bind, { self: true });
-
-    @Input() enterAnimation: string;
-
-    @Input() leaveAnimation: string;
 
     /**
      * Unique identifier of the component
