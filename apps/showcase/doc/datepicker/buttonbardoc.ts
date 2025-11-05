@@ -24,8 +24,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                             <p-button size="small" label="Flexible" severity="secondary" />
                         </div>
                         <div class="flex gap-2">
-                            <p-button size="small" label="Today" (click)="todayCallback()" variant="outlined" />
-                            <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback()" />
+                            <p-button size="small" label="Today" (click)="todayCallback($event)" variant="outlined" />
+                            <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback($event)" />
                         </div>
                     </div>
                 </ng-template>
@@ -49,8 +49,8 @@ export class ButtonBarDoc {
                 <p-button size="small" label="Flexible" severity="secondary" />
             </div>
             <div class="flex gap-2">
-                <p-button size="small" label="Today" (click)="todayCallback()" variant="outlined" />
-                <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback()" />
+                <p-button size="small" label="Today" (click)="todayCallback($event)" variant="outlined" />
+                <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback($event)" />
             </div>
         </div>
     </ng-template>
@@ -66,8 +66,8 @@ export class ButtonBarDoc {
                     <p-button size="small" label="Flexible" severity="secondary" />
                 </div>
                 <div class="flex gap-2">
-                    <p-button size="small" label="Today" (click)="todayCallback()" variant="outlined" />
-                    <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback()" />
+                    <p-button size="small" label="Today" (click)="todayCallback($event)" variant="outlined" />
+                    <p-button size="small" icon="pi pi-times" severity="danger" variant="text" (click)="clearCallback($event)" />
                 </div>
             </div>
         </ng-template>
