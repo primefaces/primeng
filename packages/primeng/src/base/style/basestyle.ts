@@ -28,12 +28,25 @@ const css = /*css*/ `
 `;
 
 const extendedStyle = `
-    ${base_style} 
+    ${base_style}
     
+    .p-collapsible {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 450ms cubic-bezier(0, 1, 0, 1);
+    }
+
+    .p-collapsible-open {
+        max-height: 1000px;
+        overflow: visible;
+        transition: max-height 450ms ease-in-out, overflow 0s 450ms;
+    }
+
     .p-collapsible-enter {
         animation-name: p-animate-collapsible-enter;
-        animation-duration: 1000ms;
+        animation-duration: 450ms;
         animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
     }
 
     .p-collapsible-leave {

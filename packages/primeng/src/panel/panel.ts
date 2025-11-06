@@ -78,29 +78,26 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                 </p-button>
             </div>
         </div>
-        @if (!toggleable || !collapsed) {
-            <div
-                [pBind]="ptm('contentContainer')"
-                [class]="cx('contentContainer')"
-                [id]="id + '_content'"
-                role="region"
-                [attr.aria-labelledby]="id + '_header'"
-                [attr.aria-hidden]="collapsed"
-                [attr.tabindex]="collapsed ? '-1' : undefined"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-            >
-                <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </div>
-
-                <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-                </div>
+        <div
+            [pBind]="ptm('contentContainer')"
+            [class]="cx('contentContainer')"
+            [id]="id + '_content'"
+            role="region"
+            [attr.aria-labelledby]="id + '_header'"
+            [attr.aria-hidden]="collapsed"
+            [attr.tabindex]="collapsed ? '-1' : undefined"
+            [class.p-collapsible-open]="toggleable && !_collapsed"
+        >
+            <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
+                <ng-content></ng-content>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
-        }
+
+            <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+                <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+            </div>
+        </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
