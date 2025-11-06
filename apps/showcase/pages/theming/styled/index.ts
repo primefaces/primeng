@@ -1,39 +1,39 @@
 import { ReversedKeysDoc } from '@/doc/splitbutton/reversedkeysdoc';
-import { ArchitectureDoc } from '@/doc/theming/architecturedoc';
-import { ColorsDoc } from '@/doc/theming/colorsdoc';
-import { ComponentDoc } from '@/doc/theming/componentdoc';
-import { DarkModeDoc } from '@/doc/theming/darkmodedoc';
-import { DefinePresetDoc } from '@/doc/theming/definepresetdoc';
-import { ColorSchemeDoc } from '@/doc/theming/colorschemedoc';
-import { DtDoc } from '@/doc/theming/dtdoc';
-import { ExtendDoc } from '@/doc/theming/extenddoc';
-import { FocusRingDoc } from '@/doc/theming/focusringdoc';
-import { FontDoc } from '@/doc/theming/fontdoc';
-import { FormsDoc } from '@/doc/theming/formsdoc';
-import { NoirDoc } from '@/doc/theming/noirdoc';
-import { OptionsDoc } from '@/doc/theming/optionsdoc';
-import { PaletteDoc } from '@/doc/theming/palettedoc';
-import { PresetsDoc } from '@/doc/theming/presetsdoc';
-import { PrimaryDoc } from '@/doc/theming/primarydoc';
-import { ResetDoc } from '@/doc/theming/resetdoc';
-import { ScaleDoc } from '@/doc/theming/scaledoc';
-import { ScopedTokensDoc } from '@/doc/theming/scopedtokensdoc';
-import { SpecificityDoc } from '@/doc/theming/specificitydoc';
-import { SurfaceDoc } from '@/doc/theming/surfacedoc';
-import { ThemeDoc } from '@/doc/theming/themedoc';
-import { UpdatePresetDoc } from '@/doc/theming/updatepresetdoc';
-import { UpdatePrimaryPaletteDoc } from '@/doc/theming/updateprimarypalettedoc';
-import { UpdateSurfacePaletteDoc } from '@/doc/theming/updatesurfacepalettedoc';
-import { UsePresetDoc } from '@/doc/theming/usepresetdoc';
+import { ArchitectureDoc } from '@/doc/theming/styled/architecturedoc';
+import { ColorsDoc } from '@/doc/theming/styled/colorsdoc';
+import { ComponentDoc } from '@/doc/theming/styled/componentdoc';
+import { DarkModeDoc } from '@/doc/theming/styled/darkmodedoc';
+import { DefinePresetDoc } from '@/doc/theming/styled/definepresetdoc';
+import { ColorSchemeDoc } from '@/doc/theming/styled/colorschemedoc';
+import { DtDoc } from '@/doc/theming/styled/dtdoc';
+import { ExtendDoc } from '@/doc/theming/styled/extenddoc';
+import { FocusRingDoc } from '@/doc/theming/styled/focusringdoc';
+import { FontDoc } from '@/doc/theming/styled/fontdoc';
+import { FormsDoc } from '@/doc/theming/styled/formsdoc';
+import { NoirDoc } from '@/doc/theming/styled/noirdoc';
+import { OptionsDoc } from '@/doc/theming/styled/optionsdoc';
+import { PaletteDoc } from '@/doc/theming/styled/palettedoc';
+import { PresetsDoc } from '@/doc/theming/styled/presetsdoc';
+import { PrimaryDoc } from '@/doc/theming/styled/primarydoc';
+import { ResetDoc } from '@/doc/theming/styled/resetdoc';
+import { ScaleDoc } from '@/doc/theming/styled/scaledoc';
+import { ScopedTokensDoc } from '@/doc/theming/styled/scopedtokensdoc';
+import { SpecificityDoc } from '@/doc/theming/styled/specificitydoc';
+import { SurfaceDoc } from '@/doc/theming/styled/surfacedoc';
+import { ThemeDoc } from '@/doc/theming/styled/themedoc';
+import { UpdatePresetDoc } from '@/doc/theming/styled/updatepresetdoc';
+import { UpdatePrimaryPaletteDoc } from '@/doc/theming/styled/updateprimarypalettedoc';
+import { UpdateSurfacePaletteDoc } from '@/doc/theming/styled/updatesurfacepalettedoc';
+import { UsePresetDoc } from '@/doc/theming/styled/usepresetdoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Theming - PrimeNG" header="Theming" description="Choose from a variety of pre-styled themes or develop your own." [docs]="docs"></app-doc>`,
+    template: `<app-doc docTitle="Styled Mode" header="Styled Mode" description="Choose from a variety of pre-styled themes or develop your own." [docs]="docs"></app-doc>`,
     imports: [AppDoc],
     standalone: true
 })
-export class ThemingDemo {
+export class ThemingStyledDemo {
     docs = [
         {
             id: 'architecture',
