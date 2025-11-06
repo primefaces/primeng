@@ -418,13 +418,13 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * @defaultValue 'p-overlay-enter'
      * @group Props
      */
-    @Input() enterAnimation: string;
+    @Input() enterAnimation: string = 'p-overlay-enter';
     /**
      * Leave animation class name.
      * @defaultValue 'p-overlay-leave'
      * @group Props
      */
-    @Input() leaveAnimation: string;
+    @Input() leaveAnimation: string = 'p-overlay-leave';
     /**
      * Unique identifier of the component
      * @group Props
