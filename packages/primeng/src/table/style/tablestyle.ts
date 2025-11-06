@@ -236,8 +236,8 @@ const inlineStyles = {
     }),
     thead: { position: 'sticky' },
     tfoot: { position: 'sticky' },
-    rowGroupHeader: ({ frozenRowGroupHeaderStickyPosition }) => ({
-        top: frozenRowGroupHeaderStickyPosition
+    rowGroupHeader: ({ instance }) => ({
+        top: instance.getFrozenRowGroupHeaderStickyPosition
     })
 };
 

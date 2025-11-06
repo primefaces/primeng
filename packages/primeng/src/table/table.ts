@@ -3515,7 +3515,7 @@ export class TableBody extends BaseComponent {
     standalone: false,
     host: {
         '[class]': 'cx("rowGroupHeader")',
-        '[style]': 'sx("rowGroupHeader", { frozenRowGroupHeaderStickyPosition: getFrozenRowGroupHeaderStickyPosition })'
+        '[style]': 'sx("rowGroupHeader")'
     },
     providers: [TableStyle]
 })
@@ -3646,7 +3646,7 @@ export class FrozenColumn extends BaseComponent {
     host: {
         '[class]': "cx('sortableColumn')",
         '[tabindex]': 'isEnabled() ? "0" : null',
-        '[role]': '"columnheader"',
+        '[attr.role]': '"columnheader"',
         '[attr.aria-sort]': 'sortOrder'
     },
     providers: [TableStyle]
