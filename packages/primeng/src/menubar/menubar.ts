@@ -209,7 +209,7 @@ export class MenubarService {
         '[attr.id]': 'root ? menuId : null',
         '[attr.aria-activedescendant]': 'focusedItemId',
         '[class]': "level === 0 ? cx('rootList') : cx('submenu')",
-        '[attr.role]': 'menubar',
+        '[attr.role]': "'menubar'",
         '[style]': 'inlineStyles'
     }
 })
