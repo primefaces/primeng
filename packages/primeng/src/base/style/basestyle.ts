@@ -33,13 +33,18 @@ const extendedStyle = `
     .p-collapsible {
         max-height: 0;
         overflow: hidden;
+        will-change: max-height, overflow;
         transition: max-height 450ms cubic-bezier(0, 1, 0, 1);
+    }
+
+    .p-collapsible.p-animating {
+        overflow: hidden;
     }
 
     .p-collapsible-open {
         max-height: 1000px;
         overflow: visible;
-        transition: max-height 450ms ease-in-out, overflow 0s 450ms;
+        transition: max-height 1s ease-in-out;
     }
 
     .p-collapsible-enter {

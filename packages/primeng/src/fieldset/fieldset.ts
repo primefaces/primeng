@@ -1,11 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    InjectionToken,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    signal,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { Nullable } from 'primeng/ts-helpers';
 import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from 'primeng/types/fieldset';
 import { FieldsetStyle } from './style/fieldsetstyle';
 
@@ -63,10 +80,12 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 [pBind]="ptm('contentContainer')"
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
-                [class.p-collapsible-open]="toggleable && !_collapsed"
+                [class.p-animating]="animating()"
+                [class.p-collapsible-open]="toggleable && !collapsed"
+                (transitionrun)="onToggleStart($event)"
                 (transitionend)="onToggleDone($event)"
             >
-                <div [class]="cx('content')" [pBind]="ptm('content')">
+                <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
@@ -88,6 +107,8 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
+
+    animating = signal<boolean>(false);
 
     get dataP() {
         return this.cn({
@@ -140,6 +161,8 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      */
     @Output() onAfterToggle: EventEmitter<FieldsetAfterToggleEvent> = new EventEmitter<FieldsetAfterToggleEvent>();
 
+    @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
+
     private _id: string = uuid('pn_id_');
 
     get id() {
@@ -149,8 +172,6 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     get buttonAriaLabel() {
         return this.legend;
     }
-
-    public animating: Nullable<boolean>;
 
     /**
      * Internal collapsed state
@@ -167,6 +188,7 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     }
     set collapsed(value: boolean | undefined) {
         this._collapsed = value;
+        this.animating.set(true);
     }
 
     /**
@@ -194,11 +216,7 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
     toggle(event: MouseEvent) {
-        if (this.animating) {
-            return false;
-        }
-
-        this.animating = true;
+        this.animating.set(true);
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
         if (this.collapsed) this.expand();
@@ -217,20 +235,39 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     expand() {
         this._collapsed = false;
         this.collapsedChange.emit(false);
+        this.updateTabIndex();
     }
 
     collapse() {
         this._collapsed = true;
         this.collapsedChange.emit(true);
+        this.updateTabIndex();
     }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
+    updateTabIndex() {
+        if (this.contentWrapperViewChild) {
+            const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]');
+            focusableElements.forEach((element: HTMLElement) => {
+                if (this.collapsed) {
+                    element.setAttribute('tabindex', '-1');
+                } else {
+                    element.removeAttribute('tabindex');
+                }
+            });
+        }
+    }
+
+    onToggleStart(event: TransitionEvent) {
+        this.animating.set(true);
+    }
+
     onToggleDone(event: any) {
+        this.animating.set(false);
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
-        this.animating = false;
     }
 
     _headerTemplate: TemplateRef<any> | undefined;
