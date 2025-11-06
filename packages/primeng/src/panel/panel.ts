@@ -1,23 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    input,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -87,6 +69,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             [attr.aria-hidden]="collapsed"
             [attr.tabindex]="collapsed ? '-1' : undefined"
             [class.p-collapsible-open]="toggleable && !_collapsed"
+            (transitionend)="onToggleDone($event)"
         >
             <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
                 <ng-content></ng-content>
@@ -183,18 +166,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-collapsible-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-collapsible-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-collapsible-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-collapsible-leave');
 
     /**
      * Used to pass all properties of the ButtonProps to the Button component.

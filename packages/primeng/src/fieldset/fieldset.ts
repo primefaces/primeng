@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -56,24 +56,21 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 </ng-template>
             </legend>
-            @if (!collapsed) {
-                <div
-                    [attr.id]="id + '_content'"
-                    role="region"
-                    [class]="cx('contentContainer')"
-                    [pBind]="ptm('contentContainer')"
-                    [attr.aria-labelledby]="id + '_header'"
-                    [attr.aria-hidden]="collapsed"
-                    [animate.enter]="enterAnimation()"
-                    [animate.leave]="leaveAnimation()"
-                    (animationend)="onToggleDone()"
-                >
-                    <div [class]="cx('content')" [pBind]="ptm('content')">
-                        <ng-content></ng-content>
-                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                    </div>
+            <div
+                [attr.id]="id + '_content'"
+                role="region"
+                [class]="cx('contentContainer')"
+                [pBind]="ptm('contentContainer')"
+                [attr.aria-labelledby]="id + '_header'"
+                [attr.aria-hidden]="collapsed"
+                [class.p-collapsible-open]="toggleable && !_collapsed"
+                (transitionend)="onToggleDone($event)"
+            >
+                <div [class]="cx('content')" [pBind]="ptm('content')">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
-            }
+            </div>
         </fieldset>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -110,11 +107,6 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      */
     @Input({ transform: booleanAttribute }) toggleable: boolean | undefined;
     /**
-     * Defines the default visibility state of the content.
-     * * @group Props
-     */
-    @Input({ transform: booleanAttribute }) collapsed: boolean | undefined = false;
-    /**
      * Inline style of the component.
      * @group Props
      */
@@ -129,18 +121,6 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-collapsible-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-collapsible-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-collapsible-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-collapsible-leave');
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.
@@ -171,6 +151,23 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     }
 
     public animating: Nullable<boolean>;
+
+    /**
+     * Internal collapsed state
+     */
+    _collapsed: boolean | undefined;
+
+    /**
+     * Defines the initial state of content, supports one or two-way binding as well.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute })
+    get collapsed(): boolean | undefined {
+        return this._collapsed;
+    }
+    set collapsed(value: boolean | undefined) {
+        this._collapsed = value;
+    }
 
     /**
      * Defines the header template.
@@ -207,7 +204,6 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
         if (this.collapsed) this.expand();
         else this.collapse();
 
-        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
         event.preventDefault();
     }
 
@@ -219,20 +215,21 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     }
 
     expand() {
-        this.collapsed = false;
-        this.collapsedChange.emit(this.collapsed);
+        this._collapsed = false;
+        this.collapsedChange.emit(false);
     }
 
     collapse() {
-        this.collapsed = true;
-        this.collapsedChange.emit(this.collapsed);
+        this._collapsed = true;
+        this.collapsedChange.emit(true);
     }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
     }
 
-    onToggleDone() {
+    onToggleDone(event: any) {
+        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
         this.animating = false;
     }
 

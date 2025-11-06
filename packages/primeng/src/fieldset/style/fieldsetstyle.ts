@@ -14,7 +14,7 @@ const classes = {
     legendLabel: 'p-fieldset-legend-label',
     toggleButton: 'p-fieldset-toggle-button',
     toggleIcon: 'p-fieldset-toggle-icon',
-    contentContainer: 'p-fieldset-content-container',
+    contentContainer: ({ instance }) => ['p-fieldset-content-container', { 'p-collapsible': instance.toggleable }],
     content: 'p-fieldset-content'
 };
 
