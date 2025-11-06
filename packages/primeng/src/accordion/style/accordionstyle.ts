@@ -6,11 +6,6 @@ const style = /*css*/ `
 ${accordion_style}
 
 /*For PrimeNG*/
-.p-accordionpanel:not(.p-accordionpanel-active) > .p-accordioncontent,
-.p-accordioncontent-content.ng-animating {
-    overflow: hidden;
-}
-
 .p-accordionheader-toggle-icon.icon-start {
     order: -1;
 }
@@ -20,13 +15,49 @@ ${accordion_style}
     gap: dt('accordion.header.padding');
 }
 
-.p-accordioncontent.ng-animating {
+.p-collapsible-enter .p-accordioncontent-content,
+.p-collapsible-leave .p-accordioncontent-content {
     overflow: hidden;
 }
 
 .p-accordionheader.p-ripple {
     overflow: hidden;
     position: relative;
+}
+
+/* Animations */
+
+.p-accordion-collapsible-enter {
+    animation-name: p-animate-accordion-collapsible-enter;
+    animation-duration: 1000ms;
+    animation-timing-function: ease-in-out;
+}
+
+.p-accordion-collapsible-leave {
+    animation-name: p-animate-accordion-collapsible-leave;
+    animation-duration: 450ms;
+    animation-timing-function: cubic-bezier(0, 1, 0, 1);
+    animation-fill-mode: forwards;
+}
+
+@keyframes p-animate-accordion-collapsible-enter {
+    from {
+        max-height: 0;
+        overflow: hidden
+    }
+    to {
+        max-height: 1000px;
+    }
+}
+
+@keyframes p-animate-accordion-collapsible-leave {
+    from {
+        max-height: 1000px;
+    }
+    to {
+        overflow: hidden;
+        max-height: 0;
+    }
 }
 `;
 

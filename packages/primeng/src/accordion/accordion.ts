@@ -319,7 +319,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [CommonModule, BindModule],
     standalone: true,
-    template: `<div [pBind]="ptm('content', ptParams())">
+    template: `<div [pBind]="ptm('content', ptParams())" [class]="cx('content')">
         <ng-content />
     </div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -330,8 +330,8 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
         '[attr.role]': '"region"',
         '[attr.data-p-active]': 'active()',
         '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[class.p-collapsible-enter]': 'active()',
-        '[class.p-collapsible-leave]': '!active()'
+        '[class.p-accordion-collapsible-enter]': 'active()',
+        '[class.p-accordion-collapsible-leave]': '!active()'
     },
     hostDirectives: [Bind],
     providers: [AccordionStyle, { provide: ACCORDION_CONTENT_INSTANCE, useExisting: AccordionContent }, { provide: PARENT_INSTANCE, useExisting: AccordionContent }]
