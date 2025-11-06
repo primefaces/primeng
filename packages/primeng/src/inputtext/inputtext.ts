@@ -26,8 +26,17 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
     @Input() hostName: any = '';
 
+    /**
+     * Used to pass attributes to DOM elements inside the InputText component.
+     * @defaultValue undefined
+     * @group Props
+     */
     ptInputText = input<InputTextPassThrough>();
-
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
     unstyledInputText = input<boolean | undefined>();
 
     bindDirectiveInstance = inject(Bind, { self: true });

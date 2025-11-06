@@ -57,12 +57,23 @@ const INTERNAL_BUTTON_CLASSES = {
     providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
     standalone: true,
     host: {
-        '[class.p-button-label]': 'true'
+        '[class.p-button-label]': '!$unstyled() && true'
     },
     hostDirectives: [Bind]
 })
 export class ButtonLabel extends BaseComponent {
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonLabel.
+     * @defaultValue undefined
+     * @group Props
+     */
     ptButtonLabel = input<any>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    unstyledButtonLabel = input<boolean | undefined>();
 
     $pcButtonLabel: ButtonLabel | undefined = inject(BUTTON_LABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -72,6 +83,10 @@ export class ButtonLabel extends BaseComponent {
         super();
         effect(() => {
             this.ptButtonLabel() && this.directivePT.set(this.ptButtonLabel());
+        });
+
+        effect(() => {
+            this.unstyledButtonLabel() && this.directiveUnstyled.set(this.unstyledButtonLabel());
         });
     }
 
@@ -85,12 +100,23 @@ export class ButtonLabel extends BaseComponent {
     providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
     standalone: true,
     host: {
-        '[class.p-button-icon]': 'true'
+        '[class.p-button-icon]': '!$unstyled() && true'
     },
     hostDirectives: [Bind]
 })
 export class ButtonIcon extends BaseComponent {
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonIcon.
+     * @defaultValue undefined
+     * @group Props
+     */
     ptButtonIcon = input<any>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    unstyledButtonIcon = input<boolean | undefined>();
 
     $pcButtonIcon: ButtonIcon | undefined = inject(BUTTON_ICON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -100,6 +126,10 @@ export class ButtonIcon extends BaseComponent {
         super();
         effect(() => {
             this.ptButtonIcon() && this.directivePT.set(this.ptButtonIcon());
+        });
+
+        effect(() => {
+            this.unstyledButtonIcon() && this.directiveUnstyled.set(this.unstyledButtonIcon());
         });
     }
 
@@ -116,8 +146,8 @@ export class ButtonIcon extends BaseComponent {
     standalone: true,
     providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }],
     host: {
-        '[class.p-button-icon-only]': 'isIconOnly()',
-        '[class.p-button-text]': 'isTextButton()'
+        '[class.p-button-icon-only]': '!$unstyled() && isIconOnly()',
+        '[class.p-button-text]': ' !$unstyled() && isTextButton()'
     },
     hostDirectives: [Bind]
 })
@@ -128,8 +158,17 @@ export class ButtonDirective extends BaseComponent {
 
     _componentStyle = inject(ButtonStyle);
 
+    /**
+     * Used to pass attributes to DOM elements inside the Button component.
+     * @defaultValue undefined
+     * @group Props
+     */
     ptButtonDirective = input<ButtonPassThrough>();
-
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
     unstyledButtonDirective = input<boolean | undefined>();
 
     @Input() hostName: any = '';
@@ -146,6 +185,14 @@ export class ButtonDirective extends BaseComponent {
 
         effect(() => {
             this.unstyledButtonDirective() && this.directiveUnstyled.set(this.unstyledButtonDirective());
+        });
+
+        effect(() => {
+            const unstyled = this.$unstyled();
+
+            if (this.initialized && unstyled) {
+                this.setStyleClass();
+            }
         });
     }
 
@@ -336,7 +383,7 @@ export class ButtonDirective extends BaseComponent {
     </svg>`;
 
     onAfterViewInit() {
-        addClass(this.htmlElement, this.getStyleClass().join(' '));
+        !this.$unstyled() && addClass(this.htmlElement, this.getStyleClass().join(' '));
 
         this.createIcon();
         this.createLabel();
@@ -403,7 +450,7 @@ export class ButtonDirective extends BaseComponent {
             styleClass.push('p-button-fluid');
         }
 
-        return styleClass;
+        return this.$unstyled() ? [] : styleClass;
     }
 
     get hasFluid() {
@@ -428,7 +475,7 @@ export class ButtonDirective extends BaseComponent {
     }
 
     createLabel() {
-        const created = findSingle(this.htmlElement, '.p-button-label');
+        const created = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
         if (!created && this.label) {
             let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('label'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
             labelElement.appendChild(this.document.createTextNode(this.label));
@@ -437,10 +484,10 @@ export class ButtonDirective extends BaseComponent {
     }
 
     createIcon() {
-        const created = findSingle(this.htmlElement, '.p-button-icon');
+        const created = findSingle(this.htmlElement, '[data-pc-name="buttonicon"]');
         if (!created && (this.icon || this.loading)) {
-            let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
-            let iconClass = this.getIconClass();
+            let iconPosClass = this.label && !this.$unstyled() ? 'p-button-icon-' + this.iconPos : null;
+            let iconClass = !this.$unstyled() && this.getIconClass();
             let iconElement: HTMLElement = <HTMLElement>createElement('span', { class: this.cn(this.cx('icon'), iconPosClass, iconClass), 'aria-hidden': 'true', 'p-bind': this.ptm('icon') });
 
             if (!this.loadingIcon && this.loading) {
@@ -452,7 +499,7 @@ export class ButtonDirective extends BaseComponent {
     }
 
     updateLabel() {
-        let labelElement = findSingle(this.htmlElement, '.p-button-label');
+        let labelElement = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
 
         if (!this.label) {
             labelElement && this.htmlElement.removeChild(labelElement);
@@ -463,8 +510,8 @@ export class ButtonDirective extends BaseComponent {
     }
 
     updateIcon() {
-        let iconElement = findSingle(this.htmlElement, '.p-button-icon');
-        let labelElement = findSingle(this.htmlElement, '.p-button-label');
+        let iconElement = findSingle(this.htmlElement, '[data-pc-name="buttonicon"]');
+        let labelElement = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
 
         if (this.loading && !this.loadingIcon && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
@@ -472,7 +519,7 @@ export class ButtonDirective extends BaseComponent {
             iconElement.innerHTML = '';
         }
 
-        if (iconElement) {
+        if (iconElement && !this.$unstyled()) {
             if (this.iconPos) {
                 iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '') + ' ' + this.getIconClass();
             } else {

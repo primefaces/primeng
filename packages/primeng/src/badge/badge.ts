@@ -23,8 +23,17 @@ const BADGE_DIRECTIVE_INSTANCE = new InjectionToken<BadgeDirective>('BADGE_DIREC
 export class BadgeDirective extends BaseComponent {
     $pcBadgeDirective: BadgeDirective | undefined = inject(BADGE_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
+    /**
+     * Used to pass attributes to DOM elements inside the Badge component.
+     * @defaultValue undefined
+     * @group Props
+     */
     ptBadgeDirective = input<BadgePassThrough | undefined>();
-
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
     unstyledBadgeDirective = input<boolean | undefined>();
 
     /**

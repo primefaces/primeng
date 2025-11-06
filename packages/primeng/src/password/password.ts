@@ -72,7 +72,17 @@ export class PasswordDirective extends BaseEditableHolder {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcPasswordDirective: PasswordDirective | undefined = inject(PASSWORD_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
+    /**
+     * Used to pass attributes to DOM elements inside the Password component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    ptPasswordDirective = input<PasswordPassThrough | undefined>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
     unstyledPasswordDirective = input<boolean | undefined>();
 
     onAfterViewChecked(): void {
@@ -159,6 +169,10 @@ export class PasswordDirective extends BaseEditableHolder {
 
     constructor(public zone: NgZone) {
         super();
+
+        effect(() => {
+            this.ptPasswordDirective() && this.directivePT.set(this.ptPasswordDirective());
+        });
 
         effect(() => {
             this.unstyledPasswordDirective() && this.directiveUnstyled.set(this.unstyledPasswordDirective());
