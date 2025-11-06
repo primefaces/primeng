@@ -6,28 +6,25 @@ const style = /*css*/ `
 ${colorpicker_style}
 
 /* Animations */
-.p-overlay-enter {
-    animation-name: p-animate-overlay-enter;
-    animation-duration: 120ms;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+.p-colorpicker-enter {
+    animation: p-animate-colorpicker-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-overlay-leave {
-    animation-name: p-animate-overlay-leave;
-    animation-duration: 100ms;
-    animation-timing-function: linear;
+.p-colorpicker-leave {
+    animation: p-animate-colorpicker-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
-@keyframes p-animate-overlay-enter {
+@keyframes p-animate-colorpicker-enter {
     from {
         opacity: 0;
-        transform: scaleY(0.8);
+        transform: scale(0.93);
     }
 }
 
-@keyframes p-animate-overlay-leave {
+@keyframes p-animate-colorpicker-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;

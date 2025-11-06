@@ -99,12 +99,12 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
      * Enter animation class name.
      * @group Props
      */
-    @Input() enterAnimation: string = 'p-overlay-enter';
+    @Input() enterAnimation: string = 'p-colorpicker-enter';
     /**
      * Leave animation class name.
      * @group Props
      */
-    @Input() leaveAnimation: string = 'p-overlay-leave';
+    @Input() leaveAnimation: string = 'p-colorpicker-leave';
     /**
      * Whether to display as an overlay or not.
      * @group Props

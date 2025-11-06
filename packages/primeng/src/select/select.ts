@@ -259,6 +259,8 @@ export class SelectItem extends BaseComponent {
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
+            [enterAnimation]="enterAnimation"
+            [leaveAnimation]="leaveAnimation"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onAnimationDone)="onOverlayAnimationDone($event)"
             (onHide)="hide()"
@@ -411,6 +413,18 @@ export class SelectItem extends BaseComponent {
 export class Select extends BaseInput<SelectPassThrough> implements AfterViewInit, AfterViewChecked {
     bindDirectiveInstance = inject(Bind, { self: true });
 
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-overlay-enter'
+     * @group Props
+     */
+    @Input() enterAnimation: string;
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-overlay-leave'
+     * @group Props
+     */
+    @Input() leaveAnimation: string;
     /**
      * Unique identifier of the component
      * @group Props
