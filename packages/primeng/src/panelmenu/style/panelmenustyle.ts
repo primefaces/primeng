@@ -4,39 +4,14 @@ import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
     ${panelmenu_style}
-/*Animations*/
+    /*For PrimeNG*/
 
-.p-panelmenu-submenu {
-    overflow: hidden;
-}
 
-.p-panelmenu-enter {
-    animation: p-animate-panelmenu-enter 450ms cubic-bezier(0, 1, 0, 1);
-    overflow: hidden;
-}
-
-.p-panelmenu-leave {
-    animation: p-animate-panelmenu-leave 450ms cubic-bezier(0, 1, 0, 1);
-    overflow: hidden;
-}
-
-@keyframes p-animate-panelmenu-enter {
-    from {
-        max-height: 0;
+    .p-panelmenu-root-list,
+    .p-panelmenu-submenu,
+    .p-panelmenu-item-link {
+        outline: 0 none;
     }
-    to {
-        max-height: 1000px;
-    }
-}
-
-@keyframes p-animate-panelmenu-leave {
-    from {
-        max-height: 1000px;
-    }
-    to {
-        max-height: 0;
-    }
-}
 `;
 
 const classes = {

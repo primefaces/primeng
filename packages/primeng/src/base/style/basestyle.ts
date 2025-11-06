@@ -49,16 +49,14 @@ const extendedStyle = `
 
     .p-collapsible-enter {
         animation-name: p-animate-collapsible-enter;
-        animation-duration: 450ms;
+        animation-duration: 1s;
         animation-timing-function: ease-in-out;
-        animation-fill-mode: forwards;
     }
 
     .p-collapsible-leave {
         animation-name: p-animate-collapsible-leave;
         animation-duration: 450ms;
         animation-timing-function: cubic-bezier(0, 1, 0, 1);
-        animation-fill-mode: forwards;
     }
 
     @keyframes p-animate-collapsible-enter {
