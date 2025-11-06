@@ -24,41 +24,6 @@ ${accordion_style}
     overflow: hidden;
     position: relative;
 }
-
-/* Animations */
-
-.p-accordion-collapsible-enter {
-    animation-name: p-animate-accordion-collapsible-enter;
-    animation-duration: 1000ms;
-    animation-timing-function: ease-in-out;
-}
-
-.p-accordion-collapsible-leave {
-    animation-name: p-animate-accordion-collapsible-leave;
-    animation-duration: 450ms;
-    animation-timing-function: cubic-bezier(0, 1, 0, 1);
-    animation-fill-mode: forwards;
-}
-
-@keyframes p-animate-accordion-collapsible-enter {
-    from {
-        max-height: 0;
-        overflow: hidden
-    }
-    to {
-        max-height: 1000px;
-    }
-}
-
-@keyframes p-animate-accordion-collapsible-leave {
-    from {
-        max-height: 1000px;
-    }
-    to {
-        overflow: hidden;
-        max-height: 0;
-    }
-}
 `;
 
 const classes = {
@@ -72,7 +37,7 @@ const classes = {
     ],
     header: 'p-accordionheader',
     toggleicon: 'p-accordionheader-toggle-icon',
-    contentContainer: 'p-accordioncontent',
+    contentContainer: 'p-accordioncontent p-collapsible',
     content: 'p-accordioncontent-content'
 };
 

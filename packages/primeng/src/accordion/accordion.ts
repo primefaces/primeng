@@ -330,8 +330,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
         '[attr.role]': '"region"',
         '[attr.data-p-active]': 'active()',
         '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[class.p-accordion-collapsible-enter]': 'active()',
-        '[class.p-accordion-collapsible-leave]': '!active()'
+        '[class.p-collapsible-open]': 'active()'
     },
     hostDirectives: [Bind],
     providers: [AccordionStyle, { provide: ACCORDION_CONTENT_INSTANCE, useExisting: AccordionContent }, { provide: PARENT_INSTANCE, useExisting: AccordionContent }]
