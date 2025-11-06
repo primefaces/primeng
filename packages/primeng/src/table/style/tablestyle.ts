@@ -117,23 +117,24 @@ p-sortIcon, p-sort-icon, p-sorticon {
 
 /* Animations */
 .p-columnfilter-overlay-enter {
-    animation: p-animate-columnfilter-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+    animation: p-animate-columnfilter-overlay-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
 .p-columnfilter-overlay-leave {
-    animation: p-animate-columnfilter-overlay-leave 100ms linear;
+    animation: p-animate-columnfilter-overlay-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
 @keyframes p-animate-columnfilter-overlay-enter {
     from {
         opacity: 0;
-        transform: scaleY(0.8);
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-columnfilter-overlay-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;
