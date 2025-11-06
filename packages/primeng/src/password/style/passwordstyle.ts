@@ -23,25 +23,25 @@ p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
 }
 
 /* Animations */
-
-.p-password-overlay-enter {
-    animation: p-animate-password-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+.p-password-enter {
+    animation: p-animate-password-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-password-overlay-leave {
-    animation: p-animate-password-overlay-leave 100ms linear;
+.p-password-leave {
+    animation: p-animate-password-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
-@keyframes p-animate-password-overlay-enter {
-    from {
+@keyframes p-animate-password-enter {
+    to {
         opacity: 0;
-        transform: scaleY(0.8);
+        transform: scale(0.93);
     }
 }
 
-@keyframes p-animate-password-overlay-leave {
+@keyframes p-animate-password-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;
