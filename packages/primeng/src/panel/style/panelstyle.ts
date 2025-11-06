@@ -22,7 +22,7 @@ const classes = {
         }
     ],
     pcToggleButton: 'p-panel-toggle-button',
-    contentContainer: 'p-panel-content-container p-collapsible',
+    contentContainer: ({ instance }) => ['p-panel-content-container', { 'p-collapsible': instance.toggleable }],
     content: 'p-panel-content',
     footer: 'p-panel-footer'
 };
