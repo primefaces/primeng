@@ -566,19 +566,32 @@ export class ButtonDirective extends BaseComponent {
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-            <ng-container *ngIf="loading">
+            <ng-container *ngIf="loading || buttonProps?.loading">
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon)" [pBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
-                    <svg data-p-icon="spinner" *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), spinnerIconClass())" [pBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
+                    <span *ngIf="loadingIcon || buttonProps?.loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon || buttonProps?.loadingIcon)" [pBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
+                    <svg data-p-icon="spinner" *ngIf="!(loadingIcon || buttonProps?.loadingIcon)" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [pBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
                 </ng-container>
                 <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
             </ng-container>
-            <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cn('icon', iconClass())" [pBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
+            <ng-container *ngIf="!(loading || buttonProps?.loading)">
+                <span *ngIf="(icon || buttonProps?.icon) && !iconTemplate && !_iconTemplate" [class]="cn(cx('icon'), icon || buttonProps?.icon)" [pBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
                 <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
             </ng-container>
-            <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [pBind]="ptm('label')" [attr.data-p]="dataLabelP">{{ label }}</span>
-            <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity" [pt]="ptm('pcBadge')" [unstyled]="unstyled()"></p-badge>
+            <span
+                [class]="cx('label')"
+                [attr.aria-hidden]="(icon || buttonProps?.icon) && !(label || buttonProps?.label)"
+                *ngIf="!contentTemplate && !_contentTemplate && (label || buttonProps?.label)"
+                [pBind]="ptm('label')"
+                [attr.data-p]="dataLabelP"
+                >{{ label || buttonProps?.label }}</span
+            >
+            <p-badge
+                *ngIf="!contentTemplate && !_contentTemplate && (badge || buttonProps?.badge)"
+                [value]="badge || buttonProps?.badge"
+                [severity]="badgeSeverity || buttonProps?.badgeSeverity"
+                [pt]="ptm('pcBadge')"
+                [unstyled]="unstyled()"
+            ></p-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -838,24 +851,6 @@ export class Button extends BaseComponent<ButtonPassThrough> {
                     break;
             }
         });
-    }
-
-    spinnerIconClass(): string {
-        return Object.entries(this.iconClass())
-            .filter(([, value]) => !!value)
-            .reduce((acc, [key]) => acc + ` ${key}`, 'p-button-loading-icon');
-    }
-
-    iconClass() {
-        return {
-            [`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`]: this.loading,
-            'p-button-icon': true,
-            [this.icon as string]: true,
-            'p-button-icon-left': this.iconPos === 'left' && this.label,
-            'p-button-icon-right': this.iconPos === 'right' && this.label,
-            'p-button-icon-top': this.iconPos === 'top' && this.label,
-            'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
-        };
     }
 
     get dataP() {
