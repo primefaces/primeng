@@ -4,7 +4,7 @@ import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { BadgePassThrough } from 'primeng/types/badge';
+import type { BadgePassThrough } from 'primeng/types/badge';
 import { BadgeStyle } from './style/badgestyle';
 
 const BADGE_INSTANCE = new InjectionToken<Badge>('BADGE_INSTANCE');
@@ -24,6 +24,9 @@ export class BadgeDirective extends BaseComponent {
     $pcBadgeDirective: BadgeDirective | undefined = inject(BADGE_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     ptBadgeDirective = input<BadgePassThrough | undefined>();
+
+    unstyledBadgeDirective = input<boolean | undefined>();
+
     /**
      * When specified, disables the component.
      * @group Props
@@ -86,6 +89,10 @@ export class BadgeDirective extends BaseComponent {
         super();
         effect(() => {
             this.ptBadgeDirective() && this.directivePT.set(this.ptBadgeDirective());
+        });
+
+        effect(() => {
+            this.unstyledBadgeDirective() && this.directiveUnstyled.set(this.unstyledBadgeDirective());
         });
     }
 

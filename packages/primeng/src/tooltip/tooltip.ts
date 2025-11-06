@@ -9,6 +9,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
 import { ZIndexUtils } from 'primeng/utils';
 import { TooltipStyle } from './style/tooltipstyle';
+import type { TooltipPassThrough } from 'primeng/types/tooltip';
 
 const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 
@@ -183,7 +184,9 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     interactionInProgress = false;
 
-    ptTooltip = input<any>();
+    ptTooltip = input<TooltipPassThrough | undefined>();
+
+    unstyledTooltip = input<boolean | undefined>();
 
     constructor(
         public zone: NgZone,
@@ -192,6 +195,10 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         super();
         effect(() => {
             this.ptTooltip() && this.directivePT.set(this.ptTooltip());
+        });
+
+        effect(() => {
+            this.unstyledTooltip() && this.directiveUnstyled.set(this.unstyledTooltip());
         });
     }
 
@@ -407,9 +414,9 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
 
         this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
-        let tooltipArrow = createElement('div', { class: 'p-tooltip-arrow', 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
+        let tooltipArrow = createElement('div', { class: this.cx('arrow'), 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
         this.container.appendChild(tooltipArrow);
-        this.tooltipText = createElement('div', { class: 'p-tooltip-text', 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
+        this.tooltipText = createElement('div', { class: this.cx('text'), 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
 
         this.updateText();
 

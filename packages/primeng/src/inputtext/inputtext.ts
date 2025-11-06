@@ -26,7 +26,9 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
     @Input() hostName: any = '';
 
-    ptInputText = input<any>();
+    ptInputText = input<InputTextPassThrough>();
+
+    unstyledInputText = input<boolean | undefined>();
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -68,6 +70,10 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
         super();
         effect(() => {
             this.ptInputText() && this.directivePT.set(this.ptInputText());
+        });
+
+        effect(() => {
+            this.unstyledInputText() && this.directiveUnstyled.set(this.unstyledInputText());
         });
     }
 

@@ -128,7 +128,9 @@ export class ButtonDirective extends BaseComponent {
 
     _componentStyle = inject(ButtonStyle);
 
-    ptButtonDirective = input<any>();
+    ptButtonDirective = input<ButtonPassThrough>();
+
+    unstyledButtonDirective = input<boolean | undefined>();
 
     @Input() hostName: any = '';
 
@@ -140,6 +142,10 @@ export class ButtonDirective extends BaseComponent {
         super();
         effect(() => {
             this.ptButtonDirective() && this.directivePT.set(this.ptButtonDirective());
+        });
+
+        effect(() => {
+            this.unstyledButtonDirective() && this.directiveUnstyled.set(this.unstyledButtonDirective());
         });
     }
 

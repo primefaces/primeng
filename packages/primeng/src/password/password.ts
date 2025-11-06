@@ -8,6 +8,7 @@ import {
     ContentChild,
     ContentChildren,
     Directive,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -41,7 +42,7 @@ import { Fluid } from 'primeng/fluid';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { PasswordPassThrough } from 'primeng/types/password';
+import type { PasswordPassThrough } from 'primeng/types/password';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
@@ -71,6 +72,8 @@ export class PasswordDirective extends BaseEditableHolder {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcPasswordDirective: PasswordDirective | undefined = inject(PASSWORD_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    unstyledPasswordDirective = input<boolean | undefined>();
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -156,6 +159,10 @@ export class PasswordDirective extends BaseEditableHolder {
 
     constructor(public zone: NgZone) {
         super();
+
+        effect(() => {
+            this.unstyledPasswordDirective() && this.directiveUnstyled.set(this.unstyledPasswordDirective());
+        });
     }
 
     @HostListener('input', ['$event'])
