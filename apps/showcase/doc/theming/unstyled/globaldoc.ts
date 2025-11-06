@@ -32,13 +32,13 @@ export const appConfig: ApplicationConfig = {
                     label: 'text-white font-bold text-lg',
                     icon: 'text-white text-xl'
                 },
-            panel: {
-                header: 'bg-primary text-primary-contrast border-primary',
-                content: 'border-primary text-lg text-primary-700',
-                title: 'bg-primary text-primary-contrast text-xl',
-                toggler: 'bg-primary text-primary-contrast hover:text-primary hover:bg-primary-contrast'
+                panel: {
+                    header: 'bg-primary text-primary-contrast border-primary',
+                    content: 'border-primary text-lg text-primary-700',
+                    title: 'bg-primary text-primary-contrast text-xl',
+                    toggler: 'bg-primary text-primary-contrast hover:text-primary hover:bg-primary-contrast'
+                }
             }
-    }
         })
     ]
 };`

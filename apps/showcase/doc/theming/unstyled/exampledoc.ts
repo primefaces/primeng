@@ -34,7 +34,7 @@ export class ExampleDoc {
 
         label: 'text-white font-bold text-lg',
 
-        icon: 'text-white text-xl'
+        icon: 'text-white !text-xl'
     };
 
     code: Code = {
