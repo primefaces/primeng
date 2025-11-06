@@ -784,13 +784,13 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * @defaultValue 'p-datepicker-overlay-enter'
      * @group Props
      */
-    enterAnimation = input<string | null | undefined>('p-datepicker-overlay-enter');
+    enterAnimation = input<string | null | undefined>('p-datepicker-enter');
     /**
      * Leave animation class name.
      * @defaultValue 'p-datepicker-overlay-leave'
      * @group Props
      */
-    leaveAnimation = input<string | null | undefined>('p-datepicker-overlay-leave');
+    leaveAnimation = input<string | null | undefined>('p-datepicker-leave');
     /**
      * Index of the element in tabbing order.
      * @group Props

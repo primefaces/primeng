@@ -16,24 +16,25 @@ ${datepicker_style}
     top: 0;
 }
 
-.p-datepicker-overlay-enter {
-    animation: p-animate-datepicker-overlay-enter 120ms cubic-bezier(0, 0, 0.2, 1);
+.p-datepicker-enter {
+    animation: p-animate-datepicker-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-datepicker-overlay-leave {
-    animation: p-animate-datepicker-overlay-leave 100ms linear;
+.p-datepicker-leave {
+    animation: p-animate-datepicker-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
-@keyframes p-animate-datepicker-overlay-enter {
+@keyframes p-animate-datepicker-enter {
     from {
         opacity: 0;
-        transform: scaleY(0.8);
+        transform: scale(0.93);
     }
 }
 
-@keyframes p-animate-datepicker-overlay-leave {
+@keyframes p-animate-datepicker-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;
