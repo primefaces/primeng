@@ -322,6 +322,8 @@ export class CascadeSelectSub extends BaseComponent {
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
+            [enterAnimation]="enterAnimation"
+            [leaveAnimation]="leaveAnimation"
             (onAnimationDone)="onOverlayAnimationDone($event)"
             (onBeforeShow)="onBeforeShow.emit($event)"
             (onShow)="show($event)"
@@ -385,6 +387,19 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
+
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-overlay-enter'
+     * @group Props
+     */
+    @Input() enterAnimation: string = 'p-overlay-enter';
+    /**
+     * Leave animation class name.
+     * @defaultValue 'p-overlay-leave'
+     * @group Props
+     */
+    @Input() leaveAnimation: string = 'p-overlay-leave';
 
     /**
      * Unique identifier of the component

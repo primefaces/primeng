@@ -9,24 +9,26 @@ ${tieredmenu_style}
     position: absolute;
     top: 0;
 }
+
 .p-tieredmenu-enter {
-    animation: p-animate-tieredmenu-enter 120ms linear;
+    animation: p-animate-tieredmenu-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
 .p-tieredmenu-leave {
-    animation: p-animate-tieredmenu-leave 120ms linear;
+    animation: p-animate-tieredmenu-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
 @keyframes p-animate-tieredmenu-enter {
     from {
         opacity: 0;
-        transform: scaleY(0.8);
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-tieredmenu-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;

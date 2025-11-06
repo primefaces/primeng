@@ -5,25 +5,25 @@ const style = /*css*/ `
 ${menu_style}
 
 /* Animations */
-
 .p-menu-enter {
-    animation: p-animate-menu-enter 120ms linear;
+    animation: p-animate-menu-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
 .p-menu-leave {
-    animation: p-animate-menu-leave 120ms linear;
+    animation: p-animate-menu-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
 @keyframes p-animate-menu-enter {
     from {
         opacity: 0;
-        transform: scaleY(0.8);
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-menu-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;
