@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import type { DialogPassThrough } from 'primeng/types/dialog';
 
 /**
  * Dialogs can be created dynamically with any component as the content using a DialogService.
@@ -185,6 +186,11 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      * @group Props
      */
     templates?: DynamicDialogTemplates;
+    /**
+     * Used to pass attributes to DOM elements inside the Dialog component.
+     * @group Props
+     */
+    pt?: DialogPassThrough;
     /**
      * Indicates whether the component should be rendered without styles.
      * @group Props
