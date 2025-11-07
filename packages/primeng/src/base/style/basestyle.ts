@@ -28,11 +28,28 @@ const css = /*css*/ `
 `;
 
 const extendedStyle = `
-    ${base_style} 
+    ${base_style}
     
+    .p-collapsible {
+        max-height: 0;
+        overflow: hidden;
+        will-change: max-height, overflow;
+        transition: max-height 450ms cubic-bezier(0, 1, 0, 1);
+    }
+
+    .p-collapsible.p-animating {
+        overflow: hidden;
+    }
+
+    .p-collapsible-open {
+        max-height: 1000px;
+        overflow: visible;
+        transition: max-height 1s ease-in-out;
+    }
+
     .p-collapsible-enter {
         animation-name: p-animate-collapsible-enter;
-        animation-duration: 1000ms;
+        animation-duration: 1s;
         animation-timing-function: ease-in-out;
     }
 
@@ -40,7 +57,6 @@ const extendedStyle = `
         animation-name: p-animate-collapsible-leave;
         animation-duration: 450ms;
         animation-timing-function: cubic-bezier(0, 1, 0, 1);
-        animation-fill-mode: forwards;
     }
 
     @keyframes p-animate-collapsible-enter {

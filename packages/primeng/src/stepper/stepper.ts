@@ -330,7 +330,8 @@ export class Step extends BaseComponent<StepPassThrough> {
         '[attr.role]': '"tabpanel"',
         '[attr.aria-controls]': 'ariaControls()',
         '[attr.id]': 'id()',
-        '[attr.data-p-active]': 'active()'
+        '[attr.data-p-active]': 'active()',
+        '[attr.data-pc-name]': '"steppanel"'
     },
     providers: [StepPanelStyle, { provide: STEPPANEL_INSTANCE, useExisting: StepPanel }, { provide: PARENT_INSTANCE, useExisting: StepPanel }],
     hostDirectives: [Bind]

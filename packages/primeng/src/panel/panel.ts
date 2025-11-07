@@ -9,11 +9,11 @@ import {
     EventEmitter,
     inject,
     InjectionToken,
-    input,
     Input,
     NgModule,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -78,29 +78,29 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                 </p-button>
             </div>
         </div>
-        @if (!toggleable || !collapsed) {
-            <div
-                [pBind]="ptm('contentContainer')"
-                [class]="cx('contentContainer')"
-                [id]="id + '_content'"
-                role="region"
-                [attr.aria-labelledby]="id + '_header'"
-                [attr.aria-hidden]="collapsed"
-                [attr.tabindex]="collapsed ? '-1' : undefined"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-            >
-                <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </div>
-
-                <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-                </div>
+        <div
+            [pBind]="ptm('contentContainer')"
+            [class]="cx('contentContainer')"
+            [id]="id + '_content'"
+            role="region"
+            [attr.aria-labelledby]="id + '_header'"
+            [attr.aria-hidden]="collapsed"
+            [attr.tabindex]="collapsed ? '-1' : undefined"
+            [class.p-animating]="animating()"
+            [class.p-collapsible-open]="toggleable && !collapsed"
+            (transitionrun)="onToggleStart($event)"
+            (transitionend)="onToggleDone($event)"
+        >
+            <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
+                <ng-content></ng-content>
+                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
-        }
+
+            <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+                <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+            </div>
+        </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -122,6 +122,8 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
+
+    animating = signal<boolean>(false);
 
     /**
      * Id of the component.
@@ -154,6 +156,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     }
     set collapsed(value: boolean | undefined) {
         this._collapsed = value;
+        this.animating.set(true);
     }
 
     /**
@@ -186,18 +189,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-collapsible-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-collapsible-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-collapsible-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-collapsible-leave');
 
     /**
      * Used to pass all properties of the ButtonProps to the Button component.
@@ -303,12 +294,11 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     }
 
     toggle(event: MouseEvent) {
+        this.animating.set(true);
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
-        if (this.toggleable) {
-            if (this.collapsed) this.expand();
-            else this.collapse();
-        }
+        if (this.collapsed) this.expand();
+        else this.collapse();
 
         event.preventDefault();
     }
@@ -349,7 +339,12 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         }
     }
 
+    onToggleStart(event: TransitionEvent) {
+        this.animating.set(true);
+    }
+
     onToggleDone(event: any) {
+        this.animating.set(false);
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
     }
 

@@ -4,6 +4,7 @@ import {
     Component,
     computed,
     ContentChild,
+    effect,
     EventEmitter,
     forwardRef,
     HostListener,
@@ -319,9 +320,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     selector: 'p-accordion-content, p-accordioncontent',
     imports: [CommonModule, BindModule],
     standalone: true,
-    template: `<div [pBind]="ptm('content', ptParams())" [class]="cx('content')">
-        <ng-content />
-    </div>`,
+    template: `<div [pBind]="ptm('content', ptParams())" [class]="cx('content')"><ng-content /></div>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -330,8 +329,10 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
         '[attr.role]': '"region"',
         '[attr.data-p-active]': 'active()',
         '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[class.p-accordion-collapsible-enter]': 'active()',
-        '[class.p-accordion-collapsible-leave]': '!active()'
+        '[class.p-animating]': 'animating()',
+        '[class.p-collapsible-open]': 'active()',
+        '(transitionrunning)': 'onToggleStart()',
+        '(transitionend)': 'onToggleEnd()'
     },
     hostDirectives: [Bind],
     providers: [AccordionStyle, { provide: ACCORDION_CONTENT_INSTANCE, useExisting: AccordionContent }, { provide: PARENT_INSTANCE, useExisting: AccordionContent }]
@@ -351,6 +352,8 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
 
     active = computed(() => this.pcAccordionPanel.active());
 
+    animating = computed(() => this.pcAccordion.animating());
+
     ariaLabelledby = computed(() => `${this.pcAccordion.id()}_accordionheader_${this.pcAccordionPanel.value()}`);
 
     id = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
@@ -358,6 +361,14 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
     _componentStyle = inject(AccordionStyle);
 
     ptParams = computed(() => ({ context: this.active() }));
+
+    onToggleStart() {
+        this.pcAccordion.animating.set(true);
+    }
+
+    onToggleEnd() {
+        this.pcAccordion.animating.set(false);
+    }
 }
 
 /**
@@ -368,7 +379,7 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
     selector: 'p-accordion',
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
-    template: ` <ng-content /> `,
+    template: ` <ng-content />`,
     host: {
         '[class]': "cn(cx('root'), styleClass)"
     },
@@ -380,6 +391,14 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
     $pcAccordion: Accordion | undefined = inject(ACCORDION_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    constructor() {
+        super();
+        effect(() => {
+            const currentValue = this.value();
+            this.animating.set(true);
+        });
+    }
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
@@ -439,6 +458,8 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
     @Output() onOpen: EventEmitter<AccordionTabOpenEvent> = new EventEmitter();
 
     id = signal(uuid('pn_id_'));
+
+    animating = signal<boolean>(false);
 
     _componentStyle = inject(AccordionStyle);
 
@@ -528,6 +549,7 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
     }
 
     updateValue(value: string | number) {
+        this.animating.set(true);
         const currentValue = this.value();
         if (this.multiple()) {
             const newValue = Array.isArray(currentValue) ? [...currentValue] : [];

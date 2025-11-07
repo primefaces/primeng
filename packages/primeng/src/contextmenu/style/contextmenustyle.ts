@@ -8,22 +8,24 @@ ${contextmenu_style}
 /* Animations */
 
 .p-contextmenu-enter {
-    animation: p-animate-contextmenu-enter 200ms linear;
+    animation: p-animate-contextmenu-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
 .p-contextmenu-leave {
-    animation: p-animate-contextmenu-leave 200ms linear;
+    animation: p-animate-contextmenu-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
 @keyframes p-animate-contextmenu-enter {
     from {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-contextmenu-leave {
-    from {
-        opacity: 1;
+    to {
+        opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;
