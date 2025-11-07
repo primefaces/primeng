@@ -32,8 +32,7 @@ const dependencies = {
     rxjs: '~7.8.2',
     tailwindcss: '^3',
     'tailwindcss-primeui': 'latest',
-    tslib: '^2.5.0',
-    'zone.js': '~0.15.0'
+    tslib: '^2.5.0'
 };
 
 const devDependencies = {
@@ -177,7 +176,6 @@ module.exports = function (config) {
 const test_ts = `
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
-import 'zone.js/dist/zone-testing';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
@@ -240,7 +238,6 @@ const angular_json = `{
               "outputPath": "dist/example-app",
               "index": "src/index.html",
               "main": "src/main.ts",
-              "polyfills": ["zone.js"],
               "tsConfig": "tsconfig.app.json",
               "inlineStyleLanguage": "scss",
               "assets": ["src/assets"],
@@ -301,7 +298,6 @@ const angular_json = `{
             "builder": "@angular-devkit/build-angular:karma",
             "options": {
               "main": "src/test.ts",
-              "polyfills": ["zone.js"],
               "tsConfig": "tsconfig.spec.json",
               "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",

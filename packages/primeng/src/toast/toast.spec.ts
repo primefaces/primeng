@@ -1,11 +1,11 @@
-import { fakeAsync, TestBed, tick, flush, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { Component, TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
-import { Toast, ToastItem } from './toast';
 import { providePrimeNG } from 'primeng/config';
+import { Toast, ToastItem } from './toast';
 
 // Test Components for different scenarios
 @Component({
@@ -660,8 +660,8 @@ describe('Toast', () => {
                 toState: 'visible'
             } as any;
 
-            toastInstance.onAnimationStart(mockAnimationEvent);
-            expect(toastInstance.onAnimationStart).toHaveBeenCalledWith(mockAnimationEvent);
+            toastInstance.onAnimationStart();
+            expect(toastInstance.onAnimationStart).toHaveBeenCalledWith();
         });
 
         it('should handle animation end events', () => {
@@ -669,13 +669,8 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
             spyOn(toastInstance, 'onAnimationEnd');
 
-            const mockAnimationEvent = {
-                fromState: 'visible',
-                toState: 'void'
-            } as any;
-
-            toastInstance.onAnimationEnd(mockAnimationEvent);
-            expect(toastInstance.onAnimationEnd).toHaveBeenCalledWith(mockAnimationEvent);
+            toastInstance.onAnimationEnd();
+            expect(toastInstance.onAnimationEnd).toHaveBeenCalledWith();
         });
     });
 

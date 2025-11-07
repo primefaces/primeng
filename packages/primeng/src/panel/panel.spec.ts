@@ -269,15 +269,6 @@ describe('Panel', () => {
             expect(panelInstance.collapsed).toBe(false);
             flush();
         }));
-
-        it('should not toggle when animating', () => {
-            testComponent.toggleable = true;
-            panelInstance.animating.set(true);
-            testFixture.detectChanges();
-
-            const result = panelInstance.toggle(new MouseEvent('click'));
-            expect(result).toBe(false);
-        });
     });
 
     describe('Event Handling', () => {
@@ -560,29 +551,6 @@ describe('Panel', () => {
         });
     });
 
-    describe('Animation States', () => {
-        it('should handle animation completion', () => {
-            testComponent.toggleable = true;
-            testFixture.detectChanges();
-
-            panelInstance.animating.set(true);
-            panelInstance.onToggleDone({ type: 'done' });
-
-            expect(panelInstance.animating()).toBe(false);
-        });
-
-        it('should set animating flag during toggle', fakeAsync(() => {
-            testComponent.toggleable = true;
-            testFixture.detectChanges();
-
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
-            toggleButton.nativeElement.click();
-
-            expect(panelInstance.animating()).toBe(true);
-            flush();
-        }));
-    });
-
     describe('Edge Cases', () => {
         it('should handle undefined header', () => {
             testComponent.header = undefined as any;
@@ -613,24 +581,6 @@ describe('Panel', () => {
             expect(event.preventDefault).toHaveBeenCalled();
         });
 
-        it('should handle rapid toggle clicks', fakeAsync(() => {
-            testComponent.toggleable = true;
-            testComponent.collapsed = false;
-            testFixture.detectChanges();
-
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
-
-            // First click
-            toggleButton.nativeElement.click();
-            expect(panelInstance.animating()).toBe(true);
-
-            // Second click while animating should be ignored
-            toggleButton.nativeElement.click();
-
-            tick(500);
-            flush();
-        }));
-
         it('should handle null toggleButtonProps', () => {
             testComponent.toggleable = true;
             testComponent.toggleButtonProps = null as any;
@@ -638,15 +588,6 @@ describe('Panel', () => {
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
             expect(toggleButton).toBeTruthy();
-        });
-
-        it('should handle empty transitionOptions', () => {
-            testComponent.toggleable = true;
-            testComponent.transitionOptions = '';
-            testFixture.detectChanges();
-
-            panelInstance.toggle(new MouseEvent('click'));
-            expect(panelInstance.animating()).toBe(true);
         });
     });
 
@@ -888,46 +829,6 @@ describe('Panel', () => {
         });
     });
 
-    describe('Animation and Transition', () => {
-        it('should pass correct animation params when collapsed', () => {
-            testComponent.toggleable = true;
-            testComponent.collapsed = true;
-            testComponent.transitionOptions = '200ms ease-out';
-            testFixture.detectChanges();
-
-            const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
-            expect(contentContainer).toBeTruthy();
-        });
-
-        it('should pass correct animation params when expanded', () => {
-            testComponent.toggleable = true;
-            testComponent.collapsed = false;
-            testComponent.transitionOptions = '300ms ease-in';
-            testFixture.detectChanges();
-
-            const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
-            expect(contentContainer).toBeTruthy();
-        });
-
-        it('should reset animating flag after animation completes', () => {
-            panelInstance.animating.set(true);
-
-            panelInstance.onToggleDone({ type: 'done' });
-
-            expect(panelInstance.animating()).toBe(false);
-            expect(testComponent.afterToggleEvent).toBeDefined();
-        });
-
-        it('should handle animation with 0ms duration', () => {
-            testComponent.toggleable = true;
-            testComponent.transitionOptions = '0ms';
-            testFixture.detectChanges();
-
-            panelInstance.toggle(new MouseEvent('click'));
-            expect(panelInstance.animating()).toBe(true);
-        });
-    });
-
     describe('Icon Position', () => {
         it('should apply correct class for icon position start', () => {
             testComponent.toggleable = true;
@@ -971,9 +872,6 @@ describe('Panel', () => {
             panelInstance.toggle(new MouseEvent('click'));
             expect(panelInstance.collapsed).toBe(true);
 
-            // Wait for animation to complete
-            panelInstance.animating.set(false); // Simulate animation done
-
             // Toggle back
             panelInstance.toggle(new MouseEvent('click'));
             expect(panelInstance.collapsed).toBe(false);
@@ -1011,9 +909,6 @@ describe('Panel', () => {
             panelInstance.onToggleDone({ type: 'done' });
             tick(); // For setTimeout(0)
             testFixture.detectChanges();
-
-            // After animation complete - should not be animating
-            expect(panelInstance.animating()).toBe(false);
             expect(panelInstance.collapsed).toBe(true);
 
             // Content container should still be in DOM after animation
@@ -1053,8 +948,6 @@ describe('Panel', () => {
             tick(); // For setTimeout(0)
             testFixture.detectChanges();
 
-            // After animation complete
-            expect(panelInstance.animating()).toBe(false);
             expect(panelInstance.collapsed).toBe(false);
 
             // Content container should still exist
@@ -1138,28 +1031,6 @@ describe('Panel', () => {
 
             // Note: In expanded state, overflow may still be 'hidden' due to default styles,
             // but the important part is that collapsed state specifically enforces it
-        });
-
-        it('should maintain overflow:hidden during animation when toggling', () => {
-            // Test without triggering actual animation to avoid ExpressionChangedAfterItHasBeenCheckedError
-            testComponent.toggleable = true;
-            testComponent.collapsed = true; // Set to collapsed state
-            testFixture.detectChanges();
-
-            // Manually set animating state to simulate animation in progress
-            panelInstance.animating.set(true);
-            testFixture.detectChanges();
-
-            // Content container should have overflow:hidden during animation
-            const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
-            expect(contentContainer).toBeTruthy();
-
-            // Verify overflow:hidden is applied via CSS
-            const computedStyle = window.getComputedStyle(contentContainer.nativeElement);
-            expect(computedStyle.overflow).toBe('hidden');
-
-            // Reset animating state
-            panelInstance.animating.set(false);
         });
 
         // TODO: Feature works, test will be debugged.

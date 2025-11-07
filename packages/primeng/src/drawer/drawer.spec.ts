@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement, Component, TemplateRef, ViewChild } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Drawer } from './drawer';
 import { PrimeTemplate } from 'primeng/api';
+import { Drawer } from './drawer';
 
 @Component({
     standalone: false,
@@ -680,74 +680,6 @@ describe('Drawer', () => {
             // Verify the headless template configuration is correct
             expect(() => testFixture.detectChanges()).not.toThrow();
         }));
-    });
-
-    describe('Position and Animation', () => {
-        let testFixture: ComponentFixture<TestDrawerPositionComponent>;
-        let testComponent: TestDrawerPositionComponent;
-        let drawerComponent: Drawer;
-
-        beforeEach(() => {
-            testFixture = TestBed.createComponent(TestDrawerPositionComponent);
-            testComponent = testFixture.componentInstance;
-            drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
-            testFixture.detectChanges();
-        });
-
-        it('should set correct transform options for left position', () => {
-            testComponent.position = 'left';
-            testFixture.detectChanges();
-            expect(drawerComponent.transformOptions).toBe('translate3d(-100%, 0px, 0px)');
-        });
-
-        it('should set correct transform options for right position', () => {
-            testComponent.position = 'right';
-            testFixture.detectChanges();
-            expect(drawerComponent.transformOptions).toBe('translate3d(100%, 0px, 0px)');
-        });
-
-        it('should set correct transform options for top position', () => {
-            testComponent.position = 'top';
-            testFixture.detectChanges();
-            expect(drawerComponent.transformOptions).toBe('translate3d(0px, -100%, 0px)');
-        });
-
-        it('should set correct transform options for bottom position', () => {
-            testComponent.position = 'bottom';
-            testFixture.detectChanges();
-            expect(drawerComponent.transformOptions).toBe('translate3d(0px, 100%, 0px)');
-        });
-
-        it('should set correct transform options for full position', () => {
-            testComponent.position = 'full';
-            testFixture.detectChanges();
-            expect(drawerComponent.transformOptions).toBe('none');
-        });
-    });
-
-    describe('Full Screen Mode', () => {
-        let testFixture: ComponentFixture<TestDrawerFullScreenComponent>;
-        let testComponent: TestDrawerFullScreenComponent;
-        let drawerComponent: Drawer;
-
-        beforeEach(() => {
-            testFixture = TestBed.createComponent(TestDrawerFullScreenComponent);
-            testComponent = testFixture.componentInstance;
-            drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
-            testFixture.detectChanges();
-        });
-
-        it('should set transform options to none when fullScreen is true', () => {
-            testComponent.fullScreen = true;
-            testFixture.detectChanges();
-            expect(drawerComponent.transformOptions).toBe('none');
-        });
-
-        it('should maintain default transform options when fullScreen is false', () => {
-            testComponent.fullScreen = false;
-            testFixture.detectChanges();
-            expect(drawerComponent.transformOptions).toBe('translate3d(-100%, 0px, 0px)');
-        });
     });
 
     describe('Modal and Overlay', () => {

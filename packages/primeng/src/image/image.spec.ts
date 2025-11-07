@@ -364,24 +364,14 @@ describe('Image', () => {
         it('should emit onShow event when preview is opened', fakeAsync(() => {
             spyOn(imageInstance.onShow, 'emit');
 
-            // Simulate animation end event
-            const animationEvent = {
-                toState: 'visible'
-            } as any;
-
-            imageInstance.onAnimationEnd(animationEvent);
+            imageInstance.onAnimationEnd();
             expect(imageInstance.onShow.emit).toHaveBeenCalled();
         }));
 
         it('should emit onHide event when preview is closed', fakeAsync(() => {
             spyOn(imageInstance.onHide, 'emit');
 
-            // Simulate animation end event
-            const animationEvent = {
-                toState: 'void'
-            } as any;
-
-            imageInstance.onAnimationEnd(animationEvent);
+            imageInstance.onAnimationEnd();
             expect(imageInstance.onHide.emit).toHaveBeenCalled();
         }));
 
@@ -594,7 +584,7 @@ describe('Image', () => {
 
             spyOn(imageInstance.onHide, 'emit');
 
-            imageInstance.onAnimationEnd(animationEvent);
+            imageInstance.onAnimationEnd();
 
             expect(imageInstance.maskVisible).toBe(false);
             expect(imageInstance.container).toBeNull();
@@ -986,7 +976,7 @@ describe('Image', () => {
                 const animationEvent = {
                     toState: 'visible'
                 } as any;
-                testComponent.onAnimationEnd(animationEvent);
+                testComponent.onAnimationEnd();
                 tick();
 
                 expect(emitterCalled).toBe(true);

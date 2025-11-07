@@ -101,7 +101,7 @@ export class StyleClass implements OnDestroy {
 
     _resizeTarget: any;
 
-    @HostListener('click', ['$event'])
+    @HostListener('click')
     clickListener() {
         this.target ||= getTargetElement(this.selector, this.el.nativeElement) as HTMLElement;
 

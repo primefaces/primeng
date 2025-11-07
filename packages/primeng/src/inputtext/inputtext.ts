@@ -83,7 +83,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
-    @HostListener('input', ['$event'])
+    @HostListener('input')
     onInput() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }

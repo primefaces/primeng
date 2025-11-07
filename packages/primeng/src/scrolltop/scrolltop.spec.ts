@@ -1,11 +1,11 @@
 import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ScrollTop, ScrollTopModule } from './scrolltop';
-import { Button } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
+import { Button } from 'primeng/button';
 import { ZIndexUtils } from 'primeng/utils';
+import { ScrollTop, ScrollTopModule } from './scrolltop';
 
 @Component({
     standalone: false,
@@ -514,7 +514,7 @@ describe('ScrollTop', () => {
 
             spyOn(ZIndexUtils, 'set');
 
-            scrollTop.onEnter(event);
+            scrollTop.onAnimationStart(event);
 
             expect(scrollTop.overlay).toBe(mockElement);
             expect(ZIndexUtils.set).toHaveBeenCalledWith('overlay', mockElement, jasmine.any(Number));
@@ -527,21 +527,16 @@ describe('ScrollTop', () => {
                 element: null
             } as any;
 
-            scrollTop.onEnter(event);
+            scrollTop.onAnimationStart(event);
 
             expect(scrollTop.overlay).toBeNull();
         });
 
         it('should handle onLeave animation event', () => {
             const mockElement = document.createElement('div');
-            const event = {
-                toState: 'void',
-                element: mockElement
-            } as any;
-
             spyOn(ZIndexUtils, 'clear');
 
-            scrollTop.onLeave(event);
+            scrollTop.onAnimationEnd();
 
             expect(ZIndexUtils.clear).toHaveBeenCalledWith(mockElement);
         });

@@ -809,7 +809,7 @@ describe('ConfirmPopup', () => {
 
             // Animation event would be triggered in real scenario
             const mockEvent = { toState: 'void' } as any;
-            confirmPopupInstance.onAnimationEnd(mockEvent);
+            confirmPopupInstance.onAnimationEnd();
 
             expect(animationSpy).toHaveBeenCalled();
 
@@ -849,7 +849,7 @@ describe('ConfirmPopup', () => {
 
             // Simulate animation end to trigger unbindListeners
             const mockEvent = { toState: 'void' } as any;
-            confirmPopupInstance.onAnimationEnd(mockEvent);
+            confirmPopupInstance.onAnimationEnd();
 
             expect(unbindSpy).toHaveBeenCalled();
 

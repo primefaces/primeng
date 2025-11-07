@@ -493,7 +493,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         '[attr.id]': 'id',
         '[attr.role]': '"region"',
         '[style]': '!galleria.fullScreen ? galleria.containerStyle : {}',
-        '[class]': "cn(cx('root'), galleria?.contentClass)"
+        '[class]': "cn(cx('root'))"
     },
     hostDirectives: [Bind]
 })

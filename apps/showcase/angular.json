@@ -20,9 +20,6 @@
                         "outputPath": "dist/showcase",
                         "index": "index.html",
                         "browser": "app/main.ts",
-                        "polyfills": [
-                            "zone.js"
-                        ],
                         "tsConfig": "./tsconfig.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [

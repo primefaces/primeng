@@ -1136,17 +1136,6 @@ describe('PanelMenu', () => {
             expect(panelMenuInstance.isItemGroup(groupItem)).toBe(true);
         });
 
-        it('should handle animation state correctly', () => {
-            const expandedItem = { expanded: true };
-            const collapsedItem = { expanded: false };
-
-            const expandedAnimation = panelMenuInstance.getAnimation(expandedItem);
-            const collapsedAnimation = panelMenuInstance.getAnimation(collapsedItem);
-
-            expect(expandedAnimation.value).toBe('visible');
-            expect(collapsedAnimation.value).toBe('hidden');
-        });
-
         it('should handle item properties with resolve function', () => {
             const itemWithFunction = {
                 label: () => 'Dynamic Label',
@@ -1155,37 +1144,6 @@ describe('PanelMenu', () => {
 
             expect(panelMenuInstance.getItemProp(itemWithFunction, 'label')).toBe('Dynamic Label');
             expect(panelMenuInstance.isItemDisabled(itemWithFunction)).toBe(true);
-        });
-    });
-
-    describe('Animation and Transitions', () => {
-        it('should set animating flag during transitions', fakeAsync(() => {
-            const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
-
-            panelHeader.triggerEventHandler('click', { currentTarget: panelHeader.nativeElement });
-
-            expect(panelMenuInstance.animating).toBe(true);
-
-            tick();
-            panelMenuInstance.onToggleDone();
-
-            expect(panelMenuInstance.animating).toBe(false);
-        }));
-
-        it('should use correct transition options', () => {
-            const styledFixture = TestBed.createComponent(TestStyledPanelMenuComponent);
-            const styledPanelMenu = styledFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
-            const styledComponent = styledFixture.componentInstance;
-
-            expect(styledComponent.transitionOptions).toBe('300ms ease-in');
-        });
-
-        it('should handle animation completion callback', () => {
-            panelMenuInstance.animating = true;
-
-            panelMenuInstance.onToggleDone();
-
-            expect(panelMenuInstance.animating).toBe(false);
         });
     });
 

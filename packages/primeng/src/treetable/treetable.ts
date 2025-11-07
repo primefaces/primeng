@@ -3699,7 +3699,7 @@ export class TreeTableCellEditor extends BaseComponent {
         '[tabindex]': "'0'",
         '[attr.aria-expanded]': 'expanded',
         '[attr.aria-level]': 'level',
-        '[role]': 'row'
+        role: 'row'
     },
     providers: [TreeTableStyle],
     hostDirectives: [Bind]
