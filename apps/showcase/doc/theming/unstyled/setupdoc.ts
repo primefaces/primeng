@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
         <app-docsectiontext>
             <p>Unstyled mode is enabled for the whole suite by enabling <i>unstyled</i> option during PrimeNG installation.</p>
             <app-code [code]="code1" hideToggleCode importCode hideStackBlitz />
-            <p>Alternatively even in the default styled mode, a particular component can still be used as unstyled by adding the <i>unstyled</i> prop of the component.</p>
+            <p class="mt-4">Alternatively even in the default styled mode, a particular component can still be used as unstyled by adding the <i>unstyled</i> prop of the component.</p>
             <div class="card flex justify-center">
                 <p-button label="Check" icon="pi pi-check" [unstyled]="true" />
             </div>
@@ -34,6 +34,6 @@ export const appConfig: ApplicationConfig = {
     };
 
     code2: Code = {
-        typescript: `<p-button label="Check" icon="pi pi-check" [unstyled]="true" />`
+        basic: `<p-button label="Check" icon="pi pi-check" [unstyled]="true" />`
     };
 }

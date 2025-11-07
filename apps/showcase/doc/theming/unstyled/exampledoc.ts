@@ -22,30 +22,32 @@ interface City {
                 <a routerLink="/button">button</a> documentation to learn more about the components internals section. We'll be using the <i>root</i>, <i>label</i> and <i>icon</i> elements to add a custom style.
             </p>
             <div class="card flex justify-center">
-                <p-button label="Search" icon="pi pi-search" [unstyled]="true" [pt]="pt" />
+                <p-button
+                    label="Search"
+                    icon="pi pi-search"
+                    [unstyled]="true"
+                    [pt]="{
+                        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',
+                        label: 'text-white font-bold text-lg',
+                        icon: 'text-white !text-xl'
+                    }"
+                />
             </div>
             <app-code [code]="code" hideToggleCode hideStackBlitz />
         </app-docsectiontext>
     `
 })
 export class ExampleDoc {
-    pt = {
-        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',
-
-        label: 'text-white font-bold text-lg',
-
-        icon: 'text-white !text-xl'
-    };
-
     code: Code = {
-        typescript: `import { ApplicationConfig } from '@angular/core';
-
-export const appConfig: ApplicationConfig = {
-    providers: [
-        providePrimeNG({
-            unstyled: true
-        })
-    ]
-};`
+        basic: `<p-button
+    label="Search"
+    icon="pi pi-search"
+    [unstyled]="true"
+    [pt]="{ 
+        root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2', 
+        label: 'text-white font-bold text-lg', 
+        icon: 'text-white !text-xl' 
+    }"
+/>`
     };
 }
