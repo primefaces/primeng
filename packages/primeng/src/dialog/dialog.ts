@@ -351,34 +351,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * Position of the dialog.
      * @group Props
      */
-    @Input() get position(): 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' {
-        return this._position;
-    }
-    set position(value: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
-        this._position = value;
-
-        switch (value) {
-            case 'topleft':
-            case 'bottomleft':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'topright':
-            case 'bottomright':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-            default:
-                this.transformOptions = 'scale(0.7)';
-                break;
-        }
-    }
+    @Input() position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
     /**
      * Role attribute of html element.
      * @group Emits
@@ -546,8 +519,6 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     id: string = uuid('pn_id_');
 
     _style: any = {};
-
-    _position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
 
     originalStyle: any;
 
