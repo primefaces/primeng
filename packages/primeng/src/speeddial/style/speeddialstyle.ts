@@ -31,7 +31,7 @@ const classes = {
     ],
     list: 'p-speeddial-list',
     item: ({ instance, item, i }) => ['p-speeddial-item', { 'p-hidden': item.visible === false, 'p-focus': instance.focusedOptionId == instance.id + '_' + i }],
-    action: 'p-speeddial-action',
+    pcAction: 'p-speeddial-action',
     actionIcon: 'p-speeddial-action-icon',
     mask: ({ instance }) => [
         'p-speeddial-mask',
@@ -81,7 +81,7 @@ export enum SpeedDialClasses {
     /**
      * Class name of the action element
      */
-    action = 'p-speeddial-action',
+    pcAction = 'p-speeddial-action',
     /**
      * Class name of the action icon element
      */

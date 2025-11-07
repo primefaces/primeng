@@ -12,7 +12,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnInit,
     Output,
     QueryList,
     signal,
@@ -91,7 +90,8 @@ export const RATING_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cx('root')",
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -281,6 +281,13 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
 
     get isCustomIcon(): boolean {
         return !!(this.onIconTemplate || this._onIconTemplate || this.offIconTemplate || this._offIconTemplate);
+    }
+
+    get dataP() {
+        return this.cn({
+            readonly: this.readonly,
+            disabled: this.$disabled()
+        });
     }
 }
 

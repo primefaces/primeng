@@ -38,7 +38,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
     imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, BindModule],
     template: `
         <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" [attr.data-p]="dataP">
-            <legend [class]="cx('legend')" [pBind]="ptm('legend')">
+            <legend [class]="cx('legend')" [pBind]="ptm('legend')" [attr.data-p]="dataP">
                 <ng-container *ngIf="toggleable; else legendContent">
                     <button
                         [attr.id]="id + '_header'"

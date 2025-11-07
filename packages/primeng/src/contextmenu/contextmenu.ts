@@ -115,6 +115,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                         [pBind]="getPTOptions(processedItem, index, 'item')"
                         pTooltip
                         [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                        [unstyled]="unstyled()"
                     >
                         <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                             <ng-container *ngIf="!itemTemplate">
@@ -141,7 +142,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                                         {{ getItemLabel(processedItem) }}
                                     </span>
                                     <ng-template #htmlLabel> <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span> </ng-template>
-                                    <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                    <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
                                     <ng-container *ngIf="isItemGroup(processedItem)">
                                         <svg
                                             data-p-icon="angle-right"
@@ -186,7 +187,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                                     <ng-template #htmlLabel>
                                         <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
                                     </ng-template>
-                                    <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
+                                    <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
                                     <ng-container *ngIf="isItemGroup(processedItem)">
                                         <svg
                                             data-p-icon="angle-right"
@@ -195,7 +196,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                                             [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
                                             [attr.aria-hidden]="true"
                                         />
-                                        <ng-template *ngTemplateOutlet="!contextMenu.submenuIconTemplate || !contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.aria-hidden]="true"></ng-template>
+                                        <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.aria-hidden]="true"></ng-template>
                                     </ng-container>
                                 </a>
                             </ng-container>
@@ -216,6 +217,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                             (itemClick)="itemClick.emit($event)"
                             (itemMouseEnter)="onItemMouseEnter($event)"
                             [pt]="pt()"
+                            [unstyled]="unstyled()"
                         />
                     </li>
                 </ng-template>
@@ -423,6 +425,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
                     (menuKeydown)="onKeyDown($event)"
                     (itemMouseEnter)="onItemMouseEnter($event)"
                     [pt]="pt()"
+                    [unstyled]="unstyled()"
                     [enterAnimation]="enterAnimation()"
                     [leaveAnimation]="leaveAnimation()"
                 />

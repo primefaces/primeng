@@ -57,12 +57,23 @@ const INTERNAL_BUTTON_CLASSES = {
     providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
     standalone: true,
     host: {
-        '[class.p-button-label]': 'true'
+        '[class.p-button-label]': '!$unstyled() && true'
     },
     hostDirectives: [Bind]
 })
 export class ButtonLabel extends BaseComponent {
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonLabel.
+     * @defaultValue undefined
+     * @group Props
+     */
     ptButtonLabel = input<any>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    unstyledButtonLabel = input<boolean | undefined>();
 
     $pcButtonLabel: ButtonLabel | undefined = inject(BUTTON_LABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -72,6 +83,10 @@ export class ButtonLabel extends BaseComponent {
         super();
         effect(() => {
             this.ptButtonLabel() && this.directivePT.set(this.ptButtonLabel());
+        });
+
+        effect(() => {
+            this.unstyledButtonLabel() && this.directiveUnstyled.set(this.unstyledButtonLabel());
         });
     }
 
@@ -85,12 +100,23 @@ export class ButtonLabel extends BaseComponent {
     providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
     standalone: true,
     host: {
-        '[class.p-button-icon]': 'true'
+        '[class.p-button-icon]': '!$unstyled() && true'
     },
     hostDirectives: [Bind]
 })
 export class ButtonIcon extends BaseComponent {
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonIcon.
+     * @defaultValue undefined
+     * @group Props
+     */
     ptButtonIcon = input<any>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    unstyledButtonIcon = input<boolean | undefined>();
 
     $pcButtonIcon: ButtonIcon | undefined = inject(BUTTON_ICON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -100,6 +126,10 @@ export class ButtonIcon extends BaseComponent {
         super();
         effect(() => {
             this.ptButtonIcon() && this.directivePT.set(this.ptButtonIcon());
+        });
+
+        effect(() => {
+            this.unstyledButtonIcon() && this.directiveUnstyled.set(this.unstyledButtonIcon());
         });
     }
 
@@ -116,8 +146,8 @@ export class ButtonIcon extends BaseComponent {
     standalone: true,
     providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }],
     host: {
-        '[class.p-button-icon-only]': 'isIconOnly()',
-        '[class.p-button-text]': 'isTextButton()'
+        '[class.p-button-icon-only]': '!$unstyled() && isIconOnly()',
+        '[class.p-button-text]': ' !$unstyled() && isTextButton()'
     },
     hostDirectives: [Bind]
 })
@@ -128,7 +158,18 @@ export class ButtonDirective extends BaseComponent {
 
     _componentStyle = inject(ButtonStyle);
 
-    ptButtonDirective = input<any>();
+    /**
+     * Used to pass attributes to DOM elements inside the Button component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    ptButtonDirective = input<ButtonPassThrough>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    unstyledButtonDirective = input<boolean | undefined>();
 
     @Input() hostName: any = '';
 
@@ -140,6 +181,18 @@ export class ButtonDirective extends BaseComponent {
         super();
         effect(() => {
             this.ptButtonDirective() && this.directivePT.set(this.ptButtonDirective());
+        });
+
+        effect(() => {
+            this.unstyledButtonDirective() && this.directiveUnstyled.set(this.unstyledButtonDirective());
+        });
+
+        effect(() => {
+            const unstyled = this.$unstyled();
+
+            if (this.initialized && unstyled) {
+                this.setStyleClass();
+            }
         });
     }
 
@@ -330,7 +383,7 @@ export class ButtonDirective extends BaseComponent {
     </svg>`;
 
     onAfterViewInit() {
-        addClass(this.htmlElement, this.getStyleClass().join(' '));
+        !this.$unstyled() && addClass(this.htmlElement, this.getStyleClass().join(' '));
 
         this.createIcon();
         this.createLabel();
@@ -397,7 +450,7 @@ export class ButtonDirective extends BaseComponent {
             styleClass.push('p-button-fluid');
         }
 
-        return styleClass;
+        return this.$unstyled() ? [] : styleClass;
     }
 
     get hasFluid() {
@@ -422,7 +475,7 @@ export class ButtonDirective extends BaseComponent {
     }
 
     createLabel() {
-        const created = findSingle(this.htmlElement, '.p-button-label');
+        const created = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
         if (!created && this.label) {
             let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('label'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
             labelElement.appendChild(this.document.createTextNode(this.label));
@@ -431,10 +484,10 @@ export class ButtonDirective extends BaseComponent {
     }
 
     createIcon() {
-        const created = findSingle(this.htmlElement, '.p-button-icon');
+        const created = findSingle(this.htmlElement, '[data-pc-name="buttonicon"]');
         if (!created && (this.icon || this.loading)) {
-            let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
-            let iconClass = this.getIconClass();
+            let iconPosClass = this.label && !this.$unstyled() ? 'p-button-icon-' + this.iconPos : null;
+            let iconClass = !this.$unstyled() && this.getIconClass();
             let iconElement: HTMLElement = <HTMLElement>createElement('span', { class: this.cn(this.cx('icon'), iconPosClass, iconClass), 'aria-hidden': 'true', 'p-bind': this.ptm('icon') });
 
             if (!this.loadingIcon && this.loading) {
@@ -446,7 +499,7 @@ export class ButtonDirective extends BaseComponent {
     }
 
     updateLabel() {
-        let labelElement = findSingle(this.htmlElement, '.p-button-label');
+        let labelElement = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
 
         if (!this.label) {
             labelElement && this.htmlElement.removeChild(labelElement);
@@ -457,8 +510,8 @@ export class ButtonDirective extends BaseComponent {
     }
 
     updateIcon() {
-        let iconElement = findSingle(this.htmlElement, '.p-button-icon');
-        let labelElement = findSingle(this.htmlElement, '.p-button-label');
+        let iconElement = findSingle(this.htmlElement, '[data-pc-name="buttonicon"]');
+        let labelElement = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
 
         if (this.loading && !this.loadingIcon && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
@@ -466,7 +519,7 @@ export class ButtonDirective extends BaseComponent {
             iconElement.innerHTML = '';
         }
 
-        if (iconElement) {
+        if (iconElement && !this.$unstyled()) {
             if (this.iconPos) {
                 iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '') + ' ' + this.getIconClass();
             } else {
@@ -507,22 +560,38 @@ export class ButtonDirective extends BaseComponent {
             [attr.tabindex]="tabindex || buttonProps?.tabindex"
             [pAutoFocus]="autofocus || buttonProps?.autofocus"
             [pBind]="ptm('root')"
+            [attr.data-p]="dataP"
+            [attr.data-p-disabled]="disabled || loading || buttonProps?.disabled"
+            [attr.data-p-severity]="severity || buttonProps?.severity"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-            <ng-container *ngIf="loading">
+            <ng-container *ngIf="loading || buttonProps?.loading">
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon)" [pBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
-                    <svg data-p-icon="spinner" *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), spinnerIconClass())" [pBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
+                    <span *ngIf="loadingIcon || buttonProps?.loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon || buttonProps?.loadingIcon)" [pBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
+                    <svg data-p-icon="spinner" *ngIf="!(loadingIcon || buttonProps?.loadingIcon)" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [pBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
                 </ng-container>
                 <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
             </ng-container>
-            <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate && !_iconTemplate" [class]="cn('icon', iconClass())" [pBind]="ptm('icon')"></span>
+            <ng-container *ngIf="!(loading || buttonProps?.loading)">
+                <span *ngIf="(icon || buttonProps?.icon) && !iconTemplate && !_iconTemplate" [class]="cn(cx('icon'), icon || buttonProps?.icon)" [pBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
                 <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
             </ng-container>
-            <span [class]="cx('label')" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && !_contentTemplate && label" [pBind]="ptm('label')">{{ label }}</span>
-            <p-badge *ngIf="!contentTemplate && !_contentTemplate && badge" [value]="badge" [severity]="badgeSeverity" [pt]="ptm('pcBadge')"></p-badge>
+            <span
+                [class]="cx('label')"
+                [attr.aria-hidden]="(icon || buttonProps?.icon) && !(label || buttonProps?.label)"
+                *ngIf="!contentTemplate && !_contentTemplate && (label || buttonProps?.label)"
+                [pBind]="ptm('label')"
+                [attr.data-p]="dataLabelP"
+                >{{ label || buttonProps?.label }}</span
+            >
+            <p-badge
+                *ngIf="!contentTemplate && !_contentTemplate && (badge || buttonProps?.badge)"
+                [value]="badge || buttonProps?.badge"
+                [severity]="badgeSeverity || buttonProps?.badgeSeverity"
+                [pt]="ptm('pcBadge')"
+                [unstyled]="unstyled()"
+            ></p-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -752,6 +821,10 @@ export class Button extends BaseComponent<ButtonPassThrough> {
         return this.fluid() ?? !!this.pcFluid;
     }
 
+    get hasIcon() {
+        return this.icon || this.buttonProps?.icon || this.iconTemplate || this._iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate;
+    }
+
     _contentTemplate: TemplateRef<any> | undefined;
 
     _iconTemplate: TemplateRef<any> | undefined;
@@ -780,22 +853,33 @@ export class Button extends BaseComponent<ButtonPassThrough> {
         });
     }
 
-    spinnerIconClass(): string {
-        return Object.entries(this.iconClass())
-            .filter(([, value]) => !!value)
-            .reduce((acc, [key]) => acc + ` ${key}`, 'p-button-loading-icon');
+    get dataP() {
+        return this.cn({
+            [this.size as string]: this.size,
+            'icon-only': this.hasIcon && !this.label && !this.badge,
+            loading: this.loading,
+            fluid: this.hasFluid,
+            rounded: this.rounded,
+            raised: this.raised,
+            outlined: this.outlined || this.variant === 'outlined',
+            text: this.text || this.variant === 'text',
+            link: this.link,
+            vertical: (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label
+        });
     }
 
-    iconClass() {
-        return {
-            [`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`]: this.loading,
-            'p-button-icon': true,
-            [this.icon as string]: true,
-            'p-button-icon-left': this.iconPos === 'left' && this.label,
-            'p-button-icon-right': this.iconPos === 'right' && this.label,
-            'p-button-icon-top': this.iconPos === 'top' && this.label,
-            'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
-        };
+    get dataIconP() {
+        return this.cn({
+            [this.iconPos]: this.iconPos,
+            [this.size as string]: this.size
+        });
+    }
+
+    get dataLabelP() {
+        return this.cn({
+            [this.size as string]: this.size,
+            'icon-only': this.hasIcon && !this.label && !this.badge
+        });
     }
 }
 

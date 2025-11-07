@@ -85,6 +85,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 [binary]="true"
                 [attr.aria-label]="toggleAllAriaLabel"
                 [pt]="ptm('pcCheckbox')"
+                [unstyled]="unstyled()"
             >
                 <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                     <ng-template #icon>
@@ -97,7 +98,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             </ng-container>
             <ng-template #builtInFilterElement>
                 @if (filter) {
-                    <p-iconfield [pt]="ptm('pcFilterContainer')" hostName="listbox">
+                    <p-iconfield [pt]="ptm('pcFilterContainer')" hostName="listbox" [unstyled]="unstyled()">
                         <input
                             #filterInput
                             pInputText
@@ -115,9 +116,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             (keydown)="onFilterKeyDown($event)"
                             (blur)="onFilterBlur($event)"
                             [pt]="ptm('pcFilter')"
+                            [unstyled]="unstyled()"
                             hostName="listbox"
                         />
-                        <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                        <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
                             <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [attr.aria-hidden]="true" [pBind]="ptm('filterIcon')" />
                             <span *ngIf="filterIconTemplate || _filterIconTemplate" [attr.aria-hidden]="true">
                                 <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
@@ -260,6 +262,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                         [binary]="true"
                                         [pt]="ptm('pcCheckbox')"
                                         hostName="listbox"
+                                        [unstyled]="unstyled()"
                                     >
                                         <ng-container *ngIf="checkIconTemplate || _checkIconTemplate">
                                             <ng-template #icon>
@@ -330,7 +333,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[class]': "cn(cx('root'), styleClass, { 'p-listbox-dragging': isDragging() })"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
 })
@@ -1132,7 +1136,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         const relatedTarget = event.relatedTarget;
 
         if (relatedTarget === this.listViewChild?.nativeElement) {
-            const firstFocusableEl = <any>getFirstFocusableElement(this.el?.nativeElement, ':not(.p-hidden-focusable)');
+            const firstFocusableEl = <any>getFirstFocusableElement(this.el?.nativeElement, ':not([data-p-hidden-focusable="true"])');
 
             focus(firstFocusableEl);
             this.firstHiddenFocusableElement?.nativeElement && (this.firstHiddenFocusableElement.nativeElement.tabIndex = undefined);
@@ -1665,10 +1669,12 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     onDragEntered() {
         this.isDragging.set(true);
+        this.el.nativeElement.setAttribute('p-listbox-dragging', 'true');
     }
 
     onDragExited() {
         this.isDragging.set(false);
+        this.el.nativeElement.setAttribute('p-listbox-dragging', 'false');
     }
 
     drop(event: CdkDragDrop<string[]>) {
@@ -1693,6 +1699,13 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
             // Always emit the event for custom handling
             this.onDrop.emit(event);
         }
+    }
+
+    get containerDataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled()
+        });
     }
 
     /**

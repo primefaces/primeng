@@ -22,7 +22,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
     template: `
         <nav [pBind]="ptm('root')" [class]="cn(cx('root'), styleClass)" [style]="style">
             <ol [class]="cx('list')" [pBind]="ptm('list')">
-                <li [attr.id]="home.id" [class]="cn(cx('homeItem'), home.styleClass)" [ngStyle]="home.style" *ngIf="home && home.visible !== false" pTooltip [tooltipOptions]="home.tooltipOptions" [pBind]="ptm('homeItem')">
+                <li [attr.id]="home.id" [class]="cn(cx('homeItem'), home.styleClass)" [ngStyle]="home.style" *ngIf="home && home.visible !== false" pTooltip [tooltipOptions]="home.tooltipOptions" [pBind]="ptm('homeItem')" [unstyled]="unstyled()">
                     @if (itemTemplate || _itemTemplate) {
                         <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: home }"></ng-template>
                     } @else {
@@ -86,6 +86,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                         pTooltip
                         [tooltipOptions]="menuitem.tooltipOptions"
                         [pBind]="getPTOptions(menuitem, i, 'item')"
+                        [unstyled]="unstyled()"
                     >
                         @if (itemTemplate || _itemTemplate) {
                             <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: menuitem }"></ng-template>

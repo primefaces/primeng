@@ -72,7 +72,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     standalone: true,
     imports: [CommonModule, Checkbox, FormsModule, SharedModule],
     template: `
-        <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label" [pt]="getPTOptions('pcOptionCheckbox')">
+        <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label" [pt]="getPTOptions('pcOptionCheckbox')" [unstyled]="unstyled()">
             <ng-container *ngIf="itemCheckboxIconTemplate">
                 <ng-template #icon let-klass="class">
                     <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: klass }"></ng-template>
@@ -91,6 +91,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
         '[attr.aria-setsize]': 'ariaSetSize',
         '[attr.aria-posinset]': 'ariaPosInset',
         '[attr.aria-selected]': 'selected',
+        '[attr.data-p-selected]': 'selected',
         '[attr.data-p-focused]': 'focused',
         '[attr.data-p-highlight]': 'selected',
         '[attr.data-p-disabled]': 'disabled',
@@ -214,7 +215,7 @@ export class MultiSelectItem extends BaseComponent {
             [positionStyle]="tooltipPositionStyle"
             [tooltipStyleClass]="tooltipStyleClass"
         >
-            <div [pBind]="ptm('label')" [class]="cx('label')">
+            <div [pBind]="ptm('label')" [class]="cx('label')" [attr.data-p]="labelDataP">
                 <ng-container *ngIf="!selectedItemsTemplate && !_selectedItemsTemplate">
                     <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
                     <ng-container *ngIf="display === 'chip'">
@@ -222,7 +223,7 @@ export class MultiSelectItem extends BaseComponent {
                             {{ getSelectedItemsLabel() }}
                         } @else {
                             <div #token *ngFor="let item of chipSelectedItems(); let i = index" [pBind]="ptm('chipItem')" [class]="cx('chipItem')">
-                                <p-chip [pt]="ptm('pcChip')" [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!$disabled() && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
+                                <p-chip [pt]="ptm('pcChip')" [unstyled]="unstyled()" [class]="cx('pcChip')" [label]="getLabelByValue(item)" [removable]="!$disabled() && !readonly" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
                                     <ng-container *ngIf="chipIconTemplate || _chipIconTemplate || removeTokenIconTemplate || _removeTokenIconTemplate">
                                         <ng-template #removeicon>
                                             <ng-container *ngIf="!$disabled() && !readonly">
@@ -268,11 +269,11 @@ export class MultiSelectItem extends BaseComponent {
             </ng-container>
             <ng-template #elseBlock>
                 <ng-container *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate">
-                    <span *ngIf="dropdownIcon" [pBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
-                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [pBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [attr.aria-hidden]="true" />
+                    <span *ngIf="dropdownIcon" [pBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [ngClass]="dropdownIcon" [attr.aria-hidden]="true" [attr.data-p]="dropdownIconDataP"></span>
+                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [pBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [attr.aria-hidden]="true" [attr.data-p]="dropdownIconDataP" />
                 </ng-container>
                 <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [pBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [attr.aria-hidden]="true">
-                    <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate; context: { dataP: dropdownIconDataP }"></ng-template>
                 </span>
             </ng-template>
         </div>
@@ -289,9 +290,10 @@ export class MultiSelectItem extends BaseComponent {
             (onAnimationDone)="onOverlayAnimationDone($event)"
             (onHide)="onOverlayHide($event)"
             [pt]="ptm('pcOverlay')"
+            [unstyled]="unstyled()"
         >
             <ng-template #content>
-                <div [pBind]="ptm('overlay')" [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
+                <div [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP" [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -319,6 +321,7 @@ export class MultiSelectItem extends BaseComponent {
                                 *ngIf="showToggleAll && !selectionLimit"
                                 [variant]="$variant()"
                                 [disabled]="$disabled()"
+                                [unstyled]="unstyled()"
                                 #headerCheckbox
                             >
                                 <ng-template #icon let-klass="class">
@@ -336,7 +339,7 @@ export class MultiSelectItem extends BaseComponent {
                                 </ng-template>
                             </p-checkbox>
 
-                            <p-iconfield *ngIf="filter" [pt]="ptm('pcFilterContainer')" [class]="cx('pcFilterContainer')">
+                            <p-iconfield *ngIf="filter" [pt]="ptm('pcFilterContainer')" [class]="cx('pcFilterContainer')" [unstyled]="unstyled()">
                                 <input
                                     #filterInput
                                     pInputText
@@ -356,8 +359,9 @@ export class MultiSelectItem extends BaseComponent {
                                     [attr.disabled]="$disabled() ? '' : undefined"
                                     [attr.placeholder]="filterPlaceHolder"
                                     [attr.aria-label]="ariaFilterLabel"
+                                    [unstyled]="unstyled()"
                                 />
-                                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                                <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
                                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [pBind]="ptm('filterIcon')" />
                                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('filterIcon')" class="p-multiselect-filter-icon">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
@@ -422,6 +426,7 @@ export class MultiSelectItem extends BaseComponent {
                                             (onClick)="onOptionSelect($event, false, getOptionIndex(i, scrollerOptions))"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
                                             [pt]="pt"
+                                            [unstyled]="unstyled()"
                                         ></li>
                                     </ng-container>
                                 </ng-template>
@@ -467,6 +472,7 @@ export class MultiSelectItem extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
+        '[attr.data-p]': 'containerDataP',
         '(click)': 'onContainerClick($event)',
         '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')"
@@ -1967,7 +1973,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     onOverlayAnimationStart(event: any) {
-        this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-multiselect-list-container');
+        this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
         this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
         if (this.options && this.options.length) {
@@ -1977,7 +1983,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
                     this.scroller?.scrollToIndex(selectedIndex);
                 }
             } else {
-                let selectedListItem = findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
+                let selectedListItem = findSingle(this.itemsWrapper, '[data-pc-section="option"][data-p-selected="true"]');
 
                 if (selectedListItem) {
                     selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -2137,6 +2143,40 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     hasFilter() {
         return this._filterValue() && this._filterValue().trim().length > 0;
+    }
+
+    get containerDataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            [this.size() as string]: this.size()
+        });
+    }
+
+    get labelDataP() {
+        return this.cn({
+            placeholder: this.label === this.placeholder,
+            clearable: this.showClear,
+            disabled: this.disabled,
+            [this.size() as string]: this.size(),
+            'has-chip': this.display === 'chip' && this.value && this.value.length && (this.maxSelectedLabels ? this.value.length <= this.maxSelectedLabels : true),
+            empty: !this.placeholder && !this.$filled
+        });
+    }
+
+    get dropdownIconDataP() {
+        return this.cn({
+            [this.size() as string]: this.size()
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            ['overlay-' + this.appendTo]: 'overlay-' + this.appendTo
+        });
     }
 
     /**

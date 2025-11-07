@@ -84,6 +84,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     (click)="moveUp(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [buttonProps]="getButtonProps('moveup')"
                     [pt]="ptm('pcSourceMoveUpButton')"
+                    [unstyled]="unstyled()"
                 >
                     <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" [pt]="ptm('pcSourceMoveUpButton')['icon']" pButtonIcon />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
@@ -98,6 +99,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     (click)="moveTop(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [buttonProps]="getButtonProps('movetop')"
                     [pt]="ptm('pcSourceMoveTopButton')"
+                    [unstyled]="unstyled()"
                 >
                     <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" pButtonIcon [pt]="ptm('pcSourceMoveTopButton')['icon']" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
@@ -112,6 +114,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     (click)="moveDown(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [buttonProps]="getButtonProps('movedown')"
                     [pt]="ptm('pcSourceMoveDownButton')"
+                    [unstyled]="unstyled()"
                     hostName="picklist"
                 >
                     <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" pButtonIcon [pt]="ptm('pcSourceMoveDownButton')['icon']" />
@@ -127,6 +130,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     (click)="moveBottom(sourcelist, source, selectedItemsSource, onSourceReorder, SOURCE_LIST)"
                     [buttonProps]="getButtonProps('movebottom')"
                     [pt]="ptm('pcSourceMoveBottomButton')"
+                    [unstyled]="unstyled()"
                     hostName="picklist"
                 >
                     <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate || _moveBottomIconTemplate" pButtonIcon [pt]="ptm('pcSourceMoveBottomButton')['icon']" />
@@ -166,6 +170,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [pt]="ptm('pcListbox')"
                     hostName="picklist"
                     [attr.data-pc-group-section]="'list'"
+                    [unstyled]="unstyled()"
                 >
                     <ng-container *ngIf="sourceHeaderTemplate || _sourceHeaderTemplate || sourceHeader">
                         <ng-template #header>
@@ -210,6 +215,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [buttonProps]="getButtonProps('movetotarget')"
                     [pt]="ptm('pcMoveToTargetButton')"
                     hostName="picklist"
+                    [unstyled]="unstyled()"
                 >
                     <ng-container *ngIf="!moveToTargetIconTemplate && !_moveToTargetIconTemplate">
                         <svg data-p-icon="angle-right" *ngIf="!viewChanged" pButtonIcon [pt]="ptm('pcMoveToTargetButton')['icon']" />
@@ -227,6 +233,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     (click)="moveAllRight()"
                     [buttonProps]="getButtonProps('movealltotarget')"
                     [pt]="ptm('pcMoveAllToTargetButton')"
+                    [unstyled]="unstyled()"
                 >
                     <ng-container *ngIf="!moveAllToTargetIconTemplate && !_moveAllToTargetIconTemplate">
                         <svg data-p-icon="angle-double-right" *ngIf="!viewChanged" pButtonIcon [pt]="ptm('pcMoveAllToTargetButton')['icon']" />
@@ -245,6 +252,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [buttonProps]="getButtonProps('movetosource')"
                     [pt]="ptm('pcMoveToSourceButton')"
                     hostName="picklist"
+                    [unstyled]="unstyled()"
                 >
                     <ng-container *ngIf="!moveToSourceIconTemplate && !_moveToSourceIconTemplate">
                         <svg data-p-icon="angle-left" *ngIf="!viewChanged" pButtonIcon [pt]="ptm('pcMoveToSourceButton')['icon']" />
@@ -263,6 +271,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [buttonProps]="getButtonProps('movealltosource')"
                     [pt]="ptm('pcMoveAllToSourceButton')"
                     hostName="picklist"
+                    [unstyled]="unstyled()"
                 >
                     <ng-container *ngIf="!moveAllToSourceIconTemplate && !_moveAllToSourceIconTemplate">
                         <svg data-p-icon="angle-double-left" *ngIf="!viewChanged" pButtonIcon [pt]="ptm('pcMoveAllToSourceButton')['icon']" />
@@ -304,6 +313,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [pt]="ptm('pcListbox')"
                     [attr.data-pc-group-section]="'list'"
                     hostName="picklist"
+                    [unstyled]="unstyled()"
                 >
                     <ng-container *ngIf="targetHeaderTemplate || _targetHeaderTemplate || targetHeader">
                         <ng-template #header>
@@ -349,6 +359,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [buttonProps]="getButtonProps('moveup')"
                     [pt]="ptm('pcTargetMoveUpButton')"
                     hostName="picklist"
+                    [unstyled]="unstyled()"
                 >
                     <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" pButtonIcon [pt]="ptm('pcTargetMoveUpButton')['icon']" />
                     <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
@@ -364,6 +375,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [buttonProps]="getButtonProps('movetop')"
                     [pt]="ptm('pcTargetMoveTopButton')"
                     hostName="picklist"
+                    [unstyled]="unstyled()"
                 >
                     <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" pButtonIcon [pt]="ptm('pcTargetMoveTopButton')['icon']" />
                     <ng-template *ngTemplateOutlet="moveTopIconTemplate || moveTopIconTemplate"></ng-template>
@@ -379,6 +391,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [buttonProps]="getButtonProps('movedown')"
                     [pt]="ptm('pcTargetMoveDownButton')"
                     hostName="picklist"
+                    [unstyled]="unstyled()"
                 >
                     <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" pButtonIcon [pt]="ptm('pcTargetMoveDownButton')['icon']" />
                     <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
@@ -394,6 +407,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     [buttonProps]="getButtonProps('movebottom')"
                     [pt]="ptm('pcTargetMoveBottomButton')"
                     hostName="picklist"
+                    [unstyled]="unstyled()"
                 >
                     <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" pButtonIcon [pt]="ptm('pcTargetMoveBottomButton')['icon']" />
                     <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>

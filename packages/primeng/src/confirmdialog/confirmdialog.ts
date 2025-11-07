@@ -63,6 +63,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
             [baseZIndex]="baseZIndex"
             [autoZIndex]="autoZIndex"
             [maskStyleClass]="cn(cx('mask'), maskStyleClass)"
+            [unstyled]="unstyled()"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -111,6 +112,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                         [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
                         [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
                         [buttonProps]="getRejectButtonProps()"
+                        [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
                             @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
@@ -127,6 +129,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                         *ngIf="option('acceptVisible')"
                         [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
                         [buttonProps]="getAcceptButtonProps()"
+                        [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
                             @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {

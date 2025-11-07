@@ -306,7 +306,12 @@ export interface MultiSelectTemplates {
     /**
      * Custom dropdown trigger icon template.
      */
-    dropdownicon(): TemplateRef<any>;
+    dropdownicon(context: {
+        /**
+         * DataP attributes.
+         */
+        dataP: string;
+    }): TemplateRef<{ dataP: string }>;
     /**
      * Custom clear icon template.
      */

@@ -52,6 +52,7 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                 role="alert"
                 aria-live="assertive"
                 aria-atomic="true"
+                [attr.data-p]="dataP"
             >
                 @if (headlessTemplate) {
                     <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"></ng-container>
@@ -79,17 +80,26 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                                     }
                                 }
                             }
-                            <div [pBind]="ptm('messageText')" [ngClass]="cx('messageText')">
-                                <div [pBind]="ptm('summary')" [ngClass]="cx('summary')">
+                            <div [pBind]="ptm('messageText')" [ngClass]="cx('messageText')" [attr.data-p]="dataP">
+                                <div [pBind]="ptm('summary')" [ngClass]="cx('summary')" [attr.data-p]="dataP">
                                     {{ message.summary }}
                                 </div>
-                                <div [pBind]="ptm('detail')" [ngClass]="cx('detail')">{{ message.detail }}</div>
+                                <div [pBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message.detail }}</div>
                             </div>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                         @if (message?.closable !== false) {
                             <div>
-                                <button [pBind]="ptm('closeButton')" type="button" [attr.class]="cx('closeButton')" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" [attr.aria-label]="closeAriaLabel" autofocus>
+                                <button
+                                    [pBind]="ptm('closeButton')"
+                                    type="button"
+                                    [attr.class]="cx('closeButton')"
+                                    (click)="onCloseIconClick($event)"
+                                    (keydown.enter)="onCloseIconClick($event)"
+                                    [attr.aria-label]="closeAriaLabel"
+                                    autofocus
+                                    [attr.data-p]="dataP"
+                                >
                                     @if (message.closeIcon) {
                                         <span [pBind]="ptm('closeIcon')" *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
                                     } @else {
@@ -215,6 +225,12 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
         this.clearTimeout();
         this.visible.set(false);
     }
+
+    get dataP() {
+        return this.cn({
+            [this.message?.severity as string]: this.message?.severity
+        });
+    }
 }
 
 /**
@@ -243,6 +259,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             [showTransitionOptions]="showTransitionOptions"
             [hideTransitionOptions]="hideTransitionOptions"
             [pt]="pt"
+            [unstyled]="unstyled()"
         ></p-toastItem>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -250,7 +267,8 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     providers: [ToastStyle, { provide: TOAST_INSTANCE, useExisting: Toast }, { provide: PARENT_INSTANCE, useExisting: Toast }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -548,6 +566,12 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         }
 
         this.destroyStyle();
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.position]: this.position
+        });
     }
 }
 

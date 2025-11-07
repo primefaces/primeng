@@ -35,7 +35,7 @@ export class InplaceContent extends BaseComponent {}
     standalone: true,
     imports: [CommonModule, ButtonModule, TimesIcon, SharedModule, Ripple, Bind],
     template: `
-        <div [class]="cx('display')" [pBind]="ptm('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
+        <div [class]="cx('display')" [pBind]="ptm('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [attr.data-p-disabled]="disabled" *ngIf="!active">
             <ng-content select="[pInplaceDisplay]"></ng-content>
             <ng-container *ngTemplateOutlet="displayTemplate || _displayTemplate"></ng-container>
         </div>

@@ -472,7 +472,7 @@ export class Image extends BaseComponent<ImagePassThrough> {
 
     onAnimationEnd() {
         if (!this.previewVisible) {
-            if (this.wrapper) addClass(this.wrapper, 'p-overlay-mask-leave');
+            if (this.wrapper && !this.$unstyled()) addClass(this.wrapper, 'p-overlay-mask-leave');
             ZIndexUtils.clear(this.wrapper);
             this.maskVisible = false;
             this.container = null;

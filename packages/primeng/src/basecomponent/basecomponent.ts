@@ -82,15 +82,17 @@ export class BaseComponent<PT = any> implements Lifecycle {
         return this['hostName'];
     }
 
+    directivePT = signal<any>(undefined);
+
+    directiveUnstyled = signal<boolean | undefined>(undefined);
+
     $unstyled = computed(() => {
-        return this.unstyled() !== undefined ? this.unstyled() : this.config?.unstyled() || false;
+        return this.unstyled() ?? this.directiveUnstyled() ?? this.config?.unstyled() ?? false;
     });
 
     $pt = computed(() => {
         return resolve(this.pt() || this.directivePT(), this.$params);
     });
-
-    directivePT = signal<any>(undefined);
 
     get $globalPT() {
         return this._getPT(this.config?.pt(), undefined, (value) => resolve(value, this.$params));

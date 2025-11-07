@@ -102,6 +102,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (paste)="onInputPaste($event)"
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
+            [unstyled]="unstyled()"
         />
         <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
@@ -115,6 +116,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             #multiContainer
             [pBind]="ptm('inputMultiple')"
             [class]="cx('inputMultiple')"
+            [attr.data-p]="inputMultipleDataP"
             [tabindex]="-1"
             role="listbox"
             [attr.aria-orientation]="'horizontal'"
@@ -135,7 +137,15 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-posinset]="i + 1"
                 [attr.aria-selected]="true"
             >
-                <p-chip [pt]="ptm('pcChip')" [class]="cx('pcChip')" [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)" [disabled]="$disabled()" [removable]="true" (onRemove)="!readonly ? removeOption($event, i) : ''">
+                <p-chip
+                    [pt]="ptm('pcChip')"
+                    [class]="cx('pcChip')"
+                    [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)"
+                    [disabled]="$disabled()"
+                    [removable]="true"
+                    (onRemove)="!readonly ? removeOption($event, i) : ''"
+                    [unstyled]="unstyled()"
+                >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <ng-template #removeicon>
                         <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [pBind]="ptm('chipIcon')" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
@@ -215,6 +225,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [leaveAnimation]="leaveAnimation"
             (onAnimationStart)="onOverlayAnimationStart()"
             (onHide)="hide()"
+            [unstyled]="unstyled()"
+            [attr.data-p]="overlayDataP"
         >
             <ng-template #content>
                 <div [pBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
@@ -265,6 +277,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                         role="option"
                                         [attr.aria-label]="getOptionLabel(option)"
                                         [attr.aria-selected]="isSelected(option)"
+                                        [attr.data-p-selected]="isSelected(option)"
                                         [attr.aria-disabled]="isOptionDisabled(option)"
                                         [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                         [attr.aria-setsize]="ariaSetSize"
@@ -306,7 +319,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
 })
@@ -1550,6 +1564,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                     } else if (this.inputEL?.nativeElement) {
                         this.inputEL.nativeElement.value = '';
                     }
+
                     this.updateInputValue();
                     event.preventDefault(); // Keep focus on the component
                     this.overlayVisible && this.hide();
@@ -1781,7 +1796,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     onOverlayAnimationStart() {
-        this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
+        this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-name="pcoverlay"]');
 
         if (this.virtualScroll) {
             this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
@@ -1795,13 +1810,37 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                     this.scroller?.scrollToIndex(selectedIndex);
                 }
             } else {
-                let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-autocomplete-item.p-highlight');
+                let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '[data-pc-section="option"][data-p-selected="true"]');
 
                 if (selectedListItem) {
                     selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
                 }
             }
         }
+    }
+
+    get containerDataP() {
+        return this.cn({
+            fluid: this.hasFluid
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            [`overlay-${this.$appendTo()}`]: true
+        });
+    }
+
+    get inputMultipleDataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            empty: !this.$filled(),
+            [this.size() as string]: this.size()
+        });
     }
 
     /**

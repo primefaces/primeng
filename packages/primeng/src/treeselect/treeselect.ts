@@ -87,7 +87,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                     </ng-container>
                     <ng-template #chipsValueTemplate>
                         <div *ngFor="let node of value" [class]="cx('chipItem')" [pBind]="ptm('chipItem')">
-                            <p-chip [label]="node.label" [class]="cx('pcChip')" [pt]="ptm('pcChip')" />
+                            <p-chip [unstyled]="unstyled()" [label]="node.label" [class]="cx('pcChip')" [pt]="ptm('pcChip')" />
                         </div>
                         <ng-container *ngIf="emptyValue">{{ placeholder || 'empty' }}</ng-container>
                     </ng-template>
@@ -120,6 +120,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
             (onBeforeHide)="onOverlayBeforeHide()"
             (onShow)="onShow.emit($event)"
             (onHide)="hide($event)"
+            [unstyled]="unstyled()"
         >
             <ng-template #content>
                 <div #panel [attr.id]="listId" [class]="cn(cx('panel'), panelStyleClass, panelClass)" [ngStyle]="panelStyle" [pBind]="ptm('panel')">
@@ -163,6 +164,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                             [loading]="loading"
                             [filterInputAutoFocus]="filterInputAutoFocus"
                             [pt]="ptm('pcTree')"
+                            [unstyled]="unstyled()"
                         >
                             <ng-container *ngIf="emptyTemplate || _emptyTemplate">
                                 <ng-template #empty>
@@ -745,8 +747,8 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         if (this.$disabled()) {
             return;
         }
-
-        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target) && !hasClass(event.target, 'p-treeselect-close') && !hasClass(event.target, 'p-checkbox-box') && !hasClass(event.target, 'p-checkbox-icon')) {
+        const section = event.target?.getAttribute?.('data-pc-section');
+        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target) && section !== 'box' && section !== 'icon') {
             if (this.overlayVisible) {
                 this.hide();
             } else {
@@ -811,8 +813,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     onArrowDown(event: KeyboardEvent) {
         if (this.overlayVisible && this.panelEl?.nativeElement) {
-            let focusableElements = <any>getFocusableElements(this.panelEl.nativeElement, '.p-tree-node');
-
+            let focusableElements = <any>getFocusableElements(this.panelEl.nativeElement, '[data-pc-section="node"]');
             if (focusableElements && focusableElements.length > 0) {
                 focusableElements[0].focus();
             }

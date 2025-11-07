@@ -35,6 +35,7 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
                 (touchmove)="onGutterTouchMove($event)"
                 (touchend)="onGutterTouchEnd($event)"
                 [attr.data-p-gutter-resizing]="false"
+                [attr.data-p]="dataP"
             >
                 <div
                     [pBind]="ptm('gutterHandle')"
@@ -53,7 +54,8 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-p-gutter-resizing]': 'false'
+        '[attr.data-p-gutter-resizing]': 'false',
+        '[attr.data-p]': 'dataP'
     },
     providers: [SplitterStyle, { provide: SPLITTER_INSTANCE, useExisting: Splitter }, { provide: PARENT_INSTANCE, useExisting: Splitter }],
     hostDirectives: [Bind]
@@ -123,7 +125,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         this._panelSizes = val;
 
         if (this.el && this.el.nativeElement && this.panels.length > 0) {
-            let children = [...this.el.nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
+            let children = [...this.el.nativeElement.children].filter((child) => child.getAttribute('data-pc-section') === 'panel');
             let _panelSizes: any = [];
 
             this.panels.map((panel, i) => {
@@ -221,7 +223,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
                 }
 
                 if (!initialized) {
-                    let children = [...this.el.nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
+                    let children = [...this.el.nativeElement.children].filter((child) => child.getAttribute('data-pc-section') === 'panel');
                     let _panelSizes: any = [];
 
                     this.panels.map((panel, i) => {
@@ -517,7 +519,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
 
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);
-            let children = [...(this.el as ElementRef).nativeElement.children].filter((child) => hasClass(child, 'p-splitterpanel'));
+            let children = [...(this.el as ElementRef).nativeElement.children].filter((child) => child.getAttribute('data-pc-section') === 'panel');
             children.forEach((child, i) => {
                 child.style.flexBasis = 'calc(' + this._panelSizes[i] + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });
@@ -535,6 +537,13 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
 
     horizontal() {
         return this.layout === 'horizontal';
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.layout as string]: this.layout,
+            nested: this.nestedState() != null
+        });
     }
 }
 

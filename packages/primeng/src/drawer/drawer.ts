@@ -60,6 +60,8 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
                 role="complementary"
                 (keydown)="onKeyDown($event)"
                 pFocusTrap
+                [attr.data-p]="dataP"
+                [attr.data-p-open]="visible"
             >
                 @if (headlessTemplate || _headlessTemplate) {
                     <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
@@ -76,6 +78,7 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
                             [buttonProps]="closeButtonProps"
                             [ariaLabel]="ariaCloseLabel"
                             [attr.data-pc-group-section]="'iconcontainer'"
+                            [unstyled]="unstyled()"
                         >
                             <ng-template #icon>
                                 <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
@@ -191,7 +194,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * @defaultValue 'left'
      * @group Props
      */
-    position = input<string>('left');
+    position = input<'left' | 'right' | 'bottom' | 'top' | 'full'>('left');
     /**
      * Adds a close icon to the header to hide the dialog.
      * @defaultValue false
@@ -379,7 +382,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     }
 
     enableModality() {
-        const activeDrawers = this.document.querySelectorAll('.p-drawer-open');
+        const activeDrawers = this.document.querySelectorAll('[data-p-open="true"]');
         const activeDrawersLength = activeDrawers.length;
         const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[activeDrawersLength - 1] as HTMLElement).style.zIndex) - 1);
 
@@ -387,8 +390,9 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
             this.mask = this.renderer.createElement('div');
 
             if (this.mask) {
-                setAttribute(this.mask, 'style', this.getMaskStyle());
-                setAttribute(this.mask, 'style', `z-index: ${zIndex}`);
+                const style = `z-index: ${zIndex}; ${this.getMaskStyle()}`;
+                setAttribute(this.mask, 'style', style);
+                setAttribute(this.mask, 'data-p', this.dataP);
                 addClass(this.mask, this.cx('mask'));
             }
 
@@ -417,8 +421,8 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
     disableModality() {
         if (this.mask) {
-            removeClass(this.mask, 'p-overlay-mask-enter');
-            addClass(this.mask, 'p-overlay-mask-leave');
+            !this.$unstyled() && removeClass(this.mask, 'p-overlay-mask-enter');
+            !this.$unstyled() && addClass(this.mask, 'p-overlay-mask-leave');
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }
@@ -521,6 +525,15 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this.container = null;
         this.unbindGlobalListeners();
         this.unbindAnimationEndListener();
+    }
+
+    get dataP() {
+        return this.cn({
+            'full-screen': this.position() === 'full',
+            [this.position()]: this.position(),
+            open: this.visible,
+            modal: this.modal
+        });
     }
 }
 

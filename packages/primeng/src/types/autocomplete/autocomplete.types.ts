@@ -232,7 +232,7 @@ export interface AutoCompleteTemplates {
          * Selected value.
          */
         $implicit: any;
-    }): TemplateRef<{ $implici: any }>;
+    }): TemplateRef<{ $implicit: any }>;
     /**
      * Custom header template.
      */

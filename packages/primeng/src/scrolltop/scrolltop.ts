@@ -34,6 +34,7 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
                 [ngStyle]="style"
                 type="button"
                 [buttonProps]="buttonProps"
+                [unstyled]="unstyled()"
             >
                 <ng-template #icon>
                     <ng-container *ngIf="!iconTemplate && !_iconTemplate">

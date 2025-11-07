@@ -4,7 +4,7 @@ import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: ({ instance }) => [
-        'p-blockui p-blockui-mask p-overlay-mask',
+        'p-blockui p-blockui-mask p-overlay-mask p-overlay-mask-enter',
         {
             'p-blockui-mask-document': !instance.target
         }

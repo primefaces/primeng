@@ -157,7 +157,8 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
         '[attr.tabindex]': 'disabled()?"-1":"0"',
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'disabled()',
-        '[style.user-select]': '"none"'
+        '[style.user-select]': '"none"',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Ripple, Bind],
     providers: [AccordionStyle, { provide: ACCORDION_HEADER_INSTANCE, useExisting: AccordionHeader }, { provide: PARENT_INSTANCE, useExisting: AccordionHeader }]
@@ -313,6 +314,12 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
             this.changeActiveValue();
         }
         event.preventDefault();
+    }
+
+    get dataP() {
+        return this.cn({
+            active: this.active()
+        });
     }
 }
 

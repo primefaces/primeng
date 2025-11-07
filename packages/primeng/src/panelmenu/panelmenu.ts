@@ -54,8 +54,10 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                 [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                 [ngStyle]="getItemProp(processedItem, 'style')"
                 [pTooltip]="getItemProp(processedItem, 'tooltip')"
+                [unstyled]="unstyled()"
                 [pBind]="getPTOptions(processedItem, index, 'item')"
                 [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                [attr.data-p-focused]="isItemFocused(processedItem)"
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
             >
                 <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)">
@@ -138,6 +140,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                         <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                     </ng-container>
                 </div>
+
                 @if (isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)) {
                     <div>
                         <ul
@@ -151,6 +154,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                             [activeItemPath]="activeItemPath"
                             [level]="level + 1"
                             [pt]="pt()"
+                            [unstyled]="unstyled()"
                             [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
                             (itemToggle)="onItemToggle($event)"
                         ></ul>
@@ -319,6 +323,7 @@ export class PanelMenuSub extends BaseComponent {
             (menuFocus)="onFocus($event)"
             (menuBlur)="onBlur($event)"
             [pt]="pt()"
+            [unstyled]="unstyled()"
         ></ul>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -758,6 +763,7 @@ export class PanelMenuList extends BaseComponent {
                     [class]="cn(cx('header', { item }), getItemProp(item, 'styleClass'))"
                     [ngStyle]="getItemProp(item, 'style')"
                     [pTooltip]="getItemProp(item, 'tooltip')"
+                    [unstyled]="unstyled()"
                     [attr.id]="getHeaderId(item, i)"
                     [tabindex]="0"
                     role="button"
@@ -851,6 +857,7 @@ export class PanelMenuList extends BaseComponent {
                             [parentExpanded]="isItemActive(item)"
                             (headerFocus)="updateFocusedHeader($event)"
                             [pt]="pt()"
+                            [unstyled]="unstyled()"
                         ></ul>
                     </div>
                 </div>
@@ -1037,8 +1044,8 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
     updateFocusedHeader(event) {
         const { originalEvent, focusOnNext, selfCheck } = event;
-        const panelElement = originalEvent.currentTarget.closest('.p-panelmenu-panel');
-        const header = selfCheck ? findSingle(panelElement, '.p-panelmenu-header') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
+        const panelElement = originalEvent.currentTarget.closest('[data-pc-section="panel"]');
+        const header = selfCheck ? findSingle(panelElement, '[data-pc-section="header"]') : focusOnNext ? this.findNextHeader(panelElement) : this.findPrevHeader(panelElement);
 
         header ? this.changeFocusedHeader(originalEvent, header) : focusOnNext ? this.onHeaderHomeKey(originalEvent) : this.onHeaderEndKey(originalEvent);
     }
@@ -1049,14 +1056,14 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
     findNextHeader(panelElement, selfCheck = false) {
         const nextPanelElement = selfCheck ? panelElement : panelElement.nextElementSibling;
-        const headerElement = findSingle(nextPanelElement, '.p-panelmenu-header');
+        const headerElement = findSingle(nextPanelElement, '[data-pc-section="header"]');
 
         return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeader(headerElement.parentElement) : headerElement) : null;
     }
 
     findPrevHeader(panelElement, selfCheck = false) {
         const prevPanelElement = selfCheck ? panelElement : panelElement.previousElementSibling;
-        const headerElement = findSingle(prevPanelElement, '.p-panelmenu-header');
+        const headerElement = findSingle(prevPanelElement, '[data-pc-section="header"]');
 
         return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeader(headerElement.parentElement) : headerElement) : null;
     }
@@ -1123,7 +1130,7 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
     }
 
     onHeaderArrowDownKey(event) {
-        const rootList = getAttribute(event.currentTarget, 'data-p-highlight') === true ? <any>findSingle(event.currentTarget.nextElementSibling, 'ul.p-panelmenu-root-list') : null;
+        const rootList = getAttribute(event.currentTarget, 'data-p-highlight') === true ? <any>findSingle(event.currentTarget.nextElementSibling, '[data-pc-section="rootlist"]') : null;
 
         rootList ? focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: true });
         event.preventDefault();
@@ -1131,7 +1138,7 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
     onHeaderArrowUpKey(event) {
         const prevHeader = this.findPrevHeader(event.currentTarget.parentElement) || this.findLastHeader();
-        const rootList = getAttribute(prevHeader, 'data-p-highlight') === true ? <any>findSingle(prevHeader.nextElementSibling, 'ul.p-panelmenu-root-list') : null;
+        const rootList = getAttribute(prevHeader, 'data-p-highlight') === true ? <any>findSingle(prevHeader.nextElementSibling, '[data-pc-section="rootlist"]') : null;
 
         rootList ? focus(rootList) : this.updateFocusedHeader({ originalEvent: event, focusOnNext: false });
         event.preventDefault();
@@ -1148,7 +1155,7 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
     }
 
     onHeaderEnterKey(event, item, index) {
-        const headerAction = <any>findSingle(event.currentTarget, 'a.p-panelmenu-header-link');
+        const headerAction = <any>findSingle(event.currentTarget, '[data-pc-section="headerlink"]');
 
         headerAction ? headerAction.click() : this.onHeaderClick(event, item, index);
         event.preventDefault();

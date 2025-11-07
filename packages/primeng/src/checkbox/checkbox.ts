@@ -71,15 +71,15 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             (blur)="onInputBlur($event)"
             (change)="handleChange($event)"
         />
-        <div [class]="cx('box')" [pBind]="ptm('box')">
+        <div [class]="cx('box')" [pBind]="ptm('box')" [attr.data-p]="dataP">
             <ng-container *ngIf="!checkboxIconTemplate && !_checkboxIconTemplate">
                 <ng-container *ngIf="checked">
-                    <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [pBind]="ptm('icon')"></span>
-                    <svg data-p-icon="check" *ngIf="!checkboxIcon" [class]="cx('icon')" [pBind]="ptm('icon')" />
+                    <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [pBind]="ptm('icon')" [attr.data-p]="dataP"></span>
+                    <svg data-p-icon="check" *ngIf="!checkboxIcon" [class]="cx('icon')" [pBind]="ptm('icon')" [attr.data-p]="dataP" />
                 </ng-container>
-                <svg data-p-icon="minus" *ngIf="_indeterminate()" [class]="cx('icon')" [pBind]="ptm('icon')" />
+                <svg data-p-icon="minus" *ngIf="_indeterminate()" [class]="cx('icon')" [pBind]="ptm('icon')" [attr.data-p]="dataP" />
             </ng-container>
-            <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: cx('icon') }"></ng-template>
+            <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: cx('icon'), dataP: dataP }"></ng-template>
         </div>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR, CheckboxStyle, { provide: CHECKBOX_INSTANCE, useExisting: Checkbox }, { provide: PARENT_INSTANCE, useExisting: Checkbox }],
@@ -89,7 +89,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-p-highlight]': 'checked',
         '[attr.data-p-checked]': 'checked',
-        '[attr.data-p-disabled]': '$disabled()'
+        '[attr.data-p-disabled]': '$disabled()',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -322,6 +323,16 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
         setModelValue(value);
         this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            checked: this.checked,
+            disabled: this.$disabled(),
+            filled: this.$variant() === 'filled',
+            [this.size() as string]: this.size()
+        });
     }
 }
 

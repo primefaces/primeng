@@ -7,6 +7,7 @@ import {
     ContentChild,
     ContentChildren,
     Directive,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -40,7 +41,7 @@ import { Fluid } from 'primeng/fluid';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { PasswordPassThrough } from 'primeng/types/password';
+import type { PasswordPassThrough } from 'primeng/types/password';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
@@ -70,6 +71,18 @@ export class PasswordDirective extends BaseEditableHolder {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcPasswordDirective: PasswordDirective | undefined = inject(PASSWORD_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+    /**
+     * Used to pass attributes to DOM elements inside the Password component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    ptPasswordDirective = input<PasswordPassThrough | undefined>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    unstyledPasswordDirective = input<boolean | undefined>();
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -155,6 +168,14 @@ export class PasswordDirective extends BaseEditableHolder {
 
     constructor(public zone: NgZone) {
         super();
+
+        effect(() => {
+            this.ptPasswordDirective() && this.directivePT.set(this.ptPasswordDirective());
+        });
+
+        effect(() => {
+            this.unstyledPasswordDirective() && this.directiveUnstyled.set(this.unstyledPasswordDirective());
+        });
     }
 
     @HostListener('input', ['$event'])
@@ -439,6 +460,7 @@ export const Password_VALUE_ACCESSOR: any = {
             (keyup)="onKeyUp($event)"
             [pAutoFocus]="autofocus"
             [pt]="ptm('pcInputText')"
+            [unstyled]="unstyled()"
         />
         <ng-container *ngIf="showClear && value != null">
             <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [pBind]="ptm('clearIcon')" />
@@ -472,6 +494,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 (animationstart)="onAnimationStart()"
                 (animationend)="onAnimationEnd()"
                 [pBind]="ptm('overlay')"
+                [attr.data-p]="overlayDataP"
             >
                 <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 <ng-container *ngIf="contentTemplate || _contentTemplate; else content">
@@ -480,7 +503,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 <ng-template #content>
                     <div [class]="cx('content')" [pBind]="ptm('content')">
                         <div [class]="cx('meter')" [pBind]="ptm('meter')">
-                            <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')"></div>
+                            <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
                         </div>
                         <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
                     </div>
@@ -494,7 +517,8 @@ export const Password_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'containerDataP'
     },
     hostDirectives: [Bind]
 })
@@ -1000,6 +1024,24 @@ export class Password extends BaseInput<PasswordPassThrough> {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
+    }
+
+    get containerDataP() {
+        return this.cn({
+            fluid: this.hasFluid
+        });
+    }
+
+    get meterDataP() {
+        return this.cn({
+            [this.meter?.strength as string]: this.meter?.strength
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            ['overlay-' + this.$appendTo()]: 'overlay-' + this.$appendTo()
+        });
     }
 }
 

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -15,7 +14,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnInit,
     Output,
     QueryList,
     TemplateRef
@@ -54,9 +52,12 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[attr.aria-pressed]': 'checked ? "true" : "false"',
         '[attr.role]': '"button"',
         '[attr.tabindex]': 'tabindex !== undefined ? tabindex : (!$disabled() ? 0 : -1)',
-        '[attr.data-pc-name]': "'togglebutton'"
+        '[attr.data-pc-name]': "'togglebutton'",
+        '[attr.data-p-checked]': 'active',
+        '[attr.data-p-disabled]': '$disabled()',
+        '[attr.data-p]': 'dataP'
     },
-    template: `<span [class]="cx('content')" [pBind]="ptm('content')">
+    template: `<span [class]="cx('content')" [pBind]="ptm('content')" [attr.data-p]="dataP">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
         @if (!contentTemplate) {
             @if (!iconTemplate) {
@@ -257,6 +258,14 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
         this.checked = value;
         setModelValue(value);
         this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            checked: this.active,
+            invalid: this.invalid(),
+            [this.size as string]: this.size
+        });
     }
 }
 

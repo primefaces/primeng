@@ -76,7 +76,6 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                     </div>
                     <div [pBind]="ptm('footer')" [class]="cx('footer')">
                         <p-button
-                            #rejectButton
                             type="button"
                             [label]="rejectButtonLabel"
                             (onClick)="onReject()"
@@ -88,6 +87,8 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                             *ngIf="confirmation?.rejectVisible !== false"
                             [attr.aria-label]="rejectButtonLabel"
                             [buttonProps]="getRejectButtonProps()"
+                            [autofocus]="autoFocusReject"
+                            [unstyled]="unstyled()"
                         >
                             <ng-template #icon>
                                 <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
@@ -95,7 +96,6 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                             </ng-template>
                         </p-button>
                         <p-button
-                            #acceptButton
                             type="button"
                             [label]="acceptButtonLabel"
                             (onClick)="onAccept()"
@@ -106,6 +106,8 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                             *ngIf="confirmation?.acceptVisible !== false"
                             [attr.aria-label]="acceptButtonLabel"
                             [buttonProps]="getAcceptButtonProps()"
+                            [autofocus]="autoFocusAccept"
+                            [unstyled]="unstyled()"
                         >
                             <ng-template #icon>
                                 <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
@@ -377,7 +379,8 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
 
         if (containerOffset && targetOffset && containerOffset.top < targetOffset.top) {
-            addClass(this.container as HTMLDivElement, 'p-confirm-popup-flipped');
+            (this.container as HTMLElement).setAttribute('data-p-confirmpopup-flipped', 'true');
+            !this.$unstyled() && addClass(this.container as HTMLDivElement, 'p-confirm-popup-flipped');
         }
     }
 

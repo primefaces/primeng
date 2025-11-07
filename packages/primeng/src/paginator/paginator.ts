@@ -88,6 +88,7 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
             [appendTo]="dropdownAppendTo || $appendTo()"
             [scrollHeight]="dropdownScrollHeight"
             [pt]="ptm('pcJumpToPageDropdown')"
+            [unstyled]="unstyled()"
         >
             <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
             <ng-container *ngIf="jumpToPageItemTemplate">
@@ -111,7 +112,7 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
                 <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate || _lastPageLinkIconTemplate"></ng-template>
             </span>
         </button>
-        <p-inputnumber [pt]="ptm('pcJumpToPageInput')" *ngIf="showJumpToPageInput" [ngModel]="currentPage()" [class]="cx('pcJumpToPageInput')" [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputnumber>
+        <p-inputnumber [pt]="ptm('pcJumpToPageInput')" *ngIf="showJumpToPageInput" [ngModel]="currentPage()" [class]="cx('pcJumpToPageInput')" [disabled]="empty()" (ngModelChange)="changePage($event - 1)" [unstyled]="unstyled()"></p-inputnumber>
         <p-select
             [options]="rowsPerPageItems"
             [(ngModel)]="rows"
@@ -123,6 +124,7 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
             [scrollHeight]="dropdownScrollHeight"
             [ariaLabel]="getAriaLabel('rowsPerPageLabel')"
             [pt]="ptm('pcRowPerPageDropdown')"
+            [unstyled]="unstyled()"
         >
             <ng-container *ngIf="dropdownItemTemplate">
                 <ng-template let-item pTemplate="item">

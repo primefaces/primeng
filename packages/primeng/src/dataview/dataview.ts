@@ -1,24 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -82,6 +63,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                 [showPageLinks]="showPageLinks"
                 [styleClass]="cn(cx('pcPaginator', { position: 'top' }), paginatorStyleClass)"
                 [pt]="ptm('pcPaginator')"
+                [unstyled]="unstyled()"
             ></p-paginator>
         }
         <div [pBind]="ptm('content')" [class]="cx('content')">
@@ -135,6 +117,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                 [showPageLinks]="showPageLinks"
                 [styleClass]="cn(cx('pcPaginator', { position: 'bottom' }), paginatorStyleClass)"
                 [pt]="ptm('pcPaginator')"
+                [unstyled]="unstyled()"
             ></p-paginator>
         }
         @if (footer || footerTemplate) {

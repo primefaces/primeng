@@ -328,7 +328,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
         if (containerOffset.top < targetOffset.top) {
             this.container?.setAttribute('data-p-popover-flipped', 'true');
-            addClass(this.container!, 'p-popover-flipped');
+            !this.$unstyled() && addClass(this.container!, 'p-popover-flipped');
         }
     }
 

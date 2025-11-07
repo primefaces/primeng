@@ -4,7 +4,7 @@ import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { BadgePassThrough } from 'primeng/types/badge';
+import type { BadgePassThrough } from 'primeng/types/badge';
 import { BadgeStyle } from './style/badgestyle';
 
 const BADGE_INSTANCE = new InjectionToken<Badge>('BADGE_INSTANCE');
@@ -23,7 +23,19 @@ const BADGE_DIRECTIVE_INSTANCE = new InjectionToken<BadgeDirective>('BADGE_DIREC
 export class BadgeDirective extends BaseComponent {
     $pcBadgeDirective: BadgeDirective | undefined = inject(BADGE_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
+    /**
+     * Used to pass attributes to DOM elements inside the Badge component.
+     * @defaultValue undefined
+     * @group Props
+     */
     ptBadgeDirective = input<BadgePassThrough | undefined>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    unstyledBadgeDirective = input<boolean | undefined>();
+
     /**
      * When specified, disables the component.
      * @group Props
@@ -86,6 +98,10 @@ export class BadgeDirective extends BaseComponent {
         super();
         effect(() => {
             this.ptBadgeDirective() && this.directivePT.set(this.ptBadgeDirective());
+        });
+
+        effect(() => {
+            this.unstyledBadgeDirective() && this.directiveUnstyled.set(this.unstyledBadgeDirective());
         });
     }
 
@@ -258,7 +274,8 @@ export class BadgeDirective extends BaseComponent {
     providers: [BadgeStyle, { provide: BADGE_INSTANCE, useExisting: Badge }, { provide: PARENT_INSTANCE, useExisting: Badge }],
     host: {
         '[class]': "cn(cx('root'), styleClass())",
-        '[style.display]': 'badgeDisabled() ? "none" : null'
+        '[style.display]': 'badgeDisabled() ? "none" : null',
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -303,6 +320,16 @@ export class Badge extends BaseComponent<BadgePassThrough> {
     badgeDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
 
     _componentStyle = inject(BadgeStyle);
+
+    get dataP() {
+        return this.cn({
+            circle: this.value() != null && String(this.value()).length === 1,
+            empty: this.value() == null,
+            disabled: this.badgeDisabled(),
+            [this.severity() as string]: this.severity(),
+            [this.size() as string]: this.size()
+        });
+    }
 }
 
 @NgModule({

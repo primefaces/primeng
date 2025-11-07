@@ -113,8 +113,8 @@ export class SafeHtmlPipe implements PipeTransform {
         <ng-template #itemContent>
             <span [class]="cx('itemIcon', { item })" [pBind]="getPTOptions('itemIcon')" *ngIf="item.icon" [style]="item.iconStyle" [attr.data-pc-section]="'itemicon'"></span>
             <span [class]="cx('itemLabel')" [pBind]="getPTOptions('itemLabel')" [attr.data-pc-section]="'itemlabel'" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-            <ng-template #htmlLabel><span class="p-menu-item-label" [attr.data-pc-section]="'itemlabel'" [innerHTML]="item.label | safeHtml" [pBind]="getPTOptions('itemLabel')"></span></ng-template>
-            <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions('pcBadge')" />
+            <ng-template #htmlLabel><span [class]="cx('itemLabel')" [attr.data-pc-section]="'itemlabel'" [innerHTML]="item.label | safeHtml" [pBind]="getPTOptions('itemLabel')"></span></ng-template>
+            <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions('pcBadge')" [unstyled]="unstyled()" />
         </ng-template>
     </div>`,
     encapsulation: ViewEncapsulation.None,
@@ -172,6 +172,7 @@ export class MenuItemContent extends BaseComponent {
                 (animationend)="onOverlayAnimationEnd()"
                 [attr.id]="id"
                 [pBind]="ptm('root')"
+                [attr.data-p]="dataP"
             >
                 <div *ngIf="startTemplate ?? _startTemplate" [class]="cx('start')" [pBind]="ptm('start')" [attr.data-pc-section]="'start'">
                     <ng-container *ngTemplateOutlet="startTemplate ?? _startTemplate"></ng-container>
@@ -246,6 +247,7 @@ export class MenuItemContent extends BaseComponent {
                             (onMenuItemClick)="itemClick($event, menuitemId(item, id, i))"
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
+                            [unstyled]="unstyled()"
                             role="menuitem"
                             [attr.data-pc-section]="'menuitem'"
                             [attr.aria-label]="label(item.label)"
@@ -877,6 +879,12 @@ export class Menu extends BaseComponent<MenuPassThrough> {
             return item.visible === false || (item.items && item.items.some((subitem) => subitem.visible !== false));
         }
         return item.visible === false;
+    }
+
+    get dataP() {
+        return this.cn({
+            popup: this.popup
+        });
     }
 }
 

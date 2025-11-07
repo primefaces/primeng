@@ -27,7 +27,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { absolutePosition, appendChild, findSingle } from '@primeuix/utils';
+import { absolutePosition, appendChild, find, findSingle, isClickable, setAttribute } from '@primeuix/utils';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -160,6 +160,7 @@ export class TableService {
             [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
             [locale]="paginatorLocale"
             [pt]="ptm('pcPaginator')"
+            [unstyled]="unstyled()"
         >
             <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
@@ -182,7 +183,7 @@ export class TableService {
             </ng-template>
         </p-paginator>
 
-        <div #wrapper [class]="cx('tableContainer')" [ngStyle]="sx('tableContainer')" [pBind]="ptm('tableContainer')">
+        <div #wrapper [class]="cx('tableContainer')" [ngStyle]="sx('tableContainer')" [pBind]="ptm('tableContainer')" [attr.data-p]="dataP">
             <p-scroller
                 #scroller
                 *ngIf="virtualScroll"
@@ -251,6 +252,7 @@ export class TableService {
                         [frozenRows]="true"
                         [pTableBody]="scrollerOptions.columns"
                         [pTableBodyTemplate]="frozenBodyTemplate || _frozenBodyTemplate"
+                        [unstyled]="unstyled()"
                         [frozen]="true"
                     ></tbody>
                     <tbody
@@ -262,6 +264,7 @@ export class TableService {
                         [pTableBody]="scrollerOptions.columns"
                         [pTableBodyTemplate]="bodyTemplate || _bodyTemplate"
                         [scrollerOptions]="scrollerOptions"
+                        [unstyled]="unstyled()"
                     ></tbody>
                     <tbody
                         role="rowgroup"
@@ -307,6 +310,7 @@ export class TableService {
             [styleClass]="cx('pcPaginator') + ' ' + paginatorStyleClass && paginatorStyleClass"
             [locale]="paginatorLocale"
             [pt]="ptm('pcPaginator')"
+            [unstyled]="unstyled()"
         >
             <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate">
                 <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate || _paginatorDropdownIconTemplate"></ng-container>
@@ -347,7 +351,8 @@ export class TableService {
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
 })
@@ -1718,7 +1723,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         let target = <HTMLElement>event.originalEvent.target;
         let targetNode = target.nodeName;
         let parentNode = target.parentElement && target.parentElement.nodeName;
-        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' || DomHandler.hasClass(event.originalEvent.target, 'p-clickable')) {
+        if (targetNode == 'INPUT' || targetNode == 'BUTTON' || targetNode == 'A' || parentNode == 'INPUT' || parentNode == 'BUTTON' || parentNode == 'A' || isClickable(event.originalEvent.target)) {
             return;
         }
 
@@ -2492,6 +2497,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.editingCell && !this.selfClick && this.isEditingCellValid()) {
                     DomHandler.removeClass(this.editingCell, 'p-cell-editing');
+                    setAttribute(this.editingCell as HTMLElement, 'data-p-cell-editing', 'false');
                     this.editingCell = null;
                     this.onEditComplete.emit({
                         field: this.editingCellField,
@@ -2604,7 +2610,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     onColumnResize(event: any) {
         let containerLeft = DomHandler.getOffset(this.el?.nativeElement).left;
-        DomHandler.addClass(this.el?.nativeElement, 'p-unselectable-text');
+        !this.$unstyled() && DomHandler.addClass(this.el?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.el?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
         if (event.type == 'touchmove') {
@@ -2654,7 +2660,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     private _totalTableWidth(): number[] {
         let widths = [];
-        const tableHead = DomHandler.findSingle(this.el.nativeElement, '.p-datatable-thead');
+        const tableHead = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="thead"]');
         let headers = DomHandler.find(tableHead, 'tr > th');
         headers.forEach((header) => (widths as any[]).push(DomHandler.getOuterWidth(header)));
 
@@ -2799,14 +2805,14 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
 
                 this.droppedRowIndex = index;
-                if (prevRowElement) DomHandler.addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
-                else DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
+                if (prevRowElement && !this.$unstyled()) DomHandler.addClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+                else !this.$unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
             } else {
-                if (prevRowElement) DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
-                else DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
+                if (prevRowElement && !this.$unstyled()) DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+                else !this.$unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-top');
 
                 this.droppedRowIndex = index + 1;
-                DomHandler.addClass(rowElement, 'p-datatable-dragpoint-bottom');
+                !this.$unstyled() && DomHandler.addClass(rowElement, 'p-datatable-dragpoint-bottom');
             }
         }
     }
@@ -2814,11 +2820,11 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     onRowDragLeave(event: Event, rowElement: any) {
         let prevRowElement = rowElement.previousElementSibling;
         if (prevRowElement) {
-            DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
+            !this.$unstyled() && DomHandler.removeClass(prevRowElement, 'p-datatable-dragpoint-bottom');
         }
 
-        DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
-        DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
+        !this.$unstyled() && DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-bottom');
+        !this.$unstyled() && DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
     }
 
     onRowDragEnd(event: Event) {
@@ -3000,7 +3006,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         const container = this.el?.nativeElement;
 
         if (container) {
-            headers = DomHandler.find(container, '.p-datatable-thead > tr > th');
+            headers = DomHandler.find(container, '[data-pc-section="thead"] > tr > th');
         }
 
         headers.forEach((header) => (widths as any[]).push(DomHandler.getOuterWidth(header)));
@@ -3169,6 +3175,16 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
+    }
+
+    get dataP() {
+        return this.cn({
+            scrollable: this.scrollable,
+            'flex-scrollable': this.scrollable && this.scrollHeight === 'flex',
+            [this.size as string]: this.size,
+            loading: this.loading,
+            empty: this.isEmpty()
+        });
     }
 }
 
@@ -3344,7 +3360,10 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         </ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[attr.data-p]': 'dataP'
+    }
 })
 export class TableBody extends BaseComponent {
     hostName = 'Table';
@@ -3481,18 +3500,30 @@ export class TableBody extends BaseComponent {
         const getItemOptions = this.getScrollerOption('getItemOptions');
         return getItemOptions ? getItemOptions(index).index : index;
     }
+
+    get dataP() {
+        return this.cn({
+            hoverable: this.dataTable.rowHover || this.dataTable.selectionMode,
+            frozen: this.frozen
+        });
+    }
 }
 
 @Directive({
     selector: '[pRowGroupHeader]',
     standalone: false,
     host: {
-        class: 'p-datatable-row-group-header',
-        '[style.top]': 'getFrozenRowGroupHeaderStickyPosition'
-    }
+        '[class]': 'cx("rowGroupHeader")',
+        '[style]': 'sx("rowGroupHeader")'
+    },
+    providers: [TableStyle]
 })
-export class RowGroupHeader {
-    constructor(public dataTable: Table) {}
+export class RowGroupHeader extends BaseComponent {
+    constructor(public dataTable: Table) {
+        super();
+    }
+
+    _componentStyle = inject(TableStyle);
 
     get getFrozenRowGroupHeaderStickyPosition() {
         return this.dataTable.rowGroupHeaderStyleObject ? this.dataTable.rowGroupHeaderStyleObject.top : '';
@@ -3503,9 +3534,9 @@ export class RowGroupHeader {
     selector: '[pFrozenColumn]',
     standalone: false,
     host: {
-        '[class.p-datatable-frozen-column]': 'frozen',
-        '[class.p-datatable-frozen-column-left]': 'alignFrozen === "left"'
-    }
+        '[class]': 'cx("frozenColumn")'
+    },
+    providers: [TableStyle]
 })
 export class FrozenColumn extends BaseComponent {
     @Input() get frozen(): boolean {
@@ -3522,6 +3553,8 @@ export class FrozenColumn extends BaseComponent {
     resizeListener: VoidListener;
 
     private resizeObserver?: ResizeObserver;
+
+    _componentStyle = inject(TableStyle);
 
     onAfterViewInit() {
         this.bindResizeListener();
@@ -3692,8 +3725,9 @@ export class SortableColumn extends BaseComponent {
     isFilterElement(element: HTMLElement) {
         return this.isFilterElementIconOrButton(element) || this.isFilterElementIconOrButton(element?.parentElement?.parentElement!);
     }
+
     private isFilterElementIconOrButton(element: HTMLElement) {
-        return DomHandler.hasClass(element, 'pi-filter-icon') || DomHandler.hasClass(element, 'p-column-filter-menu-button');
+        return find(element, '[data-pc-name="pccolumnfilterbutton"]') || find(element, '[data-pc-section="columnfilterbuttonicon"]');
     }
 
     onDestroy() {
@@ -4007,21 +4041,22 @@ export class SelectableRow extends BaseComponent {
     }
 
     findLastSelectableRow() {
-        const rows = DomHandler.find(this.dataTable.el.nativeElement, '.p-datatable-selectable-row');
+        const rows = DomHandler.find(this.dataTable.el.nativeElement, '[data-p-selectable-row="true"]');
 
         return rows ? rows[rows.length - 1] : null;
     }
 
     findFirstSelectableRow() {
-        const firstRow = DomHandler.findSingle(this.dataTable.el.nativeElement, '.p-datatable-selectable-row');
+        const firstRow = DomHandler.findSingle(this.dataTable.el.nativeElement, '[data-p-selectable-row="true"]');
 
         return firstRow;
     }
 
     findNextSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let nextRow = <HTMLTableRowElement>row.nextElementSibling;
+
         if (nextRow) {
-            if (DomHandler.hasClass(nextRow, 'p-datatable-selectable-row')) return nextRow;
+            if (find(nextRow, '[data-p-selectable-row="true"]')) return nextRow;
             else return this.findNextSelectableRow(nextRow);
         } else {
             return null;
@@ -4031,7 +4066,7 @@ export class SelectableRow extends BaseComponent {
     findPrevSelectableRow(row: HTMLTableRowElement): HTMLTableRowElement | null {
         let prevRow = <HTMLTableRowElement>row.previousElementSibling;
         if (prevRow) {
-            if (DomHandler.hasClass(prevRow, 'p-datatable-selectable-row')) return prevRow;
+            if (find(prevRow, '[data-p-selectable-row="true"]')) return prevRow;
             else return this.findPrevSelectableRow(prevRow);
         } else {
             return null;
@@ -4053,9 +4088,9 @@ export class SelectableRow extends BaseComponent {
     selector: '[pSelectableRowDblClick]',
     standalone: false,
     host: {
-        '[class.p-selectable-row]': 'isEnabled()',
-        '[class.p-highlight]': 'selected'
-    }
+        '[class]': 'cx("selectableRow")'
+    },
+    providers: [TableStyle]
 })
 export class SelectableRowDblClick extends BaseComponent {
     @Input('pSelectableRowDblClick') data: any;
@@ -4067,6 +4102,8 @@ export class SelectableRowDblClick extends BaseComponent {
     selected: boolean | undefined;
 
     subscription: Subscription | undefined;
+
+    _componentStyle = inject(TableStyle);
 
     constructor(
         public dataTable: Table,
@@ -4112,9 +4149,10 @@ export class SelectableRowDblClick extends BaseComponent {
     selector: '[pContextMenuRow]',
     standalone: false,
     host: {
-        '[class.p-datatable-contextmenu-row-selected]': 'selected',
+        '[class]': 'cx("contextMenuRowSelected")',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
-    }
+    },
+    providers: [TableStyle]
 })
 export class ContextMenuRow extends BaseComponent {
     @Input('pContextMenuRow') data: any;
@@ -4126,6 +4164,8 @@ export class ContextMenuRow extends BaseComponent {
     selected: boolean | undefined;
 
     subscription: Subscription | undefined;
+
+    _componentStyle = inject(TableStyle);
 
     constructor(
         public dataTable: Table,
@@ -4227,9 +4267,9 @@ export class ResizableColumn extends BaseComponent {
     onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.isEnabled()) {
-                DomHandler.addClass(this.el.nativeElement, 'p-datatable-resizable-column');
                 this.resizer = this.renderer.createElement('span');
-                this.renderer.addClass(this.resizer, 'p-datatable-column-resizer');
+                setAttribute(this.resizer as HTMLElement, 'data-pc-column-resizer', 'true');
+                !this.$unstyled() && this.renderer.addClass(this.resizer, 'p-datatable-column-resizer');
                 this.renderer.appendChild(this.el.nativeElement, this.resizer);
 
                 this.zone.runOutsideAngular(() => {
@@ -4392,7 +4432,7 @@ export class ReorderableColumn extends BaseComponent {
     }
 
     onMouseDown(event: any) {
-        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || DomHandler.hasClass(event.target, 'p-datatable-column-resizer')) this.el.nativeElement.draggable = false;
+        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || find(event.target, '[data-pc-column-resizer="true"]')) this.el.nativeElement.draggable = false;
         else this.el.nativeElement.draggable = true;
     }
 
@@ -4430,7 +4470,11 @@ export class ReorderableColumn extends BaseComponent {
 
 @Directive({
     selector: '[pEditableColumn]',
-    standalone: false
+    standalone: false,
+    host: {
+        '[class]': "cx('root')",
+        '[attr.data-p-editable-column]': 'true'
+    }
 })
 export class EditableColumn extends BaseComponent {
     @Input('pEditableColumn') data: any;
@@ -4460,7 +4504,7 @@ export class EditableColumn extends BaseComponent {
 
     onAfterViewInit() {
         if (this.isEnabled()) {
-            DomHandler.addClass(this.el.nativeElement, 'p-editable-column');
+            !this.$unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-editable-column');
         }
     }
 
@@ -4486,7 +4530,9 @@ export class EditableColumn extends BaseComponent {
 
     openCell() {
         this.dataTable.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
-        DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
+        !this.$unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
+        setAttribute(this.el.nativeElement, 'data-p-cell-editing', 'true');
+
         this.dataTable.onEditInit.emit({
             field: this.field,
             data: this.data,
@@ -4533,6 +4579,7 @@ export class EditableColumn extends BaseComponent {
         }
 
         DomHandler.removeClass(this.dataTable.editingCell, 'p-cell-editing');
+        setAttribute(this.el.nativeElement, 'data-p-cell-editing', 'false');
         this.dataTable.editingCell = null;
         this.dataTable.editingCellData = null;
         this.dataTable.editingCellField = null;
@@ -4648,7 +4695,7 @@ export class EditableColumn extends BaseComponent {
     findCell(element: any) {
         if (element) {
             let cell = element;
-            while (cell && !DomHandler.hasClass(cell, 'p-cell-editing')) {
+            while (cell && find(cell as HTMLElement, '[data-p-cell-editing="true"]')) {
                 cell = cell.parentElement;
             }
 
@@ -4707,7 +4754,7 @@ export class EditableColumn extends BaseComponent {
         }
 
         if (prevCell) {
-            if (DomHandler.hasClass(prevCell, 'p-editable-column')) return prevCell;
+            if (find(prevCell, '[data-p-editable-column="true"]')) return prevCell;
             else return this.findPreviousEditableColumn(prevCell);
         } else {
             return null;
@@ -4725,7 +4772,7 @@ export class EditableColumn extends BaseComponent {
         }
 
         if (nextCell) {
-            if (DomHandler.hasClass(nextCell, 'p-editable-column')) return nextCell;
+            if (find(nextCell, '[data-p-editable-column="true"]')) return nextCell;
             else return this.findNextEditableColumn(nextCell);
         } else {
             return null;
@@ -4738,7 +4785,7 @@ export class EditableColumn extends BaseComponent {
         if (nextRow) {
             let nextCell = nextRow.children[index];
 
-            if (nextCell && DomHandler.hasClass(nextCell, 'p-editable-column')) {
+            if (nextCell && find(nextCell, '[data-p-editable-column="true"]')) {
                 return nextCell;
             }
 
@@ -4754,7 +4801,7 @@ export class EditableColumn extends BaseComponent {
         if (prevRow) {
             let prevCell = prevRow.children[index];
 
-            if (prevCell && DomHandler.hasClass(prevCell, 'p-editable-column')) {
+            if (prevCell && find(prevCell, '[data-p-editable-column="true"]')) {
                 return prevCell;
             }
 
@@ -4912,7 +4959,7 @@ export class CellEditor extends BaseComponent {
 @Component({
     selector: 'p-tableRadioButton',
     standalone: false,
-    template: `<p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" /> `,
+    template: `<p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
@@ -4975,7 +5022,7 @@ export class TableRadioButton extends BaseComponent {
     selector: 'p-tableCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
+        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
             @if (dataTable.checkboxIconTemplate || dataTable._checkboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
@@ -5041,7 +5088,7 @@ export class TableCheckbox extends BaseComponent {
     selector: 'p-tableHeaderCheckbox',
     standalone: false,
     template: `
-        <p-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel">
+        <p-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
             @if (dataTable.headerCheckboxIconTemplate || dataTable._headerCheckboxIconTemplate; as template) {
                 <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
@@ -5329,6 +5376,7 @@ export class ReorderableRow extends BaseComponent {
                 [showButtons]="showButtons"
                 [filterOn]="filterOn"
                 [pt]="pt()"
+                [unstyled]="unstyled()"
             ></p-columnFilterFormElement>
             <p-button
                 *ngIf="showMenuButton"
@@ -5342,12 +5390,13 @@ export class ReorderableRow extends BaseComponent {
                 (keydown)="onToggleButtonKeyDown($event)"
                 [buttonProps]="filterButtonProps?.filter"
                 #menuButton
+                [unstyled]="unstyled()"
             >
                 <ng-template #icon>
                     <ng-container>
                         <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
                         <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
-                        <span class="pi-filter-icon" *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('pcColumnFilterButton')['icon']">
+                        <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('pcColumnFilterButton')['icon']" [attr.data-pc-section]="'columnfilterbuttonicon'">
                             <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
                         </span>
                     </ng-container>
@@ -5388,7 +5437,7 @@ export class ReorderableRow extends BaseComponent {
                     </ul>
                     <ng-template #menu>
                         <div [class]="cx('filterOperator')" [pBind]="ptm('filterOperator')" *ngIf="isShowOperator">
-                            <p-select [options]="operatorOptions" [pt]="ptm('pcFilterOperatorDropdown')" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" [styleClass]="cx('pcFilterOperatorDropdown')"></p-select>
+                            <p-select [options]="operatorOptions" [pt]="ptm('pcFilterOperatorDropdown')" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" [styleClass]="cx('pcFilterOperatorDropdown')" [unstyled]="unstyled()"></p-select>
                         </div>
                         <div [class]="cx('filterRuleList')" [pBind]="ptm('filterRuleList')">
                             <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')" [pBind]="ptm('filterRule')">
@@ -5399,6 +5448,7 @@ export class ReorderableRow extends BaseComponent {
                                     (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
                                     [styleClass]="cx('pcFilterConstraintDropdown')"
                                     [pt]="ptm('pcFilterConstraintDropdown')"
+                                    [unstyled]="unstyled()"
                                 ></p-select>
                                 <p-columnFilterFormElement
                                     [type]="type"
@@ -5417,6 +5467,7 @@ export class ReorderableRow extends BaseComponent {
                                     [useGrouping]="useGrouping"
                                     [filterOn]="filterOn"
                                     [pt]="pt()"
+                                    [unstyled]="unstyled()"
                                 ></p-columnFilterFormElement>
                                 <div>
                                     <p-button
@@ -5430,6 +5481,7 @@ export class ReorderableRow extends BaseComponent {
                                         [ariaLabel]="removeRuleButtonLabel"
                                         [label]="removeRuleButtonLabel"
                                         [buttonProps]="filterButtonProps?.popover?.removeRule"
+                                        [unstyled]="unstyled()"
                                     >
                                         <ng-template #icon>
                                             <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate && !_removeRuleIconTemplate" [pBind]="ptm('pcFilterRemoveRuleButton')['icon']" />
@@ -5450,6 +5502,7 @@ export class ReorderableRow extends BaseComponent {
                                 size="small"
                                 (onClick)="addConstraint()"
                                 [buttonProps]="filterButtonProps?.popover?.addRule"
+                                [unstyled]="unstyled()"
                             >
                                 <ng-template #icon>
                                     <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate && !_addRuleIconTemplate" [pBind]="ptm('pcAddRuleButtonLabel')['icon']" />
@@ -5467,6 +5520,7 @@ export class ReorderableRow extends BaseComponent {
                                 [label]="clearButtonLabel"
                                 [buttonProps]="filterButtonProps?.popover?.clear"
                                 [pt]="ptm('pcFilterClearButton')"
+                                [unstyled]="unstyled()"
                             />
                             <p-button
                                 *ngIf="showApplyButton"
@@ -5476,6 +5530,7 @@ export class ReorderableRow extends BaseComponent {
                                 [attr.aria-label]="applyButtonLabel"
                                 [buttonProps]="filterButtonProps?.popover?.apply"
                                 [pt]="ptm('pcFilterApplyButton')"
+                                [unstyled]="unstyled()"
                             />
                         </div>
                     </ng-template>
@@ -6057,14 +6112,14 @@ export class ColumnFilter extends BaseComponent {
     findNextItem(item: HTMLLIElement): any {
         let nextItem = <HTMLLIElement>item.nextElementSibling;
 
-        if (nextItem) return DomHandler.hasClass(nextItem, 'p-datatable-filter-constraint-separator') ? this.findNextItem(nextItem) : nextItem;
+        if (nextItem) return find(nextItem, '[data-pc-section="filterconstraintseparator"]') ? this.findNextItem(nextItem) : nextItem;
         else return item.parentElement?.firstElementChild;
     }
 
     findPrevItem(item: HTMLLIElement): any {
         let prevItem = <HTMLLIElement>item.previousElementSibling;
 
-        if (prevItem) return DomHandler.hasClass(prevItem, 'p-datatable-filter-constraint-separator') ? this.findPrevItem(prevItem) : prevItem;
+        if (prevItem) return find(prevItem, '[data-pc-section="filterconstraintseparator"]') ? this.findPrevItem(prevItem) : prevItem;
         else return item.parentElement?.lastElementChild;
     }
 
@@ -6147,16 +6202,16 @@ export class ColumnFilter extends BaseComponent {
 
     isOutsideClicked(event: any): boolean {
         return !(
-            DomHandler.hasClass(this.overlay?.nextElementSibling, 'p-overlay') ||
-            DomHandler.hasClass(this.overlay?.nextElementSibling, 'p-popover') ||
+            find((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-section="filteroverlay"]') ||
+            find((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-name="popover"]') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
             this.icon?.nativeElement.isSameNode(event.target) ||
             this.icon?.nativeElement.contains(event.target) ||
-            DomHandler.hasClass(event.target, 'p-datatable-filter-add-rule-button') ||
-            DomHandler.hasClass(event.target.parentElement, 'p-datatable-filter-add-rule-button') ||
-            DomHandler.hasClass(event.target, 'p-datatable-filter-remove-rule-button') ||
-            DomHandler.hasClass(event.target.parentElement, 'p-datatable-filter-remove-rule-button')
+            find(event.target, '[data-pc-name="pcaddrulebuttonlabel"]') ||
+            find(event.target.parentElement, '[data-pc-name="pcaddrulebuttonlabel"]') ||
+            find(event.target, '[data-pc-name="pcfilterremoverulebutton"]') ||
+            find(event.target.parentElement, '[data-pc-name="pcfilterremoverulebutton"]')
         );
     }
 
@@ -6166,7 +6221,7 @@ export class ColumnFilter extends BaseComponent {
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                 const dialogElements = document.querySelectorAll('[role="dialog"]');
-                const targetIsColumnFilterMenuButton = event.target.closest('.p-datatable-column-filter-button');
+                const targetIsColumnFilterMenuButton = event.target.closest('[data-pc-name="pccolumnfilterbutton"]');
                 if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
                     this.hide();
                 }
@@ -6304,6 +6359,7 @@ export class ColumnFilter extends BaseComponent {
                     (input)="onModelChange($event.target.value)"
                     (keydown.enter)="onTextInputEnterKeyDown($event)"
                     [attr.placeholder]="placeholder"
+                    [unstyled]="unstyled()"
                 />
                 <p-inputNumber
                     *ngSwitchCase="'numeric'"
@@ -6324,10 +6380,28 @@ export class ColumnFilter extends BaseComponent {
                     [currencyDisplay]="currencyDisplay"
                     [useGrouping]="useGrouping"
                     [pt]="ptm('pcFilterInputNumber')"
+                    [unstyled]="unstyled()"
                 ></p-inputNumber>
-                <p-checkbox [pt]="ptm('pcFilterCheckbox')" [indeterminate]="filterConstraint?.value === null" [binary]="true" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" />
+                <p-checkbox
+                    [pt]="ptm('pcFilterCheckbox')"
+                    [indeterminate]="filterConstraint?.value === null"
+                    [binary]="true"
+                    *ngSwitchCase="'boolean'"
+                    [ngModel]="filterConstraint?.value"
+                    (ngModelChange)="onModelChange($event)"
+                    [unstyled]="unstyled()"
+                />
 
-                <p-datepicker [pt]="ptm('pcFilterDatePicker')" [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-datepicker>
+                <p-datepicker
+                    [pt]="ptm('pcFilterDatePicker')"
+                    [ariaLabel]="ariaLabel"
+                    *ngSwitchCase="'date'"
+                    [placeholder]="placeholder"
+                    [ngModel]="filterConstraint?.value"
+                    (ngModelChange)="onModelChange($event)"
+                    appendTo="body"
+                    [unstyled]="unstyled()"
+                ></p-datepicker>
             </ng-container>
         </ng-template>
     `,

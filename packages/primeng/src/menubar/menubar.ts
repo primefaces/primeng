@@ -90,6 +90,7 @@ export class MenubarService {
                 [pBind]="getPTOptions(processedItem, index, 'item')"
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                [unstyled]="unstyled()"
             >
                 <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                     <ng-container *ngIf="!itemTemplate">
@@ -117,7 +118,13 @@ export class MenubarService {
                             <ng-template #htmlLabel>
                                 <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
                             </ng-template>
-                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [pt]="getPTOptions(processedItem, index, 'pcBadge')" />
+                            <p-badge
+                                *ngIf="getItemProp(processedItem, 'badge')"
+                                [class]="getItemProp(processedItem, 'badgeStyleClass')"
+                                [value]="getItemProp(processedItem, 'badge')"
+                                [pt]="getPTOptions(processedItem, index, 'pcBadge')"
+                                [unstyled]="unstyled()"
+                            />
 
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
@@ -155,7 +162,13 @@ export class MenubarService {
                             ></span>
                             <span [class]="cx('itemLabel')" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemLabel(processedItem) }}</span>
                             <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
-                            <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [pt]="getPTOptions(processedItem, index, 'pcBadge')" />
+                            <p-badge
+                                *ngIf="getItemProp(processedItem, 'badge')"
+                                [class]="getItemProp(processedItem, 'badgeStyleClass')"
+                                [value]="getItemProp(processedItem, 'badge')"
+                                [pt]="getPTOptions(processedItem, index, 'pcBadge')"
+                                [unstyled]="unstyled()"
+                            />
                             <ng-container *ngIf="isItemGroup(processedItem)">
                                 <ng-container *ngIf="!submenuiconTemplate">
                                     <svg data-p-icon="angle-down" [class]="cx('submenuIcon')" *ngIf="root" [pBind]="getPTOptions(processedItem, index, 'submenuIcon')" />
@@ -186,16 +199,17 @@ export class MenubarService {
                     [inlineStyles]="sx('submenu', true, { instance: this, processedItem })"
                     [pt]="pt()"
                     [pBind]="ptm('submenu')"
+                    [unstyled]="unstyled()"
                 ></ul>
             </li>
         </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[id]': 'root ? menuId : null',
+        '[attr.id]': 'root ? menuId : null',
         '[attr.aria-activedescendant]': 'focusedItemId',
         '[class]': "level === 0 ? cx('rootList') : cx('submenu')",
-        role: 'menubar',
+        '[attr.role]': "'menubar'",
         '[style]': 'inlineStyles'
     }
 })
@@ -384,6 +398,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             (mouseleave)="onMouseLeave($event)"
             [pt]="pt()"
             [pBind]="ptm('rootList')"
+            [unstyled]="unstyled()"
         ></ul>
         <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate; else legacy" [pBind]="ptm('end')">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>

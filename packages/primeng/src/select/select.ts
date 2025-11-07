@@ -188,6 +188,7 @@ export class SelectItem extends BaseComponent {
             [attr.aria-required]="required()"
             [attr.required]="required() ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
+            [attr.data-p]="labelDataP"
         >
             <ng-container *ngIf="!selectedItemTemplate && !_selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
             <ng-container *ngIf="(selectedItemTemplate || _selectedItemTemplate) && !isSelectedOptionEmpty()" [ngTemplateOutlet]="selectedItemTemplate || _selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
@@ -221,6 +222,7 @@ export class SelectItem extends BaseComponent {
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
+            [attr.data-p]="labelDataP"
         />
         <ng-container *ngIf="isVisibleClearIcon">
             <svg data-p-icon="times" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
@@ -261,12 +263,13 @@ export class SelectItem extends BaseComponent {
             [appendTo]="$appendTo()"
             [enterAnimation]="enterAnimation"
             [leaveAnimation]="leaveAnimation"
+            [unstyled]="unstyled()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onAnimationDone)="onOverlayAnimationDone($event)"
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')">
+                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -284,7 +287,7 @@ export class SelectItem extends BaseComponent {
                             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
-                            <p-iconfield [pt]="ptm('pcFilterContainer')">
+                            <p-iconfield [pt]="ptm('pcFilterContainer')" [unstyled]="unstyled()">
                                 <input
                                     #filter
                                     pInputText
@@ -303,8 +306,9 @@ export class SelectItem extends BaseComponent {
                                     (keydown)="onFilterKeyDown($event)"
                                     (blur)="onFilterBlur($event)"
                                     [pt]="ptm('pcFilter')"
+                                    [unstyled]="unstyled()"
                                 />
-                                <p-inputicon [pt]="ptm('pcFilterIconContainer')">
+                                <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
                                     <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [pBind]="ptm('filterIcon')" />
                                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('filterIcon')">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
@@ -362,6 +366,7 @@ export class SelectItem extends BaseComponent {
                                             [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                             [ariaSetSize]="ariaSetSize"
                                             [index]="i"
+                                            [unstyled]="unstyled()"
                                             [scrollerOptions]="scrollerOptions"
                                             (onClick)="onOptionSelect($event, option)"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
@@ -403,6 +408,7 @@ export class SelectItem extends BaseComponent {
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.id]': 'id',
+        '[attr.data-p]': 'containerDataP',
         '(click)': 'onContainerClick($event)'
     },
     providers: [SELECT_VALUE_ACCESSOR, SelectStyle, { provide: SELECT_INSTANCE, useExisting: Select }, { provide: PARENT_INSTANCE, useExisting: Select }],
@@ -1956,6 +1962,39 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         setModelValue(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
+    }
+
+    get containerDataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            [this.size() as string]: this.size()
+        });
+    }
+
+    get labelDataP() {
+        return this.cn({
+            placeholder: this.label === this.placeholder,
+            clearable: this.showClear,
+            disabled: this.disabled,
+            [this.size() as string]: this.size(),
+            empty: !this.editable && !this.selectedItemTemplate && (!this.label?.() || this.label() === 'p-emptylabel' || this.label()?.length === 0)
+        });
+    }
+
+    get dropdownIconDataP() {
+        return this.cn({
+            [this.size() as string]: this.size()
+        });
+    }
+
+    get overlayDataP() {
+        return this.cn({
+            ['overlay-' + this.$appendTo()]: 'overlay-' + this.$appendTo()
+        });
     }
 }
 
