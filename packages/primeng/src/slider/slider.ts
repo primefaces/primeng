@@ -32,10 +32,10 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             *ngIf="range && orientation == 'horizontal'"
             [class]="cx('range')"
             [ngStyle]="{
-                position: 'absolute',
                 'inset-inline-start': offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
                 width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
             }"
+            [style]="sx('range')"
             [attr.data-pc-section]="'range'"
             [attr.data-p]="dataP"
             [pBind]="ptm('range')"
@@ -44,26 +44,26 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             *ngIf="range && orientation == 'vertical'"
             [class]="cx('range')"
             [ngStyle]="{
-                position: 'absolute',
                 bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
                 height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
             }"
+            [style]="sx('range')"
             [attr.data-pc-section]="'range'"
             [attr.data-p]="dataP"
             [pBind]="ptm('range')"
         ></span>
-        <span *ngIf="!range && orientation == 'vertical'" [class]="cx('range')" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', height: handleValue + '%' }" [pBind]="ptm('range')"></span>
-        <span *ngIf="!range && orientation == 'horizontal'" [class]="cx('range')" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', width: handleValue + '%' }" [pBind]="ptm('range')"></span>
+        <span *ngIf="!range && orientation == 'vertical'" [class]="cx('range')" [attr.data-pc-section]="'range'" [style]="sx('range')" [ngStyle]="{ height: handleValue + '%' }" [pBind]="ptm('range')"></span>
+        <span *ngIf="!range && orientation == 'horizontal'" [class]="cx('range')" [attr.data-pc-section]="'range'" [style]="sx('range')" [ngStyle]="{ width: handleValue + '%' }" [pBind]="ptm('range')"></span>
         <span
             *ngIf="!range"
             #sliderHandle
             [class]="cx('handle')"
             [style.transition]="dragging ? 'none' : null"
             [ngStyle]="{
-                position: 'absolute',
                 'inset-inline-start': orientation == 'horizontal' ? handleValue + '%' : null,
                 bottom: orientation == 'vertical' ? handleValue + '%' : null
             }"
+            [style]="sx('handle')"
             (touchstart)="onDragStart($event)"
             (touchmove)="onDrag($event)"
             (touchend)="onDragEnd($event)"
@@ -87,7 +87,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             #sliderHandleStart
             [style.transition]="dragging ? 'none' : null"
             [class]="cn(cx('handle'), handleIndex == 0 && 'p-slider-handle-active')"
-            [ngStyle]="{ position: 'absolute', 'inset-inline-start': rangeStartLeft, bottom: rangeStartBottom }"
+            [style]="sx('handle')"
+            [ngStyle]="{ 'inset-inline-start': rangeStartLeft, bottom: rangeStartBottom }"
             (keydown)="onKeyDown($event, 0)"
             (mousedown)="onMouseDown($event, 0)"
             (touchstart)="onDragStart($event, 0)"
@@ -111,7 +112,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             #sliderHandleEnd
             [style.transition]="dragging ? 'none' : null"
             [class]="cn(cx('handle'), handleIndex == 1 && 'p-slider-handle-active')"
-            [ngStyle]="{ position: 'absolute', 'inset-inline-start': rangeEndLeft, bottom: rangeEndBottom }"
+            [ngStyle]="{ 'inset-inline-start': rangeEndLeft, bottom: rangeEndBottom }"
+            [style]="sx('handle')"
             (keydown)="onKeyDown($event, 1)"
             (mousedown)="onMouseDown($event, 1)"
             (touchstart)="onDragStart($event, 1)"
