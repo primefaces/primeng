@@ -930,8 +930,6 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
     _itemTemplate: TemplateRef<any> | undefined;
 
-    public animating: boolean | undefined;
-
     activeItem = signal<any>(null);
 
     _componentStyle = inject(PanelMenuStyle);
@@ -992,11 +990,6 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
         }
 
         this.cd.detectChanges();
-    }
-
-    onToggleDone() {
-        this.animating = false;
-        this.cd.markForCheck();
     }
 
     changeActiveItem(event, item, index?: number, selfActive = false) {
@@ -1097,7 +1090,6 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
         item.expanded = !item.expanded;
         this.changeActiveItem(event, item, index);
-        this.animating = true;
         focus(event.currentTarget as HTMLElement);
     }
 

@@ -1,23 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -87,9 +69,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             [attr.aria-labelledby]="id + '_header'"
             [attr.aria-hidden]="collapsed"
             [attr.tabindex]="collapsed ? '-1' : undefined"
-            [class.p-animating]="animating()"
             [class.p-collapsible-open]="toggleable && !collapsed"
-            (transitionrun)="onToggleStart($event)"
             (transitionend)="onToggleDone($event)"
         >
             <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
@@ -124,8 +104,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
-    animating = signal<boolean>(false);
-
     /**
      * Id of the component.
      */
@@ -157,7 +135,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     }
     set collapsed(value: boolean | undefined) {
         this._collapsed = value;
-        this.animating.set(true);
     }
 
     /**
@@ -295,7 +272,6 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     }
 
     toggle(event: MouseEvent) {
-        this.animating.set(true);
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
         if (this.collapsed) this.expand();
@@ -340,12 +316,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         }
     }
 
-    onToggleStart(event: TransitionEvent) {
-        this.animating.set(true);
-    }
-
     onToggleDone(event: any) {
-        this.animating.set(false);
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
     }
 

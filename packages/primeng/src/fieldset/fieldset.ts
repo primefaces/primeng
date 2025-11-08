@@ -1,23 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -80,9 +62,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 [pBind]="ptm('contentContainer')"
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
-                [class.p-animating]="animating()"
                 [class.p-collapsible-open]="toggleable && !collapsed"
-                (transitionrun)="onToggleStart($event)"
                 (transitionend)="onToggleDone($event)"
             >
                 <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
@@ -107,8 +87,6 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
     }
-
-    animating = signal<boolean>(false);
 
     get dataP() {
         return this.cn({
@@ -188,7 +166,6 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     }
     set collapsed(value: boolean | undefined) {
         this._collapsed = value;
-        this.animating.set(true);
     }
 
     /**
@@ -216,7 +193,6 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
 
     toggle(event: MouseEvent) {
-        this.animating.set(true);
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
 
         if (this.collapsed) this.expand();
@@ -261,12 +237,7 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
         }
     }
 
-    onToggleStart(event: TransitionEvent) {
-        this.animating.set(true);
-    }
-
     onToggleDone(event: any) {
-        this.animating.set(false);
         this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
     }
 
