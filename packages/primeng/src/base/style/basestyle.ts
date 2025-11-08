@@ -78,6 +78,31 @@ const extendedStyle = `
             max-height: 0;
         }
     }
+
+    .p-modal-enter {
+        animation: p-animate-modal-enter 300ms forwards;
+    }
+
+    .p-modal-leave {
+        animation: p-animate-modal-leave 300ms forwards;
+    }
+
+    @keyframes p-animate-modal-enter {
+        from {
+            background: transparent;
+        }
+        to {
+            background: dt('mask.background');
+        }
+    }
+    @keyframes p-animate-modal-leave {
+        from {
+            background: dt('mask.background');
+        }
+        to {
+            background: transparent;
+        }
+    }
 `;
 
 @Injectable({ providedIn: 'root' })

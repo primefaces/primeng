@@ -16,13 +16,14 @@ const style = /*css*/ `
 @keyframes p-animate-image-enter {
     from {
         opacity: 0;
-        transform: scale(0.7);
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-image-leave {
     to {
         opacity: 0;
+        transform: scale(0.93);
     }
 }
 `;
@@ -35,7 +36,7 @@ const classes = {
     ],
     previewMask: 'p-image-preview-mask',
     previewIcon: 'p-image-preview-icon',
-    mask: 'p-image-mask p-overlay-mask p-overlay-mask-enter',
+    mask: 'p-image-mask p-overlay-mask',
     toolbar: 'p-image-toolbar',
     rotateRightButton: 'p-image-action p-image-rotate-right-button',
     rotateLeftButton: 'p-image-action p-image-rotate-left-button',

@@ -5,32 +5,24 @@ const style = /*css*/ `
 ${dialog_style}
 /* Animations */
 .p-dialog-enter {
-    animation: p-animate-dialog-enter 150ms cubic-bezier(0, 0, 0.2, 1);
+    animation: p-animate-dialog-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
 .p-dialog-leave {
-    animation: p-animate-dialog-leave 150ms cubic-bezier(0, 0, 0.2, 1);
+    animation: p-animate-dialog-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
 @keyframes p-animate-dialog-enter {
     from {
         opacity: 0;
-        transform: scale(0.7);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-dialog-leave {
-    from {
-        opacity: 1;
-        transform: scale(1);
-    }
     to {
         opacity: 0;
-        transform: scale(0.7);
+        transform: scale(0.93);
     }
 }
 `;
@@ -69,7 +61,7 @@ const classes = {
         const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
         const pos = positions.find((item) => item === instance.position);
 
-        return ['p-dialog-mask', { 'p-overlay-mask p-overlay-mask-enter': instance.modal }, pos ? `p-dialog-${pos}` : ''];
+        return ['p-dialog-mask', { 'p-overlay-mask': instance.modal }, pos ? `p-dialog-${pos}` : ''];
     },
     root: ({ instance }) => [
         'p-dialog p-component',

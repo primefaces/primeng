@@ -17,25 +17,19 @@ ${galleria_style}
 @keyframes p-animate-galleria-enter {
     from {
         opacity: 0;
-        transform: scale(0.7);
-    }
-    to {
-        opacity: 1;
+        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-galleria-leave {
-    from {
-        opacity: 1;
-    }
     to {
         opacity: 0;
-        transform: scale(0.7);
+        transform: scale(0.93);
     }
 }
 `;
 const classes = {
-    mask: 'p-galleria-mask p-overlay-mask p-overlay-mask-enter',
+    mask: 'p-galleria-mask p-overlay-mask',
     root: ({ instance }) => {
         const thumbnailsPosClass = instance.galleria.showThumbnails && instance.getPositionClass('p-galleria-thumbnails', instance.galleria.thumbnailsPosition);
         const indicatorPosClass = instance.galleria.showIndicators && instance.getPositionClass('p-galleria-indicators', instance.galleria.indicatorsPosition);

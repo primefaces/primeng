@@ -25,7 +25,7 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { addClass, addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -49,7 +49,17 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
     standalone: true,
     imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind],
     template: `
-        <div *ngIf="maskVisible" [class]="cn(cx('mask'), maskStyleClass)" [style]="sx('mask')" [ngStyle]="maskStyle" [pBind]="ptm('mask')" [attr.data-p-scrollblocker-active]="modal || blockScroll" [attr.data-p]="dataP">
+        <div
+            *ngIf="maskVisible"
+            [class]="cn(cx('mask'), maskStyleClass)"
+            [style]="sx('mask')"
+            [ngStyle]="maskStyle"
+            [pBind]="ptm('mask')"
+            [attr.data-p-scrollblocker-active]="modal || blockScroll"
+            [attr.data-p]="dataP"
+            [animate.enter]="modalEnterAnimation()"
+            [animate.leave]="modalLeaveAnimation()"
+        >
             @if (visible) {
                 <div
                     #container
@@ -460,6 +470,18 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * @group Props
      */
     leaveAnimation = input<string | null | undefined>('p-dialog-leave');
+    /**
+     * Enter animation class name of modal.
+     * @defaultValue 'p-modal-enter'
+     * @group Props
+     */
+    modalEnterAnimation = input<string | null | undefined>('p-modal-enter');
+    /**
+     * Leave animation class name of modal.
+     * @defaultValue 'p-modal-leave'
+     * @group Props
+     */
+    modalLeaveAnimation = input<string | null | undefined>('p-modal-leave');
 
     @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any> | undefined;
 
@@ -1024,16 +1046,14 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                 this.focus();
             }
             this.onShow.emit({});
+        } else {
+            this.maskVisible = false;
+            this.cd.markForCheck();
         }
     }
 
     onAnimationEnd() {
         if (!this.visible) {
-            if (this.wrapper && this.modal) {
-                !this.$unstyled() && addClass(this.wrapper, 'p-overlay-mask-leave');
-            }
-
-            this.maskVisible = false;
             this.onContainerDestroy();
             this.onHide.emit({});
             this.cd.markForCheck();

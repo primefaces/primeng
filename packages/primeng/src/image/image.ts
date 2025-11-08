@@ -21,7 +21,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { addClass, appendChild, focus } from '@primeuix/utils';
+import { appendChild, focus } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -70,7 +70,19 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                 <svg data-p-icon="eye" [class]="cx('previewIcon')" [pBind]="ptm('previewIcon')" />
             </ng-template>
         </button>
-        <div #mask [class]="cx('mask')" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap [pBind]="ptm('mask')">
+        <div
+            #mask
+            [class]="cx('mask')"
+            *ngIf="maskVisible"
+            [attr.aria-modal]="maskVisible"
+            role="dialog"
+            (click)="onMaskClick()"
+            (keydown)="onMaskKeydown($event)"
+            pFocusTrap
+            [pBind]="ptm('mask')"
+            [animate.enter]="modalEnterAnimation()"
+            [animate.leave]="modalLeaveAnimation()"
+        >
             <div [class]="cx('toolbar')" (click)="handleToolbarClick($event)" [pBind]="ptm('toolbar')">
                 <button [class]="cx('rotateRightButton')" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()" [pBind]="ptm('rotateRightButton')">
                     <svg data-p-icon="refresh" *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
@@ -226,6 +238,18 @@ export class Image extends BaseComponent<ImagePassThrough> {
      * @group Props
      */
     leaveAnimation = input<string | null | undefined>('p-image-leave');
+    /**
+     * Enter animation class name of modal.
+     * @defaultValue 'p-modal-enter'
+     * @group Props
+     */
+    modalEnterAnimation = input<string | null | undefined>('p-modal-enter');
+    /**
+     * Leave animation class name of modal.
+     * @defaultValue 'p-modal-leave'
+     * @group Props
+     */
+    modalLeaveAnimation = input<string | null | undefined>('p-modal-leave');
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
@@ -467,12 +491,14 @@ export class Image extends BaseComponent<ImagePassThrough> {
             setTimeout(() => {
                 focus(this.closeButton?.nativeElement);
             }, 25);
+        } else {
+            this.maskVisible = false;
+            this.cd.markForCheck();
         }
     }
 
     onAnimationEnd() {
         if (!this.previewVisible) {
-            if (this.wrapper && !this.$unstyled()) addClass(this.wrapper, 'p-overlay-mask-leave');
             ZIndexUtils.clear(this.wrapper);
             this.maskVisible = false;
             this.container = null;

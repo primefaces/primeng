@@ -1,4 +1,3 @@
-import { AppDesigner } from '@/components/layout/designer/app.designer';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
@@ -39,12 +38,9 @@ export class AppMainComponent {
 
     isMenuActive = computed(() => this.configService.appState().menuActive);
 
-    isRippleDisabled = computed(() => this.primeng.ripple());
-
     containerClass = computed(() => {
         return {
             'layout-news-active': this.isNewsActive()
-            // 'p-ripple-disabled': this.isRippleDisabled,
         };
     });
 

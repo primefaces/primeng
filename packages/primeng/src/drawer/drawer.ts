@@ -190,6 +190,19 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this._visible = val;
     }
     /**
+     * Enter animation class name of modal.
+     * @defaultValue 'p-modal-enter'
+     * @group Props
+     */
+    @Input() modalEnterAnimation: string = 'p-modal-enter';
+    /**
+     * Leave animation class name of modal.
+     * @defaultValue 'p-modal-leave'
+     * @group Props
+     */
+    @Input() modalLeaveAnimation: string = 'p-modal-leave';
+
+    /**
      * Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top".
      * @defaultValue 'left'
      * @group Props
@@ -421,8 +434,8 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
     disableModality() {
         if (this.mask) {
-            !this.$unstyled() && removeClass(this.mask, 'p-overlay-mask-enter');
-            !this.$unstyled() && addClass(this.mask, 'p-overlay-mask-leave');
+            !this.$unstyled() && removeClass(this.mask, this.modalEnterAnimation);
+            !this.$unstyled() && addClass(this.mask, this.modalLeaveAnimation);
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }

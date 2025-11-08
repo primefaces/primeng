@@ -10,7 +10,7 @@ const style = /*css*/ `
     border: 1px solid dt('popover.border.color');
     border-radius: dt('popover.border.radius');
     box-shadow: dt('popover.shadow');
-    position: absolute
+    position: absolute;
 }
 
 .p-popover-content {

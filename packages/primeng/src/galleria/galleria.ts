@@ -46,7 +46,18 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
     standalone: false,
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
-            <div *ngIf="maskVisible" #mask [pBind]="ptm('mask')" [ngClass]="cx('mask')" [class]="maskClass" [attr.role]="fullScreen ? 'dialog' : 'region'" [attr.aria-modal]="fullScreen ? 'true' : undefined" (click)="onMaskHide($event)">
+            <div
+                *ngIf="maskVisible"
+                #mask
+                [pBind]="ptm('mask')"
+                [ngClass]="cx('mask')"
+                [class]="maskClass"
+                [attr.role]="fullScreen ? 'dialog' : 'region'"
+                [attr.aria-modal]="fullScreen ? 'true' : undefined"
+                (click)="onMaskHide($event)"
+                [animate.enter]="modalEnterAnimation()"
+                [animate.leave]="modalLeaveAnimation()"
+            >
                 @if (visible) {
                     <div
                         pGalleriaContent
@@ -236,6 +247,18 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
      */
     leaveAnimation = input<string | undefined | null>('p-galleria-leave');
     /**
+     * Enter animation class name of modal.
+     * @defaultValue 'p-modal-enter'
+     * @group Props
+     */
+    modalEnterAnimation = input<string | null | undefined>('p-modal-enter');
+    /**
+     * Leave animation class name of modal.
+     * @defaultValue 'p-modal-leave'
+     * @group Props
+     */
+    modalLeaveAnimation = input<string | null | undefined>('p-modal-leave');
+    /**
      * Specifies the visibility of the mask on fullscreen mode.
      * @group Props
      */
@@ -394,12 +417,14 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                 const focusTarget = findSingle(this.container?.nativeElement, '[data-pc-section="closebutton"]');
                 if (focusTarget) focus(focusTarget as HTMLElement);
             }, 25);
+        } else {
+            this.maskVisible = false;
+            this.cd.markForCheck();
         }
     }
 
     onAnimationEnd() {
         if (!this.visible) {
-            !this.$unstyled() && addClass(this.mask?.nativeElement, 'p-overlay-mask-leave');
             this.disableModality();
         }
     }
