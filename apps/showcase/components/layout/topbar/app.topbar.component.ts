@@ -117,7 +117,7 @@ import { StyleClass } from 'primeng/styleclass';
                     </button>
                 </li>
                 <li *ngIf="showConfigurator" class="relative">
-                    <button type="button" class="topbar-item config-item" enterActiveClass="animate-scalein" enterFromClass="hidden" leaveActiveClass="animate-fadeout" leaveToClass="hidden" pStyleClass="@next" [hideOnOutsideClick]="true">
+                    <button type="button" class="topbar-item config-item" enterActiveClass="overlay-enter" enterFromClass="hidden" leaveActiveClass="overlay-leave" leaveToClass="hidden" pStyleClass="@next" [hideOnOutsideClick]="true">
                         <i class="pi pi-palette"></i>
                     </button>
                     <app-configurator />
@@ -133,7 +133,7 @@ import { StyleClass } from 'primeng/styleclass';
                     </button>
                 </li>
                 <li>
-                    <button pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true" type="button" class="topbar-item version-item">
+                    <button pStyleClass="@next" enterFromClass="hidden" enterActiveClass="overlay-enter" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true" type="button" class="topbar-item version-item">
                         <span class="version-text">{{ versions ? versions[0].name : 'Latest' }}</span>
                         <span class="version-icon pi pi-angle-down"></span>
                     </button>

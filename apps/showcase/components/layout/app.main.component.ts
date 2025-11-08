@@ -16,7 +16,9 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
         <div class="layout-wrapper" [ngClass]="containerClass()">
             <app-news />
             <app-topbar />
-            <div class="layout-mask" [ngClass]="{ 'layout-mask-active': isMenuActive() }" (click)="hideMenu()"></div>
+            @if (isMenuActive()) {
+                <div class="layout-mask" (click)="hideMenu()" animate.enter="modal-enter" animate.leave="modal-leave"></div>
+            }
             <div class="layout-content">
                 <app-menu />
                 <div class="layout-content-slot">
