@@ -32,7 +32,7 @@ p-password.ng-invalid.ng-dirty .p-inputtext::placeholder {
 }
 
 @keyframes p-animate-password-enter {
-    to {
+    from {
         opacity: 0;
         transform: scale(0.93);
     }
