@@ -27,7 +27,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { absolutePosition, appendChild, find, findSingle, isClickable, setAttribute } from '@primeuix/utils';
+import { absolutePosition, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@primeuix/utils';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -3727,7 +3727,7 @@ export class SortableColumn extends BaseComponent {
     }
 
     private isFilterElementIconOrButton(element: HTMLElement) {
-        return find(element, '[data-pc-name="pccolumnfilterbutton"]') || find(element, '[data-pc-section="columnfilterbuttonicon"]');
+        return getAttribute(element, '[data-pc-name="pccolumnfilterbutton"]') || getAttribute(element, '[data-pc-section="columnfilterbuttonicon"]');
     }
 
     onDestroy() {
