@@ -168,7 +168,6 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
     }
 
     destroyModal() {
-        console.log('destroymodal');
         this._blocked = false;
         if (this.el && isPlatformBrowser(this.platformId)) {
             this.el.nativeElement.style.display = 'none';
