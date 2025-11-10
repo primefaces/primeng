@@ -254,6 +254,7 @@ export class TableService {
                         [pTableBodyTemplate]="frozenBodyTemplate || _frozenBodyTemplate"
                         [unstyled]="unstyled()"
                         [frozen]="true"
+                        [attr.data-p-virtualscroll]="virtualScroll"
                     ></tbody>
                     <tbody
                         role="rowgroup"
@@ -265,6 +266,7 @@ export class TableService {
                         [pTableBodyTemplate]="bodyTemplate || _bodyTemplate"
                         [scrollerOptions]="scrollerOptions"
                         [unstyled]="unstyled()"
+                        [attr.data-p-virtualscroll]="virtualScroll"
                     ></tbody>
                     <tbody
                         role="rowgroup"

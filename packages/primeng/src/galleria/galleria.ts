@@ -1084,6 +1084,7 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
                         [attr.aria-selected]="activeIndex === index"
                         [attr.aria-controls]="containerId + '_item_' + index"
                         (keydown)="onThumbnailKeydown($event, index)"
+                        [attr.data-p-active]="activeIndex === index"
                     >
                         <div
                             [pBind]="ptm('thumbnail')"
