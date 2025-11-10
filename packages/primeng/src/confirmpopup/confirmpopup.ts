@@ -518,7 +518,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     restoreAppend() {
         if (this.container) {
-            removeChild(this.document.body, this.container);
+            this.renderer.removeChild(this.document.body, this.container);
         }
 
         this.onContainerDestroy();
