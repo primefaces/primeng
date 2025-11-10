@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -24,15 +23,14 @@ import { uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ButtonDirective } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TieredMenu } from 'primeng/tieredmenu';
 import { TooltipModule } from 'primeng/tooltip';
-import { ButtonProps, MenuButtonProps } from 'primeng/types/splitbutton';
+import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from 'primeng/types/splitbutton';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
-import { SplitButtonPassThrough } from 'primeng/types/splitbutton';
-import { Bind } from 'primeng/bind';
 
 const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTANCE');
 
@@ -385,7 +383,7 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
 
     onDropdownButtonClick(event?: MouseEvent) {
         this.onDropdownClick.emit(event);
-        this.menu?.toggle({ currentTarget: this.el?.nativeElement, relativeAlign: this.appendTo == null });
+        this.menu?.toggle(event);
     }
 
     onDropdownButtonKeydown(event: KeyboardEvent) {

@@ -27,11 +27,11 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
+import { absolutePosition, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -590,6 +590,8 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     focused: boolean = false;
 
+    private overlayInitialized: boolean = false;
+
     activeItemPath = signal<any>([]);
 
     number = signal<number>(0);
@@ -1027,27 +1029,27 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        if (this.visible) {
-            if (this.popup) {
-                this.container = <HTMLDivElement>event.target;
-                this.moveOnTop();
-                this.onShow.emit({});
-                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-                this.appendOverlay();
-                this.alignOverlay();
-                this.bindOutsideClickListener();
-                this.bindResizeListener();
-                this.bindScrollListener();
+        if (this.visible && this.popup && !this.overlayInitialized) {
+            this.overlayInitialized = true;
+            this.container = <HTMLDivElement>event.target;
+            this.moveOnTop();
+            this.onShow.emit({});
+            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+            this.appendOverlay();
+            this.alignOverlay();
+            this.bindOutsideClickListener();
+            this.bindResizeListener();
+            this.bindScrollListener();
 
-                focus(this.rootmenu?.sublistViewChild?.nativeElement);
-                this.scrollInView();
-            }
+            focus(this.rootmenu?.sublistViewChild?.nativeElement);
+            this.scrollInView();
         }
     }
 
     alignOverlay() {
         if (this.relativeAlign) relativePosition(this.container!, this.target);
         else absolutePosition(this.container!, this.target);
+        this.container!.style.visibility = 'visible';
 
         const targetWidth = getOuterWidth(this.target);
 
@@ -1058,17 +1060,16 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     onOverlayAnimationEnd() {
         if (!this.visible && this.popup) {
-            ZIndexUtils.clear(this.container);
             this.onOverlayHide();
             this.onHide.emit({});
+            if (this.autoZIndex) {
+                ZIndexUtils.clear(this.container);
+            }
         }
     }
 
     appendOverlay() {
-        if (this.$appendTo() && this.$appendTo() !== 'self') {
-            if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.$appendTo(), this.container!);
-        }
+        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     restoreOverlayAppend() {
@@ -1280,6 +1281,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         this.unbindOutsideClickListener();
         this.unbindResizeListener();
         this.unbindScrollListener();
+        this.overlayInitialized = false;
 
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;
