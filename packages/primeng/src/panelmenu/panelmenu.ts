@@ -141,25 +141,25 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                     </ng-container>
                 </div>
 
-                @if (isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)) {
-                    <div>
-                        <ul
-                            pPanelMenuSub
-                            [id]="getItemId(processedItem) + '_list'"
-                            [panelId]="panelId"
-                            [items]="processedItem?.items"
-                            [itemTemplate]="itemTemplate"
-                            [transitionOptions]="transitionOptions"
-                            [focusedItemId]="focusedItemId"
-                            [activeItemPath]="activeItemPath"
-                            [level]="level + 1"
-                            [pt]="pt()"
-                            [unstyled]="unstyled()"
-                            [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
-                            (itemToggle)="onItemToggle($event)"
-                        ></ul>
-                    </div>
-                }
+                <div>
+                    <ul
+                        pPanelMenuSub
+                        [id]="getItemId(processedItem) + '_list'"
+                        [panelId]="panelId"
+                        [items]="processedItem?.items"
+                        [itemTemplate]="itemTemplate"
+                        [transitionOptions]="transitionOptions"
+                        [focusedItemId]="focusedItemId"
+                        [activeItemPath]="activeItemPath"
+                        [level]="level + 1"
+                        [pt]="pt()"
+                        [unstyled]="unstyled()"
+                        [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
+                        (itemToggle)="onItemToggle($event)"
+                        [class.p-collapsible]="isItemGroup(processedItem)"
+                        [class.p-collapsible-open]="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
+                    ></ul>
+                </div>
             </li>
         </ng-template>
     `,
@@ -532,11 +532,14 @@ export class PanelMenuList extends BaseComponent {
 
         // Update the original item object's 'expanded' property
         if (processedItem.item) {
-            processedItem.item.expanded = !processedItem.item.expanded;
+            processedItem.item.expanded = expanded;
         }
 
-        // Recreate processedItems with updated 'expanded' states
-        this.processedItems.set(this.createProcessedItems(this.items || [], 0, {}, ''));
+        // Update the expanded property in the existing processedItem
+        processedItem.expanded = expanded;
+
+        // Trigger signal update without recreating the entire tree
+        this.processedItems.update((items) => [...items]);
 
         // Update activeItemPath
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== processedItem.parentKey);
@@ -835,14 +838,13 @@ export class PanelMenuList extends BaseComponent {
                     </div>
                 </div>
                 <div
-                    *ngIf="isItemGroup(item) && isItemActive(item)"
                     [class]="cx('contentContainer', { processedItem: item })"
                     role="region"
                     [attr.id]="getContentId(item, i)"
                     [attr.aria-labelledby]="getHeaderId(item, i)"
                     [pBind]="ptm('contentContainer')"
-                    [animate.enter]="'p-collapsible-enter'"
-                    [animate.leave]="'p-collapsible-leave'"
+                    [class.p-collapsible]="isItemGroup(item)"
+                    [class.p-collapsible-open]="isItemActive(item)"
                 >
                     <div [class]="cx('content')" [pBind]="ptm('content')">
                         <ul
