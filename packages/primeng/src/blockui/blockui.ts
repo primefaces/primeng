@@ -1,24 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnDestroy,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
-import { addClass, blockBodyScroll, removeClass, unblockBodyScroll } from '@primeuix/utils';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -87,12 +69,28 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
     }
     set blocked(val: boolean) {
         if (this.el && this.el.nativeElement) {
-            if (val) this.block();
-            else this.unblock();
+            if (val) {
+                this.block();
+            } else if (this._blocked) {
+                // Only unblock if currently blocked
+                this.unblock();
+            }
         } else {
             this._blocked = val;
         }
     }
+    /**
+     * Enter animation class name of modal.
+     * @defaultValue 'p-modal-enter'
+     * @group Props
+     */
+    @Input() modalEnterAnimation: string = 'p-modal-enter';
+    /**
+     * Leave animation class name of modal.
+     * @defaultValue 'p-modal-leave'
+     * @group Props
+     */
+    @Input() modalLeaveAnimation: string = 'p-modal-leave';
     /**
      * template of the content
      * @group Templates
@@ -152,25 +150,36 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
             if (this.autoZIndex) {
                 ZIndexUtils.set('modal', (this.el as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
             }
+
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask');
+            this.renderer.addClass(this.el.nativeElement, this.modalEnterAnimation);
         }
     }
 
     unblock() {
-        if (isPlatformBrowser(this.platformId) && this.el && !this.animationEndListener) {
-            this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
-            addClass(this.el.nativeElement, 'p-overlay-mask-leave');
-            this.destroyModal();
+        if (isPlatformBrowser(this.platformId) && this.el && this._blocked) {
+            this._blocked = false;
+            if (!this.animationEndListener) {
+                this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
+            }
+            this.renderer.removeClass(this.el.nativeElement, this.modalEnterAnimation);
+            this.renderer.addClass(this.el.nativeElement, this.modalLeaveAnimation);
         }
     }
 
     destroyModal() {
+        console.log('destroymodal');
         this._blocked = false;
         if (this.el && isPlatformBrowser(this.platformId)) {
+            this.el.nativeElement.style.display = 'none';
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask');
+            this.renderer.removeClass(this.el.nativeElement, this.modalLeaveAnimation);
             ZIndexUtils.clear(this.el.nativeElement);
-            removeClass(this.el.nativeElement, 'p-overlay-mask-leave');
-            this.renderer.removeChild(this.el.nativeElement, this.el.nativeElement);
-            //@ts-ignore
-            unblockBodyScroll();
+
+            if (!this.target) {
+                //@ts-ignore
+                unblockBodyScroll();
+            }
         }
         this.unbindAnimationEndListener();
         this.cd.markForCheck();
@@ -184,8 +193,18 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
     }
 
     onDestroy() {
-        this.unblock();
-        this.destroyModal();
+        if (this._blocked) {
+            // Skip animation on destroy, just cleanup
+            this._blocked = false;
+            if (this.el && isPlatformBrowser(this.platformId)) {
+                ZIndexUtils.clear(this.el.nativeElement);
+                if (!this.target) {
+                    //@ts-ignore
+                    unblockBodyScroll();
+                }
+            }
+            this.unbindAnimationEndListener();
+        }
     }
 }
 
