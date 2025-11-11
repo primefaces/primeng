@@ -15,11 +15,12 @@ import {
     NgZone,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
+import { alignOverlay as _alignOverlay, addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -450,7 +451,7 @@ export class Overlay extends BaseComponent {
     }
 
     alignOverlay() {
-        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.$appendTo());
+        !this.modal && _alignOverlay(this.overlayEl, this.targetEl, this.$appendTo());
     }
 
     onVisibleChange(visible: boolean) {
@@ -472,21 +473,23 @@ export class Overlay extends BaseComponent {
     }
 
     handleAnimationStart(event: AnimationEvent) {
-        if (this.visible) {
+        if (this.visible && !this.container()) {
             this.onOverlayEnter(event);
         }
     }
 
     handleAnimationEnd(event: AnimationEvent) {
-        if (!this.visible) {
+        if (!this.visible && this.container()) {
             this.onOverlayLeave(event);
         }
     }
 
+    container = signal<any>(undefined);
+
     onOverlayEnter(event: AnimationEvent) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        const container = this.overlayEl || event.target;
-        this.show(container, true);
+        this.container.set(this.overlayEl || event.target);
+        this.show(this.container(), true);
         this.bindListeners();
         if (this.autoZIndex) {
             ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
@@ -500,12 +503,11 @@ export class Overlay extends BaseComponent {
 
     onOverlayLeave(event: AnimationEvent) {
         this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        const container = this.overlayEl || event.target;
-        this.hide(container, true);
+        this.hide(this.container() || event.target, true);
         this.modalVisible = false;
         this.unbindListeners();
         DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
-        ZIndexUtils.clear(container);
+        ZIndexUtils.clear(this.container() || event.target);
         this.cd.markForCheck();
         this.handleEvents('onAnimationDone', event);
     }
