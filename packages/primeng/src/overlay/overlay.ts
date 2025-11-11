@@ -20,11 +20,11 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { alignOverlay as _alignOverlay, addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
+import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { OverlayStyle } from './style/overlaystyle';
@@ -450,10 +450,6 @@ export class Overlay extends BaseComponent {
         }
     }
 
-    alignOverlay() {
-        !this.modal && _alignOverlay(this.overlayEl, this.targetEl, this.$appendTo());
-    }
-
     onVisibleChange(visible: boolean) {
         this._visible = visible;
         this.visibleChange.emit(visible);
@@ -472,6 +468,8 @@ export class Overlay extends BaseComponent {
         this.isOverlayContentClicked = true;
     }
 
+    container = signal<any>(undefined);
+
     handleAnimationStart(event: AnimationEvent) {
         if (this.visible && !this.container()) {
             this.onOverlayEnter(event);
@@ -484,30 +482,54 @@ export class Overlay extends BaseComponent {
         }
     }
 
-    container = signal<any>(undefined);
-
     onOverlayEnter(event: AnimationEvent) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         this.container.set(this.overlayEl || event.target);
-        this.show(this.container(), true);
-        this.bindListeners();
-        if (this.autoZIndex) {
-            ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
-        }
+        this.show(this.overlayEl, true);
         this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
-        DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+        this.appendOverlay();
         this.alignOverlay();
+        this.setZIndex();
+        this.bindListeners();
+
+        setTimeout(() => {
+            this.overlayEl.style.visibility = 'visible';
+        }, 1);
 
         this.handleEvents('onAnimationStart', event);
     }
 
+    setZIndex() {
+        if (this.autoZIndex) {
+            ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
+        }
+    }
+
+    appendOverlay() {
+        this.$appendTo() !== 'self' && appendChild(this.document.body, this.overlayEl);
+    }
+
+    alignOverlay() {
+        if (!this.modal) {
+            if (this.overlayEl && this.targetEl) {
+                this.overlayEl.style.minWidth = getOuterWidth(this.targetEl) + 'px';
+                if (this.$appendTo() === 'self') {
+                    relativePosition(this.overlayEl, this.targetEl);
+                } else {
+                    absolutePosition(this.overlayEl, this.targetEl);
+                }
+            }
+        }
+    }
+
     onOverlayLeave(event: AnimationEvent) {
         this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        this.hide(this.container() || event.target, true);
+        this.hide(this.overlayEl, true);
         this.modalVisible = false;
         this.unbindListeners();
-        DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
-        ZIndexUtils.clear(this.container() || event.target);
+        this.appendOverlay();
+        ZIndexUtils.clear(this.overlayEl);
+        this.container.set(null);
         this.cd.markForCheck();
         this.handleEvents('onAnimationDone', event);
     }

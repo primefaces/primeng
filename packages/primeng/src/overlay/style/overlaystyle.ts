@@ -3,6 +3,7 @@ import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
 .p-overlay {
+    visibility: hidden;
     position: absolute;
     top: 0;
 }
