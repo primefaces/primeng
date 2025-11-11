@@ -27,9 +27,31 @@ const css = /*css*/ `
 }
 `;
 
-const extendedStyle = `
+const extendedStyle = /*css*/ `
     ${base_style}
-    
+
+    /* @todo - update @primeuix/style */
+    .p-toggleable-content-enter-from,
+    .p-toggleable-content-leave-to {
+        max-height: 0;
+    }
+
+    .p-toggleable-content-enter-to,
+    .p-toggleable-content-leave-from {
+        max-height: var(--pui-motion-height, 1000px);
+    }
+
+    .p-toggleable-content-leave-active {
+        overflow: hidden;
+        transition: max-height 0.45s cubic-bezier(0, 1, 0, 1);
+    }
+
+    .p-toggleable-content-enter-active {
+        overflow: hidden;
+        transition: max-height 1s ease-in-out;
+    }
+    /**********************************/
+
    .p-collapsible {
         max-height: 0;
         overflow: hidden;
