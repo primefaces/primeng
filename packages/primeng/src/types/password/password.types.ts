@@ -1,6 +1,7 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import { OverlayPassThrough } from '../overlay/overlay.types';
 
 /**
  * Custom pass-through(pt) options.
@@ -35,6 +36,11 @@ export interface PasswordPassThroughOptions<I = unknown> {
      * Used to pass attributes to the unmask icon's DOM element.
      */
     unmaskIcon?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to the Overlay component.
+     * @see {@link OverlayPassThrough}
+     */
+    pcOverlay?: OverlayPassThrough;
     /**
      * Used to pass attributes to the overlay's DOM element.
      */
