@@ -456,7 +456,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     }
 
     onAnimationStart(event: AnimationEvent) {
-        if (this.visible) {
+        if (this.visible && !this.container) {
             this.container = <HTMLDivElement>event.target;
             this.appendContainer();
             this.show();
@@ -468,17 +468,21 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     }
 
     onAnimationEnd() {
-        if (!this.visible) {
+        if (!this.visible && this.container) {
             this.hide(false);
             ZIndexUtils.clear(this.container);
             this.unbindGlobalListeners();
+            this.container = null;
         }
     }
 
     appendContainer() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
-            if (this.$appendTo() === 'body') appendChild(this.document.body, <HTMLElement>this.container);
-            else appendChild(this.$appendTo(), <HTMLElement>this.container);
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.container!);
+            } else {
+                appendChild(this.$appendTo(), this.container!);
+            }
         }
     }
 
