@@ -3129,6 +3129,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     hideOverlay() {
         this.inputfieldViewChild?.nativeElement.focus();
         this.overlayVisible = false;
+        if (this.overlay) {
+            this.overlay = null;
+        }
         this.clearTimePickerTimer();
 
         if (this.touchUI) {
@@ -3150,29 +3153,24 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        if (!this.inline && this.overlayVisible) {
+        if (!this.inline && this.overlayVisible && !this.overlay) {
             this.overlay = <HTMLDivElement>event.target;
+            this.overlayVisible = true;
             this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
-
             this.appendOverlay();
-            this.updateFocus();
-
-            if (this.autoZIndex) {
-                if (this.touchUI) ZIndexUtils.set('modal', this.overlay, this.baseZIndex || this.config.zIndex.modal);
-                else ZIndexUtils.set('overlay', this.overlay, this.baseZIndex || this.config.zIndex.overlay);
-            }
-
             this.alignOverlay();
+            this.setZIndex();
+            this.updateFocus();
+            this.bindListeners();
+            setTimeout(() => {
+                this.overlay!.style.visibility = 'visible';
+            }, 1);
             this.onShow.emit(event);
-
-            this.bindDocumentClickListener();
-            this.bindDocumentResizeListener();
-            this.bindScrollListener();
         }
     }
 
     onOverlayAnimationDone(event: AnimationEvent) {
-        if (!this.overlayVisible && !this.inline) {
+        if (!this.overlayVisible && !this.inline && this.overlay) {
             if (this.autoZIndex) {
                 ZIndexUtils.clear(event.target);
             }
@@ -3216,6 +3214,19 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             } else {
                 relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             }
+        }
+    }
+
+    bindListeners() {
+        this.bindDocumentClickListener();
+        this.bindDocumentResizeListener();
+        this.bindScrollListener();
+    }
+
+    setZIndex() {
+        if (this.autoZIndex) {
+            if (this.touchUI) ZIndexUtils.set('modal', this.overlay, this.baseZIndex || this.config.zIndex.modal);
+            else ZIndexUtils.set('overlay', this.overlay, this.baseZIndex || this.config.zIndex.overlay);
         }
     }
 
