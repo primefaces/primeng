@@ -14,6 +14,7 @@ ${datepicker_style}
 .p-datepicker-panel:not(.p-datepicker-panel-inline) {
     position: absolute;
     top: 0;
+    visibility: hidden;
 }
 
 .p-datepicker-enter {
