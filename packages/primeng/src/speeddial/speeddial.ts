@@ -109,7 +109,6 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                             [rounded]="true"
                             size="small"
                             role="menuitem"
-                            [icon]="item.icon"
                             (click)="onItemClick($event, item)"
                             [disabled]="item?.disabled"
                             (keydown.enter)="onItemClick($event, item)"
