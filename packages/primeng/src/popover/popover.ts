@@ -23,7 +23,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { $dt } from '@primeuix/styled';
-import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice, relativePosition } from '@primeuix/utils';
+import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -275,6 +275,11 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     show(event: any, target?: any) {
         target && event && event.stopPropagation();
 
+        // Clear container if it exists from previous show
+        if (this.container && !this.overlayVisible) {
+            this.container = null;
+        }
+
         this.target = target || event.currentTarget || event.target;
         this.overlayVisible = true;
         this.render = true;
@@ -322,26 +327,22 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     }
 
     align() {
-        if (this.target) {
-            if (this.$appendTo() === 'self') {
-                relativePosition(this.container!, this.target);
-            } else {
-                absolutePosition(this.container!, this.target);
-            }
+        if (this.target && this.container) {
+            absolutePosition(this.container, this.target);
 
             const containerOffset = <any>getOffset(this.container);
             const targetOffset = <any>getOffset(this.target);
-            const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
+            const borderRadius = this.document.defaultView?.getComputedStyle(this.container).getPropertyValue('border-radius');
             let arrowLeft = 0;
 
             if (containerOffset.left < targetOffset.left) {
                 arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
             }
-            this.container?.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
+            this.container.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
             if (containerOffset.top < targetOffset.top) {
-                this.container?.setAttribute('data-p-popover-flipped', 'true');
-                !this.$unstyled() && addClass(this.container!, 'p-popover-flipped');
+                this.container.setAttribute('data-p-popover-flipped', 'true');
+                !this.$unstyled() && addClass(this.container, 'p-popover-flipped');
             }
         }
     }
