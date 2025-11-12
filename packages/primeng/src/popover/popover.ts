@@ -328,7 +328,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
     align() {
         if (this.target && this.container) {
-            absolutePosition(this.container, this.target);
+            absolutePosition(this.container, this.target, false);
 
             const containerOffset = <any>getOffset(this.container);
             const targetOffset = <any>getOffset(this.target);

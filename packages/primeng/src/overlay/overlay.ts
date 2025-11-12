@@ -492,10 +492,6 @@ export class Overlay extends BaseComponent {
         this.setZIndex();
         this.bindListeners();
 
-        setTimeout(() => {
-            this.overlayEl.style.visibility = 'visible';
-        }, 1);
-
         this.handleEvents('onAnimationStart', event);
     }
 
