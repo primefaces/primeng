@@ -506,7 +506,13 @@ export class Overlay extends BaseComponent {
     }
 
     appendOverlay() {
-        this.$appendTo() !== 'self' && appendChild(this.document.body, this.overlayEl);
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.overlayEl);
+            } else {
+                appendChild(this.$appendTo(), this.overlayEl);
+            }
+        }
     }
 
     alignOverlay() {
