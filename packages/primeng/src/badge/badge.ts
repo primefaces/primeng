@@ -26,16 +26,22 @@ export class BadgeDirective extends BaseComponent {
     /**
      * Used to pass attributes to DOM elements inside the Badge component.
      * @defaultValue undefined
+     * @deprecated use pBadgePt instead.
      * @group Props
      */
     ptBadgeDirective = input<BadgePassThrough | undefined>();
+    /**
+     * Used to pass attributes to DOM elements inside the Badge component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pBadgePt = input<BadgePassThrough | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    unstyledBadgeDirective = input<boolean | undefined>();
-
+    pBadgeUnstyled = input<boolean | undefined>();
     /**
      * When specified, disables the component.
      * @group Props
@@ -97,11 +103,12 @@ export class BadgeDirective extends BaseComponent {
     constructor() {
         super();
         effect(() => {
-            this.ptBadgeDirective() && this.directivePT.set(this.ptBadgeDirective());
+            const pt = this.ptBadgeDirective() || this.pBadgePt();
+            pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.unstyledBadgeDirective() && this.directiveUnstyled.set(this.unstyledBadgeDirective());
+            this.pBadgeUnstyled() && this.directiveUnstyled.set(this.pBadgeUnstyled());
         });
     }
 
