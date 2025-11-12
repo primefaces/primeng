@@ -20,6 +20,7 @@ import {
     OnInit,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -503,7 +504,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
     maskVisible: boolean | undefined;
 
-    container: Nullable<HTMLDivElement>;
+    container = signal<Nullable<HTMLDivElement>>(null);
 
     wrapper: Nullable<HTMLElement>;
 
@@ -753,8 +754,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
     moveOnTop() {
         if (this.autoZIndex) {
-            ZIndexUtils.set('modal', this.container, this.baseZIndex + this.config.zIndex.modal);
-            (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container as HTMLDivElement).style.zIndex, 10) - 1);
+            ZIndexUtils.set('modal', this.container(), this.baseZIndex + this.config.zIndex.modal);
+            (this.wrapper as HTMLElement).style.zIndex = String(parseInt((this.container() as HTMLDivElement).style.zIndex, 10) - 1);
         } else {
             this.zIndexForLayering = ZIndexUtils.generateZIndex('modal', (this.baseZIndex ?? 0) + this.config.zIndex.modal);
         }
@@ -797,21 +798,21 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             this.lastPageX = event.pageX;
             this.lastPageY = event.pageY;
 
-            (this.container as HTMLDivElement).style.margin = '0';
+            (this.container() as HTMLDivElement).style.margin = '0';
             this.document.body.setAttribute('data-p-unselectable-text', 'true');
             !this.$unstyled() && addStyle(this.document.body, { 'user-select': 'none' });
         }
     }
 
     onDrag(event: MouseEvent) {
-        if (this.dragging && this.container) {
-            const containerWidth = getOuterWidth(this.container as HTMLDivElement);
-            const containerHeight = getOuterHeight(this.container as HTMLDivElement);
+        if (this.dragging && this.container()) {
+            const containerWidth = getOuterWidth(this.container() as HTMLDivElement);
+            const containerHeight = getOuterHeight(this.container() as HTMLDivElement);
             const deltaX = event.pageX - (this.lastPageX as number);
             const deltaY = event.pageY - (this.lastPageY as number);
-            const offset = this.container.getBoundingClientRect();
+            const offset = this.container()!.getBoundingClientRect();
 
-            const containerComputedStyle = getComputedStyle(this.container as HTMLDivElement);
+            const containerComputedStyle = getComputedStyle(this.container() as HTMLDivElement);
 
             const leftMargin = parseFloat(containerComputedStyle.marginLeft);
             const topMargin = parseFloat(containerComputedStyle.marginTop);
@@ -820,25 +821,25 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             const topPos = offset.top + deltaY - topMargin;
             const viewport = getViewport();
 
-            this.container.style.position = 'fixed';
+            this.container()!.style.position = 'fixed';
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
                     this._style.left = `${leftPos}px`;
                     this.lastPageX = event.pageX;
-                    this.container.style.left = `${leftPos}px`;
+                    this.container()!.style.left = `${leftPos}px`;
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
                     this._style.top = `${topPos}px`;
                     this.lastPageY = event.pageY;
-                    this.container.style.top = `${topPos}px`;
+                    this.container()!.style.top = `${topPos}px`;
                 }
             } else {
                 this.lastPageX = event.pageX;
-                this.container.style.left = `${leftPos}px`;
+                this.container()!.style.left = `${leftPos}px`;
                 this.lastPageY = event.pageY;
-                this.container.style.top = `${topPos}px`;
+                this.container()!.style.top = `${topPos}px`;
             }
         }
     }
@@ -854,10 +855,10 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     resetPosition() {
-        (this.container as HTMLDivElement).style.position = '';
-        (this.container as HTMLDivElement).style.left = '';
-        (this.container as HTMLDivElement).style.top = '';
-        (this.container as HTMLDivElement).style.margin = '';
+        (this.container() as HTMLDivElement).style.position = '';
+        (this.container() as HTMLDivElement).style.left = '';
+        (this.container() as HTMLDivElement).style.top = '';
+        (this.container() as HTMLDivElement).style.margin = '';
     }
 
     //backward compatibility
@@ -881,16 +882,16 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         if (this.resizing) {
             let deltaX = event.pageX - (this.lastPageX as number);
             let deltaY = event.pageY - (this.lastPageY as number);
-            let containerWidth = getOuterWidth(this.container as HTMLDivElement);
-            let containerHeight = getOuterHeight(this.container as HTMLDivElement);
+            let containerWidth = getOuterWidth(this.container() as HTMLDivElement);
+            let containerHeight = getOuterHeight(this.container() as HTMLDivElement);
             let contentHeight = getOuterHeight(this.contentViewChild?.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
-            let minWidth = (this.container as HTMLDivElement).style.minWidth;
-            let minHeight = (this.container as HTMLDivElement).style.minHeight;
-            let offset = (this.container as HTMLDivElement).getBoundingClientRect();
+            let minWidth = (this.container() as HTMLDivElement).style.minWidth;
+            let minHeight = (this.container() as HTMLDivElement).style.minHeight;
+            let offset = (this.container() as HTMLDivElement).getBoundingClientRect();
             let viewport = getViewport();
-            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
+            let hasBeenDragged = !parseInt((this.container() as HTMLDivElement).style.top) || !parseInt((this.container() as HTMLDivElement).style.left);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;
@@ -899,7 +900,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
             if ((!minWidth || newWidth > parseInt(minWidth)) && offset.left + newWidth < viewport.width) {
                 this._style.width = newWidth + 'px';
-                (this.container as HTMLDivElement).style.width = this._style.width;
+                (this.container() as HTMLDivElement).style.width = this._style.width;
             }
 
             if ((!minHeight || newHeight > parseInt(minHeight)) && offset.top + newHeight < viewport.height) {
@@ -907,7 +908,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
                 if (this._style.height) {
                     this._style.height = newHeight + 'px';
-                    (this.container as HTMLDivElement).style.height = this._style.height;
+                    (this.container() as HTMLDivElement).style.height = this._style.height;
                 }
             }
 
@@ -1001,7 +1002,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.key == 'Escape') {
                 const currentZIndex = ZIndexUtils.getCurrent();
-                if (parseInt((this.container as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
+                if (parseInt((this.container() as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
                     this.close(event);
                 }
             }
@@ -1016,27 +1017,26 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     appendContainer() {
-        if (this.$appendTo() && this.$appendTo() !== 'self') {
-            if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.wrapper);
-            else appendChild(this.$appendTo(), this.wrapper as HTMLElement);
+        if (this.$appendTo() !== 'self') {
+            appendChild(this.document.body, this.wrapper as HTMLElement);
         }
     }
 
     restoreAppend() {
-        if (this.container && this.$appendTo() !== 'self') {
+        if (this.container() && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.wrapper);
         }
     }
 
     onAnimationStart(event: AnimationEvent) {
-        if (this.visible && !this.container) {
-            this.container = <HTMLDivElement>event.target;
-            this.wrapper = this.container?.parentElement;
-            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+        if (this.visible && !this.container()) {
+            this.container.set(<HTMLDivElement>event.target);
+            this.wrapper = this.container()?.parentElement;
+            this.$attrSelector && this.container()?.setAttribute(this.$attrSelector, '');
             this.appendContainer();
             this.moveOnTop();
             this.bindGlobalListeners();
-            this.container?.setAttribute(this.id, '');
+            this.container()?.setAttribute(this.id, '');
 
             if (this.modal) {
                 this.enableModality();
@@ -1046,14 +1046,14 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                 this.focus();
             }
             this.onShow.emit({});
-        } else {
+        } else if (!this.visible) {
             this.maskVisible = false;
             this.cd.markForCheck();
         }
     }
 
     onAnimationEnd() {
-        if (!this.visible) {
+        if (!this.visible && this.container()) {
             this.onContainerDestroy();
             this.onHide.emit({});
             this.cd.markForCheck();
@@ -1080,14 +1080,14 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             removeClass(this.document.body, 'p-overflow-hidden');
         }
 
-        if (this.container && this.autoZIndex) {
-            ZIndexUtils.clear(this.container);
+        if (this.container() && this.autoZIndex) {
+            ZIndexUtils.clear(this.container());
         }
         if (this.zIndexForLayering) {
             ZIndexUtils.revertZIndex(this.zIndexForLayering);
         }
 
-        this.container = null;
+        this.container.set(null);
         this.wrapper = null;
 
         this._style = this.originalStyle ? { ...this.originalStyle } : {};
@@ -1101,7 +1101,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     onDestroy() {
-        if (this.container) {
+        if (this.container()) {
             this.restoreAppend();
             this.onContainerDestroy();
         }
