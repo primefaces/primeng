@@ -492,10 +492,6 @@ export class Overlay extends BaseComponent {
         this.setZIndex();
         this.bindListeners();
 
-        setTimeout(() => {
-            this.overlayEl.style.visibility = 'visible';
-        }, 1);
-
         this.handleEvents('onAnimationStart', event);
     }
 
@@ -506,7 +502,13 @@ export class Overlay extends BaseComponent {
     }
 
     appendOverlay() {
-        this.$appendTo() !== 'self' && appendChild(this.document.body, this.overlayEl);
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.overlayEl);
+            } else {
+                appendChild(this.$appendTo(), this.overlayEl);
+            }
+        }
     }
 
     alignOverlay() {

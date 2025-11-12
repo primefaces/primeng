@@ -7,7 +7,7 @@ ${tieredmenu_style}
 /* Animations */
 .p-tieredmenu-overlay {
     position: absolute;
-    visibility: hidden;
+    top: 0px;
 }
 
 .p-tieredmenu-enter {

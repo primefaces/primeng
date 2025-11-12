@@ -23,11 +23,11 @@ import {
     ViewRef
 } from '@angular/core';
 import { $dt } from '@primeuix/styled';
-import { absolutePosition, addClass, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
@@ -275,6 +275,11 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     show(event: any, target?: any) {
         target && event && event.stopPropagation();
 
+        // Clear container if it exists from previous show
+        if (this.container && !this.overlayVisible) {
+            this.container = null;
+        }
+
         this.target = target || event.currentTarget || event.target;
         this.overlayVisible = true;
         this.render = true;
@@ -299,45 +304,56 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         return this.target != null && this.target !== (target || event.currentTarget || event.target);
     }
 
-    appendContainer() {
-        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+    appendOverlay() {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.container!);
+            } else {
+                appendChild(this.$appendTo(), this.container!);
+            }
+        }
     }
 
     restoreAppend() {
-        if (this.container && this.$appendTo()) {
-            if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.container);
+        if (this.container && this.$appendTo() && this.$appendTo() !== 'self') {
+            appendChild(this.el.nativeElement, this.container);
+        }
+    }
+
+    setZIndex() {
+        if (this.autoZIndex) {
+            ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
         }
     }
 
     align() {
-        if (this.autoZIndex) {
-            ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
-        }
+        if (this.target && this.container) {
+            absolutePosition(this.container, this.target, false);
 
-        absolutePosition(this.container!, this.target, false);
+            const containerOffset = <any>getOffset(this.container);
+            const targetOffset = <any>getOffset(this.target);
+            const borderRadius = this.document.defaultView?.getComputedStyle(this.container).getPropertyValue('border-radius');
+            let arrowLeft = 0;
 
-        const containerOffset = <any>getOffset(this.container);
-        const targetOffset = <any>getOffset(this.target);
-        const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
-        let arrowLeft = 0;
+            if (containerOffset.left < targetOffset.left) {
+                arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
+            }
+            this.container.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
-        if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
-        }
-        this.container?.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
-
-        if (containerOffset.top < targetOffset.top) {
-            this.container?.setAttribute('data-p-popover-flipped', 'true');
-            !this.$unstyled() && addClass(this.container!, 'p-popover-flipped');
+            if (containerOffset.top < targetOffset.top) {
+                this.container.setAttribute('data-p-popover-flipped', 'true');
+                !this.$unstyled() && addClass(this.container, 'p-popover-flipped');
+            }
         }
     }
 
     onAnimationStart(event: AnimationEvent) {
-        if (this.overlayVisible && this.render) {
+        if (this.overlayVisible && this.render && !this.container) {
             this.container = <HTMLDivElement>event.target;
             this.container?.setAttribute(this.$attrSelector, '');
-            this.appendContainer();
+            this.appendOverlay();
             this.align();
+            this.setZIndex();
             this.bindDocumentClickListener();
             this.bindDocumentResizeListener();
             this.bindScrollListener();
@@ -362,19 +378,20 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
             if (this.destroyCallback) {
                 this.destroyCallback();
                 this.destroyCallback = null;
-
-                if (this.overlaySubscription) {
-                    this.overlaySubscription.unsubscribe();
-                }
-
-                if (this.autoZIndex) {
-                    ZIndexUtils.clear(this.container);
-                }
-
-                this.onContainerDestroy();
-                this.onHide.emit({});
-                this.render = false;
             }
+
+            if (this.overlaySubscription) {
+                this.overlaySubscription.unsubscribe();
+            }
+
+            if (this.autoZIndex) {
+                ZIndexUtils.clear(this.container);
+            }
+
+            this.onContainerDestroy();
+            this.onHide.emit({});
+            this.render = false;
+            this.container = null;
         }
     }
 
@@ -401,7 +418,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     }
 
     @HostListener('document:keydown.escape', ['$event'])
-    onEscapeKeydown(event: KeyboardEvent) {
+    onEscapeKeydown(_event: KeyboardEvent) {
         this.hide();
     }
 

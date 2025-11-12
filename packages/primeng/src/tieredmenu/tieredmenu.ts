@@ -27,7 +27,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
+import { absolutePosition, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -584,8 +584,6 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     visible: boolean | undefined;
 
-    relativeAlign: boolean | undefined;
-
     dirty: boolean = false;
 
     focused: boolean = false;
@@ -1029,42 +1027,46 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        if (this.visible && this.popup && !this.overlayInitialized) {
-            this.overlayInitialized = true;
-            this.container = <HTMLDivElement>event.target;
-            this.moveOnTop();
-            this.onShow.emit({});
-            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-            this.appendOverlay();
-            this.alignOverlay();
-            this.bindOutsideClickListener();
-            this.bindResizeListener();
-            this.bindScrollListener();
+        const isFirstShow = !this.container;
 
-            focus(this.rootmenu?.sublistViewChild?.nativeElement);
-            this.scrollInView();
+        if (this.visible && this.popup) {
+            this.container = <HTMLDivElement>event.target;
+
+            if (isFirstShow) {
+                this.moveOnTop();
+                this.onShow.emit({});
+                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+                this.appendOverlay();
+                this.bindOutsideClickListener();
+                this.bindResizeListener();
+                this.bindScrollListener();
+            }
+
+            // Always align on animation start to handle fast toggling
+            this.alignOverlay();
+
+            if (isFirstShow) {
+                focus(this.rootmenu?.sublistViewChild?.nativeElement);
+                this.scrollInView();
+            }
         }
     }
 
     alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container!, this.target);
-        else absolutePosition(this.container!, this.target);
-        this.container!.style.visibility = 'visible';
+        if (this.container && this.target) {
+            const targetWidth = getOuterWidth(this.target);
 
-        const targetWidth = getOuterWidth(this.target);
-
-        if (targetWidth > getOuterWidth(this.container)) {
-            this.container!.style.minWidth = getOuterWidth(this.target) + 'px';
+            if (targetWidth > getOuterWidth(this.container)) {
+                this.container.style.minWidth = getOuterWidth(this.target) + 'px';
+            }
+            absolutePosition(this.container, this.target);
         }
     }
 
     onOverlayAnimationEnd() {
-        if (!this.visible && this.popup) {
+        if (!this.visible && this.popup && this.container) {
             this.onOverlayHide();
             this.onHide.emit({});
-            if (this.autoZIndex) {
-                ZIndexUtils.clear(this.container);
-            }
         }
     }
 
@@ -1116,10 +1118,14 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      */
     show(event: any, isFocus?) {
         if (this.popup) {
+            // Clear container if exists but not visible (fast toggle case)
+            if (this.container && !this.visible) {
+                this.container = undefined;
+            }
+
             this.visible = true;
             this.target = this.target || event.currentTarget;
             this.relatedTarget = event.relatedTarget || null;
-            this.relativeAlign = event?.relativeAlign || null;
         }
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
@@ -1286,6 +1292,13 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;
         }
+
+        if (this.container) {
+            if (this.autoZIndex) {
+                ZIndexUtils.clear(this.container);
+            }
+            this.container = undefined;
+        }
     }
 
     onDestroy() {
@@ -1295,8 +1308,11 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 this.scrollHandler = null;
             }
 
-            if (this.container && this.autoZIndex) {
-                ZIndexUtils.clear(this.container);
+            if (this.container) {
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(this.container);
+                }
+                this.container = undefined;
             }
 
             this.restoreOverlayAppend();

@@ -6,6 +6,10 @@ const style = /*css*/ `
 ${password_style}
 
 /* For PrimeNG */
+.p-password-overlay {
+    min-width: 100%;
+}
+
 p-password.ng-invalid.ng-dirty .p-inputtext {
     border-color: dt('inputtext.invalid.border.color');
 }
