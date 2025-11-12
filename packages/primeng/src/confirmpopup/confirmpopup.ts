@@ -22,7 +22,7 @@ import {
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { absolutePosition, addClass, findSingle, focus, getOffset, isIOS, isTouchDevice, removeChild } from '@primeuix/utils';
+import { absolutePosition, addClass, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -213,10 +213,6 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<any>>;
 
     @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<any>>;
-
-    // @ViewChild('acceptButton') acceptButtonViewChild: ElementRef<any>;
-
-    // @ViewChild('rejectButton') rejectButtonViewChild: ElementRef<any>;
 
     acceptButtonViewChild = viewChild('acceptButton', { read: ElementRef });
 
