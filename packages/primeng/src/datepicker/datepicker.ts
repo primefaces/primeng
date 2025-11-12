@@ -1015,7 +1015,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     @ViewChild('contentWrapper', { static: false }) set content(content: ElementRef) {
         this.contentViewChild = content;
 
-        if (this.contentViewChild) {
+        if (this.contentViewChild && this.overlay) {
             if (this.isMonthNavigate) {
                 Promise.resolve(null).then(() => this.updateFocus());
                 this.isMonthNavigate = false;
@@ -1299,8 +1299,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     onAfterViewInit() {
         if (this.inline) {
             this.contentViewChild && this.contentViewChild.nativeElement.setAttribute(this.attributeSelector, '');
-
-            if (!this.$disabled() && !this.inline) {
+        } else {
+            if (!this.$disabled() && this.overlay) {
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
                     if (this.contentViewChild && this.contentViewChild.nativeElement) {
@@ -3155,16 +3155,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     onOverlayAnimationStart(event: AnimationEvent) {
         if (!this.inline && this.overlayVisible && !this.overlay) {
             this.overlay = <HTMLDivElement>event.target;
-            this.overlayVisible = true;
             this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
             this.appendOverlay();
             this.alignOverlay();
             this.setZIndex();
             this.updateFocus();
             this.bindListeners();
-            setTimeout(() => {
-                this.overlay!.style.visibility = 'visible';
-            }, 1);
             this.onShow.emit(event);
         }
     }
