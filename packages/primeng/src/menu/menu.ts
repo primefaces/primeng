@@ -201,6 +201,7 @@ export class MenuItemContent extends BaseComponent {
                             *ngIf="!submenu.separator"
                             pTooltip
                             [tooltipOptions]="submenu.tooltipOptions"
+                            [pTooltipUnstyled]="unstyled()"
                             role="none"
                             [attr.id]="menuitemId(submenu, id, i)"
                             [attr.data-pc-section]="'submenulabel'"
@@ -224,6 +225,8 @@ export class MenuItemContent extends BaseComponent {
                                 (onMenuItemClick)="itemClick($event, menuitemId(item, id, i, j))"
                                 pTooltip
                                 [tooltipOptions]="item.tooltipOptions"
+                                [pTooltipUnstyled]="unstyled()"
+                                [unstyled]="unstyled()"
                                 role="menuitem"
                                 [attr.data-pc-section]="'menuitem'"
                                 [attr.aria-label]="label(item.label)"
@@ -248,6 +251,7 @@ export class MenuItemContent extends BaseComponent {
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
                             [unstyled]="unstyled()"
+                            [pTooltipUnstyled]="unstyled()"
                             role="menuitem"
                             [attr.data-pc-section]="'menuitem'"
                             [attr.aria-label]="label(item.label)"

@@ -33,13 +33,13 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
      * @defaultValue undefined
      * @group Props
      */
-    ptInputTextArea = input<TextareaPassThrough>();
+    pTextareaPt = input<TextareaPassThrough>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    unstyledInputTextArea = input<boolean | undefined>();
+    pTextareaUnstyled = input<boolean | undefined>();
 
     /**
      * When present, textarea size changes as being typed.
@@ -93,11 +93,12 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
     constructor() {
         super();
         effect(() => {
-            this.ptInputTextArea() && this.directivePT.set(this.ptInputTextArea());
+            const pt = this.pTextareaPt();
+            pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.unstyledInputTextArea() && this.directiveUnstyled.set(this.unstyledInputTextArea());
+            this.pTextareaUnstyled() && this.directiveUnstyled.set(this.pTextareaUnstyled());
         });
     }
 

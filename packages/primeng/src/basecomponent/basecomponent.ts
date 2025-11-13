@@ -52,9 +52,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
     dt = input<Object | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
-     *
-     * @experimental
-     * This property is not yet implemented. It will be available in a future release.
+     * @defaultValue undefined
+     * @group Props
      */
     unstyled = input<boolean | undefined>();
     /**

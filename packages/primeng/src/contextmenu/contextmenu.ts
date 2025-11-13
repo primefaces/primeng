@@ -115,7 +115,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                         [pBind]="getPTOptions(processedItem, index, 'item')"
                         pTooltip
                         [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
-                        [unstyled]="unstyled()"
+                        [pTooltipUnstyled]="unstyled()"
                     >
                         <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                             <ng-container *ngIf="!itemTemplate">

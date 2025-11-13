@@ -184,9 +184,25 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     interactionInProgress = false;
 
+    /**
+     * Used to pass attributes to DOM elements inside the Tooltip component.
+     * @defaultValue undefined
+     * @deprecated use pTooltipPt instead.
+     * @group Props
+     */
     ptTooltip = input<TooltipPassThrough | undefined>();
-
-    unstyledTooltip = input<boolean | undefined>();
+    /**
+     * Used to pass attributes to DOM elements inside the Tooltip component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTooltipPt = input<TooltipPassThrough | undefined>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pTooltipUnstyled = input<boolean | undefined>();
 
     constructor(
         public zone: NgZone,
@@ -194,11 +210,12 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     ) {
         super();
         effect(() => {
-            this.ptTooltip() && this.directivePT.set(this.ptTooltip());
+            const pt = this.ptTooltip() || this.pTooltipPt();
+            pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.unstyledTooltip() && this.directiveUnstyled.set(this.unstyledTooltip());
+            this.pTooltipUnstyled() && this.directiveUnstyled.set(this.pTooltipUnstyled());
         });
     }
 

@@ -90,6 +90,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                     [ngStyle]="getItemStyle(i)"
                     [class]="cx('item', { item, i })"
                     pTooltip
+                    [pTooltipUnstyled]="unstyled()"
                     [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"

@@ -75,7 +75,7 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
                 pTooltip
                 [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 [pBind]="getPTOptions(processedItem, index, 'item')"
-                [unstyled]="unstyled()"
+                [pTooltipUnstyled]="unstyled()"
             >
                 <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                     <ng-container *ngIf="!itemTemplate">
