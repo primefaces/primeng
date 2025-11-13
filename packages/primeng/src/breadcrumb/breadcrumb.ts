@@ -86,7 +86,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                         pTooltip
                         [tooltipOptions]="menuitem.tooltipOptions"
                         [pBind]="getPTOptions(menuitem, i, 'item')"
-                        [unstyled]="unstyled()"
+                        [pTooltipUnstyled]="unstyled()"
                     >
                         @if (itemTemplate || _itemTemplate) {
                             <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: menuitem }"></ng-template>

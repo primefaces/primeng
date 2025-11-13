@@ -181,6 +181,7 @@ export class MultiSelectItem extends BaseComponent {
             <input
                 #focusInput
                 [pTooltip]="tooltip"
+                [pTooltipUnstyled]="unstyled()"
                 [tooltipPosition]="tooltipPosition"
                 [positionStyle]="tooltipPositionStyle"
                 [tooltipStyleClass]="tooltipStyleClass"
@@ -209,6 +210,7 @@ export class MultiSelectItem extends BaseComponent {
             [pBind]="ptm('labelContainer')"
             [class]="cx('labelContainer')"
             [pTooltip]="tooltip"
+            [pTooltipUnstyled]="unstyled()"
             (mouseleave)="labelContainerMouseLeave()"
             [tooltipDisabled]="_disableTooltip"
             [tooltipPosition]="tooltipPosition"

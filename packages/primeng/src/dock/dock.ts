@@ -84,7 +84,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                 [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                 pTooltip
                                 [tooltipOptions]="item.tooltipOptions"
-                                [unstyled]="unstyled()"
+                                [pTooltipUnstyled]="unstyled()"
                                 [fragment]="item.fragment"
                                 [queryParamsHandling]="item.queryParamsHandling"
                                 [preserveFragment]="item.preserveFragment"
@@ -105,7 +105,7 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                     pRipple
                                     pTooltip
                                     [tooltipOptions]="item.tooltipOptions"
-                                    [unstyled]="unstyled()"
+                                    [pTooltipUnstyled]="unstyled()"
                                     [target]="item.target"
                                     [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
