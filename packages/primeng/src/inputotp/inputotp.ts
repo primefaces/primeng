@@ -101,6 +101,7 @@ export interface InputOtpInputTemplateContext {
                     [pSize]="size()"
                     [variant]="$variant()"
                     [invalid]="invalid()"
+                    [attr.inputmode]="inputMode"
                     [attr.name]="name()"
                     [attr.tabindex]="tabindex"
                     [attr.required]="required() ? '' : undefined"
