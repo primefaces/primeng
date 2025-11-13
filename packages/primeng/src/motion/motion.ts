@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, Directive, effect, inject, InjectionToken, input, NgModule, output, signal, type EffectRef } from '@angular/core';
+import { Component, computed, Directive, effect, inject, InjectionToken, input, NgModule, output, signal } from '@angular/core';
 import { ClassNameOptions, createMotion, MotionInstance, MotionOptions } from '@primeuix/motion';
 import { nextFrame } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -24,7 +24,7 @@ export class MotionDirective extends BaseComponent {
 
     /******************** Inputs ********************/
 
-    in = input<boolean>(false, { alias: 'pMotion' });
+    visible = input<boolean>(false, { alias: 'pMotion' });
     name = input<MotionOptions['name']>(undefined, { alias: 'pMotionName' });
     type = input<MotionOptions['type']>(undefined, { alias: 'pMotionType' });
     safe = input<MotionOptions['safe']>(undefined, { alias: 'pMotionSafe' });
@@ -91,8 +91,6 @@ export class MotionDirective extends BaseComponent {
     private motion: MotionInstance | undefined;
     private isInitialMount = true;
     private cancelled = false;
-    private motionEffectRef: EffectRef | undefined;
-    private animationEffectRef: EffectRef | undefined;
 
     private readonly handleBeforeEnter = (el?: Element) => this.onBeforeEnter.emit(el);
     private readonly handleEnter = (el?: Element) => this.onEnter.emit(el);
@@ -106,7 +104,7 @@ export class MotionDirective extends BaseComponent {
     constructor() {
         super();
 
-        this.motionEffectRef = effect(() => {
+        effect(() => {
             if (!this.motion) {
                 this.motion = createMotion(this.$el, this.motionOptions());
             } else {
@@ -114,23 +112,25 @@ export class MotionDirective extends BaseComponent {
             }
         });
 
-        this.animationEffectRef = effect(() => {
+        effect(() => {
             if (!this.$el) return;
 
-            const shouldAppear = this.isInitialMount && this.in() && this.appear();
+            const shouldAppear = this.isInitialMount && this.visible() && this.appear();
 
-            this.$el.style.display = '';
+            if (this.visible()) {
+                this.$el.style.display = '';
 
-            if (this.in()) {
                 if (shouldAppear || !this.isInitialMount) {
                     this.motion?.enter();
                 }
-            } else {
+            } else if (!this.isInitialMount) {
                 this.motion?.leave()?.then(() => {
-                    if (!this.$el || this.cancelled || this.in()) return;
-
-                    this.$el.style.display = 'none';
+                    if (this.$el && !this.cancelled && !this.visible()) {
+                        this.$el.style.display = 'none';
+                    }
                 });
+            } else {
+                this.$el.style.display = 'none';
             }
 
             this.isInitialMount = false;
@@ -140,17 +140,10 @@ export class MotionDirective extends BaseComponent {
     onDestroy(): void {
         this.cancelled = true;
 
-        this.motionEffectRef?.destroy();
-        this.animationEffectRef?.destroy();
         this.motion?.cancel();
-
-        this.motionEffectRef = undefined;
-        this.animationEffectRef = undefined;
         this.motion = undefined;
 
-        if (this.$el) {
-            this.$el.style.display = '';
-        }
+        this.$el.style.display = '';
 
         this.isInitialMount = true;
     }
@@ -188,7 +181,7 @@ export class Motion extends BaseComponent {
 
     /******************** Inputs ********************/
 
-    in = input<boolean>(false);
+    visible = input<boolean>(false);
     mountOnEnter = input<boolean>(true);
     unmountOnLeave = input<boolean>(true);
     name = input<MotionOptions['name']>(undefined);
@@ -257,10 +250,8 @@ export class Motion extends BaseComponent {
     private motion: MotionInstance | undefined;
     private isInitialMount = true;
     private cancelled = false;
-    private motionEffectRef: EffectRef | undefined;
-    private animationEffectRef: EffectRef | undefined;
 
-    rendered = signal(this.in() || !this.mountOnEnter());
+    rendered = signal(false);
 
     private readonly handleBeforeEnter = (el?: Element) => this.onBeforeEnter.emit(el);
     private readonly handleEnter = (el?: Element) => this.onEnter.emit(el);
@@ -274,7 +265,17 @@ export class Motion extends BaseComponent {
     constructor() {
         super();
 
-        this.motionEffectRef = effect(() => {
+        effect(() => {
+            if (this.isInitialMount) {
+                this.$el.style.display = 'none';
+                this.rendered.set((this.visible() && this.mountOnEnter()) || !this.mountOnEnter());
+            } else if (this.visible() && !this.rendered()) {
+                this.$el.style.display = 'none';
+                this.rendered.set(true);
+            }
+        });
+
+        effect(() => {
             if (!this.motion) {
                 this.motion = createMotion(this.$el, this.motionOptions());
             } else {
@@ -282,29 +283,30 @@ export class Motion extends BaseComponent {
             }
         });
 
-        this.animationEffectRef = effect(() => {
-            if (!this.$el || !this.rendered()) return;
+        effect(async () => {
+            if (!this.$el) return;
 
-            const shouldAppear = this.isInitialMount && this.in() && this.appear();
+            const shouldAppear = this.isInitialMount && this.visible() && this.appear();
 
-            this.$el.style.display = '';
+            if (this.visible()) {
+                await nextFrame();
+                this.$el.style.display = '';
 
-            if (this.in()) {
                 if (shouldAppear || !this.isInitialMount) {
                     this.motion?.enter();
                 }
-            } else {
-                this.motion?.leave()?.then(() => {
-                    if (!this.$el || this.cancelled || this.in()) return;
+            } else if (!this.isInitialMount) {
+                await nextFrame();
+                this.motion?.leave()?.then(async () => {
+                    if (this.$el && !this.cancelled && !this.visible()) {
+                        this.$el.style.display = 'none';
 
-                    if (this.unmountOnLeave()) {
-                        this.$el.style.display = 'none';
-                        nextFrame().then(() => {
-                            if (this.cancelled) return;
-                            this.rendered.set(false);
-                        });
-                    } else {
-                        this.$el.style.display = 'none';
+                        if (this.unmountOnLeave()) {
+                            await nextFrame();
+                            if (!this.cancelled) {
+                                this.rendered.set(false);
+                            }
+                        }
                     }
                 });
             }
@@ -316,17 +318,10 @@ export class Motion extends BaseComponent {
     onDestroy(): void {
         this.cancelled = true;
 
-        this.motionEffectRef?.destroy();
-        this.animationEffectRef?.destroy();
         this.motion?.cancel();
-
-        this.motionEffectRef = undefined;
-        this.animationEffectRef = undefined;
         this.motion = undefined;
 
-        if (this.$el) {
-            this.$el.style.display = '';
-        }
+        this.$el.style.display = '';
 
         this.isInitialMount = true;
     }

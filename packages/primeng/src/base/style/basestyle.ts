@@ -38,7 +38,7 @@ const extendedStyle = /*css*/ `
 
     .p-toggleable-content-enter-to,
     .p-toggleable-content-leave-from {
-        max-height: var(--pui-motion-height, 1000px);
+        max-height: var(--pui-motion-height);
     }
 
     .p-toggleable-content-leave-active {
@@ -49,6 +49,25 @@ const extendedStyle = /*css*/ `
     .p-toggleable-content-enter-active {
         overflow: hidden;
         transition: max-height 1s ease-in-out;
+    }
+    .p-toggleable-content2-enter-from,
+    .p-toggleable-content2-leave-to {
+        max-height: 0;
+    }
+
+    .p-toggleable-content2-enter-to,
+    .p-toggleable-content2-leave-from {
+        max-height: var(--pui-motion-height);
+    }
+
+    .p-toggleable-content2-leave-active {
+        overflow: hidden;
+        transition: max-height 400ms ease-in-out;
+    }
+
+    .p-toggleable-content2-enter-active {
+        overflow: hidden;
+        transition: max-height 400ms ease-in-out;
     }
     /**********************************/
 
