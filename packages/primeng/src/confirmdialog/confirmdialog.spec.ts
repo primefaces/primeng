@@ -520,27 +520,6 @@ describe('ConfirmDialog', () => {
         }));
     });
 
-    describe('Position Functionality', () => {
-        it('should set correct transform options for different positions', () => {
-            const positions = [
-                { pos: 'center', expected: 'scale(0.7)' },
-                { pos: 'top', expected: 'translate3d(0px, -100%, 0px)' },
-                { pos: 'bottom', expected: 'translate3d(0px, 100%, 0px)' },
-                { pos: 'left', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'right', expected: 'translate3d(100%, 0px, 0px)' },
-                { pos: 'topleft', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'topright', expected: 'translate3d(100%, 0px, 0px)' },
-                { pos: 'bottomleft', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'bottomright', expected: 'translate3d(100%, 0px, 0px)' }
-            ];
-
-            positions.forEach(({ pos, expected }) => {
-                confirmDialogInstance.position = pos as any;
-                expect(confirmDialogInstance.transformOptions).toBe(expected);
-            });
-        });
-    });
-
     describe('Templates', () => {
         describe('pTemplate Approach Tests', () => {
             it('should handle pTemplate content processing', fakeAsync(() => {

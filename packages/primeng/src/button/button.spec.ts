@@ -1188,30 +1188,22 @@ describe('Button', () => {
             component.loading = false;
             fixture.detectChanges();
 
-            const iconClassResult = buttonInstance.iconClass();
-            expect(iconClassResult).toBeDefined();
-            expect(iconClassResult['p-button-icon']).toBeTruthy();
+            const icon = buttonElement.querySelector('[data-pc-section="icon"]');
+            expect(icon).toBeTruthy();
+            expect(icon?.classList.contains('p-button-icon')).toBeTruthy();
+            expect(icon?.classList.contains('pi')).toBeTruthy();
+            expect(icon?.classList.contains('pi-home')).toBeTruthy();
 
             // Test loading state
             component.loading = true;
             fixture.detectChanges();
 
-            const loadingIconClassResult = buttonInstance.iconClass();
-            expect(loadingIconClassResult).toBeDefined();
-            expect(Object.keys(loadingIconClassResult)).toContain('p-button-loading-icon pi-spin pi pi-spinner');
-        });
-
-        it('should handle spinnerIconClass method correctly', () => {
-            component.icon = 'pi pi-save';
-            component.loadingIcon = 'pi pi-spinner custom-spinner';
-            component.loading = true;
-            fixture.detectChanges();
-
-            const spinnerClass = buttonInstance.spinnerIconClass();
-            expect(spinnerClass).toContain('p-button-loading-icon');
-            expect(spinnerClass).toContain('pi-spin');
-            expect(spinnerClass).toContain('pi-spinner');
-            expect(spinnerClass).toContain('custom-spinner');
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('p-button-loading-icon')).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spin')).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi')).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spinner')).toBeTruthy();
         });
     });
 

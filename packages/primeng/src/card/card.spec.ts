@@ -1,4 +1,4 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -189,7 +189,7 @@ describe('Card', () => {
     let cardEl: DebugElement;
     let card: Card;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         TestBed.configureTestingModule({
             imports: [CardModule, NoopAnimationsModule],
             declarations: [
@@ -204,12 +204,13 @@ describe('Card', () => {
                 TestHeaderOnlyCardComponent,
                 TestSubheaderOnlyCardComponent,
                 TestFooterOnlyCardComponent
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         });
 
         fixture = TestBed.createComponent(TestBasicCardComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        await fixture.whenStable();
 
         cardEl = fixture.debugElement.query(By.directive(Card));
         card = cardEl.componentInstance;
@@ -227,8 +228,8 @@ describe('Card', () => {
         });
 
         it('should have correct host attributes', async () => {
+            fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            fixture.detectChanges();
             expect(cardEl.nativeElement.getAttribute('data-pc-name')).toBe('card');
         });
 
@@ -257,39 +258,44 @@ describe('Card', () => {
             customComponent = customFixture.componentInstance;
         });
 
-        it('should not render header section when header is not provided', () => {
-            customFixture.detectChanges();
+        it('should not render header section when header is not provided', async () => {
+            await customFixture.whenStable();
             const headerElement = customFixture.debugElement.query(By.css('.p-card-header'));
             expect(headerElement).toBeFalsy();
         });
 
-        it('should render header when provided', () => {
+        it('should render header when provided', async () => {
             customComponent.header = 'Test Header';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const titleElement = customFixture.debugElement.query(By.css('.p-card-title'));
             expect(titleElement).toBeTruthy();
             expect(titleElement.nativeElement.textContent.trim()).toBe('Test Header');
         });
 
-        it('should update header dynamically', () => {
+        it('should update header dynamically', async () => {
             customComponent.header = 'Initial Header';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             let titleElement = customFixture.debugElement.query(By.css('.p-card-title'));
             expect(titleElement.nativeElement.textContent.trim()).toBe('Initial Header');
 
             customComponent.header = 'Updated Header';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
             expect(titleElement.nativeElement.textContent.trim()).toBe('Updated Header');
         });
 
-        it('should handle undefined header gracefully', () => {
+        it('should handle undefined header gracefully', async () => {
             customComponent.header = 'Test Header';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             customComponent.header = undefined as any;
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const titleElement = customFixture.debugElement.query(By.css('.p-card-title'));
             expect(titleElement).toBeFalsy();
@@ -305,39 +311,44 @@ describe('Card', () => {
             customComponent = customFixture.componentInstance;
         });
 
-        it('should not render subtitle section when subheader is not provided', () => {
-            customFixture.detectChanges();
+        it('should not render subtitle section when subheader is not provided', async () => {
+            await customFixture.whenStable();
             const subtitleElement = customFixture.debugElement.query(By.css('.p-card-subtitle'));
             expect(subtitleElement).toBeFalsy();
         });
 
-        it('should render subheader when provided', () => {
+        it('should render subheader when provided', async () => {
             customComponent.subheader = 'Test Subheader';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const subtitleElement = customFixture.debugElement.query(By.css('.p-card-subtitle'));
             expect(subtitleElement).toBeTruthy();
             expect(subtitleElement.nativeElement.textContent.trim()).toBe('Test Subheader');
         });
 
-        it('should update subheader dynamically', () => {
+        it('should update subheader dynamically', async () => {
             customComponent.subheader = 'Initial Subheader';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             let subtitleElement = customFixture.debugElement.query(By.css('.p-card-subtitle'));
             expect(subtitleElement.nativeElement.textContent.trim()).toBe('Initial Subheader');
 
             customComponent.subheader = 'Updated Subheader';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
             expect(subtitleElement.nativeElement.textContent.trim()).toBe('Updated Subheader');
         });
 
-        it('should handle undefined subheader gracefully', () => {
+        it('should handle undefined subheader gracefully', async () => {
             customComponent.subheader = 'Test Subheader';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             customComponent.subheader = undefined as any;
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const subtitleElement = customFixture.debugElement.query(By.css('.p-card-subtitle'));
             expect(subtitleElement).toBeFalsy();
@@ -353,41 +364,46 @@ describe('Card', () => {
             customComponent = customFixture.componentInstance;
         });
 
-        it('should apply custom style class', () => {
+        it('should apply custom style class', async () => {
             customComponent.styleClass = 'my-custom-class';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const cardElement = customFixture.debugElement.query(By.directive(Card));
             expect(cardElement.nativeElement.className).toContain('my-custom-class');
         });
 
-        it('should apply multiple custom style classes', () => {
+        it('should apply multiple custom style classes', async () => {
             customComponent.styleClass = 'class-one class-two';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const cardElement = customFixture.debugElement.query(By.directive(Card));
             expect(cardElement.nativeElement.className).toContain('class-one');
             expect(cardElement.nativeElement.className).toContain('class-two');
         });
 
-        it('should apply inline styles', () => {
+        it('should apply inline styles', async () => {
             customComponent.style = { width: '300px', height: '200px' };
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const cardElement = customFixture.debugElement.query(By.directive(Card));
             expect(cardElement.nativeElement.style.width).toBe('300px');
             expect(cardElement.nativeElement.style.height).toBe('200px');
         });
 
-        it('should update styles dynamically', () => {
+        it('should update styles dynamically', async () => {
             customComponent.style = { backgroundColor: 'red' };
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const cardElement = customFixture.debugElement.query(By.directive(Card));
             expect(cardElement.nativeElement.style.backgroundColor).toBe('red');
 
             customComponent.style = { backgroundColor: 'blue' };
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
             expect(cardElement.nativeElement.style.backgroundColor).toBe('blue');
         });
     });
@@ -395,9 +411,9 @@ describe('Card', () => {
     describe('Content Projection', () => {
         let customFixture: ComponentFixture<TestCustomCardComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             customFixture = TestBed.createComponent(TestCustomCardComponent);
-            customFixture.detectChanges();
+            await customFixture.whenStable();
         });
 
         it('should project content correctly', () => {
@@ -418,9 +434,9 @@ describe('Card', () => {
     describe('PrimeTemplate Support', () => {
         let templateFixture: ComponentFixture<TestTemplateCardComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             templateFixture = TestBed.createComponent(TestTemplateCardComponent);
-            templateFixture.detectChanges();
+            await templateFixture.whenStable();
         });
 
         it('should render header template', () => {
@@ -472,9 +488,9 @@ describe('Card', () => {
     describe('Header and Footer Facets', () => {
         let facetFixture: ComponentFixture<TestFacetCardComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             facetFixture = TestBed.createComponent(TestFacetCardComponent);
-            facetFixture.detectChanges();
+            await facetFixture.whenStable();
         });
 
         it('should render header facet', () => {
@@ -509,10 +525,10 @@ describe('Card', () => {
         let contentChildFixture: ComponentFixture<TestContentChildCardComponent>;
         let contentChildComponent: TestContentChildCardComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             contentChildFixture = TestBed.createComponent(TestContentChildCardComponent);
             contentChildComponent = contentChildFixture.componentInstance;
-            contentChildFixture.detectChanges();
+            await contentChildFixture.whenStable();
         });
 
         it('should render ContentChild header template', () => {
@@ -572,9 +588,9 @@ describe('Card', () => {
     describe('Simple Text Properties', () => {
         let simpleFixture: ComponentFixture<TestSimpleTextCardComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             simpleFixture = TestBed.createComponent(TestSimpleTextCardComponent);
-            simpleFixture.detectChanges();
+            await simpleFixture.whenStable();
         });
 
         it('should render simple header text', () => {
@@ -603,41 +619,45 @@ describe('Card', () => {
         let dynamicFixture: ComponentFixture<TestDynamicCardComponent>;
         let dynamicComponent: TestDynamicCardComponent;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             dynamicFixture = TestBed.createComponent(TestDynamicCardComponent);
             dynamicComponent = dynamicFixture.componentInstance;
-            dynamicFixture.detectChanges();
+            await dynamicFixture.whenStable();
         });
 
-        it('should handle dynamic header changes', () => {
+        it('should handle dynamic header changes', async () => {
             let titleElement = dynamicFixture.debugElement.query(By.css('.p-card-title'));
             expect(titleElement.nativeElement.textContent.trim()).toBe('Initial Header');
 
             dynamicComponent.header = 'Changed Header';
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             expect(titleElement.nativeElement.textContent.trim()).toBe('Changed Header');
         });
 
-        it('should handle dynamic subheader changes', () => {
+        it('should handle dynamic subheader changes', async () => {
             let subtitleElement = dynamicFixture.debugElement.query(By.css('.p-card-subtitle'));
             expect(subtitleElement.nativeElement.textContent.trim()).toBe('Initial Subheader');
 
             dynamicComponent.subheader = 'Changed Subheader';
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             expect(subtitleElement.nativeElement.textContent.trim()).toBe('Changed Subheader');
         });
 
-        it('should handle dynamic content visibility', () => {
+        it('should handle dynamic content visibility', async () => {
             let dynamicContent = dynamicFixture.debugElement.query(By.css('.dynamic-content'));
             expect(dynamicContent).toBeTruthy();
 
             dynamicComponent.showContent = false;
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicContent = dynamicFixture.debugElement.query(By.css('.dynamic-content'));
             expect(dynamicContent).toBeFalsy();
 
             dynamicComponent.showContent = true;
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicContent = dynamicFixture.debugElement.query(By.css('.dynamic-content'));
             expect(dynamicContent).toBeTruthy();
         });
@@ -646,9 +666,9 @@ describe('Card', () => {
     describe('Complex Card Structure', () => {
         let complexFixture: ComponentFixture<TestComplexCardComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             complexFixture = TestBed.createComponent(TestComplexCardComponent);
-            complexFixture.detectChanges();
+            await complexFixture.whenStable();
         });
 
         it('should render complex header with actions', () => {
@@ -689,9 +709,9 @@ describe('Card', () => {
     });
 
     describe('Partial Content Scenarios', () => {
-        it('should render header only card', () => {
+        it('should render header only card', async () => {
             const headerOnlyFixture = TestBed.createComponent(TestHeaderOnlyCardComponent);
-            headerOnlyFixture.detectChanges();
+            await headerOnlyFixture.whenStable();
 
             const titleElement = headerOnlyFixture.debugElement.query(By.css('.p-card-title'));
             expect(titleElement).toBeTruthy();
@@ -704,9 +724,9 @@ describe('Card', () => {
             expect(footerElement).toBeFalsy();
         });
 
-        it('should render subheader only card', () => {
+        it('should render subheader only card', async () => {
             const subheaderOnlyFixture = TestBed.createComponent(TestSubheaderOnlyCardComponent);
-            subheaderOnlyFixture.detectChanges();
+            await subheaderOnlyFixture.whenStable();
 
             const titleElement = subheaderOnlyFixture.debugElement.query(By.css('.p-card-title'));
             expect(titleElement).toBeFalsy();
@@ -719,9 +739,9 @@ describe('Card', () => {
             expect(footerElement).toBeFalsy();
         });
 
-        it('should render footer only card', () => {
+        it('should render footer only card', async () => {
             const footerOnlyFixture = TestBed.createComponent(TestFooterOnlyCardComponent);
-            footerOnlyFixture.detectChanges();
+            await footerOnlyFixture.whenStable();
 
             const titleElement = footerOnlyFixture.debugElement.query(By.css('.p-card-title'));
             expect(titleElement).toBeFalsy();
@@ -752,9 +772,9 @@ describe('Card', () => {
             expect(blockableElement).toBe(cardEl.nativeElement.children[0]);
         });
 
-        it('should return correct blockable element with complex content', () => {
+        it('should return correct blockable element with complex content', async () => {
             const complexFixture = TestBed.createComponent(TestComplexCardComponent);
-            complexFixture.detectChanges();
+            await complexFixture.whenStable();
 
             const complexCard = complexFixture.debugElement.query(By.directive(Card)).componentInstance;
             const blockableElement = complexCard.getBlockableElement();
@@ -771,9 +791,9 @@ describe('Card', () => {
             expect(cardElement.nativeElement.className).toContain('p-component');
         });
 
-        it('should apply section classes correctly', () => {
+        it('should apply section classes correctly', async () => {
             const templateFixture = TestBed.createComponent(TestTemplateCardComponent);
-            templateFixture.detectChanges();
+            await templateFixture.whenStable();
 
             const headerElement = templateFixture.debugElement.query(By.css('.p-card-header'));
             const bodyElement = templateFixture.debugElement.query(By.css('.p-card-body'));
@@ -792,9 +812,9 @@ describe('Card', () => {
     });
 
     describe('Template Processing', () => {
-        it('should process templates after content init', () => {
+        it('should process templates after content init', async () => {
             const templateFixture = TestBed.createComponent(TestTemplateCardComponent);
-            templateFixture.detectChanges();
+            await templateFixture.whenStable();
 
             const cardInstance = templateFixture.debugElement.query(By.directive(Card)).componentInstance;
 
@@ -805,9 +825,9 @@ describe('Card', () => {
             expect(cardInstance._footerTemplate).toBeTruthy();
         });
 
-        it('should handle templates with ngAfterContentInit lifecycle', () => {
+        it('should handle templates with ngAfterContentInit lifecycle', async () => {
             const templateFixture = TestBed.createComponent(TestTemplateCardComponent);
-            templateFixture.detectChanges();
+            await templateFixture.whenStable();
 
             const cardInstance = templateFixture.debugElement.query(By.directive(Card)).componentInstance;
 
@@ -825,24 +845,25 @@ describe('Card', () => {
             expect(cardEl.nativeElement.getAttribute('data-pc-name')).toBe('card');
         });
 
-        it('should maintain data attributes after property changes', () => {
+        it('should maintain data attributes after property changes', async () => {
             const customFixture = TestBed.createComponent(TestCustomCardComponent);
             const customComponent = customFixture.componentInstance;
-            customFixture.detectChanges();
+            await customFixture.whenStable();
 
             let cardElement = customFixture.debugElement.query(By.directive(Card));
             expect(cardElement.nativeElement.getAttribute('data-pc-name')).toBe('card');
 
             customComponent.header = 'Changed Header';
             customComponent.styleClass = 'changed-class';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             expect(cardElement.nativeElement.getAttribute('data-pc-name')).toBe('card');
         });
     });
 
     describe('Edge Cases', () => {
-        it('should handle undefined properties gracefully', () => {
+        it('should handle undefined properties gracefully', async () => {
             const customFixture = TestBed.createComponent(TestCustomCardComponent);
             const customComponent = customFixture.componentInstance;
 
@@ -851,26 +872,31 @@ describe('Card', () => {
             customComponent.styleClass = undefined as any;
             customComponent.style = undefined as any;
 
-            expect(() => customFixture.detectChanges()).not.toThrow();
+            await expect(async () => {
+                customFixture.changeDetectorRef.markForCheck();
+                await customFixture.whenStable();
+            }).not.toThrow();
 
             const cardElement = customFixture.debugElement.query(By.directive(Card));
             expect(cardElement).toBeTruthy();
         });
 
-        it('should handle rapid property changes', () => {
+        it('should handle rapid property changes', async () => {
             const customFixture = TestBed.createComponent(TestCustomCardComponent);
             const customComponent = customFixture.componentInstance;
-            customFixture.detectChanges();
+            await customFixture.whenStable();
 
             customComponent.header = 'Header 1';
             customComponent.subheader = 'Subheader 1';
             customComponent.styleClass = 'class-1';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             customComponent.header = 'Header 2';
             customComponent.subheader = 'Subheader 2';
             customComponent.styleClass = 'class-2';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             const titleElement = customFixture.debugElement.query(By.css('.p-card-title'));
             const subtitleElement = customFixture.debugElement.query(By.css('.p-card-subtitle'));
@@ -881,13 +907,14 @@ describe('Card', () => {
             expect(cardElement.nativeElement.className).toContain('class-2');
         });
 
-        it('should handle empty string values', () => {
+        it('should handle empty string values', async () => {
             const customFixture = TestBed.createComponent(TestCustomCardComponent);
             const customComponent = customFixture.componentInstance;
 
             customComponent.header = '';
             customComponent.subheader = '';
-            customFixture.detectChanges();
+            customFixture.changeDetectorRef.markForCheck();
+            await customFixture.whenStable();
 
             // Empty strings are falsy values, so title and subtitle elements should not be rendered
             const titleElement = customFixture.debugElement.query(By.css('.p-card-title'));
@@ -905,28 +932,28 @@ describe('Card', () => {
             }).not.toThrow();
         });
 
-        it('should cleanup templates on destroy', () => {
+        it('should cleanup templates on destroy', async () => {
             const templateFixture = TestBed.createComponent(TestTemplateCardComponent);
-            templateFixture.detectChanges();
+            await templateFixture.whenStable();
 
             expect(() => {
                 templateFixture.destroy();
             }).not.toThrow();
         });
 
-        it('should handle rapid creation and destruction', () => {
+        it('should handle rapid creation and destruction', async () => {
             for (let i = 0; i < 5; i++) {
                 const testFixture = TestBed.createComponent(TestCustomCardComponent);
-                testFixture.detectChanges();
+                await testFixture.whenStable();
                 testFixture.destroy();
             }
 
             expect(true).toBe(true);
         });
 
-        it('should cleanup complex components', () => {
+        it('should cleanup complex components', async () => {
             const complexFixture = TestBed.createComponent(TestComplexCardComponent);
-            complexFixture.detectChanges();
+            await complexFixture.whenStable();
 
             expect(() => {
                 complexFixture.destroy();
@@ -935,9 +962,9 @@ describe('Card', () => {
     });
 
     describe('Component Integration', () => {
-        it('should handle card with all features enabled', () => {
+        it('should handle card with all features enabled', async () => {
             const templateFixture = TestBed.createComponent(TestTemplateCardComponent);
-            templateFixture.detectChanges();
+            await templateFixture.whenStable();
 
             const cardElement = templateFixture.debugElement.query(By.directive(Card));
             expect(cardElement.nativeElement.children.length).toBeGreaterThan(0);
@@ -951,9 +978,9 @@ describe('Card', () => {
             expect(footerElement).toBeTruthy();
         });
 
-        it('should maintain card structure with different content types', () => {
+        it('should maintain card structure with different content types', async () => {
             const facetFixture = TestBed.createComponent(TestFacetCardComponent);
-            facetFixture.detectChanges();
+            await facetFixture.whenStable();
 
             const cardElement = facetFixture.debugElement.query(By.directive(Card));
             expect(cardElement.nativeElement.getAttribute('data-pc-name')).toBe('card');
@@ -965,67 +992,67 @@ describe('Card', () => {
 
     describe('PassThrough (PT) Support', () => {
         describe('Case 1: Simple String Classes', () => {
-            it('should apply PT class to host section', () => {
+            it('should apply PT class to host section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const hostElement = fixture.nativeElement;
                 expect(hostElement.className).toContain('HOST_CLASS');
             });
 
-            it('should apply PT class to root section', () => {
+            it('should apply PT class to root section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const hostElement = fixture.nativeElement;
                 expect(hostElement.className).toContain('ROOT_CLASS');
             });
 
-            it('should apply PT class to header section', () => {
+            it('should apply PT class to header section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test Header');
                 fixture.componentRef.setInput('pt', { title: 'HEADER_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const headerEl = fixture.debugElement.query(By.css('.p-card-title'));
                 expect(headerEl.nativeElement.className).toContain('HEADER_CLASS');
             });
 
-            it('should apply PT class to body section', () => {
+            it('should apply PT class to body section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', { body: 'BODY_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const bodyEl = fixture.debugElement.query(By.css('.p-card-body'));
                 expect(bodyEl.nativeElement.className).toContain('BODY_CLASS');
             });
 
-            it('should apply PT class to title section', () => {
+            it('should apply PT class to title section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test Title');
                 fixture.componentRef.setInput('pt', { title: 'TITLE_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
                 expect(titleEl.nativeElement.className).toContain('TITLE_CLASS');
             });
 
-            it('should apply PT class to subtitle section', () => {
+            it('should apply PT class to subtitle section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('subheader', 'Test Subtitle');
                 fixture.componentRef.setInput('pt', { subtitle: 'SUBTITLE_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const subtitleEl = fixture.debugElement.query(By.css('.p-card-subtitle'));
                 expect(subtitleEl.nativeElement.className).toContain('SUBTITLE_CLASS');
             });
 
-            it('should apply PT class to content section', () => {
+            it('should apply PT class to content section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const contentEl = fixture.debugElement.query(By.css('.p-card-content'));
                 expect(contentEl.nativeElement.className).toContain('CONTENT_CLASS');
@@ -1033,7 +1060,7 @@ describe('Card', () => {
         });
 
         describe('Case 2: Object Values with Attributes and Styles', () => {
-            xit('should apply PT object with class, style and data attributes to root', () => {
+            xit('should apply PT object with class, style and data attributes to root', async () => {
                 // Skipped: PT style binding causes infinite loop with current implementation
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', {
@@ -1043,7 +1070,7 @@ describe('Card', () => {
                         'aria-label': 'TEST_ARIA_LABEL'
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const hostElement = fixture.nativeElement;
                 expect(hostElement.className).toContain('ROOT_OBJECT_CLASS');
@@ -1051,7 +1078,7 @@ describe('Card', () => {
                 expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
             });
 
-            xit('should apply PT object with attributes to header', () => {
+            xit('should apply PT object with attributes to header', async () => {
                 // Skipped: PT style binding causes infinite loop
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test');
@@ -1061,14 +1088,14 @@ describe('Card', () => {
                         'data-testid': 'card-header'
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const headerEl = fixture.debugElement.query(By.css('.p-card-title'));
                 expect(headerEl.nativeElement.className).toContain('HEADER_OBJECT_CLASS');
                 expect(headerEl.nativeElement.getAttribute('data-testid')).toBe('card-header');
             });
 
-            it('should apply PT object to body', () => {
+            it('should apply PT object to body', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', {
                     body: {
@@ -1076,14 +1103,14 @@ describe('Card', () => {
                         'aria-labelledby': 'custom-label'
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const bodyEl = fixture.debugElement.query(By.css('.p-card-body'));
                 expect(bodyEl.nativeElement.className).toContain('BODY_OBJECT_CLASS');
                 expect(bodyEl.nativeElement.getAttribute('aria-labelledby')).toBe('custom-label');
             });
 
-            it('should apply PT object to content', () => {
+            it('should apply PT object to content', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', {
                     content: {
@@ -1091,7 +1118,7 @@ describe('Card', () => {
                         style: { margin: '10px' }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const contentEl = fixture.debugElement.query(By.css('.p-card-content'));
                 expect(contentEl.nativeElement.className).toContain('CONTENT_OBJECT_CLASS');
@@ -1100,7 +1127,7 @@ describe('Card', () => {
         });
 
         describe('Case 3: Mixed String and Object Values', () => {
-            it('should apply mixed PT values to multiple sections', () => {
+            it('should apply mixed PT values to multiple sections', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test');
                 fixture.componentRef.setInput('subheader', 'Test Subtitle');
@@ -1114,7 +1141,7 @@ describe('Card', () => {
                         style: { margin: '10px' }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const hostElement = fixture.nativeElement;
                 expect(hostElement.className).toContain('ROOT_MIXED_CLASS');
@@ -1129,7 +1156,7 @@ describe('Card', () => {
         });
 
         xdescribe('Case 4: Instance-based Functions', () => {
-            it('should apply PT function using instance header state', () => {
+            it('should apply PT function using instance header state', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test Header');
                 fixture.componentRef.setInput('pt', {
@@ -1139,13 +1166,13 @@ describe('Card', () => {
                         }
                     })
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const hostElement = fixture.nativeElement;
                 expect(hostElement.className).toContain('HAS_HEADER');
             });
 
-            xit('should apply PT function with dynamic styles based on instance state', () => {
+            it('should apply PT function with dynamic styles based on instance state', async () => {
                 // Skipped: PT style binding causes infinite loop
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test');
@@ -1154,13 +1181,13 @@ describe('Card', () => {
                         class: instance?.header ? 'HAS_HEADER' : 'NO_HEADER'
                     })
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
                 expect(titleEl?.nativeElement.className).toContain('HAS_HEADER');
             });
 
-            it('should update PT when instance state changes', () => {
+            it('should update PT when instance state changes', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Initial Header');
                 fixture.componentRef.setInput('pt', {
@@ -1171,21 +1198,21 @@ describe('Card', () => {
                         }
                     })
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const hostElement = fixture.nativeElement;
                 expect(hostElement.className).toContain('HAS_HEADER');
 
                 // Change header to undefined
                 fixture.componentRef.setInput('header', undefined);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(hostElement.className).toContain('NO_HEADER');
             });
         });
 
         describe('Case 5: Event Binding via PT', () => {
-            it('should handle onclick event through PT on title section', () => {
+            it('should handle onclick event through PT on title section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test');
                 let clicked = false;
@@ -1197,7 +1224,7 @@ describe('Card', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
                 titleEl.nativeElement.click();
@@ -1205,7 +1232,7 @@ describe('Card', () => {
                 expect(clicked).toBe(true);
             });
 
-            it('should handle onclick event through PT on content section', () => {
+            it('should handle onclick event through PT on content section', async () => {
                 const fixture = TestBed.createComponent(Card);
                 let contentClicked = false;
 
@@ -1216,7 +1243,7 @@ describe('Card', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const contentEl = fixture.debugElement.query(By.css('.p-card-content'));
                 contentEl.nativeElement.click();
@@ -1226,19 +1253,19 @@ describe('Card', () => {
         });
 
         describe('Case 6: Inline PT Usage', () => {
-            it('should apply inline PT with string class', () => {
+            it('should apply inline PT with string class', async () => {
                 const inlineFixture = TestBed.createComponent(Card);
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_ROOT_CLASS' } });
-                inlineFixture.detectChanges();
+                await inlineFixture.whenStable();
 
                 const cardElement = inlineFixture.nativeElement;
                 expect(cardElement.className).toContain('INLINE_ROOT_CLASS');
             });
 
-            it('should apply inline PT with object class', () => {
+            it('should apply inline PT with object class', async () => {
                 const inlineFixture = TestBed.createComponent(Card);
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
-                inlineFixture.detectChanges();
+                await inlineFixture.whenStable();
 
                 const cardElement = inlineFixture.nativeElement;
                 expect(cardElement.className).toContain('INLINE_OBJECT_CLASS');
@@ -1246,7 +1273,7 @@ describe('Card', () => {
         });
 
         describe('PT with Footer Section', () => {
-            it('should apply PT class to footer section when footer content exists', () => {
+            it('should apply PT class to footer section when footer content exists', async () => {
                 @Component({
                     standalone: false,
                     template: `
@@ -1264,18 +1291,19 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestPTFooterComponent]
+                    declarations: [TestPTFooterComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTFooterComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const footerEl = fixture.debugElement.query(By.css('.p-card-footer'));
                 expect(footerEl).toBeTruthy();
                 expect(footerEl.nativeElement.className).toContain('FOOTER_CLASS');
             });
 
-            it('should apply PT class to header section', () => {
+            it('should apply PT class to header section', async () => {
                 @Component({
                     standalone: false,
                     template: `
@@ -1293,11 +1321,12 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestPTHeaderComponent]
+                    declarations: [TestPTHeaderComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTHeaderComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const headerEl = fixture.debugElement.query(By.css('.p-card-header'));
                 expect(headerEl).toBeTruthy();
@@ -1306,7 +1335,7 @@ describe('Card', () => {
         });
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
-            it('should apply global PT configuration from PrimeNGConfig', () => {
+            it('should apply global PT configuration from PrimeNGConfig', async () => {
                 @Component({
                     standalone: false,
                     template: `
@@ -1321,6 +1350,7 @@ describe('Card', () => {
                     imports: [CardModule],
                     declarations: [TestGlobalPTComponent],
                     providers: [
+                        provideZonelessChangeDetection(),
                         {
                             provide: 'providePrimeNG',
                             useValue: {
@@ -1336,13 +1366,13 @@ describe('Card', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestGlobalPTComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const cardElements = fixture.debugElement.queryAll(By.directive(Card));
                 expect(cardElements.length).toBe(2);
             });
 
-            it('should merge local PT with global PT', () => {
+            it('should merge local PT with global PT', async () => {
                 @Component({
                     standalone: false,
                     template: `<p-card [pt]="localPt" header="Test"></p-card>`
@@ -1354,11 +1384,12 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestMergePTComponent]
+                    declarations: [TestMergePTComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestMergePTComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const cardEl = fixture.debugElement.query(By.css('p-card'));
                 expect(cardEl.nativeElement.className).toContain('LOCAL_CLASS');
@@ -1370,7 +1401,7 @@ describe('Card', () => {
 
         xdescribe('Case 8: PT Hooks', () => {
             // Skipped: Card component hooks support needs to be verified
-            xit('should execute onAfterViewInit hook from PT', () => {
+            xit('should execute onAfterViewInit hook from PT', async () => {
                 let hookExecuted = false;
 
                 @Component({
@@ -1391,16 +1422,17 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestPTHooksComponent]
+                    declarations: [TestPTHooksComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTHooksComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(hookExecuted).toBe(true);
             });
 
-            xit('should execute onBeforeMount hook from PT', () => {
+            xit('should execute onBeforeMount hook from PT', async () => {
                 let beforeMountExecuted = false;
 
                 @Component({
@@ -1420,16 +1452,17 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestPTBeforeMountComponent]
+                    declarations: [TestPTBeforeMountComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTBeforeMountComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(beforeMountExecuted).toBe(true);
             });
 
-            xit('should execute onAfterContentInit hook from PT', () => {
+            xit('should execute onAfterContentInit hook from PT', async () => {
                 let contentInitExecuted = false;
 
                 @Component({
@@ -1449,16 +1482,17 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestPTContentInitComponent]
+                    declarations: [TestPTContentInitComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTContentInitComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(contentInitExecuted).toBe(true);
             });
 
-            xit('should execute multiple lifecycle hooks from PT', () => {
+            xit('should execute multiple lifecycle hooks from PT', async () => {
                 const executedHooks: string[] = [];
 
                 @Component({
@@ -1484,18 +1518,19 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestMultiplePTHooksComponent]
+                    declarations: [TestMultiplePTHooksComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestMultiplePTHooksComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 expect(executedHooks.length).toBeGreaterThan(0);
             });
         });
 
         describe('Advanced PT Scenarios', () => {
-            it('should apply PT with all sections', () => {
+            it('should apply PT with all sections', async () => {
                 @Component({
                     standalone: false,
                     template: `
@@ -1525,11 +1560,12 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestAllSectionsPTComponent]
+                    declarations: [TestAllSectionsPTComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestAllSectionsPTComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const cardEl = fixture.debugElement.query(By.css('p-card'));
                 expect(cardEl.nativeElement.className).toContain('PT_ROOT');
@@ -1553,7 +1589,7 @@ describe('Card', () => {
                 expect(footerEl.nativeElement.className).toContain('PT_FOOTER');
             });
 
-            it('should handle PT with function returning classes based on instance', () => {
+            it('should handle PT with function returning classes based on instance', async () => {
                 @Component({
                     standalone: false,
                     template: `<p-card [pt]="pt" [header]="header"></p-card>`
@@ -1570,17 +1606,18 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestPTFunctionComponent]
+                    declarations: [TestPTFunctionComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTFunctionComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const cardEl = fixture.debugElement.query(By.css('p-card'));
                 expect(cardEl.nativeElement.className).toContain('HAS-HEADER');
             });
 
-            it('should handle dynamic PT updates', () => {
+            it('should handle dynamic PT updates', async () => {
                 @Component({
                     standalone: false,
                     template: `<p-card [pt]="pt"></p-card>`
@@ -1592,23 +1629,25 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestDynamicPTComponent]
+                    declarations: [TestDynamicPTComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestDynamicPTComponent);
                 const component = fixture.componentInstance;
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 let cardEl = fixture.debugElement.query(By.css('p-card'));
                 expect(cardEl.nativeElement.className).toContain('INITIAL_CLASS');
 
                 component.pt = { root: 'UPDATED_CLASS' };
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 expect(cardEl.nativeElement.className).toContain('UPDATED_CLASS');
             });
 
-            it('should apply PT with data attributes and aria labels', () => {
+            it('should apply PT with data attributes and aria labels', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', {
                     root: {
@@ -1617,7 +1656,7 @@ describe('Card', () => {
                         'aria-label': 'Custom Card'
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const cardEl = fixture.nativeElement;
                 expect(cardEl.className).toContain('PT_CUSTOM_CLASS');
@@ -1625,7 +1664,7 @@ describe('Card', () => {
                 expect(cardEl.getAttribute('aria-label')).toBe('Custom Card');
             });
 
-            it('should handle PT with multiple event handlers', () => {
+            it('should handle PT with multiple event handlers', async () => {
                 let clickCount = 0;
                 let mouseOverCount = 0;
 
@@ -1641,7 +1680,7 @@ describe('Card', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
                 titleEl.nativeElement.click();
@@ -1651,7 +1690,7 @@ describe('Card', () => {
                 expect(mouseOverCount).toBe(1);
             });
 
-            it('should apply PT with style objects', () => {
+            it('should apply PT with style objects', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', {
                     body: {
@@ -1661,14 +1700,14 @@ describe('Card', () => {
                         }
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const bodyEl = fixture.debugElement.query(By.css('.p-card-body'));
                 expect(bodyEl.nativeElement.style.padding).toBe('20px');
                 expect(bodyEl.nativeElement.style.backgroundColor).toBe('lightblue');
             });
 
-            it('should handle PT function with instance-based styles', () => {
+            it('should handle PT function with instance-based styles', async () => {
                 @Component({
                     standalone: false,
                     template: `<p-card [pt]="pt" [header]="header" [subheader]="subheader"></p-card>`
@@ -1688,17 +1727,18 @@ describe('Card', () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [CardModule],
-                    declarations: [TestPTInstanceStyleComponent]
+                    declarations: [TestPTInstanceStyleComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTInstanceStyleComponent);
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
                 expect(titleEl.nativeElement.style.color).toBe('blue');
             });
 
-            it('should handle PT with complex nested objects', () => {
+            it('should handle PT with complex nested objects', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test');
                 fixture.componentRef.setInput('pt', {
@@ -1715,7 +1755,7 @@ describe('Card', () => {
                         'aria-level': '2'
                     }
                 });
-                fixture.detectChanges();
+                await fixture.whenStable();
 
                 const rootEl = fixture.nativeElement;
                 expect(rootEl.className).toContain('ROOT_COMPLEX');
