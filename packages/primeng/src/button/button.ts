@@ -65,15 +65,22 @@ export class ButtonLabel extends BaseComponent {
     /**
      * Used to pass attributes to DOM elements inside the pButtonLabel.
      * @defaultValue undefined
+     * @deprecated use pButtonLabelPt instead.
      * @group Props
      */
     ptButtonLabel = input<any>();
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonLabel.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonLabelPt = input<any>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    unstyledButtonLabel = input<boolean | undefined>();
+    pButtonLabelUnstyled = input<boolean | undefined>();
 
     $pcButtonLabel: ButtonLabel | undefined = inject(BUTTON_LABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -82,11 +89,12 @@ export class ButtonLabel extends BaseComponent {
     constructor() {
         super();
         effect(() => {
-            this.ptButtonLabel() && this.directivePT.set(this.ptButtonLabel());
+            const pt = this.ptButtonLabel() || this.pButtonLabelPt();
+            pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.unstyledButtonLabel() && this.directiveUnstyled.set(this.unstyledButtonLabel());
+            this.pButtonLabelUnstyled() && this.directiveUnstyled.set(this.pButtonLabelUnstyled());
         });
     }
 
@@ -108,15 +116,22 @@ export class ButtonIcon extends BaseComponent {
     /**
      * Used to pass attributes to DOM elements inside the pButtonIcon.
      * @defaultValue undefined
+     * @deprecated use pButtonIconPt instead.
      * @group Props
      */
     ptButtonIcon = input<any>();
+    /**
+     * Used to pass attributes to DOM elements inside the pButtonIcon.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonIconPt = input<any>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    unstyledButtonIcon = input<boolean | undefined>();
+    pButtonUnstyled = input<boolean | undefined>();
 
     $pcButtonIcon: ButtonIcon | undefined = inject(BUTTON_ICON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -125,11 +140,12 @@ export class ButtonIcon extends BaseComponent {
     constructor() {
         super();
         effect(() => {
-            this.ptButtonIcon() && this.directivePT.set(this.ptButtonIcon());
+            const pt = this.ptButtonIcon() || this.pButtonIconPt();
+            pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.unstyledButtonIcon() && this.directiveUnstyled.set(this.unstyledButtonIcon());
+            this.pButtonUnstyled() && this.directiveUnstyled.set(this.pButtonUnstyled());
         });
     }
 
@@ -161,15 +177,22 @@ export class ButtonDirective extends BaseComponent {
     /**
      * Used to pass attributes to DOM elements inside the Button component.
      * @defaultValue undefined
+     * @deprecated use pButtonPt instead.
      * @group Props
      */
     ptButtonDirective = input<ButtonPassThrough>();
+    /**
+     * Used to pass attributes to DOM elements inside the Button component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pButtonPt = input<ButtonPassThrough>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    unstyledButtonDirective = input<boolean | undefined>();
+    pButtonUnstyled = input<boolean | undefined>();
 
     @Input() hostName: any = '';
 
@@ -180,11 +203,12 @@ export class ButtonDirective extends BaseComponent {
     constructor() {
         super();
         effect(() => {
-            this.ptButtonDirective() && this.directivePT.set(this.ptButtonDirective());
+            const pt = this.ptButtonDirective() || this.pButtonPt();
+            pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.unstyledButtonDirective() && this.directiveUnstyled.set(this.unstyledButtonDirective());
+            this.pButtonUnstyled() && this.directiveUnstyled.set(this.pButtonUnstyled());
         });
 
         effect(() => {

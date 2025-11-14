@@ -29,6 +29,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
+    appendChild,
     calculateScrollbarWidth,
     findLastIndex,
     findSingle,
@@ -50,7 +51,6 @@ import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/a
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
-import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -115,7 +115,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                         [pBind]="getPTOptions(processedItem, index, 'item')"
                         pTooltip
                         [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
-                        [unstyled]="unstyled()"
+                        [pTooltipUnstyled]="unstyled()"
                     >
                         <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                             <ng-container *ngIf="!itemTemplate">
@@ -1041,7 +1041,7 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        if (this.visible()) {
+        if (this.visible() && !this.container) {
             this.container = <HTMLElement>event.target;
             this.position();
             this.moveOnTop();
@@ -1053,13 +1053,23 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
     }
 
     onOverlayAnimationEnd() {
-        if (!this.visible()) {
+        if (!this.visible() && this.container) {
             this.onOverlayHide();
         }
     }
 
+    // appendOverlay() {
+    //     DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+    // }
+
     appendOverlay() {
-        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.container!);
+            } else {
+                appendChild(this.$appendTo(), this.container!);
+            }
+        }
     }
 
     moveOnTop() {

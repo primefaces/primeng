@@ -29,12 +29,12 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, find, findSingle, focus, isTouchDevice, relativePosition, uuid } from '@primeuix/utils';
+import { absolutePosition, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -201,6 +201,7 @@ export class MenuItemContent extends BaseComponent {
                             *ngIf="!submenu.separator"
                             pTooltip
                             [tooltipOptions]="submenu.tooltipOptions"
+                            [pTooltipUnstyled]="unstyled()"
                             role="none"
                             [attr.id]="menuitemId(submenu, id, i)"
                             [attr.data-pc-section]="'submenulabel'"
@@ -224,6 +225,8 @@ export class MenuItemContent extends BaseComponent {
                                 (onMenuItemClick)="itemClick($event, menuitemId(item, id, i, j))"
                                 pTooltip
                                 [tooltipOptions]="item.tooltipOptions"
+                                [pTooltipUnstyled]="unstyled()"
+                                [unstyled]="unstyled()"
                                 role="menuitem"
                                 [attr.data-pc-section]="'menuitem'"
                                 [attr.aria-label]="label(item.label)"
@@ -248,6 +251,7 @@ export class MenuItemContent extends BaseComponent {
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
                             [unstyled]="unstyled()"
+                            [pTooltipUnstyled]="unstyled()"
                             role="menuitem"
                             [attr.data-pc-section]="'menuitem'"
                             [attr.aria-label]="label(item.label)"
@@ -404,8 +408,6 @@ export class Menu extends BaseComponent<MenuPassThrough> {
 
     public overlayVisible: boolean | undefined = false;
 
-    relativeAlign: boolean | undefined;
-
     $pcMenu: Menu | undefined = inject(MENU_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     _componentStyle = inject(MenuStyle);
@@ -448,8 +450,12 @@ export class Menu extends BaseComponent<MenuPassThrough> {
      * @group Method
      */
     public show(event: any) {
+        // Clear container if exists but overlay is not currently visible (fast toggle case)
+        if (this.container && !this.overlayVisible) {
+            this.container = undefined;
+        }
+
         this.target = event.currentTarget;
-        this.relativeAlign = event.relativeAlign;
         this.visible = true;
         this.preventDocumentDefault = true;
         this.overlayVisible = true;
@@ -530,42 +536,47 @@ export class Menu extends BaseComponent<MenuPassThrough> {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
+        const isFirstShow = !this.container;
         if (this.overlayVisible && this.popup) {
             this.container = <HTMLDivElement>event.target;
-            this.moveOnTop();
-            this.onShow.emit({});
-            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-            this.appendOverlay();
-            this.alignOverlay();
-            this.bindDocumentClickListener();
-            this.bindDocumentResizeListener();
-            this.bindScrollListener();
-            focus(this.listViewChild?.nativeElement);
-        }
-    }
 
-    onOverlayAnimationEnd() {
-        if (!this.overlayVisible && this.popup) {
-            this.onOverlayHide();
-            this.onHide.emit({});
-            if (this.autoZIndex) {
-                ZIndexUtils.clear(this.container);
+            if (isFirstShow) {
+                this.appendOverlay();
+                this.moveOnTop();
+                this.onShow.emit({});
+                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+                this.bindDocumentClickListener();
+                this.bindDocumentResizeListener();
+                this.bindScrollListener();
+            }
+            absolutePosition(this.container!, this.target);
+
+            if (isFirstShow) {
+                focus(this.listViewChild?.nativeElement);
             }
         }
     }
 
-    alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container!, this.target);
-        else absolutePosition(this.container!, this.target);
+    onOverlayAnimationEnd() {
+        if (!this.overlayVisible && this.popup && this.container) {
+            this.onOverlayHide();
+            this.onHide.emit({});
+        }
     }
 
     appendOverlay() {
-        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.container!);
+            } else {
+                appendChild(this.$appendTo(), this.container!);
+            }
+        }
     }
 
     restoreOverlayAppend() {
         if (this.container && this.$appendTo() !== 'self') {
-            this.renderer.appendChild(this.el.nativeElement, this.container);
+            appendChild(this.el.nativeElement, this.container);
         }
     }
 
@@ -580,7 +591,8 @@ export class Menu extends BaseComponent<MenuPassThrough> {
      */
     public hide() {
         this.visible = false;
-        this.relativeAlign = false;
+        this.overlayVisible = false;
+
         this.cd.markForCheck();
     }
 
@@ -848,6 +860,12 @@ export class Menu extends BaseComponent<MenuPassThrough> {
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;
         }
+        if (this.container) {
+            if (this.autoZIndex) {
+                ZIndexUtils.clear(this.container);
+            }
+            this.container = undefined;
+        }
     }
 
     onDestroy() {
@@ -857,8 +875,11 @@ export class Menu extends BaseComponent<MenuPassThrough> {
                 this.scrollHandler = null;
             }
 
-            if (this.container && this.autoZIndex) {
-                ZIndexUtils.clear(this.container);
+            if (this.container) {
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(this.container);
+                }
+                this.container = undefined;
             }
 
             this.restoreOverlayAppend();

@@ -27,11 +27,11 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
+import { absolutePosition, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -92,7 +92,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                     [pBind]="getPTOptions(processedItem, index, 'item')"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
-                    [unstyled]="unstyled()"
+                    [pTooltipUnstyled]="unstyled()"
                 >
                     <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
@@ -537,10 +537,10 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @defaultValue 'self'
+     * @defaultValue 'body'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -583,8 +583,6 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     relatedTarget: any;
 
     visible: boolean | undefined;
-
-    relativeAlign: boolean | undefined;
 
     dirty: boolean = false;
 
@@ -1029,52 +1027,66 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
-        if (this.visible && this.popup && !this.overlayInitialized) {
-            this.overlayInitialized = true;
+        const isFirstShow = !this.container;
+
+        if (this.visible && this.popup) {
             this.container = <HTMLDivElement>event.target;
-            this.moveOnTop();
-            this.onShow.emit({});
-            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-            this.appendOverlay();
+
+            if (isFirstShow) {
+                this.moveOnTop();
+                this.onShow.emit({});
+                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+                this.appendOverlay();
+                this.bindOutsideClickListener();
+                this.bindResizeListener();
+                this.bindScrollListener();
+            }
+
+            // Always align on animation start to handle fast toggling
             this.alignOverlay();
-            this.bindOutsideClickListener();
-            this.bindResizeListener();
-            this.bindScrollListener();
 
-            focus(this.rootmenu?.sublistViewChild?.nativeElement);
-            this.scrollInView();
-        }
-    }
-
-    alignOverlay() {
-        if (this.relativeAlign) relativePosition(this.container!, this.target);
-        else absolutePosition(this.container!, this.target);
-        this.container!.style.visibility = 'visible';
-
-        const targetWidth = getOuterWidth(this.target);
-
-        if (targetWidth > getOuterWidth(this.container)) {
-            this.container!.style.minWidth = getOuterWidth(this.target) + 'px';
-        }
-    }
-
-    onOverlayAnimationEnd() {
-        if (!this.visible && this.popup) {
-            this.onOverlayHide();
-            this.onHide.emit({});
-            if (this.autoZIndex) {
-                ZIndexUtils.clear(this.container);
+            if (isFirstShow) {
+                focus(this.rootmenu?.sublistViewChild?.nativeElement);
+                this.scrollInView();
             }
         }
     }
 
+    alignOverlay() {
+        if (this.container && this.target) {
+            const targetWidth = getOuterWidth(this.target);
+
+            if (targetWidth > getOuterWidth(this.container)) {
+                this.container.style.minWidth = getOuterWidth(this.target) + 'px';
+            }
+            if (this.$appendTo() === 'self') {
+                relativePosition(this.container, this.target);
+            } else {
+                absolutePosition(this.container, this.target);
+            }
+        }
+    }
+
+    onOverlayAnimationEnd() {
+        if (!this.visible && this.popup && this.container) {
+            this.onOverlayHide();
+            this.onHide.emit({});
+        }
+    }
+
     appendOverlay() {
-        DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.container!);
+            } else {
+                appendChild(this.$appendTo(), this.container!);
+            }
+        }
     }
 
     restoreOverlayAppend() {
         if (this.container && this.$appendTo() !== 'self') {
-            this.renderer.appendChild(this.el.nativeElement, this.container);
+            appendChild(this.el.nativeElement, this.container!);
         }
     }
 
@@ -1116,10 +1128,14 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      */
     show(event: any, isFocus?) {
         if (this.popup) {
+            // Clear container if exists but not visible (fast toggle case)
+            if (this.container && !this.visible) {
+                this.container = undefined;
+            }
+
             this.visible = true;
             this.target = this.target || event.currentTarget;
             this.relatedTarget = event.relatedTarget || null;
-            this.relativeAlign = event?.relativeAlign || null;
         }
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
@@ -1286,6 +1302,13 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;
         }
+
+        if (this.container) {
+            if (this.autoZIndex) {
+                ZIndexUtils.clear(this.container);
+            }
+            this.container = undefined;
+        }
     }
 
     onDestroy() {
@@ -1295,8 +1318,11 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 this.scrollHandler = null;
             }
 
-            if (this.container && this.autoZIndex) {
-                ZIndexUtils.clear(this.container);
+            if (this.container) {
+                if (this.autoZIndex) {
+                    ZIndexUtils.clear(this.container);
+                }
+                this.container = undefined;
             }
 
             this.restoreOverlayAppend();

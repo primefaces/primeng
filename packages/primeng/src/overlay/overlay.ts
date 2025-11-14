@@ -15,15 +15,16 @@ import {
     NgZone,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, focus, getTargetElement, isTouchDevice, removeClass } from '@primeuix/utils';
+import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MotionModule } from 'primeng/motion';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
@@ -458,10 +459,6 @@ export class Overlay extends BaseComponent {
         }
     }
 
-    alignOverlay() {
-        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.$appendTo());
-    }
-
     onVisibleChange(visible: boolean) {
         this._visible = visible;
         this.visibleChange.emit(visible);
@@ -480,20 +477,21 @@ export class Overlay extends BaseComponent {
         this.isOverlayContentClicked = true;
     }
 
+    container = signal<any>(undefined);
+
     onOverlayBeforeEnter(event: AnimationEvent) {
         this.handleEvents('onBeforeEnter', event);
     }
 
     onOverlayEnter(event: AnimationEvent) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        const container = this.overlayEl || event.target;
-        this.show(container, true);
-        if (this.autoZIndex) {
-            ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
-        }
+        this.container.set(this.overlayEl || event.target);
+        this.show(this.overlayEl, true);
         this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
-        DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
+        this.appendOverlay();
         this.alignOverlay();
+        this.setZIndex();
+        this.bindListeners();
 
         this.handleEvents('onEnter', event);
     }
@@ -507,12 +505,43 @@ export class Overlay extends BaseComponent {
         this.handleEvents('onBeforeLeave', event);
     }
 
+    setZIndex() {
+        if (this.autoZIndex) {
+            ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
+        }
+    }
+
+    appendOverlay() {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.overlayEl);
+            } else {
+                appendChild(this.$appendTo(), this.overlayEl);
+            }
+        }
+    }
+
+    alignOverlay() {
+        if (!this.modal) {
+            if (this.overlayEl && this.targetEl) {
+                this.overlayEl.style.minWidth = getOuterWidth(this.targetEl) + 'px';
+                if (this.$appendTo() === 'self') {
+                    relativePosition(this.overlayEl, this.targetEl);
+                } else {
+                    absolutePosition(this.overlayEl, this.targetEl);
+                }
+            }
+        }
+    }
+
     onOverlayLeave(event: AnimationEvent) {
         this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        const container = this.overlayEl || event.target;
-        this.hide(container, true);
-        DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
-        ZIndexUtils.clear(container);
+        this.hide(this.overlayEl, true);
+        this.modalVisible = false;
+        this.unbindListeners();
+        this.appendOverlay();
+        ZIndexUtils.clear(this.overlayEl);
+        this.container.set(null);
         this.cd.markForCheck();
         this.handleEvents('onLeave', event);
     }

@@ -168,6 +168,7 @@ export class SelectItem extends BaseComponent {
             *ngIf="!editable"
             [pBind]="ptm('label')"
             [pTooltip]="tooltip"
+            [pTooltipUnstyled]="unstyled()"
             [tooltipPosition]="tooltipPosition"
             [positionStyle]="tooltipPositionStyle"
             [tooltipStyleClass]="tooltipStyleClass"

@@ -328,16 +328,6 @@ describe('Fieldset', () => {
             expect(component.afterToggleEvent).toBeTruthy();
         });
 
-        it('should prevent toggle when animating', () => {
-            fieldset.animating = true;
-            fieldset.collapsed = false;
-
-            const result = fieldset.toggle(new MouseEvent('click'));
-
-            expect(result).toBe(false);
-            expect(fieldset.collapsed).toBe(false);
-        });
-
         it('should implement getBlockableElement', () => {
             const blockableElement = fieldset.getBlockableElement();
             expect(blockableElement).toBe(fieldset.el.nativeElement.children[0]);
@@ -462,32 +452,6 @@ describe('Fieldset', () => {
             expect(fieldset.collapsed).toBe(true);
             flush();
         }));
-
-        it('should set animating flag during toggle', () => {
-            const event = new MouseEvent('click');
-
-            fieldset.toggle(event);
-
-            expect(fieldset.animating).toBe(true);
-        });
-
-        it('should reset animating flag on animation done', () => {
-            fieldset.animating = true;
-
-            fieldset.onToggleDone();
-
-            expect(fieldset.animating).toBe(false);
-        });
-
-        it('should prevent rapid toggles when animating', () => {
-            fieldset.animating = true;
-            const initialCollapsed = fieldset.collapsed;
-
-            const result = fieldset.toggle(new MouseEvent('click'));
-
-            expect(result).toBe(false);
-            expect(fieldset.collapsed).toBe(initialCollapsed);
-        });
     });
 
     describe('Templates', () => {
@@ -640,27 +604,6 @@ describe('Fieldset', () => {
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
-        it('should handle rapid toggle clicks', fakeAsync(() => {
-            component.toggleable = true;
-            fixture.detectChanges();
-
-            const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
-
-            // First click should work
-            toggleButton.nativeElement.click();
-            expect(fieldset.animating).toBe(true);
-
-            // Second click while animating should be ignored
-            const result = fieldset.toggle(new MouseEvent('click'));
-            expect(result).toBe(false);
-
-            // Reset animation flag
-            fieldset.onToggleDone();
-            expect(fieldset.animating).toBe(false);
-
-            flush();
-        }));
-
         it('should handle null/undefined style objects', () => {
             component.style = null as any;
             fixture.detectChanges();
@@ -729,15 +672,6 @@ describe('Fieldset', () => {
         beforeEach(() => {
             component.toggleable = true;
             fixture.detectChanges();
-        });
-
-        it('should handle animation completion callback', () => {
-            fieldset.animating = true;
-
-            // Simulate animation done callback
-            fieldset.onToggleDone();
-
-            expect(fieldset.animating).toBe(false);
         });
 
         it('should pass correct animation parameters', () => {

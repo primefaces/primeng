@@ -4,12 +4,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -55,7 +57,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
             [header]="option('header')"
             [closeOnEscape]="option('closeOnEscape')"
             [blockScroll]="option('blockScroll')"
-            [appendTo]="option('appendTo')"
+            [appendTo]="$appendTo()"
             [position]="position"
             [style]="style"
             [dismissableMask]="dismissableMask"
@@ -273,10 +275,11 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
      */
     @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
-     *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'body'
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
     /**
      * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
      * @group Props
@@ -338,34 +341,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
      *  Allows getting the position of the component.
      * @group Props
      */
-    @Input() get position() {
-        return this._position;
-    }
-    set position(value: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
-        this._position = value;
-
-        switch (value) {
-            case 'topleft':
-            case 'bottomleft':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'topright':
-            case 'bottomright':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-            default:
-                this.transformOptions = 'scale(0.7)';
-                break;
-        }
-    }
+    @Input() position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
     /**
      * Enables dragging to change the position using header.
      * @group Props
@@ -398,6 +374,8 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
     _headerTemplate: TemplateRef<any> | undefined;
 
     _footerTemplate: TemplateRef<any> | undefined;
@@ -429,10 +407,6 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     subscription: Subscription;
 
     preWidth: number | undefined;
-
-    _position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
-
-    transformOptions: any = 'scale(0.7)';
 
     styleElement: any;
 
@@ -529,10 +503,8 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     option(name: string, k?: string) {
         const source: { [key: string]: any } = this;
         if (source.hasOwnProperty(name)) {
-            if (k) {
-                return source[k];
-            }
-            return source[name];
+            const value = k ? source[k] : source[name];
+            return typeof value === 'function' ? value() : value;
         }
 
         return undefined;

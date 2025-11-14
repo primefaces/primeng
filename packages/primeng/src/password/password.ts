@@ -29,8 +29,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
-import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { absolutePosition, addClass, hasClass, isTouchDevice, removeClass } from '@primeuix/utils';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
@@ -40,9 +40,9 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Fluid } from 'primeng/fluid';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
+import { Overlay } from 'primeng/overlay';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import type { PasswordPassThrough } from 'primeng/types/password';
-import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 
@@ -71,18 +71,19 @@ export class PasswordDirective extends BaseEditableHolder {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcPasswordDirective: PasswordDirective | undefined = inject(PASSWORD_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
     /**
      * Used to pass attributes to DOM elements inside the Password component.
      * @defaultValue undefined
      * @group Props
      */
-    ptPasswordDirective = input<PasswordPassThrough | undefined>();
+    pPasswordPt = input<PasswordPassThrough | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    unstyledPasswordDirective = input<boolean | undefined>();
+    pPasswordUnstyled = input<boolean | undefined>();
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -170,11 +171,12 @@ export class PasswordDirective extends BaseEditableHolder {
         super();
 
         effect(() => {
-            this.ptPasswordDirective() && this.directivePT.set(this.ptPasswordDirective());
+            const pt = this.pPasswordPt();
+            pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.unstyledPasswordDirective() && this.directiveUnstyled.set(this.unstyledPasswordDirective());
+            this.pPasswordUnstyled() && this.directiveUnstyled.set(this.pPasswordUnstyled());
         });
     }
 
@@ -430,7 +432,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, SharedModule, BindModule],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, Overlay, SharedModule, BindModule],
     template: `
         <input
             #input
@@ -483,34 +485,37 @@ export const Password_VALUE_ACCESSOR: any = {
                 </span>
             </ng-container>
         </ng-container>
-        @if (overlayVisible) {
-            <div
-                #overlay
-                [class]="cx('overlay')"
-                [style]="sx('overlay')"
-                (click)="onOverlayClick($event)"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onAnimationStart()"
-                (animationend)="onAnimationEnd()"
-                [pBind]="ptm('overlay')"
-                [attr.data-p]="overlayDataP"
-            >
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                <ng-container *ngIf="contentTemplate || _contentTemplate; else content">
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </ng-container>
-                <ng-template #content>
-                    <div [class]="cx('content')" [pBind]="ptm('content')">
-                        <div [class]="cx('meter')" [pBind]="ptm('meter')">
-                            <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
+
+        <p-overlay
+            #overlay
+            [hostAttrSelector]="$attrSelector"
+            [pt]="ptm('pcOverlay')"
+            [(visible)]="overlayVisible"
+            [options]="overlayOptions"
+            [target]="'@parent'"
+            [appendTo]="$appendTo()"
+            [enterAnimation]="enterAnimation()"
+            [leaveAnimation]="leaveAnimation()"
+            [unstyled]="unstyled()"
+        >
+            <ng-template #content>
+                <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
+                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                    <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultContent">
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                    </ng-container>
+                    <ng-template #defaultContent>
+                        <div [class]="cx('content')" [pBind]="ptm('content')">
+                            <div [class]="cx('meter')" [pBind]="ptm('meter')">
+                                <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
+                            </div>
+                            <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
                         </div>
-                        <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
-                    </div>
-                </ng-template>
-                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-            </div>
-        }
+                    </ng-template>
+                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                </div>
+            </ng-template>
+        </p-overlay>
     `,
     providers: [Password_VALUE_ACCESSOR, PasswordStyle, { provide: PASSWORD_INSTANCE, useExisting: Password }, { provide: PARENT_INSTANCE, useExisting: Password }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -625,16 +630,16 @@ export class Password extends BaseInput<PasswordPassThrough> {
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
      * Enter animation class name.
-     * @defaultValue 'p-password-overlay-enter'
+     * @defaultValue 'p-overlay-enter'
      * @group Props
      */
-    enterAnimation = input<string | null | undefined>('p-password-enter');
+    enterAnimation = input<string | null | undefined>('p-overlay-enter');
     /**
      * Leave animation class name.
-     * @defaultValue 'p-password-overlay-leave'
+     * @defaultValue 'p-overlay-leave'
      * @group Props
      */
-    leaveAnimation = input<string | null | undefined>('p-password-leave');
+    leaveAnimation = input<string | null | undefined>('p-overlay-leave');
     /**
      * Specify automated assistance in filling out password by browser.
      * @group Props
@@ -665,7 +670,12 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
+    /**
+     * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
+     * @group Props
+     */
+    @Input() overlayOptions: OverlayOptions | undefined;
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
@@ -684,7 +694,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('overlay') overlayViewChild!: ElementRef<HTMLElement>;
+    @ViewChild('overlay') overlayViewChild!: Overlay;
 
     @ViewChild('input') input!: ElementRef;
 
@@ -783,35 +793,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
                     break;
             }
         });
-    }
-
-    onAnimationStart() {
-        if (this.overlayVisible) {
-            ZIndexUtils.set('overlay', this.overlayViewChild?.nativeElement, this.config.zIndex.overlay);
-            this.$attrSelector && this.overlayViewChild?.nativeElement?.setAttribute(this.$attrSelector, '');
-            this.appendContainer();
-            this.alignOverlay();
-            this.bindScrollListener();
-            this.bindResizeListener();
-        }
-    }
-
-    onAnimationEnd() {
-        if (!this.overlayVisible) {
-            ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
-            this.unbindScrollListener();
-            this.unbindResizeListener();
-        }
-    }
-
-    appendContainer() {
-        DomHandler.appendOverlay(this.overlayViewChild?.nativeElement, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
-    }
-
-    alignOverlay() {
-        (this.overlayViewChild?.nativeElement as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
-        if (this.$appendTo() === 'self') relativePosition(this.overlayViewChild?.nativeElement as HTMLElement, this.input?.nativeElement);
-        else absolutePosition(this.overlayViewChild?.nativeElement as HTMLElement, this.input?.nativeElement);
     }
 
     onInput(event: Event) {
@@ -915,46 +896,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
         return level;
     }
 
-    bindScrollListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.scrollHandler) {
-                this.scrollHandler = new ConnectedOverlayScrollHandler(this.input.nativeElement, () => {
-                    if (this.overlayVisible) {
-                        this.overlayVisible = false;
-                    }
-                });
-            }
-
-            this.scrollHandler.bindScrollListener();
-        }
-    }
-
-    bindResizeListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.resizeListener) {
-                const window = this.document.defaultView as Window;
-                this.resizeListener = this.renderer.listen(window, 'resize', () => {
-                    if (this.overlayVisible && !isTouchDevice()) {
-                        this.overlayVisible = false;
-                    }
-                });
-            }
-        }
-    }
-
-    unbindScrollListener() {
-        if (this.scrollHandler) {
-            this.scrollHandler.unbindScrollListener();
-        }
-    }
-
-    unbindResizeListener() {
-        if (this.resizeListener) {
-            this.resizeListener();
-            this.resizeListener = null;
-        }
-    }
-
     promptText() {
         return this.promptLabel || this.getTranslation(TranslationKeys.PASSWORD_PROMPT);
     }
@@ -969,13 +910,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     strongText() {
         return this.strongLabel || this.getTranslation(TranslationKeys.STRONG);
-    }
-
-    restoreAppend() {
-        if (this.overlayViewChild?.nativeElement && this.$appendTo()) {
-            if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.overlayViewChild?.nativeElement);
-            else (this.document as any).getElementById(this.$appendTo()).removeChild(this.overlayViewChild?.nativeElement);
-        }
     }
 
     inputType(unmasked: boolean) {
@@ -1009,18 +943,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
     }
 
     onDestroy() {
-        if (this.overlayViewChild?.nativeElement) {
-            ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
-        }
-
-        this.restoreAppend();
-        this.unbindResizeListener();
-
-        if (this.scrollHandler) {
-            this.scrollHandler.destroy();
-            this.scrollHandler = null;
-        }
-
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
