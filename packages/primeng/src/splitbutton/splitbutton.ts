@@ -3,12 +3,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -128,7 +130,7 @@ type SplitButtonIconPosition = 'left' | 'right';
             [model]="model"
             [style]="menuStyle"
             [styleClass]="menuStyleClass"
-            [appendTo]="appendTo"
+            [appendTo]="$appendTo()"
             [showTransitionOptions]="showTransitionOptions"
             [hideTransitionOptions]="hideTransitionOptions"
             (onHide)="onHide()"
@@ -241,10 +243,11 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      */
     @Input() dropdownIcon: string | undefined;
     /**
-     *  Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * Indicates the direction of the element.
      * @group Props
@@ -355,6 +358,8 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
     _contentTemplate: TemplateRef<any> | undefined;
 
     _dropdownIconTemplate: TemplateRef<any> | undefined;
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     onInit() {
         this.ariaId = uuid('pn_id_');
