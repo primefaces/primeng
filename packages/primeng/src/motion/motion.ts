@@ -4,6 +4,7 @@ import { ClassNameOptions, createMotion, MotionInstance, MotionOptions } from '@
 import { nextFrame } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
+import { applyHiddenStyles, resetStyles } from './motion.utils';
 import { MotionStyle } from './style/motionstyle';
 
 const MOTION_INSTANCE = new InjectionToken<Motion>('MOTION_INSTANCE');
@@ -32,6 +33,7 @@ export class MotionDirective extends BaseComponent {
     enter = input<MotionOptions['enter']>(true, { alias: 'pMotionEnter' });
     leave = input<MotionOptions['leave']>(true, { alias: 'pMotionLeave' });
     duration = input<MotionOptions['duration']>(undefined, { alias: 'pMotionDuration' });
+    hideStrategy = input<'display' | 'visibility'>('display', { alias: 'pMotionHideStrategy' });
     enterFromClass = input<ClassNameOptions['from']>(undefined, { alias: 'pMotionEnterFromClass' });
     enterToClass = input<ClassNameOptions['to']>(undefined, { alias: 'pMotionEnterToClass' });
     enterActiveClass = input<ClassNameOptions['active']>(undefined, { alias: 'pMotionEnterActiveClass' });
@@ -116,9 +118,10 @@ export class MotionDirective extends BaseComponent {
             if (!this.$el) return;
 
             const shouldAppear = this.isInitialMount && this.visible() && this.appear();
+            const hideStrategy = this.hideStrategy();
 
             if (this.visible()) {
-                this.$el.style.display = '';
+                resetStyles(this.$el, hideStrategy);
 
                 if (shouldAppear || !this.isInitialMount) {
                     this.motion?.enter();
@@ -126,11 +129,11 @@ export class MotionDirective extends BaseComponent {
             } else if (!this.isInitialMount) {
                 this.motion?.leave()?.then(() => {
                     if (this.$el && !this.cancelled && !this.visible()) {
-                        this.$el.style.display = 'none';
+                        applyHiddenStyles(this.$el, hideStrategy);
                     }
                 });
             } else {
-                this.$el.style.display = 'none';
+                applyHiddenStyles(this.$el, hideStrategy);
             }
 
             this.isInitialMount = false;
@@ -143,7 +146,7 @@ export class MotionDirective extends BaseComponent {
         this.motion?.cancel();
         this.motion = undefined;
 
-        this.$el.style.display = '';
+        resetStyles(this.$el, this.hideStrategy());
 
         this.isInitialMount = true;
     }
@@ -191,6 +194,7 @@ export class Motion extends BaseComponent {
     enter = input<MotionOptions['enter']>(true);
     leave = input<MotionOptions['leave']>(true);
     duration = input<MotionOptions['duration']>(undefined);
+    hideStrategy = input<'display' | 'visibility'>('display');
     enterFromClass = input<ClassNameOptions['from']>(undefined);
     enterToClass = input<ClassNameOptions['to']>(undefined);
     enterActiveClass = input<ClassNameOptions['active']>(undefined);
@@ -266,11 +270,13 @@ export class Motion extends BaseComponent {
         super();
 
         effect(() => {
+            const hideStrategy = this.hideStrategy();
+
             if (this.isInitialMount) {
-                this.$el.style.display = 'none';
+                applyHiddenStyles(this.$el, hideStrategy);
                 this.rendered.set((this.visible() && this.mountOnEnter()) || !this.mountOnEnter());
             } else if (this.visible() && !this.rendered()) {
-                this.$el.style.display = 'none';
+                applyHiddenStyles(this.$el, hideStrategy);
                 this.rendered.set(true);
             }
         });
@@ -287,10 +293,11 @@ export class Motion extends BaseComponent {
             if (!this.$el) return;
 
             const shouldAppear = this.isInitialMount && this.visible() && this.appear();
+            const hideStrategy = this.hideStrategy();
 
             if (this.visible()) {
                 await nextFrame();
-                this.$el.style.display = '';
+                resetStyles(this.$el, hideStrategy);
 
                 if (shouldAppear || !this.isInitialMount) {
                     this.motion?.enter();
@@ -299,7 +306,7 @@ export class Motion extends BaseComponent {
                 await nextFrame();
                 this.motion?.leave()?.then(async () => {
                     if (this.$el && !this.cancelled && !this.visible()) {
-                        this.$el.style.display = 'none';
+                        applyHiddenStyles(this.$el, hideStrategy);
 
                         if (this.unmountOnLeave()) {
                             await nextFrame();
@@ -321,7 +328,7 @@ export class Motion extends BaseComponent {
         this.motion?.cancel();
         this.motion = undefined;
 
-        this.$el.style.display = '';
+        resetStyles(this.$el, this.hideStrategy());
 
         this.isInitialMount = true;
     }
