@@ -24,6 +24,7 @@ import { BlockableUI, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from 'primeng/types/accordion';
 import { transformToBoolean } from 'primeng/utils';
@@ -324,9 +325,13 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
 
 @Component({
     selector: 'p-accordion-content, p-accordioncontent',
-    imports: [CommonModule, BindModule],
+    imports: [CommonModule, BindModule, MotionModule],
     standalone: true,
-    template: `<div [pBind]="ptm('content', ptParams())" [class]="cx('content')"><ng-content /></div>`,
+    template: `
+        <p-motion [visible]="active()" name="p-accordion-content" [mountOnEnter]="false" [unmountOnLeave]="false">
+            <div [pBind]="ptm('content', ptParams())" [class]="cx('content')"><ng-content /></div>
+        </p-motion>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -334,8 +339,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
         '[attr.id]': 'id()',
         '[attr.role]': '"region"',
         '[attr.data-p-active]': 'active()',
-        '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[class.p-collapsible-open]': 'active()'
+        '[attr.aria-labelledby]': 'ariaLabelledby()'
     },
     hostDirectives: [Bind],
     providers: [AccordionStyle, { provide: ACCORDION_CONTENT_INSTANCE, useExisting: AccordionContent }, { provide: PARENT_INSTANCE, useExisting: AccordionContent }]

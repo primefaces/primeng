@@ -491,7 +491,6 @@ export class Overlay extends BaseComponent {
         this.appendOverlay();
         this.alignOverlay();
         this.setZIndex();
-        this.bindListeners();
 
         this.handleEvents('onEnter', event);
     }
@@ -503,6 +502,28 @@ export class Overlay extends BaseComponent {
 
     onOverlayBeforeLeave(event: AnimationEvent) {
         this.handleEvents('onBeforeLeave', event);
+    }
+
+    onOverlayLeave(event: AnimationEvent) {
+        this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
+        this.hide(this.overlayEl, true);
+        this.container.set(null);
+        this.cd.markForCheck();
+        this.handleEvents('onLeave', event);
+    }
+
+    onOverlayAfterLeave(event: AnimationEvent) {
+        this.unbindListeners();
+        this.appendOverlay();
+        ZIndexUtils.clear(this.overlayEl);
+        this.modalVisible = false;
+        this.handleEvents('onAfterLeave', event);
+    }
+
+    handleEvents(name: string, params: any) {
+        (this as any)[name].emit(params);
+        this.options && (this.options as any)[name] && (this.options as any)[name](params);
+        this.config?.overlayOptions && (this.config?.overlayOptions as any)[name] && (this.config?.overlayOptions as any)[name](params);
     }
 
     setZIndex() {
@@ -532,30 +553,6 @@ export class Overlay extends BaseComponent {
                 }
             }
         }
-    }
-
-    onOverlayLeave(event: AnimationEvent) {
-        this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        this.hide(this.overlayEl, true);
-        this.modalVisible = false;
-        this.unbindListeners();
-        this.appendOverlay();
-        ZIndexUtils.clear(this.overlayEl);
-        this.container.set(null);
-        this.cd.markForCheck();
-        this.handleEvents('onLeave', event);
-    }
-
-    onOverlayAfterLeave(event: AnimationEvent) {
-        this.unbindListeners();
-        this.modalVisible = false;
-        this.handleEvents('onAfterLeave', event);
-    }
-
-    handleEvents(name: string, params: any) {
-        (this as any)[name].emit(params);
-        this.options && (this.options as any)[name] && (this.options as any)[name](params);
-        this.config?.overlayOptions && (this.config?.overlayOptions as any)[name] && (this.config?.overlayOptions as any)[name](params);
     }
 
     bindListeners() {

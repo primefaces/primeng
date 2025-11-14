@@ -15,11 +15,6 @@ ${accordion_style}
     gap: dt('accordion.header.padding');
 }
 
-.p-collapsible-enter .p-accordioncontent-content,
-.p-collapsible-leave .p-accordioncontent-content {
-    overflow: hidden;
-}
-
 .p-accordionheader.p-ripple {
     overflow: hidden;
     position: relative;
@@ -37,7 +32,7 @@ const classes = {
     ],
     header: 'p-accordionheader',
     toggleicon: 'p-accordionheader-toggle-icon',
-    contentContainer: 'p-accordioncontent p-collapsible',
+    contentContainer: 'p-accordioncontent',
     content: 'p-accordioncontent-content'
 };
 
