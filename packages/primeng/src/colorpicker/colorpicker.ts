@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, addClass, isTouchDevice, relativePosition } from '@primeuix/utils';
+import { absolutePosition, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -54,8 +54,8 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
                 #overlay
                 [class]="cx('panel')"
                 (click)="onOverlayClick($event)"
-                [animate.enter]="!inline ? enterAnimation : undefined"
-                [animate.leave]="!inline ? leaveAnimation : undefined"
+                [animate.enter]="!inline ? enterAnimation() : undefined"
+                [animate.leave]="!inline ? leaveAnimation() : undefined"
                 (animationstart)="handleAnimationStart($event)"
                 (animationend)="handleAnimationEnd($event)"
                 [pBind]="ptm('panel')"
@@ -96,15 +96,27 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
      */
     @Input() styleClass: string | undefined;
     /**
-     * Enter animation class name.
+     * Transition options of the show animation.
      * @group Props
      */
-    @Input() enterAnimation: string = 'p-colorpicker-enter';
+    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
+    /**
+     * Transition options of the hide animation.
+     * @group Props
+     */
+    @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * Enter animation class name.
+     * @defaultValue 'p-colorpicker-enter'
+     * @group Props
+     */
+    enterAnimation = input<string>('p-colorpicker-enter');
     /**
      * Leave animation class name.
+     * @defaultValue 'p-colorpicker-leave'
      * @group Props
      */
-    @Input() leaveAnimation: string = 'p-colorpicker-leave';
+    leaveAnimation = input<string>('p-colorpicker-leave');
     /**
      * Whether to display as an overlay or not.
      * @group Props
@@ -612,6 +624,9 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     }
 
     HEXtoRGB(hex: string) {
+        if (!hex || typeof hex !== 'string') {
+            return { r: 0, g: 0, b: 0 };
+        }
         let hexValue = parseInt(hex.indexOf('#') > -1 ? hex.substring(1) : hex, 16);
         return { r: hexValue >> 16, g: (hexValue & 0x00ff00) >> 8, b: hexValue & 0x0000ff };
     }
