@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
-import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, Observable, of, delay, timer } from 'rxjs';
@@ -15,7 +15,7 @@ describe('FileUpload', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-            providers: [MessageService]
+            providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(FileUpload);
@@ -112,7 +112,7 @@ describe('FileUpload', () => {
             });
         });
 
-        it('should upload files when upload method called', fakeAsync(() => {
+        it('should upload files when upload method called', async () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
             spyOn(component, 'uploader');
@@ -120,8 +120,8 @@ describe('FileUpload', () => {
             component.upload();
 
             expect(component.uploader).toHaveBeenCalled();
-            flush();
-        }));
+            await fixture.whenStable();
+        });
 
         it('should handle basic uploader click', () => {
             component.mode = 'basic';
@@ -205,7 +205,7 @@ describe('FileUpload', () => {
     });
 
     describe('File Selection Events', () => {
-        it('should emit onSelect event when files are selected', fakeAsync(() => {
+        it('should emit onSelect event when files are selected', async () => {
             spyOn(component.onSelect, 'emit');
             component.multiple = true;
 
@@ -215,13 +215,12 @@ describe('FileUpload', () => {
             };
 
             component.onFileSelect(event);
-            tick();
+            await fixture.whenStable();
 
             expect(component.onSelect.emit).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should handle multiple file selection', fakeAsync(() => {
+        it('should handle multiple file selection', async () => {
             component.multiple = true;
             const files = [new File(['test1'], 'test1.txt', { type: 'text/plain' }), new File(['test2'], 'test2.txt', { type: 'text/plain' })];
 
@@ -230,13 +229,12 @@ describe('FileUpload', () => {
             };
 
             component.onFileSelect(event);
-            tick();
+            await fixture.whenStable();
 
             expect(component.files.length).toBe(2);
-            flush();
-        }));
+        });
 
-        it('should replace files when multiple is false', fakeAsync(() => {
+        it('should replace files when multiple is false', async () => {
             component.multiple = false;
             component.files = [new File(['existing'], 'existing.txt', { type: 'text/plain' })];
 
@@ -246,14 +244,13 @@ describe('FileUpload', () => {
             };
 
             component.onFileSelect(event);
-            tick();
+            await fixture.whenStable();
 
             expect(component.files.length).toBe(1);
             expect(component.files[0].name).toBe('new.txt');
-            flush();
-        }));
+        });
 
-        it('should auto upload when auto is enabled', fakeAsync(() => {
+        it('should auto upload when auto is enabled', async () => {
             component.auto = true;
             component.name = 'test';
             component.url = 'https://test.com/upload';
@@ -265,11 +262,10 @@ describe('FileUpload', () => {
             };
 
             component.onFileSelect(event);
-            tick();
+            await fixture.whenStable();
 
             expect(component.upload).toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('Drag and Drop', () => {
@@ -318,7 +314,7 @@ describe('FileUpload', () => {
             expect(dragEvent).toBeDefined();
         });
 
-        it('should handle drop event', fakeAsync(() => {
+        it('should handle drop event', async () => {
             component.disabled = false;
             component.multiple = true;
             spyOn(component, 'onFileSelect');
@@ -331,13 +327,12 @@ describe('FileUpload', () => {
             };
 
             component.onDrop(dropEvent);
-            tick();
+            await fixture.whenStable();
 
             expect(dropEvent.stopPropagation).toHaveBeenCalled();
             expect(dropEvent.preventDefault).toHaveBeenCalled();
             expect(component.onFileSelect).toHaveBeenCalledWith(dropEvent);
-            flush();
-        }));
+        });
 
         it('should not handle drag events when disabled', () => {
             component.disabled = true;
@@ -364,7 +359,7 @@ describe('FileUpload', () => {
             httpMock.verify();
         });
 
-        it('should upload files via HTTP', fakeAsync(() => {
+        it('should upload files via HTTP', async () => {
             const testFile = new File(['test content'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
@@ -373,7 +368,7 @@ describe('FileUpload', () => {
             spyOn(component.onUpload, 'emit');
 
             component.uploader();
-            tick();
+            await fixture.whenStable();
 
             const req = httpMock.expectOne('https://test.com/upload');
             expect(req.request.method).toBe('POST');
@@ -395,29 +390,25 @@ describe('FileUpload', () => {
             req.flush({ success: true }, { status: 200, statusText: 'OK' });
             expect(component.onUpload.emit).toHaveBeenCalled();
             expect(component.uploading).toBe(false);
+        });
 
-            flush();
-        }));
-
-        it('should handle upload error', fakeAsync(() => {
+        it('should handle upload error', async () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
             spyOn(component.onError, 'emit');
 
             component.uploader();
-            tick();
+            await fixture.whenStable();
 
             const req = httpMock.expectOne('https://test.com/upload');
             req.error(new ErrorEvent('Network error'));
 
             expect(component.onError.emit).toHaveBeenCalled();
             expect(component.uploading).toBe(false);
+        });
 
-            flush();
-        }));
-
-        it('should handle custom upload', fakeAsync(() => {
+        it('should handle custom upload', async () => {
             component.customUpload = true;
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
@@ -425,11 +416,10 @@ describe('FileUpload', () => {
             spyOn(component.uploadHandler, 'emit');
 
             component.uploader();
-            tick();
+            await fixture.whenStable();
 
             expect(component.uploadHandler.emit).toHaveBeenCalledWith({ files: [testFile] });
-            flush();
-        }));
+        });
     });
 
     describe('Advanced Mode UI', () => {
@@ -655,7 +645,7 @@ describe('FileUpload', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle rapid file selection', fakeAsync(() => {
+        it('should handle rapid file selection', async () => {
             component.multiple = true;
             let selectCount = 0;
             component.onSelect.subscribe(() => selectCount++);
@@ -665,12 +655,11 @@ describe('FileUpload', () => {
                     target: { files: [new File([`test${i}`], `test${i}.txt`, { type: 'text/plain' })] }
                 };
                 component.onFileSelect(event);
-                tick(10);
+                await new Promise((resolve) => setTimeout(resolve, 10));
             }
 
             expect(selectCount).toBe(3);
-            flush();
-        }));
+        });
 
         it('should handle null/undefined values gracefully', () => {
             component.accept = undefined as any;
@@ -683,7 +672,7 @@ describe('FileUpload', () => {
             expect(component.validate(testFile)).toBe(true);
         });
 
-        it('should handle duplicate file selection', fakeAsync(() => {
+        it('should handle duplicate file selection', async () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
@@ -693,36 +682,33 @@ describe('FileUpload', () => {
 
             const initialLength = component.files.length;
             component.onFileSelect(event);
-            tick();
+            await fixture.whenStable();
 
             // Should not add duplicate file
             expect(component.files.length).toBe(initialLength);
-            flush();
-        }));
+        });
 
-        it('should handle empty file selection', fakeAsync(() => {
+        it('should handle empty file selection', async () => {
             const event = {
                 target: { files: [] }
             };
 
             component.onFileSelect(event);
-            tick();
+            await fixture.whenStable();
 
             expect(component.files).toEqual([]);
-            flush();
-        }));
+        });
 
-        it('should handle large number of files', fakeAsync(() => {
+        it('should handle large number of files', async () => {
             component.multiple = true;
             const files = Array.from({ length: 100 }, (_, i) => new File([`content${i}`], `file${i}.txt`, { type: 'text/plain' }));
 
             const event = { target: { files } };
             component.onFileSelect(event);
-            tick();
+            await fixture.whenStable();
 
             expect(component.files.length).toBe(100);
-            flush();
-        }));
+        });
     });
 
     describe('Memory Management', () => {
@@ -1001,7 +987,8 @@ describe('FileUpload Template Tests', () => {
         it('should render pTemplate="header" with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestPTemplateHeaderComponent]
+                declarations: [TestPTemplateHeaderComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateHeaderComponent);
@@ -1028,7 +1015,8 @@ describe('FileUpload Template Tests', () => {
         it('should render pTemplate="content" with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestPTemplateContentComponent]
+                declarations: [TestPTemplateContentComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateContentComponent);
@@ -1053,7 +1041,8 @@ describe('FileUpload Template Tests', () => {
         it('should render pTemplate="file" with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestPTemplateFileComponent]
+                declarations: [TestPTemplateFileComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateFileComponent);
@@ -1073,7 +1062,8 @@ describe('FileUpload Template Tests', () => {
         it('should render pTemplate="empty" when no files', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestPTemplateEmptyComponent]
+                declarations: [TestPTemplateEmptyComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateEmptyComponent);
@@ -1092,7 +1082,8 @@ describe('FileUpload Template Tests', () => {
         it('should render pTemplate="filelabel" in basic mode', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestPTemplateFileLabelComponent]
+                declarations: [TestPTemplateFileLabelComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateFileLabelComponent);
@@ -1110,7 +1101,8 @@ describe('FileUpload Template Tests', () => {
         it('should render pTemplate icons', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestPTemplateIconsComponent]
+                declarations: [TestPTemplateIconsComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateIconsComponent);
@@ -1128,7 +1120,8 @@ describe('FileUpload Template Tests', () => {
         it('should render pTemplate="toolbar"', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestPTemplateToolbarComponent]
+                declarations: [TestPTemplateToolbarComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateToolbarComponent);
@@ -1151,7 +1144,8 @@ describe('FileUpload Template Tests', () => {
         it('should render fileRemoveIconTemplate with context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestFileRemoveIconComponent]
+                declarations: [TestFileRemoveIconComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestFileRemoveIconComponent);
@@ -1179,7 +1173,8 @@ describe('FileUpload Template Tests', () => {
         it('should render #header template with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestHashHeaderComponent]
+                declarations: [TestHashHeaderComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestHashHeaderComponent);
@@ -1199,7 +1194,8 @@ describe('FileUpload Template Tests', () => {
         it('should render #content template with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestHashContentComponent]
+                declarations: [TestHashContentComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestHashContentComponent);
@@ -1219,7 +1215,8 @@ describe('FileUpload Template Tests', () => {
         it('should provide correct header context objects', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestContextObjectsComponent]
+                declarations: [TestContextObjectsComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestContextObjectsComponent);
@@ -1255,7 +1252,8 @@ describe('FileUpload Template Tests', () => {
         it('should provide correct content context objects', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestContentContextComponent]
+                declarations: [TestContentContextComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestContentContextComponent);
@@ -1299,7 +1297,8 @@ describe('FileUpload Template Tests', () => {
         it('should provide correct file label context objects', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestFileLabelContextComponent]
+                declarations: [TestFileLabelContextComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestFileLabelContextComponent);
@@ -1341,7 +1340,8 @@ describe('FileUpload Template Tests', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestPTemplateHeaderComponent]
+                declarations: [TestPTemplateHeaderComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             testFixture = TestBed.createComponent(TestPTemplateHeaderComponent);
@@ -1412,7 +1412,8 @@ describe('FileUpload CSS Classes and Styling', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule]
+            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(FileUpload);
@@ -1505,7 +1506,8 @@ describe('FileUpload Accessibility', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule]
+            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(FileUpload);
@@ -1557,7 +1559,8 @@ describe('FileUpload Performance and Edge Cases', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule]
+            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(FileUpload);
@@ -1573,14 +1576,13 @@ describe('FileUpload Performance and Edge Cases', () => {
         }).not.toThrow();
     });
 
-    it('should handle empty file arrays', fakeAsync(() => {
+    it('should handle empty file arrays', async () => {
         const event = { target: { files: [] } };
         component.onFileSelect(event);
-        tick();
+        await fixture.whenStable();
 
         expect(component.files).toEqual([]);
-        flush();
-    }));
+    });
 
     it('should handle malformed file objects', () => {
         const malformedFile = {} as File;
@@ -1598,18 +1600,16 @@ describe('FileUpload Performance and Edge Cases', () => {
         expect(result).toBe(true);
     });
 
-    it('should handle rapid consecutive operations', fakeAsync(() => {
+    it('should handle rapid consecutive operations', async () => {
         const operations = [() => component.choose(), () => component.clear(), () => component.onFocus(), () => component.onBlur()];
 
-        operations.forEach((op) => {
+        for (const op of operations) {
             expect(() => op()).not.toThrow();
-            tick(10);
-        });
+            await new Promise((resolve) => setTimeout(resolve, 10));
+        }
+    });
 
-        flush();
-    }));
-
-    it('should handle large file processing', fakeAsync(() => {
+    it('should handle large file processing', async () => {
         const largeFile = new File([new ArrayBuffer(10000000)], 'large.bin', { type: 'application/octet-stream' });
 
         expect(() => {
@@ -1618,9 +1618,8 @@ describe('FileUpload Performance and Edge Cases', () => {
             component.formatSize(largeFile.size);
         }).not.toThrow();
 
-        tick();
-        flush();
-    }));
+        await fixture.whenStable();
+    });
 });
 
 // Advanced Template Combination Tests
@@ -1703,7 +1702,8 @@ describe('FileUpload Advanced Template Combinations', () => {
         it('should render all mixed templates correctly', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestMixedTemplatesComponent]
+                declarations: [TestMixedTemplatesComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestMixedTemplatesComponent);
@@ -1746,7 +1746,8 @@ describe('FileUpload Advanced Template Combinations', () => {
         it('should handle mixed template interactions', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestMixedTemplatesComponent]
+                declarations: [TestMixedTemplatesComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestMixedTemplatesComponent);
@@ -1853,7 +1854,8 @@ describe('FileUpload Advanced Template Combinations', () => {
         it('should validate all content template context variables', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                declarations: [TestAdvancedContextValidationComponent]
+                declarations: [TestAdvancedContextValidationComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestAdvancedContextValidationComponent);
@@ -1910,7 +1912,7 @@ describe('FileUpload Input Properties - Static Values', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-            providers: [MessageService]
+            providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(FileUpload);
@@ -2221,7 +2223,7 @@ describe('FileUpload Input Properties - Dynamic Values', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-            providers: [MessageService]
+            providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(FileUpload);
@@ -2405,233 +2407,233 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-            providers: [MessageService]
+            providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(FileUpload);
         component = fixture.componentInstance;
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
     });
 
     describe('Observable String Properties', () => {
-        it('should handle observable url changes', fakeAsync(() => {
+        it('should handle observable url changes', async () => {
             const urlSubject = new BehaviorSubject('https://initial.com/upload');
 
             urlSubject.subscribe((url) => {
                 component.url = url;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.url).toBe('https://initial.com/upload');
 
             urlSubject.next('https://updated.com/upload');
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
             expect(component.url).toBe('https://updated.com/upload');
 
             urlSubject.next('https://final.com/upload');
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
             expect(component.url).toBe('https://final.com/upload');
-        }));
+        });
 
-        it('should handle delayed observable values', fakeAsync(() => {
+        it('should handle delayed observable values', async () => {
             const delayedUrl$ = of('https://delayed.com/upload').pipe(delay(1000));
 
             delayedUrl$.subscribe((url) => {
                 component.url = url;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.url).toBeUndefined();
 
-            tick(1000);
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await fixture.whenStable();
             expect(component.url).toBe('https://delayed.com/upload');
-        }));
+        });
 
-        it('should handle observable accept type changes', fakeAsync(() => {
+        it('should handle observable accept type changes', async () => {
             const acceptSubject = new BehaviorSubject('image/*');
 
             acceptSubject.subscribe((accept) => {
                 component.accept = accept;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.accept).toBe('image/*');
 
             acceptSubject.next('.pdf,.doc');
-            tick();
+            await fixture.whenStable();
             expect(component.accept).toBe('.pdf,.doc');
 
             acceptSubject.next('*/*');
-            tick();
+            await fixture.whenStable();
             expect(component.accept).toBe('*/*');
-        }));
+        });
     });
 
     describe('Observable Boolean Properties', () => {
-        it('should handle observable disabled state changes', fakeAsync(() => {
+        it('should handle observable disabled state changes', async () => {
             const disabledSubject = new BehaviorSubject(false);
 
             disabledSubject.subscribe((disabled) => {
                 component.disabled = disabled;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.disabled).toBe(false);
 
             disabledSubject.next(true);
-            tick();
+            await fixture.whenStable();
             expect(component.disabled).toBe(true);
 
             disabledSubject.next(false);
-            tick();
+            await fixture.whenStable();
             expect(component.disabled).toBe(false);
-        }));
+        });
 
-        it('should handle observable multiple state changes', fakeAsync(() => {
+        it('should handle observable multiple state changes', async () => {
             const multipleSubject = new BehaviorSubject(false);
 
             multipleSubject.subscribe((multiple) => {
                 component.multiple = multiple;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.multiple).toBe(false);
 
             multipleSubject.next(true);
-            tick();
+            await fixture.whenStable();
             expect(component.multiple).toBe(true);
-        }));
+        });
 
-        it('should handle timer-based boolean changes', fakeAsync(() => {
+        it('should handle timer-based boolean changes', async () => {
             let autoUpload = false;
 
             timer(500).subscribe(() => {
                 autoUpload = true;
                 component.auto = autoUpload;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.auto).toBeUndefined();
 
-            tick(500);
+            await new Promise((resolve) => setTimeout(resolve, 500));
             expect(component.auto).toBe(true);
-        }));
+        });
     });
 
     describe('Observable Number Properties', () => {
-        it('should handle observable maxFileSize changes', fakeAsync(() => {
+        it('should handle observable maxFileSize changes', async () => {
             const sizeSubject = new BehaviorSubject(1000000);
 
             sizeSubject.subscribe((size) => {
                 component.maxFileSize = size;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.maxFileSize).toBe(1000000);
 
             sizeSubject.next(5000000);
-            tick();
+            await fixture.whenStable();
             expect(component.maxFileSize).toBe(5000000);
 
             sizeSubject.next(10000000);
-            tick();
+            await fixture.whenStable();
             expect(component.maxFileSize).toBe(10000000);
-        }));
+        });
 
-        it('should handle observable fileLimit changes', fakeAsync(() => {
+        it('should handle observable fileLimit changes', async () => {
             const limitSubject = new BehaviorSubject(5);
 
             limitSubject.subscribe((limit) => {
                 component.fileLimit = limit;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.fileLimit).toBe(5);
 
             limitSubject.next(10);
-            tick();
+            await fixture.whenStable();
             expect(component.fileLimit).toBe(10);
 
             limitSubject.next(1);
-            tick();
+            await fixture.whenStable();
             expect(component.fileLimit).toBe(1);
-        }));
+        });
 
-        it('should handle delayed number value changes', fakeAsync(() => {
+        it('should handle delayed number value changes', async () => {
             const delayedWidth$ = of(100).pipe(delay(2000));
 
             delayedWidth$.subscribe((width) => {
                 component.previewWidth = width;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.previewWidth).toBe(50); // default value
 
-            tick(2000);
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             expect(component.previewWidth).toBe(100);
-        }));
+        });
     });
 
     describe('Observable Object Properties', () => {
-        it('should handle observable style changes', fakeAsync(() => {
+        it('should handle observable style changes', async () => {
             const styleSubject = new BehaviorSubject({ width: '100%' });
 
             styleSubject.subscribe((style) => {
                 component.style = style;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.style).toEqual({ width: '100%' });
 
             styleSubject.next({ width: '50%', height: '200px' } as any);
-            tick();
+            await fixture.whenStable();
             expect(component.style).toEqual({ width: '50%', height: '200px' });
 
             styleSubject.next(null as any);
-            tick();
+            await fixture.whenStable();
             expect(component.style).toBeNull();
-        }));
+        });
 
-        it('should handle observable button props changes', fakeAsync(() => {
+        it('should handle observable button props changes', async () => {
             const propsSubject = new BehaviorSubject<any>({ severity: 'primary' as const });
 
             propsSubject.subscribe((props) => {
                 component.uploadButtonProps = props;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.uploadButtonProps).toEqual({ severity: 'primary' });
 
             propsSubject.next({ severity: 'success' as const, size: 'large' as const });
-            tick();
+            await fixture.whenStable();
             expect(component.uploadButtonProps).toEqual({ severity: 'success', size: 'large' });
-        }));
+        });
 
-        it('should handle observable files array changes', fakeAsync(() => {
+        it('should handle observable files array changes', async () => {
             const filesSubject = new BehaviorSubject<File[]>([]);
 
             filesSubject.subscribe((files) => {
                 component.files = files;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.files).toEqual([]);
 
             const newFiles = [new File(['test'], 'test.txt', { type: 'text/plain' })];
             filesSubject.next(newFiles);
-            tick();
+            await fixture.whenStable();
             expect(component.files).toEqual(newFiles);
 
             filesSubject.next([]);
-            tick();
+            await fixture.whenStable();
             expect(component.files).toEqual([]);
-        }));
+        });
     });
 
     describe('Complex Observable Scenarios', () => {
-        it('should handle multiple observable properties simultaneously', fakeAsync(() => {
+        it('should handle multiple observable properties simultaneously', async () => {
             const configSubject = new BehaviorSubject({
                 url: 'https://api.com/upload',
                 multiple: true,
@@ -2644,7 +2646,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 component.multiple = config.multiple;
                 component.maxFileSize = config.maxFileSize;
                 component.disabled = config.disabled;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
             });
 
             expect(component.url).toBe('https://api.com/upload');
@@ -2658,27 +2660,27 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 maxFileSize: 5000000,
                 disabled: true
             });
-            tick();
+            await fixture.whenStable();
 
             expect(component.url).toBe('https://backup.com/upload');
             expect(component.multiple).toBe(false);
             expect(component.maxFileSize).toBe(5000000);
             expect(component.disabled).toBe(true);
-        }));
+        });
 
-        it('should handle error scenarios in observables', fakeAsync(() => {
+        it('should handle error scenarios in observables', async () => {
             const errorSubject = new BehaviorSubject('initial-url');
             let errorOccurred = false;
 
             errorSubject.subscribe({
                 next: (url) => {
                     component.url = url;
-                    fixture.detectChanges();
+                    fixture.changeDetectorRef.markForCheck();
                 },
                 error: () => {
                     errorOccurred = true;
                     component.url = 'fallback-url';
-                    fixture.detectChanges();
+                    fixture.changeDetectorRef.markForCheck();
                 }
             });
 
@@ -2690,8 +2692,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 expect(component.url).toBe('fallback-url');
             }
 
-            tick();
-        }));
+            await fixture.whenStable();
+        });
     });
 
     describe('PT (PassThrough) Tests', () => {
@@ -2717,7 +2719,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase1Component],
                     imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                    providers: [MessageService]
+                    providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
@@ -2768,7 +2770,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase2Component],
                     imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                    providers: [MessageService]
+                    providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
@@ -2817,7 +2819,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase3Component],
                     imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                    providers: [MessageService]
+                    providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
@@ -2869,7 +2871,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase4Component],
                     imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                    providers: [MessageService]
+                    providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
@@ -2913,7 +2915,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase5Component],
                     imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                    providers: [MessageService]
+                    providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
@@ -2952,7 +2954,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineComponent],
                     imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                    providers: [MessageService]
+                    providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
@@ -2974,7 +2976,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineObjectComponent],
                     imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                    providers: [MessageService]
+                    providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
@@ -3019,7 +3021,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                                     }
                                 }
                             }
-                        }
+                        },
+                        provideZonelessChangeDetection()
                     ]
                 }).compileComponents();
 
@@ -3069,7 +3072,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase8HooksComponent],
                     imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
-                    providers: [MessageService]
+                    providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);

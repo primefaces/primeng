@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -137,10 +137,7 @@ describe('DynamicDialog', () => {
         await TestBed.configureTestingModule({
             imports: [DynamicDialog],
             declarations: [TestDialogContentComponent, NestedDialogContentComponent, DialogWithinDialogComponent, MaximizableDialogComponent, ResizableDialogComponent, DraggableDialogComponent],
-            providers: [
-                { provide: DynamicDialogRef, useValue: mockDialogRef },
-                { provide: DynamicDialogConfig, useValue: mockConfig }
-            ]
+            providers: [{ provide: DynamicDialogRef, useValue: mockDialogRef }, { provide: DynamicDialogConfig, useValue: mockConfig }, provideZonelessChangeDetection()]
         }).compileComponents();
     });
 
@@ -148,7 +145,7 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.header = 'Test Dialog';
             mockConfig.width = '500px';
             mockConfig.height = '400px';
@@ -156,7 +153,8 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should create the component', () => {
@@ -181,29 +179,32 @@ describe('DynamicDialog', () => {
             expect(component.id).toBeTruthy();
         });
 
-        it('should create aria-labelledby when header is present', () => {
+        it('should create aria-labelledby when header is present', async () => {
             mockConfig.showHeader = true;
             component.visible = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             component.ngAfterViewInit();
 
             expect(component.ariaLabelledBy).toBeTruthy();
             expect(component.ariaLabelledBy).toContain('_header');
         });
 
-        it('should not create aria-labelledby when header is null', () => {
+        it('should not create aria-labelledby when header is null', async () => {
             mockConfig.header = null as any;
             mockConfig.showHeader = false;
             component.visible = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             component.ngAfterViewInit();
             expect(component.ariaLabelledBy).toBeNull();
         });
 
-        it('should not create aria-labelledby when showHeader is false', () => {
+        it('should not create aria-labelledby when showHeader is false', async () => {
             mockConfig.showHeader = false;
             component.visible = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             component.ngAfterViewInit();
             expect(component.ariaLabelledBy).toBeNull();
         });
@@ -213,7 +214,7 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.header = 'Test Dialog';
             mockConfig.closable = true;
             mockConfig.showHeader = true;
@@ -222,7 +223,8 @@ describe('DynamicDialog', () => {
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
             component.visible = true; // Make dialog visible so template renders
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should be visible by default', () => {
@@ -239,17 +241,16 @@ describe('DynamicDialog', () => {
             expect(component.visible).toBe(false);
         });
 
-        it('should handle close button click', fakeAsync(() => {
+        it('should handle close button click', async () => {
             // Close button is now handled by Dialog component
             // Test onDialogHide which gets called when dialog closes
 
             // Simulate the onHide event from Dialog
             component.onDialogHide({});
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
 
             expect(mockDialogRef.destroy).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
         it('should handle animation events', () => {
             // const animationEvent: AnimationEvent = {
@@ -289,7 +290,7 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.draggable = true;
             mockConfig.header = 'Draggable Dialog';
             mockConfig.showHeader = true;
@@ -306,7 +307,8 @@ describe('DynamicDialog', () => {
             component.container = containerElement;
             component.visible = true;
 
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should initialize drag on header mousedown', () => {
@@ -438,14 +440,15 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.resizable = true;
             mockConfig.header = 'Resizable Dialog';
 
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = ResizableDialogComponent;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should initialize resize on handle mousedown', () => {
@@ -531,7 +534,7 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.maximizable = true;
             mockConfig.header = 'Maximizable Dialog';
             mockConfig.showHeader = true;
@@ -540,7 +543,8 @@ describe('DynamicDialog', () => {
             component = fixture.componentInstance;
             component.childComponentType = MaximizableDialogComponent;
             component.visible = true; // Make dialog visible so template renders
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should toggle maximize state', () => {
@@ -557,18 +561,17 @@ describe('DynamicDialog', () => {
             expect(mockDialogRef.maximize).toHaveBeenCalledWith({ maximized: false });
         });
 
-        it('should handle maximize button click', fakeAsync(() => {
+        it('should handle maximize button click', async () => {
             const maximizeButton = fixture.debugElement.query(By.css('.p-dialog-maximize-button'));
             expect(maximizeButton).toBeTruthy();
 
             maximizeButton.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
 
             expect(component.maximized).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should apply maximized class when maximized', fakeAsync(() => {
+        it('should apply maximized class when maximized', async () => {
             // Get the dialog element from Dialog component
             const dialogElement = fixture.debugElement.query(By.css('p-dialog'));
             expect(dialogElement).toBeTruthy();
@@ -578,20 +581,20 @@ describe('DynamicDialog', () => {
             expect(maximizeButton).toBeTruthy();
 
             maximizeButton.nativeElement.click();
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check that maximized state is set
             expect(component.maximized).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Focus Management and Accessibility', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.focusOnShow = true;
             mockConfig.focusTrap = true;
             mockConfig.header = 'Accessible Dialog';
@@ -600,12 +603,14 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should have correct ARIA attributes', () => {
+        it('should have correct ARIA attributes', async () => {
             component.ngAfterViewInit();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const dialogElement = fixture.debugElement.query(By.css('[role="dialog"]'));
             expect(dialogElement).toBeTruthy();
@@ -637,7 +642,7 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.modal = true;
             mockConfig.dismissableMask = true;
             mockConfig.header = 'Modal Dialog';
@@ -645,7 +650,8 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should enable modality when modal is true', () => {
@@ -720,7 +726,7 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.header = 'Template Dialog';
             mockConfig.footer = 'Footer Content';
             mockConfig.showHeader = true;
@@ -774,25 +780,28 @@ describe('DynamicDialog', () => {
             expect(mockComponentRef.setInput).toHaveBeenCalledWith('prop2', 'value2');
         });
 
-        it('should display header content', () => {
-            fixture.detectChanges();
+        it('should display header content', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headerElement = fixture.debugElement.query(By.css('.p-dialog-title'));
             expect(headerElement).toBeTruthy();
             expect(headerElement.nativeElement.textContent.trim()).toBe('Template Dialog');
         });
 
-        it('should display footer content', () => {
-            fixture.detectChanges();
+        it('should display footer content', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Footer is rendered as a plain div, not with .p-dialog-footer class in dynamic dialog
             const dialogContent = fixture.nativeElement;
             expect(dialogContent.textContent).toContain('Footer Content');
         });
 
-        it('should hide header when showHeader is false', () => {
+        it('should hide header when showHeader is false', async () => {
             mockConfig.showHeader = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headerElement = fixture.debugElement.query(By.css('.p-dialog-header'));
             expect(headerElement).toBeFalsy();
@@ -803,16 +812,17 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.header = 'Parent Dialog';
 
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = NestedDialogContentComponent;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should handle multiple nested dialogs correctly', fakeAsync(() => {
+        it('should handle multiple nested dialogs correctly', async () => {
             // Create mock parent dialog
             const parentDialog = document.createElement('div');
             parentDialog.className = 'p-dialog';
@@ -830,8 +840,7 @@ describe('DynamicDialog', () => {
 
             // Cleanup
             document.body.removeChild(parentDialog);
-            flush();
-        }));
+        });
 
         it('should unbind global listeners when parent dialog exists', () => {
             const parentDialog = document.createElement('div');
@@ -857,7 +866,7 @@ describe('DynamicDialog', () => {
             // document.body.removeChild(parentDialog);
         });
 
-        it('should destroy dialog when animation ends', fakeAsync(() => {
+        it('should destroy dialog when animation ends', async () => {
             const parentDialog = document.createElement('div');
             parentDialog.className = 'p-dialog';
             const parentContent = document.createElement('div');
@@ -883,8 +892,7 @@ describe('DynamicDialog', () => {
             // expect(mockDialogRef.destroy).toHaveBeenCalled();
 
             // document.body.removeChild(parentDialog);
-            // flush();
-        }));
+        });
 
         it('should handle z-index layering for nested dialogs', () => {
             const wrapperElement = document.createElement('div');
@@ -922,16 +930,17 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.header = 'Container Dialog';
 
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = DialogWithinDialogComponent;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should handle dialog opened within another dialog component', fakeAsync(() => {
+        it('should handle dialog opened within another dialog component', async () => {
             // Simulate opening a dialog within the current dialog component
             const innerDialogRef = new DynamicDialogRef();
             const innerDialogSpy = spyOn(innerDialogRef, 'close').and.callThrough();
@@ -944,9 +953,8 @@ describe('DynamicDialog', () => {
 
             expect(innerDialogSpy).toHaveBeenCalledWith('inner closed');
 
-            tick(1100); // Wait for close timeout
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+        });
 
         it('should maintain separate dialog contexts', () => {
             // Each dialog should have its own config and ref
@@ -985,13 +993,14 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.header = 'Test Dialog';
 
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should cleanup all listeners on destroy', () => {
@@ -1105,7 +1114,7 @@ describe('DynamicDialog', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             mockConfig.breakpoints = {
                 '960px': '75vw',
                 '640px': '90vw'
@@ -1118,7 +1127,8 @@ describe('DynamicDialog', () => {
             // Mock platform to be browser for createStyle to work
             Object.defineProperty(component, 'platformId', { value: 'browser' });
 
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should create style element for breakpoints', () => {

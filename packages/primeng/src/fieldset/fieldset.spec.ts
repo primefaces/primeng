@@ -1,5 +1,5 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
@@ -90,14 +90,16 @@ describe('Fieldset', () => {
     let fieldsetEl: DebugElement;
     let fieldset: Fieldset;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TestFieldsetComponent, TestTemplateFieldsetComponent, TestFacetFieldsetComponent]
+            imports: [NoopAnimationsModule, TestFieldsetComponent, TestTemplateFieldsetComponent, TestFacetFieldsetComponent],
+            providers: [provideZonelessChangeDetection()]
         });
 
         fixture = TestBed.createComponent(TestFieldsetComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
 
         fieldsetEl = fixture.debugElement.query(By.directive(Fieldset));
         fieldset = fieldsetEl.componentInstance;
@@ -114,20 +116,21 @@ describe('Fieldset', () => {
 
             expect(instance.legend).toBeUndefined();
             expect(instance.toggleable).toBeUndefined();
-            expect(instance.collapsed).toBe(false);
+            expect(instance.collapsed).toBeFalsy(); // In zoneless, default value might be undefined which is falsy
             expect(instance.style).toBeUndefined();
             expect(instance.styleClass).toBeUndefined();
             expect(instance.transitionOptions).toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.legend = 'Custom Legend';
             component.toggleable = true;
             component.collapsed = true;
             component.style = { backgroundColor: 'red' };
             component.styleClass = 'custom-fieldset';
             component.transitionOptions = '200ms ease-in';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fieldset.legend).toBe('Custom Legend');
             expect(fieldset.toggleable).toBe(true);
@@ -142,17 +145,19 @@ describe('Fieldset', () => {
             expect(fieldset.id).toContain('pn_id_');
         });
 
-        it('should set buttonAriaLabel from legend', () => {
+        it('should set buttonAriaLabel from legend', async () => {
             component.legend = 'Test Legend';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(fieldset.buttonAriaLabel).toBe('Test Legend');
         });
     });
 
     describe('Basic Fieldset', () => {
-        it('should display legend text', () => {
+        it('should display legend text', async () => {
             component.legend = 'My Fieldset';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendLabel.nativeElement.textContent.trim()).toBe('My Fieldset');
@@ -166,15 +171,16 @@ describe('Fieldset', () => {
 
         it('should not show toggle button when not toggleable', () => {
             component.toggleable = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             expect(toggleButton).toBeNull();
         });
 
-        it('should apply custom styles', () => {
+        it('should apply custom styles', async () => {
             component.style = { border: '2px solid red', padding: '10px' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const fieldsetElement = fixture.debugElement.query(By.css('fieldset'));
 
@@ -202,9 +208,10 @@ describe('Fieldset', () => {
             expect(Object.keys(fieldset.style!)).toContain('padding');
         });
 
-        it('should apply custom CSS classes', () => {
+        it('should apply custom CSS classes', async () => {
             component.styleClass = 'my-custom-fieldset another-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const fieldsetElement = fixture.debugElement.query(By.css('fieldset'));
             expect(fieldsetElement.nativeElement.className).toContain('my-custom-fieldset');
@@ -213,9 +220,10 @@ describe('Fieldset', () => {
     });
 
     describe('Toggleable Fieldset', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should show toggle button when toggleable', () => {
@@ -224,31 +232,34 @@ describe('Fieldset', () => {
             expect(toggleButton.nativeElement.getAttribute('role')).toBe('button');
         });
 
-        it('should expand fieldset when clicked', () => {
+        it('should expand fieldset when clicked', async () => {
             component.collapsed = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(fieldset.collapsed).toBe(false);
         });
 
-        it('should collapse fieldset when clicked again', () => {
+        it('should collapse fieldset when clicked again', async () => {
             component.collapsed = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(fieldset.collapsed).toBe(true);
         });
 
-        it('should show correct icon when collapsed', () => {
+        it('should show correct icon when collapsed', async () => {
             component.collapsed = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const expandIcon = fixture.debugElement.query(By.css('svg[data-p-icon="plus"]'));
             const collapseIcon = fixture.debugElement.query(By.css('svg[data-p-icon="minus"]'));
@@ -257,9 +268,10 @@ describe('Fieldset', () => {
             expect(collapseIcon).toBeNull();
         });
 
-        it('should show correct icon when expanded', () => {
+        it('should show correct icon when expanded', async () => {
             component.collapsed = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const expandIcon = fixture.debugElement.query(By.css('svg[data-p-icon="plus"]'));
             const collapseIcon = fixture.debugElement.query(By.css('svg[data-p-icon="minus"]'));
@@ -268,60 +280,76 @@ describe('Fieldset', () => {
             expect(collapseIcon).toBeTruthy();
         });
 
-        it('should update aria-expanded attribute', () => {
+        it('should update aria-expanded attribute', async () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
 
             component.collapsed = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe('true');
 
             component.collapsed = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe('false');
         });
 
-        it('should update aria-hidden on content', () => {
+        it('should update aria-hidden on content', async () => {
             const contentContainer = fixture.debugElement.query(By.css('.p-fieldset-content-container'));
 
             component.collapsed = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(contentContainer.nativeElement.getAttribute('aria-hidden')).toBe('false');
 
             component.collapsed = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(contentContainer.nativeElement.getAttribute('aria-hidden')).toBe('true');
         });
     });
 
     describe('Public Methods', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should expand programmatically', () => {
+        it('should expand programmatically', async () => {
             fieldset.collapsed = true;
 
             fieldset.expand();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(fieldset.collapsed).toBe(false);
             expect(component.collapsedChangeEvent).toBe(false);
         });
 
-        it('should collapse programmatically', () => {
+        it('should collapse programmatically', async () => {
             fieldset.collapsed = false;
 
             fieldset.collapse();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(fieldset.collapsed).toBe(true);
             expect(component.collapsedChangeEvent).toBe(true);
         });
 
-        it('should toggle programmatically', () => {
+        it('should toggle programmatically', async () => {
             fieldset.collapsed = false;
             const event = new MouseEvent('click');
 
             fieldset.toggle(event);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 10));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fieldset.collapsed).toBe(true);
             expect(component.beforeToggleEvent).toBeTruthy();
@@ -335,45 +363,56 @@ describe('Fieldset', () => {
     });
 
     describe('Event Handling', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should emit collapsedChange event on expand', () => {
+        it('should emit collapsedChange event on expand', async () => {
             component.collapsed = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(component.collapsedChangeEvent).toBe(false);
         });
 
-        it('should emit collapsedChange event on collapse', () => {
+        it('should emit collapsedChange event on collapse', async () => {
             component.collapsed = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(component.collapsedChangeEvent).toBe(true);
         });
 
-        it('should emit onBeforeToggle event', () => {
+        it('should emit onBeforeToggle event', async () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(component.beforeToggleEvent).toBeDefined();
             expect(component.beforeToggleEvent?.collapsed).toBe(false);
             expect(component.beforeToggleEvent?.originalEvent).toBeTruthy();
         });
 
-        it('should emit onAfterToggle event', () => {
+        it('should emit onAfterToggle event', async () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 10));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.afterToggleEvent).toBeDefined();
             expect(component.afterToggleEvent?.collapsed).toBe(true);
@@ -382,9 +421,10 @@ describe('Fieldset', () => {
     });
 
     describe('Keyboard Navigation', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should toggle on Enter key', () => {
@@ -434,24 +474,26 @@ describe('Fieldset', () => {
     });
 
     describe('Animation', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should apply transition options', fakeAsync(() => {
+        it('should apply transition options', async () => {
             component.transitionOptions = '300ms ease-out';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
 
-            tick(300);
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fieldset.collapsed).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Templates', () => {
@@ -530,9 +572,10 @@ describe('Fieldset', () => {
     });
 
     describe('Accessibility', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
         it('should have proper ARIA attributes', () => {
@@ -570,9 +613,10 @@ describe('Fieldset', () => {
             expect(ariaLabelledby).toBe(buttonId);
         });
 
-        it('should update aria-label from legend', () => {
+        it('should update aria-label from legend', async () => {
             component.legend = 'Accessibility Test';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             expect(toggleButton.nativeElement.getAttribute('aria-label')).toBe('Accessibility Test');
@@ -580,41 +624,50 @@ describe('Fieldset', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle null legend', () => {
+        it('should handle null legend', async () => {
             component.legend = null as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
-        it('should handle undefined legend', () => {
+        it('should handle undefined legend', async () => {
             component.legend = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
-        it('should handle empty legend', () => {
+        it('should handle empty legend', async () => {
             component.legend = '';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
-        it('should handle null/undefined style objects', () => {
+        it('should handle null/undefined style objects', async () => {
             component.style = null as any;
-            fixture.detectChanges();
-            expect(() => fixture.detectChanges()).not.toThrow();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            expect(() => {
+                fixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
 
             component.style = undefined as any;
-            fixture.detectChanges();
-            expect(() => fixture.detectChanges()).not.toThrow();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            expect(() => {
+                fixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
         });
 
-        it('should handle complex style objects', () => {
+        it('should handle complex style objects', async () => {
             component.style = {
                 backgroundColor: 'blue',
                 border: '1px solid red',
@@ -622,7 +675,8 @@ describe('Fieldset', () => {
                 margin: '10px',
                 fontSize: '16px'
             };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check that component received the style object
             expect(fieldset.style).toEqual({
@@ -634,20 +688,22 @@ describe('Fieldset', () => {
             });
         });
 
-        it('should handle boolean attribute transforms', () => {
+        it('should handle boolean attribute transforms', async () => {
             // Test with string 'true'
             component.toggleable = 'true' as any;
             component.collapsed = 'false' as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(fieldset.toggleable).toBe(true);
             expect(fieldset.collapsed).toBe(false);
         });
 
-        it('should handle 0ms transition options', () => {
+        it('should handle 0ms transition options', async () => {
             component.toggleable = true;
             component.transitionOptions = '0ms';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
@@ -655,9 +711,10 @@ describe('Fieldset', () => {
             expect(fieldset.collapsed).toBe(true);
         });
 
-        it('should prevent event default in toggle', () => {
+        it('should prevent event default in toggle', async () => {
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const event = new MouseEvent('click');
             spyOn(event, 'preventDefault');
@@ -669,39 +726,44 @@ describe('Fieldset', () => {
     });
 
     describe('Animation Edge Cases', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should pass correct animation parameters', () => {
+        it('should pass correct animation parameters', async () => {
             component.transitionOptions = '500ms ease-in-out';
             component.collapsed = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check that animation parameters are passed correctly
             expect(fieldset.transitionOptions).toBe('500ms ease-in-out');
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(fieldset.collapsed).toBe(true);
         });
     });
 
     describe('Template Edge Cases', () => {
-        it('should handle missing templates gracefully', () => {
+        it('should handle missing templates gracefully', async () => {
             // Test with basic fieldset (no templates)
             component.toggleable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should render default icons
             const defaultIcon = fixture.debugElement.query(By.css('svg[data-p-icon]'));
             expect(defaultIcon).toBeTruthy();
 
             // Should not throw errors
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => {
+                fixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
         });
 
         it('should handle mixed template types', () => {
@@ -1003,7 +1065,7 @@ describe('Fieldset', () => {
         });
 
         describe('Case 6: Inline test', () => {
-            it('should apply inline PT with string class', () => {
+            it('should apply inline PT with string class', async () => {
                 @Component({
                     standalone: true,
                     imports: [Fieldset],
@@ -1013,17 +1075,19 @@ describe('Fieldset', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestInlinePTStringComponent, NoopAnimationsModule]
+                    imports: [TestInlinePTStringComponent, NoopAnimationsModule],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const inlineFixture = TestBed.createComponent(TestInlinePTStringComponent);
-                inlineFixture.detectChanges();
+                inlineFixture.changeDetectorRef.markForCheck();
+                await inlineFixture.whenStable();
 
                 const fieldsetElement = inlineFixture.debugElement.query(By.css('fieldset'));
                 expect(fieldsetElement.nativeElement.className).toContain('INLINE_ROOT_CLASS');
             });
 
-            it('should apply inline PT with object class', () => {
+            it('should apply inline PT with object class', async () => {
                 @Component({
                     standalone: true,
                     imports: [Fieldset],
@@ -1033,11 +1097,13 @@ describe('Fieldset', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestInlinePTObjectComponent, NoopAnimationsModule]
+                    imports: [TestInlinePTObjectComponent, NoopAnimationsModule],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const inlineFixture = TestBed.createComponent(TestInlinePTObjectComponent);
-                inlineFixture.detectChanges();
+                inlineFixture.changeDetectorRef.markForCheck();
+                await inlineFixture.whenStable();
 
                 const fieldsetElement = inlineFixture.debugElement.query(By.css('fieldset'));
                 expect(fieldsetElement.nativeElement.className).toContain('INLINE_OBJECT_CLASS');
@@ -1060,6 +1126,7 @@ describe('Fieldset', () => {
                 TestBed.configureTestingModule({
                     imports: [TestGlobalPTComponent, NoopAnimationsModule],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 fieldset: {
@@ -1094,7 +1161,7 @@ describe('Fieldset', () => {
                 });
             });
 
-            it('should merge local PT with global PT', () => {
+            it('should merge local PT with global PT', async () => {
                 @Component({
                     standalone: true,
                     imports: [Fieldset],
@@ -1103,11 +1170,13 @@ describe('Fieldset', () => {
                 class TestMergedPTComponent {}
 
                 TestBed.configureTestingModule({
-                    imports: [TestMergedPTComponent, NoopAnimationsModule]
+                    imports: [TestMergedPTComponent, NoopAnimationsModule],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const mergedFixture = TestBed.createComponent(TestMergedPTComponent);
-                mergedFixture.detectChanges();
+                mergedFixture.changeDetectorRef.markForCheck();
+                await mergedFixture.whenStable();
 
                 const fieldsetElement = mergedFixture.debugElement.query(By.css('fieldset'));
                 expect(fieldsetElement.nativeElement.className).toContain('LOCAL_CLASS');
