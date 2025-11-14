@@ -24,6 +24,7 @@ import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, Ov
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { MotionModule } from 'primeng/motion';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { OverlayStyle } from './style/overlaystyle';
@@ -37,25 +38,26 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
 @Component({
     selector: 'p-overlay',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [CommonModule, SharedModule, Bind, MotionModule],
     hostDirectives: [Bind],
     template: `
         <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" (click)="onOverlayClick()">
-            @if (visible) {
-                <div
-                    #content
-                    [class]="cn(cx('content'), contentStyleClass)"
-                    [pBind]="ptm('content')"
-                    (click)="onOverlayContentClick($event)"
-                    [animate.enter]="enterAnimation"
-                    [animate.leave]="leaveAnimation"
-                    (animationstart)="handleAnimationStart($event)"
-                    (animationend)="handleAnimationEnd($event)"
-                >
+            <p-motion
+                [visible]="visible"
+                name="p-overlay"
+                [appear]="true"
+                (onBeforeEnter)="onOverlayBeforeEnter($event)"
+                (onEnter)="onOverlayEnter($event)"
+                (onAfterEnter)="onOverlayAfterEnter($event)"
+                (onBeforeLeave)="onOverlayBeforeLeave($event)"
+                (onLeave)="onOverlayLeave($event)"
+                (onAfterLeave)="onOverlayAfterLeave($event)"
+            >
+                <div #content [class]="cn(cx('content'), contentStyleClass)" [pBind]="ptm('content')" (click)="onOverlayContentClick($event)">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
                 </div>
-            }
+            </p-motion>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -289,6 +291,13 @@ export class Overlay extends BaseComponent {
      */
     @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
 
+    @Output() onBeforeEnter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onEnter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onAfterEnter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onBeforeLeave: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onLeave: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onAfterLeave: EventEmitter<any> = new EventEmitter<any>();
+
     @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
 
     @ViewChild('content') contentViewChild: ElementRef | undefined;
@@ -471,23 +480,14 @@ export class Overlay extends BaseComponent {
         this.isOverlayContentClicked = true;
     }
 
-    handleAnimationStart(event: AnimationEvent) {
-        if (this.visible) {
-            this.onOverlayEnter(event);
-        }
-    }
-
-    handleAnimationEnd(event: AnimationEvent) {
-        if (!this.visible) {
-            this.onOverlayLeave(event);
-        }
+    onOverlayBeforeEnter(event: AnimationEvent) {
+        this.handleEvents('onBeforeEnter', event);
     }
 
     onOverlayEnter(event: AnimationEvent) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         const container = this.overlayEl || event.target;
         this.show(container, true);
-        this.bindListeners();
         if (this.autoZIndex) {
             ZIndexUtils.set(this.overlayMode, this.overlayEl, this.baseZIndex + this.config?.zIndex[this.overlayMode]);
         }
@@ -495,19 +495,32 @@ export class Overlay extends BaseComponent {
         DomHandler.appendOverlay(this.overlayEl, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
         this.alignOverlay();
 
-        this.handleEvents('onAnimationStart', event);
+        this.handleEvents('onEnter', event);
+    }
+
+    onOverlayAfterEnter(event: AnimationEvent) {
+        this.bindListeners();
+        this.handleEvents('onAfterEnter', event);
+    }
+
+    onOverlayBeforeLeave(event: AnimationEvent) {
+        this.handleEvents('onBeforeLeave', event);
     }
 
     onOverlayLeave(event: AnimationEvent) {
         this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         const container = this.overlayEl || event.target;
         this.hide(container, true);
-        this.modalVisible = false;
-        this.unbindListeners();
         DomHandler.appendOverlay(this.overlayEl, this.targetEl, this.$appendTo());
         ZIndexUtils.clear(container);
         this.cd.markForCheck();
-        this.handleEvents('onAnimationDone', event);
+        this.handleEvents('onLeave', event);
+    }
+
+    onOverlayAfterLeave(event: AnimationEvent) {
+        this.unbindListeners();
+        this.modalVisible = false;
+        this.handleEvents('onAfterLeave', event);
     }
 
     handleEvents(name: string, params: any) {

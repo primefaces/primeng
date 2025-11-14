@@ -222,7 +222,7 @@ export class Motion extends BaseComponent {
             name: options.name ?? this.name(),
             type: options.type ?? this.type(),
             safe: options.safe ?? this.safe(),
-            appear: options.appear ?? this.appear(),
+            appear: false,
             enter: options.enter ?? this.enter(),
             leave: options.leave ?? this.leave(),
             duration: options.duration ?? this.duration(),

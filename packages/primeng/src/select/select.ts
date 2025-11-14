@@ -261,11 +261,9 @@ export class SelectItem extends BaseComponent {
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            [enterAnimation]="enterAnimation"
-            [leaveAnimation]="leaveAnimation"
             [unstyled]="unstyled()"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onAnimationDone)="onOverlayAnimationDone($event)"
+            (onEnter)="onOverlayEnter($event)"
+            (onAfterLeave)="onOverlayAfterLeave($event)"
             (onHide)="hide()"
         >
             <ng-template #content>
@@ -1405,7 +1403,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: any) {
+    onOverlayEnter(event: any) {
         this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
         this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
@@ -1433,7 +1431,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.onShow.emit(event);
     }
 
-    onOverlayAnimationDone(event: any) {
+    onOverlayAfterLeave(event: any) {
         this.itemsWrapper = null;
         this.onModelTouched();
         this.onHide.emit(event);

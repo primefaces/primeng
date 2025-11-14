@@ -27,6 +27,7 @@ import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
+import { MotionModule } from 'primeng/motion';
 import { StepItemPassThrough, StepListPassThrough, StepPanelPassThrough, StepPanelsPassThrough, StepPassThrough, StepperPassThrough, StepperSeparatorPassThrough } from 'primeng/types/stepper';
 import { transformToBoolean } from 'primeng/utils';
 import { StepItemStyle } from './style/stepitemstyle';
@@ -310,18 +311,14 @@ export class Step extends BaseComponent<StepPassThrough> {
 @Component({
     selector: 'p-step-panel',
     standalone: true,
-    imports: [CommonModule, StepperSeparator, SharedModule, BindModule],
+    imports: [CommonModule, StepperSeparator, SharedModule, BindModule, MotionModule],
     template: `
         @if (isSeparatorVisible()) {
             <p-stepper-separator />
         }
-        @if (active()) {
-            <div [pBind]="ptm('content')" [class]="cx('content')" [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart()" (animationend)="onAnimationEnd()">
-                @if (isVisible()) {
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
-                }
-            </div>
-        }
+        <p-motion [visible]="active()" name="p-toggleable-content2" [options]="ptm('motion')" [class]="cx('content')">
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+        </p-motion>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
