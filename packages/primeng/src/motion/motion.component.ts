@@ -41,37 +41,156 @@ export class Motion extends BaseComponent {
 
     /******************** Inputs ********************/
 
+    /**
+     * Whether the element is visible or not.
+     * @group Props
+     */
     visible = input<boolean>(false);
+    /**
+     * Whether to mount the element on enter.
+     * @group Props
+     */
     mountOnEnter = input<boolean>(true);
+    /**
+     * Whether to unmount the element on leave.
+     * @group Props
+     */
     unmountOnLeave = input<boolean>(true);
+    /**
+     * The name of the motion. It can be a predefined motion name or a custom one.
+     * phases:
+     *     [name]-enter
+     *     [name]-enter-active
+     *     [name]-enter-to
+     *     [name]-leave
+     *     [name]-leave-active
+     *     [name]-leave-to
+     * @group Props
+     */
     name = input<MotionOptions['name']>(undefined);
+    /**
+     * The type of the motion, valid values 'transition' and 'animation'.
+     * @group Props
+     */
     type = input<MotionOptions['type']>(undefined);
+    /**
+     * Whether the motion is safe.
+     * @group Props
+     */
     safe = input<MotionOptions['safe']>(undefined);
+    /**
+     * Whether the motion should appear.
+     * @group Props
+     */
     appear = input<MotionOptions['appear']>(false);
+    /**
+     * Whether the motion should enter.
+     * @group Props
+     */
     enter = input<MotionOptions['enter']>(true);
+    /**
+     * Whether the motion should leave.
+     * @group Props
+     */
     leave = input<MotionOptions['leave']>(true);
+    /**
+     * The duration of the motion.
+     * @group Props
+     */
     duration = input<MotionOptions['duration']>(undefined);
+    /**
+     * The hide strategy of the motion, valid values 'display' and 'visibility'.
+     * @group Props
+     */
     hideStrategy = input<'display' | 'visibility'>('display');
+    /**
+     * The enter from class of the motion.
+     * @group Props
+     */
     enterFromClass = input<ClassNameOptions['from']>(undefined);
+    /**
+     * The enter to class of the motion.
+     * @group Props
+     */
     enterToClass = input<ClassNameOptions['to']>(undefined);
+    /**
+     * The enter active class of the motion.
+     * @group Props
+     */
     enterActiveClass = input<ClassNameOptions['active']>(undefined);
+    /**
+     * The leave from class of the motion.
+     * @group Props
+     */
     leaveFromClass = input<ClassNameOptions['from']>(undefined);
+    /**
+     * The leave to class of the motion.
+     * @group Props
+     */
     leaveToClass = input<ClassNameOptions['to']>(undefined);
+    /**
+     * The leave active class of the motion.
+     * @group Props
+     */
     leaveActiveClass = input<ClassNameOptions['active']>(undefined);
 
     /******************** All Inputs ********************/
 
+    /**
+     * The motion options.
+     * @group Props
+     */
     options = input<MotionOptions>({});
 
     /******************** Outputs ********************/
 
+    /**
+     * Callback fired before the enter transition/animation starts.
+     * @param element The element being transitioned/animated.
+     * @group Emits
+     */
     onBeforeEnter = output<Element | undefined>();
+    /**
+     * Callback fired when the enter transition/animation starts.
+     * @param element The element being transitioned/animated.
+     * @group Emits
+     */
     onEnter = output<Element | undefined>();
+    /**
+     * Callback fired after the enter transition/animation ends.
+     * @param element The element being transitioned/animated.
+     * @group Emits
+     */
     onAfterEnter = output<Element | undefined>();
+    /**
+     * Callback fired when the enter transition/animation is cancelled.
+     * @param element The element being transitioned/animated.
+     * @group Emits
+     */
     onEnterCancelled = output<Element | undefined>();
+    /**
+     * Callback fired before the leave transition/animation starts.
+     * @param element The element being transitioned/animated.
+     * @group Emits
+     */
     onBeforeLeave = output<Element | undefined>();
+    /**
+     * Callback fired when the leave transition/animation starts.
+     * @param element The element being transitioned/animated.
+     * @group Emits
+     */
     onLeave = output<Element | undefined>();
+    /**
+     * Callback fired after the leave transition/animation ends.
+     * @param element The element being transitioned/animated.
+     * @group Emits
+     */
     onAfterLeave = output<Element | undefined>();
+    /**
+     * Callback fired when the leave transition/animation is cancelled.
+     * @param element The element being transitioned/animated.
+     * @group Emits
+     */
     onLeaveCancelled = output<Element | undefined>();
 
     /******************** Computed ********************/
