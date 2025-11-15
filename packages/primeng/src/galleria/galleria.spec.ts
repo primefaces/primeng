@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -219,7 +219,8 @@ describe('Galleria', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
-            declarations: [TestBasicGalleriaComponent, TestFullScreenGalleriaComponent, TestAutoPlayGalleriaComponent, TestResponsiveGalleriaComponent, TestIndicatorsGalleriaComponent, TestTemplateGalleriaComponent, TestPTemplateGalleriaComponent]
+            declarations: [TestBasicGalleriaComponent, TestFullScreenGalleriaComponent, TestAutoPlayGalleriaComponent, TestResponsiveGalleriaComponent, TestIndicatorsGalleriaComponent, TestTemplateGalleriaComponent, TestPTemplateGalleriaComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
 
@@ -264,7 +265,7 @@ describe('Galleria', () => {
             expect(galleriaInstance.visible).toBe(false);
         });
 
-        it('should accept input values', () => {
+        it('should accept input values', async () => {
             component.activeIndex = 2;
             component.fullScreen = true;
             component.numVisible = 5;
@@ -274,7 +275,8 @@ describe('Galleria', () => {
             component.transitionInterval = 2000;
             component.showIndicators = true;
             component.baseZIndex = 1000;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.activeIndex).toBe(2);
             expect(galleriaInstance.fullScreen).toBe(true);
@@ -292,10 +294,11 @@ describe('Galleria', () => {
             expect(galleriaInstance.value?.length).toBe(5);
         });
 
-        it('should set numVisibleLimit when value length is less than numVisible', () => {
+        it('should set numVisibleLimit when value length is less than numVisible', async () => {
             component.images = mockImages.slice(0, 2); // Only 2 images
             component.numVisible = 5; // Want to show 5
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.numVisibleLimit).toBe(2);
         });
@@ -675,26 +678,29 @@ describe('Galleria', () => {
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
-        it('should apply custom mask class', () => {
+        it('should apply custom mask class', async () => {
             component.maskClass = 'custom-mask-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.maskClass).toBe('custom-mask-class');
         });
 
-        it('should apply custom container class and style', () => {
+        it('should apply custom container class and style', async () => {
             component.containerClass = 'custom-container-class';
             component.containerStyle = { width: '800px', height: '600px' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.containerClass).toBe('custom-container-class');
             expect(galleriaInstance.containerStyle).toEqual({ width: '800px', height: '600px' });
         });
 
-        it('should apply custom transition options', () => {
+        it('should apply custom transition options', async () => {
             component.showTransitionOptions = '300ms ease-in';
             component.hideTransitionOptions = '200ms ease-out';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.showTransitionOptions).toBe('300ms ease-in');
             expect(galleriaInstance.hideTransitionOptions).toBe('200ms ease-out');
@@ -720,36 +726,40 @@ describe('Galleria', () => {
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
-        it('should handle thumbnail position options', () => {
+        it('should handle thumbnail position options', async () => {
             const positions: Array<'bottom' | 'top' | 'left' | 'right'> = ['bottom', 'top', 'left', 'right'];
 
-            positions.forEach((position) => {
+            for (const position of positions) {
                 component.thumbnailsPosition = position;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
                 expect(galleriaInstance.thumbnailsPosition).toBe(position);
-            });
+            }
         });
 
-        it('should handle indicator position options', () => {
+        it('should handle indicator position options', async () => {
             const positions: Array<'bottom' | 'top' | 'left' | 'right'> = ['bottom', 'top', 'left', 'right'];
 
-            positions.forEach((position) => {
+            for (const position of positions) {
                 component.indicatorsPosition = position;
-                fixture.detectChanges();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
                 expect(galleriaInstance.indicatorsPosition).toBe(position);
-            });
+            }
         });
 
-        it('should handle vertical thumbnail viewport height', () => {
+        it('should handle vertical thumbnail viewport height', async () => {
             component.verticalThumbnailViewPortHeight = '400px';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.verticalThumbnailViewPortHeight).toBe('400px');
         });
 
-        it('should handle show indicators on item', () => {
+        it('should handle show indicators on item', async () => {
             component.showIndicatorsOnItem = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.showIndicatorsOnItem).toBe(true);
         });
@@ -830,23 +840,26 @@ describe('Galleria', () => {
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
-        it('should handle empty images array', () => {
+        it('should handle empty images array', async () => {
             component.images = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.value).toEqual([]);
         });
 
-        it('should handle null images', () => {
+        it('should handle null images', async () => {
             component.images = null as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.value).toBe(null as any);
         });
 
-        it('should handle single image', () => {
+        it('should handle single image', async () => {
             component.images = [mockImages[0]];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.value?.length).toBe(1);
         });
@@ -868,9 +881,10 @@ describe('Galleria', () => {
             expect(galleriaInstance.id).toBeUndefined();
         });
 
-        it('should handle custom id', () => {
+        it('should handle custom id', async () => {
             component.id = 'custom-galleria-id';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(galleriaInstance.id).toBe('custom-galleria-id');
         });
@@ -910,11 +924,12 @@ describe('Galleria', () => {
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
-        it('should set numVisibleLimit when value changes to smaller array', () => {
+        it('should set numVisibleLimit when value changes to smaller array', async () => {
             const smallArray = mockImages.slice(0, 2);
             component.images = smallArray;
             component.numVisible = 5;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Simulate ngOnChanges
             galleriaInstance.ngOnChanges({
@@ -929,10 +944,11 @@ describe('Galleria', () => {
             expect(galleriaInstance.numVisibleLimit).toBe(2);
         });
 
-        it('should reset numVisibleLimit when value is sufficient', () => {
+        it('should reset numVisibleLimit when value is sufficient', async () => {
             component.images = mockImages; // 5 images
             component.numVisible = 3; // Want to show 3
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             galleriaInstance.ngOnChanges({
                 value: {
@@ -951,7 +967,8 @@ describe('Galleria', () => {
         it('PT Case 1: should accept simple string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
@@ -983,7 +1000,8 @@ describe('Galleria', () => {
         it('PT Case 2: should accept objects with class, style, and attributes', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
@@ -1019,7 +1037,8 @@ describe('Galleria', () => {
         it('PT Case 3: should accept mixed object and string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
@@ -1080,7 +1099,8 @@ describe('Galleria', () => {
         it('PT Case 5: should bind events through PT', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
@@ -1108,7 +1128,8 @@ describe('Galleria', () => {
         it('PT Case 6: should support inline PT binding', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
@@ -1135,7 +1156,8 @@ describe('Galleria', () => {
         it('PT Case 9: should apply PT to navigation buttons', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
@@ -1182,7 +1204,8 @@ describe('Galleria', () => {
         it('PT Case 10: should apply PT to thumbnail elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
@@ -1232,7 +1255,8 @@ describe('Galleria', () => {
         it('PT Case 11: should apply PT to indicator elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
@@ -1269,7 +1293,8 @@ describe('Galleria', () => {
         it('PT Case 12: should apply PT to fullscreen mask and close button', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
