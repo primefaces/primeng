@@ -50,26 +50,6 @@ const extendedStyle = /*css*/ `
         overflow: hidden;
         transition: max-height 1s ease-in-out;
     }
-    /* --- */
-    .p-accordion-content-enter-from,
-    .p-accordion-content-leave-to {
-        max-height: 0;
-    }
-
-    .p-accordion-content-enter-to,
-    .p-accordion-content-leave-from {
-        max-height: var(--pui-motion-height);
-    }
-
-    .p-accordion-content-leave-active {
-        overflow: hidden;
-        transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
-    }
-
-    .p-accordion-content-enter-active {
-        overflow: hidden;
-        transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
-    }
 
     /* --- */
     .p-toggleable-content2-enter-from,

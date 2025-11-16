@@ -19,6 +19,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -328,8 +329,10 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     imports: [CommonModule, BindModule, MotionModule],
     standalone: true,
     template: `
-        <p-motion [visible]="active()" name="p-accordion-content" hideStrategy="visibility" [mountOnEnter]="false" [unmountOnLeave]="false">
-            <div [pBind]="ptm('content', ptParams())" [class]="cx('content')"><ng-content /></div>
+        <p-motion [visible]="active()" name="p-accordion-content" hideStrategy="visibility" [mountOnEnter]="false" [unmountOnLeave]="false" [options]="computedMotionOptions()">
+            <div [pBind]="ptm('content', ptParams())" [class]="cx('content')">
+                <ng-content />
+            </div>
         </p-motion>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -366,6 +369,19 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
     _componentStyle = inject(AccordionStyle);
 
     ptParams = computed(() => ({ context: this.active() }));
+
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion', this.ptParams()),
+            ...this.motionOptions()
+        };
+    });
 }
 
 /**

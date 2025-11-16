@@ -5,7 +5,28 @@ import { BaseStyle } from 'primeng/base';
 const style = /*css*/ `
 ${accordion_style}
 
-/*For PrimeNG*/
+/* Animations */
+.p-accordion-content-enter-from,
+.p-accordion-content-leave-to {
+    max-height: 0;
+}
+
+.p-accordion-content-enter-to,
+.p-accordion-content-leave-from {
+    max-height: var(--pui-motion-height, 1000px);
+}
+
+.p-accordion-content-leave-active {
+    overflow: hidden;
+    transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.p-accordion-content-enter-active {
+    overflow: hidden;
+    transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+/* For PrimeNG */
 .p-accordionheader-toggle-icon.icon-start {
     order: -1;
 }
