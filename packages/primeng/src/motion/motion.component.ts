@@ -4,6 +4,7 @@ import { ClassNameOptions, createMotion, MotionInstance, MotionOptions } from '@
 import { nextFrame } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
+import type { MotionPassThrough } from 'primeng/types/motion';
 import { applyHiddenStyles, resetStyles } from './motion.utils';
 import { MotionStyle } from './style/motion.style';
 
@@ -28,7 +29,7 @@ const MOTION_INSTANCE = new InjectionToken<Motion>('MOTION_INSTANCE');
     },
     hostDirectives: [Bind]
 })
-export class Motion extends BaseComponent {
+export class Motion extends BaseComponent<MotionPassThrough> {
     $pcMotion: Motion | undefined = inject(MOTION_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
