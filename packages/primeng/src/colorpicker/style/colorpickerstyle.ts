@@ -4,29 +4,6 @@ import { BaseStyle } from 'primeng/base';
 
 const style = /*css*/ `
 ${colorpicker_style}
-
-/* Animations */
-.p-colorpicker-enter-active {
-    animation: p-animate-colorpicker-enter 300ms cubic-bezier(.19,1,.22,1);
-}
-
-.p-colorpicker-leave-active {
-    animation: p-animate-colorpicker-leave 300ms cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes p-animate-colorpicker-enter {
-    from {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-
-@keyframes p-animate-colorpicker-leave {
-    to {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
 `;
 const classes = {
     root: ({ instance }) => ['p-colorpicker p-component', { 'p-colorpicker-overlay': !instance.inline, 'p-colorpicker-dragging': instance.colorDragging || instance.hueDragging }],
