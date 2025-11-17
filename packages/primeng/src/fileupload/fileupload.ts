@@ -413,6 +413,11 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
      */
     @Input() invalidFileLimitMessageSummary: string = 'Maximum number of files exceeded, ';
     /**
+     * Locale used to format the maxFileSize within invalidFileSizeMessageDetail accordingly
+     * @group Props
+     */
+    @Input() locale: string = 'en-US';
+    /**
      * Inline style of the element.
      * @group Props
      */
@@ -1161,7 +1166,6 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     formatSize(bytes: number) {
         const k = 1024;
-        const dm = 3;
         const sizes = this.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
 
         if (bytes === 0) {
@@ -1169,7 +1173,10 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         }
 
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-        const formattedSize = (bytes / Math.pow(k, i)).toFixed(dm);
+        const formattedSize = (bytes / Math.pow(k, i)).toLocaleString(this.locale, {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3
+        });
 
         return `${formattedSize} ${sizes[i]}`;
     }
