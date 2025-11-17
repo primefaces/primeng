@@ -115,18 +115,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-colorpicker-enter'
-     * @group Props
-     */
-    enterAnimation = input<string>('p-colorpicker-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-colorpicker-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string>('p-colorpicker-leave');
-    /**
      * Whether to display as an overlay or not.
      * @group Props
      */
