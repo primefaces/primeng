@@ -410,6 +410,14 @@ describe('Tooltip', () => {
             const target = tooltipDirective.getTarget(mockElement);
             expect(target).toBe(mockElement);
         });
+
+        it('should set role="tooltip" on the container element', fakeAsync(() => {
+            tooltipDirective.activate();
+            tick();
+            expect(tooltipDirective.container?.getAttribute('role')).toBe('tooltip');
+            tooltipDirective.deactivate();
+            flush();
+        }));
     });
 
     describe('Styling and Custom Options', () => {
