@@ -114,8 +114,6 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
             [target]="'@parent'"
             [appendTo]="$appendTo()"
             [pt]="ptm('pcOverlay')"
-            [enterAnimation]="enterAnimation"
-            [leaveAnimation]="leaveAnimation"
             (onAnimationStart)="onOverlayAnimationStart()"
             (onBeforeHide)="onOverlayBeforeHide()"
             (onShow)="onShow.emit($event)"
@@ -226,19 +224,6 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
-
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-overlay-enter'
-     * @group Props
-     */
-    @Input() enterAnimation: string = 'p-overlay-enter';
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-overlay-leave'
-     * @group Props
-     */
-    @Input() leaveAnimation: string = 'p-overlay-leave';
 
     /**
      * Identifier of the underlying input element.

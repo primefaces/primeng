@@ -221,8 +221,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [appendTo]="$appendTo()"
             [showTransitionOptions]="showTransitionOptions"
             [hideTransitionOptions]="hideTransitionOptions"
-            [enterAnimation]="enterAnimation"
-            [leaveAnimation]="leaveAnimation"
             (onAnimationStart)="onOverlayAnimationStart()"
             (onHide)="hide()"
             [unstyled]="unstyled()"
@@ -328,19 +326,6 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     $pcAutoComplete: AutoComplete | undefined = inject(AUTOCOMPLETE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
-
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-overlay-enter'
-     * @group Props
-     */
-    @Input() enterAnimation: string = 'p-overlay-enter';
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-overlay-leave'
-     * @group Props
-     */
-    @Input() leaveAnimation: string = 'p-overlay-leave';
 
     /**
      * Minimum number of characters to initiate a search.

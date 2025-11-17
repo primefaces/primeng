@@ -286,8 +286,6 @@ export class MultiSelectItem extends BaseComponent {
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            [enterAnimation]="enterAnimation"
-            [leaveAnimation]="leaveAnimation"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onAnimationDone)="onOverlayAnimationDone($event)"
             (onHide)="onOverlayHide($event)"
@@ -481,18 +479,6 @@ export class MultiSelectItem extends BaseComponent {
     }
 })
 export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-overlay-enter'
-     * @group Props
-     */
-    @Input() enterAnimation: string = 'p-overlay-enter';
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-overlay-leave'
-     * @group Props
-     */
-    @Input() leaveAnimation: string = 'p-overlay-leave';
     /**
      * Unique identifier of the component
      * @group Props
