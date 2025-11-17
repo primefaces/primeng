@@ -7,6 +7,7 @@ import { Bind, BindModule } from 'primeng/bind';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from 'primeng/types/fieldset';
 import { FieldsetStyle } from './style/fieldsetstyle';
+import { MotionModule } from 'primeng/motion';
 
 const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
 
@@ -17,7 +18,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
 @Component({
     selector: 'p-fieldset',
     standalone: true,
-    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, BindModule],
+    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, BindModule, MotionModule],
     template: `
         <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" [attr.data-p]="dataP">
             <legend [class]="cx('legend')" [pBind]="ptm('legend')" [attr.data-p]="dataP">
@@ -55,21 +56,22 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 </ng-template>
             </legend>
-            <div
-                [attr.id]="id + '_content'"
-                role="region"
-                [class]="cx('contentContainer')"
-                [pBind]="ptm('contentContainer')"
-                [attr.aria-labelledby]="id + '_header'"
-                [attr.aria-hidden]="collapsed"
-                [class.p-collapsible-open]="toggleable && !collapsed"
-                (transitionend)="onToggleDone($event)"
-            >
-                <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+            @if (toggleable) {
+                <p-motion [visible]="!collapsed" name="p-fieldset-content" (transitionend)="onToggleDone($event)">
+                    <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+                </p-motion>
+            } @else {
+                <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
+            }
+
+            <ng-template #sharedContent>
+                <div [attr.id]="id + '_content'" role="region" [class]="cx('contentContainer')" [pBind]="ptm('contentContainer')" [attr.aria-labelledby]="id + '_header'" [attr.aria-hidden]="collapsed">
+                    <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                    </div>
                 </div>
-            </div>
+            </ng-template>
         </fieldset>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
