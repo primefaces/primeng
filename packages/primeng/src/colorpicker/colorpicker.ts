@@ -8,6 +8,7 @@ import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import type { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
 import { ColorPickerPassThrough } from 'primeng/types/colorpicker';
@@ -29,7 +30,7 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
 @Component({
     selector: 'p-colorPicker, p-colorpicker, p-color-picker',
     standalone: true,
-    imports: [CommonModule, AutoFocusModule, SharedModule, Bind],
+    imports: [CommonModule, AutoFocusModule, SharedModule, Bind, MotionModule],
     hostDirectives: [Bind],
     template: `
         <input
@@ -49,17 +50,17 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
             [pAutoFocus]="autofocus"
             [pBind]="ptm('preview')"
         />
-        @if (inline || overlayVisible) {
-            <div
-                #overlay
-                [class]="cx('panel')"
-                (click)="onOverlayClick($event)"
-                [animate.enter]="!inline ? enterAnimation() : undefined"
-                [animate.leave]="!inline ? leaveAnimation() : undefined"
-                (animationstart)="handleAnimationStart($event)"
-                (animationend)="handleAnimationEnd($event)"
-                [pBind]="ptm('panel')"
-            >
+        <p-motion
+            [visible]="inline || overlayVisible"
+            name="p-colorpicker"
+            (onBeforeEnter)="onBeforeEnter($event)"
+            (onEnter)="onEnter($event)"
+            (onAfterEnter)="onAfterEnter($event)"
+            (onBeforeLeave)="onBeforeLeave($event)"
+            (onLeave)="onLeave($event)"
+            (onAfterLeave)="onAfterLeave($event)"
+        >
+            <div #overlay [class]="cx('panel')" (click)="onOverlayClick($event)" [pBind]="ptm('panel')">
                 <div [class]="cx('content')" [pBind]="ptm('content')">
                     <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [pBind]="ptm('colorSelector')">
                         <div [class]="cx('colorBackground')" [pBind]="ptm('colorBackground')">
@@ -71,7 +72,7 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
                     </div>
                 </div>
             </div>
-        }
+        </p-motion>
     `,
     providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle, { provide: COLORPICKER_INSTANCE, useExisting: ColorPicker }, { provide: PARENT_INSTANCE, useExisting: ColorPicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -392,19 +393,9 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         this.cd.markForCheck();
     }
 
-    handleAnimationStart(event: AnimationEvent) {
-        if (this.overlayVisible && !this.inline) {
-            this.onOverlayEnter(event);
-        }
-    }
+    onBeforeEnter(event: AnimationEvent) {}
 
-    handleAnimationEnd(event: AnimationEvent) {
-        if (!this.overlayVisible && !this.inline) {
-            this.onOverlayLeave(event);
-        }
-    }
-
-    onOverlayEnter(event: AnimationEvent) {
+    onEnter(event: AnimationEvent) {
         if (!this.inline) {
             this.$attrSelector && this.overlayViewChild?.nativeElement?.setAttribute(this.$attrSelector, '');
             this.appendOverlay();
@@ -423,8 +414,15 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
             this.onShow.emit({});
         }
     }
+    onAfterEnter(event: AnimationEvent) {}
 
-    onOverlayLeave(event: AnimationEvent) {
+    onBefore(event: AnimationEvent) {}
+
+    onBeforeLeave(event: AnimationEvent) {}
+
+    onAfterLeave(event: AnimationEvent) {}
+
+    onLeave(event: AnimationEvent) {
         if (!this.inline) {
             if (this.autoZIndex) {
                 ZIndexUtils.clear(event.target as HTMLElement);

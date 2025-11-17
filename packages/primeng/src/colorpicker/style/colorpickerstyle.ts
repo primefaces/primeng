@@ -6,11 +6,11 @@ const style = /*css*/ `
 ${colorpicker_style}
 
 /* Animations */
-.p-colorpicker-enter {
+.p-colorpicker-enter-active {
     animation: p-animate-colorpicker-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-colorpicker-leave {
+.p-colorpicker-leave-active {
     animation: p-animate-colorpicker-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
