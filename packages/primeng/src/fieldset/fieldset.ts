@@ -1,5 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -8,6 +26,7 @@ import { MinusIcon, PlusIcon } from 'primeng/icons';
 import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from 'primeng/types/fieldset';
 import { FieldsetStyle } from './style/fieldsetstyle';
 import { MotionModule } from 'primeng/motion';
+import { MotionOptions } from '@primeuix/motion';
 
 const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
 
@@ -57,7 +76,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 </ng-template>
             </legend>
             @if (toggleable) {
-                <p-motion [visible]="!collapsed" name="p-fieldset-content" (transitionend)="onToggleDone($event)">
+                <p-motion [visible]="!collapsed" name="p-fieldset-content" (transitionend)="onToggleDone($event)" [options]="motionOptions()">
                     <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
                 </p-motion>
             } @else {
@@ -122,6 +141,11 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.
