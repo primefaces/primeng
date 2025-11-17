@@ -1,5 +1,5 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Skeleton, SkeletonModule } from './skeleton';
@@ -141,7 +141,8 @@ describe('Skeleton', () => {
                 TestSkeletonDataTableComponent,
                 TestSkeletonEmptyComponent,
                 TestSkeletonDynamicComponent
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         });
     });
 
@@ -209,45 +210,57 @@ describe('Skeleton', () => {
             element = debugElement.nativeElement;
         });
 
-        it('should handle rectangle shape', () => {
+        it('should handle rectangle shape', async () => {
             component.shape = 'rectangle';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.shape).toBe('rectangle');
         });
 
-        it('should handle circle shape', () => {
+        it('should handle circle shape', async () => {
             component.shape = 'circle';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.shape).toBe('circle');
         });
 
-        it('should handle square shape', () => {
+        it('should handle square shape', async () => {
             component.shape = 'square';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.shape).toBe('square');
         });
 
-        it('should handle custom shapes', () => {
+        it('should handle custom shapes', async () => {
             component.shape = 'custom-shape';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.shape).toBe('custom-shape');
         });
 
-        it('should apply border radius correctly', () => {
+        it('should apply border radius correctly', async () => {
             component.borderRadius = '10px';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.borderRadius).toBe('10px');
             expect(skeleton.containerStyle.borderRadius).toBe('10px');
         });
 
-        it('should handle size property for square elements', () => {
+        it('should handle size property for square elements', async () => {
             component.size = '50px';
             component.shape = 'circle';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.size).toBe('50px');
@@ -277,45 +290,55 @@ describe('Skeleton', () => {
             expect(skeleton.containerStyle.height).toBe('50px');
         });
 
-        it('should prioritize size over width/height when size is provided', () => {
+        it('should prioritize size over width/height when size is provided', async () => {
             component.size = '100px';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.containerStyle.width).toBe('100px');
             expect(skeleton.containerStyle.height).toBe('100px');
         });
 
-        it('should use width/height when size is not provided', () => {
+        it('should use width/height when size is not provided', async () => {
             component.size = undefined as any;
             component.width = '300px';
             component.height = '40px';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.containerStyle.width).toBe('300px');
             expect(skeleton.containerStyle.height).toBe('40px');
         });
 
-        it('should handle percentage values', () => {
+        it('should handle percentage values', async () => {
             component.width = '75%';
             component.height = '2em';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.containerStyle.width).toBe('75%');
             expect(skeleton.containerStyle.height).toBe('2em');
         });
 
-        it('should handle viewport units', () => {
+        it('should handle viewport units', async () => {
             component.width = '50vw';
             component.height = '10vh';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.containerStyle.width).toBe('50vw');
             expect(skeleton.containerStyle.height).toBe('10vh');
         });
 
-        it('should handle rem and em units', () => {
+        it('should handle rem and em units', async () => {
             component.width = '20rem';
             component.height = '3em';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.containerStyle.width).toBe('20rem');
@@ -336,29 +359,37 @@ describe('Skeleton', () => {
             skeleton = fixture.debugElement.query(By.directive(Skeleton)).componentInstance;
         });
 
-        it('should handle wave animation', () => {
+        it('should handle wave animation', async () => {
             component.animation = 'wave';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.animation).toBe('wave');
         });
 
-        it('should handle pulse animation', () => {
+        it('should handle pulse animation', async () => {
             component.animation = 'pulse';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.animation).toBe('pulse');
         });
 
-        it('should handle none animation', () => {
+        it('should handle none animation', async () => {
             component.animation = 'none';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.animation).toBe('none');
         });
 
-        it('should handle custom animation types', () => {
+        it('should handle custom animation types', async () => {
             component.animation = 'custom-animation';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.animation).toBe('custom-animation');
@@ -396,8 +427,10 @@ describe('Skeleton', () => {
             expect(containerStyle.borderRadius).toBe('8px');
         });
 
-        it('should handle undefined styleClass', () => {
+        it('should handle undefined styleClass', async () => {
             component.styleClass = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -530,23 +563,29 @@ describe('Skeleton', () => {
             skeleton = fixture.debugElement.query(By.directive(Skeleton)).componentInstance;
         });
 
-        it('should update shape dynamically', () => {
+        it('should update shape dynamically', async () => {
             component.dynamicShape = 'circle';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.shape).toBe('circle');
         });
 
-        it('should update animation dynamically', () => {
+        it('should update animation dynamically', async () => {
             component.dynamicAnimation = 'pulse';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.animation).toBe('pulse');
         });
 
-        it('should update dimensions dynamically', () => {
+        it('should update dimensions dynamically', async () => {
             component.dynamicWidth = '250px';
             component.dynamicHeight = '60px';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.width).toBe('250px');
@@ -555,8 +594,10 @@ describe('Skeleton', () => {
             expect(skeleton.containerStyle.height).toBe('60px');
         });
 
-        it('should update size dynamically', () => {
+        it('should update size dynamically', async () => {
             component.dynamicSize = '120px';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.size).toBe('120px');
@@ -564,16 +605,20 @@ describe('Skeleton', () => {
             expect(skeleton.containerStyle.height).toBe('120px');
         });
 
-        it('should update border radius dynamically', () => {
+        it('should update border radius dynamically', async () => {
             component.dynamicBorderRadius = '15px';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(skeleton.borderRadius).toBe('15px');
             expect(skeleton.containerStyle.borderRadius).toBe('15px');
         });
 
-        it('should update styleClass dynamically', () => {
+        it('should update styleClass dynamically', async () => {
             component.dynamicStyleClass = 'new-style';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const element = fixture.debugElement.query(By.directive(Skeleton)).nativeElement;
@@ -645,22 +690,27 @@ describe('Skeleton', () => {
             expect(style.height).toBe('another-invalid');
         });
 
-        it('should handle rapid property updates', fakeAsync(() => {
+        it('should handle rapid property updates', async () => {
             skeleton.shape = 'rectangle';
+            skeleton.cd.markForCheck();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             skeleton.shape = 'circle';
+            skeleton.cd.markForCheck();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             skeleton.shape = 'square';
+            skeleton.cd.markForCheck();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(skeleton.shape).toBe('square');
-            flush();
-        }));
+        });
 
         it('should handle complex CSS calc expressions', () => {
             skeleton.width = 'calc(100% - 20px)';
@@ -673,7 +723,7 @@ describe('Skeleton', () => {
     });
 
     describe('Performance', () => {
-        it('should handle multiple skeletons efficiently', fakeAsync(() => {
+        it('should handle multiple skeletons efficiently', async () => {
             @Component({
                 standalone: false,
                 template: `
@@ -697,20 +747,21 @@ describe('Skeleton', () => {
 
             TestBed.configureTestingModule({
                 declarations: [TestMultipleSkeletonsComponent],
-                imports: [SkeletonModule]
+                imports: [SkeletonModule, NoopAnimationsModule],
+                providers: [provideZonelessChangeDetection()]
             });
 
             const fixture = TestBed.createComponent(TestMultipleSkeletonsComponent);
 
             expect(() => {
                 fixture.detectChanges();
-                tick();
             }).not.toThrow();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const skeletons = fixture.debugElement.queryAll(By.directive(Skeleton));
             expect(skeletons.length).toBe(100);
-            flush();
-        }));
+        });
 
         it('should efficiently calculate container styles', () => {
             const fixture = TestBed.createComponent(TestBasicSkeletonComponent);
@@ -759,7 +810,8 @@ describe('Skeleton', () => {
 
             TestBed.configureTestingModule({
                 declarations: [TestNestedSkeletonsComponent],
-                imports: [SkeletonModule]
+                imports: [SkeletonModule, NoopAnimationsModule],
+                providers: [provideZonelessChangeDetection()]
             });
 
             const fixture = TestBed.createComponent(TestNestedSkeletonsComponent);
@@ -776,7 +828,7 @@ describe('Skeleton', () => {
             expect(skeletons[3].componentInstance.height).toBe('10rem');
         });
 
-        it('should work with conditional rendering', fakeAsync(() => {
+        it('should work with conditional rendering', async () => {
             @Component({
                 standalone: false,
                 template: `
@@ -796,7 +848,8 @@ describe('Skeleton', () => {
 
             TestBed.configureTestingModule({
                 declarations: [TestConditionalSkeletonsComponent],
-                imports: [SkeletonModule]
+                imports: [SkeletonModule, NoopAnimationsModule],
+                providers: [provideZonelessChangeDetection()]
             });
 
             const fixture = TestBed.createComponent(TestConditionalSkeletonsComponent);
@@ -809,21 +862,24 @@ describe('Skeleton', () => {
 
             // Hide skeletons
             component.showSkeletons = false;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             skeletons = fixture.debugElement.queryAll(By.directive(Skeleton));
             expect(skeletons.length).toBe(0);
 
             // Show skeletons again
             component.showSkeletons = true;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             skeletons = fixture.debugElement.queryAll(By.directive(Skeleton));
             expect(skeletons.length).toBe(3);
-            flush();
-        }));
+        });
     });
 
     describe('Lifecycle Hooks', () => {
@@ -898,7 +954,8 @@ describe('Skeleton', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
                 imports: [SkeletonModule, NoopAnimationsModule],
-                declarations: [TestSkeletonPtComponent]
+                declarations: [TestSkeletonPtComponent],
+                providers: [provideZonelessChangeDetection()]
             });
 
             fixture = TestBed.createComponent(TestSkeletonPtComponent);
@@ -940,7 +997,8 @@ describe('Skeleton', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
                 imports: [SkeletonModule, NoopAnimationsModule],
-                declarations: [TestSkeletonPtObjectComponent]
+                declarations: [TestSkeletonPtObjectComponent],
+                providers: [provideZonelessChangeDetection()]
             });
 
             fixture = TestBed.createComponent(TestSkeletonPtObjectComponent);
@@ -998,7 +1056,8 @@ describe('Skeleton', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
                 imports: [SkeletonModule, NoopAnimationsModule],
-                declarations: [TestSkeletonPtMixedComponent]
+                declarations: [TestSkeletonPtMixedComponent],
+                providers: [provideZonelessChangeDetection()]
             });
 
             fixture = TestBed.createComponent(TestSkeletonPtMixedComponent);
@@ -1041,14 +1100,15 @@ describe('Skeleton', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
                 imports: [SkeletonModule, NoopAnimationsModule],
-                declarations: [TestSkeletonPtInstanceComponent]
+                declarations: [TestSkeletonPtInstanceComponent],
+                providers: [provideZonelessChangeDetection()]
             });
 
             fixture = TestBed.createComponent(TestSkeletonPtInstanceComponent);
             component = fixture.componentInstance;
         });
 
-        it('should apply pt based on instance shape', () => {
+        it('should apply pt based on instance shape', async () => {
             component.shape = 'circle';
             component.pt = {
                 host: ({ instance }: any) => {
@@ -1060,6 +1120,8 @@ describe('Skeleton', () => {
                     };
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             fixture.detectChanges();
 
@@ -1070,7 +1132,7 @@ describe('Skeleton', () => {
             expect(hasCircle || !hasRectangle).toBe(true);
         });
 
-        it('should apply pt style based on instance animation', () => {
+        it('should apply pt style based on instance animation', async () => {
             component.animation = 'pulse';
             component.pt = {
                 root: ({ instance }: any) => {
@@ -1081,6 +1143,8 @@ describe('Skeleton', () => {
                     };
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             fixture.detectChanges();
 
@@ -1105,14 +1169,15 @@ describe('Skeleton', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
                 imports: [SkeletonModule, NoopAnimationsModule],
-                declarations: [TestSkeletonPtEventComponent]
+                declarations: [TestSkeletonPtEventComponent],
+                providers: [provideZonelessChangeDetection()]
             });
 
             fixture = TestBed.createComponent(TestSkeletonPtEventComponent);
             component = fixture.componentInstance;
         });
 
-        it('should bind onclick event to host element', fakeAsync(() => {
+        it('should bind onclick event to host element', async () => {
             let clicked = false;
 
             component.pt = {
@@ -1127,13 +1192,13 @@ describe('Skeleton', () => {
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
             skeletonElement.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(clicked).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should bind onmouseenter event', fakeAsync(() => {
+        it('should bind onmouseenter event', async () => {
             let mouseEntered = false;
 
             component.pt = {
@@ -1148,11 +1213,11 @@ describe('Skeleton', () => {
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
             skeletonElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(mouseEntered).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('PassThrough - Case 6: Inline test', () => {
@@ -1172,7 +1237,8 @@ describe('Skeleton', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
                 imports: [SkeletonModule, NoopAnimationsModule],
-                declarations: [TestSkeletonInlineStringPtComponent]
+                declarations: [TestSkeletonInlineStringPtComponent],
+                providers: [provideZonelessChangeDetection()]
             });
 
             const testFixture = TestBed.createComponent(TestSkeletonInlineStringPtComponent);
@@ -1187,7 +1253,8 @@ describe('Skeleton', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
                 imports: [SkeletonModule, NoopAnimationsModule],
-                declarations: [TestSkeletonInlineObjectPtComponent]
+                declarations: [TestSkeletonInlineObjectPtComponent],
+                providers: [provideZonelessChangeDetection()]
             });
 
             const testFixture = TestBed.createComponent(TestSkeletonInlineObjectPtComponent);
@@ -1218,6 +1285,7 @@ describe('Skeleton', () => {
                 imports: [SkeletonModule, NoopAnimationsModule],
                 declarations: [TestSkeletonGlobalPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             skeleton: {
@@ -1256,6 +1324,7 @@ describe('Skeleton', () => {
                 imports: [SkeletonModule, NoopAnimationsModule],
                 declarations: [TestSkeletonMergedPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             skeleton: {
@@ -1293,7 +1362,8 @@ describe('Skeleton', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
                 imports: [SkeletonModule, NoopAnimationsModule],
-                declarations: [TestSkeletonPtHooksComponent]
+                declarations: [TestSkeletonPtHooksComponent],
+                providers: [provideZonelessChangeDetection()]
             });
 
             fixture = TestBed.createComponent(TestSkeletonPtHooksComponent);

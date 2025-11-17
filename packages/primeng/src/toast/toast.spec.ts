@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { Toast, ToastItem } from './toast';
@@ -117,7 +117,7 @@ describe('Toast', () => {
         await TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, CommonModule, Toast, SharedModule, PrimeTemplate],
             declarations: [TestBasicToastComponent, TestMessageTemplateComponent, TestHeadlessTemplateComponent, TestPTemplateComponent, TestPositionComponent],
-            providers: [MessageService]
+            providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
         messageService = TestBed.inject(MessageService);
@@ -155,7 +155,7 @@ describe('Toast', () => {
             expect(toastInstance.hideTransitionOptions).toBe('250ms ease-in');
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.key = 'custom-key';
             component.autoZIndex = false;
             component.baseZIndex = 1000;
@@ -163,6 +163,8 @@ describe('Toast', () => {
             component.position = 'bottom-left';
             component.preventOpenDuplicates = true;
             component.preventDuplicates = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
@@ -228,8 +230,10 @@ describe('Toast', () => {
             expect(result).toBe(false);
         });
 
-        it('should prevent open duplicates when enabled', () => {
+        it('should prevent open duplicates when enabled', async () => {
             component.preventOpenDuplicates = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const message: ToastMessageOptions = {
@@ -245,8 +249,10 @@ describe('Toast', () => {
             expect(canAddDuplicate).toBe(false);
         });
 
-        it('should prevent duplicates when enabled', () => {
+        it('should prevent duplicates when enabled', async () => {
             component.preventDuplicates = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const message: ToastMessageOptions = {
@@ -307,7 +313,7 @@ describe('Toast', () => {
             expect(messageService.clearObserver.subscribe).toHaveBeenCalled();
         });
 
-        it('should receive messages from messageService', fakeAsync(() => {
+        it('should receive messages from messageService', async () => {
             const message: ToastMessageOptions = {
                 severity: 'success',
                 summary: 'Success',
@@ -316,33 +322,35 @@ describe('Toast', () => {
             };
 
             messageService.add(message);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.messages).toContain(message);
-            flush();
-        }));
+        });
 
-        it('should handle array of messages from messageService', fakeAsync(() => {
+        it('should handle array of messages from messageService', async () => {
             const messages: ToastMessageOptions[] = [
                 { severity: 'success', summary: 'Success 1', detail: 'First message', key: 'test' },
                 { severity: 'info', summary: 'Info 1', detail: 'Second message', key: 'test' }
             ];
 
             messageService.addAll(messages);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.messages?.length).toBe(2);
             expect(toastInstance.messages).toEqual(jasmine.arrayContaining(messages));
-            flush();
-        }));
+        });
 
-        it('should clear messages when messageService clear is called', fakeAsync(() => {
+        it('should clear messages when messageService clear is called', async () => {
             const message: ToastMessageOptions = {
                 severity: 'success',
                 summary: 'Success',
@@ -351,20 +359,23 @@ describe('Toast', () => {
             };
 
             messageService.add(message);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
             expect(toastInstance.messages?.length).toBe(1);
 
             messageService.clear('test');
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             expect(toastInstance.messages).toBeNull();
-            flush();
-        }));
+        });
 
-        it('should clear all messages when messageService clear without key', fakeAsync(() => {
+        it('should clear all messages when messageService clear without key', async () => {
             const message: ToastMessageOptions = {
                 severity: 'success',
                 summary: 'Success',
@@ -373,18 +384,21 @@ describe('Toast', () => {
             };
 
             messageService.add(message);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
             expect(toastInstance.messages?.length).toBe(1);
 
             messageService.clear();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             expect(toastInstance.messages).toBeNull();
-            flush();
-        }));
+        });
     });
 
     describe('Event Handling', () => {
@@ -397,7 +411,7 @@ describe('Toast', () => {
             fixture.detectChanges();
         });
 
-        it('should emit onClose event when message is closed', fakeAsync(() => {
+        it('should emit onClose event when message is closed', async () => {
             const message: ToastMessageOptions = {
                 severity: 'success',
                 summary: 'Success',
@@ -406,7 +420,8 @@ describe('Toast', () => {
             };
 
             messageService.add(message);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
@@ -416,8 +431,7 @@ describe('Toast', () => {
 
             expect(component.closeEvent).toBeDefined();
             expect(component.closeEvent.message).toEqual(message);
-            flush();
-        }));
+        });
     });
 
     describe('Position and Styling', () => {
@@ -430,8 +444,10 @@ describe('Toast', () => {
             fixture.detectChanges();
         });
 
-        it('should apply position class', () => {
+        it('should apply position class', async () => {
             component.position = 'bottom-center';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
@@ -440,13 +456,15 @@ describe('Toast', () => {
             expect(toastInstance.position).toBe('bottom-center');
         });
 
-        it('should update position dynamically', () => {
+        it('should update position dynamically', async () => {
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.position).toBe('top-left');
 
             component.position = 'bottom-right';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toastInstance.position).toBe('bottom-right');
@@ -463,7 +481,7 @@ describe('Toast', () => {
             fixture.detectChanges();
         });
 
-        it('should project message template correctly', fakeAsync(() => {
+        it('should project message template correctly', async () => {
             const message: ToastMessageOptions = {
                 severity: 'success',
                 summary: 'Template Test',
@@ -472,7 +490,8 @@ describe('Toast', () => {
             };
 
             messageService.add(message);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const customMessage = fixture.debugElement.query(By.css('.custom-message'));
@@ -483,8 +502,7 @@ describe('Toast', () => {
 
             const customDetail = fixture.debugElement.query(By.css('.custom-detail'));
             expect(customDetail.nativeElement.textContent).toContain('Custom template message');
-            flush();
-        }));
+        });
     });
 
     describe('Template Content Projection - Headless approach', () => {
@@ -497,7 +515,7 @@ describe('Toast', () => {
             fixture.detectChanges();
         });
 
-        it('should project headless template correctly', fakeAsync(() => {
+        it('should project headless template correctly', async () => {
             const message: ToastMessageOptions = {
                 severity: 'info',
                 summary: 'Headless Test',
@@ -506,7 +524,8 @@ describe('Toast', () => {
             };
 
             messageService.add(message);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const customHeadless = fixture.debugElement.query(By.css('.custom-headless'));
@@ -514,10 +533,9 @@ describe('Toast', () => {
 
             const headlessContent = fixture.debugElement.query(By.css('.headless-content'));
             expect(headlessContent.nativeElement.textContent).toContain('Headless Test');
-            flush();
-        }));
+        });
 
-        it('should handle close callback in headless template', fakeAsync(() => {
+        it('should handle close callback in headless template', async () => {
             const message: ToastMessageOptions = {
                 severity: 'info',
                 summary: 'Headless Close Test',
@@ -526,7 +544,8 @@ describe('Toast', () => {
             };
 
             messageService.add(message);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
@@ -537,11 +556,19 @@ describe('Toast', () => {
             expect(closeButton).toBeTruthy();
 
             closeButton.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Get ToastItem and trigger animation end
+            const toastItemEl = fixture.debugElement.query(By.css('p-toastitem'));
+            const toastItemInstance = toastItemEl.componentInstance;
+            toastItemInstance.handleAnimationEnd(new AnimationEvent('animationend'));
 
             expect(toastInstance.onMessageClose).toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('Template Content Projection - pTemplate approach', () => {
@@ -563,7 +590,7 @@ describe('Toast', () => {
             expect(toastInstance._headlessTemplate).toBeTruthy();
         });
 
-        it('should render pTemplate message content correctly', fakeAsync(() => {
+        it('should render pTemplate message content correctly', async () => {
             const message: ToastMessageOptions = {
                 severity: 'warn',
                 summary: 'PTemplate Test',
@@ -572,10 +599,12 @@ describe('Toast', () => {
             };
 
             messageService.add(message);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const ptemplateMessage = fixture.debugElement.query(By.css('.ptemplate-message'));
@@ -594,8 +623,7 @@ describe('Toast', () => {
                 // This is acceptable as the component structure is correct
                 expect(true).toBe(true);
             }
-            flush();
-        }));
+        });
     });
 
     describe('CSS Classes and Styling', () => {
@@ -608,8 +636,10 @@ describe('Toast', () => {
             fixture.detectChanges();
         });
 
-        it('should apply custom style classes', () => {
+        it('should apply custom style classes', async () => {
             component.styleClass = 'custom-toast-class';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
@@ -618,11 +648,13 @@ describe('Toast', () => {
             expect(toastInstance.styleClass).toBe('custom-toast-class');
         });
 
-        it('should handle breakpoints configuration', () => {
+        it('should handle breakpoints configuration', async () => {
             component.breakpoints = {
                 '640px': { width: '90vw' },
                 '768px': { width: '70vw' }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
@@ -639,9 +671,9 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [BrowserAnimationsModule, CommonModule, Toast, SharedModule, PrimeTemplate],
+                imports: [NoopAnimationsModule, CommonModule, Toast, SharedModule, PrimeTemplate],
                 declarations: [TestBasicToastComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             messageService = TestBed.inject(MessageService);
@@ -700,8 +732,10 @@ describe('Toast', () => {
             expect(toastInstance.messages).toEqual([]);
         });
 
-        it('should handle messages without keys', fakeAsync(() => {
+        it('should handle messages without keys', async () => {
             component.key = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const message: ToastMessageOptions = {
@@ -715,10 +749,9 @@ describe('Toast', () => {
 
             const canAdd = toastInstance.canAdd(message);
             expect(canAdd).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle very long message content', fakeAsync(() => {
+        it('should handle very long message content', async () => {
             const longMessage: ToastMessageOptions = {
                 severity: 'info',
                 summary: 'A'.repeat(1000),
@@ -727,15 +760,15 @@ describe('Toast', () => {
             };
 
             messageService.add(longMessage);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.messages).toContain(longMessage);
-            flush();
-        }));
+        });
     });
 
     describe('Memory Management and Cleanup', () => {
@@ -761,8 +794,10 @@ describe('Toast', () => {
             expect(toastInstance.clearSubscription!.unsubscribe).toHaveBeenCalled();
         });
 
-        it('should destroy custom styles on component destroy', () => {
+        it('should destroy custom styles on component destroy', async () => {
             component.breakpoints = { '640px': { width: '90vw' } };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
@@ -776,9 +811,11 @@ describe('Toast', () => {
             expect(toastInstance.destroyStyle).toHaveBeenCalled();
         });
 
-        it('should handle multiple component instances', () => {
+        it('should handle multiple component instances', async () => {
             const fixture2 = TestBed.createComponent(TestBasicToastComponent);
             fixture2.componentInstance.key = 'test2';
+            fixture2.changeDetectorRef.markForCheck();
+            await fixture2.whenStable();
             fixture2.detectChanges();
 
             expect(fixture.componentInstance).toBeTruthy();
@@ -810,7 +847,7 @@ describe('Toast', () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Toast],
                 declarations: [TestToastPtComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             messageService = TestBed.inject(MessageService);
@@ -818,16 +855,20 @@ describe('Toast', () => {
             component = fixture.componentInstance;
         });
 
-        it('should apply pt host class', () => {
+        it('should apply pt host class', async () => {
             component.pt = { host: 'HOST_CLASS' };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
             expect(toastElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
         });
 
-        it('should apply pt root class', () => {
+        it('should apply pt root class', async () => {
             component.pt = { root: 'ROOT_CLASS' };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
@@ -852,7 +893,7 @@ describe('Toast', () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Toast],
                 declarations: [TestToastPtObjectComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             messageService = TestBed.inject(MessageService);
@@ -860,7 +901,7 @@ describe('Toast', () => {
             component = fixture.componentInstance;
         });
 
-        it('should apply pt host with object properties', () => {
+        it('should apply pt host with object properties', async () => {
             component.pt = {
                 host: {
                     class: 'HOST_OBJECT_CLASS',
@@ -868,6 +909,8 @@ describe('Toast', () => {
                     'data-p-test': true
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
@@ -876,7 +919,7 @@ describe('Toast', () => {
             expect(toastElement.nativeElement.getAttribute('data-p-test')).toBe('true');
         });
 
-        it('should apply pt root with object properties', () => {
+        it('should apply pt root with object properties', async () => {
             component.pt = {
                 root: {
                     class: 'ROOT_OBJECT_CLASS',
@@ -884,6 +927,8 @@ describe('Toast', () => {
                     'aria-label': 'TOAST_CONTAINER'
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
@@ -910,7 +955,7 @@ describe('Toast', () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Toast],
                 declarations: [TestToastPtMixedComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             messageService = TestBed.inject(MessageService);
@@ -918,7 +963,7 @@ describe('Toast', () => {
             component = fixture.componentInstance;
         });
 
-        it('should apply mixed pt values', () => {
+        it('should apply mixed pt values', async () => {
             component.pt = {
                 host: {
                     class: 'HOST_MIXED_CLASS',
@@ -926,6 +971,8 @@ describe('Toast', () => {
                 },
                 root: 'ROOT_STRING_CLASS'
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
@@ -953,7 +1000,7 @@ describe('Toast', () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Toast],
                 declarations: [TestToastPtInstanceComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             messageService = TestBed.inject(MessageService);
@@ -961,7 +1008,7 @@ describe('Toast', () => {
             component = fixture.componentInstance;
         });
 
-        it('should apply pt based on instance position', () => {
+        it('should apply pt based on instance position', async () => {
             component.position = 'bottom-left';
             component.pt = {
                 host: ({ instance }: any) => {
@@ -973,8 +1020,12 @@ describe('Toast', () => {
                     };
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             // Trigger ngAfterViewChecked for hostDirective Bind
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
@@ -985,7 +1036,7 @@ describe('Toast', () => {
             expect(hasBottomLeft || !hasTopRight).toBe(true);
         });
 
-        it('should apply pt style based on instance life', () => {
+        it('should apply pt style based on instance life', async () => {
             component.pt = {
                 root: ({ instance }: any) => {
                     return {
@@ -995,6 +1046,8 @@ describe('Toast', () => {
                     };
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
@@ -1019,7 +1072,7 @@ describe('Toast', () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Toast],
                 declarations: [TestToastPtEventComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             messageService = TestBed.inject(MessageService);
@@ -1027,7 +1080,7 @@ describe('Toast', () => {
             component = fixture.componentInstance;
         });
 
-        it('should bind onclick event to host element', fakeAsync(() => {
+        it('should bind onclick event to host element', async () => {
             let clicked = false;
 
             component.pt = {
@@ -1037,17 +1090,19 @@ describe('Toast', () => {
                     }
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
             toastElement.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(clicked).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should bind onmouseenter event', fakeAsync(() => {
+        it('should bind onmouseenter event', async () => {
             let mouseEntered = false;
 
             component.pt = {
@@ -1057,15 +1112,17 @@ describe('Toast', () => {
                     }
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
             toastElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(mouseEntered).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Toast PassThrough - Case 6: Inline test', () => {
@@ -1086,7 +1143,7 @@ describe('Toast', () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Toast],
                 declarations: [TestToastInlineStringPtComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestToastInlineStringPtComponent);
@@ -1101,7 +1158,7 @@ describe('Toast', () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Toast],
                 declarations: [TestToastInlineObjectPtComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestToastInlineObjectPtComponent);
@@ -1130,6 +1187,7 @@ describe('Toast', () => {
                 declarations: [TestToastGlobalPtComponent],
                 providers: [
                     MessageService,
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             toast: {
@@ -1166,6 +1224,7 @@ describe('Toast', () => {
                 declarations: [TestToastMergedPtComponent],
                 providers: [
                     MessageService,
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             toast: {
@@ -1203,7 +1262,7 @@ describe('Toast', () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Toast],
                 declarations: [TestToastPtHooksComponent],
-                providers: [MessageService]
+                providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             messageService = TestBed.inject(MessageService);
@@ -1211,7 +1270,7 @@ describe('Toast', () => {
             component = fixture.componentInstance;
         });
 
-        it('should call onInit hook from pt', () => {
+        it('should call onInit hook from pt', async () => {
             let onInitCalled = false;
 
             component.pt = {
@@ -1222,12 +1281,14 @@ describe('Toast', () => {
                     }
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(onInitCalled).toBe(true);
         });
 
-        it('should call onAfterViewInit hook from pt', () => {
+        it('should call onAfterViewInit hook from pt', async () => {
             let onAfterViewInitCalled = false;
 
             component.pt = {
@@ -1238,12 +1299,14 @@ describe('Toast', () => {
                     }
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(onAfterViewInitCalled).toBe(true);
         });
 
-        it('should call onDestroy hook from pt when component is destroyed', () => {
+        it('should call onDestroy hook from pt when component is destroyed', async () => {
             let onDestroyCalled = false;
 
             component.pt = {
@@ -1254,6 +1317,8 @@ describe('Toast', () => {
                     }
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             fixture.destroy();
@@ -1261,7 +1326,7 @@ describe('Toast', () => {
             expect(onDestroyCalled).toBe(true);
         });
 
-        it('should pass context to hooks', () => {
+        it('should pass context to hooks', async () => {
             let hookContext: any = null;
 
             component.pt = {
@@ -1272,12 +1337,14 @@ describe('Toast', () => {
                     }
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(hookContext).toBeTruthy();
         });
 
-        it('should call multiple hooks in correct order', () => {
+        it('should call multiple hooks in correct order', async () => {
             const callOrder: string[] = [];
 
             component.pt = {
@@ -1294,6 +1361,8 @@ describe('Toast', () => {
                     }
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(callOrder).toContain('onInit');
@@ -1312,7 +1381,8 @@ describe('ToastItem', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, ToastItem, SharedModule]
+            imports: [NoopAnimationsModule, CommonModule, ToastItem, SharedModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
 
@@ -1338,7 +1408,7 @@ describe('ToastItem', () => {
             expect(component.headlessTemplate).toBeUndefined();
         });
 
-        it('should accept input values', () => {
+        it('should accept input values', async () => {
             const testMessage: ToastMessageOptions = {
                 severity: 'success',
                 summary: 'Test',
@@ -1348,6 +1418,8 @@ describe('ToastItem', () => {
             component.message = testMessage;
             component.index = 0;
             component.life = 5000;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(component.message as any).toEqual(testMessage);
@@ -1357,7 +1429,7 @@ describe('ToastItem', () => {
     });
 
     describe('Public Methods', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
             component.message = {
@@ -1370,10 +1442,12 @@ describe('ToastItem', () => {
             component.hideTransformOptions = 'translateY(-100%)';
             component.showTransitionOptions = '300ms ease-out';
             component.hideTransitionOptions = '250ms ease-in';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
         });
 
-        it('should initialize timeout for non-sticky messages', fakeAsync(() => {
+        it('should initialize timeout for non-sticky messages', async () => {
             component.message = {
                 severity: 'success',
                 summary: 'Auto Close',
@@ -1385,14 +1459,17 @@ describe('ToastItem', () => {
             spyOn(component.onClose, 'emit');
             component.initTimeout();
 
-            tick(1000);
+            await new Promise((resolve) => setTimeout(resolve, 1100));
+            await fixture.whenStable();
+
+            // Trigger animation end to emit onClose
+            component.handleAnimationEnd(new AnimationEvent('animationend'));
 
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
                 message: component.message as any
             });
-            flush();
-        }));
+        });
 
         it('should not initialize timeout for sticky messages', () => {
             component.message = {
@@ -1439,16 +1516,20 @@ describe('ToastItem', () => {
             component.onCloseIconClick(mockEvent);
 
             expect(component.clearTimeout).toHaveBeenCalled();
+            expect(mockEvent.preventDefault).toHaveBeenCalled();
+
+            // Trigger animation end to emit onClose
+            component.handleAnimationEnd(new AnimationEvent('animationend'));
+
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
                 message: component.message as any
             });
-            expect(mockEvent.preventDefault).toHaveBeenCalled();
         });
     });
 
     describe('Event Handling', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
             component.message = {
@@ -1462,6 +1543,8 @@ describe('ToastItem', () => {
             component.hideTransformOptions = 'translateY(-100%)';
             component.showTransitionOptions = '300ms ease-out';
             component.hideTransitionOptions = '250ms ease-in';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
         });
 
@@ -1472,6 +1555,9 @@ describe('ToastItem', () => {
             expect(closeButton).toBeTruthy();
 
             closeButton.nativeElement.click();
+
+            // Trigger animation end to emit onClose
+            component.handleAnimationEnd(new AnimationEvent('animationend'));
 
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
@@ -1486,6 +1572,9 @@ describe('ToastItem', () => {
             const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 
             closeButton.nativeElement.dispatchEvent(enterEvent);
+
+            // Trigger animation end to emit onClose
+            component.handleAnimationEnd(new AnimationEvent('animationend'));
 
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
@@ -1504,12 +1593,14 @@ describe('ToastItem', () => {
             component.hideTransitionOptions = '250ms ease-in';
         });
 
-        it('should display message content', () => {
+        it('should display message content', async () => {
             component.message = {
                 severity: 'success',
                 summary: 'Success Message',
                 detail: 'Operation completed successfully'
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const summaryEl = fixture.debugElement.query(By.css('[data-pc-section="summary"]'));
@@ -1519,43 +1610,49 @@ describe('ToastItem', () => {
             expect(detailEl.nativeElement.textContent.trim()).toBe('Operation completed successfully');
         });
 
-        it('should display correct icon for severity types', () => {
+        it('should display correct icon for severity types', async () => {
             const severities = ['success', 'info', 'error', 'warn'];
 
-            severities.forEach((severity) => {
+            for (const severity of severities) {
                 component.message = {
                     severity: severity as any,
                     summary: `${severity} message`,
                     detail: 'Test detail'
                 } as any;
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
                 fixture.detectChanges();
 
                 // Icon is rendered as SVG element
                 const icon = fixture.debugElement.query(By.css('svg'));
                 expect(icon).toBeTruthy();
-            });
+            }
         });
 
-        it('should display custom icon when provided', () => {
+        it('should display custom icon when provided', async () => {
             component.message = {
                 severity: 'info',
                 summary: 'Custom Icon',
                 detail: 'Message with custom icon',
                 icon: 'pi pi-custom'
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const iconElement = fixture.debugElement.query(By.css('.pi-custom'));
             expect(iconElement).toBeTruthy();
         });
 
-        it('should hide close button when closable is false', () => {
+        it('should hide close button when closable is false', async () => {
             component.message = {
                 severity: 'info',
                 summary: 'Non-closable',
                 detail: 'Cannot be closed',
                 closable: false
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const closeButton = fixture.debugElement.query(By.css('button'));
@@ -1586,8 +1683,10 @@ describe('ToastItem', () => {
             expect(container.nativeElement.getAttribute('aria-atomic')).toBe('true');
         });
 
-        it('should have correct close button aria-label', () => {
+        it('should have correct close button aria-label', async () => {
             component.message = { ...(component.message as any), closable: true };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const closeButton = fixture.debugElement.query(By.css('button'));
@@ -1625,7 +1724,7 @@ describe('ToastItem', () => {
             expect(component.clearTimeout).toHaveBeenCalled();
         });
 
-        it('should not leak memory with multiple timeouts', fakeAsync(() => {
+        it('should not leak memory with multiple timeouts', async () => {
             component.message = { ...(component.message as any), sticky: false };
             component.life = 1000;
 
@@ -1636,12 +1735,12 @@ describe('ToastItem', () => {
             component.initTimeout();
             component.initTimeout();
 
-            tick(1000);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await fixture.whenStable();
 
             // Should call clearTimeout when reinitializing
             expect(component.clearTimeout).toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('PassThrough - Case 1: Simple string classes', () => {
@@ -1944,7 +2043,7 @@ describe('ToastItem', () => {
             component.hideTransitionOptions = '250ms ease-in';
         });
 
-        it('should bind onclick event to message element via pt', fakeAsync(() => {
+        it('should bind onclick event to message element via pt', async () => {
             let clicked = false;
 
             fixture.componentRef.setInput('pt', {
@@ -1960,13 +2059,13 @@ describe('ToastItem', () => {
 
             const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
             messageElement.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(clicked).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should bind onmouseenter event via pt', fakeAsync(() => {
+        it('should bind onmouseenter event via pt', async () => {
             let mouseEntered = false;
 
             fixture.componentRef.setInput('pt', {
@@ -1982,11 +2081,11 @@ describe('ToastItem', () => {
 
             const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
             messageElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(mouseEntered).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('PassThrough - Case 6: Inline test', () => {
@@ -2028,7 +2127,8 @@ describe('ToastItem', () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, ToastItem],
-                declarations: [TestInlineStringPtComponent]
+                declarations: [TestInlineStringPtComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestInlineStringPtComponent);
@@ -2042,7 +2142,8 @@ describe('ToastItem', () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, ToastItem],
-                declarations: [TestInlineObjectPtComponent]
+                declarations: [TestInlineObjectPtComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestInlineObjectPtComponent);
@@ -2073,6 +2174,7 @@ describe('ToastItem', () => {
                 imports: [NoopAnimationsModule, ToastItem],
                 declarations: [TestGlobalPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             toastitem: {
@@ -2118,6 +2220,7 @@ describe('ToastItem', () => {
                 imports: [NoopAnimationsModule, ToastItem],
                 declarations: [TestMergedPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             toastitem: {

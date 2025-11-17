@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +15,8 @@ describe('SelectButton', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent, NoopAnimationsModule],
-            declarations: [TestFormSelectButtonComponent, TestPrimeTemplateSelectButtonComponent]
+            declarations: [TestFormSelectButtonComponent, TestPrimeTemplateSelectButtonComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(SelectButton);
@@ -35,12 +36,14 @@ describe('SelectButton', () => {
             expect(component.unselectable).toBe(false);
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.options = [{ label: 'Option 1', value: 'opt1' }];
             component.multiple = true;
             component.allowEmpty = false;
             component.styleClass = 'custom-class';
 
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(component.options?.length).toBe(1);
@@ -61,12 +64,14 @@ describe('SelectButton', () => {
     });
 
     describe('Public Methods', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.options = [
                 { label: 'Option 1', value: 'opt1' },
                 { label: 'Option 2', value: 'opt2' },
                 { label: 'Option 3', value: 'opt3', disabled: true }
             ];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
         });
 
@@ -211,38 +216,39 @@ describe('SelectButton', () => {
             formTestFixture.detectChanges();
         });
 
-        it('should work with reactive forms', fakeAsync(() => {
+        it('should work with reactive forms', async () => {
             formTestComponent.form.patchValue({ selectedValue: 'option2' });
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.value.selectedValue).toBe('option2' as any);
-            flush();
-        }));
+        });
 
-        it('should validate required field', fakeAsync(() => {
+        it('should validate required field', async () => {
             expect(formTestComponent.form.invalid).toBe(true);
 
             formTestComponent.form.patchValue({ selectedValue: 'option1' });
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.valid).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle form reset', fakeAsync(() => {
+        it('should handle form reset', async () => {
             formTestComponent.form.patchValue({ selectedValue: 'option1' });
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             formTestComponent.form.reset();
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.pristine).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Template and Content Projection', () => {
@@ -281,7 +287,7 @@ describe('SelectButton', () => {
             expect(component.getOptionValue(component.options![1])).toBe(component.options![1]);
         });
 
-        it('should handle selection with dataKey', () => {
+        it('should handle selection with dataKey', async () => {
             component.dataKey = 'id';
             component.options = [
                 { id: 1, label: 'Option 1' },
@@ -289,28 +295,32 @@ describe('SelectButton', () => {
             ];
             component.value = { id: 1, label: 'Option 1' };
 
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(component.isSelected(component.options![0])).toBe(true);
             expect(component.isSelected(component.options![1])).toBe(false);
         });
 
-        it('should handle rapid selection changes', fakeAsync(() => {
+        it('should handle rapid selection changes', async () => {
             component.options = [
                 { label: 'Option 1', value: 'opt1' },
                 { label: 'Option 2', value: 'opt2' }
             ];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             for (let i = 0; i < 5; i++) {
                 const optionIndex = i % 2;
                 component.onOptionSelect(new Event('click'), component.options![optionIndex], optionIndex);
-                tick(10);
+                await new Promise((resolve) => setTimeout(resolve, 10));
+                await fixture.whenStable();
             }
 
             expect(component.value).toBeDefined();
-            flush();
-        }));
+        });
 
         it('should handle unselectable option correctly', () => {
             component.options = [
@@ -327,11 +337,13 @@ describe('SelectButton', () => {
             expect(component.value).toBe('opt1');
         });
 
-        it('should handle disabled component', () => {
+        it('should handle disabled component', async () => {
             component.options = [
                 { label: 'Option 1', value: 'opt1' },
                 { label: 'Option 2', value: 'opt2' }
             ];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             // Mock the disabled state by creating a spy
             spyOn(component, '$disabled').and.returnValue(true);
             const mockEvent = new Event('click');
@@ -353,12 +365,14 @@ describe('SelectButton', () => {
             expect(() => component.onBlur()).not.toThrow();
         });
 
-        it('should change tab indexes correctly', () => {
+        it('should change tab indexes correctly', async () => {
             component.options = [
                 { label: 'Option 1', value: 'opt1' },
                 { label: 'Option 2', value: 'opt2' },
                 { label: 'Option 3', value: 'opt3' }
             ];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const mockEvent = new Event('keydown');
@@ -501,7 +515,8 @@ describe('SelectButton pTemplate Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestSelectButtonPTemplateComponent, NoopAnimationsModule]
+            imports: [TestSelectButtonPTemplateComponent, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestSelectButtonPTemplateComponent);
@@ -510,62 +525,66 @@ describe('SelectButton pTemplate Tests', () => {
         fixture.detectChanges();
     });
 
-    it('should create component with pTemplate templates', fakeAsync(() => {
+    it('should create component with pTemplate templates', async () => {
         expect(component).toBeTruthy();
         expect(selectButtonInstance).toBeTruthy();
         expect(() => selectButtonInstance.itemTemplate).not.toThrow();
-    }));
+    });
 
-    it('should pass context parameters to item template', fakeAsync(() => {
+    it('should pass context parameters to item template', async () => {
         // Verify that the select button component is working with options
         expect(selectButtonInstance.options).toBeDefined();
         expect(selectButtonInstance.options?.length).toBe(3);
         expect(component.options.length).toBe(3);
-    }));
+    });
 
-    it('should render templates with correct context', fakeAsync(() => {
+    it('should render templates with correct context', async () => {
         // Test with different selected values
         component.selectedValue = 'opt1';
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectButtonInstance.value).toBe('opt1');
         expect(component.selectedValue).toBe('opt1');
-    }));
+    });
 
-    it('should update templates when selection changes', fakeAsync(() => {
+    it('should update templates when selection changes', async () => {
         // Initially no selection
         expect(selectButtonInstance.value).toBeUndefined();
 
         // Select option
         component.selectedValue = 'opt2';
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectButtonInstance.value).toBe('opt2');
-    }));
+    });
 
-    it('should apply context to templates correctly', fakeAsync(() => {
+    it('should apply context to templates correctly', async () => {
         component.selectedValue = 'opt3';
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         // Verify that the select button component works correctly
         expect(selectButtonInstance.value).toBe('opt3');
         expect(selectButtonInstance.isSelected(component.options![2])).toBe(true);
-    }));
+    });
 
-    it('should process pTemplates after content init', fakeAsync(() => {
+    it('should process pTemplates after content init', async () => {
         if (selectButtonInstance.ngAfterContentInit) {
             selectButtonInstance.ngAfterContentInit();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify that ngAfterContentInit is called correctly
             expect(selectButtonInstance.options).toBeDefined();
             expect(component.options).toBeDefined();
         }
-    }));
+    });
 });
 
 describe('SelectButton #template Reference Tests', () => {
@@ -575,7 +594,8 @@ describe('SelectButton #template Reference Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestSelectButtonRefTemplateComponent, NoopAnimationsModule]
+            imports: [TestSelectButtonRefTemplateComponent, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestSelectButtonRefTemplateComponent);
@@ -584,62 +604,66 @@ describe('SelectButton #template Reference Tests', () => {
         fixture.detectChanges();
     });
 
-    it('should create component with #template references', fakeAsync(() => {
+    it('should create component with #template references', async () => {
         expect(component).toBeTruthy();
         expect(selectButtonInstance).toBeTruthy();
         expect(() => selectButtonInstance.itemTemplate).not.toThrow();
-    }));
+    });
 
-    it('should pass context parameters to item template', fakeAsync(() => {
+    it('should pass context parameters to item template', async () => {
         // Verify that the select button component is working with options
         expect(selectButtonInstance.options).toBeDefined();
         expect(selectButtonInstance.options?.length).toBe(3);
         expect(component.options.length).toBe(3);
-    }));
+    });
 
-    it('should render templates with correct context', fakeAsync(() => {
+    it('should render templates with correct context', async () => {
         // Test with different selected values
         component.selectedValue = 'item1';
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectButtonInstance.value).toBe('item1');
         expect(component.selectedValue).toBe('item1');
-    }));
+    });
 
-    it('should update templates when selection changes', fakeAsync(() => {
+    it('should update templates when selection changes', async () => {
         // Initially no selection
         expect(selectButtonInstance.value).toBeUndefined();
 
         // Select option
         component.selectedValue = 'item2';
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectButtonInstance.value).toBe('item2');
-    }));
+    });
 
-    it('should apply context to templates correctly', fakeAsync(() => {
+    it('should apply context to templates correctly', async () => {
         component.selectedValue = 'item3';
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         // Verify that the select button component works correctly
         expect(selectButtonInstance.value).toBe('item3');
         expect(selectButtonInstance.isSelected(component.options![2])).toBe(true);
-    }));
+    });
 
-    it('should process #templates after content init', fakeAsync(() => {
+    it('should process #templates after content init', async () => {
         if (selectButtonInstance.ngAfterContentInit) {
             selectButtonInstance.ngAfterContentInit();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify that ngAfterContentInit is called correctly
             expect(selectButtonInstance.options).toBeDefined();
             expect(component.options).toBeDefined();
         }
-    }));
+    });
 });
 
 describe('SelectButton PassThrough Tests', () => {
@@ -649,12 +673,15 @@ describe('SelectButton PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule]
+            imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(SelectButton);
         component = fixture.componentInstance;
         component.options = ['One-Way', 'Return'];
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
         hostElement = fixture.nativeElement;
     });
 
@@ -766,8 +793,10 @@ describe('SelectButton PassThrough Tests', () => {
     });
 
     describe('PT Case 4: Use variables from instance', () => {
-        it('should access instance variables in PT function', () => {
+        it('should access instance variables in PT function', async () => {
             component.value = 'One-Way';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({
                     class: instance?.value ? 'HAS_VALUE' : ''
@@ -778,8 +807,10 @@ describe('SelectButton PassThrough Tests', () => {
             expect(hostElement.classList.contains('HAS_VALUE')).toBe(true);
         });
 
-        it('should conditionally apply styles based on instance state', () => {
+        it('should conditionally apply styles based on instance state', async () => {
             component.value = 'Return';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({
                     style: {
@@ -792,9 +823,11 @@ describe('SelectButton PassThrough Tests', () => {
             expect(hostElement.style.backgroundColor).toBe('yellow');
         });
 
-        it('should access multiple instance properties', () => {
+        it('should access multiple instance properties', async () => {
             component.value = 'One-Way';
             component.multiple = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({
                     class: (instance?.multiple ? 'MULTIPLE_MODE ' : '') + (instance?.value ? 'HAS_SELECTION' : '')
@@ -864,6 +897,7 @@ describe('SelectButton PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             selectButton: {
@@ -878,6 +912,8 @@ describe('SelectButton PassThrough Tests', () => {
             const globalFixture = TestBed.createComponent(SelectButton);
             const globalComponent = globalFixture.componentInstance;
             globalComponent.options = ['One', 'Two'];
+            globalFixture.changeDetectorRef.markForCheck();
+            await globalFixture.whenStable();
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
@@ -890,6 +926,7 @@ describe('SelectButton PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule, TestMultipleInstancesComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             selectButton: {
@@ -923,6 +960,7 @@ describe('SelectButton PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             selectButton: {
@@ -940,6 +978,8 @@ describe('SelectButton PassThrough Tests', () => {
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
             hookComponent.options = ['A', 'B'];
+            hookFixture.changeDetectorRef.markForCheck();
+            await hookFixture.whenStable();
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');
@@ -951,6 +991,7 @@ describe('SelectButton PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             selectButton: {
@@ -968,6 +1009,8 @@ describe('SelectButton PassThrough Tests', () => {
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
             hookComponent.options = ['X', 'Y'];
+            hookFixture.changeDetectorRef.markForCheck();
+            await hookFixture.whenStable();
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onAfterViewInit');
@@ -979,6 +1022,7 @@ describe('SelectButton PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             selectButton: {
@@ -998,6 +1042,8 @@ describe('SelectButton PassThrough Tests', () => {
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
             hookComponent.options = ['M', 'N'];
+            hookFixture.changeDetectorRef.markForCheck();
+            await hookFixture.whenStable();
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onAfterViewChecked');
@@ -1009,6 +1055,7 @@ describe('SelectButton PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             selectButton: {
@@ -1026,6 +1073,8 @@ describe('SelectButton PassThrough Tests', () => {
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
             hookComponent.options = ['P', 'Q'];
+            hookFixture.changeDetectorRef.markForCheck();
+            await hookFixture.whenStable();
             hookFixture.detectChanges();
 
             hookFixture.destroy();
@@ -1039,6 +1088,7 @@ describe('SelectButton PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             selectButton: {
@@ -1067,6 +1117,8 @@ describe('SelectButton PassThrough Tests', () => {
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
             hookComponent.options = ['R', 'S'];
+            hookFixture.changeDetectorRef.markForCheck();
+            await hookFixture.whenStable();
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');

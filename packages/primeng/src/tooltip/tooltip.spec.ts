@@ -1,5 +1,5 @@
-import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, ElementRef, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipOptions } from 'primeng/api';
@@ -92,7 +92,8 @@ describe('Tooltip', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, Tooltip],
-            declarations: [TestBasicTooltipComponent, TestTemplateTooltipComponent, TestTooltipOptionsComponent]
+            declarations: [TestBasicTooltipComponent, TestTemplateTooltipComponent, TestTooltipOptionsComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
 
@@ -127,7 +128,7 @@ describe('Tooltip', () => {
             expect(tooltipDirective.disabled).toBeFalsy();
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.tooltipPosition = 'top';
             component.tooltipEvent = 'focus';
             component.escape = false;
@@ -136,6 +137,8 @@ describe('Tooltip', () => {
             component.life = 2000;
             component.autoHide = false;
             component.tooltipStyleClass = 'custom-tooltip';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(tooltipDirective.tooltipPosition).toBe('top');
@@ -148,8 +151,10 @@ describe('Tooltip', () => {
             expect(tooltipDirective.tooltipStyleClass).toBe('custom-tooltip');
         });
 
-        it('should disable tooltip when disabled is true', () => {
+        it('should disable tooltip when disabled is true', async () => {
             component.tooltipDisabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(tooltipDirective.disabled).toBe(true);
@@ -189,26 +194,31 @@ describe('Tooltip', () => {
             expect(tooltipDirective.active).toBe(false);
         });
 
-        it('should not show tooltip when disabled', fakeAsync(() => {
+        it('should not show tooltip when disabled', async () => {
             component.tooltipDisabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(tooltipDirective.container).toBeFalsy();
-            flush();
-        }));
+        });
 
-        it('should not show tooltip when content is empty', fakeAsync(() => {
+        it('should not show tooltip when content is empty', async () => {
             tooltipDirective.setOption({ tooltipLabel: '' });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(tooltipDirective.container).toBeFalsy();
-            flush();
-        }));
+        });
     });
 
     describe('Event Handling', () => {
@@ -290,8 +300,10 @@ describe('Tooltip', () => {
             expect(tooltipDirective.getOption('showDelay')).toBe(500);
         });
 
-        it('should handle position changes', () => {
+        it('should handle position changes', async () => {
             component.tooltipPosition = 'left';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(tooltipDirective.tooltipPosition).toBe('left');
@@ -330,34 +342,43 @@ describe('Tooltip', () => {
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
-        it('should show tooltip after show delay', fakeAsync(() => {
+        it('should show tooltip after show delay', async () => {
             tooltipDirective.setOption({ showDelay: 500 });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
             spyOn(tooltipDirective, 'show');
 
             tooltipDirective.activate();
-            tick(300);
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            await fixture.whenStable();
             expect(tooltipDirective.show).not.toHaveBeenCalled();
 
-            tick(200);
+            await new Promise((resolve) => setTimeout(resolve, 200));
+            await fixture.whenStable();
             expect(tooltipDirective.show).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should hide tooltip after hide delay', fakeAsync(() => {
+        it('should hide tooltip after hide delay', async () => {
             tooltipDirective.setOption({ hideDelay: 300 });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             tooltipDirective.activate();
 
             spyOn(tooltipDirective, 'hide');
             tooltipDirective.deactivate();
 
-            tick(200);
+            await new Promise((resolve) => setTimeout(resolve, 200));
+            await fixture.whenStable();
             expect(tooltipDirective.hide).not.toHaveBeenCalled();
 
-            tick(100);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(tooltipDirective.hide).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
         it('should clear timeouts correctly', () => {
             tooltipDirective.showTimeout = setTimeout(() => {}, 1000);
@@ -384,9 +405,12 @@ describe('Tooltip', () => {
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
-        it('should handle escape key when hideOnEscape is true', () => {
+        it('should handle escape key when hideOnEscape is true', async () => {
             spyOn(tooltipDirective, 'deactivate');
             tooltipDirective.setOption({ hideOnEscape: true });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             // Simulate document escape listener setup
             tooltipDirective.activate();
@@ -426,30 +450,46 @@ describe('Tooltip', () => {
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
-        it('should handle autoHide option correctly', () => {
+        it('should handle autoHide option correctly', async () => {
             tooltipDirective.setOption({ autoHide: false });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
             expect(tooltipDirective.isAutoHide()).toBe(false);
 
             tooltipDirective.setOption({ autoHide: true });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
             expect(tooltipDirective.isAutoHide()).toBe(true);
         });
 
-        it('should update text content correctly', () => {
+        it('should update text content correctly', async () => {
             tooltipDirective.tooltipText = document.createElement('div');
             tooltipDirective.setOption({ escape: true });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             spyOn(document, 'createTextNode').and.callThrough();
 
             tooltipDirective.setOption({ tooltipLabel: 'Test content' });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
             tooltipDirective.updateText();
 
             expect(document.createTextNode).toHaveBeenCalledWith('Test content');
         });
 
-        it('should handle HTML content when escape is false', () => {
+        it('should handle HTML content when escape is false', async () => {
             tooltipDirective.tooltipText = document.createElement('div');
             tooltipDirective.setOption({ escape: false });
             tooltipDirective.setOption({ tooltipLabel: '<strong>Bold</strong>' });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             tooltipDirective.updateText();
 
@@ -499,12 +539,14 @@ describe('Tooltip', () => {
             expect(tooltipDirective.getOption('tooltipStyleClass')).toBe('custom-options-tooltip');
         });
 
-        it('should update options when tooltipOptions changes', () => {
+        it('should update options when tooltipOptions changes', async () => {
             component.options = {
                 ...component.options,
                 tooltipLabel: 'Updated tooltip',
                 tooltipPosition: 'bottom'
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(tooltipDirective.getOption('tooltipLabel')).toBe('Updated tooltip');
@@ -589,10 +631,13 @@ describe('Tooltip', () => {
             expect(tooltipDirective.deactivate).toHaveBeenCalled();
         });
 
-        it('should handle options updates correctly', () => {
+        it('should handle options updates correctly', async () => {
             const initialOptions = { ...tooltipDirective._tooltipOptions };
 
             tooltipDirective.setOption({ tooltipLabel: 'New label' });
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             expect(tooltipDirective.getOption('tooltipLabel')).toBe('New label');
             expect(tooltipDirective._tooltipOptions).not.toEqual(initialOptions);
@@ -618,7 +663,8 @@ describe('Tooltip', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Tooltip],
-                declarations: [TestPTTooltipComponent]
+                declarations: [TestPTTooltipComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestPTTooltipComponent);
@@ -631,32 +677,37 @@ describe('Tooltip', () => {
         });
 
         // Case 1: Simple string classes
-        it('should apply simple string classes via PT', fakeAsync(() => {
+        it('should apply simple string classes via PT', async () => {
             component.pt = {
                 root: 'ROOT_CLASS'
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const tooltipContainer = document.querySelector('.p-tooltip');
             expect(tooltipContainer?.classList.contains('ROOT_CLASS')).toBeTruthy();
 
             tooltipDirective.deactivate();
-            flush();
-        }));
+        });
 
-        it('should apply PT classes to dynamically created elements', fakeAsync(() => {
+        it('should apply PT classes to dynamically created elements', async () => {
             component.pt = {
                 root: 'ROOT_CLASS',
                 arrow: 'ARROW_CLASS',
                 text: 'TEXT_CLASS'
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const tooltipContainer = document.querySelector('.p-tooltip');
             const tooltipArrow = document.querySelector('.p-tooltip-arrow');
@@ -667,11 +718,10 @@ describe('Tooltip', () => {
             expect(tooltipText?.classList.contains('TEXT_CLASS')).toBeTruthy();
 
             tooltipDirective.deactivate();
-            flush();
-        }));
+        });
 
         // Case 2: Objects with class, style, data attributes
-        it('should apply PT object attributes', fakeAsync(() => {
+        it('should apply PT object attributes', async () => {
             component.pt = {
                 root: {
                     class: 'PT_ROOT_CLASS',
@@ -680,10 +730,13 @@ describe('Tooltip', () => {
                     'aria-label': 'Host Aria Label'
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const tooltipContainer = document.querySelector('.p-tooltip') as HTMLElement;
 
@@ -693,10 +746,9 @@ describe('Tooltip', () => {
             expect(tooltipContainer?.getAttribute('aria-label')).toBe('Host Aria Label');
 
             tooltipDirective.deactivate();
-            flush();
-        }));
+        });
 
-        it('should apply PT object to dynamic elements', fakeAsync(() => {
+        it('should apply PT object to dynamic elements', async () => {
             component.pt = {
                 root: {
                     class: 'ROOT_PT_CLASS',
@@ -708,10 +760,13 @@ describe('Tooltip', () => {
                     'aria-label': 'Tooltip Text'
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const tooltipContainer = document.querySelector('.p-tooltip') as HTMLElement;
             const tooltipText = document.querySelector('.p-tooltip-text') as HTMLElement;
@@ -723,21 +778,23 @@ describe('Tooltip', () => {
             expect(tooltipText?.getAttribute('aria-label')).toBe('Tooltip Text');
 
             tooltipDirective.deactivate();
-            flush();
-        }));
+        });
 
         // Case 3: Mixed object and string values
-        it('should handle mixed PT values', fakeAsync(() => {
+        it('should handle mixed PT values', async () => {
             component.pt = {
                 root: 'SIMPLE_ROOT_CLASS',
                 arrow: {
                     class: 'OBJECT_ARROW_CLASS'
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const tooltipContainer = document.querySelector('.p-tooltip');
             const tooltipArrow = document.querySelector('.p-tooltip-arrow');
@@ -746,11 +803,10 @@ describe('Tooltip', () => {
             expect(tooltipArrow?.classList.contains('OBJECT_ARROW_CLASS')).toBeTruthy();
 
             tooltipDirective.deactivate();
-            flush();
-        }));
+        });
 
         // Case 5: Event binding
-        it('should handle PT event bindings', fakeAsync(() => {
+        it('should handle PT event bindings', async () => {
             let clicked = false;
             component.pt = {
                 root: {
@@ -759,31 +815,37 @@ describe('Tooltip', () => {
                     }
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const tooltipContainer = document.querySelector('.p-tooltip') as HTMLElement;
             tooltipContainer.click();
             expect(clicked).toBeTruthy();
 
             tooltipDirective.deactivate();
-            flush();
-        }));
+        });
 
         // Additional test: PT on all tooltip sections
-        it('should apply PT to all tooltip sections', fakeAsync(() => {
+        it('should apply PT to all tooltip sections', async () => {
             component.pt = {
                 root: 'ROOT_PT',
                 arrow: 'ARROW_PT',
                 text: 'TEXT_PT'
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             tooltipDirective.activate();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const container = document.querySelector('.p-tooltip');
             const arrow = document.querySelector('.p-tooltip-arrow');
@@ -794,22 +856,23 @@ describe('Tooltip', () => {
             expect(text?.classList.contains('TEXT_PT')).toBeTruthy();
 
             tooltipDirective.deactivate();
-            flush();
-        }));
+        });
 
         // Test PT attribute removal
-        it('should remove attributes when PT value is null', fakeAsync(() => {
+        it('should remove attributes when PT value is null', async () => {
             const container = document.querySelector('.p-tooltip');
             component.pt = {
                 root: {
                     'data-test': null
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(container?.hasAttribute('data-test')).toBeFalsy();
-            flush();
-        }));
+        });
     });
 });

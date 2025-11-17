@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DebugElement, signal } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, computed, DebugElement, provideZonelessChangeDetection, signal } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -820,7 +820,8 @@ describe('Select', () => {
                 TestComprehensiveFormComponent,
                 TestViewChildComponent,
                 TestComplexEdgeCasesComponent
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicSelectComponent);
@@ -908,15 +909,15 @@ describe('Select', () => {
             expect(selectInstance.modelValue()).toBe(testValue);
         });
 
-        it('should emit onChange event when value changes', fakeAsync(() => {
+        it('should emit onChange event when value changes', async () => {
             const testOption = component.options[1];
             selectInstance.onOptionSelect(new Event('click'), testOption);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.changeEvent).toBeDefined();
             expect(component.changeEvent.value).toBe(testOption.code);
-            flush();
-        }));
+        });
 
         it('should handle selection of disabled option', () => {
             const disabledOption = { ...component.options[0], disabled: true };
@@ -931,21 +932,27 @@ describe('Select', () => {
             expect(selectInstance.modelValue()).toBe(initialValue);
         });
 
-        it('should display disabled option label when set as initial value', fakeAsync(() => {
+        it('should display disabled option label when set as initial value', async () => {
             // Setup disabled option
             const disabledOption = { name: 'Disabled Option', code: 'disabled1', disabled: true };
             component.options = [disabledOption, { name: 'Option 2', code: 'opt2' }, { name: 'Option 3', code: 'opt3' }];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Set disabled option as initial value
             component.selectedValue = 'disabled1';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Update the view and let computed values update
             selectInstance.cd.detectChanges();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Check the DOM element with p-select-label class
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
@@ -954,9 +961,9 @@ describe('Select', () => {
 
             // Verify the option is actually disabled
             expect(selectInstance.isOptionDisabled(disabledOption)).toBe(true);
-        }));
+        });
 
-        it('should display disabled grouped option label when set as initial value', fakeAsync(() => {
+        it('should display disabled grouped option label when set as initial value', async () => {
             // Setup grouped options with disabled item
             const groupedOptions = [
                 {
@@ -987,34 +994,36 @@ describe('Select', () => {
             // Set disabled option as initial value
             selectInstance.writeModelValue('Berlin');
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Check the DOM element with p-select-label class
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('Berlin');
-        }));
+        });
     });
 
     describe('Public Methods', () => {
-        it('should show overlay programmatically', fakeAsync(() => {
+        it('should show overlay programmatically', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.overlayVisible).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should hide overlay programmatically', fakeAsync(() => {
+        it('should hide overlay programmatically', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             selectInstance.hide();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.overlayVisible).toBe(false);
-            flush();
-        }));
+        });
 
         it('should clear value programmatically', () => {
             component.selectedValue = 'opt1';
@@ -1083,9 +1092,10 @@ describe('Select', () => {
             expect(component.blurEvent).toBeDefined();
         });
 
-        it('should handle show event', fakeAsync(() => {
+        it('should handle show event', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(selectInstance.overlayVisible).toBe(true);
@@ -1095,26 +1105,28 @@ describe('Select', () => {
             } else {
                 expect(selectInstance.overlayVisible).toBe(true);
             }
-            flush();
-        }));
+        });
 
-        it('should handle hide event', fakeAsync(() => {
+        it('should handle hide event', async () => {
             // Ensure overlay is shown first
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(selectInstance.overlayVisible).toBe(true);
 
             // Now hide it
             selectInstance.hide();
-            tick(); // Process immediate hide
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable(); // Process immediate hide
             fixture.detectChanges();
 
             // Wait for overlay hide animation to complete
             // Overlay might use animation frames, so we need to wait longer
             let attempts = 0;
             while (selectInstance.overlayVisible && attempts < 20) {
-                tick(100); // Longer intervals
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable(); // Longer intervals
                 fixture.detectChanges();
                 attempts++;
             }
@@ -1136,113 +1148,118 @@ describe('Select', () => {
                 // Fallback: just verify hide was called (component exists)
                 expect(selectInstance).toBeTruthy();
             }
-            flush();
-        }));
+        });
     });
 
     describe('Keyboard Navigation', () => {
-        it('should handle Arrow Down key', fakeAsync(() => {
+        it('should handle Arrow Down key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.overlayVisible).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle Arrow Up key', fakeAsync(() => {
+        it('should handle Arrow Up key', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp', altKey: true });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.overlayVisible).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should handle Enter key', fakeAsync(() => {
+        it('should handle Enter key', async () => {
             selectInstance.show();
             selectInstance.focusedOptionIndex.set(0);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Check DOM label element shows selected option
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe(component.options[0].name);
-            flush();
-        }));
+        });
 
-        it('should handle Escape key', fakeAsync(() => {
+        it('should handle Escape key', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.overlayVisible).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should handle Space key', fakeAsync(() => {
+        it('should handle Space key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.overlayVisible).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle Tab key', fakeAsync(() => {
+        it('should handle Tab key', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Tab' });
 
             if (selectInstance.overlayVisible) {
                 try {
                     selectInstance.onKeyDown(keyEvent);
-                    tick();
+                    await new Promise((resolve) => setTimeout(resolve, 100));
+                    await fixture.whenStable();
                     expect(selectInstance.overlayVisible).not.toBe(true);
                 } catch (error) {
                     expect(true).toBe(true);
                 }
             }
-            flush();
-        }));
+        });
 
-        it('should handle Home key', fakeAsync(() => {
+        it('should handle Home key', async () => {
             selectInstance.show();
             selectInstance.focusedOptionIndex.set(2);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.focusedOptionIndex()).toBe(0);
-            flush();
-        }));
+        });
 
-        it('should handle End key', fakeAsync(() => {
+        it('should handle End key', async () => {
             selectInstance.show();
             selectInstance.focusedOptionIndex.set(0);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.focusedOptionIndex()).toBe(selectInstance.findLastOptionIndex());
-            flush();
-        }));
+        });
     });
 
     describe('Filtering', () => {
@@ -1251,40 +1268,48 @@ describe('Select', () => {
             fixture.detectChanges();
         });
 
-        it('should filter options', fakeAsync(() => {
+        it('should filter options', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const filterEvent = { target: { value: 'Option 1' } } as any;
             selectInstance.onFilterInputChange(filterEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance._filterValue()).toBe('Option 1');
             expect(component.filterEvent).toBeDefined();
-            flush();
-        }));
+        });
 
-        it('should handle filter key down events', fakeAsync(() => {
+        it('should handle filter key down events', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             selectInstance.onFilterKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.focusedOptionIndex()).toBeGreaterThanOrEqual(0);
-            flush();
-        }));
+        });
 
-        it('should reset filter on hide', fakeAsync(() => {
+        it('should reset filter on hide', async () => {
             component.resetFilterOnHide = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             selectInstance._filterValue.set('test');
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             selectInstance.hide();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             // Only reset if resetFilterOnHide is enabled
             if (selectInstance.resetFilterOnHide) {
@@ -1292,8 +1317,7 @@ describe('Select', () => {
             } else {
                 expect(selectInstance._filterValue()).toBe('test');
             }
-            flush();
-        }));
+        });
     });
 
     describe('Accessibility', () => {
@@ -1304,15 +1328,15 @@ describe('Select', () => {
             expect(focusInput.nativeElement.getAttribute('aria-expanded')).toBe('false');
         });
 
-        it('should update aria-expanded when overlay opens', fakeAsync(() => {
+        it('should update aria-expanded when overlay opens', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const focusInput = fixture.debugElement.query(By.css('[role="combobox"]'));
             expect(focusInput.nativeElement.getAttribute('aria-expanded')).toBe('true');
-            flush();
-        }));
+        });
 
         it('should support aria-label', () => {
             component.ariaLabel = 'Select option';
@@ -1345,7 +1369,7 @@ describe('Select', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle rapid toggle clicks', fakeAsync(() => {
+        it('should handle rapid toggle clicks', async () => {
             const mockTarget = document.createElement('div');
 
             const clickEvent = {
@@ -1355,15 +1379,15 @@ describe('Select', () => {
             } as any;
 
             selectInstance.onContainerClick(clickEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(selectInstance.overlayVisible).toBe(true);
 
             selectInstance.onContainerClick(clickEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(selectInstance.overlayVisible).toBe(false);
-
-            flush();
-        }));
+        });
 
         it('should handle null/undefined values gracefully', () => {
             component.selectedValue = null as any;
@@ -1437,7 +1461,8 @@ describe('Select - Reactive Forms Integration', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestReactiveFormSelectComponent]
+            declarations: [TestReactiveFormSelectComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestReactiveFormSelectComponent);
@@ -1451,38 +1476,39 @@ describe('Select - Reactive Forms Integration', () => {
         expect(component.form.invalid).toBe(true);
     });
 
-    it('should update form control on selection', fakeAsync(() => {
+    it('should update form control on selection', async () => {
         const testOption = component.options[0];
         selectInstance.onOptionSelect(new Event('click'), testOption);
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(component.form.get('selectedOption')?.value).toBe(testOption.code);
         expect(component.form.valid).toBe(true);
-        flush();
-    }));
+    });
 
-    it('should handle form control setValue', fakeAsync(() => {
+    it('should handle form control setValue', async () => {
         component.form.get('selectedOption')?.setValue('form2');
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.modelValue()).toBe('form2');
-        flush();
-    }));
+    });
 
-    it('should handle form reset', fakeAsync(() => {
+    it('should handle form reset', async () => {
         component.form.get('selectedOption')?.setValue('form1');
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         component.form.reset();
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.modelValue()).toBe(null);
         expect(component.form.pristine).toBe(true);
-        flush();
-    }));
+    });
 
     it('should handle disabled form control', () => {
         component.form.get('selectedOption')?.disable();
@@ -1491,7 +1517,7 @@ describe('Select - Reactive Forms Integration', () => {
         expect(selectInstance.$disabled()).toBe(true);
     });
 
-    it('should track form control states', fakeAsync(() => {
+    it('should track form control states', async () => {
         const control = component.form.get('selectedOption');
 
         // Initial state
@@ -1501,12 +1527,12 @@ describe('Select - Reactive Forms Integration', () => {
 
         // Select value
         selectInstance.onOptionSelect(new Event('click'), component.options[0]);
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(control?.dirty).toBe(true);
         expect(control?.valid).toBe(true);
-        flush();
-    }));
+    });
 });
 
 describe('Select - Grouped Options', () => {
@@ -1517,7 +1543,8 @@ describe('Select - Grouped Options', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestGroupedSelectComponent]
+            declarations: [TestGroupedSelectComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestGroupedSelectComponent);
@@ -1545,18 +1572,18 @@ describe('Select - Grouped Options', () => {
         expect(children[0].cname).toBe('Berlin');
     });
 
-    it('should handle selection from grouped options', fakeAsync(() => {
+    it('should handle selection from grouped options', async () => {
         const cityOption = component.groupedOptions[0].items[0];
         selectInstance.onOptionSelect(new Event('click'), cityOption);
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         // Check DOM label element shows selected grouped option
         const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
         expect(labelElement).toBeTruthy();
         expect(labelElement.nativeElement.textContent.trim()).toBe(cityOption.cname);
-        flush();
-    }));
+    });
 });
 
 describe('Select - pTemplate Content Projection', () => {
@@ -1567,7 +1594,8 @@ describe('Select - pTemplate Content Projection', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestSelectPTemplateComponent]
+            declarations: [TestSelectPTemplateComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestSelectPTemplateComponent);
@@ -1581,9 +1609,10 @@ describe('Select - pTemplate Content Projection', () => {
         expect(selectInstance).toBeTruthy();
     });
 
-    it('should process all pTemplate templates in ngAfterContentInit', fakeAsync(() => {
+    it('should process all pTemplate templates in ngAfterContentInit', async () => {
         // Templates are processed during component initialization
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         // Verify component has templates available (may or may not be processed immediately)
@@ -1594,16 +1623,14 @@ describe('Select - pTemplate Content Projection', () => {
         // Template processing is internal - just verify component works
         expect(() => {
             selectInstance.show();
-            tick();
             selectInstance.hide();
         }).not.toThrow();
+    });
 
-        flush();
-    }));
-
-    it('should render item template with context', fakeAsync(() => {
+    it('should render item template with context', async () => {
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customItems = fixture.debugElement.queryAll(By.css('.custom-item'));
@@ -1614,14 +1641,14 @@ describe('Select - pTemplate Content Projection', () => {
             // Template may not be rendered immediately - just verify component shows
             expect(selectInstance.overlayVisible).toBe(true);
         }
-        flush();
-    }));
+    });
 
-    it('should render selected item template with context', fakeAsync(() => {
+    it('should render selected item template with context', async () => {
         component.selectedValue = 'tpl1';
         selectInstance.writeModelValue('tpl1');
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         const customSelected = fixture.debugElement.query(By.css('.custom-selected'));
         if (customSelected) {
@@ -1632,12 +1659,12 @@ describe('Select - pTemplate Content Projection', () => {
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('Template Option 1');
         }
-        flush();
-    }));
+    });
 
-    it('should render header template', fakeAsync(() => {
+    it('should render header template', async () => {
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customHeader = fixture.debugElement.query(By.css('.custom-header'));
@@ -1647,12 +1674,12 @@ describe('Select - pTemplate Content Projection', () => {
             // Fallback: check that overlay is visible when header should render
             expect(selectInstance.overlayVisible).toBe(true);
         }
-        flush();
-    }));
+    });
 
-    it('should render footer template', fakeAsync(() => {
+    it('should render footer template', async () => {
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customFooter = fixture.debugElement.query(By.css('.custom-footer'));
@@ -1662,14 +1689,14 @@ describe('Select - pTemplate Content Projection', () => {
             // Fallback: check that overlay is visible when footer should render
             expect(selectInstance.overlayVisible).toBe(true);
         }
-        flush();
-    }));
+    });
 
-    it('should render empty template when no options', fakeAsync(() => {
+    it('should render empty template when no options', async () => {
         component.options = [];
         fixture.detectChanges();
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customEmpty = fixture.debugElement.query(By.css('.custom-empty'));
@@ -1679,13 +1706,13 @@ describe('Select - pTemplate Content Projection', () => {
             // Fallback: check that overlay is visible when empty template should render
             expect(selectInstance.overlayVisible).toBe(true);
         }
-        flush();
-    }));
+    });
 
-    it('should render empty filter template when filter yields no results', fakeAsync(() => {
+    it('should render empty filter template when filter yields no results', async () => {
         selectInstance.show();
         selectInstance._filterValue.set('nonexistent');
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customEmptyFilter = fixture.debugElement.query(By.css('.custom-empty-filter'));
@@ -1695,12 +1722,12 @@ describe('Select - pTemplate Content Projection', () => {
             // Fallback: check that overlay is visible when empty filter template should render
             expect(selectInstance.overlayVisible).toBe(true);
         }
-        flush();
-    }));
+    });
 
-    it('should render filter template with options context', fakeAsync(() => {
+    it('should render filter template with options context', async () => {
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const customFilter = fixture.debugElement.query(By.css('.custom-filter'));
@@ -1711,10 +1738,9 @@ describe('Select - pTemplate Content Projection', () => {
             // Fallback: just check that overlay is visible when filter template should render
             expect(selectInstance.overlayVisible).toBe(true);
         }
-        flush();
-    }));
+    });
 
-    it('should render loader template with options context', fakeAsync(() => {
+    it('should render loader template with options context', async () => {
         component.loading = true;
         fixture.detectChanges();
 
@@ -1724,12 +1750,9 @@ describe('Select - pTemplate Content Projection', () => {
 
         expect(() => {
             selectInstance.show();
-            tick();
             selectInstance.hide();
         }).not.toThrow();
-
-        flush();
-    }));
+    });
 
     it('should render dropdown icon template with class context', () => {
         // Just verify component works with dropdown icon template
@@ -1753,7 +1776,7 @@ describe('Select - pTemplate Content Projection', () => {
         expect(selectInstance.showClear).toBe(true);
     });
 
-    it('should render filter icon template', fakeAsync(() => {
+    it('should render filter icon template', async () => {
         component.filter = true;
         fixture.detectChanges();
 
@@ -1763,12 +1786,9 @@ describe('Select - pTemplate Content Projection', () => {
 
         expect(() => {
             selectInstance.show();
-            tick();
             selectInstance.hide();
         }).not.toThrow();
-
-        flush();
-    }));
+    });
 
     it('should render loading icon template when loading', () => {
         component.loading = true;
@@ -1792,7 +1812,8 @@ describe('Select - #template Reference Content Projection', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestSelectRefTemplateComponent]
+            declarations: [TestSelectRefTemplateComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestSelectRefTemplateComponent);
@@ -1821,9 +1842,10 @@ describe('Select - #template Reference Content Projection', () => {
         expect(selectInstance.loadingIconTemplate).toBeDefined();
     });
 
-    it('should render item template reference with context', fakeAsync(() => {
+    it('should render item template reference with context', async () => {
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const refItems = fixture.debugElement.queryAll(By.css('.ref-item'));
@@ -1831,13 +1853,13 @@ describe('Select - #template Reference Content Projection', () => {
             expect(refItems[0].nativeElement.textContent).toContain('Ref Template Option 1');
             expect(refItems[0].nativeElement.textContent).toContain('[ref1]');
         }
-        flush();
-    }));
+    });
 
-    it('should render selected item template reference with context', fakeAsync(() => {
+    it('should render selected item template reference with context', async () => {
         component.selectedValue = 'ref1';
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         const refSelected = fixture.debugElement.query(By.css('.ref-selected'));
         if (refSelected) {
@@ -1846,64 +1868,63 @@ describe('Select - #template Reference Content Projection', () => {
 
         // Add explicit expectation to avoid "no expectations" warning
         expect(component.selectedValue).toBe('ref1');
+    });
 
-        flush();
-    }));
-
-    it('should render header template reference', fakeAsync(() => {
+    it('should render header template reference', async () => {
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const refHeader = fixture.debugElement.query(By.css('.ref-header'));
         if (refHeader) {
             expect(refHeader.nativeElement.textContent).toBe('Choose from list');
         }
-        flush();
-    }));
+    });
 
-    it('should render footer template reference', fakeAsync(() => {
+    it('should render footer template reference', async () => {
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const refFooter = fixture.debugElement.query(By.css('.ref-footer'));
         if (refFooter) {
             expect(refFooter.nativeElement.textContent).toContain('2 items total');
         }
-        flush();
-    }));
+    });
 
-    it('should render empty template reference when no options', fakeAsync(() => {
+    it('should render empty template reference when no options', async () => {
         component.options = [];
         fixture.detectChanges();
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const refEmpty = fixture.debugElement.query(By.css('.ref-empty'));
         if (refEmpty) {
             expect(refEmpty.nativeElement.textContent).toBe('No data to display');
         }
-        flush();
-    }));
+    });
 
-    it('should render empty filter template reference when filter yields no results', fakeAsync(() => {
+    it('should render empty filter template reference when filter yields no results', async () => {
         selectInstance.show();
         selectInstance._filterValue.set('nonexistent');
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const refEmptyFilter = fixture.debugElement.query(By.css('.ref-empty-filter'));
         if (refEmptyFilter) {
             expect(refEmptyFilter.nativeElement.textContent).toBe('Filter yielded no results');
         }
-        flush();
-    }));
+    });
 
-    it('should render filter template reference with options context', fakeAsync(() => {
+    it('should render filter template reference with options context', async () => {
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const refFilter = fixture.debugElement.query(By.css('.ref-filter'));
@@ -1911,8 +1932,7 @@ describe('Select - #template Reference Content Projection', () => {
             const filterInput = refFilter.query(By.css('.ref-filter-input'));
             expect(filterInput).toBeTruthy();
         }
-        flush();
-    }));
+    });
 
     it('should render dropdown icon template reference with class context', () => {
         const dropdownIcon = fixture.debugElement.query(By.css('.pi-angle-down'));
@@ -1930,10 +1950,11 @@ describe('Select - #template Reference Content Projection', () => {
         expect(selectInstance.clearIconTemplate).toBeDefined();
     });
 
-    it('should render filter icon template reference', fakeAsync(() => {
+    it('should render filter icon template reference', async () => {
         selectInstance.filter = true;
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         fixture.detectChanges();
 
         const filterIcon = fixture.debugElement.query(By.css('.ref-filter-icon'));
@@ -1943,9 +1964,7 @@ describe('Select - #template Reference Content Projection', () => {
 
         // Add explicit expectation to avoid "no expectations" warning
         expect(selectInstance.filter).toBe(true);
-
-        flush();
-    }));
+    });
 
     it('should render loading icon template reference when loading', () => {
         component.loading = true;
@@ -1967,7 +1986,8 @@ describe('Select - Dynamic and Signal-based Properties', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestDynamicSelectComponent]
+            declarations: [TestDynamicSelectComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestDynamicSelectComponent);
@@ -1982,7 +2002,7 @@ describe('Select - Dynamic and Signal-based Properties', () => {
         expect(selectInstance.options![0].label).toBe('Dynamic 1');
     });
 
-    it('should update when signal-based options change', fakeAsync(() => {
+    it('should update when signal-based options change', async () => {
         const newOptions = [
             { label: 'Updated 1', value: 'upd1' },
             { label: 'Updated 2', value: 'upd2' },
@@ -1991,53 +2011,55 @@ describe('Select - Dynamic and Signal-based Properties', () => {
 
         component.updateOptions(newOptions);
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.options!.length).toBe(3);
         expect(selectInstance.options![0].label).toBe('Updated 1');
-        flush();
-    }));
+    });
 
-    it('should handle dynamic placeholder changes', fakeAsync(() => {
+    it('should handle dynamic placeholder changes', async () => {
         component.updatePlaceholder('Updated placeholder');
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.placeholder()).toBe('Updated placeholder');
-        flush();
-    }));
+    });
 
-    it('should handle dynamic disabled state changes', fakeAsync(() => {
+    it('should handle dynamic disabled state changes', async () => {
         component.updateDisabled(true);
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.$disabled()).toBe(true);
 
         component.updateDisabled(false);
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.$disabled()).toBe(false);
-        flush();
-    }));
+    });
 
-    it('should handle dynamic loading state changes', fakeAsync(() => {
+    it('should handle dynamic loading state changes', async () => {
         component.updateLoading(true);
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.loading).toBe(true);
 
         component.updateLoading(false);
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.loading).toBe(false);
-        flush();
-    }));
+    });
 
-    it('should handle async data loading', fakeAsync(() => {
+    it('should handle async data loading', async () => {
         const asyncOptions = new Promise((resolve) => {
             setTimeout(() => {
                 resolve([
@@ -2052,29 +2074,30 @@ describe('Select - Dynamic and Signal-based Properties', () => {
             fixture.detectChanges();
         });
 
-        tick(150);
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        await fixture.whenStable();
 
         expect(selectInstance.options!.length).toBe(2);
         expect(selectInstance.options![0].label).toBe('Async 1');
-        flush();
-    }));
+    });
 
-    it('should handle undefined/null dynamic values', fakeAsync(() => {
+    it('should handle undefined/null dynamic values', async () => {
         component.updateOptions(null as any);
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.options).toBe(null);
         expect(() => fixture.detectChanges()).not.toThrow();
 
         component.updateOptions(undefined as any);
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
 
         expect(selectInstance.options).toBeUndefined();
         expect(() => fixture.detectChanges()).not.toThrow();
-        flush();
-    }));
+    });
 });
 
 describe('Select - Performance and Large Datasets', () => {
@@ -2085,7 +2108,8 @@ describe('Select - Performance and Large Datasets', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestBasicSelectComponent]
+            declarations: [TestBasicSelectComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicSelectComponent);
@@ -2093,7 +2117,7 @@ describe('Select - Performance and Large Datasets', () => {
         selectInstance = fixture.debugElement.query(By.css('p-select')).componentInstance;
     });
 
-    it('should handle large datasets efficiently', fakeAsync(() => {
+    it('should handle large datasets efficiently', async () => {
         const largeOptions: any[] = [];
         for (let i = 0; i < 1000; i++) {
             largeOptions.push({
@@ -2105,15 +2129,15 @@ describe('Select - Performance and Large Datasets', () => {
         const startTime = performance.now();
         component.options = largeOptions;
         fixture.detectChanges();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await fixture.whenStable();
         const endTime = performance.now();
 
         expect(endTime - startTime).toBeLessThan(2000); // Should render in less than 2 seconds
         expect(selectInstance.options!.length).toBe(1000);
-        flush();
-    }));
+    });
 
-    it('should handle rapid selection changes without errors', fakeAsync(() => {
+    it('should handle rapid selection changes without errors', async () => {
         let changeCount = 0;
         component.onSelectionChange = () => changeCount++;
         fixture.detectChanges();
@@ -2122,13 +2146,13 @@ describe('Select - Performance and Large Datasets', () => {
         for (let i = 0; i < 10; i++) {
             const option = component.options[i % component.options.length];
             selectInstance.onOptionSelect(new Event('click'), option);
-            tick(10);
+            await new Promise((resolve) => setTimeout(resolve, 10));
+            await fixture.whenStable();
         }
 
         expect(changeCount).toBe(10);
         expect(selectInstance.modelValue()).toBeDefined();
-        flush();
-    }));
+    });
 
     it('should not create memory leaks on component destroy', () => {
         component.options = new Array(100).fill(null).map((_, i) => ({
@@ -2151,7 +2175,8 @@ describe('Select Dynamic Data Sources', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestDynamicDataSourcesComponent]
+            declarations: [TestDynamicDataSourcesComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         dynamicFixture = TestBed.createComponent(TestDynamicDataSourcesComponent);
@@ -2172,24 +2197,24 @@ describe('Select Dynamic Data Sources', () => {
             }
         });
 
-        it('should update when signal options change', fakeAsync(() => {
+        it('should update when signal options change', async () => {
             dynamicComponent.updateSignalOptions([{ label: 'Updated Signal Option', value: 'updated', category: 'C' }]);
             dynamicFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable();
 
             expect(dynamicComponent.signalOptions().length).toBe(1);
             expect(dynamicComponent.signalOptions()[0].label).toBe('Updated Signal Option');
-            flush();
-        }));
+        });
 
-        it('should work with signal optionLabel', fakeAsync(() => {
+        it('should work with signal optionLabel', async () => {
             dynamicComponent.updateSignalLabel('value');
             dynamicFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable();
 
             expect(dynamicComponent.signalLabel()).toBe('value');
-            flush();
-        }));
+        });
 
         it('should work with signal placeholder', () => {
             expect(dynamicComponent.signalPlaceholder()).toBe('Select from signals');
@@ -2197,8 +2222,11 @@ describe('Select Dynamic Data Sources', () => {
     });
 
     describe('Observable-based Properties', () => {
-        it('should work with observable options via async pipe', fakeAsync(() => {
-            tick(); // Allow async pipe to resolve
+        it('should work with observable options via async pipe', async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable(); // Allow async pipe to resolve
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
             // Test the component data directly since async pipe behavior varies
@@ -2207,35 +2235,44 @@ describe('Select Dynamic Data Sources', () => {
                 expect(options.length).toBe(2);
                 expect(options[0].name).toBe('Observable Option 1');
             });
-            flush();
-        }));
+        });
 
-        it('should update when observable options change', fakeAsync(() => {
-            tick(); // Initial resolution
+        it('should update when observable options change', async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable(); // Initial resolution
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
             dynamicComponent.updateObservableOptions([{ name: 'Updated Observable Option', id: 'updated_obs' }]);
-            tick(); // Allow observable to emit
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable(); // Allow observable to emit
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
             const observableSelect = dynamicFixture.debugElement.query(By.css('.observable-select')).componentInstance;
             expect(observableSelect.options.length).toBe(1);
             expect(observableSelect.options[0].name).toBe('Updated Observable Option');
-            flush();
-        }));
+        });
 
-        it('should work with observable optionLabel via async pipe', fakeAsync(() => {
-            tick();
+        it('should work with observable optionLabel via async pipe', async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
             dynamicComponent.updateObservableLabel('id');
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
             const observableSelect = dynamicFixture.debugElement.query(By.css('.observable-select')).componentInstance;
             expect(observableSelect.optionLabel).toBe('id');
-            flush();
-        }));
+        });
     });
 
     describe('Getter-based Properties', () => {
@@ -2245,16 +2282,16 @@ describe('Select Dynamic Data Sources', () => {
             expect(getterSelect.options[0].title).toBe('Getter Option 1');
         });
 
-        it('should update when getter options change', fakeAsync(() => {
+        it('should update when getter options change', async () => {
             dynamicComponent.updateGetterOptions([{ title: 'Updated Getter Option', code: 'updated_get' }]);
             dynamicFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable();
 
             const getterSelect = dynamicFixture.debugElement.query(By.css('.getter-select')).componentInstance;
             expect(getterSelect.options.length).toBe(1);
             expect(getterSelect.options[0].title).toBe('Updated Getter Option');
-            flush();
-        }));
+        });
 
         it('should work with getter optionLabel and optionValue', () => {
             const getterSelect = dynamicFixture.debugElement.query(By.css('.getter-select')).componentInstance;
@@ -2277,11 +2314,14 @@ describe('Select Dynamic Data Sources', () => {
     });
 
     describe('Late-loaded Options', () => {
-        it('should handle late-loaded options', fakeAsync(() => {
+        it('should handle late-loaded options', async () => {
             expect(dynamicComponent.isLateLoading).toBe(true);
             expect(dynamicComponent.lateLoadedOptions.length).toBe(0);
 
-            tick(150); // Wait for setTimeout
+            await new Promise((resolve) => setTimeout(resolve, 150));
+            await dynamicFixture.whenStable(); // Wait for setTimeout
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
             // Check if late loading completed
@@ -2294,13 +2334,15 @@ describe('Select Dynamic Data Sources', () => {
                 expect(dynamicComponent.lateLoadedOptions).toBeDefined();
                 expect(Array.isArray(dynamicComponent.lateLoadedOptions)).toBe(true);
             }
-            flush();
-        }));
+        });
 
-        it('should update placeholder when late loading completes', fakeAsync(() => {
+        it('should update placeholder when late loading completes', async () => {
             expect(dynamicComponent.lateLoadedPlaceholder).toBe('Loading options...');
 
-            tick(150);
+            await new Promise((resolve) => setTimeout(resolve, 150));
+            await dynamicFixture.whenStable();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
             // Check if placeholder updated, or verify it's still a valid string
@@ -2310,8 +2352,7 @@ describe('Select Dynamic Data Sources', () => {
                 // If timing didn't work, at least verify structure
                 expect(typeof dynamicComponent.lateLoadedPlaceholder).toBe('string');
             }
-            flush();
-        }));
+        });
     });
 
     describe('Computed Properties', () => {
@@ -2321,19 +2362,19 @@ describe('Select Dynamic Data Sources', () => {
             expect(Array.isArray(options) ? options.length : 0).toBeGreaterThanOrEqual(0);
         });
 
-        it('should update when computed conditions change', fakeAsync(() => {
+        it('should update when computed conditions change', async () => {
             const computedSelect = dynamicFixture.debugElement.query(By.css('.computed-select')).componentInstance;
             const options = computedSelect.options || [];
             expect(Array.isArray(options) ? options.length : 0).toBeGreaterThanOrEqual(0);
 
             dynamicComponent.toggleShowInactive();
             dynamicFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await dynamicFixture.whenStable();
 
             const updatedOptions = computedSelect.options || [];
             expect(Array.isArray(updatedOptions) ? updatedOptions.length : 0).toBeGreaterThanOrEqual(0);
-            flush();
-        }));
+        });
 
         it('should work with computed placeholder', () => {
             const computedSelect = dynamicFixture.debugElement.query(By.css('.computed-select')).componentInstance;
@@ -2351,7 +2392,8 @@ describe('Select Comprehensive Form Integration', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestComprehensiveFormComponent]
+            declarations: [TestComprehensiveFormComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         formFixture = TestBed.createComponent(TestComprehensiveFormComponent);
@@ -2360,81 +2402,84 @@ describe('Select Comprehensive Form Integration', () => {
     });
 
     describe('Reactive Forms API', () => {
-        it('should work with setValue', fakeAsync(() => {
+        it('should work with setValue', async () => {
             formComponent.setValues();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(formComponent.testForm.get('basicSelect')?.value).toBe('form2');
             expect(formComponent.testForm.get('validatedSelect')?.value).toBe('form1');
             expect(formComponent.testForm.get('nested.nestedSelect')?.value).toBe('form2');
-            flush();
-        }));
+        });
 
-        it('should work with patchValue', fakeAsync(() => {
+        it('should work with patchValue', async () => {
             formComponent.patchValues();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(formComponent.testForm.get('basicSelect')?.value).toBe('form1');
             expect(formComponent.testForm.get('validatedSelect')?.value).toBe('form2');
             expect(formComponent.testForm.get('nested.nestedSelect')?.value).toBe('form3');
-            flush();
-        }));
+        });
 
-        it('should work with reset', fakeAsync(() => {
+        it('should work with reset', async () => {
             formComponent.patchValues();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             formComponent.resetForm();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(formComponent.testForm.get('basicSelect')?.value).toBeNull();
             expect(formComponent.testForm.get('validatedSelect')?.value).toBeNull();
             expect(formComponent.testForm.pristine).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle enable/disable', fakeAsync(() => {
+        it('should handle enable/disable', async () => {
             // Test enabling disabled control
             expect(formComponent.testForm.get('disabledSelect')?.disabled).toBe(true);
 
             formComponent.enableDisabledSelect();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(formComponent.testForm.get('disabledSelect')?.disabled).toBe(false);
 
             // Test disabling enabled control
             formComponent.disableBasicSelect();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(formComponent.testForm.get('basicSelect')?.disabled).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle validators', fakeAsync(() => {
+        it('should handle validators', async () => {
             // Initially basicSelect has no validators
             expect(formComponent.testForm.get('basicSelect')?.hasError('required')).toBe(false);
 
             formComponent.addValidators();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(formComponent.testForm.get('basicSelect')?.hasError('required')).toBe(true);
 
             formComponent.clearValidators();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(formComponent.testForm.get('basicSelect')?.hasError('required')).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should work with updateOn blur', fakeAsync(() => {
+        it('should work with updateOn blur', async () => {
             const updateOnBlurControl = formComponent.testForm.get('updateOnBlurSelect');
             expect(updateOnBlurControl?.value).toBeNull();
 
@@ -2442,56 +2487,58 @@ describe('Select Comprehensive Form Integration', () => {
 
             // Simulate selection (should not update immediately)
             blurSelect.onOptionSelect(new Event('click'), formComponent.basicOptions[0]);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
 
             // Value should still be null until blur
             expect(updateOnBlurControl?.value).toBeNull();
 
             // Simulate blur
             blurSelect.onInputBlur(new FocusEvent('blur'));
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
 
             expect(updateOnBlurControl?.value).toBeDefined();
-            flush();
-        }));
+        });
 
-        it('should track form status properly', fakeAsync(() => {
+        it('should track form status properly', async () => {
             expect(formComponent.testForm.valid).toBe(false); // Due to required validation
             expect(formComponent.testForm.dirty).toBe(false);
             expect(formComponent.testForm.touched).toBe(false);
 
             formComponent.patchValues();
             formComponent.testForm.markAsDirty(); // patchValue doesn't auto-mark as dirty
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(formComponent.testForm.valid).toBe(true);
             expect(formComponent.testForm.dirty).toBe(true);
 
             formComponent.markAllAsTouched();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
 
             expect(formComponent.testForm.touched).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should work with nested form groups', fakeAsync(() => {
+        it('should work with nested form groups', async () => {
             const nestedControl = formComponent.testForm.get('nested.nestedSelect');
             expect(nestedControl).toBeTruthy();
             expect(nestedControl?.hasError('required')).toBe(true);
 
             formComponent.patchValues();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
             formFixture.detectChanges();
 
             expect(nestedControl?.hasError('required')).toBe(false);
             expect(nestedControl?.value).toBe('form3');
-            flush();
-        }));
+        });
     });
 
     describe('NgModel Integration', () => {
-        it('should work with NgModel', fakeAsync(() => {
+        it('should work with NgModel', async () => {
             const ngModelSelect = formFixture.debugElement.query(By.css('p-select[name="ngModelSelect"]'));
 
             expect(formComponent.ngModelValue).toBeNull();
@@ -2500,7 +2547,8 @@ describe('Select Comprehensive Form Integration', () => {
                 // Simulate selection through NgModel
                 formComponent.ngModelValue = formComponent.basicOptions[0].code;
                 formFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await formFixture.whenStable();
 
                 expect(formComponent.ngModelValue).toBeDefined();
                 expect(formComponent.ngModelValue).toBe(formComponent.basicOptions[0].code);
@@ -2508,54 +2556,53 @@ describe('Select Comprehensive Form Integration', () => {
                 // Fallback test if select not found
                 expect(formComponent.basicOptions.length).toBeGreaterThan(0);
             }
-            flush();
-        }));
+        });
 
-        it('should track NgModel status', fakeAsync(() => {
+        it('should track NgModel status', async () => {
             const ngModelRef = formFixture.debugElement.query(By.css('p-select[name="ngModelSelect"]'));
 
             if (ngModelRef) {
                 // Initially should be valid (no validation), pristine, untouched
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await formFixture.whenStable();
                 formFixture.detectChanges();
 
                 // Test that ngModel status is tracked in template
                 const statusDiv = formFixture.debugElement.query(By.css('.form-status'));
                 expect(statusDiv).toBeTruthy();
             }
-            flush();
-        }));
+        });
     });
 
     describe('Form Control State Management', () => {
-        it('should handle dirty/pristine state correctly', fakeAsync(() => {
+        it('should handle dirty/pristine state correctly', async () => {
             const basicControl = formComponent.testForm.get('basicSelect');
             expect(basicControl?.pristine).toBe(true);
             expect(basicControl?.dirty).toBe(false);
 
             basicControl?.setValue('form1');
             basicControl?.markAsDirty();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
 
             expect(basicControl?.pristine).toBe(false);
             expect(basicControl?.dirty).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle touched/untouched state correctly', fakeAsync(() => {
+        it('should handle touched/untouched state correctly', async () => {
             const basicControl = formComponent.testForm.get('basicSelect');
             expect(basicControl?.untouched).toBe(true);
             expect(basicControl?.touched).toBe(false);
 
             basicControl?.markAsTouched();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formFixture.whenStable();
 
             expect(basicControl?.untouched).toBe(false);
             expect(basicControl?.touched).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle pending state for async validators', fakeAsync(() => {
+        it('should handle pending state for async validators', async () => {
             // Add async validator
             const basicControl = formComponent.testForm.get('basicSelect');
             const asyncValidator = (control: any) => {
@@ -2570,11 +2617,11 @@ describe('Select Comprehensive Form Integration', () => {
 
             expect(basicControl?.pending).toBe(true);
 
-            tick(150);
+            await new Promise((resolve) => setTimeout(resolve, 150));
+            await formFixture.whenStable();
 
             expect(basicControl?.pending).toBe(false);
-            flush();
-        }));
+        });
     });
 });
 
@@ -2585,30 +2632,32 @@ describe('Select ViewChild Properties', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, NoopAnimationsModule, Select],
-            declarations: [TestViewChildComponent]
+            declarations: [TestViewChildComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         viewChildFixture = TestBed.createComponent(TestViewChildComponent);
         viewChildFixture.detectChanges();
     });
 
-    it('should render overlay ViewChild properly', fakeAsync(() => {
+    it('should render overlay ViewChild properly', async () => {
         const selectInstance = viewChildFixture.debugElement.query(By.css('p-select[placeholder="ViewChild test select"]')).componentInstance;
 
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await viewChildFixture.whenStable();
         viewChildFixture.detectChanges();
 
         expect(selectInstance.overlayViewChild).toBeTruthy();
         expect(selectInstance.overlayVisible).toBe(true);
-        flush();
-    }));
+    });
 
-    it('should render filter input ViewChild when filter is enabled', fakeAsync(() => {
+    it('should render filter input ViewChild when filter is enabled', async () => {
         const selectInstance = viewChildFixture.debugElement.query(By.css('p-select[placeholder="ViewChild test select"]')).componentInstance;
 
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await viewChildFixture.whenStable();
         viewChildFixture.detectChanges();
 
         // Filter input should be rendered
@@ -2618,14 +2667,14 @@ describe('Select ViewChild Properties', () => {
         if (selectInstance.filterInputChild) {
             expect(selectInstance.filterInputChild.nativeElement).toBe(filterInput.nativeElement);
         }
-        flush();
-    }));
+    });
 
-    it('should render items ViewChild properly', fakeAsync(() => {
+    it('should render items ViewChild properly', async () => {
         const selectInstance = viewChildFixture.debugElement.query(By.css('p-select[placeholder="ViewChild test select"]')).componentInstance;
 
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await viewChildFixture.whenStable();
         viewChildFixture.detectChanges();
 
         // Items container should be rendered
@@ -2635,14 +2684,14 @@ describe('Select ViewChild Properties', () => {
         if (selectInstance.itemsViewChild) {
             expect(selectInstance.itemsViewChild.nativeElement).toBeTruthy();
         }
-        flush();
-    }));
+    });
 
-    it('should render scroller ViewChild for virtual scrolling', fakeAsync(() => {
+    it('should render scroller ViewChild for virtual scrolling', async () => {
         const virtualSelect = viewChildFixture.debugElement.query(By.css('p-select[placeholder="Virtual scroll select"]')).componentInstance;
 
         virtualSelect.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await viewChildFixture.whenStable();
         viewChildFixture.detectChanges();
 
         // Scroller component should be rendered for virtual scrolling
@@ -2652,14 +2701,14 @@ describe('Select ViewChild Properties', () => {
             expect(scroller).toBeTruthy();
             expect(virtualSelect.scroller).toBeTruthy();
         }
-        flush();
-    }));
+    });
 
-    it('should render hidden focusable elements ViewChild', fakeAsync(() => {
+    it('should render hidden focusable elements ViewChild', async () => {
         const selectInstance = viewChildFixture.debugElement.query(By.css('p-select[placeholder="ViewChild test select"]')).componentInstance;
 
         selectInstance.show();
-        tick();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        await viewChildFixture.whenStable();
         viewChildFixture.detectChanges();
 
         // Hidden focusable elements should be rendered
@@ -2673,8 +2722,7 @@ describe('Select ViewChild Properties', () => {
         if (selectInstance.lastHiddenFocusableElementOnOverlay) {
             expect(selectInstance.lastHiddenFocusableElementOnOverlay.nativeElement).toBeTruthy();
         }
-        flush();
-    }));
+    });
 });
 
 // Complex Edge Cases Tests
@@ -2685,7 +2733,8 @@ describe('Select Complex Edge Cases', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, NoopAnimationsModule, Select],
-            declarations: [TestComplexEdgeCasesComponent]
+            declarations: [TestComplexEdgeCasesComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         edgeFixture = TestBed.createComponent(TestComplexEdgeCasesComponent);
@@ -2694,13 +2743,16 @@ describe('Select Complex Edge Cases', () => {
     });
 
     describe('Rapid Updates', () => {
-        it('should handle rapid option updates', fakeAsync(() => {
+        it('should handle rapid option updates', async () => {
             const rapidSelect = edgeFixture.debugElement.query(By.css('p-select[placeholder="Rapid updates test"]')).componentInstance;
 
             edgeComponent.simulateRapidUpdates();
 
             // Let some updates process
-            tick(500);
+            await new Promise((resolve) => setTimeout(resolve, 500));
+            await edgeFixture.whenStable();
+            edgeFixture.changeDetectorRef.markForCheck();
+            await edgeFixture.whenStable();
             edgeFixture.detectChanges();
 
             // Component should still be functional
@@ -2708,39 +2760,39 @@ describe('Select Complex Edge Cases', () => {
             expect(rapidSelect.options.length).toBeGreaterThan(0);
 
             // Clear interval to avoid test pollution
-            tick(1500);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+            await edgeFixture.whenStable();
+        });
 
-        it('should handle rapid selection changes', fakeAsync(() => {
+        it('should handle rapid selection changes', async () => {
             expect(edgeComponent.rapidChangeCount).toBe(0);
 
             // Simulate rapid changes
             for (let i = 0; i < 10; i++) {
                 edgeComponent.onRapidChange({ value: `rapid${i}` });
-                tick(5);
+                await new Promise((resolve) => setTimeout(resolve, 5));
+                await edgeFixture.whenStable();
             }
 
             expect(edgeComponent.rapidChangeCount).toBe(10);
-            flush();
-        }));
+        });
     });
 
     describe('Memory Intensive Operations', () => {
-        it('should handle large datasets without memory issues', fakeAsync(() => {
+        it('should handle large datasets without memory issues', async () => {
             const memorySelect = edgeFixture.debugElement.query(By.css('p-select[placeholder="Memory test"]')).componentInstance;
 
             expect(edgeComponent.memoryOptions.length).toBe(10000);
 
             memorySelect.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await edgeFixture.whenStable();
             edgeFixture.detectChanges();
 
             // Should handle large dataset without errors
             expect(memorySelect.options.length).toBe(10000);
             expect(memorySelect.virtualScroll).toBe(true);
-            flush();
-        }));
+        });
 
         it('should not cause memory leaks with large datasets', () => {
             // Test that component can be destroyed without issues
@@ -2792,19 +2844,19 @@ describe('Select Complex Edge Cases', () => {
     });
 
     describe('Circular References', () => {
-        it('should handle circular references without infinite loops', fakeAsync(() => {
+        it('should handle circular references without infinite loops', async () => {
             const circularSelect = edgeFixture.debugElement.query(By.css('p-select[placeholder="Circular test"]')).componentInstance;
 
             expect(circularSelect.options.length).toBe(2);
 
             // Should not cause infinite loops during rendering
             circularSelect.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await edgeFixture.whenStable();
             edgeFixture.detectChanges();
 
             expect(circularSelect.overlayVisible).toBe(true);
-            flush();
-        }));
+        });
 
         it('should serialize circular objects safely', () => {
             // Test that circular references don't break JSON serialization
@@ -2818,11 +2870,14 @@ describe('Select Complex Edge Cases', () => {
     });
 
     describe('Null/Undefined Edge Cases', () => {
-        it('should handle null options gracefully', fakeAsync(() => {
+        it('should handle null options gracefully', async () => {
             edgeComponent.testNullUndefinedOptions();
 
             // Test various null/undefined scenarios
-            tick(100); // First case: null
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await edgeFixture.whenStable(); // First case: null
+            edgeFixture.changeDetectorRef.markForCheck();
+            await edgeFixture.whenStable();
             edgeFixture.detectChanges();
 
             const edgeSelect = edgeFixture.debugElement.query(By.css('p-select[placeholder]:last-child'));
@@ -2838,21 +2893,23 @@ describe('Select Complex Edge Cases', () => {
                 expect(edgeComponent).toBeTruthy();
             }
 
-            tick(800); // Wait for all test cases
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 800));
+            await edgeFixture.whenStable(); // Wait for all test cases
+            edgeFixture.changeDetectorRef.markForCheck();
+            await edgeFixture.whenStable();
+        });
 
-        it('should handle undefined optionLabel', fakeAsync(() => {
+        it('should handle undefined optionLabel', async () => {
             edgeComponent.edgeLabel = undefined as any;
             edgeComponent.edgeOptions = [{ name: 'Test', code: 'test' }];
             edgeFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await edgeFixture.whenStable();
 
             expect(() => {
                 edgeFixture.detectChanges();
             }).not.toThrow();
-            flush();
-        }));
+        });
 
         it('should handle null placeholder', () => {
             edgeComponent.edgePlaceholder = null as any;
@@ -2865,21 +2922,21 @@ describe('Select Complex Edge Cases', () => {
     });
 
     describe('Performance Edge Cases', () => {
-        it('should handle component creation/destruction cycles', fakeAsync(() => {
+        it('should handle component creation/destruction cycles', async () => {
             // Test multiple create/destroy cycles
             for (let i = 0; i < 5; i++) {
                 const testFixture = TestBed.createComponent(TestComplexEdgeCasesComponent);
                 testFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await edgeFixture.whenStable();
 
                 expect(() => {
                     testFixture.destroy();
                 }).not.toThrow();
             }
-            flush();
-        }));
+        });
 
-        it('should handle concurrent option updates', fakeAsync(() => {
+        it('should handle concurrent option updates', async () => {
             const promises: Promise<any>[] = [];
 
             // Simulate concurrent updates
@@ -2898,13 +2955,13 @@ describe('Select Complex Edge Cases', () => {
                 edgeFixture.detectChanges();
             });
 
-            tick(100);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await edgeFixture.whenStable();
 
             // Test that component can handle concurrent updates without errors
             expect(edgeComponent.rapidOptions).toBeDefined();
             expect(edgeComponent.rapidOptions.length).toBeGreaterThanOrEqual(1);
-            flush();
-        }));
+        });
     });
 });
 
@@ -2916,7 +2973,8 @@ describe('Select Advanced Accessibility', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule, Select],
-            declarations: [TestBasicSelectComponent]
+            declarations: [TestBasicSelectComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicSelectComponent);
@@ -2937,9 +2995,10 @@ describe('Select Advanced Accessibility', () => {
             expect(combobox.nativeElement.getAttribute('aria-haspopup')).toBe('listbox');
         });
 
-        it('should have aria-controls pointing to listbox', fakeAsync(() => {
+        it('should have aria-controls pointing to listbox', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const combobox = fixture.debugElement.query(By.css('[role="combobox"]'));
@@ -2949,16 +3008,17 @@ describe('Select Advanced Accessibility', () => {
                 const expectedId = selectInstance.id + '_list';
                 expect(combobox.nativeElement.getAttribute('aria-controls')).toBe(expectedId);
             }
-            flush();
-        }));
+        });
 
-        it('should have aria-activedescendant when focused', fakeAsync(() => {
+        it('should have aria-activedescendant when focused', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             selectInstance.focusedOptionIndex.set(0);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const combobox = fixture.debugElement.query(By.css('[role="combobox"]'));
@@ -2970,36 +3030,36 @@ describe('Select Advanced Accessibility', () => {
                 // Fallback: just check that focusedOptionIndex was set correctly
                 expect(selectInstance.focusedOptionIndex()).toBe(0);
             }
-            flush();
-        }));
+        });
     });
 
     describe('Keyboard Navigation', () => {
-        it('should open dropdown with Enter key', fakeAsync(() => {
+        it('should open dropdown with Enter key', async () => {
             expect(selectInstance.overlayVisible).toBeFalsy();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.overlayVisible).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should open dropdown with Space key', fakeAsync(() => {
+        it('should open dropdown with Space key', async () => {
             expect(selectInstance.overlayVisible).toBeFalsy();
 
             const keyEvent = new KeyboardEvent('keydown', { key: ' ' });
             selectInstance.onKeyDown(keyEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(selectInstance.overlayVisible).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should navigate options with Arrow keys', fakeAsync(() => {
+        it('should navigate options with Arrow keys', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(selectInstance.focusedOptionIndex()).toBe(-1);
@@ -3014,12 +3074,12 @@ describe('Select Advanced Accessibility', () => {
 
             // Should navigate to previous option or stay at first
             expect(selectInstance.focusedOptionIndex()).toBeGreaterThanOrEqual(0);
-            flush();
-        }));
+        });
 
-        it('should close dropdown with Escape key', fakeAsync(() => {
+        it('should close dropdown with Escape key', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Ensure overlay is open before testing close
@@ -3027,17 +3087,18 @@ describe('Select Advanced Accessibility', () => {
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
             spyOn(escapeEvent, 'preventDefault');
             selectInstance.onKeyDown(escapeEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Test should pass if overlay was closed or if it handles escape properly
             expect(escapeEvent.preventDefault).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should handle Tab key navigation', fakeAsync(() => {
+        it('should handle Tab key navigation', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const tabEvent = new KeyboardEvent('keydown', { key: 'Tab' });
@@ -3045,12 +3106,12 @@ describe('Select Advanced Accessibility', () => {
 
             // Should handle tab navigation without errors
             expect(selectInstance).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should handle Home and End keys', fakeAsync(() => {
+        it('should handle Home and End keys', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const endEvent = new KeyboardEvent('keydown', { code: 'End' });
@@ -3063,75 +3124,76 @@ describe('Select Advanced Accessibility', () => {
             selectInstance.onKeyDown(homeEvent);
 
             expect(selectInstance.focusedOptionIndex()).toBe(0);
-            flush();
-        }));
+        });
     });
 
     describe('Screen Reader Support', () => {
-        it('should have proper labels for screen readers', fakeAsync(() => {
+        it('should have proper labels for screen readers', async () => {
             component.ariaLabel = 'Choose an option';
             fixture.detectChanges();
 
             const combobox = fixture.debugElement.query(By.css('[role="combobox"]'));
             expect(combobox.nativeElement.getAttribute('aria-label')).toBe('Choose an option');
-            flush();
-        }));
+        });
 
-        it('should announce selected values', fakeAsync(() => {
+        it('should announce selected values', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             selectInstance.onOptionSelect(new Event('click'), component.options[0]);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // The selected option should be reflected in the DOM display
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe(component.options[0].name);
-            flush();
-        }));
+        });
 
-        it('should have accessible option labels', fakeAsync(() => {
+        it('should have accessible option labels', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const options = fixture.debugElement.queryAll(By.css('[role="option"]'));
             options.forEach((option) => {
                 expect(option.nativeElement.getAttribute('aria-label')).toBeTruthy();
             });
-            flush();
-        }));
+        });
     });
 
     describe('Focus Management', () => {
-        it('should manage focus correctly when opening', fakeAsync(() => {
+        it('should manage focus correctly when opening', async () => {
             selectInstance.show(true);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Should handle focus management
             expect(selectInstance.overlayVisible).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should return focus when closing', fakeAsync(() => {
+        it('should return focus when closing', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             selectInstance.hide(true);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(selectInstance.overlayVisible).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should handle focus trap in overlay', fakeAsync(() => {
+        it('should handle focus trap in overlay', async () => {
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const hiddenElements = fixture.debugElement.queryAll(By.css('.p-hidden-focusable'));
@@ -3142,8 +3204,7 @@ describe('Select Advanced Accessibility', () => {
             hiddenElements.forEach((el) => {
                 expect(el.nativeElement.tabIndex).toBe(0);
             });
-            flush();
-        }));
+        });
     });
 });
 
@@ -3193,7 +3254,8 @@ describe('Select PT (PassThrough)', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestPTSelectComponent, NoopAnimationsModule]
+            imports: [TestPTSelectComponent, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestPTSelectComponent);
@@ -3302,29 +3364,35 @@ describe('Select PT (PassThrough)', () => {
     });
 
     describe('Case 4: Use variables from instance', () => {
-        it('should apply PT based on selected state', fakeAsync(() => {
+        it('should apply PT based on selected state', async () => {
             component.pt = {
                 label: ({ instance }: any) => ({
                     class: instance?.modelValue() ? 'HAS_VALUE' : 'NO_VALUE'
                 })
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const label = fixture.debugElement.query(By.css('[role="combobox"]'));
             expect(label.nativeElement.classList.contains('NO_VALUE')).toBeTruthy();
 
             component.selectedValue = 'opt1';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges(); // Extra change detection for reactive PT
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(label.nativeElement.classList.contains('HAS_VALUE')).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply dynamic style based on disabled state', fakeAsync(() => {
+        it('should apply dynamic style based on disabled state', async () => {
             component.pt = {
                 root: ({ instance }: any) => ({
                     style: {
@@ -3332,17 +3400,19 @@ describe('Select PT (PassThrough)', () => {
                     }
                 })
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const root = fixture.debugElement.query(By.css('p-select'));
             expect(root.nativeElement.style.opacity).toBe('1');
-            flush();
-        }));
+        });
     });
 
     describe('Case 5: Event binding', () => {
-        it('should bind onclick event to root', fakeAsync(() => {
+        it('should bind onclick event to root', async () => {
             let clicked = false;
             component.pt = {
                 root: {
@@ -3352,17 +3422,18 @@ describe('Select PT (PassThrough)', () => {
                 }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const root = fixture.debugElement.query(By.css('p-select'));
             root.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(clicked).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should bind onclick to dropdown trigger', fakeAsync(() => {
+        it('should bind onclick to dropdown trigger', async () => {
             let dropdownClicked = false;
             component.pt = {
                 dropdown: {
@@ -3372,19 +3443,20 @@ describe('Select PT (PassThrough)', () => {
                 }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const dropdown = fixture.debugElement.query(By.css('.p-select-dropdown'));
             dropdown.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(dropdownClicked).toBeTruthy();
-            flush();
-        }));
+        });
     });
 
     describe('Case 6: Test emitters through instance', () => {
-        it('should access onChange emitter through instance', fakeAsync(() => {
+        it('should access onChange emitter through instance', async () => {
             let emitterAccessed = false;
             component.pt = {
                 root: ({ instance }: any) => {
@@ -3395,13 +3467,13 @@ describe('Select PT (PassThrough)', () => {
                 }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(emitterAccessed).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should access onShow emitter through instance', fakeAsync(() => {
+        it('should access onShow emitter through instance', async () => {
             let showEmitterAccessed = false;
             component.pt = {
                 root: ({ instance }: any) => {
@@ -3412,11 +3484,11 @@ describe('Select PT (PassThrough)', () => {
                 }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(showEmitterAccessed).toBeTruthy();
-            flush();
-        }));
+        });
     });
 
     describe('Case 7: Overlay content PT sections', () => {
@@ -3424,7 +3496,7 @@ describe('Select PT (PassThrough)', () => {
             component.filter = true;
         });
 
-        it('should apply PT to overlay sections when opened', fakeAsync(() => {
+        it('should apply PT to overlay sections when opened', async () => {
             component.pt = {
                 header: 'PT_HEADER_CLASS',
                 listContainer: 'PT_LIST_CONTAINER_CLASS',
@@ -3436,7 +3508,8 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const header = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -3448,11 +3521,9 @@ describe('Select PT (PassThrough)', () => {
             if (listContainer) expect(listContainer.nativeElement.classList.contains('PT_LIST_CONTAINER_CLASS')).toBeTruthy();
             if (list) expect(list.nativeElement.classList.contains('PT_LIST_CLASS')).toBeTruthy();
             if (filterInput) expect(filterInput.nativeElement.classList.contains('PT_FILTER_CLASS')).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should apply PT to option elements', fakeAsync(() => {
+        it('should apply PT to option elements', async () => {
             component.pt = {
                 option: 'PT_OPTION_CLASS',
                 optionLabel: { style: { color: 'green' } }
@@ -3460,7 +3531,8 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const options = fixture.debugElement.queryAll(By.css('[role="option"]'));
@@ -3469,13 +3541,11 @@ describe('Select PT (PassThrough)', () => {
             options.forEach((option) => {
                 expect(option.nativeElement.classList.contains('PT_OPTION_CLASS')).toBeTruthy();
             });
-
-            flush();
-        }));
+        });
     });
 
     describe('Case 8: Test hooks', () => {
-        it('should call onAfterViewInit hook', fakeAsync(() => {
+        it('should call onAfterViewInit hook', async () => {
             let hookCalled = false;
             const hookFixture = TestBed.createComponent(TestPTSelectComponent);
             hookFixture.componentInstance.pt = {
@@ -3486,14 +3556,14 @@ describe('Select PT (PassThrough)', () => {
                 }
             };
             hookFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(hookCalled).toBeTruthy();
             hookFixture.destroy();
-            flush();
-        }));
+        });
 
-        it('should call onAfterViewChecked hook', fakeAsync(() => {
+        it('should call onAfterViewChecked hook', async () => {
             let checkCount = 0;
             component.pt = {
                 hooks: {
@@ -3503,17 +3573,18 @@ describe('Select PT (PassThrough)', () => {
                 }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(checkCount).toBeGreaterThan(0);
-            flush();
-        }));
+        });
     });
 
     describe('Case 9: getPTItemOptions context test', () => {
-        it('should provide option context in PT', fakeAsync(() => {
+        it('should provide option context in PT', async () => {
             let capturedContext: any = null;
             component.pt = {
                 option: ({ context }: any) => {
@@ -3526,7 +3597,8 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const options = fixture.debugElement.queryAll(By.css('[role="option"]'));
@@ -3536,11 +3608,9 @@ describe('Select PT (PassThrough)', () => {
             expect(capturedContext.selected).toBeDefined();
             expect(capturedContext.focused).toBeDefined();
             expect(capturedContext.disabled).toBeDefined();
+        });
 
-            flush();
-        }));
-
-        it('should reflect selection state in option PT context', fakeAsync(() => {
+        it('should reflect selection state in option PT context', async () => {
             let contextStates: any[] = [];
             component.pt = {
                 option: ({ context }: any) => {
@@ -3551,14 +3621,19 @@ describe('Select PT (PassThrough)', () => {
                     return {};
                 }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Select first option
             component.selectedValue = 'opt1';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Check if we captured the selected state
@@ -3567,11 +3642,9 @@ describe('Select PT (PassThrough)', () => {
             if (selectedContext) {
                 expect(selectedContext.option?.code).toBe('opt1');
             }
+        });
 
-            flush();
-        }));
-
-        it('should reflect focused state in option PT context', fakeAsync(() => {
+        it('should reflect focused state in option PT context', async () => {
             let focusedContext: any = null;
             component.pt = {
                 option: ({ context }: any) => {
@@ -3586,24 +3659,24 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Set focused index
             selectInstance.focusedOptionIndex.set(1);
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(focusedContext).toBeTruthy();
             if (focusedContext) {
                 expect(focusedContext.focused).toBeTruthy();
                 expect(focusedContext.index).toBe(1);
             }
+        });
 
-            flush();
-        }));
-
-        it('should provide option index in PT context', fakeAsync(() => {
+        it('should provide option index in PT context', async () => {
             const capturedIndexes: number[] = [];
             component.pt = {
                 option: ({ context }: any) => {
@@ -3616,18 +3689,17 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(capturedIndexes.length).toBe(component.options.length);
             expect(capturedIndexes).toContain(0);
             expect(capturedIndexes).toContain(1);
             expect(capturedIndexes).toContain(2);
+        });
 
-            flush();
-        }));
-
-        it('should provide complete context object with all properties in getPTItemOptions', fakeAsync(() => {
+        it('should provide complete context object with all properties in getPTItemOptions', async () => {
             let capturedContexts: any[] = [];
             component.pt = {
                 option: ({ context }: any) => {
@@ -3647,7 +3719,8 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Focus an option
@@ -3674,11 +3747,9 @@ describe('Select PT (PassThrough)', () => {
             const focusedContext = capturedContexts.find((ctx) => ctx.focused === true);
             expect(focusedContext).toBeTruthy();
             expect(focusedContext?.index).toBe(1);
+        });
 
-            flush();
-        }));
-
-        it('should update context when selection changes via getPTItemOptions', fakeAsync(() => {
+        it('should update context when selection changes via getPTItemOptions', async () => {
             let contextSnapshots: any[] = [];
             component.pt = {
                 option: ({ context }: any) => {
@@ -3694,7 +3765,8 @@ describe('Select PT (PassThrough)', () => {
             };
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Should not be selected initially
@@ -3703,25 +3775,28 @@ describe('Select PT (PassThrough)', () => {
 
             // Select opt2
             component.selectedValue = 'opt2';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Trigger change detection again
             selectInstance.hide();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Should be selected now
             opt2Context = contextSnapshots[contextSnapshots.length - 1];
             expect(opt2Context?.selected).toBe(true);
             expect(opt2Context?.option?.code).toBe('opt2');
+        });
 
-            flush();
-        }));
-
-        it('should provide disabled state correctly in context', fakeAsync(() => {
+        it('should provide disabled state correctly in context', async () => {
             // Add a disabled option to test data
             component.options = [
                 { name: 'Option 1', code: 'opt1' },
@@ -3742,31 +3817,30 @@ describe('Select PT (PassThrough)', () => {
 
             fixture.detectChanges();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(disabledContextFound).toBe(true);
-
-            flush();
-        }));
+        });
     });
 
     describe('Clear icon and checkmark PT sections', () => {
-        it('should apply PT to clear icon when visible', fakeAsync(() => {
+        it('should apply PT to clear icon when visible', async () => {
             component.showClear = true;
             component.selectedValue = 'opt1';
             component.pt = {
                 clearIcon: 'PT_CLEAR_ICON_CLASS'
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
             expect(clearIcon?.nativeElement.classList.contains('PT_CLEAR_ICON_CLASS')).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply PT to checkmark icons', fakeAsync(() => {
+        it('should apply PT to checkmark icons', async () => {
             component.checkmark = true;
             component.pt = {
                 optionCheckIcon: { style: { color: 'green' } },
@@ -3775,31 +3849,37 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Checkmark icons should be rendered
             const icons = fixture.debugElement.queryAll(By.css('[data-p-icon]'));
             expect(icons.length).toBeGreaterThan(0);
-
-            flush();
-        }));
+        });
     });
 
     describe('Complete PT Coverage: All untested sections', () => {
-        it('should apply PT to clearIcon when showClear is enabled', fakeAsync(() => {
+        it('should apply PT to clearIcon when showClear is enabled', async () => {
             component.showClear = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             component.selectedValue = 'opt1';
             component.pt = {
                 clearIcon: { class: 'CUSTOM_CLEAR_ICON', 'data-test': 'clear-icon' }
             };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges(); // Extra for clear icon to appear
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
             expect(clearIcon).toBeTruthy();
@@ -3807,89 +3887,94 @@ describe('Select PT (PassThrough)', () => {
                 expect(clearIcon.nativeElement.classList.contains('CUSTOM_CLEAR_ICON')).toBeTruthy();
                 expect(clearIcon.nativeElement.getAttribute('data-test')).toBe('clear-icon');
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to loadingIcon when loading', fakeAsync(() => {
+        it('should apply PT to loadingIcon when loading', async () => {
             component.pt = {
                 loadingIcon: { class: 'CUSTOM_LOADING_ICON' }
             };
             selectInstance.loading = true;
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const loadingIcon = fixture.debugElement.query(By.css('.p-select-loading-icon'));
             expect(loadingIcon).toBeTruthy();
             if (loadingIcon) {
                 expect(loadingIcon.nativeElement.classList.contains('CUSTOM_LOADING_ICON')).toBeTruthy();
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to dropdownIcon', fakeAsync(() => {
+        it('should apply PT to dropdownIcon', async () => {
             component.pt = {
                 dropdownIcon: { class: 'CUSTOM_DROPDOWN_ICON', style: { fontSize: '20px' } }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const dropdownIcon = fixture.debugElement.query(By.css('[data-p-icon="chevron-down"]'));
             expect(dropdownIcon).toBeTruthy();
             expect(dropdownIcon.nativeElement.classList.contains('CUSTOM_DROPDOWN_ICON')).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply PT to pcFilterIconContainer and filterIcon', fakeAsync(() => {
+        it('should apply PT to pcFilterIconContainer and filterIcon', async () => {
             component.filter = true;
             component.pt = {
                 pcFilterIconContainer: { class: 'CUSTOM_FILTER_ICON_CONTAINER' },
                 filterIcon: { class: 'CUSTOM_FILTER_ICON' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const filterIcon = fixture.debugElement.query(By.css('[data-p-icon="search"]'));
             expect(filterIcon).toBeTruthy();
             if (filterIcon) {
                 expect(filterIcon.nativeElement.classList.contains('CUSTOM_FILTER_ICON')).toBeTruthy();
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to optionCheckIcon', fakeAsync(() => {
+        it('should apply PT to optionCheckIcon', async () => {
             component.checkmark = true;
             component.selectedValue = 'opt1';
             component.pt = {
                 optionCheckIcon: { class: 'CUSTOM_CHECK_ICON', 'data-check': 'true' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             selectInstance.show();
-            tick(150);
+            await new Promise((resolve) => setTimeout(resolve, 150));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const checkIcon = fixture.debugElement.query(By.css('[data-p-icon="check"]'));
             expect(checkIcon?.nativeElement.classList.contains('CUSTOM_CHECK_ICON')).toBeTruthy();
             expect(checkIcon?.nativeElement.getAttribute('data-check')).toBe('true');
-            flush();
-        }));
+        });
 
-        it('should apply PT to optionBlankIcon', fakeAsync(() => {
+        it('should apply PT to optionBlankIcon', async () => {
             component.checkmark = true;
             component.pt = {
                 optionBlankIcon: { class: 'CUSTOM_BLANK_ICON' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const blankIcon = fixture.debugElement.query(By.css('[data-p-icon="blank"]'));
@@ -3897,78 +3982,77 @@ describe('Select PT (PassThrough)', () => {
             if (blankIcon) {
                 expect(blankIcon.nativeElement.classList.contains('CUSTOM_BLANK_ICON')).toBeTruthy();
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to hiddenFirstFocusableEl', fakeAsync(() => {
+        it('should apply PT to hiddenFirstFocusableEl', async () => {
             component.pt = {
                 hiddenFirstFocusableEl: { 'data-first': 'focusable' }
             };
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const hiddenFirst = fixture.debugElement.query(By.css('[data-p-hidden-focusable="true"]'));
             expect(hiddenFirst).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply PT to hiddenLastFocusableEl', fakeAsync(() => {
+        it('should apply PT to hiddenLastFocusableEl', async () => {
             component.pt = {
                 hiddenLastFocusableEl: { 'data-last': 'focusable' }
             };
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const hiddenElements = fixture.debugElement.queryAll(By.css('[data-p-hidden-focusable="true"]'));
             expect(hiddenElements.length).toBeGreaterThan(0);
-            flush();
-        }));
+        });
 
-        it('should apply PT to hiddenFilterResult when filter is enabled', fakeAsync(() => {
+        it('should apply PT to hiddenFilterResult when filter is enabled', async () => {
             component.filter = true;
             component.pt = {
                 hiddenFilterResult: { 'data-filter-result': 'hidden' }
             };
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const overlay = fixture.debugElement.query(By.css('p-overlay'));
             expect(overlay).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply PT to hiddenEmptyMessage when options are empty', fakeAsync(() => {
+        it('should apply PT to hiddenEmptyMessage when options are empty', async () => {
             component.options = [];
             component.pt = {
                 hiddenEmptyMessage: { 'data-empty': 'message' }
             };
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const overlay = fixture.debugElement.query(By.css('p-overlay'));
             expect(overlay).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply PT to hiddenSelectedMessage', fakeAsync(() => {
+        it('should apply PT to hiddenSelectedMessage', async () => {
             component.selectedValue = 'opt1';
             component.pt = {
                 hiddenSelectedMessage: { 'data-selected': 'message' }
             };
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const overlay = fixture.debugElement.query(By.css('p-overlay'));
             expect(overlay).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply PT to virtualScroller when virtualScroll is enabled', fakeAsync(() => {
+        it('should apply PT to virtualScroller when virtualScroll is enabled', async () => {
             component.pt = {
                 virtualScroller: {
                     root: { class: 'CUSTOM_VSCROLLER_ROOT', 'data-vscroller': 'root' },
@@ -3978,11 +4062,14 @@ describe('Select PT (PassThrough)', () => {
             selectInstance.virtualScroll = true;
             selectInstance.virtualScrollItemSize = 38;
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // VirtualScroller should be rendered when enabled
             const virtualScroller = fixture.debugElement.query(By.css('.p-virtualscroller'));
@@ -3997,11 +4084,9 @@ describe('Select PT (PassThrough)', () => {
             expect(vScrollerSpacer).toBeTruthy();
             expect(vScrollerSpacer.nativeElement.classList.contains('CUSTOM_VSCROLLER_SPACER')).toBeTruthy();
             expect(vScrollerSpacer.nativeElement.getAttribute('data-vscroller')).toBe('spacer');
+        });
 
-            flush();
-        }));
-
-        it('should apply PT to all icon sections together', fakeAsync(() => {
+        it('should apply PT to all icon sections together', async () => {
             component.showClear = true;
             component.selectedValue = 'opt1';
             component.checkmark = true;
@@ -4015,9 +4100,11 @@ describe('Select PT (PassThrough)', () => {
             };
 
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
             expect(clearIcon).toBeTruthy();
@@ -4032,20 +4119,20 @@ describe('Select PT (PassThrough)', () => {
             }
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const filterIcon = fixture.debugElement.query(By.css('[data-p-icon="search"]'));
             expect(filterIcon).toBeTruthy();
             if (filterIcon) {
                 expect(filterIcon.nativeElement.classList.contains('PT_FILTER')).toBeTruthy();
             }
+        });
 
-            flush();
-        }));
-
-        it('should apply PT to all hidden accessibility elements', fakeAsync(() => {
+        it('should apply PT to all hidden accessibility elements', async () => {
             component.filter = true;
             component.pt = {
                 hiddenFirstFocusableEl: { 'data-first': 'true' },
@@ -4056,32 +4143,31 @@ describe('Select PT (PassThrough)', () => {
             };
 
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const hiddenElements = fixture.debugElement.queryAll(By.css('[data-p-hidden-focusable="true"]'));
             expect(hiddenElements.length).toBeGreaterThan(0);
-
-            flush();
-        }));
+        });
     });
 
     describe('Complete PT Coverage: Remaining sections', () => {
-        it('should apply PT to root element', fakeAsync(() => {
+        it('should apply PT to root element', async () => {
             component.pt = {
                 root: { class: 'CUSTOM_ROOT', 'data-test': 'root-element' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const root = fixture.debugElement.query(By.css('.p-select'));
             expect(root).toBeTruthy();
             expect(root.nativeElement.classList.contains('CUSTOM_ROOT')).toBeTruthy();
             expect(root.nativeElement.getAttribute('data-test')).toBe('root-element');
-            flush();
-        }));
+        });
 
-        it('should apply PT to pcOverlay component', fakeAsync(() => {
+        it('should apply PT to pcOverlay component', async () => {
             component.pt = {
                 pcOverlay: {
                     root: { class: 'CUSTOM_OVERLAY_ROOT', 'data-overlay': 'root' },
@@ -4089,11 +4175,14 @@ describe('Select PT (PassThrough)', () => {
                 }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const overlay = fixture.debugElement.query(By.css('p-overlay'));
             expect(overlay).toBeTruthy();
@@ -4111,20 +4200,22 @@ describe('Select PT (PassThrough)', () => {
                 expect(overlayContent.nativeElement.classList.contains('CUSTOM_OVERLAY_CONTENT')).toBeTruthy();
                 expect(overlayContent.nativeElement.getAttribute('data-overlay')).toBe('content');
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to header section', fakeAsync(() => {
+        it('should apply PT to header section', async () => {
             component.filter = true;
             component.pt = {
                 header: { class: 'CUSTOM_HEADER', 'data-header': 'test' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const header = fixture.debugElement.query(By.css('.p-select-header'));
             expect(header).toBeTruthy();
@@ -4132,56 +4223,62 @@ describe('Select PT (PassThrough)', () => {
                 expect(header.nativeElement.classList.contains('CUSTOM_HEADER')).toBeTruthy();
                 expect(header.nativeElement.getAttribute('data-header')).toBe('test');
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to pcFilterContainer', fakeAsync(() => {
+        it('should apply PT to pcFilterContainer', async () => {
             component.filter = true;
             component.pt = {
                 pcFilterContainer: { class: 'CUSTOM_FILTER_CONTAINER' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const filterContainer = fixture.debugElement.query(By.css('p-iconfield'));
             expect(filterContainer).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply PT to pcFilter input', fakeAsync(() => {
+        it('should apply PT to pcFilter input', async () => {
             component.filter = true;
             component.pt = {
                 pcFilter: { root: { class: 'CUSTOM_FILTER_INPUT' } }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const filterInput = fixture.debugElement.query(By.css('.p-select-filter'));
             expect(filterInput).toBeTruthy();
             if (filterInput) {
                 expect(filterInput.nativeElement.classList.contains('CUSTOM_FILTER_INPUT')).toBeTruthy();
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to listContainer', fakeAsync(() => {
+        it('should apply PT to listContainer', async () => {
             component.pt = {
                 listContainer: { class: 'CUSTOM_LIST_CONTAINER', 'data-list': 'container' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const listContainer = fixture.debugElement.query(By.css('.p-select-list-container'));
             expect(listContainer).toBeTruthy();
@@ -4189,19 +4286,21 @@ describe('Select PT (PassThrough)', () => {
                 expect(listContainer.nativeElement.classList.contains('CUSTOM_LIST_CONTAINER')).toBeTruthy();
                 expect(listContainer.nativeElement.getAttribute('data-list')).toBe('container');
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to list element', fakeAsync(() => {
+        it('should apply PT to list element', async () => {
             component.pt = {
                 list: { class: 'CUSTOM_LIST', 'data-list': 'element' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const list = fixture.debugElement.query(By.css('.p-select-list'));
             expect(list).toBeTruthy();
@@ -4209,10 +4308,9 @@ describe('Select PT (PassThrough)', () => {
                 expect(list.nativeElement.classList.contains('CUSTOM_LIST')).toBeTruthy();
                 expect(list.nativeElement.getAttribute('data-list')).toBe('element');
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to optionGroup', fakeAsync(() => {
+        it('should apply PT to optionGroup', async () => {
             component.options = [
                 {
                     name: 'Group 1',
@@ -4231,11 +4329,14 @@ describe('Select PT (PassThrough)', () => {
                 optionGroup: { class: 'CUSTOM_OPTION_GROUP', 'data-group': 'test' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const optionGroup = fixture.debugElement.query(By.css('.p-select-option-group'));
             expect(optionGroup).toBeTruthy();
@@ -4243,10 +4344,9 @@ describe('Select PT (PassThrough)', () => {
                 expect(optionGroup.nativeElement.classList.contains('CUSTOM_OPTION_GROUP')).toBeTruthy();
                 expect(optionGroup.nativeElement.getAttribute('data-group')).toBe('test');
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to optionGroupLabel', fakeAsync(() => {
+        it('should apply PT to optionGroupLabel', async () => {
             component.options = [
                 {
                     name: 'Group 1',
@@ -4265,30 +4365,35 @@ describe('Select PT (PassThrough)', () => {
                 optionGroupLabel: { class: 'CUSTOM_GROUP_LABEL' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const groupLabel = fixture.debugElement.query(By.css('.p-select-option-group-label'));
             expect(groupLabel).toBeTruthy();
             if (groupLabel) {
                 expect(groupLabel.nativeElement.classList.contains('CUSTOM_GROUP_LABEL')).toBeTruthy();
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to option element', fakeAsync(() => {
+        it('should apply PT to option element', async () => {
             component.pt = {
                 option: { class: 'CUSTOM_OPTION', 'data-option': 'test' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const option = fixture.debugElement.query(By.css('.p-select-option'));
             expect(option).toBeTruthy();
@@ -4296,36 +4401,40 @@ describe('Select PT (PassThrough)', () => {
                 expect(option.nativeElement.classList.contains('CUSTOM_OPTION')).toBeTruthy();
                 expect(option.nativeElement.getAttribute('data-option')).toBe('test');
             }
-            flush();
-        }));
+        });
 
-        it('should apply PT to optionLabel', fakeAsync(() => {
+        it('should apply PT to optionLabel', async () => {
             component.pt = {
                 optionLabel: { class: 'CUSTOM_OPTION_LABEL', 'data-label': 'option' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const optionLabel = fixture.debugElement.query(By.css('.p-select-option'));
             expect(optionLabel).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should apply PT to emptyMessage', fakeAsync(() => {
+        it('should apply PT to emptyMessage', async () => {
             component.options = [];
             component.pt = {
                 emptyMessage: { class: 'CUSTOM_EMPTY_MESSAGE', 'data-empty': 'true' }
             };
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             selectInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const emptyMessage = fixture.debugElement.query(By.css('.p-select-empty-message'));
             expect(emptyMessage).toBeTruthy();
@@ -4333,7 +4442,6 @@ describe('Select PT (PassThrough)', () => {
                 expect(emptyMessage.nativeElement.classList.contains('CUSTOM_EMPTY_MESSAGE')).toBeTruthy();
                 expect(emptyMessage.nativeElement.getAttribute('data-empty')).toBe('true');
             }
-            flush();
-        }));
+        });
     });
 });

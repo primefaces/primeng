@@ -1,5 +1,5 @@
-import { Component, DebugElement, PLATFORM_ID } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { Component, DebugElement, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -98,7 +98,7 @@ describe('ScrollTop', () => {
         TestBed.configureTestingModule({
             imports: [ScrollTopModule, NoopAnimationsModule],
             declarations: [TestBasicScrollTopComponent, TestScrollTopWithParentComponent, TestScrollTopWithIconComponent, TestScrollTopWithTemplateComponent, TestScrollTopWithStylesComponent, TestScrollTopDynamicComponent],
-            providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
         });
     });
 
@@ -156,8 +156,10 @@ describe('ScrollTop', () => {
             expect(scrollTop.bindDocumentScrollListener).toHaveBeenCalled();
         });
 
-        it('should initialize with parent target', () => {
+        it('should initialize with parent target', async () => {
             component.target = 'parent';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             spyOn(scrollTop, 'bindParentScrollListener');
@@ -338,7 +340,7 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestBasicScrollTopComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'server' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }]
             });
 
             const serverFixture = TestBed.createComponent(TestBasicScrollTopComponent);
@@ -554,7 +556,7 @@ describe('ScrollTop', () => {
             scrollContainer = fixture.debugElement.query(By.css('.scroll-container')).nativeElement;
         });
 
-        it('should monitor parent scroll', fakeAsync(() => {
+        it('should monitor parent scroll', async () => {
             const checkVisibilitySpy = spyOn(scrollTop, 'checkVisibility');
 
             // Set up the parent element relationship
@@ -573,8 +575,8 @@ describe('ScrollTop', () => {
             mockScrollListener();
 
             expect(checkVisibilitySpy).toHaveBeenCalledWith(150);
-            flush();
-        }));
+            await fixture.whenStable();
+        });
 
         it('should scroll parent to top when clicked', () => {
             const scrollSpy = jasmine.createSpy('scroll');
@@ -602,8 +604,10 @@ describe('ScrollTop', () => {
             scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
         });
 
-        it('should update threshold dynamically', () => {
+        it('should update threshold dynamically', async () => {
             component.dynamicThreshold = 300;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             scrollTop.checkVisibility(250);
@@ -613,19 +617,23 @@ describe('ScrollTop', () => {
             expect(scrollTop.visible).toBe(true);
         });
 
-        it('should handle content height changes', fakeAsync(() => {
+        it('should handle content height changes', async () => {
             component.contentHeight = 2000;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const container = fixture.debugElement.query(By.css('.dynamic-container > div')).nativeElement;
             expect(container.style.height).toBe('2000px');
-            flush();
-        }));
+        });
 
-        it('should handle dynamic item additions', () => {
+        it('should handle dynamic item additions', async () => {
             const initialLength = component.items.length;
             component.items.push('New Item');
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const paragraphs = fixture.debugElement.queryAll(By.css('p'));
@@ -796,19 +804,19 @@ describe('ScrollTop', () => {
             scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
         });
 
-        it('should handle rapid scroll events efficiently', fakeAsync(() => {
+        it('should handle rapid scroll events efficiently', async () => {
             spyOn(scrollTop.cd, 'markForCheck');
 
             // Simulate rapid scroll events
             for (let i = 0; i < 100; i++) {
                 scrollTop.checkVisibility(i * 10);
             }
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Should have called markForCheck for each event
             expect(scrollTop.cd.markForCheck).toHaveBeenCalledTimes(100);
-            flush();
-        }));
+        });
 
         it('should not create multiple listeners', () => {
             spyOn(scrollTop.renderer, 'listen').and.returnValue(() => {});
@@ -844,9 +852,13 @@ describe('ScrollTop', () => {
             }
         });
 
-        it('should handle undefined aria-label', () => {
+        it('should handle undefined aria-label', async () => {
             component.buttonAriaLabel = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             scrollTop.visible = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.directive(Button));
@@ -942,7 +954,7 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopPtComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             fixture = TestBed.createComponent(TestScrollTopPtComponent);
@@ -951,8 +963,10 @@ describe('ScrollTop', () => {
             scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
         });
 
-        it('should apply pt host class', () => {
+        it('should apply pt host class', async () => {
             component.pt = { host: 'HOST_CLASS' };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             fixture.detectChanges(); // Trigger ngAfterViewChecked
 
@@ -960,8 +974,10 @@ describe('ScrollTop', () => {
             expect(scrollTopElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
         });
 
-        it('should apply pt root class', () => {
+        it('should apply pt root class', async () => {
             component.pt = { root: 'ROOT_CLASS' };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             fixture.detectChanges();
 
@@ -987,7 +1003,7 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopPtObjectComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             fixture = TestBed.createComponent(TestScrollTopPtObjectComponent);
@@ -1046,7 +1062,7 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopPtMixedComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             fixture = TestBed.createComponent(TestScrollTopPtMixedComponent);
@@ -1090,7 +1106,7 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopPtInstanceComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             fixture = TestBed.createComponent(TestScrollTopPtInstanceComponent);
@@ -1155,14 +1171,14 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopPtEventComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             fixture = TestBed.createComponent(TestScrollTopPtEventComponent);
             component = fixture.componentInstance;
         });
 
-        it('should bind onclick event to host element', fakeAsync(() => {
+        it('should bind onclick event to host element', async () => {
             let clicked = false;
 
             component.pt = {
@@ -1177,13 +1193,13 @@ describe('ScrollTop', () => {
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
             scrollTopElement.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(clicked).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should bind onmouseenter event', fakeAsync(() => {
+        it('should bind onmouseenter event', async () => {
             let mouseEntered = false;
 
             component.pt = {
@@ -1198,11 +1214,11 @@ describe('ScrollTop', () => {
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
             scrollTopElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(mouseEntered).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('PassThrough - Case 6: Inline test', () => {
@@ -1223,7 +1239,7 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopInlineStringPtComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             const testFixture = TestBed.createComponent(TestScrollTopInlineStringPtComponent);
@@ -1239,7 +1255,7 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopInlineObjectPtComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             const testFixture = TestBed.createComponent(TestScrollTopInlineObjectPtComponent);
@@ -1270,6 +1286,7 @@ describe('ScrollTop', () => {
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopGlobalPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     { provide: PLATFORM_ID, useValue: 'browser' },
                     providePrimeNG({
                         pt: {
@@ -1309,6 +1326,7 @@ describe('ScrollTop', () => {
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopMergedPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     { provide: PLATFORM_ID, useValue: 'browser' },
                     providePrimeNG({
                         pt: {
@@ -1348,7 +1366,7 @@ describe('ScrollTop', () => {
             TestBed.configureTestingModule({
                 imports: [ScrollTopModule, NoopAnimationsModule],
                 declarations: [TestScrollTopPtHooksComponent],
-                providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+                providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             fixture = TestBed.createComponent(TestScrollTopPtHooksComponent);

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -265,7 +265,7 @@ describe('Table', () => {
         await TestBed.configureTestingModule({
             declarations: [Table, TestBasicTableComponent, TestSelectionTableComponent, TestSortingTableComponent, TestFilteringTableComponent, TestVirtualScrollTableComponent, TestLazyLoadTableComponent, TestTemplatesTableComponent],
             imports: [CommonModule, FormsModule, NoopAnimationsModule, TableModule, SharedModule],
-            providers: [TableService]
+            providers: [TableService, provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(Table);
@@ -281,9 +281,10 @@ describe('Table', () => {
         let testComponent: TestBasicTableComponent;
         let testFixture: ComponentFixture<TestBasicTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestBasicTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -313,9 +314,10 @@ describe('Table', () => {
         let testComponent: TestSelectionTableComponent;
         let testFixture: ComponentFixture<TestSelectionTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestSelectionTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -339,9 +341,10 @@ describe('Table', () => {
         let testComponent: TestSortingTableComponent;
         let testFixture: ComponentFixture<TestSortingTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestSortingTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -365,9 +368,10 @@ describe('Table', () => {
         let testComponent: TestFilteringTableComponent;
         let testFixture: ComponentFixture<TestFilteringTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestFilteringTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -386,9 +390,10 @@ describe('Table', () => {
         let testComponent: TestVirtualScrollTableComponent;
         let testFixture: ComponentFixture<TestVirtualScrollTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestVirtualScrollTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -411,9 +416,10 @@ describe('Table', () => {
         let testComponent: TestLazyLoadTableComponent;
         let testFixture: ComponentFixture<TestLazyLoadTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestLazyLoadTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -440,9 +446,10 @@ describe('Table', () => {
         let testComponent: TestTemplatesTableComponent;
         let testFixture: ComponentFixture<TestTemplatesTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             testFixture = TestBed.createComponent(TestTemplatesTableComponent);
             testComponent = testFixture.componentInstance;
+            await testFixture.whenStable();
             testFixture.detectChanges();
         });
 
@@ -461,7 +468,7 @@ describe('Table', () => {
         let ecommerceComponent: TestBasicTableComponent;
         let ecommerceFixture: ComponentFixture<TestBasicTableComponent>;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             ecommerceFixture = TestBed.createComponent(TestBasicTableComponent);
             ecommerceComponent = ecommerceFixture.componentInstance;
             ecommerceComponent.products = [
@@ -471,43 +478,44 @@ describe('Table', () => {
                 { id: '1004', code: 'HD001', name: 'Wireless Headphones', description: 'Noise-cancelling headphones', price: 199.99, quantity: 25, inventoryStatus: 'INSTOCK', category: 'Audio', image: 'headphones.jpg', rating: 5 },
                 { id: '1005', code: 'MN001', name: '4K Monitor', description: '27-inch 4K monitor', price: 399.99, quantity: 12, inventoryStatus: 'INSTOCK', category: 'Displays', image: 'monitor.jpg', rating: 4 }
             ];
+            ecommerceFixture.changeDetectorRef.markForCheck();
+            await ecommerceFixture.whenStable();
             ecommerceFixture.detectChanges();
         });
 
-        it('should handle inventory status filtering for stock management', fakeAsync(() => {
+        it('should handle inventory status filtering for stock management', async () => {
             const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
 
             tableInstance.filter('INSTOCK', 'inventoryStatus', 'equals');
-            tick(350);
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await ecommerceFixture.whenStable();
 
             const inStockProducts = tableInstance.filteredValue || tableInstance.value;
             const inStock = inStockProducts.filter((product: any) => product.inventoryStatus === 'INSTOCK');
             expect(inStock.length).toBe(3);
-            flush();
-        }));
+        });
 
-        it('should sort by price for promotional planning', fakeAsync(() => {
+        it('should sort by price for promotional planning', async () => {
             const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
 
             tableInstance.sort({ field: 'price', order: 1 });
-            tick();
+            await ecommerceFixture.whenStable();
 
             expect(tableInstance.sortField).toBe('price');
             expect(tableInstance.sortOrder).toBe(1);
-            flush();
-        }));
+        });
 
-        it('should support price range filtering for budget constraints', fakeAsync(() => {
+        it('should support price range filtering for budget constraints', async () => {
             const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
 
             tableInstance.filter(100, 'price', 'lt');
-            tick(350);
+            await new Promise((resolve) => setTimeout(resolve, 350));
+            await ecommerceFixture.whenStable();
 
             const filteredData = tableInstance.filteredValue || tableInstance.value;
             const affordableProducts = filteredData.filter((product: any) => product.price < 100);
             expect(affordableProducts.length).toBe(1); // Only the mouse under $100
-            flush();
-        }));
+        });
 
         it('should calculate average price for market analysis', () => {
             const products = ecommerceComponent.products;
@@ -713,11 +721,12 @@ describe('Table', () => {
             tablePT = comprehensivePT;
         }
 
-        it('PT Section 1: host - should apply PT to host DOM element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 1: host - should apply PT to host DOM element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -727,11 +736,12 @@ describe('Table', () => {
             expect(tableElement).toBeTruthy();
         });
 
-        it('PT Section 2: root - should apply PT to root DOM element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 2: root - should apply PT to root DOM element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -741,15 +751,18 @@ describe('Table', () => {
             expect(rootEl?.classList.contains('pt-root')).toBe(true);
         });
 
-        it('PT Section 3: mask - should apply PT to loading mask element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 3: mask - should apply PT to loading mask element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             const component = fixture.componentInstance;
             component.isLoading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const maskEl = fixture.nativeElement.querySelector('[data-testid="mask"]');
@@ -757,15 +770,18 @@ describe('Table', () => {
             expect(maskEl?.classList.contains('pt-mask')).toBe(true);
         });
 
-        it('PT Section 4: loadingIcon - should apply PT to loading icon element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 4: loadingIcon - should apply PT to loading icon element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             const component = fixture.componentInstance;
             component.isLoading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const iconEl = fixture.nativeElement.querySelector('[data-testid="loading-icon"]');
@@ -773,11 +789,12 @@ describe('Table', () => {
             expect(iconEl?.classList.contains('pt-loading-icon')).toBe(true);
         });
 
-        it('PT Section 5: header - should apply PT to header (caption) element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 5: header - should apply PT to header (caption) element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -787,11 +804,12 @@ describe('Table', () => {
             expect(headerEl?.classList.contains('pt-header')).toBe(true);
         });
 
-        it('PT Section 6: pcPaginator - should apply PT to paginator component', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 6: pcPaginator - should apply PT to paginator component', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -801,11 +819,12 @@ describe('Table', () => {
             expect(paginatorEl?.classList.contains('pt-paginator')).toBe(true);
         });
 
-        it('PT Section 7: tableContainer - should apply PT to table container element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 7: tableContainer - should apply PT to table container element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -815,15 +834,18 @@ describe('Table', () => {
             expect(containerEl?.classList.contains('pt-table-container')).toBe(true);
         });
 
-        it('PT Section 8: virtualScroller - should apply PT to virtual scroller component', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 8: virtualScroller - should apply PT to virtual scroller component', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             const component = fixture.componentInstance;
             component.useVirtualScroll = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const scrollerEl = fixture.nativeElement.querySelector('[data-testid="virtual-scroller"]');
@@ -831,11 +853,12 @@ describe('Table', () => {
             expect(scrollerEl?.classList.contains('pt-virtual-scroller')).toBe(true);
         });
 
-        it('PT Section 9: table - should apply PT to table element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 9: table - should apply PT to table element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -845,11 +868,12 @@ describe('Table', () => {
             expect(tableEl?.classList.contains('pt-table')).toBe(true);
         });
 
-        it('PT Section 10: thead - should apply PT to thead element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 10: thead - should apply PT to thead element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -859,11 +883,12 @@ describe('Table', () => {
             expect(theadEl?.classList.contains('pt-thead')).toBe(true);
         });
 
-        it('PT Section 11: tbody - should apply PT to tbody element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 11: tbody - should apply PT to tbody element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -873,15 +898,18 @@ describe('Table', () => {
             expect(tbodyEl?.classList.contains('pt-tbody')).toBe(true);
         });
 
-        it('PT Section 12: virtualScrollerSpacer - should apply PT to virtual scroller spacer element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 12: virtualScrollerSpacer - should apply PT to virtual scroller spacer element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             const component = fixture.componentInstance;
             component.useVirtualScroll = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Virtual scroller spacer may not render in all scenarios
@@ -892,11 +920,12 @@ describe('Table', () => {
             }
         });
 
-        it('PT Section 13: tfoot - should apply PT to tfoot element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 13: tfoot - should apply PT to tfoot element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -906,11 +935,12 @@ describe('Table', () => {
             expect(tfootEl?.classList.contains('pt-tfoot')).toBe(true);
         });
 
-        it('PT Section 14: footer - should apply PT to footer element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 14: footer - should apply PT to footer element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -920,11 +950,12 @@ describe('Table', () => {
             expect(footerEl?.classList.contains('pt-footer')).toBe(true);
         });
 
-        it('PT Section 15: columnResizeIndicator - should apply PT to column resize indicator element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 15: columnResizeIndicator - should apply PT to column resize indicator element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -934,11 +965,12 @@ describe('Table', () => {
             expect(indicatorEl?.classList.contains('pt-resize-indicator')).toBe(true);
         });
 
-        it('PT Section 16: rowReorderIndicatorUp - should apply PT to row reorder indicator up element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 16: rowReorderIndicatorUp - should apply PT to row reorder indicator up element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -948,11 +980,12 @@ describe('Table', () => {
             expect(upIndicatorEl?.classList.contains('pt-reorder-up')).toBe(true);
         });
 
-        it('PT Section 17: rowReorderIndicatorDown - should apply PT to row reorder indicator down element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 17: rowReorderIndicatorDown - should apply PT to row reorder indicator down element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -962,11 +995,12 @@ describe('Table', () => {
             expect(downIndicatorEl?.classList.contains('pt-reorder-down')).toBe(true);
         });
 
-        it('PT Section 18: reorderableRow - should apply PT to reorderable row element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 18: reorderableRow - should apply PT to reorderable row element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -976,11 +1010,12 @@ describe('Table', () => {
             expect(rows.length).toBeGreaterThan(0);
         });
 
-        it('PT Section 19: reorderableRowHandle - should apply PT to reorderable row handle element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 19: reorderableRowHandle - should apply PT to reorderable row handle element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -990,11 +1025,12 @@ describe('Table', () => {
             expect(handles).toBeDefined();
         });
 
-        it('PT Section 20: headerCheckbox - should apply PT to header checkbox component', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 20: headerCheckbox - should apply PT to header checkbox component', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -1004,11 +1040,12 @@ describe('Table', () => {
             expect(headerCheckbox).toBeTruthy();
         });
 
-        it('PT Section 21: pcCheckbox - should apply PT to checkbox component', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 21: pcCheckbox - should apply PT to checkbox component', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -1018,11 +1055,12 @@ describe('Table', () => {
             expect(checkboxes.length).toBeGreaterThan(0);
         });
 
-        it('PT Section 22: columnFilter.filter - should apply PT to filter container element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 22: columnFilter.filter - should apply PT to filter container element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();
@@ -1032,11 +1070,12 @@ describe('Table', () => {
             expect(filterEl).toBeTruthy();
         });
 
-        it('PT Section 23: columnFilterFormElement - should apply PT to column filter form element', () => {
-            TestBed.configureTestingModule({
+        it('PT Section 23: columnFilterFormElement - should apply PT to column filter form element', async () => {
+            await TestBed.configureTestingModule({
                 imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
-                declarations: [TestComprehensivePTComponent]
-            });
+                declarations: [TestComprehensivePTComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
 
             const fixture = TestBed.createComponent(TestComprehensivePTComponent);
             fixture.detectChanges();

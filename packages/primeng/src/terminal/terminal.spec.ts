@@ -1,7 +1,8 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import { Terminal } from './terminal';
 import { TerminalService } from './terminalservice';
@@ -66,8 +67,8 @@ describe('Terminal', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicTerminalComponent, TestStaticPropsTerminalComponent, TestStyledTerminalComponent, TestMinimalTerminalComponent, TestInteractiveTerminalComponent, TestDynamicTerminalComponent],
-            imports: [Terminal, FormsModule],
-            providers: [TerminalService]
+            imports: [Terminal, FormsModule, NoopAnimationsModule],
+            providers: [TerminalService, provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicTerminalComponent);
@@ -103,11 +104,13 @@ describe('Terminal', () => {
             expect(freshTerminal.commandProcessed).toBeUndefined();
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.welcomeMessage = 'Custom Welcome';
             component.prompt = 'custom$ ';
             component.styleClass = 'custom-class';
             component.style = { color: 'red' };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(terminalInstance.welcomeMessage).toBe('Custom Welcome');
@@ -133,28 +136,36 @@ describe('Terminal', () => {
     });
 
     describe('Input Properties', () => {
-        it('should update welcomeMessage input', () => {
+        it('should update welcomeMessage input', async () => {
             component.welcomeMessage = 'Updated Welcome';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.welcomeMessage).toBe('Updated Welcome');
         });
 
-        it('should update prompt input', () => {
+        it('should update prompt input', async () => {
             component.prompt = 'new> ';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt).toBe('new> ');
         });
 
-        it('should update styleClass input', () => {
+        it('should update styleClass input', async () => {
             component.styleClass = 'test-class';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.styleClass).toBe('test-class');
         });
 
-        it('should handle undefined inputs', () => {
+        it('should handle undefined inputs', async () => {
             component.welcomeMessage = undefined as any;
             component.prompt = undefined as any;
             component.styleClass = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(terminalInstance.welcomeMessage).toBeUndefined();
@@ -162,10 +173,12 @@ describe('Terminal', () => {
             expect(terminalInstance.styleClass).toBeUndefined();
         });
 
-        it('should handle empty string inputs', () => {
+        it('should handle empty string inputs', async () => {
             component.welcomeMessage = '';
             component.prompt = '';
             component.styleClass = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(terminalInstance.welcomeMessage).toBe('' as any);
@@ -175,8 +188,10 @@ describe('Terminal', () => {
     });
 
     describe('Welcome Message Display', () => {
-        it('should display welcome message when provided', () => {
+        it('should display welcome message when provided', async () => {
             component.welcomeMessage = 'Test Welcome Message';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const welcomeElement = fixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"], div:first-child'));
@@ -188,8 +203,10 @@ describe('Terminal', () => {
             }
         });
 
-        it('should not display welcome message element when not provided', () => {
+        it('should not display welcome message element when not provided', async () => {
             component.welcomeMessage = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const welcomeElements = fixture.debugElement.queryAll(By.css('div'));
@@ -197,19 +214,25 @@ describe('Terminal', () => {
             expect(hasWelcomeMessage).toBe(false);
         });
 
-        it('should update welcome message when changed', () => {
+        it('should update welcome message when changed', async () => {
             component.welcomeMessage = 'Initial Message';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.welcomeMessage).toBe('Initial Message');
 
             component.welcomeMessage = 'Updated Message';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.welcomeMessage).toBe('Updated Message');
         });
 
-        it('should handle special characters in welcome message', () => {
+        it('should handle special characters in welcome message', async () => {
             const specialMessage = 'Welcome! @#$%^&*()_+{}:"<>?[]\\;\',./ 🚀';
             component.welcomeMessage = specialMessage;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(terminalInstance.welcomeMessage).toBe(specialMessage);
@@ -217,8 +240,10 @@ describe('Terminal', () => {
     });
 
     describe('Prompt Display', () => {
-        it('should display prompt in command line', () => {
+        it('should display prompt in command line', async () => {
             component.prompt = 'test> ';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const promptElements = fixture.debugElement.queryAll(By.css('span'));
@@ -234,24 +259,32 @@ describe('Terminal', () => {
             }
         });
 
-        it('should handle empty prompt', () => {
+        it('should handle empty prompt', async () => {
             component.prompt = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt).toBe('' as any);
         });
 
-        it('should handle undefined prompt', () => {
+        it('should handle undefined prompt', async () => {
             component.prompt = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt).toBeUndefined();
         });
 
-        it('should update prompt when changed', () => {
+        it('should update prompt when changed', async () => {
             component.prompt = 'initial$ ';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt).toBe('initial$ ');
 
             component.prompt = 'updated> ';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt).toBe('updated> ');
         });
@@ -353,38 +386,38 @@ describe('Terminal', () => {
             expect(terminalInstance.subscription.closed).toBe(false);
         });
 
-        it('should handle response from service', fakeAsync(() => {
+        it('should handle response from service', async () => {
             // Add a command first
             terminalInstance.commands.push({ text: 'test command' });
 
             // Send response
             terminalService.sendResponse('Command output');
-            tick();
+
+            // Wait for RxJS subscription to fire (synchronous but needs microtask)
+            await Promise.resolve();
 
             expect(terminalInstance.commands[0].response).toBe('Command output');
             expect(terminalInstance.commandProcessed).toBe(true);
+        });
 
-            flush();
-        }));
-
-        it('should handle multiple responses', fakeAsync(() => {
+        it('should handle multiple responses', async () => {
             // Add commands
             terminalInstance.commands.push({ text: 'command1' });
             terminalInstance.commands.push({ text: 'command2' });
 
             // Send first response
             terminalService.sendResponse('Response 1');
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(terminalInstance.commands[1].response).toBe('Response 1');
 
             // Add another command and send response
             terminalInstance.commands.push({ text: 'command3' });
             terminalService.sendResponse('Response 2');
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(terminalInstance.commands[2].response).toBe('Response 2');
-
-            flush();
-        }));
+        });
 
         it('should set response via property setter', () => {
             terminalInstance.commands.push({ text: 'test' });
@@ -449,7 +482,7 @@ describe('Terminal', () => {
             expect(terminalInstance.ngAfterViewInit).toHaveBeenCalled();
         });
 
-        it('should scroll to bottom after command processed', fakeAsync(() => {
+        it('should scroll to bottom after command processed', async () => {
             // Mock container and scrolling
             const mockContainer = {
                 scrollTop: 0,
@@ -462,9 +495,7 @@ describe('Terminal', () => {
 
             expect(mockContainer.scrollTop).toBe(1000);
             expect(terminalInstance.commandProcessed).toBe(false);
-
-            flush();
-        }));
+        });
 
         it('should not scroll when command not processed', () => {
             const mockContainer = {
@@ -495,8 +526,10 @@ describe('Terminal', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply styleClass to root element', () => {
+        it('should apply styleClass to root element', async () => {
             component.styleClass = 'custom-terminal-class';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(Terminal));
@@ -529,8 +562,10 @@ describe('Terminal', () => {
             expect(element.style.color).toMatch(/(#fff|rgb\(255, 255, 255\))/);
         });
 
-        it('should combine multiple CSS classes correctly', () => {
+        it('should combine multiple CSS classes correctly', async () => {
             component.styleClass = 'class1 class2';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(Terminal));
@@ -561,12 +596,14 @@ describe('Terminal', () => {
     });
 
     describe('Command History Display', () => {
-        it('should display executed commands', () => {
+        it('should display executed commands', async () => {
             terminalInstance.commands = [
                 { text: 'ls', response: 'file1.txt' },
                 { text: 'pwd', response: '/home/user' }
             ];
             component.prompt = '$ ';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Verify commands are in the component
@@ -659,16 +696,20 @@ describe('Terminal', () => {
             }).not.toThrow();
         });
 
-        it('should handle multiple instances independently', () => {
+        it('should handle multiple instances independently', async () => {
             const fixture1 = TestBed.createComponent(TestBasicTerminalComponent);
             const fixture2 = TestBed.createComponent(TestBasicTerminalComponent);
 
             fixture1.componentInstance.welcomeMessage = 'Terminal 1';
             fixture1.componentInstance.prompt = '1> ';
+            fixture1.changeDetectorRef.markForCheck();
+            await fixture1.whenStable();
             fixture1.detectChanges();
 
             fixture2.componentInstance.welcomeMessage = 'Terminal 2';
             fixture2.componentInstance.prompt = '2> ';
+            fixture2.changeDetectorRef.markForCheck();
+            await fixture2.whenStable();
             fixture2.detectChanges();
 
             const instance1 = fixture1.debugElement.query(By.directive(Terminal)).componentInstance;
@@ -710,9 +751,11 @@ describe('Terminal', () => {
             expect(rootElement.nativeElement.classList.contains('custom-terminal')).toBe(true);
         });
 
-        it('should maintain state across property changes', () => {
+        it('should maintain state across property changes', async () => {
             component.welcomeMessage = 'Initial';
             component.prompt = 'init> ';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(terminalInstance.welcomeMessage).toBe('Initial');
@@ -720,13 +763,15 @@ describe('Terminal', () => {
 
             component.welcomeMessage = 'Updated';
             component.prompt = 'update> ';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(terminalInstance.welcomeMessage).toBe('Updated');
             expect(terminalInstance.prompt).toBe('update> ');
         });
 
-        it('should work with dynamic properties', () => {
+        it('should work with dynamic properties', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicTerminalComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
             dynamicFixture.detectChanges();
@@ -739,18 +784,22 @@ describe('Terminal', () => {
             // Update properties dynamically
             dynamicComponent.message = 'Changed Welcome';
             dynamicComponent.commandPrompt = 'changed> ';
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
 
             expect(dynamicTerminal.welcomeMessage).toBe('Changed Welcome');
             expect(dynamicTerminal.prompt).toBe('changed> ');
         });
 
-        it('should handle complete workflow', fakeAsync(() => {
+        it('should handle complete workflow', async () => {
             spyOn(terminalService, 'sendCommand').and.callThrough();
 
             // Set up terminal
             component.welcomeMessage = 'Test Terminal';
             component.prompt = 'test> ';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Execute command
@@ -763,13 +812,12 @@ describe('Terminal', () => {
 
             // Simulate response
             terminalService.sendResponse('total 8\ndrwxr-xr-x  2 user user 4096 Jan  1 12:00 .\ndrwxr-xr-x  3 user user 4096 Jan  1 12:00 ..');
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(terminalInstance.commands[0].response).toBe('total 8\ndrwxr-xr-x  2 user user 4096 Jan  1 12:00 .\ndrwxr-xr-x  3 user user 4096 Jan  1 12:00 ..');
             expect(terminalInstance.commandProcessed).toBe(true);
-
-            flush();
-        }));
+        });
     });
 
     describe('Public Methods', () => {
@@ -855,8 +903,8 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase1Component],
-                    imports: [Terminal, FormsModule],
-                    providers: [TerminalService]
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
@@ -917,8 +965,8 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase2Component],
-                    imports: [Terminal, FormsModule],
-                    providers: [TerminalService]
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
@@ -967,8 +1015,8 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase3Component],
-                    imports: [Terminal, FormsModule],
-                    providers: [TerminalService]
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
@@ -1027,8 +1075,8 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase4Component],
-                    imports: [Terminal, FormsModule],
-                    providers: [TerminalService]
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
@@ -1074,8 +1122,8 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase5Component],
-                    imports: [Terminal, FormsModule],
-                    providers: [TerminalService]
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
@@ -1113,8 +1161,8 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineComponent],
-                    imports: [Terminal, FormsModule],
-                    providers: [TerminalService]
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
@@ -1133,8 +1181,8 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Terminal, FormsModule],
-                    providers: [TerminalService]
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
@@ -1164,9 +1212,10 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
                     providers: [
                         TerminalService,
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 terminal: {
@@ -1228,8 +1277,8 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase8HooksComponent],
-                    imports: [Terminal, FormsModule],
-                    providers: [TerminalService]
+                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);

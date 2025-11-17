@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -84,7 +84,8 @@ describe('Slider', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Slider, SliderModule, FormsModule, CommonModule, SharedModule]
+            imports: [Slider, SliderModule, FormsModule, CommonModule, SharedModule, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(Slider);
@@ -106,7 +107,7 @@ describe('Slider', () => {
             expect(component.step).toBeUndefined();
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.min = 10;
             component.max = 200;
             component.step = 5;
@@ -116,6 +117,8 @@ describe('Slider', () => {
             // component.styleClass = 'custom-slider'; // deprecated property
             component.tabindex = 2;
 
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(component.min).toBe(10);
@@ -143,9 +146,12 @@ describe('Slider', () => {
             expect(component.handleIndex).toBe(0);
         });
 
-        it('should set aria attributes correctly', () => {
+        it('should set aria attributes correctly', async () => {
             component.ariaLabel = 'Volume slider';
             component.ariaLabelledBy = 'volume-label';
+
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.ariaLabel).toBe('Volume slider');
             expect(component.ariaLabelledBy).toBe('volume-label');
@@ -196,9 +202,12 @@ describe('Slider', () => {
             expect(component.getValueFromHandle(100)).toBe(100);
         });
 
-        it('should get value from handle with custom min/max', () => {
+        it('should get value from handle with custom min/max', async () => {
             component.min = 10;
             component.max = 90;
+
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.getValueFromHandle(0)).toBe(10);
             expect(component.getValueFromHandle(50)).toBe(50);
@@ -264,42 +273,45 @@ describe('Slider', () => {
             testFixture.detectChanges();
         });
 
-        it('should emit onChange event for single slider', fakeAsync(() => {
+        it('should emit onChange event for single slider', async () => {
             spyOn(testComponent, 'onSliderChange');
 
             // Trigger the event directly since DOM-based event testing can be unreliable
             testComponent.onSliderChange({ event: new Event('change'), value: 50 });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await testFixture.whenStable();
 
             expect(testComponent.onSliderChange).toHaveBeenCalledWith({ event: jasmine.any(Event), value: 50 });
-            flush();
-        }));
+        });
 
-        it('should emit onChange event for range slider', fakeAsync(() => {
+        it('should emit onChange event for range slider', async () => {
             testComponent.range = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await testFixture.whenStable();
 
             spyOn(testComponent, 'onSliderChange');
 
             // Trigger the event directly since DOM-based event testing can be unreliable
             testComponent.onSliderChange({ event: new Event('change'), values: [20, 80] });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await testFixture.whenStable();
 
             expect(testComponent.onSliderChange).toHaveBeenCalledWith({ event: jasmine.any(Event), values: [20, 80] });
-            flush();
-        }));
+        });
 
-        it('should emit onSlideEnd event', fakeAsync(() => {
+        it('should emit onSlideEnd event', async () => {
             spyOn(testComponent, 'onSlideEnd');
 
             // Trigger the event directly since DOM-based event testing can be unreliable
             testComponent.onSlideEnd({ originalEvent: new Event('mouseup'), value: 75 });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await testFixture.whenStable();
 
             expect(testComponent.onSlideEnd).toHaveBeenCalledWith({ originalEvent: jasmine.any(Event), value: 75 });
-            flush();
-        }));
+        });
 
         it('should handle keyboard navigation', () => {
             const sliderElement = testFixture.debugElement.query(By.css('p-slider'));
@@ -313,8 +325,10 @@ describe('Slider', () => {
             }
         });
 
-        it('should support disabled state', () => {
+        it('should support disabled state', async () => {
             testComponent.disabled = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const handleElement = testFixture.debugElement.query(By.css('[role="slider"]'));
@@ -341,59 +355,60 @@ describe('Slider', () => {
             formTestFixture.detectChanges();
         });
 
-        it('should work with reactive forms', fakeAsync(() => {
+        it('should work with reactive forms', async () => {
             formTestComponent.form.patchValue({ sliderValue: 75 });
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.value.sliderValue).toBe(75 as any);
-            flush();
-        }));
+        });
 
-        it('should validate required field', fakeAsync(() => {
+        it('should validate required field', async () => {
             expect(formTestComponent.form.invalid).toBe(true);
 
             formTestComponent.form.patchValue({ sliderValue: 25 });
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.valid).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle form reset', fakeAsync(() => {
+        it('should handle form reset', async () => {
             formTestComponent.form.patchValue({ sliderValue: 80 });
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             formTestComponent.form.reset();
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.pristine).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle disabled state through form control', fakeAsync(() => {
+        it('should handle disabled state through form control', async () => {
             formTestComponent.form.get('sliderValue')?.disable();
             formTestFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.get('sliderValue')?.disabled).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should work with range slider in forms', fakeAsync(() => {
+        it('should work with range slider in forms', async () => {
             const rangeFormComponent = TestBed.createComponent(TestRangeFormSliderComponent);
             rangeFormComponent.detectChanges();
 
             rangeFormComponent.componentInstance.form.patchValue({ rangeValue: [30, 70] });
             rangeFormComponent.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await rangeFormComponent.whenStable();
 
             expect(rangeFormComponent.componentInstance.form.value.rangeValue).toEqual([30, 70]);
-            flush();
-        }));
+        });
     });
 
     describe('Accessibility', () => {
@@ -419,8 +434,10 @@ describe('Slider', () => {
             }
         });
 
-        it('should update aria-valuenow when value changes', () => {
+        it('should update aria-valuenow when value changes', async () => {
             testComponent.value = 50;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
@@ -431,8 +448,10 @@ describe('Slider', () => {
             }
         });
 
-        it('should set aria-labelledby when provided', () => {
+        it('should set aria-labelledby when provided', async () => {
             testComponent.ariaLabelledBy = 'slider-label';
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
@@ -443,8 +462,10 @@ describe('Slider', () => {
             }
         });
 
-        it('should set aria-label when provided', () => {
+        it('should set aria-label when provided', async () => {
             testComponent.ariaLabel = 'Volume control';
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
@@ -455,8 +476,10 @@ describe('Slider', () => {
             }
         });
 
-        it('should support autofocus', () => {
+        it('should support autofocus', async () => {
             testComponent.autofocus = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[pautofocus]'));
@@ -467,8 +490,10 @@ describe('Slider', () => {
             }
         });
 
-        it('should handle tabindex correctly', () => {
+        it('should handle tabindex correctly', async () => {
             testComponent.tabindex = 5;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
@@ -479,8 +504,10 @@ describe('Slider', () => {
             }
         });
 
-        it('should have correct orientation attribute', () => {
+        it('should have correct orientation attribute', async () => {
             testComponent.orientation = 'vertical';
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
@@ -507,8 +534,10 @@ describe('Slider', () => {
             expect(sliderEl).toBeTruthy();
         });
 
-        it('should handle disabled state with DOM classes', () => {
+        it('should handle disabled state with DOM classes', async () => {
             testComponent.disabled = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
@@ -524,8 +553,10 @@ describe('Slider', () => {
             }
         });
 
-        it('should handle animation class', () => {
+        it('should handle animation class', async () => {
             testComponent.animate = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
@@ -533,8 +564,10 @@ describe('Slider', () => {
             expect(testComponent.animate).toBe(true);
         });
 
-        it('should handle vertical orientation', () => {
+        it('should handle vertical orientation', async () => {
             testComponent.orientation = 'vertical';
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
@@ -542,8 +575,10 @@ describe('Slider', () => {
             expect(testComponent.orientation).toBe('vertical');
         });
 
-        it('should create range handles when range is enabled', () => {
+        it('should create range handles when range is enabled', async () => {
             testComponent.range = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
@@ -551,8 +586,10 @@ describe('Slider', () => {
             expect(testComponent.range).toBe(true);
         });
 
-        it('should handle touch events for horizontal slider', () => {
+        it('should handle touch events for horizontal slider', async () => {
             testComponent.orientation = 'horizontal';
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
@@ -560,19 +597,21 @@ describe('Slider', () => {
             expect(testComponent.orientation).toBe('horizontal');
         });
 
-        it('should handle touch events for vertical slider', fakeAsync(() => {
+        it('should handle touch events for vertical slider', async () => {
             testComponent.orientation = 'vertical';
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
             expect(sliderEl).toBeTruthy();
             expect(testComponent.orientation).toBe('vertical');
 
-            tick();
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await testFixture.whenStable();
+        });
 
-        it('should handle mouse drag events', fakeAsync(() => {
+        it('should handle mouse drag events', async () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
@@ -581,13 +620,13 @@ describe('Slider', () => {
             // Test that the slider element can handle mouse interactions
             const mouseEvent = new MouseEvent('mousedown');
             expect(mouseEvent).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should handle step increment/decrement with integer steps', () => {
+        it('should handle step increment/decrement with integer steps', async () => {
             testComponent.step = 2;
             testComponent.value = 50;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
@@ -596,10 +635,12 @@ describe('Slider', () => {
             expect(testComponent.value).toBe(50);
         });
 
-        it('should handle step increment/decrement with decimal steps', () => {
+        it('should handle step increment/decrement with decimal steps', async () => {
             testComponent.step = 0.01;
             testComponent.max = 2.5;
             testComponent.value = 2.0;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
@@ -609,29 +650,31 @@ describe('Slider', () => {
             expect(testComponent.value).toBe(2.0);
         });
 
-        it('should handle onChange listener', fakeAsync(() => {
+        it('should handle onChange listener', async () => {
             testComponent.onSliderChange = (_event) => {
                 // Event handler for testing
             };
 
             testComponent.value = 75;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await testFixture.whenStable();
 
             expect(testComponent.value).toBe(75);
-            flush();
-        }));
+        });
 
-        it('should handle range slider with both handles', fakeAsync(() => {
+        it('should handle range slider with both handles', async () => {
             testComponent.range = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
             expect(sliderEl).toBeTruthy();
             expect(testComponent.range).toBe(true);
-
-            flush();
-        }));
+        });
     });
 
     describe('Edge Cases', () => {
@@ -748,7 +791,7 @@ describe('Slider', () => {
             expect(mockEvent.preventDefault).toHaveBeenCalled();
         });
 
-        it('should handle rapid value changes', fakeAsync(() => {
+        it('should handle rapid value changes', async () => {
             component.value = 50;
             let changeCount = 0;
 
@@ -758,12 +801,12 @@ describe('Slider', () => {
 
             for (let i = 0; i < 5; i++) {
                 component.updateValue(50 + i);
-                tick(10);
+                await new Promise((resolve) => setTimeout(resolve, 10));
+                await fixture.whenStable();
             }
 
             expect(changeCount).toBe(5);
-            flush();
-        }));
+        });
 
         it('should handle component destruction', () => {
             spyOn(component, 'unbindDragListeners');
@@ -826,31 +869,31 @@ describe('Slider', () => {
             expect(component.values![0] % 2).toBe(0);
         });
 
-        it('should handle onSlideEnd event emission', fakeAsync(() => {
+        it('should handle onSlideEnd event emission', async () => {
             let slideEndEvent: any;
             component.onSlideEnd.subscribe((event) => (slideEndEvent = event));
 
             component.onBarClick(new Event('click'));
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(slideEndEvent).toBeDefined();
             expect(slideEndEvent.value).toBeDefined();
-            flush();
-        }));
+        });
 
-        it('should handle range slider onSlideEnd event emission', fakeAsync(() => {
+        it('should handle range slider onSlideEnd event emission', async () => {
             component.range = true;
             component.values = [30, 70];
             let slideEndEvent: any;
             component.onSlideEnd.subscribe((event) => (slideEndEvent = event));
 
             component.onBarClick(new Event('click'));
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(slideEndEvent).toBeDefined();
             expect(slideEndEvent.values).toBeDefined();
-            flush();
-        }));
+        });
 
         it('should handle RTL orientation in calculation', () => {
             // This is a complex test that would require DOM manipulation
@@ -977,19 +1020,19 @@ describe('Slider', () => {
             expect(component.handleValues[1]).toBe(80);
         });
 
-        it('should handle bar click events', fakeAsync(() => {
+        it('should handle bar click events', async () => {
             component.sliderHandleClick = false;
             spyOn(component, 'updateDomData');
             spyOn(component, 'handleChange');
 
             const mockEvent = new Event('click');
             component.onBarClick(mockEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.updateDomData).toHaveBeenCalled();
             expect(component.handleChange).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
         it('should ignore bar click when handle is clicked', () => {
             component.sliderHandleClick = true;
@@ -1102,14 +1145,16 @@ describe('Slider', () => {
                 };
             }
 
-            it('should apply simple string classes to PT sections', fakeAsync(() => {
+            it('should apply simple string classes to PT sections', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase1Component]
+                    imports: [NoopAnimationsModule, TestPTCase1Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase1Component);
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
                 const range = fixture.debugElement.query(By.css('.p-slider-range'));
@@ -1118,7 +1163,7 @@ describe('Slider', () => {
                 expect(sliderRoot.classList.contains('ROOT_CLASS')).toBe(true);
                 if (range) expect(range.nativeElement.classList.contains('RANGE_CLASS')).toBe(true);
                 if (handle) expect(handle.nativeElement.classList.contains('HANDLE_CLASS')).toBe(true);
-            }));
+            });
         });
 
         describe('Case 2: Objects with class, style, and attributes', () => {
@@ -1146,14 +1191,16 @@ describe('Slider', () => {
                 };
             }
 
-            it('should apply object-based PT with class, style, and attributes', fakeAsync(() => {
+            it('should apply object-based PT with class, style, and attributes', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase2Component]
+                    imports: [NoopAnimationsModule, TestPTCase2Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase2Component);
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
                 const range = fixture.debugElement.query(By.css('.p-slider-range'));
@@ -1172,7 +1219,7 @@ describe('Slider', () => {
                     expect(handle.nativeElement.classList.contains('HANDLE_OBJECT_CLASS')).toBe(true);
                     expect(handle.nativeElement.getAttribute('aria-label')).toBe('Custom handle label');
                 }
-            }));
+            });
         });
 
         describe('Case 3: Mixed object and string values', () => {
@@ -1195,14 +1242,16 @@ describe('Slider', () => {
                 };
             }
 
-            it('should apply mixed object and string PT values', fakeAsync(() => {
+            it('should apply mixed object and string PT values', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase3Component]
+                    imports: [NoopAnimationsModule, TestPTCase3Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase3Component);
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
                 const range = fixture.debugElement.query(By.css('.p-slider-range'));
@@ -1223,7 +1272,7 @@ describe('Slider', () => {
                 if (handles.length >= 2) {
                     expect(handles[1].nativeElement.classList.contains('END_HANDLER_CLASS')).toBe(true);
                 }
-            }));
+            });
         });
 
         describe('Case 4: Use variables from instance', () => {
@@ -1253,14 +1302,16 @@ describe('Slider', () => {
                 };
             }
 
-            it('should use instance variables in PT functions', fakeAsync(() => {
+            it('should use instance variables in PT functions', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase4Component]
+                    imports: [NoopAnimationsModule, TestPTCase4Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase4Component);
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
                 const range = fixture.debugElement.query(By.css('.p-slider-range'));
@@ -1273,12 +1324,15 @@ describe('Slider', () => {
 
                 // Change orientation
                 fixture.componentInstance.orientation = 'vertical';
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 // Root class should change
                 expect(sliderRoot.classList.contains('HORIZONTAL_CLASS') || sliderRoot.classList.contains('VERTICAL_CLASS')).toBe(true);
-            }));
+            });
         });
 
         describe('Case 5: Event binding', () => {
@@ -1301,15 +1355,17 @@ describe('Slider', () => {
                 };
             }
 
-            it('should bind click events via PT', fakeAsync(() => {
+            it('should bind click events via PT', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase5Component]
+                    imports: [NoopAnimationsModule, TestPTCase5Component],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase5Component);
                 const component = fixture.componentInstance;
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const handle = fixture.debugElement.query(By.css('.p-slider-handle'));
 
@@ -1318,11 +1374,11 @@ describe('Slider', () => {
                     fixture.detectChanges();
                     expect(component.clickCount).toBeGreaterThan(0);
                 }
-            }));
+            });
         });
 
         describe('Case 6: Inline PT test', () => {
-            it('should apply inline string PT', fakeAsync(() => {
+            it('should apply inline string PT', async () => {
                 @Component({
                     standalone: true,
                     imports: [Slider, FormsModule],
@@ -1333,18 +1389,20 @@ describe('Slider', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineComponent]
+                    imports: [NoopAnimationsModule, TestInlineComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestInlineComponent);
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
                 expect(sliderRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
-            }));
+            });
 
-            it('should apply inline object PT', fakeAsync(() => {
+            it('should apply inline object PT', async () => {
                 @Component({
                     standalone: true,
                     imports: [Slider, FormsModule],
@@ -1355,21 +1413,23 @@ describe('Slider', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineObjectComponent]
+                    imports: [NoopAnimationsModule, TestInlineObjectComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestInlineObjectComponent);
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
                 expect(sliderRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 expect(sliderRoot.style.border).toBe('2px solid red');
-            }));
+            });
         });
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
-            it('should apply global PT configuration', fakeAsync(() => {
+            it('should apply global PT configuration', async () => {
                 @Component({
                     standalone: true,
                     imports: [Slider, FormsModule],
@@ -1383,6 +1443,7 @@ describe('Slider', () => {
                 TestBed.configureTestingModule({
                     imports: [NoopAnimationsModule, TestGlobalPTComponent],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 slider: {
@@ -1400,7 +1461,8 @@ describe('Slider', () => {
 
                 const fixture = TestBed.createComponent(TestGlobalPTComponent);
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const sliders = fixture.debugElement.queryAll(By.css('p-slider'));
                 expect(sliders.length).toBe(2);
@@ -1421,11 +1483,11 @@ describe('Slider', () => {
                         expect(range.nativeElement.style.height).toBe('8px');
                     }
                 });
-            }));
+            });
         });
 
         describe('Case 8: PT Hooks', () => {
-            it('should call PT hooks during lifecycle', fakeAsync(() => {
+            it('should call PT hooks during lifecycle', async () => {
                 const hookCalls: string[] = [];
 
                 @Component({
@@ -1449,12 +1511,14 @@ describe('Slider', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestHooksComponent]
+                    imports: [NoopAnimationsModule, TestHooksComponent],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const fixture = TestBed.createComponent(TestHooksComponent);
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 expect(hookCalls).toContain('onAfterViewInit');
 
@@ -1462,10 +1526,9 @@ describe('Slider', () => {
                 expect(sliderRoot.classList.contains('MY-SLIDER')).toBe(true);
 
                 fixture.destroy();
-                flush();
 
                 expect(hookCalls).toContain('onDestroy');
-            }));
+            });
         });
     });
 });
