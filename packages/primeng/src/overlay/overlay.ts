@@ -74,16 +74,6 @@ export class Overlay extends BaseComponent {
     $pcOverlay: Overlay | undefined = inject(OVERLAY_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     @Input() hostName: string = '';
-    /**
-     * Enter animation class name.
-     * @group Props
-     */
-    @Input() enterAnimation: string = 'p-overlay-enter';
-    /**
-     * Leave animation class name.
-     * @group Props
-     */
-    @Input() leaveAnimation: string = 'p-overlay-leave';
 
     inline = input<boolean>(false);
 

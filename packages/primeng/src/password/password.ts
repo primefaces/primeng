@@ -486,18 +486,7 @@ export const Password_VALUE_ACCESSOR: any = {
             </ng-container>
         </ng-container>
 
-        <p-overlay
-            #overlay
-            [hostAttrSelector]="$attrSelector"
-            [pt]="ptm('pcOverlay')"
-            [(visible)]="overlayVisible"
-            [options]="overlayOptions"
-            [target]="'@parent'"
-            [appendTo]="$appendTo()"
-            [enterAnimation]="enterAnimation()"
-            [leaveAnimation]="leaveAnimation()"
-            [unstyled]="unstyled()"
-        >
+        <p-overlay #overlay [hostAttrSelector]="$attrSelector" [pt]="ptm('pcOverlay')" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()">
             <ng-template #content>
                 <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
@@ -628,18 +617,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.1s linear';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-overlay-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-overlay-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-overlay-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-overlay-leave');
     /**
      * Specify automated assistance in filling out password by browser.
      * @group Props
