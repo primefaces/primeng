@@ -1,5 +1,5 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, provideZonelessChangeDetection, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -295,7 +295,7 @@ describe('Menu', () => {
                     { path: 'services', component: TestTargetComponent }
                 ])
             ],
-            providers: [OverlayService]
+            providers: [provideZonelessChangeDetection(), OverlayService]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicMenuComponent);
@@ -334,14 +334,15 @@ describe('Menu', () => {
             expect(menuInstance.focusedOptionIndex()).toBe(-1);
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             const testModel: MenuItem[] = [{ label: 'Test Item' }];
             component.model = testModel;
             component.popup = true;
             component.styleClass = 'custom-menu';
             component.ariaLabel = 'Custom Menu';
             component.tabindex = 1;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menuInstance.model).toBe(testModel);
             expect(menuInstance.popup).toBe(true);
@@ -377,66 +378,74 @@ describe('Menu', () => {
     });
 
     describe('Input Properties', () => {
-        it('should update model input', () => {
+        it('should update model input', async () => {
             const newModel = [{ label: 'New Item' }];
             component.model = newModel;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menuInstance.model).toBe(newModel);
         });
 
-        it('should update popup input', () => {
+        it('should update popup input', async () => {
             component.popup = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menuInstance.popup).toBe(true);
         });
 
-        it('should update style inputs', () => {
+        it('should update style inputs', async () => {
             component.style = { width: '200px' };
             component.styleClass = 'test-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menuInstance.style).toEqual({ width: '200px' });
             expect(menuInstance.styleClass).toBe('test-class');
         });
 
-        it('should update z-index inputs', () => {
+        it('should update z-index inputs', async () => {
             component.autoZIndex = false;
             component.baseZIndex = 1000;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menuInstance.autoZIndex).toBe(false);
             expect(menuInstance.baseZIndex).toBe(1000);
         });
 
-        it('should update transition inputs', () => {
+        it('should update transition inputs', async () => {
             component.showTransitionOptions = '.2s ease-in';
             component.hideTransitionOptions = '.15s ease-out';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menuInstance.showTransitionOptions).toBe('.2s ease-in');
             expect(menuInstance.hideTransitionOptions).toBe('.15s ease-out');
         });
 
-        it('should update aria inputs', () => {
+        it('should update aria inputs', async () => {
             component.ariaLabel = 'Test Menu';
             component.ariaLabelledBy = 'menu-label';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menuInstance.ariaLabel).toBe('Test Menu');
             expect(menuInstance.ariaLabelledBy).toBe('menu-label');
         });
 
-        it('should update tabindex input', () => {
+        it('should update tabindex input', async () => {
             component.tabindex = 2;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(menuInstance.tabindex).toBe(2);
         });
 
-        it('should update id input', () => {
+        it('should update id input', async () => {
             component.id = 'custom-menu-id';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(menuInstance.id).toBe('custom-menu-id');
         });
     });
@@ -459,29 +468,32 @@ describe('Menu', () => {
             expect(itemElements[2].nativeElement.getAttribute('aria-label')).toBe('Settings');
         });
 
-        it('should hide items when visible is false', () => {
+        it('should hide items when visible is false', async () => {
             component.model = [
                 { label: 'Visible Item', visible: true },
                 { label: 'Hidden Item', visible: false },
                 { label: 'Default Item' } // visible undefined = true
             ];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
             expect(items.length).toBe(2); // Only visible items
         });
 
-        it('should handle empty model', () => {
+        it('should handle empty model', async () => {
             component.model = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
             expect(items.length).toBe(0);
         });
 
-        it('should handle null model', () => {
+        it('should handle null model', async () => {
             component.model = null as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
             expect(items.length).toBe(0);
@@ -522,21 +534,21 @@ describe('Menu', () => {
     });
 
     describe('Item Interaction Tests', () => {
-        it('should execute command when item is clicked', fakeAsync(() => {
+        it('should execute command when item is clicked', async () => {
             const commandFixture = TestBed.createComponent(TestCommandMenuComponent);
             const commandComponent = commandFixture.componentInstance;
-            commandFixture.detectChanges();
+            commandFixture.changeDetectorRef.markForCheck();
+            await commandFixture.whenStable();
 
             const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="menuitem"]'));
             const contentElement = itemElement.query(By.css('div[data-pc-section="itemcontent"]'));
 
             contentElement.nativeElement.click();
-            tick();
+            await commandFixture.whenStable();
 
             expect(commandComponent.commandExecuted).toBeDefined();
             expect(commandComponent.commandExecuted.item.label).toBe('Command Item');
-            flush();
-        }));
+        });
 
         it('should handle disabled items', () => {
             const disabledFixture = TestBed.createComponent(TestDisabledItemsMenuComponent);
@@ -568,10 +580,10 @@ describe('Menu', () => {
     });
 
     describe('Template Tests', () => {
-        it('should handle #item template processing', fakeAsync(() => {
+        it('should handle #item template processing', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenuComponent);
-            itemTemplateFixture.detectChanges();
-            tick(100);
+            itemTemplateFixture.changeDetectorRef.markForCheck();
+            await itemTemplateFixture.whenStable();
 
             const itemTemplateMenu = itemTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
@@ -581,27 +593,23 @@ describe('Menu', () => {
             // Verify custom template content is rendered
             const customItems = itemTemplateFixture.debugElement.queryAll(By.css('.custom-menu-item'));
             expect(customItems.length).toBe(2);
+        });
 
-            flush();
-        }));
-
-        it('should handle pTemplate processing', fakeAsync(() => {
+        it('should handle pTemplate processing', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.detectChanges();
-            tick(100);
+            pTemplateFixture.changeDetectorRef.markForCheck();
+            await pTemplateFixture.whenStable();
 
             const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
             expect(() => pTemplateMenu.ngAfterContentInit()).not.toThrow();
             expect(pTemplateMenu.templates).toBeDefined();
+        });
 
-            flush();
-        }));
-
-        it('should process PrimeTemplate types correctly', fakeAsync(() => {
+        it('should process PrimeTemplate types correctly', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.detectChanges();
-            tick(100);
+            pTemplateFixture.changeDetectorRef.markForCheck();
+            await pTemplateFixture.whenStable();
 
             const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
@@ -610,9 +618,7 @@ describe('Menu', () => {
             expect(pTemplateMenu.templates).toBeDefined();
             expect(pTemplateMenu._startTemplate).toBeDefined();
             expect(pTemplateMenu._endTemplate).toBeDefined();
-
-            flush();
-        }));
+        });
 
         it('should render start and end templates', () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
@@ -627,25 +633,23 @@ describe('Menu', () => {
             expect(endContent.nativeElement.textContent).toContain('Footer Content');
         });
 
-        it('should prioritize itemTemplate over _itemTemplate', fakeAsync(() => {
+        it('should prioritize itemTemplate over _itemTemplate', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenuComponent);
-            itemTemplateFixture.detectChanges();
-            tick(100);
+            itemTemplateFixture.changeDetectorRef.markForCheck();
+            await itemTemplateFixture.whenStable();
 
             const itemTemplateMenu = itemTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
             itemTemplateMenu.ngAfterContentInit();
 
             expect(itemTemplateMenu.itemTemplate).toBeDefined();
+        });
 
-            flush();
-        }));
-
-        it('should render different template types correctly', fakeAsync(() => {
+        it('should render different template types correctly', async () => {
             // Test pTemplate rendering
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.detectChanges();
-            tick(100);
+            pTemplateFixture.changeDetectorRef.markForCheck();
+            await pTemplateFixture.whenStable();
 
             const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
             expect(pTemplateMenu.templates).toBeDefined();
@@ -653,14 +657,12 @@ describe('Menu', () => {
 
             // Test #item template rendering
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenuComponent);
-            itemTemplateFixture.detectChanges();
-            tick(100);
+            itemTemplateFixture.changeDetectorRef.markForCheck();
+            await itemTemplateFixture.whenStable();
 
             const itemTemplateMenu = itemTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
             expect(itemTemplateMenu.itemTemplate).toBeDefined();
-
-            flush();
-        }));
+        });
     });
 
     describe('Keyboard Navigation Tests', () => {
@@ -722,9 +724,10 @@ describe('Menu', () => {
             expect(menuInstance.onSpaceKey).toHaveBeenCalledWith(keyEvent);
         });
 
-        it('should handle escape key for popup menu', () => {
+        it('should handle escape key for popup menu', async () => {
             component.popup = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             spyOn(menuInstance, 'hide');
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
@@ -903,17 +906,19 @@ describe('Menu', () => {
             expect(listElement.nativeElement.getAttribute('aria-activedescendant')).toBeNull();
         });
 
-        it('should set aria-label when provided', () => {
+        it('should set aria-label when provided', async () => {
             component.ariaLabel = 'Main Navigation Menu';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
             expect(listElement.nativeElement.getAttribute('aria-label')).toBe('Main Navigation Menu');
         });
 
-        it('should set aria-labelledby when provided', () => {
+        it('should set aria-labelledby when provided', async () => {
             component.ariaLabelledBy = 'menu-heading';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
             expect(listElement.nativeElement.getAttribute('aria-labelledby')).toBe('menu-heading');
@@ -954,9 +959,10 @@ describe('Menu', () => {
     });
 
     describe('Popup Menu Tests', () => {
-        it('should show and hide popup menu', () => {
+        it('should show and hide popup menu', async () => {
             component.popup = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             spyOn(menuInstance.onShow, 'emit');
             spyOn(menuInstance.onHide, 'emit');
@@ -974,9 +980,10 @@ describe('Menu', () => {
             expect(menuInstance.visible).toBe(false);
         });
 
-        it('should toggle popup menu visibility', () => {
+        it('should toggle popup menu visibility', async () => {
             component.popup = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const mockEvent = new MouseEvent('click', { bubbles: true });
             Object.defineProperty(mockEvent, 'currentTarget', {
@@ -993,9 +1000,10 @@ describe('Menu', () => {
             expect(menuInstance.visible).toBe(false);
         });
 
-        it('should handle overlay click', () => {
+        it('should handle overlay click', async () => {
             component.popup = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             spyOn(overlayService, 'add');
             const mockEvent = new Event('click');
@@ -1006,9 +1014,10 @@ describe('Menu', () => {
             expect(menuInstance.preventDocumentDefault).toBe(true);
         });
 
-        it('should bind document click listener for popup', () => {
+        it('should bind document click listener for popup', async () => {
             component.popup = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             spyOn(menuInstance, 'bindDocumentClickListener');
 
@@ -1020,11 +1029,12 @@ describe('Menu', () => {
     });
 
     describe('Dynamic Model Tests', () => {
-        it('should handle dynamic model changes', () => {
+        it('should handle dynamic model changes', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicMenuComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
             const dynamicMenu = dynamicFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             // Initially empty
             expect(dynamicMenu.model.length).toBe(0);
@@ -1032,21 +1042,24 @@ describe('Menu', () => {
             // Add items
             dynamicComponent.addItem({ label: 'Item 1', icon: 'pi pi-test' });
             dynamicComponent.addItem({ label: 'Item 2', icon: 'pi pi-test2' });
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             expect(dynamicMenu.model.length).toBe(2);
             expect(dynamicMenu.model[0].label).toBe('Item 1');
 
             // Remove item
             dynamicComponent.removeItem(0);
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             expect(dynamicMenu.model.length).toBe(1);
             expect(dynamicMenu.model[0].label).toBe('Item 2');
 
             // Clear all
             dynamicComponent.clearItems();
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             expect(dynamicMenu.model.length).toBe(0);
         });
@@ -1235,26 +1248,29 @@ describe('Menu', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle null/undefined values gracefully', () => {
+        it('should handle null/undefined values gracefully', async () => {
             component.model = undefined as any;
             component.ariaLabel = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
             expect(menuInstance.model).toBeUndefined();
         });
 
-        it('should handle items without icons', () => {
+        it('should handle items without icons', async () => {
             component.model = [{ label: 'No Icon Item' }, { label: 'Icon Item', icon: 'pi pi-check' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const iconElements = fixture.debugElement.queryAll(By.css('span[class*="pi-"]'));
             expect(iconElements.length).toBe(1); // Only one item has icon
         });
 
-        it('should handle items with custom styleClass', () => {
+        it('should handle items with custom styleClass', async () => {
             component.model = [{ label: 'Custom Style', styleClass: 'custom-item-class' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const itemElement = fixture.debugElement.query(By.css('li[data-pc-section="menuitem"]'));
             expect(itemElement.nativeElement.classList.contains('custom-item-class')).toBe(true);
@@ -1268,9 +1284,10 @@ describe('Menu', () => {
             expect(menuInstance.unbindDocumentClickListener).toHaveBeenCalled();
         });
 
-        it('should handle rapid show/hide calls', () => {
+        it('should handle rapid show/hide calls', async () => {
             component.popup = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const mockEvent = { currentTarget: document.createElement('button') };
 
@@ -1285,9 +1302,10 @@ describe('Menu', () => {
             expect(menuInstance.visible).toBe(true);
         });
 
-        it('should handle disabled items click prevention', fakeAsync(() => {
+        it('should handle disabled items click prevention', async () => {
             component.model = [{ label: 'Disabled Item', disabled: true }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const mockEvent = {
                 originalEvent: { preventDefault: jasmine.createSpy('preventDefault') },
@@ -1295,11 +1313,10 @@ describe('Menu', () => {
             };
 
             menuInstance.itemClick(mockEvent, 'test_id');
-            tick();
+            await fixture.whenStable();
 
             expect(mockEvent.originalEvent.preventDefault).toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('Public Methods', () => {
@@ -1659,7 +1676,8 @@ describe('Menu', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestInlinePTStringComponent, NoopAnimationsModule]
+                    imports: [TestInlinePTStringComponent, NoopAnimationsModule],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const inlineFixture = TestBed.createComponent(TestInlinePTStringComponent);
@@ -1679,7 +1697,8 @@ describe('Menu', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestInlinePTObjectComponent, NoopAnimationsModule]
+                    imports: [TestInlinePTObjectComponent, NoopAnimationsModule],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const inlineFixture = TestBed.createComponent(TestInlinePTObjectComponent);
@@ -1706,6 +1725,7 @@ describe('Menu', () => {
                 TestBed.configureTestingModule({
                     imports: [TestGlobalPTComponent, NoopAnimationsModule],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 menu: {
@@ -1750,7 +1770,8 @@ describe('Menu', () => {
                 class TestMergedPTComponent {}
 
                 TestBed.configureTestingModule({
-                    imports: [TestMergedPTComponent, NoopAnimationsModule]
+                    imports: [TestMergedPTComponent, NoopAnimationsModule],
+                    providers: [provideZonelessChangeDetection()]
                 });
 
                 const mergedFixture = TestBed.createComponent(TestMergedPTComponent);

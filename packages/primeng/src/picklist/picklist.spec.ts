@@ -1,9 +1,9 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import { PickList } from './picklist';
 import {
@@ -136,12 +136,10 @@ describe('PickList', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestPickListComponent],
-            imports: [CommonModule, PickList, DragDropModule],
-            providers: [provideNoopAnimations()]
+            imports: [CommonModule, PickList, DragDropModule, NoopAnimationsModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
-    });
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(TestPickListComponent);
         component = fixture.componentInstance;
         picklistComponent = fixture.debugElement.query(By.directive(PickList)).componentInstance;
@@ -181,7 +179,7 @@ describe('PickList', () => {
             expect(component.source.length + component.target.length).toBe(6); // 4 source + 2 target items
         });
 
-        it('should move item from source to target via drag drop', fakeAsync(() => {
+        it('should move item from source to target via drag drop', async () => {
             const initialSourceCount = component.source.length;
             const initialTargetCount = component.target.length;
             const itemToMove = component.source[0];
@@ -206,16 +204,16 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.source.length).toBe(initialSourceCount - 1);
             expect(component.target.length).toBe(initialTargetCount + 1);
             expect(component.target).toContain(itemToMove);
             expect(component.source).not.toContain(itemToMove);
-        }));
+        });
 
-        it('should move item from target to source via drag drop', fakeAsync(() => {
+        it('should move item from target to source via drag drop', async () => {
             const initialSourceCount = component.source.length;
             const initialTargetCount = component.target.length;
             const itemToMove = component.target[0];
@@ -240,16 +238,16 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.SOURCE_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.target.length).toBe(initialTargetCount - 1);
             expect(component.source.length).toBe(initialSourceCount + 1);
             expect(component.source).toContain(itemToMove);
             expect(component.target).not.toContain(itemToMove);
-        }));
+        });
 
-        it('should reorder items within source list', fakeAsync(() => {
+        it('should reorder items within source list', async () => {
             const firstItemId = picklistComponent.source![0].id;
             const secondItemId = picklistComponent.source![1].id;
             const firstItem = picklistComponent.source![0];
@@ -272,15 +270,15 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.SOURCE_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // After reordering: second item should be first, first item should be second
             expect(picklistComponent.source![0].id).toBe(secondItemId);
             expect(picklistComponent.source![1].id).toBe(firstItemId);
-        }));
+        });
 
-        it('should reorder items within target list', fakeAsync(() => {
+        it('should reorder items within target list', async () => {
             const firstItemId = picklistComponent.target![0].id;
             const secondItemId = picklistComponent.target![1].id;
             const firstItem = picklistComponent.target![0];
@@ -303,17 +301,17 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // After reordering: second item should be first, first item should be second
             expect(picklistComponent.target![0].id).toBe(secondItemId);
             expect(picklistComponent.target![1].id).toBe(firstItemId);
-        }));
+        });
     });
 
     describe('Edge Cases for Drag & Drop', () => {
-        it('should handle drag drop when source list is empty', fakeAsync(() => {
+        it('should handle drag drop when source list is empty', async () => {
             component.source = [];
             fixture.detectChanges();
 
@@ -337,15 +335,15 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.SOURCE_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.source.length).toBe(1);
             expect(component.source[0]).toBe(targetItem);
             expect(component.target.length).toBe(1);
-        }));
+        });
 
-        it('should handle drag drop when target list is empty', fakeAsync(() => {
+        it('should handle drag drop when target list is empty', async () => {
             component.target = [];
             fixture.detectChanges();
 
@@ -369,13 +367,13 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.target.length).toBe(1);
             expect(component.target[0]).toBe(sourceItem);
             expect(component.source.length).toBe(3);
-        }));
+        });
 
         it('should handle drag drop when both lists are empty', () => {
             component.source = [];
@@ -387,7 +385,7 @@ describe('PickList', () => {
             expect(draggableItems.length).toBe(0);
         });
 
-        it('should handle drag drop with filtered lists', fakeAsync(() => {
+        it('should handle drag drop with filtered lists', async () => {
             component.filterBy = 'name';
             fixture.detectChanges();
 
@@ -397,7 +395,8 @@ describe('PickList', () => {
                 sourceFilterInput.nativeElement.value = 'Item 1';
                 sourceFilterInput.nativeElement.dispatchEvent(new Event('input'));
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
             }
 
             const itemToMove = component.source[0]; // Item 1
@@ -420,14 +419,14 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.target).toContain(itemToMove);
             expect(component.source).not.toContain(itemToMove);
-        }));
+        });
 
-        it('should preserve item order when dropping at specific index', fakeAsync(() => {
+        it('should preserve item order when dropping at specific index', async () => {
             const itemToMove = component.source[0]; // Item 1
             const targetListLength = component.target.length;
 
@@ -451,12 +450,12 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.target.length).toBe(targetListLength + 1);
             expect(component.target[1]).toBe(itemToMove);
-        }));
+        });
 
         it('should handle drag drop when dragdrop is disabled', () => {
             component.dragdrop = false;
@@ -466,7 +465,7 @@ describe('PickList', () => {
             expect(picklistComponent.dragdrop).toBe(false);
         });
 
-        it('should handle multiple items drag drop simulation', fakeAsync(() => {
+        it('should handle multiple items drag drop simulation', async () => {
             // Move first item from source to target
             let itemToMove = picklistComponent.source![0];
             let dragDropEvent: CdkDragDrop<any[]> = {
@@ -488,8 +487,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Move second item from source to target
             itemToMove = picklistComponent.source![0]; // Now the first item is different
@@ -512,14 +511,14 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(picklistComponent.source?.length).toBe(2);
             expect(picklistComponent.target?.length).toBe(4);
-        }));
+        });
 
-        it('should handle invalid drop operations gracefully', fakeAsync(() => {
+        it('should handle invalid drop operations gracefully', async () => {
             // Simulate drag drop event with valid structure but will fail gracefully
             const validDragDropEvent: any = {
                 previousContainer: {
@@ -542,14 +541,15 @@ describe('PickList', () => {
             // Should not throw error and arrays should remain reasonable
             expect(() => {
                 picklistComponent.onDrop(validDragDropEvent, picklistComponent.TARGET_LIST);
-                tick();
-                fixture.detectChanges();
             }).not.toThrow();
+
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Arrays should be reasonable (might change based on implementation)
             expect(component.source.length).toBeGreaterThanOrEqual(0);
             expect(component.target.length).toBeGreaterThanOrEqual(0);
-        }));
+        });
     });
 
     describe('Component Disabled State', () => {
@@ -563,7 +563,7 @@ describe('PickList', () => {
     });
 
     describe('Event Emissions for Drag & Drop', () => {
-        it('should emit reorder events when items are reordered within lists', fakeAsync(() => {
+        it('should emit reorder events when items are reordered within lists', async () => {
             // Check that reorder events work by doing actual reordering
             const firstItemId = picklistComponent.source![0].id;
             const secondItemId = picklistComponent.source![1].id;
@@ -587,13 +587,13 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.SOURCE_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Check that items were reordered
             expect(picklistComponent.source![0].id).toBe(secondItemId);
             expect(picklistComponent.source![1].id).toBe(firstItemId);
-        }));
+        });
     });
 
     describe('dataKey property', () => {
@@ -646,7 +646,7 @@ describe('PickList', () => {
     });
 
     describe('Arrow Button Transfer + Drag&Drop Compatibility', () => {
-        it('should allow drag&drop after moving items with arrow buttons (moveRight)', fakeAsync(() => {
+        it('should allow drag&drop after moving items with arrow buttons (moveRight)', async () => {
             const initialSourceCount = picklistComponent?.source?.length || 0;
             const initialTargetCount = picklistComponent?.target?.length || 0;
 
@@ -656,8 +656,8 @@ describe('PickList', () => {
 
             // Move item using arrow button (moveRight)
             picklistComponent.moveRight();
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify item was moved
             expect(picklistComponent.source).not.toContain(itemToMove);
@@ -687,17 +687,17 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify drag&drop worked correctly after arrow button transfer
             expect(picklistComponent.source).not.toContain(secondItemToMove);
             expect(picklistComponent.target).toContain(secondItemToMove);
             expect(picklistComponent.source?.length || 0).toBe(initialSourceCount - 2);
             expect(picklistComponent.target?.length || 0).toBe(initialTargetCount + 2);
-        }));
+        });
 
-        it('should allow drag&drop after moving items with arrow buttons (moveLeft)', fakeAsync(() => {
+        it('should allow drag&drop after moving items with arrow buttons (moveLeft)', async () => {
             const initialSourceCount = picklistComponent.source?.length || 0;
             const initialTargetCount = picklistComponent.target?.length || 0;
 
@@ -707,7 +707,8 @@ describe('PickList', () => {
 
             // Move item using arrow button (moveLeft)
             picklistComponent.moveLeft();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Verify item was moved
@@ -738,7 +739,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.SOURCE_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Verify drag&drop worked correctly after arrow button transfer
@@ -746,12 +748,13 @@ describe('PickList', () => {
             expect(picklistComponent.source).toContain(secondItemToMove);
             expect(picklistComponent.target?.length || 0).toBe(initialTargetCount - 2);
             expect(picklistComponent.source?.length || 0).toBe(initialSourceCount + 2);
-        }));
+        });
 
-        it('should allow drag&drop after moveAllRight', fakeAsync(() => {
+        it('should allow drag&drop after moveAllRight', async () => {
             // Move all items to target
             picklistComponent.moveAllRight();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Verify all items were moved
@@ -780,7 +783,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.SOURCE_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Verify drag&drop worked correctly
@@ -788,12 +792,13 @@ describe('PickList', () => {
             expect(picklistComponent.target).not.toContain(itemToMove);
             expect(picklistComponent.source?.length).toBe(1);
             expect(picklistComponent.target?.length).toBe(5);
-        }));
+        });
 
-        it('should allow drag&drop after moveAllLeft', fakeAsync(() => {
+        it('should allow drag&drop after moveAllLeft', async () => {
             // Move all items to source
             picklistComponent.moveAllLeft();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Verify all items were moved
@@ -822,7 +827,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Verify drag&drop worked correctly
@@ -830,11 +836,11 @@ describe('PickList', () => {
             expect(picklistComponent.source).not.toContain(itemToMove);
             expect(picklistComponent.target?.length).toBe(1);
             expect(picklistComponent.source?.length).toBe(5);
-        }));
+        });
     });
 
     describe('Multi-Selection Drag&Drop', () => {
-        it('should transfer all selected items when dragging one of them (source to target)', fakeAsync(() => {
+        it('should transfer all selected items when dragging one of them (source to target)', async () => {
             // Select multiple items in source
             const selectedItems = [picklistComponent.source![0], picklistComponent.source![1], picklistComponent.source![2]];
             picklistComponent.selectedItemsSource = selectedItems;
@@ -861,7 +867,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // All selected items should be moved
@@ -875,14 +882,15 @@ describe('PickList', () => {
 
             // Selection should be cleared in source
             expect(picklistComponent.selectedItemsSource.length).toBe(0);
-        }));
+        });
 
-        it('should transfer all selected items when dragging one of them (target to source)', fakeAsync(() => {
+        it('should transfer all selected items when dragging one of them (target to source)', async () => {
             // First move some items to target to have more items
             const itemsToMoveFirst = [picklistComponent.source![0], picklistComponent.source![1]];
             picklistComponent.selectedItemsSource = itemsToMoveFirst;
             picklistComponent.moveRight();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Now select multiple items in target
@@ -911,7 +919,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.SOURCE_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // All selected items should be moved
@@ -925,9 +934,9 @@ describe('PickList', () => {
 
             // Selection should be cleared in target
             expect(picklistComponent.selectedItemsTarget.length).toBe(0);
-        }));
+        });
 
-        it('should only move dragged item if it is not part of selection', fakeAsync(() => {
+        it('should only move dragged item if it is not part of selection', async () => {
             // Select some items in source
             const selectedItems = [picklistComponent.source![0], picklistComponent.source![1]];
             picklistComponent.selectedItemsSource = selectedItems;
@@ -954,7 +963,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Only the dragged item should be moved
@@ -969,9 +979,9 @@ describe('PickList', () => {
 
             expect(picklistComponent.source?.length).toBe(3); // 4 - 1 = 3
             expect(picklistComponent.target?.length).toBe(3); // 2 + 1 = 3
-        }));
+        });
 
-        it('should maintain order when moving multiple selected items', fakeAsync(() => {
+        it('should maintain order when moving multiple selected items', async () => {
             // Select items in a specific order
             const selectedItems = [
                 picklistComponent.source![0], // Item 1
@@ -1002,16 +1012,17 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Items should be in target maintaining their original order from source
             expect(picklistComponent.target![1].id).toBe(1); // Item 1
             expect(picklistComponent.target![2].id).toBe(2); // Item 2
             expect(picklistComponent.target![3].id).toBe(3); // Item 3
-        }));
+        });
 
-        it('should handle empty selection when dragging', fakeAsync(() => {
+        it('should handle empty selection when dragging', async () => {
             // Clear any selection
             picklistComponent.selectedItemsSource = [];
 
@@ -1037,7 +1048,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Only the dragged item should be moved
@@ -1045,9 +1057,9 @@ describe('PickList', () => {
             expect(picklistComponent.target).toContain(itemToDrag);
             expect(picklistComponent.source?.length).toBe(3);
             expect(picklistComponent.target?.length).toBe(3);
-        }));
+        });
 
-        it('should work with keepSelection option when dragging multiple items', fakeAsync(() => {
+        it('should work with keepSelection option when dragging multiple items', async () => {
             // Enable keepSelection
             picklistComponent.keepSelection = true;
 
@@ -1077,7 +1089,8 @@ describe('PickList', () => {
             };
 
             picklistComponent.onDrop(dragDropEvent, picklistComponent.TARGET_LIST);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Items should be moved
@@ -1090,7 +1103,7 @@ describe('PickList', () => {
             selectedItems.forEach((item) => {
                 expect(picklistComponent.selectedItemsTarget).toContain(item);
             });
-        }));
+        });
     });
 
     // PassThrough (PT) Tests
@@ -1101,8 +1114,8 @@ describe('PickList', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [PickList, CommonModule],
-                providers: [provideNoopAnimations()]
+                imports: [PickList, CommonModule, NoopAnimationsModule],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             ptFixture = TestBed.createComponent(PickList);
@@ -1231,28 +1244,30 @@ describe('PickList', () => {
         });
 
         describe('Case 3: Child component PT', () => {
-            it('should pass PT to button components', fakeAsync(() => {
+            it('should pass PT to button components', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcSourceMoveUpButton: { root: { class: 'CUSTOM_BUTTON_CLASS' } }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
                 // Check if any button has custom styling from PT
                 expect(buttons.length).toBeGreaterThan(0);
-            }));
+            });
 
-            it('should pass PT to listbox components', fakeAsync(() => {
+            it('should pass PT to listbox components', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: { host: { class: 'CUSTOM_LISTBOX_CLASS' } }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2); // source and target
-            }));
+            });
         });
 
         describe('Case 4: Inline test', () => {
@@ -1318,9 +1333,9 @@ describe('PickList', () => {
             it('should apply global PT configuration to all instances', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [PickList],
+                    imports: [PickList, NoopAnimationsModule],
                     providers: [
-                        provideNoopAnimations(),
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 picklist: {
@@ -1345,9 +1360,9 @@ describe('PickList', () => {
             it('should apply global CSS via PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [PickList],
+                    imports: [PickList, NoopAnimationsModule],
                     providers: [
-                        provideNoopAnimations(),
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 picklist: {
@@ -1376,7 +1391,7 @@ describe('PickList', () => {
         });
 
         describe('Case 6: Event binding', () => {
-            it('should bind onclick event via PT to sourceControls', fakeAsync(() => {
+            it('should bind onclick event via PT to sourceControls', async () => {
                 let clickedFromPT = false;
                 ptFixture.componentRef.setInput('pt', {
                     sourceControls: {
@@ -1386,16 +1401,18 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
                 sourceControlsEl?.nativeElement.click();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 expect(clickedFromPT).toBe(true);
-            }));
+            });
 
-            it('should bind onclick event via PT to transferControls', fakeAsync(() => {
+            it('should bind onclick event via PT to transferControls', async () => {
                 let transferClicked = false;
                 ptFixture.componentRef.setInput('pt', {
                     transferControls: {
@@ -1405,14 +1422,16 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
                 transferControlsEl?.nativeElement.click();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 expect(transferClicked).toBe(true);
-            }));
+            });
         });
 
         describe('Case 7: Test with different configurations', () => {
@@ -1440,7 +1459,7 @@ describe('PickList', () => {
         });
 
         describe('Case 8: Multiple button PT variations', () => {
-            it('should apply PT to all source control buttons', fakeAsync(() => {
+            it('should apply PT to all source control buttons', async () => {
                 ptPicklist.showSourceControls = true;
                 ptFixture.componentRef.setInput('pt', {
                     pcSourceMoveUpButton: { root: { class: 'MOVE_UP_CLASS' } },
@@ -1449,13 +1468,14 @@ describe('PickList', () => {
                     pcSourceMoveBottomButton: { root: { class: 'MOVE_BOTTOM_CLASS' } }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
                 expect(buttons.length).toBeGreaterThan(0);
-            }));
+            });
 
-            it('should apply PT to transfer control buttons', fakeAsync(() => {
+            it('should apply PT to transfer control buttons', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcMoveToTargetButton: { root: { class: 'TO_TARGET_CLASS' } },
                     pcMoveAllToTargetButton: { root: { class: 'ALL_TO_TARGET_CLASS' } },
@@ -1463,13 +1483,14 @@ describe('PickList', () => {
                     pcMoveAllToSourceButton: { root: { class: 'ALL_TO_SOURCE_CLASS' } }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
                 expect(buttons.length).toBeGreaterThan(0);
-            }));
+            });
 
-            it('should apply PT to target control buttons', fakeAsync(() => {
+            it('should apply PT to target control buttons', async () => {
                 ptPicklist.showTargetControls = true;
                 ptFixture.componentRef.setInput('pt', {
                     pcTargetMoveUpButton: { root: { class: 'TARGET_UP_CLASS' } },
@@ -1478,15 +1499,16 @@ describe('PickList', () => {
                     pcTargetMoveBottomButton: { root: { class: 'TARGET_BOTTOM_CLASS' } }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
                 expect(buttons.length).toBeGreaterThan(0);
-            }));
+            });
         });
 
         describe('Case 9: Instance-based PT tests with callbacks', () => {
-            it('should access instance.disabled property in PT callback', fakeAsync(() => {
+            it('should access instance.disabled property in PT callback', async () => {
                 ptPicklist.disabled = true;
                 ptFixture.componentRef.setInput('pt', {
                     sourceControls: ({ instance }) => {
@@ -1498,15 +1520,16 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
                 if (sourceControlsEl) {
                     expect(sourceControlsEl.nativeElement.classList.contains('DISABLED_STATE')).toBe(true);
                 }
-            }));
+            });
 
-            it('should access instance.showSourceControls property in PT callback', fakeAsync(() => {
+            it('should access instance.showSourceControls property in PT callback', async () => {
                 ptPicklist.showSourceControls = true;
                 ptFixture.componentRef.setInput('pt', {
                     host: ({ instance }) => {
@@ -1518,14 +1541,15 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 // host is the component's root element
                 const hostEl = ptFixture.debugElement.nativeElement;
                 expect(hostEl.classList.contains('SOURCE_CONTROLS_VISIBLE')).toBe(true);
-            }));
+            });
 
-            it('should access instance.showTargetControls property in PT callback', fakeAsync(() => {
+            it('should access instance.showTargetControls property in PT callback', async () => {
                 ptPicklist.showTargetControls = true;
                 ptFixture.componentRef.setInput('pt', {
                     host: ({ instance }) => {
@@ -1537,14 +1561,15 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 // host is the component's root element
                 const hostEl = ptFixture.debugElement.nativeElement;
                 expect(hostEl.classList.contains('TARGET_CONTROLS_VISIBLE')).toBe(true);
-            }));
+            });
 
-            it('should access instance.source array in PT callback', fakeAsync(() => {
+            it('should access instance.source array in PT callback', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     sourceListContainer: ({ instance }) => {
                         const sourceLength = instance?.source?.length || 0;
@@ -1554,15 +1579,16 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const containerEl = ptFixture.debugElement.query(By.css('.p-picklist-source-controls + div'));
                 if (containerEl) {
                     expect(containerEl.nativeElement.getAttribute('data-source-count')).toBe('3');
                 }
-            }));
+            });
 
-            it('should access instance.target array in PT callback', fakeAsync(() => {
+            it('should access instance.target array in PT callback', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     targetListContainer: ({ instance }) => {
                         const targetLength = instance?.target?.length || 0;
@@ -1572,16 +1598,17 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const picklistDivs = ptFixture.debugElement.queryAll(By.css('[class*="p-picklist"]'));
                 const targetContainerEl = picklistDivs.find((el) => el.nativeElement.className.includes('target') && el.nativeElement.className.includes('list'));
                 if (targetContainerEl) {
                     expect(targetContainerEl.nativeElement.getAttribute('data-target-count')).toBe('2');
                 }
-            }));
+            });
 
-            it('should apply conditional styling based on instance.disabled in transferControls', fakeAsync(() => {
+            it('should apply conditional styling based on instance.disabled in transferControls', async () => {
                 ptPicklist.disabled = false;
                 ptFixture.componentRef.setInput('pt', {
                     transferControls: ({ instance }) => {
@@ -1593,15 +1620,16 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
                 if (transferControlsEl) {
                     expect(transferControlsEl.nativeElement.style.backgroundColor).toBe('blue');
                 }
-            }));
+            });
 
-            it('should access instance.viewChanged property in PT callback', fakeAsync(() => {
+            it('should access instance.viewChanged property in PT callback', async () => {
                 ptPicklist.viewChanged = false;
                 ptFixture.componentRef.setInput('pt', {
                     transferControls: ({ instance }) => {
@@ -1613,15 +1641,16 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
                 if (transferControlsEl) {
                     expect(transferControlsEl.nativeElement.classList.contains('VIEW_CHANGED')).toBe(false);
                 }
-            }));
+            });
 
-            it('should access instance.$pcPickList in nested picklist PT callback', fakeAsync(() => {
+            it('should access instance.$pcPickList in nested picklist PT callback', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     host: ({ instance }) => {
                         return {
@@ -1631,16 +1660,17 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 // In standalone picklist, $pcPickList should be undefined
                 expect(ptPicklist.$pcPickList).toBeUndefined();
                 // host is the component's root element
                 const hostEl = ptFixture.debugElement.nativeElement;
                 expect(hostEl.getAttribute('data-has-parent')).toBe('false');
-            }));
+            });
 
-            it('should use instance properties for complex conditional PT', fakeAsync(() => {
+            it('should use instance properties for complex conditional PT', async () => {
                 ptPicklist.disabled = false;
                 ptPicklist.showSourceControls = true;
                 ptFixture.componentRef.setInput('pt', {
@@ -1654,73 +1684,78 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
                 if (sourceControlsEl) {
                     expect(sourceControlsEl.nativeElement.classList.contains('ENABLED_AND_VISIBLE')).toBe(true);
                     expect(sourceControlsEl.nativeElement.getAttribute('data-test-state')).toBe('active');
                 }
-            }));
+            });
         });
 
         describe('Case 10: Listbox child component PT tests', () => {
-            it('should pass PT to listbox host', fakeAsync(() => {
+            it('should pass PT to listbox host', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
                         host: { class: 'CUSTOM_LISTBOX_HOST' }
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
                 listboxes.forEach((listbox) => {
                     expect(listbox.nativeElement.classList.contains('CUSTOM_LISTBOX_HOST')).toBe(true);
                 });
-            }));
+            });
 
-            it('should pass PT to listbox root', fakeAsync(() => {
+            it('should pass PT to listbox root', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
                         root: { class: 'CUSTOM_LISTBOX_ROOT' }
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
-            }));
+            });
 
-            it('should pass PT to listbox list container', fakeAsync(() => {
+            it('should pass PT to listbox list container', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
                         listContainer: { class: 'CUSTOM_LIST_CONTAINER' }
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
-            }));
+            });
 
-            it('should pass PT to listbox list items', fakeAsync(() => {
+            it('should pass PT to listbox list items', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
                         option: { class: 'CUSTOM_OPTION_CLASS' }
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
-            }));
+            });
 
-            it('should pass PT to listbox filter input when filterBy is enabled', fakeAsync(() => {
+            it('should pass PT to listbox filter input when filterBy is enabled', async () => {
                 ptPicklist.filterBy = 'label';
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
@@ -1730,13 +1765,14 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
-            }));
+            });
 
-            it('should pass PT with instance callback to listbox', fakeAsync(() => {
+            it('should pass PT with instance callback to listbox', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: ({ instance }) => {
                         return {
@@ -1750,13 +1786,14 @@ describe('PickList', () => {
                 });
                 ptPicklist.disabled = true;
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
-            }));
+            });
 
-            it('should pass multiple PT sections to listbox', fakeAsync(() => {
+            it('should pass multiple PT sections to listbox', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
                         host: { class: 'LISTBOX_HOST' },
@@ -1766,16 +1803,17 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
                 listboxes.forEach((listbox) => {
                     expect(listbox.nativeElement.classList.contains('LISTBOX_HOST')).toBe(true);
                 });
-            }));
+            });
 
-            it('should pass PT with style to listbox', fakeAsync(() => {
+            it('should pass PT with style to listbox', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
                         host: {
@@ -1784,16 +1822,17 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
                 listboxes.forEach((listbox) => {
                     expect(listbox.nativeElement.style.border).toBe('2px solid red');
                 });
-            }));
+            });
 
-            it('should pass PT with data attributes to listbox', fakeAsync(() => {
+            it('should pass PT with data attributes to listbox', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
                         host: {
@@ -1803,7 +1842,8 @@ describe('PickList', () => {
                     }
                 });
                 ptFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
                 expect(listboxes.length).toBe(2);
@@ -1811,7 +1851,7 @@ describe('PickList', () => {
                     expect(listbox.nativeElement.getAttribute('data-testid')).toBe('picklist-listbox');
                     expect(listbox.nativeElement.getAttribute('aria-label')).toBe('Picklist Listbox');
                 });
-            }));
+            });
         });
     });
 });

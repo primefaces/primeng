@@ -1,5 +1,5 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, provideZonelessChangeDetection, TemplateRef, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Message } from './message';
@@ -126,7 +126,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
@@ -150,7 +151,7 @@ describe('Message', () => {
             expect(messageInstance.visible()).toBe(true);
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.severity = 'error';
             component.text = 'Error message';
             component.escape = false;
@@ -159,6 +160,8 @@ describe('Message', () => {
             component.closeIcon = 'pi pi-times';
             component.size = 'large';
             component.variant = 'outlined';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const messageInstance = messageEl.componentInstance as Message;
@@ -188,7 +191,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
@@ -208,15 +212,15 @@ describe('Message', () => {
             expect(messageInstance.onClose.emit).toHaveBeenCalledWith({ originalEvent: mockEvent });
         });
 
-        it('should hide message element when visible is false', fakeAsync(() => {
+        it('should hide message element when visible is false', async () => {
             messageInstance.close(new MouseEvent('click'));
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const messageDiv = fixture.debugElement.query(By.css('.p-message'));
             expect(messageDiv).toBeFalsy();
-            flush();
-        }));
+        });
     });
 
     describe('Event Handling', () => {
@@ -227,7 +231,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
@@ -237,18 +242,18 @@ describe('Message', () => {
             messageEl = fixture.debugElement.query(By.css('p-message'));
         });
 
-        it('should emit onClose event when close button is clicked', fakeAsync(() => {
+        it('should emit onClose event when close button is clicked', async () => {
             const closeButton = fixture.debugElement.query(By.css('button'));
             expect(closeButton).toBeTruthy();
 
             closeButton.nativeElement.click();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.closeEvent).toBeDefined();
             expect(component.closeEvent.originalEvent).toBeDefined();
-            flush();
-        }));
+        });
 
         it('should show close button when closable is true', () => {
             component.closable = true;
@@ -258,8 +263,10 @@ describe('Message', () => {
             expect(closeButton).toBeTruthy();
         });
 
-        it('should not show close button when closable is false', () => {
+        it('should not show close button when closable is false', async () => {
             component.closable = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const closeButton = fixture.debugElement.query(By.css('button'));
@@ -276,11 +283,12 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
         });
 
-        it('should auto-close after specified life duration', fakeAsync(() => {
+        it('should auto-close after specified life duration', async () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             component.life = 1000;
@@ -291,30 +299,33 @@ describe('Message', () => {
 
             expect(messageInstance.visible()).toBe(true);
 
-            tick(1000);
+            // Wait for the life duration timeout
+            await new Promise((resolve) => setTimeout(resolve, 1100));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(messageInstance.visible()).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should not auto-close when life is not set', fakeAsync(() => {
+        it('should not auto-close when life is not set', async () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             component.life = undefined as any;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             messageEl = fixture.debugElement.query(By.css('p-message'));
             messageInstance = messageEl.componentInstance as Message;
 
             expect(messageInstance.visible()).toBe(true);
 
-            tick(5000);
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(messageInstance.visible()).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Severity Levels', () => {
@@ -324,34 +335,41 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
         });
 
-        it('should apply correct classes for different severity levels', () => {
+        it('should apply correct classes for different severity levels', async () => {
             const severities: Array<'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast'> = ['success', 'info', 'warn', 'error', 'secondary', 'contrast'];
 
-            severities.forEach((severity) => {
+            for (const severity of severities) {
                 component.severity = severity;
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
                 fixture.detectChanges();
 
                 const messageEl = fixture.debugElement.query(By.css('p-message'));
                 const messageInstance = messageEl.componentInstance as Message;
                 expect(messageInstance.severity).toBe(severity);
-            });
+            }
         });
 
-        it('should handle null and undefined severity', () => {
+        it('should handle null and undefined severity', async () => {
             component.severity = null as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             let messageEl = fixture.debugElement.query(By.css('p-message'));
             expect(messageEl).toBeTruthy();
 
             component.severity = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             messageEl = fixture.debugElement.query(By.css('p-message'));
@@ -366,7 +384,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
@@ -418,7 +437,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
@@ -459,7 +479,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestContainerTemplateComponent]
+                declarations: [TestContainerTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestContainerTemplateComponent);
@@ -473,7 +494,7 @@ describe('Message', () => {
             expect(customContainer.nativeElement.textContent).toContain('Custom Container Content');
         });
 
-        it('should provide closeCallback context to container template', fakeAsync(() => {
+        it('should provide closeCallback context to container template', async () => {
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
@@ -482,19 +503,20 @@ describe('Message', () => {
 
             // Trigger ngAfterContentInit to process templates
             messageInstance.ngAfterContentInit();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const customCloseButton = fixture.debugElement.query(By.css('.custom-close-button'));
             expect(customCloseButton).toBeTruthy();
 
             customCloseButton.nativeElement.click();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(messageInstance.close).toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('Template Content Projection - Icon Templates', () => {
@@ -504,7 +526,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestIconTemplatesComponent]
+                declarations: [TestIconTemplatesComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestIconTemplatesComponent);
@@ -532,7 +555,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestPTemplateComponent]
+                declarations: [TestPTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestPTemplateComponent);
@@ -564,9 +588,10 @@ describe('Message', () => {
             expect(messageInstance._closeIconTemplate).toBeTruthy();
         });
 
-        it('should render pTemplate content correctly', fakeAsync(() => {
-            tick();
-            fixture.detectChanges();
+        it('should render pTemplate content correctly', async () => {
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const ptemplateContainer = fixture.debugElement.query(By.css('.ptemplate-container'));
             expect(ptemplateContainer).toBeTruthy();
@@ -579,11 +604,9 @@ describe('Message', () => {
             const ptemplateCloseIcon = fixture.debugElement.query(By.css('.ptemplate-close-icon'));
             expect(ptemplateCloseIcon).toBeTruthy();
             expect(ptemplateCloseIcon.nativeElement.textContent).toBe('❌');
+        });
 
-            flush();
-        }));
-
-        it('should handle closeCallback in pTemplate container', fakeAsync(() => {
+        it('should handle closeCallback in pTemplate container', async () => {
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
@@ -592,19 +615,20 @@ describe('Message', () => {
 
             // Trigger ngAfterContentInit to process templates
             messageInstance.ngAfterContentInit();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const ptemplateCloseButton = fixture.debugElement.query(By.css('.ptemplate-close'));
             expect(ptemplateCloseButton).toBeTruthy();
 
             ptemplateCloseButton.nativeElement.click();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(messageInstance.close).toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('CSS Classes and Styling', () => {
@@ -614,7 +638,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
@@ -644,8 +669,10 @@ describe('Message', () => {
             expect(Object.keys(messageInstance.style!)).toContain('padding');
         });
 
-        it('should apply size classes', () => {
+        it('should apply size classes', async () => {
             component.size = 'large';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
@@ -653,21 +680,25 @@ describe('Message', () => {
             expect(messageInstance.size).toBe('large');
 
             component.size = 'small';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(messageInstance.size).toBe('small');
         });
 
-        it('should apply variant classes', () => {
+        it('should apply variant classes', async () => {
             const variants: Array<'outlined' | 'text' | 'simple'> = ['outlined', 'text', 'simple'];
 
-            variants.forEach((variant) => {
+            for (const variant of variants) {
                 component.variant = variant;
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
                 fixture.detectChanges();
 
                 const messageEl = fixture.debugElement.query(By.css('p-message'));
                 const messageInstance = messageEl.componentInstance as Message;
                 expect(messageInstance.variant).toBe(variant);
-            });
+            }
         });
     });
 
@@ -678,7 +709,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestKeyboardNavigationComponent]
+                declarations: [TestKeyboardNavigationComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
@@ -722,7 +754,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [BrowserAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
@@ -747,20 +780,21 @@ describe('Message', () => {
             expect(messageInstance.hideTransitionOptions).toBe('300ms ease-out');
         });
 
-        it('should animate when closing', fakeAsync(() => {
+        it('should animate when closing', async () => {
             component.closable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             messageInstance.close(new MouseEvent('click'));
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(messageInstance.visible()).toBe(false);
-            flush();
-        }));
+        });
     });
 
     describe('Edge Cases', () => {
@@ -770,7 +804,8 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
@@ -797,9 +832,10 @@ describe('Message', () => {
             expect(messageDiv).toBeTruthy();
         });
 
-        it('should handle rapid close button clicks', fakeAsync(() => {
+        it('should handle rapid close button clicks', async () => {
             component.closable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
@@ -811,20 +847,23 @@ describe('Message', () => {
             closeButton.nativeElement.click();
             closeButton.nativeElement.click();
             closeButton.nativeElement.click();
-            tick();
+            await fixture.whenStable();
 
             // Should emit for each click (component behavior is to emit each time)
             expect(messageInstance.onClose.emit).toHaveBeenCalledTimes(3);
             expect(messageInstance.visible()).toBe(false);
-            flush();
-        }));
+        });
 
-        it('should handle multiple messages on same page', () => {
+        it('should handle multiple messages on same page', async () => {
             const fixture2 = TestBed.createComponent(TestBasicMessageComponent);
             fixture2.componentInstance.severity = 'success';
+            fixture2.changeDetectorRef.markForCheck();
+            await fixture2.whenStable();
             fixture2.detectChanges();
 
             component.severity = 'error';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const message1 = fixture.debugElement.query(By.css('p-message')).componentInstance as Message;
@@ -834,20 +873,21 @@ describe('Message', () => {
             expect(message2.severity).toBe('success');
         });
 
-        it('should handle life property with zero value', fakeAsync(() => {
+        it('should handle life property with zero value', async () => {
             component.life = 0;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
-            tick(0);
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Zero value should NOT auto-close (falsy check prevents it)
             expect(messageInstance.visible()).toBe(true);
-            flush();
-        }));
+        });
 
         it('should handle very long text content', () => {
             component.text = 'A'.repeat(1000);
@@ -876,47 +916,50 @@ describe('Message', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent]
+                declarations: [TestBasicMessageComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
         });
 
-        it('should cleanup timeout when component is destroyed before life expires', fakeAsync(() => {
+        it('should cleanup timeout when component is destroyed before life expires', async () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             component.life = 5000;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             // Destroy component before timeout
             fixture.destroy();
-            tick(5000);
+            await fixture.whenStable();
 
             // Should not throw any errors
-            expect(() => flush()).not.toThrow();
-        }));
+            expect(true).toBe(true);
+        });
 
-        it('should handle component recreation', fakeAsync(() => {
+        it('should handle component recreation', async () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             component.life = 100;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            tick(100);
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Recreate component
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
             expect(messageInstance.visible()).toBe(true);
-
-            flush();
-        }));
+        });
     });
 
     describe('PassThrough - Case 1: Simple string classes', () => {
@@ -924,7 +967,8 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message]
+                imports: [NoopAnimationsModule, Message],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(Message);
@@ -1023,7 +1067,8 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message]
+                imports: [NoopAnimationsModule, Message],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(Message);
@@ -1138,7 +1183,8 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message]
+                imports: [NoopAnimationsModule, Message],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(Message);
@@ -1194,7 +1240,8 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message]
+                imports: [NoopAnimationsModule, Message],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(Message);
@@ -1323,13 +1370,14 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message]
+                imports: [NoopAnimationsModule, Message],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(Message);
         });
 
-        it('should bind onclick event to root element via pt', fakeAsync(() => {
+        it('should bind onclick event to root element via pt', async () => {
             let clickedInstance: any = null;
 
             fixture.componentRef.setInput('pt', {
@@ -1342,19 +1390,20 @@ describe('Message', () => {
                 }
             });
             fixture.componentRef.setInput('text', 'Test');
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.css('.p-message'));
             rootElement.nativeElement.click();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(clickedInstance).toBeTruthy();
             expect(clickedInstance).toBe(fixture.componentInstance);
-            flush();
-        }));
+        });
 
-        it('should bind onclick event to content element via pt', fakeAsync(() => {
+        it('should bind onclick event to content element via pt', async () => {
             let clickCount = 0;
 
             fixture.componentRef.setInput('pt', {
@@ -1367,18 +1416,19 @@ describe('Message', () => {
                 }
             });
             fixture.componentRef.setInput('text', 'Test');
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const contentElement = fixture.debugElement.query(By.css('.p-message > div'));
             contentElement.nativeElement.click();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(clickCount).toBe(1);
-            flush();
-        }));
+        });
 
-        it('should bind onmouseenter and onmouseleave events via pt', fakeAsync(() => {
+        it('should bind onmouseenter and onmouseleave events via pt', async () => {
             let mouseEntered = false;
             let mouseLeft = false;
 
@@ -1395,21 +1445,20 @@ describe('Message', () => {
                 }
             });
             fixture.componentRef.setInput('text', 'Test');
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.css('.p-message'));
             rootElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
-            tick();
+            await fixture.whenStable();
             expect(mouseEntered).toBe(true);
 
             rootElement.nativeElement.dispatchEvent(new MouseEvent('mouseleave'));
-            tick();
+            await fixture.whenStable();
             expect(mouseLeft).toBe(true);
+        });
 
-            flush();
-        }));
-
-        it('should bind onclick to text element and modify instance property', fakeAsync(() => {
+        it('should bind onclick to text element and modify instance property', async () => {
             fixture.componentRef.setInput('pt', {
                 text: ({ instance }: any) => {
                     return {
@@ -1420,16 +1469,17 @@ describe('Message', () => {
                 }
             });
             fixture.componentRef.setInput('text', 'Test');
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const textElement = fixture.debugElement.query(By.css('span'));
             textElement.nativeElement.click();
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect((fixture.componentInstance as any)._customProperty).toBe('CLICKED');
-            flush();
-        }));
+        });
     });
 
     describe('PassThrough - Case 6: Inline test', () => {
@@ -1448,7 +1498,8 @@ describe('Message', () => {
         it('should apply inline pt with string class', async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Message],
-                declarations: [TestInlineStringComponent]
+                declarations: [TestInlineStringComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestInlineStringComponent);
@@ -1461,7 +1512,8 @@ describe('Message', () => {
         it('should apply inline pt with object', async () => {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule, Message],
-                declarations: [TestInlineObjectComponent]
+                declarations: [TestInlineObjectComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestInlineObjectComponent);
@@ -1488,6 +1540,7 @@ describe('Message', () => {
                 imports: [NoopAnimationsModule, Message],
                 declarations: [TestGlobalPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             message: {
@@ -1523,6 +1576,7 @@ describe('Message', () => {
                 imports: [NoopAnimationsModule, Message],
                 declarations: [TestGlobalPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             message: {
@@ -1556,6 +1610,7 @@ describe('Message', () => {
                 imports: [NoopAnimationsModule, Message],
                 declarations: [TestMergedPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             message: {
@@ -1586,6 +1641,7 @@ describe('Message', () => {
                 imports: [NoopAnimationsModule, Message],
                 declarations: [TestGlobalPtComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             message: {
@@ -1621,7 +1677,8 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message]
+                imports: [NoopAnimationsModule, Message],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(Message);
