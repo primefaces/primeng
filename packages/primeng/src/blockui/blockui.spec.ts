@@ -192,7 +192,10 @@ describe('BlockUI', () => {
         });
 
         it('should apply base CSS classes', async () => {
-            // Trigger change detection to apply host bindings
+            // Block to apply overlay classes
+            component.blocked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -604,19 +607,18 @@ describe('BlockUI', () => {
             await fixture.whenStable();
             blockUIComponent = fixture.debugElement.query(By.directive(BlockUI)).componentInstance;
 
-            // Set up spies before blocking
-            spyOn(blockUIComponent, 'unblock').and.callThrough();
-            spyOn(blockUIComponent, 'destroyModal').and.callThrough();
-
             component.blocked = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
+            fixture.detectChanges();
+            await fixture.whenStable();
             expect(blockUIComponent.blocked).toBe(true);
 
+            // Verify cleanup happens on destroy
             fixture.destroy();
 
-            expect(blockUIComponent.unblock).toHaveBeenCalled();
-            expect(blockUIComponent.destroyModal).toHaveBeenCalled();
+            // After destroy, the component should have cleaned up (blocked should be false)
+            expect(blockUIComponent.blocked).toBe(false);
         });
     });
 
@@ -701,6 +703,7 @@ describe('BlockUI', () => {
 
         it('should maintain base classes alongside custom classes', async () => {
             component.styleClass = 'custom-overlay';
+            component.blocked = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 

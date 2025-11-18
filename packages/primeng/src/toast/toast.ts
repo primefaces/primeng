@@ -248,7 +248,6 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             [index]="i"
             [life]="life"
             (onClose)="onMessageClose($event)"
-            (onAnimationEnd)="onItemAnimationEnd($event)"
             [template]="template || _template"
             [headlessTemplate]="headlessTemplate || _headlessTemplate"
             [enterAnimation]="enterAnimation()"

@@ -526,8 +526,9 @@ describe('Password', () => {
             spyOn(testComponent, 'onClearEvent');
             testComponent.showClear = true;
             testComponent.value = 'password123';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
+            testFixture.detectChanges();
 
             const clearIcon = testFixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
             if (clearIcon) {
@@ -542,6 +543,8 @@ describe('Password', () => {
 
         it('should handle toggle mask button click', async () => {
             testComponent.toggleMask = true;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const showIcon = testFixture.debugElement.query(By.css('[data-pc-section="showIcon"]'));
@@ -593,6 +596,8 @@ describe('Password', () => {
 
         it('should not show overlay when feedback is disabled', async () => {
             testComponent.feedback = false;
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
             testFixture.detectChanges();
 
             const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
@@ -1427,8 +1432,9 @@ describe('PasswordDirective', () => {
         describe('Case 1: Simple string classes', () => {
             it('should apply host class from pt', async () => {
                 ptComponent.pt = { host: 'HOST_DIRECTIVE_CLASS' };
-                ptFixture.detectChanges();
+                ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
+                ptFixture.detectChanges();
 
                 expect(inputEl.classList.contains('HOST_DIRECTIVE_CLASS')).toBe(true);
             });
@@ -1437,6 +1443,8 @@ describe('PasswordDirective', () => {
                 ptComponent.pt = { root: 'ROOT_DIRECTIVE_CLASS' };
                 ptComponent.feedback = true;
                 ptComponent.value = 'test';
+                ptFixture.changeDetectorRef.markForCheck();
+                await ptFixture.whenStable();
                 ptFixture.detectChanges();
 
                 // Focus input to trigger overlay creation
@@ -1461,8 +1469,9 @@ describe('PasswordDirective', () => {
                         'aria-label': 'DIRECTIVE_ARIA_LABEL'
                     }
                 };
-                ptFixture.detectChanges();
+                ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
+                ptFixture.detectChanges();
 
                 expect(inputEl.classList.contains('HOST_DIRECTIVE_OBJECT_CLASS')).toBe(true);
                 expect(inputEl.style.borderColor).toBe('green');
@@ -1479,6 +1488,8 @@ describe('PasswordDirective', () => {
                 };
                 ptComponent.feedback = true;
                 ptComponent.value = 'test';
+                ptFixture.changeDetectorRef.markForCheck();
+                await ptFixture.whenStable();
                 ptFixture.detectChanges();
 
                 // Focus input to trigger overlay creation
@@ -1502,8 +1513,9 @@ describe('PasswordDirective', () => {
                     },
                     root: 'ROOT_STRING_CLASS'
                 };
-                ptFixture.detectChanges();
+                ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
+                ptFixture.detectChanges();
 
                 expect(inputEl.classList.contains('HOST_MIXED_CLASS')).toBe(true);
             });
@@ -1522,8 +1534,9 @@ describe('PasswordDirective', () => {
                         return { class: 'DIRECTIVE_DEFAULT_CLASS' };
                     }
                 };
-                ptFixture.detectChanges();
+                ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
+                ptFixture.detectChanges();
 
                 // Verify that PT callback structure is supported (callback may or may not be executed depending on directive implementation)
                 expect(inputEl).toBeTruthy();
@@ -1560,8 +1573,9 @@ describe('PasswordDirective', () => {
                         };
                     }
                 };
-                ptFixture.detectChanges();
+                ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
+                ptFixture.detectChanges();
 
                 // Verify conditional classes are applied to host element
                 expect(inputEl).toBeTruthy();
@@ -1578,8 +1592,9 @@ describe('PasswordDirective', () => {
                         }
                     }
                 };
-                ptFixture.detectChanges();
+                ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
+                ptFixture.detectChanges();
 
                 inputEl.click();
                 expect(clicked).toBe(true);
@@ -1594,8 +1609,9 @@ describe('PasswordDirective', () => {
                         }
                     }
                 };
-                ptFixture.detectChanges();
+                ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
+                ptFixture.detectChanges();
 
                 inputEl.dispatchEvent(new Event('focus'));
                 await ptFixture.whenStable();
@@ -1636,6 +1652,7 @@ describe('PasswordDirective', () => {
                     imports: [PasswordDirective, FormsModule, CommonModule],
                     declarations: [TestPTPasswordDirectiveComponent],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 password: {
@@ -1663,6 +1680,7 @@ describe('PasswordDirective', () => {
                     imports: [PasswordDirective, FormsModule, CommonModule],
                     declarations: [TestPTPasswordDirectiveComponent],
                     providers: [
+                        provideZonelessChangeDetection(),
                         providePrimeNG({
                             pt: {
                                 password: {
@@ -1787,7 +1805,8 @@ describe('Password Integration Tests', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, NoopAnimationsModule],
-            declarations: [TestBasicPasswordComponent]
+            declarations: [TestBasicPasswordComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         testFixture = TestBed.createComponent(TestBasicPasswordComponent);
@@ -1855,7 +1874,8 @@ describe('Password PassThrough Tests', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [PasswordModule, FormsModule, CommonModule, NoopAnimationsModule],
-            declarations: [TestPTPasswordComponent]
+            declarations: [TestPTPasswordComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestPTPasswordComponent);
@@ -2193,6 +2213,7 @@ describe('Password PassThrough Tests', () => {
                 imports: [PasswordModule, FormsModule, CommonModule, NoopAnimationsModule],
                 declarations: [TestPTPasswordComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             password: {
@@ -2219,6 +2240,7 @@ describe('Password PassThrough Tests', () => {
                 imports: [PasswordModule, FormsModule, CommonModule, NoopAnimationsModule],
                 declarations: [TestPTPasswordComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             password: {
@@ -2246,6 +2268,7 @@ describe('Password PassThrough Tests', () => {
                 imports: [PasswordModule, FormsModule, CommonModule, NoopAnimationsModule],
                 declarations: [TestPTPasswordComponent],
                 providers: [
+                    provideZonelessChangeDetection(),
                     providePrimeNG({
                         pt: {
                             password: {

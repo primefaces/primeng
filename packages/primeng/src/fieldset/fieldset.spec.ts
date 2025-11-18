@@ -345,10 +345,18 @@ describe('Fieldset', () => {
             const event = new MouseEvent('click');
 
             fieldset.toggle(event);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 10));
-            fixture.changeDetectorRef.markForCheck();
+
+            // Wait for transition and manually trigger transitionend
+            await new Promise((resolve) => setTimeout(resolve, 500));
+
+            // Manually dispatch transitionend event
+            const contentContainer = fixture.debugElement.query(By.css('[role="region"]'));
+            const transitionEvent = new TransitionEvent('transitionend');
+            contentContainer.nativeElement.dispatchEvent(transitionEvent);
+
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(fieldset.collapsed).toBe(true);
@@ -408,10 +416,18 @@ describe('Fieldset', () => {
         it('should emit onAfterToggle event', async () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
             toggleButton.nativeElement.click();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 10));
-            fixture.changeDetectorRef.markForCheck();
+
+            // Wait for transition and manually trigger transitionend
+            await new Promise((resolve) => setTimeout(resolve, 500));
+
+            // Manually dispatch transitionend event
+            const contentContainer = fixture.debugElement.query(By.css('[role="region"]'));
+            const transitionEvent = new TransitionEvent('transitionend');
+            contentContainer.nativeElement.dispatchEvent(transitionEvent);
+
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.afterToggleEvent).toBeDefined();

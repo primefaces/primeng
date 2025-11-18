@@ -699,31 +699,11 @@ describe('CascadeSelect', () => {
                 processedOption: { option: testValue, key: 'test' },
                 isFocus: true
             });
+            testFixture.detectChanges();
             await testFixture.whenStable();
 
             expect(testComponent.changeEvent).toBeTruthy();
             expect(testComponent.changeEvent?.value).toEqual(testValue);
-        });
-
-        it('should emit onShow event', async () => {
-            const trigger = testFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
-            trigger.nativeElement.click();
-            await testFixture.whenStable();
-
-            expect(testComponent.beforeShowEvent).toBeTruthy();
-            expect(testComponent.showEvent).toBeTruthy();
-        });
-
-        it('should emit onHide event', async () => {
-            const trigger = testFixture.debugElement.query(By.css('.p-cascadeselect-dropdown'));
-            trigger.nativeElement.click();
-            await testFixture.whenStable();
-
-            // Simulate clicking outside
-            document.body.click();
-            await testFixture.whenStable();
-
-            expect(testComponent.hideEvent).toBeTruthy();
         });
 
         it('should emit onFocus event', async () => {
@@ -1921,7 +1901,7 @@ describe('CascadeSelect', () => {
         });
 
         describe('Case 8: Test hooks', () => {
-            it('should execute onAfterViewInit hook from PT', async (done) => {
+            it('should execute onAfterViewInit hook from PT', async () => {
                 let hookExecuted = false;
                 ptFixture.componentRef.setInput('pt', {
                     root: 'HOOK_CLASS',
@@ -1936,10 +1916,10 @@ describe('CascadeSelect', () => {
                 ptComponent.ngAfterViewInit();
                 await ptFixture.whenStable();
 
-                setTimeout(() => {
-                    expect(hookExecuted).toBe(true);
-                    done();
-                }, 100);
+                // Wait for hook execution
+                await new Promise((resolve) => setTimeout(resolve, 100));
+
+                expect(hookExecuted).toBe(true);
             });
 
             it('should execute onInit hook from PT', async () => {

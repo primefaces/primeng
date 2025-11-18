@@ -1448,18 +1448,24 @@ describe('Scroller', () => {
 
         it('should handle dynamic itemSize updates', async () => {
             component.updateItemSize(75);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(scroller._itemSize).toBe(75);
         });
 
         it('should handle dynamic scrollHeight updates', async () => {
             component.updateScrollHeight('300px');
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(scroller._scrollHeight).toBe('300px');
         });
 
         it('should handle dynamic orientation updates', async () => {
             component.updateOrientation('horizontal');
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1470,12 +1476,16 @@ describe('Scroller', () => {
 
         it('should handle dynamic loading state updates', async () => {
             component.updateLoading(true);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(scroller._loading).toBe(true);
         });
 
         it('should handle dynamic disabled state updates', async () => {
             component.updateDisabled(true);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(scroller._disabled).toBe(true);
         });

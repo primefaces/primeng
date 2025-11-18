@@ -338,9 +338,13 @@ describe('TreeTable', () => {
 
         it('should handle single selection', async () => {
             const node = basicTreeData[0];
+            const mockTarget = {
+                nodeName: 'TD',
+                closest: jasmine.createSpy('closest').and.returnValue(null)
+            };
             const mockEvent = {
                 originalEvent: {
-                    target: { nodeName: 'TD' },
+                    target: mockTarget,
                     button: 0
                 } as any,
                 rowNode: { node }
@@ -361,18 +365,26 @@ describe('TreeTable', () => {
             const node1 = basicTreeData[0];
             const node2 = basicTreeData[1];
 
+            const mockTarget1 = {
+                nodeName: 'TD',
+                closest: jasmine.createSpy('closest').and.returnValue(null)
+            };
             const mockEvent1 = {
                 originalEvent: {
-                    target: { nodeName: 'TD' },
+                    target: mockTarget1,
                     button: 0,
                     ctrlKey: false
                 } as any,
                 rowNode: { node: node1 }
             };
 
+            const mockTarget2 = {
+                nodeName: 'TD',
+                closest: jasmine.createSpy('closest').and.returnValue(null)
+            };
             const mockEvent2 = {
                 originalEvent: {
-                    target: { nodeName: 'TD' },
+                    target: mockTarget2,
                     button: 0,
                     ctrlKey: true
                 } as any,
@@ -390,9 +402,13 @@ describe('TreeTable', () => {
             spyOn(treetable.selectionChange, 'emit');
 
             const node = basicTreeData[0];
+            const mockTarget = {
+                nodeName: 'TD',
+                closest: jasmine.createSpy('closest').and.returnValue(null)
+            };
             const mockEvent = {
                 originalEvent: {
-                    target: { nodeName: 'TD' },
+                    target: mockTarget,
                     button: 0
                 } as any,
                 rowNode: { node }
@@ -687,9 +703,13 @@ describe('TreeTable', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
+            const mockTarget = {
+                nodeName: 'TD',
+                closest: jasmine.createSpy('closest').and.returnValue(null)
+            };
             const mockEvent = {
                 originalEvent: {
-                    target: { nodeName: 'TD' },
+                    target: mockTarget,
                     button: 0
                 } as any,
                 rowNode: { node: null }
