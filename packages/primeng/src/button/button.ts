@@ -423,6 +423,10 @@ export class ButtonDirective extends BaseComponent {
 
     createLabel() {
         const created = findSingle(this.htmlElement, '.p-button-label');
+        // label presence decides some styles for loading
+        if (!this.label && created) {
+            this.label = created.innerHTML;
+        }
         if (!created && this.label) {
             let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('label'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
             labelElement.appendChild(this.document.createTextNode(this.label));
@@ -432,6 +436,11 @@ export class ButtonDirective extends BaseComponent {
 
     createIcon() {
         const created = findSingle(this.htmlElement, '.p-button-icon');
+        // store icon to allow its restoration after loading is finished.
+        if (!this.icon && created) {
+            const iconClasses: string[] = created.className.split(' ');
+            this.icon = iconClasses.filter((className: string) => !className.startsWith('p-')).join(' ');
+        }
         if (!created && (this.icon || this.loading)) {
             let iconPosClass = this.label ? 'p-button-icon-' + this.iconPos : null;
             let iconClass = this.getIconClass();
