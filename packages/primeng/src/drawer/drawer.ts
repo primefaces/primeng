@@ -415,7 +415,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
             this.mask = this.renderer.createElement('div');
 
             if (this.mask) {
-                const style = `z-index: ${zIndex}; ${this.getMaskStyle()}`;
+                const style = `z-index: ${zIndex};${this.getMaskStyle()}`;
                 setAttribute(this.mask, 'style', style);
                 setAttribute(this.mask, 'data-p', this.dataP);
                 addClass(this.mask, this.cx('mask'));
@@ -500,7 +500,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt((this.container as HTMLDivElement).style.zIndex) === ZIndexUtils.get(this.container)) {
+                if (parseInt((this.container as HTMLDivElement)?.style.zIndex) === ZIndexUtils.get(this.container)) {
                     this.close(event);
                 }
             }
