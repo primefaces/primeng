@@ -28,6 +28,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MotionOptions } from '@primeuix/motion';
 import {
     appendChild,
     calculateScrollbarWidth,
@@ -44,6 +45,7 @@ import {
     isIOS,
     isNotEmpty,
     isPrintableCharacter,
+    removeChild,
     resolve,
     uuid
 } from '@primeuix/utils';
@@ -52,6 +54,7 @@ import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
 import { AngleRightIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -65,164 +68,166 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule, BindModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule, BindModule, MotionModule],
     template: `
-        @if (root ? true : visible) {
-            <ul
-                #sublist
-                role="menu"
-                [class]="root ? cx('rootList') : cx('submenu')"
-                [pBind]="_ptm(root ? 'rootList' : 'submenu')"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onEnter($event)"
-                [attr.id]="menuId + '_list'"
-                [tabindex]="tabindex"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledBy]="ariaLabelledBy"
-                [attr.aria-activedescendant]="focusedItemId"
-                [attr.aria-orientation]="'vertical'"
-                (keydown)="menuKeydown.emit($event)"
-                (focus)="menuFocus.emit($event)"
-                (blur)="menuBlur.emit($event)"
-            >
-                <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
-                    <li
-                        *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
-                        [attr.id]="getItemId(processedItem)"
-                        [style]="getItemProp(processedItem, 'style')"
-                        [class]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))"
-                        role="separator"
-                        [pBind]="_ptm('separator')"
-                    ></li>
-                    <li
-                        #listItem
-                        *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
-                        role="menuitem"
-                        [attr.id]="getItemId(processedItem)"
-                        [attr.data-p-highlight]="isItemActive(processedItem)"
-                        [attr.data-p-focused]="isItemFocused(processedItem)"
-                        [attr.data-p-disabled]="isItemDisabled(processedItem)"
-                        [attr.aria-label]="getItemLabel(processedItem)"
-                        [attr.aria-disabled]="isItemDisabled(processedItem) || undefined"
-                        [attr.aria-haspopup]="isItemGroup(processedItem) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
-                        [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
-                        [attr.aria-level]="level + 1"
-                        [attr.aria-setsize]="getAriaSetSize()"
-                        [attr.aria-posinset]="getAriaPosInset(index)"
-                        [style]="getItemProp(processedItem, 'style')"
-                        [class]="cn(cx('item', { instance: this, processedItem }), getItemProp(processedItem, 'styleClass'))"
-                        [pBind]="getPTOptions(processedItem, index, 'item')"
-                        pTooltip
-                        [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
-                        [pTooltipUnstyled]="unstyled()"
-                    >
-                        <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
-                            <ng-container *ngIf="!itemTemplate">
-                                <a
-                                    *ngIf="!getItemProp(processedItem, 'routerLink')"
-                                    [attr.href]="getItemProp(processedItem, 'url')"
-                                    [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
-                                    [target]="getItemProp(processedItem, 'target')"
-                                    [class]="cx('itemLink')"
+        <ul
+            #sublist
+            role="menu"
+            [class]="root ? cx('rootList') : cx('submenu')"
+            [pBind]="_ptm(root ? 'rootList' : 'submenu')"
+            [pMotion]="root ? true : visible"
+            [pMotionAppear]="true"
+            [pMotionEnterActiveClass]="enterAnimation()"
+            [pMotionLeaveActiveClass]="leaveAnimation()"
+            [pMotionOptions]="motionOptions"
+            (pMotionOnBeforeEnter)="onEnter($event)"
+            [attr.id]="menuId + '_list'"
+            [tabindex]="tabindex"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
+            [attr.aria-activedescendant]="focusedItemId"
+            [attr.aria-orientation]="'vertical'"
+            (keydown)="menuKeydown.emit($event)"
+            (focus)="menuFocus.emit($event)"
+            (blur)="menuBlur.emit($event)"
+        >
+            <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
+                <li
+                    *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
+                    [attr.id]="getItemId(processedItem)"
+                    [style]="getItemProp(processedItem, 'style')"
+                    [class]="cn(cx('separator'), getItemProp(processedItem, 'styleClass'))"
+                    role="separator"
+                    [pBind]="_ptm('separator')"
+                ></li>
+                <li
+                    #listItem
+                    *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
+                    role="menuitem"
+                    [attr.id]="getItemId(processedItem)"
+                    [attr.data-p-highlight]="isItemActive(processedItem)"
+                    [attr.data-p-focused]="isItemFocused(processedItem)"
+                    [attr.data-p-disabled]="isItemDisabled(processedItem)"
+                    [attr.aria-label]="getItemLabel(processedItem)"
+                    [attr.aria-disabled]="isItemDisabled(processedItem) || undefined"
+                    [attr.aria-haspopup]="isItemGroup(processedItem) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
+                    [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
+                    [attr.aria-level]="level + 1"
+                    [attr.aria-setsize]="getAriaSetSize()"
+                    [attr.aria-posinset]="getAriaPosInset(index)"
+                    [style]="getItemProp(processedItem, 'style')"
+                    [class]="cn(cx('item', { instance: this, processedItem }), getItemProp(processedItem, 'styleClass'))"
+                    [pBind]="getPTOptions(processedItem, index, 'item')"
+                    pTooltip
+                    [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                    [pTooltipUnstyled]="unstyled()"
+                >
+                    <div [class]="cx('itemContent')" [pBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                        <ng-container *ngIf="!itemTemplate">
+                            <a
+                                *ngIf="!getItemProp(processedItem, 'routerLink')"
+                                [attr.href]="getItemProp(processedItem, 'url')"
+                                [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                                [target]="getItemProp(processedItem, 'target')"
+                                [class]="cx('itemLink')"
+                                [attr.tabindex]="-1"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLink')"
+                                pRipple
+                            >
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'icon')"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                                    [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
-                                    [pBind]="getPTOptions(processedItem, index, 'itemLink')"
-                                    pRipple
                                 >
-                                    <span
-                                        *ngIf="getItemProp(processedItem, 'icon')"
-                                        [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
-                                        [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                        [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                                </span>
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                                    {{ getItemLabel(processedItem) }}
+                                </span>
+                                <ng-template #htmlLabel> <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span> </ng-template>
+                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
+                                <ng-container *ngIf="isItemGroup(processedItem)">
+                                    <svg
+                                        data-p-icon="angle-right"
+                                        *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate"
+                                        [class]="cx('submenuIcon')"
+                                        [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
                                         [attr.aria-hidden]="true"
-                                        [attr.tabindex]="-1"
-                                    >
-                                    </span>
-                                    <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
-                                        {{ getItemLabel(processedItem) }}
-                                    </span>
-                                    <ng-template #htmlLabel> <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span> </ng-template>
-                                    <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
-                                    <ng-container *ngIf="isItemGroup(processedItem)">
-                                        <svg
-                                            data-p-icon="angle-right"
-                                            *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate"
-                                            [class]="cx('submenuIcon')"
-                                            [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
-                                            [attr.aria-hidden]="true"
-                                        />
-                                        <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.aria-hidden]="true"></ng-template>
-                                    </ng-container>
-                                </a>
-                                <a
-                                    *ngIf="getItemProp(processedItem, 'routerLink')"
-                                    [routerLink]="getItemProp(processedItem, 'routerLink')"
-                                    [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                                    />
+                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.aria-hidden]="true"></ng-template>
+                                </ng-container>
+                            </a>
+                            <a
+                                *ngIf="getItemProp(processedItem, 'routerLink')"
+                                [routerLink]="getItemProp(processedItem, 'routerLink')"
+                                [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                                [attr.tabindex]="-1"
+                                [queryParams]="getItemProp(processedItem, 'queryParams')"
+                                [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinActiveOptions') || { exact: false }"
+                                [target]="getItemProp(processedItem, 'target')"
+                                [class]="cx('itemLink')"
+                                [fragment]="getItemProp(processedItem, 'fragment')"
+                                [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
+                                [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
+                                [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
+                                [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
+                                [state]="getItemProp(processedItem, 'state')"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLink')"
+                                pRipple
+                            >
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'icon')"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                                    [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
-                                    [queryParams]="getItemProp(processedItem, 'queryParams')"
-                                    [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinActiveOptions') || { exact: false }"
-                                    [target]="getItemProp(processedItem, 'target')"
-                                    [class]="cx('itemLink')"
-                                    [fragment]="getItemProp(processedItem, 'fragment')"
-                                    [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
-                                    [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
-                                    [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
-                                    [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
-                                    [state]="getItemProp(processedItem, 'state')"
-                                    [pBind]="getPTOptions(processedItem, index, 'itemLink')"
-                                    pRipple
                                 >
-                                    <span
-                                        *ngIf="getItemProp(processedItem, 'icon')"
-                                        [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
-                                        [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                        [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                                </span>
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                                    {{ getItemLabel(processedItem) }}
+                                </span>
+                                <ng-template #htmlLabel>
+                                    <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
+                                </ng-template>
+                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
+                                <ng-container *ngIf="isItemGroup(processedItem)">
+                                    <svg
+                                        data-p-icon="angle-right"
+                                        *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate"
+                                        [class]="cx('submenuIcon')"
+                                        [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
                                         [attr.aria-hidden]="true"
-                                        [attr.tabindex]="-1"
-                                    >
-                                    </span>
-                                    <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
-                                        {{ getItemLabel(processedItem) }}
-                                    </span>
-                                    <ng-template #htmlLabel>
-                                        <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
-                                    </ng-template>
-                                    <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
-                                    <ng-container *ngIf="isItemGroup(processedItem)">
-                                        <svg
-                                            data-p-icon="angle-right"
-                                            *ngIf="!contextMenu.submenuIconTemplate && !contextMenu._submenuIconTemplate"
-                                            [class]="cx('submenuIcon')"
-                                            [pBind]="getPTOptions(processedItem, index, 'submenuIcon')"
-                                            [attr.aria-hidden]="true"
-                                        />
-                                        <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.aria-hidden]="true"></ng-template>
-                                    </ng-container>
-                                </a>
-                            </ng-container>
-                            <ng-container *ngIf="itemTemplate">
-                                <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
-                            </ng-container>
-                        </div>
+                                    />
+                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate || contextMenu._submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.aria-hidden]="true"></ng-template>
+                                </ng-container>
+                            </a>
+                        </ng-container>
+                        <ng-container *ngIf="itemTemplate">
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                        </ng-container>
+                    </div>
 
-                        <p-contextmenu-sub
-                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
-                            [items]="processedItem.items"
-                            [itemTemplate]="itemTemplate"
-                            [menuId]="menuId"
-                            [visible]="isItemActive(processedItem) && isItemGroup(processedItem)"
-                            [activeItemPath]="activeItemPath"
-                            [focusedItemId]="focusedItemId"
-                            [level]="level + 1"
-                            (itemClick)="itemClick.emit($event)"
-                            (itemMouseEnter)="onItemMouseEnter($event)"
-                            [pt]="pt()"
-                            [unstyled]="unstyled()"
-                        />
-                    </li>
-                </ng-template>
-            </ul>
-        }
+                    <p-contextmenu-sub
+                        *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                        [items]="processedItem.items"
+                        [itemTemplate]="itemTemplate"
+                        [menuId]="menuId"
+                        [visible]="isItemActive(processedItem) && isItemGroup(processedItem)"
+                        [activeItemPath]="activeItemPath"
+                        [focusedItemId]="focusedItemId"
+                        [level]="level + 1"
+                        (itemClick)="itemClick.emit($event)"
+                        (itemMouseEnter)="onItemMouseEnter($event)"
+                        [pt]="pt()"
+                        [motionOptions]="motionOptions"
+                        [unstyled]="unstyled()"
+                    />
+                </li>
+            </ng-template>
+        </ul>
     `,
     encapsulation: ViewEncapsulation.None,
     providers: [ContextMenuStyle, { provide: CONTEXTMENUSUB_INSTANCE, useExisting: ContextMenuSub }, { provide: PARENT_INSTANCE, useExisting: ContextMenuSub }]
@@ -255,6 +260,8 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
     @Input() activeItemPath: any[];
 
     @Input({ transform: numberAttribute }) tabindex: number = 0;
+
+    @Input() motionOptions: MotionOptions[];
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -344,10 +351,9 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
 
-    onEnter(event: AnimationEvent) {
+    onEnter(el: HTMLDivElement) {
         if (this.visible) {
-            const sublist = event.target;
-            this.position(sublist);
+            this.position(el);
         }
     }
 
@@ -391,46 +397,48 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
 @Component({
     selector: 'p-contextMenu, p-contextmenu, p-context-menu',
     standalone: true,
-    imports: [CommonModule, ContextMenuSub, RouterModule, TooltipModule, BadgeModule, SharedModule, BindModule],
+    imports: [CommonModule, ContextMenuSub, RouterModule, TooltipModule, BadgeModule, SharedModule, BindModule, MotionModule],
     template: `
-        @if (visible()) {
-            <div
-                #container
-                [attr.id]="id"
-                [class]="cn(cx('root'), styleClass)"
-                [style]="sx('root')"
-                [ngStyle]="style"
-                [pBind]="ptm('root')"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onOverlayAnimationStart($event)"
-                (animationend)="onOverlayAnimationEnd()"
-            >
-                <p-contextmenu-sub
-                    #rootmenu
-                    [root]="true"
-                    [items]="processedItems"
-                    [itemTemplate]="itemTemplate || _itemTemplate"
-                    [menuId]="id"
-                    [ariaLabel]="ariaLabel"
-                    [ariaLabelledBy]="ariaLabelledBy"
-                    [baseZIndex]="baseZIndex"
-                    [autoZIndex]="autoZIndex"
-                    [visible]="submenuVisible()"
-                    [focusedItemId]="focused ? focusedItemId : undefined"
-                    [activeItemPath]="activeItemPath()"
-                    (itemClick)="onItemClick($event)"
-                    (menuFocus)="onMenuFocus($event)"
-                    (menuBlur)="onMenuBlur($event)"
-                    (menuKeydown)="onKeyDown($event)"
-                    (itemMouseEnter)="onItemMouseEnter($event)"
-                    [pt]="pt()"
-                    [unstyled]="unstyled()"
-                    [enterAnimation]="enterAnimation()"
-                    [leaveAnimation]="leaveAnimation()"
-                />
-            </div>
-        }
+        <div
+            #container
+            [attr.id]="id"
+            [class]="cn(cx('root'), styleClass)"
+            [style]="sx('root')"
+            [ngStyle]="style"
+            [pBind]="ptm('root')"
+            [pMotion]="visible()"
+            [pMotionAppear]="true"
+            [pMotionEnterActiveClass]="enterAnimation()"
+            [pMotionLeaveActiveClass]="leaveAnimation()"
+            [pMotionOptions]="computedMotionOptions()"
+            (pMotionOnBeforeEnter)="onOverlayAnimationStart($event)"
+            (pMotionOnAfterLeave)="onOverlayAnimationEnd()"
+        >
+            <p-contextmenu-sub
+                #rootmenu
+                [root]="true"
+                [items]="processedItems"
+                [itemTemplate]="itemTemplate || _itemTemplate"
+                [menuId]="id"
+                [ariaLabel]="ariaLabel"
+                [ariaLabelledBy]="ariaLabelledBy"
+                [baseZIndex]="baseZIndex"
+                [autoZIndex]="autoZIndex"
+                [visible]="submenuVisible()"
+                [focusedItemId]="focused ? focusedItemId : undefined"
+                [activeItemPath]="activeItemPath()"
+                (itemClick)="onItemClick($event)"
+                (menuFocus)="onMenuFocus($event)"
+                (menuBlur)="onMenuBlur($event)"
+                (menuKeydown)="onKeyDown($event)"
+                (itemMouseEnter)="onItemMouseEnter($event)"
+                [pt]="pt()"
+                [unstyled]="unstyled()"
+                [enterAnimation]="enterAnimation()"
+                [leaveAnimation]="leaveAnimation()"
+                [motionOptions]="computedMotionOptions()"
+            />
+        </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -526,6 +534,18 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
      * @group Props
      */
     leaveAnimation = input<string | null | undefined>('p-contextmenu-leave');
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -1040,9 +1060,9 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         this.searchValue = '';
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
+    onOverlayAnimationStart(el: HTMLDivElement) {
         if (this.visible() && !this.container) {
-            this.container = <HTMLElement>event.target;
+            this.container = el;
             this.position();
             this.moveOnTop();
             this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
@@ -1058,10 +1078,6 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         }
     }
 
-    // appendOverlay() {
-    //     DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
-    // }
-
     appendOverlay() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
             if (this.$appendTo() === 'body') {
@@ -1069,6 +1085,14 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
             } else {
                 appendChild(this.$appendTo(), this.container!);
             }
+        }
+    }
+
+    removeOverlay() {
+        if (this.$appendTo() === 'body') {
+            removeChild(this.document.body, this.container!);
+        } else {
+            removeChild(this.$appendTo(), this.container!);
         }
     }
 
@@ -1084,6 +1108,8 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         if (!(this.cd as ViewRef).destroyed) {
             this.target = null;
         }
+
+        this.removeOverlay();
 
         if (this.container && this.autoZIndex) {
             ZIndexUtils.clear(this.container);
