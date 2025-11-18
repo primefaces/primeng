@@ -11,10 +11,6 @@ ${datepicker_style}
 }
 
 /* Animations */
-.p-datepicker-panel:not(.p-datepicker-panel-inline) {
-    position: absolute;
-    top: 0;
-}
 
 .p-datepicker-enter {
     animation: p-animate-datepicker-enter 300ms cubic-bezier(.19,1,.22,1);
