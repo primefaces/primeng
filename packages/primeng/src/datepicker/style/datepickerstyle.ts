@@ -12,11 +12,11 @@ ${datepicker_style}
 
 /* Animations */
 
-.p-datepicker-enter {
+.p-datepicker-enter-active {
     animation: p-animate-datepicker-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-datepicker-leave {
+.p-datepicker-leave-active {
     animation: p-animate-datepicker-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
