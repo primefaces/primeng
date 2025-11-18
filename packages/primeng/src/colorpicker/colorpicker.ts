@@ -1,13 +1,13 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, isTouchDevice, relativePosition } from '@primeuix/utils';
+import { MotionOptions } from '@primeuix/motion';
 import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MotionModule } from 'primeng/motion';
 import { OverlayModule } from 'primeng/overlay';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -55,16 +55,17 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
         <p-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
-            [pt]="ptm('pcOverlay')"
             [(visible)]="overlayVisible"
+            [options]="overlayOptions()"
             [target]="'@parent'"
             [inline]="inline"
             [appendTo]="$appendTo()"
             [unstyled]="unstyled()"
-            (onEnter)="onOverlayEnter()"
+            [pt]="ptm('pcOverlay')"
+            [motionOptions]="motionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter()"
             (onAfterLeave)="onOverlayAfterLeave()"
             (onHide)="hide()"
-            [options]="overlayOptions()"
         >
             <ng-template #content>
                 <div [class]="cx('panel')" [pBind]="ptm('panel')">
@@ -107,11 +108,13 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
@@ -161,6 +164,11 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
      */
     overlayOptions = input<OverlayOptions | undefined>(undefined);
     /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+    /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom value change event.
      * @group Emits
@@ -190,10 +198,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     shown: Nullable<boolean>;
 
     overlayVisible: Nullable<boolean>;
-
-    documentClickListener: VoidListener;
-
-    documentResizeListener: VoidListener;
 
     documentMousemoveListener: VoidListener;
 
@@ -394,7 +398,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         this.cd.markForCheck();
     }
 
-    onOverlayEnter() {
+    onOverlayBeforeEnter() {
         if (!this.inline) {
             this.updateColorSelector();
             this.updateUI();
@@ -406,21 +410,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         if (!this.inline) {
             this.onHide.emit({});
         }
-    }
-
-    appendOverlay() {
-        DomHandler.appendOverlay(this.overlayViewChild?.nativeElement, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
-    }
-
-    restoreOverlayAppend() {
-        if (this.overlay && this.$appendTo() !== 'self') {
-            this.renderer.appendChild(this.inputViewChild?.nativeElement, this.overlayViewChild?.nativeElement);
-        }
-    }
-
-    alignOverlay() {
-        if (this.$appendTo() === 'self') relativePosition(this.overlayViewChild?.nativeElement, this.inputViewChild?.nativeElement);
-        else absolutePosition(this.overlayViewChild?.nativeElement, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -460,31 +449,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
             originalEvent: event,
             target: this.el.nativeElement
         });
-    }
-
-    bindDocumentClickListener() {
-        if (!this.documentClickListener) {
-            const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event: Event) => {
-                const isOverlayClicked = this.overlayViewChild?.nativeElement && (this.overlayViewChild.nativeElement.isSameNode(<HTMLElement>event.target) || this.overlayViewChild.nativeElement.contains(event.target as Node));
-                const isInputClicked = this.inputViewChild?.nativeElement && (this.inputViewChild.nativeElement.isSameNode(event.target) || this.inputViewChild.nativeElement.contains(event.target as Node));
-                const isOutsideClicked = !isOverlayClicked && !isInputClicked;
-
-                if (isOutsideClicked) {
-                    this.overlayVisible = false;
-                    this.unbindDocumentClickListener();
-                    this.cd.markForCheck();
-                }
-            });
-        }
-    }
-
-    unbindDocumentClickListener() {
-        if (this.documentClickListener) {
-            this.documentClickListener();
-            this.documentClickListener = null;
-        }
     }
 
     bindDocumentMousemoveListener() {
@@ -527,43 +491,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         if (this.documentMouseupListener) {
             this.documentMouseupListener();
             this.documentMouseupListener = null;
-        }
-    }
-
-    bindDocumentResizeListener() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', this.onWindowResize.bind(this));
-        }
-    }
-
-    unbindDocumentResizeListener() {
-        if (this.documentResizeListener) {
-            this.documentResizeListener();
-            this.documentResizeListener = null;
-        }
-    }
-
-    onWindowResize() {
-        if (this.overlayVisible && !isTouchDevice()) {
-            this.hide();
-        }
-    }
-
-    bindScrollListener() {
-        if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.el?.nativeElement, () => {
-                if (this.overlayVisible) {
-                    this.hide();
-                }
-            });
-        }
-
-        this.scrollHandler.bindScrollListener();
-    }
-
-    unbindScrollListener() {
-        if (this.scrollHandler) {
-            this.scrollHandler.unbindScrollListener();
         }
     }
 
@@ -754,8 +681,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         if (this.overlayViewChild?.nativeElement && this.autoZIndex) {
             ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
         }
-
-        this.restoreOverlayAppend();
     }
 }
 

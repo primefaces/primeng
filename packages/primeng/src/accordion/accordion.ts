@@ -329,7 +329,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     imports: [CommonModule, BindModule, MotionModule],
     standalone: true,
     template: `
-        <p-motion [visible]="active()" name="p-accordion-content" hideStrategy="visibility" [mountOnEnter]="false" [unmountOnLeave]="false" [options]="computedMotionOptions()">
+        <p-motion [visible]="active()" name="p-collapsible" hideStrategy="visibility" [mountOnEnter]="false" [unmountOnLeave]="false" [options]="computedMotionOptions()">
             <div [pBind]="ptm('content', ptParams())" [class]="cx('content')">
                 <ng-content />
             </div>
@@ -370,16 +370,10 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
 
     ptParams = computed(() => ({ context: this.active() }));
 
-    /**
-     * The motion options.
-     * @group Props
-     */
-    motionOptions = input<MotionOptions | undefined>(undefined);
-
     computedMotionOptions = computed<MotionOptions>(() => {
         return {
             ...this.ptm('motion', this.ptParams()),
-            ...this.motionOptions()
+            ...this.pcAccordion.computedMotionOptions()
         };
     });
 }
@@ -446,8 +440,22 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
     /**
      * Transition options of the animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
 
     /**
      * Callback to invoke when an active tab is collapsed by clicking on the header.

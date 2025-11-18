@@ -48,6 +48,11 @@ export class MotionDirective extends BaseComponent {
      */
     safe = input<MotionOptions['safe']>(undefined, { alias: 'pMotionSafe' });
     /**
+     * Whether the motion is disabled.
+     * @group Props
+     */
+    disabled = input<MotionOptions['disabled']>(false, { alias: 'pMotionDisabled' });
+    /**
      * Whether the motion should appear.
      * @group Props
      */
@@ -171,6 +176,7 @@ export class MotionDirective extends BaseComponent {
             name: options.name ?? this.name(),
             type: options.type ?? this.type(),
             safe: options.safe ?? this.safe(),
+            disabled: options.disabled ?? this.disabled(),
             appear: false,
             enter: options.enter ?? this.enter(),
             leave: options.leave ?? this.leave(),

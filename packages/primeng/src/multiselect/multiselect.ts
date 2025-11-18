@@ -26,6 +26,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MotionOptions } from '@primeuix/motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -286,11 +287,12 @@ export class MultiSelectItem extends BaseComponent {
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onAnimationDone)="onOverlayAnimationDone($event)"
-            (onHide)="onOverlayHide($event)"
-            [pt]="ptm('pcOverlay')"
             [unstyled]="unstyled()"
+            [pt]="ptm('pcOverlay')"
+            [motionOptions]="motionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter($event)"
+            (onAfterLeave)="onOverlayAfterLeave($event)"
+            (onHide)="onOverlayHide($event)"
         >
             <ng-template #content>
                 <div [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP" [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
@@ -838,6 +840,11 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @group Props
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
     /**
      * Callback to invoke when value changes.
      * @param {MultiSelectChangeEvent} event - Custom change event.
@@ -1960,7 +1967,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: any) {
+    onOverlayBeforeEnter(event: any) {
         this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
         this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
@@ -1990,7 +1997,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         this.onPanelShow.emit(event);
     }
 
-    onOverlayAnimationDone(event: any) {
+    onOverlayAfterLeave(event: any) {
         this.itemsWrapper = null;
         this.onModelTouched();
         this.onPanelHide.emit(event);

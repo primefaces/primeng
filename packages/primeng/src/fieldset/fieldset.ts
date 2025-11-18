@@ -3,6 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -18,15 +19,15 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from 'primeng/types/fieldset';
 import { FieldsetStyle } from './style/fieldsetstyle';
-import { MotionModule } from 'primeng/motion';
-import { MotionOptions } from '@primeuix/motion';
 
 const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
 
@@ -75,22 +76,24 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 </ng-template>
             </legend>
-            @if (toggleable) {
-                <p-motion [visible]="!collapsed" name="p-fieldset-content" (transitionend)="onToggleDone($event)" [options]="motionOptions()">
-                    <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
-                </p-motion>
-            } @else {
-                <ng-container *ngTemplateOutlet="sharedContent"></ng-container>
-            }
-
-            <ng-template #sharedContent>
-                <div [attr.id]="id + '_content'" role="region" [class]="cx('contentContainer')" [pBind]="ptm('contentContainer')" [attr.aria-labelledby]="id + '_header'" [attr.aria-hidden]="collapsed">
-                    <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
-                        <ng-content></ng-content>
-                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                    </div>
+            <div
+                [pBind]="ptm('contentContainer')"
+                [pMotion]="!toggleable || (toggleable && !collapsed)"
+                pMotionName="p-collapsible"
+                [pMotionOptions]="computedMotionOptions()"
+                [class]="cx('contentContainer')"
+                [id]="id + '_content'"
+                role="region"
+                [attr.aria-labelledby]="id + '_header'"
+                [attr.aria-hidden]="collapsed"
+                [attr.tabindex]="collapsed ? '-1' : undefined"
+                (pMotionOnAfterEnter)="onToggleDone($event)"
+            >
+                <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
-            </ng-template>
+            </div>
         </fieldset>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -139,6 +142,7 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     /**
      * Transition options of the panel animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
@@ -146,6 +150,13 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
      * @group Props
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.

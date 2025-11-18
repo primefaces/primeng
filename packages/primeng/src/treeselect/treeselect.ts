@@ -22,7 +22,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, hasClass, isNotEmpty, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primeuix/motion';
+import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isNotEmpty, uuid } from '@primeuix/utils';
 import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -113,12 +114,13 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
+            [unstyled]="unstyled()"
             [pt]="ptm('pcOverlay')"
-            (onAnimationStart)="onOverlayAnimationStart()"
+            [motionOptions]="motionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter()"
             (onBeforeHide)="onOverlayBeforeHide()"
             (onShow)="onShow.emit($event)"
             (onHide)="hide($event)"
-            [unstyled]="unstyled()"
         >
             <ng-template #content>
                 <div #panel [attr.id]="listId" [class]="cn(cx('panel'), panelStyleClass, panelClass)" [ngStyle]="panelStyle" [pBind]="ptm('panel')">
@@ -429,6 +431,11 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+    /**
      * Callback to invoke when a node is expanded.
      * @param {TreeSelectNodeExpandEvent} event - Custom node expand event.
      * @group Emits
@@ -701,7 +708,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         });
     }
 
-    onOverlayAnimationStart() {
+    onOverlayBeforeEnter() {
         if (this.filter) {
             isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
             this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();

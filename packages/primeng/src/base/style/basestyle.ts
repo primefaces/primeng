@@ -30,48 +30,27 @@ const css = /*css*/ `
 const extendedStyle = /*css*/ `
     ${base_style}
 
-    /* @todo - update @primeuix/style */
-    .p-toggleable-content-enter-from,
-    .p-toggleable-content-leave-to {
+    /********** Collapsible Animations **********/
+    .p-collapsible-enter-from,
+    .p-collapsible-leave-to {
         max-height: 0;
     }
 
-    .p-toggleable-content-enter-to,
-    .p-toggleable-content-leave-from {
-        max-height: var(--pui-motion-height);
+    .p-collapsible-enter-to,
+    .p-collapsible-leave-from {
+        max-height: var(--pui-motion-height, 1000px);
     }
 
-    .p-toggleable-content-leave-active {
+    .p-collapsible-leave-active {
         overflow: hidden;
-        transition: max-height 0.45s cubic-bezier(0, 1, 0, 1);
+        transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
     }
 
-    .p-toggleable-content-enter-active {
+    .p-collapsible-enter-active {
         overflow: hidden;
-        transition: max-height 1s ease-in-out;
+        transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
     }
-
-    /* --- */
-    .p-toggleable-content2-enter-from,
-    .p-toggleable-content2-leave-to {
-        max-height: 0;
-    }
-
-    .p-toggleable-content2-enter-to,
-    .p-toggleable-content2-leave-from {
-        max-height: var(--pui-motion-height);
-    }
-
-    .p-toggleable-content2-leave-active {
-        overflow: hidden;
-        transition: max-height 400ms ease-in-out;
-    }
-
-    .p-toggleable-content2-enter-active {
-        overflow: hidden;
-        transition: max-height 400ms ease-in-out;
-    }
-    /**********************************/
+    /***************************** */
 
    .p-collapsible {
         max-height: 0;

@@ -1,31 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as fieldset_style } from '@primeuix/styles/fieldset';
+import { style } from '@primeuix/styles/fieldset';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-${fieldset_style}
-
-/* Animations */
-.p-fieldset-content-enter-from,
-.p-fieldset-content-leave-to {
-    max-height: 0;
-}
-
-.p-fieldset-content-enter-to,
-.p-fieldset-content-leave-from {
-    max-height: var(--pui-motion-height, 1000px);
-}
-
-.p-fieldset-content-leave-active {
-    overflow: hidden;
-    transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
-}
-
-.p-fieldset-content-enter-active {
-    overflow: hidden;
-    transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
-}
-`;
 
 const classes = {
     root: ({ instance }) => [
@@ -39,7 +14,7 @@ const classes = {
     legendLabel: 'p-fieldset-legend-label',
     toggleButton: 'p-fieldset-toggle-button',
     toggleIcon: 'p-fieldset-toggle-icon',
-    contentContainer: ({ instance }) => ['p-fieldset-content-container'],
+    contentContainer: 'p-fieldset-content-container',
     content: 'p-fieldset-content'
 };
 

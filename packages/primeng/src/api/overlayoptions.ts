@@ -1,3 +1,5 @@
+import { MotionOptions } from '@primeuix/motion';
+
 /**
  * Represents the type of overlay mode, which can be 'modal', 'overlay', or undefined.
  * @group Types
@@ -144,12 +146,18 @@ export interface OverlayOptions {
     baseZIndex?: number;
     /**
      * The transition options for showing the overlay.
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     showTransitionOptions?: string;
     /**
      * The transition options for hiding the overlay.
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     hideTransitionOptions?: string;
+    /**
+     * The motion options for the overlay.
+     */
+    motionOptions?: MotionOptions;
     /**
      * Indicates whether the overlay should be hidden when the escape key is pressed.
      */

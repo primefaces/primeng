@@ -20,6 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -51,6 +52,7 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
                     [visible]="visible"
                     name="p-overlay"
                     [appear]="true"
+                    [options]="computedMotionOptions()"
                     (onBeforeEnter)="onOverlayBeforeEnter($event)"
                     (onEnter)="onOverlayEnter($event)"
                     (onAfterEnter)="onOverlayAfterEnter($event)"
@@ -74,8 +76,6 @@ export class Overlay extends BaseComponent {
     $pcOverlay: Overlay | undefined = inject(OVERLAY_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     @Input() hostName: string = '';
-
-    inline = input<boolean>(false);
 
     /**
      * The visible property is an input that determines the visibility of the component.
@@ -187,6 +187,7 @@ export class Overlay extends BaseComponent {
      * Transition options of the show or hide animation.
      * @defaultValue .12s cubic-bezier(0, 0, 0.2, 1)
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() get showTransitionOptions(): string {
         const value = this._showTransitionOptions || this.overlayOptions?.showTransitionOptions;
@@ -199,6 +200,7 @@ export class Overlay extends BaseComponent {
      * The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component.
      * @defaultValue .1s linear
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() get hideTransitionOptions(): string {
         const value = this._hideTransitionOptions || this.overlayOptions?.hideTransitionOptions;
@@ -247,6 +249,24 @@ export class Overlay extends BaseComponent {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * Specifies whether the overlay should be rendered inline within the current component's template.
+     * @defaultValue false
+     * @group Props
+     */
+    inline = input<boolean>(false);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...(this.motionOptions() || this.overlayOptions?.motionOptions)
+        };
+    });
+    /**
      * This EventEmitter is used to notify changes in the visibility state of a component.
      * @param {Boolean} boolean - Value of visibility as boolean.
      * @group Emits
@@ -288,12 +308,41 @@ export class Overlay extends BaseComponent {
      * @group Emits
      */
     @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
-
+    /**
+     * Callback to invoke before the overlay enters.
+     * @param {any} event - Event before enter.
+     * @group Emits
+     */
     @Output() onBeforeEnter: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when the overlay enters.
+     * @param {any} event - Event on enter.
+     * @group Emits
+     */
     @Output() onEnter: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke after the overlay has entered.
+     * @param {any} event - Event after enter.
+     * @group Emits
+     */
     @Output() onAfterEnter: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke before the overlay leaves.
+     * @param {any} event - Event before leave.
+     * @group Emits
+     */
     @Output() onBeforeLeave: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when the overlay leaves.
+     * @param {any} event - Event on leave.
+     * @group Emits
+     */
     @Output() onLeave: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke after the overlay has left.
+     * @param {any} event - Event after leave.
+     * @group Emits
+     */
     @Output() onAfterLeave: EventEmitter<any> = new EventEmitter<any>();
 
     @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
@@ -477,10 +526,6 @@ export class Overlay extends BaseComponent {
     container = signal<any>(undefined);
 
     onOverlayBeforeEnter(event: AnimationEvent) {
-        this.handleEvents('onBeforeEnter', event);
-    }
-
-    onOverlayEnter(event: AnimationEvent) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         this.container.set(this.overlayEl || event.target);
         this.show(this.overlayEl, true);
@@ -489,6 +534,10 @@ export class Overlay extends BaseComponent {
         this.alignOverlay();
         this.setZIndex();
 
+        this.handleEvents('onBeforeEnter', event);
+    }
+
+    onOverlayEnter(event: AnimationEvent) {
         this.handleEvents('onEnter', event);
     }
 
@@ -498,22 +547,22 @@ export class Overlay extends BaseComponent {
     }
 
     onOverlayBeforeLeave(event: AnimationEvent) {
+        this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         this.handleEvents('onBeforeLeave', event);
     }
 
     onOverlayLeave(event: AnimationEvent) {
-        this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        this.hide(this.overlayEl, true);
-        this.container.set(null);
-        this.cd.markForCheck();
         this.handleEvents('onLeave', event);
     }
 
     onOverlayAfterLeave(event: AnimationEvent) {
+        this.hide(this.overlayEl, true);
+        this.container.set(null);
         this.unbindListeners();
         this.appendOverlay();
         ZIndexUtils.clear(this.overlayEl);
         this.modalVisible = false;
+        this.cd.markForCheck();
         this.handleEvents('onAfterLeave', event);
     }
 

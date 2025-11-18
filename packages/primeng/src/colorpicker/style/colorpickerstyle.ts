@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { style as colorpicker_style } from '@primeuix/styles/colorpicker';
+import { style } from '@primeuix/styles/colorpicker';
 import { BaseStyle } from 'primeng/base';
 
-const style = /*css*/ `
-${colorpicker_style}
-`;
 const classes = {
     root: ({ instance }) => ['p-colorpicker p-component', { 'p-colorpicker-overlay': !instance.inline, 'p-colorpicker-dragging': instance.colorDragging || instance.hueDragging }],
     preview: ({ instance }) => ['p-colorpicker-preview', { 'p-disabled': instance.$disabled() }],

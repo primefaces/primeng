@@ -80,6 +80,11 @@ export class Motion extends BaseComponent<MotionPassThrough> {
      */
     safe = input<MotionOptions['safe']>(undefined);
     /**
+     * Whether the motion is disabled.
+     * @group Props
+     */
+    disabled = input<MotionOptions['disabled']>(false);
+    /**
      * Whether the motion should appear.
      * @group Props
      */
@@ -203,6 +208,7 @@ export class Motion extends BaseComponent<MotionPassThrough> {
             name: options.name ?? this.name(),
             type: options.type ?? this.type(),
             safe: options.safe ?? this.safe(),
+            disabled: options.disabled ?? this.disabled(),
             appear: false,
             enter: options.enter ?? this.enter(),
             leave: options.leave ?? this.leave(),
@@ -262,7 +268,8 @@ export class Motion extends BaseComponent<MotionPassThrough> {
             if (!this.motion) {
                 this.motion = createMotion(this.$el, this.motionOptions());
             } else {
-                this.motion.update(this.$el, this.motionOptions());
+                // @todo: Update motion options method to update options dynamically
+                //this.motion.update(this.$el, this.motionOptions());
             }
         });
 
