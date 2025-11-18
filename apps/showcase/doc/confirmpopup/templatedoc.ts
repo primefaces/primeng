@@ -1,12 +1,12 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'confirm-popup-template-demo',
@@ -21,8 +21,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-confirmpopup>
                 <ng-template #content let-message>
                     <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
-                        <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
-                        <p>{{ message.message }}</p>
+                        <i [class]="message?.icon" class="!text-6xl text-primary-500"></i>
+                        <p>{{ message?.message }}</p>
                     </div>
                 </ng-template>
             </p-confirmpopup>
@@ -78,8 +78,8 @@ export class TemplateDoc {
         <div
             class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0"
         >
-            <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
-            <p>{{ message.message }}</p>
+            <i [class]="message?.icon" class="!text-6xl text-primary-500"></i>
+            <p>{{ message?.message }}</p>
         </div>
     </ng-template>
 </p-confirmpopup>
@@ -92,8 +92,8 @@ export class TemplateDoc {
             <div
                 class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0"
             >
-                <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
-                <p>{{ message.message }}</p>
+                <i [class]="message?.icon" class="!text-6xl text-primary-500"></i>
+                <p>{{ message?.message }}</p>
             </div>
         </ng-template>
     </p-confirmpopup>

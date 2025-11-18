@@ -1,12 +1,12 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'confirm-popup-headless-demo',
@@ -21,7 +21,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-confirmpopup #cp>
                 <ng-template #headless let-message>
                     <div class="rounded p-4">
-                        <span>{{ message.message }}</span>
+                        <span>{{ message?.message }}</span>
                         <div class="flex items-center gap-2 mt-4">
                             <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
                             <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
@@ -59,7 +59,7 @@ export class HeadlessDoc {
 <p-confirmpopup #cp>
     <ng-template #headless let-message>
         <div class="rounded p-4">
-            <span>{{ message.message }}</span>
+            <span>{{ message?.message }}</span>
             <div class="flex items-center gap-2 mt-4">
                 <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
                 <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
@@ -74,7 +74,7 @@ export class HeadlessDoc {
     <p-confirmpopup #cp>
         <ng-template #headless let-message>
             <div class="rounded p-4">
-                <span>{{ message.message }}</span>
+                <span>{{ message?.message }}</span>
                 <div class="flex items-center gap-2 mt-4">
                     <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
                     <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
