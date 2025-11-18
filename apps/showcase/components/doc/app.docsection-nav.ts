@@ -45,7 +45,7 @@ import { fromEvent } from 'rxjs';
                     <div class="text-xl font-semibold flex flex-col gap-2 text-center">
                         <span class="leading-none">{{ ad.title }}</span>
                     </div>
-                    <div class="text-center text-sm mt-4 text-secondary">{{ ad.details }}</div>
+                    <div class="text-center text-sm mt-4">{{ ad.details }}</div>
                     <span class="flex justify-center mt-4">
                         @if (ad.href) {
                             <a pButton label="Learn More" size="small" [href]="ad.href" target="_blank" rel="noopener" rounded></a>
@@ -56,6 +56,18 @@ import { fromEvent } from 'rxjs';
                     </span>
                 </div>
             }
+
+            <div class="mt-8 p-4 rounded-lg border border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-900 w-full">
+                <img src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/store.images/discount/nov25/showcase/primestore-novembersale-2025-sm.jpg" class="w-full rounded-lg" alt="November Sale 2025" />
+                <div class="text-xl font-semibold flex flex-col gap-2 text-center mt-4" *ngIf="false">
+                    <span class="leading-none">November SALE</span>
+                    <span class="leading-none text-primary">2025</span>
+                </div>
+                <div class="text-center text-sm mt-4">Limited coupons for PrimeStore's biggest sale. Claim yours before they're gone!</div>
+                <span class="flex justify-center">
+                    <a pButton label="Claim Coupon" size="small" href="https://primeui.store" target="_blank" rel="noopener" class="mt-4 inline-flex" rounded></a>
+                </span>
+            </div>
         </div>
     `
 })
