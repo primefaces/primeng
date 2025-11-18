@@ -145,20 +145,6 @@ export class Message extends BaseComponent<MessagePassThrough> {
      */
     @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-message-enter'
-     * @group Props
-     * @deprecated since v21.0.0, use `motionOptions` instead.
-     */
-    enterAnimation = input<string | null | undefined>('p-message-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-message-leave'
-     * @group Props
-     * @deprecated since v21.0.0, use `motionOptions` instead.
-     */
-    leaveAnimation = input<string | null | undefined>('p-message-leave');
-    /**
      * Defines the size of the component.
      * @group Props
      */
