@@ -22,12 +22,14 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { $dt } from '@primeuix/styled';
-import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice, removeChild } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
@@ -43,31 +45,32 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
 @Component({
     selector: 'p-popover',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [CommonModule, SharedModule, Bind, MotionModule],
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
     hostDirectives: [Bind],
     template: `
-        @if (render && overlayVisible) {
-            <div
-                [pBind]="ptm('root')"
-                [class]="cn(cx('root'), styleClass)"
-                [ngStyle]="style"
-                (click)="onOverlayClick($event)"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd()"
-                role="dialog"
-                [attr.aria-modal]="overlayVisible"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledBy]="ariaLabelledBy"
-            >
-                <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
-                    <ng-content></ng-content>
-                    <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
-                </div>
+        <div
+            [pBind]="ptm('root')"
+            [class]="cn(cx('root'), styleClass)"
+            [ngStyle]="style"
+            (click)="onOverlayClick($event)"
+            role="dialog"
+            [attr.aria-modal]="render && overlayVisible"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
+            [pMotion]="overlayVisible"
+            [pMotionAppear]="true"
+            [pMotionEnterActiveClass]="enterAnimation()"
+            [pMotionLeaveActiveClass]="leaveAnimation()"
+            [pMotionOptions]="computedMotionOptions()"
+            (pMotionOnBeforeEnter)="onAnimationStart($event)"
+            (pMotionOnAfterLeave)="onAnimationEnd()"
+        >
+            <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+                <ng-content></ng-content>
+                <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
             </div>
-        }
+        </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
@@ -111,7 +114,19 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -314,9 +329,11 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    restoreAppend() {
-        if (this.container && this.$appendTo() && this.$appendTo() !== 'self') {
-            appendChild(this.el.nativeElement, this.container);
+    removeOverlay() {
+        if (this.$appendTo() === 'body') {
+            removeChild(this.document.body, this.container!);
+        } else {
+            removeChild(this.$appendTo(), this.container!);
         }
     }
 
@@ -347,9 +364,9 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    onAnimationStart(event: AnimationEvent) {
+    onAnimationStart(el: HTMLDivElement) {
         if (this.overlayVisible && this.render && !this.container) {
-            this.container = <HTMLDivElement>event.target;
+            this.container = el;
             this.container?.setAttribute(this.$attrSelector, '');
             this.appendOverlay();
             this.align();
@@ -469,6 +486,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
             this.target = null;
         }
 
+        this.removeOverlay();
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
@@ -490,7 +508,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
         this.destroyCallback = null;
         if (this.container) {
-            this.restoreAppend();
+            this.removeOverlay();
             this.onContainerDestroy();
         }
 
