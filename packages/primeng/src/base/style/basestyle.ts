@@ -43,12 +43,12 @@ const extendedStyle = /*css*/ `
 
     .p-collapsible-leave-active {
         overflow: hidden;
-        transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
+        transition: max-height 200ms ease-out;
     }
 
     .p-collapsible-enter-active {
         overflow: hidden;
-        transition: max-height 400ms cubic-bezier(0.86, 0, 0.07, 1);
+        transition: max-height 200ms ease-out;
     }
     /***************************** */
 
