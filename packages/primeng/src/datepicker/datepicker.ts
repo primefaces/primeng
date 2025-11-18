@@ -3007,25 +3007,56 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         event.preventDefault();
     }
 
+    getDaysInMonth(month: number, year: number): number {
+        return month === 2 ? (this.isLeapYear(year) ? 29 : 28) : [31, 30, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+    }
+
+    isLeapYear(year: number): boolean {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+
     onUserInput(event: KeyboardEvent | any) {
-        // IE 11 Workaround for input placeholder : https://github.com/primefaces/primeng/issues/2026
-        if (!this.isKeydown) {
+        const input = event.target as HTMLInputElement;
+
+        const oldValue = input.value;
+        const oldCursor = input.selectionStart || 0;
+
+        let numbers = oldValue.replace(/\D/g, '').substring(0, 8);
+
+        let masked = '';
+        if (numbers.length >= 1) masked = numbers.substring(0, 2);
+        if (numbers.length >= 3) masked += '/' + numbers.substring(2, 4);
+        if (numbers.length >= 5) masked += '/' + numbers.substring(4, 8);
+
+        const maskedBeforeCursor = oldValue.substring(0, oldCursor).replace(/\D/g, '');
+        const newCursor = maskedBeforeCursor.length + (maskedBeforeCursor.length >= 2 ? 1 : 0) + (maskedBeforeCursor.length >= 4 ? 1 : 0);
+
+        input.value = masked;
+        input.setSelectionRange(newCursor, newCursor);
+
+        if (numbers.length !== 8) {
+            this.onInput.emit(event);
             return;
         }
-        this.isKeydown = false;
 
-        let val = (<HTMLInputElement>event.target).value;
-        try {
-            let value = this.parseValueFromString(val);
-            if (this.isValidSelection(value)) {
-                this.updateModel(value);
-                this.updateUI();
-            } else if (this.keepInvalid) {
-                this.updateModel(value);
-            }
-        } catch (err) {
-            //invalid date
-            let value = this.keepInvalid ? val : null;
+        let month = Math.min(Math.max(parseInt(numbers.substring(0, 2), 10), 1), 12);
+        let day = parseInt(numbers.substring(2, 4), 10);
+        let year = parseInt(numbers.substring(4, 8), 10);
+
+        const maxDay = this.getDaysInMonth(month, year);
+        day = Math.min(Math.max(day, 1), maxDay);
+
+        const corrected = `${month.toString().padStart(2, '0')}/` + `${day.toString().padStart(2, '0')}/` + `${year}`;
+
+        input.value = corrected;
+        input.setSelectionRange(newCursor, newCursor);
+
+        const value = this.parseValueFromString(corrected);
+
+        if (this.isValidSelection(value)) {
+            this.updateModel(value);
+            this.updateUI();
+        } else if (this.keepInvalid) {
             this.updateModel(value);
         }
 
