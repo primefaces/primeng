@@ -296,11 +296,13 @@ export class Menu extends BaseComponent<MenuPassThrough> {
     @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the show animation.
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      * @group Props
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.1s linear';
