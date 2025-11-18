@@ -468,25 +468,21 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     }
 
     onBeforeEnter(element: HTMLElement) {
-        if (this.visible && !this.container) {
-            this.container = element as HTMLDivElement;
-            this.appendContainer();
-            this.show();
+        this.container = element as HTMLDivElement;
+        this.appendContainer();
+        this.show();
 
-            if (this.closeOnEscape) {
-                this.bindDocumentEscapeListener();
-            }
+        if (this.closeOnEscape) {
+            this.bindDocumentEscapeListener();
         }
     }
 
     onAfterLeave() {
-        if (!this.visible && this.container) {
-            this.hide(false);
-            ZIndexUtils.clear(this.container);
-            this.unbindGlobalListeners();
-            this.modalVisible = false;
-            this.container = null;
-        }
+        this.hide(false);
+        ZIndexUtils.clear(this.container);
+        this.unbindGlobalListeners();
+        this.modalVisible = false;
+        this.container = null;
     }
 
     appendContainer() {
