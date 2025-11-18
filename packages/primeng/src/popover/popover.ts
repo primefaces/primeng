@@ -24,7 +24,7 @@ import {
 } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { $dt } from '@primeuix/styled';
-import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice, removeChild } from '@primeuix/utils';
+import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -49,28 +49,27 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
     hostDirectives: [Bind],
     template: `
-        <div
-            [pBind]="ptm('root')"
-            [class]="cn(cx('root'), styleClass)"
-            [ngStyle]="style"
-            (click)="onOverlayClick($event)"
-            role="dialog"
-            [attr.aria-modal]="render && overlayVisible"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledBy]="ariaLabelledBy"
-            [pMotion]="overlayVisible"
-            [pMotionAppear]="true"
-            [pMotionEnterActiveClass]="enterAnimation()"
-            [pMotionLeaveActiveClass]="leaveAnimation()"
-            [pMotionOptions]="computedMotionOptions()"
-            (pMotionOnBeforeEnter)="onAnimationStart($event)"
-            (pMotionOnAfterLeave)="onAnimationEnd()"
-        >
-            <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
-                <ng-content></ng-content>
-                <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
-            </div>
-        </div>
+        @if (render) {
+            <p-motion
+                [visible]="overlayVisible"
+                name="p-popover"
+                [appear]="true"
+                [options]="motionOptions()"
+                (onBeforeEnter)="onOverlayBeforeEnter($event)"
+                (onEnter)="onOverlayEnter($event)"
+                (onAfterEnter)="onOverlayAfterEnter($event)"
+                (onBeforeLeave)="onOverlayBeforeLeave($event)"
+                (onLeave)="onOverlayLeave($event)"
+                (onAfterLeave)="onOverlayAfterLeave($event)"
+            >
+                <div [pBind]="ptm('root')" [class]="cn(cx('root'), styleClass)" [ngStyle]="style" (click)="onOverlayClick($event)" role="dialog" [attr.aria-modal]="overlayVisible" [attr.aria-label]="ariaLabel" [attr.aria-labelledBy]="ariaLabelledBy">
+                    <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+                        <ng-content></ng-content>
+                        <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
+                    </div>
+                </div>
+            </p-motion>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
@@ -114,19 +113,12 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
      * The motion options.
      * @group Props
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
-
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -329,11 +321,9 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    removeOverlay() {
-        if (this.$appendTo() === 'body') {
-            removeChild(this.document.body, this.container!);
-        } else {
-            removeChild(this.$appendTo(), this.container!);
+    restoreAppend() {
+        if (this.container && this.$appendTo() && this.$appendTo() !== 'self') {
+            appendChild(this.el.nativeElement, this.container);
         }
     }
 
@@ -364,9 +354,9 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    onAnimationStart(el: HTMLDivElement) {
+    onAnimationStart(event: AnimationEvent) {
         if (this.overlayVisible && this.render && !this.container) {
-            this.container = el;
+            this.container = <HTMLDivElement>event.target;
             this.container?.setAttribute(this.$attrSelector, '');
             this.appendOverlay();
             this.align();
@@ -411,6 +401,18 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
             this.container = null;
         }
     }
+
+    onOverlayBeforeEnter(event: AnimationEvent) {}
+
+    onOverlayEnter(event: AnimationEvent) {}
+
+    onOverlayAfterEnter(event: AnimationEvent) {}
+
+    onOverlayBeforeLeave(event: AnimationEvent) {}
+
+    onOverlayLeave(event: AnimationEvent) {}
+
+    onOverlayAfterLeave(event: AnimationEvent) {}
 
     focus() {
         let focusable = <any>findSingle(this.container!, '[autofocus]');
@@ -486,7 +488,6 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
             this.target = null;
         }
 
-        this.removeOverlay();
         this.unbindDocumentClickListener();
         this.unbindDocumentResizeListener();
         this.unbindScrollListener();
@@ -508,7 +509,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
         this.destroyCallback = null;
         if (this.container) {
-            this.removeOverlay();
+            this.restoreAppend();
             this.onContainerDestroy();
         }
 
