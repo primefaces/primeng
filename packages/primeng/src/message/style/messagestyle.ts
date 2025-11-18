@@ -6,11 +6,11 @@ ${message_style}
 
 /* Animations */
 
-.p-message-enter {
+.p-message-enter-active {
     animation: p-animate-message-enter 300ms ease-out;
 }
 
-.p-message-leave {
+.p-message-leave-active {
     animation: p-animate-message-enter 200ms cubic-bezier(0.86, 0, 0.07, 1);
 }
 
