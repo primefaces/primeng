@@ -4,18 +4,18 @@ import { BaseStyle } from 'primeng/base';
 const style = /*css*/ `
 ${toast_style}
 /* Animations */
-.p-toast-enter {
+.p-toast-enter-active {
     animation: p-toast-enter-animation 450ms cubic-bezier(0, 1, 0, 1);
 }
 
-.p-toast-leave {
+.p-toast-leave-active {
     animation: p-toast-leave-animation 250ms ease-out;
 }
 
 /* Bottom positions - slide down on leave */
-.p-toast.p-toast-bottom-left .p-toast-message.p-toast-leave,
-.p-toast.p-toast-bottom-right .p-toast-message.p-toast-leave,
-.p-toast.p-toast-bottom-center .p-toast-message.p-toast-leave {
+.p-toast.p-toast-bottom-left .p-toast-message.p-toast-leave-active,
+.p-toast.p-toast-bottom-right .p-toast-message.p-toast-leave-active,
+.p-toast.p-toast-bottom-center .p-toast-message.p-toast-leave-active {
     animation: p-toast-leave-bottom-animation 250ms ease-out;
 }
 

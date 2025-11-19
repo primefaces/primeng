@@ -1,11 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { getWindowScrollTop } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { ChevronUpIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import { ZIndexUtils } from 'primeng/utils';
 import { ScrollTopStyle } from './style/scrolltopstyle';
@@ -19,23 +21,10 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
 @Component({
     selector: 'p-scrollTop, p-scrolltop, p-scroll-top',
     standalone: true,
-    imports: [CommonModule, ChevronUpIcon, Button, SharedModule],
+    imports: [CommonModule, ChevronUpIcon, Button, SharedModule, MotionModule],
     template: `
-        @if (visible) {
-            <p-button
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd()"
-                [attr.aria-label]="buttonAriaLabel"
-                (click)="onClick()"
-                [pt]="ptm('pcButton')"
-                [styleClass]="cn(cx('root'), styleClass)"
-                [ngStyle]="style"
-                type="button"
-                [buttonProps]="buttonProps"
-                [unstyled]="unstyled()"
-            >
+        <p-motion [visible]="visible" name="p-scrolltop" [options]="computedMotionOptions()" (onBeforeEnter)="onAnimationStart($event)" (onBeforeLeave)="onAnimationEnd()">
+            <p-button [attr.aria-label]="buttonAriaLabel" (click)="onClick()" [pt]="ptm('pcButton')" [styleClass]="cn(cx('root'), styleClass)" [ngStyle]="style" type="button" [buttonProps]="buttonProps" [unstyled]="unstyled()">
                 <ng-template #icon>
                     <ng-container *ngIf="!iconTemplate && !_iconTemplate">
                         <span *ngIf="_icon" [class]="cn(cx('icon'), _icon)"></span>
@@ -44,7 +33,7 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
                     <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { styleClass: cx('icon') }"></ng-template>
                 </ng-template>
             </p-button>
-        }
+        </p-motion>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -95,25 +84,27 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
     /**
      * A string value used to determine the display transition options.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.15s';
     /**
      * A string value used to determine the hiding transition options.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.15s';
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-scrolltop-enter'
+     * The motion options.
      * @group Props
      */
-    enterAnimation = input<string | null | undefined>('p-scrolltop-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-scrolltop-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-scrolltop-leave');
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Establishes a string value that labels the scroll-top button.
      * @group Props
@@ -173,19 +164,15 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
         });
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (this.visible) {
-            this.overlay = event.target;
-            this.overlay.style.position = 'fixed';
-            ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-        }
+    onAnimationStart(el: HTMLElement) {
+        this.overlay = el;
+        this.overlay.style.position = 'fixed';
+        ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
     }
 
     onAnimationEnd() {
-        if (!this.visible) {
-            ZIndexUtils.clear(this.overlay);
-            this.overlay = null;
-        }
+        ZIndexUtils.clear(this.overlay);
+        this.overlay = null;
     }
 
     checkVisibility(scrollY: number) {

@@ -6,25 +6,23 @@ const style = /*css*/ `
 ${scrolltop_style}
 
 /* Animations */
-.p-scrolltop-enter {
-    animation: p-animate-scrolltop-enter 300ms cubic-bezier(.19,1,.22,1);
+.p-scrolltop-enter-active {
+    animation: p-animate-scrolltop-enter .15s;
 }
 
-.p-scrolltop-leave {
-    animation: p-animate-scrolltop-leave 300ms cubic-bezier(.19,1,.22,1);
+.p-scrolltop-leave-active {
+    animation: p-animate-scrolltop-leave .15s;
 }
 
 @keyframes p-animate-scrolltop-enter {
     from {
         opacity: 0;
-        transform: scale(0.93);
     }
 }
 
 @keyframes p-animate-scrolltop-leave {
     from {
-        opacity: 0;
-        transform: scale(0.93);
+        opacity: 1;
     }
 }
 `;

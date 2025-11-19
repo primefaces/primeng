@@ -21,6 +21,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
+import { MotionOptions } from '@primeuix/motion';
 import { appendChild, focus } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -28,6 +29,7 @@ import { Bind, BindModule } from 'primeng/bind';
 import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Nullable } from 'primeng/ts-helpers';
 import { ImagePassThrough } from 'primeng/types/image';
 import { ZIndexUtils } from 'primeng/utils';
@@ -42,7 +44,7 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
 @Component({
     selector: 'p-image',
     standalone: true,
-    imports: [CommonModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap, SharedModule, BindModule],
+    imports: [CommonModule, RefreshIcon, EyeIcon, UndoIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, FocusTrap, SharedModule, BindModule, MotionModule],
     template: `
         <ng-container *ngIf="!imageTemplate && !_imageTemplate">
             <img
@@ -70,19 +72,7 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                 <svg data-p-icon="eye" [class]="cx('previewIcon')" [pBind]="ptm('previewIcon')" />
             </ng-template>
         </button>
-        <div
-            #mask
-            [class]="cx('mask')"
-            *ngIf="maskVisible"
-            [attr.aria-modal]="maskVisible"
-            role="dialog"
-            (click)="onMaskClick()"
-            (keydown)="onMaskKeydown($event)"
-            pFocusTrap
-            [pBind]="ptm('mask')"
-            [animate.enter]="modalEnterAnimation()"
-            [animate.leave]="modalLeaveAnimation()"
-        >
+        <div #mask [class]="cx('mask')" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap [pBind]="ptm('mask')">
             <div [class]="cx('toolbar')" (click)="handleToolbarClick($event)" [pBind]="ptm('toolbar')">
                 <button [class]="cx('rotateRightButton')" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()" [pBind]="ptm('rotateRightButton')">
                     <svg data-p-icon="refresh" *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
@@ -105,32 +95,30 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                     <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                 </button>
             </div>
-            @if (previewVisible) {
-                <div [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart($event)" (animationend)="onAnimationEnd()">
-                    <ng-container *ngIf="!previewTemplate && !_previewTemplate">
-                        <img
-                            [attr.src]="previewImageSrc ? previewImageSrc : src"
-                            [attr.srcset]="previewImageSrcSet"
-                            [attr.sizes]="previewImageSizes"
-                            [class]="cx('original')"
-                            [ngStyle]="imagePreviewStyle()"
-                            (click)="onPreviewImageClick()"
-                            [pBind]="ptm('original')"
-                        />
-                    </ng-container>
-                    <ng-container
-                        *ngTemplateOutlet="
-                            previewTemplate || _previewTemplate;
-                            context: {
-                                class: cx('original'),
-                                style: imagePreviewStyle(),
-                                previewCallback: onPreviewImageClick.bind(this)
-                            }
-                        "
-                    >
-                    </ng-container>
-                </div>
-            }
+            <p-motion [visible]="previewVisible" name="p-image" [appear]="true" [options]="computedMotionOptions()" (onBeforeEnter)="onAnimationStart($event)" (onAfterLeave)="onAnimationEnd($event)">
+                <ng-container *ngIf="!previewTemplate && !_previewTemplate">
+                    <img
+                        [attr.src]="previewImageSrc ? previewImageSrc : src"
+                        [attr.srcset]="previewImageSrcSet"
+                        [attr.sizes]="previewImageSizes"
+                        [class]="cx('original')"
+                        [ngStyle]="imagePreviewStyle()"
+                        (click)="onPreviewImageClick()"
+                        [pBind]="ptm('original')"
+                    />
+                </ng-container>
+                <ng-container
+                    *ngTemplateOutlet="
+                        previewTemplate || _previewTemplate;
+                        context: {
+                            class: cx('original'),
+                            style: imagePreviewStyle(),
+                            previewCallback: onPreviewImageClick.bind(this)
+                        }
+                    "
+                >
+                </ng-container>
+            </p-motion>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -219,25 +207,15 @@ export class Image extends BaseComponent<ImagePassThrough> {
     /**
      * Transition options of the show animation
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-image-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-image-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-image-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-image-leave');
     /**
      * Enter animation class name of modal.
      * @defaultValue 'p-modal-enter'
@@ -256,6 +234,18 @@ export class Image extends BaseComponent<ImagePassThrough> {
      * @group Props
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Triggered when the preview overlay is shown.
      * @group Emits
@@ -480,32 +470,25 @@ export class Image extends BaseComponent<ImagePassThrough> {
         this.previewClick = true;
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (this.previewVisible) {
-            this.container = <HTMLDivElement>event.target;
-            this.wrapper = this.container?.parentElement;
-            this.$attrSelector && this.wrapper?.setAttribute(this.$attrSelector, '');
-            this.appendContainer();
-            this.moveOnTop();
-            this.onShow.emit({});
-            setTimeout(() => {
-                focus(this.closeButton?.nativeElement);
-            }, 25);
-        } else {
-            this.maskVisible = false;
-            this.cd.markForCheck();
-        }
+    onAnimationStart(event: HTMLElement) {
+        this.container = event;
+        this.wrapper = this.container?.parentElement;
+        this.$attrSelector && this.wrapper?.setAttribute(this.$attrSelector, '');
+        this.appendContainer();
+        this.moveOnTop();
+        this.onShow.emit({});
+        setTimeout(() => {
+            focus(this.closeButton?.nativeElement);
+        }, 25);
     }
 
     onAnimationEnd() {
-        if (!this.previewVisible) {
-            ZIndexUtils.clear(this.wrapper);
-            this.maskVisible = false;
-            this.container = null;
-            this.wrapper = null;
-            this.onHide.emit({});
-            this.cd.markForCheck();
-        }
+        ZIndexUtils.clear(this.wrapper);
+        this.maskVisible = false;
+        this.container = null;
+        this.wrapper = null;
+        this.onHide.emit({});
+        this.cd.markForCheck();
     }
 
     moveOnTop() {
