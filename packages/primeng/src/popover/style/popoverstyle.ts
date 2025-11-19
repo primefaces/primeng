@@ -67,11 +67,11 @@ const style = /*css*/ `
 }
 
 /* Animations */
-.p-popover-enter {
+.p-popover-enter-active {
     animation: p-animate-popover-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-popover-leave {
+.p-popover-leave-active {
     animation: p-animate-popover-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
