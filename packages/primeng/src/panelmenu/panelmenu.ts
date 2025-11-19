@@ -11,6 +11,7 @@ import {
     forwardRef,
     inject,
     InjectionToken,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -23,11 +24,13 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MotionOptions } from '@primeuix/motion';
 import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelMenuPassThrough } from 'primeng/types/panelmenu';
 import { PanelMenuStyle } from './style/panelmenustyle';
@@ -37,7 +40,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
 
 @Component({
     selector: 'ul[pPanelMenuSub]',
-    imports: [CommonModule, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule],
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule, MotionModule],
     standalone: true,
     template: `
         <ng-template ngFor let-processedItem let-index="index" [ngForOf]="items">
@@ -156,8 +159,10 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                         [unstyled]="unstyled()"
                         [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
                         (itemToggle)="onItemToggle($event)"
-                        [class.p-collapsible]="isItemGroup(processedItem)"
-                        [class.p-collapsible-open]="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
+                        pMotionName="p-collapsible"
+                        [pMotion]="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
+                        [pMotionOptions]="motionOptions()"
+                        [motionOptions]="motionOptions()"
                     ></ul>
                 </div>
             </li>
@@ -197,6 +202,8 @@ export class PanelMenuSub extends BaseComponent {
     @Input() transitionOptions: string | undefined;
 
     @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
+
+    motionOptions = input<MotionOptions>();
 
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
 
@@ -324,6 +331,7 @@ export class PanelMenuSub extends BaseComponent {
             (menuBlur)="onBlur($event)"
             [pt]="pt()"
             [unstyled]="unstyled()"
+            [motionOptions]="motionOptions()"
         ></ul>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -349,6 +357,8 @@ export class PanelMenuList extends BaseComponent {
     @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() activeItem: any;
+
+    motionOptions = input<MotionOptions>();
 
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
 
@@ -757,7 +767,7 @@ export class PanelMenuList extends BaseComponent {
  */
 @Component({
     selector: 'p-panelMenu, p-panelmenu, p-panel-menu',
-    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule],
+    imports: [CommonModule, PanelMenuList, RouterModule, TooltipModule, ChevronDownIcon, ChevronRightIcon, SharedModule, BindModule, MotionModule],
     standalone: true,
     template: `
         <ng-container *ngFor="let item of model; let f = first; let l = last; let i = index">
@@ -843,8 +853,9 @@ export class PanelMenuList extends BaseComponent {
                     [attr.id]="getContentId(item, i)"
                     [attr.aria-labelledby]="getHeaderId(item, i)"
                     [pBind]="ptm('contentContainer')"
-                    [class.p-collapsible]="isItemGroup(item)"
-                    [class.p-collapsible-open]="isItemActive(item)"
+                    pMotionName="p-collapsible"
+                    [pMotion]="isItemActive(item)"
+                    [pMotionOptions]="computedMotionOptions()"
                 >
                     <div [class]="cx('content')" [pBind]="ptm('content')">
                         <ul
@@ -860,6 +871,7 @@ export class PanelMenuList extends BaseComponent {
                             (headerFocus)="updateFocusedHeader($event)"
                             [pt]="pt()"
                             [unstyled]="unstyled()"
+                            [motionOptions]="computedMotionOptions()"
                         ></ul>
                     </div>
                 </div>
@@ -894,8 +906,21 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
     /**
      * Transition options of the animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Current id state as a string.
      * @group Props
