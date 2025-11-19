@@ -7,6 +7,7 @@ import {
     computed,
     ContentChild,
     ContentChildren,
+    effect,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -19,7 +20,9 @@ import {
     numberAttribute,
     QueryList,
     Renderer2,
+    signal,
     TemplateRef,
+    untracked,
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -51,11 +54,11 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
     providers: [ConfirmPopupStyle, { provide: CONFIRMPOPUP_INSTANCE, useExisting: ConfirmPopup }, { provide: PARENT_INSTANCE, useExisting: ConfirmPopup }],
     hostDirectives: [Bind],
     template: `
-        @if (visible) {
+        @if (render()) {
             <div
-                [pMotion]="visible"
+                [pMotion]="computedVisible()"
                 [pMotionAppear]="true"
-                [pMotionName]="'p-confirmpopup'"
+                [pMotionName]="'p-confirm-popup'"
                 [pMotionOptions]="computedMotionOptions()"
                 (pMotionOnBeforeEnter)="onAnimationStart($event)"
                 (pMotionOnAfterLeave)="onAnimationEnd()"
@@ -160,18 +163,6 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-confirmpopup-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-confirmpopup-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-confirmpopup-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-confirmpopup-leave');
-    /**
      * Whether to automatically manage layering.
      * @group Props
      */
@@ -195,13 +186,14 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * Defines if the component is visible.
      * @group Props
      */
-    @Input() get visible(): any {
-        return this._visible;
-    }
-    set visible(value: any) {
-        this._visible = value;
-        this.cd.markForCheck();
-    }
+    visible = input<boolean>();
+
+    private _visible = signal<boolean>(false);
+
+    computedVisible = computed(() => this.visible() ?? this._visible());
+
+    render = signal<boolean>(false);
+
     /**
      * The motion options.
      * @group Props
@@ -253,8 +245,6 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     _headlessTemplate: TemplateRef<any> | undefined;
 
-    _visible: boolean | undefined;
-
     documentClickListener: VoidListener;
 
     documentResizeListener: VoidListener;
@@ -299,7 +289,17 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
                     this.confirmation.rejectEvent.subscribe(this.confirmation.reject);
                 }
 
-                this.visible = true;
+                this._visible.set(true);
+            }
+        });
+
+        effect(() => {
+            if (this.computedVisible()) {
+                untracked(() => {
+                    if (!this.render()) {
+                        this.render.set(true);
+                    }
+                });
             }
         });
     }
@@ -367,6 +367,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     onAnimationEnd() {
+        this.restoreAppend();
         this.onContainerDestroy();
     }
 
@@ -429,8 +430,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     hide() {
-        this.restoreAppend();
-        this.visible = false;
+        this._visible.set(false);
     }
 
     onAccept() {
@@ -501,7 +501,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     onWindowResize() {
-        if (this.visible && !isTouchDevice()) {
+        if (this.computedVisible() && !isTouchDevice()) {
             this.hide();
         }
     }
@@ -522,7 +522,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.confirmation?.target, () => {
-                if (this.visible) {
+                if (this.computedVisible()) {
                     this.hide();
                 }
             });
@@ -558,6 +558,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
 
         this.confirmation = null;
+        this.render.set(false);
         this.container = null;
     }
 
