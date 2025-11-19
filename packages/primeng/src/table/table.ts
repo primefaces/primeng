@@ -6204,16 +6204,16 @@ export class ColumnFilter extends BaseComponent {
 
     isOutsideClicked(event: any): boolean {
         return !(
-            find((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-section="filteroverlay"]') ||
-            find((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-name="popover"]') ||
+            findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-section="filteroverlay"]') ||
+            findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-name="popover"]') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
             this.icon?.nativeElement.isSameNode(event.target) ||
             this.icon?.nativeElement.contains(event.target) ||
-            find(event.target, '[data-pc-name="pcaddrulebuttonlabel"]') ||
-            find(event.target.parentElement, '[data-pc-name="pcaddrulebuttonlabel"]') ||
-            find(event.target, '[data-pc-name="pcfilterremoverulebutton"]') ||
-            find(event.target.parentElement, '[data-pc-name="pcfilterremoverulebutton"]')
+            findSingle(event.target, '[data-pc-name="pcaddrulebuttonlabel"]') ||
+            findSingle(event.target.parentElement, '[data-pc-name="pcaddrulebuttonlabel"]') ||
+            findSingle(event.target, '[data-pc-name="pcfilterremoverulebutton"]') ||
+            findSingle(event.target.parentElement, '[data-pc-name="pcfilterremoverulebutton"]')
         );
     }
 
