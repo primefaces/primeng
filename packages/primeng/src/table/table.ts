@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     Directive,
@@ -27,7 +28,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { absolutePosition, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@primeuix/utils';
+import { absolutePosition, addStyle, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@primeuix/utils';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -49,6 +50,7 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TrashIcon } from 'primeng/icons/trash';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { MotionModule } from 'primeng/motion';
 import { PaginatorModule } from 'primeng/paginator';
 import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from 'primeng/radiobutton';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
@@ -80,6 +82,7 @@ import {
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
+import { MotionOptions } from '@primeuix/motion';
 
 const TABLE_INSTANCE = new InjectionToken<Table>('TABLE_INSTANCE');
 
@@ -5404,20 +5407,9 @@ export class ReorderableRow extends BaseComponent {
                     </ng-container>
                 </ng-template>
             </p-button>
-            @if (showMenu && overlayVisible) {
-                <div
-                    [class]="cx('filterOverlay')"
-                    [pBind]="ptm('filterOverlay')"
-                    [id]="overlayId"
-                    [attr.aria-modal]="true"
-                    role="dialog"
-                    (click)="onContentClick()"
-                    [animate.enter]="enterAnimation()"
-                    [animate.leave]="leaveAnimation()"
-                    (animationstart)="onOverlayAnimationStart($event)"
-                    (animationend)="onOverlayAnimationEnd($event)"
-                    (keydown.escape)="onEscape()"
-                >
+
+            <p-motion [visible]="showMenu && overlayVisible" name="p-columnfilter-overlay" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAnimationAfterLeave($event)" [options]="computedMotionOptions()">
+                <div [class]="cx('filterOverlay')" [pBind]="ptm('filterOverlay')" [id]="overlayId" [attr.aria-modal]="true" role="dialog" (click)="onContentClick()" (keydown.escape)="onEscape()">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: field }"></ng-container>
                     <ul *ngIf="display === 'row'; else menu" [class]="cx('filterConstraintList')" [pBind]="ptm('filterConstraintList')">
                         <li
@@ -5538,7 +5530,7 @@ export class ReorderableRow extends BaseComponent {
                     </ng-template>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: field }"></ng-container>
                 </div>
-            }
+            </p-motion>
         </div>
     `,
     providers: [TableStyle],
@@ -5731,18 +5723,14 @@ export class ColumnFilter extends BaseComponent {
             clear: { outlined: true, size: 'small' }
         }
     };
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-columnfilter-overlay-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-columnfilter-overlay-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-columnfilter-overlay-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-columnfilter-overlay-leave');
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Callback to invoke on overlay is shown.
      * @param {AnimationEvent} originalEvent - animation event.
@@ -6129,41 +6117,47 @@ export class ColumnFilter extends BaseComponent {
         this.selfClick = true;
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        if (this.overlayVisible) {
-            this.overlay = <HTMLDivElement>event.target;
-            if (this.overlay && this.overlay.parentElement !== this.document.body) {
-                const buttonEl = <HTMLButtonElement>findSingle(this.el.nativeElement, '[data-pc-name="pccolumnfilterbutton"]');
-                appendChild(this.document.body, this.overlay);
-                absolutePosition(this.overlay, buttonEl);
-                ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
-            }
-
-            this.bindDocumentClickListener();
-            this.bindDocumentResizeListener();
-            this.bindScrollListener();
-
-            this.overlayEventListener = (e: any) => {
-                if (this.overlay && this.overlay.contains(e.target)) {
-                    this.selfClick = true;
-                }
-            };
-
-            this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
-            this.onShow.emit({ originalEvent: event });
-            this.focusOnFirstElement();
+    onOverlayBeforeEnter(element: HTMLElement) {
+        this.overlay = <HTMLDivElement>element;
+        if (this.overlay && this.overlay.parentElement !== this.document.body) {
+            const buttonEl = <HTMLButtonElement>findSingle(this.el.nativeElement, '[data-pc-name="pccolumnfilterbutton"]');
+            appendChild(this.document.body, this.overlay);
+            addStyle(this.overlay!, { position: 'absolute', top: '0' });
+            absolutePosition(this.overlay, buttonEl);
+            ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
         }
+
+        this.bindDocumentClickListener();
+        this.bindDocumentResizeListener();
+        this.bindScrollListener();
+
+        this.overlayEventListener = (e: any) => {
+            if (this.overlay && this.overlay.contains(e.target)) {
+                this.selfClick = true;
+            }
+        };
+
+        this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
+        // TODO: UPDATE EVENT
+        this.onShow.emit({ originalEvent: element as any });
+        this.focusOnFirstElement();
     }
 
-    onOverlayAnimationEnd(event: AnimationEvent) {
-        if (!this.overlayVisible) {
-            this.onOverlayHide();
+    onOverlayAnimationAfterLeave(element: HTMLElement) {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
 
-            if (this.overlaySubscription) {
-                this.overlaySubscription.unsubscribe();
-            }
-            ZIndexUtils.clear(this.overlay);
-            this.onHide.emit({ originalEvent: event });
+        if (this.overlaySubscription) {
+            this.overlaySubscription.unsubscribe();
+        }
+        ZIndexUtils.clear(this.overlay);
+        // TODO: UPDATE EVENT
+        this.onHide.emit({ originalEvent: element as any });
+    }
+
+    restoreOverlayAppend() {
+        if (this.overlay) {
+            this.el.nativeElement.appendChild(this.overlay!);
         }
     }
 
@@ -6523,7 +6517,8 @@ export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrou
         PlusIcon,
         TrashIcon,
         RadioButtonModule,
-        BindModule
+        BindModule,
+        MotionModule
     ],
     exports: [
         Table,
