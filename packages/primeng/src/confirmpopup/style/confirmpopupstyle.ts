@@ -6,11 +6,11 @@ ${confirmpopup_style}
 
 /* Animations */
 
-.p-confirmpopup-enter {
+.p-confirmpopup-enter-active {
     animation: p-animate-confirmpopup-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-confirmpopup-leave {
+.p-confirmpopup-leave-active {
     animation: p-animate-confirmpopup-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 

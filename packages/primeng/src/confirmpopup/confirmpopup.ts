@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -22,13 +23,15 @@ import {
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { absolutePosition, addClass, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
+import { MotionOptions } from '@primeuix/motion';
+import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
+import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
 import { ZIndexUtils } from 'primeng/utils';
@@ -44,22 +47,24 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
 @Component({
     selector: 'p-confirmpopup',
     standalone: true,
-    imports: [CommonModule, SharedModule, ButtonModule, FocusTrap, Bind],
+    imports: [CommonModule, SharedModule, ButtonModule, FocusTrap, Bind, MotionModule],
     providers: [ConfirmPopupStyle, { provide: CONFIRMPOPUP_INSTANCE, useExisting: ConfirmPopup }, { provide: PARENT_INSTANCE, useExisting: ConfirmPopup }],
     hostDirectives: [Bind],
     template: `
         @if (visible) {
             <div
+                [pMotion]="visible"
+                [pMotionAppear]="true"
+                [pMotionName]="'p-confirmpopup'"
+                [pMotionOptions]="computedMotionOptions()"
+                (pMotionOnBeforeEnter)="onAnimationStart($event)"
+                (pMotionOnAfterLeave)="onAnimationEnd()"
                 pFocusTrap
                 [pBind]="ptm('root')"
                 [class]="cn(cx('root'), styleClass)"
                 [ngStyle]="style"
                 role="alertdialog"
                 (click)="onOverlayClick($event)"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd()"
             >
                 <ng-container *ngIf="headlessTemplate || _headlessTemplate; else notHeadless">
                     <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate; context: { $implicit: confirmation }"></ng-container>
@@ -145,11 +150,13 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
@@ -195,8 +202,28 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         this._visible = value;
         this.cd.markForCheck();
     }
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
 
-    container: Nullable<HTMLDivElement>;
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
+    /**
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'body'
+     * @group Props
+     */
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
+
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
+
+    container: HTMLElement | null;
 
     subscription: Subscription;
 
@@ -320,14 +347,14 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (this.visible) {
-            this.container = <HTMLDivElement>event.target;
-            DomHandler.appendOverlay(this.document.body, this.container);
-            this.align();
-            this.handleFocus();
-            this.bindListeners();
-        }
+    onAnimationStart(el: HTMLElement) {
+        this.container = el;
+        this.appendOverlay();
+        this.alignOverlay();
+        this.alignArrow();
+        this.setZIndex();
+        this.handleFocus();
+        this.bindListeners();
     }
 
     handleFocus() {
@@ -340,9 +367,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     onAnimationEnd() {
-        if (!this.visible) {
-            this.onContainerDestroy();
-        }
+        this.onContainerDestroy();
     }
 
     getAcceptButtonProps() {
@@ -353,16 +378,21 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         return this.option('rejectButtonProps');
     }
 
-    align() {
-        if (this.autoZIndex) {
-            ZIndexUtils.set('overlay', this.container, this.config.zIndex.overlay);
-        }
-
+    alignOverlay() {
         if (!this.confirmation || !this.confirmation.target) {
             return;
         }
-        absolutePosition(this.container as HTMLDivElement, this.confirmation?.target as any, false);
 
+        absolutePosition(this.container!, this.confirmation?.target as HTMLElement, false);
+    }
+
+    setZIndex() {
+        if (this.autoZIndex) {
+            ZIndexUtils.set('overlay', this.container, this.config.zIndex.overlay);
+        }
+    }
+
+    alignArrow() {
         const containerOffset = <any>getOffset(this.container);
         const targetOffset = <any>getOffset(this.confirmation?.target as any);
         let arrowLeft = 0;
@@ -380,7 +410,26 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
     }
 
+    appendOverlay() {
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.container!);
+            } else {
+                appendChild(this.$appendTo(), this.container!);
+            }
+        }
+    }
+
+    restoreAppend() {
+        if (this.container && this.$appendTo() !== 'self') {
+            appendChild(this.el.nativeElement, this.container);
+        }
+
+        this.onContainerDestroy();
+    }
+
     hide() {
+        this.restoreAppend();
         this.visible = false;
     }
 
@@ -510,14 +559,6 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
         this.confirmation = null;
         this.container = null;
-    }
-
-    restoreAppend() {
-        if (this.container) {
-            this.renderer.removeChild(this.document.body, this.container);
-        }
-
-        this.onContainerDestroy();
     }
 
     get acceptButtonLabel(): string {
