@@ -41,7 +41,7 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
     imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, SharedModule, BindModule, MotionModule],
     template: `
         @if (node) {
-            <tbody [pBind]="ptm('body')" pMotionName="p-organization-chart" [pMotion]="node.expanded || node">
+            <tbody [pBind]="ptm('body')" pMotionName="p-organization-chart" [pMotion]="node.expanded || node" [pMotionOptions]="motionOptions()">
                 <tr [pBind]="ptm('row')">
                     <td [attr.colspan]="colspan" [pBind]="ptm('cell')">
                         <div [class]="cn(cx('node'), node.styleClass)" (click)="onNodeClick($event, node)" [pBind]="getPTOptions('node')">
