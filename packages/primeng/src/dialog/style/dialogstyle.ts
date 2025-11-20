@@ -4,11 +4,11 @@ import { BaseStyle } from 'primeng/base';
 const style = /*css*/ `
 ${dialog_style}
 /* Animations */
-.p-dialog-enter {
+.p-dialog-enter-active {
     animation: p-animate-dialog-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-dialog-leave {
+.p-dialog-leave-active {
     animation: p-animate-dialog-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 

@@ -6,11 +6,11 @@ const style = /*css*/ `
 ${galleria_style}
 
 /* Animations */
-.p-galleria-enter {
+.p-galleria-enter-active {
     animation: p-animate-galleria-enter 150ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.p-galleria-leave {
+.p-galleria-leave-active {
     animation: p-animate-galleria-leave 150ms cubic-bezier(0, 0, 0.2, 1);
 }
 
