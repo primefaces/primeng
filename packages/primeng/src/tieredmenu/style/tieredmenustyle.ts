@@ -10,11 +10,11 @@ ${tieredmenu_style}
     top: 0px;
 }
 
-.p-tieredmenu-enter {
+.p-tieredmenu-enter-active {
     animation: p-animate-tieredmenu-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-tieredmenu-leave {
+.p-tieredmenu-leave-active {
     animation: p-animate-tieredmenu-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
@@ -26,9 +26,13 @@ ${tieredmenu_style}
 }
 
 @keyframes p-animate-tieredmenu-leave {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
     to {
         opacity: 0;
-        transform: scale(0.93);
+        transform: scale(0.93) 
     }
 }
 `;

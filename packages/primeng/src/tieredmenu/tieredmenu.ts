@@ -27,7 +27,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
+import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -39,6 +39,8 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { TieredMenuPassThrough } from 'primeng/types/tieredmenu';
 import { ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
+import { MotionModule } from 'primeng/motion';
+import { MotionOptions } from '@primeuix/motion';
 
 const TIEREDMENU_INSTANCE = new InjectionToken<TieredMenu>('TIEREDMENU_INSTANCE');
 const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_INSTANCE');
@@ -394,21 +396,10 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
 @Component({
     selector: 'p-tieredMenu, p-tieredmenu, p-tiered-menu',
     standalone: true,
-    imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule],
+    imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule, MotionModule],
     template: `
-        @if (!popup || visible) {
-            <div
-                #container
-                [id]="id"
-                [class]="cn(cx('root'), styleClass)"
-                [ngStyle]="style"
-                [pBind]="ptm('root')"
-                (click)="onOverlayClick($event)"
-                [animate.enter]="popup ? enterAnimation() : null"
-                [animate.leave]="popup ? leaveAnimation() : null"
-                (animationstart)="onOverlayAnimationStart($event)"
-                (animationend)="onOverlayAnimationEnd()"
-            >
+        <p-motion [visible]="!popup || visible" name="p-tieredmenu" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onAfterLeave()" [options]="computedMotionOptions()">
+            <div #container [id]="id" [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [pBind]="ptm('root')" (click)="onOverlayClick($event)">
                 <p-tieredMenuSub
                     #rootmenu
                     [root]="true"
@@ -433,7 +424,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
                     [unstyled]="unstyled()"
                 ></p-tieredMenuSub>
             </div>
-        }
+        </p-motion>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -491,25 +482,15 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-tieredmenu-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-tieredmenu-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-tieredmenu-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-tieredmenu-leave');
     /**
      * Current id state as a string.
      * @group Props
@@ -541,6 +522,18 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      * @group Props
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -1026,29 +1019,27 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         this.dirty = false;
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
+    onOverlayBeforeEnter(element: HTMLDivElement) {
         const isFirstShow = !this.container;
 
-        if (this.visible && this.popup) {
-            this.container = <HTMLDivElement>event.target;
+        this.container = element;
+        addStyle(this.container!, { position: 'absolute', top: '0' });
+        if (isFirstShow) {
+            this.moveOnTop();
+            this.onShow.emit({});
+            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+            this.appendOverlay();
+            this.bindOutsideClickListener();
+            this.bindResizeListener();
+            this.bindScrollListener();
+        }
 
-            if (isFirstShow) {
-                this.moveOnTop();
-                this.onShow.emit({});
-                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-                this.appendOverlay();
-                this.bindOutsideClickListener();
-                this.bindResizeListener();
-                this.bindScrollListener();
-            }
+        // Always align on animation start to handle fast toggling
+        this.alignOverlay();
 
-            // Always align on animation start to handle fast toggling
-            this.alignOverlay();
-
-            if (isFirstShow) {
-                focus(this.rootmenu?.sublistViewChild?.nativeElement);
-                this.scrollInView();
-            }
+        if (isFirstShow) {
+            focus(this.rootmenu?.sublistViewChild?.nativeElement);
+            this.scrollInView();
         }
     }
 
@@ -1067,11 +1058,10 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         }
     }
 
-    onOverlayAnimationEnd() {
-        if (!this.visible && this.popup && this.container) {
-            this.onOverlayHide();
-            this.onHide.emit({});
-        }
+    onAfterLeave() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
+        this.onHide.emit({});
     }
 
     appendOverlay() {
