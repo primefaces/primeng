@@ -251,10 +251,6 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             (onAnimationStart)="onAnimationStart()"
             [template]="template || _template"
             [headlessTemplate]="headlessTemplate || _headlessTemplate"
-            [showTransformOptions]="showTransformOptions"
-            [hideTransformOptions]="hideTransformOptions"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
             [pt]="pt"
             [unstyled]="unstyled()"
             [motionOptions]="computedMotionOptions()"
@@ -330,11 +326,13 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     /**
      * Transform options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransformOptions: string = 'translateY(100%)';
     /**
      * Transform options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransformOptions: string = 'translateY(-100%)';
     /**

@@ -21,6 +21,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -131,8 +132,7 @@ type SplitButtonIconPosition = 'left' | 'right';
             [style]="menuStyle"
             [styleClass]="menuStyleClass"
             [appendTo]="$appendTo()"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
+            [motionOptions]="computedMotionOptions()"
             (onHide)="onHide()"
             (onShow)="onShow()"
             [pt]="ptm('pcMenu')"
@@ -261,13 +261,27 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Button Props
      */
