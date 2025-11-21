@@ -67,11 +67,12 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                     @if (renderContent()) {
                         <div
                             pGalleriaContent
-                            [pMotion]="contentVisible()"
+                            [pMotion]="visible"
                             [pMotionAppear]="true"
                             [pMotionName]="'p-galleria'"
                             [pMotionOptions]="computedMotionOptions()"
                             (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                            (pMotionOnBeforeLeave)="onBeforeEnter()"
                             (pMotionOnAfterLeave)="onAfterLeave()"
                             [value]="value"
                             [activeIndex]="activeIndex"
@@ -283,17 +284,13 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
             this.maskVisible = true;
             this.renderMask.set(true);
             this.renderContent.set(true);
-            this.contentVisible.set(true);
         } else if (!this._visible && this.maskVisible) {
             this.maskVisible = false;
-            this.contentVisible.set(false);
         }
-        this.cd.markForCheck();
     }
 
     renderMask = signal<boolean>(false);
     renderContent = signal<boolean>(false);
-    contentVisible = signal<boolean>(false);
     /**
      * Callback to invoke on active index change.
      * @param {number} number - Active index.
@@ -439,6 +436,12 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
             const focusTarget = findSingle(this.container?.nativeElement, '[data-pc-section="closebutton"]');
             if (focusTarget) focus(focusTarget as HTMLElement);
         }, 25);
+    }
+
+    onBeforeLeave() {
+        if (this.mask) {
+            this.maskVisible = false;
+        }
     }
 
     onAfterLeave() {
