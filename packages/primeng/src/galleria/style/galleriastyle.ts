@@ -22,6 +22,10 @@ ${galleria_style}
 }
 
 @keyframes p-animate-galleria-leave {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
     to {
         opacity: 0;
         transform: scale(0.93);

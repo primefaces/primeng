@@ -72,7 +72,7 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                             [pMotionName]="'p-galleria'"
                             [pMotionOptions]="computedMotionOptions()"
                             (pMotionOnBeforeEnter)="onBeforeEnter($event)"
-                            (pMotionOnBeforeLeave)="onBeforeEnter()"
+                            (pMotionOnBeforeLeave)="onBeforeLeave()"
                             (pMotionOnAfterLeave)="onAfterLeave()"
                             [value]="value"
                             [activeIndex]="activeIndex"
@@ -278,15 +278,21 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         return this._visible;
     }
     set visible(visible: boolean) {
+        console.log('Galleria: visible set to', visible, 'maskVisible:', this.maskVisible, 'renderContent:', this.renderContent());
         this._visible = visible;
 
         if (this._visible && !this.maskVisible) {
             this.maskVisible = true;
             this.renderMask.set(true);
             this.renderContent.set(true);
+            console.log('Galleria: Opening - renderContent and renderMask set to true');
         } else if (!this._visible && this.maskVisible) {
             this.maskVisible = false;
+            console.log('Galleria: Closing - maskVisible set to false, renderContent still:', this.renderContent());
         }
+
+        // Trigger change detection for motion directive
+        this.cd.markForCheck();
     }
 
     renderMask = signal<boolean>(false);
@@ -439,12 +445,12 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     }
 
     onBeforeLeave() {
-        if (this.mask) {
-            this.maskVisible = false;
-        }
+        // Content leave animation is starting
+        console.log('Galleria: onBeforeLeave called');
     }
 
     onAfterLeave() {
+        console.log('Galleria: onAfterLeave called');
         this.disableModality();
         this.renderContent.set(false);
     }
