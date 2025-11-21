@@ -67,12 +67,11 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                     @if (renderContent()) {
                         <div
                             pGalleriaContent
-                            [pMotion]="visible"
+                            [pMotion]="contentVisible()"
                             [pMotionAppear]="true"
                             [pMotionName]="'p-galleria'"
                             [pMotionOptions]="computedMotionOptions()"
                             (pMotionOnBeforeEnter)="onBeforeEnter($event)"
-                            (pMotionOnBeforeLeave)="onBeforeLeave()"
                             (pMotionOnAfterLeave)="onAfterLeave()"
                             [value]="value"
                             [activeIndex]="activeIndex"
@@ -278,25 +277,23 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         return this._visible;
     }
     set visible(visible: boolean) {
-        console.log('Galleria: visible set to', visible, 'maskVisible:', this.maskVisible, 'renderContent:', this.renderContent());
         this._visible = visible;
 
         if (this._visible && !this.maskVisible) {
             this.maskVisible = true;
             this.renderMask.set(true);
             this.renderContent.set(true);
-            console.log('Galleria: Opening - renderContent and renderMask set to true');
+            this.contentVisible.set(true);
         } else if (!this._visible && this.maskVisible) {
             this.maskVisible = false;
-            console.log('Galleria: Closing - maskVisible set to false, renderContent still:', this.renderContent());
+            this.contentVisible.set(false);
         }
-
-        // Trigger change detection for motion directive
         this.cd.markForCheck();
     }
 
     renderMask = signal<boolean>(false);
     renderContent = signal<boolean>(false);
+    contentVisible = signal<boolean>(false);
     /**
      * Callback to invoke on active index change.
      * @param {number} number - Active index.
@@ -444,13 +441,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         }, 25);
     }
 
-    onBeforeLeave() {
-        // Content leave animation is starting
-        console.log('Galleria: onBeforeLeave called');
-    }
-
     onAfterLeave() {
-        console.log('Galleria: onAfterLeave called');
         this.disableModality();
         this.renderContent.set(false);
     }
