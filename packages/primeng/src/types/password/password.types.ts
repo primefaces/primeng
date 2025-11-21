@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import { OverlayPassThrough } from '../overlay/overlay.types';
+import { OverlayPassThrough } from 'primeng/types/overlay';
 
 /**
  * Custom pass-through(pt) options.
