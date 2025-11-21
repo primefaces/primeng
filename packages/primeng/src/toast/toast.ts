@@ -151,7 +151,10 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
                 index: <number>this.index,
                 message: <ToastMessageOptions>this.message
             });
-            this.onAnimationEnd.emit(el);
+
+            if (!this.isDestroyed) {
+                this.onAnimationEnd.emit(el);
+            }
         }
     }
 
