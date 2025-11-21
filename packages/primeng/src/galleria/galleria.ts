@@ -73,7 +73,7 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                             [pMotionName]="'p-galleria'"
                             [pMotionOptions]="computedMotionOptions()"
                             (pMotionOnBeforeEnter)="onBeforeEnter($event)"
-                            (pMotionOnBeforeLeave)="onBeforeEnter()"
+                            (pMotionOnBeforeLeave)="onBeforeLeave()"
                             (pMotionOnAfterLeave)="onAfterLeave()"
                             [value]="value"
                             [activeIndex]="activeIndex"
@@ -285,6 +285,8 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
             this.maskVisible = true;
             this.renderMask.set(true);
             this.renderContent.set(true);
+        } else if (!this._visible && this.maskVisible) {
+            this.maskVisible = false;
         }
     }
 
@@ -438,16 +440,12 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     }
 
     onBeforeLeave() {
-        if (this.mask) {
-            this.maskVisible = false;
-        }
+        // Content leave animation is starting, keep renderContent true until animation completes
     }
 
     onAfterLeave() {
         this.disableModality();
         this.renderContent.set(false);
-        this.renderMask.set(false);
-        this.maskVisible = false;
     }
 
     onMaskAfterLeave() {
