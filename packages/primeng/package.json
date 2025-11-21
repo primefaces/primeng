@@ -48,8 +48,7 @@
         "tslib": "^2.8.1"
     },
     "peerDependencies": {
-        "@angular/animations": "^21.0.0",
-        "@angular/cdk": "^20.2.11",
+        "@angular/cdk": "^21.0.0",
         "@angular/common": "^21.0.0",
         "@angular/core": "^21.0.0",
         "@angular/forms": "^21.0.0",
