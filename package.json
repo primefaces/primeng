@@ -42,6 +42,7 @@
         "@angular-eslint/eslint-plugin-template": "catalog:angular21",
         "@angular-eslint/schematics": "catalog:angular21",
         "@angular-eslint/template-parser": "catalog:angular21",
+        "@angular/animations": "21.0.0",
         "@angular/cli": "catalog:angular21",
         "@angular/common": "catalog:angular21",
         "@angular/compiler": "catalog:angular21",
