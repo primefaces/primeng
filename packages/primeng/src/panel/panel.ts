@@ -1,11 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Nullable } from 'primeng/ts-helpers';
 import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from 'primeng/types/panel';
 import { PanelStyle } from './style/panelstyle';
@@ -19,7 +40,7 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
 @Component({
     selector: 'p-panel',
     standalone: true,
-    imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule],
+    imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule, MotionModule],
     template: `
         <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
             <span [pBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
@@ -63,14 +84,16 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
         </div>
         <div
             [pBind]="ptm('contentContainer')"
+            [pMotion]="!toggleable || (toggleable && !collapsed)"
+            pMotionName="p-collapsible"
+            [pMotionOptions]="computedMotionOptions()"
             [class]="cx('contentContainer')"
             [id]="id + '_content'"
             role="region"
             [attr.aria-labelledby]="id + '_header'"
             [attr.aria-hidden]="collapsed"
             [attr.tabindex]="collapsed ? '-1' : undefined"
-            [class.p-collapsible-open]="toggleable && !collapsed"
-            (transitionend)="onToggleDone($event)"
+            (pMotionOnAfterEnter)="onToggleDone($event)"
         >
             <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
                 <ng-content></ng-content>
@@ -165,6 +188,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     /**
      * Transition options of the animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
 
@@ -173,6 +197,19 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * @group Props
      */
     @Input() toggleButtonProps: any;
+
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
 
     /**
      * Emitted when the collapsed changes.

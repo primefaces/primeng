@@ -25,6 +25,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MotionOptions } from '@primeuix/motion';
 import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -213,19 +214,16 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         </button>
         <p-overlay
             #overlay
-            [pt]="ptm('pcOverlay')"
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
-            [enterAnimation]="enterAnimation"
-            [leaveAnimation]="leaveAnimation"
-            (onAnimationStart)="onOverlayAnimationStart()"
-            (onHide)="hide()"
             [unstyled]="unstyled()"
+            [pt]="ptm('pcOverlay')"
+            [motionOptions]="motionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter()"
+            (onHide)="hide()"
             [attr.data-p]="overlayDataP"
         >
             <ng-template #content>
@@ -328,19 +326,6 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     $pcAutoComplete: AutoComplete | undefined = inject(AUTOCOMPLETE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
-
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-overlay-enter'
-     * @group Props
-     */
-    @Input() enterAnimation: string = 'p-overlay-enter';
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-overlay-leave'
-     * @group Props
-     */
-    @Input() leaveAnimation: string = 'p-overlay-leave';
 
     /**
      * Minimum number of characters to initiate a search.
@@ -532,11 +517,13 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
@@ -659,6 +646,11 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      * @group Props
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
     /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
@@ -1795,7 +1787,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         });
     }
 
-    onOverlayAnimationStart() {
+    onOverlayBeforeEnter() {
         this.itemsWrapper = <any>findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-name="pcoverlay"]');
 
         if (this.virtualScroll) {

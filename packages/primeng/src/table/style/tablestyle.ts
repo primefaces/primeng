@@ -116,11 +116,11 @@ p-sortIcon, p-sort-icon, p-sorticon {
 }
 
 /* Animations */
-.p-columnfilter-overlay-enter {
+.p-columnfilter-overlay-enter-active {
     animation: p-animate-columnfilter-overlay-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-columnfilter-overlay-leave {
+.p-columnfilter-overlay-leave-active {
     animation: p-animate-columnfilter-overlay-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 

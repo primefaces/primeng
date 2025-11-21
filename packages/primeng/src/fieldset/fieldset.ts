@@ -1,10 +1,31 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import type { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent, FieldsetPassThrough } from 'primeng/types/fieldset';
 import { FieldsetStyle } from './style/fieldsetstyle';
 
@@ -17,7 +38,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
 @Component({
     selector: 'p-fieldset',
     standalone: true,
-    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, BindModule],
+    imports: [CommonModule, MinusIcon, PlusIcon, SharedModule, BindModule, MotionModule],
     template: `
         <fieldset [attr.id]="id" [ngStyle]="style" [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" [attr.data-p]="dataP">
             <legend [class]="cx('legend')" [pBind]="ptm('legend')" [attr.data-p]="dataP">
@@ -56,14 +77,17 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 </ng-template>
             </legend>
             <div
-                [attr.id]="id + '_content'"
-                role="region"
-                [class]="cx('contentContainer')"
                 [pBind]="ptm('contentContainer')"
+                [pMotion]="!toggleable || (toggleable && !collapsed)"
+                pMotionName="p-collapsible"
+                [pMotionOptions]="computedMotionOptions()"
+                [class]="cx('contentContainer')"
+                [id]="id + '_content'"
+                role="region"
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
-                [class.p-collapsible-open]="toggleable && !collapsed"
-                (transitionend)="onToggleDone($event)"
+                [attr.tabindex]="collapsed ? '-1' : undefined"
+                (pMotionOnAfterEnter)="onToggleDone($event)"
             >
                 <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
                     <ng-content></ng-content>
@@ -118,8 +142,21 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     /**
      * Transition options of the panel animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.

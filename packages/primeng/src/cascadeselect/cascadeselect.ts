@@ -26,6 +26,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MotionOptions } from '@primeuix/motion';
 import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -323,15 +324,14 @@ export class CascadeSelectSub extends BaseComponent {
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            [enterAnimation]="enterAnimation"
-            [leaveAnimation]="leaveAnimation"
-            (onAnimationDone)="onOverlayAnimationDone($event)"
+            [unstyled]="unstyled()"
+            [pt]="ptm('pcOverlay')"
+            [motionOptions]="motionOptions()"
+            (onAfterLeave)="onOverlayAfterLeave()"
             (onBeforeShow)="onBeforeShow.emit($event)"
             (onShow)="show($event)"
             (onBeforeHide)="onBeforeHide.emit($event)"
             (onHide)="hide($event)"
-            [pt]="ptm('pcOverlay')"
-            [unstyled]="unstyled()"
         >
             <ng-template #content>
                 <div #panel [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')">
@@ -390,19 +390,6 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
-
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-overlay-enter'
-     * @group Props
-     */
-    @Input() enterAnimation: string = 'p-overlay-enter';
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-overlay-leave'
-     * @group Props
-     */
-    @Input() leaveAnimation: string = 'p-overlay-leave';
 
     /**
      * Unique identifier of the component
@@ -598,6 +585,11 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
      * @group Props
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
     /**
      * Callback to invoke on value change.
      * @param {CascadeSelectChangeEvent} event - Custom change event.
@@ -1546,12 +1538,8 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
         }
     }
 
-    onOverlayAnimationDone(event: any) {
-        switch (event.toState) {
-            case 'void':
-                this.dirty = false;
-                break;
-        }
+    onOverlayAfterLeave() {
+        this.dirty = false;
     }
 
     /**

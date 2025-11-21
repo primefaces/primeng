@@ -29,12 +29,14 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primeuix/motion';
+import { absolutePosition, addStyle, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -157,23 +159,10 @@ export class MenuItemContent extends BaseComponent {
 @Component({
     selector: 'p-menu',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule],
+    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule, MotionModule],
     template: `
-        @if (!popup || visible) {
-            <div
-                #container
-                [class]="cn(cx('root'), styleClass)"
-                [style]="sx('root')"
-                [ngStyle]="style"
-                (click)="onOverlayClick($event)"
-                [animate.enter]="popup ? enterAnimation() : null"
-                [animate.leave]="popup ? leaveAnimation() : null"
-                (animationstart)="onOverlayAnimationStart($event)"
-                (animationend)="onOverlayAnimationEnd()"
-                [attr.id]="id"
-                [pBind]="ptm('root')"
-                [attr.data-p]="dataP"
-            >
+        <p-motion [visible]="!popup || visible" [appear]="popup" name="p-menu" [options]="computedMotionOptions()" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAfterLeave()">
+            <div #container [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [ngStyle]="style" (click)="onOverlayClick($event)" [attr.id]="id" [pBind]="ptm('root')" [attr.data-p]="dataP">
                 <div *ngIf="startTemplate ?? _startTemplate" [class]="cx('start')" [pBind]="ptm('start')" [attr.data-pc-section]="'start'">
                     <ng-container *ngTemplateOutlet="startTemplate ?? _startTemplate"></ng-container>
                 </div>
@@ -266,7 +255,7 @@ export class MenuItemContent extends BaseComponent {
                     <ng-container *ngTemplateOutlet="endTemplate ?? _endTemplate"></ng-container>
                 </div>
             </div>
-        }
+        </p-motion>
     `,
 
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -307,26 +296,17 @@ export class Menu extends BaseComponent<MenuPassThrough> {
     @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the show animation.
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      * @group Props
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.1s linear';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-menu-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | undefined | null>('p-menu-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-menu-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | undefined | null>('p-menu-leave');
+
     /**
      * Defines a string value that labels an interactive element.
      * @group Props
@@ -353,6 +333,18 @@ export class Menu extends BaseComponent<MenuPassThrough> {
      * @group Props
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -382,7 +374,7 @@ export class Menu extends BaseComponent<MenuPassThrough> {
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    container: HTMLDivElement | undefined;
+    container: any;
 
     scrollHandler: ConnectedOverlayScrollHandler | null | undefined;
 
@@ -535,33 +527,25 @@ export class Menu extends BaseComponent<MenuPassThrough> {
         return this.tabindex !== undefined ? this.tabindex.toString() : null;
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        const isFirstShow = !this.container;
-        if (this.overlayVisible && this.popup) {
-            this.container = <HTMLDivElement>event.target;
+    onOverlayBeforeEnter(el: HTMLElement) {
+        this.container = el;
+        addStyle(this.container, { position: 'absolute', top: '0' });
+        this.appendOverlay();
+        this.moveOnTop();
 
-            if (isFirstShow) {
-                this.appendOverlay();
-                this.moveOnTop();
-                this.onShow.emit({});
-                this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-                this.bindDocumentClickListener();
-                this.bindDocumentResizeListener();
-                this.bindScrollListener();
-            }
-            absolutePosition(this.container!, this.target);
-
-            if (isFirstShow) {
-                focus(this.listViewChild?.nativeElement);
-            }
-        }
+        this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+        this.bindDocumentClickListener();
+        this.bindDocumentResizeListener();
+        this.bindScrollListener();
+        absolutePosition(this.container!, this.target);
+        focus(this.listViewChild?.nativeElement);
+        this.onShow.emit({});
     }
 
-    onOverlayAnimationEnd() {
-        if (!this.overlayVisible && this.popup && this.container) {
-            this.onOverlayHide();
-            this.onHide.emit({});
-        }
+    onOverlayAfterLeave() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
+        this.onHide.emit({});
     }
 
     appendOverlay() {

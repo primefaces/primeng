@@ -81,6 +81,10 @@ export class BaseComponent<PT = any> implements Lifecycle {
         return this['hostName'];
     }
 
+    get $el() {
+        return this.el?.nativeElement;
+    }
+
     directivePT = signal<any>(undefined);
 
     directiveUnstyled = signal<boolean | undefined>(undefined);
@@ -255,7 +259,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
      */
     ngAfterViewInit() {
         // @todo - remove this after implementing pt for root
-        this.el?.nativeElement?.setAttribute(this.$attrSelector, '');
+        this.$el?.setAttribute(this.$attrSelector, '');
 
         this.onAfterViewInit();
         this._hook('onAfterViewInit');

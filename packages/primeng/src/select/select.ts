@@ -28,6 +28,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MotionOptions } from '@primeuix/motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -257,16 +258,15 @@ export class SelectItem extends BaseComponent {
         <p-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
-            [pt]="ptm('pcOverlay')"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
-            [enterAnimation]="enterAnimation"
-            [leaveAnimation]="leaveAnimation"
             [unstyled]="unstyled()"
-            (onAnimationStart)="onOverlayAnimationStart($event)"
-            (onAnimationDone)="onOverlayAnimationDone($event)"
+            [pt]="ptm('pcOverlay')"
+            [motionOptions]="motionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter($event)"
+            (onAfterLeave)="onOverlayAfterLeave($event)"
             (onHide)="hide()"
         >
             <ng-template #content>
@@ -419,19 +419,6 @@ export class SelectItem extends BaseComponent {
 })
 export class Select extends BaseInput<SelectPassThrough> implements AfterViewInit, AfterViewChecked {
     bindDirectiveInstance = inject(Bind, { self: true });
-
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-overlay-enter'
-     * @group Props
-     */
-    @Input() enterAnimation: string = 'p-overlay-enter';
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-overlay-leave'
-     * @group Props
-     */
-    @Input() leaveAnimation: string = 'p-overlay-leave';
     /**
      * Unique identifier of the component
      * @group Props
@@ -709,6 +696,11 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * @group Props
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
     /**
      * Callback to invoke when value of select changes.
      * @param {SelectChangeEvent} event - custom change event.
@@ -1406,7 +1398,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.cd.markForCheck();
     }
 
-    onOverlayAnimationStart(event: any) {
+    onOverlayBeforeEnter(event: any) {
         this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
         this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
@@ -1434,7 +1426,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.onShow.emit(event);
     }
 
-    onOverlayAnimationDone(event: any) {
+    onOverlayAfterLeave(event: any) {
         this.itemsWrapper = null;
         this.onModelTouched();
         this.onHide.emit(event);

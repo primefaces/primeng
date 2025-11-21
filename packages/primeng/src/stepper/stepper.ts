@@ -23,10 +23,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
+import { MotionOptions } from '@primeuix/motion';
 import { find, findIndexInList, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
+import { MotionModule } from 'primeng/motion';
 import { StepItemPassThrough, StepListPassThrough, StepPanelPassThrough, StepPanelsPassThrough, StepPassThrough, StepperPassThrough, StepperSeparatorPassThrough } from 'primeng/types/stepper';
 import { transformToBoolean } from 'primeng/utils';
 import { StepItemStyle } from './style/stepitemstyle';
@@ -310,18 +312,14 @@ export class Step extends BaseComponent<StepPassThrough> {
 @Component({
     selector: 'p-step-panel',
     standalone: true,
-    imports: [CommonModule, StepperSeparator, SharedModule, BindModule],
+    imports: [CommonModule, StepperSeparator, SharedModule, BindModule, MotionModule],
     template: `
         @if (isSeparatorVisible()) {
             <p-stepper-separator />
         }
-        @if (active()) {
-            <div [pBind]="ptm('content')" [class]="cx('content')" [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" (animationstart)="onAnimationStart()" (animationend)="onAnimationEnd()">
-                @if (isVisible()) {
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
-                }
-            </div>
-        }
+        <p-motion [visible]="active()" name="p-collapsible" [disabled]="!isVertical()" [options]="computedMotionOptions()" [class]="cx('content')" [pt]="ptm('content')">
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+        </p-motion>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -343,11 +341,10 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
 
     pcStepper = inject(forwardRef(() => Stepper));
 
-    transitionOptions = computed(() => this.pcStepper.transitionOptions());
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
 
-    enterAnimation = computed(() => (this.isVertical() ? this.pcStepper.enterAnimation() : undefined));
-
-    leaveAnimation = computed(() => (this.isVertical() ? this.pcStepper.leaveAnimation() : undefined));
     /**
      * Active value of stepper.
      * @type {number}
@@ -357,10 +354,6 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
     value: ModelSignal<number | undefined> = model<number | undefined>(undefined);
 
     active = computed(() => this.pcStepper.value() === this.value());
-
-    visible = signal<boolean>(this.active());
-
-    isVisible = computed(() => this.active() || (this.isVertical() && this.visible()));
 
     ariaControls = computed(() => `${this.pcStepper.id()}_step_${this.value()}`);
 
@@ -377,6 +370,14 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
             return index !== stepLen - 1;
         }
     });
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.pcStepper.computedMotionOptions()
+        };
+    });
+
     /**
      * Content template.
      * @param {StepPanelContentTemplateContext} context - Context of the template
@@ -401,24 +402,8 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
         });
     }
 
-    onAnimationStart() {
-        if (this.active()) {
-            this.visible.set(true);
-        }
-    }
-
-    onAnimationEnd() {
-        if (!this.active()) {
-            this.visible.set(true);
-        }
-    }
-
     updateValue(value: number) {
         this.pcStepper.updateValue(value);
-    }
-
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 }
 
@@ -496,20 +481,22 @@ export class Stepper extends BaseComponent<StepperPassThrough> {
      * @defaultValue 400ms cubic-bezier(0.86, 0, 0.07, 1)
      * @type {InputSignal<string >}
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     transitionOptions: InputSignal<string> = input<string>('400ms cubic-bezier(0.86, 0, 0.07, 1)');
+
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-collapsible-enter'
+     * The motion options.
      * @group Props
      */
-    enterAnimation = input<string | null | undefined>('p-collapsible-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-collapsible-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-collapsible-leave');
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
 
     id = signal<string>(uuid('pn_id_'));
 

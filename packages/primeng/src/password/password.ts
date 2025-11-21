@@ -29,6 +29,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, hasClass, isTouchDevice, removeClass } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -486,18 +487,7 @@ export const Password_VALUE_ACCESSOR: any = {
             </ng-container>
         </ng-container>
 
-        <p-overlay
-            #overlay
-            [hostAttrSelector]="$attrSelector"
-            [pt]="ptm('pcOverlay')"
-            [(visible)]="overlayVisible"
-            [options]="overlayOptions"
-            [target]="'@parent'"
-            [appendTo]="$appendTo()"
-            [enterAnimation]="enterAnimation()"
-            [leaveAnimation]="leaveAnimation()"
-            [unstyled]="unstyled()"
-        >
+        <p-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
             <ng-template #content>
                 <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
@@ -621,25 +611,15 @@ export class Password extends BaseInput<PasswordPassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-overlay-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-overlay-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-overlay-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-overlay-leave');
     /**
      * Specify automated assistance in filling out password by browser.
      * @group Props
@@ -671,6 +651,11 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * @group Props
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
     /**
      * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
      * @group Props

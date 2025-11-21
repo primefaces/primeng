@@ -33,6 +33,8 @@ import { PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
+import { MotionModule } from 'primeng/motion';
+import { MotionOptions } from '@primeuix/motion';
 
 const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
 
@@ -43,24 +45,26 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
 @Component({
     selector: 'p-popover',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [CommonModule, SharedModule, Bind, MotionModule],
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
     hostDirectives: [Bind],
     template: `
-        @if (render && overlayVisible) {
+        @if (render) {
             <div
                 [pBind]="ptm('root')"
                 [class]="cn(cx('root'), styleClass)"
                 [ngStyle]="style"
                 (click)="onOverlayClick($event)"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd()"
                 role="dialog"
                 [attr.aria-modal]="overlayVisible"
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledBy]="ariaLabelledBy"
+                [pMotion]="overlayVisible"
+                pMotionName="p-popover"
+                [pMotionAppear]="true"
+                (pMotionOnEnter)="onAnimationStart($event)"
+                (pMotionOnAfterLeave)="onAnimationEnd()"
+                [pMotionOptions]="computedMotionOptions()"
             >
                 <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                     <ng-content></ng-content>
@@ -135,25 +139,27 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-popover-enter'
+     * The motion options.
      * @group Props
      */
-    enterAnimation = input<string | null | undefined>('p-popover-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-popover-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-popover-leave');
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Callback to invoke when an overlay becomes visible.
      * @group Emits
@@ -347,30 +353,28 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (this.overlayVisible && this.render && !this.container) {
-            this.container = <HTMLDivElement>event.target;
-            this.container?.setAttribute(this.$attrSelector, '');
-            this.appendOverlay();
-            this.align();
-            this.setZIndex();
-            this.bindDocumentClickListener();
-            this.bindDocumentResizeListener();
-            this.bindScrollListener();
+    onAnimationStart(element: HTMLDivElement) {
+        this.container = element;
+        this.container?.setAttribute(this.$attrSelector, '');
+        this.appendOverlay();
+        this.align();
+        this.setZIndex();
+        this.bindDocumentClickListener();
+        this.bindDocumentResizeListener();
+        this.bindScrollListener();
 
-            if (this.focusOnShow) {
-                this.focus();
-            }
-
-            this.overlayEventListener = (e) => {
-                if (this.container && this.container.contains(e.target)) {
-                    this.selfClick = true;
-                }
-            };
-
-            this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
-            this.onShow.emit(null);
+        if (this.focusOnShow) {
+            this.focus();
         }
+
+        this.overlayEventListener = (e) => {
+            if (this.container && this.container.contains(e.target)) {
+                this.selfClick = true;
+            }
+        };
+
+        this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
+        this.onShow.emit(null);
     }
 
     onAnimationEnd() {

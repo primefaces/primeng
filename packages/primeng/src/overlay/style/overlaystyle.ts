@@ -91,11 +91,11 @@ const style = /*css*/ `
 }
 
 /* Animations */
-.p-overlay-enter {
+.p-overlay-enter-active {
     animation: p-animate-overlay-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-overlay-leave {
+.p-overlay-leave-active {
     animation: p-animate-overlay-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 

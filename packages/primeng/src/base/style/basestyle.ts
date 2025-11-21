@@ -27,9 +27,31 @@ const css = /*css*/ `
 }
 `;
 
-const extendedStyle = `
+const extendedStyle = /*css*/ `
     ${base_style}
-    
+
+    /********** Collapsible Animations **********/
+    .p-collapsible-enter-from,
+    .p-collapsible-leave-to {
+        max-height: 0;
+    }
+
+    .p-collapsible-enter-to,
+    .p-collapsible-leave-from {
+        max-height: var(--pui-motion-height, 1000px);
+    }
+
+    .p-collapsible-leave-active {
+        overflow: hidden;
+        transition: max-height 200ms ease-out;
+    }
+
+    .p-collapsible-enter-active {
+        overflow: hidden;
+        transition: max-height 200ms ease-out;
+    }
+    /***************************** */
+
    .p-collapsible {
         max-height: 0;
         overflow: hidden;

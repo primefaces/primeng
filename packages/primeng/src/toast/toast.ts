@@ -3,6 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     EventEmitter,
@@ -20,11 +21,13 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { ToastCloseEvent, ToastItemCloseEvent, ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
@@ -35,20 +38,16 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
 @Component({
     selector: 'p-toastItem',
     standalone: true,
-    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind],
+    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind, MotionModule],
     template: `
-        @if (visible()) {
+        <p-motion [visible]="visible()" name="p-toast" [appear]="true" [options]="motionOptions()" (onBeforeEnter)="handleAnimationStart($event)" (onAfterLeave)="handleAnimationEnd($event)">
             <div
                 #container
                 [attr.id]="message?.id"
                 [pBind]="ptm('message')"
                 [class]="cn(cx('message'), message?.styleClass)"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
                 (mouseenter)="onMouseEnter()"
                 (mouseleave)="onMouseLeave()"
-                (animationstart)="handleAnimationStart($event)"
-                (animationend)="handleAnimationEnd($event)"
                 role="alert"
                 aria-live="assertive"
                 aria-atomic="true"
@@ -111,7 +110,7 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                     </div>
                 }
             </div>
-        }
+        </p-motion>
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -136,27 +135,23 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     @Input() hideTransitionOptions: string | undefined;
 
-    enterAnimation = input<string>('');
+    motionOptions = input<MotionOptions>();
 
-    leaveAnimation = input<string>('');
+    onAnimationStart = output<HTMLElement>();
 
-    onAnimationStart = output<AnimationEvent>();
+    onAnimationEnd = output<HTMLElement>();
 
-    onAnimationEnd = output<AnimationEvent>();
-
-    handleAnimationStart(event: AnimationEvent) {
-        if (this.visible()) {
-            this.onAnimationStart.emit(event);
-        }
+    handleAnimationStart(el: HTMLElement) {
+        this.onAnimationStart.emit(el);
     }
 
-    handleAnimationEnd(event: AnimationEvent) {
+    handleAnimationEnd(el: HTMLElement) {
         if (!this.visible() && !this.isDestroyed) {
             this.onClose.emit({
                 index: <number>this.index,
                 message: <ToastMessageOptions>this.message
             });
-            this.onAnimationEnd.emit(event);
+            this.onAnimationEnd.emit(el);
         }
     }
 
@@ -169,6 +164,8 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     visible = signal<boolean | undefined>(undefined);
 
     private isDestroyed = false;
+
+    private isClosing = false;
 
     constructor(private zone: NgZone) {
         super();
@@ -206,13 +203,15 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     }
 
     onMouseLeave() {
-        this.initTimeout();
+        if (!this.isClosing) {
+            this.initTimeout();
+        }
     }
 
     onCloseIconClick = (event: Event) => {
+        this.isClosing = true;
         this.clearTimeout();
         this.visible.set(false);
-
         event.preventDefault();
     };
 
@@ -248,17 +247,13 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             [index]="i"
             [life]="life"
             (onClose)="onMessageClose($event)"
+            (onAnimationEnd)="onAnimationEnd()"
+            (onAnimationStart)="onAnimationStart()"
             [template]="template || _template"
             [headlessTemplate]="headlessTemplate || _headlessTemplate"
-            [enterAnimation]="enterAnimation()"
-            [leaveAnimation]="leaveAnimation()"
-            (onAnimationStart)="onAnimationStart()"
-            [showTransformOptions]="showTransformOptions"
-            [hideTransformOptions]="hideTransformOptions"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
             [pt]="pt"
             [unstyled]="unstyled()"
+            [motionOptions]="computedMotionOptions()"
         ></p-toastItem>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -331,35 +326,39 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     /**
      * Transform options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransformOptions: string = 'translateY(100%)';
     /**
      * Transform options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransformOptions: string = 'translateY(-100%)';
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '300ms ease-out';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '250ms ease-in';
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-toast-enter'
+     * The motion options.
      * @group Props
      */
-    enterAnimation = input<string | null | undefined>('p-toast-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-toast-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-toast-leave');
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Object literal to define styles per screen size.
      * @group Props
@@ -500,7 +499,6 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         this.onClose.emit({
             message: event.message
         });
-
         this.onAnimationEnd();
         this.cd.detectChanges();
     }

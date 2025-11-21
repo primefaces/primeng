@@ -5,7 +5,7 @@ import { BaseStyle } from 'primeng/base';
 const style = /*css*/ `
 ${accordion_style}
 
-/*For PrimeNG*/
+/* For PrimeNG */
 .p-accordionheader-toggle-icon.icon-start {
     order: -1;
 }
@@ -13,11 +13,6 @@ ${accordion_style}
 .p-accordionheader:has(.p-accordionheader-toggle-icon.icon-start) {
     justify-content: flex-start;
     gap: dt('accordion.header.padding');
-}
-
-.p-collapsible-enter .p-accordioncontent-content,
-.p-collapsible-leave .p-accordioncontent-content {
-    overflow: hidden;
 }
 
 .p-accordionheader.p-ripple {
@@ -37,7 +32,7 @@ const classes = {
     ],
     header: 'p-accordionheader',
     toggleicon: 'p-accordionheader-toggle-icon',
-    contentContainer: 'p-accordioncontent p-collapsible',
+    contentContainer: 'p-accordioncontent',
     content: 'p-accordioncontent-content'
 };
 

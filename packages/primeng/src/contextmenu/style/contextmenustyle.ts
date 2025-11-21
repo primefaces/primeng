@@ -7,12 +7,12 @@ ${contextmenu_style}
 
 /* Animations */
 
-.p-contextmenu-enter {
-    animation: p-animate-contextmenu-enter 300ms cubic-bezier(.19,1,.22,1);
+.p-contextmenu2-enter-active {
+    animation: p-animate-contextmenu-enter .3s cubic-bezier(.19,1,.22,1);
 }
 
-.p-contextmenu-leave {
-    animation: p-animate-contextmenu-leave 300ms cubic-bezier(.19,1,.22,1);
+.p-contextmenu2-leave-active {
+    animation: p-animate-contextmenu-leave .3s cubic-bezier(.19,1,.22,1);
 }
 
 @keyframes p-animate-contextmenu-enter {

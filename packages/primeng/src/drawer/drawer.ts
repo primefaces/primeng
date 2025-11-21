@@ -20,6 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -28,6 +29,7 @@ import { Button, ButtonProps } from 'primeng/button';
 import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { DrawerPassThrough } from 'primeng/types/drawer';
 import { ZIndexUtils } from 'primeng/utils';
@@ -35,7 +37,6 @@ import { DrawerStyle } from './style/drawerstyle';
 
 const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
 
-const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 /**
  * Sidebar is a panel component displayed as an overlay at the edges of the screen.
  * @group Components
@@ -43,19 +44,22 @@ const defaultTransformOptions = 'translate3d(-100%, 0px, 0px)';
 @Component({
     selector: 'p-drawer',
     standalone: true,
-    imports: [CommonModule, Button, TimesIcon, SharedModule, Bind, FocusTrapModule],
+    imports: [CommonModule, Button, TimesIcon, SharedModule, Bind, FocusTrapModule, MotionModule],
     providers: [DrawerStyle, { provide: DRAWER_INSTANCE, useExisting: Drawer }, { provide: PARENT_INSTANCE, useExisting: Drawer }],
     hostDirectives: [Bind],
     template: `
-        @if (visible) {
+        @if (modalVisible) {
             <div
                 #container
                 [pBind]="ptm('root')"
+                [pMotion]="visible"
+                [pMotionAppear]="true"
+                [pMotionEnterActiveClass]="$enterAnimation()"
+                [pMotionLeaveActiveClass]="$leaveAnimation()"
+                [pMotionOptions]="computedMotionOptions()"
+                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (pMotionOnAfterLeave)="onAfterLeave($event)"
                 [class]="cn(cx('root'), styleClass)"
-                [animate.enter]="$enterAnimation()"
-                [animate.leave]="$leaveAnimation()"
-                (animationstart)="onAnimationStart($event)"
-                (animationend)="onAnimationEnd()"
                 [style]="style"
                 role="complementary"
                 (keydown)="onKeyDown($event)"
@@ -119,6 +123,18 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
+    /**
      * Whether to block scrolling of the document when drawer is active.
      * @group Props
      */
@@ -177,17 +193,23 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     /**
      * Transition options of the animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     /**
-     * Specifies the visibility of the dialog.
+     * The visible property is an input that determines the visibility of the component.
+     * @defaultValue false
      * @group Props
      */
     @Input() get visible(): boolean {
         return this._visible ?? false;
     }
-    set visible(val: boolean) {
-        this._visible = val;
+    set visible(value: boolean) {
+        this._visible = value;
+
+        if (this._visible && !this.modalVisible) {
+            this.modalVisible = true;
+        }
     }
     /**
      * Enter animation class name of modal.
@@ -214,22 +236,10 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * @group Props
      */
     fullScreen = input<boolean>(false);
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-drawer-enter-left'
-     * @group Props
-     */
-    enterAnimation = input<string | undefined | null>(undefined);
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-drawer-enter-right'
-     * @group Props
-     */
-    leaveAnimation = input<string | undefined | null>(undefined);
 
-    $enterAnimation = computed(() => (this.enterAnimation() ? this.enterAnimation() : this.fullScreen() ? 'p-drawer-enter-full' : `p-drawer-enter-${this.position()}`));
+    $enterAnimation = computed(() => (this.fullScreen() ? 'p-drawer-enter-full' : `p-drawer-enter-${this.position()}`));
 
-    $leaveAnimation = computed(() => (this.leaveAnimation() ? this.leaveAnimation() : this.fullScreen() ? 'p-drawer-leave-full' : `p-drawer-leave-${this.position()}`));
+    $leaveAnimation = computed(() => (this.fullScreen() ? 'p-drawer-leave-full' : `p-drawer-leave-${this.position()}`));
 
     /**
      * Title content of the dialog.
@@ -275,6 +285,8 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     _position: string = 'left';
 
     _fullScreen: boolean = false;
+
+    modalVisible: boolean = false;
 
     container: Nullable<HTMLDivElement>;
 
@@ -403,7 +415,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
             this.mask = this.renderer.createElement('div');
 
             if (this.mask) {
-                const style = `z-index: ${zIndex}; ${this.getMaskStyle()}`;
+                const style = `z-index: ${zIndex};${this.getMaskStyle()}`;
                 setAttribute(this.mask, 'style', style);
                 setAttribute(this.mask, 'data-p', this.dataP);
                 addClass(this.mask, this.cx('mask'));
@@ -455,25 +467,22 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this.mask = null;
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (this.visible && !this.container) {
-            this.container = <HTMLDivElement>event.target;
-            this.appendContainer();
-            this.show();
+    onBeforeEnter(element: HTMLElement) {
+        this.container = element as HTMLDivElement;
+        this.appendContainer();
+        this.show();
 
-            if (this.closeOnEscape) {
-                this.bindDocumentEscapeListener();
-            }
+        if (this.closeOnEscape) {
+            this.bindDocumentEscapeListener();
         }
     }
 
-    onAnimationEnd() {
-        if (!this.visible && this.container) {
-            this.hide(false);
-            ZIndexUtils.clear(this.container);
-            this.unbindGlobalListeners();
-            this.container = null;
-        }
+    onAfterLeave() {
+        this.hide(false);
+        ZIndexUtils.clear(this.container);
+        this.unbindGlobalListeners();
+        this.modalVisible = false;
+        this.container = null;
     }
 
     appendContainer() {
@@ -491,7 +500,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt((this.container as HTMLDivElement).style.zIndex) === ZIndexUtils.get(this.container)) {
+                if (parseInt((this.container as HTMLDivElement)?.style.zIndex) === ZIndexUtils.get(this.container)) {
                     this.close(event);
                 }
             }

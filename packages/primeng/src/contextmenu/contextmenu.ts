@@ -28,6 +28,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MotionOptions } from '@primeuix/motion';
 import {
     appendChild,
     calculateScrollbarWidth,
@@ -52,6 +53,7 @@ import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BindModule } from 'primeng/bind';
 import { AngleRightIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -65,17 +67,14 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
 @Component({
     selector: 'p-contextMenuSub, p-contextmenu-sub',
     standalone: true,
-    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule, BindModule],
+    imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, BadgeModule, SharedModule, BindModule, MotionModule],
     template: `
-        @if (root ? true : visible) {
+        @if (render()) {
             <ul
                 #sublist
                 role="menu"
                 [class]="root ? cx('rootList') : cx('submenu')"
                 [pBind]="_ptm(root ? 'rootList' : 'submenu')"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onEnter($event)"
                 [attr.id]="menuId + '_list'"
                 [tabindex]="tabindex"
                 [attr.aria-label]="ariaLabel"
@@ -85,6 +84,12 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                 (keydown)="menuKeydown.emit($event)"
                 (focus)="menuFocus.emit($event)"
                 (blur)="menuBlur.emit($event)"
+                [pMotion]="root ? true : visible"
+                [pMotionAppear]="true"
+                [pMotionName]="'p-contextmenu2'"
+                [pMotionOptions]="motionOptions"
+                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (pMotionOnAfterLeave)="onAfterLeave()"
             >
                 <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                     <li
@@ -217,6 +222,7 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                             (itemClick)="itemClick.emit($event)"
                             (itemMouseEnter)="onItemMouseEnter($event)"
                             [pt]="pt()"
+                            [motionOptions]="motionOptions"
                             [unstyled]="unstyled()"
                         />
                     </li>
@@ -228,7 +234,16 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
     providers: [ContextMenuStyle, { provide: CONTEXTMENUSUB_INSTANCE, useExisting: ContextMenuSub }, { provide: PARENT_INSTANCE, useExisting: ContextMenuSub }]
 })
 export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implements AfterViewChecked {
-    @Input({ transform: booleanAttribute }) visible: boolean = false;
+    @Input() get visible(): boolean {
+        return this._visible;
+    }
+    set visible(value: boolean) {
+        this._visible = value;
+
+        if (this._visible || this.root) {
+            this.render.set(true);
+        }
+    }
 
     @Input() items: any[];
 
@@ -254,6 +269,8 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
 
     @Input() activeItemPath: any[];
 
+    @Input() motionOptions: MotionOptions[] | undefined;
+
     @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
@@ -268,9 +285,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
 
     @ViewChild('sublist') sublistViewChild: ElementRef;
 
-    enterAnimation = input<string | undefined | null>('p-contextmenu-enter');
-
-    leaveAnimation = input<string | undefined | null>('p-contextmenu-leave');
+    render = signal<boolean>(false);
 
     hostName = 'ContextMenu';
 
@@ -280,12 +295,20 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
 
     $pcContextMenuSub: ContextMenuSub | undefined = inject(CONTEXTMENUSUB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
+    _visible: boolean = false;
+
     constructor(
         public el: ElementRef,
         public renderer: Renderer2,
         @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu
     ) {
         super();
+
+        this.contextMenu.handleSubmenuAfterLeave = () => {
+            if (this.root) {
+                this.onAfterLeave();
+            }
+        };
     }
 
     getItemProp(processedItem: any, name: string, params: any | null = null): any {
@@ -344,11 +367,12 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
 
-    onEnter(event: AnimationEvent) {
-        if (this.visible) {
-            const sublist = event.target;
-            this.position(sublist);
-        }
+    onBeforeEnter(el: HTMLElement) {
+        this.position(el);
+    }
+
+    onAfterLeave() {
+        this.render.set(false);
     }
 
     // TODO: will be removed later. Helper method to get PT from parent ContextMenu if available, otherwise use own PT
@@ -391,9 +415,9 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
 @Component({
     selector: 'p-contextMenu, p-contextmenu, p-context-menu',
     standalone: true,
-    imports: [CommonModule, ContextMenuSub, RouterModule, TooltipModule, BadgeModule, SharedModule, BindModule],
+    imports: [CommonModule, ContextMenuSub, RouterModule, TooltipModule, BadgeModule, SharedModule, BindModule, MotionModule],
     template: `
-        @if (visible()) {
+        @if (render()) {
             <div
                 #container
                 [attr.id]="id"
@@ -401,10 +425,14 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
                 [style]="sx('root')"
                 [ngStyle]="style"
                 [pBind]="ptm('root')"
-                [animate.enter]="enterAnimation()"
-                [animate.leave]="leaveAnimation()"
-                (animationstart)="onOverlayAnimationStart($event)"
-                (animationend)="onOverlayAnimationEnd()"
+                [pMotion]="visible()"
+                [pMotionName]="'p-contextmenu2'"
+                [pMotionAppear]="true"
+                [pMotionOptions]="computedMotionOptions()"
+                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (pMotionOnAfterEnter)="onAfterEnter()"
+                (pMotionOnBeforeLeave)="onBeforeLeave()"
+                (pMotionOnAfterLeave)="onAfterLeave()"
             >
                 <p-contextmenu-sub
                     #rootmenu
@@ -426,8 +454,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
                     (itemMouseEnter)="onItemMouseEnter($event)"
                     [pt]="pt()"
                     [unstyled]="unstyled()"
-                    [enterAnimation]="enterAnimation()"
-                    [leaveAnimation]="leaveAnimation()"
+                    [motionOptions]="computedMotionOptions()"
                 />
             </div>
         }
@@ -515,17 +542,17 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-contextmenu-enter'
+     * The motion options.
      * @group Props
      */
-    enterAnimation = input<string | null | undefined>('p-contextmenu-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-contextmenu-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-contextmenu-leave');
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -539,9 +566,9 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
 
     @ViewChild('rootmenu') rootmenu: ContextMenuSub | undefined;
 
-    @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
-
     container: HTMLElement | null | undefined;
+
+    handleSubmenuAfterLeave: (() => void) | null = null;
 
     outsideClickListener: VoidListener;
 
@@ -560,6 +587,8 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
     pageY: number;
 
     visible = signal(false);
+
+    render = signal<boolean>(false);
 
     focused: boolean = false;
 
@@ -662,7 +691,7 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
                 this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                    if (this.containerViewChild?.nativeElement?.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2) {
+                    if (this.container?.offsetParent && this.isOutsideClicked(event) && !event.ctrlKey && event.button !== 2) {
                         this.hide();
                     }
                 });
@@ -1040,27 +1069,28 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         this.searchValue = '';
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        if (this.visible() && !this.container) {
-            this.container = <HTMLElement>event.target;
-            this.position();
-            this.moveOnTop();
-            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-            this.appendOverlay();
-            this.bindGlobalListeners();
-            focus(this.rootmenu?.sublistViewChild?.nativeElement);
-        }
+    onBeforeEnter(el: HTMLElement) {
+        this.container = el;
+        this.position();
+        this.moveOnTop();
+        this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+        this.appendOverlay();
     }
 
-    onOverlayAnimationEnd() {
-        if (!this.visible() && this.container) {
-            this.onOverlayHide();
-        }
+    onAfterEnter() {
+        this.bindGlobalListeners();
+        focus(this.rootmenu?.sublistViewChild?.nativeElement);
     }
 
-    // appendOverlay() {
-    //     DomHandler.appendOverlay(this.container, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
-    // }
+    onBeforeLeave() {
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
+    }
+
+    onAfterLeave() {
+        this.handleSubmenuAfterLeave?.();
+        this.render.set(false);
+    }
 
     appendOverlay() {
         if (this.$appendTo() && this.$appendTo() !== 'self') {
@@ -1072,9 +1102,15 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         }
     }
 
+    restoreOverlayAppend() {
+        if (this.container && this.$appendTo() !== 'self') {
+            this.el.nativeElement.appendChild(this.container!);
+        }
+    }
+
     moveOnTop() {
-        if (this.autoZIndex && this.containerViewChild) {
-            ZIndexUtils.set('menu', this.containerViewChild.nativeElement, this.baseZIndex + this.config.zIndex.menu);
+        if (this.autoZIndex && this.container) {
+            ZIndexUtils.set('menu', this.container, this.baseZIndex + this.config.zIndex.menu);
         }
     }
 
@@ -1124,17 +1160,19 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         this.onShow.emit();
         this.visible() ? this.position() : this.visible.set(true);
 
+        this.render.set(true);
+
         event.stopPropagation();
         event.preventDefault();
     }
 
     position() {
-        if (!this.document.scrollingElement || !this.containerViewChild?.nativeElement) return;
+        if (!this.document.scrollingElement || !this.container) return;
 
         let left = this.pageX + 1;
         let top = this.pageY + 1;
-        let width = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetWidth : getHiddenElementOuterWidth(this.containerViewChild.nativeElement);
-        let height = this.containerViewChild.nativeElement.offsetParent ? this.containerViewChild.nativeElement.offsetHeight : getHiddenElementOuterHeight(this.containerViewChild.nativeElement);
+        let width = this.container.offsetParent ? this.container.offsetWidth : getHiddenElementOuterWidth(this.container);
+        let height = this.container.offsetParent ? this.container.offsetHeight : getHiddenElementOuterHeight(this.container);
         let viewport = getViewport();
 
         //flip
@@ -1157,8 +1195,8 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
             top = this.document.scrollingElement.scrollTop;
         }
 
-        this.containerViewChild.nativeElement.style.left = left + 'px';
-        this.containerViewChild.nativeElement.style.top = top + 'px';
+        this.container.style.left = left + 'px';
+        this.container.style.top = top + 'px';
     }
 
     searchItems(event: any, char: string) {
@@ -1266,7 +1304,7 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
     }
 
     isOutsideClicked(event: Event) {
-        return !(this.containerViewChild?.nativeElement?.isSameNode(event.target) || this.containerViewChild?.nativeElement?.contains(event.target));
+        return !(this.container?.isSameNode(event.target as Node) || this.container?.contains(event.target as Node));
     }
 
     unbindResizeListener() {
@@ -1305,19 +1343,12 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         }
     }
 
-    removeAppendedElements() {
-        if (this.$appendTo() && this.containerViewChild) {
-            if (this.$appendTo() === 'body') {
-                this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
-            }
-        }
-    }
-
     onDestroy() {
         this.unbindGlobalListeners();
         this.unbindTriggerEventListener();
         this.unbindMatchMediaListener();
-        this.removeAppendedElements();
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
     }
 }
 

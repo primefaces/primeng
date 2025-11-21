@@ -3,6 +3,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -17,18 +18,20 @@ import {
     numberAttribute,
     Output,
     QueryList,
+    signal,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primeuix/motion';
+import { addClass, blockBodyScroll, find, findSingle, focus, getAttribute, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
 import { GalleriaPassThrough, GalleriaResponsiveOptions } from 'primeng/types/galleria';
@@ -46,39 +49,46 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
     standalone: false,
     template: `
         <div *ngIf="fullScreen; else windowed" #container>
-            <div
-                *ngIf="maskVisible"
-                #mask
-                [pBind]="ptm('mask')"
-                [ngClass]="cx('mask')"
-                [class]="maskClass"
-                [attr.role]="fullScreen ? 'dialog' : 'region'"
-                [attr.aria-modal]="fullScreen ? 'true' : undefined"
-                (click)="onMaskHide($event)"
-                [animate.enter]="modalEnterAnimation()"
-                [animate.leave]="modalLeaveAnimation()"
-            >
-                @if (visible) {
-                    <div
-                        pGalleriaContent
-                        [animate.enter]="enterAnimation()"
-                        [animate.leave]="leaveAnimation()"
-                        (animationstart)="onAnimationStart()"
-                        (animationend)="onAnimationEnd()"
-                        [value]="value"
-                        [activeIndex]="activeIndex"
-                        [numVisible]="numVisibleLimit || numVisible"
-                        (maskHide)="onMaskHide()"
-                        (activeItemChange)="onActiveItemChange($event)"
-                        [ngStyle]="containerStyle"
-                        [fullScreen]="fullScreen"
-                        [pt]="pt()"
-                        pFocusTrap
-                        [pFocusTrapDisabled]="!fullScreen"
-                        [unstyled]="unstyled()"
-                    ></div>
-                }
-            </div>
+            @if (renderMask()) {
+                <div
+                    [pBind]="ptm('mask')"
+                    [pMotion]="maskVisible"
+                    [pMotionAppear]="true"
+                    [pMotionEnterActiveClass]="fullScreen ? 'p-modal-enter' : ''"
+                    [pMotionLeaveActiveClass]="fullScreen ? 'p-modal-leave' : ''"
+                    [pMotionOptions]="computedMaskMotionOptions()"
+                    (pMotionOnAfterLeave)="onMaskAfterLeave()"
+                    [ngClass]="cx('mask')"
+                    [class]="maskClass"
+                    [attr.role]="fullScreen ? 'dialog' : 'region'"
+                    [attr.aria-modal]="fullScreen ? 'true' : undefined"
+                    (click)="onMaskHide($event)"
+                >
+                    @if (renderContent()) {
+                        <div
+                            pGalleriaContent
+                            [pMotion]="visible"
+                            [pMotionAppear]="true"
+                            [pMotionName]="'p-galleria'"
+                            [pMotionOptions]="computedMotionOptions()"
+                            (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                            (pMotionOnBeforeLeave)="onBeforeLeave()"
+                            (pMotionOnAfterLeave)="onAfterLeave()"
+                            [value]="value"
+                            [activeIndex]="activeIndex"
+                            [numVisible]="numVisibleLimit || numVisible"
+                            (maskHide)="onMaskHide()"
+                            (activeItemChange)="onActiveItemChange($event)"
+                            [ngStyle]="containerStyle"
+                            [fullScreen]="fullScreen"
+                            [pt]="pt()"
+                            pFocusTrap
+                            [pFocusTrapDisabled]="!fullScreen"
+                            [unstyled]="unstyled()"
+                        ></div>
+                    }
+                </div>
+            }
         </div>
 
         <ng-template #windowed>
@@ -226,38 +236,40 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     @Input() containerStyle: { [klass: string]: any } | null | undefined;
     /**
      * Transition options of the show animation.
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      * @group Props
      */
     @Input() showTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      * @group Props
      */
     @Input() hideTransitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     /**
-     * Enter animation class name.
-     * @defaultValue 'p-galleria-enter'
+     * The motion options.
      * @group Props
      */
-    enterAnimation = input<string | undefined | null>('p-galleria-enter');
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
-     * Leave animation class name.
-     * @defaultValue 'p-galleria-leave'
+     * The mask motion options.
      * @group Props
      */
-    leaveAnimation = input<string | undefined | null>('p-galleria-leave');
-    /**
-     * Enter animation class name of modal.
-     * @defaultValue 'p-modal-enter'
-     * @group Props
-     */
-    modalEnterAnimation = input<string | null | undefined>('p-modal-enter');
-    /**
-     * Leave animation class name of modal.
-     * @defaultValue 'p-modal-leave'
-     * @group Props
-     */
-    modalLeaveAnimation = input<string | null | undefined>('p-modal-leave');
+    maskMotionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMaskMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('maskMotion'),
+            ...this.maskMotionOptions()
+        };
+    });
     /**
      * Specifies the visibility of the mask on fullscreen mode.
      * @group Props
@@ -266,12 +278,25 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         return this._visible;
     }
     set visible(visible: boolean) {
+        console.log('Galleria: visible set to', visible, 'maskVisible:', this.maskVisible, 'renderContent:', this.renderContent());
         this._visible = visible;
 
         if (this._visible && !this.maskVisible) {
             this.maskVisible = true;
+            this.renderMask.set(true);
+            this.renderContent.set(true);
+            console.log('Galleria: Opening - renderContent and renderMask set to true');
+        } else if (!this._visible && this.maskVisible) {
+            this.maskVisible = false;
+            console.log('Galleria: Closing - maskVisible set to false, renderContent still:', this.renderContent());
         }
+
+        // Trigger change detection for motion directive
+        this.cd.markForCheck();
     }
+
+    renderMask = signal<boolean>(false);
+    renderContent = signal<boolean>(false);
     /**
      * Callback to invoke on active index change.
      * @param {number} number - Active index.
@@ -284,8 +309,6 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
      * @group Emits
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-    @ViewChild('mask') mask: ElementRef | undefined;
 
     @ViewChild('container') container: ElementRef | undefined;
 
@@ -331,6 +354,8 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     numVisibleLimit = 0;
 
     _componentStyle = inject(GalleriaStyle);
+
+    mask: HTMLElement;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -410,41 +435,47 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         }
     }
 
-    onAnimationStart() {
-        if (this.visible) {
-            this.enableModality();
-            setTimeout(() => {
-                const focusTarget = findSingle(this.container?.nativeElement, '[data-pc-section="closebutton"]');
-                if (focusTarget) focus(focusTarget as HTMLElement);
-            }, 25);
-        } else {
-            this.maskVisible = false;
-            this.cd.markForCheck();
-        }
+    onBeforeEnter(el: HTMLElement) {
+        this.mask = <HTMLElement>el?.parentElement;
+        this.enableModality();
+        setTimeout(() => {
+            const focusTarget = findSingle(this.container?.nativeElement, '[data-pc-section="closebutton"]');
+            if (focusTarget) focus(focusTarget as HTMLElement);
+        }, 25);
     }
 
-    onAnimationEnd() {
-        if (!this.visible) {
-            this.disableModality();
+    onBeforeLeave() {
+        // Content leave animation is starting
+        console.log('Galleria: onBeforeLeave called');
+    }
+
+    onAfterLeave() {
+        console.log('Galleria: onAfterLeave called');
+        this.disableModality();
+        this.renderContent.set(false);
+    }
+
+    onMaskAfterLeave() {
+        if (!this.renderContent()) {
+            this.renderMask.set(false);
         }
     }
 
     enableModality() {
+        //@ts-ignore
         blockBodyScroll();
         this.cd.markForCheck();
-
         if (this.mask) {
-            ZIndexUtils.set('modal', this.mask.nativeElement, this.baseZIndex || this.config.zIndex.modal);
+            ZIndexUtils.set('modal', this.mask, this.baseZIndex || this.config.zIndex.modal);
         }
     }
 
     disableModality() {
+        //@ts-ignore
         unblockBodyScroll();
-        this.maskVisible = false;
         this.cd.markForCheck();
-
         if (this.mask) {
-            ZIndexUtils.clear(this.mask.nativeElement);
+            ZIndexUtils.clear(this.mask);
         }
     }
 
@@ -1626,7 +1657,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, FocusTrap, BindModule],
+    imports: [CommonModule, SharedModule, Ripple, TimesIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, FocusTrap, BindModule, MotionModule],
     exports: [CommonModule, Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails, SharedModule],
     declarations: [Galleria, GalleriaContent, GalleriaItemSlot, GalleriaItem, GalleriaThumbnails]
 })

@@ -5,25 +5,25 @@ const style = /*css*/ `
     ${image_style}
 
 /* Animations */
-.p-image-enter {
+.p-image-enter-active {
     animation: p-animate-image-enter 150ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.p-image-leave {
+.p-image-leave-active {
     animation: p-animate-image-leave 150ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 @keyframes p-animate-image-enter {
     from {
         opacity: 0;
-        transform: scale(0.93);
+        transform: scale(0.7);
     }
 }
 
 @keyframes p-animate-image-leave {
     to {
         opacity: 0;
-        transform: scale(0.93);
+        transform: scale(0.7);
     }
 }
 `;

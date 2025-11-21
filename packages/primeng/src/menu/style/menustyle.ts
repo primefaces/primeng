@@ -5,11 +5,11 @@ const style = /*css*/ `
 ${menu_style}
 
 /* Animations */
-.p-menu-enter {
+.p-menu-enter-active {
     animation: p-animate-menu-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.p-menu-leave {
+.p-menu-leave-active {
     animation: p-animate-menu-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 

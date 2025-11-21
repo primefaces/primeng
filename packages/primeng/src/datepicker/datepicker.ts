@@ -23,7 +23,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, addClass, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
+import { MotionOptions } from '@primeuix/motion';
+import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -33,6 +34,7 @@ import { Button } from 'primeng/button';
 import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { DatePickerMonthChangeEvent, DatePickerPassThrough, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from 'primeng/types/datepicker';
@@ -55,7 +57,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
 @Component({
     selector: 'p-datePicker, p-datepicker, p-date-picker',
     standalone: true,
-    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule, BindModule],
+    imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule, BindModule, MotionModule],
     hostDirectives: [Bind],
     template: `
         <ng-template [ngIf]="!inline">
@@ -130,19 +132,15 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 </span>
             </ng-container>
         </ng-template>
-        @if (inline || overlayVisible) {
+        <p-motion [visible]="inline || overlayVisible" name="p-datepicker" [appear]="!inline" [options]="computedMotionOptions()" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAfterLeave($event)">
             <div
                 #contentWrapper
                 [attr.id]="panelId"
                 [ngStyle]="panelStyle"
                 [class]="cn(cx('panel'), panelStyleClass)"
-                [animate.enter]="!inline ? enterAnimation() : null"
-                [animate.leave]="!inline ? leaveAnimation() : null"
                 [attr.aria-label]="getTranslation('chooseDate')"
                 [attr.role]="inline ? null : 'dialog'"
                 [attr.aria-modal]="inline ? null : 'true'"
-                (animationstart)="onOverlayAnimationStart($event)"
-                (animationend)="onOverlayAnimationDone($event)"
                 (click)="onOverlayClick($event)"
                 [pBind]="ptm('panel')"
             >
@@ -514,7 +512,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
             </div>
-        }
+        </p-motion>
     `,
     providers: [DATEPICKER_VALUE_ACCESSOR, DatePickerStyle, { provide: DATEPICKER_INSTANCE, useExisting: DatePicker }, { provide: PARENT_INSTANCE, useExisting: DatePicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -773,25 +771,15 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '.1s linear';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-datepicker-overlay-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-datepicker-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-datepicker-overlay-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-datepicker-leave');
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -941,6 +929,18 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
+    /**
      * Callback to invoke on focus of input field.
      * @param {Event} event - browser event.
      * @group Emits
@@ -954,10 +954,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when date panel closed.
-     * @param {Event} event - Mouse event
+     * @param {HTMLDivElement} element - The element being transitioned/animated.
      * @group Emits
      */
-    @Output() onClose: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    @Output() onClose: EventEmitter<HTMLDivElement> = new EventEmitter<HTMLDivElement>();
     /**
      * Callback to invoke on date select.
      * @param {Date} date - date value.
@@ -1006,9 +1006,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     @Output() onClickOutside: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when datepicker panel is shown.
+     * @param {HTMLDivElement} element - The element being transitioned/animated.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onShow: EventEmitter<HTMLDivElement> = new EventEmitter<HTMLDivElement>();
 
     @ViewChild('inputfield', { static: false }) inputfieldViewChild: Nullable<ElementRef>;
 
@@ -3129,9 +3130,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     hideOverlay() {
         this.inputfieldViewChild?.nativeElement.focus();
         this.overlayVisible = false;
-        if (this.overlay) {
-            this.overlay = null;
-        }
         this.clearTimePickerTimer();
 
         if (this.touchUI) {
@@ -3152,27 +3150,29 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
     }
 
-    onOverlayAnimationStart(event: AnimationEvent) {
-        if (!this.inline && this.overlayVisible && !this.overlay) {
-            this.overlay = <HTMLDivElement>event.target;
-            this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
-            this.appendOverlay();
-            this.alignOverlay();
-            this.setZIndex();
-            this.updateFocus();
-            this.bindListeners();
-            this.onShow.emit(event);
-        }
+    onOverlayBeforeEnter(el: HTMLDivElement) {
+        this.overlay = el;
+        this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
+        const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
+        addStyle(this.overlay!, styles || {});
+        this.appendOverlay();
+        this.alignOverlay();
+        this.setZIndex();
+        this.updateFocus();
+        this.bindListeners();
+        // TODO: update motion events
+        this.onShow.emit(el);
     }
 
-    onOverlayAnimationDone(event: AnimationEvent) {
-        if (!this.overlayVisible && !this.inline && this.overlay) {
-            if (this.autoZIndex) {
-                ZIndexUtils.clear(event.target);
-            }
-            this.onOverlayHide();
-            this.onClose.emit(event);
+    onOverlayAfterLeave(el: HTMLDivElement) {
+        if (this.autoZIndex) {
+            ZIndexUtils.clear(el);
         }
+        this.restoreOverlayAppend();
+        this.onOverlayHide();
+
+        // TODO: update motion events
+        this.onClose.emit(el);
     }
 
     appendOverlay() {
@@ -3192,19 +3192,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.touchUI) {
             this.enableModality(this.overlay);
         } else if (this.overlay) {
-            if (this.view === 'date') {
-                if (!this.overlay.style.width) {
-                    this.overlay.style.width = getOuterWidth(this.overlay) + 'px';
-                }
-                if (!this.overlay.style.minWidth) {
-                    this.overlay.style.minWidth = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
-                }
-            } else {
-                if (!this.overlay.style.width) {
-                    this.overlay.style.width = getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
-                }
-            }
-
             if (this.$appendTo() && this.$appendTo() !== 'self') {
                 absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
             } else {

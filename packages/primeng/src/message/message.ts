@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { MotionOptions } from '@primeuix/motion';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { TimesIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { MessagePassThrough } from 'primeng/types/message';
 import { MessageStyle } from './style/messagestyle';
@@ -17,10 +19,10 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
 @Component({
     selector: 'p-message',
     standalone: true,
-    imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind],
+    imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind, MotionModule],
     template: `
-        @if (visible()) {
-            <div [pBind]="ptm('root')" [attr.aria-live]="'polite'" [class]="cn(cx('root'), styleClass)" [attr.role]="'alert'" [animate.enter]="enterAnimation()" [animate.leave]="leaveAnimation()" [attr.data-p]="dataP">
+        <p-motion [visible]="visible()" name="p-message" [options]="computedMotionOptions()" [appear]="true">
+            <div [pBind]="ptm('root')" [attr.aria-live]="'polite'" [class]="cn(cx('root'), styleClass)" [attr.role]="'alert'" [attr.data-p]="dataP">
                 <div [pBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
                     @if (iconTemplate || _iconTemplate) {
                         <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
@@ -59,7 +61,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                     }
                 </div>
             </div>
-        }
+        </p-motion>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -132,26 +134,16 @@ export class Message extends BaseComponent<MessagePassThrough> {
      * Transition options of the show animation.
      * @defaultValue '300ms ease-out'
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '300ms ease-out';
     /**
      * Transition options of the hide animation.
      * @defaultValue '200ms cubic-bezier(0.86, 0, 0.07, 1)'
      * @group Props
+     * @deprecated since v21.0.0, use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '200ms cubic-bezier(0.86, 0, 0.07, 1)';
-    /**
-     * Enter animation class name.
-     * @defaultValue 'p-message-enter'
-     * @group Props
-     */
-    enterAnimation = input<string | null | undefined>('p-message-enter');
-    /**
-     * Leave animation class name.
-     * @defaultValue 'p-message-leave'
-     * @group Props
-     */
-    leaveAnimation = input<string | null | undefined>('p-message-leave');
     /**
      * Defines the size of the component.
      * @group Props
@@ -162,6 +154,18 @@ export class Message extends BaseComponent<MessagePassThrough> {
      * @group Props
      */
     @Input() variant: 'outlined' | 'text' | 'simple' | undefined;
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Emits when the message is closed.
      * @param {{ originalEvent: Event }} event - The event object containing the original event.
