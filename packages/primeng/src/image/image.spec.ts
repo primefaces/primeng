@@ -661,8 +661,7 @@ describe('Image', () => {
             imageInstance.previewVisible = true;
             spyOn(imageInstance, 'closePreview');
 
-            const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            imageInstance.onKeydownHandler(escapeEvent);
+            imageInstance.onKeydownHandler();
 
             expect(imageInstance.closePreview).toHaveBeenCalled();
         });
@@ -671,8 +670,7 @@ describe('Image', () => {
             imageInstance.previewVisible = false;
             spyOn(imageInstance, 'closePreview');
 
-            const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-            imageInstance.onKeydownHandler(escapeEvent);
+            imageInstance.onKeydownHandler();
 
             expect(imageInstance.closePreview).not.toHaveBeenCalled();
         });

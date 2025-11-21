@@ -16,6 +16,7 @@ import {
     NgModule,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -72,54 +73,73 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                 <svg data-p-icon="eye" [class]="cx('previewIcon')" [pBind]="ptm('previewIcon')" />
             </ng-template>
         </button>
-        <div #mask [class]="cx('mask')" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap [pBind]="ptm('mask')">
-            <div [class]="cx('toolbar')" (click)="handleToolbarClick($event)" [pBind]="ptm('toolbar')">
-                <button [class]="cx('rotateRightButton')" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()" [pBind]="ptm('rotateRightButton')">
-                    <svg data-p-icon="refresh" *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
-                    <ng-template *ngTemplateOutlet="rotateRightIconTemplate || _rotateRightIconTemplate"></ng-template>
-                </button>
-                <button [class]="cx('rotateLeftButton')" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()" [pBind]="ptm('rotateLeftButton')">
-                    <svg data-p-icon="undo" *ngIf="!rotateLeftIconTemplate && !_rotateLeftIconTemplate" />
-                    <ng-template *ngTemplateOutlet="rotateLeftIconTemplate || _rotateLeftIconTemplate"></ng-template>
-                </button>
-                <button [class]="cx('zoomOutButton')" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()" [pBind]="ptm('zoomOutButton')">
-                    <svg data-p-icon="search-minus" *ngIf="!zoomOutIconTemplate && !_zoomOutIconTemplate" />
-                    <ng-template *ngTemplateOutlet="zoomOutIconTemplate || _zoomOutIconTemplate"></ng-template>
-                </button>
-                <button [class]="cx('zoomInButton')" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()" [pBind]="ptm('zoomInButton')">
-                    <svg data-p-icon="search-plus" *ngIf="!zoomInIconTemplate && !_zoomInIconTemplate" />
-                    <ng-template *ngTemplateOutlet="zoomInIconTemplate || _zoomInIconTemplate"></ng-template>
-                </button>
-                <button [class]="cx('closeButton')" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton [pBind]="ptm('closeButton')">
-                    <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
-                    <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
-                </button>
+        @if (renderMask()) {
+            <div
+                #mask
+                [class]="cx('mask')"
+                [attr.aria-modal]="maskVisible"
+                role="dialog"
+                (click)="onMaskClick()"
+                (keydown)="onMaskKeydown($event)"
+                pFocusTrap
+                [pBind]="ptm('mask')"
+                [pMotion]="maskVisible"
+                [pMotionAppear]="true"
+                [pMotionEnterActiveClass]="'p-modal-enter'"
+                [pMotionLeaveActiveClass]="'p-modal-leave'"
+                [pMotionOptions]="computedMaskMotionOptions()"
+                (pMotionOnAfterLeave)="onMaskAfterLeave()"
+            >
+                <div [class]="cx('toolbar')" (click)="handleToolbarClick($event)" [pBind]="ptm('toolbar')">
+                    <button [class]="cx('rotateRightButton')" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()" [pBind]="ptm('rotateRightButton')">
+                        <svg data-p-icon="refresh" *ngIf="!rotateRightIconTemplate && !_rotateRightIconTemplate" />
+                        <ng-template *ngTemplateOutlet="rotateRightIconTemplate || _rotateRightIconTemplate"></ng-template>
+                    </button>
+                    <button [class]="cx('rotateLeftButton')" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()" [pBind]="ptm('rotateLeftButton')">
+                        <svg data-p-icon="undo" *ngIf="!rotateLeftIconTemplate && !_rotateLeftIconTemplate" />
+                        <ng-template *ngTemplateOutlet="rotateLeftIconTemplate || _rotateLeftIconTemplate"></ng-template>
+                    </button>
+                    <button [class]="cx('zoomOutButton')" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()" [pBind]="ptm('zoomOutButton')">
+                        <svg data-p-icon="search-minus" *ngIf="!zoomOutIconTemplate && !_zoomOutIconTemplate" />
+                        <ng-template *ngTemplateOutlet="zoomOutIconTemplate || _zoomOutIconTemplate"></ng-template>
+                    </button>
+                    <button [class]="cx('zoomInButton')" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()" [pBind]="ptm('zoomInButton')">
+                        <svg data-p-icon="search-plus" *ngIf="!zoomInIconTemplate && !_zoomInIconTemplate" />
+                        <ng-template *ngTemplateOutlet="zoomInIconTemplate || _zoomInIconTemplate"></ng-template>
+                    </button>
+                    <button [class]="cx('closeButton')" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton [pBind]="ptm('closeButton')">
+                        <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                        <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
+                    </button>
+                </div>
+                @if (renderPreview()) {
+                    <p-motion [visible]="previewVisible" name="p-image" [appear]="true" [options]="computedMotionOptions()" (onBeforeEnter)="onAnimationStart($event)" (onBeforeLeave)="onBeforeLeave()" (onAfterLeave)="onAnimationEnd($event)">
+                        <ng-container *ngIf="!previewTemplate && !_previewTemplate">
+                            <img
+                                [attr.src]="previewImageSrc ? previewImageSrc : src"
+                                [attr.srcset]="previewImageSrcSet"
+                                [attr.sizes]="previewImageSizes"
+                                [class]="cx('original')"
+                                [ngStyle]="imagePreviewStyle()"
+                                (click)="onPreviewImageClick()"
+                                [pBind]="ptm('original')"
+                            />
+                        </ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="
+                                previewTemplate || _previewTemplate;
+                                context: {
+                                    class: cx('original'),
+                                    style: imagePreviewStyle(),
+                                    previewCallback: onPreviewImageClick.bind(this)
+                                }
+                            "
+                        >
+                        </ng-container>
+                    </p-motion>
+                }
             </div>
-            <p-motion [visible]="previewVisible" name="p-image" [appear]="true" [options]="computedMotionOptions()" (onBeforeEnter)="onAnimationStart($event)" (onAfterLeave)="onAnimationEnd($event)">
-                <ng-container *ngIf="!previewTemplate && !_previewTemplate">
-                    <img
-                        [attr.src]="previewImageSrc ? previewImageSrc : src"
-                        [attr.srcset]="previewImageSrcSet"
-                        [attr.sizes]="previewImageSizes"
-                        [class]="cx('original')"
-                        [ngStyle]="imagePreviewStyle()"
-                        (click)="onPreviewImageClick()"
-                        [pBind]="ptm('original')"
-                    />
-                </ng-container>
-                <ng-container
-                    *ngTemplateOutlet="
-                        previewTemplate || _previewTemplate;
-                        context: {
-                            class: cx('original'),
-                            style: imagePreviewStyle(),
-                            previewCallback: onPreviewImageClick.bind(this)
-                        }
-                    "
-                >
-                </ng-container>
-            </p-motion>
-        </div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -235,6 +255,18 @@ export class Image extends BaseComponent<ImagePassThrough> {
      */
     appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
     /**
+     * The motion options for the mask.
+     * @group Props
+     */
+    maskMotionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMaskMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('maskMotion'),
+            ...this.maskMotionOptions()
+        };
+    });
+    /**
      * The motion options.
      * @group Props
      */
@@ -316,6 +348,10 @@ export class Image extends BaseComponent<ImagePassThrough> {
      * @group Templates
      */
     @ContentChild('image', { descendants: false }) imageTemplate: TemplateRef<any> | undefined;
+
+    renderMask = signal<boolean>(false);
+
+    renderPreview = signal<boolean>(false);
 
     maskVisible: boolean = false;
 
@@ -418,6 +454,8 @@ export class Image extends BaseComponent<ImagePassThrough> {
         if (this.preview) {
             this.maskVisible = true;
             this.previewVisible = true;
+            this.renderMask.set(true);
+            this.renderPreview.set(true);
             blockBodyScroll();
         }
     }
@@ -482,11 +520,24 @@ export class Image extends BaseComponent<ImagePassThrough> {
         }, 25);
     }
 
-    onAnimationEnd() {
-        ZIndexUtils.clear(this.wrapper);
+    onBeforeLeave() {
         this.maskVisible = false;
+    }
+
+    onAnimationEnd() {
+        this.renderPreview.set(false);
+    }
+
+    onMaskAfterLeave() {
+        if (!this.renderPreview()) {
+            this.renderMask.set(false);
+        }
+        ZIndexUtils.clear(this.wrapper);
         this.container = null;
         this.wrapper = null;
+        this.rotate = 0;
+        this.scale = this.zoomSettings.default;
+        unblockBodyScroll();
         this.onHide.emit({});
         this.cd.markForCheck();
     }
@@ -519,9 +570,6 @@ export class Image extends BaseComponent<ImagePassThrough> {
 
     closePreview(): void {
         this.previewVisible = false;
-        this.rotate = 0;
-        this.scale = this.zoomSettings.default;
-        unblockBodyScroll();
     }
 
     imageError(event: Event) {
@@ -548,7 +596,7 @@ export class Image extends BaseComponent<ImagePassThrough> {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
-    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    @HostListener('document:keydown.escape') onKeydownHandler() {
         if (this.previewVisible) {
             this.closePreview();
         }
