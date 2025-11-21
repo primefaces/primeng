@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Knob } from './knob';
+
 import { providePrimeNG } from 'primeng/config';
+import { Knob } from './knob';
 
 // Temel test component'i
 @Component({
@@ -811,7 +811,7 @@ describe('Knob', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -874,7 +874,7 @@ describe('Knob', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -918,7 +918,7 @@ describe('Knob', () => {
             it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -965,7 +965,7 @@ describe('Knob', () => {
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1014,7 +1014,7 @@ describe('Knob', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1046,7 +1046,7 @@ describe('Knob', () => {
             it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1072,7 +1072,7 @@ describe('Knob', () => {
             it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1100,7 +1100,7 @@ describe('Knob', () => {
             it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
@@ -1152,7 +1152,7 @@ describe('Knob', () => {
             it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1189,7 +1189,7 @@ describe('Knob', () => {
             it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule, NoopAnimationsModule],
+                    imports: [Knob, FormsModule],
                     declarations: [TestPTCoverageComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();

@@ -1,10 +1,10 @@
-import { Component, DebugElement, input, provideZonelessChangeDetection, TemplateRef, ViewChild } from '@angular/core';
+import { Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
-import { Chip, ChipModule } from './chip';
 import { ChipProps } from 'primeng/types/chip';
+import { Chip, ChipModule } from './chip';
 
 @Component({
     standalone: false,
@@ -181,7 +181,7 @@ class TestVisibilityChipComponent {
 describe('Chip', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ChipModule, SharedModule, NoopAnimationsModule],
+            imports: [ChipModule, SharedModule],
             declarations: [
                 TestBasicChipComponent,
                 TestLabelChipComponent,

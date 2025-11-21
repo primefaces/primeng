@@ -1,7 +1,7 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Button, ButtonDirective, ButtonIcon, ButtonLabel } from './button';
 
 // Basic Button Component Test
@@ -278,7 +278,7 @@ describe('Button', () => {
                 TestBadgeButtonComponent,
                 TestIconButtonComponent
             ],
-            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel, NoopAnimationsModule],
+            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1479,7 +1479,7 @@ describe('ButtonDirective', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestButtonDirectiveComponent, TestButtonWithIconLabelDirectiveComponent],
-            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel, NoopAnimationsModule],
+            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

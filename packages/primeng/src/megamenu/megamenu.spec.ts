@@ -1,7 +1,7 @@
 import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { MegaMenuItem, SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
@@ -327,7 +327,7 @@ describe('MegaMenu', () => {
             imports: [
                 MegaMenu,
                 TestTargetComponent,
-                NoopAnimationsModule,
+
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },
@@ -1540,7 +1540,7 @@ describe('MegaMenu', () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    imports: [MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1567,7 +1567,7 @@ describe('MegaMenu', () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    imports: [MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1598,7 +1598,7 @@ describe('MegaMenu', () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestBasicMegaMenuComponent],
-                    imports: [MegaMenu, NoopAnimationsModule, SharedModule, RouterTestingModule],
+                    imports: [MegaMenu, SharedModule, RouterTestingModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({

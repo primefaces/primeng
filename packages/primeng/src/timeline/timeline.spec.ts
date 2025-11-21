@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Timeline } from './timeline';
 
 // Interface for event items
@@ -145,7 +145,7 @@ describe('Timeline', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, NoopAnimationsModule, Timeline],
+            imports: [CommonModule, Timeline],
             declarations: [TestBasicTimelineComponent, TestTemplatesTimelineComponent, TestPrimeTemplateTimelineComponent, TestEmptyTimelineComponent, TestComplexTimelineComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();

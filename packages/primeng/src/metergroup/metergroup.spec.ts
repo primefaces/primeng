@@ -1,9 +1,9 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MeterGroup, MeterGroupModule, MeterGroupLabel } from './metergroup';
+
 import { MeterItem } from 'primeng/types/metergroup';
+import { MeterGroup, MeterGroupLabel, MeterGroupModule } from './metergroup';
 
 @Component({
     standalone: false,
@@ -109,7 +109,7 @@ class TestMeterGroupDynamicComponent {
 describe('MeterGroup', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [MeterGroupModule, NoopAnimationsModule],
+            imports: [MeterGroupModule],
             declarations: [TestBasicMeterGroupComponent, TestMeterGroupOrientationsComponent, TestMeterGroupTemplatesComponent, TestMeterGroupWithIconsComponent, TestMeterGroupEmptyComponent, TestMeterGroupDynamicComponent],
             providers: [provideZonelessChangeDetection()]
         });

@@ -1,7 +1,6 @@
 import { Component, DebugElement, ElementRef, input, provideZonelessChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api';
 import { Badge, BadgeDirective, BadgeModule } from './badge';
 
@@ -134,7 +133,7 @@ class TestDynamicBadgeComponent {
 describe('Badge', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [BadgeModule, SharedModule, NoopAnimationsModule],
+            imports: [BadgeModule, SharedModule],
             declarations: [
                 TestBasicBadgeComponent,
                 TestValueBadgeComponent,

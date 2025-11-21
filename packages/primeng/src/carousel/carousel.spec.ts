@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { providePrimeNG } from 'primeng/config';
@@ -194,7 +194,7 @@ describe('Carousel', () => {
         });
 
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
+            imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
             declarations: [TestBasicCarouselComponent, TestCircularCarouselComponent, TestVerticalCarouselComponent, TestResponsiveCarouselComponent, TestAutoplayCarouselComponent, TestTemplateCarouselComponent, TestPTemplateCarouselComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -1243,7 +1243,7 @@ describe('Carousel', () => {
             beforeEach(async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
+                    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({

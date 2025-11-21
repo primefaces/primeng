@@ -1,7 +1,6 @@
-import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api';
 import { Avatar, AvatarModule } from './avatar';
 
@@ -136,7 +135,7 @@ class TestPTAvatarComponent {
 describe('Avatar', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [AvatarModule, SharedModule, NoopAnimationsModule],
+            imports: [AvatarModule, SharedModule],
             declarations: [
                 TestBasicAvatarComponent,
                 TestLabelAvatarComponent,

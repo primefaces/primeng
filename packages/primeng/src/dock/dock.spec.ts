@@ -1,7 +1,7 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
@@ -194,7 +194,7 @@ describe('Dock', () => {
             imports: [
                 Dock,
                 TestTargetComponent,
-                NoopAnimationsModule,
+
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },
@@ -1297,7 +1297,7 @@ describe('Dock', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestGlobalPTComponent, NoopAnimationsModule],
+                    imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1351,7 +1351,7 @@ describe('Dock', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [TestMergedPTComponent, NoopAnimationsModule],
+                    imports: [TestMergedPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({

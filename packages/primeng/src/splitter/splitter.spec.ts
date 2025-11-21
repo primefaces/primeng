@@ -1,7 +1,7 @@
 import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Splitter } from './splitter';
 
 @Component({
@@ -119,7 +119,7 @@ describe('Splitter', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Splitter, NoopAnimationsModule],
+            imports: [Splitter],
             declarations: [TestSplitterComponent, TestThreePanelComponent, TestNestedSplitterComponent, TestPTSplitterComponent],
             providers: [provideZonelessChangeDetection()]
         });

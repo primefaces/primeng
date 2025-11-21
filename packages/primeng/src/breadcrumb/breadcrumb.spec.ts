@@ -1,7 +1,7 @@
 import { Component, DebugElement, NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
@@ -190,7 +190,7 @@ describe('Breadcrumb', () => {
             imports: [
                 Breadcrumb,
                 TestTargetComponent,
-                NoopAnimationsModule,
+
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },
                     { path: 'products', component: TestTargetComponent },

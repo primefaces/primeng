@@ -1,7 +1,7 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ButtonModule } from 'primeng/button';
 import { FocusTrap } from 'primeng/focustrap';
 import { Dialog } from './dialog';
@@ -272,7 +272,7 @@ describe('Dialog', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicDialogComponent, TestPTemplateDialogComponent, TestHashTemplateDialogComponent, TestHeadlessDialogComponent, TestPositionDialogComponent, TestMaximizableDialogComponent, TestAccessibilityDialogComponent],
-            imports: [Dialog, ButtonModule, FocusTrap, NoopAnimationsModule],
+            imports: [Dialog, ButtonModule, FocusTrap],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1382,7 +1382,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase1Component],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1435,7 +1435,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase2Component],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1485,7 +1485,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase3Component],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1538,7 +1538,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase4Component],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1584,7 +1584,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase5Component],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1628,7 +1628,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineComponent],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1651,7 +1651,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1688,7 +1688,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
@@ -1745,7 +1745,7 @@ describe('Dialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase8HooksComponent],
-                    imports: [Dialog, NoopAnimationsModule],
+                    imports: [Dialog],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 

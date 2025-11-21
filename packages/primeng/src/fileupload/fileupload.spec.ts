@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpEventType } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ChangeDetectorRef, Component, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BehaviorSubject, Observable, of, delay, timer } from 'rxjs';
-import { MessageService, PrimeTemplate } from 'primeng/api';
-import { FileUpload, FileUploadModule } from './fileupload';
+
+import { MessageService } from 'primeng/api';
+import { BehaviorSubject, delay, of, timer } from 'rxjs';
+import { FileUpload } from './fileupload';
 
 describe('FileUpload', () => {
     let component: FileUpload;
@@ -14,7 +14,7 @@ describe('FileUpload', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            imports: [FileUpload, HttpClientTestingModule],
             providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -986,7 +986,7 @@ describe('FileUpload Template Tests', () => {
     describe('pTemplate Tests', () => {
         it('should render pTemplate="header" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1014,7 +1014,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="content" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateContentComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1040,7 +1040,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="file" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateFileComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1061,7 +1061,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="empty" when no files', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateEmptyComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1081,7 +1081,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="filelabel" in basic mode', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateFileLabelComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1100,7 +1100,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate icons', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateIconsComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1119,7 +1119,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="toolbar"', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateToolbarComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1143,7 +1143,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render fileRemoveIconTemplate with context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestFileRemoveIconComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1172,7 +1172,7 @@ describe('FileUpload Template Tests', () => {
     describe('#template Tests', () => {
         it('should render #header template with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestHashHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1193,7 +1193,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should render #content template with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestHashContentComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1214,7 +1214,7 @@ describe('FileUpload Template Tests', () => {
     describe('Comprehensive Context Object Testing', () => {
         it('should provide correct header context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestContextObjectsComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1251,7 +1251,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should provide correct content context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestContentContextComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1296,7 +1296,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should provide correct file label context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestFileLabelContextComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1339,7 +1339,7 @@ describe('FileUpload Template Tests', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1412,7 +1412,7 @@ describe('FileUpload CSS Classes and Styling', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            imports: [FileUpload, HttpClientTestingModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1506,7 +1506,7 @@ describe('FileUpload Accessibility', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            imports: [FileUpload, HttpClientTestingModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1559,7 +1559,7 @@ describe('FileUpload Performance and Edge Cases', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            imports: [FileUpload, HttpClientTestingModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1701,7 +1701,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
         it('should render all mixed templates correctly', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestMixedTemplatesComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1745,7 +1745,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
         it('should handle mixed template interactions', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestMixedTemplatesComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1853,7 +1853,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
         it('should validate all content template context variables', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestAdvancedContextValidationComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1911,7 +1911,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            imports: [FileUpload, HttpClientTestingModule],
             providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2222,7 +2222,7 @@ describe('FileUpload Input Properties - Dynamic Values', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            imports: [FileUpload, HttpClientTestingModule],
             providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2406,7 +2406,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+            imports: [FileUpload, HttpClientTestingModule],
             providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2718,7 +2718,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase1Component],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2769,7 +2769,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase2Component],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2818,7 +2818,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase3Component],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2870,7 +2870,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase4Component],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2914,7 +2914,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase5Component],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2953,7 +2953,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineComponent],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -2975,7 +2975,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -3008,7 +3008,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [
                         MessageService,
                         {
@@ -3071,7 +3071,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase8HooksComponent],
-                    imports: [FileUpload, HttpClientTestingModule, NoopAnimationsModule],
+                    imports: [FileUpload, HttpClientTestingModule],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

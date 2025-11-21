@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { Toast, ToastItem } from './toast';
@@ -115,7 +115,7 @@ describe('Toast', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, Toast, SharedModule, PrimeTemplate],
+            imports: [CommonModule, Toast, SharedModule, PrimeTemplate],
             declarations: [TestBasicToastComponent, TestMessageTemplateComponent, TestHeadlessTemplateComponent, TestPTemplateComponent, TestPositionComponent],
             providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
@@ -671,7 +671,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Toast, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Toast, SharedModule, PrimeTemplate],
                 declarations: [TestBasicToastComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -845,7 +845,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -891,7 +891,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastPtObjectComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -953,7 +953,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastPtMixedComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -998,7 +998,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastPtInstanceComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1070,7 +1070,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastPtEventComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1141,7 +1141,7 @@ describe('Toast', () => {
         it('should apply inline pt with string class', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastInlineStringPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1156,7 +1156,7 @@ describe('Toast', () => {
         it('should apply inline pt with object', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastInlineObjectPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1183,7 +1183,7 @@ describe('Toast', () => {
         it('should apply global pt configuration from PrimeNGConfig', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastGlobalPtComponent],
                 providers: [
                     MessageService,
@@ -1220,7 +1220,7 @@ describe('Toast', () => {
 
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastMergedPtComponent],
                 providers: [
                     MessageService,
@@ -1260,7 +1260,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Toast],
+                imports: [Toast],
                 declarations: [TestToastPtHooksComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1381,7 +1381,7 @@ describe('ToastItem', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, ToastItem, SharedModule],
+            imports: [CommonModule, ToastItem, SharedModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -1462,9 +1462,6 @@ describe('ToastItem', () => {
             await new Promise((resolve) => setTimeout(resolve, 1100));
             await fixture.whenStable();
 
-            // Trigger animation end to emit onClose
-            component.handleAnimationEnd(new AnimationEvent('animationend'));
-
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
                 message: component.message as any
@@ -1518,9 +1515,6 @@ describe('ToastItem', () => {
             expect(component.clearTimeout).toHaveBeenCalled();
             expect(mockEvent.preventDefault).toHaveBeenCalled();
 
-            // Trigger animation end to emit onClose
-            component.handleAnimationEnd(new AnimationEvent('animationend'));
-
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
                 message: component.message as any
@@ -1556,9 +1550,6 @@ describe('ToastItem', () => {
 
             closeButton.nativeElement.click();
 
-            // Trigger animation end to emit onClose
-            component.handleAnimationEnd(new AnimationEvent('animationend'));
-
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
                 message: component.message as any
@@ -1572,9 +1563,6 @@ describe('ToastItem', () => {
             const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 
             closeButton.nativeElement.dispatchEvent(enterEvent);
-
-            // Trigger animation end to emit onClose
-            component.handleAnimationEnd(new AnimationEvent('animationend'));
 
             expect(component.onClose.emit).toHaveBeenCalledWith({
                 index: 0,
@@ -2126,7 +2114,7 @@ describe('ToastItem', () => {
         it('should apply inline pt with string class', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, ToastItem],
+                imports: [ToastItem],
                 declarations: [TestInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -2141,7 +2129,7 @@ describe('ToastItem', () => {
         it('should apply inline pt with object', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, ToastItem],
+                imports: [ToastItem],
                 declarations: [TestInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -2171,7 +2159,7 @@ describe('ToastItem', () => {
         it('should apply global pt configuration from PrimeNGConfig', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, ToastItem],
+                imports: [ToastItem],
                 declarations: [TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -2217,7 +2205,7 @@ describe('ToastItem', () => {
 
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, ToastItem],
+                imports: [ToastItem],
                 declarations: [TestMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),

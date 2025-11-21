@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { RadioButton } from './radiobutton';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { providePrimeNG } from 'primeng/config';
 
 // Basic RadioButton test component
@@ -128,7 +128,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRadioComponent, NoopAnimationsModule],
+                imports: [TestBasicRadioComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -185,7 +185,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRadioComponent, NoopAnimationsModule],
+                imports: [TestBasicRadioComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -276,7 +276,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestRadioGroupComponent, NoopAnimationsModule],
+                imports: [TestRadioGroupComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -336,7 +336,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestReactiveRadioComponent, NoopAnimationsModule],
+                imports: [TestReactiveRadioComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -411,7 +411,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedRadioComponent, NoopAnimationsModule],
+                imports: [TestAdvancedRadioComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -499,7 +499,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBinaryRadioComponent, NoopAnimationsModule],
+                imports: [TestBinaryRadioComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -551,7 +551,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRadioComponent, NoopAnimationsModule],
+                imports: [TestBasicRadioComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -606,7 +606,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedRadioComponent, NoopAnimationsModule],
+                imports: [TestAdvancedRadioComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -700,7 +700,7 @@ describe('RadioButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestRadioGroupComponent, NoopAnimationsModule],
+                imports: [TestRadioGroupComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -753,7 +753,7 @@ describe('RadioButton', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -798,7 +798,7 @@ describe('RadioButton', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -836,7 +836,7 @@ describe('RadioButton', () => {
             it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -879,7 +879,7 @@ describe('RadioButton', () => {
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -923,7 +923,7 @@ describe('RadioButton', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -956,7 +956,7 @@ describe('RadioButton', () => {
             it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -983,7 +983,7 @@ describe('RadioButton', () => {
             it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1012,7 +1012,7 @@ describe('RadioButton', () => {
             it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
@@ -1065,7 +1065,7 @@ describe('RadioButton', () => {
             it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1102,7 +1102,7 @@ describe('RadioButton', () => {
             it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule, NoopAnimationsModule],
+                    imports: [RadioButton, FormsModule],
                     declarations: [TestPTCoverageComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();

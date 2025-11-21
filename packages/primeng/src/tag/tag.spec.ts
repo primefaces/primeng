@@ -1,7 +1,7 @@
 import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Tag } from './tag';
 
 @Component({
@@ -97,7 +97,7 @@ describe('Tag', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicTagComponent, TestIconTagComponent, TestIconTemplateTagComponent, TestPTemplateTagComponent, TestContentProjectionTagComponent, TestSeverityTagComponent, TestStyleTagComponent, TestMultipleIconTemplatesComponent],
-            imports: [Tag, NoopAnimationsModule],
+            imports: [Tag],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

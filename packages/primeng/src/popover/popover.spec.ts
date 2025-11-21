@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, provideZonelessChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { OverlayService, PrimeTemplate } from 'primeng/api';
 import { Popover } from './popover';
 
@@ -135,7 +135,7 @@ describe('Popover', () => {
         });
 
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, Popover, PrimeTemplate],
+            imports: [CommonModule, Popover, PrimeTemplate],
             declarations: [TestBasicPopoverComponent, TestTemplatePopoverComponent, TestPTemplatePopoverComponent, TestKeyboardNavigationComponent],
             providers: [provideZonelessChangeDetection(), { provide: OverlayService, useValue: overlayServiceSpy }]
         }).compileComponents();

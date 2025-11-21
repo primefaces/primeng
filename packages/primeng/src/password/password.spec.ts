@@ -1,13 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Password, PasswordDirective, PasswordModule, MapperPipe } from './password';
-import { SharedModule } from 'primeng/api';
+
 import { CommonModule } from '@angular/common';
-import { PasswordPassThroughOptions } from 'primeng/types/password';
+import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { MapperPipe, Password, PasswordDirective, PasswordModule } from './password';
 
 // Test Components
 @Component({
@@ -255,7 +254,7 @@ describe('Password', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, NoopAnimationsModule],
+            imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule],
             declarations: [TestBasicPasswordComponent, TestFormPasswordComponent, TestPasswordPTemplateComponent, TestPasswordRefTemplateComponent, TestPTPasswordComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -1804,7 +1803,7 @@ describe('Password Integration Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, NoopAnimationsModule],
+            imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule],
             declarations: [TestBasicPasswordComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -1873,7 +1872,7 @@ describe('Password PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PasswordModule, FormsModule, CommonModule, NoopAnimationsModule],
+            imports: [PasswordModule, FormsModule, CommonModule],
             declarations: [TestPTPasswordComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -2210,7 +2209,7 @@ describe('Password PassThrough Tests', () => {
         it('should apply global pt configuration', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [PasswordModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [PasswordModule, FormsModule, CommonModule],
                 declarations: [TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -2237,7 +2236,7 @@ describe('Password PassThrough Tests', () => {
         it('should apply global CSS from pt configuration', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [PasswordModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [PasswordModule, FormsModule, CommonModule],
                 declarations: [TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -2265,7 +2264,7 @@ describe('Password PassThrough Tests', () => {
         it('should apply global pt to multiple instances', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [PasswordModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [PasswordModule, FormsModule, CommonModule],
                 declarations: [TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),

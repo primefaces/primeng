@@ -1,7 +1,7 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ConfirmationService } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
@@ -296,7 +296,7 @@ describe('ConfirmDialog', () => {
                 TestButtonPropertiesComponent,
                 TestEventsConfirmDialogComponent
             ],
-            imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+            imports: [ConfirmDialog, Dialog, Button],
             providers: [ConfirmationService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1076,7 +1076,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase1Component],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1137,7 +1137,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase2Component],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1193,7 +1193,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase3Component],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1254,7 +1254,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase4Component],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1312,7 +1312,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase5Component],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1377,7 +1377,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineComponent],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1401,7 +1401,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1456,7 +1456,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [
                         ConfirmationService,
                         provideZonelessChangeDetection(),
@@ -1526,7 +1526,7 @@ describe('ConfirmDialog', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase8HooksComponent],
-                    imports: [ConfirmDialog, Dialog, Button, NoopAnimationsModule],
+                    imports: [ConfirmDialog, Dialog, Button],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

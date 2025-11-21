@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { providePrimeNG } from 'primeng/config';
 import type { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent } from 'primeng/types/scroller';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -249,7 +249,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -308,7 +308,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -604,7 +604,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -737,7 +737,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1024,7 +1024,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1130,7 +1130,7 @@ describe('Scroller', () => {
     describe('Template Content Projection Tests', () => {
         it('should render with content template', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestContentTemplateComponent]
             }).compileComponents();
@@ -1156,7 +1156,7 @@ describe('Scroller', () => {
 
         it('should configure with item template without rendering errors', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestItemTemplateComponent]
             }).compileComponents();
@@ -1180,7 +1180,7 @@ describe('Scroller', () => {
 
         it('should render with loader template', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestLoaderTemplateComponent]
             }).compileComponents();
@@ -1221,7 +1221,7 @@ describe('Scroller', () => {
             class TestDisabledComponent {}
 
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestDisabledComponent]
             }).compileComponents();
@@ -1241,7 +1241,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestLazyLoadingComponent]
             }).compileComponents();
@@ -1353,7 +1353,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBothOrientationComponent]
             }).compileComponents();
@@ -1419,7 +1419,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestDynamicPropertiesComponent]
             }).compileComponents();
@@ -1498,7 +1498,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1571,7 +1571,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1749,7 +1749,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1836,7 +1836,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -2684,7 +2684,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestDynamicInputsComponent]
             }).compileComponents();
@@ -3044,7 +3044,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller, NoopAnimationsModule],
+                imports: [Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -3410,7 +3410,7 @@ describe('Scroller', () => {
 
             it('should render pTemplate="content" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestPTemplateContentComponent]
                 }).compileComponents();
@@ -3438,7 +3438,7 @@ describe('Scroller', () => {
 
             it('should render pTemplate="item" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestPTemplateItemComponent]
                 }).compileComponents();
@@ -3476,7 +3476,7 @@ describe('Scroller', () => {
 
             it('should render pTemplate="loader" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestPTemplateLoaderComponent]
                 }).compileComponents();
@@ -3505,7 +3505,7 @@ describe('Scroller', () => {
 
             it('should render pTemplate="loadericon" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestPTemplateLoaderIconComponent]
                 }).compileComponents();
@@ -3622,7 +3622,7 @@ describe('Scroller', () => {
 
             it('should render #content template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestHashTemplateContentComponent]
                 }).compileComponents();
@@ -3644,7 +3644,7 @@ describe('Scroller', () => {
 
             it('should render #item template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestHashTemplateItemComponent]
                 }).compileComponents();
@@ -3671,7 +3671,7 @@ describe('Scroller', () => {
 
             it('should render #loader template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestHashTemplateLoaderComponent]
                 }).compileComponents();
@@ -3690,7 +3690,7 @@ describe('Scroller', () => {
 
             it('should render #loadericon template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestHashTemplateLoaderIconComponent]
                 }).compileComponents();
@@ -3743,7 +3743,7 @@ describe('Scroller', () => {
 
             it('should handle mixed pTemplate and #template projections', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller, NoopAnimationsModule],
+                    imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestMixedTemplateComponent]
                 }).compileComponents();
@@ -3804,7 +3804,7 @@ describe('Scroller', () => {
 
             it('should provide accurate context objects for different orientations', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [TestContextValidationComponent, NoopAnimationsModule],
+                    imports: [TestContextValidationComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -3887,7 +3887,7 @@ describe('Scroller', () => {
 
             it('should provide correct count values in context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [TestContextValidationComponent, NoopAnimationsModule],
+                    imports: [TestContextValidationComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -3942,7 +3942,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestPTScrollerComponent, NoopAnimationsModule],
+                imports: [TestPTScrollerComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -4185,7 +4185,7 @@ describe('Scroller', () => {
             it('should apply global PT from PrimeNGConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [TestGlobalPTComponent, NoopAnimationsModule],
+                    imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -4213,7 +4213,7 @@ describe('Scroller', () => {
             it('should apply multiple PT attributes from global config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [TestGlobalPTComponent, NoopAnimationsModule],
+                    imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({

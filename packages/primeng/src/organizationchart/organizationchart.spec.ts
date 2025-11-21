@@ -1,10 +1,10 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, provideZonelessChangeDetection, TemplateRef, ViewChild } from '@angular/core';
+import { Component, provideZonelessChangeDetection, TemplateRef } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { OrganizationChart, OrganizationChartNode } from './organizationchart';
+
 import { TreeNode } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { OrganizationChart, OrganizationChartNode } from './organizationchart';
 
 // Test component for basic use cases
 @Component({
@@ -151,7 +151,7 @@ describe('OrganizationChart', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicOrganizationChartComponent, TestTemplateOrganizationChartComponent, TestTogglerIconTemplateComponent, TestKeyboardNavigationComponent],
-            imports: [OrganizationChart, OrganizationChartNode, NoopAnimationsModule],
+            imports: [OrganizationChart, OrganizationChartNode],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -964,7 +964,7 @@ describe('OrganizationChart', () => {
             it('should apply global PT configuration', async () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, OrganizationChart],
+                    imports: [OrganizationChart],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -992,7 +992,7 @@ describe('OrganizationChart', () => {
             it('should merge local PT with global PT', async () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, OrganizationChart],
+                    imports: [OrganizationChart],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({

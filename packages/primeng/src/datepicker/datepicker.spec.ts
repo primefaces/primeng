@@ -1,11 +1,11 @@
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { CommonModule } from '@angular/common';
-import { DatePicker } from './datepicker';
 import type { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from 'primeng/types/datepicker';
+import { DatePicker } from './datepicker';
 @Component({
     standalone: false,
     template: `
@@ -360,7 +360,7 @@ describe('DatePicker', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule, NoopAnimationsModule],
+            imports: [DatePicker, FormsModule, ReactiveFormsModule, CommonModule],
             declarations: [TestDatePickerComponent, TestReactiveFormDatePickerComponent, TestTemplatesDatePickerComponent, TestPTemplatesDatePickerComponent, TestRefTemplatesDatePickerComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -1595,7 +1595,7 @@ describe('DatePicker', () => {
         it('PT Case 1: should accept simple string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1616,7 +1616,7 @@ describe('DatePicker', () => {
         it('PT Case 2: should accept objects with class, style, and attributes', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1644,7 +1644,7 @@ describe('DatePicker', () => {
         it('PT Case 3: should accept mixed object and string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1668,7 +1668,7 @@ describe('DatePicker', () => {
         it('PT Case 4: should use instance properties in PT functions', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1689,7 +1689,7 @@ describe('DatePicker', () => {
         it('PT Case 5: should bind events through PT', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1714,7 +1714,7 @@ describe('DatePicker', () => {
         it('PT Case 6: should support inline PT binding', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1735,7 +1735,7 @@ describe('DatePicker', () => {
         it('PT Case 9: should apply PT to nested Button components', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1763,7 +1763,7 @@ describe('DatePicker', () => {
         it('PT Case 10: should apply PT to calendar structure', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1789,7 +1789,7 @@ describe('DatePicker', () => {
         it('PT Case 11: should apply PT to table elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1817,7 +1817,7 @@ describe('DatePicker', () => {
         it('PT Case 12: should apply PT to time picker elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [DatePicker, FormsModule, NoopAnimationsModule],
+                imports: [DatePicker, FormsModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 

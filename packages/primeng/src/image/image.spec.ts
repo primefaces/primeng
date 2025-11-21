@@ -1,7 +1,7 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
 import { Image, ImageModule } from './image';
 
@@ -156,7 +156,7 @@ describe('Image', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ImageModule, SharedModule, NoopAnimationsModule],
+            imports: [ImageModule, SharedModule],
             declarations: [TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent, TestPTemplateImageComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -730,7 +730,7 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule],
+                    imports: [ImageModule, SharedModule],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
@@ -763,7 +763,7 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule],
+                    imports: [ImageModule, SharedModule],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
@@ -835,7 +835,7 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule],
+                    imports: [ImageModule, SharedModule],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
@@ -870,7 +870,7 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule],
+                    imports: [ImageModule, SharedModule],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
@@ -900,7 +900,7 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule],
+                    imports: [ImageModule, SharedModule],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
@@ -957,7 +957,7 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule],
+                    imports: [ImageModule, SharedModule],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });
@@ -1010,7 +1010,7 @@ describe('Image', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [ImageModule, NoopAnimationsModule],
+                    imports: [ImageModule],
                     declarations: [TestInlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
@@ -1032,7 +1032,7 @@ describe('Image', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [ImageModule, NoopAnimationsModule],
+                    imports: [ImageModule],
                     declarations: [TestInlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
@@ -1066,7 +1066,7 @@ describe('Image', () => {
                 }
 
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, NoopAnimationsModule],
+                    imports: [ImageModule],
                     declarations: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
@@ -1100,7 +1100,7 @@ describe('Image', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule, SharedModule, NoopAnimationsModule],
+                    imports: [ImageModule, SharedModule],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
             });

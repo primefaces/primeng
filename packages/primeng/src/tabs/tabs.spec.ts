@@ -1,12 +1,9 @@
-import { Component, DebugElement, Input, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Tabs, TabsModule } from './tabs';
+
 import { TabList } from './tablist';
-import { Tab } from './tab';
-import { TabPanel } from './tabpanel';
-import { TabPanels } from './tabpanels';
+import { Tabs, TabsModule } from './tabs';
 
 @Component({
     standalone: false,
@@ -189,7 +186,7 @@ describe('Tabs', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [TabsModule, NoopAnimationsModule],
+            imports: [TabsModule],
             declarations: [TestTabsComponent, TestScrollableTabsComponent, TestLazyTabsComponent, TestContentChildIconsTabsComponent, TestPTTabsComponent],
             providers: [provideZonelessChangeDetection()]
         });

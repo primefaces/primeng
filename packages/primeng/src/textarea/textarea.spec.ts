@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { providePrimeNG } from 'primeng/config';
-import { Textarea } from './textarea';
 import { TextareaPassThrough } from 'primeng/types/textarea';
+import { Textarea } from './textarea';
 
 @Component({
     standalone: true,
@@ -64,7 +64,7 @@ describe('Textarea', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicTextareaComponent, NoopAnimationsModule],
+                imports: [TestBasicTextareaComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -124,7 +124,7 @@ describe('Textarea', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedTextareaComponent, NoopAnimationsModule],
+                imports: [TestAdvancedTextareaComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -227,7 +227,7 @@ describe('Textarea', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestReactiveFormTextareaComponent, NoopAnimationsModule],
+                imports: [TestReactiveFormTextareaComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -280,7 +280,7 @@ describe('Textarea', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicTextareaComponent, NoopAnimationsModule],
+                imports: [TestBasicTextareaComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -332,7 +332,7 @@ describe('Textarea', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestPTTextareaComponent, NoopAnimationsModule],
+                imports: [TestPTTextareaComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -584,7 +584,7 @@ describe('Textarea', () => {
             it('should apply global pt configuration', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [TestPTTextareaComponent, NoopAnimationsModule],
+                    imports: [TestPTTextareaComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -611,7 +611,7 @@ describe('Textarea', () => {
             it('should apply global css from PrimeNGConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [TestPTTextareaComponent, NoopAnimationsModule],
+                    imports: [TestPTTextareaComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({

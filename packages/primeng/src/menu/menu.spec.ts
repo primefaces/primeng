@@ -1,7 +1,7 @@
 import { Component, DebugElement, provideZonelessChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
@@ -287,7 +287,7 @@ describe('Menu', () => {
             imports: [
                 Menu,
                 TestTargetComponent,
-                NoopAnimationsModule,
+
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },
@@ -1676,7 +1676,7 @@ describe('Menu', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestInlinePTStringComponent, NoopAnimationsModule],
+                    imports: [TestInlinePTStringComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1697,7 +1697,7 @@ describe('Menu', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestInlinePTObjectComponent, NoopAnimationsModule],
+                    imports: [TestInlinePTObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1723,7 +1723,7 @@ describe('Menu', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestGlobalPTComponent, NoopAnimationsModule],
+                    imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1770,7 +1770,7 @@ describe('Menu', () => {
                 class TestMergedPTComponent {}
 
                 TestBed.configureTestingModule({
-                    imports: [TestMergedPTComponent, NoopAnimationsModule],
+                    imports: [TestMergedPTComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 

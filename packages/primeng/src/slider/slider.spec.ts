@@ -1,13 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
-import { FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Slider, SliderModule } from './slider';
-import { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
+
+import { CommonModule } from '@angular/common';
 import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
-import { CommonModule } from '@angular/common';
+import { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
+import { Slider, SliderModule } from './slider';
 
 // Test Components
 @Component({
@@ -84,7 +84,7 @@ describe('Slider', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Slider, SliderModule, FormsModule, CommonModule, SharedModule, NoopAnimationsModule],
+            imports: [Slider, SliderModule, FormsModule, CommonModule, SharedModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1147,7 +1147,7 @@ describe('Slider', () => {
 
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase1Component],
+                    imports: [TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1193,7 +1193,7 @@ describe('Slider', () => {
 
             it('should apply object-based PT with class, style, and attributes', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase2Component],
+                    imports: [TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1244,7 +1244,7 @@ describe('Slider', () => {
 
             it('should apply mixed object and string PT values', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase3Component],
+                    imports: [TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1304,7 +1304,7 @@ describe('Slider', () => {
 
             it('should use instance variables in PT functions', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase4Component],
+                    imports: [TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1357,7 +1357,7 @@ describe('Slider', () => {
 
             it('should bind click events via PT', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase5Component],
+                    imports: [TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1389,7 +1389,7 @@ describe('Slider', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineComponent],
+                    imports: [TestInlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1413,7 +1413,7 @@ describe('Slider', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineObjectComponent],
+                    imports: [TestInlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1441,7 +1441,7 @@ describe('Slider', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestGlobalPTComponent],
+                    imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1511,7 +1511,7 @@ describe('Slider', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestHooksComponent],
+                    imports: [TestHooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 

@@ -1,9 +1,8 @@
 import { Component, DebugElement, Input, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Toolbar, ToolbarModule } from './toolbar';
-import { PrimeTemplate } from 'primeng/api';
 
 @Component({
     standalone: false,
@@ -187,7 +186,7 @@ describe('Toolbar', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ToolbarModule, NoopAnimationsModule],
+            imports: [ToolbarModule],
             declarations: [
                 TestBasicToolbarComponent,
                 TestTemplateToolbarComponent,

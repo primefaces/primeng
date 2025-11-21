@@ -1,7 +1,7 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ConfirmationService, OverlayService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { FocusTrap } from 'primeng/focustrap';
@@ -294,7 +294,7 @@ describe('ConfirmPopup', () => {
                 TestPositionConfirmPopupComponent,
                 TestAccessibilityConfirmPopupComponent
             ],
-            imports: [ConfirmPopup, ButtonModule, FocusTrap, NoopAnimationsModule],
+            imports: [ConfirmPopup, ButtonModule, FocusTrap],
             providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -427,14 +427,15 @@ describe('ConfirmPopup', () => {
         });
 
         it('should hide popup when confirmation is null', async () => {
-            confirmPopupInstance.visible = true;
+            confirmPopupInstance['_visible'].set(true);
+
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             confirmationService.confirm(null as any);
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(confirmPopupInstance.visible).toBe(false);
+            expect(confirmPopupInstance.computedVisible()).toBe(false);
         });
     });
 
@@ -750,84 +751,6 @@ describe('ConfirmPopup', () => {
 
             expect(confirmPopupInstance.confirmation?.acceptVisible).toBe(false);
             expect(confirmPopupInstance.confirmation?.rejectVisible).toBe(true);
-        });
-    });
-
-    describe('Animation and Visibility', () => {
-        it('should handle animation start', async () => {
-            // Spy on the methods that are called during animation start
-            const alignSpy = spyOn(confirmPopupInstance, 'align');
-            const bindListenersSpy = spyOn(confirmPopupInstance, 'bindListeners');
-
-            const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
-            triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            // Create a proper element for the container
-            const containerElement = document.createElement('div');
-
-            // Animation event would be triggered in real scenario
-            const mockEvent = { toState: 'open', element: containerElement } as any;
-            confirmPopupInstance.onAnimationStart(mockEvent);
-
-            expect(alignSpy).toHaveBeenCalled();
-            expect(bindListenersSpy).toHaveBeenCalled();
-        });
-
-        it('should handle animation end', async () => {
-            const animationSpy = spyOn(confirmPopupInstance, 'onAnimationEnd').and.callThrough();
-
-            confirmPopupInstance.visible = false;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 0));
-
-            // Animation event would be triggered in real scenario
-            const mockEvent = { toState: 'void' } as any;
-            confirmPopupInstance.onAnimationEnd();
-
-            expect(animationSpy).toHaveBeenCalled();
-        });
-
-        it('should bind document listeners when visible', async () => {
-            const bindSpy = spyOn(confirmPopupInstance, 'bindListeners').and.callThrough();
-
-            const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
-            triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            // Simulate animation start to trigger bindListeners
-            const mockEvent = { toState: 'open', element: document.createElement('div') } as any;
-            confirmPopupInstance.onAnimationStart(mockEvent);
-
-            expect(bindSpy).toHaveBeenCalled();
-        });
-
-        it('should unbind document listeners when hidden', async () => {
-            const unbindSpy = spyOn(confirmPopupInstance, 'unbindListeners').and.callThrough();
-
-            // First show the popup
-            const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
-            triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            // Now hide it and trigger animation end
-            confirmPopupInstance.hide();
-            await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            // Simulate animation end to trigger unbindListeners
-            const mockEvent = { toState: 'void' } as any;
-            confirmPopupInstance.onAnimationEnd();
-
-            expect(unbindSpy).toHaveBeenCalled();
         });
     });
 
@@ -1359,11 +1282,6 @@ describe('ConfirmPopup', () => {
             expect(typeof confirmPopupInstance.onReject).toBe('function');
         });
 
-        it('should have align method', () => {
-            expect(confirmPopupInstance.align).toBeDefined();
-            expect(typeof confirmPopupInstance.align).toBe('function');
-        });
-
         it('should have bindListeners method', () => {
             expect(confirmPopupInstance.bindListeners).toBeDefined();
             expect(typeof confirmPopupInstance.bindListeners).toBe('function');
@@ -1469,7 +1387,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase1Component],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1535,7 +1453,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase2Component],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1598,7 +1516,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase3Component],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1664,7 +1582,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase4Component],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1724,7 +1642,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase5Component],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1791,7 +1709,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineComponent],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1814,7 +1732,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1861,7 +1779,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [
                         ConfirmationService,
                         OverlayService,
@@ -1932,7 +1850,7 @@ describe('ConfirmPopup', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase8HooksComponent],
-                    imports: [ConfirmPopup, ButtonModule, NoopAnimationsModule],
+                    imports: [ConfirmPopup, ButtonModule],
                     providers: [ConfirmationService, OverlayService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

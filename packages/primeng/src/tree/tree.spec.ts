@@ -1,10 +1,10 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Tree, UITreeNode } from './tree';
-import { TreeNode, TreeDragDropService } from 'primeng/api';
+
 import { FormsModule } from '@angular/forms';
+import { TreeDragDropService, TreeNode } from 'primeng/api';
+import { Tree, UITreeNode } from './tree';
 
 // Test component for basic use cases
 @Component({
@@ -369,7 +369,7 @@ describe('Tree', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicTreeComponent, TestPTemplateTreeComponent, TestTemplateRefTreeComponent, TestContextTreeComponent, TestPTemplateComponent, TestTemplateRefComponent, TestDynamicTreeComponent],
-            imports: [Tree, UITreeNode, FormsModule, NoopAnimationsModule],
+            imports: [Tree, UITreeNode, FormsModule],
             providers: [TreeDragDropService, provideZonelessChangeDetection()]
         }).compileComponents();
 

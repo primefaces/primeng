@@ -1,11 +1,11 @@
-import { Component, DebugElement, TemplateRef, ViewChild, input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { Inplace, InplaceModule, InplaceDisplay, InplaceContent } from './inplace';
+import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplace';
 
 @Component({
     standalone: false,
@@ -266,7 +266,7 @@ class TestInplaceDynamicComponent {
 describe('Inplace', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [InplaceModule, SharedModule, ButtonModule, FormsModule, NoopAnimationsModule],
+            imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
             declarations: [
                 TestBasicInplaceComponent,
                 TestInplaceWithEventsComponent,

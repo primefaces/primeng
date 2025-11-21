@@ -1,7 +1,7 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { StyleClass } from './styleclass';
 
 @Component({
@@ -109,7 +109,7 @@ describe('StyleClass', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicStyleClassComponent, TestSelectorStyleClassComponent, TestGrandparentSelectorComponent, TestAnimationStyleClassComponent, TestSlidedownStyleClassComponent, TestResizeStyleClassComponent],
-            imports: [StyleClass, NoopAnimationsModule],
+            imports: [StyleClass],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

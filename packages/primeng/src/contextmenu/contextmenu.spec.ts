@@ -1,7 +1,7 @@
 import { Component, DebugElement, ViewChild, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from 'primeng/api';
 import { ContextMenu } from './contextmenu';
@@ -238,7 +238,7 @@ describe('ContextMenu', () => {
             imports: [
                 ContextMenu,
                 TestTargetComponent,
-                NoopAnimationsModule,
+
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },
@@ -889,7 +889,7 @@ describe('ContextMenu', () => {
     describe('Positioning Tests', () => {
         beforeEach(() => {
             // Mock container view child
-            contextMenuInstance.containerViewChild = {
+            contextMenuInstance.rootmenu!.sublistViewChild = {
                 nativeElement: {
                     offsetWidth: 200,
                     offsetHeight: 300,
@@ -905,8 +905,8 @@ describe('ContextMenu', () => {
 
             contextMenuInstance.position();
 
-            expect(contextMenuInstance.containerViewChild!.nativeElement.style.left).toBeTruthy();
-            expect(contextMenuInstance.containerViewChild!.nativeElement.style.top).toBeTruthy();
+            expect(contextMenuInstance.rootmenu?.sublistViewChild!.nativeElement.style.left).toBeTruthy();
+            expect(contextMenuInstance.rootmenu?.sublistViewChild!.nativeElement.style.top).toBeTruthy();
         });
 
         it('should handle viewport boundaries', () => {
@@ -1263,7 +1263,7 @@ describe('ContextMenu', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTStringTestComponent, NoopAnimationsModule],
+                    imports: [PTStringTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTStringTestComponent);
                 await ptFixture.whenStable();
@@ -1322,7 +1322,7 @@ describe('ContextMenu', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTObjectTestComponent, NoopAnimationsModule],
+                    imports: [PTObjectTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTObjectTestComponent);
                 await ptFixture.whenStable();
@@ -1387,7 +1387,7 @@ describe('ContextMenu', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTMixedTestComponent, NoopAnimationsModule],
+                    imports: [PTMixedTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTMixedTestComponent);
                 await ptFixture.whenStable();
@@ -1431,7 +1431,7 @@ describe('ContextMenu', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTBasicStringTestComponent, NoopAnimationsModule],
+                    imports: [PTBasicStringTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTBasicStringTestComponent);
                 await ptFixture.whenStable();
@@ -1524,7 +1524,7 @@ describe('ContextMenu', () => {
             beforeEach(async () => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTObjectContextTestComponent, NoopAnimationsModule],
+                    imports: [PTObjectContextTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTObjectContextTestComponent);
                 await ptFixture.whenStable();

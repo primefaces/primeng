@@ -1,7 +1,7 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from 'primeng/api';
 import { Menubar, MenubarSub } from './menubar';
@@ -286,7 +286,7 @@ describe('Menubar', () => {
             imports: [
                 Menubar,
                 TestTargetComponent,
-                NoopAnimationsModule,
+
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },

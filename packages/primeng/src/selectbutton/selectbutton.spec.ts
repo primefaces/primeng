@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SelectButton, SelectButtonModule } from './selectbutton';
-import { SharedModule } from 'primeng/api';
+
 import { CommonModule } from '@angular/common';
+import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { SelectButton, SelectButtonModule } from './selectbutton';
 
 describe('SelectButton', () => {
     let component: SelectButton;
@@ -14,7 +14,7 @@ describe('SelectButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent, NoopAnimationsModule],
+            imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent],
             declarations: [TestFormSelectButtonComponent, TestPrimeTemplateSelectButtonComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -515,7 +515,7 @@ describe('SelectButton pTemplate Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestSelectButtonPTemplateComponent, NoopAnimationsModule],
+            imports: [TestSelectButtonPTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -594,7 +594,7 @@ describe('SelectButton #template Reference Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestSelectButtonRefTemplateComponent, NoopAnimationsModule],
+            imports: [TestSelectButtonRefTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -673,7 +673,7 @@ describe('SelectButton PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+            imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -895,7 +895,7 @@ describe('SelectButton PassThrough Tests', () => {
         it('should apply global PT configuration to all instances', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -924,7 +924,7 @@ describe('SelectButton PassThrough Tests', () => {
         it('should apply global PT to multiple component instances', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule, TestMultipleInstancesComponent],
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, TestMultipleInstancesComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -958,7 +958,7 @@ describe('SelectButton PassThrough Tests', () => {
             const hooksCalled: string[] = [];
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -989,7 +989,7 @@ describe('SelectButton PassThrough Tests', () => {
             const hooksCalled: string[] = [];
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1020,7 +1020,7 @@ describe('SelectButton PassThrough Tests', () => {
             const hooksCalled: string[] = [];
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1053,7 +1053,7 @@ describe('SelectButton PassThrough Tests', () => {
             const hooksCalled: string[] = [];
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1086,7 +1086,7 @@ describe('SelectButton PassThrough Tests', () => {
             const hooksCalled: string[] = [];
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, NoopAnimationsModule],
+                imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({

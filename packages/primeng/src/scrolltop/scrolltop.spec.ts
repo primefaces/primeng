@@ -1,7 +1,7 @@
 import { Component, DebugElement, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { BaseComponent } from 'primeng/basecomponent';
 import { Button } from 'primeng/button';
 import { ZIndexUtils } from 'primeng/utils';
@@ -96,7 +96,7 @@ class TestScrollTopDynamicComponent {
 describe('ScrollTop', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ScrollTopModule, NoopAnimationsModule],
+            imports: [ScrollTopModule],
             declarations: [TestBasicScrollTopComponent, TestScrollTopWithParentComponent, TestScrollTopWithIconComponent, TestScrollTopWithTemplateComponent, TestScrollTopWithStylesComponent, TestScrollTopDynamicComponent],
             providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
         });
@@ -338,7 +338,7 @@ describe('ScrollTop', () => {
         it('should not bind listeners on server platform', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestBasicScrollTopComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }]
             });
@@ -912,7 +912,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
@@ -961,7 +961,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopPtObjectComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
@@ -1020,7 +1020,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopPtMixedComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
@@ -1064,7 +1064,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopPtInstanceComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
@@ -1129,7 +1129,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopPtEventComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
@@ -1197,7 +1197,7 @@ describe('ScrollTop', () => {
         it('should apply inline pt with string class', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
@@ -1213,7 +1213,7 @@ describe('ScrollTop', () => {
         it('should apply inline pt with object', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
@@ -1243,7 +1243,7 @@ describe('ScrollTop', () => {
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -1283,7 +1283,7 @@ describe('ScrollTop', () => {
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -1324,7 +1324,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule, NoopAnimationsModule],
+                imports: [ScrollTopModule],
                 declarations: [TestScrollTopPtHooksComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });

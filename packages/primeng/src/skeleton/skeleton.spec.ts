@@ -1,9 +1,9 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Skeleton, SkeletonModule } from './skeleton';
+
 import { BaseComponent } from 'primeng/basecomponent';
+import { Skeleton, SkeletonModule } from './skeleton';
 
 @Component({
     standalone: false,
@@ -130,7 +130,7 @@ class TestSkeletonDynamicComponent {
 describe('Skeleton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [SkeletonModule, NoopAnimationsModule],
+            imports: [SkeletonModule],
             declarations: [
                 TestBasicSkeletonComponent,
                 TestSkeletonShapesComponent,
@@ -747,7 +747,7 @@ describe('Skeleton', () => {
 
             TestBed.configureTestingModule({
                 declarations: [TestMultipleSkeletonsComponent],
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -810,7 +810,7 @@ describe('Skeleton', () => {
 
             TestBed.configureTestingModule({
                 declarations: [TestNestedSkeletonsComponent],
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -848,7 +848,7 @@ describe('Skeleton', () => {
 
             TestBed.configureTestingModule({
                 declarations: [TestConditionalSkeletonsComponent],
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -953,7 +953,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
@@ -996,7 +996,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonPtObjectComponent],
                 providers: [provideZonelessChangeDetection()]
             });
@@ -1055,7 +1055,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonPtMixedComponent],
                 providers: [provideZonelessChangeDetection()]
             });
@@ -1099,7 +1099,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonPtInstanceComponent],
                 providers: [provideZonelessChangeDetection()]
             });
@@ -1168,7 +1168,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonPtEventComponent],
                 providers: [provideZonelessChangeDetection()]
             });
@@ -1236,7 +1236,7 @@ describe('Skeleton', () => {
         it('should apply inline pt with string class', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
@@ -1252,7 +1252,7 @@ describe('Skeleton', () => {
         it('should apply inline pt with object', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
@@ -1282,7 +1282,7 @@ describe('Skeleton', () => {
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -1321,7 +1321,7 @@ describe('Skeleton', () => {
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -1361,7 +1361,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule, NoopAnimationsModule],
+                imports: [SkeletonModule],
                 declarations: [TestSkeletonPtHooksComponent],
                 providers: [provideZonelessChangeDetection()]
             });

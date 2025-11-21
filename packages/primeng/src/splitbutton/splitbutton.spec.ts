@@ -1,7 +1,7 @@
-import { provideZonelessChangeDetection, Component } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MenuItem } from 'primeng/api';
 import { ButtonDirective } from 'primeng/button';
 import { TieredMenu } from 'primeng/tieredmenu';
@@ -317,7 +317,7 @@ describe('SplitButton', () => {
                 TestTooltipSplitButtonComponent,
                 TestAutofocusSplitButtonComponent
             ],
-            imports: [SplitButton, ButtonDirective, TieredMenu, NoopAnimationsModule],
+            imports: [SplitButton, ButtonDirective, TieredMenu],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

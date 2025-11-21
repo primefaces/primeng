@@ -1,7 +1,7 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { providePrimeNG } from 'primeng/config';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from 'primeng/types/fieldset';
 import { Fieldset } from './fieldset';
@@ -92,7 +92,7 @@ describe('Fieldset', () => {
 
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TestFieldsetComponent, TestTemplateFieldsetComponent, TestFacetFieldsetComponent],
+            imports: [TestFieldsetComponent, TestTemplateFieldsetComponent, TestFacetFieldsetComponent],
             providers: [provideZonelessChangeDetection()]
         });
 
@@ -1091,7 +1091,7 @@ describe('Fieldset', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestInlinePTStringComponent, NoopAnimationsModule],
+                    imports: [TestInlinePTStringComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1113,7 +1113,7 @@ describe('Fieldset', () => {
 
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestInlinePTObjectComponent, NoopAnimationsModule],
+                    imports: [TestInlinePTObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1140,7 +1140,7 @@ describe('Fieldset', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
-                    imports: [TestGlobalPTComponent, NoopAnimationsModule],
+                    imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1186,7 +1186,7 @@ describe('Fieldset', () => {
                 class TestMergedPTComponent {}
 
                 TestBed.configureTestingModule({
-                    imports: [TestMergedPTComponent, NoopAnimationsModule],
+                    imports: [TestMergedPTComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
