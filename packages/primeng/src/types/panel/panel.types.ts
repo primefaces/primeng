@@ -1,3 +1,4 @@
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 
@@ -46,6 +47,10 @@ export interface PanelPassThroughOptions<I = unknown> {
      * Used to pass attributes to the footer's DOM element.
      */
     footer?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
