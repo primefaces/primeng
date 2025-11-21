@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
@@ -233,6 +234,10 @@ export interface DatePickerPassThroughOptions<I = unknown> {
      * Used to pass attributes to the hidden year's DOM element.
      */
     hiddenYear?: PassThroughOption<HTMLSpanElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

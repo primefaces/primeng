@@ -8,6 +8,7 @@ import type { InputTextPassThrough } from 'primeng/types/inputtext';
 import type { SelectPassThrough } from 'primeng/types/select';
 import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
 import type { DatePickerPassThrough } from 'primeng/types/datepicker';
+import type { MotionOptions } from '@primeuix/motion';
 
 /**
  * Custom pass-through(pt) options for ColumnFilter.
@@ -100,6 +101,10 @@ export interface ColumnFilterPassThroughOptions<I = unknown> {
      * Used to pass attributes to the filter datepicker component.
      */
     pcFilterDatePicker?: DatePickerPassThrough;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

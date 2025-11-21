@@ -1,7 +1,8 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import { OverlayPassThrough } from 'primeng/types/overlay';
+import type { OverlayPassThrough } from 'primeng/types/overlay';
 
 /**
  * Custom pass-through(pt) options.
@@ -61,6 +62,10 @@ export interface PasswordPassThroughOptions<I = unknown> {
      * Used to pass attributes to the meter text's DOM element.
      */
     meterText?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

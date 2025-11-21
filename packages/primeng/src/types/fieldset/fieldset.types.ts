@@ -1,5 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import { PassThrough, PassThroughOption } from 'primeng/api';
+import type { MotionOptions } from '@primeuix/motion';
+import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
  * Custom passthrough(pt) options.
@@ -35,6 +36,10 @@ export interface FieldsetPassThroughOptions<I = unknown> {
      * Used to pass attributes to the content's DOM element.
      */
     content?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
