@@ -7,11 +7,11 @@ ${galleria_style}
 
 /* Animations */
 .p-galleria-enter-active {
-    animation: p-animate-galleria-enter 1500ms cubic-bezier(0, 0, 0.2, 1);
+    animation: p-animate-galleria-enter 150ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .p-galleria-leave-active {
-    animation: p-animate-galleria-leave 1500ms cubic-bezier(0, 0, 0.2, 1);
+    animation: p-animate-galleria-leave 150ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 @keyframes p-animate-galleria-enter {

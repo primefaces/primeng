@@ -25,11 +25,10 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
-import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
+import { addClass, blockBodyScroll, find, findSingle, focus, getAttribute, removeClass, setAttribute, unblockBodyScroll, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
@@ -73,7 +72,7 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                             [pMotionName]="'p-galleria'"
                             [pMotionOptions]="computedMotionOptions()"
                             (pMotionOnBeforeEnter)="onBeforeEnter($event)"
-                            (pMotionOnBeforeLeave)="onBeforeLeave()"
+                            (pMotionOnBeforeLeave)="onBeforeEnter()"
                             (pMotionOnAfterLeave)="onAfterLeave()"
                             [value]="value"
                             [activeIndex]="activeIndex"
@@ -440,7 +439,9 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     }
 
     onBeforeLeave() {
-        // Content leave animation is starting, keep renderContent true until animation completes
+        if (this.mask) {
+            this.maskVisible = false;
+        }
     }
 
     onAfterLeave() {
@@ -455,15 +456,18 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     }
 
     enableModality() {
+        //@ts-ignore
+        blockBodyScroll();
+        this.cd.markForCheck();
         if (this.mask) {
             ZIndexUtils.set('modal', this.mask, this.baseZIndex || this.config.zIndex.modal);
         }
-        blockBodyScroll();
-        this.cd.markForCheck();
     }
 
     disableModality() {
+        //@ts-ignore
         unblockBodyScroll();
+        this.cd.markForCheck();
         if (this.mask) {
             ZIndexUtils.clear(this.mask);
         }
