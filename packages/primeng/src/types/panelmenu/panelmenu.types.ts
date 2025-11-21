@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -81,6 +82,10 @@ export interface PanelMenuPassThroughOptions<I = unknown> {
      * Used to pass attributes to the separator's DOM element.
      */
     separator?: PassThroughOption<HTMLLIElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

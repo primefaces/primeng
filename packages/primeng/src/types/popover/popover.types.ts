@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -21,6 +22,10 @@ export interface PopoverPassThroughOptions<I = unknown> {
      * Used to pass attributes to the content's DOM element.
      */
     content?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

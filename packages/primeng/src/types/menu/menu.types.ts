@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -53,6 +54,10 @@ export interface MenuPassThroughOptions<I = unknown> {
      * Used to pass attributes to the end's DOM element.
      */
     end?: PassThroughOption<HTMLDivElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

@@ -1,6 +1,7 @@
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 
 /**
  * Custom pass-through(pt) options.
@@ -44,6 +45,10 @@ export interface ConfirmPopupPassThroughOptions<I = unknown> {
      * @see {@link ButtonPassThrough}
      */
     pcAcceptButton?: ButtonPassThrough;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

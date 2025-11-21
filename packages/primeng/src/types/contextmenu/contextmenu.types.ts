@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -49,6 +50,10 @@ export interface ContextMenuPassThroughOptions<I = unknown> {
      * Used to pass attributes to the submenu icon's DOM element.
      */
     submenuIcon?: PassThroughOption<SVGElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

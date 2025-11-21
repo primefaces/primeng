@@ -1,3 +1,4 @@
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -36,6 +37,10 @@ export interface MessagePassThroughOptions<I = unknown> {
      * Used to pass attributes to the close icon's DOM element.
      */
     closeIcon?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

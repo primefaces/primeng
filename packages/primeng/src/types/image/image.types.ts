@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 
 /**
@@ -57,6 +58,10 @@ export interface ImagePassThroughOptions<I = unknown> {
      * Used to pass attributes to the original/preview image's DOM element.
      */
     original?: PassThroughOption<HTMLImageElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**

@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption, ToastMessageOptions } from 'primeng/api';
 
 /**
@@ -49,6 +50,10 @@ export interface ToastPassThroughOptions<I = unknown> {
      * Used to pass attributes to the close icon's DOM element.
      */
     closeIcon?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass options to the motion component/directive.
+     */
+    motion?: MotionOptions;
 }
 
 /**
