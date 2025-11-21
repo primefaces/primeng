@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, DebugElement, provideZonelessChangeDetection, TemplateRef, ViewChild } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Message } from './message';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { Message } from './message';
 
 @Component({
     standalone: false,
@@ -125,7 +125,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -190,7 +190,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -230,7 +230,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -282,7 +282,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -334,7 +334,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -383,7 +383,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -436,7 +436,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -478,7 +478,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestContainerTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -525,7 +525,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestIconTemplatesComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -554,7 +554,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestPTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -637,7 +637,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -708,7 +708,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestKeyboardNavigationComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -803,7 +803,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -915,7 +915,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
+                imports: [CommonModule, Message, SharedModule, PrimeTemplate],
                 declarations: [TestBasicMessageComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -967,7 +967,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1067,7 +1067,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1183,7 +1183,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1240,7 +1240,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1370,7 +1370,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1497,7 +1497,7 @@ describe('Message', () => {
 
         it('should apply inline pt with string class', async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 declarations: [TestInlineStringComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1511,7 +1511,7 @@ describe('Message', () => {
 
         it('should apply inline pt with object', async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 declarations: [TestInlineObjectComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1537,7 +1537,7 @@ describe('Message', () => {
 
         it('should apply global pt configuration from PrimeNGConfig', async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 declarations: [TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -1573,7 +1573,7 @@ describe('Message', () => {
 
         it('should apply global css from PrimeNGConfig', async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 declarations: [TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -1607,7 +1607,7 @@ describe('Message', () => {
             class TestMergedPtComponent {}
 
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 declarations: [TestMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -1638,7 +1638,7 @@ describe('Message', () => {
 
         it('should apply multiple global attributes via pt', async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 declarations: [TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
@@ -1677,7 +1677,7 @@ describe('Message', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Message],
+                imports: [Message],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 

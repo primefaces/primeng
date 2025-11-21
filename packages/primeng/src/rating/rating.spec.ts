@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { Component, DebugElement, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Rating } from './rating';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { SharedModule } from 'primeng/api';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Rating } from './rating';
+
 import { providePrimeNG } from 'primeng/config';
 
 // Basic Rating test component
@@ -170,7 +170,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule],
+                imports: [TestBasicRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -228,7 +228,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule],
+                imports: [TestBasicRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -337,7 +337,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedRatingComponent, NoopAnimationsModule],
+                imports: [TestAdvancedRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -430,7 +430,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestReactiveRatingComponent, NoopAnimationsModule],
+                imports: [TestReactiveRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -520,7 +520,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestTemplateRatingComponent, NoopAnimationsModule],
+                imports: [TestTemplateRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -571,7 +571,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule],
+                imports: [TestBasicRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -634,7 +634,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule],
+                imports: [TestBasicRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -703,7 +703,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule],
+                imports: [TestBasicRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -814,7 +814,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedRatingComponent, NoopAnimationsModule],
+                imports: [TestAdvancedRatingComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -865,7 +865,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestRatingPTemplateComponent, NoopAnimationsModule],
+                imports: [TestRatingPTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -970,7 +970,7 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestRatingRefTemplateComponent, NoopAnimationsModule],
+                imports: [TestRatingRefTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1089,7 +1089,7 @@ describe('Rating', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1135,7 +1135,7 @@ describe('Rating', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1173,7 +1173,7 @@ describe('Rating', () => {
             it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1216,7 +1216,7 @@ describe('Rating', () => {
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1260,7 +1260,7 @@ describe('Rating', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1293,7 +1293,7 @@ describe('Rating', () => {
             it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1320,7 +1320,7 @@ describe('Rating', () => {
             it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1349,7 +1349,7 @@ describe('Rating', () => {
             it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
@@ -1402,7 +1402,7 @@ describe('Rating', () => {
             it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1442,7 +1442,7 @@ describe('Rating', () => {
             it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule, NoopAnimationsModule],
+                    imports: [Rating, FormsModule],
                     declarations: [TestPTCoverageComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();

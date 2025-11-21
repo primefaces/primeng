@@ -2,7 +2,7 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { providePrimeNG } from 'primeng/config';
 import { Terminal } from './terminal';
 import { TerminalService } from './terminalservice';
@@ -67,7 +67,7 @@ describe('Terminal', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicTerminalComponent, TestStaticPropsTerminalComponent, TestStyledTerminalComponent, TestMinimalTerminalComponent, TestInteractiveTerminalComponent, TestDynamicTerminalComponent],
-            imports: [Terminal, FormsModule, NoopAnimationsModule],
+            imports: [Terminal, FormsModule],
             providers: [TerminalService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -903,7 +903,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase1Component],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -965,7 +965,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase2Component],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1015,7 +1015,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase3Component],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1075,7 +1075,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase4Component],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1122,7 +1122,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase5Component],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1161,7 +1161,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineComponent],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1181,7 +1181,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1212,7 +1212,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [
                         TerminalService,
                         provideZonelessChangeDetection(),
@@ -1277,7 +1277,7 @@ describe('Terminal', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase8HooksComponent],
-                    imports: [Terminal, FormsModule, NoopAnimationsModule],
+                    imports: [Terminal, FormsModule],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

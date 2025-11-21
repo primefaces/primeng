@@ -1,13 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
-import { ToggleButton } from './togglebutton';
 import { ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
+import { ToggleButton } from './togglebutton';
 
 @Component({
     standalone: false,
@@ -172,7 +172,7 @@ describe('ToggleButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ToggleButton, FormsModule, ReactiveFormsModule, NoopAnimationsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent],
+            imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent],
             declarations: [TestBasicToggleButtonComponent, TestReactiveToggleButtonComponent, TestTemplateToggleButtonComponent, TestIconTemplateToggleButtonComponent, TestIconToggleButtonComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -761,7 +761,7 @@ describe('ToggleButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestToggleButtonPTemplateComponent, NoopAnimationsModule],
+                imports: [TestToggleButtonPTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -870,7 +870,7 @@ describe('ToggleButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestToggleButtonRefTemplateComponent, NoopAnimationsModule],
+                imports: [TestToggleButtonRefTemplateComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -995,7 +995,7 @@ describe('ToggleButton', () => {
 
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase1Component],
+                    imports: [TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1045,7 +1045,7 @@ describe('ToggleButton', () => {
 
             it('should apply object-based PT with class, style, and attributes', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase2Component],
+                    imports: [TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1102,7 +1102,7 @@ describe('ToggleButton', () => {
 
             it('should apply mixed object and string PT values', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase3Component],
+                    imports: [TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1154,7 +1154,7 @@ describe('ToggleButton', () => {
 
             it('should use instance variables in PT functions', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase4Component],
+                    imports: [TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1207,7 +1207,7 @@ describe('ToggleButton', () => {
 
             it('should bind click events via PT', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase5Component],
+                    imports: [TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1239,7 +1239,7 @@ describe('ToggleButton', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineComponent],
+                    imports: [TestInlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1263,7 +1263,7 @@ describe('ToggleButton', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineObjectComponent],
+                    imports: [TestInlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1291,7 +1291,7 @@ describe('ToggleButton', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestGlobalPTComponent],
+                    imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1361,7 +1361,7 @@ describe('ToggleButton', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestHooksComponent],
+                    imports: [TestHooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 

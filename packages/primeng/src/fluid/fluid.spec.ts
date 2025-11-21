@@ -1,7 +1,7 @@
-import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Fluid, FluidModule } from './fluid';
 
 @Component({
@@ -180,7 +180,7 @@ class TestFluidComplexLayoutComponent {}
 describe('Fluid', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FluidModule, NoopAnimationsModule],
+            imports: [FluidModule],
             declarations: [
                 TestBasicFluidComponent,
                 TestFluidWithContentComponent,

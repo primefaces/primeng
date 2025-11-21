@@ -1,7 +1,7 @@
-import { Component, DebugElement, Input, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ScrollPanel } from './scrollpanel';
 
 @Component({
@@ -84,7 +84,7 @@ describe('ScrollPanel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ScrollPanel, NoopAnimationsModule],
+            imports: [ScrollPanel],
             declarations: [TestScrollPanelComponent, TestTemplateScrollPanelComponent, TestContentTemplateScrollPanelComponent, TestNoScrollScrollPanelComponent, TestPTScrollPanelComponent],
             providers: [provideZonelessChangeDetection()]
         });

@@ -2,7 +2,6 @@ import { Component, provideZonelessChangeDetection, signal } from '@angular/core
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule, provideNoopAnimations } from '@angular/platform-browser/animations';
 import { SharedModule, TreeNode } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from 'primeng/types/treeselect';
@@ -432,7 +431,7 @@ describe('TreeSelect', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TreeSelectModule, SharedModule, FormsModule, ReactiveFormsModule, NoopAnimationsModule],
+            imports: [TreeSelectModule, SharedModule, FormsModule, ReactiveFormsModule],
             declarations: [TestTreeSelectComponent, TestPTemplateTreeSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -1404,7 +1403,7 @@ describe('TreeSelect', () => {
 
         it('PT: should accept simple string values', async () => {
             await TestBed.configureTestingModule({
-                imports: [TreeSelectModule, FormsModule, NoopAnimationsModule],
+                imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1431,7 +1430,7 @@ describe('TreeSelect', () => {
 
         it('PT: should accept object values with class', async () => {
             await TestBed.configureTestingModule({
-                imports: [TreeSelectModule, FormsModule, NoopAnimationsModule],
+                imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1456,7 +1455,7 @@ describe('TreeSelect', () => {
 
         it('PT: should accept mixed object and string values', async () => {
             await TestBed.configureTestingModule({
-                imports: [TreeSelectModule, FormsModule, NoopAnimationsModule],
+                imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1485,7 +1484,7 @@ describe('TreeSelect', () => {
             const clickSpy = jasmine.createSpy('clickHandler');
 
             await TestBed.configureTestingModule({
-                imports: [TreeSelectModule, FormsModule, NoopAnimationsModule],
+                imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1514,7 +1513,7 @@ describe('TreeSelect', () => {
 
         it('PT: should support ptOptions.mergeProps and ptOptions.mergeSections', async () => {
             await TestBed.configureTestingModule({
-                imports: [TreeSelectModule, FormsModule, NoopAnimationsModule],
+                imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({

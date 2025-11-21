@@ -1,7 +1,7 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { PrimeTemplate } from 'primeng/api';
 import { Drawer } from './drawer';
 
@@ -212,7 +212,7 @@ describe('Drawer', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Drawer, NoopAnimationsModule, PrimeTemplate],
+            imports: [Drawer, PrimeTemplate],
             declarations: [
                 TestDrawerBasicComponent,
                 TestDrawerTemplatesComponent,
@@ -1081,7 +1081,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase1Component],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1135,7 +1135,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase2Component],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1187,7 +1187,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase3Component],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1241,7 +1241,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase4Component],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1288,7 +1288,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase5Component],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1333,7 +1333,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineComponent],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1357,7 +1357,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1395,7 +1395,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
@@ -1453,7 +1453,7 @@ describe('Drawer', () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase8HooksComponent],
-                    imports: [Drawer, NoopAnimationsModule],
+                    imports: [Drawer],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 

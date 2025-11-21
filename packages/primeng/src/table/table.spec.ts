@@ -3,7 +3,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
 import { Table, TableModule, TableService } from './table';
 
@@ -264,7 +264,7 @@ describe('Table', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [Table, TestBasicTableComponent, TestSelectionTableComponent, TestSortingTableComponent, TestFilteringTableComponent, TestVirtualScrollTableComponent, TestLazyLoadTableComponent, TestTemplatesTableComponent],
-            imports: [CommonModule, FormsModule, NoopAnimationsModule, TableModule, SharedModule],
+            imports: [CommonModule, FormsModule, TableModule, SharedModule],
             providers: [TableService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -723,7 +723,7 @@ describe('Table', () => {
 
         it('PT Section 1: host - should apply PT to host DOM element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -738,7 +738,7 @@ describe('Table', () => {
 
         it('PT Section 2: root - should apply PT to root DOM element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -753,7 +753,7 @@ describe('Table', () => {
 
         it('PT Section 3: mask - should apply PT to loading mask element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -772,7 +772,7 @@ describe('Table', () => {
 
         it('PT Section 4: loadingIcon - should apply PT to loading icon element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -791,7 +791,7 @@ describe('Table', () => {
 
         it('PT Section 5: header - should apply PT to header (caption) element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -806,7 +806,7 @@ describe('Table', () => {
 
         it('PT Section 6: pcPaginator - should apply PT to paginator component', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -821,7 +821,7 @@ describe('Table', () => {
 
         it('PT Section 7: tableContainer - should apply PT to table container element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -836,7 +836,7 @@ describe('Table', () => {
 
         it('PT Section 8: virtualScroller - should apply PT to virtual scroller component', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -855,7 +855,7 @@ describe('Table', () => {
 
         it('PT Section 9: table - should apply PT to table element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -870,7 +870,7 @@ describe('Table', () => {
 
         it('PT Section 10: thead - should apply PT to thead element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -885,7 +885,7 @@ describe('Table', () => {
 
         it('PT Section 11: tbody - should apply PT to tbody element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -900,7 +900,7 @@ describe('Table', () => {
 
         it('PT Section 12: virtualScrollerSpacer - should apply PT to virtual scroller spacer element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -922,7 +922,7 @@ describe('Table', () => {
 
         it('PT Section 13: tfoot - should apply PT to tfoot element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -937,7 +937,7 @@ describe('Table', () => {
 
         it('PT Section 14: footer - should apply PT to footer element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -952,7 +952,7 @@ describe('Table', () => {
 
         it('PT Section 15: columnResizeIndicator - should apply PT to column resize indicator element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -967,7 +967,7 @@ describe('Table', () => {
 
         it('PT Section 16: rowReorderIndicatorUp - should apply PT to row reorder indicator up element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -982,7 +982,7 @@ describe('Table', () => {
 
         it('PT Section 17: rowReorderIndicatorDown - should apply PT to row reorder indicator down element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -997,7 +997,7 @@ describe('Table', () => {
 
         it('PT Section 18: reorderableRow - should apply PT to reorderable row element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1012,7 +1012,7 @@ describe('Table', () => {
 
         it('PT Section 19: reorderableRowHandle - should apply PT to reorderable row handle element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1027,7 +1027,7 @@ describe('Table', () => {
 
         it('PT Section 20: headerCheckbox - should apply PT to header checkbox component', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1042,7 +1042,7 @@ describe('Table', () => {
 
         it('PT Section 21: pcCheckbox - should apply PT to checkbox component', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1057,7 +1057,7 @@ describe('Table', () => {
 
         it('PT Section 22: columnFilter.filter - should apply PT to filter container element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
@@ -1072,7 +1072,7 @@ describe('Table', () => {
 
         it('PT Section 23: columnFilterFormElement - should apply PT to column filter form element', async () => {
             await TestBed.configureTestingModule({
-                imports: [TableModule, CommonModule, FormsModule, NoopAnimationsModule],
+                imports: [TableModule, CommonModule, FormsModule],
                 declarations: [TestComprehensivePTComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();

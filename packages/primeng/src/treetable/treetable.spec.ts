@@ -2,7 +2,7 @@ import { Component, ViewChild, provideZonelessChangeDetection } from '@angular/c
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { TreeNode } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { of } from 'rxjs';
@@ -27,7 +27,7 @@ describe('TreeTable', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicTreeTableComponent, TestTemplatesTreeTableComponent, TestDynamicTreeTableComponent],
-            imports: [NoopAnimationsModule, FormsModule, TreeTableModule],
+            imports: [FormsModule, TreeTableModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -3247,7 +3247,7 @@ describe('TreeTable PT', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TreeTableModule, NoopAnimationsModule],
+            imports: [TreeTableModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -3745,7 +3745,7 @@ describe('TreeTable Global PT', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TreeTableModule, NoopAnimationsModule],
+            imports: [TreeTableModule],
             providers: [
                 provideZonelessChangeDetection(),
                 providePrimeNG({
@@ -3823,7 +3823,7 @@ describe('TreeTable Inline PT', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InlineTestComponent, NoopAnimationsModule],
+            imports: [InlineTestComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 

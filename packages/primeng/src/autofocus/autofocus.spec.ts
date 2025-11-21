@@ -1,7 +1,6 @@
 import { Component, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AutoFocus, AutoFocusModule } from './autofocus';
 
 @Component({
@@ -193,7 +192,7 @@ class TestAutofocusDialogSimulationComponent {
 describe('AutoFocus', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [AutoFocusModule, NoopAnimationsModule],
+            imports: [AutoFocusModule],
             declarations: [
                 TestBasicAutofocusComponent,
                 TestAutofocusDisabledComponent,

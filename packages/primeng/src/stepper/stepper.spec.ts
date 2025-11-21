@@ -1,7 +1,7 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Step, StepItem, StepList, StepPanel, StepPanels, Stepper } from './stepper';
 
 @Component({
@@ -120,7 +120,7 @@ describe('Stepper', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, NoopAnimationsModule],
+            imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step],
             declarations: [TestStepperComponent, TestVerticalStepperComponent, TestTemplateStepperComponent, TestPTStepperComponent],
             providers: [provideZonelessChangeDetection()]
         });

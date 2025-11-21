@@ -3,7 +3,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { providePrimeNG } from 'primeng/config';
 import type { InputNumberInputEvent } from 'primeng/types/inputnumber';
 import { InputNumber, InputNumberModule } from './inputnumber';
@@ -182,7 +182,7 @@ describe('InputNumber', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule, NoopAnimationsModule],
+            imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule],
             declarations: [TestBasicInputNumberComponent, TestFormInputNumberComponent, TestInputNumberPTemplateComponent, TestInputNumberRefTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -1098,7 +1098,7 @@ describe('InputNumber', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1154,7 +1154,7 @@ describe('InputNumber', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1200,7 +1200,7 @@ describe('InputNumber', () => {
             it('should apply mixed object and string values correctly', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1243,7 +1243,7 @@ describe('InputNumber', () => {
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1288,7 +1288,7 @@ describe('InputNumber', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1328,7 +1328,7 @@ describe('InputNumber', () => {
             it('should apply inline PT string classes', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1347,7 +1347,7 @@ describe('InputNumber', () => {
             it('should apply inline PT object classes', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1380,7 +1380,7 @@ describe('InputNumber', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
@@ -1438,7 +1438,7 @@ describe('InputNumber', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
@@ -1476,7 +1476,7 @@ describe('InputNumber', () => {
             it('should apply PT to all main sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule, NoopAnimationsModule],
+                    imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCoveragComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();

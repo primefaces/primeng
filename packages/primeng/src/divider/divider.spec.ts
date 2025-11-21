@@ -1,7 +1,7 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { providePrimeNG } from 'primeng/config';
 import { Divider, DividerModule } from './divider';
 
@@ -100,7 +100,7 @@ describe('Divider', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DividerModule, NoopAnimationsModule],
+            imports: [DividerModule],
             declarations: [TestBasicDividerComponent, TestCustomDividerComponent, TestHorizontalDividerComponent, TestVerticalDividerComponent, TestComplexContentDividerComponent, TestDynamicDividerComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();

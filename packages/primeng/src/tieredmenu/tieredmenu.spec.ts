@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
@@ -181,7 +181,6 @@ describe('TieredMenu', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TieredMenu,
-                NoopAnimationsModule,
                 RouterTestingModule.withRoutes([
                     { path: 'home', component: TestBasicTieredMenuComponent },
                     { path: 'about', component: TestBasicTieredMenuComponent },
@@ -1007,7 +1006,7 @@ describe('TieredMenu', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTStringTestComponent, NoopAnimationsModule],
+                    imports: [PTStringTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTStringTestComponent);
                 ptFixture.detectChanges();
@@ -1078,7 +1077,7 @@ describe('TieredMenu', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTObjectTestComponent, NoopAnimationsModule],
+                    imports: [PTObjectTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTObjectTestComponent);
                 ptFixture.detectChanges();
@@ -1144,7 +1143,7 @@ describe('TieredMenu', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTMixedTestComponent, NoopAnimationsModule],
+                    imports: [PTMixedTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTMixedTestComponent);
                 ptFixture.detectChanges();
@@ -1203,7 +1202,7 @@ describe('TieredMenu', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTInstanceTestComponent, NoopAnimationsModule],
+                    imports: [PTInstanceTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTInstanceTestComponent);
                 ptFixture.detectChanges();
@@ -1257,7 +1256,7 @@ describe('TieredMenu', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTEventTestComponent, NoopAnimationsModule],
+                    imports: [PTEventTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTEventTestComponent);
                 ptFixture.detectChanges();
@@ -1292,7 +1291,7 @@ describe('TieredMenu', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTGlobalConfigTestComponent, NoopAnimationsModule],
+                    imports: [PTGlobalConfigTestComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1351,7 +1350,7 @@ describe('TieredMenu', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
                 ptFixture = TestBed.configureTestingModule({
-                    imports: [PTHooksTestComponent, NoopAnimationsModule],
+                    imports: [PTHooksTestComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(PTHooksTestComponent);
             });
@@ -1382,7 +1381,7 @@ describe('TieredMenu', () => {
                 }
 
                 const inlineFixture = TestBed.configureTestingModule({
-                    imports: [InlineStringComponent, NoopAnimationsModule],
+                    imports: [InlineStringComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(InlineStringComponent);
                 inlineFixture.detectChanges();
@@ -1404,7 +1403,7 @@ describe('TieredMenu', () => {
                 }
 
                 const inlineFixture = TestBed.configureTestingModule({
-                    imports: [InlineObjectComponent, NoopAnimationsModule],
+                    imports: [InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).createComponent(InlineObjectComponent);
                 inlineFixture.detectChanges();

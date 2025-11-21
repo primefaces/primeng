@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { providePrimeNG } from 'primeng/config';
-import { PickList } from './picklist';
 import {
     PickListMoveAllToSourceEvent,
     PickListMoveAllToTargetEvent,
@@ -16,6 +15,7 @@ import {
     PickListTargetReorderEvent,
     PickListTargetSelectEvent
 } from 'primeng/types/picklist';
+import { PickList } from './picklist';
 
 @Component({
     standalone: false,
@@ -136,7 +136,7 @@ describe('PickList', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestPickListComponent],
-            imports: [CommonModule, PickList, DragDropModule, NoopAnimationsModule],
+            imports: [CommonModule, PickList, DragDropModule],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1114,7 +1114,7 @@ describe('PickList', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [PickList, CommonModule, NoopAnimationsModule],
+                imports: [PickList, CommonModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1333,7 +1333,7 @@ describe('PickList', () => {
             it('should apply global PT configuration to all instances', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [PickList, NoopAnimationsModule],
+                    imports: [PickList],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1360,7 +1360,7 @@ describe('PickList', () => {
             it('should apply global CSS via PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [PickList, NoopAnimationsModule],
+                    imports: [PickList],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({

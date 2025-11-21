@@ -1,7 +1,7 @@
 import { Component, ElementRef, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { TooltipOptions } from 'primeng/api';
 import { Tooltip } from './tooltip';
 
@@ -91,7 +91,7 @@ class TestTooltipOptionsComponent {
 describe('Tooltip', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, Tooltip],
+            imports: [Tooltip],
             declarations: [TestBasicTooltipComponent, TestTemplateTooltipComponent, TestTooltipOptionsComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -662,7 +662,7 @@ describe('Tooltip', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, Tooltip],
+                imports: [Tooltip],
                 declarations: [TestPTTooltipComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();

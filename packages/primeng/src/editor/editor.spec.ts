@@ -3,11 +3,11 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { providePrimeNG } from 'primeng/config';
+
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { Editor } from './editor';
+import { providePrimeNG } from 'primeng/config';
 import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
+import { Editor } from './editor';
 // Test Components for different scenarios
 @Component({
     standalone: false,
@@ -182,7 +182,7 @@ describe('Editor', () => {
         };
 
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
+            imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
             declarations: [TestBasicEditorComponent, TestCustomToolbarComponent, TestPTemplateComponent, TestReadonlyComponent, TestCustomConfigurationComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -762,7 +762,7 @@ describe('Editor', () => {
 
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase1Component],
+                    imports: [TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -819,7 +819,7 @@ describe('Editor', () => {
 
             it('should apply object-based PT with class, style, and attributes', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase2Component],
+                    imports: [TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -881,7 +881,7 @@ describe('Editor', () => {
 
             it('should apply mixed object and string PT values', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase3Component],
+                    imports: [TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -945,7 +945,7 @@ describe('Editor', () => {
 
             it('should use instance variables in PT functions', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase4Component],
+                    imports: [TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1014,7 +1014,7 @@ describe('Editor', () => {
 
             it('should bind click events via PT', async () => {
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestPTCase5Component],
+                    imports: [TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1057,7 +1057,7 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineComponent],
+                    imports: [TestInlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1083,7 +1083,7 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestInlineObjectComponent],
+                    imports: [TestInlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1113,7 +1113,7 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestGlobalPTComponent],
+                    imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1170,7 +1170,7 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestGlobalCSSComponent],
+                    imports: [TestGlobalCSSComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1234,7 +1234,7 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestHooksComponent],
+                    imports: [TestHooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
@@ -1288,7 +1288,7 @@ describe('Editor', () => {
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [NoopAnimationsModule, TestMultipleHooksComponent],
+                    imports: [TestMultipleHooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 

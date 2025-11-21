@@ -1,7 +1,7 @@
 import { Component, ElementRef, input, provideZonelessChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
 import { BlockUI, BlockUIModule } from './blockui';
 
@@ -147,7 +147,7 @@ class TestDynamicBlockUIComponent {
 describe('BlockUI', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [BlockUIModule, SharedModule, NoopAnimationsModule],
+            imports: [BlockUIModule, SharedModule],
             declarations: [
                 TestBasicBlockUIComponent,
                 TestBlockedBlockUIComponent,

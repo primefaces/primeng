@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { GalleriaResponsiveOptions } from 'primeng/types/galleria';
 import { Galleria, GalleriaModule } from './galleria';
@@ -218,7 +218,7 @@ class TestPTemplateGalleriaComponent {
 describe('Galleria', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
+            imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
             declarations: [TestBasicGalleriaComponent, TestFullScreenGalleriaComponent, TestAutoPlayGalleriaComponent, TestResponsiveGalleriaComponent, TestIndicatorsGalleriaComponent, TestTemplateGalleriaComponent, TestPTemplateGalleriaComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -967,7 +967,7 @@ describe('Galleria', () => {
         it('PT Case 1: should accept simple string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1000,7 +1000,7 @@ describe('Galleria', () => {
         it('PT Case 2: should accept objects with class, style, and attributes', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1037,7 +1037,7 @@ describe('Galleria', () => {
         it('PT Case 3: should accept mixed object and string values', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1074,7 +1074,7 @@ describe('Galleria', () => {
         // it('PT Case 4: should use instance properties in PT functions', async () => {
         //     await TestBed.resetTestingModule();
         //     await TestBed.configureTestingModule({
-        //         imports: [NoopAnimationsModule, CommonModule, GalleriaModule]
+        //         imports: [CommonModule, GalleriaModule]
         //     }).compileComponents();
 
         //     const ptFixture = TestBed.createComponent(Galleria);
@@ -1099,7 +1099,7 @@ describe('Galleria', () => {
         it('PT Case 5: should bind events through PT', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1128,7 +1128,7 @@ describe('Galleria', () => {
         it('PT Case 6: should support inline PT binding', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1156,7 +1156,7 @@ describe('Galleria', () => {
         it('PT Case 9: should apply PT to navigation buttons', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1204,7 +1204,7 @@ describe('Galleria', () => {
         it('PT Case 10: should apply PT to thumbnail elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1255,7 +1255,7 @@ describe('Galleria', () => {
         it('PT Case 11: should apply PT to indicator elements', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1293,7 +1293,7 @@ describe('Galleria', () => {
         it('PT Case 12: should apply PT to fullscreen mask and close button', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [NoopAnimationsModule, CommonModule, GalleriaModule],
+                imports: [CommonModule, GalleriaModule],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
