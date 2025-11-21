@@ -237,17 +237,18 @@ export class Motion extends BaseComponent<MotionPassThrough> {
     private motion: MotionInstance | undefined;
     private isInitialMount = true;
     private cancelled = false;
+    private destroyed = false;
 
     rendered = signal(false);
 
-    private readonly handleBeforeEnter = (el?: Element) => this.onBeforeEnter.emit(el);
-    private readonly handleEnter = (el?: Element) => this.onEnter.emit(el);
-    private readonly handleAfterEnter = (el?: Element) => this.onAfterEnter.emit(el);
-    private readonly handleEnterCancelled = (el?: Element) => this.onEnterCancelled.emit(el);
-    private readonly handleBeforeLeave = (el?: Element) => this.onBeforeLeave.emit(el);
-    private readonly handleLeave = (el?: Element) => this.onLeave.emit(el);
-    private readonly handleAfterLeave = (el?: Element) => this.onAfterLeave.emit(el);
-    private readonly handleLeaveCancelled = (el?: Element) => this.onLeaveCancelled.emit(el);
+    private readonly handleBeforeEnter = (el?: Element) => !this.destroyed && this.onBeforeEnter.emit(el);
+    private readonly handleEnter = (el?: Element) => !this.destroyed && this.onEnter.emit(el);
+    private readonly handleAfterEnter = (el?: Element) => !this.destroyed && this.onAfterEnter.emit(el);
+    private readonly handleEnterCancelled = (el?: Element) => !this.destroyed && this.onEnterCancelled.emit(el);
+    private readonly handleBeforeLeave = (el?: Element) => !this.destroyed && this.onBeforeLeave.emit(el);
+    private readonly handleLeave = (el?: Element) => !this.destroyed && this.onLeave.emit(el);
+    private readonly handleAfterLeave = (el?: Element) => !this.destroyed && this.onAfterLeave.emit(el);
+    private readonly handleLeaveCancelled = (el?: Element) => !this.destroyed && this.onLeaveCancelled.emit(el);
 
     constructor() {
         super();
@@ -307,6 +308,7 @@ export class Motion extends BaseComponent<MotionPassThrough> {
     }
 
     onDestroy(): void {
+        this.destroyed = true;
         this.cancelled = true;
 
         this.motion?.cancel();

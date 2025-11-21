@@ -81,6 +81,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         [pMotionName]="'p-dialog2'"
                         [pMotionOptions]="computedMotionOptions()"
                         (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                        (pMotionOnAfterEnter)="onAfterEnter($event)"
                         (pMotionOnBeforeLeave)="onBeforeLeave($event)"
                         (pMotionOnAfterLeave)="onAfterLeave($event)"
                         [attr.role]="role"
@@ -1057,10 +1058,13 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         if (this.modal) {
             this.enableModality();
         }
+    }
 
+    onAfterEnter() {
         if (this.focusOnShow) {
             this.focus();
         }
+
         this.onShow.emit({});
     }
 

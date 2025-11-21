@@ -1,31 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as organizationchart_style } from '@primeuix/styles/organizationchart';
+import { style } from '@primeuix/styles/organizationchart';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-${organizationchart_style}
-/* Animations */
-.p-organization-chart-enter-active {
-    animation: p-animate-organization-chart-enter 300ms cubic-bezier(.19,1,.22,1);
-}
-
-.p-organization-chart-leave-active {
-    animation: p-animate-organization-chart-leave 300ms cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes p-animate-organization-chart-enter {
-    from {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-
-@keyframes p-animate-organization-chart-leave {
-    to {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}`;
 
 const classes = {
     root: ({ instance }) => ['p-organizationchart p-component', { 'p-organizationchart-preservespace': instance.preserveSpace }],

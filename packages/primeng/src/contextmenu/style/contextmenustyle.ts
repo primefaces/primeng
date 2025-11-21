@@ -7,11 +7,11 @@ ${contextmenu_style}
 
 /* Animations */
 
-.p-contextmenu-enter-active {
+.p-contextmenu2-enter-active {
     animation: p-animate-contextmenu-enter .3s cubic-bezier(.19,1,.22,1);
 }
 
-.p-contextmenu-leave-active {
+.p-contextmenu2-leave-active {
     animation: p-animate-contextmenu-leave .3s cubic-bezier(.19,1,.22,1);
 }
 
