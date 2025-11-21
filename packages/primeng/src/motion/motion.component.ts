@@ -214,14 +214,14 @@ export class Motion extends BaseComponent<MotionPassThrough> {
             leave: options.leave ?? this.leave(),
             duration: options.duration ?? this.duration(),
             enterClass: {
-                from: options.enterClass?.from ?? this.enterFromClass(),
-                to: options.enterClass?.to ?? this.enterToClass(),
-                active: options.enterClass?.active ?? this.enterActiveClass()
+                from: options.enterClass?.from ?? (!options.name ? this.enterFromClass() : undefined),
+                to: options.enterClass?.to ?? (!options.name ? this.enterToClass() : undefined),
+                active: options.enterClass?.active ?? (!options.name ? this.enterActiveClass() : undefined)
             },
             leaveClass: {
-                from: options.leaveClass?.from ?? this.leaveFromClass(),
-                to: options.leaveClass?.to ?? this.leaveToClass(),
-                active: options.leaveClass?.active ?? this.leaveActiveClass()
+                from: options.leaveClass?.from ?? (!options.name ? this.leaveFromClass() : undefined),
+                to: options.leaveClass?.to ?? (!options.name ? this.leaveToClass() : undefined),
+                active: options.leaveClass?.active ?? (!options.name ? this.leaveActiveClass() : undefined)
             },
             onBeforeEnter: options.onBeforeEnter ?? this.handleBeforeEnter,
             onEnter: options.onEnter ?? this.handleEnter,
