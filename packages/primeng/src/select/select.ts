@@ -75,6 +75,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [attr.aria-selected]="selected"
             [attr.data-p-focused]="focused"
             [attr.data-p-highlight]="selected"
+            [attr.data-p-selected]="selected"
             [attr.data-p-disabled]="disabled"
             [ngStyle]="{ height: itemSize + 'px' }"
             [class]="cx('option')"
@@ -1180,7 +1181,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-select-option-selected');
+            let selectedItem = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li[data-p-selected="true"]');
             if (selectedItem) {
                 scrollInView(this.itemsWrapper, selectedItem);
             }
@@ -1399,7 +1400,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     onOverlayBeforeEnter(event: any) {
-        this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-select-list-container');
+        this.itemsWrapper = <any>findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
         this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
         if (this.options && this.options.length) {
@@ -1409,7 +1410,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
                     this.scroller?.scrollToIndex(selectedIndex);
                 }
             } else {
-                let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '.p-select-option.p-select-option-selected');
+                let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '[data-p-selected="true"]');
                 if (selectedListItem) {
                     selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                 }
@@ -1840,7 +1841,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.el?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInputViewChild?.nativeElement;
         focus(focusableEl);
     }
 
@@ -1916,7 +1917,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     applyFocus(): void {
-        if (this.editable) (findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext') as any).focus();
+        if (this.editable) (findSingle(this.el.nativeElement, '[data-pc-section="label"]') as any).focus();
         else focus(this.focusInputViewChild?.nativeElement);
     }
     /**
@@ -1972,7 +1973,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         return this.cn({
             placeholder: this.label === this.placeholder,
             clearable: this.showClear,
-            disabled: this.disabled,
+            disabled: this.$disabled(),
             [this.size() as string]: this.size(),
             empty: !this.editable && !this.selectedItemTemplate && (!this.label?.() || this.label() === 'p-emptylabel' || this.label()?.length === 0)
         });
