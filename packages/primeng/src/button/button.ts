@@ -334,9 +334,8 @@ export class ButtonDirective extends BaseComponent {
         if (isPlatformBrowser(this.platformId)) {
             this.createIcon();
             this.createLabel();
+            this.initialized = true;
         }
-
-        this.initialized = true;
     }
 
     getStyleClass(): string[] {
