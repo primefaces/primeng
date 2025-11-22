@@ -1382,29 +1382,25 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             }
         }
 
+        // if both the sort field and the sort direction change at once,
+        // extra care is needed to prevent the sort and lazy load events from being emitted twice
         if (simpleChange.sortField) {
             this._sortField = simpleChange.sortField.currentValue;
-
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                if (this.sortMode === 'single') {
-                    this.sortSingle();
-                }
-            }
         }
-
-        if (simpleChange.groupRowsBy) {
-            //avoid triggering lazy load prior to lazy initialization at onInit
-            if (!this.lazy || this.initialized) {
-                if (this.sortMode === 'single') {
-                    this.sortSingle();
-                }
-            }
-        }
-
         if (simpleChange.sortOrder) {
             this._sortOrder = simpleChange.sortOrder.currentValue;
+        }
+        if (simpleChange.sortField || simpleChange.sortOrder) {
+            //avoid triggering lazy load prior to lazy initialization at onInit
+            if (!this.lazy || this.initialized) {
+                if (this.sortMode === 'single') {
+                    this.sortSingle();
+                }
+            }
+        }
 
+
+        if (simpleChange.groupRowsBy) {
             //avoid triggering lazy load prior to lazy initialization at onInit
             if (!this.lazy || this.initialized) {
                 if (this.sortMode === 'single') {
