@@ -60,8 +60,8 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                 [pMotionAppear]="true"
                 [pMotionName]="'p-confirm-popup'"
                 [pMotionOptions]="computedMotionOptions()"
-                (pMotionOnBeforeEnter)="onAnimationStart($event)"
-                (pMotionOnAfterLeave)="onAnimationEnd()"
+                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (pMotionOnAfterLeave)="onAfterLeave()"
                 pFocusTrap
                 [pBind]="ptm('root')"
                 [class]="cn(cx('root'), styleClass)"
@@ -347,7 +347,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
     }
 
-    onAnimationStart(event: MotionEvent) {
+    onBeforeEnter(event: MotionEvent) {
         this.container = event.element as HTMLElement;
         this.appendOverlay();
         this.alignOverlay();
@@ -366,7 +366,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
     }
 
-    onAnimationEnd() {
+    onAfterLeave() {
         this.restoreAppend();
         this.onContainerDestroy();
     }

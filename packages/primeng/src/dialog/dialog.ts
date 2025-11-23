@@ -1047,7 +1047,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     onBeforeEnter(event: MotionEvent) {
-        this.container.set(event.element as HTMLElement);
+        this.container.set(event.element as HTMLDivElement);
         this.wrapper = this.container()?.parentElement;
         this.$attrSelector && this.container()?.setAttribute(this.$attrSelector, '');
         this.appendContainer();

@@ -40,7 +40,7 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
     standalone: true,
     imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind, MotionModule],
     template: `
-        <p-motion [visible]="visible()" name="p-toast" [appear]="true" [options]="motionOptions()" (onBeforeEnter)="handleAnimationStart($event)" (onAfterLeave)="handleAnimationEnd($event)">
+        <p-motion [visible]="visible()" name="p-toast" [appear]="true" [options]="motionOptions()" (onBeforeEnter)="onBeforeEnter($event)" (onAfterLeave)="onAfterLeave($event)">
             <div
                 #container
                 [attr.id]="message?.id"
@@ -141,11 +141,11 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     onAnimationEnd = output<HTMLElement>();
 
-    handleAnimationStart(event: MotionEvent) {
+    onBeforeEnter(event: MotionEvent) {
         this.onAnimationStart.emit(event.element as HTMLElement);
     }
 
-    handleAnimationEnd(event: MotionEvent) {
+    onAfterLeave(event: MotionEvent) {
         if (!this.visible() && !this.isDestroyed) {
             this.onClose.emit({
                 index: <number>this.index,

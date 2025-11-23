@@ -23,7 +23,7 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
     standalone: true,
     imports: [CommonModule, ChevronUpIcon, Button, SharedModule, MotionModule],
     template: `
-        <p-motion [visible]="visible" name="p-scrolltop" [options]="computedMotionOptions()" (onBeforeEnter)="onAnimationStart($event)" (onBeforeLeave)="onAnimationEnd()">
+        <p-motion [visible]="visible" name="p-scrolltop" [options]="computedMotionOptions()" (onBeforeEnter)="onBeforeEnter($event)" (onBeforeLeave)="onBeforeLeave()">
             <p-button [attr.aria-label]="buttonAriaLabel" (click)="onClick()" [pt]="ptm('pcButton')" [styleClass]="cn(cx('root'), styleClass)" [ngStyle]="style" type="button" [buttonProps]="buttonProps" [unstyled]="unstyled()">
                 <ng-template #icon>
                     <ng-container *ngIf="!iconTemplate && !_iconTemplate">
@@ -164,13 +164,13 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
         });
     }
 
-    onAnimationStart(event: MotionEvent) {
-        this.overlay = event.element as HTMLDivElement;
+    onBeforeEnter(event: MotionEvent) {
+        this.overlay = event.element as HTMLElement;
         this.overlay.style.position = 'fixed';
         ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
     }
 
-    onAnimationEnd() {
+    onBeforeLeave() {
         ZIndexUtils.clear(this.overlay);
         this.overlay = null;
     }

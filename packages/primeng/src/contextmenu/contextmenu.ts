@@ -368,7 +368,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
     }
 
     onBeforeEnter(event: MotionEvent) {
-        this.position(event.element as HTMLElement);
+        this.position(event.element as HTMLUListElement);
     }
 
     onAfterLeave() {

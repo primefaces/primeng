@@ -563,7 +563,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    container: HTMLDivElement | undefined;
+    container: HTMLElement | undefined;
 
     outsideClickListener: VoidListener;
 
@@ -1022,7 +1022,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     onOverlayBeforeEnter(event: MotionEvent) {
         const isFirstShow = !this.container;
 
-        this.container = event.element as HTMLDivElement;
+        this.container = event.element as HTMLElement;
         addStyle(this.container!, { position: 'absolute', top: '0' });
         if (isFirstShow) {
             this.moveOnTop();

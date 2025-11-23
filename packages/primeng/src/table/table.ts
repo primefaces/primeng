@@ -6118,7 +6118,7 @@ export class ColumnFilter extends BaseComponent {
     }
 
     onOverlayBeforeEnter(event: MotionEvent) {
-        this.overlay = event.element as HTMLDivElement;
+        this.overlay = event.element as HTMLElement;
         if (this.overlay && this.overlay.parentElement !== this.document.body) {
             const buttonEl = <HTMLButtonElement>findSingle(this.el.nativeElement, '[data-pc-name="pccolumnfilterbutton"]');
             appendChild(this.document.body, this.overlay);
@@ -6138,7 +6138,7 @@ export class ColumnFilter extends BaseComponent {
         };
 
         this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
-        // TODO: UPDATE EVENT
+
         this.onShow.emit({ originalEvent: event as any });
         this.focusOnFirstElement();
     }
@@ -6151,7 +6151,7 @@ export class ColumnFilter extends BaseComponent {
             this.overlaySubscription.unsubscribe();
         }
         ZIndexUtils.clear(this.overlay);
-        // TODO: UPDATE EVENT
+
         this.onHide.emit({ originalEvent: event as any });
     }
 

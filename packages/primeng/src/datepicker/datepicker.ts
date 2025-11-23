@@ -957,7 +957,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * @param {HTMLDivElement} element - The element being transitioned/animated.
      * @group Emits
      */
-    @Output() onClose: EventEmitter<HTMLDivElement> = new EventEmitter<HTMLDivElement>();
+    @Output() onClose: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>();
     /**
      * Callback to invoke on date select.
      * @param {Date} date - date value.
@@ -1009,7 +1009,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * @param {HTMLDivElement} element - The element being transitioned/animated.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<HTMLDivElement> = new EventEmitter<HTMLDivElement>();
+    @Output() onShow: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>();
 
     @ViewChild('inputfield', { static: false }) inputfieldViewChild: Nullable<ElementRef>;
 
@@ -1056,7 +1056,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     maskClickListener: VoidListener;
 
-    overlay: Nullable<HTMLDivElement>;
+    overlay: Nullable<HTMLElement>;
 
     responsiveStyleElement: HTMLStyleElement | undefined | null;
 
@@ -3151,7 +3151,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     onOverlayBeforeEnter(event: MotionEvent) {
-        this.overlay = event.element as HTMLDivElement;
+        this.overlay = event.element as HTMLElement;
         this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
         const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
         addStyle(this.overlay!, styles || {});
@@ -3160,19 +3160,17 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.setZIndex();
         this.updateFocus();
         this.bindListeners();
-        // TODO: update motion events
-        this.onShow.emit(event.element as HTMLDivElement);
+        this.onShow.emit(event.element as HTMLElement);
     }
 
     onOverlayAfterLeave(event: MotionEvent) {
         if (this.autoZIndex) {
-            ZIndexUtils.clear(event.element as HTMLDivElement);
+            ZIndexUtils.clear(event.element as HTMLElement);
         }
         this.restoreOverlayAppend();
         this.onOverlayHide();
 
-        // TODO: update motion events
-        this.onClose.emit(event.element as HTMLDivElement);
+        this.onClose.emit(event.element as HTMLElement);
     }
 
     appendOverlay() {
