@@ -5,10 +5,6 @@ const style = /*css*/ `
 ${tieredmenu_style}
 
 /* Animations */
-.p-tieredmenu-overlay {
-    position: absolute;
-    top: 0px;
-}
 
 .p-tieredmenu-enter-active {
     animation: p-animate-tieredmenu-enter 300ms cubic-bezier(.19,1,.22,1);
