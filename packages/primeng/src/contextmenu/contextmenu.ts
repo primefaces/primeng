@@ -28,7 +28,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import {
     appendChild,
     calculateScrollbarWidth,
@@ -367,8 +367,8 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
         this.itemClick.emit({ originalEvent: event, processedItem, isFocus: true });
     }
 
-    onBeforeEnter(el: HTMLElement) {
-        this.position(el);
+    onBeforeEnter(event: MotionEvent) {
+        this.position(event.element as HTMLElement);
     }
 
     onAfterLeave() {
@@ -1069,8 +1069,8 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         this.searchValue = '';
     }
 
-    onBeforeEnter(el: HTMLElement) {
-        this.container = el;
+    onBeforeEnter(event: MotionEvent) {
+        this.container = event.element as HTMLElement;
         this.position();
         this.moveOnTop();
         this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');

@@ -28,6 +28,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addStyle, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@primeuix/utils';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -82,7 +83,6 @@ import {
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
-import { MotionOptions } from '@primeuix/motion';
 
 const TABLE_INSTANCE = new InjectionToken<Table>('TABLE_INSTANCE');
 
@@ -6117,8 +6117,8 @@ export class ColumnFilter extends BaseComponent {
         this.selfClick = true;
     }
 
-    onOverlayBeforeEnter(element: HTMLElement) {
-        this.overlay = <HTMLDivElement>element;
+    onOverlayBeforeEnter(event: MotionEvent) {
+        this.overlay = event.element as HTMLDivElement;
         if (this.overlay && this.overlay.parentElement !== this.document.body) {
             const buttonEl = <HTMLButtonElement>findSingle(this.el.nativeElement, '[data-pc-name="pccolumnfilterbutton"]');
             appendChild(this.document.body, this.overlay);
@@ -6139,11 +6139,11 @@ export class ColumnFilter extends BaseComponent {
 
         this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
         // TODO: UPDATE EVENT
-        this.onShow.emit({ originalEvent: element as any });
+        this.onShow.emit({ originalEvent: event as any });
         this.focusOnFirstElement();
     }
 
-    onOverlayAnimationAfterLeave(element: HTMLElement) {
+    onOverlayAnimationAfterLeave(event: MotionEvent) {
         this.restoreOverlayAppend();
         this.onOverlayHide();
 
@@ -6152,7 +6152,7 @@ export class ColumnFilter extends BaseComponent {
         }
         ZIndexUtils.clear(this.overlay);
         // TODO: UPDATE EVENT
-        this.onHide.emit({ originalEvent: element as any });
+        this.onHide.emit({ originalEvent: event as any });
     }
 
     restoreOverlayAppend() {

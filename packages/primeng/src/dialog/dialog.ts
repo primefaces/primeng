@@ -26,7 +26,7 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -1046,8 +1046,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
     }
 
-    onBeforeEnter(el: HTMLElement) {
-        this.container.set(el);
+    onBeforeEnter(event: MotionEvent) {
+        this.container.set(event.element as HTMLElement);
         this.wrapper = this.container()?.parentElement;
         this.$attrSelector && this.container()?.setAttribute(this.$attrSelector, '');
         this.appendContainer();

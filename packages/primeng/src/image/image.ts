@@ -22,7 +22,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { appendChild, focus } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -508,8 +508,8 @@ export class Image extends BaseComponent<ImagePassThrough> {
         this.previewClick = true;
     }
 
-    onAnimationStart(event: HTMLElement) {
-        this.container = event;
+    onAnimationStart(event: MotionEvent) {
+        this.container = event.element as HTMLDivElement;
         this.wrapper = this.container?.parentElement;
         this.$attrSelector && this.wrapper?.setAttribute(this.$attrSelector, '');
         this.appendContainer();

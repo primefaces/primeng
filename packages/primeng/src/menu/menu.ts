@@ -29,7 +29,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addStyle, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
@@ -527,8 +527,8 @@ export class Menu extends BaseComponent<MenuPassThrough> {
         return this.tabindex !== undefined ? this.tabindex.toString() : null;
     }
 
-    onOverlayBeforeEnter(el: HTMLElement) {
-        this.container = el;
+    onOverlayBeforeEnter(event: MotionEvent) {
+        this.container = event.element as HTMLElement;
         addStyle(this.container, { position: 'absolute', top: '0' });
         this.appendOverlay();
         this.moveOnTop();

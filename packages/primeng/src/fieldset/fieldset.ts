@@ -19,7 +19,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -274,8 +274,8 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
         }
     }
 
-    onToggleDone(event: any) {
-        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
+    onToggleDone(event: MotionEvent) {
+        this.onAfterToggle.emit({ originalEvent: event as any, collapsed: this.collapsed });
     }
 
     _headerTemplate: TemplateRef<any> | undefined;

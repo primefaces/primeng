@@ -22,19 +22,19 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { $dt } from '@primeuix/styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
-import { MotionModule } from 'primeng/motion';
-import { MotionOptions } from '@primeuix/motion';
 
 const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
 
@@ -353,8 +353,8 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    onAnimationStart(element: HTMLDivElement) {
-        this.container = element;
+    onAnimationStart(event: MotionEvent) {
+        this.container = event.element as HTMLDivElement;
         this.container?.setAttribute(this.$attrSelector, '');
         this.appendOverlay();
         this.align();

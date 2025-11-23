@@ -20,7 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -300,50 +300,52 @@ export class Overlay extends BaseComponent {
      * Callback to invoke when the animation is started.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
+     * @deprecated since v21.0.0. Use onOverlayBeforeEnter and onOverlayBeforeLeave instead.
      */
     @Output() onAnimationStart: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
      * Callback to invoke when the animation is done.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
+     * @deprecated since v21.0.0. Use onOverlayAfterEnter and onOverlayAfterLeave instead.
      */
     @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
      * Callback to invoke before the overlay enters.
-     * @param {any} event - Event before enter.
+     * @param {MotionEvent} event - Event before enter.
      * @group Emits
      */
-    @Output() onBeforeEnter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onBeforeEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
     /**
      * Callback to invoke when the overlay enters.
-     * @param {any} event - Event on enter.
+     * @param {MotionEvent} event - Event on enter.
      * @group Emits
      */
-    @Output() onEnter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
     /**
      * Callback to invoke after the overlay has entered.
-     * @param {any} event - Event after enter.
+     * @param {MotionEvent} event - Event after enter.
      * @group Emits
      */
-    @Output() onAfterEnter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onAfterEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
     /**
      * Callback to invoke before the overlay leaves.
-     * @param {any} event - Event before leave.
+     * @param {MotionEvent} event - Event before leave.
      * @group Emits
      */
-    @Output() onBeforeLeave: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onBeforeLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
     /**
      * Callback to invoke when the overlay leaves.
-     * @param {any} event - Event on leave.
+     * @param {MotionEvent} event - Event on leave.
      * @group Emits
      */
-    @Output() onLeave: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
     /**
      * Callback to invoke after the overlay has left.
-     * @param {any} event - Event after leave.
+     * @param {MotionEvent} event - Event after leave.
      * @group Emits
      */
-    @Output() onAfterLeave: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onAfterLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
 
     @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
 
@@ -525,9 +527,9 @@ export class Overlay extends BaseComponent {
 
     container = signal<any>(undefined);
 
-    onOverlayBeforeEnter(event: AnimationEvent) {
+    onOverlayBeforeEnter(event: MotionEvent) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        this.container.set(this.overlayEl || event.target);
+        this.container.set(this.overlayEl || event.element);
         this.show(this.overlayEl, true);
         this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
         this.appendOverlay();
@@ -537,25 +539,25 @@ export class Overlay extends BaseComponent {
         this.handleEvents('onBeforeEnter', event);
     }
 
-    onOverlayEnter(event: AnimationEvent) {
+    onOverlayEnter(event: MotionEvent) {
         this.handleEvents('onEnter', event);
     }
 
-    onOverlayAfterEnter(event: AnimationEvent) {
+    onOverlayAfterEnter(event: MotionEvent) {
         this.bindListeners();
         this.handleEvents('onAfterEnter', event);
     }
 
-    onOverlayBeforeLeave(event: AnimationEvent) {
+    onOverlayBeforeLeave(event: MotionEvent) {
         this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         this.handleEvents('onBeforeLeave', event);
     }
 
-    onOverlayLeave(event: AnimationEvent) {
+    onOverlayLeave(event: MotionEvent) {
         this.handleEvents('onLeave', event);
     }
 
-    onOverlayAfterLeave(event: AnimationEvent) {
+    onOverlayAfterLeave(event: MotionEvent) {
         this.hide(this.overlayEl, true);
         this.container.set(null);
         this.unbindListeners();

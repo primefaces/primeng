@@ -19,7 +19,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -353,8 +353,8 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         }
     }
 
-    onToggleDone(event: any) {
-        this.onAfterToggle.emit({ originalEvent: event, collapsed: this.collapsed });
+    onToggleDone(event: MotionEvent) {
+        this.onAfterToggle.emit({ originalEvent: event as any, collapsed: this.collapsed });
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;

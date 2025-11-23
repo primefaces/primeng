@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { getWindowScrollTop } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -164,8 +164,8 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
         });
     }
 
-    onAnimationStart(el: HTMLElement) {
-        this.overlay = el;
+    onAnimationStart(event: MotionEvent) {
+        this.overlay = event.element as HTMLDivElement;
         this.overlay.style.position = 'fixed';
         ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
     }

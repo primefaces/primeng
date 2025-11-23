@@ -20,7 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -467,8 +467,8 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this.mask = null;
     }
 
-    onBeforeEnter(element: HTMLElement) {
-        this.container = element as HTMLDivElement;
+    onBeforeEnter(event: MotionEvent) {
+        this.container = event.element as HTMLDivElement;
         this.appendContainer();
         this.show();
 

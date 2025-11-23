@@ -26,7 +26,7 @@ import {
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -347,8 +347,8 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         }
     }
 
-    onAnimationStart(el: HTMLElement) {
-        this.container = el;
+    onAnimationStart(event: MotionEvent) {
+        this.container = event.element as HTMLElement;
         this.appendOverlay();
         this.alignOverlay();
         this.alignArrow();

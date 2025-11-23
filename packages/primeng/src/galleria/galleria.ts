@@ -24,7 +24,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -430,8 +430,8 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         }
     }
 
-    onBeforeEnter(el: HTMLElement) {
-        this.mask = <HTMLElement>el?.parentElement;
+    onBeforeEnter(event: MotionEvent) {
+        this.mask = <HTMLElement>event.element?.parentElement;
         this.enableModality();
         setTimeout(() => {
             const focusTarget = findSingle(this.container?.nativeElement, '[data-pc-section="closebutton"]');

@@ -23,7 +23,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -3150,8 +3150,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
     }
 
-    onOverlayBeforeEnter(el: HTMLDivElement) {
-        this.overlay = el;
+    onOverlayBeforeEnter(event: MotionEvent) {
+        this.overlay = event.element as HTMLDivElement;
         this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
         const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
         addStyle(this.overlay!, styles || {});
@@ -3161,18 +3161,18 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.updateFocus();
         this.bindListeners();
         // TODO: update motion events
-        this.onShow.emit(el);
+        this.onShow.emit(event.element as HTMLDivElement);
     }
 
-    onOverlayAfterLeave(el: HTMLDivElement) {
+    onOverlayAfterLeave(event: MotionEvent) {
         if (this.autoZIndex) {
-            ZIndexUtils.clear(el);
+            ZIndexUtils.clear(event.element as HTMLDivElement);
         }
         this.restoreOverlayAppend();
         this.onOverlayHide();
 
         // TODO: update motion events
-        this.onClose.emit(el);
+        this.onClose.emit(event.element as HTMLDivElement);
     }
 
     appendOverlay() {

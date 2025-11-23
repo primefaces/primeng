@@ -27,20 +27,20 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { TieredMenuPassThrough } from 'primeng/types/tieredmenu';
 import { ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
-import { MotionModule } from 'primeng/motion';
-import { MotionOptions } from '@primeuix/motion';
 
 const TIEREDMENU_INSTANCE = new InjectionToken<TieredMenu>('TIEREDMENU_INSTANCE');
 const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_INSTANCE');
@@ -1019,10 +1019,10 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         this.dirty = false;
     }
 
-    onOverlayBeforeEnter(element: HTMLDivElement) {
+    onOverlayBeforeEnter(event: MotionEvent) {
         const isFirstShow = !this.container;
 
-        this.container = element;
+        this.container = event.element as HTMLDivElement;
         addStyle(this.container!, { position: 'absolute', top: '0' });
         if (isFirstShow) {
             this.moveOnTop();

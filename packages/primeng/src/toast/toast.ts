@@ -21,7 +21,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { MotionOptions } from '@primeuix/motion';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -141,11 +141,11 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     onAnimationEnd = output<HTMLElement>();
 
-    handleAnimationStart(el: HTMLElement) {
-        this.onAnimationStart.emit(el);
+    handleAnimationStart(event: MotionEvent) {
+        this.onAnimationStart.emit(event.element as HTMLElement);
     }
 
-    handleAnimationEnd(el: HTMLElement) {
+    handleAnimationEnd(event: MotionEvent) {
         if (!this.visible() && !this.isDestroyed) {
             this.onClose.emit({
                 index: <number>this.index,
@@ -153,7 +153,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             });
 
             if (!this.isDestroyed) {
-                this.onAnimationEnd.emit(el);
+                this.onAnimationEnd.emit(event.element as HTMLElement);
             }
         }
     }
