@@ -299,25 +299,8 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
         return this.getItemId(processedItem);
     }
 
-    getItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-tieredmenu-item': true,
-            'p-tieredmenu-item-active': this.isItemActive(processedItem),
-            'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
-        };
-    }
-
     getItemLabel(processedItem: any): string {
         return this.getItemProp(processedItem, 'label');
-    }
-
-    getSeparatorItemClass(processedItem: any): string {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-tieredmenu-separator': true
-        };
     }
 
     getAriaSetSize() {
