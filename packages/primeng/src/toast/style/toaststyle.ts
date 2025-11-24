@@ -5,24 +5,24 @@ const style = /*css*/ `
 ${toast_style}
 /* Animations */
 .p-toast-enter-active {
-    animation: p-toast-enter-animation 450ms cubic-bezier(0, 1, 0, 1);
+    animation: p-toast-enter 0.3s ease-out;
 }
 
 .p-toast-leave-active {
-    animation: p-toast-leave-animation 250ms ease-out;
+    animation: p-toast-leave 0.45s cubic-bezier(0, 0.2, 0, 0.8);
 }
 
 /* Bottom positions - slide down on leave */
 .p-toast.p-toast-bottom-left .p-toast-message.p-toast-leave-active,
 .p-toast.p-toast-bottom-right .p-toast-message.p-toast-leave-active,
 .p-toast.p-toast-bottom-center .p-toast-message.p-toast-leave-active {
-    animation: p-toast-leave-bottom-animation 250ms ease-out;
+    animation: p-toast-leave-bottom 0.45s cubic-bezier(0, 0.2, 0, 0.8);
 }
 
-@keyframes p-toast-enter-animation {
+@keyframes p-toast-enter {
     from {
         opacity: 0;
-        transform: translateY(100%);
+        transform: translateY(50%);
     }
     to {
         opacity: 1;
@@ -30,7 +30,7 @@ ${toast_style}
     }
 }
 
-@keyframes p-toast-leave-animation {
+@keyframes p-toast-leave {
     from {
         max-height: 1000px;
         opacity: 1;
@@ -44,7 +44,7 @@ ${toast_style}
     }
 }
 
-@keyframes p-toast-leave-bottom-animation {
+@keyframes p-toast-leave-bottom {
     from {
         max-height: 1000px;
         opacity: 1;
