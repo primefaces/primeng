@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { style as popover_style } from '@primeuix/styles/popover';
+import { style } from '@primeuix/styles/popover';
 import { BaseStyle } from 'primeng/base';
 
-const style = /*css*/ `
-${popover_style}
-/*For PrimeNG*/
-.p-popover {
-    position: absolute;
-}`;
+const inlineStyles = {
+    root: () => ({ position: 'absolute' })
+};
 
 const classes = {
     root: 'p-popover p-component',
@@ -21,4 +18,6 @@ export class PopoverStyle extends BaseStyle {
     style = style;
 
     classes = classes;
+
+    inlineStyles = inlineStyles;
 }

@@ -53,6 +53,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
             <div
                 [pBind]="ptm('root')"
                 [class]="cn(cx('root'), styleClass)"
+                [style]="sx('root')"
                 [ngStyle]="style"
                 (click)="onOverlayClick($event)"
                 role="dialog"
