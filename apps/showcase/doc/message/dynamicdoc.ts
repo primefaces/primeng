@@ -37,7 +37,7 @@ export class DynamicDoc {
     <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
 </div>
 <div class="flex flex-col">
-    @for (message of messages(); track message; let first = $first) {
+    @for (message of messages(); track message.severity; let first = $first) {
         <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" />
     }
 </div>`,
