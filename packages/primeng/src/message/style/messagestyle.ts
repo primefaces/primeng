@@ -5,25 +5,29 @@ const style = /*css*/ `
 ${message_style}
 
 /* Animations */
-
-.p-message-enter-active {
-    animation: p-animate-message-enter 300ms ease-out;
+.p-message2-enter-active {
+    animation: p-animate-message-enter 200ms ease-out;
 }
 
-.p-message-leave-active {
-    animation: p-animate-message-enter 200ms cubic-bezier(0.86, 0, 0.07, 1);
+.p-message2-leave-active {
+    animation: p-animate-message-leave 200ms ease-out;
 }
 
 @keyframes p-animate-message-enter {
     from {
         opacity: 0;
-        transform: translateY(-25%);
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: var(--pui-motion-height, 1000px);
     }
 }
 
 @keyframes p-animate-message-leave {
     to {
-        opacity: 1;
+        opacity: 0;
+        max-height: 0;
     }
 }
 `;
