@@ -113,7 +113,7 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                     </button>
                 </div>
                 @if (renderPreview()) {
-                    <p-motion [visible]="previewVisible" name="p-image" [appear]="true" [options]="computedMotionOptions()" (onBeforeEnter)="onAnimationStart($event)" (onBeforeLeave)="onBeforeLeave()" (onAfterLeave)="onAnimationEnd($event)">
+                    <p-motion [visible]="previewVisible" name="p-image-original" [appear]="true" [options]="computedMotionOptions()" (onBeforeEnter)="onAnimationStart($event)" (onBeforeLeave)="onBeforeLeave()" (onAfterLeave)="onAnimationEnd($event)">
                         <ng-container *ngIf="!previewTemplate && !_previewTemplate">
                             <img
                                 [attr.src]="previewImageSrc ? previewImageSrc : src"

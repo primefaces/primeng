@@ -1,34 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as contextmenu_style } from '@primeuix/styles/contextmenu';
+import { style } from '@primeuix/styles/contextmenu';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-${contextmenu_style}
-
-/* Animations */
-
-.p-contextmenu2-enter-active {
-    animation: p-animate-contextmenu-enter .3s cubic-bezier(.19,1,.22,1);
-}
-
-.p-contextmenu2-leave-active {
-    animation: p-animate-contextmenu-leave .3s cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes p-animate-contextmenu-enter {
-    from {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-
-@keyframes p-animate-contextmenu-leave {
-    to {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-`;
 
 const inlineStyles = {
     root: { position: 'absolute' }

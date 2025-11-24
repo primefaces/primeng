@@ -50,7 +50,7 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
             <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" (click)="onOverlayClick()">
                 <p-motion
                     [visible]="visible"
-                    name="p-overlay"
+                    name="p-anchored-overlay"
                     [appear]="true"
                     [options]="computedMotionOptions()"
                     (onBeforeEnter)="onOverlayBeforeEnter($event)"

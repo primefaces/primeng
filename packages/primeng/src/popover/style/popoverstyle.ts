@@ -64,29 +64,6 @@ const style = /*css*/ `
 .p-popover.p-popover-flipped:before {
     border-bottom-color: transparent;
     border-top-color: dt('popover.border.color');
-}
-
-/* Animations */
-.p-popover-enter-active {
-    animation: p-animate-popover-enter 300ms cubic-bezier(.19,1,.22,1);
-}
-
-.p-popover-leave-active {
-    animation: p-animate-popover-leave 300ms cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes p-animate-popover-enter {
-    from {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-
-@keyframes p-animate-popover-leave {
-    to {
-        opacity: 0;
-        transform: scale(0.93);
-    }
 }`;
 
 const classes = {

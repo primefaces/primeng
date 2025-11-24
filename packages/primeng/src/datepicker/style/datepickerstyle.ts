@@ -9,30 +9,6 @@ ${datepicker_style}
 .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
     border-color: dt('inputtext.invalid.border.color');
 }
-
-/* Animations */
-
-.p-datepicker-enter-active {
-    animation: p-animate-datepicker-enter 300ms cubic-bezier(.19,1,.22,1);
-}
-
-.p-datepicker-leave-active {
-    animation: p-animate-datepicker-leave 300ms cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes p-animate-datepicker-enter {
-    from {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-
-@keyframes p-animate-datepicker-leave {
-    to {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
 `;
 
 const inlineStyles = {
