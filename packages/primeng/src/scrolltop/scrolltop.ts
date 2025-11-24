@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { getWindowScrollTop } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -7,7 +7,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { ChevronUpIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
+import { MotionDirective } from 'primeng/motion';
 import { ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import { ZIndexUtils } from 'primeng/utils';
 import { ScrollTopStyle } from './style/scrolltopstyle';
@@ -21,10 +21,26 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
 @Component({
     selector: 'p-scrollTop, p-scrolltop, p-scroll-top',
     standalone: true,
-    imports: [CommonModule, ChevronUpIcon, Button, SharedModule, MotionModule],
+    imports: [CommonModule, ChevronUpIcon, Button, SharedModule, MotionDirective],
     template: `
-        <p-motion [visible]="visible" name="p-scrolltop" [options]="computedMotionOptions()" (onBeforeEnter)="onBeforeEnter($event)" (onBeforeLeave)="onBeforeLeave()">
-            <p-button [attr.aria-label]="buttonAriaLabel" (click)="onClick()" [pt]="ptm('pcButton')" [styleClass]="cn(cx('root'), styleClass)" [ngStyle]="style" type="button" [buttonProps]="buttonProps" [unstyled]="unstyled()">
+        @if (render()) {
+            <p-button
+                [pMotion]="visible()"
+                [pMotionAppear]="true"
+                [pMotionName]="'p-scrolltop'"
+                [pMotionOptions]="computedMotionOptions()"
+                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (pMotionOnBeforeLeave)="onBeforeLeave()"
+                (pMotionOnAfterLeave)="onAfterLeave()"
+                [attr.aria-label]="buttonAriaLabel"
+                (click)="onClick()"
+                [pt]="ptm('pcButton')"
+                [styleClass]="cn(cx('root'), styleClass)"
+                [ngStyle]="style"
+                type="button"
+                [buttonProps]="buttonProps"
+                [unstyled]="unstyled()"
+            >
                 <ng-template #icon>
                     <ng-container *ngIf="!iconTemplate && !_iconTemplate">
                         <span *ngIf="_icon" [class]="cn(cx('icon'), _icon)"></span>
@@ -33,7 +49,7 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
                     <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { styleClass: cx('icon') }"></ng-template>
                 </ng-template>
             </p-button>
-        </p-motion>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -135,7 +151,9 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
 
     parentScrollListener: VoidFunction | null | undefined;
 
-    visible: boolean = false;
+    visible = signal<boolean>(false);
+
+    render = signal<boolean>(false);
 
     overlay: any;
 
@@ -175,10 +193,19 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
         this.overlay = null;
     }
 
+    onAfterLeave() {
+        this.render.set(false);
+    }
+
     checkVisibility(scrollY: number) {
-        if (scrollY > this.threshold) this.visible = true;
-        else this.visible = false;
-        this.cd.markForCheck();
+        if (scrollY > this.threshold) {
+            this.visible.set(true);
+            if (!this.render()) {
+                this.render.set(true);
+            }
+        } else {
+            this.visible.set(false);
+        }
     }
 
     bindParentScrollListener() {
