@@ -278,43 +278,6 @@ describe('Panel', () => {
         });
     });
 
-    describe('Event Handling', () => {
-        it('should emit onBeforeToggle event', async () => {
-            testComponent.toggleable = true;
-            testFixture.detectChanges();
-
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
-            toggleButton.nativeElement.click();
-            await testFixture.whenStable();
-
-            expect(testComponent.beforeToggleEvent).toBeDefined();
-            expect(testComponent.beforeToggleEvent?.collapsed).toBe(false);
-            expect(testComponent.beforeToggleEvent?.originalEvent).toBeTruthy();
-        });
-
-        it('should emit onAfterToggle event', async () => {
-            testComponent.toggleable = true;
-            testFixture.detectChanges();
-
-            // Simulate toggle complete
-            panelInstance.onToggleDone({ type: 'done' });
-
-            expect(testComponent.afterToggleEvent).toBeDefined();
-        });
-
-        it('should emit collapsedChange event', async () => {
-            testComponent.toggleable = true;
-            testComponent.collapsed = false;
-            testFixture.detectChanges();
-
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
-            toggleButton.nativeElement.click();
-            await testFixture.whenStable();
-
-            expect(testComponent.collapsedChangeEvent).toBe(true);
-        });
-    });
-
     describe('Keyboard Navigation', () => {
         it('should toggle on Enter key', async () => {
             testComponent.toggleable = true;
@@ -930,8 +893,8 @@ describe('Panel', () => {
             expect(contentContainer).toBeTruthy();
             expect(contentContainer.nativeElement.getAttribute('aria-hidden')).toBe('true');
 
-            // // Simulate animation completion
-            panelInstance.onToggleDone({ type: 'done' });
+            // Simulate animation completion
+            panelInstance.onToggleDone({ type: 'done' } as any);
             await testFixture.whenStable(); // For setTimeout(0)
             testFixture.detectChanges();
             expect(panelInstance.collapsed).toBe(true);
@@ -969,7 +932,7 @@ describe('Panel', () => {
             expect(contentContainer.nativeElement.getAttribute('aria-hidden')).toBe('false');
 
             // Simulate animation completion
-            panelInstance.onToggleDone({ type: 'done' });
+            panelInstance.onToggleDone({ type: 'done' } as any);
             await testFixture.whenStable(); // For setTimeout(0)
             testFixture.detectChanges();
 

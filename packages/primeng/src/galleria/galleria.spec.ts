@@ -606,64 +606,6 @@ describe('Galleria', () => {
         });
     });
 
-    describe('Animation Events', () => {
-        let fixture: ComponentFixture<TestFullScreenGalleriaComponent>;
-        let component: TestFullScreenGalleriaComponent;
-        let galleriaInstance: Galleria;
-
-        beforeEach(() => {
-            fixture = TestBed.createComponent(TestFullScreenGalleriaComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-
-            const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
-            galleriaInstance = galleriaEl.componentInstance as Galleria;
-        });
-
-        it('should handle animation start event', () => {
-            // const mockAnimationEvent = {
-            //     toState: 'visible'
-            // } as AnimationEvent;
-
-            // Mock container element for focus handling
-            galleriaInstance.container = {
-                nativeElement: document.createElement('div')
-            } as any;
-
-            // galleriaInstance.onAnimationStart(mockAnimationEvent);
-
-            // The method should execute without error
-            expect(true).toBe(true);
-        });
-
-        // it('should handle animation end event', () => {
-        //     const mockAnimationEvent = {
-        //         toState: 'void'
-        //     } as AnimationEvent;
-
-        //     galleriaInstance.onAnimationEnd(mockAnimationEvent);
-
-        //     // The method should execute without error
-        //     expect(true).toBe(true);
-        // });
-
-        it('should handle void state in animation start', () => {
-            // const mockAnimationEvent = {
-            //     toState: 'void'
-            // } as AnimationEvent;
-
-            // Mock mask element
-            galleriaInstance.mask = {
-                nativeElement: document.createElement('div')
-            } as any;
-
-            // galleriaInstance.onAnimationStart(mockAnimationEvent);
-
-            // Should execute without throwing
-            expect(true).toBe(true);
-        });
-    });
-
     describe('CSS Classes and Styling', () => {
         let fixture: ComponentFixture<TestBasicGalleriaComponent>;
         let component: TestBasicGalleriaComponent;

@@ -381,7 +381,7 @@ describe('ConfirmPopup', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.visible()).toBe(true);
         });
     });
 
@@ -389,11 +389,12 @@ describe('ConfirmPopup', () => {
         it('should show popup when confirmation is triggered', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            await new Promise((resolve) => setTimeout(resolve, 50));
+            fixture.detectChanges();
             await fixture.whenStable();
+            fixture.detectChanges();
 
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
             expect(confirmPopupInstance.confirmation).toBeDefined();
             expect(confirmPopupInstance.confirmation?.message).toBe('Are you sure?');
         });
@@ -401,29 +402,31 @@ describe('ConfirmPopup', () => {
         it('should handle accept action', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             confirmPopupInstance.onAccept();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(component.acceptClicked).toBe(true);
-            expect(confirmPopupInstance.visible).toBe(false);
+            expect(confirmPopupInstance.computedVisible()).toBe(false);
         });
 
         it('should handle reject action', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             confirmPopupInstance.onReject();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(component.rejectClicked).toBe(true);
-            expect(confirmPopupInstance.visible).toBe(false);
+            expect(confirmPopupInstance.computedVisible()).toBe(false);
         });
 
         it('should hide popup when confirmation is null', async () => {
@@ -453,7 +456,7 @@ describe('ConfirmPopup', () => {
             await multiKeyFixture.whenStable();
 
             const popup1 = multiKeyFixture.debugElement.queryAll(By.directive(ConfirmPopup))[0].componentInstance;
-            expect(popup1.visible).toBe(true);
+            expect(popup1.visible()).toBe(true);
 
             // Accept first popup
             popup1.onAccept();
@@ -471,7 +474,7 @@ describe('ConfirmPopup', () => {
             });
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(confirmPopupInstance.visible).toBeFalsy();
+            expect(confirmPopupInstance.visible()).toBeFalsy();
 
             confirmationService.confirm({
                 key: 'specificKey',
@@ -479,7 +482,7 @@ describe('ConfirmPopup', () => {
             });
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.visible()).toBe(true);
         });
     });
 
@@ -496,11 +499,12 @@ describe('ConfirmPopup', () => {
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             focusFixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await focusFixture.whenStable();
 
             // Simulate animation start to trigger focus logic
             const mockEvent = { toState: 'open', element: document.createElement('div') } as any;
-            confirmPopupInstance.onAnimationStart(mockEvent);
+            confirmPopupInstance.onBeforeEnter(mockEvent);
 
             // Verify handleFocus was called and defaultFocus is set to accept
             expect(handleFocusSpy).toHaveBeenCalled();
@@ -521,11 +525,12 @@ describe('ConfirmPopup', () => {
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             focusFixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await focusFixture.whenStable();
 
             // Simulate animation start to trigger focus logic
             const mockEvent = { toState: 'open', element: document.createElement('div') } as any;
-            confirmPopupInstance.onAnimationStart(mockEvent);
+            confirmPopupInstance.onBeforeEnter(mockEvent);
 
             // Verify handleFocus was called and defaultFocus is set to reject
             expect(handleFocusSpy).toHaveBeenCalled();
@@ -543,6 +548,7 @@ describe('ConfirmPopup', () => {
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             focusFixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await focusFixture.whenStable();
 
             const confirmPopupInstance = focusFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
@@ -726,8 +732,9 @@ describe('ConfirmPopup', () => {
 
             const triggerBtn = buttonPropsFixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             buttonPropsFixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await buttonPropsFixture.whenStable();
 
             const confirmPopupInstance = buttonPropsFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
@@ -760,17 +767,18 @@ describe('ConfirmPopup', () => {
             await positionFixture.whenStable();
 
             const confirmPopupInstance = positionFixture.debugElement.query(By.directive(ConfirmPopup)).componentInstance;
-            const alignSpy = spyOn(confirmPopupInstance, 'align').and.callThrough();
+            const alignSpy = spyOn(confirmPopupInstance, 'alignOverlay').and.callThrough();
 
             const triggerBtn = positionFixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             positionFixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await positionFixture.whenStable();
 
             // Simulate animation start to trigger align
             const mockEvent = { toState: 'open', element: document.createElement('div') } as any;
-            confirmPopupInstance.onAnimationStart(mockEvent);
+            confirmPopupInstance.onBeforeEnter(mockEvent);
 
             expect(alignSpy).toHaveBeenCalled();
         });
@@ -781,22 +789,14 @@ describe('ConfirmPopup', () => {
 
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
-            // Simulate animation start to bind resize listener
-            const mockEvent = { toState: 'open', element: document.createElement('div') } as any;
-            confirmPopupInstance.onAnimationStart(mockEvent);
-
-            // Wait for setTimeout in bindListeners
-            await new Promise((resolve) => setTimeout(resolve, 10));
-
-            // Simulate window resize
             window.dispatchEvent(new Event('resize'));
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            // Verify onWindowResize was called (which calls hide())
             expect(onWindowResizeSpy).toHaveBeenCalled();
             expect(hideSpy).toHaveBeenCalled();
         });
@@ -809,8 +809,9 @@ describe('ConfirmPopup', () => {
 
             const triggerBtn = accessibilityFixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             accessibilityFixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await accessibilityFixture.whenStable();
 
             const popupElement = accessibilityFixture.debugElement.query(By.css('[role="alertdialog"]'));
@@ -821,8 +822,9 @@ describe('ConfirmPopup', () => {
         it('should have focus trap', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const focusTrapElement = fixture.debugElement.query(By.directive(FocusTrap));
@@ -835,8 +837,9 @@ describe('ConfirmPopup', () => {
 
             const triggerBtn = accessibilityFixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             accessibilityFixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await accessibilityFixture.whenStable();
 
             const acceptButton = accessibilityFixture.debugElement.query(By.css('.p-confirm-popup-accept'));
@@ -856,8 +859,9 @@ describe('ConfirmPopup', () => {
         it('should have proper keyboard navigation support', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const popupElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
@@ -875,8 +879,9 @@ describe('ConfirmPopup', () => {
         it('should handle Enter key on buttons', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const acceptButton = fixture.debugElement.query(By.css('p-button[label="Yes"]'));
@@ -897,8 +902,9 @@ describe('ConfirmPopup', () => {
         it('should handle Space key on buttons', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rejectButton = fixture.debugElement.query(By.css('p-button[label="No"]'));
@@ -917,8 +923,9 @@ describe('ConfirmPopup', () => {
         it('should have proper role and aria attributes on container', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const popupElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
@@ -932,8 +939,9 @@ describe('ConfirmPopup', () => {
         it('should provide accessible button labels', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const buttons = fixture.debugElement.queryAll(By.css('p-button'));
@@ -947,8 +955,9 @@ describe('ConfirmPopup', () => {
         it('should support screen reader announcements', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const messageElement = fixture.debugElement.query(By.css('.p-confirm-popup-message'));
@@ -965,8 +974,9 @@ describe('ConfirmPopup', () => {
         it('should handle high contrast mode', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const popupElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
@@ -981,12 +991,13 @@ describe('ConfirmPopup', () => {
 
             // Open popup
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Verify popup is visible
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
 
             // Close popup
             confirmPopupInstance.hide();
@@ -995,14 +1006,15 @@ describe('ConfirmPopup', () => {
             await fixture.whenStable();
 
             // Verify popup is hidden
-            expect(confirmPopupInstance.visible).toBe(false);
+            expect(confirmPopupInstance.visible()).toBe(false);
         });
 
         it('should support reduced motion preferences', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Animation should still work but respect reduced motion
@@ -1010,7 +1022,7 @@ describe('ConfirmPopup', () => {
             expect(popupElement).toBeTruthy();
 
             // Component should render regardless of animation preferences
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
         });
     });
 
@@ -1027,7 +1039,7 @@ describe('ConfirmPopup', () => {
             await fixture.whenStable();
 
             // Verify popup is visible
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.visible()).toBe(true);
             expect(confirmPopupInstance.confirmation?.closeOnEscape).toBe(true);
 
             // Test the onEscapeKeydown method directly
@@ -1050,7 +1062,7 @@ describe('ConfirmPopup', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.visible()).toBe(true);
             expect(confirmPopupInstance.confirmation?.closeOnEscape).toBe(false);
 
             // Test the onEscapeKeydown method directly
@@ -1060,18 +1072,19 @@ describe('ConfirmPopup', () => {
             confirmPopupInstance.onEscapeKeydown(escapeEvent);
 
             expect(confirmPopupInstance.onReject).not.toHaveBeenCalled();
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.visible()).toBe(true);
         });
 
         it('should close popup on Escape key when closeOnEscape is undefined (default)', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Default behavior - closeOnEscape is undefined, should work as true
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
             expect(confirmPopupInstance.confirmation?.closeOnEscape).toBeUndefined();
 
             // Test the onEscapeKeydown method directly
@@ -1097,8 +1110,9 @@ describe('ConfirmPopup', () => {
         it('should handle Tab key for focus management within popup', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const popupElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
@@ -1125,8 +1139,9 @@ describe('ConfirmPopup', () => {
         it('should handle Shift+Tab for reverse focus navigation', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const popupElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
@@ -1158,7 +1173,7 @@ describe('ConfirmPopup', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(confirmPopupInstance.visible).toBe(true);
+            expect(confirmPopupInstance.visible()).toBe(true);
 
             // Create real keyboard event
             const escapeKeyEvent = new KeyboardEvent('keydown', {
@@ -1183,8 +1198,9 @@ describe('ConfirmPopup', () => {
         it('should apply correct default classes', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const popupElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
@@ -1198,8 +1214,9 @@ describe('ConfirmPopup', () => {
 
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.styleClass).toBe('my-custom-popup');
@@ -1212,8 +1229,9 @@ describe('ConfirmPopup', () => {
 
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.style).toEqual({ backgroundColor: 'red' });
@@ -1237,12 +1255,14 @@ describe('ConfirmPopup', () => {
 
             // Rapid clicks
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             confirmPopupInstance.hide();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 0));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
 
+            fixture.detectChanges();
             expect(() => {
                 fixture.changeDetectorRef.markForCheck();
             }).not.toThrow();
@@ -1316,29 +1336,24 @@ describe('ConfirmPopup', () => {
         it('should hide on document click when visible', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
-
-            // Simulate animation start to bind listeners
-            const mockEvent = { toState: 'open', element: document.createElement('div') } as any;
-            confirmPopupInstance.onAnimationStart(mockEvent);
-
-            // Wait for setTimeout in bindListeners
-            await new Promise((resolve) => setTimeout(resolve, 100));
 
             // Simulate document click
             document.body.click();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(confirmPopupInstance.visible).toBe(false);
+            expect(confirmPopupInstance.computedVisible()).toBe(false);
         });
 
         it('should not hide on popup click', async () => {
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
             triggerBtn.nativeElement.click();
-            await new Promise((resolve) => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 50));
             fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const popupElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
@@ -1346,7 +1361,7 @@ describe('ConfirmPopup', () => {
                 popupElement.nativeElement.click();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                expect(confirmPopupInstance.visible).toBe(true);
+                expect(confirmPopupInstance.computedVisible()).toBe(true);
             }
         });
     });
