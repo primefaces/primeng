@@ -58,7 +58,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
             <div
                 [pMotion]="computedVisible()"
                 [pMotionAppear]="true"
-                [pMotionName]="'p-confirm-popup'"
+                [pMotionName]="'p-anchored-overlay'"
                 [pMotionOptions]="computedMotionOptions()"
                 (pMotionOnBeforeEnter)="onBeforeEnter($event)"
                 (pMotionOnAfterLeave)="onAfterLeave()"

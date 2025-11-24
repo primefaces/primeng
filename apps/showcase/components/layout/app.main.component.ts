@@ -17,7 +17,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
             <app-news />
             <app-topbar />
             @if (isMenuActive()) {
-                <div class="layout-mask" (click)="hideMenu()" animate.enter="modal-enter" animate.leave="modal-leave"></div>
+                <div class="layout-mask" (click)="hideMenu()" animate.enter="px-modal-enter" animate.leave="px-modal-leave"></div>
             }
             <div class="layout-content">
                 <app-menu />

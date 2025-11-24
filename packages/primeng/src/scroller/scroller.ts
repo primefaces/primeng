@@ -678,9 +678,10 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     init() {
         if (!this._disabled) {
             this.bindResizeListener();
-            this.setSpacerSize();
+
             // wait for the next tick
             setTimeout(() => {
+                this.setSpacerSize();
                 this.setSize();
                 this.calculateOptions();
                 this.cd.detectChanges();

@@ -398,7 +398,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     standalone: true,
     imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule, MotionModule],
     template: `
-        <p-motion [visible]="!popup || visible" name="p-tieredmenu" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onAfterLeave()" [options]="computedMotionOptions()">
+        <p-motion [visible]="!popup || visible" name="p-anchored-overlay" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onAfterLeave()" [options]="computedMotionOptions()">
             <div #container [id]="id" [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [pBind]="ptm('root')" (click)="onOverlayClick($event)">
                 <p-tieredMenuSub
                     #rootmenu

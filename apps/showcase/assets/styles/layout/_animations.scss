@@ -1,34 +1,34 @@
-.overlay-enter {
-    animation: animate-overlay-enter 300ms cubic-bezier(.19,1,.22,1);
+.px-overlay-enter-active {
+    animation: px-animate-overlay-enter 300ms cubic-bezier(.19,1,.22,1);
 }
 
-.overlay-leave {
-    animation: animate-overlay-leave 300ms cubic-bezier(.19,1,.22,1);
+.px-overlay-leave-active {
+    animation: px-animate-overlay-leave 300ms cubic-bezier(.19,1,.22,1);
 }
 
-@keyframes animate-overlay-enter {
+@keyframes px-animate-overlay-enter {
     from {
         opacity: 0;
         transform: scale(0.93);
     }
 }
 
-@keyframes animate-overlay-leave {
+@keyframes px-animate-overlay-leave {
     to {
         opacity: 0;
         transform: scale(0.93);
     }
 }
 
-.modal-enter {
-    animation: animate-modal-enter 300ms;
+.px-modal-enter {
+    animation: px-animate-modal-enter 300ms;
 }
 
-.modal-leave {
-    animation: animate-modal-leave 300ms;
+.px-modal-leave {
+    animation: px-animate-modal-leave 300ms;
 }
 
-@keyframes animate-modal-enter {
+@keyframes px-animate-modal-enter {
     from {
         background: transparent;
     }
@@ -36,7 +36,7 @@
         background: var(--p-mask-background)
     }
 }
-@keyframes animate-modal-leave {
+@keyframes px-animate-modal-leave {
     from {
         background: var(--p-mask-background)
     }

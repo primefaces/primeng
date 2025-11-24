@@ -431,6 +431,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
 
         this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
+        this.container.setAttribute('role', 'tooltip');
         let tooltipArrow = createElement('div', { class: this.cx('arrow'), 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
         this.container.appendChild(tooltipArrow);
         this.tooltipText = createElement('div', { class: this.cx('text'), 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });

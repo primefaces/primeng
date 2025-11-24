@@ -114,29 +114,6 @@ p-sortIcon, p-sort-icon, p-sorticon {
     display: block;
     width: 100%;
 }
-
-/* Animations */
-.p-columnfilter-overlay-enter-active {
-    animation: p-animate-columnfilter-overlay-enter 300ms cubic-bezier(.19,1,.22,1);
-}
-
-.p-columnfilter-overlay-leave-active {
-    animation: p-animate-columnfilter-overlay-leave 300ms cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes p-animate-columnfilter-overlay-enter {
-    from {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-
-@keyframes p-animate-columnfilter-overlay-leave {
-    to {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
 `;
 
 const classes = {
