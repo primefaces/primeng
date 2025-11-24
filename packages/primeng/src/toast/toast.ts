@@ -6,6 +6,7 @@ import {
     computed,
     ContentChild,
     ContentChildren,
+    effect,
     EventEmitter,
     inject,
     InjectionToken,
@@ -141,6 +142,8 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     motionOptions = input<MotionOptions>();
 
+    clearAll = input<any>(null);
+
     onAnimationStart = output<HTMLElement>();
 
     onAnimationEnd = output<HTMLElement>();
@@ -176,6 +179,12 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     constructor(private zone: NgZone) {
         super();
+
+        effect(() => {
+            if (this.clearAll()) {
+                this.visible.set(false);
+            }
+        });
     }
 
     onAfterViewInit() {
@@ -253,6 +262,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             [message]="msg"
             [index]="i"
             [life]="life"
+            [clearAll]="clearAllTrigger()"
             (onClose)="onMessageClose($event)"
             (onAnimationEnd)="onAnimationEnd()"
             (onAnimationStart)="onAnimationStart()"
@@ -408,6 +418,8 @@ export class Toast extends BaseComponent<ToastPassThrough> {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
+    clearAllTrigger = signal<{} | null>(null);
+
     constructor() {
         super();
     }
@@ -427,14 +439,19 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
             if (key) {
                 if (this.key === key) {
-                    this.messages = null;
+                    this.clearAll();
                 }
             } else {
-                this.messages = null;
+                this.clearAll();
             }
 
             this.cd.markForCheck();
         });
+    }
+
+    clearAll() {
+        // trigger signal to clear all messages
+        this.clearAllTrigger.set({});
     }
 
     _template: TemplateRef<any> | undefined;
