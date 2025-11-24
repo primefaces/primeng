@@ -166,7 +166,7 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
 
     onBeforeEnter(event: MotionEvent) {
         this.overlay = event.element as HTMLElement;
-        this.overlay.style.position = 'fixed';
+        this.overlay.style.position = this.target !== 'parent' ? 'fixed' : null;
         ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
     }
 
@@ -178,7 +178,6 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
     checkVisibility(scrollY: number) {
         if (scrollY > this.threshold) this.visible = true;
         else this.visible = false;
-
         this.cd.markForCheck();
     }
 
