@@ -143,7 +143,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     #sourcelist
                     [ariaLabel]="sourceAriaLabel"
                     [multiple]="true"
-                    [options]="source()"
+                    [options]="sourceOptions"
                     [(ngModel)]="selectedItemsSource"
                     [optionLabel]="dataKey ?? 'name'"
                     [id]="idSource + '_list'"
@@ -286,7 +286,7 @@ const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');
                     #targetlist
                     [ariaLabel]="targetAriaLabel"
                     [multiple]="true"
-                    [options]="target()"
+                    [options]="targetOptions"
                     [(ngModel)]="selectedItemsTarget"
                     [optionLabel]="dataKey ?? 'name'"
                     [id]="idTarget + '_list'"
@@ -819,6 +819,14 @@ export class PickList extends BaseComponent {
             default:
                 return this.buttonProps;
         }
+    }
+
+    get targetOptions() {
+        return [...(this.target() || [])];
+    }
+
+    get sourceOptions() {
+        return [...(this.source() || [])];
     }
 
     get moveUpAriaLabel() {
