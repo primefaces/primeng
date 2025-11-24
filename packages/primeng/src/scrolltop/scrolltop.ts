@@ -166,7 +166,7 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
 
     onBeforeEnter(event: MotionEvent) {
         this.overlay = event.element as HTMLElement;
-        this.overlay.style.position = this.target !== 'parent' ? 'fixed' : null;
+        this.overlay.style.position = this.target === 'parent' ? 'sticky' : 'fixed';
         ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
     }
 
