@@ -21,7 +21,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Unstyled Select" [unstyled]="true" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Unstyled Select" [unstyled]="true" appendTo="body" />
         </div>
     `
 })
