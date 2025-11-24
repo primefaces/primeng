@@ -78,7 +78,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         [pFocusTrapDisabled]="focusTrap === false"
                         [pMotion]="visible"
                         [pMotionAppear]="true"
-                        [pMotionName]="'p-dialog2'"
+                        [pMotionName]="'p-dialog'"
                         [pMotionOptions]="computedMotionOptions()"
                         (pMotionOnBeforeEnter)="onBeforeEnter($event)"
                         (pMotionOnAfterEnter)="onAfterEnter($event)"

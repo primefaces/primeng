@@ -89,29 +89,6 @@ const style = /*css*/ `
 .p-overlay-content ~ .p-overlay-content {
     display: none;
 }
-
-/* Animations */
-.p-overlay-enter-active {
-    animation: p-animate-overlay-enter 300ms cubic-bezier(.19,1,.22,1);
-}
-
-.p-overlay-leave-active {
-    animation: p-animate-overlay-leave 300ms cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes p-animate-overlay-enter {
-    from {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-
-@keyframes p-animate-overlay-leave {
-    to {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
 `;
 
 const classes = {

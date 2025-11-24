@@ -1,33 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as dialog_style } from '@primeuix/styles/dialog';
+import { style } from '@primeuix/styles/dialog';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-${dialog_style}
-
-/* Animations */
-.p-dialog2-enter-active {
-    animation: p-animate-dialog-enter 300ms cubic-bezier(.19,1,.22,1);
-}
-
-.p-dialog2-leave-active {
-    animation: p-animate-dialog-leave 300ms cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes p-animate-dialog-enter {
-    from {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-
-@keyframes p-animate-dialog-leave {
-    to {
-        opacity: 0;
-        transform: scale(0.93);
-    }
-}
-`;
 
 /* Position */
 const inlineStyles = {

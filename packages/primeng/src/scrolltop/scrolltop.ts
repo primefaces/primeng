@@ -114,7 +114,7 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() buttonProps: ButtonProps = { rounded: true, severity: 'success' };
+    @Input() buttonProps: ButtonProps = { rounded: true };
     /**
      * Template of the icon.
      * @group Templates

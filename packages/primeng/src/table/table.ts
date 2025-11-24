@@ -5408,7 +5408,7 @@ export class ReorderableRow extends BaseComponent {
                 </ng-template>
             </p-button>
 
-            <p-motion [visible]="showMenu && overlayVisible" name="p-columnfilter-overlay" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAnimationAfterLeave($event)" [options]="computedMotionOptions()">
+            <p-motion [visible]="showMenu && overlayVisible" name="p-anchored-overlay" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAnimationAfterLeave($event)" [options]="computedMotionOptions()">
                 <div [class]="cx('filterOverlay')" [pBind]="ptm('filterOverlay')" [id]="overlayId" [attr.aria-modal]="true" role="dialog" (click)="onContentClick()" (keydown.escape)="onEscape()">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: field }"></ng-container>
                     <ul *ngIf="display === 'row'; else menu" [class]="cx('filterConstraintList')" [pBind]="ptm('filterConstraintList')">
