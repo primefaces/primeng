@@ -21,7 +21,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
     standalone: true,
     imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind, MotionModule],
     template: `
-        <p-motion [visible]="visible()" name="p-message" [options]="computedMotionOptions()" [appear]="true">
+        <p-motion [visible]="visible()" name="p-message2" [options]="computedMotionOptions()" [appear]="true">
             <div [pBind]="ptm('root')" [attr.aria-live]="'polite'" [class]="cn(cx('root'), styleClass)" [attr.role]="'alert'" [attr.data-p]="dataP">
                 <div [pBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
                     @if (iconTemplate || _iconTemplate) {
