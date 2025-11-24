@@ -8,6 +8,10 @@ import { PTComponent } from '@/doc/message/pt/PTComponent';
 import { SeverityDoc } from '@/doc/message/severitydoc';
 import { SimpleDoc } from '@/doc/message/simpledoc';
 import { SizesDoc } from '@/doc/message/sizesdoc';
+import { DynamicDoc } from '@/doc/message/dynamicdoc';
+import { ClosableDoc } from '@/doc/message/closabledoc';
+import { LifeDoc } from '@/doc/message/lifedoc';
+import { AccessibilityDoc } from '@/doc/message/accessibilitydoc';
 import { Component } from '@angular/core';
 
 @Component({
@@ -58,26 +62,26 @@ export class MessageDemo {
             id: 'forms',
             label: 'Forms',
             component: FormDoc
+        },
+        {
+            id: 'dynamic',
+            label: 'Dynamic',
+            component: DynamicDoc
+        },
+        {
+            id: 'closable',
+            label: 'Closable',
+            component: ClosableDoc
+        },
+        {
+            id: 'life',
+            label: 'Life',
+            component: LifeDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
-        // {
-        //     id: 'dynamic',
-        //     label: 'Dynamic',
-        //     component: DynamicDoc
-        // },
-        // {
-        //     id: 'closable',
-        //     label: 'Closable',
-        //     component: ClosableDoc
-        // },
-        // {
-        //     id: 'life',
-        //     label: 'Life',
-        //     component: LifeDoc
-        // },
-        // {
-        //     id: 'accessibility',
-        //     label: 'Accessibility',
-        //     component: AccessibilityDoc
-        // }
     ];
 }
