@@ -47,7 +47,7 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: null } }"></ng-container>
         } @else {
-            <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')" (click)="onOverlayClick()">
+            <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [pBind]="ptm('root')" (click)="onOverlayClick()">
                 <p-motion
                     [visible]="visible"
                     name="p-anchored-overlay"

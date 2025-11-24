@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const style = /*css*/ `
-.p-overlay {
-    position: absolute;
-    top: 0;
-}
+const inlineStyles = {
+    root: () => ({ position: 'absolute', top: '0' })
+};
 
+const style = /*css*/ `
 .p-overlay-modal {
     display: flex;
     align-items: center;
@@ -122,4 +121,6 @@ export class OverlayStyle extends BaseStyle {
     style = style;
 
     classes = classes;
+
+    inlineStyles = inlineStyles;
 }
