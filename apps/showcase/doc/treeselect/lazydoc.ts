@@ -31,7 +31,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 [loading]="loading"
             />
         </div>
-        <app-code [code]="code" selector="tree-select-basic-demo"></app-code>
+        <app-code [code]="code" selector="tree-select-lazy-demo"></app-code>
     `
 })
 export class LazyDoc {
@@ -103,18 +103,18 @@ export class LazyDoc {
     <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>
 </div>`,
 
-        typescript: `import { Component } from '@angular/core';
-import { NodeService } from '@/service/nodeservice';
+        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelect } from 'primeng/treeselect';
+import { TreeNode } from 'primeng/api';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-lazy-demo',
     templateUrl: './tree-select-lazy-demo.html',
     standalone: true,
-    imports: [FormsModule, TreeSelect]
+    imports: [TreeSelectModule]
   })
-export class TreeSelectLazyDemo {
+export class TreeSelectLazyDemo implements OnInit {
     selectedNodes: TreeNode[] = [];
 
     nodes!: TreeNode[];
