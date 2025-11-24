@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -409,10 +409,11 @@ export class ButtonDirective extends BaseComponent {
     onAfterViewInit() {
         !this.$unstyled() && addClass(this.htmlElement, this.getStyleClass().join(' '));
 
-        this.createIcon();
-        this.createLabel();
-
-        this.initialized = true;
+        if (isPlatformBrowser(this.platformId)) {
+            this.createIcon();
+            this.createLabel();
+            this.initialized = true;
+        }
     }
 
     getStyleClass(): string[] {
