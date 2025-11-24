@@ -85,8 +85,8 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                 [pBind]="ptm('mask')"
                 [pMotion]="maskVisible"
                 [pMotionAppear]="true"
-                [pMotionEnterActiveClass]="'p-modal-enter'"
-                [pMotionLeaveActiveClass]="'p-modal-leave'"
+                [pMotionEnterActiveClass]="'p-overlay-mask-enter'"
+                [pMotionLeaveActiveClass]="'p-overlay-mask-leave'"
                 [pMotionOptions]="computedMaskMotionOptions()"
                 (pMotionOnAfterLeave)="onMaskAfterLeave()"
             >

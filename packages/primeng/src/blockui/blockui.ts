@@ -80,18 +80,6 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
         }
     }
     /**
-     * Enter animation class name of modal.
-     * @defaultValue 'p-modal-enter'
-     * @group Props
-     */
-    @Input() modalEnterAnimation: string = 'p-modal-enter';
-    /**
-     * Leave animation class name of modal.
-     * @defaultValue 'p-modal-leave'
-     * @group Props
-     */
-    @Input() modalLeaveAnimation: string = 'p-modal-leave';
-    /**
      * template of the content
      * @group Templates
      */
@@ -152,7 +140,7 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
             }
 
             this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask');
-            this.renderer.addClass(this.el.nativeElement, this.modalEnterAnimation);
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-enter');
         }
     }
 
@@ -162,8 +150,8 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
             if (!this.animationEndListener) {
                 this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
             }
-            this.renderer.removeClass(this.el.nativeElement, this.modalEnterAnimation);
-            this.renderer.addClass(this.el.nativeElement, this.modalLeaveAnimation);
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-enter');
+            this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-leave');
         }
     }
 
@@ -172,7 +160,7 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
         if (this.el && isPlatformBrowser(this.platformId)) {
             this.el.nativeElement.style.display = 'none';
             this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask');
-            this.renderer.removeClass(this.el.nativeElement, this.modalLeaveAnimation);
+            this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-leave');
             ZIndexUtils.clear(this.el.nativeElement);
 
             if (!this.target) {

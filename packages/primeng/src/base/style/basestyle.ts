@@ -27,35 +27,6 @@ const css = /*css*/ `
 }
 `;
 
-const extendedStyle = /*css*/ `
-    ${base_style}
-
-    .p-modal-enter {
-        animation: p-animate-modal-enter 300ms forwards;
-    }
-
-    .p-modal-leave {
-        animation: p-animate-modal-leave 300ms forwards;
-    }
-
-    @keyframes p-animate-modal-enter {
-        from {
-            background: transparent;
-        }
-        to {
-            background: dt('mask.background');
-        }
-    }
-    @keyframes p-animate-modal-leave {
-        from {
-            background: dt('mask.background');
-        }
-        to {
-            background: transparent;
-        }
-    }
-`;
-
 @Injectable({ providedIn: 'root' })
 export class BaseStyle {
     name = 'base';
@@ -89,7 +60,7 @@ export class BaseStyle {
     };
 
     loadBaseStyle = (options: any = {}, style: string = '') => {
-        return this.load(extendedStyle, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
+        return this.load(base_style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
     };
 
     getCommonTheme = (params?) => {
