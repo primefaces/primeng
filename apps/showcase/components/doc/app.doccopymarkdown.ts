@@ -1,41 +1,21 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, inject, input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { Menu, MenuModule } from 'primeng/menu';
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'app-doccopymarkdown',
     standalone: true,
-    imports: [CommonModule, ButtonModule, MenuModule, ToastModule],
+    imports: [CommonModule, SplitButtonModule, ToastModule],
     providers: [MessageService],
     template: `
         <p-toast position="top-right" />
-        <div class="inline-flex">
-            <p-button [label]="copyLabel" icon="pi pi-copy" severity="secondary" size="small" (onClick)="copyMarkdown()" styleClass="rounded-r-none" />
-            <p-button icon="pi pi-chevron-down" severity="secondary" size="small" (onClick)="menu.toggle($event)" styleClass="rounded-l-none" />
-            <p-menu #menu [model]="menuItems" [popup]="true" appendTo="body" [style]="{ 'min-width': '14rem' }" />
-        </div>
-    `,
-    styles: [
-        `
-            :host ::ng-deep .rounded-r-none {
-                border-top-right-radius: 0 !important;
-                border-bottom-right-radius: 0 !important;
-                border-right: 0 !important;
-            }
-            :host ::ng-deep .rounded-l-none {
-                border-top-left-radius: 0 !important;
-                border-bottom-left-radius: 0 !important;
-            }
-        `
-    ]
+        <p-splitbutton label="Copy Markdown" icon="pi pi-copy" severity="secondary" size="small" [model]="menuItems" (onClick)="copyMarkdown()" appendTo="body" [menuStyleClass]="'min-w-56'" />
+    `
 })
 export class AppDocCopyMarkdown implements OnInit {
-    @ViewChild('menu') menu!: Menu;
-
     componentName = input<string>('');
 
     private router = inject(Router);
@@ -43,7 +23,6 @@ export class AppDocCopyMarkdown implements OnInit {
     private document = inject(DOCUMENT);
     private platformId = inject(PLATFORM_ID);
 
-    copyLabel = 'Copy Markdown';
     markdownContent = '';
 
     menuItems: MenuItem[] = [];
@@ -142,17 +121,12 @@ export class AppDocCopyMarkdown implements OnInit {
 
         try {
             await navigator.clipboard.writeText(this.markdownContent);
-            this.copyLabel = 'Copied!';
             this.messageService.add({
                 severity: 'success',
                 summary: 'Copied',
                 detail: 'Markdown content copied to clipboard',
                 life: 2000
             });
-
-            setTimeout(() => {
-                this.copyLabel = 'Copy Markdown';
-            }, 2000);
         } catch (error) {
             console.error('Failed to copy markdown:', error);
             this.messageService.add({
