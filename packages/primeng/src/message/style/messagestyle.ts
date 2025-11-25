@@ -4,6 +4,7 @@ import { BaseStyle } from 'primeng/base';
 
 const classes = {
     root: ({ instance }) => ['p-message p-component p-message-' + instance.severity, instance.variant && 'p-message-' + instance.variant, { 'p-message-sm': instance.size === 'small', 'p-message-lg': instance.size === 'large' }],
+    contentWrapper: 'p-message-content-wrapper',
     content: 'p-message-content',
     icon: 'p-message-icon',
     text: 'p-message-text',

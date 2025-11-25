@@ -89,9 +89,11 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                 [attr.tabindex]="collapsed ? '-1' : undefined"
                 (pMotionOnAfterEnter)="onToggleDone($event)"
             >
-                <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
+                    <div [class]="cx('content')" [pBind]="ptm('content')" #contentWrapper>
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                    </div>
                 </div>
             </div>
         </fieldset>

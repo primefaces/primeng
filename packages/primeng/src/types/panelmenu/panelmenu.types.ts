@@ -47,6 +47,10 @@ export interface PanelMenuPassThroughOptions<I = unknown> {
      */
     contentContainer?: PassThroughOption<HTMLDivElement, I>;
     /**
+     * Used to pass attributes to the toggleable content's DOM element.
+     */
+    contentWrapper?: PassThroughOption<HTMLDivElement, I>;
+    /**
      * Used to pass attributes to the menu content's DOM element.
      */
     content?: PassThroughOption<HTMLDivElement, I>;

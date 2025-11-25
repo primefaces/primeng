@@ -84,6 +84,10 @@ export interface AccordionContentPassThroughOptions<I = unknown> {
      */
     root?: PassThroughOption<HTMLElement, I>;
     /**
+     * Used to pass attributes to the content wrapper DOM element.
+     */
+    contentWrapper?: PassThroughOption<HTMLDivElement, I>;
+    /**
      * Used to pass attributes to the content's DOM element.
      */
     content?: PassThroughOption<HTMLDivElement, I>;
