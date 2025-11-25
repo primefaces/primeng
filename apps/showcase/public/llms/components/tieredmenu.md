@@ -1,0 +1,182 @@
+# Angular TieredMenu Component
+
+TieredMenu displays submenus in nested overlays.
+
+## Accessibility
+
+Screen Reader TieredMenu component uses the menubar role with aria-orientation set to "vertical" and the value to describe the menu can either be provided with aria-labelledby or aria-label props. Each list item has a presentation role whereas anchor elements have a menuitem role with aria-label referring to the label of the item and aria-disabled defined if the item is disabled. A submenu within a TieredMenu uses the menu role with an aria-labelledby defined as the id of the submenu root menuitem label. In addition, menuitems that open a submenu have aria-haspopup , aria-expanded and aria-controls to define the relation between the item and the submenu. In popup mode, the component implicitly manages the aria-expanded , aria-haspopup and aria-controls attributes of the target element to define the relation between the target and the popup. Keyboard Support Key Function tab Add focus to the first item if focus moves in to the menu. If the focus is already within the menu, focus moves to the next focusable item in the page tab sequence. shift + tab Add focus to the last item if focus moves in to the menu. If the focus is already within the menu, focus moves to the previous focusable item in the page tab sequence. enter If menuitem has a submenu, toggles the visibility of the submenu otherwise activates the menuitem and closes all open overlays. space If menuitem has a submenu, toggles the visibility of the submenu otherwise activates the menuitem and closes all open overlays. escape If focus is inside a popup submenu, closes the submenu and moves focus to the root item of the closed submenu. down arrow Moves focus to the next menuitem within the submenu. up arrow Moves focus to the previous menuitem within the submenu. right arrow Opens a submenu if there is one available and moves focus to the first item. left arrow Closes a submenu and moves focus to the root item of the closed submenu. home Moves focus to the first menuitem within the submenu. end Moves focus to the last menuitem within the submenu.
+
+## Basic
+
+TieredMenu requires a collection of menuitems as its model .
+
+```html
+<p-tieredmenu [model]="items" />
+```
+
+## Command
+
+The command property defines the callback to run when an item is activated by click or a key event.
+
+```html
+<p-toast/>
+<p-tieredmenu [model]="items" />
+```
+
+## Popup
+
+Popup mode is enabled by adding popup property and calling toggle method with an event of the target.
+
+```html
+<p-button label="Toggle" (click)="menu.toggle($event)" />
+<p-tieredmenu #menu [model]="items" [popup]="true" />
+```
+
+## Router
+
+Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
+
+```html
+<p-tieredmenu [model]="items" />
+```
+
+## styledoc
+
+Following is the list of structural style classes, for theming classes visit theming page.
+
+## Template
+
+TieredMenu offers item customization with the item template that receives the menuitem instance from the model as a parameter.
+
+```html
+<p-tieredmenu [model]="items">
+    <ng-template #item let-item let-hasSubmenu="hasSubmenu">
+        <a pRipple class="flex items-center p-tieredmenu-item-link">
+            <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
+            <span class="ml-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
+                {{ item.shortcut }}
+            </span>
+            <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
+        </a>
+    </ng-template>
+</p-tieredmenu>
+```
+
+## Tiered Menu
+
+TieredMenu displays submenus in nested overlays.
+
+### Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| pt | InputSignal<TieredMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
+| ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
+| model | MenuItem[] | - | An array of menuitems. |
+| popup | boolean | false | Defines if menu would displayed as a popup. |
+| style | { [klass: string]: any } | - | Inline style of the component. |
+| styleClass | string | - | Style class of the component. |
+| breakpoint | string | 960px | The breakpoint to define the maximum width boundary. |
+| autoZIndex | boolean | true | Whether to automatically manage layering. |
+| baseZIndex | number | 0 | Base zIndex value to use in layering. |
+| autoDisplay | boolean | true | Whether to show a root submenu on mouse over. |
+| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. |
+| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. |
+| enterAnimation | InputSignal<string> | 'p-tieredmenu-enter' | Enter animation class name. |
+| leaveAnimation | InputSignal<string> | 'p-tieredmenu-leave' | Leave animation class name. |
+| id | string | - | Current id state as a string. |
+| ariaLabel | string | - | Defines a string value that labels an interactive element. |
+| ariaLabelledBy | string | - | Identifier of the underlying input element. |
+| disabled | boolean | false | When present, it specifies that the component should be disabled. |
+| tabindex | number | 0 | Index of the element in tabbing order. |
+| appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+
+### Emits
+
+| Name | Parameters | Description |
+|------|------------|-------------|
+| onShow | value: any | Callback to invoke when overlay menu is shown. |
+| onHide | value: any | Callback to invoke when overlay menu is hidden. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| submenuicon | TemplateRef<any> | Template of the submenu icon. |
+| item | TemplateRef<any> | Template of the item. |
+
+### Methods
+
+| Name | Parameters | Return Type | Description |
+|------|------------|-------------|-------------|
+| hide | event: any, isFocus: boolean | void | Hides the popup menu. |
+| toggle | event: any | void | Toggles the visibility of the popup menu. |
+| show | event: any, isFocus: any | void | Displays the popup menu. |
+
+## Pass Through Options
+
+| Name | Type | Description |
+|------|------|-------------|
+| root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
+| rootList | PassThroughOption<HTMLUListElement, I> | Used to pass attributes to the root list's DOM element. |
+| submenu | PassThroughOption<HTMLUListElement, I> | Used to pass attributes to the submenu's DOM element. |
+| item | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the item's DOM element. |
+| itemContent | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the item content's DOM element. |
+| itemLink | PassThroughOption<HTMLAnchorElement, I> | Used to pass attributes to the item link's DOM element. |
+| itemIcon | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the item icon's DOM element. |
+| itemLabel | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the item label's DOM element. |
+| submenuIcon | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the submenu icon's DOM element. |
+| separator | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the separator's DOM element. |
+
+## Theming
+
+### CSS Classes
+
+| Class | Description |
+|-------|-------------|
+| p-tieredmenu | Class name of the root element |
+| p-tieredmenu-start | Class name of the start element |
+| p-tieredmenu-root-list | Class name of the root list element |
+| p-tieredmenu-item | Class name of the item element |
+| p-tieredmenu-item-content | Class name of the item content element |
+| p-tieredmenu-item-link | Class name of the item link element |
+| p-tieredmenu-item-icon | Class name of the item icon element |
+| p-tieredmenu-item-label | Class name of the item label element |
+| p-tieredmenu-submenu-icon | Class name of the submenu icon element |
+| p-tieredmenu-submenu | Class name of the submenu element |
+| p-tieredmenu-separator | Class name of the separator element |
+| p-tieredmenu-end | Class name of the end element |
+
+### Design Tokens
+
+| Token | CSS Variable | Description |
+|-------|--------------|-------------|
+| tieredmenu.background | --p-tieredmenu-background | Background of root |
+| tieredmenu.border.color | --p-tieredmenu-border-color | Border color of root |
+| tieredmenu.color | --p-tieredmenu-color | Color of root |
+| tieredmenu.border.radius | --p-tieredmenu-border-radius | Border radius of root |
+| tieredmenu.shadow | --p-tieredmenu-shadow | Shadow of root |
+| tieredmenu.transition.duration | --p-tieredmenu-transition-duration | Transition duration of root |
+| tieredmenu.list.padding | --p-tieredmenu-list-padding | Padding of list |
+| tieredmenu.list.gap | --p-tieredmenu-list-gap | Gap of list |
+| tieredmenu.item.focus.background | --p-tieredmenu-item-focus-background | Focus background of item |
+| tieredmenu.item.active.background | --p-tieredmenu-item-active-background | Active background of item |
+| tieredmenu.item.color | --p-tieredmenu-item-color | Color of item |
+| tieredmenu.item.focus.color | --p-tieredmenu-item-focus-color | Focus color of item |
+| tieredmenu.item.active.color | --p-tieredmenu-item-active-color | Active color of item |
+| tieredmenu.item.padding | --p-tieredmenu-item-padding | Padding of item |
+| tieredmenu.item.border.radius | --p-tieredmenu-item-border-radius | Border radius of item |
+| tieredmenu.item.gap | --p-tieredmenu-item-gap | Gap of item |
+| tieredmenu.item.icon.color | --p-tieredmenu-item-icon-color | Icon color of item |
+| tieredmenu.item.icon.focus.color | --p-tieredmenu-item-icon-focus-color | Icon focus color of item |
+| tieredmenu.item.icon.active.color | --p-tieredmenu-item-icon-active-color | Icon active color of item |
+| tieredmenu.submenu.mobile.indent | --p-tieredmenu-submenu-mobile-indent | Mobile indent of submenu |
+| tieredmenu.submenu.icon.size | --p-tieredmenu-submenu-icon-size | Size of submenu icon |
+| tieredmenu.submenu.icon.color | --p-tieredmenu-submenu-icon-color | Color of submenu icon |
+| tieredmenu.submenu.icon.focus.color | --p-tieredmenu-submenu-icon-focus-color | Focus color of submenu icon |
+| tieredmenu.submenu.icon.active.color | --p-tieredmenu-submenu-icon-active-color | Active color of submenu icon |
+| tieredmenu.separator.border.color | --p-tieredmenu-separator-border-color | Border color of separator |
+

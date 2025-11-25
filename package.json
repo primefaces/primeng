@@ -26,6 +26,7 @@
         "build:themes": "pnpm --filter themes build",
         "build:showcase": "pnpm --filter showcase build",
         "build:apidoc": "pnpm --filter showcase build:docs",
+        "build:llm": "pnpm --filter showcase build:llm-docs",
         "dev": "pnpm --filter showcase start",
         "dev:ssr": "pnpm --filter showcase start:ssr",
         "security:check": "pnpm audit --prod --audit-level high",

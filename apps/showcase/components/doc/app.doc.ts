@@ -39,7 +39,7 @@ import { AppDocThemingSection } from './app.docthemingsection';
         </ul>
         <div class="doc-tabpanels">
             @if (docs()) {
-                <app-docfeaturessection [header]="header() ?? _componentName()" [description]="description()" [docs]="docs()" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
+                <app-docfeaturessection [header]="header() ?? _componentName()" [description]="description()" [docs]="docs()" [componentName]="isComponentDoc() ? _componentName() : ''" [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }" />
             }
             @if (apiDocs()) {
                 @defer (when docService.activeTab() === 1) {
