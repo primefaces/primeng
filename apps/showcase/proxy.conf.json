@@ -1,0 +1,18 @@
+{
+  "/components.json": {
+    "target": "http://localhost:4200",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/components.json$": "/llms/components.json"
+    }
+  },
+  "/*.md": {
+    "target": "http://localhost:4200",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/([^/]+)\\.md$": "/llms/components/$1.md"
+    }
+  }
+}

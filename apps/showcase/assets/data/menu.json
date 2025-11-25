@@ -33,6 +33,11 @@
             ]
         },
         {
+            "name": "LLMs.txt",
+            "icon": "pi pi-file",
+            "routerLink": "/llms"
+        },
+        {
             "name": "Components",
             "icon": "pi pi-compass",
             "children": [
