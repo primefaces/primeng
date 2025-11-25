@@ -35,7 +35,8 @@
         {
             "name": "LLMs.txt",
             "icon": "pi pi-file",
-            "routerLink": "/llms"
+            "routerLink": "/llms",
+            "badge": "NEW"
         },
         {
             "name": "Components",
