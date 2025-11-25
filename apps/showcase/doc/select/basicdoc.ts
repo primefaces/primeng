@@ -23,6 +23,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+            <p-select [options]="cities" [(value2)]="selectedCity2" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-basic-demo"></app-code>
     `
@@ -32,6 +33,8 @@ export class BasicDoc implements OnInit {
 
     selectedCity: City | undefined;
 
+    selectedCity2: City | undefined;
+
     ngOnInit() {
         this.cities = [
             { name: 'New York', code: 'NY' },
@@ -40,6 +43,10 @@ export class BasicDoc implements OnInit {
             { name: 'Istanbul', code: 'IST' },
             { name: 'Paris', code: 'PRS' }
         ];
+
+        // @todo remove following lines, just for demo purpose
+        this.selectedCity = this.cities[0];
+        this.selectedCity2 = this.cities[1];
     }
 
     code: Code = {

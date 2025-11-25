@@ -14,7 +14,6 @@ import {
     InjectionToken,
     input,
     Input,
-    model,
     NgModule,
     NgZone,
     numberAttribute,
@@ -27,7 +26,6 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormValueControl } from '@angular/forms/signals';
 import { MotionOptions } from '@primeuix/motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
@@ -207,7 +205,7 @@ export class SelectItem extends BaseComponent {
             [class]="cx('label')"
             [pBind]="ptm('label')"
             [attr.aria-haspopup]="'listbox'"
-            [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
+            [attr.placeholder]="value2() === undefined || value2() === null ? placeholder() : undefined"
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
             (input)="onEditableInput($event)"
             (keydown)="onKeyDown($event)"
@@ -418,8 +416,7 @@ export class SelectItem extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     hostDirectives: [Bind]
 })
-export class Select extends BaseInput<SelectPassThrough> implements FormValueControl<any | null> {
-    value = model<any | null>(null);
+export class Select extends BaseInput<SelectPassThrough> {
     bindDirectiveInstance = inject(Bind, { self: true });
     /**
      * Unique identifier of the component
@@ -963,7 +960,7 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.$disabled();
+        return this.value2() != null && this.hasSelectedOption() && this.showClear && !this.$disabled();
     }
 
     get listLabel(): string {
@@ -1041,8 +1038,7 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
     ) {
         super();
         effect(() => {
-            const modelValue = this.modelValue();
-            console.log('effect', this.value());
+            const modelValue = this.value2();
             const visibleOptions = this.visibleOptions();
 
             if (visibleOptions && isNotEmpty(visibleOptions)) {
@@ -1072,7 +1068,7 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
     }
 
     private isModelValueNotSet(): boolean {
-        return this.modelValue() === null && !this.isOptionValueEqualsModelValue(this.selectedOption);
+        return this.value2() === null && !this.isOptionValueEqualsModelValue(this.selectedOption);
     }
 
     private getAllVisibleAndNonVisibleOptions() {
@@ -1232,14 +1228,13 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
     }
 
     updateModel(value, event?) {
-        this.value.set(value);
         this.onModelChange(value);
         this.writeModelValue(value);
         this.selectedOptionUpdated = true;
     }
 
     allowModelChange() {
-        return !!this.modelValue() && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
+        return !!this.value2() && !this.placeholder() && (this.value2() === undefined || this.value2() === null) && !this.editable && this.options && this.options.length;
     }
 
     isSelected(option) {
@@ -1248,7 +1243,7 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
 
     private isOptionValueEqualsModelValue(option: any) {
         // Don't check isValidOption here since we need to match disabled options too
-        return option !== undefined && option !== null && !this.isOptionGroup(option) && equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return option !== undefined && option !== null && !this.isOptionGroup(option) && equals(this.value2(), this.getOptionValue(option), this.equalityKey());
     }
 
     onAfterViewInit() {
@@ -1271,7 +1266,7 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
 
     updateEditableLabel(): void {
         if (this.editableInputViewChild) {
-            this.editableInputViewChild.nativeElement.value = this.getOptionLabel(this.selectedOption) || this.modelValue() || '';
+            this.editableInputViewChild.nativeElement.value = this.getOptionLabel(this.selectedOption) || this.value2() || '';
         }
     }
 
@@ -1405,7 +1400,7 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
 
         if (this.options && this.options.length) {
             if (this.virtualScroll) {
-                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                const selectedIndex = this.value2() ? this.focusedOptionIndex() : -1;
                 if (selectedIndex !== -1) {
                     this.scroller?.scrollToIndex(selectedIndex);
                 }
@@ -1659,7 +1654,7 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
     }
 
     hasSelectedOption() {
-        return this.modelValue() !== undefined;
+        return this.value2() !== undefined;
     }
 
     isValidSelectedOption(option) {
@@ -1935,7 +1930,7 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
         this.updateModel(null, event);
         this.clearEditableLabel();
         this.onModelTouched();
-        this.onChange.emit({ originalEvent: event, value: this.value() });
+        this.onChange.emit({ originalEvent: event, value: this.value2() });
         this.onClear.emit(event);
         this.resetFilter();
     }
@@ -1951,9 +1946,8 @@ export class Select extends BaseInput<SelectPassThrough> implements FormValueCon
             this.resetFilter();
         }
 
-        this.value.set(value);
         this.allowModelChange() && this.onModelChange(value);
-        setModelValue(this.value);
+        setModelValue(value);
         this.updateEditableLabel();
         this.cd.markForCheck();
     }
