@@ -1033,7 +1033,11 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 this.container.style.minWidth = getOuterWidth(this.target) + 'px';
             }
 
-            absolutePosition(this.container, this.target);
+            if (this.$appendTo() === 'self') {
+                relativePosition(this.container, this.target);
+            } else {
+                absolutePosition(this.container, this.target);
+            }
         }
     }
 
