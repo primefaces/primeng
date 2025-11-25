@@ -8,14 +8,7 @@ import { AppDoc } from '@/components/doc/app.doc';
     selector: 'llms-demo',
     standalone: true,
     imports: [AppDoc],
-    template: `
-        <app-doc
-            docTitle="LLMs.txt - PrimeNG"
-            header="LLMs.txt"
-            description="LLM-optimized documentation endpoints for PrimeNG components."
-            [docs]="docs"
-        ></app-doc>
-    `
+    template: ` <app-doc docTitle="LLMs.txt - PrimeNG" header="LLMs.txt" description="LLM-optimized documentation endpoints for PrimeNG components." [docs]="docs"></app-doc> `
 })
 export class LLMsDemo {
     docs = [

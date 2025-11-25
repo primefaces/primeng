@@ -13,48 +13,48 @@ const OUTPUT_DIR = path.resolve(__dirname, '../public/llms');
 
 // Mapping for components where route name doesn't match API component name
 const COMPONENT_NAME_MAP = {
-    'datepicker': 'DatePicker',
-    'datatable': 'DataTable',
-    'dataview': 'DataView',
-    'treetable': 'TreeTable',
-    'treeselect': 'TreeSelect',
-    'multiselect': 'MultiSelect',
-    'selectbutton': 'SelectButton',
-    'togglebutton': 'ToggleButton',
-    'splitbutton': 'SplitButton',
-    'speeddial': 'SpeedDial',
-    'inputtext': 'InputText',
-    'inputnumber': 'InputNumber',
-    'inputmask': 'InputMask',
-    'inputotp': 'InputOtp',
-    'inputgroup': 'InputGroup',
-    'iconfield': 'IconField',
-    'floatlabel': 'FloatLabel',
-    'iftalabel': 'IftaLabel',
-    'colorpicker': 'ColorPicker',
-    'listbox': 'Listbox',
-    'orderlist': 'OrderList',
-    'picklist': 'PickList',
-    'contextmenu': 'ContextMenu',
-    'tieredmenu': 'TieredMenu',
-    'menubar': 'Menubar',
-    'megamenu': 'MegaMenu',
-    'panelmenu': 'PanelMenu',
-    'tabmenu': 'TabMenu',
-    'confirmdialog': 'ConfirmDialog',
-    'confirmpopup': 'ConfirmPopup',
-    'dynamicdialog': 'DynamicDialog',
-    'fileupload': 'FileUpload',
-    'progressbar': 'ProgressBar',
-    'progressspinner': 'ProgressSpinner',
-    'blockui': 'BlockUI',
-    'scrollpanel': 'ScrollPanel',
-    'scrolltop': 'ScrollTop',
-    'virtualscroller': 'VirtualScroller',
-    'animateonscroll': 'AnimateOnScroll',
-    'autofocus': 'AutoFocus',
-    'focustrap': 'FocusTrap',
-    'styleclass': 'StyleClass'
+    datepicker: 'DatePicker',
+    datatable: 'DataTable',
+    dataview: 'DataView',
+    treetable: 'TreeTable',
+    treeselect: 'TreeSelect',
+    multiselect: 'MultiSelect',
+    selectbutton: 'SelectButton',
+    togglebutton: 'ToggleButton',
+    splitbutton: 'SplitButton',
+    speeddial: 'SpeedDial',
+    inputtext: 'InputText',
+    inputnumber: 'InputNumber',
+    inputmask: 'InputMask',
+    inputotp: 'InputOtp',
+    inputgroup: 'InputGroup',
+    iconfield: 'IconField',
+    floatlabel: 'FloatLabel',
+    iftalabel: 'IftaLabel',
+    colorpicker: 'ColorPicker',
+    listbox: 'Listbox',
+    orderlist: 'OrderList',
+    picklist: 'PickList',
+    contextmenu: 'ContextMenu',
+    tieredmenu: 'TieredMenu',
+    menubar: 'Menubar',
+    megamenu: 'MegaMenu',
+    panelmenu: 'PanelMenu',
+    tabmenu: 'TabMenu',
+    confirmdialog: 'ConfirmDialog',
+    confirmpopup: 'ConfirmPopup',
+    dynamicdialog: 'DynamicDialog',
+    fileupload: 'FileUpload',
+    progressbar: 'ProgressBar',
+    progressspinner: 'ProgressSpinner',
+    blockui: 'BlockUI',
+    scrollpanel: 'ScrollPanel',
+    scrolltop: 'ScrollTop',
+    virtualscroller: 'VirtualScroller',
+    animateonscroll: 'AnimateOnScroll',
+    autofocus: 'AutoFocus',
+    focustrap: 'FocusTrap',
+    styleclass: 'StyleClass'
 };
 
 /**
@@ -280,7 +280,7 @@ function processComponent(componentName, componentDir) {
 
         // Extract section id from filename (e.g., "basicdoc.ts" -> "basic")
         const sectionId = file.replace(/doc\.ts$/i, '').toLowerCase();
-        const sectionInfo = metadata.sections.find(s => s.id === sectionId);
+        const sectionInfo = metadata.sections.find((s) => s.id === sectionId);
 
         const docData = parseDocFile(filePath);
 
@@ -306,12 +306,30 @@ function getAllComponents() {
 
     // Directories to exclude (non-component documentation)
     const excludeDirs = [
-        'apidoc', 'common', 'guides', 'theming',
-        'configuration', 'contribution', 'customicons',
-        'designer', 'icons', 'introduction', 'installation',
-        'setup', 'tailwind', 'colors', 'primeflex',
-        'Image', 'domain', 'filterservice', 'classnames',
-        'bind', 'forms', 'passthrough', 'cdn', 'nuxt',
+        'apidoc',
+        'common',
+        'guides',
+        'theming',
+        'configuration',
+        'contribution',
+        'customicons',
+        'designer',
+        'icons',
+        'introduction',
+        'installation',
+        'setup',
+        'tailwind',
+        'colors',
+        'primeflex',
+        'Image',
+        'domain',
+        'filterservice',
+        'classnames',
+        'bind',
+        'forms',
+        'passthrough',
+        'cdn',
+        'nuxt',
         'accessibility'
     ];
 
@@ -350,12 +368,11 @@ function getPropsFromApi(apiDocs, componentName) {
     if (!apiDoc || !apiDoc.components) return null;
 
     // Get the main component (usually matches the componentName)
-    const mainComponent = apiDoc.components[componentName] ||
-                         Object.values(apiDoc.components)[0];
+    const mainComponent = apiDoc.components[componentName] || Object.values(apiDoc.components)[0];
 
     if (!mainComponent || !mainComponent.props || !mainComponent.props.values) return null;
 
-    return mainComponent.props.values.map(prop => ({
+    return mainComponent.props.values.map((prop) => ({
         name: prop.name,
         type: prop.type || '',
         default: prop.default || '-',
@@ -371,12 +388,11 @@ function getTemplatesFromApi(apiDocs, componentName) {
     const apiDoc = apiDocs[componentName.toLowerCase()];
     if (!apiDoc || !apiDoc.components) return null;
 
-    const mainComponent = apiDoc.components[componentName] ||
-                         Object.values(apiDoc.components)[0];
+    const mainComponent = apiDoc.components[componentName] || Object.values(apiDoc.components)[0];
 
     if (!mainComponent || !mainComponent.templates || !mainComponent.templates.values) return null;
 
-    return mainComponent.templates.values.map(template => ({
+    return mainComponent.templates.values.map((template) => ({
         name: template.name,
         type: template.type || '',
         description: template.description || ''
@@ -390,12 +406,11 @@ function getEmitsFromApi(apiDocs, componentName) {
     const apiDoc = apiDocs[componentName.toLowerCase()];
     if (!apiDoc || !apiDoc.components) return null;
 
-    const mainComponent = apiDoc.components[componentName] ||
-                         Object.values(apiDoc.components)[0];
+    const mainComponent = apiDoc.components[componentName] || Object.values(apiDoc.components)[0];
 
     if (!mainComponent || !mainComponent.emits || !mainComponent.emits.values) return null;
 
-    return mainComponent.emits.values.map(emit => ({
+    return mainComponent.emits.values.map((emit) => ({
         name: emit.name,
         parameters: emit.parameters || [],
         description: emit.description || ''
@@ -409,12 +424,11 @@ function getMethodsFromApi(apiDocs, componentName) {
     const apiDoc = apiDocs[componentName.toLowerCase()];
     if (!apiDoc || !apiDoc.components) return null;
 
-    const mainComponent = apiDoc.components[componentName] ||
-                         Object.values(apiDoc.components)[0];
+    const mainComponent = apiDoc.components[componentName] || Object.values(apiDoc.components)[0];
 
     if (!mainComponent || !mainComponent.methods || !mainComponent.methods.values) return null;
 
-    return mainComponent.methods.values.map(method => ({
+    return mainComponent.methods.values.map((method) => ({
         name: method.name,
         parameters: method.parameters || [],
         returnType: method.returnType || 'void',
@@ -429,13 +443,11 @@ function getPTOptionsFromApi(apiDocs, componentName) {
     const apiDoc = apiDocs[componentName.toLowerCase()];
     if (!apiDoc || !apiDoc.types || !apiDoc.types.interfaces || !apiDoc.types.interfaces.values) return null;
 
-    const ptInterface = apiDoc.types.interfaces.values.find(i =>
-        i.name && i.name.includes('PassThrough') && i.name.includes('Options')
-    );
+    const ptInterface = apiDoc.types.interfaces.values.find((i) => i.name && i.name.includes('PassThrough') && i.name.includes('Options'));
 
     if (!ptInterface || !ptInterface.props) return null;
 
-    return ptInterface.props.map(pt => ({
+    return ptInterface.props.map((pt) => ({
         name: pt.name,
         type: pt.type || '',
         description: pt.description || ''
@@ -450,8 +462,8 @@ function getStyleClassesFromApi(apiDocs, componentName) {
     if (!apiDoc || !apiDoc.style || !apiDoc.style.classes || !apiDoc.style.classes.values) return null;
 
     return apiDoc.style.classes.values
-        .filter(cls => cls.class && typeof cls.class === 'string')
-        .map(cls => ({
+        .filter((cls) => cls.class && typeof cls.class === 'string')
+        .map((cls) => ({
             class: cls.class,
             description: cls.description || ''
         }));
@@ -540,8 +552,12 @@ function generateApiSection(apiDocs, componentName, includeRelated = true) {
 
             for (const emit of comp.emits.values) {
                 const name = emit.name || '';
-                const params = emit.parameters ?
-                    emit.parameters.map(p => `${p.name}: ${p.type}`).join(', ').replace(/\|/g, '\\|') : '';
+                const params = emit.parameters
+                    ? emit.parameters
+                          .map((p) => `${p.name}: ${p.type}`)
+                          .join(', ')
+                          .replace(/\|/g, '\\|')
+                    : '';
                 const description = (emit.description || '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
 
                 markdown += `| ${name} | ${params} | ${description} |\n`;
@@ -575,8 +591,12 @@ function generateApiSection(apiDocs, componentName, includeRelated = true) {
 
             for (const method of comp.methods.values) {
                 const name = method.name || '';
-                const params = method.parameters ?
-                    method.parameters.map(p => `${p.name}: ${p.type}`).join(', ').replace(/\|/g, '\\|') : '';
+                const params = method.parameters
+                    ? method.parameters
+                          .map((p) => `${p.name}: ${p.type}`)
+                          .join(', ')
+                          .replace(/\|/g, '\\|')
+                    : '';
                 const returnType = (method.returnType || 'void').replace(/\|/g, '\\|');
                 const description = (method.description || '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
 
@@ -667,14 +687,14 @@ function generateJsonOutput(components, apiDocs) {
     const output = {
         version: '1.0.0',
         generatedAt: new Date().toISOString(),
-        components: components.map(comp => {
+        components: components.map((comp) => {
             const mainComponentName = getApiComponentName(comp.name);
 
             return {
                 name: comp.name,
                 title: comp.title,
                 description: comp.description,
-                sections: comp.sections.map(section => ({
+                sections: comp.sections.map((section) => ({
                     id: section.id,
                     label: section.label,
                     description: section.description,
@@ -802,7 +822,7 @@ function generateIndividualMarkdownFiles(components, apiDocs) {
         markdown += `${comp.description}\n\n`;
 
         // Import section
-        const importSection = comp.sections.find(s => s.id === 'import');
+        const importSection = comp.sections.find((s) => s.id === 'import');
         if (importSection && importSection.examples && importSection.examples.basic) {
             markdown += '## Import\n\n';
             markdown += '```typescript\n';

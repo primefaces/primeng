@@ -14,35 +14,24 @@ import { ToastModule } from 'primeng/toast';
     template: `
         <p-toast position="top-right" />
         <div class="inline-flex">
-            <p-button
-                [label]="copyLabel"
-                icon="pi pi-copy"
-                severity="secondary"
-                size="small"
-                (onClick)="copyMarkdown()"
-                styleClass="rounded-r-none"
-            />
-            <p-button
-                icon="pi pi-chevron-down"
-                severity="secondary"
-                size="small"
-                (onClick)="menu.toggle($event)"
-                styleClass="rounded-l-none"
-            />
-            <p-menu #menu [model]="menuItems" [popup]="true" appendTo="body" [style]="{'min-width': '14rem'}" />
+            <p-button [label]="copyLabel" icon="pi pi-copy" severity="secondary" size="small" (onClick)="copyMarkdown()" styleClass="rounded-r-none" />
+            <p-button icon="pi pi-chevron-down" severity="secondary" size="small" (onClick)="menu.toggle($event)" styleClass="rounded-l-none" />
+            <p-menu #menu [model]="menuItems" [popup]="true" appendTo="body" [style]="{ 'min-width': '14rem' }" />
         </div>
     `,
-    styles: [`
-        :host ::ng-deep .rounded-r-none {
-            border-top-right-radius: 0 !important;
-            border-bottom-right-radius: 0 !important;
-            border-right: 0 !important;
-        }
-        :host ::ng-deep .rounded-l-none {
-            border-top-left-radius: 0 !important;
-            border-bottom-left-radius: 0 !important;
-        }
-    `]
+    styles: [
+        `
+            :host ::ng-deep .rounded-r-none {
+                border-top-right-radius: 0 !important;
+                border-bottom-right-radius: 0 !important;
+                border-right: 0 !important;
+            }
+            :host ::ng-deep .rounded-l-none {
+                border-top-left-radius: 0 !important;
+                border-bottom-left-radius: 0 !important;
+            }
+        `
+    ]
 })
 export class AppDocCopyMarkdown implements OnInit {
     @ViewChild('menu') menu!: Menu;
