@@ -2,6 +2,30 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.0.0-beta.1](https://github.com/primefaces/primeng/tree/21.0.0-beta.1) (2025-11-25)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.3.0...21.0.0-beta.1)
+
+**Deprecated:**
+- Deprecate legacy animation properties [#19107](https://github.com/primefaces/primeng/issues/19107)
+
+**New Features:**
+- Add unstyled support to components [#19036](https://github.com/primefaces/primeng/issues/19036)
+
+**Enhancements:**
+- Rename directive pass-through inputs for naming consistency [#19085](https://github.com/primefaces/primeng/issues/19085)
+- New Animations Implementations [#18978](https://github.com/primefaces/primeng/issues/18978)
+- Support for Angular v21 [#19095](https://github.com/primefaces/primeng/issues/19095)
+
+**Fixed bugs:**
+- Picklist Target Not Updated [#18997](https://github.com/primefaces/primeng/issues/18997)
+- InputOTP integerOnly does not use numeric inputmode (alphanumeric keyboard shows on mobile) [#19066](https://github.com/primefaces/primeng/issues/19066)
+- Button: SSR error after passthrough changes [#19083](https://github.com/primefaces/primeng/issues/19083)
+- Blank MultiSelect with VirtualScroll after selecting options [#19078](https://github.com/primefaces/primeng/issues/19078)
+- Wrong "for" attribute in docs in the apps/showcase/doc/textarea/floatlabeldoc.ts file [#18947](https://github.com/primefaces/primeng/issues/18947)
+- [Doc] Passthrough guide page not found [#19066](https://github.com/primefaces/primeng/issues/19066)
+- Missing tooltip role since Prime 20 [#19048](https://github.com/primefaces/primeng/issues/19048)
+
+
 ## [20.3.0](https://github.com/primefaces/primeng/tree/20.3.0) (2025-10-31)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.3.0-rc.1...20.3.0)
 
