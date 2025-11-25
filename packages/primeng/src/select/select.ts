@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterViewChecked,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -16,6 +14,7 @@ import {
     InjectionToken,
     input,
     Input,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
@@ -28,6 +27,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormValueControl } from '@angular/forms/signals';
 import { MotionOptions } from '@primeuix/motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
@@ -223,7 +223,7 @@ export class SelectItem extends BaseComponent {
             [attr.size]="inputSize()"
             [attr.maxlength]="maxlength()"
             [attr.required]="required() ? '' : undefined"
-            [attr.readonly]="readonly ? '' : undefined"
+            [attr.readonly]="readonly() ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
             [attr.data-p]="labelDataP"
         />
@@ -418,7 +418,8 @@ export class SelectItem extends BaseComponent {
     encapsulation: ViewEncapsulation.None,
     hostDirectives: [Bind]
 })
-export class Select extends BaseInput<SelectPassThrough> implements AfterViewInit, AfterViewChecked {
+export class Select extends BaseInput<SelectPassThrough> implements FormValueControl<any | null> {
+    value = model<any | null>(null);
     bindDirectiveInstance = inject(Bind, { self: true });
     /**
      * Unique identifier of the component
@@ -455,7 +456,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
+    readonly = input<boolean>(false);
     /**
      * When present, custom value instead of predefined options can be entered using the editable input field.
      * @group Props
@@ -915,8 +916,6 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     _placeholder = signal<string | undefined>(undefined);
 
-    value: any;
-
     hover: Nullable<boolean>;
 
     focused: Nullable<boolean>;
@@ -1043,6 +1042,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         super();
         effect(() => {
             const modelValue = this.modelValue();
+            console.log('effect', this.value());
             const visibleOptions = this.visibleOptions();
 
             if (visibleOptions && isNotEmpty(visibleOptions)) {
@@ -1232,7 +1232,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     updateModel(value, event?) {
-        this.value = value;
+        this.value.set(value);
         this.onModelChange(value);
         this.writeModelValue(value);
         this.selectedOptionUpdated = true;
@@ -1349,7 +1349,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     onContainerClick(event: any) {
-        if (this.$disabled() || this.readonly || this.loading) {
+        if (this.$disabled() || this.readonly() || this.loading) {
             return;
         }
 
@@ -1484,7 +1484,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     onKeyDown(event: KeyboardEvent, search: boolean = false) {
-        if (this.$disabled() || this.readonly || this.loading) {
+        if (this.$disabled() || this.readonly() || this.loading) {
             return;
         }
 
@@ -1935,7 +1935,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.updateModel(null, event);
         this.clearEditableLabel();
         this.onModelTouched();
-        this.onChange.emit({ originalEvent: event, value: this.value });
+        this.onChange.emit({ originalEvent: event, value: this.value() });
         this.onClear.emit(event);
         this.resetFilter();
     }
@@ -1951,7 +1951,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             this.resetFilter();
         }
 
-        this.value = value;
+        this.value.set(value);
         this.allowModelChange() && this.onModelChange(value);
         setModelValue(this.value);
         this.updateEditableLabel();

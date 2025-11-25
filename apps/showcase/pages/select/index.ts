@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/select/accessibilitydoc';
 import { BasicDoc } from '@/doc/select/basicdoc';
 import { CheckmarkDoc } from '@/doc/select/checkmarkdoc';
@@ -16,13 +17,12 @@ import { LazyVirtualScrollDoc } from '@/doc/select/lazyvirtualscrolldoc';
 import { LoadingStateDoc } from '@/doc/select/loadingstatedoc';
 import { PTComponent } from '@/doc/select/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/select/reactiveformsdoc';
+import { SignalFormsDoc } from '@/doc/select/signalformsdoc';
 import { SizesDoc } from '@/doc/select/sizesdoc';
 import { TemplateDoc } from '@/doc/select/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/select/virtualscrolldoc';
-import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
-
 @Component({
     template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" [ptDocs]="ptComponent" themeDocs="select"></app-doc> `,
     standalone: true,
@@ -127,7 +127,8 @@ export class SelectDemo {
             label: 'Forms',
             children: [
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc },
+                { id: 'signal-forms', label: 'Signal Forms', component: SignalFormsDoc }
             ]
         },
         {

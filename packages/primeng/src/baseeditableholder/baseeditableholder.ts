@@ -1,4 +1,4 @@
-import { booleanAttribute, computed, Directive, input, signal } from '@angular/core';
+import { computed, Directive, input, signal } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { BaseModelHolder } from 'primeng/basemodelholder';
 
@@ -9,25 +9,25 @@ export class BaseEditableHolder<PT = any> extends BaseModelHolder<PT> implements
      * @defaultValue false
      * @group Props
      */
-    required = input(undefined, { transform: booleanAttribute });
+    required = input<boolean>(false);
     /**
      * When present, it specifies that the component should have invalid state style.
      * @defaultValue false
      * @group Props
      */
-    invalid = input(undefined, { transform: booleanAttribute });
+    invalid = input<boolean>(false);
     /**
      * When present, it specifies that the component should have disabled state style.
      * @defaultValue false
      * @group Props
      */
-    disabled = input(undefined, { transform: booleanAttribute });
+    disabled = input<boolean>(false);
     /**
      * When present, it specifies that the name of the input.
-     * @defaultValue undefined
+     * @defaultValue ''
      * @group Props
      */
-    name = input<string | undefined>();
+    name = input<string>('');
 
     _disabled = signal<boolean>(false);
 

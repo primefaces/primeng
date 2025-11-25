@@ -32,40 +32,40 @@ export class BaseInput<PT = any> extends BaseEditableHolder<PT> {
     inputSize = input<number | null | undefined>();
     /**
      * Specifies the value must match the pattern.
-     * @defaultValue undefined
+     * @defaultValue []
      * @group Props
      */
-    pattern = input<string | null | undefined>();
+    pattern = input<readonly RegExp[]>([]);
     /**
      * The value must be greater than or equal to the value.
      * @defaultValue undefined
      * @group Props
      */
-    min = input<number | null | undefined>();
+    min = input<number | undefined>();
     /**
      * The value must be less than or equal to the value.
      * @defaultValue undefined
      * @group Props
      */
-    max = input<number | null | undefined>();
+    max = input<number | undefined>();
     /**
      * Unless the step is set to the any literal, the value must be min + an integral multiple of the step.
      * @defaultValue undefined
      * @group Props
      */
-    step = input<number | null | undefined>();
+    step = input<number | undefined>();
     /**
      * The number of characters (code points) must not be less than the value of the attribute, if non-empty.
      * @defaultValue undefined
      * @group Props
      */
-    minlength = input<number | null | undefined>();
+    minlength = input<number | undefined>();
     /**
      * The number of characters (code points) must not exceed the value of the attribute.
      * @defaultValue undefined
      * @group Props
      */
-    maxlength = input<number | null | undefined>();
+    maxlength = input<number | undefined>();
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
