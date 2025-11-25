@@ -247,7 +247,7 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
     /**
      * Indicates the direction of the element.
      * @group Props
