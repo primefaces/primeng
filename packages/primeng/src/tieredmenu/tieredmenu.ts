@@ -1025,18 +1025,16 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         }
     }
 
+    relativeAlign: boolean = false;
+
     alignOverlay() {
         if (this.container && this.target) {
+            if (this.relativeAlign) relativePosition(this.container!, this.target);
+            else absolutePosition(this.container!, this.target);
             const targetWidth = getOuterWidth(this.target);
 
             if (targetWidth > getOuterWidth(this.container)) {
                 this.container.style.minWidth = getOuterWidth(this.target) + 'px';
-            }
-
-            if (this.$appendTo() === 'self') {
-                relativePosition(this.container, this.target);
-            } else {
-                absolutePosition(this.container, this.target);
             }
         }
     }
@@ -1104,6 +1102,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
             this.visible = true;
             this.target = this.target || event.currentTarget;
             this.relatedTarget = event.relatedTarget || null;
+            this.relativeAlign = event?.relativeAlign || null;
         }
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
