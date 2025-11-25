@@ -19,6 +19,11 @@ ${accordion_style}
     overflow: hidden;
     position: relative;
 }
+
+.p-accordioncontent .p-motion {
+    display: grid;
+    grid-template-rows: 1fr;
+}
 `;
 
 const classes = {
@@ -33,6 +38,7 @@ const classes = {
     header: 'p-accordionheader',
     toggleicon: 'p-accordionheader-toggle-icon',
     contentContainer: 'p-accordioncontent',
+    contentWrapper: 'p-accordioncontent-wrapper',
     content: 'p-accordioncontent-content'
 };
 
