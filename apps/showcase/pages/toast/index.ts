@@ -1,6 +1,5 @@
 import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/toast/accessibilitydoc';
-import { AnimationDoc } from '@/doc/toast/animationdoc';
 import { BasicDoc } from '@/doc/toast/basicdoc';
 import { HeadlessDoc } from '@/doc/toast/headlessdoc';
 import { ImportDoc } from '@/doc/toast/importdoc';
@@ -65,11 +64,6 @@ export class ToastDemo {
             id: 'responsive',
             label: 'Responsive',
             component: ResponsiveDoc
-        },
-        {
-            id: 'animation',
-            label: 'Animation',
-            component: AnimationDoc
         },
         {
             id: 'accessibility',
