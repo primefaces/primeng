@@ -97,5 +97,6 @@
 - [Angular TreeSelect Component](https://primeng.org/treeselect): TreeSelect is a form component to choose from hierarchical data.
 - [Angular TreeTable Component](https://primeng.org/treetable): TreeTable is used to display hierarchical data in tabular format.
 - [Angular Virtual Scroller Component](https://primeng.org/scroller): VirtualScroller is a performance-approach to handle huge data efficiently.
+- [LLMs.txt - PrimeNG](https://primeng.org/llms): LLM-optimized documentation endpoints for PrimeNG components.
 - [Overlay API - PrimeNG](https://primeng.org/overlay): This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
 - [uikit](https://primeng.org/uikit): 
