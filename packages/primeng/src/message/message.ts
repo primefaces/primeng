@@ -21,7 +21,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
     standalone: true,
     imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind, MotionModule],
     template: `
-        <p-motion [visible]="visible()" name="p-message2" [options]="computedMotionOptions()" [appear]="true">
+        <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')" [attr.data-p]="dataP">
             <div [pBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
                 @if (iconTemplate || _iconTemplate) {
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
@@ -59,7 +59,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                     </button>
                 }
             </div>
-        </p-motion>
+        </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -69,7 +69,10 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
         '[attr.data-p]': 'dataP',
         role: 'alert',
         'aria-live': 'polite',
-        '[class]': 'cn(cx("root"), styleClass)'
+        '[class]': 'cn(cx("root"), styleClass)',
+        '[animate.enter]': '"p-message-enter-active"',
+        '[animate.leave]': '"p-message-leave-active"',
+        '[class.p-message-leave-active]': '!visible()'
     }
 })
 export class Message extends BaseComponent<MessagePassThrough> {

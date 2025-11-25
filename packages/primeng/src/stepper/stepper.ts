@@ -314,11 +314,15 @@ export class Step extends BaseComponent<StepPassThrough> {
     standalone: true,
     imports: [CommonModule, StepperSeparator, SharedModule, BindModule, MotionModule],
     template: `
-        @if (isSeparatorVisible()) {
-            <p-stepper-separator />
-        }
-        <p-motion [visible]="active()" name="p-collapsible" [disabled]="!isVertical()" [options]="computedMotionOptions()" [class]="cx('content')" [pt]="ptm('content')">
-            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+        <p-motion [visible]="active()" name="p-collapsible" [disabled]="!isVertical()" [options]="computedMotionOptions()">
+            <div [class]="cx('contentWrapper')" [pBind]="ptm('contentWrapper')">
+                @if (isSeparatorVisible()) {
+                    <p-stepper-separator />
+                }
+                <div [class]="cx('content')" [pBind]="ptm('content')">
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+                </div>
+            </div>
         </p-motion>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

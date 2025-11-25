@@ -23,6 +23,7 @@ const classes = {
     ],
     pcToggleButton: 'p-panel-toggle-button',
     contentContainer: 'p-panel-content-container',
+    contentWrapper: 'p-panel-content-wrapper',
     content: 'p-panel-content',
     footer: 'p-panel-footer'
 };
@@ -69,6 +70,10 @@ export enum PanelClasses {
      * Class name of the content container element
      */
     contentContainer = 'p-panel-content-container',
+    /**
+     * Class name of the content wrapper element
+     */
+    contentWrapper = 'p-panel-content-wrapper',
     /**
      * Class name of the content element
      */

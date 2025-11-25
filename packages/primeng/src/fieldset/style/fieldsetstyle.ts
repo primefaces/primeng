@@ -15,6 +15,7 @@ const classes = {
     toggleButton: 'p-fieldset-toggle-button',
     toggleIcon: 'p-fieldset-toggle-icon',
     contentContainer: 'p-fieldset-content-container',
+    contentWrapper: 'p-fieldset-content-wrapper',
     content: 'p-fieldset-content'
 };
 
@@ -57,6 +58,10 @@ export enum FieldsetClasses {
      * Class name of the content container element
      */
     contentContainer = 'p-fieldset-content-container',
+    /**
+     * Class name of the content wrapper element
+     */
+    contentWrapper = 'p-fieldset-content-wrapper',
     /**
      * Class name of the content element
      */

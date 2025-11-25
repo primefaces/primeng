@@ -95,14 +95,16 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             [attr.tabindex]="collapsed ? '-1' : undefined"
             (pMotionOnAfterEnter)="onToggleDone($event)"
         >
-            <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-            </div>
+            <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
+                <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                </div>
 
-            <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+                    <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                </div>
             </div>
         </div>
     `,

@@ -330,8 +330,10 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     standalone: true,
     template: `
         <p-motion [visible]="active()" name="p-collapsible" hideStrategy="visibility" [mountOnEnter]="false" [unmountOnLeave]="false" [options]="computedMotionOptions()">
-            <div [pBind]="ptm('content', ptParams())" [class]="cx('content')">
-                <ng-content />
+            <div [pBind]="ptm('contentWrapper', ptParams())" [class]="cx('contentWrapper')">
+                <div [pBind]="ptm('content', ptParams())" [class]="cx('content')">
+                    <ng-content />
+                </div>
             </div>
         </p-motion>
     `,

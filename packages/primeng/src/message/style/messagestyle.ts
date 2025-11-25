@@ -1,42 +1,10 @@
 import { Injectable } from '@angular/core';
-import { style as message_style } from '@primeuix/styles/message';
+import { style } from '@primeuix/styles/message';
 import { BaseStyle } from 'primeng/base';
-const style = /*css*/ `
-${message_style}
 
-.p-message {
-    display: block;
-}
-
-/* Animations */
-.p-message2-enter-active {
-    animation: p-animate-message-enter 200ms ease-out;
-}
-
-.p-message2-leave-active {
-    animation: p-animate-message-leave 200ms ease-out;
-}
-
-@keyframes p-animate-message-enter {
-    from {
-        opacity: 0;
-        max-height: 0;
-    }
-    to {
-        opacity: 1;
-        max-height: var(--pui-motion-height, 1000px);
-    }
-}
-
-@keyframes p-animate-message-leave {
-    to {
-        opacity: 0;
-        max-height: 0;
-    }
-}
-`;
 const classes = {
     root: ({ instance }) => ['p-message p-component p-message-' + instance.severity, instance.variant && 'p-message-' + instance.variant, { 'p-message-sm': instance.size === 'small', 'p-message-lg': instance.size === 'large' }],
+    contentWrapper: 'p-message-content-wrapper',
     content: 'p-message-content',
     icon: 'p-message-icon',
     text: 'p-message-text',

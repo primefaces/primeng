@@ -299,25 +299,8 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
         return this.getItemId(processedItem);
     }
 
-    getItemClass(processedItem: any) {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-tieredmenu-item': true,
-            'p-tieredmenu-item-active': this.isItemActive(processedItem),
-            'p-focus': this.isItemFocused(processedItem),
-            'p-disabled': this.isItemDisabled(processedItem)
-        };
-    }
-
     getItemLabel(processedItem: any): string {
         return this.getItemProp(processedItem, 'label');
-    }
-
-    getSeparatorItemClass(processedItem: any): string {
-        return {
-            ...this.getItemProp(processedItem, 'class'),
-            'p-tieredmenu-separator': true
-        };
     }
 
     getAriaSetSize() {
@@ -398,7 +381,14 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     standalone: true,
     imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule, MotionModule],
     template: `
-        <p-motion [visible]="!popup || visible" name="p-anchored-overlay" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onAfterLeave()" [options]="computedMotionOptions()">
+        @if (popup) {
+            <p-motion [visible]="visible" name="p-anchored-overlay" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onAfterLeave()" [options]="computedMotionOptions()">
+                <ng-container *ngTemplateOutlet="sharedcontent"></ng-container>
+            </p-motion>
+        } @else {
+            <ng-container *ngTemplateOutlet="sharedcontent"></ng-container>
+        }
+        <ng-template #sharedcontent>
             <div #container [id]="id" [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [pBind]="ptm('root')" (click)="onOverlayClick($event)">
                 <p-tieredMenuSub
                     #rootmenu
@@ -424,7 +414,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
                     [unstyled]="unstyled()"
                 ></p-tieredMenuSub>
             </div>
-        </p-motion>
+        </ng-template>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -1043,7 +1033,11 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 this.container.style.minWidth = getOuterWidth(this.target) + 'px';
             }
 
-            absolutePosition(this.container, this.target);
+            if (this.$appendTo() === 'self') {
+                relativePosition(this.container, this.target);
+            } else {
+                absolutePosition(this.container, this.target);
+            }
         }
     }
 
@@ -1107,11 +1101,6 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      */
     show(event: any, isFocus?) {
         if (this.popup) {
-            // Clear container if exists but not visible (fast toggle case)
-            if (this.container && !this.visible) {
-                this.container = undefined;
-            }
-
             this.visible = true;
             this.target = this.target || event.currentTarget;
             this.relatedTarget = event.relatedTarget || null;

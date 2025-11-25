@@ -29,6 +29,7 @@ const classes = {
     headerIcon: 'p-panelmenu-header-icon',
     headerLabel: 'p-panelmenu-header-label',
     contentContainer: ({ instance, processedItem }) => ['p-panelmenu-content-container', { 'p-panelmenu-expanded': instance.isItemActive(processedItem) }],
+    contentWrapper: 'p-panelmenu-content-wrapper',
     content: 'p-panelmenu-content',
     rootList: 'p-panelmenu-root-list',
     item: ({ instance, processedItem }) => [

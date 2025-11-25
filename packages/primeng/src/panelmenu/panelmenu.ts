@@ -144,26 +144,30 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                     </ng-container>
                 </div>
 
-                <div>
-                    <ul
-                        pPanelMenuSub
-                        [id]="getItemId(processedItem) + '_list'"
-                        [panelId]="panelId"
-                        [items]="processedItem?.items"
-                        [itemTemplate]="itemTemplate"
-                        [transitionOptions]="transitionOptions"
-                        [focusedItemId]="focusedItemId"
-                        [activeItemPath]="activeItemPath"
-                        [level]="level + 1"
-                        [pt]="pt()"
-                        [unstyled]="unstyled()"
-                        [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
-                        (itemToggle)="onItemToggle($event)"
-                        pMotionName="p-collapsible"
-                        [pMotion]="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
-                        [pMotionOptions]="motionOptions()"
-                        [motionOptions]="motionOptions()"
-                    ></ul>
+                <div
+                    [class]="cx('contentContainer', { processedItem: processedItem })"
+                    pMotionName="p-collapsible"
+                    [pMotion]="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
+                    [pMotionOptions]="motionOptions()"
+                >
+                    <div [class]="cx('contentWrapper')" [pBind]="ptm('contentWrapper')">
+                        <ul
+                            pPanelMenuSub
+                            [id]="getItemId(processedItem) + '_list'"
+                            [panelId]="panelId"
+                            [items]="processedItem?.items"
+                            [itemTemplate]="itemTemplate"
+                            [transitionOptions]="transitionOptions"
+                            [focusedItemId]="focusedItemId"
+                            [activeItemPath]="activeItemPath"
+                            [level]="level + 1"
+                            [pt]="pt()"
+                            [unstyled]="unstyled()"
+                            [parentExpanded]="!!parentExpanded && isItemExpanded(processedItem)"
+                            (itemToggle)="onItemToggle($event)"
+                            [motionOptions]="motionOptions()"
+                        ></ul>
+                    </div>
                 </div>
             </li>
         </ng-template>
@@ -857,22 +861,24 @@ export class PanelMenuList extends BaseComponent {
                     [pMotion]="isItemActive(item)"
                     [pMotionOptions]="computedMotionOptions()"
                 >
-                    <div [class]="cx('content')" [pBind]="ptm('content')">
-                        <ul
-                            pPanelMenuList
-                            [panelId]="getPanelId(i, item)"
-                            [items]="getItemProp(item, 'items')"
-                            [itemTemplate]="itemTemplate || _itemTemplate"
-                            [transitionOptions]="transitionOptions"
-                            [root]="true"
-                            [activeItem]="activeItem()"
-                            [tabindex]="tabindex"
-                            [parentExpanded]="isItemActive(item)"
-                            (headerFocus)="updateFocusedHeader($event)"
-                            [pt]="pt()"
-                            [unstyled]="unstyled()"
-                            [motionOptions]="computedMotionOptions()"
-                        ></ul>
+                    <div [class]="cx('contentWrapper')" [pBind]="ptm('contentWrapper')">
+                        <div [class]="cx('content')" [pBind]="ptm('content')">
+                            <ul
+                                pPanelMenuList
+                                [panelId]="getPanelId(i, item)"
+                                [items]="getItemProp(item, 'items')"
+                                [itemTemplate]="itemTemplate || _itemTemplate"
+                                [transitionOptions]="transitionOptions"
+                                [root]="true"
+                                [activeItem]="activeItem()"
+                                [tabindex]="tabindex"
+                                [parentExpanded]="isItemActive(item)"
+                                (headerFocus)="updateFocusedHeader($event)"
+                                [pt]="pt()"
+                                [unstyled]="unstyled()"
+                                [motionOptions]="computedMotionOptions()"
+                            ></ul>
+                        </div>
                     </div>
                 </div>
             </div>

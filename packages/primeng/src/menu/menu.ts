@@ -161,7 +161,14 @@ export class MenuItemContent extends BaseComponent {
     standalone: true,
     imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule, MotionModule],
     template: `
-        <p-motion [visible]="!popup || visible" [appear]="popup" name="p-anchored-overlay" [options]="computedMotionOptions()" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAfterLeave()">
+        @if (popup) {
+            <p-motion [visible]="visible" [appear]="popup" name="p-anchored-overlay" [options]="computedMotionOptions()" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAfterLeave()">
+                <ng-container *ngTemplateOutlet="sharedcontent"></ng-container>
+            </p-motion>
+        } @else {
+            <ng-container *ngTemplateOutlet="sharedcontent"></ng-container>
+        }
+        <ng-template #sharedcontent>
             <div #container [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [ngStyle]="style" (click)="onOverlayClick($event)" [attr.id]="id" [pBind]="ptm('root')" [attr.data-p]="dataP">
                 <div *ngIf="startTemplate ?? _startTemplate" [class]="cx('start')" [pBind]="ptm('start')" [attr.data-pc-section]="'start'">
                     <ng-container *ngTemplateOutlet="startTemplate ?? _startTemplate"></ng-container>
@@ -255,7 +262,7 @@ export class MenuItemContent extends BaseComponent {
                     <ng-container *ngTemplateOutlet="endTemplate ?? _endTemplate"></ng-container>
                 </div>
             </div>
-        </p-motion>
+        </ng-template>
     `,
 
     changeDetection: ChangeDetectionStrategy.OnPush,
