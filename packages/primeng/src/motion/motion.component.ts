@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, inject, InjectionToken, input, output, signal } from '@angular/core';
+import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal } from '@angular/core';
 import { type ClassNameOptions, createMotion, type MotionEvent, type MotionInstance, type MotionOptions } from '@primeuix/motion';
 import { nextFrame } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -282,7 +282,7 @@ export class Motion extends BaseComponent<MotionPassThrough> {
             }
         });
 
-        effect(async () => {
+        afterRenderEffect(async () => {
             if (!this.$el) return;
 
             const shouldAppear = this.isInitialMount && this.visible() && this.appear();

@@ -21,45 +21,43 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
     standalone: true,
     imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind, MotionModule],
     template: `
-        <p-motion [visible]="visible()" name="p-message2" [options]="computedMotionOptions()" [appear]="true">
-            <div [pBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
-                @if (iconTemplate || _iconTemplate) {
-                    <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
-                }
-                @if (icon) {
-                    <i [pBind]="ptm('icon')" [class]="cn(cx('icon'), icon)" [attr.data-p]="dataP"></i>
-                }
+        <div [pBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
+            @if (iconTemplate || _iconTemplate) {
+                <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
+            }
+            @if (icon) {
+                <i [pBind]="ptm('icon')" [class]="cn(cx('icon'), icon)" [attr.data-p]="dataP"></i>
+            }
 
-                @if (containerTemplate || _containerTemplate) {
-                    <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
-                } @else {
-                    <div *ngIf="!escape; else escapeOut">
-                        <span [pBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
-                    </div>
+            @if (containerTemplate || _containerTemplate) {
+                <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
+            } @else {
+                <div *ngIf="!escape; else escapeOut">
+                    <span [pBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
+                </div>
 
-                    <ng-template #escapeOut>
-                        <span [pBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
-                    </ng-template>
+                <ng-template #escapeOut>
+                    <span [pBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
+                </ng-template>
 
-                    <span [pBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">
-                        <ng-content></ng-content>
-                    </span>
-                }
-                @if (closable) {
-                    <button [pBind]="ptm('closeButton')" pRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel" [attr.data-p]="dataP">
-                        @if (closeIcon) {
-                            <i [pBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
-                        }
-                        @if (closeIconTemplate || _closeIconTemplate) {
-                            <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
-                        }
-                        @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
-                            <svg [pBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.data-p]="dataP" />
-                        }
-                    </button>
-                }
-            </div>
-        </p-motion>
+                <span [pBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">
+                    <ng-content></ng-content>
+                </span>
+            }
+            @if (closable) {
+                <button [pBind]="ptm('closeButton')" pRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel" [attr.data-p]="dataP">
+                    @if (closeIcon) {
+                        <i [pBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
+                    }
+                    @if (closeIconTemplate || _closeIconTemplate) {
+                        <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
+                    }
+                    @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
+                        <svg [pBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.data-p]="dataP" />
+                    }
+                </button>
+            }
+        </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -69,7 +67,10 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
         '[attr.data-p]': 'dataP',
         role: 'alert',
         'aria-live': 'polite',
-        '[class]': 'cn(cx("root"), styleClass)'
+        '[class]': 'cn(cx("root"), styleClass)',
+        '[animate.enter]': '"p-message-enter-active"',
+        '[animate.leave]': '"p-message-leave-active"',
+        '[class.p-message-leave-active]': '!visible()'
     }
 })
 export class Message extends BaseComponent<MessagePassThrough> {

@@ -1,5 +1,5 @@
-import { computed, Directive, effect, inject, InjectionToken, input, output } from '@angular/core';
-import { type ClassNameOptions, createMotion, type MotionEvent, type MotionInstance, type MotionOptions } from '@primeuix/motion';
+import { afterRenderEffect, computed, Directive, effect, inject, InjectionToken, input, output } from '@angular/core';
+import { createMotion, type ClassNameOptions, type MotionEvent, type MotionInstance, type MotionOptions } from '@primeuix/motion';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { applyHiddenStyles, resetStyles } from './motion.utils';
 import { MotionStyle } from './style/motion.style';
@@ -235,7 +235,7 @@ export class MotionDirective extends BaseComponent {
             }
         });
 
-        effect(() => {
+        afterRenderEffect(() => {
             if (!this.$el) return;
 
             const shouldAppear = this.isInitialMount && this.visible() && this.appear();
