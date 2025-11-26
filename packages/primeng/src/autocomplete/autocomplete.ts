@@ -128,13 +128,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         >
             <li
                 #token
-                *ngFor="let option of modelValue(); let i = index"
+                *ngFor="let option of value2(); let i = index"
                 [pBind]="ptm('chipItem')"
                 [class]="cx('chipItem', { i })"
                 [attr.id]="id + '_multiple_option_' + i"
                 role="option"
                 [attr.aria-label]="getOptionLabel(option)"
-                [attr.aria-setsize]="modelValue().length"
+                [attr.aria-setsize]="value2().length"
                 [attr.aria-posinset]="i + 1"
                 [attr.aria-selected]="true"
             >
@@ -878,7 +878,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     });
 
     inputValue = computed(() => {
-        const modelValue = this.modelValue();
+        const modelValue = this.value2();
         const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((option: any) => equals(option, modelValue, this.equalityKey())) : modelValue;
 
         if (isNotEmpty(modelValue)) {
@@ -923,7 +923,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     get selectedMessageText() {
-        return this.hasSelectedOption() ? this.selectionMessageText.replaceAll('{0}', this.multiple ? this.modelValue()?.length : '1') : this.emptySelectionMessageText;
+        return this.hasSelectedOption() ? this.selectionMessageText.replaceAll('{0}', this.multiple ? this.value2()?.length : '1') : this.emptySelectionMessageText;
     }
 
     get ariaSetSize() {
@@ -939,7 +939,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     get optionValueSelected() {
-        return typeof this.modelValue() === 'string' && this.optionValue;
+        return typeof this.value2() === 'string' && this.optionValue;
     }
 
     chipItemClass(index) {
@@ -1115,9 +1115,9 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     isSelected(option) {
         if (this.multiple) {
-            return this.unique ? (this.modelValue() as string[])?.some((model) => equals(model, option, this.equalityKey())) : false;
+            return this.unique ? (this.value2() as string[])?.some((model) => equals(model, option, this.equalityKey())) : false;
         }
-        return equals(this.modelValue(), option, this.equalityKey());
+        return equals(this.value2(), option, this.equalityKey());
     }
 
     isOptionMatched(option, value) {
@@ -1283,7 +1283,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         if (this.addOnBlur && this.multiple && !this.typeahead) {
             const inputValue = (this.multiInputEl?.nativeElement?.value || event.target.value || '').trim();
             if (inputValue && !this.isSelected(inputValue)) {
-                this.updateModel([...(this.modelValue() || []), inputValue]);
+                this.updateModel([...(this.value2() || []), inputValue]);
                 this.onAdd.emit({ originalEvent: event, value: inputValue });
                 if (this.multiInputEl?.nativeElement) {
                     this.multiInputEl.nativeElement.value = '';
@@ -1302,7 +1302,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             const pastedData = (event.clipboardData || (window as any)['clipboardData'])?.getData('Text');
             if (pastedData) {
                 const values = pastedData.split(this.separator);
-                const newValues = [...(this.modelValue() || [])];
+                const newValues = [...(this.value2() || [])];
 
                 values.forEach((value: string) => {
                     const trimmedValue = value.trim();
@@ -1311,8 +1311,8 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
                     }
                 });
 
-                if (newValues.length > (this.modelValue() || []).length) {
-                    const addedValues = newValues.slice((this.modelValue() || []).length);
+                if (newValues.length > (this.value2() || []).length) {
+                    const addedValues = newValues.slice((this.value2() || []).length);
                     this.updateModel(newValues);
                     addedValues.forEach((addedValue) => {
                         this.onAdd.emit({ originalEvent: event, value: addedValue });
@@ -1410,7 +1410,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             if (this.separator === event.key || (typeof this.separator === 'string' && event.key === this.separator) || (this.separator instanceof RegExp && event.key.match(this.separator))) {
                 const inputValue = (this.multiInputEl?.nativeElement?.value || event.target.value || '').trim();
                 if (inputValue && !this.isSelected(inputValue)) {
-                    this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.updateModel([...(this.value2() || []), inputValue]);
                     this.onAdd.emit({ originalEvent: event, value: inputValue });
                     if (this.multiInputEl?.nativeElement) {
                         this.multiInputEl.nativeElement.value = '';
@@ -1464,7 +1464,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         if (this.multiple) {
             if (isEmpty(target.value) && this.hasSelectedOption()) {
                 focus(this.multiContainerEL?.nativeElement);
-                this.focusedMultipleOptionIndex.set(this.modelValue().length);
+                this.focusedMultipleOptionIndex.set(this.value2().length);
             } else {
                 event.stopPropagation(); // To prevent onArrowLeftKeyOnMultiple method
             }
@@ -1512,7 +1512,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             if (this.multiple) {
                 const inputValue = event.target.value?.trim();
                 if (inputValue && !this.isSelected(inputValue)) {
-                    this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.updateModel([...(this.value2() || []), inputValue]);
                     this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
                 }
             }
@@ -1549,7 +1549,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             if (this.addOnTab) {
                 if (inputValue && !this.isSelected(inputValue)) {
                     // Add the value and keep focus
-                    this.updateModel([...(this.modelValue() || []), inputValue]);
+                    this.updateModel([...(this.value2() || []), inputValue]);
                     this.onAdd.emit({ originalEvent: event, value: inputValue });
                     if (this.multiInputEl?.nativeElement) {
                         this.multiInputEl.nativeElement.value = '';
@@ -1573,9 +1573,9 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     onBackspaceKey(event) {
         if (this.multiple) {
-            if (isNotEmpty(this.modelValue()) && !this.inputEL?.nativeElement?.value) {
-                const removedValue = this.modelValue()[this.modelValue().length - 1];
-                const newValue = this.modelValue().slice(0, -1);
+            if (isNotEmpty(this.value2()) && !this.inputEL?.nativeElement?.value) {
+                const removedValue = this.value2()[this.value2().length - 1];
+                const newValue = this.value2().slice(0, -1);
                 this.updateModel(newValue);
                 this.onUnselect.emit({ originalEvent: event, value: removedValue });
             }
@@ -1594,7 +1594,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         optionIndex++;
 
         this.focusedMultipleOptionIndex.set(optionIndex);
-        if (optionIndex > this.modelValue().length - 1) {
+        if (optionIndex > this.value2().length - 1) {
             this.focusedMultipleOptionIndex.set(-1);
             focus(this.inputEL?.nativeElement);
         }
@@ -1611,7 +1611,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             this.inputEL?.nativeElement && (this.inputEL.nativeElement.value = '');
 
             if (!this.isSelected(option)) {
-                this.updateModel([...(this.modelValue() || []), option]);
+                this.updateModel([...(this.value2() || []), option]);
             }
         } else {
             this.updateModel(option);
@@ -1645,8 +1645,8 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     removeOption(event, index) {
         event.stopPropagation();
 
-        const removedOption = this.modelValue()[index];
-        const value = (this.modelValue() as string[]).filter((_, i) => i !== index);
+        const removedOption = this.value2()[index];
+        const value = (this.value2() as string[]).filter((_, i) => i !== index);
 
         this.updateModel(value);
         this.onUnselect.emit({ originalEvent: event, value: removedOption });
@@ -1744,7 +1744,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     hasSelectedOption() {
-        return isNotEmpty(this.modelValue());
+        return isNotEmpty(this.value2());
     }
 
     getAriaPosInset(index) {
@@ -1799,7 +1799,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         }
         if (this.visibleOptions() && this.visibleOptions().length) {
             if (this.virtualScroll) {
-                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                const selectedIndex = this.value2() ? this.focusedOptionIndex() : -1;
 
                 if (selectedIndex !== -1) {
                     this.scroller?.scrollToIndex(selectedIndex);
