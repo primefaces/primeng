@@ -718,7 +718,8 @@ describe('InputMask', () => {
             component.autoClear = true;
             component.inputViewChild = {
                 nativeElement: {
-                    value: '12_-__-____'
+                    value: '12_-__-____',
+                    dispatchEvent: jasmine.createSpy('dispatchEvent')
                 }
             } as any;
             fixture.detectChanges();
