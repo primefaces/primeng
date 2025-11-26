@@ -49,17 +49,17 @@ export const RATING_VALUE_ACCESSOR: any = {
     standalone: true,
     template: `
         <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
-            <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)" [pBind]="ptm('option')">
+            <div [class]="cx('option', { star, value: value2() })" (click)="onOptionClick($event, star + 1)" [pBind]="ptm('option')">
                 <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true" [pBind]="ptm('hiddenOptionInputContainer')">
                     <input
                         type="radio"
                         [value]="star + 1"
                         [attr.name]="name() || nameattr + '_name'"
-                        [attr.value]="modelValue()"
+                        [attr.value]="value2()"
                         [attr.required]="required() ? '' : undefined"
                         [attr.readonly]="readonly ? '' : undefined"
                         [attr.disabled]="$disabled() ? '' : undefined"
-                        [checked]="value === star + 1"
+                        [checked]="value2() === star + 1"
                         [attr.aria-label]="starAriaLabel(star + 1)"
                         (focus)="onInputFocus($event, star + 1)"
                         (blur)="onInputBlur($event)"
@@ -68,7 +68,7 @@ export const RATING_VALUE_ACCESSOR: any = {
                         [pBind]="ptm('hiddenOptionInput')"
                     />
                 </span>
-                @if (star + 1 <= value) {
+                @if (star + 1 <= value2()) {
                     @if (onIconTemplate || _onIconTemplate) {
                         <ng-container *ngTemplateOutlet="onIconTemplate || _onIconTemplate; context: { $implicit: star + 1, class: cx('onIcon') }"></ng-container>
                     } @else {
@@ -265,7 +265,7 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
     }
 
     getIconTemplate(i: number): Nullable<TemplateRef<any>> {
-        return !this.value || i >= this.value ? this.offIconTemplate || this._offIconTemplate : this.onIconTemplate || this.offIconTemplate;
+        return !this.value2() || i >= this.value2() ? this.offIconTemplate || this._offIconTemplate : this.onIconTemplate || this.offIconTemplate;
     }
 
     /**
