@@ -182,49 +182,45 @@ describe('ScrollTop', () => {
         });
 
         it('should be hidden initially', () => {
-            expect(scrollTop.visible).toBe(false);
+            expect(scrollTop.visible()).toBe(false);
             const button = debugElement.query(By.directive(Button));
             expect(button).toBeFalsy();
         });
 
         it('should become visible when scroll exceeds threshold', () => {
-            spyOn(scrollTop.cd, 'markForCheck');
             scrollTop.checkVisibility(500);
 
-            expect(scrollTop.visible).toBe(true);
-            expect(scrollTop.cd.markForCheck).toHaveBeenCalled();
+            expect(scrollTop.visible()).toBe(true);
         });
 
         it('should hide when scroll is below threshold', () => {
-            scrollTop.visible = true;
-            spyOn(scrollTop.cd, 'markForCheck');
+            scrollTop.visible.set(true);
             scrollTop.checkVisibility(300);
 
-            expect(scrollTop.visible).toBe(false);
-            expect(scrollTop.cd.markForCheck).toHaveBeenCalled();
+            expect(scrollTop.visible()).toBe(false);
         });
 
         it('should handle exact threshold value', () => {
             scrollTop.checkVisibility(400);
-            expect(scrollTop.visible).toBe(false);
+            expect(scrollTop.visible()).toBe(false);
 
             scrollTop.checkVisibility(401);
-            expect(scrollTop.visible).toBe(true);
+            expect(scrollTop.visible()).toBe(true);
         });
 
         it('should render button when visible', () => {
-            scrollTop.visible = true;
+            scrollTop.visible.set(true);
             fixture.detectChanges();
 
             // Check that component has proper visibility state
-            expect(scrollTop.visible).toBe(true);
+            expect(scrollTop.visible()).toBe(true);
 
             // Button may not be rendered if standalone component issue
             const button = fixture.debugElement.query(By.directive(Button));
             if (button) {
                 expect(button).toBeTruthy();
             } else {
-                expect(scrollTop.visible).toBe(true);
+                expect(scrollTop.visible()).toBe(true);
             }
         });
     });
@@ -362,7 +358,7 @@ describe('ScrollTop', () => {
             const component = fixture.componentInstance;
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
-            scrollTop.visible = true;
+            scrollTop.visible.set(true);
             fixture.detectChanges();
 
             expect(scrollTop.icon).toBe(component.icon);
@@ -375,7 +371,7 @@ describe('ScrollTop', () => {
             const fixture = TestBed.createComponent(TestBasicScrollTopComponent);
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
-            scrollTop.visible = true;
+            scrollTop.visible.set(true);
             fixture.detectChanges();
 
             const svgIcon = fixture.debugElement.query(By.css('svg[data-p-icon="chevron-up"]'));
@@ -386,7 +382,7 @@ describe('ScrollTop', () => {
             const fixture = TestBed.createComponent(TestScrollTopWithTemplateComponent);
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
-            scrollTop.visible = true;
+            scrollTop.visible.set(true);
             fixture.detectChanges();
 
             const customIcon = fixture.debugElement.query(By.css('.custom-icon'));
@@ -424,7 +420,7 @@ describe('ScrollTop', () => {
         });
 
         it('should set button aria-label', () => {
-            scrollTop.visible = true;
+            scrollTop.visible.set(true);
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.directive(Button));
@@ -564,10 +560,10 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             scrollTop.checkVisibility(250);
-            expect(scrollTop.visible).toBe(false);
+            expect(scrollTop.visible()).toBe(false);
 
             scrollTop.checkVisibility(350);
-            expect(scrollTop.visible).toBe(true);
+            expect(scrollTop.visible()).toBe(true);
         });
 
         it('should handle content height changes', async () => {
@@ -652,31 +648,31 @@ describe('ScrollTop', () => {
         it('should handle zero threshold', () => {
             scrollTop.threshold = 0;
             scrollTop.checkVisibility(1);
-            expect(scrollTop.visible).toBe(true);
+            expect(scrollTop.visible()).toBe(true);
 
             scrollTop.checkVisibility(0);
-            expect(scrollTop.visible).toBe(false);
+            expect(scrollTop.visible()).toBe(false);
         });
 
         it('should handle negative scroll values', () => {
             scrollTop.checkVisibility(-100);
-            expect(scrollTop.visible).toBe(false);
+            expect(scrollTop.visible()).toBe(false);
         });
 
         it('should handle very large scroll values', () => {
             scrollTop.checkVisibility(Number.MAX_SAFE_INTEGER);
-            expect(scrollTop.visible).toBe(true);
+            expect(scrollTop.visible()).toBe(true);
         });
 
         it('should handle rapid visibility changes', () => {
             scrollTop.checkVisibility(500);
-            expect(scrollTop.visible).toBe(true);
+            expect(scrollTop.visible()).toBe(true);
 
             scrollTop.checkVisibility(300);
-            expect(scrollTop.visible).toBe(false);
+            expect(scrollTop.visible()).toBe(false);
 
             scrollTop.checkVisibility(600);
-            expect(scrollTop.visible).toBe(true);
+            expect(scrollTop.visible()).toBe(true);
         });
 
         it('should handle missing parent element', () => {
@@ -794,7 +790,7 @@ describe('ScrollTop', () => {
         });
 
         it('should have proper aria-label', () => {
-            scrollTop.visible = true;
+            scrollTop.visible.set(true);
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.directive(Button));
@@ -811,7 +807,7 @@ describe('ScrollTop', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            scrollTop.visible = true;
+            scrollTop.visible.set(true);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -826,7 +822,7 @@ describe('ScrollTop', () => {
         });
 
         it('should be keyboard accessible', () => {
-            scrollTop.visible = true;
+            scrollTop.visible.set(true);
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.directive(Button));
@@ -834,7 +830,7 @@ describe('ScrollTop', () => {
                 expect(button.nativeElement.getAttribute('type')).toBe('button');
             } else {
                 // Component is keyboard accessible through basic element
-                expect(scrollTop.visible).toBe(true);
+                expect(scrollTop.visible()).toBe(true);
             }
         });
     });
