@@ -28,7 +28,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
@@ -70,7 +70,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         </span>
         <div [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate" [pBind]="ptm('header')">
             <ng-content select="p-header"></ng-content>
-            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
+            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: value2(), options: visibleOptions() }"></ng-container>
         </div>
         <div [class]="cx('header')" *ngIf="(checkbox && multiple && showToggleAll) || filter" [pBind]="ptm('header')">
             <p-checkbox
@@ -298,7 +298,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         </div>
         <div *ngIf="footerFacet || footerTemplate || _footerTemplate">
             <ng-content select="p-footer"></ng-content>
-            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
+            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: value2(), options: visibleOptions() }"></ng-container>
         </div>
         <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible" [pBind]="ptm('hiddenEmptyMessage')">
             {{ emptyMessage }}
@@ -338,7 +338,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     },
     hostDirectives: [Bind]
 })
-export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
+export class Listbox extends BaseInput<ListBoxPassThrough> {
     @Input() hostName: any = '';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -619,12 +619,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         return this.dropListData || this._options();
     });
     /**
-     * Spans 100% width of the container when enabled.
-     * @defaultValue undefined
-     * @group Props
-     */
-    fluid = input(undefined, { transform: booleanAttribute });
-    /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
@@ -840,7 +834,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     get selectedMessageText() {
-        return this.hasSelectedOption() ? this.selectionMessageText.replaceAll('{0}', this.multiple ? this.modelValue().length : '1') : this.emptySelectionMessageText;
+        return this.hasSelectedOption() ? this.selectionMessageText.replaceAll('{0}', this.multiple ? this.value2().length : '1') : this.emptySelectionMessageText;
     }
 
     get ariaSetSize() {
@@ -989,7 +983,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     removeOption(option) {
-        return this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey() || ''));
+        return this.value2().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey() || ''));
     }
 
     onOptionSelect(event, option, index = -1) {
@@ -1014,11 +1008,11 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
             if (selected) {
                 value = metaKey ? this.removeOption(option) : [this.getOptionValue(option)];
             } else {
-                value = metaKey ? this.modelValue() || [] : [];
+                value = metaKey ? this.value2() || [] : [];
                 value = [...(value || []), this.getOptionValue(option)];
             }
         } else {
-            value = selected ? this.removeOption(option) : [...(this.modelValue() || []), this.getOptionValue(option)];
+            value = selected ? this.removeOption(option) : [...(this.value2() || []), this.getOptionValue(option)];
         }
 
         this.updateModel(value, event);
@@ -1449,7 +1443,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     hasSelectedOption() {
-        return isNotEmpty(this.modelValue());
+        return isNotEmpty(this.value2());
     }
 
     isOptionGroup(option) {
@@ -1591,8 +1585,8 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     findSelectedOptionIndex() {
         if (this.$filled()) {
             if (this.multiple) {
-                for (let index = this.modelValue().length - 1; index >= 0; index--) {
-                    const value = this.modelValue()[index];
+                for (let index = this.value2().length - 1; index >= 0; index--) {
+                    const value = this.value2()[index];
                     const matchedOptionIndex = this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option) && this.isEquals(value, this.getOptionValue(option)));
 
                     if (matchedOptionIndex > -1) return matchedOptionIndex;
@@ -1643,8 +1637,8 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     isSelected(option) {
         const optionValue = this.getOptionValue(option);
 
-        if (this.multiple) return (this.modelValue() || []).some((value) => this.isEquals(value, optionValue));
-        else return this.isEquals(this.modelValue(), optionValue);
+        if (this.multiple) return (this.value2() || []).some((value) => this.isEquals(value, optionValue));
+        else return this.isEquals(this.value2(), optionValue);
     }
 
     isValidOption(option) {
@@ -1687,9 +1681,9 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
                 this._options.set(currentOptions);
 
                 // Update model value if needed for selection preservation
-                if (this.modelValue()) {
-                    this.writeModelValue(this.modelValue());
-                    this.onModelChange(this.modelValue());
+                if (this.value2()) {
+                    this.writeModelValue(this.value2());
+                    this.onModelChange(this.value2());
                 }
 
                 // Mark for change detection
