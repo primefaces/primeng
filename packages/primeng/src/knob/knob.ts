@@ -392,7 +392,7 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
     }
 
     get _value(): number {
-        return this.value != null ? this.value : this.min;
+        return this.value2() != null ? this.value2() : this.min;
     }
 
     /**
