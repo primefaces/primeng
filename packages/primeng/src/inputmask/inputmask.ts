@@ -246,7 +246,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
         this.initMask();
         this.writeValue('');
-        this.onModelChange(this.value);
+        this.onModelChange(this.value2());
     }
     /**
      * Callback to invoke when the mask is completed.
@@ -530,7 +530,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         }
         this.onBlur.emit(e);
 
-        if (this.modelValue() != this.focusText || this.modelValue() != this.value) {
+        if (this.value2() != this.focusText || this.value2() != this.value) {
             this.updateModel(e);
             let event = this.document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
@@ -791,8 +791,8 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         const updatedValue = this.unmask ? this.getUnmaskedValue() : target.value;
         if (updatedValue !== null && updatedValue !== undefined) {
             this.value = updatedValue;
-            this.writeModelValue(this.value);
-            this.onModelChange(this.value);
+            this.writeModelValue(updatedValue);
+            this.onModelChange(this.value2());
         }
     }
 
@@ -803,7 +803,8 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     clear() {
         (this.inputViewChild as ElementRef).nativeElement.value = '';
         this.value = null;
-        this.onModelChange(this.value);
+        this.writeModelValue(null);
+        this.onModelChange(this.value2());
         this.onClear.emit();
     }
 
@@ -815,11 +816,11 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
         this.value = value;
-        setModelValue(this.value);
+        setModelValue(value);
 
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
-            if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
-            else this.inputViewChild.nativeElement.value = this.value;
+            if (value == undefined || value == null) this.inputViewChild.nativeElement.value = '';
+            else this.inputViewChild.nativeElement.value = value;
 
             this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;

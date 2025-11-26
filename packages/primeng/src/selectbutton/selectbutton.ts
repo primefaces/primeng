@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -11,7 +10,6 @@ import {
     forwardRef,
     inject,
     InjectionToken,
-    input,
     Input,
     NgModule,
     numberAttribute,
@@ -24,7 +22,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent, SelectButtonPassThrough } from 'primeng/types/selectbutton';
@@ -80,7 +78,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     },
     hostDirectives: [Bind]
 })
-export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> implements AfterViewChecked {
+export class SelectButton extends BaseInput<SelectButtonPassThrough> implements AfterViewChecked {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -152,18 +150,6 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * Specifies the size of the component.
-     * @defaultValue undefined
-     * @group Props
-     */
-    size = input<'large' | 'small' | undefined>();
-    /**
-     * Spans 100% width of the container when enabled.
-     * @defaultValue undefined
-     * @group Props
-     */
-    fluid = input(undefined, { transform: booleanAttribute });
-    /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
      * @group Emits
@@ -187,8 +173,6 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
         return this.optionValue ? null : this.dataKey;
     }
 
-    value: any;
-
     focusedIndex: number = 0;
 
     _componentStyle = inject(SelectButtonStyle);
@@ -203,7 +187,7 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
 
     getAllowEmpty() {
         if (this.multiple) {
-            return this.allowEmpty || this.value?.length !== 1;
+            return this.allowEmpty || this.value2()?.length !== 1;
         }
         return this.allowEmpty;
     }
@@ -235,8 +219,8 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
         let newValue;
 
         if (this.multiple) {
-            if (selected) newValue = this.value.filter((val) => !equals(val, optionValue, this.equalityKey || undefined));
-            else newValue = this.value ? [...this.value, optionValue] : [optionValue];
+            if (selected) newValue = this.value2().filter((val) => !equals(val, optionValue, this.equalityKey || undefined));
+            else newValue = this.value2() ? [...this.value2(), optionValue] : [optionValue];
         } else {
             if (selected && !this.allowEmpty) {
                 return;
@@ -245,13 +229,12 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
         }
 
         this.focusedIndex = index;
-        this.value = newValue;
-        this.writeModelValue(this.value);
-        this.onModelChange(this.value);
+        this.writeModelValue(newValue);
+        this.onModelChange(this.value2());
 
         this.onChange.emit({
             originalEvent: event,
-            value: this.value
+            value: this.value2()
         });
 
         this.onOptionClick.emit({
@@ -289,7 +272,8 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
     }
 
     removeOption(option: any): void {
-        this.value = this.value.filter((val: any) => !equals(val, this.getOptionValue(option), this.dataKey));
+        const value = this.value2().filter((val: any) => !equals(val, this.getOptionValue(option), this.dataKey));
+        this.writeModelValue(value);
     }
 
     isSelected(option: any) {
@@ -297,8 +281,8 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
         const optionValue = this.getOptionValue(option);
 
         if (this.multiple) {
-            if (this.value && Array.isArray(this.value)) {
-                for (let val of this.value) {
+            if (this.value2() && Array.isArray(this.value2())) {
+                for (let val of this.value2()) {
                     if (equals(val, optionValue, this.dataKey)) {
                         selected = true;
                         break;
@@ -306,7 +290,7 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
                 }
             }
         } else {
-            selected = equals(this.getOptionValue(option), this.value, this.equalityKey || undefined);
+            selected = equals(this.getOptionValue(option), this.value2(), this.equalityKey || undefined);
         }
 
         return selected;
@@ -331,9 +315,7 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value;
-        setModelValue(this.value);
-        this.cd.markForCheck();
+        setModelValue(value);
     }
 
     get dataP() {

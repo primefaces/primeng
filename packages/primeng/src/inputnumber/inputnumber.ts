@@ -722,7 +722,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     clear() {
         this.value = null;
-        this.onModelChange(this.value);
+        this.onModelChange(this.value2());
         this.onClear.emit();
     }
 
@@ -1434,14 +1434,14 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     }
 
     formattedValue() {
-        const val = !this.value && !this.allowEmpty ? 0 : this.value;
+        const val = !this.value2() && !this.allowEmpty ? 0 : this.value2();
         return this.formatValue(val);
     }
 
     updateModel(event: Event, value: any) {
         const isBlurUpdateOnMode = this.ngControl?.control?.updateOn === 'blur';
 
-        if (this.value !== value) {
+        if (this.value2() !== value) {
             this.value = value;
 
             if (!(isBlurUpdateOnMode && this.focused)) {
