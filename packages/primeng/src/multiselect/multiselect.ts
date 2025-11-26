@@ -31,12 +31,11 @@ import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusable
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseInput } from 'primeng/baseinput';
 import { Bind, BindModule } from 'primeng/bind';
 import { Checkbox } from 'primeng/checkbox';
 import { Chip } from 'primeng/chip';
 import { DomHandler, unblockBodyScroll } from 'primeng/dom';
-import { Fluid } from 'primeng/fluid';
 import { IconField } from 'primeng/iconfield';
 import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
 import { InputIcon } from 'primeng/inputicon';
@@ -200,7 +199,7 @@ export class MultiSelectItem extends BaseComponent {
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
                 [pAutoFocus]="autofocus"
-                [attr.value]="modelValue()"
+                [attr.value]="value2()"
                 [attr.name]="name()"
                 [attr.required]="required() ? '' : undefined"
                 [attr.disabled]="$disabled() ? '' : undefined"
@@ -245,12 +244,12 @@ export class MultiSelectItem extends BaseComponent {
                                 </p-chip>
                             </div>
                         }
-                        <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || 'empty' }}</ng-container>
+                        <ng-container *ngIf="!value2() || value2().length === 0">{{ placeholder() || 'empty' }}</ng-container>
                     </ng-container>
                 </ng-container>
                 <ng-container *ngIf="selectedItemsTemplate || _selectedItemsTemplate">
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate || _selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
-                    <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || 'empty' }}</ng-container>
+                    <ng-container *ngIf="!value2() || value2().length === 0">{{ placeholder() || 'empty' }}</ng-container>
                 </ng-container>
             </div>
         </div>
@@ -480,7 +479,7 @@ export class MultiSelectItem extends BaseComponent {
         '[style]': "sx('root')"
     }
 })
-export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
+export class MultiSelect extends BaseInput<MultiSelectPassThrough> {
     /**
      * Unique identifier of the component
      * @group Props
@@ -817,24 +816,6 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      */
     @Input({ transform: booleanAttribute }) highlightOnSelect: boolean = true;
     /**
-     * Specifies the size of the component.
-     * @defaultValue undefined
-     * @group Props
-     */
-    size = input<'large' | 'small' | undefined>();
-    /**
-     * Specifies the input variant of the component.
-     * @defaultValue undefined
-     * @group Props
-     */
-    variant = input<'filled' | 'outlined' | undefined>();
-    /**
-     * Spans 100% width of the container when enabled.
-     * @defaultValue undefined
-     * @group Props
-     */
-    fluid = input(undefined, { transform: booleanAttribute });
-    /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
      * @group Props
@@ -1023,17 +1004,9 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     _headerCheckboxIconTemplate: TemplateRef<any> | undefined;
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
-
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     $pcMultiSelect: MultiSelect | undefined = inject(MULTISELECT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
-
-    get hasFluid() {
-        return this.fluid() ?? !!this.pcFluid;
-    }
 
     onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -1128,8 +1101,6 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     _maxSelectedLabels: number = 3;
 
-    modelValue = signal<any>(null);
-
     _filterValue = signal<any>(null);
 
     _options = signal<any[]>([]);
@@ -1151,7 +1122,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && this.modelValue() !== '' && isNotEmpty(this.modelValue()) && this.showClear && !this.$disabled() && !this.readonly && this.$filled();
+        return this.value2() != null && this.value2() !== '' && isNotEmpty(this.value2()) && this.showClear && !this.$disabled() && !this.readonly && this.$filled();
     }
 
     get toggleAllAriaLabel() {
@@ -1204,7 +1175,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     label = computed(() => {
         let label;
-        const modelValue = this.modelValue();
+        const modelValue = this.value2();
 
         if (modelValue && modelValue?.length && this.displaySelectedLabel) {
             if (isNotEmpty(this.maxSelectedLabels) && modelValue?.length > (this.maxSelectedLabels || 0)) {
@@ -1227,7 +1198,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     });
 
     chipSelectedItems = computed(() => {
-        return isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue()?.length > (this.maxSelectedLabels || 0) ? this.modelValue()?.slice(0, this.maxSelectedLabels) : this.modelValue();
+        return isNotEmpty(this.maxSelectedLabels) && this.value2() && this.value2()?.length > (this.maxSelectedLabels || 0) ? this.value2()?.slice(0, this.maxSelectedLabels) : this.value2();
     });
 
     constructor(
@@ -1237,7 +1208,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     ) {
         super();
         effect(() => {
-            const modelValue = this.modelValue();
+            const modelValue = this.value2();
 
             const allVisibleAndNonVisibleOptions = this.getAllVisibleAndNonVisibleOptions();
             if (allVisibleAndNonVisibleOptions && isNotEmpty(allVisibleAndNonVisibleOptions)) {
@@ -1264,7 +1235,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     maxSelectionLimitReached() {
-        return this.selectionLimit && this.modelValue() && this.modelValue().length === this.selectionLimit;
+        return this.selectionLimit && this.value2() && this.value2().length === this.selectionLimit;
     }
 
     onAfterViewInit() {
@@ -1312,7 +1283,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     public updateModel(value, event?) {
         this.value = value;
         this.onModelChange(value);
-        this.writeValue(value);
+        this.writeModelValue(value);
     }
 
     onInputClick(event) {
@@ -1331,9 +1302,9 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         let value: any[] = [];
 
         if (selected) {
-            value = this.modelValue().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey() || ''));
+            value = this.value2().filter((val) => !equals(val, this.getOptionValue(option), this.equalityKey() || ''));
         } else {
-            value = [...(this.modelValue() || []), this.getOptionValue(option)];
+            value = [...(this.value2() || []), this.getOptionValue(option)];
         }
 
         this.updateModel(value, originalEvent);
@@ -1424,7 +1395,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     hasSelectedOption() {
-        return isNotEmpty(this.modelValue());
+        return isNotEmpty(this.value2());
     }
 
     isValidSelectedOption(option) {
@@ -1448,7 +1419,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     isSelected(option) {
         const optionValue = this.getOptionValue(option);
-        return (this.modelValue() || []).some((value) => equals(value, optionValue, this.equalityKey() || ''));
+        return (this.value2() || []).some((value) => equals(value, optionValue, this.equalityKey() || ''));
     }
 
     isOptionMatched(option) {
@@ -1489,7 +1460,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         let message = this.selectedItemsLabel ? this.selectedItemsLabel : this.config.getTranslation(TranslationKeys.SELECTION_MESSAGE);
 
         if (pattern.test(message)) {
-            return message.replace(message.match(pattern)[0], this.modelValue().length + '');
+            return message.replace(message.match(pattern)[0], this.value2().length + '');
         }
 
         return message;
@@ -1973,7 +1944,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
         if (this.options && this.options.length) {
             if (this.virtualScroll) {
-                const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+                const selectedIndex = this.value2() ? this.focusedOptionIndex() : -1;
                 if (selectedIndex !== -1) {
                     this.scroller?.scrollToIndex(selectedIndex);
                 }
@@ -2042,7 +2013,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     removeOption(optionValue, event) {
-        let value = this.modelValue().filter((val) => !equals(val, optionValue, this.equalityKey() || ''));
+        let value = this.value2().filter((val) => !equals(val, optionValue, this.equalityKey() || ''));
 
         this.updateModel(value, event);
         this.onChange.emit({
