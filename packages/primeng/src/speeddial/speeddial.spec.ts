@@ -819,13 +819,16 @@ describe('SpeedDial', () => {
             speedDialInstance.show();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
+            fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.css('button[pButton]'));
             const keydownSpy = spyOn(speedDialInstance, 'onEscapeKey').and.callThrough();
 
             button.triggerEventHandler('keydown', { code: 'Escape', preventDefault: () => {} });
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
+            fixture.detectChanges();
 
             expect(keydownSpy).toHaveBeenCalled();
             expect(speedDialInstance.visible).toBe(false);
@@ -1289,6 +1292,7 @@ describe('SpeedDial', () => {
     describe('Document Click Outside', () => {
         it('should hide when clicked outside if hideOnClickOutside is true', async () => {
             speedDialInstance.show();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             expect(speedDialInstance.visible).toBe(true);
@@ -1296,6 +1300,7 @@ describe('SpeedDial', () => {
             // Simulate document click outside by calling hide directly
             // since document click listener is complex to simulate in test environment
             speedDialInstance.hide();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 

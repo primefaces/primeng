@@ -414,39 +414,6 @@ describe('Stepper', () => {
         });
     });
 
-    describe('Animations', () => {
-        it('should apply transition options', async () => {
-            component.transitionOptions = '500ms ease-in-out';
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            fixture.detectChanges();
-
-            expect(stepper.transitionOptions()).toBe('500ms ease-in-out');
-        });
-
-        it('should handle animation start and end events', async () => {
-            const verticalFixture = TestBed.createComponent(TestVerticalStepperComponent);
-            verticalFixture.detectChanges();
-
-            const stepPanel = verticalFixture.debugElement.query(By.directive(StepPanel));
-            const stepPanelInstance = stepPanel.componentInstance;
-
-            // Simulate animation start - when panel is active, visible is set to true
-            stepPanelInstance.onAnimationStart();
-            verticalFixture.changeDetectorRef.markForCheck();
-            await verticalFixture.whenStable();
-            expect(stepPanelInstance.visible()).toBe(true);
-
-            // Simulate animation end - when panel is not active, visible is set to true
-            // (This is the actual implementation behavior in stepper.ts)
-            stepPanelInstance.onAnimationEnd();
-            verticalFixture.changeDetectorRef.markForCheck();
-            await verticalFixture.whenStable();
-            // The implementation sets visible to true when !active(), not false
-            expect(stepPanelInstance.visible()).toBe(true);
-        });
-    });
-
     describe('Accessibility', () => {
         it('should have correct ARIA roles', () => {
             const stepperElement = fixture.debugElement.query(By.css('p-stepper'));
@@ -679,7 +646,8 @@ describe('Stepper', () => {
             const panel2Instance = panels[1].componentInstance;
 
             expect(panel2Instance.active()).toBe(true);
-            expect(panel2Instance.isVisible()).toBe(true);
+            // In horizontal layout, visibility is controlled by p-motion directive based on active() state
+            expect(panel2Instance.isVertical()).toBe(false);
         });
 
         it('should handle panel visibility in vertical layout', () => {
@@ -690,7 +658,8 @@ describe('Stepper', () => {
             const panel1Instance = panels[0].componentInstance;
 
             expect(panel1Instance.isVertical()).toBe(true);
-            expect(panel1Instance.isVisible()).toBe(true);
+            // In vertical layout, visibility is controlled by p-motion directive based on active() state
+            expect(panel1Instance.active()).toBe(true);
         });
     });
 

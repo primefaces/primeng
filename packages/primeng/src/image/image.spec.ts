@@ -363,11 +363,15 @@ describe('Image', () => {
             imageInstance = testFixture.debugElement.query(By.directive(Image)).componentInstance;
         });
 
-        xit('should emit onShow event when preview is opened', () => {
+        it('should emit onShow event when preview is opened', () => {
             spyOn(imageInstance.onShow, 'emit');
 
-            imageInstance.previewVisible = true;
-            imageInstance.onAnimationEnd();
+            // onShow is now emitted in onAnimationStart, not onAnimationEnd
+            const mockElement = document.createElement('div');
+            const mockParent = document.createElement('div');
+            mockParent.appendChild(mockElement);
+            imageInstance.onAnimationStart({ element: mockElement } as any);
+
             expect(imageInstance.onShow.emit).toHaveBeenCalled();
         });
 
@@ -376,7 +380,8 @@ describe('Image', () => {
 
             imageInstance.previewVisible = false;
             imageInstance.wrapper = document.createElement('div');
-            imageInstance.onAnimationEnd();
+            // onHide is now emitted in onMaskAfterLeave, not onAnimationEnd
+            imageInstance.onMaskAfterLeave();
             expect(imageInstance.onHide.emit).toHaveBeenCalled();
         });
 
@@ -425,32 +430,6 @@ describe('Image', () => {
             expect(imageInstance.zoomInAriaLabel()).toBeDefined();
             expect(imageInstance.zoomOutAriaLabel()).toBeDefined();
             expect(imageInstance.closeAriaLabel()).toBeDefined();
-        });
-
-        xit('should set focus on close button when preview opens', (done) => {
-            const mockCloseButton = { nativeElement: document.createElement('button') };
-            const mockElement = document.createElement('div');
-            const mockWrapper = document.createElement('div');
-            mockWrapper.appendChild(mockElement);
-
-            imageInstance.closeButton = mockCloseButton as any;
-            imageInstance.$attrSelector = 'test-attr';
-
-            spyOn(mockCloseButton.nativeElement, 'focus');
-            spyOn(imageInstance, 'appendContainer');
-            spyOn(imageInstance, 'moveOnTop');
-
-            const animationEvent = {
-                toState: 'visible',
-                element: mockElement
-            } as any;
-
-            imageInstance.onAnimationStart(animationEvent);
-
-            setTimeout(() => {
-                expect(mockCloseButton.nativeElement.focus).toHaveBeenCalled();
-                done();
-            }, 50);
         });
 
         it('should have zoom image aria label', () => {
@@ -531,78 +510,6 @@ describe('Image', () => {
         });
     });
 
-    describe('Animation Events', () => {
-        let testFixture: ComponentFixture<TestPreviewImageComponent>;
-        let imageInstance: Image;
-
-        beforeEach(() => {
-            testFixture = TestBed.createComponent(TestPreviewImageComponent);
-            testFixture.detectChanges();
-            imageInstance = testFixture.debugElement.query(By.directive(Image)).componentInstance;
-        });
-
-        xit('should handle animation start for visible state', (done) => {
-            const mockElement = document.createElement('div');
-            const mockWrapper = document.createElement('div');
-            const mockCloseButton = { nativeElement: document.createElement('button') };
-            mockWrapper.appendChild(mockElement);
-
-            imageInstance.closeButton = mockCloseButton as any;
-            imageInstance.$attrSelector = 'test-attr';
-
-            const animationEvent = {
-                toState: 'visible',
-                element: mockElement
-            } as any;
-
-            spyOn(imageInstance, 'appendContainer');
-            spyOn(imageInstance, 'moveOnTop');
-            spyOn(mockCloseButton.nativeElement, 'focus');
-
-            imageInstance.onAnimationStart(animationEvent);
-
-            setTimeout(() => {
-                expect(imageInstance.container).toBe(mockElement);
-                expect(imageInstance.wrapper).toBe(mockWrapper);
-                expect(imageInstance.appendContainer).toHaveBeenCalled();
-                expect(imageInstance.moveOnTop).toHaveBeenCalled();
-                done();
-            }, 50);
-        });
-
-        xit('should handle animation start for void state', () => {
-            const mockWrapper = document.createElement('div');
-            imageInstance.wrapper = mockWrapper;
-
-            const animationEvent = {
-                toState: 'void',
-                element: document.createElement('div')
-            } as any;
-
-            imageInstance.onAnimationStart(animationEvent);
-
-            expect(mockWrapper.classList.contains('p-overlay-mask-leave')).toBe(true);
-        });
-
-        it('should handle animation end for void state', () => {
-            const mockWrapper = document.createElement('div');
-            imageInstance.wrapper = mockWrapper;
-
-            const animationEvent = {
-                toState: 'void'
-            } as any;
-
-            spyOn(imageInstance.onHide, 'emit');
-
-            imageInstance.onAnimationEnd();
-
-            expect(imageInstance.maskVisible).toBe(false);
-            expect(imageInstance.container).toBeNull();
-            expect(imageInstance.wrapper).toBeNull();
-            expect(imageInstance.onHide.emit).toHaveBeenCalled();
-        });
-    });
-
     describe('Public Methods', () => {
         let testFixture: ComponentFixture<TestPreviewImageComponent>;
         let imageInstance: Image;
@@ -617,10 +524,14 @@ describe('Image', () => {
             imageInstance.rotate = 90;
             imageInstance.scale = 1.2;
             imageInstance.previewVisible = true;
+            imageInstance.wrapper = document.createElement('div');
 
+            // closePreview only sets previewVisible to false
             imageInstance.closePreview();
-
             expect(imageInstance.previewVisible).toBe(false);
+
+            // rotate and scale are reset in onMaskAfterLeave (after animation completes)
+            imageInstance.onMaskAfterLeave();
             expect(imageInstance.rotate).toBe(0);
             expect(imageInstance.scale).toBe(1);
         });
@@ -962,7 +873,7 @@ describe('Image', () => {
                 }).compileComponents();
             });
 
-            xit('should access emitters through instance in PT', async () => {
+            it('should access emitters through instance in PT', async () => {
                 const testFixture = TestBed.createComponent(Image);
                 const testComponent = testFixture.componentInstance;
                 let emitterCalled = false;
@@ -987,8 +898,11 @@ describe('Image', () => {
                 await testFixture.whenStable();
                 testFixture.detectChanges();
 
-                testComponent.previewVisible = true;
-                testComponent.onAnimationEnd();
+                // onShow is now emitted in onAnimationStart, not onAnimationEnd
+                const mockElement = document.createElement('div');
+                const mockParent = document.createElement('div');
+                mockParent.appendChild(mockElement);
+                testComponent.onAnimationStart({ element: mockElement } as any);
                 await testFixture.whenStable();
 
                 expect(emitterCalled).toBe(true);

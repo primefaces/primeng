@@ -3677,11 +3677,11 @@ describe('Select PT (PassThrough)', () => {
         });
 
         it('should provide option index in PT context', async () => {
-            const capturedIndexes: number[] = [];
+            const capturedIndexes = new Set<number>();
             component.pt = {
                 option: ({ context }: any) => {
                     if (context?.index !== undefined) {
-                        capturedIndexes.push(context.index);
+                        capturedIndexes.add(context.index);
                     }
                     return {};
                 }
@@ -3693,10 +3693,11 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(capturedIndexes.length).toBe(component.options.length);
-            expect(capturedIndexes).toContain(0);
-            expect(capturedIndexes).toContain(1);
-            expect(capturedIndexes).toContain(2);
+            // Use Set size to account for multiple renders per option
+            expect(capturedIndexes.size).toBe(component.options.length);
+            expect(capturedIndexes.has(0)).toBe(true);
+            expect(capturedIndexes.has(1)).toBe(true);
+            expect(capturedIndexes.has(2)).toBe(true);
         });
 
         it('should provide complete context object with all properties in getPTItemOptions', async () => {
