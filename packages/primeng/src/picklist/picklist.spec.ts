@@ -1120,15 +1120,15 @@ describe('PickList', () => {
 
             ptFixture = TestBed.createComponent(PickList);
             ptPicklist = ptFixture.componentInstance;
-            ptPicklist.source = [
+            ptPicklist.source.set([
                 { label: 'Item 1', value: 'i1' },
                 { label: 'Item 2', value: 'i2' },
                 { label: 'Item 3', value: 'i3' }
-            ];
-            ptPicklist.target = [
+            ]);
+            ptPicklist.target.set([
                 { label: 'Item 4', value: 'i4' },
                 { label: 'Item 5', value: 'i5' }
-            ];
+            ]);
         });
 
         describe('Case 1: Simple string classes', () => {
