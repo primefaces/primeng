@@ -116,7 +116,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @defaultValue 'self'
      * @group Props
      */
-    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('body');
     /**
      * Whether to automatically manage layering.
      * @group Props

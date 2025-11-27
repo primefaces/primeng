@@ -500,20 +500,20 @@ export class ButtonDirective extends BaseComponent {
     }
 
     createLabel() {
-        const created = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
+        const created = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
         if (!created && this.label) {
-            let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('label'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
+            let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('buttonlabel'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
             labelElement.appendChild(this.document.createTextNode(this.label));
             this.htmlElement.appendChild(labelElement);
         }
     }
 
     createIcon() {
-        const created = findSingle(this.htmlElement, '[data-pc-name="buttonicon"]');
+        const created = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
         if (!created && (this.icon || this.loading)) {
             let iconPosClass = this.label && !this.$unstyled() ? 'p-button-icon-' + this.iconPos : null;
             let iconClass = !this.$unstyled() && this.getIconClass();
-            let iconElement: HTMLElement = <HTMLElement>createElement('span', { class: this.cn(this.cx('icon'), iconPosClass, iconClass), 'aria-hidden': 'true', 'p-bind': this.ptm('icon') });
+            let iconElement: HTMLElement = <HTMLElement>createElement('span', { class: this.cn(this.cx('icon'), iconPosClass, iconClass), 'aria-hidden': 'true', 'p-bind': this.ptm('buttonicon') });
 
             if (!this.loadingIcon && this.loading) {
                 iconElement.innerHTML = this.spinnerIcon;
@@ -524,7 +524,7 @@ export class ButtonDirective extends BaseComponent {
     }
 
     updateLabel() {
-        let labelElement = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
+        let labelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
 
         if (!this.label) {
             labelElement && this.htmlElement.removeChild(labelElement);
@@ -535,8 +535,8 @@ export class ButtonDirective extends BaseComponent {
     }
 
     updateIcon() {
-        let iconElement = findSingle(this.htmlElement, '[data-pc-name="buttonicon"]');
-        let labelElement = findSingle(this.htmlElement, '[data-pc-name="buttonlabel"]');
+        let iconElement = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
+        let labelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
 
         if (this.loading && !this.loadingIcon && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
