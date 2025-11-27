@@ -22,7 +22,6 @@ import {
     Optional,
     Output,
     QueryList,
-    signal,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -5408,22 +5407,9 @@ export class ReorderableRow extends BaseComponent {
                     </ng-container>
                 </ng-template>
             </p-button>
-            @if (renderOverlay()) {
-                <div
-                    [pMotion]="showMenu && overlayVisible"
-                    [pMotionAppear]="true"
-                    pMotionName="p-anchored-overlay"
-                    (pMotionOnBeforeEnter)="onOverlayBeforeEnter($event)"
-                    (pMotionOnAfterLeave)="onOverlayAnimationAfterLeave($event)"
-                    [pMotionOptions]="computedMotionOptions()"
-                    [class]="cx('filterOverlay')"
-                    [pBind]="ptm('filterOverlay')"
-                    [id]="overlayId"
-                    [attr.aria-modal]="true"
-                    role="dialog"
-                    (click)="onContentClick()"
-                    (keydown.escape)="onEscape()"
-                >
+
+            <p-motion [visible]="showMenu && overlayVisible" name="p-anchored-overlay" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAnimationAfterLeave($event)" [options]="computedMotionOptions()">
+                <div [class]="cx('filterOverlay')" [pBind]="ptm('filterOverlay')" [id]="overlayId" [attr.aria-modal]="true" role="dialog" (click)="onContentClick()" (keydown.escape)="onEscape()">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: field }"></ng-container>
                     <ul *ngIf="display === 'row'; else menu" [class]="cx('filterConstraintList')" [pBind]="ptm('filterConstraintList')">
                         <li
@@ -5544,7 +5530,7 @@ export class ReorderableRow extends BaseComponent {
                     </ng-template>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: field }"></ng-container>
                 </div>
-            }
+            </p-motion>
         </div>
     `,
     providers: [TableStyle],
@@ -5769,8 +5755,6 @@ export class ColumnFilter extends BaseComponent {
     @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<any>>;
 
     overlaySubscription: Subscription | undefined;
-
-    renderOverlay = signal<boolean>(false);
 
     /**
      * Custom header template.
@@ -6081,7 +6065,6 @@ export class ColumnFilter extends BaseComponent {
 
     toggleMenu(event: Event) {
         this.overlayVisible = !this.overlayVisible;
-        this.renderOverlay.set(!this.renderOverlay());
         event.stopPropagation();
     }
 
@@ -6163,7 +6146,7 @@ export class ColumnFilter extends BaseComponent {
     onOverlayAnimationAfterLeave(event: MotionEvent) {
         this.restoreOverlayAppend();
         this.onOverlayHide();
-        this.renderOverlay.set(false);
+
         if (this.overlaySubscription) {
             this.overlaySubscription.unsubscribe();
         }
@@ -6312,7 +6295,7 @@ export class ColumnFilter extends BaseComponent {
 
     onDestroy() {
         if (this.overlay) {
-            this.restoreOverlayAppend();
+            this.renderer.appendChild(this.el.nativeElement, this.overlay);
             ZIndexUtils.clear(this.overlay);
             this.onOverlayHide();
         }
