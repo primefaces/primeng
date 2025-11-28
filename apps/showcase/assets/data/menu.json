@@ -563,6 +563,11 @@
                     "name": "Accessibility",
                     "routerLink": "/guides/accessibility"
                 },
+                       {
+                    "name": "Animations",
+                    "routerLink": "/guides/animations",
+                    "badge": "NEW"
+                },
                 {
                     "name": "PrimeFlex",
                     "routerLink": "/guides/primeflex"
