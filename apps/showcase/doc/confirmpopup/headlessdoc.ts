@@ -4,7 +4,6 @@ import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
@@ -12,7 +11,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'confirm-popup-headless-demo',
     standalone: true,
-    imports: [CommonModule, ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText, AutoFocusModule],
+    imports: [CommonModule, ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
