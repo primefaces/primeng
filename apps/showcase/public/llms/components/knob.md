@@ -6,6 +6,13 @@ Knob is a form component to define number inputs with a dial.
 
 Screen Reader Knob element component uses slider role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
+```html
+<span id="label_number">Number</span>
+<p-knob ariaLabelledBy="label_number"/>
+
+<p-knob ariaLabel="Number"/>
+```
+
 ## Basic
 
 Knob is an input component and used with the standard ngModel directive.
@@ -22,6 +29,26 @@ Colors are customized with the textColor , rangeColor and valueColor properties.
 <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-color-demo',
+    templateUrl: './knob-color-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob]
+})
+export class KnobColorDemo {
+    value: number = 50;
+}
+```
+</details>
+
 ## Disabled
 
 When disabled is present, a visual hint is applied to indicate that the Knob cannot be interacted with.
@@ -30,6 +57,26 @@ When disabled is present, a visual hint is applied to indicate that the Knob can
 <p-knob [(ngModel)]="value" [disabled]="true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-disabled-demo',
+    templateUrl: './knob-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob]
+})
+export class KnobDisabledDemo {
+    value: number = 75;
+}
+```
+</details>
+
 ## Min/Max
 
 Boundaries are configured with the min and max properties whose defaults are 0 and 100 respectively.
@@ -37,6 +84,26 @@ Boundaries are configured with the min and max properties whose defaults are 0 a
 ```html
 <p-knob [(ngModel)]="value" [min]="-50" [max]="50" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-min-max-demo',
+    templateUrl: './knob-min-max-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob]
+})
+export class KnobMinMaxDemo {
+    value: number = 10;
+}
+```
+</details>
 
 ## Reactive
 
@@ -49,6 +116,27 @@ Knob can be controlled with custom controls as well.
     <p-button icon="pi pi-minus" (click)="value = value-1" [disabled]="value <= 0" />
 </div>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'knob-reactive-demo',
+    templateUrl: './knob-reactive-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob, ButtonModule]
+})
+export class KnobReactiveDemo {
+    value: number = 0;
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -66,6 +154,75 @@ Knob can also be used with reactive forms. In this case, the formControlName pro
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { KnobModule } from 'primeng/knob';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'knob-reactive-forms-demo',
+    templateUrl: './knob-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, KnobModule, MessageModule, ToastModule, ButtonModule]
+})
+export class KnobReactiveFormsDemo {
+    messageService = inject(MessageService);
+
+    items: any[] | undefined;
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted: boolean = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            value: [15, [Validators.min(25), Validators.max(75)]]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset({
+                value: 15
+            });
+            this.formSubmitted = false;
+        }
+    }
+
+    getControl(controlName: string): AbstractControl | null {
+        return this.exampleForm?.get(controlName) ?? null;
+    }
+
+    getErrorMessage(controlName: string): string | null {
+        const control = this.getControl(controlName);
+        if (!control || !control.errors) return null;
+
+        if (control.errors['min']) {
+            return 'Value must be greater than 15.';
+        }
+
+        if (control.errors['max']) {
+            return 'Must be less than 75.';
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.getControl(controlName);
+        return control?.invalid && (control.dirty || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## ReadOnly
 
 When readonly present, value cannot be edited.
@@ -73,6 +230,26 @@ When readonly present, value cannot be edited.
 ```html
 <p-knob [(ngModel)]="value" [readonly]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-readonly-demo',
+    templateUrl: './knob-readonly-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob]
+})
+export class KnobReadonlyDemo {
+    value: number = 50;
+}
+```
+</details>
 
 ## Size
 
@@ -82,6 +259,26 @@ Diameter of the knob is defined in pixels using the size property.
 <p-knob [(ngModel)]="value" [size]="200" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-size-demo',
+    templateUrl: './knob-size-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob]
+})
+export class KnobSizeDemo {
+    value: number = 60;
+}
+```
+</details>
+
 ## Step
 
 Size of each movement is defined with the step property.
@@ -90,6 +287,26 @@ Size of each movement is defined with the step property.
 <p-knob [(ngModel)]="value" [step]="10" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-step-demo',
+    templateUrl: './knob-step-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob]
+})
+export class KnobStepDemo {
+    value!: number;
+}
+```
+</details>
+
 ## Stroke
 
 The border size is specified with the strokeWidth property as a number in pixels.
@@ -97,6 +314,26 @@ The border size is specified with the strokeWidth property as a number in pixels
 ```html
 <p-knob [(ngModel)]="value" [strokeWidth]="5" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-stroke-demo',
+    templateUrl: './knob-stroke-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob]
+})
+export class KnobStrokeDemo {
+    value: number = 40;
+}
+```
+</details>
 
 ## styledoc
 
@@ -109,6 +346,26 @@ Label is a string template that can be customized with the valueTemplate propert
 ```html
 <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Knob } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-template-demo',
+    templateUrl: './knob-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, Knob]
+})
+export class KnobTemplateDemo {
+    value: number = 60;
+}
+```
+</details>
 
 ## templatedrivenformsdoc
 
@@ -123,6 +380,68 @@ Label is a string template that can be customized with the valueTemplate propert
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { KnobModule } from 'primeng/knob';
+
+@Component({
+    selector: 'knob-template-driven-forms-demo',
+    templateUrl: './knob-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, KnobModule, MessageModule, ToastModule, ButtonModule]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    value: number = 15;
+
+    formSubmitted: boolean = false;
+
+    onSubmit(form: NgForm) {
+        this.formSubmitted = true;
+
+        if (!this.isInvalid(form.controls['knob'])) {
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Form is submitted',
+                life: 3000
+            });
+
+            form.resetForm({ knob: 15 });
+
+            this.formSubmitted = false;
+        }
+    }
+
+    getErrorMessage(control: any): string | null {
+        const value = control?.value;
+
+        return value < 25 ? 'Value must be greater than 25.' : value > 75 ? 'Must be less than 75.' : null;
+    }
+
+    isInvalid(control: any): boolean {
+        if (!control) return false;
+
+        const value = control.value;
+
+        const hasError = value < 25 || value > 75;
+
+        return hasError && (this.formSubmitted || control.dirty);
+    }
+}
+```
+</details>
 
 ## Knob
 

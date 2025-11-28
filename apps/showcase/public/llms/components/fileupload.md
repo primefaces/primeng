@@ -18,6 +18,44 @@ Advanced uploader provides dragdrop support, multi file uploads, auto uploading,
 </p-fileupload>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { FileUpload } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+import { CommonModule } from '@angular/common';
+
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
+
+@Component({
+    selector: 'file-upload-advanced-demo',
+    templateUrl: './file-upload-advanced-demo.html',
+    standalone: true,
+    imports: [FileUpload, ToastModule, CommonModule],
+    providers: [MessageService]
+})
+export class FileUploadAdvancedDemo {
+    uploadedFiles: any[] = [];
+
+    constructor(private messageService: MessageService) {}
+
+    onUpload(event:UploadEvent) {
+        for(let file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+
+        this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+    }
+}
+```
+</details>
+
 ## Auto
 
 When auto property is enabled, a file gets uploaded instantly after selection.
@@ -25,6 +63,37 @@ When auto property is enabled, a file gets uploaded instantly after selection.
 ```html
 <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { FileUpload } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+
+interface UploadEvent {
+    originalEvent: Event;
+    files: File[];
+}
+
+@Component({
+    selector: 'file-upload-auto-demo',
+    templateUrl: './file-upload-auto-demo.html',
+    standalone: true,
+    imports: [FileUpload, ToastModule],
+    providers: [MessageService]
+})
+export class FileUploadAutoDemo {
+    constructor(private messageService: MessageService) { }
+
+    onBasicUploadAuto(event: UploadEvent) {
+        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
+    }
+}
+```
+</details>
 
 ## Basic
 
@@ -42,6 +111,39 @@ FileUpload basic mode provides a simpler UI as an alternative to default advance
 ```html
 <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, Input } from '@angular/core';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    selector: 'file-upload-custom-demo',
+    templateUrl: './file-upload-custom-demo.html',
+    providers: [MessageService]
+})
+export class CustomDoc {
+
+    constructor(private messageService: MessageService) {}
+
+    async customUploader(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+        let blob = await fetch(file.objectURL).then((r) => r.blob()); //blob:url
+
+        reader.readAsDataURL(blob);
+
+        reader.onloadend = function () {
+            const base64data = reader.result;
+        };
+
+        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -105,6 +207,86 @@ Following is the list of structural style classes, for theming classes visit the
     </ng-template>
 </p-fileupload>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService} from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
+import { FileUpload } from 'primeng/fileupload';
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+import { BadgeModule } from 'primeng/badge';
+import { HttpClientModule } from '@angular/common/http';
+import { ProgressBar } from 'primeng/progressbar';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'file-upload-template-demo',
+    templateUrl: './file-upload-template-demo.html',
+    standalone: true,
+    imports: [FileUpload, ButtonModule, BadgeModule, ProgressBar, ToastModule, HttpClientModule, CommonModule],
+    providers: [MessageService]
+})
+export class FileUploadTemplateDemo {
+    files = [];
+
+    totalSize : number = 0;
+
+    totalSizePercent : number = 0;
+
+    constructor(private config: PrimeNG, private messageService: MessageService) {}
+
+    choose(event, callback) {
+        callback();
+    }
+
+    onRemoveTemplatingFile(event, file, removeFileCallback, index) {
+        removeFileCallback(event, index);
+        this.totalSize -= parseInt(this.formatSize(file.size));
+        this.totalSizePercent = this.totalSize / 10;
+    }
+
+    onClearTemplatingUpload(clear) {
+        clear();
+        this.totalSize = 0;
+        this.totalSizePercent = 0;
+    }
+
+    onTemplatedUpload() {
+        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+    }
+
+    onSelectedFiles(event) {
+        this.files = event.currentFiles;
+        this.files.forEach((file) => {
+            this.totalSize += parseInt(this.formatSize(file.size));
+        });
+        this.totalSizePercent = this.totalSize / 10;
+    }
+
+    uploadEvent(callback) {
+        callback();
+    }
+
+    formatSize(bytes) {
+        const k = 1024;
+        const dm = 3;
+        const sizes = this.config.translation.fileSizeTypes;
+        if (bytes === 0) {
+            return \`0 \${sizes[0]}\`;
+        }
+
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        const formattedSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm));
+
+        return \`\${formattedSize} \${sizes[i]}\`;
+    }
+}
+```
+</details>
 
 ## File Upload
 

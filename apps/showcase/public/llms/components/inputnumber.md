@@ -6,6 +6,19 @@ InputNumber is an input component to provide numerical input.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel , ariaDescribedBy props. The input element uses spinbutton role in addition to the aria-valuemin , aria-valuemax and aria-valuenow attributes.
 
+```html
+<label for="price">Price</label>
+<p-inputnumber inputId="price" />
+
+<span id="label_number">Number</span>
+<p-inputnumber ariaLabelledBy="label_number" />
+
+<p-inputnumber ariaLabel="Number" />
+
+<p-inputnumber ariaDescribedBy="describe" />
+<small id="describe">Information</small>
+```
+
 ## Buttons
 
 Spinner buttons are enabled using the showButtons options and layout is defined with the buttonLayout . Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons, up and down arrow keys can be used to spin the values with keyboard.
@@ -23,6 +36,31 @@ Spinner buttons are enabled using the showButtons options and layout is defined 
 </p-inputnumber>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { Fluid } from 'primeng/fluid';
+
+@Component({
+    selector: 'input-number-buttons-demo',
+    templateUrl: './input-number-buttons-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber, Fluid]
+})
+export class InputNumberButtonsDemo {
+    value1: number = 20;
+
+    value2: number = 10.5;
+
+    value3: number = 25;
+}
+```
+</details>
+
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
@@ -30,6 +68,26 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```html
 <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true" inputStyleClass="w-56" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-number-clear-icon-demo',
+    templateUrl: './input-number-clear-icon-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumberModule]
+})
+export class InputNumberClearIconDemo {
+    value: number | undefined;
+}
+```
+</details>
 
 ## Currency
 
@@ -42,6 +100,33 @@ Currency formatting is specified by setting the mode option to currency and curr
 <p-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { Fluid } from 'primeng/fluid';
+
+@Component({
+    selector: 'input-number-currency-demo',
+    templateUrl: './input-number-currency-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber, Fluid]
+})
+export class InputNumberCurrencyDemo {
+    value1: number = 1500;
+
+    value2: number = 2500;
+
+    value3: number = 4250;
+
+    value4: number = 5002;
+}
+```
+</details>
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
@@ -50,6 +135,26 @@ When disabled is present, the element cannot be edited and focused.
 <p-inputnumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-number-disabled-demo',
+    templateUrl: './input-number-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber]
+})
+export class InputNumberDisabledDemo {
+    value1: number = 50;
+}
+```
+</details>
+
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
@@ -57,6 +162,26 @@ Specify the variant property as filled to display the component with a higher vi
 ```html
 <p-inputnumber variant="filled" [(ngModel)]="value1" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-number-filled-demo',
+    templateUrl: './input-number-filled-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber]
+})
+export class InputNumberFilledDemo {
+    value1!: number;
+}
+```
+</details>
 
 ## Float Label
 
@@ -79,6 +204,31 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 </p-floatlabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { FloatLabel } from 'primeng/floatlabel';
+
+@Component({
+    selector: 'input-number-float-label-demo',
+    templateUrl: './input-number-float-label-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber, FloatLabel]
+})
+export class InputNumberFloatLabelDemo {
+    value1: number | undefined;
+
+    value2: number | undefined;
+
+    value3: number | undefined;
+}
+```
+</details>
+
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
@@ -86,6 +236,26 @@ The fluid prop makes the component take up the full width of its container when 
 ```html
 <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" fluid />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-number-fluid-demo',
+    templateUrl: './input-number-fluid-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumberModule]
+})
+export class InputNumberFluidDemo {
+    value: number | undefined;
+}
+```
+</details>
 
 ## Ifta Label
 
@@ -98,6 +268,27 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 </p-iftalabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { IftaLabelModule } from 'primeng/iftalabel';
+
+@Component({
+    selector: 'input-number-ifta-label-demo',
+    templateUrl: './input-number-ifta-label-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumberModule, IftaLabelModule]
+})
+export class InputNumberIftaLabelDemo {
+    value: number | undefined;
+}
+```
+</details>
+
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -106,6 +297,28 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 <p-inputnumber [(ngModel)]="value1" [invalid]="value1 === undefined" mode="decimal" [minFractionDigits]="2" placeholder="Amount" />
 <p-inputnumber [(ngModel)]="value2" [invalid]="value2 === undefined" mode="decimal" [minFractionDigits]="2" variant="filled" placeholder="Amount" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-number-invalid-demo',
+    templateUrl: './input-number-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber]
+})
+export class InputNumberInvalidDemo {
+    value1!: number;
+
+    value2!: number;
+}
+```
+</details>
 
 ## Locale
 
@@ -118,6 +331,33 @@ Localization information such as grouping and decimal symbols are defined with t
 <p-inputnumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { Fluid } from 'primeng/fluid';
+
+@Component({
+    selector: 'input-number-locale-demo',
+    templateUrl: './input-number-locale-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber, Fluid]
+})
+export class InputNumberLocaleDemo {
+    value1: number = 151351;
+
+    value2: number = 115744;
+
+    value3: number = 635524;
+
+    value4: number = 732762;
+}
+```
+</details>
+
 ## Numerals
 
 InputNumber is used as a controlled input with ngModel property.
@@ -129,6 +369,33 @@ InputNumber is used as a controlled input with ngModel property.
 <p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { Fluid } from 'primeng/fluid';
+
+@Component({
+    selector: 'input-number-numerals-demo',
+    templateUrl: './input-number-numerals-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber, Fluid]
+})
+export class InputNumberNumeralsDemo {
+    value1: number = 42723;
+
+    value2: number = 58151;
+
+    value3: number = 2351.35;
+
+    value4: number = 50;
+}
+```
+</details>
+
 ## Prefix & Suffix
 
 Custom texts e.g. units can be placed before or after the input section with the prefix and suffix properties.
@@ -139,6 +406,33 @@ Custom texts e.g. units can be placed before or after the input section with the
 <p-inputnumber [(ngModel)]="value3"inputId="expiry" prefix="Expires in " suffix=" days" />
 <p-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { Fluid } from 'primeng/fluid';
+
+@Component({
+    selector: 'input-number-prefix-suffix-demo',
+    templateUrl: './input-number-prefix-suffix-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber, Fluid]
+})
+export class InputNumberPrefixSuffixDemo {
+    value1: number = 20;
+
+    value2: number = 50;
+
+    value3: number = 10;
+
+    value4: number = 20;
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -156,6 +450,54 @@ InputNumber can also be used with reactive forms. In this case, the formControlN
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { InputNumber } from 'primeng/inputnumber';
+import { MessageService } from 'primeng/api';
+import { Message } from 'primeng/message';
+import { Button } from 'primeng/button';
+import { Toast } from 'primeng/toast';
+
+@Component({
+    selector: 'input-number-reactive-forms-demo',
+    templateUrl: './input-number-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, InputNumber, Message, Button, Toast],
+})
+export class InputNumberReactiveFormsDemo implements OnInit {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            value: [undefined, Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## Sizes
 
 InputNumber provides small and large sizes as alternatives to the base.
@@ -165,6 +507,30 @@ InputNumber provides small and large sizes as alternatives to the base.
 <p-inputnumber [(ngModel)]="value2" placeholder="Normal" mode="currency" currency="USD" locale="en-US" />
 <p-inputnumber [(ngModel)]="value3" size="large" placeholder="Large" mode="currency" currency="USD" locale="en-US" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-number-sizes-demo',
+    templateUrl: './input-number-sizes-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber]
+})
+export class InputNumberSizesDemo {
+    value1!: number;
+
+    value2!: number;
+
+    value3!: number;
+}
+```
+</details>
 
 ## styledoc
 
@@ -184,6 +550,39 @@ Following is the list of structural style classes, for theming classes visit the
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputNumber } from 'primeng/inputnumber';
+import { Message } from 'primeng/message';
+import { Toast } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { Button } from 'primeng/button';
+
+@Component({
+    selector: 'rating-template-driven-forms-demo',
+    templateUrl: './rating-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber, Message, Toast, Button]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    value: any;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
+
 ## Vertical
 
 Buttons can also placed vertically by setting buttonLayout as vertical .
@@ -198,6 +597,26 @@ Buttons can also placed vertically by setting buttonLayout as vertical .
     </ng-template>
 </p-inputnumber>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputNumber } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-number-vertical-demo',
+    templateUrl: './input-number-vertical-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumber]
+})
+export class InputNumberVerticalDemo {
+    value1: number = 50;
+}
+```
+</details>
 
 ## Input Number
 

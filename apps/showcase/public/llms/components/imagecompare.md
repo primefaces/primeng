@@ -36,6 +36,24 @@ Apply responsive styles to the container element to optimize display per screen 
 </p-imagecompare>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ImageCompareModule } from 'primeng/imagecompare';
+
+@Component({
+    selector: 'image-compare-responsive-demo',
+    templateUrl: './image-compare-responsive-demo.html',
+    standalone: true,
+    imports: [ImageCompareModule]
+})
+export class ImageCompareResponsiveDemo {
+}
+```
+</details>
+
 ## Pass Through Options
 
 | Name | Type | Description |

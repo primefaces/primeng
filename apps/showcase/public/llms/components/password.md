@@ -6,6 +6,16 @@ Password displays strength indicator for password fields.
 
 Screen Reader Value to describe the component can either be provided via label tag combined with id prop or using ariaLabelledBy , ariaLabel props. Screen reader is notified about the changes to the strength of the password using a section that has aria-live while typing.
 
+```html
+<label for="pwd1">Password</label>
+<p-password inputId="pwd1" />
+
+<span id="pwd2">Password</span>
+<p-password ariaLabelledBy="pwd2" />
+
+<p-password ariaLabel="Password" />
+```
+
 ## Basic
 
 Two-way value binding is defined using ngModel .
@@ -22,6 +32,26 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" [showClear]="true" inputStyleClass="w-56" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-clear-icon-demo',
+    templateUrl: './password-clear-icon-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordClearIconDemo {
+    value!: string;
+}
+```
+</details>
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
@@ -30,6 +60,26 @@ When disabled is present, the element cannot be edited and focused.
 <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-disabled-demo',
+    templateUrl: './password-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordDisabledDemo {
+    value!: string;
+}
+```
+</details>
+
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
@@ -37,6 +87,26 @@ Specify the variant property as filled to display the component with a higher vi
 ```html
 <p-password [(ngModel)]="value" [feedback]="false" variant="filled" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-filled-demo',
+    templateUrl: './password-filled-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordFilledDemo {
+    value!: string;
+}
+```
+</details>
 
 ## Float Label
 
@@ -59,6 +129,31 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 </p-floatlabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+import { FloatLabelModule } from 'primeng/floatlabel';
+
+@Component({
+    selector: 'password-floatlabel-demo',
+    templateUrl: './password-floatlabel-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule, FloatLabelModule]
+})
+export class PasswordFloatlabelDemo {
+    value1!: string;
+
+    value2!: string;
+
+    value3!: string;
+}
+```
+</details>
+
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
@@ -66,6 +161,26 @@ The fluid prop makes the component take up the full width of its container when 
 ```html
 <p-password [(ngModel)]="value" [feedback]="false" fluid />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-fluid-demo',
+    templateUrl: './password-fluid-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordFluidDemo {
+    value!: string;
+}
+```
+</details>
 
 ## Ifta Label
 
@@ -78,6 +193,27 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 </p-iftalabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+import { IftaLabelModule } from 'primeng/iftalabel';
+
+@Component({
+    selector: 'password-iftalabel-demo',
+    templateUrl: './password-iftalabel-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule, IftaLabelModule]
+})
+export class PasswordIftaLabelDemo {
+    value!: string;
+}
+```
+</details>
+
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -87,6 +223,28 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 <p-password [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Password" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-invalid-demo',
+    templateUrl: './password-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordInvalidDemo {
+    value1!: string;
+
+    value2!: string;
+}
+```
+</details>
+
 ## Locale
 
 Labels are translated at component level by promptLabel , weakLabel , mediumLabel and strongLabel properties. In order to apply global translations for all Password components in the application, refer to the locale
@@ -95,6 +253,26 @@ Labels are translated at component level by promptLabel , weakLabel , mediumLabe
 <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-locale-demo',
+    templateUrl: './password-locale-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordLocaleDemo {
+    value!: string;
+}
+```
+</details>
+
 ## Meter
 
 Strength meter is displayed as a popup while a value is being entered.
@@ -102,6 +280,26 @@ Strength meter is displayed as a popup while a value is being entered.
 ```html
 <p-password [(ngModel)]="value" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-meter-demo',
+    templateUrl: './password-meter-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordMeterDemo {
+    value!: string;
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -120,6 +318,54 @@ Password can also be used with reactive forms. In this case, the formControlName
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'password-reactive-forms-demo',
+    templateUrl: './password-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, PasswordModule, MessageModule, ToastModule, ButtonModule]
+})
+export class PasswordReactiveFormsDemo {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted: boolean = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            value: ['', Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## Sizes
 
 Password provides small and large sizes as alternatives to the base.
@@ -129,6 +375,30 @@ Password provides small and large sizes as alternatives to the base.
 <p-password [(ngModel)]="value2" type="text" placeholder="Normal" />
 <p-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-sizes-demo',
+    templateUrl: './password-sizes-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordSizesDemo {
+    value1: string;
+
+    value2: string;
+
+    value3: string;
+}
+```
+</details>
 
 ## styledoc
 
@@ -155,6 +425,27 @@ Following is the list of structural style classes, for theming classes visit the
 </p-password>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'primeng/divider';
+
+@Component({
+    selector: 'password-template-demo',
+    templateUrl: './password-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule, DividerModule]
+})
+export class PasswordTemplateDemo {
+    value!: string;
+}
+```
+</details>
+
 ## templatedrivenformsdoc
 
 ```html
@@ -170,6 +461,39 @@ Following is the list of structural style classes, for theming classes visit the
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'password-template-driven-forms-demo',
+    templateUrl: './password-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule, MessageModule, ToastModule, ButtonModule]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    value: any;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
+
 ## Toggle Mask
 
 When toggleMask is present, an icon is displayed to show the value as plain text.
@@ -177,6 +501,26 @@ When toggleMask is present, an icon is displayed to show the value as plain text
 ```html
 <p-password [(ngModel)]="value" [toggleMask]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PasswordModule } from 'primeng/password';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'password-toggle-mask-demo',
+    templateUrl: './password-toggle-mask-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule]
+})
+export class PasswordToggleMaskDemo {
+    value!: string;
+}
+```
+</details>
 
 ## Password
 

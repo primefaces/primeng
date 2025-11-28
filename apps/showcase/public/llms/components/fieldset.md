@@ -42,6 +42,24 @@ Header section can also be defined with custom content instead of primitive valu
 </p-fieldset>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FieldsetModule } from 'primeng/fieldset';
+import { AvatarModule } from 'primeng/avatar';
+
+@Component({
+    selector: 'fieldset-template-demo',
+    templateUrl: './fieldset-template-demo.html',
+    standalone: true,
+    imports: [FieldsetModule, AvatarModule]
+})
+export class FieldsetTemplateDemo {}
+```
+</details>
+
 ## Toggleable
 
 Content of the fieldset can be expanded and collapsed using toggleable option, default state is defined with collapsed option.
@@ -53,6 +71,23 @@ Content of the fieldset can be expanded and collapsed using toggleable option, d
     </p>
 </p-fieldset>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FieldsetModule } from 'primeng/fieldset';
+
+@Component({
+    selector: 'fieldset-toggleable-demo',
+    templateUrl: './fieldset-toggleable-demo.html',
+    standalone: true,
+    imports: [FieldsetModule]
+})
+export class FieldsetToggleableDemo {}
+```
+</details>
 
 ## Fieldset
 

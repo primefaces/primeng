@@ -27,6 +27,43 @@ Steps can be controlled programmatically using activeIndex property.
 <p-steps [activeIndex]="active" [model]="items" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { StepsModule } from 'primeng/steps';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'steps-controlled-demo',
+    templateUrl: './steps-controlled-demo.html',
+    standalone: true,
+    imports: [StepsModule, ButtonModule]
+})
+export class StepsControlledDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    active: number = 0;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Personal Info'
+            },
+            {
+                label: 'Reservation'
+            },
+            {
+                label: 'Review'
+            }
+        ];
+    }
+}
+```
+</details>
+
 ## Interactive
 
 In order to add interactivity to the component, disable readonly and use a binding to activeIndex along with activeIndexChange to control the Steps.
@@ -35,6 +72,57 @@ In order to add interactivity to the component, disable readonly and use a bindi
 <p-toast />
 <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem, MessageService } from 'primeng/api';
+import { StepsModule } from 'primeng/steps';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'steps-interactive-demo',
+    templateUrl: './steps-interactive-demo.html',
+    standalone: true,
+    imports: [StepsModule, ToastModule],
+    providers: [MessageService]
+})
+export class StepsInteractiveDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    activeIndex: number = 0;
+
+    constructor(public messageService: MessageService) {}
+
+    onActiveIndexChange(event: number) {
+        this.activeIndex = event;
+    }
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Personal',
+                command: (event: any) => this.messageService.add({severity:'info', summary:'First Step', detail: event.item.label})
+            },
+            {
+                label: 'Seat',
+                command: (event: any) => this.messageService.add({severity:'info', summary:'Second Step', detail: event.item.label})
+            },
+            {
+                label: 'Payment',
+                command: (event: any) => this.messageService.add({severity:'info', summary:'Third Step', detail: event.item.label})
+            },
+            {
+                label: 'Confirmation',
+                command: (event: any) => this.messageService.add({severity:'info', summary:'Last Step', detail: event.item.label})
+            }
+        ];
+    }
+}
+```
+</details>
 
 ## Routing
 

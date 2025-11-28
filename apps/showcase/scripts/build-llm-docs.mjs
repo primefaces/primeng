@@ -57,6 +57,95 @@ const COMPONENT_NAME_MAP = {
     styleclass: 'StyleClass'
 };
 
+// Guide/documentation pages configuration
+// Maps route paths to their doc directories and metadata
+const GUIDE_PAGES = [
+    {
+        route: 'installation',
+        docPath: 'installation',
+        title: 'Installation',
+        description: 'Setting up PrimeNG in an Angular CLI project.'
+    },
+    {
+        route: 'configuration',
+        docPath: 'configuration',
+        title: 'Configuration',
+        description: 'Application wide configuration for PrimeNG.'
+    },
+    {
+        route: 'theming/styled',
+        docPath: 'theming/styled',
+        title: 'Styled Mode',
+        description: 'Choose from a variety of pre-styled themes or develop your own.'
+    },
+    {
+        route: 'theming/unstyled',
+        docPath: 'theming/unstyled',
+        title: 'Unstyled Mode',
+        description: 'Theming PrimeNG with alternative styling approaches.'
+    },
+    {
+        route: 'icons',
+        docPath: 'icons',
+        title: 'Icons',
+        description: 'PrimeIcons is the default icon library of PrimeNG with over 250 open source icons.'
+    },
+    {
+        route: 'customicons',
+        docPath: 'customicons',
+        title: 'Custom Icons',
+        description: 'Use custom icons with PrimeNG components.'
+    },
+    {
+        route: 'passthrough',
+        docPath: 'guides/passthrough',
+        title: 'Pass Through',
+        description: 'Pass Through Props allow direct access to the underlying elements for complete customization.'
+    },
+    {
+        route: 'tailwind',
+        docPath: 'tailwind',
+        title: 'Tailwind CSS',
+        description: 'Integration between PrimeNG and Tailwind CSS.'
+    },
+    {
+        route: 'llms',
+        docPath: 'llms',
+        title: 'LLMs.txt',
+        description: 'LLM-optimized documentation endpoints for PrimeNG components.'
+    },
+    {
+        route: 'guides/accessibility',
+        docPath: 'guides/accessibility',
+        title: 'Accessibility',
+        description: 'PrimeNG has WCAG 2.1 AA level compliance.'
+    },
+    {
+        route: 'guides/animations',
+        docPath: 'guides/animations',
+        title: 'Animations',
+        description: 'Built-in CSS animations for PrimeNG components.'
+    },
+    {
+        route: 'guides/rtl',
+        docPath: 'guides/rtl',
+        title: 'RTL',
+        description: 'Right-to-left support for PrimeNG components.'
+    },
+    {
+        route: 'migration/v19',
+        docPath: 'migration/v19',
+        title: 'Migration v19',
+        description: 'Migration guide to PrimeNG v19.'
+    },
+    {
+        route: 'migration/v20',
+        docPath: 'migration/v20',
+        title: 'Migration v20',
+        description: 'Migration guide to PrimeNG v20.'
+    }
+];
+
 /**
  * Get the correct component name for API lookups
  */
@@ -143,7 +232,8 @@ function extractCodeExamples(content) {
             }
 
             if (text[i] === '`') {
-                const after = text.substring(i + 1).match(/^[\s\n]*[,}]/);
+                // Check if followed by comma, closing brace, or end of content (whitespace only)
+                const after = text.substring(i + 1).match(/^[\s\n]*([,}]|$)/);
                 if (after) {
                     endIdx = i;
                     break;
@@ -683,7 +773,7 @@ function generateThemingSection(apiDocs, componentName) {
 /**
  * Generate JSON output for MCP server
  */
-function generateJsonOutput(components, apiDocs) {
+function generateJsonOutput(components, apiDocs, guidePages = []) {
     const output = {
         version: '1.0.0',
         generatedAt: new Date().toISOString(),
@@ -710,7 +800,19 @@ function generateJsonOutput(components, apiDocs) {
                     tokens: getTokensFromApi(mainComponentName)
                 }
             };
-        })
+        }),
+        pages: guidePages.map((page) => ({
+            name: page.route.split('/').pop(),
+            path: page.route,
+            title: page.title,
+            description: page.description,
+            sections: page.sections.map((section) => ({
+                id: section.id,
+                label: section.label,
+                description: section.description,
+                examples: section.examples
+            }))
+        }))
     };
 
     const outputPath = path.join(OUTPUT_DIR, 'components.json');
@@ -723,10 +825,52 @@ function generateJsonOutput(components, apiDocs) {
 /**
  * Generate combined Markdown output for AI context
  */
-function generateMarkdownOutput(components, apiDocs) {
-    let markdown = '# PrimeNG Components Documentation\n\n';
+function generateMarkdownOutput(components, apiDocs, guidePages = []) {
+    let markdown = '# PrimeNG Documentation\n\n';
     markdown += `Generated: ${new Date().toISOString()}\n\n`;
     markdown += '---\n\n';
+
+    // Guide Pages Section
+    if (guidePages.length > 0) {
+        markdown += '# Guide Pages\n\n';
+
+        for (const page of guidePages) {
+            markdown += `# ${page.title}\n\n`;
+
+            if (page.description) {
+                markdown += `${page.description}\n\n`;
+            }
+
+            for (const section of page.sections) {
+                markdown += `## ${section.label}\n\n`;
+
+                if (section.description) {
+                    markdown += `${section.description}\n\n`;
+                }
+
+                if (section.examples) {
+                    if (section.examples.basic) {
+                        markdown += '```html\n';
+                        markdown += section.examples.basic;
+                        markdown += '\n```\n\n';
+                    }
+
+                    if (section.examples.typescript) {
+                        markdown += '<details>\n<summary>TypeScript Example</summary>\n\n';
+                        markdown += '```typescript\n';
+                        markdown += section.examples.typescript;
+                        markdown += '\n```\n';
+                        markdown += '</details>\n\n';
+                    }
+                }
+            }
+
+            markdown += '---\n\n';
+        }
+    }
+
+    // Components Section
+    markdown += '# Components\n\n';
 
     for (const comp of components) {
         const mainComponentName = getApiComponentName(comp.name);
@@ -779,7 +923,7 @@ function generateMarkdownOutput(components, apiDocs) {
         markdown += '---\n\n';
     }
 
-    const outputPath = path.join(OUTPUT_DIR, 'components.md');
+    const outputPath = path.join(OUTPUT_DIR, 'llms-full.txt');
     fs.writeFileSync(outputPath, markdown, 'utf-8');
     console.log(`✓ Generated Markdown output: ${outputPath}`);
 
@@ -789,9 +933,22 @@ function generateMarkdownOutput(components, apiDocs) {
 /**
  * Generate llms.txt index file
  */
-function generateLlmsTxt(components) {
+function generateLlmsTxt(components, pages = []) {
     let content = '# PrimeNG\n\n';
     content += '> The Most Complete Angular UI Component Library\n\n';
+
+    // Add Guides section
+    if (pages.length > 0) {
+        content += '## Guides\n\n';
+
+        for (const page of pages) {
+            content += `- [${page.title}](https://primeng.org/${page.route}): ${page.description}\n`;
+        }
+
+        content += '\n';
+    }
+
+    // Add Components section
     content += '## Components\n\n';
 
     const sorted = [...components].sort((a, b) => a.title.localeCompare(b.title));
@@ -874,6 +1031,131 @@ function generateIndividualMarkdownFiles(components, apiDocs) {
 }
 
 /**
+ * Process a guide/documentation page
+ */
+function processGuidePage(pageConfig) {
+    const docDir = path.join(DOCS_DIR, pageConfig.docPath);
+
+    if (!fs.existsSync(docDir)) {
+        console.warn(`   Warning: Doc directory not found for ${pageConfig.route}`);
+        return null;
+    }
+
+    const page = {
+        route: pageConfig.route,
+        title: pageConfig.title,
+        description: pageConfig.description,
+        sections: []
+    };
+
+    // Process doc files recursively
+    function processDocDir(dir, prefix = '') {
+        const entries = fs.readdirSync(dir);
+
+        for (const entry of entries) {
+            const entryPath = path.join(dir, entry);
+            const stat = fs.statSync(entryPath);
+
+            if (stat.isDirectory()) {
+                // Recurse into subdirectories
+                processDocDir(entryPath, entry + '/');
+            } else if (entry.endsWith('.ts') && !entry.endsWith('.spec.ts') && entry.toLowerCase().includes('doc')) {
+                const sectionId = entry.replace(/doc\.ts$/i, '').toLowerCase();
+                const docData = parseDocFile(entryPath);
+
+                if (docData.description || docData.codeExamples) {
+                    // Extract label from filename - convert camelCase to title case
+                    const label = sectionId
+                        .replace(/([A-Z])/g, ' $1')
+                        .replace(/^./, (str) => str.toUpperCase())
+                        .trim();
+
+                    page.sections.push({
+                        id: prefix + sectionId,
+                        label: label.charAt(0).toUpperCase() + label.slice(1),
+                        description: docData.description,
+                        examples: docData.codeExamples
+                    });
+                }
+            }
+        }
+    }
+
+    processDocDir(docDir);
+
+    return page;
+}
+
+/**
+ * Get all guide pages
+ */
+function getAllGuidePages() {
+    const pages = [];
+
+    for (const pageConfig of GUIDE_PAGES) {
+        const page = processGuidePage(pageConfig);
+        if (page) {
+            pages.push(page);
+        }
+    }
+
+    return pages;
+}
+
+/**
+ * Generate individual page markdown files
+ */
+function generatePageMarkdownFiles(pages) {
+    const pagesDir = path.join(OUTPUT_DIR, 'pages');
+
+    if (!fs.existsSync(pagesDir)) {
+        fs.mkdirSync(pagesDir, { recursive: true });
+    }
+
+    for (const page of pages) {
+        let markdown = `# ${page.title}\n\n`;
+        markdown += `${page.description}\n\n`;
+
+        for (const section of page.sections) {
+            markdown += `## ${section.label}\n\n`;
+
+            if (section.description) {
+                markdown += `${section.description}\n\n`;
+            }
+
+            if (section.examples) {
+                if (section.examples.basic) {
+                    markdown += '```html\n';
+                    markdown += section.examples.basic;
+                    markdown += '\n```\n\n';
+                }
+
+                if (section.examples.typescript) {
+                    markdown += '<details>\n<summary>TypeScript Example</summary>\n\n';
+                    markdown += '```typescript\n';
+                    markdown += section.examples.typescript;
+                    markdown += '\n```\n';
+                    markdown += '</details>\n\n';
+                }
+
+                if (section.examples.command) {
+                    markdown += '```bash\n';
+                    markdown += section.examples.command;
+                    markdown += '\n```\n\n';
+                }
+            }
+        }
+
+        // Use the last segment of the route as the filename
+        const filename = page.route.split('/').pop();
+        const outputPath = path.join(pagesDir, `${filename}.md`);
+        fs.writeFileSync(outputPath, markdown, 'utf-8');
+    }
+
+    console.log(`✓ Generated ${pages.length} page markdown files`);
+}
+
+/**
  * Main execution
  */
 function main() {
@@ -883,22 +1165,28 @@ function main() {
     const components = getAllComponents();
     console.log(`   Found ${components.length} components\n`);
 
+    console.log('📄 Parsing guide pages...');
+    const pages = getAllGuidePages();
+    console.log(`   Found ${pages.length} guide pages\n`);
+
     console.log('📖 Loading API documentation...');
     const apiDocs = loadApiDocs();
     console.log(`   Loaded API docs for ${Object.keys(apiDocs).length} modules\n`);
 
     console.log('✨ Generating outputs...\n');
-    generateJsonOutput(components, apiDocs);
-    generateMarkdownOutput(components, apiDocs);
-    generateLlmsTxt(components);
+    generateJsonOutput(components, apiDocs, pages);
+    generateMarkdownOutput(components, apiDocs, pages);
+    generateLlmsTxt(components, pages);
     generateIndividualMarkdownFiles(components, apiDocs);
+    generatePageMarkdownFiles(pages);
 
     console.log('\n✅ LLM documentation generation complete!');
     console.log(`\nOutput directory: ${OUTPUT_DIR}`);
     console.log('   - components.json (for MCP server with full API data)');
-    console.log('   - components.md (full documentation with Props, Templates, Emits, PT, Theming)');
+    console.log('   - llms-full.txt (full documentation with Props, Templates, Emits, PT, Theming)');
     console.log('   - llms.txt (index file)');
     console.log('   - components/*.md (individual component files with complete API)');
+    console.log('   - pages/*.md (guide/documentation page files)');
 }
 
 main();

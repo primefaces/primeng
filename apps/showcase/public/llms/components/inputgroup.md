@@ -66,6 +66,35 @@ Buttons can be placed at either side of an input element.
 </p-inputgroup>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
+
+@Component({
+    selector: 'input-group-button-demo',
+    templateUrl: './input-group-button-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputGroup, InputGroupAddonModule, InputTextModule, ButtonModule, MenuModule]
+})
+export class InputGroupButtonDemo {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [{ label: 'Web Search' }, { label: 'AI Assistant' }, { label: 'History' }];
+    }
+}
+```
+</details>
+
 ## Checkbox & Radio
 
 Checkbox and RadioButton components can be combined with an input element under the same group.
@@ -89,6 +118,36 @@ Checkbox and RadioButton components can be combined with an input element under 
     <p-inputgroup-addon><p-radiobutton name="rb2" value="rb2" [(ngModel)]="category"/></p-inputgroup-addon>
 </p-inputgroup>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { Checkbox } from 'primeng/checkbox';
+import { RadioButton } from 'primeng/radiobutton';
+
+@Component({
+    selector: 'input-group-checkbox-demo',
+    templateUrl: './input-group-checkbox-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputGroup, InputGroupAddonModule, InputTextModule, Checkbox, RadioButton]
+})
+export class InputGroupCheckboxDemo {
+    radioValue1: boolean = false;
+
+    checked1: boolean = false;
+
+    checked2: boolean = false;
+
+    category: string | undefined;
+}
+```
+</details>
 
 ## Float Label
 
@@ -123,6 +182,34 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 </p-inputgroup>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FloatLabelModule } from 'primeng/floatlabel';
+
+@Component({
+    selector: 'input-group-float-label-demo',
+    templateUrl: './input-group-float-label-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, FloatLabelModule]
+})
+export class InputGroupFloatLabelDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+}
+```
+</details>
+
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
@@ -138,6 +225,30 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
     </p-iftalabel>
 </p-inputgroup>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { SelectModule } from 'primeng/select';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { InputNumberModule } from 'primeng/inputnumber';
+
+@Component({
+    selector: 'input-group-ifta-label-demo',
+    templateUrl: './input-group-ifta-label-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputGroupModule, InputGroupAddonModule, IftaLabelModule , InputNumberModule]
+})
+export class InputGroupIftaLabelDemo {
+    value: number = 10;
+}
+```
+</details>
 
 ## Multiple
 
@@ -156,6 +267,27 @@ Multiple add-ons can be placed inside the same group.
     <p-inputgroup-addon>.00</p-inputgroup-addon>
 </p-inputgroup>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'input-group-multiple-demo',
+    templateUrl: './input-group-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputGroup, InputGroupAddonModule, InputTextModule]
+})
+export class InputGroupMultipleDemo {
+}
+```
+</details>
 
 ## Input Group
 

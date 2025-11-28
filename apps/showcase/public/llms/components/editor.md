@@ -30,9 +30,29 @@ Editor provides a default toolbar with common options, to customize it define yo
 </p-editor>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'editor-customtoolbar-demo',
+    templateUrl: './editor-customtoolbar-demo.html'
+})
+export class EditorCustomtoolbarDemo {
+    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
+}
+```
+</details>
+
 ## Quill
 
 Editor uses Quill editor underneath so it needs to be installed as a dependency.
+
+```html
+npm install quill
+```
 
 ## reactiveformsdoc
 
@@ -50,6 +70,55 @@ Editor can also be used with reactive forms. In this case, the formControlName p
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'editor-reactive-forms-demo',
+    templateUrl: './editor-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, EditorModule, ToastModule, MessageModule, ButtonModule],
+  })
+export class EditorReactiveFormsDemo implements OnInit {
+    messageService = inject(MessageService);
+
+    items: any[] | undefined;
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted: boolean = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            text: ['', Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## ReadOnly
 
 When readonly is present, the value cannot be edited.
@@ -57,6 +126,26 @@ When readonly is present, the value cannot be edited.
 ```html
 <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Editor } from 'primeng/editor';
+
+@Component({
+    selector: 'editor-readonly-demo',
+    templateUrl: './editor-readonly-demo.html',
+    standalone: true,
+    imports: [FormsModule, Editor]
+})
+export class EditorReadonlyDemo {
+    text: string = 'Always bet on Prime!';
+}
+```
+</details>
 
 ## styledoc
 
@@ -75,6 +164,39 @@ Following is the list of structural style classes, for theming classes visit the
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { EditorModule } from 'primeng/editor';
+
+@Component({
+    selector: 'editor-template-driven-forms-demo',
+    templateUrl: './editor-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, EditorModule, MessageModule, ToastModule, ButtonModule]
+})
+export class TemplateDrivenFormsDemo implements OnInit {
+    messageService = inject(MessageService);
+
+    text: string | undefined;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
 
 ## Editor
 

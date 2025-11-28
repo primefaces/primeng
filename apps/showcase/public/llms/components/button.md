@@ -6,6 +6,16 @@ Button is an extension to standard button element with icons and theming.
 
 Screen Reader Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the aria-label prop, if not present label prop is used as the value. If the button is icon only or custom templating is used, it is recommended to use aria-label so that screen readers would be able to read the element properly.
 
+```html
+<p-button icon="pi pi-check" aria-label="Submit" />
+<p-button icon="pi pi-check" label="Submit" />
+
+<p-button class="youtube p-0" aria-label="Youtube">
+    <i class="pi pi-youtube px-2"></i>
+    <span class="px-4">Youtube</span>
+</p-button>
+```
+
 ## Badge
 
 Buttons have built-in badge support with badge and badgeClass properties.
@@ -14,6 +24,23 @@ Buttons have built-in badge support with badge and badgeClass properties.
 <p-button label="Emails" badge="2" styleClass="m-0" />
 <p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" [outlined]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-badge-demo',
+    templateUrl: './button-badge-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonBadgeDemo { }
+```
+</details>
 
 ## Basic
 
@@ -35,6 +62,23 @@ Multiple buttons are grouped when wrapped inside an element with ButtonGroup com
 </p-buttongroup>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonGroupModule } from 'primeng/buttongroup';
+
+@Component({
+    selector: 'button-group-demo',
+    templateUrl: './button-group-demo.html',
+    standalone: true,
+    imports: [ButtonGroupModule]
+})
+export class ButtonGroupDemo { }
+```
+</details>
+
 ## buttonsetdoc
 
 Multiple buttons are grouped when wrapped inside an element with p-buttonset class.
@@ -47,6 +91,20 @@ Multiple buttons are grouped when wrapped inside an element with p-buttonset cla
 </span>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'button-set-demo',
+    templateUrl: './button-set-demo.html'
+})
+export class ButtonSetDemo { }
+```
+</details>
+
 ## Directive
 
 Button can also be used as directive using pButton along with pButtonLabel and pButtonIcon helper directives.
@@ -58,6 +116,23 @@ Button can also be used as directive using pButton along with pButtonLabel and p
 </button>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-directive-demo',
+    templateUrl: './button-directive-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonDirectiveDemo { }
+```
+</details>
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
@@ -65,6 +140,23 @@ When disabled is present, the element cannot be edited and focused.
 ```html
 <p-button label="Submit" [disabled]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-disabled-demo',
+    templateUrl: './button-disabled-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonDisabledDemo { }
+```
+</details>
 
 ## Icons
 
@@ -77,6 +169,23 @@ Icon of a button is specified with icon property and position is configured usin
 <p-button label="Search" icon="pi pi-search" iconPos="top" />
 <p-button label="Update" icon="pi pi-refresh" iconPos="bottom" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-icons-demo',
+    templateUrl: './button-icons-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonIconsDemo { }
+```
+</details>
 
 ## iconsonlydoc
 
@@ -124,6 +233,23 @@ Buttons can have icons without labels.
 <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-icon-only-demo',
+    templateUrl: './button-icon-only-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonIconOnlyDemo { }
+```
+</details>
+
 ## Link
 
 A button can be rendered as a link when link property is present, while the pButton directive can be applied on an anchor element to style the link as a button.
@@ -138,6 +264,24 @@ A button can be rendered as a link when link property is present, while the pBut
 </a>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { RouterModule } from '@angular/router';
+
+@Component({
+    selector: 'button-link-demo',
+    templateUrl: './button-link-demo.html',
+    standalone: true,
+    imports: [ButtonModule, RouterModule]
+})
+export class ButtonLinkDemo { }
+```
+</details>
+
 ## Loading
 
 Busy state is controlled with the loading property.
@@ -145,6 +289,33 @@ Busy state is controlled with the loading property.
 ```html
 <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-loading-demo',
+    templateUrl: './button-loading-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonLoadingDemo {
+    loading: boolean = false;
+
+    load() {
+        this.loading = true;
+
+        setTimeout(() => {
+            this.loading = false
+        }, 2000);
+    }
+}
+```
+</details>
 
 ## Outlined
 
@@ -161,6 +332,23 @@ Outlined buttons display a border without a background initially.
 <p-button label="Contrast" variant="outlined" severity="contrast" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-outlined-demo',
+    templateUrl: './button-outlined-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonOutlinedDemo { }
+```
+</details>
+
 ## Raised
 
 Raised buttons display a shadow to indicate elevation.
@@ -175,6 +363,23 @@ Raised buttons display a shadow to indicate elevation.
 <p-button label="Danger" [raised]="true" severity="danger" />
 <p-button label="Contrast" [raised]="true" severity="contrast" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-raised-demo',
+    templateUrl: './button-raised-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonRaisedDemo { }
+```
+</details>
 
 ## Raised Text
 
@@ -191,6 +396,23 @@ Text buttons can be displayed as raised for elevation.
 <p-button label="Plain" variant="text" [raised]="true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-raisedtext-demo',
+    templateUrl: './button-raisedtext-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonRaisedtextDemo { }
+```
+</details>
+
 ## Rounded
 
 Rounded buttons have a circular border radius.
@@ -205,6 +427,23 @@ Rounded buttons have a circular border radius.
 <p-button label="Danger" [rounded]="true" severity="danger" />
 <p-button label="Contrast" [rounded]="true" severity="contrast" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-rounded-demo',
+    templateUrl: './button-rounded-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonRoundedDemo { }
+```
+</details>
 
 ## Severity
 
@@ -221,6 +460,23 @@ Severity defines the type of button.
 <p-button label="Contrast" severity="contrast" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-severity-demo',
+    templateUrl: './button-severity-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonSeverityDemo { }
+```
+</details>
+
 ## Sizes
 
 Button provides small and large sizes as alternatives to the standard.
@@ -230,6 +486,23 @@ Button provides small and large sizes as alternatives to the standard.
 <p-button label="Normal" icon="pi pi-check" />
 <p-button label="Large" icon="pi pi-check" size="large" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-sizes-demo',
+    templateUrl: './button-sizes-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonSizesDemo { }
+```
+</details>
 
 ## styledoc
 
@@ -247,6 +520,23 @@ Custom content inside a button is defined as children.
 </p-button>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-template-demo',
+    templateUrl: './button-template-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonTemplateDemo { }
+```
+</details>
+
 ## Text
 
 Text buttons are displayed as textual elements.
@@ -261,6 +551,23 @@ Text buttons are displayed as textual elements.
 <p-button label="Danger" variant="text" severity="danger" />
 <p-button label="Plain" variant="text" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'button-text-demo',
+    templateUrl: './button-text-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class ButtonTextDemo { }
+```
+</details>
 
 ## Button
 

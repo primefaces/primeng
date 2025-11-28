@@ -23,6 +23,85 @@ The command property defines the callback to run when an item is activated by cl
 <p-menubar [model]="items" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem, MessageService } from 'primeng/api';
+import { Menubar } from 'primeng/menubar';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'menubar-command-demo',
+    templateUrl: './menubar-command-demo.html',
+    standalone: true,
+    imports: [Menubar, ToastModule],
+    providers: [MessageService]
+})
+export class MenubarCommandDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    constructor(private messageService: MessageService) {}
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'File',
+                icon: 'pi pi-file',
+                items: [
+                    {
+                        label: 'New',
+                        icon: 'pi pi-plus',
+                        command: () => {
+                            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'File created', life: 3000 });
+                        }
+                    },
+                    {
+                        label: 'Print',
+                        icon: 'pi pi-print',
+                        command: () => {
+                            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No printer connected', life: 3000 });
+                        }
+                    }
+                ]
+            },
+            {
+                label: 'Search',
+                icon: 'pi pi-search',
+                command: () => {
+                    this.messageService.add({ severity: 'warn', summary: 'Search Results', detail: 'No results found', life: 3000 });
+                }
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Sync',
+                icon: 'pi pi-cloud',
+                items: [
+                    {
+                        label: 'Import',
+                        icon: 'pi pi-cloud-download',
+                        command: () => {
+                            this.messageService.add({ severity: 'info', summary: 'Downloads', detail: 'Downloaded from cloud', life: 3000 });
+                        }
+                    },
+                    {
+                        label: 'Export',
+                        icon: 'pi pi-cloud-upload',
+                        command: () => {
+                            this.messageService.add({ severity: 'info', summary: 'Shared', detail: 'Exported to cloud', life: 3000 });
+                        }
+                    }
+                ]
+            }
+        ];
+    }
+}
+```
+</details>
+
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
@@ -30,6 +109,70 @@ Menu items support navigation via routerLink, programmatic routing using command
 ```html
 <p-menubar [model]="items" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Menubar } from 'primeng/menubar';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+@Component({
+    selector: 'menubar-router-demo',
+    templateUrl: './menubar-router-demo.html',
+    standalone: true,
+    imports: [Menubar, CommonModule]
+})
+export class MenubarRouterDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    constructor(private router: Router) {}
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Router',
+                icon: 'pi pi-palette',
+                items: [
+                    {
+                        label: 'Installation',
+                        routerLink: '/installation'
+                    },
+                    {
+                        label: 'Configuration',
+                        routerLink: '/configuration'
+                    }
+                ]
+            },
+            {
+                label: 'Programmatic',
+                icon: 'pi pi-link',
+                command: () => {
+                    this.router.navigate(['/installation']);
+                }
+            },
+            {
+                label: 'External',
+                icon: 'pi pi-home',
+                items: [
+                    {
+                        label: 'Angular',
+                        url: 'https://angular.io/'
+                    },
+                    {
+                        label: 'Vite.js',
+                        url: 'https://vitejs.dev/'
+                    }
+                ]
+            }
+        ];
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -62,6 +205,64 @@ Custom content can be placed inside the menubar using the start and end template
     </ng-template>
 </p-menubar>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
+import { InputTextModule } from 'primeng/inputtext';
+import { CommonModule } from '@angular/common';
+import { Ripple } from 'primeng/ripple';
+
+@Component({
+    selector: 'menubar-template-demo',
+    templateUrl: './menubar-template-demo.html',
+    standalone: true,
+    imports: [Menubar, BadgeModule, AvatarModule, InputTextModule, Ripple, CommonModule]
+})
+export class MenubarTemplateDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Home',
+                icon: 'pi pi-home',
+            },
+            {
+                label: 'Projects',
+                icon: 'pi pi-search',
+                badge: '3',
+                items: [
+                    {
+                        label: 'Core',
+                        icon: 'pi pi-bolt',
+                        shortcut: '⌘+S',
+                    },
+                    {
+                        label: 'Blocks',
+                        icon: 'pi pi-server',
+                        shortcut: '⌘+B',
+                    },
+                    {
+                        separator: true,
+                    },
+                    {
+                        label: 'UI Kit',
+                        icon: 'pi pi-pencil',
+                        shortcut: '⌘+U',
+                    },
+                ],
+            },
+        ];
+    }
+}
+```
+</details>
 
 ## Menubar
 

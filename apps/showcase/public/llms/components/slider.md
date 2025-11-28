@@ -6,6 +6,13 @@ Slider is a component to provide input with a drag handle.
 
 Screen Reader Slider element component uses slider role on the handle in addition to the aria-orientation , aria-valuemin , aria-valuemax and aria-valuenow attributes. Value to describe the component can be defined using ariaLabelledBy and ariaLabel props.
 
+```html
+<span id="label_number">Number</span>
+<p-slider ariaLabelledBy="label_number" />
+
+<p-slider ariaLabel="Number" />
+```
+
 ## Basic
 
 Two-way binding is defined using the standard ngModel directive.
@@ -24,6 +31,41 @@ Image filter implementation using multiple sliders.
 <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+import { SelectButtonModule } from 'primeng/selectbutton';
+
+@Component({
+    selector: 'slider-filter-demo',
+    templateUrl: './slider-filter-demo.html',
+    standalone: true,
+    imports: [FormsModule, SliderModule, SelectButtonModule]
+})
+export class SliderFilterDemo {
+    filter: number = 0;
+
+    filterValues: number[] = [100, 100, 0];
+
+    filterOptions: any = [
+        { label: 'Contrast', value: 0 },
+        { label: 'Brightness', value: 1 },
+        { label: 'Sepia', value: 2 },
+    ];
+
+    get filterStyle() {
+        return {
+            filter: \`contrast(\${this.filterValues[0]}%) brightness(\${this.filterValues[1]}%) sepia(\${this.filterValues[2]}%)\`,
+        };
+    }
+}
+```
+</details>
+
 ## Input
 
 Slider is connected to an input field using two-way binding.
@@ -33,6 +75,27 @@ Slider is connected to an input field using two-way binding.
 <p-slider [(ngModel)]="value" class="w-full" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Slider } from 'primeng/slider';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'slider-input-demo',
+    templateUrl: './slider-input-demo.html',
+    standalone: true,
+    imports: [FormsModule, Slider, InputTextModule]
+})
+export class SliderInputDemo {
+    value: number = 50;
+}
+```
+</details>
+
 ## Range
 
 When range property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.
@@ -40,6 +103,26 @@ When range property is present, slider provides two handles to define two values
 ```html
 <p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Slider } from 'primeng/slider';
+
+@Component({
+    selector: 'slider-range-demo',
+    templateUrl: './slider-range-demo.html',
+    standalone: true,
+    imports: [FormsModule, Slider]
+})
+export class SliderRangeDemo {
+    rangeValues: number[] = [20, 80];
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -57,6 +140,55 @@ Slider can also be used with reactive forms. In this case, the formControlName p
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'slider-reactive-forms-demo',
+    templateUrl: './slider-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, SliderModule, ToastModule, MessageModule, ButtonModule]
+})
+export class SliderReactiveFormsDemo {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted: boolean = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            value: ['', Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## Step
 
 Size of each movement is defined with the step property.
@@ -64,6 +196,26 @@ Size of each movement is defined with the step property.
 ```html
 <p-slider [(ngModel)]="value" [step]="20" class="w-56" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Slider } from 'primeng/slider';
+
+@Component({
+    selector: 'slider-step-demo',
+    templateUrl: './slider-step-demo.html',
+    standalone: true,
+    imports: [FormsModule, Slider]
+})
+export class SliderStepDemo {
+    value: number = 20;
+}
+```
+</details>
 
 ## styledoc
 
@@ -83,6 +235,39 @@ Following is the list of structural style classes, for theming classes visit the
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { SliderModule } from 'primeng/slider';
+
+@Component({
+    selector: 'slider-template-driven-forms-demo',
+    templateUrl: './slider-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, MessageModule, ToastModule, ButtonModule, SliderModule]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    value: any;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
+
 ## Vertical
 
 Default layout of slider is horizontal , use orientation property for the alternative vertical mode.
@@ -90,6 +275,26 @@ Default layout of slider is horizontal , use orientation property for the altern
 ```html
 <p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Slider } from 'primeng/slider';
+
+@Component({
+    selector: 'slider-vertical-demo',
+    templateUrl: './slider-vertical-demo.html',
+    standalone: true,
+    imports: [FormsModule, Slider]
+})
+export class SliderVerticalDemo {
+    value: number = 50
+}
+```
+</details>
 
 ## Slider
 

@@ -6,6 +6,13 @@ Listbox is used to select one or more values from a list of items.
 
 Screen Reader Value to describe the component can be provided ariaLabelledBy or ariaLabel props. The list element has a listbox role with the aria-multiselectable attribute that sets to true when multiple selection is enabled. Each list item has an option role with aria-selected and aria-disabled as their attributes.
 
+```html
+<span id="lb">Options</span>
+<p-listbox ariaLabelledBy="lb"/>
+
+<p-listbox ariaLabel="City"/>
+```
+
 ## Basic
 
 Listbox is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
@@ -22,6 +29,43 @@ Listbox allows item selection using checkboxes.
 <p-listbox [(ngModel)]="selectedCity" [options]="cities" [multiple]="true" [checkbox]="true" optionLabel="name" class="w-full md:w-56" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-checkbox-demo',
+    templateUrl: './listbox-checkbox-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
+})
+export class ListboxCheckboxDemo implements OnInit {
+    cities!: City[];
+
+    selectedCity!: City;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
 ## Checkmark
 
 An alternative way to highlight the selected option is displaying a checkmark instead.
@@ -29,6 +73,43 @@ An alternative way to highlight the selected option is displaying a checkmark in
 ```html
 <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56"/>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-checkmark-demo',
+    templateUrl: './listbox-checkmark-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
+})
+export class ListboxCheckmarkDemo implements OnInit {
+    cities!: City[];
+
+    selectedCity!: City;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
 
 ## Disabled
 
@@ -38,6 +119,43 @@ When disabled is present, the element cannot be edited and focused.
 <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Listbox } from 'primeng/listbox';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-disabled-demo',
+    templateUrl: './listbox-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, Listbox]
+})
+export class ListboxDisabledDemo implements OnInit {
+    cities!: City[];
+
+    selectedCity!: City;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
 ## dragdropdoc
 
 Items can be reordered using drag and drop by enabling dragdrop property. Depends on &#64;angular/cdk package.
@@ -46,6 +164,37 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [dragdrop]="true" class="w-full md:w-56" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Listbox } from 'primeng/listbox';
+
+@Component({
+    selector: 'listbox-dragdrop-demo',
+    templateUrl: './listbox-dragdrop-demo.html',
+    standalone: true,
+    imports: [FormsModule, Listbox]
+})
+export class ListboxDragDropDemo implements OnInit {
+    cities!: any[];
+    selectedCity!: any;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
 ## Filter
 
 ListBox provides built-in filtering that is enabled by adding the filter property.
@@ -53,6 +202,43 @@ ListBox provides built-in filtering that is enabled by adding the filter propert
 ```html
 <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" class="w-full md:w-56" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Listbox } from 'primeng/listbox';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-filter-demo',
+    templateUrl: './listbox-filter-demo.html',
+    standalone: true,
+    imports: [FormsModule, Listbox]
+})
+export class ListboxFilterDemo implements OnInit {
+    cities!: City[];
+
+    selectedCity!: City;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
 
 ## Group
 
@@ -69,6 +255,69 @@ Options can be grouped when a nested data structures is provided.
 </p-listbox>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { SelectItemGroup } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+
+interface Country {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-group-demo',
+    templateUrl: './listbox-group-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
+})
+export class ListboxGroupDemo {
+    groupedCities!: SelectItemGroup[];
+
+    selectedCountry!: Country;
+
+    constructor() {
+        this.groupedCities = [
+            {
+                label: 'Germany',
+                value: 'de',
+                items: [
+                    { label: 'Berlin', value: 'Berlin' },
+                    { label: 'Frankfurt', value: 'Frankfurt' },
+                    { label: 'Hamburg', value: 'Hamburg' },
+                    { label: 'Munich', value: 'Munich' }
+                ]
+            },
+            {
+                label: 'USA',
+                value: 'us',
+                items: [
+                    { label: 'Chicago', value: 'Chicago' },
+                    { label: 'Los Angeles', value: 'Los Angeles' },
+                    { label: 'New York', value: 'New York' },
+                    { label: 'San Francisco', value: 'San Francisco' }
+                ]
+            },
+            {
+                label: 'Japan',
+                value: 'jp',
+                items: [
+                    { label: 'Kyoto', value: 'Kyoto' },
+                    { label: 'Osaka', value: 'Osaka' },
+                    { label: 'Tokyo', value: 'Tokyo' },
+                    { label: 'Yokohama', value: 'Yokohama' }
+                ]
+            }
+        ];
+    }
+}
+```
+</details>
+
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -77,6 +326,43 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, ngOnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Listbox } from 'primeng/listbox';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-invalid-demo',
+    templateUrl: './listbox-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, Listbox]
+})
+export class ListboxInvalidDemo implements OnInit {
+    cities!: City[];
+
+    selectedCity!: City;
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
 ## Multiple
 
 ListBox allows choosing a single item by default, enable multiple property to choose more than one. When the optional metaKeySelection is present, behavior is changed in a way that selecting a new item requires meta key to be present.
@@ -84,6 +370,43 @@ ListBox allows choosing a single item by default, enable multiple property to ch
 ```html
 <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true" [metaKeySelection]="false" class="w-full md:w-56" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Listbox } from 'primeng/listbox';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-multiple-demo',
+    templateUrl: './listbox-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, Listbox]
+})
+export class ListboxMultipleDemo implements OnInit {
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -100,6 +423,69 @@ Listbox can also be used with reactive forms. In this case, the formControlName 
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-reactive-forms-demo',
+    templateUrl: './listbox-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, ListboxModule, ToastModule, MessageService, ButtonModule]
+})
+export class ListboxReactiveFormsDemo implements OnInit {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted: boolean = false;
+
+    cities!: City[];
+
+    constructor(private fb: FormBuilder) {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+
+        this.exampleForm = this.fb.group({
+            selectedCity: ['', Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && this.formSubmitted;
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -120,6 +506,48 @@ For custom content support define a template named item where the default local 
 </p-listbox>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
+
+interface Country {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'listbox-template-demo',
+    templateUrl: './listbox-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
+})
+export class ListboxTemplateDemo implements OnInit {
+    countries!: Country[];
+
+    selectedCountry!: Country;
+
+    ngOnInit() {
+        this.countries = [
+            { name: 'Australia', code: 'AU' },
+            { name: 'Brazil', code: 'BR' },
+            { name: 'China', code: 'CN' },
+            { name: 'Egypt', code: 'EG' },
+            { name: 'France', code: 'FR' },
+            { name: 'Germany', code: 'DE' },
+            { name: 'India', code: 'IN' },
+            { name: 'Japan', code: 'JP' },
+            { name: 'Spain', code: 'ES' },
+            { name: 'United States', code: 'US' }
+        ];
+    }
+}
+```
+</details>
+
 ## templatedrivenformsdoc
 
 ```html
@@ -134,6 +562,56 @@ For custom content support define a template named item where the default local 
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ListboxModule } from 'primeng/listbox';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    selector: 'autocomplete-template-driven-forms-demo',
+    templateUrl: './autocomplete-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, MessageModule, ToastModule, ButtonModule, ListboxModule]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    selectedCity!: City;
+
+    cities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
+
 ## Virtual Scroll
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
@@ -141,6 +619,42 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```html
 <p-listbox [options]="items" [(ngModel)]="selectedItems" [checkbox]="true" [filter]="true" [selectAll]="selectAll" optionLabel="label" [virtualScroll]="true" [virtualScrollItemSize]="40" [multiple]="true" [metaKeySelection]="false" (onSelectAllChange)="onSelectAllChange($event)" (onChange)="onChange($event)" scrollHeight="250px" [striped]="true" class="w-full md:w-56" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Listbox } from 'primeng/listbox';
+
+@Component({
+    selector: 'listbox-virtual-scroll-demo',
+    templateUrl: './listbox-virtual-scroll-demo.html',
+    standalone: true,
+    imports: [FormsModule, Listbox]
+})
+export class ListboxVirtualScrollDemo {
+    items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
+
+    selectedItems!: any[];
+
+    selectAll = false;
+
+    onSelectAllChange(event) {
+        this.selectedItems = event.checked ? [...this.items] : [];
+        this.selectAll = event.checked;
+        event.updateModel(this.selectedItems, event.originalEvent)
+    }
+
+    onChange(event) {
+        const { originalEvent, value } = event
+        if(value) this.selectAll = value.length === this.items.length;
+    }
+
+}
+```
+</details>
 
 ## Listbox
 

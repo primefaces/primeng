@@ -51,6 +51,33 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 </p-floatlabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { FloatLabelModule } from 'primeng/floatlabel';
+
+@Component({
+    selector: 'iconfield-float-label-demo',
+    templateUrl: './iconfield-float-label-demo.html',
+    standalone: true,
+    imports: [InputIconModule, IconFieldModule, InputTextModule, FloatLabelModule, FormsModule]
+})
+export class IconFieldFloatLabelDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+}
+```
+</details>
+
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
@@ -64,6 +91,29 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
     <label for="username">Username</label>
 </p-iftalabel>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { IftaLabelModule } from 'primeng/iftalabel';
+
+@Component({
+    selector: 'iconfield-ifta-label-demo',
+    templateUrl: './iconfield-ifta-label-demo.html',
+    standalone: true,
+    imports: [InputIconModule, IconFieldModule, InputTextModule, IftaLabelModule, FormsModule]
+})
+export class IconFieldIftaLabelDemo {
+  value: string | undefined;
+}
+```
+</details>
 
 ## Sizes
 
@@ -87,6 +137,26 @@ IconField is compatible with the pSize setting of the input field.
 </p-iconfield>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputIcon } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'iconfield-sizes-demo',
+    templateUrl: './iconfield-sizes-demo.html',
+    standalone: true,
+    imports: [InputIcon, IconField, InputTextModule, FormsModule]
+})
+export class IconfieldSizesDemo {}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -106,6 +176,26 @@ An eye icon is displayed by default when the image is hovered in preview mode. U
     <input type="text" pInputText placeholder="Search" />
 </p-iconfield>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputIcon } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'iconfield-template-demo',
+    templateUrl: './iconfield-template-demo.html',
+    standalone: true,
+    imports: [InputIcon, IconField, InputTextModule, FormsModule]
+})
+export class IconFieldTemplateDemo {}
+```
+</details>
 
 ## Icon Field
 

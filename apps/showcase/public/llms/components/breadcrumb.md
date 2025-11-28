@@ -22,6 +22,29 @@ Menu items support navigation via routerLink, programmatic routing using command
 <p-breadcrumb [home]="home" [model]="items" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Breadcrumb } from 'primeng/breadcrumb';
+import { RouterModule } from '@angular/router';
+
+@Component({
+    selector: 'breadcrumb-router-demo',
+    templateUrl: './breadcrumb-router-demo.html',
+    standalone: true,
+    imports: [Breadcrumb, RouterModule]
+})
+export class BreadcrumbRouterDemo {
+    items: MenuItem[] = [{ label: 'Components' }, { label: 'Form' }, { label: 'InputText', routerLink: '/inputtext' }];
+
+    home: MenuItem = { icon: 'pi pi-home', routerLink: '/' };
+}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -40,6 +63,35 @@ Custom content can be placed inside the items using the item template. The divid
     <ng-template #separator> / </ng-template>
 </p-breadcrumb>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Breadcrumb } from 'primeng/breadcrumb';
+import { RouterModule } from '@angular/router';
+
+@Component({
+    selector: 'breadcrumb-template-demo',
+    templateUrl: './breadcrumb-template-demo.html',
+    standalone: true,
+    imports: [Breadcrumb, RouterModule]
+})
+export class BreadcrumbTemplateDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    home: MenuItem | undefined;
+
+    ngOnInit() {
+        this.items = [{ icon: 'pi pi-sitemap' }, { icon: 'pi pi-book' }, { icon: 'pi pi-wallet' }, { icon: 'pi pi-shopping-bag' }, { icon: 'pi pi-calculator' }];
+
+        this.home = { icon: 'pi pi-home' };
+    }
+}
+```
+</details>
 
 ## Breadcrumb
 

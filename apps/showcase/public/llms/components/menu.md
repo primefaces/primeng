@@ -23,6 +23,57 @@ The function to invoke when an item is clicked is defined using the command prop
 <p-menu [model]="items" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem, MessageService } from 'primeng/api';
+import { Menu } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'menu-command-demo',
+    templateUrl: './menu-command-demo.html',
+    standalone: true,
+    imports: [Menu, ToastModule],
+    providers: [MessageService]
+})
+export class MenuCommandDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    constructor(private messageService: MessageService) {}
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'New',
+                icon: 'pi pi-plus',
+                command: () => {
+                    this.update();
+                }
+            },
+            {
+                label: 'Search',
+                icon: 'pi pi-search',
+                command: () => {
+                    this.delete();
+                }
+            }
+        ];
+    }
+
+    update() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'File created', life: 3000 });
+    }
+
+    delete() {
+        this.messageService.add({ severity: 'warn', summary: 'Search Completed', detail: 'No results found', life: 3000 });
+    }
+}
+```
+</details>
+
 ## Group
 
 Menu supports one level of nesting by defining children with items property.
@@ -30,6 +81,59 @@ Menu supports one level of nesting by defining children with items property.
 ```html
 <p-menu [model]="items" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Menu } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'menu-group-demo',
+    templateUrl: './menu-group-demo.html',
+    standalone: true,
+    imports: [Menu, ToastModule]
+})
+export class MenuGroupDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Documents',
+                items: [
+                    {
+                        label: 'New',
+                        icon: 'pi pi-plus'
+                    },
+                    {
+                        label: 'Search',
+                        icon: 'pi pi-search'
+                    }
+                ]
+            },
+            {
+                label: 'Profile',
+                items: [
+                    {
+                        label: 'Settings',
+                        icon: 'pi pi-cog'
+                    },
+                    {
+                        label: 'Logout',
+                        icon: 'pi pi-sign-out'
+                    }
+                ]
+            }
+        ];
+    }
+
+}
+```
+</details>
 
 ## Popup
 
@@ -40,6 +144,45 @@ Popup mode is enabled by setting popup property to true and calling toggle metho
 <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Menu } from 'primeng/menu';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'menu-popup-demo',
+    templateUrl: './menu-popup-demo.html',
+    standalone: true,
+    imports: [Menu, ButtonModule]
+})
+export class MenuPopupDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Options',
+                items: [
+                    {
+                        label: 'Refresh',
+                        icon: 'pi pi-refresh'
+                    },
+                    {
+                        label: 'Export',
+                        icon: 'pi pi-upload'
+                    }
+                ]
+            }
+        ];
+    }
+}
+```
+</details>
+
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
@@ -47,6 +190,56 @@ Menu items support navigation via routerLink, programmatic routing using command
 ```html
 <p-menu [model]="items" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
+import { Menu } from 'primeng/menu';
+
+@Component({
+    selector: 'menu-router-demo',
+    templateUrl: './menu-router-demo.html',
+    standalone: true,
+    imports: [Menu]
+})
+export class MenuRouterDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    constructor(private router: Router) {}
+
+       ngOnInit() {
+        this.items = [
+            {
+                label: 'Navigate',
+                items: [
+                    {
+                        label: 'Router Link',
+                        icon: 'pi pi-palette',
+                        routerLink: '/theming'
+                    },
+                    {
+                        label: 'Programmatic',
+                        icon: 'pi pi-link',
+                        command: () => {
+                            this.router.navigate(['/installation']);
+                        }
+                    },
+                    {
+                        label: 'External',
+                        icon: 'pi pi-home',
+                        url: 'https://angular.io//'
+                    }
+                ]
+            }
+        ];
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -92,6 +285,75 @@ Menu offers item customization with the item template that receives the menuitem
     </ng-template>
 </p-menu>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { BadgeModule } from 'primeng/badge';
+import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
+
+@Component({
+    selector: 'menu-template-demo',
+    templateUrl: './menu-template-demo.html',
+    standalone: true,
+    imports: [MenuModule, BadgeModule, RippleModule, AvatarModule]
+})
+export class MenuTemplateDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                separator: true
+            },
+            {
+                label: 'Documents',
+                items: [
+                    {
+                        label: 'New',
+                        icon: 'pi pi-plus',
+                        shortcut: '⌘+N'
+                    },
+                    {
+                        label: 'Search',
+                        icon: 'pi pi-search',
+                        shortcut: '⌘+S'
+                    }
+                ]
+            },
+            {
+                label: 'Profile',
+                items: [
+                    {
+                        label: 'Settings',
+                        icon: 'pi pi-cog',
+                        shortcut: '⌘+O'
+                    },
+                    {
+                        label: 'Messages',
+                        icon: 'pi pi-inbox',
+                        badge: '2'
+                    },
+                    {
+                        label: 'Logout',
+                        icon: 'pi pi-sign-out',
+                        shortcut: '⌘+Q'
+                    }
+                ]
+            },
+            {
+                separator: true
+            }
+        ];
+    }
+}
+```
+</details>
 
 ## Menu
 

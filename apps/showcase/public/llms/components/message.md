@@ -22,6 +22,23 @@ Enable closable option to display an icon to remove a message.
 <p-message closable>Closable Message</p-message>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Message } from 'primeng/message';
+
+@Component({
+    selector: 'message-closable-demo',
+    templateUrl: './message-closable-demo.html',
+    standalone: true,
+    imports: [Message]
+})
+export class MessageClosableDemo {}
+```
+</details>
+
 ## Dynamic
 
 Multiple messages can be displayed using the standard for block.
@@ -37,6 +54,38 @@ Multiple messages can be displayed using the standard for block.
     }
 </div>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, signal } from '@angular/core';
+import { Message } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'message-dynamic-demo',
+    templateUrl: './message-dynamic-demo.html',
+    standalone: true,
+    imports: [Message, ButtonModule]
+})
+export class MessageDynamicDemo {
+    messages = signal<any[]>([]);
+
+    addMessages() {
+        this.messages.set([
+            { severity: 'info', content: 'Dynamic Info Message' },
+            { severity: 'success', content: 'Dynamic Success Message' },
+            { severity: 'warn', content: 'Dynamic Warn Message' },
+        ]);
+    }
+
+    clearMessages() {
+        this.messages.set([]);
+    }
+}
+```
+</details>
 
 ## formdoc
 
@@ -60,6 +109,29 @@ Validation errors in a form are displayed with the error severity.
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Message } from 'primeng/message';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
+
+@Component({
+    selector: 'message-form-demo',
+    templateUrl: './message-form-demo.html',
+    standalone: true,
+    imports: [Message, InputTextModule,InputMaskModule]
+})
+export class MessageFormDemo {
+    username: string | undefined;
+
+    phone: string | undefined;
+}
+```
+</details>
+
 ## Icon
 
 The icon of a message is specified with the icon property.
@@ -74,6 +146,24 @@ The icon of a message is specified with the icon property.
 </p-message>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageModule } from 'primeng/message';
+import { AvatarModule } from 'primeng/avatar';
+
+@Component({
+    selector: 'message-icon-demo',
+    templateUrl: './message-icon-demo.html',
+    standalone: true,
+    imports: [MessageModule, AvatarModule]
+})
+export class MessageIconDemo {}
+```
+</details>
+
 ## Life
 
 Messages can disappear automatically by defined the life in milliseconds.
@@ -81,6 +171,34 @@ Messages can disappear automatically by defined the life in milliseconds.
 ```html
 <p-message [life]="3000" severity="success">Auto disappear message</p-message>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, signal } from '@angular/core';
+import { Message } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'message-life-demo',
+    templateUrl: './message-life-demo.html',
+    standalone: true,
+    imports: [Message, ButtonModule]
+})
+export class MessageLifeDemo {
+    visible = signal(false);
+
+    showMessage() {
+        this.visible.set(true);
+
+        setTimeout(() => {
+            this.visible.set(false);
+        }, 3000);
+    }
+}
+```
+</details>
 
 ## Outlined
 
@@ -95,6 +213,23 @@ Configure the variant value as outlined for messages with borders and no backgro
 <p-message severity="contrast" variant="outlined">Contrast Message</p-message>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Message } from 'primeng/message';
+
+@Component({
+    selector: 'message-outlined-demo',
+    templateUrl: './message-outlined-demo.html',
+    standalone: true,
+    imports: [Message]
+})
+export class MessageOutlinedDemo {}
+```
+</details>
+
 ## Severity
 
 The severity option specifies the type of the message.
@@ -107,6 +242,23 @@ The severity option specifies the type of the message.
 <p-message severity="secondary">Secondary Message</p-message>
 <p-message severity="contrast">Contrast Message</p-message>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Message } from 'primeng/message';
+
+@Component({
+    selector: 'message-severity-demo',
+    templateUrl: './message-severity-demo.html',
+    standalone: true,
+    imports: [Message]
+})
+export class MessageSeverityDemo {}
+```
+</details>
 
 ## Simple
 
@@ -121,6 +273,23 @@ Configure the variant value as simple for messages without borders and backgroun
 <p-message severity="contrast" variant="simple">Contrast Message</p-message>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Message } from 'primeng/message';
+
+@Component({
+    selector: 'message-simple-demo',
+    templateUrl: './message-simple-demo.html',
+    standalone: true,
+    imports: [Message]
+})
+export class MessageSimpleDemo {}
+```
+</details>
+
 ## Sizes
 
 Message provides small and large sizes as alternatives to the base.
@@ -130,6 +299,23 @@ Message provides small and large sizes as alternatives to the base.
 <p-message icon="pi pi-user">Normal Message</p-message>
 <p-message size="large" icon="pi pi-check">Large Message</p-message>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Message } from 'primeng/message';
+
+@Component({
+    selector: 'message-sizes-demo',
+    templateUrl: './message-sizes-demo.html',
+    standalone: true,
+    imports: [Message]
+})
+export class MessageSizesDemo {}
+```
+</details>
 
 ## Message
 

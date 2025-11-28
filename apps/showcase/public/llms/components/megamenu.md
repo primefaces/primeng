@@ -18,6 +18,16 @@ MegaMenu requires a collection of menuitems as its model .
 
 The command property of a menuitem defines the callback to run when an item is activated by click or a key event.
 
+```html
+{
+    label: 'Log out',
+    icon: 'pi pi-signout',
+    command: () => {
+        // Callback to run
+    }
+}
+```
+
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
@@ -25,6 +35,74 @@ Menu items support navigation via routerLink, programmatic routing using command
 ```html
 <p-megamenu [model]="items" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MegaMenuItem } from 'primeng/api';
+import { MegaMenu } from 'primeng/megamenu';
+import { Router } from '@angular/router';
+
+@Component({
+    selector: 'mega-menu-router-demo',
+    templateUrl: './mega-menu-router-demo.html',
+    standalone: true,
+    imports: [MegaMenu]
+})
+export class MegaMenuRouterDemo implements OnInit {
+    items: MegaMenuItem[] | undefined;
+
+    constructor(private router: Router) {}
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Router',
+                icon: 'pi pi-palette',
+                items: [
+                    [
+                        {
+                            label: 'RouterLink',
+                            items: [
+                                { label: 'Theming', routerLink: '/theming' },
+                                { label: 'UI Kit', routerLink: '/uikit' }
+                            ]
+                        }
+                    ]
+                ]
+            },
+            {
+                label: 'Programmatic',
+                icon: 'pi pi-link',
+                command: () => {
+                    this.router.navigate(['/installation']);
+                }
+            },
+            {
+                label: 'External',
+                icon: 'pi pi-home',
+                items: [
+                    [
+                        {
+                            label: 'External',
+                            items: [
+                                { label: 'Angular', url: 'https://angular.dev/' },
+                                {
+                                    label: 'Vite.js',
+                                    url: 'https://vitejs.dev/'
+                                }
+                            ]
+                        }
+                    ]
+                ]
+            }
+        ];
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -67,6 +145,81 @@ Custom content can be placed between p-megamenu tags. Megamenu should be horizon
 </p-megamenu>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MegaMenuItem } from 'primeng/api';
+import { MegaMenu } from 'primeng/megamenu';
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+import { AvatarModule } from 'primeng/avatar';
+
+
+@Component({
+    selector: 'mega-menu-template-demo',
+    templateUrl: './mega-menu-template-demo.html',
+    standalone: true,
+    imports: [MegaMenu, ButtonModule, CommonModule, AvatarModule]
+})
+export class MegaMenuTemplateDemo implements OnInit {
+    items: MegaMenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Company',
+                root: true,
+                items: [
+                    [
+                        {
+                            items: [
+                                { label: 'Features', icon: 'pi pi-list', subtext: 'Subtext of item' },
+                                { label: 'Customers', icon: 'pi pi-users', subtext: 'Subtext of item' },
+                                { label: 'Case Studies', icon: 'pi pi-file', subtext: 'Subtext of item' }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            items: [
+                                { label: 'Solutions', icon: 'pi pi-shield', subtext: 'Subtext of item' },
+                                { label: 'Faq', icon: 'pi pi-question', subtext: 'Subtext of item' },
+                                { label: 'Library', icon: 'pi pi-search', subtext: 'Subtext of item' }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            items: [
+                                { label: 'Community', icon: 'pi pi-comments', subtext: 'Subtext of item' },
+                                { label: 'Rewards', icon: 'pi pi-star', subtext: 'Subtext of item' },
+                                { label: 'Investors', icon: 'pi pi-globe', subtext: 'Subtext of item' }
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            items: [{ image: 'https://primefaces.org/cdn/primeng/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.' }]
+                        }
+                    ]
+                ]
+            },
+            {
+                label: 'Resources',
+                root: true
+            },
+            {
+                label: 'Contact',
+                root: true
+            }
+        ];
+    }
+}
+```
+</details>
+
 ## Vertical
 
 Layout of the MegaMenu is changed with the orientation property that accepts horizontal and vertical as options.
@@ -74,6 +227,156 @@ Layout of the MegaMenu is changed with the orientation property that accepts hor
 ```html
 <p-megamenu [model]="items" orientation="vertical" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MegaMenuItem } from 'primeng/api';
+import { MegaMenu } from 'primeng/megamenu';
+
+@Component({
+    selector: 'mega-menu-vertical-demo',
+    templateUrl: './mega-menu-vertical-demo.html',
+    standalone: true,
+    imports: [MegaMenu]
+})
+export class MegaMenuVerticalDemo implements OnInit {
+    items: MegaMenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Furniture',
+                icon: 'pi pi-box',
+                items: [
+                    [
+                        {
+                            label: 'Living Room',
+                            items: [
+                                { label: 'Accessories' },
+                                { label: 'Armchair' },
+                                { label: 'Coffee Table' },
+                                { label: 'Couch' },
+                                { label: 'TV Stand' },
+                            ],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Kitchen',
+                            items: [{ label: 'Bar stool' }, { label: 'Chair' }, { label: 'Table' }],
+                        },
+                        {
+                            label: 'Bathroom',
+                            items: [{ label: 'Accessories' }],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Bedroom',
+                            items: [
+                                { label: 'Bed' },
+                                { label: 'Chaise lounge' },
+                                { label: 'Cupboard' },
+                                { label: 'Dresser' },
+                                { label: 'Wardrobe' },
+                            ],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Office',
+                            items: [
+                                { label: 'Bookcase' },
+                                { label: 'Cabinet' },
+                                { label: 'Chair' },
+                                { label: 'Desk' },
+                                { label: 'Executive Chair' },
+                            ],
+                        },
+                    ],
+                ],
+            },
+            {
+                label: 'Electronics',
+                icon: 'pi pi-mobile',
+                items: [
+                    [
+                        {
+                            label: 'Computer',
+                            items: [
+                                { label: 'Monitor' },
+                                { label: 'Mouse' },
+                                { label: 'Notebook' },
+                                { label: 'Keyboard' },
+                                { label: 'Printer' },
+                                { label: 'Storage' },
+                            ],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Home Theater',
+                            items: [{ label: 'Projector' }, { label: 'Speakers' }, { label: 'TVs' }],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Gaming',
+                            items: [{ label: 'Accessories' }, { label: 'Console' }, { label: 'PC' }, { label: 'Video Games' }],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Appliances',
+                            items: [
+                                { label: 'Coffee Machine' },
+                                { label: 'Fridge' },
+                                { label: 'Oven' },
+                                { label: 'Vaccum Cleaner' },
+                                { label: 'Washing Machine' },
+                            ],
+                        },
+                    ],
+                ],
+            },
+            {
+                label: 'Sports',
+                icon: 'pi pi-clock',
+                items: [
+                    [
+                        {
+                            label: 'Football',
+                            items: [{ label: 'Kits' }, { label: 'Shoes' }, { label: 'Shorts' }, { label: 'Training' }],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Running',
+                            items: [{ label: 'Accessories' }, { label: 'Shoes' }, { label: 'T-Shirts' }, { label: 'Shorts' }],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Swimming',
+                            items: [{ label: 'Kickboard' }, { label: 'Nose Clip' }, { label: 'Swimsuits' }, { label: 'Paddles' }],
+                        },
+                    ],
+                    [
+                        {
+                            label: 'Tennis',
+                            items: [{ label: 'Balls' }, { label: 'Rackets' }, { label: 'Shoes' }, { label: 'Training' }],
+                        },
+                    ],
+                ],
+            },
+        ];
+    }
+}
+```
+</details>
 
 ## Mega Menu
 

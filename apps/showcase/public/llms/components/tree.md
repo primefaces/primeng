@@ -510,6 +510,51 @@ Custom node content instead of a node label is defined with the pTemplate proper
 </p-tree>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
+
+@Component({
+    selector: 'tree-template-demo',
+    templateUrl: './tree-template-demo.html',
+    standalone: true,
+    imports: [TreeModule]
+})
+export class TreeTemplateDemo implements OnInit {
+    nodes = signal<TreeNode[]>(undefined);
+
+    ngOnInit() {
+        this.nodes.set([
+            {
+                key: '0',
+                label: 'Introduction',
+                children: [
+                    { key: '0-0', label: 'What is Angular', data: 'https://angular.io', type: 'url' },
+                    { key: '0-1', label: 'Getting Started', data: 'https://angular.io/guide/setup-local', type: 'url' },
+                    { key: '0-2', label: 'Learn and Explore', data: 'https://angular.io/guide/architecture', type: 'url' },
+                    { key: '0-3', label: 'Take a Look', data: 'https://angular.io/start', type: 'url' }
+                ]
+            },
+            {
+                key: '1',
+                label: 'Components In-Depth',
+                children: [
+                    { key: '1-0', label: 'Component Registration', data: 'https://angular.io/guide/component-interaction', type: 'url' },
+                    { key: '1-1', label: 'User Input', data: 'https://angular.io/guide/user-input', type: 'url' },
+                    { key: '1-2', label: 'Hooks', data: 'https://angular.io/guide/lifecycle-hooks', type: 'url' },
+                    { key: '1-3', label: 'Attribute Directives', data: 'https://angular.io/guide/attribute-directives', type: 'url' }
+                ]
+            }
+        ]);
+    }
+}
+```
+</details>
+
 ## Virtual Scroll
 
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.

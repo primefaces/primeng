@@ -57,6 +57,57 @@ Classes to apply during enter and leave animations are specified using the enter
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: './style-class-animation-demo',
+    templateUrl: './style-class-animation-demo.html',
+    standalone: true,
+    imports: [StyleClassModule, ButtonModule],
+    styles: [
+        \`:host ::ng-deep {
+                @keyframes my-fadein {
+                    0% {
+                        opacity: 0;
+                    }
+                    100% {
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes my-fadeout {
+                    0% {
+                        opacity: 1;
+                    }
+                    100% {
+                        opacity: 0;
+                    }
+                }
+
+                .my-hidden {
+                    display: none;
+                }
+
+                .my-fadein {
+                    animation: my-fadein 150ms linear;
+                }
+
+                .my-fadeout {
+                    animation: my-fadeout 150ms linear;
+                }
+            } \`
+    ],
+})
+export class StyleClassAnimationDemo {}
+```
+</details>
+
 ## Hide On Resize
 
 When hideOnResize is enabled, the leave animation is triggered automatically when resizing occurs. Use the resizeSelector property to specify whether to listen to window resize events or element-specific resize events. Set resizeSelector to "window" (default) or "document" for browser resize, or a CSS selector to observe the target element's dimensions.
@@ -97,6 +148,24 @@ When hideOnResize is enabled, the leave animation is triggered automatically whe
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { StyleClass } from 'primeng/styleclass';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'hide-on-resize-demo',
+    templateUrl: './hide-on-resize-demo.html',
+    standalone: true,
+    imports: [StyleClass, ButtonModule]
+})
+export class HideOnResizeDemo {}
+```
+</details>
+
 ## Toggle Class
 
 StyleClass has two modes, toggleClass to simply add-remove a class and enter/leave animations. The target element to change the styling is defined with the selector property that accepts any valid CSS selector or keywords including &#64;next , prev , parent , grandparent
@@ -105,4 +174,23 @@ StyleClass has two modes, toggleClass to simply add-remove a class and enter/lea
 <p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
 <input type="text" pInputText class="block mt-4" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { StyleClass } from 'primeng/styleclass';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'style-class-toggle-class-demo',
+    templateUrl: './style-class-toggle-class-demo.html',
+    standalone: true,
+    imports: [StyleClass, InputTextModule, ButtonModule]
+})
+export class StyleClassToggleClassDemo {}
+```
+</details>
 

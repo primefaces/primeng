@@ -246,6 +246,45 @@ In this sample, data is retrieved from the content inside the popover.
 </p-popover>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, ViewChild } from '@angular/core';
+import { Popover } from 'primeng/popover';
+import { PopoverModule } from 'primeng/popover';
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'popover-basic-demo',
+    templateUrl: './popover-basic-demo.html',
+    standalone: true,
+    imports: [PopoverModule, ButtonModule, CommonModule]
+})
+export class PopoverBasicDemo {
+   @ViewChild('op') op!: Popover;
+
+    selectedMember = null;
+
+    members = [
+        { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
+        { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
+        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' },
+    ];
+
+    toggle(event) {
+        this.op.toggle(event);
+    }
+
+    selectMember(member) {
+        this.selectedMember = member;
+        this.op.hide();
+    }
+}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -264,6 +303,20 @@ show method takes two parameters, first one is the event and it is mandatory. By
 </p-popover>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'overlay-panel-target-demo',
+    templateUrl: './overlay-panel-target-demo.html'
+})
+export class OverlayPanelTargetDemo {}
+```
+</details>
+
 ## Template
 
 Content of the OverlayPanel is defined by content template.
@@ -276,6 +329,20 @@ Content of the OverlayPanel is defined by content template.
 </p-popover>
 <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'overlay-panel-template-demo',
+    templateUrl: './overlay-panel-template-demo.html'
+})
+export class OverlayPanelTemplateDemo {}
+```
+</details>
 
 ## Popover
 

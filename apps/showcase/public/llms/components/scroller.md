@@ -325,6 +325,36 @@ Scrolling to a specific index can be done with the scrollToIndex function.
 </p-virtualscroller>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Scroller } from 'primeng/scroller';
+import { ScrollerModule } from 'primeng/scroller';
+
+@Component({
+    selector: 'scroller-programmatic-demo',
+    templateUrl: './scroller-programmatic-demo.html',
+    standalone: true,
+    imports: [ScrollerModule]
+})
+export class ScrollerProgrammaticDemo implements OnInit {
+    @ViewChild('sc') sc!: Scroller;
+
+    items: string[] = [];
+
+    ngOnInit(): void {
+        this.items = Array.from({ length: 1000 }).map((_, i) => \`Item #\${i}\`);
+    }
+
+    reset() {
+        this.sc.scrollToIndex(0, 'smooth');
+    }
+}
+```
+</details>
+
 ## Scroll Options
 
 The properties of scroller component can be used like an object in it.

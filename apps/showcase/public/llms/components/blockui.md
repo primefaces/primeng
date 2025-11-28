@@ -29,6 +29,38 @@ If the target element is not specified, BlockUI blocks the document by default.
 <p-blockui [blocked]="blockedDocument" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { BlockUI } from 'primeng/blockui';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+
+@Component({
+    selector: 'block-ui-document-demo',
+    templateUrl: './block-ui-document-demo.html',
+    standalone: true,
+    imports: [BlockUI, ButtonModule, Ripple]
+})
+export class BlockUiDocumentDemo {
+    blockedDocument: boolean = false;
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    blockDocument() {
+        this.blockedDocument = true;
+        setTimeout(() => {
+            this.blockedDocument = false;
+            this.cd.markForCheck();
+        }, 3000);
+    }
+
+}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.

@@ -22,6 +22,26 @@ When disabled is present, the element cannot be edited and focused.
 <p-colorpicker [(ngModel)]="color" [disabled]="true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPicker } from 'primeng/colorpicker';
+
+@Component({
+    selector: 'color-picker-format-demo',
+    templateUrl: './color-picker-format-demo.html',
+    standalone: true,
+    imports: [FormsModule, ColorPicker]
+})
+export class ColorPickerDisabledDemo {
+    color: string | undefined;
+}
+```
+</details>
+
 ## Format
 
 Default color format to use in value binding is hex and other possible values can be rgb and hsb using the format property.
@@ -34,6 +54,30 @@ Default color format to use in value binding is hex and other possible values ca
 <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPicker } from 'primeng/colorpicker';
+
+@Component({
+    selector: 'color-picker-format-demo',
+    templateUrl: './color-picker-format-demo.html',
+    standalone: true,
+    imports: [FormsModule, ColorPicker]
+})
+export class ColorPickerFormatDemo {
+    color: string = '#6466f1';
+
+    colorRGB: any = { r: 100, g: 102, b: 241 };
+
+    colorHSB: any = { h: 239, s: 59, b: 95 };
+}
+```
+</details>
+
 ## Inline
 
 ColorPicker is displayed as a popup by default, add inline property to customize this behavior.
@@ -41,6 +85,26 @@ ColorPicker is displayed as a popup by default, add inline property to customize
 ```html
 <p-colorpicker [(ngModel)]="color" [inline]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPicker } from 'primeng/colorpicker';
+
+@Component({
+    selector: 'color-picker-inline-demo',
+    templateUrl: './color-picker-inline-demo.html',
+    standalone: true,
+    imports: [FormsModule, ColorPicker]
+})
+export class ColorPickerInlineDemo {
+    color: string | undefined;
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -57,6 +121,54 @@ ColorPicker can also be used with reactive forms. In this case, the formControlN
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    selector: 'color-picker-reactive-forms-demo',
+    templateUrl: './color-picker-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, ColorPickerModule, ButtonModule, MessageModule, ToastModule]
+})
+export class ColorPickerReactiveFormsDemo {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup;
+
+    formSubmitted = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            color: ['', Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && this.formSubmitted;
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -75,6 +187,38 @@ Following is the list of structural style classes, for theming classes visit the
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    selector: 'color-picker-template-driven-forms-demo',
+    templateUrl: './color-picker-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, ColorPickerModule, ButtonModule, MessageModule, ToastModule]
+})
+export class ColorPickerReactiveFormsDemo {
+    messageService = inject(MessageService);
+
+    color: string | undefined;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
 
 ## Color Picker
 

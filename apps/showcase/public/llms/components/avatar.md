@@ -19,6 +19,24 @@ Grouping is available by wrapping multiple Avatar components inside an AvatarGro
 <p-avatar label="+2" shape="circle" size="large" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Avatar } from 'primeng/avatar';
+import { AvatarGroup } from 'primeng/avatargroup';
+
+@Component({
+    selector: 'avatar-group-demo',
+    templateUrl: './avatar-group-demo.html',
+    standalone: true,
+    imports: [Avatar, AvatarGroup]
+})
+export class AvatarGroupDemo {}
+```
+</details>
+
 ## avatarstyledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -34,6 +52,24 @@ A badge can be added to an Avatar with the Badge directive.
     value="4"
     severity="danger" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Avatar } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
+
+@Component({
+    selector: 'avatar-badge-demo',
+    templateUrl: './avatar-badge-demo.html',
+    standalone: true,
+    imports: [Avatar, BadgeModule]
+})
+export class AvatarBadgeDemo {}
+```
+</details>
 
 ## Icon
 
@@ -52,6 +88,24 @@ A font icon is displayed as an Avatar with the icon property.
 </p-overlay-badge>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { AvatarModule } from 'primeng/avatar';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+
+@Component({
+    selector: 'avatar-icon-demo',
+    templateUrl: './avatar-icon-demo.html',
+    standalone: true,
+    imports: [AvatarModule, OverlayBadgeModule]
+})
+export class AvatarIconDemo {}
+```
+</details>
+
 ## Image
 
 Use the image property to display an image as an Avatar.
@@ -67,6 +121,24 @@ Use the image property to display an image as an Avatar.
 
 <p-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" class="flex items-center justify-center mr-2" size="xlarge" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { AvatarModule } from 'primeng/avatar';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+
+@Component({
+    selector: 'avatar-image-demo',
+    templateUrl: './avatar-image-demo.html',
+    standalone: true,
+    imports: [AvatarModule, OverlayBadgeModule]
+})
+export class AvatarImageDemo {}
+```
+</details>
 
 ## Label
 
@@ -85,6 +157,24 @@ A letter Avatar is defined with the label property.
 </p-overlay-badge>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { AvatarModule } from 'primeng/avatar';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+
+@Component({
+    selector: 'avatar-label-demo',
+    templateUrl: './avatar-label-demo.html',
+    standalone: true,
+    imports: [AvatarModule, OverlayBadgeModule]
+})
+export class AvatarLabelDemo {}
+```
+</details>
+
 ## Shape
 
 Avatar comes in two different styles specified with the shape property, square is the default and circle is the alternative.
@@ -93,6 +183,23 @@ Avatar comes in two different styles specified with the shape property, square i
 <p-avatar label="P" shape="circle" />
 <p-avatar label="T" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Avatar } from 'primeng/avatar';
+
+@Component({
+    selector: 'avatar-shape-demo',
+    templateUrl: './avatar-shape-demo.html',
+    standalone: true,
+    imports: [Avatar]
+})
+export class AvatarShapeDemo {}
+```
+</details>
 
 ## Size
 
@@ -103,6 +210,23 @@ size property defines the size of the Avatar with large and xlarge as possible v
 <p-avatar label="T" size="xlarge" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Avatar } from 'primeng/avatar';
+
+@Component({
+    selector: 'avatar-size-demo',
+    templateUrl: './avatar-size-demo.html',
+    standalone: true,
+    imports: [Avatar]
+})
+export class AvatarSizeDemo {}
+```
+</details>
+
 ## Template
 
 Content can easily be customized with the dynamic content instead of using the built-in modes.
@@ -112,6 +236,23 @@ Content can easily be customized with the dynamic content instead of using the b
     <span class="text-base">Content</span>
 </p-avatar>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Avatar } from 'primeng/avatar';
+
+@Component({
+    selector: 'avatar-template-demo',
+    templateUrl: './avatar-template-demo.html',
+    standalone: true,
+    imports: [Avatar]
+})
+export class AvatarTemplateDemo {}
+```
+</details>
 
 ## Avatar
 
