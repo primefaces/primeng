@@ -62,6 +62,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
     selector: 'p-treeNode',
     standalone: true,
     imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule, BindModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         @if (node) {
             <li
@@ -223,12 +224,22 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     _componentStyle = inject(TreeStyle);
 
+    /**
+     * Computed signal that reactively tracks selection state.
+     * Depends on tree.selectionVersion to update when selection changes.
+     */
+    private _selected = computed(() => {
+        // Subscribe to selectionVersion to trigger updates when selection changes
+        this.tree.selectionVersion();
+        return this.tree.isSelected(<TreeNode>this.node);
+    });
+
     get selected() {
-        return this.tree.selectionMode === 'single' || this.tree.selectionMode === 'multiple' ? this.isSelected() : undefined;
+        return this.tree.selectionMode === 'single' || this.tree.selectionMode === 'multiple' ? this._selected() : undefined;
     }
 
     get checked() {
-        return this.tree.selectionMode === 'checkbox' ? this.isSelected() : undefined;
+        return this.tree.selectionMode === 'checkbox' ? this._selected() : undefined;
     }
 
     get nodeClass() {
@@ -281,7 +292,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
     }
 
     isSelected() {
-        return this.tree.isSelected(<TreeNode>this.node);
+        return this._selected();
     }
 
     isSameNode(event) {
@@ -1233,6 +1244,13 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     serializedValue: Nullable<TreeNode<any>[]>;
 
+    /**
+     * Signal to notify UITreeNode components about selection changes.
+     * Incrementing this value triggers change detection in OnPush nodes.
+     * @internal
+     */
+    selectionVersion = signal(0);
+
     public nodeTouched: boolean | undefined | null;
 
     public dragNodeTree: Tree | undefined | null;
@@ -1440,6 +1458,9 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                     this.selectionChange.emit(this.selection);
                 }
             }
+
+            // Notify OnPush nodes about selection change
+            this.selectionVersion.update((v) => v + 1);
         }
 
         this.nodeTouched = false;
