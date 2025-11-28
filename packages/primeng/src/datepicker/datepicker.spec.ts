@@ -246,9 +246,9 @@ class TestPTemplatesDatePickerComponent {
             <!-- Date template with context parameters -->
             <ng-template #date let-date="date">
                 <div class="custom-date-ref" data-testid="date-ref-template">
-                    <span class="day">{{ date.day }}</span>
-                    <span class="month" *ngIf="date.month">{{ date.month }}</span>
-                    <span class="year" *ngIf="date.year">{{ date.year }}</span>
+                    <span class="day">{{ date?.day }}</span>
+                    <span class="month" *ngIf="date?.month">{{ date?.month }}</span>
+                    <span class="year" *ngIf="date?.year">{{ date?.year }}</span>
                 </div>
             </ng-template>
 
@@ -271,14 +271,14 @@ class TestPTemplatesDatePickerComponent {
             <!-- Disabled date template with context -->
             <ng-template #disabledDate let-date="date">
                 <div class="disabled-date-ref" data-testid="disabled-date-ref-template">
-                    <span class="crossed-out-ref">{{ date.day }}</span>
+                    <span class="crossed-out-ref">{{ date?.day }}</span>
                 </div>
             </ng-template>
 
             <!-- Decade template with context -->
             <ng-template #decade let-decade="decade">
                 <div class="custom-decade-ref" data-testid="decade-ref-template">
-                    <span class="decade-range-ref">{{ decade.year }}-{{ decade.year + 9 }}</span>
+                    <span class="decade-range-ref">{{ decade?.year }}-{{ decade?.year ? decade.year + 9 : '' }}</span>
                 </div>
             </ng-template>
 
@@ -1158,26 +1158,6 @@ describe('DatePicker', () => {
 
             const today = new Date();
             expect(testComponent.selectedDate.toDateString()).toBe(today.toDateString());
-        });
-    });
-
-    describe('Animation and Transitions', () => {
-        it('should handle show transition options', async () => {
-            testComponent.showTransitionOptions = '.2s ease-in';
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
-            const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
-            expect(datePickerComponent.showTransitionOptions).toBe('.2s ease-in');
-        });
-
-        it('should handle hide transition options', async () => {
-            testComponent.hideTransitionOptions = '.15s ease-out';
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
-            const datePickerComponent = testFixture.debugElement.query(By.css('p-datepicker')).componentInstance;
-            expect(datePickerComponent.hideTransitionOptions).toBe('.15s ease-out');
         });
     });
 

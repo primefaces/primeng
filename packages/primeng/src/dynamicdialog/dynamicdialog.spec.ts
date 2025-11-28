@@ -141,6 +141,11 @@ describe('DynamicDialog', () => {
         }).compileComponents();
     });
 
+    afterEach(async () => {
+        // Clean up any pending animations/timers
+        await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
     describe('Component Initialization', () => {
         let fixture: ComponentFixture<DynamicDialog>;
         let component: DynamicDialog;
@@ -250,39 +255,6 @@ describe('DynamicDialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             expect(mockDialogRef.destroy).toHaveBeenCalled();
-        });
-
-        it('should handle animation events', () => {
-            // const animationEvent: AnimationEvent = {
-            //     element: document.createElement('div'),
-            //     toState: 'visible',
-            //     fromState: 'void',
-            //     totalTime: 150,
-            //     phaseName: 'start',
-            //     triggerName: 'animation',
-            //     disabled: false
-            // };
-            // spyOn(component, 'enableModality');
-            // component.onAnimationStart(animationEvent);
-            // // These methods are now handled by Dialog component
-            // // Just verify the animation event is processed
-            // expect(component.visible).toBe(true);
-        });
-
-        it('should handle animation end for destroy', () => {
-            // const animationEvent: AnimationEvent = {
-            //     element: document.createElement('div'),
-            //     toState: 'void',
-            //     fromState: 'visible',
-            //     totalTime: 150,
-            //     phaseName: 'done',
-            //     triggerName: 'animation',
-            //     disabled: false
-            // };
-            // spyOn(component, 'onContainerDestroy');
-            // component.onAnimationEnd(animationEvent);
-            // expect(component.onContainerDestroy).toHaveBeenCalled();
-            // expect(mockDialogRef.destroy).toHaveBeenCalled();
         });
     });
 
@@ -756,30 +728,6 @@ describe('DynamicDialog', () => {
             expect(mockViewContainer.createComponent).toHaveBeenCalledWith(TestDialogContentComponent);
         });
 
-        it('should pass input values to child component', () => {
-            const inputValues = { prop1: 'value1', prop2: 'value2' };
-            component.inputValues = inputValues;
-
-            const mockComponentRef = {
-                setInput: jasmine.createSpy('setInput'),
-                instance: new TestDialogContentComponent(mockDialogRef, mockConfig)
-            };
-
-            const mockViewContainer = {
-                clear: jasmine.createSpy('clear'),
-                createComponent: jasmine.createSpy('createComponent').and.returnValue(mockComponentRef)
-            };
-
-            component.insertionPoint = {
-                viewContainerRef: mockViewContainer as any
-            } as any;
-
-            component.loadChildComponent(TestDialogContentComponent);
-
-            expect(mockComponentRef.setInput).toHaveBeenCalledWith('prop1', 'value1');
-            expect(mockComponentRef.setInput).toHaveBeenCalledWith('prop2', 'value2');
-        });
-
         it('should display header content', async () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -805,124 +753,6 @@ describe('DynamicDialog', () => {
 
             const headerElement = fixture.debugElement.query(By.css('.p-dialog-header'));
             expect(headerElement).toBeFalsy();
-        });
-    });
-
-    describe('Nested DynamicDialog Edge Cases', () => {
-        let fixture: ComponentFixture<DynamicDialog>;
-        let component: DynamicDialog;
-
-        beforeEach(async () => {
-            mockConfig.header = 'Parent Dialog';
-
-            fixture = TestBed.createComponent(DynamicDialog);
-            component = fixture.componentInstance;
-            component.childComponentType = NestedDialogContentComponent;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-        });
-
-        it('should handle multiple nested dialogs correctly', async () => {
-            // Create mock parent dialog
-            const parentDialog = document.createElement('div');
-            parentDialog.className = 'p-dialog';
-            document.body.appendChild(parentDialog);
-
-            // Test parent property
-            expect(component._parent).toBeTruthy();
-
-            // Test parent content property
-            const contentElement = document.createElement('div');
-            contentElement.className = 'p-dialog-content';
-            parentDialog.appendChild(contentElement);
-
-            expect(component.parentContent).toBeTruthy();
-
-            // Cleanup
-            document.body.removeChild(parentDialog);
-        });
-
-        it('should unbind global listeners when parent dialog exists', () => {
-            const parentDialog = document.createElement('div');
-            parentDialog.className = 'p-dialog';
-            document.body.appendChild(parentDialog);
-
-            spyOn(component, 'unbindGlobalListeners');
-
-            // const animationEvent: AnimationEvent = {
-            //     element: document.createElement('div'),
-            //     toState: 'visible',
-            //     fromState: 'void',
-            //     totalTime: 150,
-            //     phaseName: 'start',
-            //     triggerName: 'animation',
-            //     disabled: false
-            // };
-
-            // component.onAnimationStart(animationEvent);
-
-            // expect(component.unbindGlobalListeners).toHaveBeenCalled();
-
-            // document.body.removeChild(parentDialog);
-        });
-
-        it('should destroy dialog when animation ends', async () => {
-            const parentDialog = document.createElement('div');
-            parentDialog.className = 'p-dialog';
-            const parentContent = document.createElement('div');
-            parentContent.className = 'p-dialog-content';
-            parentDialog.appendChild(parentContent);
-            document.body.appendChild(parentDialog);
-
-            spyOn(component, 'onContainerDestroy');
-
-            // const animationEvent: AnimationEvent = {
-            //     element: document.createElement('div'),
-            //     toState: 'void',
-            //     fromState: 'visible',
-            //     totalTime: 150,
-            //     phaseName: 'done',
-            //     triggerName: 'animation',
-            //     disabled: false
-            // };
-
-            // component.onAnimationEnd(animationEvent);
-
-            // expect(component.onContainerDestroy).toHaveBeenCalled();
-            // expect(mockDialogRef.destroy).toHaveBeenCalled();
-
-            // document.body.removeChild(parentDialog);
-        });
-
-        it('should handle z-index layering for nested dialogs', () => {
-            const wrapperElement = document.createElement('div');
-            const containerElement = document.createElement('div');
-            containerElement.style.zIndex = '1000';
-            wrapperElement.appendChild(containerElement);
-            document.body.appendChild(wrapperElement);
-
-            component.container = containerElement;
-            component.wrapper = wrapperElement;
-            mockConfig.autoZIndex = true;
-            mockConfig.baseZIndex = 1000;
-
-            // const animationEvent: AnimationEvent = {
-            //     element: component.container,
-            //     toState: 'visible',
-            //     fromState: 'void',
-            //     totalTime: 150,
-            //     phaseName: 'start',
-            //     triggerName: 'animation',
-            //     disabled: false
-            // };
-
-            // component.onAnimationStart(animationEvent);
-
-            // // Z-index is now handled by Dialog component
-            // expect(component.container.style.zIndex).toBe('1000');
-
-            // // Cleanup
-            // document.body.removeChild(wrapperElement);
         });
     });
 

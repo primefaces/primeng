@@ -130,7 +130,7 @@ describe('ScrollTop', () => {
             expect(newScrollTop.behavior).toBe('smooth');
             expect(newScrollTop.showTransitionOptions).toBe('.15s');
             expect(newScrollTop.hideTransitionOptions).toBe('.15s');
-            expect(newScrollTop.visible).toBe(false);
+            expect(newScrollTop.visible()).toBe(false);
         });
 
         it('should accept custom threshold', () => {
@@ -358,6 +358,7 @@ describe('ScrollTop', () => {
             const component = fixture.componentInstance;
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
+            scrollTop.render.set(true);
             scrollTop.visible.set(true);
             fixture.detectChanges();
 
@@ -371,6 +372,7 @@ describe('ScrollTop', () => {
             const fixture = TestBed.createComponent(TestBasicScrollTopComponent);
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
+            scrollTop.render.set(true);
             scrollTop.visible.set(true);
             fixture.detectChanges();
 
@@ -382,6 +384,7 @@ describe('ScrollTop', () => {
             const fixture = TestBed.createComponent(TestScrollTopWithTemplateComponent);
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
+            scrollTop.render.set(true);
             scrollTop.visible.set(true);
             fixture.detectChanges();
 
@@ -437,8 +440,7 @@ describe('ScrollTop', () => {
             const defaultScrollTop = TestBed.createComponent(TestBasicScrollTopComponent).debugElement.query(By.directive(ScrollTop)).componentInstance;
 
             expect(defaultScrollTop.buttonProps).toEqual({
-                rounded: true,
-                severity: 'success'
+                rounded: true
             });
         });
 
@@ -754,8 +756,6 @@ describe('ScrollTop', () => {
         });
 
         it('should handle rapid scroll events efficiently', async () => {
-            spyOn(scrollTop.cd, 'markForCheck');
-
             // Simulate rapid scroll events
             for (let i = 0; i < 100; i++) {
                 scrollTop.checkVisibility(i * 10);
@@ -763,8 +763,11 @@ describe('ScrollTop', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            // Should have called markForCheck for each event
-            expect(scrollTop.cd.markForCheck).toHaveBeenCalledTimes(100);
+            // After processing scroll events, visibility should be set based on threshold
+            // Since threshold is 400, scrollY values above 400 should set visible to true
+            // The last call was checkVisibility(990) which is > 400, so visible should be true
+            expect(scrollTop.visible()).toBe(true);
+            expect(scrollTop.render()).toBe(true);
         });
 
         it('should not create multiple listeners', () => {

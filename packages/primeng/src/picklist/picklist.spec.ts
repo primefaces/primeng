@@ -248,13 +248,13 @@ describe('PickList', () => {
         });
 
         it('should reorder items within source list', async () => {
-            const firstItemId = picklistComponent.source![0].id;
-            const secondItemId = picklistComponent.source![1].id;
-            const firstItem = picklistComponent.source![0];
+            const firstItemId = picklistComponent.source()[0].id;
+            const secondItemId = picklistComponent.source()[1].id;
+            const firstItem = picklistComponent.source()[0];
 
             // Simulate reordering within source list (move first item to position 1)
             const sourceContainer = {
-                data: picklistComponent.source,
+                data: picklistComponent.source(),
                 id: 'source-list'
             } as any;
             const dragDropEvent: CdkDragDrop<any[]> = {
@@ -274,18 +274,18 @@ describe('PickList', () => {
             await fixture.whenStable();
 
             // After reordering: second item should be first, first item should be second
-            expect(picklistComponent.source![0].id).toBe(secondItemId);
-            expect(picklistComponent.source![1].id).toBe(firstItemId);
+            expect(picklistComponent.source()[0].id).toBe(secondItemId);
+            expect(picklistComponent.source()[1].id).toBe(firstItemId);
         });
 
         it('should reorder items within target list', async () => {
-            const firstItemId = picklistComponent.target![0].id;
-            const secondItemId = picklistComponent.target![1].id;
-            const firstItem = picklistComponent.target![0];
+            const firstItemId = picklistComponent.target()[0].id;
+            const secondItemId = picklistComponent.target()[1].id;
+            const firstItem = picklistComponent.target()[0];
 
             // Simulate reordering within target list (move first item to position 1)
             const targetContainer = {
-                data: picklistComponent.target,
+                data: picklistComponent.target(),
                 id: 'target-list'
             } as any;
             const dragDropEvent: CdkDragDrop<any[]> = {
@@ -305,8 +305,8 @@ describe('PickList', () => {
             await fixture.whenStable();
 
             // After reordering: second item should be first, first item should be second
-            expect(picklistComponent.target![0].id).toBe(secondItemId);
-            expect(picklistComponent.target![1].id).toBe(firstItemId);
+            expect(picklistComponent.target()[0].id).toBe(secondItemId);
+            expect(picklistComponent.target()[1].id).toBe(firstItemId);
         });
     });
 
@@ -467,14 +467,14 @@ describe('PickList', () => {
 
         it('should handle multiple items drag drop simulation', async () => {
             // Move first item from source to target
-            let itemToMove = picklistComponent.source![0];
+            let itemToMove = picklistComponent.source()[0];
             let dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 0,
@@ -491,14 +491,14 @@ describe('PickList', () => {
             await fixture.whenStable();
 
             // Move second item from source to target
-            itemToMove = picklistComponent.source![0]; // Now the first item is different
+            itemToMove = picklistComponent.source()[0]; // Now the first item is different
             dragDropEvent = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 0,
@@ -514,8 +514,8 @@ describe('PickList', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            expect(picklistComponent.source?.length).toBe(2);
-            expect(picklistComponent.target?.length).toBe(4);
+            expect(picklistComponent.source()?.length).toBe(2);
+            expect(picklistComponent.target()?.length).toBe(4);
         });
 
         it('should handle invalid drop operations gracefully', async () => {
@@ -565,13 +565,13 @@ describe('PickList', () => {
     describe('Event Emissions for Drag & Drop', () => {
         it('should emit reorder events when items are reordered within lists', async () => {
             // Check that reorder events work by doing actual reordering
-            const firstItemId = picklistComponent.source![0].id;
-            const secondItemId = picklistComponent.source![1].id;
-            const originalFirstItem = picklistComponent.source![0];
+            const firstItemId = picklistComponent.source()[0].id;
+            const secondItemId = picklistComponent.source()[1].id;
+            const originalFirstItem = picklistComponent.source()[0];
 
             // Reorder within source
             const sourceContainer = {
-                data: picklistComponent.source,
+                data: picklistComponent.source(),
                 id: 'source-list'
             } as any;
             const dragDropEvent: CdkDragDrop<any[]> = {
@@ -591,8 +591,8 @@ describe('PickList', () => {
             await fixture.whenStable();
 
             // Check that items were reordered
-            expect(picklistComponent.source![0].id).toBe(secondItemId);
-            expect(picklistComponent.source![1].id).toBe(firstItemId);
+            expect(picklistComponent.source()[0].id).toBe(secondItemId);
+            expect(picklistComponent.source()[1].id).toBe(firstItemId);
         });
     });
 
@@ -647,11 +647,11 @@ describe('PickList', () => {
 
     describe('Arrow Button Transfer + Drag&Drop Compatibility', () => {
         it('should allow drag&drop after moving items with arrow buttons (moveRight)', async () => {
-            const initialSourceCount = picklistComponent?.source?.length || 0;
-            const initialTargetCount = picklistComponent?.target?.length || 0;
+            const initialSourceCount = picklistComponent?.source()?.length || 0;
+            const initialTargetCount = picklistComponent?.target()?.length || 0;
 
             // Select first item in source
-            const itemToMove = picklistComponent.source![0];
+            const itemToMove = picklistComponent.source()[0];
             picklistComponent.selectedItemsSource = [itemToMove];
 
             // Move item using arrow button (moveRight)
@@ -660,21 +660,21 @@ describe('PickList', () => {
             await fixture.whenStable();
 
             // Verify item was moved
-            expect(picklistComponent.source).not.toContain(itemToMove);
-            expect(picklistComponent.target).toContain(itemToMove);
-            expect(picklistComponent.source?.length || 0).toBe(initialSourceCount - 1);
-            expect(picklistComponent.target?.length || 0).toBe(initialTargetCount + 1);
+            expect(picklistComponent.source()).not.toContain(itemToMove);
+            expect(picklistComponent.target()).toContain(itemToMove);
+            expect(picklistComponent.source()?.length || 0).toBe(initialSourceCount - 1);
+            expect(picklistComponent.target()?.length || 0).toBe(initialTargetCount + 1);
 
             // Now try to drag&drop another item from source to target
-            const secondItemToMove = picklistComponent.source![0]; // New first item after previous move
+            const secondItemToMove = picklistComponent.source()[0]; // New first item after previous move
 
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 0,
@@ -691,18 +691,18 @@ describe('PickList', () => {
             await fixture.whenStable();
 
             // Verify drag&drop worked correctly after arrow button transfer
-            expect(picklistComponent.source).not.toContain(secondItemToMove);
-            expect(picklistComponent.target).toContain(secondItemToMove);
-            expect(picklistComponent.source?.length || 0).toBe(initialSourceCount - 2);
-            expect(picklistComponent.target?.length || 0).toBe(initialTargetCount + 2);
+            expect(picklistComponent.source()).not.toContain(secondItemToMove);
+            expect(picklistComponent.target()).toContain(secondItemToMove);
+            expect(picklistComponent.source()?.length || 0).toBe(initialSourceCount - 2);
+            expect(picklistComponent.target()?.length || 0).toBe(initialTargetCount + 2);
         });
 
         it('should allow drag&drop after moving items with arrow buttons (moveLeft)', async () => {
-            const initialSourceCount = picklistComponent.source?.length || 0;
-            const initialTargetCount = picklistComponent.target?.length || 0;
+            const initialSourceCount = picklistComponent.source()?.length || 0;
+            const initialTargetCount = picklistComponent.target()?.length || 0;
 
             // Select first item in target
-            const itemToMove = picklistComponent.target![0];
+            const itemToMove = picklistComponent.target()[0];
             picklistComponent.selectedItemsTarget = [itemToMove];
 
             // Move item using arrow button (moveLeft)
@@ -712,21 +712,21 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Verify item was moved
-            expect(picklistComponent.target).not.toContain(itemToMove);
-            expect(picklistComponent.source).toContain(itemToMove);
-            expect(picklistComponent.target?.length || 0).toBe(initialTargetCount - 1);
-            expect(picklistComponent.source?.length || 0).toBe(initialSourceCount + 1);
+            expect(picklistComponent.target()).not.toContain(itemToMove);
+            expect(picklistComponent.source()).toContain(itemToMove);
+            expect(picklistComponent.target()?.length || 0).toBe(initialTargetCount - 1);
+            expect(picklistComponent.source()?.length || 0).toBe(initialSourceCount + 1);
 
             // Now try to drag&drop an item from target to source
-            const secondItemToMove = picklistComponent.target![0]; // New first item after previous move
+            const secondItemToMove = picklistComponent.target()[0]; // New first item after previous move
 
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 container: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 previousIndex: 0,
@@ -744,10 +744,10 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Verify drag&drop worked correctly after arrow button transfer
-            expect(picklistComponent.target).not.toContain(secondItemToMove);
-            expect(picklistComponent.source).toContain(secondItemToMove);
-            expect(picklistComponent.target?.length || 0).toBe(initialTargetCount - 2);
-            expect(picklistComponent.source?.length || 0).toBe(initialSourceCount + 2);
+            expect(picklistComponent.target()).not.toContain(secondItemToMove);
+            expect(picklistComponent.source()).toContain(secondItemToMove);
+            expect(picklistComponent.target()?.length || 0).toBe(initialTargetCount - 2);
+            expect(picklistComponent.source()?.length || 0).toBe(initialSourceCount + 2);
         });
 
         it('should allow drag&drop after moveAllRight', async () => {
@@ -758,19 +758,19 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Verify all items were moved
-            expect(picklistComponent.source?.length).toBe(0);
-            expect(picklistComponent.target?.length).toBe(6); // 2 original + 4 moved
+            expect(picklistComponent.source()?.length).toBe(0);
+            expect(picklistComponent.target()?.length).toBe(6); // 2 original + 4 moved
 
             // Now try to drag&drop an item back from target to source
-            const itemToMove = picklistComponent.target![0];
+            const itemToMove = picklistComponent.target()[0];
 
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 container: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 previousIndex: 0,
@@ -788,10 +788,10 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Verify drag&drop worked correctly
-            expect(picklistComponent.source).toContain(itemToMove);
-            expect(picklistComponent.target).not.toContain(itemToMove);
-            expect(picklistComponent.source?.length).toBe(1);
-            expect(picklistComponent.target?.length).toBe(5);
+            expect(picklistComponent.source()).toContain(itemToMove);
+            expect(picklistComponent.target()).not.toContain(itemToMove);
+            expect(picklistComponent.source()?.length).toBe(1);
+            expect(picklistComponent.target()?.length).toBe(5);
         });
 
         it('should allow drag&drop after moveAllLeft', async () => {
@@ -802,19 +802,19 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Verify all items were moved
-            expect(picklistComponent.target?.length).toBe(0);
-            expect(picklistComponent.source?.length).toBe(6); // 4 original + 2 moved
+            expect(picklistComponent.target()?.length).toBe(0);
+            expect(picklistComponent.source()?.length).toBe(6); // 4 original + 2 moved
 
             // Now try to drag&drop an item from source to target
-            const itemToMove = picklistComponent.source![0];
+            const itemToMove = picklistComponent.source()[0];
 
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 0,
@@ -832,17 +832,17 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Verify drag&drop worked correctly
-            expect(picklistComponent.target).toContain(itemToMove);
-            expect(picklistComponent.source).not.toContain(itemToMove);
-            expect(picklistComponent.target?.length).toBe(1);
-            expect(picklistComponent.source?.length).toBe(5);
+            expect(picklistComponent.target()).toContain(itemToMove);
+            expect(picklistComponent.source()).not.toContain(itemToMove);
+            expect(picklistComponent.target()?.length).toBe(1);
+            expect(picklistComponent.source()?.length).toBe(5);
         });
     });
 
     describe('Multi-Selection Drag&Drop', () => {
         it('should transfer all selected items when dragging one of them (source to target)', async () => {
             // Select multiple items in source
-            const selectedItems = [picklistComponent.source![0], picklistComponent.source![1], picklistComponent.source![2]];
+            const selectedItems = [picklistComponent.source()[0], picklistComponent.source()[1], picklistComponent.source()[2]];
             picklistComponent.selectedItemsSource = selectedItems;
 
             const draggedItem = selectedItems[1]; // Drag the second selected item
@@ -850,11 +850,11 @@ describe('PickList', () => {
             // Simulate drag&drop of one selected item
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 1,
@@ -873,12 +873,12 @@ describe('PickList', () => {
 
             // All selected items should be moved
             selectedItems.forEach((item) => {
-                expect(picklistComponent.source).not.toContain(item);
-                expect(picklistComponent.target).toContain(item);
+                expect(picklistComponent.source()).not.toContain(item);
+                expect(picklistComponent.target()).toContain(item);
             });
 
-            expect(picklistComponent.source?.length).toBe(1); // 4 - 3 = 1
-            expect(picklistComponent.target?.length).toBe(5); // 2 + 3 = 5
+            expect(picklistComponent.source()?.length).toBe(1); // 4 - 3 = 1
+            expect(picklistComponent.target()?.length).toBe(5); // 2 + 3 = 5
 
             // Selection should be cleared in source
             expect(picklistComponent.selectedItemsSource.length).toBe(0);
@@ -886,7 +886,7 @@ describe('PickList', () => {
 
         it('should transfer all selected items when dragging one of them (target to source)', async () => {
             // First move some items to target to have more items
-            const itemsToMoveFirst = [picklistComponent.source![0], picklistComponent.source![1]];
+            const itemsToMoveFirst = [picklistComponent.source()[0], picklistComponent.source()[1]];
             picklistComponent.selectedItemsSource = itemsToMoveFirst;
             picklistComponent.moveRight();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -894,7 +894,7 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Now select multiple items in target
-            const selectedItems = [picklistComponent.target![0], picklistComponent.target![1], picklistComponent.target![2]];
+            const selectedItems = [picklistComponent.target()[0], picklistComponent.target()[1], picklistComponent.target()[2]];
             picklistComponent.selectedItemsTarget = selectedItems;
 
             const draggedItem = selectedItems[1]; // Drag the second selected item
@@ -902,11 +902,11 @@ describe('PickList', () => {
             // Simulate drag&drop of one selected item
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 container: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 previousIndex: 1,
@@ -925,12 +925,12 @@ describe('PickList', () => {
 
             // All selected items should be moved
             selectedItems.forEach((item) => {
-                expect(picklistComponent.target).not.toContain(item);
-                expect(picklistComponent.source).toContain(item);
+                expect(picklistComponent.target()).not.toContain(item);
+                expect(picklistComponent.source()).toContain(item);
             });
 
-            expect(picklistComponent.target?.length).toBe(1); // 4 - 3 = 1
-            expect(picklistComponent.source?.length).toBe(5); // 2 + 3 = 5
+            expect(picklistComponent.target()?.length).toBe(1); // 4 - 3 = 1
+            expect(picklistComponent.source()?.length).toBe(5); // 2 + 3 = 5
 
             // Selection should be cleared in target
             expect(picklistComponent.selectedItemsTarget.length).toBe(0);
@@ -938,19 +938,19 @@ describe('PickList', () => {
 
         it('should only move dragged item if it is not part of selection', async () => {
             // Select some items in source
-            const selectedItems = [picklistComponent.source![0], picklistComponent.source![1]];
+            const selectedItems = [picklistComponent.source()[0], picklistComponent.source()[1]];
             picklistComponent.selectedItemsSource = selectedItems;
 
-            const unselectedItem = picklistComponent.source![3]; // Not in selection
+            const unselectedItem = picklistComponent.source()[3]; // Not in selection
 
             // Drag an unselected item
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 3,
@@ -968,25 +968,25 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Only the dragged item should be moved
-            expect(picklistComponent.source).not.toContain(unselectedItem);
-            expect(picklistComponent.target).toContain(unselectedItem);
+            expect(picklistComponent.source()).not.toContain(unselectedItem);
+            expect(picklistComponent.target()).toContain(unselectedItem);
 
             // Selected items should remain in source
             selectedItems.forEach((item) => {
-                expect(picklistComponent.source).toContain(item);
-                expect(picklistComponent.target).not.toContain(item);
+                expect(picklistComponent.source()).toContain(item);
+                expect(picklistComponent.target()).not.toContain(item);
             });
 
-            expect(picklistComponent.source?.length).toBe(3); // 4 - 1 = 3
-            expect(picklistComponent.target?.length).toBe(3); // 2 + 1 = 3
+            expect(picklistComponent.source()?.length).toBe(3); // 4 - 1 = 3
+            expect(picklistComponent.target()?.length).toBe(3); // 2 + 1 = 3
         });
 
         it('should maintain order when moving multiple selected items', async () => {
             // Select items in a specific order
             const selectedItems = [
-                picklistComponent.source![0], // Item 1
-                picklistComponent.source![2], // Item 3
-                picklistComponent.source![1] // Item 2
+                picklistComponent.source()[0], // Item 1
+                picklistComponent.source()[2], // Item 3
+                picklistComponent.source()[1] // Item 2
             ];
             picklistComponent.selectedItemsSource = selectedItems;
 
@@ -995,11 +995,11 @@ describe('PickList', () => {
             // Drag one of the selected items
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 0,
@@ -1017,25 +1017,25 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Items should be in target maintaining their original order from source
-            expect(picklistComponent.target![1].id).toBe(1); // Item 1
-            expect(picklistComponent.target![2].id).toBe(2); // Item 2
-            expect(picklistComponent.target![3].id).toBe(3); // Item 3
+            expect(picklistComponent.target()[1].id).toBe(1); // Item 1
+            expect(picklistComponent.target()[2].id).toBe(2); // Item 2
+            expect(picklistComponent.target()[3].id).toBe(3); // Item 3
         });
 
         it('should handle empty selection when dragging', async () => {
             // Clear any selection
             picklistComponent.selectedItemsSource = [];
 
-            const itemToDrag = picklistComponent.source![0];
+            const itemToDrag = picklistComponent.source()[0];
 
             // Drag item with no selection
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 0,
@@ -1053,10 +1053,10 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             // Only the dragged item should be moved
-            expect(picklistComponent.source).not.toContain(itemToDrag);
-            expect(picklistComponent.target).toContain(itemToDrag);
-            expect(picklistComponent.source?.length).toBe(3);
-            expect(picklistComponent.target?.length).toBe(3);
+            expect(picklistComponent.source()).not.toContain(itemToDrag);
+            expect(picklistComponent.target()).toContain(itemToDrag);
+            expect(picklistComponent.source()?.length).toBe(3);
+            expect(picklistComponent.target()?.length).toBe(3);
         });
 
         it('should work with keepSelection option when dragging multiple items', async () => {
@@ -1064,7 +1064,7 @@ describe('PickList', () => {
             picklistComponent.keepSelection = true;
 
             // Select multiple items
-            const selectedItems = [picklistComponent.source![0], picklistComponent.source![1]];
+            const selectedItems = [picklistComponent.source()[0], picklistComponent.source()[1]];
             picklistComponent.selectedItemsSource = selectedItems;
 
             const draggedItem = selectedItems[0];
@@ -1072,11 +1072,11 @@ describe('PickList', () => {
             // Drag one of the selected items
             const dragDropEvent: CdkDragDrop<any[]> = {
                 previousContainer: {
-                    data: picklistComponent.source,
+                    data: picklistComponent.source(),
                     id: 'source-list'
                 } as any,
                 container: {
-                    data: picklistComponent.target,
+                    data: picklistComponent.target(),
                     id: 'target-list'
                 } as any,
                 previousIndex: 0,
@@ -1095,7 +1095,7 @@ describe('PickList', () => {
 
             // Items should be moved
             selectedItems.forEach((item) => {
-                expect(picklistComponent.target).toContain(item);
+                expect(picklistComponent.target()).toContain(item);
             });
 
             // With keepSelection, items should be selected in target
@@ -1572,7 +1572,7 @@ describe('PickList', () => {
             it('should access instance.source array in PT callback', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     sourceListContainer: ({ instance }) => {
-                        const sourceLength = instance?.source?.length || 0;
+                        const sourceLength = instance?.source()?.length || 0;
                         return {
                             'data-source-count': sourceLength.toString()
                         };
@@ -1591,7 +1591,7 @@ describe('PickList', () => {
             it('should access instance.target array in PT callback', async () => {
                 ptFixture.componentRef.setInput('pt', {
                     targetListContainer: ({ instance }) => {
-                        const targetLength = instance?.target?.length || 0;
+                        const targetLength = instance?.target()?.length || 0;
                         return {
                             'data-target-count': targetLength.toString()
                         };

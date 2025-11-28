@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { SharedModule } from 'primeng/api';
+import { Select } from 'primeng/select';
 import { Table, TableModule, TableService } from './table';
 
 describe('Table', () => {
@@ -264,7 +265,7 @@ describe('Table', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [Table, TestBasicTableComponent, TestSelectionTableComponent, TestSortingTableComponent, TestFilteringTableComponent, TestVirtualScrollTableComponent, TestLazyLoadTableComponent, TestTemplatesTableComponent],
-            imports: [CommonModule, FormsModule, TableModule, SharedModule],
+            imports: [CommonModule, FormsModule, TableModule, SharedModule, Select],
             providers: [TableService, provideZonelessChangeDetection()]
         }).compileComponents();
 

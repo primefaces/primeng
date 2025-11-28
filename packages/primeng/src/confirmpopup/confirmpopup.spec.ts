@@ -35,7 +35,7 @@ class TestBasicConfirmPopupComponent {
     baseZIndex: number = 0;
     style: any = {};
     styleClass: string | undefined;
-    visible: boolean = false;
+    visible: boolean | undefined = undefined;
 
     acceptClicked = false;
     rejectClicked = false;
@@ -381,7 +381,7 @@ describe('ConfirmPopup', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(confirmPopupInstance.visible()).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
         });
     });
 
@@ -456,7 +456,7 @@ describe('ConfirmPopup', () => {
             await multiKeyFixture.whenStable();
 
             const popup1 = multiKeyFixture.debugElement.queryAll(By.directive(ConfirmPopup))[0].componentInstance;
-            expect(popup1.visible()).toBe(true);
+            expect(popup1.computedVisible()).toBe(true);
 
             // Accept first popup
             popup1.onAccept();
@@ -474,7 +474,7 @@ describe('ConfirmPopup', () => {
             });
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(confirmPopupInstance.visible()).toBeFalsy();
+            expect(confirmPopupInstance.computedVisible()).toBeFalsy();
 
             confirmationService.confirm({
                 key: 'specificKey',
@@ -482,7 +482,7 @@ describe('ConfirmPopup', () => {
             });
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(confirmPopupInstance.visible()).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
         });
     });
 
@@ -1006,7 +1006,7 @@ describe('ConfirmPopup', () => {
             await fixture.whenStable();
 
             // Verify popup is hidden
-            expect(confirmPopupInstance.visible()).toBe(false);
+            expect(confirmPopupInstance.computedVisible()).toBe(false);
         });
 
         it('should support reduced motion preferences', async () => {
@@ -1039,7 +1039,7 @@ describe('ConfirmPopup', () => {
             await fixture.whenStable();
 
             // Verify popup is visible
-            expect(confirmPopupInstance.visible()).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
             expect(confirmPopupInstance.confirmation?.closeOnEscape).toBe(true);
 
             // Test the onEscapeKeydown method directly
@@ -1062,7 +1062,7 @@ describe('ConfirmPopup', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(confirmPopupInstance.visible()).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
             expect(confirmPopupInstance.confirmation?.closeOnEscape).toBe(false);
 
             // Test the onEscapeKeydown method directly
@@ -1072,7 +1072,7 @@ describe('ConfirmPopup', () => {
             confirmPopupInstance.onEscapeKeydown(escapeEvent);
 
             expect(confirmPopupInstance.onReject).not.toHaveBeenCalled();
-            expect(confirmPopupInstance.visible()).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
         });
 
         it('should close popup on Escape key when closeOnEscape is undefined (default)', async () => {
@@ -1173,7 +1173,7 @@ describe('ConfirmPopup', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(confirmPopupInstance.visible()).toBe(true);
+            expect(confirmPopupInstance.computedVisible()).toBe(true);
 
             // Create real keyboard event
             const escapeKeyEvent = new KeyboardEvent('keydown', {

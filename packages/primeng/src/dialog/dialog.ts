@@ -1019,8 +1019,12 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.key == 'Escape') {
+                const container = this.container();
+                if (!container) {
+                    return;
+                }
                 const currentZIndex = ZIndexUtils.getCurrent();
-                if (parseInt((this.container() as HTMLDivElement).style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
+                if (parseInt(container.style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
                     this.close(event);
                 }
             }
