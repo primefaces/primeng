@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { SelectModule } from 'primeng/select';
-import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -22,7 +22,7 @@ interface City {
                 classes.
             </p>
             <div class="card flex justify-center">
-                <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [pt]="{ overlay: { class: 'demo-select-overlay' } }" />
+                <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
             </div>
 
             <app-code [code]="code" hideToggleCode hideStackBlitz></app-code>
@@ -30,12 +30,14 @@ interface City {
     `,
     styles: [
         `
-            .demo-select-overlay.p-anchored-overlay-enter-active {
-                animation: demo-overlay-in 300ms ease-out;
-            }
+            :host::ng-deep {
+                .p-anchored-overlay-enter-active {
+                    animation: demo-overlay-in 300ms ease-out;
+                }
 
-            .demo-select-overlay.p-anchored-overlay-leave-active {
-                animation: demo-overlay-out 250ms ease-in;
+                .p-anchored-overlay-leave-active {
+                    animation: demo-overlay-out 250ms ease-in;
+                }
             }
 
             @keyframes demo-overlay-in {
@@ -69,14 +71,15 @@ export class AnchoredOverlaysDoc {
         ];
     }
     code: Code = {
-        scss: `.p-anchored-overlay-enter-active {
-    animation: demo-overlay-in 300ms ease-out;
-}
+        scss: `:host::ng-deep {
+    .p-anchored-overlay-enter-active {
+        animation: demo-overlay-in 300ms ease-out;
+    }
 
-.p-anchored-overlay-leave-active {
-    animation: demo-overlay-out 250ms ease-in;
+    .p-anchored-overlay-leave-active {
+        animation: demo-overlay-out 250ms ease-in;
+    }
 }
-
 @keyframes demo-overlay-in {
     from {
         opacity: 0;

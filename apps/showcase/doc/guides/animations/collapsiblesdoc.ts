@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AccordionModule } from 'primeng/accordion';
 import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
     selector: 'collapsibles-doc',
@@ -54,25 +54,37 @@ import { Code } from '@/domain/code';
     `,
     styles: [
         `
-            .demo-select-overlay.p-anchored-overlay-enter-active {
-                animation: demo-overlay-in 300ms ease-out;
-            }
+            :host::ng-deep {
+                .p-collapsible-enter-active {
+                    animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);
+                }
 
-            .demo-select-overlay.p-anchored-overlay-leave-active {
-                animation: demo-overlay-out 250ms ease-in;
-            }
-
-            @keyframes demo-overlay-in {
-                from {
-                    opacity: 0;
-                    transform: translateY(10%);
+                .p-collapsible-leave-active {
+                    animation: demo-collapsible-collapse 500ms cubic-bezier(0.65, 0, 0.35, 1);
                 }
             }
 
-            @keyframes demo-overlay-out {
+            @keyframes demo-collapsible-expand {
+                from {
+                    opacity: 0;
+                    grid-template-rows: 0fr;
+                    transform: scale(0.93);
+                }
+                to {
+                    opacity: 1;
+                    grid-template-rows: 1fr;
+                }
+            }
+
+            @keyframes demo-collapsible-collapse {
+                from {
+                    opacity: 1;
+                    grid-template-rows: 1fr;
+                }
                 to {
                     opacity: 0;
-                    transform: translateY(10%);
+                    grid-template-rows: 0fr;
+                    transform: scale(0.93);
                 }
             }
         `
@@ -80,13 +92,14 @@ import { Code } from '@/domain/code';
 })
 export class CollapsiblesDoc {
     code: Code = {
-        scss: `
-.p-collapsible-enter-active {
-    animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);
-}
+        scss: `:host::ng-deep {
+    .p-collapsible-enter-active {
+        animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);
+    }
 
-.p-collapsible-leave-active {
-    animation: demo-collapsible-collapse 500ms cubic-bezier(0.65, 0, 0.35, 1);
+    .p-collapsible-leave-active {
+        animation: demo-collapsible-collapse 500ms cubic-bezier(0.65, 0, 0.35, 1);
+    }
 }
 
 @keyframes demo-collapsible-expand {

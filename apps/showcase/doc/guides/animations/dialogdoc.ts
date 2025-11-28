@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { Code } from '@/domain/code';
-import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'dialog-doc',
@@ -36,12 +36,14 @@ import { AppCode } from '@/components/doc/app.code';
     `,
     styles: [
         `
-            .demo-dialog.p-dialog-enter-active {
-                animation: demo-dialog-in 500ms ease-out;
-            }
+            :host::ng-deep {
+                .demo-dialog.p-dialog-enter-active {
+                    animation: demo-dialog-in 500ms ease-out;
+                }
 
-            .demo-dialog.p-dialog-leave-active {
-                animation: demo-dialog-out 500ms ease-in;
+                .demo-dialog.p-dialog-leave-active {
+                    animation: demo-dialog-out 500ms ease-in;
+                }
             }
 
             @keyframes demo-dialog-in {
@@ -69,12 +71,14 @@ export class DialogDoc {
     }
 
     code: Code = {
-        scss: `.p-dialog-enter-active {
-    animation: demo-dialog-in 500ms ease-out;
-}
+        scss: `:host::ng-deep {
+    .demo-dialog.p-dialog-enter-active {
+        animation: demo-dialog-in 500ms ease-out;
+    }
 
-.p-dialog-leave-active {
-    animation: demo-dialog-out 500ms ease-in;
+    .demo-dialog.p-dialog-leave-active {
+        animation: demo-dialog-out 500ms ease-in;
+    }
 }
 
 @keyframes demo-dialog-in {
