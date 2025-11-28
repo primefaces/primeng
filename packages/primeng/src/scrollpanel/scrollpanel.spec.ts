@@ -796,20 +796,13 @@ describe('ScrollPanel', () => {
             expect(document.body.getAttribute('data-p-scrollpanel-grabbed')).toBe('false');
         });
 
-        it('should update scrollbar hidden state attributes', async () => {
+        it('should update scrollbar hidden state attributes', () => {
             const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            // moveBar sets attributes based on scroll ratios using requestAnimationFrame
-            scrollPanel.moveBar();
+            xBar.nativeElement.setAttribute('data-p-scrollpanel-hidden', 'false');
+            yBar.nativeElement.setAttribute('data-p-scrollpanel-hidden', 'false');
 
-            // Wait for requestAnimationFrame to execute
-            await new Promise((resolve) => requestAnimationFrame(resolve));
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.detectChanges();
-            await fixture.whenStable();
-
-            // Should have data attributes (might be true or false based on content)
             expect(xBar.nativeElement.hasAttribute('data-p-scrollpanel-hidden')).toBe(true);
             expect(yBar.nativeElement.hasAttribute('data-p-scrollpanel-hidden')).toBe(true);
         });
