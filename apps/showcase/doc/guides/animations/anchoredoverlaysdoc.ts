@@ -21,12 +21,12 @@ interface City {
                 <i>.p-anchored-overlay-leave-active</i>
                 classes.
             </p>
-            <div class="card flex justify-center">
-                <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
-            </div>
-
-            <app-code [code]="code" hideToggleCode hideStackBlitz></app-code>
         </app-docsectiontext>
+        <div class="card flex justify-center">
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+        </div>
+
+        <app-code [code]="code" hideToggleCode hideStackBlitz></app-code>
     `,
     styles: [
         `
