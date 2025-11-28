@@ -10,6 +10,19 @@ Screen Reader Overlay component uses dialog role and since any attribute is pass
 
 Overlay can be mounted into its location, body or DOM element instance using this option.
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { OverlayOptions } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
+
+this.primeng.overlayOptions: OverlayOptions = {
+    appendTo: 'body'
+};
+```
+</details>
+
 ## autozindexdoc
 
 The autoZIndex determines whether to automatically manage layering. Its default value is 'false'.
@@ -29,6 +42,26 @@ Overlay is a container to display content in an overlay window. All the options 
 </p-overlay>
 ```
 
+## Events
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { OverlayOptions, OverlayOnBeforeShowEvent, OverlayOnShowEvent, OverlayOnBeforeHideEvent, OverlayOnHideEvent } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
+
+this.primeng.overlayOptions: OverlayOptions = {
+    onBeforeShow: (event?: OverlayOnBeforeShowEvent) => {};    // Callback to invoke before the overlay is shown.
+    onShow: (event?: OverlayOnShowEvent) => {};                // Callback to invoke when the overlay is shown.
+    onBeforeHide: (event?: OverlayOnBeforeHideEvent) => {};    // Callback to invoke before the overlay is hidden.
+    onHide: (event?: OverlayOnHideEvent) => {};                // Callback to invoke when the overlay is hidden.
+    onAnimationStart: (event?: AnimationEvent) => {};          // Callback to invoke when the animation is started.
+    onAnimationDone: (event?: AnimationEvent) => {};           // Callback to invoke when the animation is done.
+};
+```
+</details>
+
 ## hideonescapedoc
 
 The hideOnEscape determines to hide the overlay when escape key pressed. Accepts boolean, default value is false .
@@ -37,9 +70,53 @@ The hideOnEscape determines to hide the overlay when escape key pressed. Accepts
 
 It has two valid values; overlay and modal . In overlay mode, a container element is opened like overlaypanel or dropdown's panel. In modal mode, the container element behaves like popup. This behaviour is similar to a dialog component.
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { OverlayOptions } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html'
+})
+export class AppComponent implements OnInit {
+
+    constructor(private primeng: PrimeNG) {}
+
+    ngOnInit() {
+        this.primeng.overlayOptions: OverlayOptions = {
+            mode: 'modal'
+        };
+    }
+}
+```
+</details>
+
 ## Responsive
 
 It is the option used to determine in which mode it should appear according to the given media or breakpoint .
+
+```html
+import { OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
+
+const responsiveOptions: ResponsiveOverlayOptions = {
+    // style?: any;                                     // Style of component in given breakpoint or media query
+    // styleClass?: string;                             // Style class of component in given breakpoint or media query
+    // contentStyle?: any;                              // Style of content in given breakpoint or media query
+    // contentStyleClass?: string;                      // Style class of content in given breakpoint or media query
+    // breakpoint?: string;                             // Breakpoint required to show component in modal mode. Exp: '640px', '10rem' etc.
+    // media?: string;                                  // Media query required to show component in modal mode. Exp: '@media screen and (max-width: 640px)', '@media screen and (min-width: 640px) and (max-width: 900px)' etc.
+    // direction?: ResponsiveOverlayDirectionType;      // Direction in which the component will be displayed in modal mode.
+    // hideOnEscape?: boolean;                          // Hides overlay when escape key pressed.
+}
+
+this.primeng.overlayOptions: OverlayOptions = {
+    responsive: responsiveOptions
+};
+```
 
 ## Style
 
@@ -48,6 +125,15 @@ The style and styleClass are used to define styles that will be added to all ove
 ## Target
 
 The target is used to detect the element that will be used to position the overlay. Valid values would be;
+
+```html
+import { OverlayOptions } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
+
+this.primeng.overlayOptions: OverlayOptions = {
+    appendTo: 'body'
+};
+```
 
 ## Template
 
@@ -61,6 +147,26 @@ Content can be customized with the content template.
     </ng-template>
 </p-overlay>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'overlay-template-demo',
+    templateUrl: './overlay-template-demo.html'
+})
+export class OverlayTemplateDemo {
+    overlayVisible: boolean = false;
+
+    toggle() {
+        this.overlayVisible = !this.overlayVisible;
+    }
+}
+```
+</details>
 
 ## transitionoptionsdoc
 

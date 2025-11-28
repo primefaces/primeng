@@ -22,6 +22,23 @@ Buttons have built-in support for badges to display a badge inline.
 <p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'badge-button-demo',
+    templateUrl: './badge-button-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
+})
+export class BadgeButtonDemo {}
+```
+</details>
+
 ## directivedoc
 
 Content of the badge is specified using the value property.
@@ -29,6 +46,23 @@ Content of the badge is specified using the value property.
 ```html
 <i class="pi pi-bell text-3xl" pBadge value="2"></i>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
+
+@Component({
+    selector: 'badge-directive-demo',
+    templateUrl: './badge-directive-demo.html',
+    standalone: true,
+    imports: [BadgeModule]
+})
+export class BadgeDirectiveDemo {}
+```
+</details>
 
 ## Overlay
 
@@ -46,6 +80,23 @@ A badge can be added to any element by encapsulating the content with the Overla
 </p-overlaybadge>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+
+@Component({
+    selector: 'badge-overlay-demo',
+    templateUrl: './badge-overlay-demo.html',
+    standalone: true,
+    imports: [OverlayBadgeModule]
+})
+export class BadgeOverlayDemo {}
+```
+</details>
+
 ## positiondoc
 
 A Badge can be positioned at the top right corner of an element by adding p-overlay-badge style class to the element and embedding the badge inside.
@@ -53,6 +104,23 @@ A Badge can be positioned at the top right corner of an element by adding p-over
 ```html
 <i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
+
+@Component({
+    selector: 'badge-position-demo',
+    templateUrl: './badge-position-demo.html',
+    standalone: true,
+    imports: [BadgeModule]
+})
+export class BadgePositionDemo {}
+```
+</details>
 
 ## Severity
 
@@ -62,6 +130,23 @@ Severity defines the color of the badge, possible values are success , info , wa
 <p-badge [value]="2" severity="success" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
+
+@Component({
+    selector: 'badge-severity-demo',
+    templateUrl: './badge-severity-demo.html',
+    standalone: true,
+    imports: [BadgeModule]
+})
+export class BadgeSeverityDemo {}
+```
+</details>
+
 ## Size
 
 Badge sizes are adjusted with the badgeSize property that accepts small , large and xlarge as the possible alternatives to the default size. Currently sizes only apply to component mode.
@@ -69,6 +154,23 @@ Badge sizes are adjusted with the badgeSize property that accepts small , large 
 ```html
 <p-badge value="8" badgeSize="xlarge" severity="success" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
+
+@Component({
+    selector: 'badge-size-demo',
+    templateUrl: './badge-size-demo.html',
+    standalone: true,
+    imports: [BadgeModule]
+})
+export class BadgeSizeDemo {}
+```
+</details>
 
 ## styledoc
 

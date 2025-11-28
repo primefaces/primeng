@@ -95,6 +95,26 @@ Tabs can be controlled programmatically using value property as a model.
 </p-tabs>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { TabsModule } from 'primeng/tabs';
+
+@Component({
+    selector: 'tabs-controlled-demo',
+    templateUrl: './tabs-controlled-demo.html',
+    standalone: true,
+    imports: [ButtonModule, TabsModule, FormsModule]
+})
+export class TabsControlledDemo {
+    value: number = 0;
+}
+```
+</details>
+
 ## customtemplatedoc
 
 Custom content for a tab is defined with the default ng-content.
@@ -154,6 +174,26 @@ Custom content for a tab is defined with the default ng-content.
 </p-tabs>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TabsModule } from 'primeng/tabs';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
+
+@Component({
+    selector: 'tabs-template-demo',
+    templateUrl: './tabs-template-demo.html',
+    standalone: true,
+    imports: [CommonModule, TabsModule, BadgeModule, AvatarModule]
+})
+export class TabsTemplateDemo {}
+```
+</details>
+
 ## Disabled
 
 Enabling disabled property of a Tab prevents user interaction.
@@ -198,6 +238,24 @@ Enabling disabled property of a Tab prevents user interaction.
 </p-tabs>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TabsModule } from 'primeng/tabs';
+
+@Component({
+    selector: 'tabs-disabled-demo',
+    templateUrl: './tabs-disabled-demo.html',
+    standalone: true,
+    imports: [CommonModule, TabsModule]
+})
+export class TabsDisabledDemo {}
+```
+</details>
+
 ## Dynamic
 
 Tabs can be generated dynamically using the standard &#64;for block.
@@ -218,6 +276,34 @@ Tabs can be generated dynamically using the standard &#64;for block.
     </p-tabpanels>
 </p-tabs>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { TabsModule } from 'primeng/tabs';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'tabs-dynamic-demo',
+    templateUrl: './tabs-dynamic-demo.html',
+    standalone: true,
+    imports: [TabsModule, CommonModule]
+})
+export class TabsDynamicDemo implements OnInit {
+    tabs: { title: string; value: number; content: string }[] = [];
+
+    ngOnInit() {
+        this.tabs = [
+            { title: 'Tab 1', value: 0, content: 'Tab 1 Content' },
+            { title: 'Tab 2', value: 1, content: 'Tab 2 Content' },
+            { title: 'Tab 3', value: 2, content: 'Tab 3 Content' },
+        ];
+    }
+}
+```
+</details>
 
 ## Lazy
 
@@ -256,6 +342,24 @@ By default, inactive tab's content is rendered (but hidden). You can use the laz
 </p-tabs>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TabsModule } from 'primeng/tabs';
+
+@Component({
+    selector: 'tabs-lazy-demo',
+    templateUrl: './tabs-lazy-demo.html',
+    standalone: true,
+    imports: [CommonModule, TabsModule]
+})
+export class TabsLazyDemo {}
+```
+</details>
+
 ## Scrollable
 
 Adding scrollable property displays navigational buttons at each side to scroll between tabs.
@@ -279,6 +383,28 @@ Adding scrollable property displays navigational buttons at each side to scroll 
 </p-tabs>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TabsModule } from 'primeng/tabs';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'tabs-scrollable-demo',
+    templateUrl: './tabs-scrollable-demo.html',
+    standalone: true,
+    imports: [CommonModule, TabsModule]
+})
+export class TabsScrollableDemo {
+    activeIndex: number = 0;
+
+    scrollableTabs: any[] = Array.from({ length: 50 }, (_, i) => ({ title: "Title", content: "Content" }));
+}
+```
+</details>
+
 ## Tab Menu
 
 A navigation menu is implemented using tabs without the panels where the content of a tab is provided by a route component like router-outlet . For the purpose of this demo, router-outlet is not included.
@@ -296,6 +422,32 @@ A navigation menu is implemented using tabs without the panels where the content
 </p-tabs>
 <!--<router-outlet></router-outlet>-->
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { TabsModule } from 'primeng/tabs';
+
+@Component({
+    selector: 'tabs-tabmenu-demo',
+    templateUrl: './tabs-tabmenu-demo.html',
+    standalone: true,
+    imports: [TabsModule, RouterModule, CommonModule]
+})
+export class TabsTabmenuDemo {
+    tabs = [
+        { route: 'dashboard', label: 'Dashboard', icon: 'pi pi-home' },
+        { route: 'transactions', label: 'Transactions', icon: 'pi pi-chart-line' },
+        { route: 'products', label: 'Products', icon: 'pi pi-list' },
+        { route: 'messages', label: 'Messages', icon: 'pi pi-inbox' }
+    ];
+}
+```
+</details>
 
 ## Tabs
 

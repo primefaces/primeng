@@ -62,6 +62,23 @@ Children are rendered within the boundaries of the divider where location of the
 </p>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
+
+@Component({
+    selector: 'divider-content-demo',
+    templateUrl: './divider-content-demo.html',
+    standalone: true,
+    imports: [DividerModule]
+})
+export class DividerContentDemo {}
+```
+</details>
+
 ## Login
 
 Sample implementation of a login form using a divider with content.
@@ -91,6 +108,25 @@ Sample implementation of a login form using a divider with content.
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'divider-login-demo',
+    templateUrl: './divider-login-demo.html',
+    standalone: true,
+    imports: [DividerModule, ButtonModule, InputTextModule]
+})
+export class DividerLoginDemo {}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -117,6 +153,23 @@ Style of the border is configured with the type property that can either be soli
 </p>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
+
+@Component({
+    selector: 'divider-type-demo',
+    templateUrl: './divider-type-demo.html',
+    standalone: true,
+    imports: [DividerModule]
+})
+export class DividerTypeDemo {}
+```
+</details>
+
 ## Vertical
 
 Vertical divider is enabled by setting the layout property as vertical .
@@ -134,6 +187,23 @@ Vertical divider is enabled by setting the layout property as vertical .
     At vero eos et accusamus et iusto odio dignissimos...
 </p>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
+
+@Component({
+    selector: 'divider-vertical-demo',
+    templateUrl: './divider-vertical-demo.html',
+    standalone: true,
+    imports: [DividerModule]
+})
+export class DividerVerticalDemo {}
+```
+</details>
 
 ## Divider
 

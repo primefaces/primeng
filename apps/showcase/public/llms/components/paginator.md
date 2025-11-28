@@ -30,6 +30,32 @@ Current page report item in the template displays information about the paginati
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+
+@Component({
+    selector: 'paginator-current-page-report-demo',
+    templateUrl: './paginator-current-page-report-demo.html',
+    standalone: true,
+    imports: [PaginatorModule]
+})
+export class PaginatorCurrentPageReportDemo {
+    first: number = 0;
+
+    rows: number = 10;
+
+    onPageChange(event: PaginatorState) {
+        this.first = event.first ?? 0;
+        this.rows = event.rows ?? 10;
+    }
+}
+```
+</details>
+
 ## Images
 
 Sample image gallery implementation using paginator.
@@ -38,6 +64,30 @@ Sample image gallery implementation using paginator.
 <p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
 <img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PaginatorState } from 'primeng/paginator';
+
+@Component({
+    selector: 'paginator-images-demo',
+    templateUrl: './paginator-images-demo.html'
+})
+export class PaginatorImagesDemo {
+    first: number = 0;
+
+    rows: number = 10;
+
+    onPageChange(event: PaginatorState) {
+        this.first = event.first ?? 0;
+        this.rows = event.rows ?? 10;
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -76,6 +126,63 @@ Templating allows overriding the default content of the UI elements by defining 
         [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} of {totalRecords}" ></p-paginator>
 </div>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+import { Slider } from 'primeng/slider';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'paginator-template-demo',
+    templateUrl: './paginator-template-demo.html',
+    standalone: true,
+    imports: [PaginatorModule, ButtonModule, DividerModule, Slider, FormsModule]
+})
+export class PaginatorTemplateDemo {
+    first1: number = 0;
+
+    rows1: number = 10;
+
+    first2: number = 0;
+
+    rows2: number = 10;
+
+    first3: number = 0;
+
+    rows3: number = 10;
+
+    totalRecords: number = 120;
+
+    options = [
+        { label: 5, value: 5 },
+        { label: 10, value: 10 },
+        { label: 20, value: 20 },
+        { label: 120, value: 120 }
+    ];
+
+    onPageChange1(event: PaginatorState) {
+        this.first1 = event.first ?? 0;
+        this.rows1 = event.rows ?? 10;
+    }
+
+    onPageChange2(event: PaginatorState) {
+        this.first2 = event.first ?? 0;
+        this.rows2 = event.rows ?? 10;
+    }
+
+    onPageChange3(event: PaginatorState) {
+        this.first3 = event.first ?? 0;
+        this.rows3 = event.rows ?? 10;
+    }
+}
+```
+</details>
 
 ## Paginator
 

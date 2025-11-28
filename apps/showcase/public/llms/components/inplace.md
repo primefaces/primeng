@@ -107,6 +107,23 @@ Any content such as an image can be placed inside an Inplace.
 </p-inplace>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
+
+@Component({
+    selector: 'inplace-image-demo',
+    templateUrl: './inplace-image-demo.html',
+    standalone: true,
+    imports: [InplaceModule]
+})
+export class InplaceImageDemo {}
+```
+</details>
+
 ## Input
 
 The closeCallback switches the state back to display mode when called from an event.
@@ -126,6 +143,26 @@ The closeCallback switches the state back to display mode when called from an ev
     </ng-template>
 </p-inplace>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { AutoFocusModule } from 'primeng/autofocus';
+
+@Component({
+    selector: 'inplace-input-demo',
+    templateUrl: './inplace-input-demo.html',
+    standalone: true,
+    imports: [InplaceModule, InputTextModule, ButtonModule, AutoFocusModule]
+})
+export class InplaceInputDemo {}
+```
+</details>
 
 ## Lazy
 

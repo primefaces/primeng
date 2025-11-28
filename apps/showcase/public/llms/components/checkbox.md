@@ -6,6 +6,16 @@ Checkbox is an extension to standard checkbox element with theming.
 
 Screen Reader Checkbox component uses a hidden native checkbox element internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
 
+```html
+<label for="chkbox1">Remember Me</label>
+<p-checkbox inputId="chkbox1"/>
+
+<span id="chkbox2">Remember Me</span>
+<p-checkbox ariaLabelledBy="chkbox2"/>
+
+<p-checkbox ariaLabel="Remember Me"/>
+```
+
 ## Basic
 
 Binary checkbox is used as a controlled input with ngModel and binary properties.
@@ -23,6 +33,28 @@ When disabled is present, the element cannot be edited and focused.
 <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Checkbox } from 'primeng/checkbox';
+
+@Component({
+    selector: 'checkbox-disabled-demo',
+    templateUrl: './checkbox-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, Checkbox]
+})
+export class CheckboxDisabledDemo {
+    checked1: boolean = false;
+
+    checked2: boolean = true;
+}
+```
+</details>
+
 ## Dynamic
 
 Checkboxes can be generated using a list of values.
@@ -34,6 +66,38 @@ Checkboxes can be generated using a list of values.
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'checkbox-dynamic-demo',
+    templateUrl: './checkbox-dynamic-demo.html',
+    standalone: true,
+    imports: [FormsModule, CheckboxModule, CommonModule]
+})
+export class CheckboxDynamicDemo {
+    selectedCategories: any[] = [];
+
+    categories: any[] = [
+        { name: 'Accounting', key: 'A' },
+        { name: 'Marketing', key: 'M' },
+        { name: 'Production', key: 'P' },
+        { name: 'Research', key: 'R' },
+    ];
+
+    ngOnInit() {
+        this.selectedCategories = [this.categories[1]];
+    }
+}
+```
+</details>
+
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
@@ -41,6 +105,26 @@ Specify the variant property as filled to display the component with a higher vi
 ```html
 <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Checkbox } from 'primeng/checkbox';
+
+@Component({
+    selector: 'checkbox-filled-demo',
+    templateUrl: './checkbox-filled-demo.html',
+    standalone: true,
+    imports: [FormsModule, Checkbox]
+})
+export class CheckboxFilledDemo {
+    checked: boolean = false;
+}
+```
+</details>
 
 ## Indeterminate
 
@@ -50,6 +134,26 @@ The indeterminate state indicates that a checkbox is neither "on" or "off".
 <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Checkbox } from 'primeng/checkbox';
+
+@Component({
+    selector: 'checkbox-indeterminate-demo',
+    templateUrl: './checkbox-indeterminate-demo.html',
+    standalone: true,
+    imports: [FormsModule, Checkbox]
+})
+export class CheckboxIndeterminateDemo {
+    checked: boolean = false;
+}
+```
+</details>
+
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -57,6 +161,26 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```html
 <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Checkbox } from 'primeng/checkbox';
+
+@Component({
+    selector: 'checkbox-invalid-demo',
+    templateUrl: './checkbox-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, Checkbox]
+})
+export class CheckboxInvalidDemo {
+    checked: boolean = false;
+}
+```
+</details>
 
 ## labeldoc
 
@@ -66,6 +190,22 @@ The label attribute provides a label text for the checkbox. This label is also c
 <p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></p-checkbox>
 <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'checkbox-label-demo',
+    templateUrl: './checkbox-label-demo.html'
+})
+export class CheckboxLabelDemo {
+    selectedValues: string[] = [];
+}
+```
+</details>
 
 ## multipledoc
 
@@ -90,6 +230,26 @@ Multiple checkboxes can be grouped together.
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Checkbox } from 'primeng/checkbox';
+
+@Component({
+    selector: 'checkbox-multiple-demo',
+    templateUrl: './checkbox-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, Checkbox]
+})
+export class CheckboxMultipleDemo {
+    pizza: string[] = [];
+}
+```
+</details>
+
 ## reactiveformsdoc
 
 Checkbox can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
@@ -113,6 +273,85 @@ Checkbox can also be used with reactive forms. In this case, the formControlName
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule  } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+
+@Component({
+    selector: 'checkbox-reactive-forms-demo',
+    templateUrl: './checkbox-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, CheckboxModule, ToastModule, ButtonModule, MessageModule]
+})
+export class CheckboxReactiveFormsDemo {
+    messageService = inject(MessageService);
+
+    formSubmitted: boolean = false;
+
+    exampleForm: FormGroup;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group(
+            {
+                cheese: [false],
+                mushroom: [false],
+                pepper: [false],
+                onion: [false]
+            },
+            { validators: this.atLeastOneSelectedValidator }
+        );
+    }
+
+    get formKeys(): string[] {
+        return Object.keys(this.exampleForm.controls);
+    }
+
+    atLeastOneSelectedValidator(group: FormGroup): { [key: string]: any } | null {
+        const anySelected = Object.values(group.controls).some((control) => control.value === true);
+        return anySelected ? null : { atLeastOneRequired: true };
+    }
+
+    hasAnyInvalid(): boolean {
+        return this.formSubmitted && this.exampleForm.hasError('atLeastOneRequired');
+    }
+
+    isInvalid(controlName: string): boolean {
+        const control = this.exampleForm.get(controlName);
+        return this.formSubmitted && this.exampleForm.hasError('atLeastOneRequired') && control?.value === false;
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+
+        if (this.exampleForm.valid) {
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Form is submitted',
+                life: 3000
+            });
+
+            this.exampleForm.reset({
+                cheese: false,
+                mushroom: false,
+                pepper: false,
+                onion: false
+            });
+
+            this.formSubmitted = false;
+        }
+    }
+}
+```
+</details>
+
 ## Sizes
 
 Checkbox provides small and large sizes as alternatives to the base.
@@ -131,6 +370,26 @@ Checkbox provides small and large sizes as alternatives to the base.
     <label for="size_large" class="text-lg">Large</label>
 </div>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Checkbox } from 'primeng/checkbox';
+
+@Component({
+    selector: 'checkbox-sizes-demo',
+    templateUrl: './checkbox-sizes-demo.html',
+    standalone: true,
+    imports: [FormsModule, Checkbox]
+})
+export class CheckboxSizesDemo {
+    size: any = null;
+}
+```
+</details>
 
 ## styledoc
 
@@ -157,6 +416,75 @@ Following is the list of structural style classes, for theming classes visit the
     </button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'checkbox-template-driven-forms-demo',
+    templateUrl: './checkbox-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, CheckboxModule, MessageModule, ToastModule, ButtonModule, CommonModule]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    formSubmitted: boolean = false;
+
+    formModel = {
+        cheese: false,
+        mushroom: false,
+        pepper: false,
+        onion: false
+    };
+
+    get formKeys(): string[] {
+        return Object.keys(this.formModel);
+    }
+
+    isInvalid(): boolean {
+        return this.formSubmitted && !this.isAtLeastOneSelected();
+    }
+
+    isAtLeastOneSelected(): boolean {
+        return Object.values(this.formModel).some((value) => value === true);
+    }
+
+    onSubmit(form: NgForm) {
+        this.formSubmitted = true;
+
+        if (this.isAtLeastOneSelected()) {
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Form is submitted',
+                life: 3000
+            });
+
+            this.formModel = {
+                cheese: false,
+                mushroom: false,
+                pepper: false,
+                onion: false
+            };
+            form.resetForm(this.formModel);
+
+            this.formSubmitted = false;
+        }
+    }
+}
+```
+</details>
 
 ## Checkbox
 

@@ -6,6 +6,13 @@ MultiSelect is used to select multiple items from a collection.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledBy or ariaLabel props. The multiselect component has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls attribute that refers to the id of the popup listbox. The popup listbox uses listbox as the role with aria-multiselectable enabled. Each list item has an option role along with aria-label , aria-selected and aria-disabled attributes. Checkbox component at the header uses a hidden native checkbox element internally that is only visible to screen readers. Value to read is defined with the selectAll and unselectAll keys of the aria property from the locale API. If filtering is enabled, filterInputProps can be defined to give aria-* props to the input element. Close button uses close key of the aria property from the locale API as the aria-label by default, this can be overriden with the closeButtonProps .
 
+```html
+<span id="dd1">Options</span>
+<p-multiselect ariaLabelledBy="dd1"/>
+
+<p-multiselect ariaLabel="Options"/>
+```
+
 ## Basic
 
 MultiSelect is used as a controlled component with ngModel property along with an options collection. Label and value of an option are defined with the optionLabel and optionValue properties respectively. Default property name for the optionLabel is label and value for the optionValue . If optionValue is omitted and the object has no value property, the object itself becomes the value of an option. Note that, when options are simple primitive values such as a string array, no optionLabel and optionValue would be necessary.
@@ -22,6 +29,43 @@ Selected values are displayed as a comma separated list by default, setting disp
 <p-multiselect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" class="w-full md:w-80" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-chips-demo',
+    templateUrl: './multi-select-chips-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectChipsDemo implements OnInit {
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    constructor() {
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
+    }
+}
+```
+</details>
+
 ## Clear Icon
 
 When showClear is enabled, a clear icon is displayed to clear the value.
@@ -29,6 +73,44 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```html
 <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" [showClear]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-clear-icon-demo',
+    templateUrl: './multi-select-clear-icon-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectClearIconDemo implements OnInit {
+
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
+    }
+}
+```
+</details>
 
 ## Disabled
 
@@ -38,6 +120,43 @@ When disabled is present, the element cannot be edited and focused.
 <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" class="w-full md:w-80" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-disabled-demo',
+    templateUrl: './multi-select-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectDisabledDemo implements OnInit {
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
+
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
@@ -46,6 +165,44 @@ Specify the variant property as filled to display the component with a higher vi
 <p-multiselect [options]="cities" [(ngModel)]="selectedCities" variant="filled" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-filled-demo',
+    templateUrl: './multi-select-filled-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectFilledDemo implements OnInit {
+
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
+    }
+}
+```
+</details>
+
 ## Filter
 
 MultiSelect provides built-in filtering that is enabled by adding the filter property.
@@ -53,6 +210,43 @@ MultiSelect provides built-in filtering that is enabled by adding the filter pro
 ```html
 <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-filter-demo',
+    templateUrl: './multi-select-filter-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectFilterDemo implements OnInit {
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
+}
+```
+</details>
 
 ## Float Label
 
@@ -75,6 +269,48 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 </p-floatlabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FloatLabel } from 'primeng/floatlabel';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-floatlabel-demo',
+    templateUrl: './multi-select-floatlabel-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule, FloatLabel]
+})
+export class MultiSelectFloatlabelDemo implements OnInit {
+    cities!: City[];
+
+    value1!: City[];
+
+    value2!: City[];
+
+    value3!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' },
+        ];
+    }
+}
+```
+</details>
+
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
@@ -82,6 +318,44 @@ The fluid prop makes the component take up the full width of its container when 
 ```html
 <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" fluid />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-fluid-demo',
+    templateUrl: './multi-select-fluid-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectFluidDemo implements OnInit {
+
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
+    }
+}
+```
+</details>
 
 ## Group
 
@@ -98,6 +372,69 @@ Options can be grouped when a nested data structures is provided.
 </p-multiselect>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { SelectItemGroup } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-group-demo',
+    templateUrl: './multi-select-group-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectGroupDemo {
+    groupedCities!: SelectItemGroup[];
+
+    selectedCities!: City[];
+
+    constructor() {
+        this.groupedCities = [
+            {
+                label: 'Germany',
+                value: 'de',
+                items: [
+                    { label: 'Berlin', value: 'Berlin' },
+                    { label: 'Frankfurt', value: 'Frankfurt' },
+                    { label: 'Hamburg', value: 'Hamburg' },
+                    { label: 'Munich', value: 'Munich' }
+                ]
+            },
+            {
+                label: 'USA',
+                value: 'us',
+                items: [
+                    { label: 'Chicago', value: 'Chicago' },
+                    { label: 'Los Angeles', value: 'Los Angeles' },
+                    { label: 'New York', value: 'New York' },
+                    { label: 'San Francisco', value: 'San Francisco' }
+                ]
+            },
+            {
+                label: 'Japan',
+                value: 'jp',
+                items: [
+                    { label: 'Kyoto', value: 'Kyoto' },
+                    { label: 'Osaka', value: 'Osaka' },
+                    { label: 'Tokyo', value: 'Tokyo' },
+                    { label: 'Yokohama', value: 'Yokohama' }
+                ]
+            }
+        ];
+    }
+}
+```
+</details>
+
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
@@ -109,6 +446,44 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 </p-iftalabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { IftaLabelModule } from 'primeng/iftalabel';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-iftalabel-demo',
+    templateUrl: './multi-select-iftalabel-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule, IftaLabelModule]
+})
+export class MultiSelectIftalabelDemo implements OnInit {
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' },
+        ];
+    }
+}
+```
+</details>
+
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -118,6 +493,45 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 <p-multiselect [options]="cities" [(ngModel)]="selectedCities2" [invalid]="value2" optionLabel="name" placeholder="Select Cities" [maxSelectedLabels]="3" class="w-full md:w-80" variant="filled" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-invalid-demo',
+    templateUrl: './multi-select-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectInvalidDemo {
+    value1: boolean = true;
+
+    value2: boolean = true;
+
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
+
+    selectedCities1!: City[];
+
+    selectedCities2!: City[];
+}
+```
+</details>
+
 ## Loading State
 
 Loading state can be used loading property.
@@ -125,6 +539,44 @@ Loading state can be used loading property.
 ```html
 <p-multiselect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-80" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-loading-state-demo',
+    templateUrl: './multi-select-loading-state-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectLoadingStateDemo implements OnInit {
+
+    cities!: City[];
+
+    selectedCities!: City[];
+
+    ngOnInit() {
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
+    }
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -142,6 +594,66 @@ MultiSelect can also be used with reactive forms. In this case, the formControlN
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import {Component, inject} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { Message } from 'primeng/message';
+import { Button } from 'primeng/button';
+import { Toast } from 'primeng/toast';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-reactive-forms-demo',
+    templateUrl: './multi-select-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, MultiSelectModule, Message, Button, Toast]
+})
+export class MultiSelectReactiveFormsDemo implements OnInit {
+    messageService = inject(MessageService);
+
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            city: ['', Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## Sizes
 
 MultiSelect provides small and large sizes as alternatives to the base.
@@ -151,6 +663,48 @@ MultiSelect provides small and large sizes as alternatives to the base.
 <p-multiselect [(ngModel)]="value2" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" placeholder="Normal" />
 <p-multiselect [(ngModel)]="value3" [options]="cities" optionLabel="name" [maxSelectedLabels]="3" class="w-full md:w-80" size="large" placeholder="Large" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+
+interface City {
+    name: string,
+    code: string
+}
+
+@Component({
+    selector: 'multi-select-sizes-demo',
+    templateUrl: './multi-select-sizes-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectSizesDemo implements OnInit {
+
+    cities!: City[];
+
+    value1: any[];
+
+    value2: any[];
+
+    value3: any[];
+
+    ngOnInit() {
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -186,6 +740,49 @@ Available options and the selected options support customization with item and s
 </p-multiselect>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ButtonModule } from 'primeng/button';
+
+interface Country {
+    name: string;
+    code: string;
+}
+
+@Component({
+    selector: 'multi-select-template-demo',
+    templateUrl: './multi-select-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule, ButtonModule]
+})
+export class MultiSelectTemplateDemo implements OnInit {
+    countries!: Country[];
+
+    selectedCountries!: Country[];
+
+    constructor() {
+        this.countries = [
+            { name: 'Australia', code: 'AU' },
+            { name: 'Brazil', code: 'BR' },
+            { name: 'China', code: 'CN' },
+            { name: 'Egypt', code: 'EG' },
+            { name: 'France', code: 'FR' },
+            { name: 'Germany', code: 'DE' },
+            { name: 'India', code: 'IN' },
+            { name: 'Japan', code: 'JP' },
+            { name: 'Spain', code: 'ES' },
+            { name: 'United States', code: 'US' }
+        ];
+    }
+}
+```
+</details>
+
 ## templatedrivenformsdoc
 
 ```html
@@ -213,6 +810,51 @@ Available options and the selected options support customization with item and s
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelect } from 'primeng/multiselect';
+import { Message } from 'primeng/message';
+import { Toast } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    selector: 'multi-select-template-driven-forms-demo',
+    templateUrl: './multi-select-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelect, Message, Toast]
+})
+export class TemplateDrivenFormsDemo{
+    messageService = inject(MessageService);
+
+    cities: City[] = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
+
+    selectedCity: City | undefined;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
+
 ## VirtualScroll
 
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
@@ -225,6 +867,39 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
     </ng-template>
 </p-multiselect>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelect } from 'primeng/multiselect';
+
+@Component({
+    selector: 'multi-select-virtual-scroll-demo',
+    templateUrl: './multi-select-virtual-scroll-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
+})
+export class MultiSelectVirtualScrollDemo {
+    @ViewChild('ms') ms: MultiSelect;
+
+    items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
+
+    selectedItems!: any[];
+
+    selectAll: boolean = false;
+
+    onSelectAllChange(event) {
+        this.selectedItems = event.checked ? [...this.ms.visibleOptions()] : [];
+        this.selectAll = event.checked;
+    }
+
+}
+```
+</details>
 
 ## Multi Select
 

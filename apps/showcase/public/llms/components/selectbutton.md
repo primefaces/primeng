@@ -24,6 +24,38 @@ When disabled is present, the element cannot be edited and focused entirely. Cer
 <p-selectbutton [options]="stateOptions2" [(ngModel)]="value2" optionLabel="label" optionValue="value" optionDisabled="constant" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButton } from 'primeng/selectbutton';
+
+@Component({
+    selector: 'select-button-disabled-demo',
+    templateUrl: './select-button-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButton]
+})
+export class SelectButtonDisabledDemo {
+    stateOptions: any[] = [
+        { label: 'Off', value: 'off' },
+        { label: 'On', value: 'on' }
+    ];
+
+    stateOptions2: any[] = [
+        { label: 'Option 1', value: 'Option 1' },
+        { label: 'Option 2', value: 'Option 2', constant: true }
+    ];
+
+    value1: string = 'off';
+
+    value2: string = 'Option 1';
+}
+```
+</details>
+
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
@@ -31,6 +63,28 @@ The fluid prop makes the component take up the full width of its container when 
 ```html
 <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" fluid />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButton } from 'primeng/selectbutton';
+
+@Component({
+    selector: 'select-button-fluid-demo',
+    templateUrl: './select-button-fluid-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButton]
+})
+export class SelectButtonFluidDemo {
+    stateOptions: any[] = [{ label: 'One-Way', value: 'one-way' },{ label: 'Return', value: 'return' }];
+
+    value: string = 'off';
+}
+```
+</details>
 
 ## Invalid
 
@@ -40,6 +94,31 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 <p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" [invalid]="value === null" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButton } from 'primeng/selectbutton';
+
+@Component({
+    selector: 'select-button-invalid-demo',
+    templateUrl: './select-button-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButton]
+})
+export class SelectButtonInvalidDemo {
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
+    ];
+
+    value: string | undefined;
+}
+```
+</details>
+
 ## Multiple
 
 SelectButton allows selecting only one item by default and setting multiple option enables choosing more than one item. In multiple case, model property should be an array.
@@ -47,6 +126,33 @@ SelectButton allows selecting only one item by default and setting multiple opti
 ```html
 <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButton } from 'primeng/selectbutton';
+
+@Component({
+    selector: 'select-button-multiple-demo',
+    templateUrl: './select-button-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButton]
+})
+export class SelectButtonMultipleDemo {
+    value!: number;
+
+    paymentOptions: any[] = [
+        { name: 'Option 1', value: 1 },
+        { name: 'Option 2', value: 2 },
+        { name: 'Option 3', value: 3 }
+    ];
+
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -64,6 +170,58 @@ SelectButton can also be used with reactive forms. In this case, the formControl
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+
+@Component({
+    selector: 'select-button-reactive-forms-demo',
+    templateUrl: './select-button-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, SelectButtonModule, ButtonModule, ToastModule, MessageModule]
+})
+export class SelectButtonReactiveFormsDemo implements OnInit {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted: boolean = false;
+
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
+    ];
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            value: ['', Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## Sizes
 
 SelectButton provides small and large sizes as alternatives to the base.
@@ -73,6 +231,35 @@ SelectButton provides small and large sizes as alternatives to the base.
 <p-selectbutton [(ngModel)]="value2" [options]="options" />
 <p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButton } from 'primeng/selectbutton';
+
+@Component({
+    selector: 'select-button-sizes-demo',
+    templateUrl: './select-button-sizes-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButton]
+})
+export class SelectButtonSizesDemo {
+    value1! : string;
+
+    value2 : string = 'Beginner';
+
+    value3 : string = 'Expert';
+
+    options: any[] = [
+        { label: 'Beginner', value: 'Beginner' },
+        { label: 'Expert', value: 'Expert' },
+    ];
+}
+```
+</details>
 
 ## Template
 
@@ -85,6 +272,34 @@ For custom content support define a template named item where the default local 
     </ng-template>
 </p-selectbutton>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'primeng/selectbutton';
+
+@Component({
+    selector: 'select-button-template-demo',
+    templateUrl: './select-button-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButtonModule]
+})
+export class SelectButtonTemplateDemo {
+    value: any;
+
+    justifyOptions: any[] = [
+        { icon: 'pi pi-align-left', justify: 'Left' },
+        { icon: 'pi pi-align-right', justify: 'Right' },
+        { icon: 'pi pi-align-center', justify: 'Center' },
+        { icon: 'pi pi-align-justify', justify: 'Justify' }
+    ];
+
+}
+```
+</details>
 
 ## templatedrivenformsdoc
 
@@ -99,6 +314,44 @@ For custom content support define a template named item where the default local 
     <button pButton type="submit"><span pButtonLabel>Submit</span></button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'selectbutton-template-driven-forms-demo',
+    templateUrl: './selectbutton-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButtonModule, MessageModule, ToastModule, ButtonModule]
+})
+export class TemplateDrivenFormsDemo implements OnInit {
+    messageService = inject(MessageService);
+
+    value: any;
+
+    stateOptions: any[] = [
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
+    ];
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
 
 ## Select Button
 

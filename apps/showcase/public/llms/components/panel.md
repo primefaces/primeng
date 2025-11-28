@@ -56,6 +56,48 @@ Header and Footers sections can be customized using header and footer templates.
 </p-panel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
+import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+
+@Component({
+    selector: 'panel-template-demo',
+    templateUrl: './panel-template-demo.html',
+    standalone: true,
+    imports: [PanelModule, AvatarModule, ButtonModule, MenuModule]
+})
+export class PanelTemplateDemo implements OnInit {
+    items: { label?: string; icon?: string; separator?: boolean }[] = [];
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Refresh',
+                icon: 'pi pi-refresh'
+            },
+            {
+                label: 'Search',
+                icon: 'pi pi-search'
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-times'
+            }
+        ];
+    }
+}
+```
+</details>
+
 ## Toggleable
 
 Content of the panel can be expanded and collapsed using toggleable option, default state is defined with collapsed option. By default, toggle icon is used to toggle the contents whereas setting toggler to "header" enables clicking anywhere in the header to trigger a toggle.
@@ -67,6 +109,23 @@ Content of the panel can be expanded and collapsed using toggleable option, defa
     </p>
 </p-panel>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
+
+@Component({
+    selector: 'panel-toggleable-demo',
+    templateUrl: './panel-toggleable-demo.html',
+    standalone: true,
+    imports: [PanelModule]
+})
+export class PanelToggleableDemo {}
+```
+</details>
 
 ## Panel
 

@@ -22,6 +22,30 @@ Icons can be displayed next to the labels instead of the default marker.
 <p-metergroup [value]="value" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MeterGroup } from 'primeng/metergroup';
+
+@Component({
+    selector: 'meter-group-icon-demo',
+    templateUrl: './meter-group-icon-demo.html',
+    standalone: true,
+    imports: [MeterGroup]
+})
+export class MeterGroupIconDemo {
+    value = [
+        { label: 'Apps', color: '#34d399', value: 16, icon: 'pi pi-table' },
+        { label: 'Messages', color: '#fbbf24', value: 8, icon: 'pi pi-inbox' },
+        { label: 'Media', color: '#60a5fa', value: 24, icon: 'pi pi-image' },
+        { label: 'System', color: '#c084fc', value: 10, icon: 'pi pi-cog' }
+    ];
+}
+```
+</details>
+
 ## Label
 
 The position of the labels relative to the meters is defined using the labelPosition property. The default orientation of the labels is horizontal, and the vertical alternative is available through the labelOrientation option.
@@ -29,6 +53,30 @@ The position of the labels relative to the meters is defined using the labelPosi
 ```html
 <p-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MeterGroup } from 'primeng/metergroup';
+
+@Component({
+    selector: 'meter-group-label-demo',
+    templateUrl: './meter-group-label-demo.html',
+    standalone: true,
+    imports: [MeterGroup]
+})
+export class MeterGroupLabelDemo {
+    value = [
+        { label: 'Apps', color: '#34d399', value: 16 },
+        { label: 'Messages', color: '#fbbf24', value: 8 },
+        { label: 'Media', color: '#60a5fa', value: 24 },
+        { label: 'System', color: '#c084fc', value: 10 }
+    ];
+}
+```
+</details>
 
 ## Min Max
 
@@ -38,6 +86,32 @@ Boundaries are configured with the min and max values whose defaults are 0 and 1
 <p-metergroup [value]="value" [max]="200" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MeterGroup } from 'primeng/metergroup';
+
+@Component({
+    selector: 'meter-group-min-max-demo',
+    templateUrl: './meter-group-min-max-demo.html',
+    standalone: true,
+    imports: [MeterGroup]
+})
+export class MeterGroupMinMaxDemo{
+
+    value = [
+        { label: 'Apps', color: '#34d399', value: 16 },
+        { label: 'Messages', color: '#fbbf24', value: 8 },
+        { label: 'Media', color: '#60a5fa', value: 24 },
+        { label: 'System', color: '#c084fc', value: 10 }
+    ];
+
+}
+```
+</details>
+
 ## Multiple
 
 Adding more items to the array displays the meters in a group.
@@ -45,6 +119,30 @@ Adding more items to the array displays the meters in a group.
 ```html
 <p-metergroup [value]="value" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MeterGroup } from 'primeng/metergroup';
+
+@Component({
+    selector: 'meter-group-multiple-demo',
+    templateUrl: './meter-group-multiple-demo.html',
+    standalone: true,
+    imports: [MeterGroup]
+})
+export class MeterGroupMultipleDemo {
+    value = [
+        { label: 'Apps', color: '#34d399', value: 16 },
+        { label: 'Messages', color: '#fbbf24', value: 8 },
+        { label: 'Media', color: '#60a5fa', value: 24 },
+        { label: 'System', color: '#c084fc', value: 10 }
+    ];
+}
+```
+</details>
 
 ## styledoc
 
@@ -92,6 +190,33 @@ MeterGroup provides templating support for labels, meter items, and content arou
 </p-metergroup>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MeterGroup } from 'primeng/metergroup';
+import { CardModule } from 'primeng/card';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'meter-group-template-demo',
+    templateUrl: './meter-group-template-demo.html',
+    standalone: true,
+    imports: [MeterGroup, CardModule, ButtonModule, CommonModule]
+})
+export class MeterGroupTemplateDemo {
+    value = [
+        { label: 'Apps', color1: '#34d399', color2: '#fbbf24', value: 25, icon: 'pi pi-table' },
+        { label: 'Messages', color1: '#fbbf24', color2: '#60a5fa', value: 15, icon: 'pi pi-inbox' },
+        { label: 'Media', color1: '#60a5fa', color2: '#c084fc', value: 20, icon: 'pi pi-image' },
+        { label: 'System', color1: '#c084fc', color2: '#c084fc', value: 10, icon: 'pi pi-cog' }
+    ];
+}
+```
+</details>
+
 ## Vertical
 
 Layout of the MeterGroup is configured with the orientation property that accepts either horizontal or vertical as available options.
@@ -99,6 +224,30 @@ Layout of the MeterGroup is configured with the orientation property that accept
 ```html
 <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MeterGroup } from 'primeng/metergroup';
+
+@Component({
+    selector: 'meter-group-vertical-demo',
+    templateUrl: './meter-group-vertical-demo.html',
+    standalone: true,
+    imports: [MeterGroup]
+})
+export class MeterGroupVerticalDemo {
+    value = [
+        { label: 'Apps', color: '#34d399', value: 16 },
+        { label: 'Messages', color: '#fbbf24', value: 8 },
+        { label: 'Media', color: '#60a5fa', value: 24 },
+        { label: 'System', color: '#c084fc', value: 10 }
+    ];
+}
+```
+</details>
 
 ## Pass Through Options
 

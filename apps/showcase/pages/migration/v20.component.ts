@@ -8,7 +8,7 @@ import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     imports: [AppDoc],
     standalone: true,
-    template: `<app-doc docTitle="Migration - PrimeNG v20" header="Migration" description="Migration guide to PrimeNG v20." [docs]="docs"></app-doc>`
+    template: `<app-doc docTitle="Migration - PrimeNG v20" header="Migration" description="Migration guide to PrimeNG v20." [docs]="docs" docType="page"></app-doc>`
 })
 export class v20MigrationDemoComponent {
     docs = [

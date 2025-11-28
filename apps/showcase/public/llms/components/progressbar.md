@@ -22,6 +22,53 @@ Value is reactive so updating it dynamically changes the bar as well.
 <p-progressbar [value]="value" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, NgZone, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { ProgressBar } from 'primeng/progressbar';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'progress-bar-dynamic-demo',
+    templateUrl: './progress-bar-dynamic-demo.html',
+    standalone: true,
+    imports: [ProgressBar, ToastModule],
+    providers: [MessageService]
+})
+export class ProgressBarDynamicDemo implements OnInit {
+    value: number = 0;
+
+    interval: any;
+
+    constructor(private messageService: MessageService, private ngZone: NgZone) {}
+
+    ngOnInit() {
+        this.ngZone.runOutsideAngular(() => {
+            this.interval = setInterval(() => {
+                this.ngZone.run(() => {
+                    this.value = this.value + Math.floor(Math.random() * 10) + 1;
+                    if (this.value >= 100) {
+                        this.value = 100;
+                        this.messageService.add({ severity: 'info', summary: 'Success', detail: 'Process Completed' });
+                        clearInterval(this.interval);
+                    }
+                });
+            }, 2000);
+        });
+    }
+
+    ngOnDestroy() {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+    }
+}
+```
+</details>
+
 ## Indeterminate
 
 For progresses with no value to track, set the mode property to indeterminate .
@@ -29,6 +76,25 @@ For progresses with no value to track, set the mode property to indeterminate .
 ```html
 <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { ProgressBar } from 'primeng/progressbar';
+
+@Component({
+    selector: 'progress-bar-indeterminate-demo',
+    templateUrl: './progress-bar-indeterminate-demo.html',
+    standalone: true,
+    imports: [ProgressBar],
+    providers: [MessageService]
+})
+export class ProgressBarIndeterminateDemo {}
+```
+</details>
 
 ## styledoc
 
@@ -45,6 +111,23 @@ content template allows displaying custom content inside the progressbar.
     </ng-template>
 </p-progressbar>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ProgressBar } from 'primeng/progressbar';
+
+@Component({
+    selector: 'progress-bar-template-demo',
+    templateUrl: './progress-bar-template-demo.html',
+    standalone: true,
+    imports: [ProgressBar]
+})
+export class ProgressBarTemplateDemo {}
+```
+</details>
 
 ## Progress Bar
 

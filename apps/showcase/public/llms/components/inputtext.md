@@ -6,6 +6,16 @@ InputText is an extension to standard input element with theming and keyfilterin
 
 Screen Reader InputText component renders a native input element that implicitly includes any passed prop. Value to describe the component can either be provided via label tag combined with id prop or using aria-labelledby , aria-label props.
 
+```html
+<label for="firstname">Firstname</label>
+<input pInputText id="firstname" />
+
+<span id="lastname">Lastname</span>
+<input pInputText aria-labelledby="lastname" />
+
+<input pInputText aria-label="Age" />
+```
+
 ## Basic
 
 InputText is used as a controlled input with ngModel property.
@@ -22,6 +32,26 @@ When disabled is present, the element cannot be edited and focused.
 <input pInputText [disabled]="true" [(ngModel)]="value" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-text-disabled-demo',
+    templateUrl: './input-text-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
+})
+export class InputTextDisabledDemo {
+    value: string | undefined = "Disabled"
+}
+```
+</details>
+
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
@@ -29,6 +59,26 @@ Specify the variant property as filled to display the component with a higher vi
 ```html
 <input type="text" pInputText [(ngModel)]="value" variant="filled" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-text-filled-demo',
+    templateUrl: './input-text-filled-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
+})
+export class InputTextFilledDemo {
+    value: string;
+}
+```
+</details>
 
 ## Float Label
 
@@ -51,6 +101,31 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 </p-floatlabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { FloatLabel } from 'primeng/floatlabel';
+
+@Component({
+    selector: 'input-text-floatlabel-demo',
+    templateUrl: './input-text-floatlabel-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule, FloatLabel]
+})
+export class InputTextFloatlabelDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+}
+```
+</details>
+
 ## Fluid
 
 The fluid prop makes the component take up the full width of its container when set to true.
@@ -58,6 +133,26 @@ The fluid prop makes the component take up the full width of its container when 
 ```html
 <input type="text" pInputText [(ngModel)]="value" fluid />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-text-fluid-demo',
+    templateUrl: './input-text-fluid-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
+})
+export class InputTextFluidDemo {
+    value: string;
+}
+```
+</details>
 
 ## Help Text
 
@@ -71,6 +166,26 @@ An advisory text can be defined with the semantic small tag.
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-text-help-text-demo',
+    templateUrl: './input-text-help-text-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
+})
+export class InputTextHelpTextDemo {
+    value: string | undefined;
+}
+```
+</details>
+
 ## iconsdoc
 
 Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either .p-input-icon-left or p-input-icon-right class.
@@ -81,6 +196,24 @@ Icons can be placed inside an input element by wrapping both the input and the i
     <input type="text" pInputText [(ngModel)]="value" />
 </span>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'input-text-icons-demo',
+    templateUrl: './input-text-icons-demo.html'
+})
+export class InputTextIconsDemo {
+    value: string | undefined;
+
+    value2: string | undefined;
+}
+```
+</details>
 
 ## Ifta Label
 
@@ -93,6 +226,27 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 </p-iftalabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { IftaLabelModule } from 'primeng/iftalabel';
+
+@Component({
+    selector: 'input-text-iftalabel-demo',
+    templateUrl: './input-text-iftalabel-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule, IftaLabelModule]
+})
+export class InputTextIftaLabelDemo {
+    value: string | undefined;
+}
+```
+</details>
+
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -102,6 +256,28 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 <input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'input-text-invalid-demo',
+    templateUrl: './input-text-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
+})
+export class InputTextInvalidDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+}
+```
+</details>
+
 ## keyfilterdoc
 
 InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
@@ -109,6 +285,22 @@ InputText has built-in key filtering support to block certain keys, refer to key
 ```html
 <input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'input-text-key-filter-demo',
+    templateUrl: './input-text-key-filter-demo.html'
+})
+export class InputTextKeyFilterDemo {
+    value: number | undefined;
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -135,6 +327,55 @@ InputText has built-in key filtering support to block certain keys, refer to key
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+    selector: 'reactive-forms-demo',
+    templateUrl: './reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule]
+})
+export class ReactiveFormsDemo {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup;
+
+    formSubmitted = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            username: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## Sizes
 
 InputText provides small and large sizes as alternatives to the standard.
@@ -144,6 +385,29 @@ InputText provides small and large sizes as alternatives to the standard.
 <input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
 <input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'input-text-sizes-demo',
+    templateUrl: './input-text-sizes-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
+})
+export class InputTextSizesDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+}
+```
+</details>
 
 ## templatedrivenformsdoc
 
@@ -171,6 +435,39 @@ InputText provides small and large sizes as alternatives to the standard.
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+
+@Component({
+    selector: 'template-driven-forms-demo',
+    templateUrl: './template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule, ButtonModule, ToastModule]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    user = {
+        username: '',
+        email: ''
+    };
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm()
+        }
+    }
+}
+```
+</details>
 
 ## Input Text
 

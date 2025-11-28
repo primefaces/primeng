@@ -25,6 +25,23 @@ A font icon next to the label can be displayed with the icon property.
 <p-chip label="Apple" icon="pi pi-apple" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Chip } from 'primeng/chip';
+
+@Component({
+    selector: 'chip-icon-demo',
+    templateUrl: './chip-icon-demo.html',
+    standalone: true,
+    imports: [Chip]
+})
+export class ChipIconDemo {}
+```
+</details>
+
 ## Image
 
 The image property is used to display an image like an avatar.
@@ -35,6 +52,23 @@ The image property is used to display an image like an avatar.
 <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
 <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Chip } from 'primeng/chip';
+
+@Component({
+    selector: 'chip-image-demo',
+    templateUrl: './chip-image-demo.html',
+    standalone: true,
+    imports: [Chip]
+})
+export class ChipImageDemo {}
+```
+</details>
 
 ## Template
 
@@ -50,6 +84,23 @@ Content can easily be customized with the dynamic content instead of using the b
     </span>
 </p-chip>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Chip } from 'primeng/chip';
+
+@Component({
+    selector: 'chip-template-demo',
+    templateUrl: './chip-template-demo.html',
+    standalone: true,
+    imports: [Chip]
+})
+export class ChipTemplateDemo {}
+```
+</details>
 
 ## Chip
 

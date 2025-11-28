@@ -22,6 +22,23 @@ ProgressSpinner can be customized with styling property like strokeWidth and fil
 <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ProgressSpinner } from 'primeng/progressspinner';
+
+@Component({
+    selector: 'progress-spinner-custom-demo',
+    templateUrl: './progress-spinner-custom-demo.html',
+    standalone: true,
+    imports: [ProgressSpinner]
+})
+export class ProgressSpinnerCustomDemo {}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.

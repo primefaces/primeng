@@ -128,6 +128,25 @@ When linear property is set to true, current step must be completed in order to 
 </p-stepper>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'stepper-linear-demo-demo',
+    templateUrl: './stepper-linear-demo-demo.html',
+    standalone: true,
+    imports: [StepperModule, ButtonModule]
+})
+export class StepperLinearDemo {
+}
+```
+</details>
+
 ## stepsonly
 
 Use Stepper with a StepList only for custom requirements where a progress indicator is needed.
@@ -141,6 +160,25 @@ Use Stepper with a StepList only for custom requirements where a progress indica
     </p-step-list>
 </p-stepper>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { StepperModule } from 'primeng/stepper';
+
+@Component({
+    selector: 'stepper-steps-only-demo',
+    templateUrl: './stepper-steps-only-demo.html',
+    standalone: true,
+    imports: [ButtonModule, StepperModule]
+})
+export class StepperStepsOnlyDemo {
+}
+```
+</details>
 
 ## Template
 
@@ -260,6 +298,65 @@ Stepper provides various templating options to customize the default UI design.
 </p-stepper>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { StepperModule } from 'primeng/stepper';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToggleButton } from 'primeng/togglebutton';
+import { IconField } from 'primeng/iconfield';
+import { InputIcon } from 'primeng/inputicon';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'stepper-template-demo',
+    templateUrl: './stepper-template-demo.html',
+    standalone: true,
+    imports: [
+      StepperModule,
+      ButtonModule,
+      InputTextModule,
+      ToggleButton,
+      IconField,
+      InputIcon,
+      CommonModule
+    ]
+})
+export class StepperTemplateDemo {
+    activeStep: number = 1;
+
+    name: string | undefined = null;
+
+    email: string | undefined = null;
+
+    password: string | undefined = null;
+
+    option1: boolean | undefined = false;
+
+    option2: boolean | undefined = false;
+
+    option3: boolean | undefined = false;
+
+    option4: boolean | undefined = false;
+
+    option5: boolean | undefined = false;
+
+    option6: boolean | undefined = false;
+
+    option7: boolean | undefined = false;
+
+    option8: boolean | undefined = false;
+
+    option9: boolean | undefined = false;
+
+    option10: boolean | undefined = false;
+}
+```
+</details>
+
 ## Vertical
 
 Vertical layout requires StepItem as a wrapper of Step and StepPanel components.
@@ -322,6 +419,25 @@ Vertical layout requires StepItem as a wrapper of Step and StepPanel components.
     </p-step-item>
 </p-stepper>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'stepper-vertical-demo',
+    templateUrl: './stepper-vertical-demo.html',
+    standalone: true,
+    imports: [StepperModule, ButtonModule]
+})
+export class StepperVerticalDemo {
+}
+```
+</details>
 
 ## Stepper
 

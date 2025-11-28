@@ -28,6 +28,27 @@ When the form element is invalid, the label is also highlighted.
 </p-iftalabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'ifta-label-invalid-demo',
+    templateUrl: './ifta-label-invalid-demo.html',
+    standalone: true,
+    imports: [IftaLabelModule, InputTextModule, FormsModule]
+})
+export class IftaLabelInvalidDemo {
+    value: string | undefined;
+}
+```
+</details>
+
 ## Ifta Label
 
 IftaLabel is used to create infield top aligned labels.

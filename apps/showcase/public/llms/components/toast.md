@@ -6,41 +6,6 @@ Toast is used to display messages in an overlay.
 
 Screen Reader Toast component use alert role that implicitly defines aria-live as "assertive" and aria-atomic as "true". Close element is a button with an aria-label that refers to the aria.close property of the locale API by default. Close Button Keyboard Support Key Function enter Closes the message. space Closes the message.
 
-## Animation
-
-Transition of the animations can be customized using the enterAnimation , leaveAnimation properties.
-
-```html
-<p-toast enterAnimation="custom-enter-animation" leaveAnimation="custom-leave-animation" />
-<p-button (click)="show()" label="Show" />
-```
-
-<details>
-<summary>TypeScript Example</summary>
-
-```typescript
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-
-@Component({
-    selector: 'toast-animation-demo',
-    templateUrl: './toast-animation-demo.html',
-    standalone: true,
-    imports: [ToastModule, ButtonModule],
-    providers: [MessageService]
-})
-export class ToastAnimationDemo {
-    constructor(private messageService: MessageService) {}
-
-    show() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
-    }
-}
-```
-</details>
-
 ## Basic
 
 Toasts are displayed by calling the add and addAll method provided by the messageService . A single toast is specified by the Message interface that defines various properties such as severity , summary and detail .
@@ -64,6 +29,37 @@ Clicking the close icon on the toast, removes it manually. Same can also be achi
     label="Clear"
     severity="secondary" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+
+@Component({
+    selector: 'toast-clear-demo',
+    templateUrl: './toast-clear-demo.html',
+    standalone: true,
+    imports: [Toast, ButtonModule, Ripple],
+    providers: [MessageService]
+})
+export class ToastClearDemo {
+    constructor(private messageService: MessageService) {}
+
+    show() {
+        this.messageService.add({ key:'myKey', severity: 'success', summary: 'Message 1', detail: 'Message Content' });
+    }
+
+    clear() {
+        this.messageService.clear();
+    }
+}
+```
+</details>
 
 ## Headless
 
@@ -91,6 +87,71 @@ Headless mode allows you to customize the entire user interface instead of the d
 <p-button (click)="showConfirm()" label="Confirm" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+import { ProgressBar } from 'primeng/progressbar';
+
+@Component({
+    selector: 'toast-headless-demo',
+    templateUrl: './toast-headless-demo.html',
+    standalone: true,
+    imports: [Toast, ButtonModule, Ripple, ProgressBar],
+    providers: [MessageService]
+})
+export class ToastHeadlessDemo {
+
+    visible: boolean = false;
+
+    progress: number = 0;
+
+    interval = null;
+
+    constructor(private messageService: MessageService, private cdr: ChangeDetectorRef) {}
+
+    showConfirm() {
+        if (!this.visible) {
+            this.messageService.add({
+                key: 'confirm',
+                sticky: true,
+                severity: 'custom',
+                summary: 'Uploading your files.',
+                styleClass: 'backdrop-blur-lg rounded-2xl',
+            });
+            this.visible = true;
+            this.progress = 0;
+
+            if (this.interval) {
+                clearInterval(this.interval);
+            }
+
+            this.interval = setInterval(() => {
+                if (this.progress <= 100) {
+                    this.progress = this.progress + 20;
+                }
+
+                if (this.progress >= 100) {
+                    this.progress = 100;
+                    clearInterval(this.interval);
+                }
+                this.cdr.markForCheck();
+            }, 1000);
+        }
+    }
+
+    onClose() {
+        this.visible = false;
+    }
+}
+```
+</details>
+
 ## lifedoc
 
 A toast disappears after 3000ms by default, set the life option on either the message or toast to override this.
@@ -105,6 +166,37 @@ A toast disappears after 3000ms by default, set the life option on either the me
     label="Show Life Long" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+
+@Component({
+    selector: 'toast-life-demo',
+    templateUrl: './toast-life-demo.html',
+    standalone: true,
+    imports: [Toast, ButtonModule, Ripple],
+    providers: [MessageService]
+})
+export class ToastLifeDemo {
+    constructor(private messageService: MessageService) {}
+
+    showLifeDefault() {
+        this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 10000ms' });
+    }
+
+    showLifeLong() {
+        this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 20000ms', life: 20000 });
+    }
+}
+```
+</details>
+
 ## Multiple
 
 Multiple toasts are displayed by passing an array to the showAll method of the messageService .
@@ -113,6 +205,38 @@ Multiple toasts are displayed by passing an array to the showAll method of the m
 <p-toast />
 <p-button pRipple (click)="show()" label="Multiple" severity="warn" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+
+@Component({
+    selector: 'toast-multiple-demo',
+    templateUrl: './toast-multiple-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
+    providers: [MessageService]
+})
+export class ToastMultipleDemo {
+    constructor(private messageService: MessageService) {}
+
+    show() {
+        this.messageService.addAll([
+            { severity: 'success', summary: 'Message 1', detail: 'Message Content' },
+            { severity: 'info', summary: 'Message 2', detail: 'Message Content' },
+            { severity: 'warn', summary: 'Message 3', detail: 'Message Content' },
+            { severity: 'error', summary: 'Message 4', detail: 'Message Content' }
+        ]);
+    }
+}
+```
+</details>
 
 ## Position
 
@@ -127,6 +251,41 @@ Location of the toast is customized with the position property. Valid values are
 <p-button pRipple (click)="showBottomRight()" label="Bottom Right" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+
+@Component({
+    selector: 'toast-position-demo',
+    templateUrl: './toast-position-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
+    providers: [MessageService]
+})
+export class ToastPositionDemo {
+    constructor(private messageService: MessageService) {}
+
+    showTopLeft() {
+        this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', key: 'tl', life: 3000 });
+    }
+
+    showBottomLeft() {
+        this.messageService.add({ severity: 'warn', summary: 'Warn Message', detail: 'Message Content', key: 'bl', life: 3000 });
+    }
+
+    showBottomRight() {
+        this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', key: 'br', life: 3000 });
+    }
+}
+```
+</details>
+
 ## Responsive
 
 Toast styling can be adjusted per screen size with the breakpoints option. The value of breakpoints should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.
@@ -135,6 +294,33 @@ Toast styling can be adjusted per screen size with the breakpoints option. The v
 <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
 <p-button (click)="show()" label="Show" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+
+@Component({
+    selector: 'toast-responsive-demo',
+    templateUrl: './toast-responsive-demo.html',
+    standalone: true,
+    imports: [Toast, ButtonModule, Ripple],
+    providers: [MessageService]
+})
+export class ToastResponsiveDemo {
+    constructor(private messageService: MessageService) {}
+
+    show() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+    }
+}
+```
+</details>
 
 ## Severity
 
@@ -150,6 +336,53 @@ The severity option specifies the type of the message. There are four types of m
 <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+
+@Component({
+    selector: 'toast-severity-demo',
+    templateUrl: './toast-severity-demo.html',
+    standalone: true,
+    imports: [Toast, ButtonModule, Ripple],
+    providers: [MessageService]
+})
+export class ToastSeverityDemo {
+    constructor(private messageService: MessageService) {}
+
+    showSuccess() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+    }
+
+    showInfo() {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content' });
+    }
+
+    showWarn() {
+        this.messageService.add({ severity: 'warn', summary: 'Warn', detail: 'Message Content' });
+    }
+
+    showError() {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showContrast() {
+        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showSecondary() {
+        this.messageService.add({ severity: 'secondary', summary: 'Secondary', detail: 'Message Content' });
+    }
+}
+```
+</details>
+
 ## Sticky
 
 A toast disappears after the time defined by the life option, set sticky option true on the message to override this and not hide the toast automatically.
@@ -161,6 +394,37 @@ A toast disappears after the time defined by the life option, set sticky option 
     <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
 </div>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+
+@Component({
+    selector: 'toast-sticky-demo',
+    templateUrl: './toast-sticky-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
+    providers: [MessageService]
+})
+export class ToastStickyDemo {
+    constructor(private messageService: MessageService) {}
+
+    show() {
+        this.messageService.add({ severity: 'info', summary: 'Sticky', detail: 'Message Content', sticky: true });
+    }
+
+    clear() {
+        this.messageService.clear();
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -184,6 +448,39 @@ A page may have multiple toast components, in case you'd like to target a specif
     severity="warn" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+
+@Component({
+    selector: 'toast-target-demo',
+    templateUrl: './toast-target-demo.html',
+    standalone: true,
+    imports: [Toast, ButtonModule, Ripple],
+    providers: [MessageService]
+})
+export class ToastTargetDemo {
+    constructor(private messageService: MessageService) {}
+
+    showToast1() {
+        this.messageService.clear();
+        this.messageService.add({ key: 'toast1', severity: 'success', summary: 'Success', detail: 'key: toast1' });
+    }
+
+    showToast2() {
+        this.messageService.clear();
+        this.messageService.add({ key: 'toast2', severity: 'warn', summary: 'Warning', detail: 'key: toast2' });
+    }
+}
+```
+</details>
+
 ## templatedoc
 
 Templating allows customizing the content where the message instance is available as the implicit variable.
@@ -203,6 +500,49 @@ Templating allows customizing the content where the message instance is availabl
 </p-toast>
 <p-button (click)="showConfirm()" label="View" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
+
+@Component({
+    selector: 'toast-template-demo',
+    templateUrl: './toast-template-demo.html',
+    standalone: true,
+    imports: [Toast, ButtonModule, Ripple, AvatarModule],
+    providers: [MessageService]
+})
+export class ToastTemplateDemo {
+    constructor(private messageService: MessageService) {}
+
+    visible: boolean = false;
+
+    showConfirm() {
+        if (!this.visible) {
+            this.messageService.add({ key: 'confirm', sticky: true, severity: 'success', summary: 'Can you send me the report?' });
+            this.visible = true;
+        }
+    }
+
+    onConfirm() {
+        this.messageService.clear('confirm');
+        this.visible = false;
+    }
+
+    onReject() {
+        this.messageService.clear('confirm');
+        this.visible = false;
+    }
+}
+```
+</details>
 
 ## Toast
 
