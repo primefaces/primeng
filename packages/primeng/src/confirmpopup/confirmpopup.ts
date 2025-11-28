@@ -348,6 +348,11 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     onBeforeEnter(event: MotionEvent) {
+        if (this.confirmation) {
+            this.autoFocusAccept = this.confirmation.defaultFocus === undefined || this.confirmation.defaultFocus === 'accept' ? true : false;
+            this.autoFocusReject = this.confirmation.defaultFocus === 'reject' ? true : false;
+        }
+
         this.container = event.element as HTMLElement;
         this.appendOverlay();
         this.alignOverlay();
@@ -367,6 +372,8 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     onAfterLeave() {
+        this.autoFocusAccept = false;
+        this.autoFocusReject = false;
         this.restoreAppend();
         this.onContainerDestroy();
     }
