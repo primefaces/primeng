@@ -271,6 +271,13 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
                 return;
             }
 
+            if (this.computedVisible()) {
+                requestAnimationFrame(() => {
+                    this.alignOverlay();
+                    this.cd.markForCheck();
+                });
+            }
+
             if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
                 const keys = Object.keys(confirmation);
