@@ -71,14 +71,12 @@ export class DialogDoc {
     }
 
     code: Code = {
-        scss: `:host::ng-deep {
-    .demo-dialog.p-dialog-enter-active {
-        animation: demo-dialog-in 500ms ease-out;
-    }
-
-    .demo-dialog.p-dialog-leave-active {
-        animation: demo-dialog-out 500ms ease-in;
-    }
+        scss: `.p-dialog-enter-active {
+    animation: demo-dialog-in 500ms ease-out;
+}
+    
+.p-dialog-leave-active {
+    animation: demo-dialog-out 500ms ease-in;
 }
 
 @keyframes demo-dialog-in {

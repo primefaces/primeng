@@ -71,15 +71,14 @@ export class AnchoredOverlaysDoc {
         ];
     }
     code: Code = {
-        scss: `:host::ng-deep {
-    .p-anchored-overlay-enter-active {
-        animation: demo-overlay-in 300ms ease-out;
-    }
-
-    .p-anchored-overlay-leave-active {
-        animation: demo-overlay-out 250ms ease-in;
-    }
+        scss: `.p-anchored-overlay-enter-active {
+    animation: demo-overlay-in 300ms ease-out;
 }
+
+.p-anchored-overlay-leave-active {
+    animation: demo-overlay-out 250ms ease-in;
+}
+
 @keyframes demo-overlay-in {
     from {
         opacity: 0;
