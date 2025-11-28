@@ -1,9 +1,9 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr/node';
 import express from 'express';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { existsSync, readFileSync } from 'node:fs';
 import bootstrap from './main.server';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -37,22 +37,7 @@ export function app(): express.Express {
 
     // Pages that have their own markdown files (not components)
     // These are defined in GUIDE_PAGES in build-llm-docs.mjs
-    const pageNames = new Set([
-        'installation',
-        'configuration',
-        'styled',
-        'unstyled',
-        'icons',
-        'customicons',
-        'passthrough',
-        'tailwind',
-        'llms',
-        'accessibility',
-        'animations',
-        'rtl',
-        'v19',
-        'v20'
-    ]);
+    const pageNames = new Set(['installation', 'configuration', 'styled', 'unstyled', 'icons', 'customicons', 'passthrough', 'tailwind', 'llms', 'accessibility', 'animations', 'rtl', 'v19', 'v20']);
 
     // Serve markdown files - handles both components and pages
     server.get('/:name.md', (req, res, next) => {

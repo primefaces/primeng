@@ -43,6 +43,8 @@
 /guides/csslayer
 /guides/templateupdate
 /llms
+/llms/components/
+/llms/pages/
 /iconfield
 /icons
 /image

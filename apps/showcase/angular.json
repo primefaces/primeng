@@ -28,51 +28,6 @@
                                 "glob": "**/*",
                                 "input": "public",
                                 "output": "/"
-                            },
-                            {
-                                "glob": "styled.md",
-                                "input": "public/llms/pages",
-                                "output": "/theming"
-                            },
-                            {
-                                "glob": "unstyled.md",
-                                "input": "public/llms/pages",
-                                "output": "/theming"
-                            },
-                            {
-                                "glob": "accessibility.md",
-                                "input": "public/llms/pages",
-                                "output": "/guides"
-                            },
-                            {
-                                "glob": "animations.md",
-                                "input": "public/llms/pages",
-                                "output": "/guides"
-                            },
-                            {
-                                "glob": "rtl.md",
-                                "input": "public/llms/pages",
-                                "output": "/guides"
-                            },
-                            {
-                                "glob": "v19.md",
-                                "input": "public/llms/pages",
-                                "output": "/migration"
-                            },
-                            {
-                                "glob": "v20.md",
-                                "input": "public/llms/pages",
-                                "output": "/migration"
-                            },
-                            {
-                                "glob": "*.md",
-                                "input": "public/llms/pages",
-                                "output": "/"
-                            },
-                            {
-                                "glob": "*.md",
-                                "input": "public/llms/components",
-                                "output": "/"
                             }
                         ],
                         "stylePreprocessorOptions": {
