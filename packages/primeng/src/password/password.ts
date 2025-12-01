@@ -78,7 +78,7 @@ export class PasswordDirective extends BaseEditableHolder {
      * @defaultValue undefined
      * @group Props
      */
-    pPasswordPt = input<PasswordPassThrough | undefined>();
+    pPasswordPT = input<PasswordPassThrough | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
@@ -172,7 +172,7 @@ export class PasswordDirective extends BaseEditableHolder {
         super();
 
         effect(() => {
-            const pt = this.pPasswordPt();
+            const pt = this.pPasswordPT();
             pt && this.directivePT.set(pt);
         });
 
