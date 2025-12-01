@@ -98,7 +98,7 @@ export interface TreePassThroughOptions<I = unknown> {
     /**
      * Used to pass attributes to the empty message's DOM element.
      */
-    empty?: PassThroughOption<HTMLDivElement, I>;
+    emptyMessage?: PassThroughOption<HTMLDivElement, I>;
 }
 
 /**
