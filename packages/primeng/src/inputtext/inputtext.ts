@@ -29,7 +29,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
     /**
      * Used to pass attributes to DOM elements inside the InputText component.
      * @defaultValue undefined
-     * @deprecated use pInputTextPt instead.
+     * @deprecated use pInputTextPT instead.
      * @group Props
      */
     ptInputText = input<InputTextPassThrough>();
@@ -38,7 +38,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * @defaultValue undefined
      * @group Props
      */
-    pInputTextPt = input<InputTextPassThrough>();
+    pInputTextPT = input<InputTextPassThrough>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
@@ -85,7 +85,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
     constructor() {
         super();
         effect(() => {
-            const pt = this.ptInputText() || this.pInputTextPt();
+            const pt = this.ptInputText() || this.pInputTextPT();
             pt && this.directivePT.set(pt);
         });
 

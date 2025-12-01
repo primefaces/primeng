@@ -33,7 +33,7 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
      * @defaultValue undefined
      * @group Props
      */
-    pTextareaPt = input<TextareaPassThrough>();
+    pTextareaPT = input<TextareaPassThrough>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
@@ -93,7 +93,7 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
     constructor() {
         super();
         effect(() => {
-            const pt = this.pTextareaPt();
+            const pt = this.pTextareaPT();
             pt && this.directivePT.set(pt);
         });
 
