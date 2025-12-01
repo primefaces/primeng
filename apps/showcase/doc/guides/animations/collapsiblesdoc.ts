@@ -92,14 +92,12 @@ import { AccordionModule } from 'primeng/accordion';
 })
 export class CollapsiblesDoc {
     code: Code = {
-        scss: `:host::ng-deep {
-    .p-collapsible-enter-active {
-        animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);
-    }
+        scss: `.p-collapsible-enter-active {
+    animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);
+}
 
-    .p-collapsible-leave-active {
-        animation: demo-collapsible-collapse 500ms cubic-bezier(0.65, 0, 0.35, 1);
-    }
+.p-collapsible-leave-active {
+    animation: demo-collapsible-collapse 500ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @keyframes demo-collapsible-expand {
