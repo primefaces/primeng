@@ -178,7 +178,7 @@ export class MotionDirective extends BaseComponent {
     /******************** Computed ********************/
 
     private motionOptions = computed<MotionOptions>(() => {
-        const options = this.options();
+        const options = this.options() ?? {};
 
         return {
             name: options.name ?? this.name(),

@@ -23,6 +23,87 @@ The command property defines the callback to run when an item is activated by cl
 <p-tieredmenu [model]="items" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { TieredMenu } from 'primeng/tieredmenu';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'tiered-menu-command-demo',
+    templateUrl: './tiered-menu-command-demo.html',
+    standalone: true,
+    imports: [TieredMenu, ToastModule],
+    providers: [MessageService]
+})
+export class TieredMenuCommandDemo implements OnInit {
+
+    items: MenuItem[] | undefined;
+
+    constructor(private messageService: MessageService) {}
+
+    ngOnInit() {
+        this.items = [
+          {
+            label: 'File',
+            icon: 'pi pi-file',
+            items: [
+              {
+                label: 'New',
+                icon: 'pi pi-plus',
+                command: () => {
+                  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'File created', life: 3000 });
+                }
+              },
+              {
+                label: 'Print',
+                icon: 'pi pi-print',
+                command: () => {
+                  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No printer connected', life: 3000 });
+                }
+              }
+            ]
+          },
+          {
+            label: 'Search',
+            icon: 'pi pi-search',
+            command: () => {
+              this.messageService.add({ severity: 'warn', summary: 'Search Results', detail: 'No results found', life: 3000 });
+            }
+          },
+          {
+            separator: true
+          },
+          {
+            label: 'Sync',
+            icon: 'pi pi-cloud',
+            items: [
+              {
+                label: 'Import',
+                icon: 'pi pi-cloud-download',
+                command: () => {
+                  this.messageService.add({ severity: 'info', summary: 'Downloads', detail: 'Downloaded from cloud', life: 3000 });
+                }
+              },
+              {
+                label: 'Export',
+                icon: 'pi pi-cloud-upload',
+                command: () => {
+                  this.messageService.add({ severity: 'info', summary: 'Shared', detail: 'Exported to cloud', life: 3000 });
+                }
+              }
+            ]
+          }
+        ];
+      }
+}
+```
+</details>
+
 ## Popup
 
 Popup mode is enabled by adding popup property and calling toggle method with an event of the target.
@@ -32,6 +113,99 @@ Popup mode is enabled by adding popup property and calling toggle method with an
 <p-tieredmenu #menu [model]="items" [popup]="true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { TieredMenu } from 'primeng/tieredmenu';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'tiered-menu-popup-demo',
+    templateUrl: './tiered-menu-popup-demo.html',
+    standalone: true,
+    imports: [TieredMenu, ButtonModule]
+})
+export class TieredMenuPopupDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'File',
+                icon: 'pi pi-file',
+                items: [
+                    {
+                        label: 'New',
+                        icon: 'pi pi-plus',
+                        items: [
+                            {
+                                label: 'Document',
+                                icon: 'pi pi-file'
+                            },
+                            {
+                                label: 'Image',
+                                icon: 'pi pi-image'
+                            },
+                            {
+                                label: 'Video',
+                                icon: 'pi pi-video'
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Open',
+                        icon: 'pi pi-folder-open'
+                    },
+                    {
+                        label: 'Print',
+                        icon: 'pi pi-print'
+                    }
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-file-edit',
+                items: [
+                    {
+                        label: 'Copy',
+                        icon: 'pi pi-copy'
+                    },
+                    {
+                        label: 'Delete',
+                        icon: 'pi pi-times'
+                    }
+                ]
+            },
+            {
+                label: 'Search',
+                icon: 'pi pi-search'
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Share',
+                icon: 'pi pi-share-alt',
+                items: [
+                    {
+                        label: 'Slack',
+                        icon: 'pi pi-slack'
+                    },
+                    {
+                        label: 'Whatsapp',
+                        icon: 'pi pi-whatsapp'
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+</details>
+
 ## Router
 
 Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.
@@ -39,6 +213,71 @@ Menu items support navigation via routerLink, programmatic routing using command
 ```html
 <p-tieredmenu [model]="items" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
+import { TieredMenu } from 'primeng/tieredmenu';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'tiered-menu-router-demo',
+    templateUrl: './tiered-menu-router-demo.html',
+    standalone: true,
+    imports: [TieredMenu, CommonModule]
+})
+export class TieredMenuRouterDemo implements OnInit {
+
+    items: MenuItem[] | undefined;
+
+    constructor(private router: Router) {}
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Router',
+                icon: 'pi pi-palette',
+                items: [
+                    {
+                        label: 'Theming',
+                        routerLink: '/theming'
+                    },
+                    {
+                        label: 'UI Kit',
+                        routerLink: '/uikit'
+                    }
+                ]
+            },
+            {
+                label: 'Programmatic',
+                icon: 'pi pi-link',
+                command: () => {
+                    this.router.navigate(['/installation']);
+                }
+            },
+            {
+                label: 'External',
+                icon: 'pi pi-home',
+                items: [
+                    {
+                        label: 'Angular',
+                        url: 'https://angular.dev/'
+                    },
+                    {
+                        label: 'Vite.js',
+                        url: 'https://vitejs.dev/'
+                    }
+                ]
+            }
+        ];
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -63,6 +302,111 @@ TieredMenu offers item customization with the item template that receives the me
     </ng-template>
 </p-tieredmenu>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { TieredMenu } from 'primeng/tieredmenu';
+import { BadgeModule } from 'primeng/badge';
+import { CommonModule } from '@angular/common';
+import { Ripple } from 'primeng/ripple';
+
+@Component({
+    selector: 'tiered-menu-template-demo',
+    templateUrl: './tiered-menu-template-demo.html',
+    standalone: true,
+    imports: [TieredMenu, BadgeModule, Ripple, CommonModule]
+})
+export class TieredMenuTemplateDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'File',
+                icon: 'pi pi-file',
+                items: [
+                    {
+                        label: 'New',
+                        icon: 'pi pi-plus',
+                        items: [
+                            {
+                                label: 'Document',
+                                icon: 'pi pi-file',
+                                shortcut: '⌘+N'
+                            },
+                            {
+                                label: 'Image',
+                                icon: 'pi pi-image',
+                                shortcut: '⌘+I'
+                            },
+                            {
+                                label: 'Video',
+                                icon: 'pi pi-video',
+                                shortcut: '⌘+L'
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Open',
+                        icon: 'pi pi-folder-open',
+                        shortcut: '⌘+O'
+                    },
+                    {
+                        label: 'Print',
+                        icon: 'pi pi-print',
+                        shortcut: '⌘+P'
+                    }
+                ]
+            },
+            {
+                label: 'Edit',
+                icon: 'pi pi-file-edit',
+                items: [
+                    {
+                        label: 'Copy',
+                        icon: 'pi pi-copy',
+                        shortcut: '⌘+C'
+                    },
+                    {
+                        label: 'Delete',
+                        icon: 'pi pi-times',
+                        shortcut: '⌘+D'
+                    }
+                ]
+            },
+            {
+                label: 'Search',
+                icon: 'pi pi-search',
+                shortcut: '⌘+S'
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Share',
+                icon: 'pi pi-share-alt',
+                items: [
+                    {
+                        label: 'Slack',
+                        icon: 'pi pi-slack',
+                        badge: '2'
+                    },
+                    {
+                        label: 'Whatsapp',
+                        icon: 'pi pi-whatsapp',
+                        badge: '3'
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+</details>
 
 ## Tiered Menu
 

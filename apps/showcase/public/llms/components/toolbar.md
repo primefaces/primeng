@@ -56,6 +56,28 @@ Content can also be placed using the start , center and end templates.
 </p-toolbar>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Toolbar } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { SharedModule } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'toolbar-custom-demo',
+    templateUrl: './toolbar-custom-demo.html',
+    standalone: true,
+    imports: [Toolbar, AvatarModule, ButtonModule]
+})
+export class ToolbarCustomDemo {
+
+}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.

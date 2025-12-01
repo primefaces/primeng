@@ -6,6 +6,13 @@ TreeSelect is a form component to choose from hierarchical data.
 
 Screen Reader Value to describe the component can either be provided with ariaLabelledby or ariaLabel props. The treeselect element has a combobox role in addition to aria-haspopup and aria-expanded attributes. The relation between the combobox and the popup is created with aria-controls that refers to the id of the popup. The popup list has an id that refers to the aria-controls attribute of the combobox element and uses tree as the role. Each list item has a treeitem role along with aria-label , aria-selected and aria-expanded attributes. In checkbox selection, aria-checked is used instead of aria-selected . Checkbox and toggle icons are hidden from screen readers as their parent element with treeitem role and attributes are used instead for readers and keyboard support. The container element of a treenode has the group role. The aria-setsize , aria-posinset and aria-level attributes are calculated implicitly and added to each treeitem. If filtering is enabled, filterInputProps can be defined to give aria-* props to the filter input element.
 
+```html
+<span id="dd1">Options</span>
+<p-treeselect ariaLabelledBy="dd1" />
+
+<p-treeselect ariaLabel="Options" />
+```
+
 ## Basic
 
 TreeSelect is used as a controlled component with ng-model directive along with an options collection. Internally Tree component is used so the options model is based on TreeNode API. In single selection mode, value binding should be the key value of a node.
@@ -670,6 +677,46 @@ export class TreeSelectTemplateDemo {
     <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NodeService } from '@/service/nodeservice';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { TreeSelectModule } from 'primeng/treeselect';
+
+@Component({
+    selector: 'tree-select-template-driven-forms-demo',
+    templateUrl: './tree-select-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule, MessageModule, ToastModule, ButtonModule]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    selectedNodes: any;
+
+    nodes!: any[];
+
+    constructor(private nodeService: NodeService) {
+        this.nodeService.getFiles().then((files) => (this.nodes = files));
+    }
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
 
 ## virtualscrolldoc
 

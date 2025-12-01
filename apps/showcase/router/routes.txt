@@ -43,6 +43,8 @@
 /guides/csslayer
 /guides/templateupdate
 /llms
+/llms/components/
+/llms/pages/
 /iconfield
 /icons
 /image
@@ -129,5 +131,6 @@
 /uikit
 /designer
 /designer/overview
+/migration/v21
 /migration/v20
 /migration/v19

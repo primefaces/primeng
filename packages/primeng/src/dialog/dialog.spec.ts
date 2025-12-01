@@ -441,33 +441,39 @@ describe('Dialog', () => {
     });
 
     describe('Event Handling', () => {
-        // TODO: onShow event behavior changed in v21 animation refactor - needs investigation
-        xit('should emit onShow event when dialog is shown', async () => {
-            spyOn(component, 'onShowEvent');
+        it('should emit onShow event when dialog is shown', async () => {
+            // Reset the showEvent property
+            component.showEvent = null;
 
+            // Set visible and trigger change detection
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 200));
 
-            expect(component.onShowEvent).toHaveBeenCalled();
+            // Wait for animation to complete and onAfterEnter to be called
+            await new Promise((resolve) => setTimeout(resolve, 600));
+
+            expect(component.showEvent).toBeTruthy();
         });
 
-        // TODO: onHide event behavior changed in v21 animation refactor - needs investigation
-        xit('should emit onHide event when dialog is hidden', async () => {
-            spyOn(component, 'onHideEvent');
-
+        it('should emit onHide event when dialog is hidden', async () => {
+            // First show the dialog
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 200));
+            await new Promise((resolve) => setTimeout(resolve, 300));
 
+            // Reset the hideEvent property
+            component.hideEvent = null;
+
+            // Now hide the dialog
             component.visible = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 350));
 
-            expect(component.onHideEvent).toHaveBeenCalled();
+            // Wait for animation to complete and onAfterLeave to be called
+            await new Promise((resolve) => setTimeout(resolve, 400));
+
+            expect(component.hideEvent).toBeTruthy();
         });
 
         it('should emit visibleChange event when close method is called', async () => {
@@ -757,16 +763,18 @@ describe('Dialog', () => {
     });
 
     describe('Keyboard Navigation', () => {
-        // TODO: Escape key listener binding changed in v21 animation refactor - needs investigation
-        xit('should close dialog on Escape key when closeOnEscape is true', async () => {
+        it('should close dialog on Escape key when closeOnEscape is true', async () => {
             component.closeOnEscape = true;
+            component.closable = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            await new Promise((resolve) => setTimeout(resolve, 200));
+
+            // Wait for animation to complete and escape listener to be bound
+            await new Promise((resolve) => setTimeout(resolve, 300));
 
             expect(dialogInstance.visible).toBe(true);
 
@@ -775,11 +783,13 @@ describe('Dialog', () => {
                 code: 'Escape'
             });
 
-            spyOn(dialogInstance, 'close');
             document.dispatchEvent(escapeEvent);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
-            expect(dialogInstance.close).toHaveBeenCalled();
+            // Dialog should be closed after escape key
+            expect(dialogInstance.visible).toBe(false);
         });
 
         it('should not close dialog on Escape key when closeOnEscape is false', async () => {
@@ -1060,64 +1070,6 @@ describe('Dialog', () => {
                 expect(dialogContent).toBeTruthy();
                 expect(dialogContent.nativeElement.textContent.trim()).toBe('Basic dialog content');
             });
-        });
-    });
-
-    describe('Position and Animation', () => {
-        let positionFixture: ComponentFixture<TestPositionDialogComponent>;
-        let positionComponent: TestPositionDialogComponent;
-        let positionDialogInstance: Dialog;
-
-        beforeEach(async () => {
-            positionFixture = TestBed.createComponent(TestPositionDialogComponent);
-            positionComponent = positionFixture.componentInstance;
-            positionFixture.changeDetectorRef.markForCheck();
-            await positionFixture.whenStable();
-            positionDialogInstance = positionFixture.debugElement.query(By.directive(Dialog)).componentInstance;
-        });
-
-        // TODO: transformOptions logic removed in v21 animation refactor - needs reimplementation
-        xit('should set correct transform options for different positions', async () => {
-            const positions = [
-                { pos: 'topleft', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'topright', expected: 'translate3d(100%, 0px, 0px)' },
-                { pos: 'bottomleft', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'bottomright', expected: 'translate3d(100%, 0px, 0px)' },
-                { pos: 'left', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'right', expected: 'translate3d(100%, 0px, 0px)' },
-                { pos: 'top', expected: 'translate3d(0px, -100%, 0px)' },
-                { pos: 'bottom', expected: 'translate3d(0px, 100%, 0px)' },
-                { pos: 'center', expected: 'scale(0.7)' }
-            ];
-
-            for (const { pos, expected } of positions) {
-                positionComponent.position = pos;
-                positionComponent.visible = true;
-                positionFixture.changeDetectorRef.markForCheck();
-                await positionFixture.whenStable();
-                await new Promise((resolve) => setTimeout(resolve, 0));
-
-                expect(positionDialogInstance.transformOptions).toBe(expected);
-
-                positionComponent.visible = false;
-                positionFixture.changeDetectorRef.markForCheck();
-                await positionFixture.whenStable();
-            }
-        });
-
-        it('should handle animation events', async () => {
-            // spyOn(positionDialogInstance, 'onAnimationStart');
-            // spyOn(positionDialogInstance, 'onAnimationEnd');
-            // positionComponent.visible = true;
-            // positionFixture.changeDetectorRef.markForCheck();
-            // await positionFixture.whenStable();
-            // await new Promise(resolve => setTimeout(resolve, 0));
-            // const animationStartEvent = { toState: 'visible' } as any;
-            // const animationEndEvent = { toState: 'void' } as any;
-            // positionDialogInstance.onAnimationStart(animationStartEvent);
-            // positionDialogInstance.onAnimationEnd(animationEndEvent);
-            // expect(positionDialogInstance.onAnimationStart).toHaveBeenCalledWith(animationStartEvent);
-            // expect(positionDialogInstance.onAnimationEnd).toHaveBeenCalledWith(animationEndEvent);
         });
     });
 

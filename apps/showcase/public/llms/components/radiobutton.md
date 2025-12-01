@@ -6,6 +6,16 @@ RadioButton is an extension to standard radio button element with theming.
 
 Screen Reader RadioButton component uses a hidden native radio button element internally that is only visible to screen readers. Value to describe the component can either be provided via label tag combined with inputId prop or using ariaLabelledBy , ariaLabel props.
 
+```html
+<label for="rb1">One</label>
+<p-radiobutton inputId="rb1" />
+
+<span id="rb2">Two</span>
+<p-radiobutton ariaLabelledBy="rb2" />
+
+<p-radiobutton ariaLabel="Three" />
+```
+
 ## Disabled
 
 When disabled is present, the element cannot be edited and focused.
@@ -14,6 +24,24 @@ When disabled is present, the element cannot be edited and focused.
 <p-radiobutton [(ngModel)]="value" [value]="1" [disabled]="true" />
 <p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { RadioButton } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'radio-button-disabled-demo',
+    templateUrl: './radio-button-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, RadioButton]
+})
+export class RadioButtonDisabledDemo { }
+```
+</details>
 
 ## Dynamic
 
@@ -28,6 +56,37 @@ RadioButtons can be generated using a list of values.
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { RadioButton } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'radio-button-dynamic-demo',
+    templateUrl: './radio-button-dynamic-demo.html',
+    standalone: true,
+    imports: [FormsModule, RadioButton]
+})
+export class RadioButtonDynamicDemo implements OnInit{
+    selectedCategory: any = null;
+
+    categories: any[] = [
+        { name: 'Accounting', key: 'A' },
+        { name: 'Marketing', key: 'M' },
+        { name: 'Production', key: 'P' },
+        { name: 'Research', key: 'R' }
+    ];
+
+    ngOnInit() {
+        this.selectedCategory = this.categories[1];
+    }
+}
+```
+</details>
+
 ## Filled
 
 Specify the variant property as filled to display the component with a higher visual emphasis than the default outlined style.
@@ -35,6 +94,26 @@ Specify the variant property as filled to display the component with a higher vi
 ```html
 <p-radiobutton [(ngModel)]="checked" variant="filled" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { RadioButton } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'radio-button-filled-demo',
+    templateUrl: './radio-button-filled-demo.html',
+    standalone: true,
+    imports: [FormsModule, RadioButton]
+})
+export class RadioButtonFilledDemo {
+    checked: boolean = false;
+}
+```
+</details>
 
 ## Group
 
@@ -64,6 +143,26 @@ RadioButton is used as a controlled input with value and ngModel properties.
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { RadioButton } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'radio-button-group-demo',
+    templateUrl: './radio-button-group-demo.html',
+    standalone: true,
+    imports: [FormsModule, RadioButton]
+})
+export class RadioButtonGroupDemo {
+    ingredient!: string;
+}
+```
+</details>
+
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -71,6 +170,26 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```html
 <p-radiobutton [(ngModel)]="value" [invalid]="!value"  />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { RadioButton } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'radio-button-invalid-demo',
+    templateUrl: './radio-button-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, RadioButton]
+})
+export class RadioButtonInvalidDemo {
+    value : boolean = false;
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -95,6 +214,65 @@ RadioButton can also be used with reactive forms. In this case, the formControlN
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
+
+@Component({
+    selector: 'radio-button-reactive-forms-demo',
+    templateUrl: './radio-button-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, RadioButtonModule],
+})
+export class RadioButtonReactiveFormsDemo implements OnInit {
+    messageService = inject(MessageService);
+
+    formSubmitted: boolean = false;
+
+    exampleForm: FormGroup;
+
+    categories: any[] = [
+        { name: 'Cheese', key: 'C' },
+        { name: 'Mushroom', key: 'M' },
+        { name: 'Pepper', key: 'P' },
+        { name: 'Onion', key: 'O' }
+    ];
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            selectedCategory: ['', Validators.required]
+        });
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid &&  this.formSubmitted;
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+
+        if (this.exampleForm.valid) {
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Form is submitted',
+                life: 3000
+            });
+
+            this.exampleForm.reset();
+
+            this.formSubmitted = false;
+        }
+    }
+}
+```
+</details>
+
 ## Sizes
 
 RadioButton provides small and large sizes as alternatives to the base.
@@ -115,6 +293,26 @@ RadioButton provides small and large sizes as alternatives to the base.
     </div>
 </div>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { RadioButton } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'radio-button-sizes-demo',
+    templateUrl: './radio-button-sizes-demo.html',
+    standalone: true,
+    imports: [FormsModule, RadioButton]
+})
+export class RadioButtonSizesDemo {
+    size: any = false;
+}
+```
+</details>
 
 ## styledoc
 
@@ -141,6 +339,53 @@ Following is the list of structural style classes, for theming classes visit the
     </button>
 </form>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
+import { RadioButtonModule } from 'primeng/radiobutton';
+
+@Component({
+    selector: 'radio-button-template-driven-forms-demo',
+    templateUrl: './radio-button-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, MessageModule, ToastModule, ButtonModule, CommonModule, RadioButtonModule]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    formSubmitted: boolean = false;
+
+    ingredient!: any;
+
+    categories: any[] = [
+        { name: 'Cheese', key: 'C' },
+        { name: 'Mushroom', key: 'M' },
+        { name: 'Pepper', key: 'P' },
+        { name: 'Onion', key: 'O' }
+    ];
+
+    isInvalid(form: NgForm) {
+        return !this.ingredient && form.submitted;
+    }
+
+    onSubmit(form: NgForm) {
+        if (!this.isInvalid(form)) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
 
 ## Pass Through Options
 

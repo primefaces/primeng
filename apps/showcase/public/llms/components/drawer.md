@@ -34,6 +34,26 @@ Drawer can cover the whole page when fullScreen property is enabled.
 <p-button (click)="visible = true" icon="pi pi-window-maximize" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'drawer-full-screen-demo',
+    templateUrl: './drawer-full-screen-demo.html',
+    standalone: true,
+    imports: [DrawerModule, ButtonModule]
+})
+export class DrawerFullScreenDemo {
+    visible: boolean = false;
+}
+```
+</details>
+
 ## Headless
 
 Headless mode allows you to customize the entire user interface instead of the default elements.
@@ -217,6 +237,36 @@ Headless mode allows you to customize the entire user interface instead of the d
 <p-button (click)="visible = true" icon="pi pi-bars" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, ViewChild } from '@angular/core';
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
+import { Ripple } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
+import { StyleClass } from 'primeng/styleclass';
+import { Drawer } from 'primeng/drawer';
+
+@Component({
+    selector: 'drawer-headless-demo',
+    templateUrl: './drawer-headless-demo.html',
+    standalone: true,
+    imports: [DrawerModule, ButtonModule, Ripple, AvatarModule, StyleClass]
+})
+export class DrawerHeadlessDemo {
+    @ViewChild('drawerRef') drawerRef!: Drawer;
+
+    closeCallback(e): void {
+        this.drawerRef.close(e);
+    }
+
+    visible: boolean = false;
+}
+```
+</details>
+
 ## Position
 
 Drawer location is configured with the position property that can take left , right , top and bottom as a value.
@@ -261,6 +311,32 @@ Drawer location is configured with the position property that can take left , ri
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'drawer-position-demo',
+    templateUrl: './drawer-position-demo.html',
+    standalone: true,
+    imports: [DrawerModule, ButtonModule]
+})
+export class DrawerPositionDemo {
+    visible1: boolean = false;
+
+    visible2: boolean = false;
+
+    visible3: boolean = false;
+
+    visible4: boolean = false;
+}
+```
+</details>
+
 ## Size
 
 Drawer dimension can be defined with style or class properties, this responsive example utilizes Tailwind.
@@ -273,6 +349,26 @@ Drawer dimension can be defined with style or class properties, this responsive 
 </p-drawer>
 <p-button (click)="visible = true" icon="pi pi-arrow-right" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'drawer-size-demo',
+    templateUrl: './drawer-size-demo.html',
+    standalone: true,
+    imports: [DrawerModule, ButtonModule]
+})
+export class DrawerSizeDemo {
+    visible: boolean = false;
+}
+```
+</details>
 
 ## styledoc
 
@@ -303,6 +399,27 @@ Drawer is customizable by header , content , footer templates.
 </p-drawer>
 <button pButton (click)="visible = true" icon="pi pi-plus"></button>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
+
+@Component({
+    selector: 'drawer-template-demo',
+    templateUrl: './drawer-template-demo.html',
+    standalone: true,
+    imports: [DrawerModule, ButtonModule, AvatarModule]
+})
+export class DrawerTemplateDemo {
+    visible: boolean = false;
+}
+```
+</details>
 
 ## Drawer
 

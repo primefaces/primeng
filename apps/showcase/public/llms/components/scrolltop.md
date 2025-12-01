@@ -22,6 +22,23 @@ Setting the target property to parent binds ScrollTop to its parent element that
 <p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ScrollTop } from 'primeng/scrolltop';
+
+@Component({
+    selector: 'scroll-top-element-demo',
+    templateUrl: './scroll-top-element-demo.html',
+    standalone: true,
+    imports: [ScrollTop]
+})
+export class ScrollTopElementDemo {}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.

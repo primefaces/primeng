@@ -86,6 +86,35 @@ Headless mode allows you to customize the entire user interface instead of the d
 </p-dialog>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'dialog-headless-demo',
+    templateUrl: './dialog-headless-demo.html',
+    standalone: true,
+    imports: [Dialog, ButtonModule, InputTextModule]
+})
+export class DialogHeadlessDemo {
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+
+    closeDialog() {
+        this.visible = false;
+    }
+}
+```
+</details>
+
 ## Long Content
 
 Dialog automatically displays a scroller when content exceeds viewport.
@@ -114,6 +143,30 @@ Dialog automatically displays a scroller when content exceeds viewport.
 </p-dialog>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'dialog-long-content-demo',
+    templateUrl: './dialog-long-content-demo.html',
+    standalone: true,
+    imports: [Dialog, ButtonModule]
+})
+export class DialogLongContentDemo {
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+}
+```
+</details>
+
 ## Maximizable
 
 Setting maximizable property to true enables the full screen mode.
@@ -126,6 +179,30 @@ Setting maximizable property to true enables the full screen mode.
     </p>
 </p-dialog>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+
+@Component({
+    selector: 'dialog-maximizable-demo',
+    templateUrl: './dialog-maximizable-demo.html',
+    standalone: true,
+    imports: [Dialog, ButtonModule]
+})
+export class DialogMaximizableDemo {
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+}
+```
+</details>
 
 ## modaldoc
 
@@ -141,6 +218,26 @@ Mask layer behind the Dialog can be turned on by setting the modal property to t
 </p-dialog>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'dialog-modal-demo',
+    templateUrl: './dialog-modal-demo.html'
+})
+export class DialogModalDemo {
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+}
+```
+</details>
+
 ## overlaysinsidedoc
 
 When dialog includes other components with overlays such as dropdown, the overlay part cannot exceed dialog boundaries due to overflow. In order to solve this, you can either append the overlay to the body by using appendTo property or allow overflow in dialog.
@@ -153,6 +250,45 @@ When dialog includes other components with overlays such as dropdown, the overla
     </div>
 </p-dialog>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+interface City {
+    name: string;
+    code: string;
+}
+
+@Component({
+    selector: 'dialog-overlays-inside-demo',
+    templateUrl: './dialog-overlays-inside-demo.html'
+})
+export class DialogOverlaysInsideDemo implements OnInit {
+    cities: City[] | undefined;
+
+    selectedCity: City | undefined;
+
+    visible: boolean = false;
+
+    ngOnInit() {
+        this.cities = [
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
+        ];
+    }
+
+    showDialog() {
+        this.visible = true;
+    }
+}
+```
+</details>
 
 ## Position
 
@@ -190,6 +326,34 @@ The position property is used to display a Dialog at all edges and corners of th
 </p-dialog>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'dialog-position-demo',
+    templateUrl: './dialog-position-demo.html',
+    standalone: true,
+    imports: [Dialog, ButtonModule, InputTextModule]
+})
+export class DialogPositionDemo {
+    visible: boolean = false;
+
+    position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
+
+    showDialog(position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
+        this.position = position;
+        this.visible = true;
+    }
+}
+```
+</details>
+
 ## Responsive
 
 Dialog width can be adjusted per screen size with the breakpoints option where a key defines the max-width for the breakpoint and value for the corresponding width. When no breakpoint matches width defined in style property is used.
@@ -202,6 +366,30 @@ Dialog width can be adjusted per screen size with the breakpoints option where a
     </p>
 </p-dialog>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'dialog-responsive-demo',
+    templateUrl: './dialog-responsive-demo.html',
+    standalone: true,
+    imports: [Dialog, ButtonModule]
+})
+export class DialogResponsiveDemo {
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+}
+```
+</details>
 
 ## styledoc
 
@@ -236,6 +424,32 @@ Dialog can be customized using header and footer templates.
 </p-dialog>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { AvatarModule } from 'primeng/avatar';
+
+@Component({
+    selector: 'dialog-template-demo',
+    templateUrl: './dialog-template-demo.html',
+    standalone: true,
+    imports: [Dialog, ButtonModule, InputTextModule, AvatarModule]
+})
+export class DialogTemplateDemo {
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+}
+```
+</details>
+
 ## Without Modal
 
 Mask layer behind the Dialog is configured with the modal property. By default, no modal layer is added.
@@ -258,6 +472,31 @@ Mask layer behind the Dialog is configured with the modal property. By default, 
     </div>
 </p-dialog>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'dialog-without-modal-demo',
+    templateUrl: './dialog-without-modal-demo.html',
+    standalone: true,
+    imports: [Dialog, ButtonModule, InputTextModule]
+})
+export class DialogWithoutModalDemo {
+    visible: boolean = false;
+
+    showDialog() {
+        this.visible = true;
+    }
+}
+```
+</details>
 
 ## Dialog
 

@@ -15,6 +15,24 @@ Tooltip is hidden when mouse leaves the target element, in cases where tooltip n
 <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Tooltip } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'tooltip-auto-hide-demo',
+    templateUrl: './tooltip-auto-hide-demo.html',
+    standalone: true,
+    imports: [Tooltip, InputTextModule]
+})
+export class TooltipAutoHideDemo {}
+```
+</details>
+
 ## Custom
 
 Tooltip can use either a string or a TemplateRef .
@@ -34,6 +52,26 @@ Tooltip can use either a string or a TemplateRef .
 </ng-template>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Tooltip } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'tooltip-custom-demo',
+    templateUrl: './tooltip-custom-demo.html',
+    standalone: true,
+    imports: [Tooltip, ButtonModule]
+})
+export class TooltipCustomDemo {
+
+}
+```
+</details>
+
 ## Delay
 
 Adding delays to the show and hide events are defined with showDelay and hideDelay options respectively.
@@ -41,6 +79,24 @@ Adding delays to the show and hide events are defined with showDelay and hideDel
 ```html
 <p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Tooltip } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'tooltip-delay-demo',
+    templateUrl: './tooltip-delay-demo.html',
+    standalone: true,
+    imports: [Tooltip, ButtonModule]
+})
+export class TooltipDelayDemo {}
+```
+</details>
 
 ## Event
 
@@ -50,6 +106,24 @@ Tooltip gets displayed on hover event of its target by default, other option is 
 <input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Tooltip } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'tooltip-event-demo',
+    templateUrl: './tooltip-event-demo.html',
+    standalone: true,
+    imports: [Tooltip, InputTextModule]
+})
+export class TooltipEventDemo {}
+```
+</details>
+
 ## Tooltip Options
 
 Tooltip is also configurable by using tooltipOptions property.
@@ -57,6 +131,31 @@ Tooltip is also configurable by using tooltipOptions property.
 ```html
 <input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Tooltip } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'tooltip-options-demo',
+    templateUrl: './tooltip-options-demo.html',
+    standalone: true,
+    imports: [Tooltip, InputTextModule]
+})
+export class TooltipOptionsDemo {
+    tooltipOptions = {
+        showDelay: 150,
+        autoHide: false,
+        tooltipEvent: 'hover',
+        tooltipPosition: 'left'
+    };
+}
+```
+</details>
 
 ## Position
 
@@ -68,6 +167,24 @@ Position of the tooltip is specified using tooltipPosition attribute. Valid valu
 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
 <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Tooltip } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
+
+@Component({
+    selector: 'tooltip-position-demo',
+    templateUrl: './tooltip-position-demo.html',
+    standalone: true,
+    imports: [Tooltip, InputTextModule]
+})
+export class TooltipPositionDemo {}
+```
+</details>
 
 ## styledoc
 

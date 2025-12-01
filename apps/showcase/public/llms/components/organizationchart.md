@@ -30,6 +30,79 @@ OrganizationChart requires a collection of TreeNode instances as a value .
 </p-organization-chart>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+
+@Component({
+    selector: 'organization-chart-colored-demo',
+    templateUrl: './organization-chart-colored-demo.html',
+    standalone: true,
+    imports: [OrganizationChartModule]
+})
+export class OrganizationChartColoredDemo {
+     data: TreeNode[] = [
+        {
+            expanded: true,
+            type: 'person',
+            styleClass: '!bg-indigo-100 !text-indigo-900 rounded-xl',
+            data: {
+                image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
+                name: 'Amy Elsner',
+                title: 'CEO',
+            },
+            children: [
+                {
+                    expanded: true,
+                    type: 'person',
+                    styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
+                    data: {
+                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
+                        name: 'Anna Fali',
+                        title: 'CMO',
+                    },
+                    children: [
+                        {
+                            label: 'Sales',
+                            styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
+                        },
+                        {
+                            label: 'Marketing',
+                            styleClass: '!bg-purple-100 !text-purple-900 rounded-xl',
+                        },
+                    ],
+                },
+                {
+                    expanded: true,
+                    type: 'person',
+                    styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
+                    data: {
+                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
+                        name: 'Stephen Shaw',
+                        title: 'CTO',
+                    },
+                    children: [
+                        {
+                            label: 'Development',
+                            styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
+                        },
+                        {
+                            label: 'UI/UX Design',
+                            styleClass: '!bg-teal-100 !text-teal-900 rounded-xl',
+                        },
+                    ],
+                },
+            ],
+        },
+    ];
+}
+```
+</details>
+
 ## Selection
 
 ```html
@@ -45,6 +118,74 @@ OrganizationChart requires a collection of TreeNode instances as a value .
     </ng-template>
 </p-organization-chart>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+
+@Component({
+    selector: 'organization-chart-selection-demo',
+    templateUrl: './organization-chart-selection-demo.html',
+    standalone: true,
+    imports: [OrganizationChartModule]
+})
+export class OrganizationChartSelectionDemo {
+    selectedNodes!: TreeNode[];
+
+    data: TreeNode[] = [
+        {
+            expanded: true,
+            type: 'person',
+            data: {
+                image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png',
+                name: 'Amy Elsner',
+                title: 'CEO'
+            },
+            children: [
+                {
+                    expanded: true,
+                    type: 'person',
+                    data: {
+                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png',
+                        name: 'Anna Fali',
+                        title: 'CMO'
+                    },
+                    children: [
+                        {
+                            label: 'Sales'
+                        },
+                        {
+                            label: 'Marketing'
+                        }
+                    ]
+                },
+                {
+                    expanded: true,
+                    type: 'person',
+                    data: {
+                        image: 'https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png',
+                        name: 'Stephen Shaw',
+                        title: 'CTO'
+                    },
+                    children: [
+                        {
+                            label: 'Development'
+                        },
+                        {
+                            label: 'UI/UX Design'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+}
+```
+</details>
 
 ## styledoc
 
@@ -64,6 +205,64 @@ Custom content instead of a node label is defined using the pTemplate property.
     </ng-template>
 </p-organization-chart>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+
+@Component({
+    selector: 'organization-chart-template-demo',
+    templateUrl: './organization-chart-template-demo.html',
+    standalone: true,
+    imports: [OrganizationChartModule]
+})
+export class OrganizationChartTemplateDemo {
+    data: TreeNode[] = [
+        {
+            label: 'Argentina',
+            expanded: true,
+            data: 'ar',
+            children: [
+                {
+                    label: 'Argentina',
+                    expanded: true,
+                    data: 'ar',
+                    children: [
+                        {
+                            label: 'Argentina',
+                            data: 'ar'
+                        },
+                        {
+                            label: 'Croatia',
+                            data: 'hr'
+                        }
+                    ]
+                },
+                {
+                    label: 'France',
+                    expanded: true,
+                    data: 'fr',
+                    children: [
+                        {
+                            label: 'France',
+                            data: 'fr'
+                        },
+                        {
+                            label: 'Morocco',
+                            data: 'ma'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+}
+```
+</details>
 
 ## Pass Through Options
 

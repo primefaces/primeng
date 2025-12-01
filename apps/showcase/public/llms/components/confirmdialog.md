@@ -43,6 +43,42 @@ Headless mode allows you to customize the entire user interface instead of the d
 <p-button (click)="confirm()" label="Save"/>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'confirm-dialog-headless-demo',
+    templateUrl: './confirm-dialog-headless-demo.html',
+    standalone: true,
+    imports: [ConfirmDialog, ButtonModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
+})
+export class ConfirmDialogHeadlessDemo {
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+
+    confirm() {
+        this.confirmationService.confirm({
+            header: 'Are you sure?',
+            message: 'Please confirm to proceed.',
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+            },
+        });
+    }
+}
+```
+</details>
+
 ## Position
 
 The position property of the confirm options is used to display a Dialog at all edges and corners of the screen.
@@ -66,6 +102,63 @@ The position property of the confirm options is used to display a Dialog at all 
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+
+@Component({
+    selector: 'confirm-dialog-position-demo',
+    templateUrl: './confirm-dialog-position-demo.html',
+    standalone: true,
+    imports: [ConfirmDialog, ButtonModule, ToastModule],
+    providers: [ConfirmationService, MessageService]
+})
+export class ConfirmDialogPositionDemo {
+    position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
+
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+
+    confirmPosition(position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
+        this.position = position;
+
+        this.confirmationService.confirm({
+            message: 'Are you sure you want to proceed?',
+            header: 'Confirmation',
+            icon: 'pi pi-info-circle',
+            rejectButtonStyleClass: 'p-button-text',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                text: true,
+            },
+            acceptButtonProps: {
+                label: 'Save',
+                text: true,
+            },
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Request submitted' });
+            },
+            reject: () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Rejected',
+                    detail: 'Process incomplete',
+                    life: 3000,
+                });
+            },
+            key: 'positionDialog',
+        });
+    }
+}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -86,6 +179,55 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 </p-confirmdialog>
 <p-button (click)="confirm()" label="Save" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'confirm-dialog-template-demo',
+    templateUrl: './confirm-dialog-template-demo.html',
+    standalone: true,
+    imports: [ConfirmDialog, ToastModule, ButtonModule],
+    providers: [ConfirmationService, MessageService]
+})
+export class ConfirmDialogTemplateDemo {
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+
+    confirm() {
+        this.confirmationService.confirm({
+            header: 'Confirmation',
+            message: 'Please confirm to proceed moving forward.',
+            icon: 'pi pi-exclamation-circle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                icon: 'pi pi-times',
+                variant: 'outlined',
+                size: 'small'
+            },
+            acceptButtonProps: {
+                label: 'Save',
+                icon: 'pi pi-check',
+                size: 'small'
+            },
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            }
+        });
+    }
+
+}
+```
+</details>
 
 ## Confirm Dialog
 

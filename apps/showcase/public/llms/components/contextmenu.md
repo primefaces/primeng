@@ -39,6 +39,105 @@ The function to invoke when an item is clicked is defined using the command prop
 <p-contextmenu #cm [model]="items" (onHide)="onHide()" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ContextMenu } from 'primeng/contextmenu';
+import { MenuItem, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ContextMenu } from 'primeng/contextmenu';
+import { CommonModule } from '@angular/common';
+import { Tag } from 'primeng/tag';
+
+interface Users {
+    id: number;
+    name: string;
+    image: string;
+    role: string;
+}
+
+@Component({
+    selector: 'context-menu-command-demo',
+    templateUrl: './context-menu-command-demo.html',
+    standalone: true,
+    imports: [ContextMenu, ToastModule, CommonModule, Tag],
+    providers: [MessageService]
+})
+export class ContextMenuCommandDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    @ViewChild('cm') cm: ContextMenu;
+
+    selectedUser : Users
+
+    users : Users[];
+
+    constructor(private messageService: MessageService) {}
+
+    ngOnInit() {
+        this.users = [
+            { id: 0, name: 'Amy Elsner', image: 'amyelsner.png', role: 'Admin' },
+            { id: 1, name: 'Anna Fali', image: 'annafali.png', role: 'Member' },
+            { id: 2, name: 'Asiya Javayant', image: 'asiyajavayant.png', role: 'Member' },
+            { id: 3, name: 'Bernardo Dominic', image: 'bernardodominic.png', role: 'Guest' },
+            { id: 4, name: 'Elwin Sharvill', image: 'elwinsharvill.png', role: 'Member' }
+        ];
+
+        this.items = [
+            {
+                label: 'Roles',
+                icon: 'pi pi-users',
+                items: [
+                    {
+                        label: 'Admin',
+                        command: () => {
+                            this.selectedUser.role = 'Admin';
+                        }
+                    },
+                    {
+                        label: 'Member',
+                        command: () => {
+                            this.selectedUser.role = 'Member';
+                        }
+                    },
+                    {
+                        label: 'Guest',
+                        command: () => {
+                            this.selectedUser.role = 'Guest';
+                        }
+                    }
+                ]
+            },
+            {
+                label: 'Invite',
+                icon: 'pi pi-user-plus',
+                command: () => {
+                    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Invitation sent!', life: 3000 });
+                }
+            }
+        ];
+    }
+
+    getBadge(user) {
+        if (user.role === 'Member') return 'info';
+        else if (user.role === 'Guest') return 'warn';
+        else return null;
+    }
+
+    onContextMenu(event, user) {
+        this.selectedUser = user;
+        this.cm.show(event);
+    }
+
+    onHide() {
+        this.selectedUser = null;
+    }
+}
+```
+</details>
+
 ## Document
 
 Setting global property to true attaches the context menu to the document.
@@ -110,6 +209,52 @@ Menu items support navigation via routerLink, programmatic routing using command
 <p-contextmenu [target]="span" [model]="items" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { ContextMenu } from 'primeng/contextmenu';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'context-menu-router-demo',
+    templateUrl: './context-menu-router-demo.html',
+    standalone: true,
+    imports: [ContextMenu, CommonModule],
+})
+export class ContextMenuRouterDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    constructor(private router: Router) {}
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Router Link',
+                icon: 'pi pi-palette',
+                routerLink: '/theming'
+            },
+            {
+                label: 'Programmatic',
+                icon: 'pi pi-link',
+                command: () => {
+                    this.router.navigate(['/installation']);
+                }
+            },
+            {
+                label: 'External',
+                icon: 'pi pi-home',
+                url: 'https://angular.io//'
+            }
+        ];
+    }
+}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -156,6 +301,140 @@ ContextMenu offers item customization with the item template that receives the m
     </ng-template>
 </p-contextmenu>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ContextMenu } from 'primeng/contextmenu';
+import { MenuItem } from 'primeng/api';
+import { ContextMenu } from 'primeng/contextmenu';
+import { CommonModule } from '@angular/common';
+import { Ripple } from 'primeng/ripple';
+import { BadgeModule } from 'primeng/badge';
+
+@Component({
+    selector: 'context-menu-template-demo',
+    templateUrl: './context-menu-template-demo.html',
+    standalone: true,
+    imports: [ContextMenu, CommonModule, Ripple, BadgeModule]
+})
+export class ContextMenuTemplateDemo implements OnInit {
+    items: MenuItem[] | undefined;
+
+    @ViewChild('cm') cm: ContextMenu;
+
+    selectedId!: string;
+
+    data = [
+        {
+            id: '1000',
+            code: 'f230fh0g3',
+            name: 'Bamboo Watch',
+            description: 'Product Description',
+            image: 'bamboo-watch.jpg',
+            price: 65,
+            category: 'Accessories',
+            quantity: 24,
+            inventoryStatus: 'INSTOCK',
+            rating: 5
+        },
+        {
+            id: '1001',
+            code: 'nvklal433',
+            name: 'Black Watch',
+            description: 'Product Description',
+            image: 'black-watch.jpg',
+            price: 72,
+            category: 'Accessories',
+            quantity: 61,
+            inventoryStatus: 'INSTOCK',
+            rating: 4
+        },
+        {
+            id: '1002',
+            code: 'zz21cz3c1',
+            name: 'Blue Band',
+            description: 'Product Description',
+            image: 'blue-band.jpg',
+            price: 79,
+            category: 'Fitness',
+            quantity: 2,
+            inventoryStatus: 'LOWSTOCK',
+            rating: 3
+        },
+        {
+            id: '1003',
+            code: '244wgerg2',
+            name: 'Blue T-Shirt',
+            description: 'Product Description',
+            image: 'blue-t-shirt.jpg',
+            price: 29,
+            category: 'Clothing',
+            quantity: 25,
+            inventoryStatus: 'INSTOCK',
+            rating: 5
+        },
+        {
+            id: '1004',
+            code: 'h456wer53',
+            name: 'Bracelet',
+            description: 'Product Description',
+            image: 'bracelet.jpg',
+            price: 15,
+            category: 'Accessories',
+            quantity: 73,
+            inventoryStatus: 'INSTOCK',
+            rating: 4
+        }
+    ];
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Favorite',
+                icon: 'pi pi-star',
+                shortcut: '⌘+D'
+            },
+            {
+                label: 'Add',
+                icon: 'pi pi-shopping-cart',
+                shortcut: '⌘+A'
+            },
+            {
+                separator: true
+            },
+            {
+                label: 'Share',
+                icon: 'pi pi-share-alt',
+                items: [
+                    {
+                        label: 'Whatsapp',
+                        icon: 'pi pi-whatsapp',
+                        badge: '2'
+                    },
+                    {
+                        label: 'Instagram',
+                        icon: 'pi pi-instagram',
+                        badge: '3'
+                    }
+                ]
+            }
+        ];
+    }
+
+    onContextMenu(event) {
+        this.cm.target = event.currentTarget;
+        this.cm.show(event);
+    }
+
+    onHide() {
+        this.selectedId = undefined;
+    }
+}
+```
+</details>
 
 ## Context Menu
 

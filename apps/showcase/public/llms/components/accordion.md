@@ -100,6 +100,30 @@ Panels can be controlled programmatically using value property as a model.
     </p-accordion>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'accordion-controlled-demo',
+    templateUrl: './accordion-controlled-demo.html',
+    standalone: true,
+    imports: [AccordionModule, ButtonModule]
+})
+export class AccordionControlledDemo {
+    activeIndex: number | undefined = 0;
+
+    activeIndexChange(index : number){
+        this.activeIndex = index
+    }
+}
+```
+</details>
+
 ## Disabled
 
 Enabling disabled property of an AccordionTab prevents user interaction.
@@ -146,6 +170,23 @@ Enabling disabled property of an AccordionTab prevents user interaction.
 </p-accordion>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+
+@Component({
+    selector: 'accordion-disabled-demo',
+    templateUrl: './accordion-disabled-demo.html',
+    standalone: true,
+    imports: [AccordionModule]
+})
+export class AccordionDisabledDemo {}
+```
+</details>
+
 ## Dynamic
 
 AccordionPanel can be generated dynamically using the standard &#64;for block.
@@ -162,6 +203,30 @@ AccordionPanel can be generated dynamically using the standard &#64;for block.
     }
 </p-accordion>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'accordion-dynamic-demo',
+    templateUrl: './accordion-dynamic-demo.html',
+    standalone: true,
+    imports: [AccordionModule, CommonModule]
+})
+export class AccordionDynamicDemo {
+    tabs = [
+        { title: 'Title 1', content: 'Content 1', value: '0' },
+        { title: 'Title 2', content: 'Content 2', value: '1' },
+        { title: 'Title 3', content: 'Content 3', value: '2' },
+    ];
+}
+```
+</details>
 
 ## Multiple
 
@@ -205,6 +270,23 @@ Only one tab at a time can be active by default, enabling multiple property chan
     </p-accordion-panel>
 </p-accordion>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+
+@Component({
+    selector: 'accordion-multiple-demo',
+    templateUrl: './accordion-multiple-demo.html',
+    standalone: true,
+    imports: [AccordionModule]
+})
+export class AccordionMultipleDemo {}
+```
+</details>
 
 ## styledoc
 
@@ -291,6 +373,25 @@ Accordion is customized with toggleicon template.
     </p-accordion-panel>
 </p-accordion>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
+
+@Component({
+    selector: 'accordion-template-demo',
+    templateUrl: './accordion-template-demo.html',
+    standalone: true,
+    imports: [AccordionModule, AvatarModule, BadgeModule]
+})
+export class AccordionTemplateDemo {}
+```
+</details>
 
 ## Accordion
 

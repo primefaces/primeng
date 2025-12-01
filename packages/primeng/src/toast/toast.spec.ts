@@ -350,7 +350,7 @@ describe('Toast', () => {
             expect(toastInstance.messages).toEqual(jasmine.arrayContaining(messages));
         });
 
-        it('should clear messages when messageService clear is called', async () => {
+        it('should trigger clearAll when messageService clear is called', async () => {
             const message: ToastMessageOptions = {
                 severity: 'success',
                 summary: 'Success',
@@ -367,15 +367,16 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
             expect(toastInstance.messages?.length).toBe(1);
 
+            spyOn(toastInstance, 'clearAll').and.callThrough();
             messageService.clear('test');
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(toastInstance.messages).toBeNull();
+            expect(toastInstance.clearAll).toHaveBeenCalled();
         });
 
-        it('should clear all messages when messageService clear without key', async () => {
+        it('should trigger clearAll when messageService clear without key', async () => {
             const message: ToastMessageOptions = {
                 severity: 'success',
                 summary: 'Success',
@@ -392,12 +393,13 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
             expect(toastInstance.messages?.length).toBe(1);
 
+            spyOn(toastInstance, 'clearAll').and.callThrough();
             messageService.clear();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(toastInstance.messages).toBeNull();
+            expect(toastInstance.clearAll).toHaveBeenCalled();
         });
     });
 
@@ -562,10 +564,11 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            // Get ToastItem and trigger animation end
+            // Get ToastItem and trigger animation end via onAfterLeave
             const toastItemEl = fixture.debugElement.query(By.css('p-toastitem'));
             const toastItemInstance = toastItemEl.componentInstance;
-            toastItemInstance.handleAnimationEnd(new AnimationEvent('animationend'));
+            // Simulate motion animation ending by calling onAfterLeave
+            toastItemInstance.onAfterLeave({ element: toastItemEl.nativeElement });
 
             expect(toastInstance.onMessageClose).toHaveBeenCalled();
         });
@@ -1456,16 +1459,13 @@ describe('ToastItem', () => {
             };
             component.life = 1000;
 
-            spyOn(component.onClose, 'emit');
             component.initTimeout();
 
             await new Promise((resolve) => setTimeout(resolve, 1100));
             await fixture.whenStable();
 
-            expect(component.onClose.emit).toHaveBeenCalledWith({
-                index: 0,
-                message: component.message as any
-            });
+            // After timeout, visible should be set to false (onClose emits after animation ends)
+            expect(component.visible()).toBe(false);
         });
 
         it('should not initialize timeout for sticky messages', () => {
@@ -1506,7 +1506,6 @@ describe('ToastItem', () => {
 
         it('should handle close icon click', () => {
             spyOn(component, 'clearTimeout');
-            spyOn(component.onClose, 'emit');
             spyOn(Event.prototype, 'preventDefault');
 
             const mockEvent = new Event('click');
@@ -1514,11 +1513,8 @@ describe('ToastItem', () => {
 
             expect(component.clearTimeout).toHaveBeenCalled();
             expect(mockEvent.preventDefault).toHaveBeenCalled();
-
-            expect(component.onClose.emit).toHaveBeenCalledWith({
-                index: 0,
-                message: component.message as any
-            });
+            // visible should be set to false, onClose emits after animation ends
+            expect(component.visible()).toBe(false);
         });
     });
 
@@ -1542,32 +1538,24 @@ describe('ToastItem', () => {
             fixture.detectChanges();
         });
 
-        it('should emit onClose when close button is clicked', () => {
-            spyOn(component.onClose, 'emit');
-
+        it('should set visible to false when close button is clicked', () => {
             const closeButton = fixture.debugElement.query(By.css('button'));
             expect(closeButton).toBeTruthy();
 
             closeButton.nativeElement.click();
 
-            expect(component.onClose.emit).toHaveBeenCalledWith({
-                index: 0,
-                message: component.message as any
-            });
+            // Close button click sets visible to false, onClose emits after animation ends
+            expect(component.visible()).toBe(false);
         });
 
-        it('should emit onClose on Enter key', () => {
-            spyOn(component.onClose, 'emit');
-
+        it('should set visible to false on Enter key', () => {
             const closeButton = fixture.debugElement.query(By.css('button'));
             const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 
             closeButton.nativeElement.dispatchEvent(enterEvent);
 
-            expect(component.onClose.emit).toHaveBeenCalledWith({
-                index: 0,
-                message: component.message as any
-            });
+            // Enter key sets visible to false, onClose emits after animation ends
+            expect(component.visible()).toBe(false);
         });
     });
 

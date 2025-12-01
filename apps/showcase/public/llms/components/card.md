@@ -30,6 +30,24 @@ Card content can be customized further with subHeader , header and footer proper
 </p-card>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'card-advanced-demo',
+    templateUrl: './card-advanced-demo.html',
+    standalone: true,
+    imports: [CardModule, ButtonModule]
+})
+export class CardAdvancedDemo {}
+```
+</details>
+
 ## Basic
 
 A simple Card is created with a header property along with the content as children.

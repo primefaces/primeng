@@ -28,6 +28,23 @@ Sample Card implementation using different Skeleton components and Tailwind CSS 
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Skeleton } from 'primeng/skeleton';
+
+@Component({
+    selector: 'skeleton-card-demo',
+    templateUrl: './skeleton-card-demo.html',
+    standalone: true,
+    imports: [Skeleton]
+})
+export class SkeletonCardDemo {}
+```
+</details>
+
 ## DataTable
 
 Sample DataTable implementation using different Skeleton components and Tailwind CSS utilities.
@@ -52,6 +69,30 @@ Sample DataTable implementation using different Skeleton components and Tailwind
     </ng-template>
 </p-table>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Skeleton } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+
+@Component({
+    selector: 'skeleton-data-table-demo',
+    templateUrl: './skeleton-data-table-demo.html',
+    standalone: true,
+    imports: [Skeleton, TableModule]
+})
+export class SkeletonDataTableDemo implements OnInit {
+    products: any[] | undefined;
+
+    ngOnInit() {
+        this.products = Array.from({ length: 5 }).map((_, i) => \`Item #\${i}\`);
+    }
+}
+```
+</details>
 
 ## List
 
@@ -100,6 +141,23 @@ Sample List implementation using different Skeleton components and Tailwind CSS 
 </div>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Skeleton } from 'primeng/skeleton';
+
+@Component({
+    selector: 'skeleton-list-demo,
+    templateUrl: './skeleton-list-demo.html',
+    standalone: true,
+    imports: [Skeleton]
+})
+export class SkeletonListDemo {}
+```
+</details>
+
 ## Shapes
 
 Various shapes and sizes can be created using styling properties like shape , width , height , borderRadius and class .
@@ -131,6 +189,23 @@ Various shapes and sizes can be created using styling properties like shape , wi
 <p-skeleton shape="circle" size="4rem" class="mr-2" />
 <p-skeleton shape="circle" size="5rem" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { Skeleton } from 'primeng/skeleton';
+
+@Component({
+    selector: 'skeleton-shapes-demo',
+    templateUrl: './skeleton-shapes-demo.html',
+    standalone: true,
+    imports: [Skeleton]
+})
+export class SkeletonShapesDemo {}
+```
+</details>
 
 ## styledoc
 

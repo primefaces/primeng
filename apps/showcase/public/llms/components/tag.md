@@ -28,6 +28,23 @@ A font icon next to the value can be displayed with the icon property.
 <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TagModule } from 'primeng/tag';
+
+@Component({
+    selector: 'tag-icon-demo',
+    templateUrl: './tag-icon-demo.html',
+    standalone: true,
+    imports: [TagModule]
+})
+export class TagIconDemo {}
+```
+</details>
+
 ## Pill
 
 Enabling rounded , displays a tag as a pill.
@@ -42,6 +59,23 @@ Enabling rounded , displays a tag as a pill.
 <p-tag severity="contrast" value="Contrast" [rounded]="true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TagModule } from 'primeng/tag';
+
+@Component({
+    selector: 'tag-pill-demo',
+    templateUrl: './tag-pill-demo.html',
+    standalone: true,
+    imports: [TagModule]
+})
+export class TagPillDemo {}
+```
+</details>
+
 ## Severity
 
 Severity defines the color of the tag, possible values are success , info , warn and danger in addition to the default theme color.
@@ -55,6 +89,23 @@ Severity defines the color of the tag, possible values are success , info , warn
 <p-tag severity="danger" value="Danger" />
 <p-tag severity="contrast" value="Contrast" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TagModule } from 'primeng/tag';
+
+@Component({
+    selector: 'tag-severity-demo',
+    templateUrl: './tag-severity-demo.html',
+    standalone: true,
+    imports: [TagModule]
+})
+export class TagSeverityDemo {}
+```
+</details>
 
 ## styledoc
 
@@ -74,6 +125,23 @@ Children of the component are passed as the content for templating.
     </div>
 </p-tag>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { TagModule } from 'primeng/tag';
+
+@Component({
+    selector: 'tag-template-demo',
+    templateUrl: './tag-template-demo.html',
+    standalone: true,
+    imports: [TagModule]
+})
+export class TagTemplateDemo {}
+```
+</details>
 
 ## Tag
 

@@ -37,6 +37,42 @@ Headless mode allows you to customize the entire user interface instead of the d
 <p-button (onClick)="confirm($event)" label="Save" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'confirm-popup-headless-demo',
+    templateUrl: './confirm-popup-headless-demo.html',
+    standalone: true,
+    imports: [ConfirmPopupModule, ToastModule, ButtonModule],
+    providers: [ConfirmationService, MessageService]
+})
+export class ConfirmPopupHeadlessDemo {
+   constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+
+    confirm(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Save your current process?',
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            }
+        });
+    }
+}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -59,6 +95,63 @@ Content section can be customized using content template.
 </p-confirmpopup>
 <p-button (click)="confirm($event)" label="Save" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+
+@Component({
+    selector: 'confirm-popup-template-demo',
+    templateUrl: './confirm-popup-template-demo.html',
+    standalone: true,
+    imports: [ConfirmPopupModule, ToastModule, ButtonModule],
+    providers: [ConfirmationService, MessageService]
+})
+export class ConfirmPopupTemplateDemo {
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+
+
+    confirm(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Please confirm to proceed moving forward.',
+            icon: 'pi pi-exclamation-circle',
+            rejectButtonProps: {
+                icon: 'pi pi-times',
+                label: 'Cancel',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                icon: 'pi pi-check',
+                label: 'Confirm',
+            },
+            accept: () => {
+                this.messageService.add({
+                    severity: 'info',
+                    summary: 'Confirmed',
+                    detail: 'You have accepted',
+                    life: 3000,
+                });
+            },
+            reject: () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Rejected',
+                    detail: 'You have rejected',
+                    life: 3000,
+                });
+            },
+        });
+    }
+}
+```
+</details>
 
 ## Confirm Popup
 

@@ -1,9 +1,9 @@
 import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import { TabList } from './tablist';
-import { Tabs, TabsModule } from './tabs';
+import { Tabs } from './tabs';
+import { TabsModule } from './tabs.module';
 
 @Component({
     standalone: false,

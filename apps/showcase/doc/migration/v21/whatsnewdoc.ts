@@ -1,0 +1,22 @@
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+@Component({
+    selector: 'v21-migration-whatsnew-doc',
+    standalone: true,
+    imports: [AppDocSectionText, RouterModule],
+    template: `
+        <app-docsectiontext>
+            <p>PrimeNG v21 represents a major advancement in PrimeTek's product vision. Key highlights of this release include:</p>
+            <ul class="leading-normal px-10 list-disc">
+                <li class="py-1"><a routerLink="/passthrough" class="text-primary font-medium hover:underline">PassThrough attributes</a> for enhanced customization.</li>
+                <li class="py-1"><a routerLink="/theming/unstyled" class="text-primary font-medium hover:underline">Unstyled Mode</a> for complete styling flexibility.</li>
+                <li class="py-1">Modern CSS-based <a routerLink="/guides/animations" class="text-primary font-medium hover:underline">animations</a>.</li>
+                <li class="py-1">Initial zoneless support for improved performance.</li>
+                <li class="py-1"><a routerLink="/llms" class="text-primary font-medium hover:underline">AI-enhanced documentation</a> for better developer experience.</li>
+            </ul>
+        </app-docsectiontext>
+    `
+})
+export class WhatsNewDoc {}

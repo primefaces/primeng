@@ -22,6 +22,26 @@ When disabled is present, a visual hint is applied to indicate that the Knob can
 <p-rating [(ngModel)]="value" [disabled]="true" />
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Rating } from 'primeng/rating';
+
+@Component({
+    selector: 'rating-disabled-demo',
+    templateUrl: './rating-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, Rating]
+})
+export class RatingDisabledDemo {
+    value: number = 5;
+}
+```
+</details>
+
 ## Number of Stars
 
 Number of stars to display is defined with stars property.
@@ -29,6 +49,26 @@ Number of stars to display is defined with stars property.
 ```html
 <p-rating [(ngModel)]="value" [stars]="10" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Rating } from 'primeng/rating';
+
+@Component({
+    selector: 'rating-number-of-stars-demo',
+    templateUrl: './rating-number-of-stars-demo.html',
+    standalone: true,
+    imports: [FormsModule, Rating]
+})
+export class RatingNumberOfStarsDemo {
+    value: number = 5;
+}
+```
+</details>
 
 ## reactiveformsdoc
 
@@ -46,6 +86,53 @@ Rating can also be used with reactive forms. In this case, the formControlName p
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Rating } from 'primeng/rating';
+import { Message } from 'primeng/message';
+import { Button } from 'primeng/button';
+import { Toast } from 'primeng/toast';
+
+@Component({
+    selector: 'rating-reactive-forms-demo',
+    templateUrl: './rating-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, Rating, Toast, Message, Button]
+})
+export class RatingReactiveFormsDemo {
+    messageService = inject(MessageService);
+
+    exampleForm: FormGroup | undefined;
+
+    formSubmitted = false;
+
+    constructor(private fb: FormBuilder) {
+        this.exampleForm = this.fb.group({
+            ratingValue: [undefined, Validators.required]
+        });
+    }
+
+    onSubmit() {
+        this.formSubmitted = true;
+        if (this.exampleForm.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            this.exampleForm.reset();
+            this.formSubmitted = false;
+        }
+    }
+
+    isInvalid(controlName: string) {
+        const control = this.exampleForm.get(controlName);
+        return control?.invalid && (control.touched || this.formSubmitted);
+    }
+}
+```
+</details>
+
 ## Readonly
 
 When readonly present, value cannot be edited.
@@ -53,6 +140,26 @@ When readonly present, value cannot be edited.
 ```html
 <p-rating [(ngModel)]="value" [readonly]="true" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Rating } from 'primeng/rating';
+
+@Component({
+    selector: 'rating-readonly-demo',
+    templateUrl: './rating-readonly-demo.html',
+    standalone: true,
+    imports: [FormsModule, Rating]
+})
+export class RatingReadonlyDemo {
+    value: number = 3;
+}
+```
+</details>
 
 ## styledoc
 
@@ -73,6 +180,26 @@ Templating allows customizing the content where the icon instance is available a
 </p-rating>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Rating } from 'primeng/rating';
+
+@Component({
+    selector: 'rating-template-demo',
+    templateUrl: './rating-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, Rating]
+})
+export class RatingTemplateDemo {
+    value!: number;
+}
+```
+</details>
+
 ## templatedrivenformsdoc
 
 ```html
@@ -87,6 +214,39 @@ Templating allows customizing the content where the icon instance is available a
 </form>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelect } from 'primeng/multiselect';
+import { Message } from 'primeng/message';
+import { Toast } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { Button } from 'primeng/button';
+
+@Component({
+    selector: 'rating-template-driven-forms-demo',
+    templateUrl: './rating-template-driven-forms-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelect, Message, Toast, Button]
+})
+export class TemplateDrivenFormsDemo {
+    messageService = inject(MessageService);
+
+    value: any;
+
+    onSubmit(form: any) {
+        if (form.valid) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
+            form.resetForm();
+        }
+    }
+}
+```
+</details>
+
 ## withoutcanceldoc
 
 A cancel icon is displayed to reset the value by default, set cancel as false to remove this option.
@@ -94,6 +254,26 @@ A cancel icon is displayed to reset the value by default, set cancel as false to
 ```html
 <p-rating [(ngModel)]="value" [cancel]="false" />
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Rating } from 'primeng/rating';
+
+@Component({
+    selector: 'rating-without-cancel-demo',
+    templateUrl: './rating-without-cancel-demo.html',
+    standalone: true,
+    imports: [FormsModule, Rating]
+})
+export class RatingWithoutCancelDemo {
+    value!: number;
+}
+```
+</details>
 
 ## Rating
 

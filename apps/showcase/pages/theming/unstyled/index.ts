@@ -6,7 +6,7 @@ import { ExampleDoc } from '@/doc/theming/unstyled/exampledoc';
 import { GlobalDoc } from '@/doc/theming/unstyled/globaldoc';
 
 @Component({
-    template: `<app-doc docTitle="Unstyled Mode" header="Unstyled" description="Theming PrimeNG with alternative styling approaches." [docs]="docs"></app-doc>`,
+    template: `<app-doc docTitle="Unstyled Mode" header="Unstyled" description="Theming PrimeNG with alternative styling approaches." [docs]="docs" docType="page"></app-doc>`,
     imports: [AppDoc],
     standalone: true
 })

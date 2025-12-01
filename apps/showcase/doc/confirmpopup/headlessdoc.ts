@@ -23,7 +23,7 @@ import { ToastModule } from 'primeng/toast';
                     <div class="rounded p-4">
                         <span>{{ message.message }}</span>
                         <div class="flex items-center gap-2 mt-4">
-                            <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
+                            <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
                             <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                         </div>
                     </div>
@@ -61,7 +61,7 @@ export class HeadlessDoc {
         <div class="rounded p-4">
             <span>{{ message.message }}</span>
             <div class="flex items-center gap-2 mt-4">
-                <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
+                <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
                 <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
             </div>
         </div>
@@ -76,7 +76,7 @@ export class HeadlessDoc {
             <div class="rounded p-4">
                 <span>{{ message.message }}</span>
                 <div class="flex items-center gap-2 mt-4">
-                    <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
+                    <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
                     <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                 </div>
             </div>

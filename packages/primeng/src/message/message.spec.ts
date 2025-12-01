@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { Message } from './message';
@@ -218,8 +217,9 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const messageDiv = fixture.debugElement.query(By.css('.p-message'));
-            expect(messageDiv).toBeFalsy();
+            // In v21, the message gets p-message-leave-active class when closing
+            const messageElement = fixture.debugElement.query(By.css('p-message'));
+            expect(messageElement.nativeElement.classList.contains('p-message-leave-active')).toBe(true);
         });
     });
 
@@ -747,56 +747,6 @@ describe('Message', () => {
         });
     });
 
-    describe('Animation and Transitions', () => {
-        let fixture: ComponentFixture<TestBasicMessageComponent>;
-        let component: TestBasicMessageComponent;
-
-        beforeEach(async () => {
-            await TestBed.configureTestingModule({
-                imports: [BrowserAnimationsModule, CommonModule, Message, SharedModule, PrimeTemplate],
-                declarations: [TestBasicMessageComponent],
-                providers: [provideZonelessChangeDetection()]
-            }).compileComponents();
-
-            fixture = TestBed.createComponent(TestBasicMessageComponent);
-            component = fixture.componentInstance;
-        });
-
-        it('should have custom show transition options', () => {
-            component.showTransitionOptions = '500ms ease-in';
-            fixture.detectChanges();
-
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
-            const messageInstance = messageEl.componentInstance as Message;
-            expect(messageInstance.showTransitionOptions).toBe('500ms ease-in');
-        });
-
-        it('should have custom hide transition options', () => {
-            component.hideTransitionOptions = '300ms ease-out';
-            fixture.detectChanges();
-
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
-            const messageInstance = messageEl.componentInstance as Message;
-            expect(messageInstance.hideTransitionOptions).toBe('300ms ease-out');
-        });
-
-        it('should animate when closing', async () => {
-            component.closable = true;
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
-            const messageInstance = messageEl.componentInstance as Message;
-
-            messageInstance.close(new MouseEvent('click'));
-            await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
-            await fixture.whenStable();
-
-            expect(messageInstance.visible()).toBe(false);
-        });
-    });
-
     describe('Edge Cases', () => {
         let fixture: ComponentFixture<TestBasicMessageComponent>;
         let component: TestBasicMessageComponent;
@@ -988,8 +938,9 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            expect(rootElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+            // In v21, .p-message class is on the host element itself
+            const rootElement = fixture.debugElement.nativeElement;
+            expect(rootElement.classList.contains('ROOT_CLASS')).toBe(true);
         });
 
         it('should apply pt content class', () => {
@@ -997,7 +948,7 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
-            const contentElement = fixture.debugElement.query(By.css('.p-message > div'));
+            const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
             expect(contentElement.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
         });
 
@@ -1050,13 +1001,13 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
+            // In v21, host and root are both on the host element
             const hostElement = fixture.nativeElement;
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            const contentElement = fixture.debugElement.query(By.css('.p-message > div'));
+            const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
             const textElement = fixture.debugElement.query(By.css('span'));
 
             expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
-            expect(rootElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+            expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
             expect(contentElement.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
             expect(textElement.nativeElement.classList.contains('TEXT_CLASS')).toBe(true);
         });
@@ -1086,11 +1037,12 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            expect(rootElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
-            expect(rootElement.nativeElement.style.backgroundColor).toBe('red');
-            expect(rootElement.nativeElement.getAttribute('data-p-test')).toBe('true');
-            expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            // In v21, .p-message class is on the host element itself
+            const rootElement = fixture.debugElement.nativeElement;
+            expect(rootElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+            expect(rootElement.style.backgroundColor).toBe('red');
+            expect(rootElement.getAttribute('data-p-test')).toBe('true');
+            expect(rootElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
         });
 
         it('should apply pt content with object properties', () => {
@@ -1104,7 +1056,7 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
-            const contentElement = fixture.debugElement.query(By.css('.p-message > div'));
+            const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
             expect(contentElement.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
             expect(contentElement.nativeElement.style.padding).toBe('20px');
             expect(contentElement.nativeElement.getAttribute('data-p-content')).toBe('true');
@@ -1204,12 +1156,13 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            const contentElement = fixture.debugElement.query(By.css('.p-message > div'));
+            // In v21, .p-message class is on the host element itself
+            const rootElement = fixture.debugElement.nativeElement;
+            const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
             const textElement = fixture.debugElement.query(By.css('span'));
 
-            expect(rootElement.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
-            expect(rootElement.nativeElement.style.margin).toBe('10px');
+            expect(rootElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
+            expect(rootElement.style.margin).toBe('10px');
             expect(contentElement.nativeElement.classList.contains('CONTENT_STRING_CLASS')).toBe(true);
             expect(textElement.nativeElement.classList.contains('TEXT_MIXED_CLASS')).toBe(true);
         });
@@ -1262,9 +1215,10 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            expect(rootElement.nativeElement.classList.contains('SEVERITY_ERROR')).toBe(true);
-            expect(rootElement.nativeElement.classList.contains('SEVERITY_SUCCESS')).toBe(false);
+            // In v21, .p-message class is on the host element itself
+            const rootElement = fixture.debugElement.nativeElement;
+            expect(rootElement.classList.contains('SEVERITY_ERROR')).toBe(true);
+            expect(rootElement.classList.contains('SEVERITY_SUCCESS')).toBe(false);
         });
 
         it('should apply pt content style based on instance closable state', () => {
@@ -1281,7 +1235,7 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
-            const contentElement = fixture.debugElement.query(By.css('.p-message > div'));
+            const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
             expect(contentElement.nativeElement.style.backgroundColor).toBe('yellow');
         });
 
@@ -1352,16 +1306,16 @@ describe('Message', () => {
             fixture.componentRef.setInput('text', 'Test');
             fixture.detectChanges();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            expect(rootElement.nativeElement.classList.contains('VISIBLE')).toBe(true);
+            // In v21, .p-message class is on the host element itself
+            const rootElement = fixture.debugElement.nativeElement;
+            expect(rootElement.classList.contains('VISIBLE')).toBe(true);
 
             // Close the message
             fixture.componentInstance.close(new Event('click'));
             fixture.detectChanges();
 
-            // Message should not be visible
-            const closedMessage = fixture.debugElement.query(By.css('.p-message'));
-            expect(closedMessage).toBeFalsy();
+            // Message should have leave animation class
+            expect(rootElement.classList.contains('p-message-leave-active')).toBe(true);
         });
     });
 
@@ -1393,8 +1347,9 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            rootElement.nativeElement.click();
+            // In v21, .p-message class is on the host element itself
+            const rootElement = fixture.debugElement.nativeElement;
+            rootElement.click();
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1419,7 +1374,7 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const contentElement = fixture.debugElement.query(By.css('.p-message > div'));
+            const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
             contentElement.nativeElement.click();
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
@@ -1448,12 +1403,13 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            rootElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
+            // In v21, .p-message class is on the host element itself
+            const rootElement = fixture.debugElement.nativeElement;
+            rootElement.dispatchEvent(new MouseEvent('mouseenter'));
             await fixture.whenStable();
             expect(mouseEntered).toBe(true);
 
-            rootElement.nativeElement.dispatchEvent(new MouseEvent('mouseleave'));
+            rootElement.dispatchEvent(new MouseEvent('mouseleave'));
             await fixture.whenStable();
             expect(mouseLeft).toBe(true);
         });
@@ -1558,17 +1514,15 @@ describe('Message', () => {
             const messages = fixture.debugElement.queryAll(By.css('p-message'));
             expect(messages.length).toBe(2);
 
-            // Check first message
+            // Check first message - host element has both p-message class and aria-label
             const firstHost = messages[0].nativeElement;
-            const firstRoot = messages[0].query(By.css('.p-message'));
             expect(firstHost.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
-            expect(firstRoot.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+            expect(firstHost.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
 
             // Check second message
             const secondHost = messages[1].nativeElement;
-            const secondRoot = messages[1].query(By.css('.p-message'));
             expect(secondHost.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
-            expect(secondRoot.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
+            expect(secondHost.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
         });
 
         it('should apply global css from PrimeNGConfig', async () => {
@@ -1593,10 +1547,10 @@ describe('Message', () => {
             fixture.detectChanges();
 
             const messages = fixture.debugElement.queryAll(By.css('p-message'));
-            const firstRoot = messages[0].query(By.css('.p-message'));
+            const firstRoot = messages[0].nativeElement;
 
-            // Verify global pt is applied
-            expect(firstRoot.nativeElement.classList.contains('GLOBAL_WITH_CSS')).toBe(true);
+            // Verify global pt is applied - host element has p-message class
+            expect(firstRoot.classList.contains('GLOBAL_WITH_CSS')).toBe(true);
         });
 
         it('should merge local pt with global pt configuration', async () => {
@@ -1625,12 +1579,14 @@ describe('Message', () => {
             const fixture = TestBed.createComponent(TestMergedPtComponent);
             fixture.detectChanges();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            const contentElement = fixture.debugElement.query(By.css('.p-message > div'));
-            const textElement = fixture.debugElement.query(By.css('span'));
+            // In v21, .p-message is on the host element itself - query p-message component
+            const messageComponent = fixture.debugElement.query(By.css('p-message'));
+            const rootElement = messageComponent.nativeElement;
+            const contentElement = messageComponent.query(By.css('.p-message-content'));
+            const textElement = messageComponent.query(By.css('span'));
 
             // Local pt should override global pt for root
-            expect(rootElement.nativeElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
+            expect(rootElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
             expect(contentElement.nativeElement.classList.contains('LOCAL_CONTENT_CLASS')).toBe(true);
             // Global pt should apply for text (not overridden locally)
             expect(textElement.nativeElement.classList.contains('GLOBAL_TEXT_CLASS')).toBe(true);
@@ -1647,7 +1603,7 @@ describe('Message', () => {
                             message: {
                                 root: {
                                     class: 'GLOBAL_CLASS',
-                                    style: 'padding: 15px' as any,
+                                    style: { padding: '15px' },
                                     'data-global': 'true'
                                 },
                                 closeButton: {
@@ -1662,12 +1618,14 @@ describe('Message', () => {
             const fixture = TestBed.createComponent(TestGlobalPtComponent);
             fixture.detectChanges();
 
-            const rootElement = fixture.debugElement.query(By.css('.p-message'));
-            const closeButton = fixture.debugElement.query(By.css('button'));
+            // In v21, .p-message is on the host element itself - query p-message component
+            const messageComponent = fixture.debugElement.query(By.css('p-message'));
+            const rootElement = messageComponent.nativeElement;
+            const closeButton = messageComponent.query(By.css('button'));
 
-            expect(rootElement.nativeElement.classList.contains('GLOBAL_CLASS')).toBe(true);
-            expect(rootElement.nativeElement.style.padding).toBe('15px');
-            expect(rootElement.nativeElement.getAttribute('data-global')).toBe('true');
+            expect(rootElement.classList.contains('GLOBAL_CLASS')).toBe(true);
+            expect(rootElement.style.padding).toBe('15px');
+            expect(rootElement.getAttribute('data-global')).toBe('true');
             expect(closeButton.nativeElement.getAttribute('aria-label')).toBe('GLOBAL_CLOSE_LABEL');
         });
     });

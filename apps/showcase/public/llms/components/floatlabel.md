@@ -38,6 +38,31 @@ When the form element is invalid, the label is also highlighted.
 </p-floatlabel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FloatLabelModule } from "primeng/floatlabel"
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'float-label-invalid-demo',
+    templateUrl: './float-label-invalid-demo.html',
+    standalone: true,
+    imports: [FloatLabelModule, InputTextModule, FormsModule]
+})
+export class FloatLabelInvalidDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+
+    value3: string | undefined;
+}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.
@@ -57,6 +82,29 @@ The variant property defines the position of the label. Default value is over , 
     <label for="on_label">On Label</label>
 </p-floatlabel>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { FloatLabelModule } from "primeng/floatlabel"
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    selector: 'float-label-variants-demo',
+    templateUrl: './float-label-variants-demo.html',
+    standalone: true,
+    imports: [FloatLabelModule, InputTextModule, FormsModule]
+})
+export class FloatLabelVariantsDemo {
+    value1: string | undefined;
+
+    value2: string | undefined;
+}
+```
+</details>
 
 ## Float Label
 

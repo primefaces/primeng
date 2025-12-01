@@ -12,11 +12,12 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService],
     template: `
         <p-toast position="top-right" />
-        <p-splitbutton label="Copy Markdown" icon="pi pi-copy" severity="secondary" size="small" [model]="menuItems" (onClick)="copyMarkdown()" appendTo="body" [menuStyleClass]="'min-w-56'" />
+        <p-splitbutton label="Copy Markdown" icon="pi pi-copy" severity="secondary" outlined [model]="menuItems" (onClick)="copyMarkdown()" appendTo="body" [menuStyleClass]="'min-w-56'" />
     `
 })
 export class AppDocCopyMarkdown implements OnInit {
     componentName = input<string>('');
+    docType = input<'component' | 'page'>('component');
 
     private router = inject(Router);
     private messageService = inject(MessageService);
@@ -43,11 +44,26 @@ export class AppDocCopyMarkdown implements OnInit {
         return lastSegment || '';
     }
 
+    get routePath(): string {
+        // Get the full route path without hash
+        const url = this.router.url.split('#')[0];
+        // Remove leading slash
+        return url.startsWith('/') ? url.slice(1) : url;
+    }
+
     get markdownLink(): string {
+        if (this.docType() === 'page') {
+            return `${this.baseUrl}/llms/pages/${this.currentComponentName.toLowerCase()}.md`;
+        }
         return `${this.baseUrl}/llms/components/${this.currentComponentName.toLowerCase()}.md`;
     }
 
     get githubLink(): string {
+        if (this.docType() === 'page') {
+            // For pages, use the full route path for nested pages like theming/styled
+            const docPath = this.routePath || this.currentComponentName;
+            return `https://github.com/primefaces/primeng/tree/master/apps/showcase/doc/${docPath}/`;
+        }
         if (this.currentComponentName) {
             return `https://github.com/primefaces/primeng/tree/master/apps/showcase/doc/${this.currentComponentName}/`;
         }

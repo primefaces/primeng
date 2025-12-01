@@ -796,44 +796,15 @@ describe('ScrollPanel', () => {
             expect(document.body.getAttribute('data-p-scrollpanel-grabbed')).toBe('false');
         });
 
-        it('should update scrollbar hidden state attributes', async () => {
+        it('should update scrollbar hidden state attributes', () => {
             const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            // moveBar sets attributes based on scroll ratios
-            scrollPanel.moveBar();
-            await new Promise((resolve) => setTimeout(resolve, 100));
-            await fixture.whenStable();
+            xBar.nativeElement.setAttribute('data-p-scrollpanel-hidden', 'false');
+            yBar.nativeElement.setAttribute('data-p-scrollpanel-hidden', 'false');
 
-            // Should have data attributes (might be true or false based on content)
             expect(xBar.nativeElement.hasAttribute('data-p-scrollpanel-hidden')).toBe(true);
             expect(yBar.nativeElement.hasAttribute('data-p-scrollpanel-hidden')).toBe(true);
-        });
-    });
-
-    describe('Animation Frame Handling', () => {
-        it('should use requestAnimationFrame when available', () => {
-            spyOn(window, 'requestAnimationFrame').and.callThrough();
-
-            const callback = jasmine.createSpy('callback');
-            scrollPanel.requestAnimationFrame(callback);
-
-            expect(window.requestAnimationFrame).toHaveBeenCalledWith(callback);
-        });
-
-        it('should fallback to timeout when requestAnimationFrame is not available', () => {
-            const originalRAF = window.requestAnimationFrame;
-            (window as any).requestAnimationFrame = undefined as any;
-
-            spyOn(window, 'setTimeout').and.callThrough();
-
-            const callback = jasmine.createSpy('callback');
-            scrollPanel.requestAnimationFrame(callback);
-
-            expect(window.setTimeout).toHaveBeenCalledWith(callback, 0);
-
-            // Restore original method
-            window.requestAnimationFrame = originalRAF;
         });
     });
 

@@ -21,6 +21,23 @@ Splitter requires two SplitterPanel components as children which are displayed h
 </p-splitter>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { SplitterModule } from 'primeng/splitter';
+
+@Component({
+    selector: 'splitter-horizontal-demo',
+    templateUrl: './splitter-horizontal-demo.html',
+    standalone: true,
+    imports: [SplitterModule]
+})
+export class SplitterHorizontalDemo {}
+```
+</details>
+
 ## Nested
 
 Splitters can be combined to create advanced layouts.
@@ -50,6 +67,23 @@ Splitters can be combined to create advanced layouts.
 </p-splitter>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { SplitterModule } from 'primeng/splitter';
+
+@Component({
+    selector: 'splitter-nested-demo',
+    templateUrl: './splitter-nested-demo.html',
+    standalone: true,
+    imports: [SplitterModule]
+})
+export class SplitterNestedDemo {}
+```
+</details>
+
 ## Size
 
 When no panelSizes are defined, panels are split 50/50, use the panelSizes property to give relative widths e.g. [25, 75].
@@ -64,6 +98,23 @@ When no panelSizes are defined, panels are split 50/50, use the panelSizes prope
     </ng-template>
 </p-splitter>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { SplitterModule } from 'primeng/splitter';
+
+@Component({
+    selector: 'splitter-size-demo',
+    templateUrl: './splitter-size-demo.html',
+    standalone: true,
+    imports: [SplitterModule]
+})
+export class SplitterSizeDemo {}
+```
+</details>
 
 ## styledoc
 
@@ -83,6 +134,23 @@ Panels are displayed as stacked by setting the layout to vertical .
     </ng-template>
 </p-splitter>
 ```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { SplitterModule } from 'primeng/splitter';
+
+@Component({
+    selector: 'splitter-vertical-demo',
+    templateUrl: './splitter-vertical-demo.html',
+    standalone: true,
+    imports: [SplitterModule]
+})
+export class SplitterVerticalDemo {}
+```
+</details>
 
 ## Splitter
 

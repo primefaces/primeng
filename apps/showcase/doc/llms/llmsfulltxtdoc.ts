@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
     template: `
         <app-docsectiontext>
             <p>The <code>llms-full.txt</code> file is a complete list of all the pages in the PrimeNG documentation. It is used to help AI models understand the entire documentation set.</p>
-            <a href="/llms/components.md" target="_blank">
+            <a href="/llms/llms-full.txt" target="_blank">
                 <p-button label="Open llms-full.txt" />
             </a>
         </app-docsectiontext>

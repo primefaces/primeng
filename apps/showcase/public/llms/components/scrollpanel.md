@@ -51,6 +51,33 @@ Scrollbar visuals can be styled for a unified look across different platforms.
 </p-scrollpanel>
 ```
 
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component } from '@angular/core';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+
+@Component({
+    selector: 'scroll-panel-custom-demo',
+    templateUrl: './scroll-panel-custom-demo.html',
+    standalone: true,
+    imports: [ScrollPanelModule],
+    styles: [ \`:host ::ng-deep {
+    .p-scrollpanel {
+        &.custombar {
+            .p-scrollpanel-bar {
+                background-color: var(--p-primary-color);
+            }
+        }
+    }
+}\`
+    ],
+})
+export class ScrollPanelCustomDemo {}
+```
+</details>
+
 ## styledoc
 
 Following is the list of structural style classes, for theming classes visit theming page.

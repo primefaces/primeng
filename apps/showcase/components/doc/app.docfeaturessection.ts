@@ -9,13 +9,13 @@ import { AppDocCopyMarkdown } from './app.doccopymarkdown';
     imports: [AppDocSection, AppDocSectionNav, AppDocCopyMarkdown],
     template: ` <div class="doc-main">
             <div class="doc-intro">
-                <div class="flex items-start justify-between gap-4 mb-4">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
                     <div class="flex-1">
                         <h1>{{ header }}</h1>
                         <p>{{ description }}</p>
                     </div>
-                    @if (componentName) {
-                        <app-doccopymarkdown [componentName]="componentName" class="flex-shrink-0 mt-2" />
+                    @if (componentName || docType === 'page') {
+                        <app-doccopymarkdown [componentName]="componentName" [docType]="docType" class="flex-shrink-0" />
                     }
                 </div>
             </div>
@@ -36,4 +36,6 @@ export class AppDocFeaturesSection {
     @Input() docs!: any[];
 
     @Input() componentName: string = '';
+
+    @Input() docType: 'component' | 'page' = 'component';
 }
