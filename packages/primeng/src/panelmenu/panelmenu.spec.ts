@@ -1050,6 +1050,7 @@ describe('PanelMenu', () => {
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
             expect(panelHeader).toBeTruthy();
+            expect(panelHeader.nativeElement.getAttribute('aria-controls')).toBe(null);
 
             // Should not show expand/collapse icon for panels without items
             const headerIcons = panelHeader.queryAll(By.css('[data-p-icon]'));
