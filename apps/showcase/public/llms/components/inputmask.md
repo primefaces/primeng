@@ -554,7 +554,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | TemplateRef<any> | Template of the clear icon. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
 
 ## Pass Through Options
 

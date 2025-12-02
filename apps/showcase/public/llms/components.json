@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2025-12-02T15:50:56.760Z",
+  "generatedAt": "2025-12-02T17:21:28.356Z",
   "components": [
     {
       "name": "accordion",
@@ -2303,6 +2303,22 @@
           {
             "class": "p-avatar-icon",
             "description": "Class name of the icon element"
+          },
+          {
+            "class": "p-avatar-image",
+            "description": "Container element in image mode"
+          },
+          {
+            "class": "p-avatar-circle",
+            "description": "Container element with a circle shape"
+          },
+          {
+            "class": "p-avatar-lg",
+            "description": "Container element with a large size"
+          },
+          {
+            "class": "p-avatar-xl",
+            "description": "Container element with an xlarge size"
           }
         ],
         "tokens": [
@@ -8687,7 +8703,28 @@
             "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "content",
+            "type": "TemplateRef<ConfirmPopupContentTemplateContext>",
+            "description": "Custom content template."
+          },
+          {
+            "name": "accepticon",
+            "type": "TemplateRef<void>",
+            "description": "Custom accept icon template."
+          },
+          {
+            "name": "rejecticon",
+            "type": "TemplateRef<void>",
+            "description": "Custom reject icon template."
+          },
+          {
+            "name": "headless",
+            "type": "TemplateRef<ConfirmPopupHeadlessTemplateContext>",
+            "description": "Custom headless template."
+          }
+        ],
         "emits": null,
         "methods": null,
         "pt": [
@@ -9057,13 +9094,13 @@
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for item."
+            "type": "TemplateRef<ContextMenuItemTemplateContext>",
+            "description": "Custom item template."
           },
           {
             "name": "submenuicon",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for submenuIcon."
+            "type": "TemplateRef<ContextMenuSubmenuIconTemplateContext>",
+            "description": "Custom submenu icon template."
           }
         ],
         "emits": [
@@ -9642,57 +9679,57 @@
         "templates": [
           {
             "name": "list",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DataViewListTemplateContext<any>>",
             "description": "Template for the list layout."
           },
           {
             "name": "grid",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DataViewGridTemplateContext<any>>",
             "description": "Template for grid layout."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for the header section."
           },
           {
             "name": "emptymessage",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for the empty message section."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for the footer section."
           },
           {
             "name": "paginatorleft",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DataViewPaginatorLeftTemplateContext>",
             "description": "Template for the left side of paginator."
           },
           {
             "name": "paginatorright",
-            "type": "TemplateRef<any>",
-            "description": "r* Template for the right side of paginator."
+            "type": "TemplateRef<DataViewPaginatorRightTemplateContext>",
+            "description": "Template for the right side of paginator."
           },
           {
             "name": "paginatordropdownitem",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DataViewPaginatorDropdownItemTemplateContext>",
             "description": "Template for items in paginator dropdown."
           },
           {
             "name": "loadingicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for loading icon."
           },
           {
             "name": "listicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for list icon."
           },
           {
             "name": "gridicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for grid icon."
           }
         ],
@@ -10792,67 +10829,67 @@
         "templates": [
           {
             "name": "date",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DatePickerDateTemplateContext>",
             "description": "Custom template for date cells."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for header section."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for footer section."
           },
           {
             "name": "disableddate",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DatePickerDisabledDateTemplateContext>",
             "description": "Custom template for disabled date cells."
           },
           {
             "name": "decade",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DatePickerDecadeTemplateContext>",
             "description": "Custom template for decade view."
           },
           {
             "name": "previousicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for previous month icon."
           },
           {
             "name": "nexticon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for next month icon."
           },
           {
             "name": "triggericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for trigger icon."
           },
           {
             "name": "clearicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for clear icon."
           },
           {
             "name": "decrementicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for decrement icon."
           },
           {
             "name": "incrementicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template for increment icon."
           },
           {
             "name": "inputicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DatePickerInputIconTemplateContext>",
             "description": "Custom template for input icon."
           },
           {
             "name": "buttonbar",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<DatePickerButtonBarTemplateContext>",
             "description": "Custom template for button bar."
           }
         ],
@@ -12231,58 +12268,80 @@
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
             "deprecated": ""
-          },
-          {
-            "name": "headerTemplate",
-            "type": "TemplateRef<any>",
-            "default": "-",
-            "description": "Header template.",
-            "deprecated": ""
-          },
-          {
-            "name": "contentTemplate",
-            "type": "TemplateRef<any>",
-            "default": "-",
-            "description": "Content template.",
-            "deprecated": ""
-          },
-          {
-            "name": "footerTemplate",
-            "type": "TemplateRef<any>",
-            "default": "-",
-            "description": "Footer template.",
-            "deprecated": ""
-          },
-          {
-            "name": "closeIconTemplate",
-            "type": "TemplateRef<any>",
-            "default": "-",
-            "description": "Close icon template.",
-            "deprecated": ""
-          },
-          {
-            "name": "maximizeIconTemplate",
-            "type": "TemplateRef<any>",
-            "default": "-",
-            "description": "Maximize icon template.",
-            "deprecated": ""
-          },
-          {
-            "name": "minimizeIconTemplate",
-            "type": "TemplateRef<any>",
-            "default": "-",
-            "description": "Minimize icon template.",
-            "deprecated": ""
-          },
-          {
-            "name": "headlessTemplate",
-            "type": "TemplateRef<any>",
-            "default": "-",
-            "description": "Headless template.",
-            "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "header",
+            "type": "TemplateRef<void>",
+            "description": "Header template."
+          },
+          {
+            "name": "content",
+            "type": "TemplateRef<void>",
+            "description": "Content template."
+          },
+          {
+            "name": "footer",
+            "type": "TemplateRef<void>",
+            "description": "Footer template."
+          },
+          {
+            "name": "closeicon",
+            "type": "TemplateRef<void>",
+            "description": "Close icon template."
+          },
+          {
+            "name": "maximizeicon",
+            "type": "TemplateRef<void>",
+            "description": "Maximize icon template."
+          },
+          {
+            "name": "minimizeicon",
+            "type": "TemplateRef<void>",
+            "description": "Minimize icon template."
+          },
+          {
+            "name": "headless",
+            "type": "TemplateRef<void>",
+            "description": "Headless template."
+          },
+          {
+            "name": "_header",
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
+          },
+          {
+            "name": "_content",
+            "type": "TemplateRef<void>",
+            "description": "Custom content template."
+          },
+          {
+            "name": "_footer",
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
+          },
+          {
+            "name": "_closeicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom close icon template."
+          },
+          {
+            "name": "_maximizeicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom maximize icon template."
+          },
+          {
+            "name": "_minimizeicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom minimize icon template."
+          },
+          {
+            "name": "_headless",
+            "type": "TemplateRef<void>",
+            "description": "Custom headless template."
+          }
+        ],
         "emits": [
           {
             "name": "role",
@@ -12866,7 +12925,13 @@
             "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "item",
+            "type": "TemplateRef<DockItemTemplateContext>",
+            "description": "Custom item template."
+          }
+        ],
         "emits": [
           {
             "name": "onFocus",
@@ -13396,28 +13461,28 @@
         "templates": [
           {
             "name": "header",
-            "type": "TemplateRef<any>",
-            "description": "Content template for the content of the drawer."
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
-            "description": "Header template for the header of the drawer."
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
           },
           {
             "name": "content",
-            "type": "TemplateRef<any>",
-            "description": "Content template for the footer of the drawer."
+            "type": "TemplateRef<void>",
+            "description": "Custom content template."
           },
           {
             "name": "closeicon",
-            "type": "TemplateRef<any>",
-            "description": "Close icon template for the close icon of the drawer."
+            "type": "TemplateRef<void>",
+            "description": "Custom close icon template."
           },
           {
             "name": "headless",
-            "type": "TemplateRef<any>",
-            "description": "Headless template for the headless drawer."
+            "type": "TemplateRef<void>",
+            "description": "Custom headless template to replace the entire drawer content."
           }
         ],
         "emits": [
@@ -14317,23 +14382,23 @@
         "templates": [
           {
             "name": "header",
-            "type": "TemplateRef<any>",
-            "description": "Defines the header template."
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
           },
           {
             "name": "expandicon",
-            "type": "TemplateRef<any>",
-            "description": "Defines the expandicon template."
+            "type": "TemplateRef<void>",
+            "description": "Custom expand icon template."
           },
           {
             "name": "collapseicon",
-            "type": "TemplateRef<any>",
-            "description": "Defines the collapseicon template."
+            "type": "TemplateRef<void>",
+            "description": "Custom collapse icon template."
           },
           {
             "name": "content",
-            "type": "TemplateRef<any>",
-            "description": "Defines the content template."
+            "type": "TemplateRef<void>",
+            "description": "Custom content template."
           }
         ],
         "emits": [
@@ -14939,48 +15004,48 @@
         "templates": [
           {
             "name": "file",
-            "type": "TemplateRef<any>",
-            "description": "Template for file."
+            "type": "TemplateRef<void>",
+            "description": "Custom file template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
-            "description": "Template for header."
+            "type": "TemplateRef<FileUploadHeaderTemplateContext>",
+            "description": "Custom header template."
           },
           {
             "name": "content",
-            "type": "TemplateRef<any>",
-            "description": "Template for content."
+            "type": "TemplateRef<FileUploadContentTemplateContext>",
+            "description": "Custom content template."
           },
           {
             "name": "toolbar",
-            "type": "TemplateRef<any>",
-            "description": "Template for toolbar."
+            "type": "TemplateRef<void>",
+            "description": "Custom toolbar template."
           },
           {
             "name": "chooseicon",
-            "type": "TemplateRef<any>",
-            "description": "Template for choose icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom choose icon template."
           },
           {
             "name": "filelabel",
-            "type": "TemplateRef<any>",
-            "description": "Template for file label."
+            "type": "TemplateRef<FileUploadFileLabelTemplateContext>",
+            "description": "Custom file label template."
           },
           {
             "name": "uploadicon",
-            "type": "TemplateRef<any>",
-            "description": "Template for upload icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom upload icon template."
           },
           {
             "name": "cancelicon",
-            "type": "TemplateRef<any>",
-            "description": "Template for cancel icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom cancel icon template."
           },
           {
             "name": "empty",
-            "type": "TemplateRef<any>",
-            "description": "Template for empty state."
+            "type": "TemplateRef<void>",
+            "description": "Custom empty state template."
           }
         ],
         "emits": [
@@ -16121,7 +16186,63 @@
             "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "header",
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
+          },
+          {
+            "name": "footer",
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
+          },
+          {
+            "name": "indicator",
+            "type": "TemplateRef<GalleriaIndicatorTemplateContext>",
+            "description": "Custom indicator template."
+          },
+          {
+            "name": "caption",
+            "type": "TemplateRef<GalleriaCaptionTemplateContext<any>>",
+            "description": "Custom caption template."
+          },
+          {
+            "name": "_closeicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom close icon template."
+          },
+          {
+            "name": "_previousthumbnailicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom previous thumbnail icon template."
+          },
+          {
+            "name": "_nextthumbnailicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom next thumbnail icon template."
+          },
+          {
+            "name": "_itempreviousicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom item previous icon template."
+          },
+          {
+            "name": "_itemnexticon",
+            "type": "TemplateRef<void>",
+            "description": "Custom item next icon template."
+          },
+          {
+            "name": "_item",
+            "type": "TemplateRef<GalleriaItemTemplateContext<any>>",
+            "description": "Custom item template."
+          },
+          {
+            "name": "_thumbnail",
+            "type": "TemplateRef<GalleriaThumbnailTemplateContext<any>>",
+            "description": "Custom thumbnail template."
+          }
+        ],
         "emits": [
           {
             "name": "activeIndexChange",
@@ -17134,13 +17255,13 @@
         "templates": [
           {
             "name": "left",
-            "type": "TemplateRef<any>",
-            "description": "Template for the left side."
+            "type": "TemplateRef<void>",
+            "description": "Custom left side template."
           },
           {
             "name": "right",
-            "type": "TemplateRef<any>",
-            "description": "Template for the right side."
+            "type": "TemplateRef<void>",
+            "description": "Custom right side template."
           }
         ],
         "emits": null,
@@ -17401,18 +17522,18 @@
         "templates": [
           {
             "name": "display",
-            "type": "TemplateRef<any>",
-            "description": "Display template of the element."
+            "type": "TemplateRef<void>",
+            "description": "Custom display template."
           },
           {
             "name": "content",
-            "type": "TemplateRef<any>",
-            "description": "Content template of the element."
+            "type": "TemplateRef<InplaceContentTemplateContext>",
+            "description": "Custom content template."
           },
           {
             "name": "closeicon",
-            "type": "TemplateRef<any>",
-            "description": "Close icon template of the element."
+            "type": "TemplateRef<void>",
+            "description": "Custom close icon template."
           }
         ],
         "emits": [
@@ -18171,8 +18292,8 @@
         "templates": [
           {
             "name": "clearicon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the clear icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom clear icon template."
           }
         ],
         "emits": [
@@ -18824,18 +18945,18 @@
         "templates": [
           {
             "name": "clearicon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the clear icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom clear icon template."
           },
           {
             "name": "incrementbuttonicon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the increment button icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom increment button icon template."
           },
           {
             "name": "decrementbuttonicon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the decrement button icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom decrement button icon template."
           }
         ],
         "emits": [
@@ -19258,8 +19379,8 @@
         "templates": [
           {
             "name": "input",
-            "type": "TemplateRef<any>",
-            "description": "Input template."
+            "type": "TemplateRef<InputOtpInputTemplateContext>",
+            "description": "Custom input template."
           }
         ],
         "emits": [
@@ -19533,10 +19654,10 @@
             "type": "InputSignal<InputTextPassThrough>",
             "default": "undefined",
             "description": "Used to pass attributes to DOM elements inside the InputText component.",
-            "deprecated": "use pInputTextPt instead."
+            "deprecated": "use pInputTextPT instead."
           },
           {
-            "name": "pInputTextPt",
+            "name": "pInputTextPT",
             "type": "InputSignal<InputTextPassThrough>",
             "default": "undefined",
             "description": "Used to pass attributes to DOM elements inside the InputText component.",
@@ -20802,57 +20923,57 @@
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ListboxItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "group",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ListboxGroupTemplateContext<any>>",
             "description": "Custom group template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ListboxHeaderTemplateContext<any>>",
             "description": "Custom header template."
           },
           {
             "name": "filter",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ListboxFilterTemplateContext>",
             "description": "Custom filter template."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ListboxFooterTemplateContext<any>>",
             "description": "Custom footer template."
           },
           {
             "name": "emptyfilter",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter message template."
           },
           {
             "name": "empty",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message template."
           },
           {
             "name": "filtericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           },
           {
             "name": "checkicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ListboxCheckIconTemplateContext>",
             "description": "Custom check icon template."
           },
           {
             "name": "checkmark",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ListboxCheckmarkTemplateContext>",
             "description": "Custom checkmark icon template."
           },
           {
             "name": "loader",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ListboxLoaderTemplateContext>",
             "description": "Custom loader template."
           }
         ],
@@ -21475,37 +21596,37 @@
         "templates": [
           {
             "name": "start",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for start."
           },
           {
             "name": "end",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for end."
           },
           {
             "name": "menuicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for menu icon."
           },
           {
             "name": "submenuicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for submenu icon."
           },
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for submenu icon."
+            "type": "TemplateRef<MegaMenuItemTemplateContext>",
+            "description": "Custom item template."
           },
           {
             "name": "button",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom menu button template on responsive mode."
           },
           {
             "name": "buttonicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom menu button icon template on responsive mode."
           }
         ],
@@ -22150,28 +22271,28 @@
         "templates": [
           {
             "name": "start",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for start."
           },
           {
             "name": "end",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for end."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for header."
           },
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for item."
+            "type": "TemplateRef<MenuItemTemplateContext>",
+            "description": "Custom item template."
           },
           {
             "name": "submenuheader",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for item."
+            "type": "TemplateRef<MenuSubmenuHeaderTemplateContext>",
+            "description": "Custom submenu header template."
           }
         ],
         "emits": [
@@ -22642,27 +22763,27 @@
         "templates": [
           {
             "name": "start",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for start."
           },
           {
             "name": "end",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for end."
           },
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for item."
+            "type": "TemplateRef<MenubarItemTemplateContext>",
+            "description": "Custom item template."
           },
           {
             "name": "menuicon",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for item."
+            "type": "TemplateRef<void>",
+            "description": "Defines template option for menu icon."
           },
           {
             "name": "submenuicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for submenu icon."
           }
         ],
@@ -23279,17 +23400,17 @@
         "templates": [
           {
             "name": "container",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<MessageContainerTemplateContext>",
             "description": "Custom template of the message container."
           },
           {
             "name": "icon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template of the message icon."
           },
           {
             "name": "closeicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom template of the close icon."
           }
         ],
@@ -23992,7 +24113,33 @@
             "deprecated": "since v20.0.0, use "
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "label",
+            "type": "TemplateRef<MeterGroupLabelTemplateContext>",
+            "description": "Custom label template."
+          },
+          {
+            "name": "meter",
+            "type": "TemplateRef<MeterGroupMeterTemplateContext>",
+            "description": "Custom meter template."
+          },
+          {
+            "name": "end",
+            "type": "TemplateRef<MeterGroupLabelTemplateContext>",
+            "description": "Custom end template."
+          },
+          {
+            "name": "start",
+            "type": "TemplateRef<MeterGroupLabelTemplateContext>",
+            "description": "Custom start template."
+          },
+          {
+            "name": "icon",
+            "type": "TemplateRef<MeterGroupIconTemplateContext>",
+            "description": "Custom icon template."
+          }
+        ],
         "emits": null,
         "methods": null,
         "pt": [
@@ -25858,52 +26005,52 @@
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<OrderListItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "emptymessage",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty template."
           },
           {
             "name": "emptyfiltermessage",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter template."
           },
           {
             "name": "filter",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<OrderListFilterTemplateContext>",
             "description": "Custom filter template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "moveupicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom move up icon template."
           },
           {
             "name": "movetopicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom move top icon template."
           },
           {
             "name": "movedownicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom move down icon template."
           },
           {
             "name": "movebottomicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom move bottom icon template."
           },
           {
             "name": "filtericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           }
         ],
@@ -26757,7 +26904,7 @@
         "templates": [
           {
             "name": "content",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<OverlayContentTemplateContext>",
             "description": "Content template of the component."
           }
         ],
@@ -27041,14 +27188,14 @@
           },
           {
             "name": "templateLeft",
-            "type": "TemplateRef<PaginatorState>",
+            "type": "TemplateRef<PaginatorTemplateContext>",
             "default": "-",
             "description": "Template instance to inject into the left side of the paginator.",
             "deprecated": ""
           },
           {
             "name": "templateRight",
-            "type": "TemplateRef<PaginatorState>",
+            "type": "TemplateRef<PaginatorTemplateContext>",
             "default": "-",
             "description": "Template instance to inject into the right side of the paginator.",
             "deprecated": ""
@@ -27118,7 +27265,7 @@
           },
           {
             "name": "jumpToPageItemTemplate",
-            "type": "TemplateRef<{ $implicit: any }>",
+            "type": "TemplateRef<PaginatorDropdownItemTemplateContext>",
             "default": "-",
             "description": "Template instance to inject into the jump to page dropdown item inside in the paginator.",
             "deprecated": ""
@@ -27139,7 +27286,7 @@
           },
           {
             "name": "dropdownItemTemplate",
-            "type": "TemplateRef<{ $implicit: any }>",
+            "type": "TemplateRef<PaginatorDropdownItemTemplateContext>",
             "default": "-",
             "description": "Template instance to inject into the rows per page dropdown item inside in the paginator.",
             "deprecated": ""
@@ -27162,27 +27309,27 @@
         "templates": [
           {
             "name": "dropdownicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for the dropdown icon."
           },
           {
             "name": "firstpagelinkicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for the first page link icon."
           },
           {
             "name": "previouspagelinkicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for the previous page link icon."
           },
           {
             "name": "lastpagelinkicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for the last page link icon."
           },
           {
             "name": "nextpagelinkicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template for the next page link icon."
           }
         ],
@@ -27635,22 +27782,22 @@
         "templates": [
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for header."
           },
           {
             "name": "icon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for icon."
           },
           {
             "name": "content",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for content."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Defines template option for footer."
           },
           {
@@ -28030,17 +28177,17 @@
         "templates": [
           {
             "name": "submenuicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template option of submenu icon."
           },
           {
             "name": "headericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Template option of header icon."
           },
           {
             "name": "item",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<PanelMenuItemTemplateContext>",
             "description": "Template option of item."
           }
         ],
@@ -28837,7 +28984,38 @@
             "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "content",
+            "type": "TemplateRef<void>",
+            "description": "Custom template of content."
+          },
+          {
+            "name": "footer",
+            "type": "TemplateRef<void>",
+            "description": "Custom template of footer."
+          },
+          {
+            "name": "header",
+            "type": "TemplateRef<void>",
+            "description": "Custom template of header."
+          },
+          {
+            "name": "clearicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom template of clear icon."
+          },
+          {
+            "name": "hideicon",
+            "type": "TemplateRef<PasswordIconTemplateContext>",
+            "description": "Custom template of hide icon."
+          },
+          {
+            "name": "showicon",
+            "type": "TemplateRef<PasswordIconTemplateContext>",
+            "description": "Custom template of show icon."
+          }
+        ],
         "emits": [
           {
             "name": "onFocus",
@@ -29523,97 +29701,97 @@
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<PickListItemTemplateContext>",
             "description": "Custom item template."
           },
           {
             "name": "sourceheader",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom source header template."
           },
           {
             "name": "targetheader",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom target header template."
           },
           {
             "name": "sourcefilter",
-            "type": "TemplateRef<{ options: PickListFilterOptions }>",
+            "type": "TemplateRef<PickListFilterTemplateContext>",
             "description": "Custom source filter template."
           },
           {
             "name": "targetfilter",
-            "type": "TemplateRef<{ options: PickListFilterOptions }>",
+            "type": "TemplateRef<PickListFilterTemplateContext>",
             "description": "Custom target filter template."
           },
           {
             "name": "emptymessagesource",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message when source is empty template."
           },
           {
             "name": "emptyfiltermessagesource",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter message when source is empty template."
           },
           {
             "name": "emptymessagetarget",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message when target is empty template."
           },
           {
             "name": "emptyfiltermessagetarget",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter message when target is empty template."
           },
           {
             "name": "moveupicon",
-            "type": "TemplateRef<{ $implicit: boolean }>",
+            "type": "TemplateRef<void>",
             "description": "Custom move up icon template."
           },
           {
             "name": "movetopicon",
-            "type": "TemplateRef<{ $implicit: boolean }>",
+            "type": "TemplateRef<void>",
             "description": "Custom move top icon template."
           },
           {
             "name": "movedownicon",
-            "type": "TemplateRef<{ $implicit: boolean }>",
+            "type": "TemplateRef<void>",
             "description": "Custom move down icon template."
           },
           {
             "name": "movebottomicon",
-            "type": "TemplateRef<{ $implicit: boolean }>",
+            "type": "TemplateRef<void>",
             "description": "Custom move bottom icon template."
           },
           {
             "name": "movetotargeticon",
-            "type": "TemplateRef<{ $implicit: boolean }>",
+            "type": "TemplateRef<PickListTransferIconTemplateContext>",
             "description": "Custom move to target icon template."
           },
           {
             "name": "movealltotargeticon",
-            "type": "TemplateRef<{ $implicit: boolean }>",
+            "type": "TemplateRef<PickListTransferIconTemplateContext>",
             "description": "Custom move all to target icon template."
           },
           {
             "name": "movetosourceicon",
-            "type": "TemplateRef<{ $implicit: boolean }>",
+            "type": "TemplateRef<PickListTransferIconTemplateContext>",
             "description": "Custom move to source icon template."
           },
           {
             "name": "movealltosourceicon",
-            "type": "TemplateRef<{ $implicit: boolean }>",
+            "type": "TemplateRef<PickListTransferIconTemplateContext>",
             "description": "Custom move all to source icon template."
           },
           {
             "name": "targetfiltericon",
-            "type": "TemplateRef<{ options: PickListFilterOptions }>",
+            "type": "TemplateRef<void>",
             "description": "Custom target filter icon template."
           },
           {
             "name": "sourcefiltericon",
-            "type": "TemplateRef<{ options: PickListFilterOptions }>",
+            "type": "TemplateRef<void>",
             "description": "Custom source filter icon template."
           }
         ],
@@ -30078,7 +30256,7 @@
         "templates": [
           {
             "name": "content",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<PopoverContentTemplateContext>",
             "description": "Custom content template."
           }
         ],
@@ -30361,7 +30539,13 @@
             "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "content",
+            "type": "TemplateRef<ProgressBarContentTemplateContext>",
+            "description": "Template of the content."
+          }
+        ],
         "emits": null,
         "methods": null,
         "pt": [
@@ -31315,12 +31499,12 @@
         "templates": [
           {
             "name": "onicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<RatingIconTemplateContext>",
             "description": "Custom on icon template."
           },
           {
             "name": "officon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<RatingIconTemplateContext>",
             "description": "Custom off icon template."
           }
         ],
@@ -31898,22 +32082,22 @@
         "templates": [
           {
             "name": "content",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ScrollerContentTemplateContext>",
             "description": "Content template of the component."
           },
           {
             "name": "item",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ScrollerItemTemplateContext>",
             "description": "Item template of the component."
           },
           {
             "name": "loader",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ScrollerLoaderTemplateContext>",
             "description": "Loader template of the component."
           },
           {
             "name": "loadericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ScrollerLoaderIconTemplateContext>",
             "description": "Loader icon template of the component."
           }
         ],
@@ -32101,8 +32285,8 @@
         "templates": [
           {
             "name": "content",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for content."
+            "type": "TemplateRef<void>",
+            "description": "Custom content template."
           }
         ],
         "emits": null,
@@ -32381,8 +32565,8 @@
         "templates": [
           {
             "name": "icon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the icon."
+            "type": "TemplateRef<ScrollTopIconTemplateContext>",
+            "description": "Custom icon template."
           }
         ],
         "emits": null,
@@ -34134,8 +34318,8 @@
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Template of an item in the list."
+            "type": "TemplateRef<SelectButtonItemTemplateContext>",
+            "description": "Custom item template."
           }
         ],
         "emits": [
@@ -35076,18 +35260,18 @@
         "templates": [
           {
             "name": "button",
-            "type": "TemplateRef<any>",
-            "description": "Template of the button."
+            "type": "TemplateRef<SpeedDialButtonTemplateContext>",
+            "description": "Custom button template."
           },
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Template of the item."
+            "type": "TemplateRef<SpeedDialItemTemplateContext>",
+            "description": "Custom item template."
           },
           {
             "name": "icon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the item."
+            "type": "TemplateRef<void>",
+            "description": "Custom icon template."
           }
         ],
         "emits": [
@@ -35608,13 +35792,13 @@
         "templates": [
           {
             "name": "content",
-            "type": "TemplateRef<any>",
-            "description": "Template of the content."
+            "type": "TemplateRef<void>",
+            "description": "Custom content template."
           },
           {
             "name": "dropdownicon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the dropdownicon."
+            "type": "TemplateRef<void>",
+            "description": "Custom dropdown icon template."
           }
         ],
         "emits": [
@@ -38974,7 +39158,13 @@
             "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "icon",
+            "type": "TemplateRef<void>",
+            "description": "Custom icon template."
+          }
+        ],
         "emits": null,
         "methods": null,
         "pt": [
@@ -39520,7 +39710,7 @@
             "deprecated": ""
           },
           {
-            "name": "pTextareaPt",
+            "name": "pTextareaPT",
             "type": "InputSignal<TextareaPassThrough>",
             "default": "undefined",
             "description": "Used to pass attributes to DOM elements inside the Textarea component.",
@@ -39979,13 +40169,13 @@
         "templates": [
           {
             "name": "submenuicon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the submenu icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom submenu icon template."
           },
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Template of the item."
+            "type": "TemplateRef<TieredMenuItemTemplateContext>",
+            "description": "Custom item template."
           }
         ],
         "emits": [
@@ -40428,17 +40618,17 @@
         "templates": [
           {
             "name": "content",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<TimelineItemTemplateContext<any>>",
             "description": "Custom content template."
           },
           {
             "name": "opposite",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<TimelineItemTemplateContext<any>>",
             "description": "Custom opposite item template."
           },
           {
             "name": "marker",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<TimelineItemTemplateContext<any>>",
             "description": "Custom marker template."
           }
         ],
@@ -40858,12 +41048,12 @@
         "templates": [
           {
             "name": "template",
-            "type": "TemplateRef<any>",
-            "description": "Custom template of message."
+            "type": "TemplateRef<ToastMessageTemplateContext>",
+            "description": "Custom message template."
           },
           {
             "name": "headless",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ToastHeadlessTemplateContext>",
             "description": "Custom headless template."
           }
         ],
@@ -41587,12 +41777,12 @@
         "templates": [
           {
             "name": "icon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ToggleButtonIconTemplateContext>",
             "description": "Custom icon template."
           },
           {
             "name": "content",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<ToggleButtonContentTemplateContext>",
             "description": "Custom content template."
           }
         ],
@@ -42061,8 +42251,8 @@
         "templates": [
           {
             "name": "handle",
-            "type": "TemplateRef<any>",
-            "description": "Callback to invoke when the on value change."
+            "type": "TemplateRef<ToggleSwitchHandleTemplateContext>",
+            "description": "Custom handle template."
           }
         ],
         "emits": [
@@ -42384,18 +42574,18 @@
         "templates": [
           {
             "name": "start",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for start."
+            "type": "TemplateRef<void>",
+            "description": "Custom start template."
           },
           {
             "name": "end",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for end."
+            "type": "TemplateRef<void>",
+            "description": "Custom end template."
           },
           {
             "name": "center",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for center."
+            "type": "TemplateRef<void>",
+            "description": "Custom center template."
           }
         ],
         "emits": null,
@@ -42721,10 +42911,10 @@
             "type": "InputSignal<TooltipPassThrough>",
             "default": "undefined",
             "description": "Used to pass attributes to DOM elements inside the Tooltip component.",
-            "deprecated": "use pTooltipPt instead."
+            "deprecated": "use pTooltipPT instead."
           },
           {
-            "name": "pTooltipPt",
+            "name": "pTooltipPT",
             "type": "InputSignal<TooltipPassThrough>",
             "default": "undefined",
             "description": "Used to pass attributes to DOM elements inside the Tooltip component.",
@@ -43035,6 +43225,13 @@
             "deprecated": ""
           },
           {
+            "name": "contextMenuSelection",
+            "type": "ModelSignal<TreeNode<any>>",
+            "default": "...",
+            "description": "Selected node with a context menu.",
+            "deprecated": ""
+          },
+          {
             "name": "draggableScope",
             "type": "any",
             "default": "-",
@@ -43255,53 +43452,53 @@
         "templates": [
           {
             "name": "filter",
-            "type": "TemplateRef<any>",
-            "description": "Filter template."
+            "type": "TemplateRef<TreeFilterTemplateContext>",
+            "description": "Custom filter template."
           },
           {
             "name": "node",
             "type": "TemplateRef<any>",
-            "description": "Node template."
+            "description": "Custom node template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
-            "description": "Header template."
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
-            "description": "Footer template."
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
           },
           {
             "name": "loader",
-            "type": "TemplateRef<any>",
-            "description": "Loader template."
+            "type": "TemplateRef<TreeLoaderTemplateContext>",
+            "description": "Custom loader template."
           },
           {
             "name": "empty",
-            "type": "TemplateRef<any>",
-            "description": "Empty message template."
+            "type": "TemplateRef<void>",
+            "description": "Custom empty message template."
           },
           {
             "name": "togglericon",
-            "type": "TemplateRef<any>",
-            "description": "Toggler icon template."
+            "type": "TemplateRef<TreeTogglerIconTemplateContext>",
+            "description": "Custom toggler icon template."
           },
           {
             "name": "checkboxicon",
-            "type": "TemplateRef<any>",
-            "description": "Checkbox icon template."
+            "type": "TemplateRef<TreeCheckboxIconTemplateContext>",
+            "description": "Custom checkbox icon template."
           },
           {
             "name": "loadingicon",
-            "type": "TemplateRef<any>",
-            "description": "Loading icon template."
+            "type": "TemplateRef<void>",
+            "description": "Custom loading icon template."
           },
           {
             "name": "filtericon",
-            "type": "TemplateRef<any>",
-            "description": "Filter icon template."
+            "type": "TemplateRef<void>",
+            "description": "Custom filter icon template."
           }
         ],
         "emits": [
@@ -44324,6 +44521,13 @@
             "deprecated": ""
           },
           {
+            "name": "loadingMode",
+            "type": "\"icon\" | \"mask\"",
+            "default": "mask",
+            "description": "Loading mode display.",
+            "deprecated": ""
+          },
+          {
             "name": "size",
             "type": "InputSignal<\"small\" | \"large\">",
             "default": "undefined",
@@ -44362,62 +44566,62 @@
         "templates": [
           {
             "name": "value",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<TreeSelectValueTemplateContext>",
             "description": "Custom value template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<TreeSelectHeaderTemplateContext>",
             "description": "Custom header template."
           },
           {
             "name": "empty",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message template."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<TreeSelectHeaderTemplateContext>",
             "description": "Custom footer template."
           },
           {
             "name": "clearicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom clear icon template."
           },
           {
             "name": "triggericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom trigger icon template."
           },
           {
             "name": "dropdownicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom dropdown icon template."
           },
           {
             "name": "filtericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           },
           {
             "name": "closeicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom close icon template."
           },
           {
             "name": "itemtogglericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<TreeSelectItemTogglerIconTemplateContext>",
             "description": "Custom item toggler icon template."
           },
           {
             "name": "itemcheckboxicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<TreeSelectItemCheckboxIconTemplateContext>",
             "description": "Custom item checkbox icon template."
           },
           {
             "name": "itemloadingicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom item loading icon template."
           }
         ],

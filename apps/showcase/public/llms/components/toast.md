@@ -581,8 +581,8 @@ Toast is used to display messages in an overlay.
 
 | Name | Type | Description |
 |------|------|-------------|
-| template | TemplateRef<any> | Custom template of message. |
-| headless | TemplateRef<any> | Custom headless template. |
+| template | TemplateRef<ToastMessageTemplateContext> | Custom message template. |
+| headless | TemplateRef<ToastHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 

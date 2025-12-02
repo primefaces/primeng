@@ -289,16 +289,16 @@ OrderList is used to manage the order of a collection.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| emptymessage | TemplateRef<any> | Custom empty template. |
-| emptyfiltermessage | TemplateRef<any> | Custom empty filter template. |
-| filter | TemplateRef<any> | Custom filter template. |
-| header | TemplateRef<any> | Custom header template. |
-| moveupicon | TemplateRef<any> | Custom move up icon template. |
-| movetopicon | TemplateRef<any> | Custom move top icon template. |
-| movedownicon | TemplateRef<any> | Custom move down icon template. |
-| movebottomicon | TemplateRef<any> | Custom move bottom icon template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
+| item | TemplateRef<OrderListItemTemplateContext> | Custom item template. |
+| emptymessage | TemplateRef<void> | Custom empty template. |
+| emptyfiltermessage | TemplateRef<void> | Custom empty filter template. |
+| filter | TemplateRef<OrderListFilterTemplateContext> | Custom filter template. |
+| header | TemplateRef<void> | Custom header template. |
+| moveupicon | TemplateRef<void> | Custom move up icon template. |
+| movetopicon | TemplateRef<void> | Custom move top icon template. |
+| movedownicon | TemplateRef<void> | Custom move down icon template. |
+| movebottomicon | TemplateRef<void> | Custom move bottom icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 

@@ -121,10 +121,10 @@ Fieldset is a grouping component with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Defines the header template. |
-| expandicon | TemplateRef<any> | Defines the expandicon template. |
-| collapseicon | TemplateRef<any> | Defines the collapseicon template. |
-| content | TemplateRef<any> | Defines the content template. |
+| header | TemplateRef<void> | Custom header template. |
+| expandicon | TemplateRef<void> | Custom expand icon template. |
+| collapseicon | TemplateRef<void> | Custom collapse icon template. |
+| content | TemplateRef<void> | Custom content template. |
 
 ## Pass Through Options
 

@@ -583,6 +583,17 @@ Password displays strength indicator for password fields.
 | onBlur | event: Event | Callback to invoke when the component loses focus. |
 | onClear | value: any | Callback to invoke when clear button is clicked. |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<void> | Custom template of content. |
+| footer | TemplateRef<void> | Custom template of footer. |
+| header | TemplateRef<void> | Custom template of header. |
+| clearicon | TemplateRef<void> | Custom template of clear icon. |
+| hideicon | TemplateRef<PasswordIconTemplateContext> | Custom template of hide icon. |
+| showicon | TemplateRef<PasswordIconTemplateContext> | Custom template of show icon. |
+
 ## Pass Through Options
 
 | Name | Type | Description |

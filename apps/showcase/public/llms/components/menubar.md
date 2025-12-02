@@ -299,11 +299,11 @@ Menubar is a horizontal menu component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| item | TemplateRef<any> | Defines template option for item. |
-| menuicon | TemplateRef<any> | Defines template option for item. |
-| submenuicon | TemplateRef<any> | Defines template option for submenu icon. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| item | TemplateRef<MenubarItemTemplateContext> | Custom item template. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
 
 ## Pass Through Options
 

@@ -101,9 +101,9 @@ Toolbar is a grouping component for buttons and other content.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| center | TemplateRef<any> | Defines template option for center. |
+| start | TemplateRef<void> | Custom start template. |
+| end | TemplateRef<void> | Custom end template. |
+| center | TemplateRef<void> | Custom center template. |
 
 ## Pass Through Options
 

@@ -177,6 +177,15 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | appendTo | InputSignal<any> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<ConfirmPopupContentTemplateContext> | Custom content template. |
+| accepticon | TemplateRef<void> | Custom accept icon template. |
+| rejecticon | TemplateRef<void> | Custom reject icon template. |
+| headless | TemplateRef<ConfirmPopupHeadlessTemplateContext> | Custom headless template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |

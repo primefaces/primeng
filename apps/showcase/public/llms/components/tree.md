@@ -691,6 +691,7 @@ Tree is used to display hierarchical data.
 | selection | any | - | A single treenode instance or an array to refer to the selections. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | contextMenu | any | - | Context menu instance. |
+| contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
 | draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
 | droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
 | draggableNodes | boolean | false | Whether the nodes are draggable. |
@@ -744,16 +745,16 @@ Tree is used to display hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| filter | TemplateRef<any> | Filter template. |
-| node | TemplateRef<any> | Node template. |
-| header | TemplateRef<any> | Header template. |
-| footer | TemplateRef<any> | Footer template. |
-| loader | TemplateRef<any> | Loader template. |
-| empty | TemplateRef<any> | Empty message template. |
-| togglericon | TemplateRef<any> | Toggler icon template. |
-| checkboxicon | TemplateRef<any> | Checkbox icon template. |
-| loadingicon | TemplateRef<any> | Loading icon template. |
-| filtericon | TemplateRef<any> | Filter icon template. |
+| filter | TemplateRef<TreeFilterTemplateContext> | Custom filter template. |
+| node | TemplateRef<any> | Custom node template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| loader | TemplateRef<TreeLoaderTemplateContext> | Custom loader template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| togglericon | TemplateRef<TreeTogglerIconTemplateContext> | Custom toggler icon template. |
+| checkboxicon | TemplateRef<TreeCheckboxIconTemplateContext> | Custom checkbox icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 

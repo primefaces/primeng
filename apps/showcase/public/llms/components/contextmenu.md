@@ -475,8 +475,8 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Defines template option for item. |
-| submenuicon | TemplateRef<any> | Defines template option for submenuIcon. |
+| item | TemplateRef<ContextMenuItemTemplateContext> | Custom item template. |
+| submenuicon | TemplateRef<ContextMenuSubmenuIconTemplateContext> | Custom submenu icon template. |
 
 ## Pass Through Options
 

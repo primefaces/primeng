@@ -391,7 +391,7 @@ Input Otp is used to enter one time passwords.
 
 | Name | Type | Description |
 |------|------|-------------|
-| input | TemplateRef<any> | Input template. |
+| input | TemplateRef<InputOtpInputTemplateContext> | Custom input template. |
 
 ## Pass Through Options
 

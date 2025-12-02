@@ -161,6 +161,12 @@ Tag component is used to categorize content.
 | icon | string | - | Icon of the tag to display next to the value. |
 | rounded | boolean | false | Whether the corners of the tag are rounded. |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| icon | TemplateRef<void> | Custom icon template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |

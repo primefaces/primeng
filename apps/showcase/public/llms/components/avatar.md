@@ -302,6 +302,10 @@ Avatar represents people using icons, labels and images.
 | p-avatar | Class name of the root element |
 | p-avatar-label | Class name of the label element |
 | p-avatar-icon | Class name of the icon element |
+| p-avatar-image | Container element in image mode |
+| p-avatar-circle | Container element with a circle shape |
+| p-avatar-lg | Container element with a large size |
+| p-avatar-xl | Container element with an xlarge size |
 
 ### Design Tokens
 

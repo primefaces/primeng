@@ -405,13 +405,13 @@ MegaMenu is navigation component that displays submenus together.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| menuicon | TemplateRef<any> | Defines template option for menu icon. |
-| submenuicon | TemplateRef<any> | Defines template option for submenu icon. |
-| item | TemplateRef<any> | Defines template option for submenu icon. |
-| button | TemplateRef<any> | Custom menu button template on responsive mode. |
-| buttonicon | TemplateRef<any> | Custom menu button icon template on responsive mode. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
+| item | TemplateRef<MegaMenuItemTemplateContext> | Custom item template. |
+| button | TemplateRef<void> | Custom menu button template on responsive mode. |
+| buttonicon | TemplateRef<void> | Custom menu button icon template on responsive mode. |
 
 ## Pass Through Options
 

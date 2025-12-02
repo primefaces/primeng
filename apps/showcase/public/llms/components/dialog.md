@@ -548,13 +548,6 @@ Dialog is a container to display content in an overlay window.
 | style | any | - | Inline style of the component. |
 | position | "right" \| "left" \| "top" \| "bottom" \| "center" \| "topleft" \| "bottomleft" \| "topright" \| "bottomright" | - | Position of the dialog. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| headerTemplate | TemplateRef<any> | - | Header template. |
-| contentTemplate | TemplateRef<any> | - | Content template. |
-| footerTemplate | TemplateRef<any> | - | Footer template. |
-| closeIconTemplate | TemplateRef<any> | - | Close icon template. |
-| maximizeIconTemplate | TemplateRef<any> | - | Maximize icon template. |
-| minimizeIconTemplate | TemplateRef<any> | - | Minimize icon template. |
-| headlessTemplate | TemplateRef<any> | - | Headless template. |
 
 ### Emits
 
@@ -568,6 +561,25 @@ Dialog is a container to display content in an overlay window.
 | onResizeEnd | event: MouseEvent | Callback to invoke when dialog resizing is completed. |
 | onDragEnd | event: DragEvent | Callback to invoke when dialog dragging is completed. |
 | onMaximize | value: any | Callback to invoke when dialog maximized or unmaximized. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Header template. |
+| content | TemplateRef<void> | Content template. |
+| footer | TemplateRef<void> | Footer template. |
+| closeicon | TemplateRef<void> | Close icon template. |
+| maximizeicon | TemplateRef<void> | Maximize icon template. |
+| minimizeicon | TemplateRef<void> | Minimize icon template. |
+| headless | TemplateRef<void> | Headless template. |
+| _header | TemplateRef<void> | Custom header template. |
+| _content | TemplateRef<void> | Custom content template. |
+| _footer | TemplateRef<void> | Custom footer template. |
+| _closeicon | TemplateRef<void> | Custom close icon template. |
+| _maximizeicon | TemplateRef<void> | Custom maximize icon template. |
+| _minimizeicon | TemplateRef<void> | Custom minimize icon template. |
+| _headless | TemplateRef<void> | Custom headless template. |
 
 ## Pass Through Options
 

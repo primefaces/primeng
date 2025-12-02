@@ -562,9 +562,9 @@ PanelMenu is a hybrid of Accordion and Tree components.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | TemplateRef<any> | Template option of submenu icon. |
-| headericon | TemplateRef<any> | Template option of header icon. |
-| item | TemplateRef<any> | Template option of item. |
+| submenuicon | TemplateRef<void> | Template option of submenu icon. |
+| headericon | TemplateRef<void> | Template option of header icon. |
+| item | TemplateRef<PanelMenuItemTemplateContext> | Template option of item. |
 
 ### Methods
 

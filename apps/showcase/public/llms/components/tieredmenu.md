@@ -447,8 +447,8 @@ TieredMenu displays submenus in nested overlays.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | TemplateRef<any> | Template of the submenu icon. |
-| item | TemplateRef<any> | Template of the item. |
+| submenuicon | TemplateRef<void> | Custom submenu icon template. |
+| item | TemplateRef<TieredMenuItemTemplateContext> | Custom item template. |
 
 ### Methods
 

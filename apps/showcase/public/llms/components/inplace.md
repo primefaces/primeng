@@ -260,9 +260,9 @@ Inplace provides an easy to do editing and display at the same time where clicki
 
 | Name | Type | Description |
 |------|------|-------------|
-| display | TemplateRef<any> | Display template of the element. |
-| content | TemplateRef<any> | Content template of the element. |
-| closeicon | TemplateRef<any> | Close icon template of the element. |
+| display | TemplateRef<void> | Custom display template. |
+| content | TemplateRef<InplaceContentTemplateContext> | Custom content template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
 
 ### Methods
 

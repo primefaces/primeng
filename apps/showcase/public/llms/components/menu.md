@@ -393,11 +393,11 @@ Menu is a navigation / command component that supports dynamic and static positi
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| header | TemplateRef<any> | Defines template option for header. |
-| item | TemplateRef<any> | Defines template option for item. |
-| submenuheader | TemplateRef<any> | Defines template option for item. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| header | TemplateRef<void> | Defines template option for header. |
+| item | TemplateRef<MenuItemTemplateContext> | Custom item template. |
+| submenuheader | TemplateRef<MenuSubmenuHeaderTemplateContext> | Custom submenu header template. |
 
 ### Methods
 

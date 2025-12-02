@@ -604,6 +604,22 @@ Galleria is an advanced content gallery component.
 | activeIndexChange | value: number | Callback to invoke on active index change. |
 | visibleChange | value: boolean | Callback to invoke on visiblity change. |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| indicator | TemplateRef<GalleriaIndicatorTemplateContext> | Custom indicator template. |
+| caption | TemplateRef<GalleriaCaptionTemplateContext<any>> | Custom caption template. |
+| _closeicon | TemplateRef<void> | Custom close icon template. |
+| _previousthumbnailicon | TemplateRef<void> | Custom previous thumbnail icon template. |
+| _nextthumbnailicon | TemplateRef<void> | Custom next thumbnail icon template. |
+| _itempreviousicon | TemplateRef<void> | Custom item previous icon template. |
+| _itemnexticon | TemplateRef<void> | Custom item next icon template. |
+| _item | TemplateRef<GalleriaItemTemplateContext<any>> | Custom item template. |
+| _thumbnail | TemplateRef<GalleriaThumbnailTemplateContext<any>> | Custom thumbnail template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |

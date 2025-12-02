@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2025-12-02T15:50:56.777Z
+Generated: 2025-12-02T17:21:28.373Z
 
 ---
 
@@ -3774,6 +3774,10 @@ Avatar represents people using icons, labels and images.
 | p-avatar | Class name of the root element |
 | p-avatar-label | Class name of the label element |
 | p-avatar-icon | Class name of the icon element |
+| p-avatar-image | Container element in image mode |
+| p-avatar-circle | Container element with a circle shape |
+| p-avatar-lg | Container element with a large size |
+| p-avatar-xl | Container element with an xlarge size |
 
 ### Design Tokens
 
@@ -4013,7 +4017,7 @@ Badge Directive is directive usage of badge component.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | ptBadgeDirective | InputSignal<BadgePassThrough> | undefined | Used to pass attributes to DOM elements inside the Badge component. **(Deprecated)** |
-| pBadgePt | InputSignal<BadgePassThrough> | undefined | Used to pass attributes to DOM elements inside the Badge component. |
+| pBadgePT | InputSignal<BadgePassThrough> | undefined | Used to pass attributes to DOM elements inside the Badge component. |
 | pBadgeUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | disabled | boolean | false | When specified, disables the component. |
 | badgeSize | "small" \| "large" \| "xlarge" | - | Size of the badge, valid options are "large" and "xlarge". |
@@ -5052,7 +5056,7 @@ Button directive is an extension to button component.
 | pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | ptButtonDirective | InputSignal<ButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the Button component. **(Deprecated)** |
-| pButtonPt | InputSignal<ButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the Button component. |
+| pButtonPT | InputSignal<ButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the Button component. |
 | pButtonUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | text | boolean | false | Add a textual class to the button without a background initially. |
 | plain | boolean | false | Add a plain textual class to the button without a background initially. |
@@ -10787,6 +10791,15 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | appendTo | InputSignal<any> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<ConfirmPopupContentTemplateContext> | Custom content template. |
+| accepticon | TemplateRef<void> | Custom accept icon template. |
+| rejecticon | TemplateRef<void> | Custom reject icon template. |
+| headless | TemplateRef<ConfirmPopupHeadlessTemplateContext> | Custom headless template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |
@@ -11332,8 +11345,8 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Defines template option for item. |
-| submenuicon | TemplateRef<any> | Defines template option for submenuIcon. |
+| item | TemplateRef<ContextMenuItemTemplateContext> | Custom item template. |
+| submenuicon | TemplateRef<ContextMenuSubmenuIconTemplateContext> | Custom submenu icon template. |
 
 ## Pass Through Options
 
@@ -12243,17 +12256,17 @@ DataView displays data in grid or list layout with pagination and sorting featur
 
 | Name | Type | Description |
 |------|------|-------------|
-| list | TemplateRef<any> | Template for the list layout. |
-| grid | TemplateRef<any> | Template for grid layout. |
-| header | TemplateRef<any> | Template for the header section. |
-| emptymessage | TemplateRef<any> | Template for the empty message section. |
-| footer | TemplateRef<any> | Template for the footer section. |
-| paginatorleft | TemplateRef<any> | Template for the left side of paginator. |
-| paginatorright | TemplateRef<any> | r* Template for the right side of paginator. |
-| paginatordropdownitem | TemplateRef<any> | Template for items in paginator dropdown. |
-| loadingicon | TemplateRef<any> | Template for loading icon. |
-| listicon | TemplateRef<any> | Template for list icon. |
-| gridicon | TemplateRef<any> | Template for grid icon. |
+| list | TemplateRef<DataViewListTemplateContext<any>> | Template for the list layout. |
+| grid | TemplateRef<DataViewGridTemplateContext<any>> | Template for grid layout. |
+| header | TemplateRef<void> | Template for the header section. |
+| emptymessage | TemplateRef<void> | Template for the empty message section. |
+| footer | TemplateRef<void> | Template for the footer section. |
+| paginatorleft | TemplateRef<DataViewPaginatorLeftTemplateContext> | Template for the left side of paginator. |
+| paginatorright | TemplateRef<DataViewPaginatorRightTemplateContext> | Template for the right side of paginator. |
+| paginatordropdownitem | TemplateRef<DataViewPaginatorDropdownItemTemplateContext> | Template for items in paginator dropdown. |
+| loadingicon | TemplateRef<void> | Template for loading icon. |
+| listicon | TemplateRef<void> | Template for list icon. |
+| gridicon | TemplateRef<void> | Template for grid icon. |
 
 ## Pass Through Options
 
@@ -13345,19 +13358,19 @@ DatePicker is a form component to work with dates.
 
 | Name | Type | Description |
 |------|------|-------------|
-| date | TemplateRef<any> | Custom template for date cells. |
-| header | TemplateRef<any> | Custom template for header section. |
-| footer | TemplateRef<any> | Custom template for footer section. |
-| disableddate | TemplateRef<any> | Custom template for disabled date cells. |
-| decade | TemplateRef<any> | Custom template for decade view. |
-| previousicon | TemplateRef<any> | Custom template for previous month icon. |
-| nexticon | TemplateRef<any> | Custom template for next month icon. |
-| triggericon | TemplateRef<any> | Custom template for trigger icon. |
-| clearicon | TemplateRef<any> | Custom template for clear icon. |
-| decrementicon | TemplateRef<any> | Custom template for decrement icon. |
-| incrementicon | TemplateRef<any> | Custom template for increment icon. |
-| inputicon | TemplateRef<any> | Custom template for input icon. |
-| buttonbar | TemplateRef<any> | Custom template for button bar. |
+| date | TemplateRef<DatePickerDateTemplateContext> | Custom template for date cells. |
+| header | TemplateRef<void> | Custom template for header section. |
+| footer | TemplateRef<void> | Custom template for footer section. |
+| disableddate | TemplateRef<DatePickerDisabledDateTemplateContext> | Custom template for disabled date cells. |
+| decade | TemplateRef<DatePickerDecadeTemplateContext> | Custom template for decade view. |
+| previousicon | TemplateRef<void> | Custom template for previous month icon. |
+| nexticon | TemplateRef<void> | Custom template for next month icon. |
+| triggericon | TemplateRef<void> | Custom template for trigger icon. |
+| clearicon | TemplateRef<void> | Custom template for clear icon. |
+| decrementicon | TemplateRef<void> | Custom template for decrement icon. |
+| incrementicon | TemplateRef<void> | Custom template for increment icon. |
+| inputicon | TemplateRef<DatePickerInputIconTemplateContext> | Custom template for input icon. |
+| buttonbar | TemplateRef<DatePickerButtonBarTemplateContext> | Custom template for button bar. |
 
 ## Pass Through Options
 
@@ -14130,13 +14143,6 @@ Dialog is a container to display content in an overlay window.
 | style | any | - | Inline style of the component. |
 | position | "right" \| "left" \| "top" \| "bottom" \| "center" \| "topleft" \| "bottomleft" \| "topright" \| "bottomright" | - | Position of the dialog. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| headerTemplate | TemplateRef<any> | - | Header template. |
-| contentTemplate | TemplateRef<any> | - | Content template. |
-| footerTemplate | TemplateRef<any> | - | Footer template. |
-| closeIconTemplate | TemplateRef<any> | - | Close icon template. |
-| maximizeIconTemplate | TemplateRef<any> | - | Maximize icon template. |
-| minimizeIconTemplate | TemplateRef<any> | - | Minimize icon template. |
-| headlessTemplate | TemplateRef<any> | - | Headless template. |
 
 ### Emits
 
@@ -14150,6 +14156,25 @@ Dialog is a container to display content in an overlay window.
 | onResizeEnd | event: MouseEvent | Callback to invoke when dialog resizing is completed. |
 | onDragEnd | event: DragEvent | Callback to invoke when dialog dragging is completed. |
 | onMaximize | value: any | Callback to invoke when dialog maximized or unmaximized. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Header template. |
+| content | TemplateRef<void> | Content template. |
+| footer | TemplateRef<void> | Footer template. |
+| closeicon | TemplateRef<void> | Close icon template. |
+| maximizeicon | TemplateRef<void> | Maximize icon template. |
+| minimizeicon | TemplateRef<void> | Minimize icon template. |
+| headless | TemplateRef<void> | Headless template. |
+| _header | TemplateRef<void> | Custom header template. |
+| _content | TemplateRef<void> | Custom content template. |
+| _footer | TemplateRef<void> | Custom footer template. |
+| _closeicon | TemplateRef<void> | Custom close icon template. |
+| _maximizeicon | TemplateRef<void> | Custom maximize icon template. |
+| _minimizeicon | TemplateRef<void> | Custom minimize icon template. |
+| _headless | TemplateRef<void> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -14953,6 +14978,12 @@ Dock is a navigation component consisting of menuitems.
 |------|------------|-------------|
 | onFocus | event: FocusEvent | Callback to execute when button is focused. |
 | onBlur | event: FocusEvent | Callback to invoke when the component loses focus. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| item | TemplateRef<DockItemTemplateContext> | Custom item template. |
 
 ## Pass Through Options
 
@@ -15965,11 +15996,11 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Content template for the content of the drawer. |
-| footer | TemplateRef<any> | Header template for the header of the drawer. |
-| content | TemplateRef<any> | Content template for the footer of the drawer. |
-| closeicon | TemplateRef<any> | Close icon template for the close icon of the drawer. |
-| headless | TemplateRef<any> | Headless template for the headless drawer. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| content | TemplateRef<void> | Custom content template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| headless | TemplateRef<void> | Custom headless template to replace the entire drawer content. |
 
 ## Pass Through Options
 
@@ -16761,10 +16792,10 @@ Fieldset is a grouping component with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Defines the header template. |
-| expandicon | TemplateRef<any> | Defines the expandicon template. |
-| collapseicon | TemplateRef<any> | Defines the collapseicon template. |
-| content | TemplateRef<any> | Defines the content template. |
+| header | TemplateRef<void> | Custom header template. |
+| expandicon | TemplateRef<void> | Custom expand icon template. |
+| collapseicon | TemplateRef<void> | Custom collapse icon template. |
+| content | TemplateRef<void> | Custom content template. |
 
 ## Pass Through Options
 
@@ -17205,15 +17236,15 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 
 | Name | Type | Description |
 |------|------|-------------|
-| file | TemplateRef<any> | Template for file. |
-| header | TemplateRef<any> | Template for header. |
-| content | TemplateRef<any> | Template for content. |
-| toolbar | TemplateRef<any> | Template for toolbar. |
-| chooseicon | TemplateRef<any> | Template for choose icon. |
-| filelabel | TemplateRef<any> | Template for file label. |
-| uploadicon | TemplateRef<any> | Template for upload icon. |
-| cancelicon | TemplateRef<any> | Template for cancel icon. |
-| empty | TemplateRef<any> | Template for empty state. |
+| file | TemplateRef<void> | Custom file template. |
+| header | TemplateRef<FileUploadHeaderTemplateContext> | Custom header template. |
+| content | TemplateRef<FileUploadContentTemplateContext> | Custom content template. |
+| toolbar | TemplateRef<void> | Custom toolbar template. |
+| chooseicon | TemplateRef<void> | Custom choose icon template. |
+| filelabel | TemplateRef<FileUploadFileLabelTemplateContext> | Custom file label template. |
+| uploadicon | TemplateRef<void> | Custom upload icon template. |
+| cancelicon | TemplateRef<void> | Custom cancel icon template. |
+| empty | TemplateRef<void> | Custom empty state template. |
 
 ### Methods
 
@@ -18335,6 +18366,22 @@ Galleria is an advanced content gallery component.
 | activeIndexChange | value: number | Callback to invoke on active index change. |
 | visibleChange | value: boolean | Callback to invoke on visiblity change. |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| indicator | TemplateRef<GalleriaIndicatorTemplateContext> | Custom indicator template. |
+| caption | TemplateRef<GalleriaCaptionTemplateContext<any>> | Custom caption template. |
+| _closeicon | TemplateRef<void> | Custom close icon template. |
+| _previousthumbnailicon | TemplateRef<void> | Custom previous thumbnail icon template. |
+| _nextthumbnailicon | TemplateRef<void> | Custom next thumbnail icon template. |
+| _itempreviousicon | TemplateRef<void> | Custom item previous icon template. |
+| _itemnexticon | TemplateRef<void> | Custom item next icon template. |
+| _item | TemplateRef<GalleriaItemTemplateContext<any>> | Custom item template. |
+| _thumbnail | TemplateRef<GalleriaThumbnailTemplateContext<any>> | Custom thumbnail template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |
@@ -18935,8 +18982,8 @@ Compare two images side by side with a slider.
 
 | Name | Type | Description |
 |------|------|-------------|
-| left | TemplateRef<any> | Template for the left side. |
-| right | TemplateRef<any> | Template for the right side. |
+| left | TemplateRef<void> | Custom left side template. |
+| right | TemplateRef<void> | Custom right side template. |
 
 ## Pass Through Options
 
@@ -19276,9 +19323,9 @@ Inplace provides an easy to do editing and display at the same time where clicki
 
 | Name | Type | Description |
 |------|------|-------------|
-| display | TemplateRef<any> | Display template of the element. |
-| content | TemplateRef<any> | Content template of the element. |
-| closeicon | TemplateRef<any> | Close icon template of the element. |
+| display | TemplateRef<void> | Custom display template. |
+| content | TemplateRef<InplaceContentTemplateContext> | Custom content template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
 
 ### Methods
 
@@ -20276,7 +20323,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | TemplateRef<any> | Template of the clear icon. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
 
 ## Pass Through Options
 
@@ -21036,9 +21083,9 @@ InputNumber is an input component to provide numerical input.
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | TemplateRef<any> | Template of the clear icon. |
-| incrementbuttonicon | TemplateRef<any> | Template of the increment button icon. |
-| decrementbuttonicon | TemplateRef<any> | Template of the decrement button icon. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| incrementbuttonicon | TemplateRef<void> | Custom increment button icon template. |
+| decrementbuttonicon | TemplateRef<void> | Custom decrement button icon template. |
 
 ## Pass Through Options
 
@@ -21506,7 +21553,7 @@ Input Otp is used to enter one time passwords.
 
 | Name | Type | Description |
 |------|------|-------------|
-| input | TemplateRef<any> | Input template. |
+| input | TemplateRef<InputOtpInputTemplateContext> | Custom input template. |
 
 ## Pass Through Options
 
@@ -22058,7 +22105,7 @@ InputText directive is an extension to standard input element with theming.
 | pt | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | ptInputText | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. **(Deprecated)** |
-| pInputTextPt | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
+| pInputTextPT | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
 | pInputTextUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pSize | "small" \| "large" | - | Defines the size of the component. |
 | variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
@@ -23555,17 +23602,17 @@ ListBox is used to select one or more values from a list of items.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| group | TemplateRef<any> | Custom group template. |
-| header | TemplateRef<any> | Custom header template. |
-| filter | TemplateRef<any> | Custom filter template. |
-| footer | TemplateRef<any> | Custom footer template. |
-| emptyfilter | TemplateRef<any> | Custom empty filter message template. |
-| empty | TemplateRef<any> | Custom empty message template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
-| checkicon | TemplateRef<any> | Custom check icon template. |
-| checkmark | TemplateRef<any> | Custom checkmark icon template. |
-| loader | TemplateRef<any> | Custom loader template. |
+| item | TemplateRef<ListboxItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<ListboxGroupTemplateContext<any>> | Custom group template. |
+| header | TemplateRef<ListboxHeaderTemplateContext<any>> | Custom header template. |
+| filter | TemplateRef<ListboxFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<ListboxFooterTemplateContext<any>> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter message template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| checkicon | TemplateRef<ListboxCheckIconTemplateContext> | Custom check icon template. |
+| checkmark | TemplateRef<ListboxCheckmarkTemplateContext> | Custom checkmark icon template. |
+| loader | TemplateRef<ListboxLoaderTemplateContext> | Custom loader template. |
 
 ### Methods
 
@@ -24097,13 +24144,13 @@ MegaMenu is navigation component that displays submenus together.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| menuicon | TemplateRef<any> | Defines template option for menu icon. |
-| submenuicon | TemplateRef<any> | Defines template option for submenu icon. |
-| item | TemplateRef<any> | Defines template option for submenu icon. |
-| button | TemplateRef<any> | Custom menu button template on responsive mode. |
-| buttonicon | TemplateRef<any> | Custom menu button icon template on responsive mode. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
+| item | TemplateRef<MegaMenuItemTemplateContext> | Custom item template. |
+| button | TemplateRef<void> | Custom menu button template on responsive mode. |
+| buttonicon | TemplateRef<void> | Custom menu button icon template on responsive mode. |
 
 ## Pass Through Options
 
@@ -24627,11 +24674,11 @@ Menu is a navigation / command component that supports dynamic and static positi
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| header | TemplateRef<any> | Defines template option for header. |
-| item | TemplateRef<any> | Defines template option for item. |
-| submenuheader | TemplateRef<any> | Defines template option for item. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| header | TemplateRef<void> | Defines template option for header. |
+| item | TemplateRef<MenuItemTemplateContext> | Custom item template. |
+| submenuheader | TemplateRef<MenuSubmenuHeaderTemplateContext> | Custom submenu header template. |
 
 ### Methods
 
@@ -25023,11 +25070,11 @@ Menubar is a horizontal menu component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| item | TemplateRef<any> | Defines template option for item. |
-| menuicon | TemplateRef<any> | Defines template option for item. |
-| submenuicon | TemplateRef<any> | Defines template option for submenu icon. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| item | TemplateRef<MenubarItemTemplateContext> | Custom item template. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
 
 ## Pass Through Options
 
@@ -25503,9 +25550,9 @@ Message groups a collection of contents in tabs.
 
 | Name | Type | Description |
 |------|------|-------------|
-| container | TemplateRef<any> | Custom template of the message container. |
-| icon | TemplateRef<any> | Custom template of the message icon. |
-| closeicon | TemplateRef<any> | Custom template of the close icon. |
+| container | TemplateRef<MessageContainerTemplateContext> | Custom template of the message container. |
+| icon | TemplateRef<void> | Custom template of the message icon. |
+| closeicon | TemplateRef<void> | Custom template of the close icon. |
 
 ### Methods
 
@@ -25925,6 +25972,16 @@ MeterGroup displays scalar measurements within a known range.
 | labelPosition | "start" \| "end" | end | Specifies the label position of the component, valid values are 'start' and 'end'. |
 | labelOrientation | "vertical" \| "horizontal" | horizontal | Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'. |
 | styleClass | string | - | Style class of the element. **(Deprecated)** |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| label | TemplateRef<MeterGroupLabelTemplateContext> | Custom label template. |
+| meter | TemplateRef<MeterGroupMeterTemplateContext> | Custom meter template. |
+| end | TemplateRef<MeterGroupLabelTemplateContext> | Custom end template. |
+| start | TemplateRef<MeterGroupLabelTemplateContext> | Custom start template. |
+| icon | TemplateRef<MeterGroupIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -27549,16 +27606,16 @@ OrderList is used to manage the order of a collection.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| emptymessage | TemplateRef<any> | Custom empty template. |
-| emptyfiltermessage | TemplateRef<any> | Custom empty filter template. |
-| filter | TemplateRef<any> | Custom filter template. |
-| header | TemplateRef<any> | Custom header template. |
-| moveupicon | TemplateRef<any> | Custom move up icon template. |
-| movetopicon | TemplateRef<any> | Custom move top icon template. |
-| movedownicon | TemplateRef<any> | Custom move down icon template. |
-| movebottomicon | TemplateRef<any> | Custom move bottom icon template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
+| item | TemplateRef<OrderListItemTemplateContext> | Custom item template. |
+| emptymessage | TemplateRef<void> | Custom empty template. |
+| emptyfiltermessage | TemplateRef<void> | Custom empty filter template. |
+| filter | TemplateRef<OrderListFilterTemplateContext> | Custom filter template. |
+| header | TemplateRef<void> | Custom header template. |
+| moveupicon | TemplateRef<void> | Custom move up icon template. |
+| movetopicon | TemplateRef<void> | Custom move top icon template. |
+| movedownicon | TemplateRef<void> | Custom move down icon template. |
+| movebottomicon | TemplateRef<void> | Custom move bottom icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 
@@ -28225,7 +28282,7 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Content template of the component. |
+| content | TemplateRef<OverlayContentTemplateContext> | Content template of the component. |
 
 ## Pass Through Options
 
@@ -28455,8 +28512,8 @@ Paginator is a generic component to display content in paged format.
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | alwaysShow | boolean | true | Whether to show it even there is only one page. |
 | dropdownAppendTo | any | - | Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). **(Deprecated)** |
-| templateLeft | TemplateRef<PaginatorState> | - | Template instance to inject into the left side of the paginator. |
-| templateRight | TemplateRef<PaginatorState> | - | Template instance to inject into the right side of the paginator. |
+| templateLeft | TemplateRef<PaginatorTemplateContext> | - | Template instance to inject into the left side of the paginator. |
+| templateRight | TemplateRef<PaginatorTemplateContext> | - | Template instance to inject into the right side of the paginator. |
 | dropdownScrollHeight | string | 200px | Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
 | currentPageReportTemplate | string | {currentPage} of {totalPages} | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
 | showCurrentPageReport | boolean | false | Whether to display current page report. |
@@ -28466,10 +28523,10 @@ Paginator is a generic component to display content in paged format.
 | rowsPerPageOptions | any[] | - | Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}] |
 | showJumpToPageDropdown | boolean | false | Whether to display a dropdown to navigate to any page. |
 | showJumpToPageInput | boolean | false | Whether to display a input to navigate to any page. |
-| jumpToPageItemTemplate | TemplateRef<{ $implicit: any }> | - | Template instance to inject into the jump to page dropdown item inside in the paginator. |
+| jumpToPageItemTemplate | TemplateRef<PaginatorDropdownItemTemplateContext> | - | Template instance to inject into the jump to page dropdown item inside in the paginator. |
 | showPageLinks | boolean | true | Whether to show page links. |
 | locale | string | - | Locale to be used in formatting. |
-| dropdownItemTemplate | TemplateRef<{ $implicit: any }> | - | Template instance to inject into the rows per page dropdown item inside in the paginator. |
+| dropdownItemTemplate | TemplateRef<PaginatorDropdownItemTemplateContext> | - | Template instance to inject into the rows per page dropdown item inside in the paginator. |
 | first | number | - | Zero-relative number of the first row to be displayed. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
@@ -28483,11 +28540,11 @@ Paginator is a generic component to display content in paged format.
 
 | Name | Type | Description |
 |------|------|-------------|
-| dropdownicon | TemplateRef<any> | Template for the dropdown icon. |
-| firstpagelinkicon | TemplateRef<any> | Template for the first page link icon. |
-| previouspagelinkicon | TemplateRef<any> | Template for the previous page link icon. |
-| lastpagelinkicon | TemplateRef<any> | Template for the last page link icon. |
-| nextpagelinkicon | TemplateRef<any> | Template for the next page link icon. |
+| dropdownicon | TemplateRef<void> | Template for the dropdown icon. |
+| firstpagelinkicon | TemplateRef<void> | Template for the first page link icon. |
+| previouspagelinkicon | TemplateRef<void> | Template for the previous page link icon. |
+| lastpagelinkicon | TemplateRef<void> | Template for the last page link icon. |
+| nextpagelinkicon | TemplateRef<void> | Template for the next page link icon. |
 
 ## Pass Through Options
 
@@ -28745,10 +28802,10 @@ Panel is a container with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Defines template option for header. |
-| icon | TemplateRef<any> | Defines template option for icon. |
-| content | TemplateRef<any> | Defines template option for content. |
-| footer | TemplateRef<any> | Defines template option for footer. |
+| header | TemplateRef<void> | Defines template option for header. |
+| icon | TemplateRef<void> | Defines template option for icon. |
+| content | TemplateRef<void> | Defines template option for content. |
+| footer | TemplateRef<void> | Defines template option for footer. |
 | headericons | TemplateRef<PanelHeaderIconsTemplateContext> | Defines template option for headerIcon. |
 
 ## Pass Through Options
@@ -29390,9 +29447,9 @@ PanelMenu is a hybrid of Accordion and Tree components.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | TemplateRef<any> | Template option of submenu icon. |
-| headericon | TemplateRef<any> | Template option of header icon. |
-| item | TemplateRef<any> | Template option of item. |
+| submenuicon | TemplateRef<void> | Template option of submenu icon. |
+| headericon | TemplateRef<void> | Template option of header icon. |
+| item | TemplateRef<PanelMenuItemTemplateContext> | Template option of item. |
 
 ### Methods
 
@@ -30062,7 +30119,7 @@ Password directive.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| pPasswordPt | InputSignal<PasswordPassThrough> | undefined | Used to pass attributes to DOM elements inside the Password component. |
+| pPasswordPT | InputSignal<PasswordPassThrough> | undefined | Used to pass attributes to DOM elements inside the Password component. |
 | pPasswordUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | promptLabel | string | Enter a password | Text to prompt password entry. Defaults to PrimeNG I18N API configuration. |
 | weakLabel | string | Weak | Text for a weak password. Defaults to PrimeNG I18N API configuration. |
@@ -30134,6 +30191,17 @@ Password displays strength indicator for password fields.
 | onFocus | event: Event | Callback to invoke when the component receives focus. |
 | onBlur | event: Event | Callback to invoke when the component loses focus. |
 | onClear | value: any | Callback to invoke when clear button is clicked. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<void> | Custom template of content. |
+| footer | TemplateRef<void> | Custom template of footer. |
+| header | TemplateRef<void> | Custom template of header. |
+| clearicon | TemplateRef<void> | Custom template of clear icon. |
+| hideicon | TemplateRef<PasswordIconTemplateContext> | Custom template of hide icon. |
+| showicon | TemplateRef<PasswordIconTemplateContext> | Custom template of show icon. |
 
 ## Pass Through Options
 
@@ -30521,25 +30589,25 @@ PickList is used to reorder items between different lists.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| sourceheader | TemplateRef<any> | Custom source header template. |
-| targetheader | TemplateRef<any> | Custom target header template. |
-| sourcefilter | TemplateRef<{ options: PickListFilterOptions }> | Custom source filter template. |
-| targetfilter | TemplateRef<{ options: PickListFilterOptions }> | Custom target filter template. |
-| emptymessagesource | TemplateRef<any> | Custom empty message when source is empty template. |
-| emptyfiltermessagesource | TemplateRef<any> | Custom empty filter message when source is empty template. |
-| emptymessagetarget | TemplateRef<any> | Custom empty message when target is empty template. |
-| emptyfiltermessagetarget | TemplateRef<any> | Custom empty filter message when target is empty template. |
-| moveupicon | TemplateRef<{ $implicit: boolean }> | Custom move up icon template. |
-| movetopicon | TemplateRef<{ $implicit: boolean }> | Custom move top icon template. |
-| movedownicon | TemplateRef<{ $implicit: boolean }> | Custom move down icon template. |
-| movebottomicon | TemplateRef<{ $implicit: boolean }> | Custom move bottom icon template. |
-| movetotargeticon | TemplateRef<{ $implicit: boolean }> | Custom move to target icon template. |
-| movealltotargeticon | TemplateRef<{ $implicit: boolean }> | Custom move all to target icon template. |
-| movetosourceicon | TemplateRef<{ $implicit: boolean }> | Custom move to source icon template. |
-| movealltosourceicon | TemplateRef<{ $implicit: boolean }> | Custom move all to source icon template. |
-| targetfiltericon | TemplateRef<{ options: PickListFilterOptions }> | Custom target filter icon template. |
-| sourcefiltericon | TemplateRef<{ options: PickListFilterOptions }> | Custom source filter icon template. |
+| item | TemplateRef<PickListItemTemplateContext> | Custom item template. |
+| sourceheader | TemplateRef<void> | Custom source header template. |
+| targetheader | TemplateRef<void> | Custom target header template. |
+| sourcefilter | TemplateRef<PickListFilterTemplateContext> | Custom source filter template. |
+| targetfilter | TemplateRef<PickListFilterTemplateContext> | Custom target filter template. |
+| emptymessagesource | TemplateRef<void> | Custom empty message when source is empty template. |
+| emptyfiltermessagesource | TemplateRef<void> | Custom empty filter message when source is empty template. |
+| emptymessagetarget | TemplateRef<void> | Custom empty message when target is empty template. |
+| emptyfiltermessagetarget | TemplateRef<void> | Custom empty filter message when target is empty template. |
+| moveupicon | TemplateRef<void> | Custom move up icon template. |
+| movetopicon | TemplateRef<void> | Custom move top icon template. |
+| movedownicon | TemplateRef<void> | Custom move down icon template. |
+| movebottomicon | TemplateRef<void> | Custom move bottom icon template. |
+| movetotargeticon | TemplateRef<PickListTransferIconTemplateContext> | Custom move to target icon template. |
+| movealltotargeticon | TemplateRef<PickListTransferIconTemplateContext> | Custom move all to target icon template. |
+| movetosourceicon | TemplateRef<PickListTransferIconTemplateContext> | Custom move to source icon template. |
+| movealltosourceicon | TemplateRef<PickListTransferIconTemplateContext> | Custom move all to source icon template. |
+| targetfiltericon | TemplateRef<void> | Custom target filter icon template. |
+| sourcefiltericon | TemplateRef<void> | Custom source filter icon template. |
 
 ## Pass Through Options
 
@@ -30990,7 +31058,7 @@ Popover is a container component that can overlay other components on page.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Custom content template. |
+| content | TemplateRef<PopoverContentTemplateContext> | Custom content template. |
 
 ### Methods
 
@@ -31196,6 +31264,12 @@ ProgressBar is a process status indicator.
 | unit | string | % | Unit sign appended to the value. |
 | mode | "indeterminate" \| "determinate" | 'determinate' | Defines the mode of the progress |
 | color | string | - | Color for the background of the progress. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<ProgressBarContentTemplateContext> | Template of the content. |
 
 ## Pass Through Options
 
@@ -32193,8 +32267,8 @@ Rating is an extension to standard radio button element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| onicon | TemplateRef<any> | Custom on icon template. |
-| officon | TemplateRef<any> | Custom off icon template. |
+| onicon | TemplateRef<RatingIconTemplateContext> | Custom on icon template. |
+| officon | TemplateRef<RatingIconTemplateContext> | Custom off icon template. |
 
 ## Pass Through Options
 
@@ -32884,10 +32958,10 @@ Scroller is a performance-approach to handle huge data efficiently.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Content template of the component. |
-| item | TemplateRef<any> | Item template of the component. |
-| loader | TemplateRef<any> | Loader template of the component. |
-| loadericon | TemplateRef<any> | Loader icon template of the component. |
+| content | TemplateRef<ScrollerContentTemplateContext> | Content template of the component. |
+| item | TemplateRef<ScrollerItemTemplateContext> | Item template of the component. |
+| loader | TemplateRef<ScrollerLoaderTemplateContext> | Loader template of the component. |
+| loadericon | TemplateRef<ScrollerLoaderIconTemplateContext> | Loader icon template of the component. |
 
 ## Pass Through Options
 
@@ -33031,7 +33105,7 @@ ScrollPanel is a cross browser, lightweight and themable alternative to native b
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Defines template option for content. |
+| content | TemplateRef<void> | Custom content template. |
 
 ### Methods
 
@@ -33165,7 +33239,7 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | TemplateRef<any> | Template of the icon. |
+| icon | TemplateRef<ScrollTopIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -35019,7 +35093,7 @@ SelectButton is used to choose single or multiple items from a list using button
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Template of an item in the list. |
+| item | TemplateRef<SelectButtonItemTemplateContext> | Custom item template. |
 
 ## Pass Through Options
 
@@ -36318,9 +36392,9 @@ When pressed, a floating action button can display multiple primary actions that
 
 | Name | Type | Description |
 |------|------|-------------|
-| button | TemplateRef<any> | Template of the button. |
-| item | TemplateRef<any> | Template of the item. |
-| icon | TemplateRef<any> | Template of the item. |
+| button | TemplateRef<SpeedDialButtonTemplateContext> | Custom button template. |
+| item | TemplateRef<SpeedDialItemTemplateContext> | Custom item template. |
+| icon | TemplateRef<void> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -37303,8 +37377,8 @@ SplitButton groups a set of commands in an overlay with a default command.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Template of the content. |
-| dropdownicon | TemplateRef<any> | Template of the dropdownicon. |
+| content | TemplateRef<void> | Custom content template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
 
 ## Pass Through Options
 
@@ -45915,6 +45989,12 @@ Tag component is used to categorize content.
 | icon | string | - | Icon of the tag to display next to the value. |
 | rounded | boolean | false | Whether the corners of the tag are rounded. |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| icon | TemplateRef<void> | Custom icon template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |
@@ -46547,7 +46627,7 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| pTextareaPt | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the Textarea component. |
+| pTextareaPT | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the Textarea component. |
 | pTextareaUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | autoResize | boolean | false | When present, textarea size changes as being typed. |
 | pSize | "small" \| "large" | - | Defines the size of the component. |
@@ -47081,8 +47161,8 @@ TieredMenu displays submenus in nested overlays.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | TemplateRef<any> | Template of the submenu icon. |
-| item | TemplateRef<any> | Template of the item. |
+| submenuicon | TemplateRef<void> | Custom submenu icon template. |
+| item | TemplateRef<TieredMenuItemTemplateContext> | Custom item template. |
 
 ### Methods
 
@@ -47449,9 +47529,9 @@ Timeline visualizes a series of chained events.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Custom content template. |
-| opposite | TemplateRef<any> | Custom opposite item template. |
-| marker | TemplateRef<any> | Custom marker template. |
+| content | TemplateRef<TimelineItemTemplateContext<any>> | Custom content template. |
+| opposite | TemplateRef<TimelineItemTemplateContext<any>> | Custom opposite item template. |
+| marker | TemplateRef<TimelineItemTemplateContext<any>> | Custom marker template. |
 
 ## Pass Through Options
 
@@ -48116,8 +48196,8 @@ Toast is used to display messages in an overlay.
 
 | Name | Type | Description |
 |------|------|-------------|
-| template | TemplateRef<any> | Custom template of message. |
-| headless | TemplateRef<any> | Custom headless template. |
+| template | TemplateRef<ToastMessageTemplateContext> | Custom message template. |
+| headless | TemplateRef<ToastHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -48579,8 +48659,8 @@ ToggleButton is used to select a boolean value using a button.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | TemplateRef<any> | Custom icon template. |
-| content | TemplateRef<any> | Custom content template. |
+| icon | TemplateRef<ToggleButtonIconTemplateContext> | Custom icon template. |
+| content | TemplateRef<ToggleButtonContentTemplateContext> | Custom content template. |
 
 ## Pass Through Options
 
@@ -48964,7 +49044,7 @@ ToggleSwitch is used to select a boolean value.
 
 | Name | Type | Description |
 |------|------|-------------|
-| handle | TemplateRef<any> | Callback to invoke when the on value change. |
+| handle | TemplateRef<ToggleSwitchHandleTemplateContext> | Custom handle template. |
 
 ## Pass Through Options
 
@@ -49143,9 +49223,9 @@ Toolbar is a grouping component for buttons and other content.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| center | TemplateRef<any> | Defines template option for center. |
+| start | TemplateRef<void> | Custom start template. |
+| end | TemplateRef<void> | Custom end template. |
+| center | TemplateRef<void> | Custom center template. |
 
 ## Pass Through Options
 
@@ -49425,7 +49505,7 @@ Tooltip directive provides advisory information for a component.
 | tooltipOptions | TooltipOptions | - | Specifies the tooltip configuration options for the component. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | ptTooltip | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. **(Deprecated)** |
-| pTooltipPt | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
+| pTooltipPT | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
 | pTooltipUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 
 ## Pass Through Options
@@ -50514,6 +50594,7 @@ Tree is used to display hierarchical data.
 | selection | any | - | A single treenode instance or an array to refer to the selections. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | contextMenu | any | - | Context menu instance. |
+| contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
 | draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
 | droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
 | draggableNodes | boolean | false | Whether the nodes are draggable. |
@@ -50567,16 +50648,16 @@ Tree is used to display hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| filter | TemplateRef<any> | Filter template. |
-| node | TemplateRef<any> | Node template. |
-| header | TemplateRef<any> | Header template. |
-| footer | TemplateRef<any> | Footer template. |
-| loader | TemplateRef<any> | Loader template. |
-| empty | TemplateRef<any> | Empty message template. |
-| togglericon | TemplateRef<any> | Toggler icon template. |
-| checkboxicon | TemplateRef<any> | Checkbox icon template. |
-| loadingicon | TemplateRef<any> | Loading icon template. |
-| filtericon | TemplateRef<any> | Filter icon template. |
+| filter | TemplateRef<TreeFilterTemplateContext> | Custom filter template. |
+| node | TemplateRef<any> | Custom node template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| loader | TemplateRef<TreeLoaderTemplateContext> | Custom loader template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| togglericon | TemplateRef<TreeTogglerIconTemplateContext> | Custom toggler icon template. |
+| checkboxicon | TemplateRef<TreeCheckboxIconTemplateContext> | Custom checkbox icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 
@@ -51993,6 +52074,7 @@ TreeSelect is a form component to choose from hierarchical data.
 | autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
 | options | TreeNode<any>[] | - | An array of treenodes. |
 | loading | boolean | false | Displays a loader to indicate data load is in progress. |
+| loadingMode | "icon" \| "mask" | mask | Loading mode display. |
 | size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
 | variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
@@ -52018,18 +52100,18 @@ TreeSelect is a form component to choose from hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| value | TemplateRef<any> | Custom value template. |
-| header | TemplateRef<any> | Custom header template. |
-| empty | TemplateRef<any> | Custom empty message template. |
-| footer | TemplateRef<any> | Custom footer template. |
-| clearicon | TemplateRef<any> | Custom clear icon template. |
-| triggericon | TemplateRef<any> | Custom trigger icon template. |
-| dropdownicon | TemplateRef<any> | Custom dropdown icon template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
-| closeicon | TemplateRef<any> | Custom close icon template. |
-| itemtogglericon | TemplateRef<any> | Custom item toggler icon template. |
-| itemcheckboxicon | TemplateRef<any> | Custom item checkbox icon template. |
-| itemloadingicon | TemplateRef<any> | Custom item loading icon template. |
+| value | TemplateRef<TreeSelectValueTemplateContext> | Custom value template. |
+| header | TemplateRef<TreeSelectHeaderTemplateContext> | Custom header template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| footer | TemplateRef<TreeSelectHeaderTemplateContext> | Custom footer template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| triggericon | TemplateRef<void> | Custom trigger icon template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| itemtogglericon | TemplateRef<TreeSelectItemTogglerIconTemplateContext> | Custom item toggler icon template. |
+| itemcheckboxicon | TemplateRef<TreeSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
+| itemloadingicon | TemplateRef<void> | Custom item loading icon template. |
 
 ## Pass Through Options
 

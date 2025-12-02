@@ -459,6 +459,12 @@ Dock is a navigation component consisting of menuitems.
 | onFocus | event: FocusEvent | Callback to execute when button is focused. |
 | onBlur | event: FocusEvent | Callback to invoke when the component loses focus. |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| item | TemplateRef<DockItemTemplateContext> | Custom item template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |

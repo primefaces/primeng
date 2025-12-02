@@ -962,19 +962,19 @@ DatePicker is a form component to work with dates.
 
 | Name | Type | Description |
 |------|------|-------------|
-| date | TemplateRef<any> | Custom template for date cells. |
-| header | TemplateRef<any> | Custom template for header section. |
-| footer | TemplateRef<any> | Custom template for footer section. |
-| disableddate | TemplateRef<any> | Custom template for disabled date cells. |
-| decade | TemplateRef<any> | Custom template for decade view. |
-| previousicon | TemplateRef<any> | Custom template for previous month icon. |
-| nexticon | TemplateRef<any> | Custom template for next month icon. |
-| triggericon | TemplateRef<any> | Custom template for trigger icon. |
-| clearicon | TemplateRef<any> | Custom template for clear icon. |
-| decrementicon | TemplateRef<any> | Custom template for decrement icon. |
-| incrementicon | TemplateRef<any> | Custom template for increment icon. |
-| inputicon | TemplateRef<any> | Custom template for input icon. |
-| buttonbar | TemplateRef<any> | Custom template for button bar. |
+| date | TemplateRef<DatePickerDateTemplateContext> | Custom template for date cells. |
+| header | TemplateRef<void> | Custom template for header section. |
+| footer | TemplateRef<void> | Custom template for footer section. |
+| disableddate | TemplateRef<DatePickerDisabledDateTemplateContext> | Custom template for disabled date cells. |
+| decade | TemplateRef<DatePickerDecadeTemplateContext> | Custom template for decade view. |
+| previousicon | TemplateRef<void> | Custom template for previous month icon. |
+| nexticon | TemplateRef<void> | Custom template for next month icon. |
+| triggericon | TemplateRef<void> | Custom template for trigger icon. |
+| clearicon | TemplateRef<void> | Custom template for clear icon. |
+| decrementicon | TemplateRef<void> | Custom template for decrement icon. |
+| incrementicon | TemplateRef<void> | Custom template for increment icon. |
+| inputicon | TemplateRef<DatePickerInputIconTemplateContext> | Custom template for input icon. |
+| buttonbar | TemplateRef<DatePickerButtonBarTemplateContext> | Custom template for button bar. |
 
 ## Pass Through Options
 
