@@ -1,9 +1,9 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, model, signal } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
@@ -12,24 +12,30 @@ import { TreeModule } from 'primeng/tree';
 @Component({
     selector: 'context-menu-doc',
     standalone: true,
-    imports: [TreeModule, FormsModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText],
+    imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
-            <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
+            <p>
+                Tree has exclusive integration with ContextMenu using the <i>contextMenu</i> property to open a menu on right click along with <i>contextMenuSelection</i> and <i>contextMenuSelectionMode</i> properties to control the selection via the
+                menu.
+            </p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+            <p-toast [style]="{ marginTop: '80px' }" />
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-tree [value]="files()" class="w-full md:w-[30rem]" [contextMenuSelectionMode]="true" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+            </p-deferred-demo>
             <p-contextmenu #cm [model]="items" />
-            <p-toast />
         </div>
         <app-code [code]="code" selector="tree-context-menu-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContextMenuDoc implements OnInit {
-    files = signal<TreeNode[]>(undefined);
+export class ContextMenuDoc {
+    files = signal<TreeNode[]>([]);
 
-    selectedFile!: TreeNode | null;
+    selectedNode = model<TreeNode | null>(null);
 
     items!: MenuItem[];
 
@@ -38,36 +44,60 @@ export class ContextMenuDoc implements OnInit {
         private messageService: MessageService
     ) {}
 
-    ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files.set(data);
-        });
+    loadDemoData() {
+        this.nodeService.getFiles().then((files) => this.files.set(files));
+
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
-            { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode()) },
+            { label: 'Unselect', icon: 'pi pi-times', command: () => this.unselectFile() }
         ];
     }
 
-    viewFile(file: TreeNode) {
-        this.messageService.add({ severity: 'info', summary: 'Node Details', detail: file.label });
+    unselectFile() {
+        this.selectedNode.set(null);
     }
 
-    unselectFile() {
-        this.selectedFile = null;
+    viewFile(node: TreeNode | null) {
+        if (node) {
+            this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.label });
+        }
+    }
+
+    toggleFile(node: TreeNode | null) {
+        if (node) {
+            this.files.set(this.updateNodeInTree(this.files(), node.key, { ...node, expanded: !node.expanded }));
+        }
+    }
+
+    updateNodeInTree(nodes: TreeNode[], key: string | undefined, updatedNode: TreeNode): TreeNode[] {
+        return nodes.map((n) => {
+            if (n.key === key) {
+                return updatedNode;
+            }
+            if (n.children) {
+                return { ...n, children: this.updateNodeInTree(n.children, key, updatedNode) };
+            }
+            return n;
+        });
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
-<p-contextmenu #cm [model]="items" />
-<p-toast />`,
+        basic: `<p-toast [style]="{ marginTop: '80px' }" />
+
+<p-tree [value]="files()" class="w-full md:w-[30rem]" [contextMenuSelectionMode]="true" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+
+<p-contextmenu #cm [model]="items" />`,
 
         html: `<div class="card">
-    <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+    <p-toast [style]="{ marginTop: '80px' }" />
+
+    <p-tree [value]="files()" class="w-full md:w-[30rem]" [contextMenuSelectionMode]="true" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+
     <p-contextmenu #cm [model]="items" />
-    <p-toast />
 </div>`,
 
-        typescript: `import { Component, OnInit, signal } from '@angular/core';
+        typescript: `import { Component, OnInit, model, signal } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -82,9 +112,9 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService, NodeService]
 })
 export class TreeContextMenuDemo implements OnInit {
-    files = signal<TreeNode[]>(undefined);
+    files = signal<TreeNode[]>([]);
 
-    selectedFile!: TreeNode | null;
+    selectedNode = model<TreeNode | null>(null);
 
     items!: MenuItem[];
 
@@ -94,15 +124,42 @@ export class TreeContextMenuDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files.set(data);
-        });
+        this.nodeService.getFiles().then((files) => this.files.set(files));
+
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
-            { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode()) },
+            { label: 'Unselect', icon: 'pi pi-times', command: () => this.unselectFile() }
         ];
     }
 
+    unselectFile() {
+        this.selectedNode.set(null);
+    }
+
+    viewFile(node: TreeNode | null) {
+        if (node) {
+            this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.label });
+        }
+    }
+
+    toggleFile(node: TreeNode | null) {
+        if (node) {
+            this.files.set(this.updateNodeInTree(this.files(), node.key, { ...node, expanded: !node.expanded }));
+        }
+    }
+
+    updateNodeInTree(nodes: TreeNode[], key: string | undefined, updatedNode: TreeNode): TreeNode[] {
+        return nodes.map((n) => {
+            if (n.key === key) {
+                return updatedNode;
+            }
+            if (n.children) {
+                return { ...n, children: this.updateNodeInTree(n.children, key, updatedNode) };
+            }
+            return n;
+        });
+    }
 }`,
 
         service: ['NodeService'],
