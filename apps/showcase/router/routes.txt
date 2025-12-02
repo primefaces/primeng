@@ -131,5 +131,6 @@
 /uikit
 /designer
 /designer/overview
+/migration/v21
 /migration/v20
 /migration/v19
