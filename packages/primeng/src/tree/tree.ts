@@ -159,7 +159,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                     </span>
                 </div>
                 @if (isNextDropPointActive()) {
-                    <div [class]="cx('dropPoint')" [attr.aria-hidden]="true" [pBind]="getPTOptions('dropPoint')"></div>
+                    <div [class]="cx('dropPoint', { next: true })" [attr.aria-hidden]="true" [pBind]="getPTOptions('dropPoint')"></div>
                 }
                 <ul [class]="cx('nodeChildren')" *ngIf="!tree.virtualScroll && node.children && node.expanded" role="group" [pBind]="ptm('nodeChildren')">
                     <p-treeNode
