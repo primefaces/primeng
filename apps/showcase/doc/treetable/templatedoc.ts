@@ -1,13 +1,13 @@
-import { Code } from '@/domain/code';
-import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { CommonModule } from '@angular/common';
-import { TreeTableModule } from 'primeng/treetable';
-import { ButtonModule } from 'primeng/button';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { NodeService } from '@/service/nodeservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { TreeTableModule } from 'primeng/treetable';
 
 interface Column {
     field: string;
@@ -39,8 +39,10 @@ interface Column {
                                 <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                                 <ng-container *ngIf="last">
-                                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
-                                    <p-button icon="pi pi-pencil" rounded="true" severity="success" />
+                                    <div class="flex flex-wrap gap-2">
+                                        <p-button icon="pi pi-search" rounded="true" severity="secondary" />
+                                        <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
+                                    </div>
                                 </ng-container>
                             </td>
                         </tr>
@@ -89,8 +91,10 @@ export class TemplateDoc {
                 <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 <ng-container *ngIf="last">
-                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
-                    <p-button icon="pi pi-pencil" rounded="true" severity="success" />
+                    <div class="flex flex-wrap gap-2">
+                        <p-button icon="pi pi-search" rounded="true" severity="secondary" />
+                        <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
+                    </div>
                 </ng-container>
             </td>
         </tr>
@@ -118,8 +122,10 @@ export class TemplateDoc {
                     <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     <ng-container *ngIf="last">
-                        <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
-                        <p-button icon="pi pi-pencil" rounded="true" severity="success" />
+                        <div class="flex flex-wrap gap-2">
+                            <p-button icon="pi pi-search" rounded="true" severity="secondary" />
+                            <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
+                        </div>
                     </ng-container>
                 </td>
             </tr>
