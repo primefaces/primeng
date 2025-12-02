@@ -15,7 +15,7 @@ const classes = {
             'p-contextmenu-item-active': instance.isItemActive(processedItem),
             'p-focus': instance.isItemFocused(processedItem),
             'p-disabled': instance.isItemDisabled(processedItem),
-            'p-contextmenu-mobile': instance.queryMatches()
+            'p-contextmenu-mobile': instance.queryMatches
         }
     ],
     itemContent: 'p-contextmenu-item-content',
