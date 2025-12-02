@@ -614,7 +614,7 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
 
     private query: MediaQueryList;
 
-    public queryMatches: boolean;
+    public queryMatches = signal<boolean>(false);
 
     _componentStyle = inject(ContextMenuStyle);
 
@@ -780,10 +780,11 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
                 this.query = query;
-                this.queryMatches = query.matches;
+                this.queryMatches.set(query.matches);
 
                 this.matchMediaListener = () => {
-                    this.queryMatches = query.matches;
+                    this.queryMatches.set(query.matches);
+                    this.cd.markForCheck();
                 };
 
                 query.addEventListener('change', this.matchMediaListener);
@@ -1049,7 +1050,7 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         this.focusedItemInfo.set({ index, level, parentKey, item: processedItem.item });
         isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
-        if (type === 'hover' && this.queryMatches) {
+        if (type === 'hover' && this.queryMatches()) {
             return;
         }
 

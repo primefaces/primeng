@@ -29,7 +29,23 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
-import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
+import {
+    deepEquals,
+    equals,
+    findLastIndex,
+    findSingle,
+    focus,
+    getFirstFocusableElement,
+    getFocusableElements,
+    getLastFocusableElement,
+    isEmpty,
+    isNotEmpty,
+    isPrintableCharacter,
+    nextFrame,
+    resolveFieldData,
+    scrollInView,
+    uuid
+} from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -89,7 +105,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [attr.data-p-highlight]="selected"
             [attr.data-p-selected]="selected"
             [attr.data-p-disabled]="disabled"
-            [ngStyle]="{ height: itemSize + 'px' }"
+            [ngStyle]="{ height: scrollerOptions?.itemSize + 'px' }"
             [class]="cx('option')"
         >
             <ng-container *ngIf="checkmark">
@@ -1419,7 +1435,9 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             if (this.virtualScroll) {
                 const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
                 if (selectedIndex !== -1) {
-                    this.scroller?.scrollToIndex(selectedIndex);
+                    nextFrame().then(() => {
+                        this.scroller?.scrollToIndex(selectedIndex);
+                    });
                 }
             } else {
                 let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '[data-p-selected="true"]');

@@ -595,7 +595,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     private query: MediaQueryList;
 
-    public queryMatches: boolean;
+    public queryMatches = signal<boolean>(false);
 
     _submenuIconTemplate: TemplateRef<void> | undefined;
 
@@ -666,10 +666,10 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
                 this.query = query;
-                this.queryMatches = query.matches;
+                this.queryMatches.set(query.matches);
 
                 this.matchMediaListener = () => {
-                    this.queryMatches = query.matches;
+                    this.queryMatches.set(query.matches);
                 };
 
                 query.addEventListener('change', this.matchMediaListener);
@@ -988,7 +988,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         grouped && (this.dirty = true);
         isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
 
-        if (type === 'hover' && this.queryMatches) {
+        if (type === 'hover' && this.queryMatches()) {
             return;
         }
 

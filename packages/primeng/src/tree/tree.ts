@@ -878,7 +878,14 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      * A single treenode instance or an array to refer to the selections.
      * @group Props
      */
-    @Input() selection: any;
+    @Input() get selection(): any {
+        return this._selection;
+    }
+    set selection(val: any) {
+        this._selection = val;
+        this.selectionVersion.update((v) => v + 1);
+    }
+    _selection: any;
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.

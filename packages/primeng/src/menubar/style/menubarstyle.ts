@@ -10,7 +10,7 @@ const classes = {
     root: ({ instance }) => [
         'p-menubar p-component',
         {
-            'p-menubar-mobile': instance.queryMatches,
+            'p-menubar-mobile': instance.queryMatches(),
             'p-menubar-mobile-active': instance.mobileActive
         }
     ],

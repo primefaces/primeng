@@ -460,7 +460,7 @@ describe('Menubar', () => {
         });
 
         it('should display menu button on mobile', () => {
-            menubarInstance.queryMatches = true;
+            menubarInstance.queryMatches.set(true);
             fixture.detectChanges();
 
             const menuButton = fixture.debugElement.query(By.css('a[data-pc-section="button"]'));
@@ -468,7 +468,7 @@ describe('Menubar', () => {
         });
 
         it('should toggle mobile menu on button click', () => {
-            menubarInstance.queryMatches = true;
+            menubarInstance.queryMatches.set(true);
             fixture.detectChanges();
 
             const menuButton = fixture.debugElement.query(By.css('a[data-pc-section="button"]'));

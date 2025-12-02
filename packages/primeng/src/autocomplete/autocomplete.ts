@@ -50,8 +50,8 @@ import {
     AutoCompleteLoaderTemplateContext,
     AutoCompletePassThrough,
     AutoCompleteRemoveIconTemplateContext,
-    AutoCompleteSelectEvent,
     AutoCompleteSelectedItemTemplateContext,
+    AutoCompleteSelectEvent,
     AutoCompleteUnselectEvent
 } from 'primeng/types/autocomplete';
 import { AutoCompleteStyle } from './style/autocompletestyle';
@@ -242,10 +242,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <ng-template #content>
                 <div [pBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <div [pBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight">
+                    <div [pBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [tabindex]="-1">
                         <p-scroller
                             *ngIf="virtualScroll"
                             #scroller
+                            [tabindex]="-1"
                             [pt]="ptm('virtualScroller')"
                             [items]="visibleOptions()"
                             [style]="{ height: scrollHeight }"
