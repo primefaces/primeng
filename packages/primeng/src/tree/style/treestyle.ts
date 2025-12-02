@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/tree';
+import { style as tree_style } from '@primeuix/styles/tree';
 import { BaseStyle } from 'primeng/base';
+
+const style = /*css*/ `
+${tree_style}
+
+.p-tree-node-content:focus-visible,
+.p-tree-node-content.p-tree-node-contextmenu-selected {
+    box-shadow: dt('tree.node.focus.ring.shadow');
+    outline: dt('tree.node.focus.ring.width') dt('tree.node.focus.ring.style') dt('tree.node.focus.ring.color');
+    outline-offset: dt('tree.node.focus.ring.offset');
+}
+`;
 
 const classes = {
     root: ({ instance }) => [
@@ -22,7 +33,8 @@ const classes = {
         'p-tree-node-content': true,
         'p-tree-node-selectable': instance.selectable,
         'p-tree-node-dragover': instance.isNodeDropActive(),
-        'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected
+        'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected,
+        'p-tree-node-contextmenu-selected': instance.isContextMenuSelected()
     }),
     nodeToggleButton: 'p-tree-node-toggle-button',
     nodeToggleIcon: 'p-tree-node-toggle-icon',

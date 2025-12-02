@@ -13,6 +13,7 @@ import {
     inject,
     InjectionToken,
     Input,
+    model,
     NgModule,
     numberAttribute,
     Optional,
@@ -238,6 +239,17 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         return this.tree.isSelected(<TreeNode>this.node);
     });
 
+    /**
+     * Computed signal that reactively tracks context menu selection state.
+     */
+    private _contextMenuSelected = computed(() => {
+        const selection = this.tree.contextMenuSelection();
+        if (!selection || !this.node) {
+            return false;
+        }
+        return selection === this.node || (selection.key && selection.key === this.node.key);
+    });
+
     get selected() {
         return this.tree.selectionMode === 'single' || this.tree.selectionMode === 'multiple' ? this._selected() : undefined;
     }
@@ -297,6 +309,10 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     isSelected() {
         return this._selected();
+    }
+
+    isContextMenuSelected() {
+        return this._contextMenuSelected();
     }
 
     isSameNode(event) {
@@ -898,6 +914,16 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      */
     @Input() contextMenu: any;
     /**
+     * Selected node with a context menu.
+     * @group Props
+     */
+    contextMenuSelection = model<TreeNode<any> | null>(null);
+    /**
+     * Whether to use context menu selection mode. When enabled, left click selection is disabled and only right click selects nodes.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) contextMenuSelectionMode: boolean | undefined;
+    /**
      * Scope of the draggable nodes to match a droppableScope.
      * @group Props
      */
@@ -1383,7 +1409,14 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
         const section = eventTarget?.getAttribute?.('data-pc-section');
         if (section === 'nodetogglebutton' || section === 'nodetoggleicon') {
             return;
-        } else if (this.selectionMode) {
+        }
+
+        // When contextMenuSelectionMode is active, disable left click selection
+        if (this.contextMenuSelectionMode && this.contextMenu) {
+            return;
+        }
+
+        if (this.selectionMode) {
             if (node.selectable === false) {
                 node.style = '--p-focus-ring-color: none;';
                 return;
@@ -1496,6 +1529,13 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
             if (section === 'nodetogglebutton' || section === 'nodetoggleicon') {
                 return;
+            }
+
+            // When contextMenuSelectionMode is active, use separate context menu selection
+            if (this.contextMenuSelectionMode) {
+                this.contextMenuSelection.set(node);
+                this.contextMenu.show(event);
+                this.onNodeContextMenuSelect.emit({ originalEvent: event, node: node });
             } else {
                 let index = this.findIndexInSelection(node);
                 let selected = index >= 0;
