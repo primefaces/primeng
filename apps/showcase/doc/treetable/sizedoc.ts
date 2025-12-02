@@ -1,14 +1,14 @@
-import { Code } from '@/domain/code';
-import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TreeTableModule } from 'primeng/treetable';
-import { SelectButtonModule } from 'primeng/selectbutton';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { NodeService } from '@/service/nodeservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TreeNode } from 'primeng/api';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
     selector: 'size-doc',
@@ -34,8 +34,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treetable-toggler [rowNode]="rowNode" />
-                                {{ rowData.name }}
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.name }}</span>
+                                </div>
                             </td>
                             <td>{{ rowData.size }}</td>
                             <td>{{ rowData.type }}</td>
@@ -82,8 +84,10 @@ export class SizeDoc {
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -106,8 +110,10 @@ export class SizeDoc {
         <ng-template #body let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    {{ rowData.name }}
+                    <div class="flex items-center gap-2">
+                        <p-treetable-toggler [rowNode]="rowNode" />
+                        <span>{{ rowData.name }}</span>
+                    </div>
                 </td>
                 <td>{{ rowData.size }}</td>
                 <td>{{ rowData.type }}</td>

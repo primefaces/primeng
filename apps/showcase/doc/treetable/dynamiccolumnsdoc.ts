@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
 
 interface Column {
     field: string;
@@ -27,7 +27,7 @@ interface Column {
                     <ng-template #header let-columns>
                         <tr>
                             @for (col of columns; track col) {
-                                <th style="width: 34%">
+                                <th>
                                     {{ col.header }}
                                 </th>
                             }
@@ -35,12 +35,16 @@ interface Column {
                     </ng-template>
                     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
-                            @for (col of columns; let i = $index; track col) {
-                                <td style="width: 34%">
-                                    @if (i === 0) {
-                                        <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
                                     }
-                                    {{ rowData[col.field] }}
                                 </td>
                             }
                         </tr>
@@ -72,7 +76,7 @@ export class DynamicColumnsDoc {
     <ng-template #header let-columns>
         <tr>
             @for (col of columns; track col) {
-                <th style="width: 34%">
+                <th>
                     {{ col.header }}
                 </th>
             }
@@ -80,12 +84,16 @@ export class DynamicColumnsDoc {
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            @for (col of columns; let i = $index; track col) {
-                <td style="width: 34%">
-                    @if (i === 0) {
-                        <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
                     }
-                    {{ rowData[col.field] }}
                 </td>
             }
         </tr>
@@ -96,7 +104,7 @@ export class DynamicColumnsDoc {
         <ng-template #header let-columns>
             <tr>
                 @for (col of columns; track col) {
-                    <th style="width: 34%">
+                    <th>
                         {{ col.header }}
                     </th>
                 }
@@ -104,12 +112,16 @@ export class DynamicColumnsDoc {
         </ng-template>
         <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
-                @for (col of columns; let i = $index; track col) {
-                    <td style="width: 34%">
-                        @if (i === 0) {
-                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                @for (col of columns; let first = $first; track col) {
+                    <td>
+                        @if (first) {
+                            <div class="flex items-center gap-2">
+                                <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                <span>{{ rowData[col.field] }}</span>
+                            </div>
+                        } @else {
+                            {{ rowData[col.field] }}
                         }
-                        {{ rowData[col.field] }}
                     </td>
                 }
             </tr>
