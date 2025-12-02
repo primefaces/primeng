@@ -495,6 +495,7 @@ Checkbox is an extension to standard checkbox element with theming.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<CheckboxPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
@@ -532,7 +533,7 @@ Checkbox is an extension to standard checkbox element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| checkboxicon | TemplateRef<any> | The template of the checkbox icon. |
+| checkboxicon | TemplateRef<CheckboxIconTemplateContext> | Custom checkbox icon template. |
 
 ## Pass Through Options
 

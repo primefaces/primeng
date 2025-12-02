@@ -31,7 +31,7 @@ import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { MegaMenuPassThrough } from 'primeng/types/megamenu';
+import { MegaMenuItemTemplateContext, MegaMenuPassThrough } from 'primeng/types/megamenu';
 import { ZIndexUtils } from 'primeng/utils';
 import { MegaMenuStyle } from './style/megamenustyle';
 
@@ -215,7 +215,7 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
 
     @Input() items: any[] | undefined;
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<MegaMenuItemTemplateContext> | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -474,37 +474,39 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
      * Defines template option for start.
      * @group Templates
      */
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for end.
      * @group Templates
      */
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for menu icon.
      * @group Templates
      */
-    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<void> | undefined;
     /**
-     * Defines template option for submenu icon.
+     * Custom item template.
+     * @param {MegaMenuItemTemplateContext} context - item context.
+     * @see {@link MegaMenuItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<MegaMenuItemTemplateContext> | undefined;
     /**
      * Custom menu button template on responsive mode.
      * @group Templates
      */
-    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<void> | undefined;
     /**
      * Custom menu button icon template on responsive mode.
      * @group Templates
      */
-    @ContentChild('buttonicon', { descendants: false }) buttonIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('buttonicon', { descendants: false }) buttonIconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -512,19 +514,19 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
 
     @ViewChild('rootmenu') rootmenu: MegaMenuSub | undefined;
 
-    _startTemplate: TemplateRef<any> | undefined;
+    _startTemplate: TemplateRef<void> | undefined;
 
-    _endTemplate: TemplateRef<any> | undefined;
+    _endTemplate: TemplateRef<void> | undefined;
 
-    _menuIconTemplate: TemplateRef<any> | undefined;
+    _menuIconTemplate: TemplateRef<void> | undefined;
 
-    _submenuIconTemplate: TemplateRef<any> | undefined;
+    _submenuIconTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<MegaMenuItemTemplateContext> | undefined;
 
-    _buttonTemplate: TemplateRef<any> | undefined;
+    _buttonTemplate: TemplateRef<void> | undefined;
 
-    _buttonIconTemplate: TemplateRef<any> | undefined;
+    _buttonIconTemplate: TemplateRef<void> | undefined;
 
     outsideClickListener: VoidListener;
 

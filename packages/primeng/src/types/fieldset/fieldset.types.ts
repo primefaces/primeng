@@ -86,17 +86,17 @@ export interface FieldsetTemplates {
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom content template.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
-     * Custom footer template.
+     * Custom expand icon template.
      */
-    expandicon(): TemplateRef<any>;
+    expandicon(): TemplateRef<void>;
     /**
-     * Custom icons template of the panel toggler.
+     * Custom collapse icon template.
      */
-    collapseicon(): TemplateRef<any>;
+    collapseicon(): TemplateRef<void>;
 }

@@ -32,7 +32,7 @@ import { Bind, BindModule } from 'primeng/bind';
 import { CheckIcon } from 'primeng/icons/check';
 import { MinusIcon } from 'primeng/icons/minus';
 import { Nullable } from 'primeng/ts-helpers';
-import { CheckboxChangeEvent, CheckboxPassThrough } from 'primeng/types/checkbox';
+import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'primeng/types/checkbox';
 import { CheckboxStyle } from './style/checkboxstyle';
 
 const CHECKBOX_INSTANCE = new InjectionToken<Checkbox>('CHECKBOX_INSTANCE');
@@ -216,14 +216,14 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
 
     _indeterminate = signal<any>(undefined);
     /**
-     * The template of the checkbox icon.
+     * Custom checkbox icon template.
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) checkboxIconTemplate: TemplateRef<any>;
+    @ContentChild('icon', { descendants: false }) checkboxIconTemplate: TemplateRef<CheckboxIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _checkboxIconTemplate: TemplateRef<any> | undefined;
+    _checkboxIconTemplate: TemplateRef<CheckboxIconTemplateContext> | undefined;
 
     focused: boolean = false;
 

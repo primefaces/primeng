@@ -32,7 +32,7 @@ import { FocusTrap } from 'primeng/focustrap';
 import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import { Nullable } from 'primeng/ts-helpers';
-import { ImagePassThrough } from 'primeng/types/image';
+import { ImageImageTemplateContext, ImagePassThrough, ImagePreviewTemplateContext } from 'primeng/types/image';
 import { ZIndexUtils } from 'primeng/utils';
 import { ImageStyle } from './style/imagestyle';
 
@@ -302,52 +302,52 @@ export class Image extends BaseComponent<ImagePassThrough> {
     @ViewChild('closeButton') closeButton: ElementRef | undefined;
 
     /**
-     * Custom template of indicator.
+     * Custom indicator template.
      * @group Templates
      */
-    @ContentChild('indicator', { descendants: false }) indicatorTemplate: TemplateRef<any> | undefined;
+    @ContentChild('indicator', { descendants: false }) indicatorTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Custom template of rotaterighticon.
+     * Custom rotate right icon template.
      * @group Templates
      */
-    @ContentChild('rotaterighticon', { descendants: false }) rotateRightIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('rotaterighticon', { descendants: false }) rotateRightIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Custom template of rotatelefticon.
+     * Custom rotate left icon template.
      * @group Templates
      */
-    @ContentChild('rotatelefticon', { descendants: false }) rotateLeftIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('rotatelefticon', { descendants: false }) rotateLeftIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Custom template of zoomouticon.
+     * Custom zoom out icon template.
      * @group Templates
      */
-    @ContentChild('zoomouticon', { descendants: false }) zoomOutIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('zoomouticon', { descendants: false }) zoomOutIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Custom template of zoominicon.
+     * Custom zoom in icon template.
      * @group Templates
      */
-    @ContentChild('zoominicon', { descendants: false }) zoomInIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('zoominicon', { descendants: false }) zoomInIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Custom template of closeicon.
+     * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Custom template of preview.
+     * Custom preview template.
      * @group Templates
      */
-    @ContentChild('preview', { descendants: false }) previewTemplate: TemplateRef<any> | undefined;
+    @ContentChild('preview', { descendants: false }) previewTemplate: TemplateRef<ImagePreviewTemplateContext> | undefined;
 
     /**
-     * Custom template of image.
+     * Custom image template.
      * @group Templates
      */
-    @ContentChild('image', { descendants: false }) imageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('image', { descendants: false }) imageTemplate: TemplateRef<ImageImageTemplateContext> | undefined;
 
     renderMask = signal<boolean>(false);
 
@@ -388,21 +388,21 @@ export class Image extends BaseComponent<ImagePassThrough> {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _indicatorTemplate: TemplateRef<any> | undefined;
+    _indicatorTemplate: TemplateRef<void> | undefined;
 
-    _rotateRightIconTemplate: TemplateRef<any> | undefined;
+    _rotateRightIconTemplate: TemplateRef<void> | undefined;
 
-    _rotateLeftIconTemplate: TemplateRef<any> | undefined;
+    _rotateLeftIconTemplate: TemplateRef<void> | undefined;
 
-    _zoomOutIconTemplate: TemplateRef<any> | undefined;
+    _zoomOutIconTemplate: TemplateRef<void> | undefined;
 
-    _zoomInIconTemplate: TemplateRef<any> | undefined;
+    _zoomInIconTemplate: TemplateRef<void> | undefined;
 
-    _closeIconTemplate: TemplateRef<any> | undefined;
+    _closeIconTemplate: TemplateRef<void> | undefined;
 
-    _imageTemplate: TemplateRef<any> | undefined;
+    _imageTemplate: TemplateRef<ImageImageTemplateContext> | undefined;
 
-    _previewTemplate: TemplateRef<any> | undefined;
+    _previewTemplate: TemplateRef<ImagePreviewTemplateContext> | undefined;
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

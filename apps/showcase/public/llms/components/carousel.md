@@ -545,6 +545,7 @@ Carousel is a content slider featuring various customization options.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | page | number | - | Index of the first item. |
@@ -577,11 +578,11 @@ Carousel is a content slider featuring various customization options.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Template for carousel items. |
-| header | TemplateRef<any> | Template for the carousel header. |
-| footer | TemplateRef<any> | Template for the carousel footer. |
-| previousicon | TemplateRef<any> | Template for the previous button icon. |
-| nexticon | TemplateRef<any> | Template for the next button icon. |
+| item | TemplateRef<CarouselItemTemplateContext<any>> | Custom item template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| previousicon | TemplateRef<void> | Custom previous icon template. |
+| nexticon | TemplateRef<void> | Custom next icon template. |
 
 ## Pass Through Options
 

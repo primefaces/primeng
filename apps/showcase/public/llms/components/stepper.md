@@ -448,19 +448,20 @@ Stepper is a component that streamlines a wizard-like workflow, organizing conte
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<StepperPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | value | ModelSignal<number> | undefined | A model that can hold a numeric value or be undefined. |
 | linear | InputSignalWithTransform<any, boolean> | false | A boolean variable that captures user input. |
-| transitionOptions | InputSignal<string> | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. |
-| enterAnimation | InputSignal<string> | 'p-collapsible-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-collapsible-leave' | Leave animation class name. |
+| transitionOptions | InputSignal<string> | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ## Pass Through Options
 
 | Name | Type | Description |
 |------|------|-------------|
 | root | PassThroughOption<HTMLElement, I> | Used to pass attributes to the root's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

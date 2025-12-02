@@ -28,7 +28,7 @@ import { ButtonModule, ButtonProps } from 'primeng/button';
 import { PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { SpeedDialPassThrough } from 'primeng/types/speeddial';
+import { SpeedDialButtonTemplateContext, SpeedDialItemTemplateContext, SpeedDialPassThrough } from 'primeng/types/speeddial';
 import { asapScheduler } from 'rxjs';
 import { SpeedDialStyle } from './style/speeddialstyle';
 
@@ -302,29 +302,32 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
 
     @ViewChild('list') list: ElementRef | undefined;
     /**
-     * Template of the button.
+     * Custom button template.
+     * @param {SpeedDialButtonTemplateContext} context - button context.
+     * @see {@link SpeedDialButtonTemplateContext}
      * @group Templates
      */
-    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<SpeedDialButtonTemplateContext> | undefined;
     /**
-     * Template of the item.
+     * Custom item template.
+     * @param {SpeedDialItemTemplateContext} context - item context.
+     * @see {@link SpeedDialItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
-
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<SpeedDialItemTemplateContext> | undefined;
     /**
-     * Template of the item.
+     * Custom icon template.
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _buttonTemplate: TemplateRef<any> | undefined;
+    _buttonTemplate: TemplateRef<SpeedDialButtonTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<SpeedDialItemTemplateContext> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
     isItemClicked: boolean = false;
 

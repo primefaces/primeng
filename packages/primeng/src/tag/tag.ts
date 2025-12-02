@@ -71,11 +71,15 @@ export class Tag extends BaseComponent<TagPassThrough> implements AfterContentIn
      */
     @Input({ transform: booleanAttribute }) rounded: boolean | undefined;
 
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any>;
+    /**
+     * Custom icon template.
+     * @group Templates
+     */
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
     _componentStyle = inject(TagStyle);
 

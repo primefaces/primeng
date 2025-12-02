@@ -138,6 +138,7 @@ ProgressBar is a process status indicator.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ProgressBarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | value | number | - | Current value of the progress. |
@@ -145,7 +146,7 @@ ProgressBar is a process status indicator.
 | styleClass | string | - | Style class of the element. **(Deprecated)** |
 | valueStyleClass | string | - | Style class of the value element. |
 | unit | string | % | Unit sign appended to the value. |
-| mode | string | determinate | Defines the mode of the progress |
+| mode | "indeterminate" \| "determinate" | 'determinate' | Defines the mode of the progress |
 | color | string | - | Color for the background of the progress. |
 
 ## Pass Through Options

@@ -176,11 +176,15 @@ export class Chip extends BaseComponent<ChipPassThrough> {
 
     _componentStyle = inject(ChipStyle);
 
-    @ContentChild('removeicon', { descendants: false }) removeIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom remove icon template.
+     * @group Templates
+     */
+    @ContentChild('removeicon', { descendants: false }) removeIconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _removeIconTemplate: TemplateRef<any> | undefined;
+    _removeIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

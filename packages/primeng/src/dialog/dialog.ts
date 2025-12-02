@@ -464,53 +464,81 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     @ViewChild('footer') footerViewChild: Nullable<ElementRef>;
     /**
      * Header template.
-     * @group Props
+     * @group Templates
      */
-    @Input('content') headerTemplate: TemplateRef<any> | undefined;
+    @Input('content') headerTemplate: TemplateRef<void> | undefined;
     /**
      * Content template.
-     * @group Props
+     * @group Templates
      */
-    @Input() contentTemplate: TemplateRef<any> | undefined;
+    @Input() contentTemplate: TemplateRef<void> | undefined;
     /**
      * Footer template.
-     * @group Props
+     * @group Templates
      */
-    @Input() footerTemplate: TemplateRef<any> | undefined;
+    @Input() footerTemplate: TemplateRef<void> | undefined;
     /**
      * Close icon template.
-     * @group Props
+     * @group Templates
      */
-    @Input() closeIconTemplate: TemplateRef<any> | undefined;
+    @Input() closeIconTemplate: TemplateRef<void> | undefined;
     /**
      * Maximize icon template.
-     * @group Props
+     * @group Templates
      */
-    @Input() maximizeIconTemplate: TemplateRef<any> | undefined;
+    @Input() maximizeIconTemplate: TemplateRef<void> | undefined;
     /**
      * Minimize icon template.
-     * @group Props
+     * @group Templates
      */
-    @Input() minimizeIconTemplate: TemplateRef<any> | undefined;
+    @Input() minimizeIconTemplate: TemplateRef<void> | undefined;
     /**
      * Headless template.
-     * @group Props
+     * @group Templates
      */
-    @Input() headlessTemplate: TemplateRef<any> | undefined;
+    @Input() headlessTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('content', { descendants: false }) _contentTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content', { descendants: false }) _contentTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('footer', { descendants: false }) _footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false }) _footerTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('closeicon', { descendants: false }) _closeiconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom close icon template.
+     * @group Templates
+     */
+    @ContentChild('closeicon', { descendants: false }) _closeiconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('maximizeicon', { descendants: false }) _maximizeiconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom maximize icon template.
+     * @group Templates
+     */
+    @ContentChild('maximizeicon', { descendants: false }) _maximizeiconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('minimizeicon', { descendants: false }) _minimizeiconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom minimize icon template.
+     * @group Templates
+     */
+    @ContentChild('minimizeicon', { descendants: false }) _minimizeiconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('headless', { descendants: false }) _headlessTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom headless template.
+     * @group Templates
+     */
+    @ContentChild('headless', { descendants: false }) _headlessTemplate: TemplateRef<void> | undefined;
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
@@ -576,19 +604,19 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
     _componentStyle = inject(DialogStyle);
 
-    headerT: TemplateRef<any> | undefined;
+    headerT: TemplateRef<void> | undefined;
 
-    contentT: TemplateRef<any> | undefined;
+    contentT: TemplateRef<void> | undefined;
 
-    footerT: TemplateRef<any> | undefined;
+    footerT: TemplateRef<void> | undefined;
 
-    closeIconT: TemplateRef<any> | undefined;
+    closeIconT: TemplateRef<void> | undefined;
 
-    maximizeIconT: TemplateRef<any> | undefined;
+    maximizeIconT: TemplateRef<void> | undefined;
 
-    minimizeIconT: TemplateRef<any> | undefined;
+    minimizeIconT: TemplateRef<void> | undefined;
 
-    headlessT: TemplateRef<any> | undefined;
+    headlessT: TemplateRef<void> | undefined;
 
     private zIndexForLayering?: number;
 

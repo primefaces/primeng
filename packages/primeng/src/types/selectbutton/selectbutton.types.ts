@@ -68,12 +68,28 @@ export interface SelectButtonOptionClickEvent {
 }
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface SelectButtonItemTemplateContext {
+    /**
+     * Option instance.
+     */
+    $implicit: any;
+    /**
+     * Index of the option.
+     */
+    index: number;
+}
+
+/**
  * Defines valid templates in SelectButton.
  * @group Templates
  */
 export interface SelectButtonTemplates {
     /**
      * Custom item template.
+     * @param {SelectButtonItemTemplateContext} context - item context.
      */
-    item(): TemplateRef<any>;
+    item(context: SelectButtonItemTemplateContext): TemplateRef<SelectButtonItemTemplateContext>;
 }

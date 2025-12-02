@@ -65,26 +65,40 @@ export interface ContextMenuPassThroughOptions<I = unknown> {
 export type ContextMenuPassThrough<I = unknown> = PassThrough<I, ContextMenuPassThroughOptions<I>>;
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface ContextMenuItemTemplateContext {
+    /**
+     * Menu item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
+ * Custom submenu icon template context.
+ * @group Interface
+ */
+export interface ContextMenuSubmenuIconTemplateContext {
+    /**
+     * Style class of the submenu icon.
+     */
+    class: string;
+}
+
+/**
  * Defines valid templates in ContextMenu.
  * @group Templates
  */
 export interface ContextMenuTemplates {
     /**
      * Custom item template.
+     * @param {Object} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: MenuItem;
-    }): TemplateRef<{ $implicit: MenuItem }>;
+    item(context: ContextMenuItemTemplateContext): TemplateRef<ContextMenuItemTemplateContext>;
     /**
-     * Custom template of submenuicon.
+     * Custom submenu icon template.
+     * @param {Object} context - icon context.
      */
-    submenuicon(context: {
-        /**
-         * Style class of the submenu icon.
-         */
-        class: string;
-    }): TemplateRef<{ class: string }>;
+    submenuicon(context: ContextMenuSubmenuIconTemplateContext): TemplateRef<ContextMenuSubmenuIconTemplateContext>;
 }

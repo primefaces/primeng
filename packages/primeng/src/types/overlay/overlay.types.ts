@@ -1,5 +1,34 @@
+import type { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { OverlayModeType, PassThrough, PassThroughOption } from 'primeng/api';
+
+/**
+ * Custom content template context.
+ * @group Interface
+ */
+export interface OverlayContentTemplateContext {
+    /**
+     * Object containing the overlay mode.
+     */
+    $implicit: {
+        /**
+         * Current overlay mode.
+         */
+        mode: OverlayModeType | string | null;
+    };
+}
+
+/**
+ * Defines valid templates in Overlay.
+ * @group Templates
+ */
+export interface OverlayTemplates {
+    /**
+     * Custom content template.
+     * @param {OverlayContentTemplateContext} context - content context.
+     */
+    content(context: OverlayContentTemplateContext): TemplateRef<OverlayContentTemplateContext>;
+}
 
 /**
  * Custom pass-through(pt) options.

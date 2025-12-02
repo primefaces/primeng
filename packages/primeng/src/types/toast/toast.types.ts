@@ -65,28 +65,46 @@ export interface ToastPassThroughOptions<I = unknown> {
 export type ToastPassThrough<I = unknown> = PassThrough<I, ToastPassThroughOptions<I>>;
 
 /**
+ * Custom message template context.
+ * @group Interface
+ */
+export interface ToastMessageTemplateContext {
+    /**
+     * Message instance.
+     */
+    $implicit: ToastMessageOptions | null | undefined;
+}
+
+/**
+ * Custom headless template context.
+ * @group Interface
+ */
+export interface ToastHeadlessTemplateContext {
+    /**
+     * Message instance.
+     */
+    $implicit: ToastMessageOptions | null | undefined;
+    /**
+     * Callback to close the toast.
+     */
+    closeFn: (event: Event) => void;
+}
+
+/**
  * Defines valid templates in Toast.
  * @group Templates
  */
 export interface ToastTemplates {
     /**
-     * Custom template of message.
+     * Custom message template.
+     * @param {ToastMessageTemplateContext} context - message context.
      */
-    message(context: {
-        /**
-         * Data of the message.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    message(context: ToastMessageTemplateContext): TemplateRef<ToastMessageTemplateContext>;
     /**
-     * Headless template.
+     * Custom headless template.
+     * @param {ToastHeadlessTemplateContext} context - headless context.
      */
-    headless(context: {
-        /**
-         * Data of the message.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    headless(context: ToastHeadlessTemplateContext): TemplateRef<ToastHeadlessTemplateContext>;
 }
 
 /**

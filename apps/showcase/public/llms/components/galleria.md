@@ -562,6 +562,7 @@ Galleria is an advanced content gallery component.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<GalleriaPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | activeIndex | number | - | Index of the first item. |
@@ -588,10 +589,10 @@ Galleria is an advanced content gallery component.
 | maskClass | string | - | Style class of the mask on fullscreen mode. |
 | containerClass | string | - | Style class of the component on fullscreen mode. Otherwise, the 'class' property can be used. |
 | containerStyle | { [klass: string]: any } | - | Inline style of the component on fullscreen mode. Otherwise, the 'style' property can be used. |
-| showTransitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. |
-| hideTransitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the hide animation. |
-| enterAnimation | InputSignal<string> | 'p-galleria-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-galleria-leave' | Leave animation class name. |
+| showTransitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the hide animation. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| maskMotionOptions | InputSignal<MotionOptions> | ... | The mask motion options. |
 | visible | boolean | - | Specifies the visibility of the mask on fullscreen mode. |
 
 ### Emits
@@ -634,6 +635,7 @@ Galleria is an advanced content gallery component.
 | thumbnailNextButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the thumbnail next button's DOM element. |
 | thumbnailNextIcon | PassThroughOption<SVGElement, I> | Used to pass attributes to the thumbnail next icon's DOM element. |
 | footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

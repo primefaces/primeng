@@ -4,7 +4,7 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { Nullable } from 'primeng/ts-helpers';
-import { TimelinePassThrough } from 'primeng/types/timeline';
+import { TimelineItemTemplateContext, TimelinePassThrough } from 'primeng/types/timeline';
 import { TimelineStyle } from './style/timelinestyle';
 
 const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');
@@ -76,29 +76,35 @@ export class Timeline extends BaseComponent<TimelinePassThrough> implements Bloc
     @Input() layout: 'vertical' | 'horizontal' = 'vertical';
     /**
      * Custom content template.
+     * @param {TimelineItemTemplateContext} context - item context.
+     * @see {@link TimelineItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<TimelineItemTemplateContext>>;
 
     /**
      * Custom opposite item template.
+     * @param {TimelineItemTemplateContext} context - item context.
+     * @see {@link TimelineItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('opposite', { descendants: false }) oppositeTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('opposite', { descendants: false }) oppositeTemplate: Nullable<TemplateRef<TimelineItemTemplateContext>>;
 
     /**
      * Custom marker template.
+     * @param {TimelineItemTemplateContext} context - item context.
+     * @see {@link TimelineItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('marker', { descendants: false }) markerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('marker', { descendants: false }) markerTemplate: Nullable<TemplateRef<TimelineItemTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<TimelineItemTemplateContext> | undefined;
 
-    _oppositeTemplate: TemplateRef<any> | undefined;
+    _oppositeTemplate: TemplateRef<TimelineItemTemplateContext> | undefined;
 
-    _markerTemplate: TemplateRef<any> | undefined;
+    _markerTemplate: TemplateRef<TimelineItemTemplateContext> | undefined;
 
     _componentStyle = inject(TimelineStyle);
 

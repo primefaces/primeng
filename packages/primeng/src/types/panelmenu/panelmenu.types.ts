@@ -101,21 +101,32 @@ export interface PanelMenuPassThroughOptions<I = unknown> {
 export type PanelMenuPassThrough<I = unknown> = PassThrough<I, PanelMenuPassThroughOptions<I>>;
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface PanelMenuItemTemplateContext {
+    /**
+     * Item instance.
+     */
+    $implicit: MenuItem;
+}
+
+/**
  * Defines valid templates in PanelMenu.
  * @group Templates
  */
 export interface PanelMenuTemplates {
     /**
      * Custom item template.
+     * @param {PanelMenuItemTemplateContext} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: MenuItem;
-    }): TemplateRef<{ $implicit: MenuItem }>;
+    item(context: PanelMenuItemTemplateContext): TemplateRef<PanelMenuItemTemplateContext>;
     /**
      * Custom template of submenuicon.
      */
-    submenuicon(): TemplateRef<any>;
+    submenuicon(): TemplateRef<void>;
+    /**
+     * Custom template of headericon.
+     */
+    headericon(): TemplateRef<void>;
 }

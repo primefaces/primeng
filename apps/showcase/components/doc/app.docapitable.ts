@@ -163,11 +163,21 @@ export class AppDocApiTable {
     }
 
     getKeys(object) {
-        return Object.keys(object);
+        const keys = Object.keys(object);
+        // Filter out 'parameters' column if all data items have null/empty parameters
+        if (keys.includes('parameters') && this.data?.every((item) => !item.parameters || item.parameters.length === 0)) {
+            return keys.filter((key) => key !== 'parameters');
+        }
+        return keys;
     }
 
     getEntries(object) {
-        return Object.entries(object);
+        const entries = Object.entries(object);
+        // Filter out 'parameters' entry if all data items have null/empty parameters
+        if (this.data?.every((item) => !item.parameters || item.parameters.length === 0)) {
+            return entries.filter(([key]) => key !== 'parameters');
+        }
+        return entries;
     }
 
     getType(value) {

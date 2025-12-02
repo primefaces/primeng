@@ -62,21 +62,21 @@ export interface DrawerTemplates {
     /**
      * Custom template of header.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom template of content.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
      * Custom template of footer.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
-     * Custom template of closeicon.
+     * Custom template of close icon.
      */
-    closeicon(): TemplateRef<any>;
+    closeicon(): TemplateRef<void>;
     /**
-     * Headless template.
+     * Headless template to replace the entire drawer content.
      */
-    headless(): TemplateRef<any>;
+    headless(): TemplateRef<void>;
 }

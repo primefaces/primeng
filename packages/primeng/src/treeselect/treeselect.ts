@@ -35,7 +35,15 @@ import { ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { Nullable } from 'primeng/ts-helpers';
-import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent, TreeSelectPassThrough } from 'primeng/types/treeselect';
+import {
+    TreeSelectHeaderTemplateContext,
+    TreeSelectItemCheckboxIconTemplateContext,
+    TreeSelectItemTogglerIconTemplateContext,
+    TreeSelectNodeCollapseEvent,
+    TreeSelectNodeExpandEvent,
+    TreeSelectPassThrough,
+    TreeSelectValueTemplateContext
+} from 'primeng/types/treeselect';
 import { TreeSelectStyle } from './style/treeselectstyle';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
@@ -525,101 +533,111 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     serializedValue: Nullable<any[]>;
     /**
      * Custom value template.
+     * @param {TreeSelectValueTemplateContext} context - value context.
+     * @see {@link TreeSelectValueTemplateContext}
      * @group Templates
      */
-    @ContentChild('value', { descendants: false }) valueTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('value', { descendants: false }) valueTemplate: Nullable<TemplateRef<TreeSelectValueTemplateContext>>;
 
     /**
      * Custom header template.
+     * @param {TreeSelectHeaderTemplateContext} context - header context.
+     * @see {@link TreeSelectHeaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<TreeSelectHeaderTemplateContext>>;
 
     /**
      * Custom empty message template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom footer template.
+     * @param {TreeSelectHeaderTemplateContext} context - footer context.
+     * @see {@link TreeSelectHeaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<TreeSelectHeaderTemplateContext>>;
 
     /**
      * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom trigger icon template.
      * @group Templates
      */
-    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom dropdown icon template.
      * @group Templates
      */
-    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom item toggler icon template.
+     * @param {TreeSelectItemTogglerIconTemplateContext} context - toggler icon context.
+     * @see {@link TreeSelectItemTogglerIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('itemtogglericon', { descendants: false }) itemTogglerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemtogglericon', { descendants: false }) itemTogglerIconTemplate: Nullable<TemplateRef<TreeSelectItemTogglerIconTemplateContext>>;
 
     /**
      * Custom item checkbox icon template.
+     * @param {TreeSelectItemCheckboxIconTemplateContext} context - checkbox icon context.
+     * @see {@link TreeSelectItemCheckboxIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('itemcheckboxicon', { descendants: false }) itemCheckboxIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemcheckboxicon', { descendants: false }) itemCheckboxIconTemplate: Nullable<TemplateRef<TreeSelectItemCheckboxIconTemplateContext>>;
 
     /**
      * Custom item loading icon template.
      * @group Templates
      */
-    @ContentChild('itemloadingicon', { descendants: false }) itemLoadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('itemloadingicon', { descendants: false }) itemLoadingIconTemplate: Nullable<TemplateRef<void>>;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _valueTemplate: TemplateRef<any> | undefined;
+    _valueTemplate: TemplateRef<TreeSelectValueTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<TreeSelectHeaderTemplateContext> | undefined;
 
-    _emptyTemplate: TemplateRef<any> | undefined;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<TreeSelectHeaderTemplateContext> | undefined;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
-    _triggerIconTemplate: TemplateRef<any> | undefined;
+    _triggerIconTemplate: TemplateRef<void> | undefined;
 
-    _filterIconTemplate: TemplateRef<any> | undefined;
+    _filterIconTemplate: TemplateRef<void> | undefined;
 
-    _closeIconTemplate: TemplateRef<any> | undefined;
+    _closeIconTemplate: TemplateRef<void> | undefined;
 
-    _itemTogglerIconTemplate: TemplateRef<any> | undefined;
+    _itemTogglerIconTemplate: TemplateRef<TreeSelectItemTogglerIconTemplateContext> | undefined;
 
-    _itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+    _itemCheckboxIconTemplate: TemplateRef<TreeSelectItemCheckboxIconTemplateContext> | undefined;
 
-    _itemLoadingIconTemplate: TemplateRef<any> | undefined;
+    _itemLoadingIconTemplate: TemplateRef<void> | undefined;
 
-    _dropdownIconTemplate: TemplateRef<any> | undefined;
+    _dropdownIconTemplate: TemplateRef<void> | undefined;
 
     focused: Nullable<boolean>;
 

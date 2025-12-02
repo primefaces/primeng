@@ -28,7 +28,7 @@ import { Bind } from 'primeng/bind';
 import { BindModule } from 'primeng/bind';
 import { StarFillIcon, StarIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
-import { RatingPassThrough } from 'primeng/types/rating';
+import { RatingIconTemplateContext, RatingPassThrough } from 'primeng/types/rating';
 import type { RatingRateEvent } from 'primeng/types/rating';
 import { RatingStyle } from './style/ratingstyle';
 
@@ -159,14 +159,18 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
     /**
      * Custom on icon template.
+     * @param {RatingIconTemplateContext} context - icon context.
+     * @see {@link RatingIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('onicon', { descendants: false }) onIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('onicon', { descendants: false }) onIconTemplate: Nullable<TemplateRef<RatingIconTemplateContext>>;
     /**
      * Custom off icon template.
+     * @param {RatingIconTemplateContext} context - icon context.
+     * @see {@link RatingIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<RatingIconTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -182,9 +186,9 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
 
     _componentStyle = inject(RatingStyle);
 
-    _onIconTemplate: TemplateRef<any> | undefined;
+    _onIconTemplate: TemplateRef<RatingIconTemplateContext> | undefined;
 
-    _offIconTemplate: TemplateRef<any> | undefined;
+    _offIconTemplate: TemplateRef<RatingIconTemplateContext> | undefined;
 
     onInit() {
         this.nameattr = this.nameattr || uuid('pn_id_');
@@ -264,7 +268,7 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
         return value === 1 ? this.config.translation.aria?.star : this.config.translation.aria?.stars?.replace(/{star}/g, value);
     }
 
-    getIconTemplate(i: number): Nullable<TemplateRef<any>> {
+    getIconTemplate(i: number): Nullable<TemplateRef<RatingIconTemplateContext>> {
         return !this.value || i >= this.value ? this.offIconTemplate || this._offIconTemplate : this.onIconTemplate || this.offIconTemplate;
     }
 

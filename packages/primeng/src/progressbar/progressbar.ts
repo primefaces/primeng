@@ -3,7 +3,7 @@ import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component,
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { ProgressBarPassThrough } from 'primeng/types/progressbar';
+import { ProgressBarContentTemplateContext, ProgressBarPassThrough } from 'primeng/types/progressbar';
 import { ProgressBarStyle } from './style/progressbarstyle';
 
 const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTANCE');
@@ -82,9 +82,11 @@ export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
     @Input() color: string | undefined;
     /**
      * Template of the content.
-     * @group templates
+     * @param {ProgressBarContentTemplateContext} context - content context.
+     * @see {@link ProgressBarContentTemplateContext}
+     * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<ProgressBarContentTemplateContext> | undefined;
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -94,7 +96,7 @@ export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<ProgressBarContentTemplateContext> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

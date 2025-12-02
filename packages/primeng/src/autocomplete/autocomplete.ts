@@ -40,7 +40,20 @@ import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoCompleteAddEvent, AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompletePassThrough, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'primeng/types/autocomplete';
+import {
+    AutoCompleteAddEvent,
+    AutoCompleteCompleteEvent,
+    AutoCompleteDropdownClickEvent,
+    AutoCompleteGroupTemplateContext,
+    AutoCompleteItemTemplateContext,
+    AutoCompleteLazyLoadEvent,
+    AutoCompleteLoaderTemplateContext,
+    AutoCompletePassThrough,
+    AutoCompleteRemoveIconTemplateContext,
+    AutoCompleteSelectEvent,
+    AutoCompleteSelectedItemTemplateContext,
+    AutoCompleteUnselectEvent
+} from 'primeng/types/autocomplete';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 
 const AUTOCOMPLETE_INSTANCE = new InjectionToken<AutoComplete>('AUTOCOMPLETE_INSTANCE');
@@ -750,67 +763,67 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('item') itemTemplate: Nullable<TemplateRef<AutoCompleteItemTemplateContext>>;
 
     /**
      * Custom empty message template.
      * @group Templates
      */
-    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('empty') emptyTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header') headerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer') footerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom selected item template.
      * @group Templates
      */
-    @ContentChild('selecteditem') selectedItemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('selecteditem') selectedItemTemplate: Nullable<TemplateRef<AutoCompleteSelectedItemTemplateContext>>;
 
     /**
-     * Custom group item template.
+     * Custom group template.
      * @group Templates
      */
-    @ContentChild('group') groupTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('group') groupTemplate: Nullable<TemplateRef<AutoCompleteGroupTemplateContext>>;
 
     /**
      * Custom loader template.
      * @group Templates
      */
-    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loader') loaderTemplate: Nullable<TemplateRef<AutoCompleteLoaderTemplateContext>>;
 
     /**
      * Custom remove icon template.
      * @group Templates
      */
-    @ContentChild('removeicon') removeIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('removeicon') removeIconTemplate: Nullable<TemplateRef<AutoCompleteRemoveIconTemplateContext>>;
 
     /**
      * Custom loading icon template.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon') loadingIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon') clearIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom dropdown icon template.
      * @group Templates
      */
-    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon') dropdownIconTemplate: Nullable<TemplateRef<void>>;
 
     @HostListener('click', ['$event'])
     onHostClick(event: MouseEvent) {
@@ -843,27 +856,27 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     dirty: boolean = false;
 
-    _itemTemplate: TemplateRef<any>;
+    _itemTemplate: TemplateRef<AutoCompleteItemTemplateContext> | undefined;
 
-    _groupTemplate: TemplateRef<any>;
+    _groupTemplate: TemplateRef<AutoCompleteGroupTemplateContext> | undefined;
 
-    _selectedItemTemplate: TemplateRef<any>;
+    _selectedItemTemplate: TemplateRef<AutoCompleteSelectedItemTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any>;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _emptyTemplate: TemplateRef<any>;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any>;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _loaderTemplate: TemplateRef<any>;
+    _loaderTemplate: TemplateRef<AutoCompleteLoaderTemplateContext> | undefined;
 
-    _removeIconTemplate: TemplateRef<any>;
+    _removeIconTemplate: TemplateRef<AutoCompleteRemoveIconTemplateContext> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any>;
+    _loadingIconTemplate: TemplateRef<void> | undefined;
 
-    _clearIconTemplate: TemplateRef<any>;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
-    _dropdownIconTemplate: TemplateRef<any>;
+    _dropdownIconTemplate: TemplateRef<void> | undefined;
 
     focusedMultipleOptionIndex = signal<number>(-1);
 

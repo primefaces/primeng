@@ -43,7 +43,7 @@ import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Overlay } from 'primeng/overlay';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { PasswordPassThrough } from 'primeng/types/password';
+import type { PasswordIconTemplateContext, PasswordPassThrough } from 'primeng/types/password';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 
@@ -683,33 +683,61 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     @ViewChild('input') input!: ElementRef;
 
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template of content.
+     * @group Templates
+     */
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template of footer.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template of header.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template of clear icon.
+     * @group Templates
+     */
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('hideicon', { descendants: false }) hideIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template of hide icon.
+     * @param {PasswordIconTemplateContext} context - icon context.
+     * @see {@link PasswordIconTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('hideicon', { descendants: false }) hideIconTemplate: Nullable<TemplateRef<PasswordIconTemplateContext>>;
 
-    @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom template of show icon.
+     * @param {PasswordIconTemplateContext} context - icon context.
+     * @see {@link PasswordIconTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<PasswordIconTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
-    _hideIconTemplate: TemplateRef<any> | undefined;
+    _hideIconTemplate: TemplateRef<PasswordIconTemplateContext> | undefined;
 
-    _showIconTemplate: TemplateRef<any> | undefined;
+    _showIconTemplate: TemplateRef<PasswordIconTemplateContext> | undefined;
 
     overlayVisible: boolean = false;
 

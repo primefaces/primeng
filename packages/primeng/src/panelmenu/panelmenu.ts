@@ -32,7 +32,7 @@ import { Bind, BindModule } from 'primeng/bind';
 import { ChevronDownIcon, ChevronRightIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import { TooltipModule } from 'primeng/tooltip';
-import { PanelMenuPassThrough } from 'primeng/types/panelmenu';
+import { PanelMenuItemTemplateContext, PanelMenuPassThrough } from 'primeng/types/panelmenu';
 import { PanelMenuStyle } from './style/panelmenustyle';
 
 const PANELMENU_INSTANCE = new InjectionToken<PanelMenu>('PANELMENU_INSTANCE');
@@ -193,7 +193,7 @@ export class PanelMenuSub extends BaseComponent {
 
     @Input() items: any[];
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<PanelMenuItemTemplateContext> | undefined;
 
     @Input({ transform: numberAttribute }) level: number = 0;
 
@@ -348,7 +348,7 @@ export class PanelMenuList extends BaseComponent {
 
     @Input() items: any[];
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<PanelMenuItemTemplateContext> | undefined;
 
     @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
@@ -943,25 +943,27 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
      * Template option of submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<void> | undefined;
     /**
      * Template option of header icon.
      * @group Templates
      */
-    @ContentChild('headericon', { descendants: false }) headerIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headericon', { descendants: false }) headerIconTemplate: TemplateRef<void> | undefined;
     /**
      * Template option of item.
+     * @param {PanelMenuItemTemplateContext} context - item context.
+     * @see {@link PanelMenuItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<PanelMenuItemTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _submenuIconTemplate: TemplateRef<any> | undefined;
+    _submenuIconTemplate: TemplateRef<void> | undefined;
 
-    _headerIconTemplate: TemplateRef<any> | undefined;
+    _headerIconTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<PanelMenuItemTemplateContext> | undefined;
 
     activeItem = signal<any>(null);
 
