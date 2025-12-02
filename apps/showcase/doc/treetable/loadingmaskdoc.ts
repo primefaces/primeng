@@ -57,7 +57,7 @@ export class LoadingMaskDoc {
     loadDemoData() {
         this.files = [];
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 15; i++) {
             let node = {
                 data: {
                     name: 'Item ' + i,
@@ -167,7 +167,7 @@ export class LoadingMaskDemo implements OnInit {
     ngOnInit() {
         this.files = [];
         
-        for(let i = 0; i < 50; i++) {
+        for(let i = 0; i < 15; i++) {
             let node = {
                 data:{
                     name: 'Item ' + i,
