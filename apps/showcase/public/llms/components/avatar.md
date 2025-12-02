@@ -233,7 +233,9 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```html
 <p-avatar size="xlarge">
-    <span class="text-base">Content</span>
+    <svg width="35" height="40" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+        <path d="..." fill="var(--primary-color)" />
+    </svg>
 </p-avatar>
 ```
 

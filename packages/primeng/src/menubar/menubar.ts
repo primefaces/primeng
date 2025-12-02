@@ -98,25 +98,39 @@ export class MenubarService {
                             *ngIf="!getItemProp(processedItem, 'routerLink')"
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.target]="getItemProp(processedItem, 'target')"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [attr.tabindex]="-1"
                             [pBind]="getPTOptions(processedItem, index, 'itemLink')"
                             pRipple
                         >
                             <span
                                 *ngIf="getItemProp(processedItem, 'icon')"
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
-                                [style]="getItemProp(processedItem, 'iconStyle')"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             >
                             </span>
-                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                            <span
+                                *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                [id]="getItemLabelId(processedItem)"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                            >
                                 {{ getItemLabel(processedItem) }}
                             </span>
                             <ng-template #htmlLabel>
-                                <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
+                                <span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemLabel(processedItem)"
+                                    [id]="getItemLabelId(processedItem)"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span>
                             </ng-template>
                             <p-badge
                                 *ngIf="getItemProp(processedItem, 'badge')"
@@ -138,12 +152,14 @@ export class MenubarService {
                             *ngIf="getItemProp(processedItem, 'routerLink')"
                             [routerLink]="getItemProp(processedItem, 'routerLink')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.tabindex]="-1"
                             [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-menubar-item-link-active'"
                             [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                             [target]="getItemProp(processedItem, 'target')"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [fragment]="getItemProp(processedItem, 'fragment')"
                             [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                             [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -154,14 +170,27 @@ export class MenubarService {
                             pRipple
                         >
                             <span
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             ></span>
-                            <span [class]="cx('itemLabel')" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemLabel(processedItem) }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
+                            <span
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                >{{ getItemLabel(processedItem) }}</span
+                            >
+                            <ng-template #htmlRouteLabel
+                                ><span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemLabel(processedItem)"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span
+                            ></ng-template>
                             <p-badge
                                 *ngIf="getItemProp(processedItem, 'badge')"
                                 [class]="getItemProp(processedItem, 'badgeStyleClass')"

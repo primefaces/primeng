@@ -56,19 +56,21 @@ export class TreeCheckboxDemo implements OnInit {
 
 ## Context Menu
 
-Tree requires a collection of TreeNode instances as a value.
+Tree has exclusive integration with ContextMenu using the contextMenu property to open a menu on right click along with contextMenuSelection property to control the selection via the menu.
 
 ```html
-<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+<p-toast [style]="{ marginTop: '80px' }" />
+
+<p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+
 <p-contextmenu #cm [model]="items" />
-<p-toast />
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, model, signal } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -83,9 +85,9 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService, NodeService]
 })
 export class TreeContextMenuDemo implements OnInit {
-    files = signal<TreeNode[]>(undefined);
+    files = signal<TreeNode[]>([]);
 
-    selectedFile!: TreeNode | null;
+    selectedNode = model<TreeNode | null>(null);
 
     items!: MenuItem[];
 
@@ -95,15 +97,42 @@ export class TreeContextMenuDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files.set(data);
-        });
+        this.nodeService.getFiles().then((files) => this.files.set(files));
+
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
-            { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode()) },
+            { label: 'Unselect', icon: 'pi pi-times', command: () => this.unselectFile() }
         ];
     }
 
+    unselectFile() {
+        this.selectedNode.set(null);
+    }
+
+    viewFile(node: TreeNode | null) {
+        if (node) {
+            this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.label });
+        }
+    }
+
+    toggleFile(node: TreeNode | null) {
+        if (node) {
+            this.files.set(this.updateNodeInTree(this.files(), node.key, { ...node, expanded: !node.expanded }));
+        }
+    }
+
+    updateNodeInTree(nodes: TreeNode[], key: string | undefined, updatedNode: TreeNode): TreeNode[] {
+        return nodes.map((n) => {
+            if (n.key === key) {
+                return updatedNode;
+            }
+            if (n.children) {
+                return { ...n, children: this.updateNodeInTree(n.children, key, updatedNode) };
+            }
+            return n;
+        });
+    }
 }
 ```
 </details>
@@ -560,7 +589,7 @@ export class TreeTemplateDemo implements OnInit {
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.
 
 ```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
+<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
 ```
 
 <details>
@@ -596,7 +625,7 @@ export class TreeVirtualScrollDemo implements OnInit {
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.
 
 ```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
+<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
 ```
 
 <details>

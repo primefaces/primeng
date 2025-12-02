@@ -18,7 +18,7 @@ Screen Reader Value to describe the component can either be provided via label t
 
 ## Advanced
 
-Advanced chips mode combines optionLabel , optionValue functions with custom templates for a rich user experience. This example demonstrates product selection with images, custom chip templates, and flexible data handling.
+This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.
 
 ```html
 <p-autocomplete
@@ -44,11 +44,15 @@ Advanced chips mode combines optionLabel , optionValue functions with custom tem
             <span class="font-bold sm:ml-8">\${{ product.price }}</span>
         </div>
     </ng-template>
-    <ng-template let-value #chip>
-        <div class="flex align-items-center gap-2">
-            <span class="font-semibold">{{ value.name }}</span>
-            <span class="text-primary text-sm">\${{ value.price }}</span>
-        </div>
+    <ng-template let-value #selecteditem>
+        @if (value.price) {
+            <div class="flex align-items-center gap-2">
+                <span class="font-semibold">{{ value.name }}</span>
+                <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+            </div>
+        } @else {
+            <span class="font-semibold">{{ value }}</span>
+        }
     </ng-template>
 </p-autocomplete>
 ```
@@ -123,7 +127,7 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
 
 ## Basic
 
-When typeahead is disabled and multiple is enabled, AutoComplete can work like a chips component. Various features allow flexible item addition: use addOnBlur to add items when the input loses focus, addOnTab to add items with the Tab key, and separator to define characters for adding multiple items at once.
+With ⁠multiple enabled, the AutoComplete component behaves like a chips or tags input. Use addOnBlur , ⁠addOnTab , and ⁠separator properties to customize the keystroke behavior for adding items.
 
 ```html
 <!-- With Add On Blur -->
@@ -700,7 +704,7 @@ export class AutocompleteInvalidDemo {
 
 ## Multiple
 
-Multiple mode is enabled using multiple property used to select more than one value from the autocomplete. In this case, value reference should be an array.
+Enable multiple selection mode using the ⁠multiple property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.
 
 ```html
 <label for="multiple-ac-1" class="font-bold mb-2 block">With Typeahead</label>

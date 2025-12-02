@@ -265,13 +265,11 @@ Menu offers item customization with the item template that receives the menuitem
         <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
     <ng-template #item let-item>
-        <a pRipple class="flex items-center p-menu-item-link">
+        <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class.text-red-500]="item.label === 'Logout'">
             <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
         </a>
     </ng-template>
     <ng-template #end>

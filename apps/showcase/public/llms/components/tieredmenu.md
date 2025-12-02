@@ -290,14 +290,12 @@ TieredMenu offers item customization with the item template that receives the me
 ```html
 <p-tieredmenu [model]="items">
     <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-        <a pRipple class="flex items-center p-tieredmenu-item-link">
-            <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
+        <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+            <span [class]="item.icon"></span>
+            <span class="ms-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
-            <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
         </a>
     </ng-template>
 </p-tieredmenu>
@@ -334,7 +332,7 @@ export class TieredMenuTemplateDemo implements OnInit {
                         icon: 'pi pi-plus',
                         items: [
                             {
-                                label: 'Document',
+                                label: 'Docs',
                                 icon: 'pi pi-file',
                                 shortcut: '⌘+N'
                             },

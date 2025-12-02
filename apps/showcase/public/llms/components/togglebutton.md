@@ -138,9 +138,9 @@ export class ToggleButtonInvalidDemo {
 ToggleButton can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
 ```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" />
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
+    <div class="flex flex-col items-center gap-1">
+        <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
         @if (isInvalid('checked')) {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }
@@ -176,7 +176,7 @@ export class ToggleButtonReactiveFormsDemo {
 
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
-            checked: ['', Validators.required]
+            checked: [false, Validators.requiredTrue]
         });
     }
 
@@ -238,9 +238,9 @@ Following is the list of structural style classes, for theming classes visit the
 ## templatedrivenformsdoc
 
 ```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
+    <div class="flex flex-col items-center gap-1">
+        <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required class="min-w-40" />
         @if (model.invalid && (model.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }

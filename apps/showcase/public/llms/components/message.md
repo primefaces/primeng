@@ -142,7 +142,7 @@ The icon of a message is specified with the icon property.
     <ng-template #icon>
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
     </ng-template>
-    <span class="ml-2">How may I help you?</span>
+    <span class="ms-2">How may I help you?</span>
 </p-message>
 ```
 

@@ -143,12 +143,10 @@ The initial configuration is defined by the providePrimeNG provider during appli
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({ /* options */ })
     ]
 };
@@ -178,14 +176,12 @@ PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and No
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura,

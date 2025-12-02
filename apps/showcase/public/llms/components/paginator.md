@@ -62,7 +62,8 @@ Sample image gallery implementation using paginator.
 
 ```html
 <p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-<img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />
+        
+<img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
 ```
 
 <details>
@@ -79,11 +80,8 @@ import { PaginatorState } from 'primeng/paginator';
 export class PaginatorImagesDemo {
     first: number = 0;
 
-    rows: number = 10;
-
     onPageChange(event: PaginatorState) {
         this.first = event.first ?? 0;
-        this.rows = event.rows ?? 10;
     }
 }
 ```

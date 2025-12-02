@@ -130,7 +130,8 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                                     [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                     [attr.title]="getItemProp(processedItem, 'title')"
                                     [target]="getItemProp(processedItem, 'target')"
-                                    [class]="cx('itemLink')"
+                                    [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                                     [attr.tabindex]="-1"
                                     [pBind]="getPTOptions(processedItem, index, 'itemLink')"
                                     pRipple
@@ -144,10 +145,22 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                                         [attr.tabindex]="-1"
                                     >
                                     </span>
-                                    <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                                    <span
+                                        *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                        [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                        [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                    >
                                         {{ getItemLabel(processedItem) }}
                                     </span>
-                                    <ng-template #htmlLabel> <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span> </ng-template>
+                                    <ng-template #htmlLabel>
+                                        <span
+                                            [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                            [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                            [innerHTML]="getItemLabel(processedItem)"
+                                            [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                        ></span>
+                                    </ng-template>
                                     <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
                                     <ng-container *ngIf="isItemGroup(processedItem)">
                                         <svg
@@ -169,7 +182,8 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                                     [queryParams]="getItemProp(processedItem, 'queryParams')"
                                     [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                                     [target]="getItemProp(processedItem, 'target')"
-                                    [class]="cx('itemLink')"
+                                    [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                                     [fragment]="getItemProp(processedItem, 'fragment')"
                                     [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                                     [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -188,11 +202,21 @@ const CONTEXTMENUSUB_INSTANCE = new InjectionToken<ContextMenuSub>('CONTEXTMENUS
                                         [attr.tabindex]="-1"
                                     >
                                     </span>
-                                    <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                                    <span
+                                        *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                        [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                        [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                        [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                    >
                                         {{ getItemLabel(processedItem) }}
                                     </span>
                                     <ng-template #htmlLabel>
-                                        <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
+                                        <span
+                                            [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                            [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                            [innerHTML]="getItemLabel(processedItem)"
+                                            [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                        ></span>
                                     </ng-template>
                                     <p-badge *ngIf="getItemProp(processedItem, 'badge')" [class]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" [unstyled]="unstyled()" />
                                     <ng-container *ngIf="isItemGroup(processedItem)">

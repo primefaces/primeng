@@ -138,7 +138,7 @@ export class KnobReactiveDemo {
 ```
 </details>
 
-## reactiveformsdoc
+## Reactive Forms
 
 Knob can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 

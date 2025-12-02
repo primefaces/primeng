@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2025-12-02T07:13:56.597Z
+Generated: 2025-12-02T15:50:56.777Z
 
 ---
 
@@ -24,20 +24,18 @@ Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we reco
 
 ## Provider
 
-Add providePrimeNG and provideAnimationsAsync to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
+Add providePrimeNG to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura
@@ -203,12 +201,10 @@ The initial configuration is defined by the providePrimeNG provider during appli
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({ /* options */ })
     ]
 };
@@ -238,14 +234,12 @@ PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and No
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura,
@@ -391,13 +385,11 @@ The theme property is used to customize the initial theme.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura
@@ -1230,7 +1222,7 @@ Our team has put in great deal of effort while updating PrimeNG, and there are n
 
 ## Deprecations
 
-The following items are marked as deprecated. These are subject to soft deprecation, which means they are no longer recommended for use, but will remain available and will not be removed in future releases. API Deprecated Since Replacement Removal Status pTemplate v20 ng-template with a template reference variable None styleClass *(for host enabled components) v20 class None Global inputVariant v20 inputVariant None CamelCase Selectors v20 Kebab case None pButton iconPos, loadingIcon, icon and label properties v20 pButtonIcon and pButtonLabel directives None Button plain property v20 pButtonIcon and pButtonLabel directives None pButton buttonProps property v20 Use button properties directly on the element None p-button badgeClass property v20 badgeSeverity property None AutoComplete minLength property v20 minQueryLength None OrganizationChart preserveSpace property v20 Obselete property, had no use None Paginator dropdownAppendTo property v20 appendTo None Message text and escape properties v20 Content projection None Password maxLength property v20 maxlength property None TreeSelect containerStyle/containerStyleClass properties v20 style and class None Table responsiveLayout property v20 Always defaults to scroll, stack mode needs custom implementation None TreeSelect default template v20 value template None pBadge directive v20 OverlayBadge component None clearFilterIcon template of Table v20 Obsolete, not utilized. None Inplace closable property. v20 Use templating with closeCallback . None
+The following items are marked as deprecated. API Deprecated Since Replacement Removal Status pTemplate v20 ng-template with a template reference variable v22 styleClass *(for host enabled components) v20 class v22 Global inputStyle config v20 inputVariant v22 CamelCase Selectors v20 Kebab case v22 pButton iconPos, loadingIcon, icon and label properties v20 pButtonIcon and pButtonLabel directives v22 pButton buttonProps property v20 Use button properties directly on the element v22 p-button badgeClass property v20 badgeSeverity property v22 AutoComplete minLength property v20 minQueryLength v22 OrganizationChart preserveSpace property v20 Obselete property, had no use v22 Paginator dropdownAppendTo property v20 appendTo v22 Message text and escape properties v20 Content projection v22 Password maxLength property v20 maxlength property v22 TreeSelect containerStyle/containerStyleClass properties v20 style and class v22 Table responsiveLayout property v20 Always defaults to scroll, stack mode needs custom implementation v22 TreeSelect default template v20 value template v22 pBadge directive v20 OverlayBadge component v22 clearFilterIcon template of Table v20 Obsolete, not utilized. v22 Inplace closable property. v20 Use templating with closeCallback . v22
 
 ## Overview
 
@@ -1978,7 +1970,7 @@ Screen Reader Value to describe the component can either be provided via label t
 
 ## Advanced
 
-Advanced chips mode combines optionLabel , optionValue functions with custom templates for a rich user experience. This example demonstrates product selection with images, custom chip templates, and flexible data handling.
+This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.
 
 **Basic Usage:**
 
@@ -2006,11 +1998,15 @@ Advanced chips mode combines optionLabel , optionValue functions with custom tem
             <span class="font-bold sm:ml-8">\${{ product.price }}</span>
         </div>
     </ng-template>
-    <ng-template let-value #chip>
-        <div class="flex align-items-center gap-2">
-            <span class="font-semibold">{{ value.name }}</span>
-            <span class="text-primary text-sm">\${{ value.price }}</span>
-        </div>
+    <ng-template let-value #selecteditem>
+        @if (value.price) {
+            <div class="flex align-items-center gap-2">
+                <span class="font-semibold">{{ value.name }}</span>
+                <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+            </div>
+        } @else {
+            <span class="font-semibold">{{ value }}</span>
+        }
     </ng-template>
 </p-autocomplete>
 ```
@@ -2085,7 +2081,7 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
 
 ## Basic
 
-When typeahead is disabled and multiple is enabled, AutoComplete can work like a chips component. Various features allow flexible item addition: use addOnBlur to add items when the input loses focus, addOnTab to add items with the Tab key, and separator to define characters for adding multiple items at once.
+With ⁠multiple enabled, the AutoComplete component behaves like a chips or tags input. Use addOnBlur , ⁠addOnTab , and ⁠separator properties to customize the keystroke behavior for adding items.
 
 **Basic Usage:**
 
@@ -2707,7 +2703,7 @@ export class AutocompleteInvalidDemo {
 
 ## Multiple
 
-Multiple mode is enabled using multiple property used to select more than one value from the autocomplete. In this case, value reference should be an array.
+Enable multiple selection mode using the ⁠multiple property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.
 
 **Basic Usage:**
 
@@ -3709,7 +3705,9 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```html
 <p-avatar size="xlarge">
-    <span class="text-base">Content</span>
+    <svg width="35" height="40" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+        <path d="..." fill="var(--primary-color)" />
+    </svg>
 </p-avatar>
 ```
 
@@ -10268,22 +10266,22 @@ Headless mode allows you to customize the entire user interface instead of the d
 <p-toast />
 <p-confirmdialog #cd>
     <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
-        <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-            <div
-                class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
-            >
-                <i class="pi pi-question !text-5xl"></i>
+        @if (message) {
+            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+                <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+                    <i class="pi pi-question !text-5xl"></i>
+                </div>
+                <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex items-center gap-2 mt-6">
+                    <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                    <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+                </div>
             </div>
-            <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
-            <p class="mb-0">{{ message.message }}</p>
-            <div class="flex items-center gap-2 mt-6">
-                <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
-            </div>
-        </div>
+        }
     </ng-template>
 </p-confirmdialog>
-<p-button (click)="confirm()" label="Save"/>
+<p-button (click)="confirm()" label="Save" />
 ```
 
 <details>
@@ -10428,10 +10426,12 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 <p-toast />
 <p-confirmdialog>
     <ng-template #message let-message>
-        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-            <p>{{ message.message }}</p>
-        </div>
+        @if (message) {
+            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                <p>{{ message.message }}</p>
+            </div>
+        }
     </ng-template>
 </p-confirmdialog>
 <p-button (click)="confirm()" label="Save" />
@@ -11148,12 +11148,12 @@ ContextMenu offers item customization with the item template that receives the m
 
 <p-contextmenu #cm [model]="items" (onHide)="onHide()">
     <ng-template #item let-item>
-        <a pRipple class="flex items-center p-contextmenu-item-link">
+        <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
             <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="item.items" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
         </a>
     </ng-template>
 </p-contextmenu>
@@ -13091,7 +13091,7 @@ export class CalendarTemplateDemo {
 **Basic Usage:**
 
 ```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
     <div class="flex flex-col gap-1">
         <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
         @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
@@ -17629,8 +17629,19 @@ Galleria can be extended further to implement complex requirements.
 **Basic Usage:**
 
 ```html
-<p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"
-    [circular]="true" [autoPlay]="isAutoPlay" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()"
+<p-galleria
+    #galleria
+    [(value)]="images"
+    [(activeIndex)]="activeIndex"
+    [numVisible]="5"
+    [showThumbnails]="showThumbnails"
+    [showItemNavigators]="true"
+    [showItemNavigatorsOnHover]="true"
+    [circular]="true"
+    [autoPlay]="isAutoPlay"
+    [transitionInterval]="3000"
+    [containerStyle]="{ 'max-width': '640px' }"
+    [pt]="galleriaPT"
 >
     <ng-template #item let-item>
         <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
@@ -17684,23 +17695,6 @@ import { PhotoService } from '@/service/photoservice';
 @Component({
     selector: 'galleria-advanced-demo',
     templateUrl: './galleria-advanced-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .custom-galleria {
-                &.p-galleria {
-                    &.fullscreen {
-                        display: flex;
-                        flex-direction: column;
-
-                        .p-galleria-content {
-                            flex-grow: 1;
-                            justify-content: center;
-                        }
-                    }
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [ButtonModule, GalleriaModule],
     providers: [PhotoService]
@@ -17718,6 +17712,18 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     isAutoPlay: boolean = true;
 
     onFullScreenListener: any;
+
+    get galleriaPT() {
+        return {
+            root: {
+                class: [{ 'flex flex-col': this.fullscreen }]
+            },
+            content: {
+                class: ['relative', { 'flex-1 justify-center': this.fullscreen }]
+            },
+            thumbnails: 'absolute w-full left-0 bottom-0'
+        };
+    }
 
     @ViewChild('galleria') galleria: Galleria | undefined;
 
@@ -17809,10 +17815,6 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.unbindDocumentListeners();
-    }
-
-    galleriaClass() {
-        return \`custom-galleria \${this.fullscreen ? 'fullscreen' : ''}\`;
     }
 
     slideButtonIcon() {
@@ -22379,7 +22381,7 @@ export class KnobReactiveDemo {
 ```
 </details>
 
-## reactiveformsdoc
+## Reactive Forms
 
 Knob can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
@@ -24497,13 +24499,11 @@ Menu offers item customization with the item template that receives the menuitem
         <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
     <ng-template #item let-item>
-        <a pRipple class="flex items-center p-menu-item-link">
+        <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class.text-red-500]="item.label === 'Logout'">
             <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
         </a>
     </ng-template>
     <ng-template #end>
@@ -24914,11 +24914,11 @@ Custom content can be placed inside the menubar using the start and end template
         </svg>
     </ng-template>
     <ng-template #item let-item let-root="root">
-        <a pRipple class="flex items-center p-menubar-item-link">
+        <a pRipple class="flex items-center px-4 py-3 cursor-pointer gap-2">
             <span>{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
+            <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="item.items" [ngClass]="['ms-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
         </a>
     </ng-template>
     <ng-template #end>
@@ -25272,7 +25272,7 @@ The icon of a message is specified with the icon property.
     <ng-template #icon>
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
     </ng-template>
-    <span class="ml-2">How may I help you?</span>
+    <span class="ms-2">How may I help you?</span>
 </p-message>
 ```
 
@@ -27303,7 +27303,7 @@ Filter value is checked against the property of an object configured with the fi
 **Basic Usage:**
 
 ```html
-<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img
@@ -28307,7 +28307,8 @@ Sample image gallery implementation using paginator.
 
 ```html
 <p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-<img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />
+        
+<img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
 ```
 
 <details>
@@ -28324,11 +28325,8 @@ import { PaginatorState } from 'primeng/paginator';
 export class PaginatorImagesDemo {
     first: number = 0;
 
-    rows: number = 10;
-
     onPageChange(event: PaginatorState) {
         this.first = event.first ?? 0;
-        this.rows = event.rows ?? 10;
     }
 }
 ```
@@ -29249,16 +29247,11 @@ PanelMenu requires a collection of menuitems as its model .
 ```html
 <p-panelmenu [model]="items" class="w-full md:w-80">
     <ng-template #item let-item>
-        <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
+         <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
             <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
-            <span class="ml-2">
-                {{ item.label }}
-            </span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded
-            bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
         </a>
     </ng-template>
 </p-panelmenu>
@@ -32780,9 +32773,9 @@ Scroller content is customizable by using ng-template . Valid values are content
 **Basic Usage:**
 
 ```html
-<p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+<p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" [numToleratedItems]="20" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
     <ng-template #item let-item let-options="options">
-        <div class="flex flex-col align-items-strech" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="flex flex-col align-items-strech" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
             <div class="flex items-center px-2" style="height: 25px">Item: {{ item }}</div>
             <div class="flex items-center px-2" style="height: 25px">Index: {{ options.index }}</div>
             <div class="flex items-center px-2" style="height: 25px">Count: {{ options.count }}</div>
@@ -32793,7 +32786,7 @@ Scroller content is customizable by using ng-template . Valid values are content
         </div>
     </ng-template>
     <ng-template #loader let-options="options">
-        <div class="flex flex-col items-stretch" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="flex flex-col items-stretch" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
@@ -33928,7 +33921,7 @@ export class SelectInvalidDemo {
 **Basic Usage:**
 
 ```html
-<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />
+<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
 ```
 
 <details>
@@ -34323,7 +34316,7 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 **Basic Usage:**
 
 ```html
-<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" class="w-full md:w-56" />
+<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
 ```
 
 <details>
@@ -38556,7 +38549,7 @@ When hideOnResize is enabled, the leave animation is triggered automatically whe
 **Basic Usage:**
 
 ```html
-<div class="flex justify-center">
+<div class="flex flex-wrap justify-center gap-4">
     <div class="flex flex-col items-center gap-4 w-[25rem]">
         <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" label="Show Window Responsive Content" />
         <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
@@ -38626,8 +38619,8 @@ StyleClass has two modes, toggleClass to simply add-remove a class and enter/lea
 **Basic Usage:**
 
 ```html
-<p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
-<input type="text" pInputText class="block mt-4" />
+<p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
+<input type="text" pInputText class="hidden mt-4" />
 ```
 
 <details>
@@ -40045,16 +40038,20 @@ Columns can be defined dynamically using the *ngFor directive.
 <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowData let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns">
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; track col) {
+                <td>
+                    {{ rowData[col.field] }}
+                </td>
+            }
         </tr>
     </ng-template>
 </p-table>
@@ -46927,14 +46924,12 @@ TieredMenu offers item customization with the item template that receives the me
 ```html
 <p-tieredmenu [model]="items">
     <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-        <a pRipple class="flex items-center p-tieredmenu-item-link">
-            <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
+        <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+            <span [class]="item.icon"></span>
+            <span class="ms-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
-            <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
         </a>
     </ng-template>
 </p-tieredmenu>
@@ -46971,7 +46966,7 @@ export class TieredMenuTemplateDemo implements OnInit {
                         icon: 'pi pi-plus',
                         items: [
                             {
-                                label: 'Document',
+                                label: 'Docs',
                                 icon: 'pi pi-file',
                                 shortcut: '⌘+N'
                             },
@@ -47818,12 +47813,12 @@ export class ToastPositionDemo {
 
 ## Responsive
 
-Toast styling can be adjusted per screen size with the breakpoints option. The value of breakpoints should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.
+Toast styling can be adjusted per screen size with the breakpoints option. The value of breakpoints should be an object literal whose keys are the maximum screen sizes and values are the styles per screen.
 
 **Basic Usage:**
 
 ```html
-<p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
+<p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
 <p-button (click)="show()" label="Show" />
 ```
 
@@ -47848,7 +47843,7 @@ export class ToastResponsiveDemo {
     constructor(private messageService: MessageService) {}
 
     show() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+        this.messageService.add({ severity: 'contrast', summary: 'Success', detail: 'Message Content' });
     }
 }
 ```
@@ -48395,9 +48390,9 @@ ToggleButton can also be used with reactive forms. In this case, the formControl
 **Basic Usage:**
 
 ```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" />
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
+    <div class="flex flex-col items-center gap-1">
+        <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
         @if (isInvalid('checked')) {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }
@@ -48433,7 +48428,7 @@ export class ToggleButtonReactiveFormsDemo {
 
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
-            checked: ['', Validators.required]
+            checked: [false, Validators.requiredTrue]
         });
     }
 
@@ -48499,9 +48494,9 @@ Following is the list of structural style classes, for theming classes visit the
 **Basic Usage:**
 
 ```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
+    <div class="flex flex-col items-center gap-1">
+        <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required class="min-w-40" />
         @if (model.invalid && (model.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }
@@ -49591,21 +49586,23 @@ export class TreeCheckboxDemo implements OnInit {
 
 ## Context Menu
 
-Tree requires a collection of TreeNode instances as a value.
+Tree has exclusive integration with ContextMenu using the contextMenu property to open a menu on right click along with contextMenuSelection property to control the selection via the menu.
 
 **Basic Usage:**
 
 ```html
-<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+<p-toast [style]="{ marginTop: '80px' }" />
+
+<p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+
 <p-contextmenu #cm [model]="items" />
-<p-toast />
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, model, signal } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -49620,9 +49617,9 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService, NodeService]
 })
 export class TreeContextMenuDemo implements OnInit {
-    files = signal<TreeNode[]>(undefined);
+    files = signal<TreeNode[]>([]);
 
-    selectedFile!: TreeNode | null;
+    selectedNode = model<TreeNode | null>(null);
 
     items!: MenuItem[];
 
@@ -49632,15 +49629,42 @@ export class TreeContextMenuDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files.set(data);
-        });
+        this.nodeService.getFiles().then((files) => this.files.set(files));
+
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
-            { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode()) },
+            { label: 'Unselect', icon: 'pi pi-times', command: () => this.unselectFile() }
         ];
     }
 
+    unselectFile() {
+        this.selectedNode.set(null);
+    }
+
+    viewFile(node: TreeNode | null) {
+        if (node) {
+            this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.label });
+        }
+    }
+
+    toggleFile(node: TreeNode | null) {
+        if (node) {
+            this.files.set(this.updateNodeInTree(this.files(), node.key, { ...node, expanded: !node.expanded }));
+        }
+    }
+
+    updateNodeInTree(nodes: TreeNode[], key: string | undefined, updatedNode: TreeNode): TreeNode[] {
+        return nodes.map((n) => {
+            if (n.key === key) {
+                return updatedNode;
+            }
+            if (n.children) {
+                return { ...n, children: this.updateNodeInTree(n.children, key, updatedNode) };
+            }
+            return n;
+        });
+    }
 }
 ```
 </details>
@@ -50326,7 +50350,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 **Basic Usage:**
 
 ```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
+<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
 ```
 
 <details>
@@ -50394,7 +50418,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 **Basic Usage:**
 
 ```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
+<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
 ```
 
 <details>
@@ -51386,16 +51410,26 @@ Lazy loading is useful when dealing with huge datasets, in this example nodes ar
 **Basic Usage:**
 
 ```html
-<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>
+<p-treeselect
+    class="w-full md:w-80"
+    [(ngModel)]="selectedNodes"
+    [options]="nodes()"
+    (onNodeExpand)="onNodeExpand($event)"
+    display="chip"
+    [metaKeySelection]="false"
+    selectionMode="checkbox"
+    placeholder="Select Item"
+    loadingMode="icon"
+/>
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
-import { NodeService } from '@/service/nodeservice';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TreeNode } from 'primeng/api';
 import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
@@ -51403,24 +51437,14 @@ import { TreeSelect } from 'primeng/treeselect';
     templateUrl: './tree-select-lazy-demo.html',
     standalone: true,
     imports: [FormsModule, TreeSelect]
-  })
+})
 export class TreeSelectLazyDemo {
     selectedNodes: TreeNode[] = [];
 
-    nodes!: TreeNode[];
-
-    loading: boolean = false;
-
-    constructor(private cd: ChangeDetectorRef) {}
+    nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
-        this.loading = true;
-
-        setTimeout(() => {
-            this.nodes = this.initiateNodes();
-            this.loading = false;
-            this.cd.markForCheck();
-        }, 2000);
+        this.nodes.set(this.initiateNodes());
     }
 
     initiateNodes(): TreeNode[] {
@@ -51428,40 +51452,43 @@ export class TreeSelectLazyDemo {
             {
                 key: '0',
                 label: 'Node 0',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '1',
                 label: 'Node 1',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '2',
                 label: 'Node 2',
-                leaf: false
+                leaf: false,
+                loading: false
             }
         ];
     }
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading = true;
+            event.node.loading = true;
 
             setTimeout(() => {
+                const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
 
-                for (let i = 0; i < 150; i++) {
+                for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
                         label: 'Lazy ' + event.node.label + '-' + i
                     });
                 }
 
-                this.nodes[parseInt(event.node.key, 10)] = _node;
-
-                this.loading = false;
-                this.cd.markForCheck();
+                const key = parseInt(_node.key, 10);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
@@ -51472,31 +51499,11 @@ export class TreeSelectLazyDemo {
 **Sample Data:**
 
 ```json
-/* NodeService */
 {
     key: '0',
-    label: 'Documents',
-    data: 'Documents Folder',
-    icon: 'pi pi-fw pi-inbox',
-    children: [
-        {
-            key: '0-0',
-            label: 'Work',
-            data: 'Work Folder',
-            icon: 'pi pi-fw pi-cog',
-            children: [
-                { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-            ]
-        },
-        {
-            key: '0-1',
-            label: 'Home',
-            data: 'Home Folder',
-            icon: 'pi pi-fw pi-home',
-            children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
-        }
-    ]
+    label: 'Node 0',
+    leaf: false,
+    loading: false
 },
 ...
 ```
@@ -51905,7 +51912,7 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 **Basic Usage:**
 
 ```html
-<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="46" [virtualScrollOptions]="{scrollHeight: '200px'}" />
+<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="35" [virtualScrollOptions]="{scrollHeight: '200px'}" />
 ```
 
 <details>
@@ -52137,8 +52144,10 @@ TreeTable requires a collection of TreeNode instances as a value components as c
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -52172,8 +52181,10 @@ TreeTable requires a collection of TreeNode instances as a value components as c
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr>
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.brand }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.brand }}</span>
+                </div>
             </td>
             <td>{{ rowData.lastYearSale }}</td>
             <td>{{ rowData.thisYearSale }}</td>
@@ -52344,17 +52355,27 @@ Setting columnResizeMode as expand changes the table width as well.
 <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" ttResizableColumn>
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th ttResizableColumn>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52411,17 +52432,27 @@ Columns can be resized with drag and drop when resizableColumns is enabled. Defa
 <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}" showGridlines>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" ttResizableColumn>
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th ttResizableColumn>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52478,22 +52509,34 @@ To utilize the column resize modes with a scrollable TreeTable, a colgroup templ
 <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" showGridlines>
     <ng-template #colgroup let-columns>
         <colgroup>
-            <col *ngFor="let col of columns">
+            @for (col of columns; track col) {
+                <col />
+            }
         </colgroup>
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" ttResizableColumn>
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th ttResizableColumn>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52555,17 +52598,27 @@ Column visibility based on a condition can be implemented with dynamic columns, 
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52627,20 +52680,30 @@ Particular rows and cells can be styled based on conditions. The ngClass receive
 ```html
 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
-            <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
-        </tr>
-    </ng-template>
+            <tr>
+                @for (col of columns; track col) {
+                    <th>
+                        {{ col.header }}
+                    </th>
+                }
+            </tr>
+        </ng-template>
+        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttRow]="rowNode" [ngClass]="{ '!bg-surface-100 dark:!bg-surface-800': rowData.size.endsWith('kb') }">
+                @for (col of columns; let first = $first; track col) {
+                    <td [class]="{ 'line-through': col.field === 'size' && rowData.size.endsWith('kb') }">
+                        @if (first) {
+                            <div class="flex items-center gap-2">
+                                <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                <span>{{ rowData[col.field] }}</span>
+                            </div>
+                        } @else {
+                            {{ rowData[col.field] }}
+                        }
+                    </td>
+                }
+            </tr>
+        </ng-template>
 </p-treetable>
 ```
 
@@ -52697,17 +52760,27 @@ TreeTable has exclusive integration with ContextMenu using the contextMenu event
 <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52784,8 +52857,8 @@ Expansion state is controlled with expandedKeys property.
 **Basic Usage:**
 
 ```html
-<p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" class="mt-6">
+<p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -52796,8 +52869,10 @@ Expansion state is controlled with expandedKeys property.
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -52856,17 +52931,27 @@ Columns can be created programmatically.
 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53011,22 +53096,34 @@ The filterMode specifies the filtering strategy, in lenient mode when the query 
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of cols">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
         <tr>
-            <th *ngFor="let col of cols">
-                <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of cols; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of cols; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #emptymessage>
@@ -53110,8 +53207,10 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
             <ng-template #body let-rowNode let-rowData="rowData">
                 <tr [ttRow]="rowNode">
                     <td>
-                        <p-treetable-toggler [rowNode]="rowNode" />
-                        {{ rowData.name }}
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <span>{{ rowData.name }}</span>
+                        </div>
                     </td>
                     <td>{{ rowData.size }}</td>
                     <td>{{ rowData.type }}</td>
@@ -53177,8 +53276,10 @@ Enabling showGridlines displays grid lines.
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -53247,17 +53348,27 @@ Lazy mode is handy to deal with large datasets, instead of loading the entire da
 >
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53371,17 +53482,27 @@ Pagination is enabled by adding paginator property and defining rows per page.
 <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53455,17 +53576,27 @@ Paginator UI is customized using the paginatorleft and paginatorright property. 
 <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #paginatorleft>
@@ -53546,17 +53677,27 @@ Order of the columns can be changed using drag and drop when reorderableColumns 
 <p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" ttReorderableColumn>
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th ttReorderableColumn>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetable-toggler>
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53608,28 +53749,36 @@ A column can be fixed during horizontal scrolling by enabling the frozenColumns 
 <p-treetable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #colgroup let-columns>
         <colgroup>
-            <col *ngFor="let col of columns" style="width:250px" />
+            @for (col of columns; track col) {
+                <col style="width:250px" />
+            }
         </colgroup>
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" style="height: 57px">
-            <td *ngFor="let col of columns; let i = index">
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; track col) {
+                <td>
+                    {{ rowData[col.field] }}
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #frozenbody let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode" style="height: 57px">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span class="font-bold">{{ rowData.name }}</span>
+                </div>
             </td>
         </tr>
     </ng-template>
@@ -53702,22 +53851,34 @@ Horizontal scrolling is enabled when the total width of columns exceeds table wi
 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #colgroup let-columns>
         <colgroup>
-            <col *ngFor="let col of columns" style="width:500px" />
+            @for (col of columns; track col) {
+                <col style="width:500px" />
+            }
         </colgroup>
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetable-toggler>
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53769,17 +53930,27 @@ Adding scrollable property along with a scrollHeight for the data viewport enabl
 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53836,18 +54007,28 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                <p-treetable-checkbox [value]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <p-treetable-checkbox [value]="rowNode" />
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53936,17 +54117,27 @@ TreeTable provides onNodeSelect and onNodeUnselect events to listen selection ev
 >
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54021,17 +54212,27 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 <p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54095,17 +54296,27 @@ Single node selection is configured by setting selectionMode as single along wit
 <p-treetable [value]="files" [columns]="cols" selectionMode="single" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54180,8 +54391,10 @@ In addition to a regular treetable, alternatives with alternative sizes are avai
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -54236,23 +54449,33 @@ Multiple columns can be sorted by defining sortMode as multiple . This mode requ
 **Basic Usage:**
 
 ```html
-<p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+<p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                <div class="flex items-center gap-2">
-                    {{ col.header }}
-                    <p-treetable-sort-icon [field]="col.field" />
-                </div>
-            </th>
+            @for (col of columns; track col) {
+                <th [ttSortableColumn]="col.field">
+                    <div class="flex items-center gap-2">
+                        {{ col.header }}
+                        <p-treetable-sort-icon [field]="col.field" />
+                    </div>
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54393,23 +54616,33 @@ Sorting on a column is enabled by adding the ttSortableColumn property.
 **Basic Usage:**
 
 ```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                <div class="flex items-center gap-2">
-                    {{ col.header }}
-                    <p-treetable-sort-icon [field]="col.field" />
-                </div>
-            </th>
+            @for (col of columns; track col) {
+                <th [ttSortableColumn]="col.field">
+                    <div class="flex items-center gap-2">
+                        {{ col.header }}
+                        <p-treetable-sort-icon [field]="col.field" />
+                    </div>
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54468,25 +54701,36 @@ Custom content at caption , header , body and summary sections are supported via
 **Basic Usage:**
 
 ```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+<p-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; let last = $last; track col) {
+                <th [class]="{ 'w-40': last }">
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index; let last = last">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    {{ rowData[col.field] }}
-                <ng-container *ngIf="last">
-                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
-                    <p-button icon="pi pi-pencil" rounded="true" severity="success" />
-                </ng-container>
-            </td>
+            @for (col of columns; let first = $first; let last = $last; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else if (last) {
+                        <div class="flex flex-wrap gap-2">
+                            <p-button icon="pi pi-search" rounded="true" severity="secondary" />
+                            <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
+                        </div>
+                    } @else {
+                        <span>{{ rowData[col.field] }}</span>
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #summary>

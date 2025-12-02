@@ -113,7 +113,7 @@ export class StyleClassAnimationDemo {}
 When hideOnResize is enabled, the leave animation is triggered automatically when resizing occurs. Use the resizeSelector property to specify whether to listen to window resize events or element-specific resize events. Set resizeSelector to "window" (default) or "document" for browser resize, or a CSS selector to observe the target element's dimensions.
 
 ```html
-<div class="flex justify-center">
+<div class="flex flex-wrap justify-center gap-4">
     <div class="flex flex-col items-center gap-4 w-[25rem]">
         <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" label="Show Window Responsive Content" />
         <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
@@ -171,8 +171,8 @@ export class HideOnResizeDemo {}
 StyleClass has two modes, toggleClass to simply add-remove a class and enter/leave animations. The target element to change the styling is defined with the selector property that accepts any valid CSS selector or keywords including &#64;next , prev , parent , grandparent
 
 ```html
-<p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
-<input type="text" pInputText class="block mt-4" />
+<p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
+<input type="text" pInputText class="hidden mt-4" />
 ```
 
 <details>

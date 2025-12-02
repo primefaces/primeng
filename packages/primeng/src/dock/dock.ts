@@ -79,7 +79,8 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                 pRipple
                                 [routerLink]="item.routerLink"
                                 [queryParams]="item.queryParams"
-                                [class]="cx('itemLink')"
+                                [class]="cn(cx('itemLink'), item?.linkClass)"
+                                [ngStyle]="item?.linkStyle"
                                 routerLinkActive="router-link-active"
                                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                                 [target]="item.target"
@@ -106,7 +107,8 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                                 <a
                                     [tooltipPosition]="item.tooltipPosition"
                                     [attr.href]="item.url || null"
-                                    [class]="cx('itemLink')"
+                                    [class]="cn(cx('itemLink'), item?.linkClass)"
+                                    [ngStyle]="item?.linkStyle"
                                     pRipple
                                     pTooltip
                                     [tooltipOptions]="item.tooltipOptions"
