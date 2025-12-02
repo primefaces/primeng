@@ -146,7 +146,15 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 </span>
             </ng-container>
         </ng-template>
-        <p-motion [visible]="inline || overlayVisible" name="p-anchored-overlay" [appear]="!inline" [options]="computedMotionOptions()" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAfterLeave($event)">
+        <p-motion
+            [visible]="inline || overlayVisible"
+            name="p-anchored-overlay"
+            [appear]="!inline"
+            [options]="computedMotionOptions()"
+            (onBeforeEnter)="onOverlayBeforeEnter($event)"
+            (onAfterLeave)="onOverlayAfterLeave($event)"
+            [style]="{ 'min-width': '100%' }"
+        >
             <div
                 #contentWrapper
                 [attr.id]="panelId"
