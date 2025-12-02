@@ -130,7 +130,7 @@ export class TreeTableService {
     selector: 'p-treeTable, p-treetable, p-tree-table',
     standalone: false,
     template: `
-        <div [pBind]="ptm('loading')" [class]="cx('loading')" *ngIf="loading && showLoader">
+        <div [pBind]="ptm('loading')" [class]="cx('loading')" *ngIf="loading && showLoader" animate.enter="p-overlay-mask-enter" animate.leave="p-overlay-mask-leave">
             <div [pBind]="ptm('mask')" [class]="cx('mask')">
                 <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
                 <ng-container *ngIf="!loadingIcon">
