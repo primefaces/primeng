@@ -238,6 +238,7 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ConfirmDialogPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | header | string | - | Title text of the dialog. |
@@ -262,7 +263,7 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | blockScroll | boolean | true | Determines whether scrolling behavior should be blocked within the component. |
 | rtl | boolean | false | When enabled dialog is displayed in RTL direction. |
 | closable | boolean | true | Adds a close icon to the header to hide the dialog. |
-| appendTo | any | body | Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| appendTo | InputSignal<any> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | key | string | - | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
 | autoZIndex | boolean | true | Whether to automatically manage layering. |
 | baseZIndex | number | 0 | Base zIndex value to use in layering. |
@@ -272,7 +273,7 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | breakpoints | any | - | Object literal to define widths per screen size. |
 | modal | boolean | true | Defines if background should be blocked when dialog is displayed. |
 | visible | any | - | Current visible state as a boolean. |
-| position | "right" \| "left" \| "top" \| "bottom" \| "center" \| "topleft" \| "bottomleft" \| "topright" \| "bottomright" | - | Allows getting the position of the component. |
+| position | "right" \| "left" \| "top" \| "bottom" \| "center" \| "topleft" \| "bottomleft" \| "topright" \| "bottomright" | center | Allows getting the position of the component. |
 | draggable | boolean | true | Enables dragging to change the position using header. |
 
 ### Emits
@@ -280,6 +281,18 @@ ConfirmDialog uses a Dialog UI that is integrated with the Confirmation API.
 | Name | Parameters | Description |
 |------|------------|-------------|
 | onHide | event: ConfirmEventType | Callback to invoke when dialog is hidden. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| rejecticon | TemplateRef<void> | Custom reject icon template. |
+| accepticon | TemplateRef<void> | Custom accept icon template. |
+| message | TemplateRef<ConfirmDialogMessageTemplateContext> | Custom message template. |
+| icon | TemplateRef<void> | Custom icon template. |
+| headless | TemplateRef<ConfirmDialogHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 

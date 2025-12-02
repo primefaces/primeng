@@ -407,8 +407,10 @@ Accordion groups a collection of contents in tabs.
 | expandIcon | string | - | Icon of a collapsed tab. |
 | collapseIcon | string | - | Icon of an expanded tab. |
 | selectOnFocus | InputSignalWithTransform<boolean, any> | false | When enabled, the focused tab is activated. |
-| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. |
+| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<AccordionPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 
@@ -424,6 +426,7 @@ Accordion groups a collection of contents in tabs.
 | Name | Type | Description |
 |------|------|-------------|
 | root | PassThroughOption<HTMLElement, I> | Used to pass attributes to the root's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

@@ -111,6 +111,7 @@ Chip represents people using icons, labels and images.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ChipPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | label | string | - | Defines the text to display. |
@@ -129,6 +130,12 @@ Chip represents people using icons, labels and images.
 |------|------------|-------------|
 | onRemove | event: MouseEvent | Callback to invoke when a chip is removed. |
 | onImageError | event: Event | This event is triggered if an error occurs while loading an image file. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| removeicon | TemplateRef<void> | Custom remove icon template. |
 
 ## Pass Through Options
 

@@ -45,7 +45,19 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Tooltip } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent, SelectPassThrough } from 'primeng/types/select';
+import {
+    SelectChangeEvent,
+    SelectFilterEvent,
+    SelectFilterOptions,
+    SelectFilterTemplateContext,
+    SelectGroupTemplateContext,
+    SelectIconTemplateContext,
+    SelectItemTemplateContext,
+    SelectLazyLoadEvent,
+    SelectLoaderTemplateContext,
+    SelectPassThrough,
+    SelectSelectedItemTemplateContext
+} from 'primeng/types/select';
 import { SelectStyle } from './style/selectstyle';
 
 const SELECT_INSTANCE = new InjectionToken<Select>('SELECT_INSTANCE');
@@ -783,131 +795,131 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<SelectItemTemplateContext>>;
 
     /**
      * Custom group template.
      * @group Templates
      */
-    @ContentChild('group', { descendants: false }) groupTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('group', { descendants: false }) groupTemplate: Nullable<TemplateRef<SelectGroupTemplateContext>>;
 
     /**
      * Custom loader template.
      * @group Templates
      */
-    @ContentChild('loader', { descendants: false }) loaderTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loader', { descendants: false }) loaderTemplate: Nullable<TemplateRef<SelectLoaderTemplateContext>>;
 
     /**
      * Custom selected item template.
      * @group Templates
      */
-    @ContentChild('selectedItem', { descendants: false }) selectedItemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('selectedItem', { descendants: false }) selectedItemTemplate: Nullable<TemplateRef<SelectSelectedItemTemplateContext>>;
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom filter template.
      * @group Templates
      */
-    @ContentChild('filter', { descendants: false }) filterTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('filter', { descendants: false }) filterTemplate: Nullable<TemplateRef<SelectFilterTemplateContext>>;
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom empty filter template.
      * @group Templates
      */
-    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom empty template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom dropdown icon template.
      * @group Templates
      */
-    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<SelectIconTemplateContext>>;
 
     /**
      * Custom loading icon template.
      * @group Templates
      */
-    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<SelectIconTemplateContext>>;
 
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom on icon template.
      * @group Templates
      */
-    @ContentChild('onicon', { descendants: false }) onIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('onicon', { descendants: false }) onIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom off icon template.
      * @group Templates
      */
-    @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom cancel icon template.
      * @group Templates
      */
-    @ContentChild('cancelicon', { descendants: false }) cancelIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('cancelicon', { descendants: false }) cancelIconTemplate: Nullable<TemplateRef<void>>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<SelectItemTemplateContext> | undefined;
 
-    _selectedItemTemplate: TemplateRef<any> | undefined;
+    _selectedItemTemplate: TemplateRef<SelectSelectedItemTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _filterTemplate: TemplateRef<any> | undefined;
+    _filterTemplate: TemplateRef<SelectFilterTemplateContext> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _emptyFilterTemplate: TemplateRef<any> | undefined;
+    _emptyFilterTemplate: TemplateRef<void> | undefined;
 
-    _emptyTemplate: TemplateRef<any> | undefined;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _groupTemplate: TemplateRef<any> | undefined;
+    _groupTemplate: TemplateRef<SelectGroupTemplateContext> | undefined;
 
-    _loaderTemplate: TemplateRef<any> | undefined;
+    _loaderTemplate: TemplateRef<SelectLoaderTemplateContext> | undefined;
 
-    _dropdownIconTemplate: TemplateRef<any> | undefined;
+    _dropdownIconTemplate: TemplateRef<SelectIconTemplateContext> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any> | undefined;
+    _loadingIconTemplate: TemplateRef<void> | undefined;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<SelectIconTemplateContext> | undefined;
 
-    _filterIconTemplate: TemplateRef<any> | undefined;
+    _filterIconTemplate: TemplateRef<void> | undefined;
 
-    _cancelIconTemplate: TemplateRef<any> | undefined;
+    _cancelIconTemplate: TemplateRef<void> | undefined;
 
-    _onIconTemplate: TemplateRef<any> | undefined;
+    _onIconTemplate: TemplateRef<void> | undefined;
 
-    _offIconTemplate: TemplateRef<any> | undefined;
+    _offIconTemplate: TemplateRef<void> | undefined;
 
     filterOptions: SelectFilterOptions | undefined;
 

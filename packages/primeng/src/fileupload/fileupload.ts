@@ -33,7 +33,21 @@ import { PlusIcon, TimesIcon, UploadIcon } from 'primeng/icons';
 import { Message } from 'primeng/message';
 import { ProgressBar } from 'primeng/progressbar';
 import { VoidListener } from 'primeng/ts-helpers';
-import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent, FileUploadPassThrough, RemoveUploadedFileEvent } from 'primeng/types/fileupload';
+import {
+    FileBeforeUploadEvent,
+    FileProgressEvent,
+    FileRemoveEvent,
+    FileSelectEvent,
+    FileSendEvent,
+    FileUploadContentTemplateContext,
+    FileUploadErrorEvent,
+    FileUploadEvent,
+    FileUploadFileLabelTemplateContext,
+    FileUploadHandlerEvent,
+    FileUploadHeaderTemplateContext,
+    FileUploadPassThrough,
+    RemoveUploadedFileEvent
+} from 'primeng/types/fileupload';
 import { Subscription } from 'rxjs';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
@@ -580,58 +594,61 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     @Output() onRemoveUploadedFile: EventEmitter<RemoveUploadedFileEvent> = new EventEmitter<RemoveUploadedFileEvent>();
 
     /**
-     * Template for file.
+     * Custom file template.
      * @group Templates
      */
-    @ContentChild('file', { descendants: false }) fileTemplate: TemplateRef<any> | undefined;
+    @ContentChild('file', { descendants: false }) fileTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for header.
+     * Custom header template.
+     * @param {FileUploadHeaderTemplateContext} context - header template context.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<FileUploadHeaderTemplateContext> | undefined;
 
     /**
-     * Template for content.
+     * Custom content template.
+     * @param {FileUploadContentTemplateContext} context - content template context.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<FileUploadContentTemplateContext> | undefined;
 
     /**
-     * Template for toolbar.
+     * Custom toolbar template.
      * @group Templates
      */
-    @ContentChild('toolbar', { descendants: false }) toolbarTemplate: TemplateRef<any> | undefined;
+    @ContentChild('toolbar', { descendants: false }) toolbarTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for choose icon.
+     * Custom choose icon template.
      * @group Templates
      */
-    @ContentChild('chooseicon', { descendants: false }) chooseIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('chooseicon', { descendants: false }) chooseIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for file label.
+     * Custom file label template.
+     * @param {FileUploadFileLabelTemplateContext} context - file label template context.
      * @group Templates
      */
-    @ContentChild('filelabel', { descendants: false }) fileLabelTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filelabel', { descendants: false }) fileLabelTemplate: TemplateRef<FileUploadFileLabelTemplateContext> | undefined;
 
     /**
-     * Template for upload icon.
+     * Custom upload icon template.
      * @group Templates
      */
-    @ContentChild('uploadicon', { descendants: false }) uploadIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('uploadicon', { descendants: false }) uploadIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for cancel icon.
+     * Custom cancel icon template.
      * @group Templates
      */
-    @ContentChild('cancelicon', { descendants: false }) cancelIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('cancelicon', { descendants: false }) cancelIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for empty state.
+     * Custom empty state template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<void> | undefined;
 
     @ViewChild('advancedfileinput') advancedFileInput: ElementRef | undefined | any;
 
@@ -715,23 +732,23 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         }
     }
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<FileUploadHeaderTemplateContext> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<FileUploadContentTemplateContext> | undefined;
 
-    _toolbarTemplate: TemplateRef<any> | undefined;
+    _toolbarTemplate: TemplateRef<void> | undefined;
 
-    _chooseIconTemplate: TemplateRef<any> | undefined;
+    _chooseIconTemplate: TemplateRef<void> | undefined;
 
-    _uploadIconTemplate: TemplateRef<any> | undefined;
+    _uploadIconTemplate: TemplateRef<void> | undefined;
 
-    _cancelIconTemplate: TemplateRef<any> | undefined;
+    _cancelIconTemplate: TemplateRef<void> | undefined;
 
-    _emptyTemplate: TemplateRef<any> | undefined;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _fileTemplate: TemplateRef<any> | undefined;
+    _fileTemplate: TemplateRef<void> | undefined;
 
-    _fileLabelTemplate: TemplateRef<any> | undefined;
+    _fileLabelTemplate: TemplateRef<FileUploadFileLabelTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

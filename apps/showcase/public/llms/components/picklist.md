@@ -177,10 +177,11 @@ PickList is used to reorder items between different lists.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| source | any[] | - | An array of objects for the source list. |
-| target | any[] | - | An array of objects for the target list. |
+| source | ModelSignal<any[]> | ... | An array of objects for the source list. |
+| target | ModelSignal<any[]> | ... | An array of objects for the target list. |
 | dataKey | string | - | Name of the field that uniquely identifies the options. |
 | sourceHeader | string | - | Text for the source list caption |
 | tabindex | number | 0 | Index of the element in tabbing order. |

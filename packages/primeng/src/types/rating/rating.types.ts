@@ -63,20 +63,33 @@ export interface RatingRateEvent {
     value: number;
 }
 /**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface RatingIconTemplateContext {
+    /**
+     * Star value (1-based index).
+     */
+    $implicit: number;
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+}
+
+/**
  * Defines valid templates in Rating.
  * @group Templates
  */
 export interface RatingTemplates {
     /**
      * Custom on icon template.
+     * @param {RatingIconTemplateContext} context - icon context.
      */
-    onicon(): TemplateRef<any>;
+    onicon(context: RatingIconTemplateContext): TemplateRef<RatingIconTemplateContext>;
     /**
      * Custom off icon template.
+     * @param {RatingIconTemplateContext} context - icon context.
      */
-    officon(): TemplateRef<any>;
-    /**
-     * Custom cancel icon template.
-     */
-    cancelicon(): TemplateRef<any>;
+    officon(context: RatingIconTemplateContext): TemplateRef<RatingIconTemplateContext>;
 }

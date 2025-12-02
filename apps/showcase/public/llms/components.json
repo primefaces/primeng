@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2025-11-28T09:36:56.442Z",
+  "generatedAt": "2025-12-02T07:13:56.577Z",
   "components": [
     {
       "name": "accordion",
@@ -137,6 +137,13 @@
             "type": "string",
             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
             "description": "Transition options of the animation.",
+            "deprecated": "since v21.0.0, use "
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
@@ -144,6 +151,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -190,6 +204,11 @@
             "name": "root",
             "type": "PassThroughOption<HTMLElement, I>",
             "description": "Used to pass attributes to the root's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -471,6 +490,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -993,14 +1019,14 @@
             "type": "string",
             "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".1s linear",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "autofocus",
@@ -1150,10 +1176,24 @@
             "deprecated": ""
           },
           {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
+            "deprecated": ""
+          },
+          {
             "name": "dt",
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -1272,57 +1312,57 @@
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<AutoCompleteItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "empty",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty message template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "selecteditem",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<AutoCompleteSelectedItemTemplateContext<any>>",
             "description": "Custom selected item template."
           },
           {
             "name": "group",
-            "type": "TemplateRef<any>",
-            "description": "Custom group item template."
+            "type": "TemplateRef<AutoCompleteGroupTemplateContext<any>>",
+            "description": "Custom group template."
           },
           {
             "name": "loader",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<AutoCompleteLoaderTemplateContext>",
             "description": "Custom loader template."
           },
           {
             "name": "removeicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<AutoCompleteRemoveIconTemplateContext>",
             "description": "Custom remove icon template."
           },
           {
             "name": "loadingicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom loading icon template."
           },
           {
             "name": "clearicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom clear icon template."
           },
           {
             "name": "dropdownicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom dropdown icon template."
           }
         ],
@@ -1988,6 +2028,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<any>",
             "default": "undefined",
@@ -2179,6 +2226,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -2498,6 +2552,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<BadgePassThrough>",
             "default": "undefined",
@@ -2743,6 +2804,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<BlockUIPassThrough>",
             "default": "undefined",
@@ -2894,6 +2962,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<BreadcrumbPassThrough>",
             "default": "undefined",
@@ -2946,13 +3021,13 @@
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for item."
+            "type": "TemplateRef<BreadcrumbItemTemplateContext>",
+            "description": "Custom item template."
           },
           {
             "name": "separator",
-            "type": "TemplateRef<any>",
-            "description": "Defines template option for separator."
+            "type": "TemplateRef<void>",
+            "description": "Custom separator template."
           }
         ],
         "emits": [
@@ -3351,6 +3426,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ButtonPassThrough>",
             "default": "undefined",
@@ -3550,18 +3632,18 @@
         "templates": [
           {
             "name": "content",
-            "type": "TemplateRef<any>",
-            "description": "Template of the content."
+            "type": "TemplateRef<void>",
+            "description": "Custom content template."
           },
           {
             "name": "loadingicon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the loading."
+            "type": "TemplateRef<ButtonLoadingIconTemplateContext>",
+            "description": "Custom loading icon template."
           },
           {
             "name": "icon",
-            "type": "TemplateRef<any>",
-            "description": "Template of the icon."
+            "type": "TemplateRef<ButtonIconTemplateContext>",
+            "description": "Custom icon template."
           }
         ],
         "emits": [
@@ -4584,6 +4666,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<CardPassThrough>",
             "default": "undefined",
@@ -4626,7 +4715,33 @@
             "deprecated": "since v20.0.0, use "
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "header",
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
+          },
+          {
+            "name": "title",
+            "type": "TemplateRef<void>",
+            "description": "Custom title template."
+          },
+          {
+            "name": "subtitle",
+            "type": "TemplateRef<void>",
+            "description": "Custom subtitle template."
+          },
+          {
+            "name": "content",
+            "type": "TemplateRef<void>",
+            "description": "Custom content template."
+          },
+          {
+            "name": "footer",
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
+          }
+        ],
         "emits": null,
         "methods": null,
         "pt": [
@@ -4857,6 +4972,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<any>",
             "default": "undefined",
@@ -5007,28 +5129,28 @@
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
-            "description": "Template for carousel items."
+            "type": "TemplateRef<CarouselItemTemplateContext<any>>",
+            "description": "Custom item template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
-            "description": "Template for the carousel header."
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
-            "description": "Template for the carousel footer."
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
           },
           {
             "name": "previousicon",
-            "type": "TemplateRef<any>",
-            "description": "Template for the previous button icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom previous icon template."
           },
           {
             "name": "nexticon",
-            "type": "TemplateRef<any>",
-            "description": "Template for the next button icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom next icon template."
           }
         ],
         "emits": [
@@ -5421,6 +5543,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<CascadeSelectPassThrough>",
             "default": "undefined",
@@ -5720,48 +5849,55 @@
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
             "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
+            "deprecated": ""
           }
         ],
         "templates": [
           {
             "name": "value",
-            "type": "TemplateRef<any>",
-            "description": "Content template for displaying the selected value."
+            "type": "TemplateRef<CascadeSelectValueTemplateContext<any>>",
+            "description": "Custom value template."
           },
           {
             "name": "option",
-            "type": "TemplateRef<any>",
-            "description": "Content template for customizing the option display."
+            "type": "TemplateRef<CascadeSelectOptionTemplateContext<any>>",
+            "description": "Custom option template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
-            "description": "Content template for customizing the header."
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
-            "description": "Content template for customizing the footer."
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
           },
           {
             "name": "triggericon",
-            "type": "TemplateRef<any>",
-            "description": "Content template for customizing the trigger icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom trigger icon template."
           },
           {
             "name": "loadingicon",
-            "type": "TemplateRef<any>",
-            "description": "Content template for customizing the loading icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom loading icon template."
           },
           {
             "name": "groupicon",
-            "type": "TemplateRef<any>",
-            "description": "Content template for customizing the group icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom option group icon template."
           },
           {
             "name": "clearicon",
-            "type": "TemplateRef<any>",
-            "description": "Content template for customizing the clear icon."
+            "type": "TemplateRef<void>",
+            "description": "Custom clear icon template."
           }
         ],
         "emits": [
@@ -6421,6 +6557,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ChartPassThrough>",
             "default": "undefined",
@@ -6686,6 +6829,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<CheckboxPassThrough>",
             "default": "undefined",
@@ -6857,8 +7007,8 @@
         "templates": [
           {
             "name": "checkboxicon",
-            "type": "TemplateRef<any>",
-            "description": "The template of the checkbox icon."
+            "type": "TemplateRef<CheckboxIconTemplateContext>",
+            "description": "Custom checkbox icon template."
           }
         ],
         "emits": [
@@ -7178,6 +7328,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ChipPassThrough>",
             "default": "undefined",
@@ -7255,7 +7412,13 @@
             "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "removeicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom remove icon template."
+          }
+        ],
         "emits": [
           {
             "name": "onRemove",
@@ -7523,6 +7686,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ColorPickerPassThrough>",
             "default": "undefined",
@@ -7572,18 +7742,18 @@
             "deprecated": "since v20.0.0, use "
           },
           {
-            "name": "enterAnimation",
+            "name": "showTransitionOptions",
             "type": "string",
-            "default": "p-overlay-enter",
-            "description": "Enter animation class name.",
-            "deprecated": ""
+            "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
+            "description": "Transition options of the show animation.",
+            "deprecated": "since v21.0.0, use "
           },
           {
-            "name": "leaveAnimation",
+            "name": "hideTransitionOptions",
             "type": "string",
-            "default": "p-overlay-leave",
-            "description": "Leave animation class name.",
-            "deprecated": ""
+            "default": ".1s linear",
+            "description": "Transition options of the hide animation.",
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "inline",
@@ -7639,6 +7809,20 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "overlayOptions",
+            "type": "InputSignal<OverlayOptions>",
+            "default": "...",
+            "description": "Whether to use overlay API feature. The properties of overlay API can be used like an object in it.",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -7726,6 +7910,11 @@
             "name": "hueHandle",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the hue handle's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -7912,6 +8101,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ConfirmDialogPassThrough>",
             "default": "undefined",
@@ -8081,9 +8277,9 @@
           },
           {
             "name": "appendTo",
-            "type": "any",
-            "default": "body",
-            "description": "Target element to attach the dialog, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "type": "InputSignal<any>",
+            "default": "'body'",
+            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
             "deprecated": ""
           },
           {
@@ -8152,7 +8348,7 @@
           {
             "name": "position",
             "type": "\"right\" | \"left\" | \"top\" | \"bottom\" | \"center\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
-            "default": "-",
+            "default": "center",
             "description": "Allows getting the position of the component.",
             "deprecated": ""
           },
@@ -8164,7 +8360,43 @@
             "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "header",
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
+          },
+          {
+            "name": "footer",
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
+          },
+          {
+            "name": "rejecticon",
+            "type": "TemplateRef<void>",
+            "description": "Custom reject icon template."
+          },
+          {
+            "name": "accepticon",
+            "type": "TemplateRef<void>",
+            "description": "Custom accept icon template."
+          },
+          {
+            "name": "message",
+            "type": "TemplateRef<ConfirmDialogMessageTemplateContext>",
+            "description": "Custom message template."
+          },
+          {
+            "name": "icon",
+            "type": "TemplateRef<void>",
+            "description": "Custom icon template."
+          },
+          {
+            "name": "headless",
+            "type": "TemplateRef<ConfirmDialogHeadlessTemplateContext>",
+            "description": "Custom headless template."
+          }
+        ],
         "emits": [
           {
             "name": "onHide",
@@ -8317,8 +8549,8 @@
           "label": "Headless",
           "description": "Headless mode allows you to customize the entire user interface instead of the default elements.",
           "examples": {
-            "basic": "<p-toast />\n<p-confirmpopup #cp>\n    <ng-template #headless let-message>\n        <div class=\"rounded p-4\">\n            <span>{{ message.message }}</span>\n            <div class=\"flex items-center gap-2 mt-4\">\n                <p-button (onClick)=\"cp.onAccept()\" label=\"Save\" size=\"small\" />\n                <p-button (onClick)=\"cp.onReject()\" label=\"Cancel\" [text]=\"true\" size=\"small\" severity=\"secondary\" />\n            </div>\n        </div>\n    </ng-template>\n</p-confirmpopup>\n<p-button (onClick)=\"confirm($event)\" label=\"Save\" />",
-            "html": "<div class=\"card flex justify-center gap-2\">\n    <p-toast />\n    <p-confirmpopup #cp>\n        <ng-template #headless let-message>\n            <div class=\"rounded p-4\">\n                <span>{{ message.message }}</span>\n                <div class=\"flex items-center gap-2 mt-4\">\n                    <p-button (onClick)=\"cp.onAccept()\" label=\"Save\" size=\"small\" />\n                    <p-button (onClick)=\"cp.onReject()\" label=\"Cancel\" [text]=\"true\" size=\"small\" severity=\"secondary\" />\n                </div>\n            </div>\n        </ng-template>\n    </p-confirmpopup>\n    <p-button (onClick)=\"confirm($event)\" label=\"Save\" />\n</div>",
+            "basic": "<p-toast />\n<p-confirmpopup #cp>\n    <ng-template #headless let-message>\n        <div class=\"rounded p-4\">\n            <span>{{ message.message }}</span>\n            <div class=\"flex items-center gap-2 mt-4\">\n                <p-button (onClick)=\"cp.onAccept()\" label=\"Save\" size=\"small\" [autofocus]=\"true\" />\n                <p-button (onClick)=\"cp.onReject()\" label=\"Cancel\" [text]=\"true\" size=\"small\" severity=\"secondary\" />\n            </div>\n        </div>\n    </ng-template>\n</p-confirmpopup>\n<p-button (onClick)=\"confirm($event)\" label=\"Save\" />",
+            "html": "<div class=\"card flex justify-center gap-2\">\n    <p-toast />\n    <p-confirmpopup #cp>\n        <ng-template #headless let-message>\n            <div class=\"rounded p-4\">\n                <span>{{ message.message }}</span>\n                <div class=\"flex items-center gap-2 mt-4\">\n                    <p-button (onClick)=\"cp.onAccept()\" label=\"Save\" size=\"small\" [autofocus]=\"true\" />\n                    <p-button (onClick)=\"cp.onReject()\" label=\"Cancel\" [text]=\"true\" size=\"small\" severity=\"secondary\" />\n                </div>\n            </div>\n        </ng-template>\n    </p-confirmpopup>\n    <p-button (onClick)=\"confirm($event)\" label=\"Save\" />\n</div>",
             "typescript": "import { Component } from '@angular/core';\nimport { ConfirmationService, MessageService } from 'primeng/api';\nimport { ConfirmPopupModule } from 'primeng/confirmpopup';\nimport { ToastModule } from 'primeng/toast';\nimport { ButtonModule } from 'primeng/button';\n\n@Component({\n    selector: 'confirm-popup-headless-demo',\n    templateUrl: './confirm-popup-headless-demo.html',\n    standalone: true,\n    imports: [ConfirmPopupModule, ToastModule, ButtonModule],\n    providers: [ConfirmationService, MessageService]\n})\nexport class ConfirmPopupHeadlessDemo {\n   constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}\n\n    confirm(event: Event) {\n        this.confirmationService.confirm({\n            target: event.target as EventTarget,\n            message: 'Save your current process?',\n            accept: () => {\n                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });\n            },\n            reject: () => {\n                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });\n            }\n        });\n    }\n}"
           }
         },
@@ -8357,6 +8589,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ConfirmPopupPassThrough>",
             "default": "undefined",
@@ -8389,28 +8628,14 @@
             "type": "string",
             "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".1s linear",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-confirmpopup-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-confirmpopup-leave'",
-            "description": "Leave animation class name.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "autoZIndex",
@@ -8442,9 +8667,23 @@
           },
           {
             "name": "visible",
-            "type": "any",
-            "default": "-",
+            "type": "InputSignal<boolean>",
+            "default": "...",
             "description": "Defines if the component is visible.",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
+            "deprecated": ""
+          },
+          {
+            "name": "appendTo",
+            "type": "InputSignal<any>",
+            "default": "'body'",
+            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
             "deprecated": ""
           }
         ],
@@ -8491,6 +8730,11 @@
             "name": "pcAcceptButton",
             "type": "ButtonPassThrough",
             "description": "Used to pass attributes to the accept Button component."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -8684,6 +8928,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ContextMenuPassThrough>",
             "default": "undefined",
@@ -8796,17 +9047,10 @@
             "deprecated": ""
           },
           {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-contextmenu-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-contextmenu-leave'",
-            "description": "Leave animation class name.",
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -8895,6 +9139,11 @@
             "name": "submenuIcon",
             "type": "PassThroughOption<SVGElement, I>",
             "description": "Used to pass attributes to the submenu icon's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -9156,6 +9405,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -10001,6 +10257,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<DatePickerPassThrough>",
             "default": "undefined",
@@ -10425,28 +10688,14 @@
             "type": "string",
             "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".1s linear",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-datepicker-overlay-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-datepicker-overlay-leave'",
-            "description": "Leave animation class name.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "tabindex",
@@ -10530,6 +10779,13 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -10625,8 +10881,8 @@
             "name": "onClose",
             "parameters": [
               {
-                "name": "event",
-                "type": "AnimationEvent"
+                "name": "value",
+                "type": "HTMLElement"
               }
             ],
             "description": "Callback to invoke when date panel closed."
@@ -10716,7 +10972,7 @@
             "parameters": [
               {
                 "name": "value",
-                "type": "any"
+                "type": "HTMLElement"
               }
             ],
             "description": "Callback to invoke when datepicker panel is shown."
@@ -10993,6 +11249,11 @@
             "name": "hiddenYear",
             "type": "PassThroughOption<HTMLSpanElement, I>",
             "description": "Used to pass attributes to the hidden year's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -11685,6 +11946,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<DialogPassThrough>",
             "default": "undefined",
@@ -11871,6 +12139,20 @@
             "type": "string",
             "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the animation.",
+            "deprecated": "since v21.0.0. Use "
+          },
+          {
+            "name": "maskMotionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options for the mask.",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
@@ -11997,20 +12279,6 @@
             "type": "TemplateRef<any>",
             "default": "-",
             "description": "Headless template.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-dialog-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-dialog-leave'",
-            "description": "Leave animation class name.",
             "deprecated": ""
           }
         ],
@@ -12152,6 +12420,11 @@
             "name": "footer",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the footer's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -12342,6 +12615,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<DividerPassThrough>",
             "default": "undefined",
@@ -12513,6 +12793,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -12795,7 +13082,7 @@
         "props": [
           {
             "name": "dragEffect",
-            "type": "\"link\" | \"none\" | \"copy\" | \"move\" | \"all\" | \"copyLink\" | \"copyMove\" | \"linkMove\" | \"uninitialized\"",
+            "type": "\"link\" | \"none\" | \"all\" | \"copy\" | \"move\" | \"copyLink\" | \"copyMove\" | \"linkMove\" | \"uninitialized\"",
             "default": "-",
             "description": "Defines the cursor style.",
             "deprecated": ""
@@ -12945,6 +13232,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<DrawerPassThrough>",
             "default": "undefined",
@@ -12963,6 +13257,13 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
@@ -13047,18 +13348,18 @@
             "type": "string",
             "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "visible",
             "type": "boolean",
             "default": "-",
-            "description": "Specifies the visibility of the dialog.",
+            "description": "The visible property is an input that determines the visibility of the component.",
             "deprecated": ""
           },
           {
             "name": "position",
-            "type": "InputSignal<string>",
+            "type": "InputSignal<\"right\" | \"left\" | \"top\" | \"bottom\" | \"full\">",
             "default": "'left'",
             "description": "Specifies the position of the drawer, valid values are \"left\", \"right\", \"bottom\" and \"top\".",
             "deprecated": ""
@@ -13068,20 +13369,6 @@
             "type": "InputSignal<boolean>",
             "default": "false",
             "description": "Adds a close icon to the header to hide the dialog.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-drawer-enter-left'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-drawer-enter-right'",
-            "description": "Leave animation class name.",
             "deprecated": ""
           },
           {
@@ -13201,6 +13488,11 @@
             "name": "footer",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the footer's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -13486,6 +13778,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -13945,6 +14244,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<FieldsetPassThrough>",
             "default": "undefined",
@@ -13973,13 +14279,6 @@
             "deprecated": ""
           },
           {
-            "name": "collapsed",
-            "type": "boolean",
-            "default": "false",
-            "description": "Defines the default visibility state of the content.\n*",
-            "deprecated": ""
-          },
-          {
             "name": "style",
             "type": "{ [klass: string]: any }",
             "default": "-",
@@ -13998,20 +14297,20 @@
             "type": "string",
             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
             "description": "Transition options of the panel animation.",
+            "deprecated": "since v21.0.0, use "
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-collapsible-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-collapsible-leave'",
-            "description": "Leave animation class name.",
+            "name": "collapsed",
+            "type": "boolean",
+            "default": "-",
+            "description": "Defines the initial state of content, supports one or two-way binding as well.",
             "deprecated": ""
           }
         ],
@@ -14102,9 +14401,19 @@
             "description": "Used to pass attributes to the content container's DOM element."
           },
           {
+            "name": "contentWrapper",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the content wrapper DOM element."
+          },
+          {
             "name": "content",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the content's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -14127,6 +14436,10 @@
           {
             "class": "p-fieldset-content-container",
             "description": "Class name of the content container element"
+          },
+          {
+            "class": "p-fieldset-content-wrapper",
+            "description": "Class name of the content wrapper element"
           },
           {
             "class": "p-fieldset-content",
@@ -14340,6 +14653,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -15171,6 +15491,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<FloatLabelPassThrough>",
             "default": "undefined",
@@ -15342,6 +15669,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<FluidPassThrough>",
             "default": "undefined",
@@ -15411,6 +15745,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -15553,6 +15894,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -15742,27 +16090,27 @@
             "type": "string",
             "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the hide animation.",
+            "deprecated": "since v21.0.0. Use "
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-galleria-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-galleria-leave'",
-            "description": "Leave animation class name.",
+            "name": "maskMotionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The mask motion options.",
             "deprecated": ""
           },
           {
@@ -15942,6 +16290,11 @@
             "name": "footer",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the footer's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -16473,6 +16826,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<IconFieldPassThrough>",
             "default": "undefined",
@@ -16578,6 +16938,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -16719,6 +17086,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -16951,6 +17325,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -17267,6 +17648,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<InputGroupPassThrough>",
             "default": "undefined",
@@ -17518,6 +17906,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -18073,6 +18468,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -18741,6 +19143,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<InputOtpPassThrough>",
             "default": "undefined",
@@ -19099,6 +19508,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<InputTextPassThrough>",
             "default": "undefined",
@@ -19110,6 +19526,27 @@
             "type": "InputSignal<PassThroughOptions>",
             "default": "undefined",
             "description": "Used to configure passthrough(pt) options of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "ptInputText",
+            "type": "InputSignal<InputTextPassThrough>",
+            "default": "undefined",
+            "description": "Used to pass attributes to DOM elements inside the InputText component.",
+            "deprecated": "use pInputTextPt instead."
+          },
+          {
+            "name": "pInputTextPt",
+            "type": "InputSignal<InputTextPassThrough>",
+            "default": "undefined",
+            "description": "Used to pass attributes to DOM elements inside the InputText component.",
+            "deprecated": ""
+          },
+          {
+            "name": "pInputTextUnstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -19540,6 +19977,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<KnobPassThrough>",
             "default": "undefined",
@@ -19960,6 +20404,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -20930,6 +21381,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<MegaMenuPassThrough>",
             "default": "undefined",
@@ -21570,6 +22028,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<MenuPassThrough>",
             "default": "undefined",
@@ -21630,28 +22095,14 @@
             "type": "string",
             "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".1s linear",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-menu-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-menu-leave'",
-            "description": "Leave animation class name.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "ariaLabel",
@@ -21686,6 +22137,13 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -21845,6 +22303,11 @@
             "name": "end",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the end's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -22075,6 +22538,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -22694,6 +23164,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<MessagePassThrough>",
             "default": "undefined",
@@ -22768,28 +23245,14 @@
             "type": "string",
             "default": "'300ms ease-out'",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": "'200ms cubic-bezier(0.86, 0, 0.07, 1)'",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-message-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-message-leave'",
-            "description": "Leave animation class name.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "size",
@@ -22803,6 +23266,13 @@
             "type": "\"text\" | \"outlined\" | \"simple\"",
             "default": "-",
             "description": "Specifies the input variant of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -22884,6 +23354,11 @@
             "name": "closeIcon",
             "type": "PassThroughOption<HTMLElement, I>",
             "description": "Used to pass attributes to the close icon's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -23447,6 +23922,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<MeterGroupPassThrough>",
             "default": "undefined",
@@ -23848,6 +24330,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -24339,9 +24828,102 @@
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
             "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
+            "deprecated": ""
           }
         ],
-        "templates": null,
+        "templates": [
+          {
+            "name": "item",
+            "type": "TemplateRef<MultiSelectItemTemplateContext<any>>",
+            "description": "Custom item template."
+          },
+          {
+            "name": "group",
+            "type": "TemplateRef<MultiSelectGroupTemplateContext<any>>",
+            "description": "Custom group template."
+          },
+          {
+            "name": "loader",
+            "type": "TemplateRef<MultiSelectLoaderTemplateContext>",
+            "description": "Custom loader template."
+          },
+          {
+            "name": "header",
+            "type": "TemplateRef<void>",
+            "description": "Custom header template."
+          },
+          {
+            "name": "filter",
+            "type": "TemplateRef<MultiSelectFilterTemplateContext>",
+            "description": "Custom filter template."
+          },
+          {
+            "name": "footer",
+            "type": "TemplateRef<void>",
+            "description": "Custom footer template."
+          },
+          {
+            "name": "emptyfilter",
+            "type": "TemplateRef<void>",
+            "description": "Custom empty filter template."
+          },
+          {
+            "name": "empty",
+            "type": "TemplateRef<void>",
+            "description": "Custom empty template."
+          },
+          {
+            "name": "selecteditems",
+            "type": "TemplateRef<MultiSelectSelectedItemsTemplateContext<any>>",
+            "description": "Custom selected items template."
+          },
+          {
+            "name": "loadingicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom loading icon template."
+          },
+          {
+            "name": "filtericon",
+            "type": "TemplateRef<void>",
+            "description": "Custom filter icon template."
+          },
+          {
+            "name": "removetokenicon",
+            "type": "TemplateRef<MultiSelectChipIconTemplateContext>",
+            "description": "Custom remove token icon template."
+          },
+          {
+            "name": "chipicon",
+            "type": "TemplateRef<MultiSelectChipIconTemplateContext>",
+            "description": "Custom chip icon template."
+          },
+          {
+            "name": "clearicon",
+            "type": "TemplateRef<void>",
+            "description": "Custom clear icon template."
+          },
+          {
+            "name": "dropdownicon",
+            "type": "TemplateRef<MultiSelectDropdownIconTemplateContext>",
+            "description": "Custom dropdown icon template."
+          },
+          {
+            "name": "itemcheckboxicon",
+            "type": "TemplateRef<MultiSelectItemCheckboxIconTemplateContext>",
+            "description": "Custom item checkbox icon template."
+          },
+          {
+            "name": "headercheckboxicon",
+            "type": "TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext>",
+            "description": "Custom header checkbox icon template."
+          }
+        ],
         "emits": [
           {
             "name": "onChange",
@@ -25049,6 +25631,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<OrderListPassThrough>",
             "default": "undefined",
@@ -25527,6 +26116,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -26018,6 +26614,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<any>",
             "default": "undefined",
@@ -26029,20 +26632,6 @@
             "type": "InputSignal<PassThroughOptions>",
             "default": "undefined",
             "description": "Used to configure passthrough(pt) options of the component.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "string",
-            "default": "p-overlay-enter",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "string",
-            "default": "p-overlay-leave",
-            "description": "Leave animation class name.",
             "deprecated": ""
           },
           {
@@ -26113,14 +26702,14 @@
             "type": "string",
             "default": "-",
             "description": "Transition options of the show or hide animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": "-",
             "description": "The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "listener",
@@ -26148,6 +26737,20 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "inline",
+            "type": "InputSignal<boolean>",
+            "default": "false",
+            "description": "Specifies whether the overlay should be rendered inline within the current component's template.",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -26213,8 +26816,8 @@
             "name": "onAnimationStart",
             "parameters": [
               {
-                "name": "value",
-                "type": "any"
+                "name": "event",
+                "type": "AnimationEvent"
               }
             ],
             "description": "Callback to invoke when the animation is started."
@@ -26223,11 +26826,71 @@
             "name": "onAnimationDone",
             "parameters": [
               {
-                "name": "value",
-                "type": "any"
+                "name": "event",
+                "type": "AnimationEvent"
               }
             ],
             "description": "Callback to invoke when the animation is done."
+          },
+          {
+            "name": "onBeforeEnter",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "MotionEvent"
+              }
+            ],
+            "description": "Callback to invoke before the overlay enters."
+          },
+          {
+            "name": "onEnter",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "MotionEvent"
+              }
+            ],
+            "description": "Callback to invoke when the overlay enters."
+          },
+          {
+            "name": "onAfterEnter",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "MotionEvent"
+              }
+            ],
+            "description": "Callback to invoke after the overlay has entered."
+          },
+          {
+            "name": "onBeforeLeave",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "MotionEvent"
+              }
+            ],
+            "description": "Callback to invoke before the overlay leaves."
+          },
+          {
+            "name": "onLeave",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "MotionEvent"
+              }
+            ],
+            "description": "Callback to invoke when the overlay leaves."
+          },
+          {
+            "name": "onAfterLeave",
+            "parameters": [
+              {
+                "name": "event",
+                "type": "MotionEvent"
+              }
+            ],
+            "description": "Callback to invoke after the overlay has left."
           }
         ],
         "methods": null,
@@ -26241,6 +26904,11 @@
             "name": "content",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the content's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": null,
@@ -26320,6 +26988,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -26866,6 +27541,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<PanelPassThrough>",
             "default": "undefined",
@@ -26933,27 +27615,20 @@
             "type": "string",
             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
             "description": "Transition options of the animation.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-collapsible-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-collapsible-leave'",
-            "description": "Leave animation class name.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "toggleButtonProps",
             "type": "any",
             "default": "-",
             "description": "Used to pass all properties of the ButtonProps to the Button component.",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -27054,6 +27729,11 @@
             "description": "Used to pass attributes to the content container's DOM element."
           },
           {
+            "name": "contentWrapper",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the content wrapper DOM element."
+          },
+          {
             "name": "content",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the content's DOM element."
@@ -27062,6 +27742,11 @@
             "name": "footer",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the footer's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -27088,6 +27773,10 @@
           {
             "class": "p-panel-content-container",
             "description": "Class name of the content container element"
+          },
+          {
+            "class": "p-panel-content-wrapper",
+            "description": "Class name of the content wrapper element"
           },
           {
             "class": "p-panel-content",
@@ -27268,6 +27957,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<PanelMenuPassThrough>",
             "default": "undefined",
@@ -27307,20 +28003,13 @@
             "type": "string",
             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
             "description": "Transition options of the animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-collapsible-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-collapsible-leave'",
-            "description": "Leave animation class name.",
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
@@ -27411,6 +28100,11 @@
             "description": "Used to pass attributes to the toggleable content's DOM element."
           },
           {
+            "name": "contentWrapper",
+            "type": "PassThroughOption<HTMLDivElement, I>",
+            "description": "Used to pass attributes to the toggleable content's DOM element."
+          },
+          {
             "name": "content",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the menu content's DOM element."
@@ -27454,6 +28148,11 @@
             "name": "separator",
             "type": "PassThroughOption<HTMLLIElement, I>",
             "description": "Used to pass attributes to the separator's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -27837,6 +28536,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<PasswordPassThrough>",
             "default": "undefined",
@@ -28065,28 +28771,14 @@
             "type": "string",
             "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".1s linear",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-password-overlay-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-password-overlay-leave'",
-            "description": "Leave animation class name.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "autocomplete",
@@ -28128,6 +28820,20 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
+            "deprecated": ""
+          },
+          {
+            "name": "overlayOptions",
+            "type": "OverlayOptions",
+            "default": "-",
+            "description": "Whether to use overlay API feature. The properties of overlay API can be used like an object in it.",
             "deprecated": ""
           }
         ],
@@ -28197,6 +28903,11 @@
             "description": "Used to pass attributes to the unmask icon's DOM element."
           },
           {
+            "name": "pcOverlay",
+            "type": "OverlayPassThrough",
+            "description": "Used to pass attributes to the Overlay component."
+          },
+          {
             "name": "overlay",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the overlay's DOM element."
@@ -28220,6 +28931,11 @@
             "name": "meterText",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the meter text's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -28405,6 +29121,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<any>",
             "default": "undefined",
@@ -28420,15 +29143,15 @@
           },
           {
             "name": "source",
-            "type": "any[]",
-            "default": "-",
+            "type": "ModelSignal<any[]>",
+            "default": "...",
             "description": "An array of objects for the source list.",
             "deprecated": ""
           },
           {
             "name": "target",
-            "type": "any[]",
-            "default": "-",
+            "type": "ModelSignal<any[]>",
+            "default": "...",
             "description": "An array of objects for the target list.",
             "deprecated": ""
           },
@@ -29240,6 +29963,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<PopoverPassThrough>",
             "default": "undefined",
@@ -29328,27 +30058,20 @@
             "type": "string",
             "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".1s linear",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-popover-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-popover-leave'",
-            "description": "Leave animation class name.",
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -29438,6 +30161,11 @@
             "name": "content",
             "type": "PassThroughOption<HTMLDivElement, I>",
             "description": "Used to pass attributes to the content's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": null,
@@ -29563,6 +30291,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ProgressBarPassThrough>",
             "default": "undefined",
@@ -29613,8 +30348,8 @@
           },
           {
             "name": "mode",
-            "type": "string",
-            "default": "determinate",
+            "type": "\"indeterminate\" | \"determinate\"",
+            "default": "'determinate'",
             "description": "Defines the mode of the progress",
             "deprecated": ""
           },
@@ -29759,6 +30494,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -29989,6 +30731,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -30465,6 +31214,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<RatingPassThrough>",
             "default": "undefined",
@@ -30772,6 +31528,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<any>",
             "default": "undefined",
@@ -30933,6 +31696,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -31293,6 +32063,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ScrollPanelPassThrough>",
             "default": "undefined",
@@ -31503,6 +32280,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ScrollTopPassThrough>",
             "default": "undefined",
@@ -31563,27 +32347,20 @@
             "type": "string",
             "default": ".15s",
             "description": "A string value used to determine the display transition options.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".15s",
             "description": "A string value used to determine the hiding transition options.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-scrolltop-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-scrolltop-leave'",
-            "description": "Leave animation class name.",
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
@@ -31625,6 +32402,11 @@
             "name": "pcButton",
             "type": "ButtonPassThrough",
             "description": "Used to pass attributes to the Button component."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -31875,6 +32657,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -32345,87 +33134,94 @@
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
             "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
+            "deprecated": ""
           }
         ],
         "templates": [
           {
             "name": "item",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<SelectItemTemplateContext<any>>",
             "description": "Custom item template."
           },
           {
             "name": "group",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<SelectGroupTemplateContext<any>>",
             "description": "Custom group template."
           },
           {
             "name": "loader",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<SelectLoaderTemplateContext>",
             "description": "Custom loader template."
           },
           {
             "name": "selecteditem",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<SelectSelectedItemTemplateContext<any>>",
             "description": "Custom selected item template."
           },
           {
             "name": "header",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom header template."
           },
           {
             "name": "filter",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<SelectFilterTemplateContext>",
             "description": "Custom filter template."
           },
           {
             "name": "footer",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom footer template."
           },
           {
             "name": "emptyfilter",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty filter template."
           },
           {
             "name": "empty",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom empty template."
           },
           {
             "name": "dropdownicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<SelectIconTemplateContext>",
             "description": "Custom dropdown icon template."
           },
           {
             "name": "loadingicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom loading icon template."
           },
           {
             "name": "clearicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<SelectIconTemplateContext>",
             "description": "Custom clear icon template."
           },
           {
             "name": "filtericon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom filter icon template."
           },
           {
             "name": "onicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom on icon template."
           },
           {
             "name": "officon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom off icon template."
           },
           {
             "name": "cancelicon",
-            "type": "TemplateRef<any>",
+            "type": "TemplateRef<void>",
             "description": "Custom cancel icon template."
           }
         ],
@@ -33188,6 +33984,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<SelectButtonPassThrough>",
             "default": "undefined",
@@ -33471,6 +34274,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<SkeletonPassThrough>",
             "default": "undefined",
@@ -33682,6 +34492,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -34078,6 +34895,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -34564,6 +35388,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<SplitButtonPassThrough>",
             "default": "undefined",
@@ -34698,8 +35529,8 @@
           },
           {
             "name": "appendTo",
-            "type": "any",
-            "default": "body",
+            "type": "InputSignal<any>",
+            "default": "'body'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
             "deprecated": ""
           },
@@ -34722,13 +35553,20 @@
             "type": "string",
             "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".1s linear",
             "description": "Transition options of the hide animation.",
+            "deprecated": "since v21.0.0. Use "
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
@@ -34950,6 +35788,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -35246,6 +36091,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<StepperPassThrough>",
             "default": "undefined",
@@ -35278,20 +36130,13 @@
             "type": "InputSignal<string>",
             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
             "description": "Transition options of the animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-collapsible-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-collapsible-leave'",
-            "description": "Leave animation class name.",
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -35303,6 +36148,11 @@
             "name": "root",
             "type": "PassThroughOption<HTMLElement, I>",
             "description": "Used to pass attributes to the root's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -36308,6 +37158,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<TablePassThrough>",
             "default": "undefined",
@@ -37197,7 +38054,7 @@
           },
           {
             "name": "pcColumnFilterButton",
-            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "type": "ButtonPassThrough",
             "description": "Used to pass attributes to the column filter button component."
           },
           {
@@ -37232,7 +38089,7 @@
           },
           {
             "name": "pcFilterOperatorDropdown",
-            "type": "PassThroughOption<HTMLElement, I>",
+            "type": "SelectPassThrough",
             "description": "Used to pass attributes to the filter operator dropdown component."
           },
           {
@@ -37247,17 +38104,17 @@
           },
           {
             "name": "pcFilterConstraintDropdown",
-            "type": "PassThroughOption<HTMLElement, I>",
+            "type": "SelectPassThrough",
             "description": "Used to pass attributes to the filter constraint dropdown component."
           },
           {
             "name": "pcFilterRemoveRuleButton",
-            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "type": "ButtonPassThrough",
             "description": "Used to pass attributes to the filter remove rule button component."
           },
           {
             "name": "pcAddRuleButtonLabel",
-            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "type": "ButtonPassThrough",
             "description": "Used to pass attributes to the add rule button label."
           },
           {
@@ -37267,22 +38124,22 @@
           },
           {
             "name": "pcFilterClearButton",
-            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "type": "ButtonPassThrough",
             "description": "Used to pass attributes to the filter clear button component."
           },
           {
             "name": "pcFilterApplyButton",
-            "type": "PassThroughOption<HTMLButtonElement, I>",
+            "type": "ButtonPassThrough",
             "description": "Used to pass attributes to the filter apply button component."
           },
           {
             "name": "pcFilterInputText",
-            "type": "PassThroughOption<HTMLInputElement, I>",
+            "type": "InputTextPassThrough",
             "description": "Used to pass attributes to the filter input text component."
           },
           {
             "name": "pcFilterInputNumber",
-            "type": "PassThroughOption<HTMLElement, I>",
+            "type": "InputNumberPassThrough",
             "description": "Used to pass attributes to the filter input number component."
           },
           {
@@ -37292,8 +38149,13 @@
           },
           {
             "name": "pcFilterDatePicker",
-            "type": "PassThroughOption<HTMLElement, I>",
+            "type": "DatePickerPassThrough",
             "description": "Used to pass attributes to the filter datepicker component."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -37512,6 +38374,14 @@
           {
             "class": "p-datatable-row-editor-cancel",
             "description": "Class name of the row editor cancel element"
+          },
+          {
+            "class": "p-datatable-frozen-column",
+            "description": "Class name of the frozen column element"
+          },
+          {
+            "class": "p-datatable-contextmenu-row-selected",
+            "description": "Class name of the contextmenu row selected element"
           }
         ],
         "tokens": null
@@ -37624,6 +38494,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -38041,6 +38918,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<TagPassThrough>",
             "default": "undefined",
@@ -38281,6 +39165,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -38608,6 +39499,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<TextareaPassThrough>",
             "default": "undefined",
@@ -38619,6 +39517,20 @@
             "type": "InputSignal<PassThroughOptions>",
             "default": "undefined",
             "description": "Used to configure passthrough(pt) options of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "pTextareaPt",
+            "type": "InputSignal<TextareaPassThrough>",
+            "default": "undefined",
+            "description": "Used to pass attributes to DOM elements inside the Textarea component.",
+            "deprecated": ""
+          },
+          {
+            "name": "pTextareaUnstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -38924,6 +39836,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<TieredMenuPassThrough>",
             "default": "undefined",
@@ -38998,28 +39917,14 @@
             "type": "string",
             "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": ".1s linear",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
-          },
-          {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-tieredmenu-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-tieredmenu-leave'",
-            "description": "Leave animation class name.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0, use "
           },
           {
             "name": "id",
@@ -39061,6 +39966,13 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -39192,6 +40104,11 @@
             "name": "separator",
             "type": "PassThroughOption<HTMLLIElement, I>",
             "description": "Used to pass attributes to the separator's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -39456,6 +40373,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -39812,6 +40736,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ToastPassThrough>",
             "default": "undefined",
@@ -39886,41 +40817,34 @@
             "type": "string",
             "default": "translateY(100%)",
             "description": "Transform options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "hideTransformOptions",
             "type": "string",
             "default": "translateY(-100%)",
             "description": "Transform options of the hide animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "showTransitionOptions",
             "type": "string",
             "default": "300ms ease-out",
             "description": "Transition options of the show animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
             "name": "hideTransitionOptions",
             "type": "string",
             "default": "250ms ease-in",
             "description": "Transition options of the hide animation.",
-            "deprecated": ""
+            "deprecated": "since v21.0.0. Use "
           },
           {
-            "name": "enterAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-toast-enter'",
-            "description": "Enter animation class name.",
-            "deprecated": ""
-          },
-          {
-            "name": "leaveAnimation",
-            "type": "InputSignal<string>",
-            "default": "'p-toast-leave'",
-            "description": "Leave animation class name.",
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           },
           {
@@ -40006,6 +40930,11 @@
             "name": "closeIcon",
             "type": "PassThroughOption<HTMLElement, I>",
             "description": "Used to pass attributes to the close icon's DOM element."
+          },
+          {
+            "name": "motion",
+            "type": "MotionOptions",
+            "description": "Used to pass options to the motion component/directive."
           }
         ],
         "styles": [
@@ -40508,6 +41437,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ToggleButtonPassThrough>",
             "default": "undefined",
@@ -41003,6 +41939,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ToggleSwitchPassThrough>",
             "default": "undefined",
@@ -41403,6 +42346,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<ToolbarPassThrough>",
             "default": "undefined",
@@ -41620,6 +42570,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<TooltipPassThroughOptions<unknown>>",
             "default": "undefined",
@@ -41757,6 +42714,27 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "ptTooltip",
+            "type": "InputSignal<TooltipPassThrough>",
+            "default": "undefined",
+            "description": "Used to pass attributes to DOM elements inside the Tooltip component.",
+            "deprecated": "use pTooltipPt instead."
+          },
+          {
+            "name": "pTooltipPt",
+            "type": "InputSignal<TooltipPassThrough>",
+            "default": "undefined",
+            "description": "Used to pass attributes to DOM elements inside the Tooltip component.",
+            "deprecated": ""
+          },
+          {
+            "name": "pTooltipUnstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           }
         ],
@@ -41991,6 +42969,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -42294,7 +43279,7 @@
             "description": "Loader template."
           },
           {
-            "name": "emptymessage",
+            "name": "empty",
             "type": "TemplateRef<any>",
             "description": "Empty message template."
           },
@@ -43052,6 +44037,13 @@
             "deprecated": ""
           },
           {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
+            "deprecated": ""
+          },
+          {
             "name": "pt",
             "type": "InputSignal<TreeSelectPassThrough>",
             "default": "undefined",
@@ -43357,6 +44349,13 @@
             "type": "InputSignal<any>",
             "default": "'self'",
             "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name).",
+            "deprecated": ""
+          },
+          {
+            "name": "motionOptions",
+            "type": "InputSignal<MotionOptions>",
+            "default": "...",
+            "description": "The motion options.",
             "deprecated": ""
           }
         ],
@@ -44195,6 +45194,13 @@
             "type": "InputSignal<Object>",
             "default": "undefined",
             "description": "Defines scoped design tokens of the component.",
+            "deprecated": ""
+          },
+          {
+            "name": "unstyled",
+            "type": "InputSignal<boolean>",
+            "default": "undefined",
+            "description": "Indicates whether the component should be rendered without styles.",
             "deprecated": ""
           },
           {
@@ -46310,7 +47316,7 @@
           "label": "Anchoredoverlays",
           "description": "Anchored overlays are the components that have a floating ui positioned relatively to another element such as Select, Popover. The enter and leave animations are defined with the .p-anchored-overlay-enter-active and .p-anchored-overlay-leave-active classes.",
           "examples": {
-            "scss": ":host::ng-deep {\n    .p-anchored-overlay-enter-active {\n        animation: demo-overlay-in 300ms ease-out;\n    }\n\n    .p-anchored-overlay-leave-active {\n        animation: demo-overlay-out 250ms ease-in;\n    }\n}\n@keyframes demo-overlay-in {\n    from {\n        opacity: 0;\n        transform: translateY(10%);\n    }\n}\n\n@keyframes demo-overlay-out {\n    to {\n        opacity: 0;\n        transform: translateY(10%);\n    }\n}"
+            "scss": ".p-anchored-overlay-enter-active {\n    animation: demo-overlay-in 300ms ease-out;\n}\n\n.p-anchored-overlay-leave-active {\n    animation: demo-overlay-out 250ms ease-in;\n}\n\n@keyframes demo-overlay-in {\n    from {\n        opacity: 0;\n        transform: translateY(10%);\n    }\n}\n\n@keyframes demo-overlay-out {\n    to {\n        opacity: 0;\n        transform: translateY(10%);\n    }\n}"
           }
         },
         {
@@ -46318,7 +47324,7 @@
           "label": "Collapsibles",
           "description": "Collapsible components have a content that is toggleable including Accordion, Panel, Fieldset, Stepper and PanelMenu. The enter and leave animations are defined with the .p-collapsible-enter-active and .p-collapsible-leave-active classes. Header I Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Header II Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi. Header III Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.",
           "examples": {
-            "scss": ":host::ng-deep {\n    .p-collapsible-enter-active {\n        animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);\n    }\n\n    .p-collapsible-leave-active {\n        animation: demo-collapsible-collapse 500ms cubic-bezier(0.65, 0, 0.35, 1);\n    }\n}\n\n@keyframes demo-collapsible-expand {\n    from {\n        opacity: 0;\n        grid-template-rows: 0fr;\n        transform: scale(0.93);\n    }\n    to {\n        opacity: 1;\n        grid-template-rows: 1fr;\n    }\n}\n\n@keyframes demo-collapsible-collapse {\n    from {\n        opacity: 1;\n        grid-template-rows: 1fr;\n    }\n    to {\n        opacity: 0;\n        grid-template-rows: 0fr;\n        transform: scale(0.93);\n    }\n}"
+            "scss": ".p-collapsible-enter-active {\n    animation: demo-collapsible-expand 500ms cubic-bezier(0.65, 0, 0.35, 1);\n}\n\n.p-collapsible-leave-active {\n    animation: demo-collapsible-collapse 500ms cubic-bezier(0.65, 0, 0.35, 1);\n}\n\n@keyframes demo-collapsible-expand {\n    from {\n        opacity: 0;\n        grid-template-rows: 0fr;\n        transform: scale(0.93);\n    }\n    to {\n        opacity: 1;\n        grid-template-rows: 1fr;\n    }\n}\n\n@keyframes demo-collapsible-collapse {\n    from {\n        opacity: 1;\n        grid-template-rows: 1fr;\n    }\n    to {\n        opacity: 0;\n        grid-template-rows: 0fr;\n        transform: scale(0.93);\n    }\n}"
           }
         },
         {
@@ -46326,7 +47332,7 @@
           "label": "Dialog",
           "description": "Overlays such as Dialog and Drawer are positioned relative to the viewport and have their own animations. Update your information. Username Email",
           "examples": {
-            "scss": ":host::ng-deep {\n    .demo-dialog.p-dialog-enter-active {\n        animation: demo-dialog-in 500ms ease-out;\n    }\n\n    .demo-dialog.p-dialog-leave-active {\n        animation: demo-dialog-out 500ms ease-in;\n    }\n}\n\n@keyframes demo-dialog-in {\n    from {\n        opacity: 0;\n        transform: translateY(-10%) scale(1.1);\n        filter: blur(10px);\n    }\n}\n\n@keyframes demo-dialog-out {\n    to {\n        opacity: 0;\n        transform: translateY(200%) rotate(-90deg);\n    }\n}"
+            "scss": ".p-dialog-enter-active {\n    animation: demo-dialog-in 500ms ease-out;\n}\n    \n.p-dialog-leave-active {\n    animation: demo-dialog-out 500ms ease-in;\n}\n\n@keyframes demo-dialog-in {\n    from {\n        opacity: 0;\n        transform: translateY(-10%) scale(1.1);\n        filter: blur(10px);\n    }\n}\n\n@keyframes demo-dialog-out {\n    to {\n        opacity: 0;\n        transform: translateY(200%) rotate(-90deg);\n    }\n}"
           }
         },
         {

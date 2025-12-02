@@ -181,10 +181,9 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| enterAnimation | string | p-overlay-enter | Enter animation class name. |
-| leaveAnimation | string | p-overlay-leave | Leave animation class name. |
 | visible | boolean | - | The visible property is an input that determines the visibility of the component. |
 | mode | string | - | The mode property is an input that determines the overlay mode type or string. |
 | style | { [klass: string]: any } | - | The style property is an input that determines the style object for the component. |
@@ -194,12 +193,14 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 | target | string | - | The target property is an input that specifies the target element or selector for the component. |
 | autoZIndex | boolean | - | The autoZIndex determines whether to automatically manage layering. Its default value is 'false'. |
 | baseZIndex | number | - | The baseZIndex is base zIndex value to use in layering. |
-| showTransitionOptions | string | - | Transition options of the show or hide animation. |
-| hideTransitionOptions | string | - | The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component. |
+| showTransitionOptions | string | - | Transition options of the show or hide animation. **(Deprecated)** |
+| hideTransitionOptions | string | - | The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component. **(Deprecated)** |
 | listener | any | - | The listener property is an input that specifies the listener object for the component. |
 | responsive | ResponsiveOverlayOptions | - | It is the option used to determine in which mode it should appear according to the given media or breakpoint. |
 | options | OverlayOptions | - | The options property is an input that specifies the overlay options for the component. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| inline | InputSignal<boolean> | false | Specifies whether the overlay should be rendered inline within the current component's template. |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -210,8 +211,14 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 | onShow | event: OverlayOnShowEvent | Callback to invoke when the overlay is shown. |
 | onBeforeHide | event: OverlayOnBeforeHideEvent | Callback to invoke before the overlay is hidden. |
 | onHide | event: OverlayOnHideEvent | Callback to invoke when the overlay is hidden |
-| onAnimationStart | value: any | Callback to invoke when the animation is started. |
-| onAnimationDone | value: any | Callback to invoke when the animation is done. |
+| onAnimationStart | event: AnimationEvent | Callback to invoke when the animation is started. |
+| onAnimationDone | event: AnimationEvent | Callback to invoke when the animation is done. |
+| onBeforeEnter | event: MotionEvent | Callback to invoke before the overlay enters. |
+| onEnter | event: MotionEvent | Callback to invoke when the overlay enters. |
+| onAfterEnter | event: MotionEvent | Callback to invoke after the overlay has entered. |
+| onBeforeLeave | event: MotionEvent | Callback to invoke before the overlay leaves. |
+| onLeave | event: MotionEvent | Callback to invoke when the overlay leaves. |
+| onAfterLeave | event: MotionEvent | Callback to invoke after the overlay has left. |
 
 ### Templates
 
@@ -225,4 +232,5 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 |------|------|-------------|
 | root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 

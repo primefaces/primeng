@@ -39,17 +39,24 @@ export interface ScrollTopPassThroughOptions<I = unknown> {
 export type ScrollTopPassThrough<I = unknown> = PassThrough<I, ScrollTopPassThroughOptions<I>>;
 
 /**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface ScrollTopIconTemplateContext {
+    /**
+     * Style class of the icon.
+     */
+    styleClass: string;
+}
+
+/**
  * Defines valid templates in ScrollTop.
  * @group Templates
  */
 export interface ScrollTopTemplates {
     /**
-     * Icon of the component.
+     * Custom icon template.
+     * @param {ScrollTopIconTemplateContext} context - icon context.
      */
-    icon(context: {
-        /**
-         * Style class of the icon.
-         */
-        styleClass: string;
-    }): TemplateRef<{ styleClass: string }>;
+    icon(context: ScrollTopIconTemplateContext): TemplateRef<ScrollTopIconTemplateContext>;
 }

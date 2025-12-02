@@ -283,10 +283,10 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
      */
     @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
     /**
-     * Template of the clear icon.
+     * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -332,7 +332,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         this.initMask();
     }
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         this.templates.forEach((item) => {

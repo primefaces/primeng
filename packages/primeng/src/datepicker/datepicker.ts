@@ -37,7 +37,21 @@ import { InputText } from 'primeng/inputtext';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { DatePickerMonthChangeEvent, DatePickerPassThrough, DatePickerResponsiveOptions, DatePickerTypeView, DatePickerYearChangeEvent, LocaleSettings, Month, NavigationState } from 'primeng/types/datepicker';
+import {
+    DatePickerButtonBarTemplateContext,
+    DatePickerDateTemplateContext,
+    DatePickerDecadeTemplateContext,
+    DatePickerDisabledDateTemplateContext,
+    DatePickerInputIconTemplateContext,
+    DatePickerMonthChangeEvent,
+    DatePickerPassThrough,
+    DatePickerResponsiveOptions,
+    DatePickerTypeView,
+    DatePickerYearChangeEvent,
+    LocaleSettings,
+    Month,
+    NavigationState
+} from 'primeng/types/datepicker';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { DatePickerStyle } from './style/datepickerstyle';
@@ -1100,107 +1114,112 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     /**
      * Custom template for date cells.
+     * @param {DatePickerDateTemplateContext} context - date template context.
      * @group Templates
      */
-    @ContentChild('date', { descendants: false }) dateTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('date', { descendants: false }) dateTemplate: Nullable<TemplateRef<DatePickerDateTemplateContext>>;
 
     /**
      * Custom template for header section.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom template for footer section.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom template for disabled date cells.
+     * @param {DatePickerDisabledDateTemplateContext} context - disabled date template context.
      * @group Templates
      */
-    @ContentChild('disabledDate', { descendants: false }) disabledDateTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('disabledDate', { descendants: false }) disabledDateTemplate: Nullable<TemplateRef<DatePickerDisabledDateTemplateContext>>;
 
     /**
      * Custom template for decade view.
+     * @param {DatePickerDecadeTemplateContext} context - decade template context.
      * @group Templates
      */
-    @ContentChild('decade', { descendants: false }) decadeTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('decade', { descendants: false }) decadeTemplate: Nullable<TemplateRef<DatePickerDecadeTemplateContext>>;
 
     /**
      * Custom template for previous month icon.
      * @group Templates
      */
-    @ContentChild('previousicon', { descendants: false }) previousIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('previousicon', { descendants: false }) previousIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom template for next month icon.
      * @group Templates
      */
-    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom template for trigger icon.
      * @group Templates
      */
-    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom template for clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom template for decrement icon.
      * @group Templates
      */
-    @ContentChild('decrementicon', { descendants: false }) decrementIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('decrementicon', { descendants: false }) decrementIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom template for increment icon.
      * @group Templates
      */
-    @ContentChild('incrementicon', { descendants: false }) incrementIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('incrementicon', { descendants: false }) incrementIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Custom template for input icon.
+     * @param {DatePickerInputIconTemplateContext} context - input icon template context.
      * @group Templates
      */
-    @ContentChild('inputicon', { descendants: false }) inputIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('inputicon', { descendants: false }) inputIconTemplate: Nullable<TemplateRef<DatePickerInputIconTemplateContext>>;
 
     /**
      * Custom template for button bar.
+     * @param {DatePickerButtonBarTemplateContext} context - button bar template context.
      * @group Templates
      */
-    @ContentChild('buttonbar', { descendants: false }) buttonBarTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('buttonbar', { descendants: false }) buttonBarTemplate: Nullable<TemplateRef<DatePickerButtonBarTemplateContext>>;
 
-    _dateTemplate: TemplateRef<any> | undefined;
+    _dateTemplate: TemplateRef<DatePickerDateTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _disabledDateTemplate: TemplateRef<any> | undefined;
+    _disabledDateTemplate: TemplateRef<DatePickerDisabledDateTemplateContext> | undefined;
 
-    _decadeTemplate: TemplateRef<any> | undefined;
+    _decadeTemplate: TemplateRef<DatePickerDecadeTemplateContext> | undefined;
 
-    _previousIconTemplate: TemplateRef<any> | undefined;
+    _previousIconTemplate: TemplateRef<void> | undefined;
 
-    _nextIconTemplate: TemplateRef<any> | undefined;
+    _nextIconTemplate: TemplateRef<void> | undefined;
 
-    _triggerIconTemplate: TemplateRef<any> | undefined;
+    _triggerIconTemplate: TemplateRef<void> | undefined;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
-    _decrementIconTemplate: TemplateRef<any> | undefined;
+    _decrementIconTemplate: TemplateRef<void> | undefined;
 
-    _incrementIconTemplate: TemplateRef<any> | undefined;
+    _incrementIconTemplate: TemplateRef<void> | undefined;
 
-    _inputIconTemplate: TemplateRef<any> | undefined;
+    _inputIconTemplate: TemplateRef<DatePickerInputIconTemplateContext> | undefined;
 
-    _buttonBarTemplate: TemplateRef<any> | undefined;
+    _buttonBarTemplate: TemplateRef<DatePickerButtonBarTemplateContext> | undefined;
 
     _disabledDates!: Array<Date>;
 

@@ -7,7 +7,7 @@ import { Bind } from 'primeng/bind';
 import { TimesIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
-import { MessagePassThrough } from 'primeng/types/message';
+import { MessageContainerTemplateContext, MessagePassThrough } from 'primeng/types/message';
 import { MessageStyle } from './style/messagestyle';
 
 const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
@@ -188,29 +188,31 @@ export class Message extends BaseComponent<MessagePassThrough> {
 
     /**
      * Custom template of the message container.
+     * @param {MessageContainerTemplateContext} context - container context.
+     * @see {@link MessageContainerTemplateContext}
      * @group Templates
      */
-    @ContentChild('container', { descendants: false }) containerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('container', { descendants: false }) containerTemplate: TemplateRef<MessageContainerTemplateContext> | undefined;
 
     /**
      * Custom template of the message icon.
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
 
     /**
      * Custom template of the close icon.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _containerTemplate: TemplateRef<any> | undefined;
+    _containerTemplate: TemplateRef<MessageContainerTemplateContext> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
-    _closeIconTemplate: TemplateRef<any> | undefined;
+    _closeIconTemplate: TemplateRef<void> | undefined;
 
     closeCallback = (event: Event) => {
         this.close(event);

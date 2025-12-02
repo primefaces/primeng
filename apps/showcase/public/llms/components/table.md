@@ -5150,6 +5150,7 @@ Table displays data in tabular format.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TablePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | frozenColumns | any[] | - | An array of objects to represent dynamic columns that are frozen. |
@@ -5279,26 +5280,27 @@ Table displays data in tabular format.
 | Name | Type | Description |
 |------|------|-------------|
 | filter | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the filter container element. |
-| pcColumnFilterButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the column filter button component. |
+| pcColumnFilterButton | ButtonPassThrough | Used to pass attributes to the column filter button component. |
 | filterOverlay | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the filter overlay element. |
 | filterConstraintList | PassThroughOption<HTMLUListElement, I> | Used to pass attributes to the filter constraint list element. |
 | filterConstraint | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the filter constraint element. |
 | filterConstraintSeparator | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the filter constraint separator element. |
 | emtpyFilterLabel | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the empty filter label element. |
 | filterOperator | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the filter operator element. |
-| pcFilterOperatorDropdown | PassThroughOption<HTMLElement, I> | Used to pass attributes to the filter operator dropdown component. |
+| pcFilterOperatorDropdown | SelectPassThrough | Used to pass attributes to the filter operator dropdown component. |
 | filterRuleList | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the filter rule list element. |
 | filterRule | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the filter rule element. |
-| pcFilterConstraintDropdown | PassThroughOption<HTMLElement, I> | Used to pass attributes to the filter constraint dropdown component. |
-| pcFilterRemoveRuleButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the filter remove rule button component. |
-| pcAddRuleButtonLabel | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the add rule button label. |
+| pcFilterConstraintDropdown | SelectPassThrough | Used to pass attributes to the filter constraint dropdown component. |
+| pcFilterRemoveRuleButton | ButtonPassThrough | Used to pass attributes to the filter remove rule button component. |
+| pcAddRuleButtonLabel | ButtonPassThrough | Used to pass attributes to the add rule button label. |
 | filterButtonBar | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the filter button bar element. |
-| pcFilterClearButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the filter clear button component. |
-| pcFilterApplyButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the filter apply button component. |
-| pcFilterInputText | PassThroughOption<HTMLInputElement, I> | Used to pass attributes to the filter input text component. |
-| pcFilterInputNumber | PassThroughOption<HTMLElement, I> | Used to pass attributes to the filter input number component. |
+| pcFilterClearButton | ButtonPassThrough | Used to pass attributes to the filter clear button component. |
+| pcFilterApplyButton | ButtonPassThrough | Used to pass attributes to the filter apply button component. |
+| pcFilterInputText | InputTextPassThrough | Used to pass attributes to the filter input text component. |
+| pcFilterInputNumber | InputNumberPassThrough | Used to pass attributes to the filter input number component. |
 | pcFilterCheckbox | CheckboxPassThrough | Used to pass attributes to the filter checkbox component. |
-| pcFilterDatePicker | PassThroughOption<HTMLElement, I> | Used to pass attributes to the filter datepicker component. |
+| pcFilterDatePicker | DatePickerPassThrough | Used to pass attributes to the filter datepicker component. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 
@@ -5360,4 +5362,6 @@ Table displays data in tabular format.
 | p-datatable-selectable-row | Class name of the selectable row element |
 | p-datatable-resizable-column | Class name of the resizable column element |
 | p-datatable-row-editor-cancel | Class name of the row editor cancel element |
+| p-datatable-frozen-column | Class name of the frozen column element |
+| p-datatable-contextmenu-row-selected | Class name of the contextmenu row selected element |
 

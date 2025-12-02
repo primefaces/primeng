@@ -1,7 +1,7 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'options-doc',
@@ -16,8 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class ScrollOptionsDoc {
     code: Code = {
-        html: `
-<ng-template #item let-item let-scrollOptions="options">
+        html: `<ng-template #item let-item let-scrollOptions="options">
     // item: Current item.
     // scrollOptions.index: Index of the item.
     // scrollOptions.count: Total numbers of items.

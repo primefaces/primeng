@@ -8,7 +8,7 @@ import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
 import { ChevronUpIcon } from 'primeng/icons';
 import { MotionDirective } from 'primeng/motion';
-import { ScrollTopPassThrough } from 'primeng/types/scrolltop';
+import { ScrollTopIconTemplateContext, ScrollTopPassThrough } from 'primeng/types/scrolltop';
 import { ZIndexUtils } from 'primeng/utils';
 import { ScrollTopStyle } from './style/scrolltopstyle';
 
@@ -132,14 +132,16 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
      */
     @Input() buttonProps: ButtonProps = { rounded: true };
     /**
-     * Template of the icon.
+     * Custom icon template.
+     * @param {ScrollTopIconTemplateContext} context - icon context.
+     * @see {@link ScrollTopIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<ScrollTopIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<ScrollTopIconTemplateContext> | undefined;
 
     _icon: string | undefined;
 

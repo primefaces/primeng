@@ -349,15 +349,15 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
 
     @ViewChild('menu') menu: TieredMenu | undefined;
     /**
-     * Template of the content.
+     * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
     /**
-     * Template of the dropdownicon.
+     * Custom dropdown icon template.
      * @group Templates
      **/
-    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -369,9 +369,9 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
 
     _componentStyle = inject(SplitButtonStyle);
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _dropdownIconTemplate: TemplateRef<any> | undefined;
+    _dropdownIconTemplate: TemplateRef<void> | undefined;
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 

@@ -234,12 +234,12 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
 
-    @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
+    @ContentChild(Footer) footerFacet: Nullable<TemplateRef<void>>;
     /**
      * Defines template option for header.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for icon.
      * @example
@@ -248,7 +248,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('icons', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icons', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for content.
@@ -258,7 +258,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for footer.
@@ -268,11 +268,11 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for headerIcon.
-     * @type {TemplateRef<PanelHeaderIconsTemplateContext>} context - context of the template.
+     * @param {PanelHeaderIconsTemplateContext} context - context of the template.
      * @example
      * ```html
      * <ng-template #headericons let-collapsed> </ng-template>
@@ -282,15 +282,15 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     @ContentChild('headericons', { descendants: false }) headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _headerIconsTemplate: TemplateRef<any> | undefined;
+    _headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
 
     @ViewChild('contentWrapper') contentWrapperViewChild: ElementRef;
 

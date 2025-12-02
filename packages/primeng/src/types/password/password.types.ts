@@ -77,6 +77,17 @@ export interface PasswordPassThroughOptions<I = unknown> {
 export type PasswordPassThrough<I = unknown> = PassThrough<I, PasswordPassThroughOptions<I>>;
 
 /**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface PasswordIconTemplateContext {
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+}
+
+/**
  * Defines valid templates in Password.
  * @group Templates
  */
@@ -84,25 +95,27 @@ export interface PasswordTemplates {
     /**
      * Custom template of header.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom template of content.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
      * Custom template of footer.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
      * Custom template of clear icon.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom template of hide icon.
+     * @param {PasswordIconTemplateContext} context - icon context.
      */
-    hideicon(): TemplateRef<any>;
+    hideicon(context: PasswordIconTemplateContext): TemplateRef<PasswordIconTemplateContext>;
     /**
      * Custom template of show icon.
+     * @param {PasswordIconTemplateContext} context - icon context.
      */
-    showicon(): TemplateRef<any>;
+    showicon(context: PasswordIconTemplateContext): TemplateRef<PasswordIconTemplateContext>;
 }

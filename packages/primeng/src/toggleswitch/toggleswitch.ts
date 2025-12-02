@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -27,22 +26,11 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { BindModule } from 'primeng/bind';
-import { ToggleSwitchPassThrough } from 'primeng/types/toggleswitch';
-import type { ToggleSwitchChangeEvent } from 'primeng/types/toggleswitch';
+import { Bind, BindModule } from 'primeng/bind';
+import { ToggleSwitchChangeEvent, ToggleSwitchHandleTemplateContext, ToggleSwitchPassThrough } from 'primeng/types/toggleswitch';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 
 const TOGGLESWITCH_INSTANCE = new InjectionToken<ToggleSwitch>('TOGGLESWITCH_INSTANCE');
-
-/**
- * Context interface for the handle template.
- * @property {boolean} checked - A flag indicating whether the input is checked.
- * @group Interface
- */
-export interface ToggleSwitchHandleTemplateContext {
-    checked: boolean;
-}
 
 export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -167,18 +155,14 @@ export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
 
     @ViewChild('input') input!: ElementRef;
     /**
-     * Callback to invoke when the on value change.
-     * @type {TemplateRef<ToggleSwitchHandleTemplateContext>} context - Context of the template
-     * @example
-     * ```html
-     * <ng-template #handle let-checked="checked"> </ng-template>
-     * ```
+     * Custom handle template.
+     * @param {ToggleSwitchHandleTemplateContext} context - handle context.
      * @see {@link ToggleSwitchHandleTemplateContext}
      * @group Templates
      */
-    @ContentChild('handle', { descendants: false }) handleTemplate: TemplateRef<any> | undefined;
+    @ContentChild('handle', { descendants: false }) handleTemplate: TemplateRef<ToggleSwitchHandleTemplateContext> | undefined;
 
-    _handleTemplate: TemplateRef<any> | undefined;
+    _handleTemplate: TemplateRef<ToggleSwitchHandleTemplateContext> | undefined;
 
     focused: boolean = false;
 

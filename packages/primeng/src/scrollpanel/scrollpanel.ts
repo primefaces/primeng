@@ -93,14 +93,14 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
 
     @ViewChild('yBar') yBarViewChild: ElementRef | undefined;
     /**
-     * Defines template option for content.
+     * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
     scrollYRatio: number | undefined;
 

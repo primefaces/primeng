@@ -326,6 +326,7 @@ Message groups a collection of contents in tabs.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<MessagePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | severity | "success" \| "info" \| "warn" \| "secondary" \| "contrast" \| "error" | 'info' | Severity level of the message. |
@@ -336,12 +337,11 @@ Message groups a collection of contents in tabs.
 | closable | boolean | false | Whether the message can be closed manually using the close icon. |
 | icon | string | undefined | Icon to display in the message. |
 | closeIcon | string | undefined | Icon to display in the message close button. |
-| showTransitionOptions | string | '300ms ease-out' | Transition options of the show animation. |
-| hideTransitionOptions | string | '200ms cubic-bezier(0.86, 0, 0.07, 1)' | Transition options of the hide animation. |
-| enterAnimation | InputSignal<string> | 'p-message-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-message-leave' | Leave animation class name. |
+| showTransitionOptions | string | '300ms ease-out' | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | '200ms cubic-bezier(0.86, 0, 0.07, 1)' | Transition options of the hide animation. **(Deprecated)** |
 | size | "small" \| "large" | - | Defines the size of the component. |
 | variant | "text" \| "outlined" \| "simple" | - | Specifies the input variant of the component. |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -374,6 +374,7 @@ Message groups a collection of contents in tabs.
 | text | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the text's DOM element. |
 | closeButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the close button's DOM element. |
 | closeIcon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the close icon's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

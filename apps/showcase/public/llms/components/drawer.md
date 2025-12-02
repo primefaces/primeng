@@ -430,9 +430,11 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<DrawerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | blockScroll | boolean | false | Whether to block scrolling of the document when drawer is active. |
 | style | { [klass: string]: any } | - | Inline style of the component. |
 | styleClass | string | - | Style class of the component. |
@@ -444,12 +446,10 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 | dismissible | boolean | true | Whether to dismiss drawer on click of the mask. |
 | showCloseIcon | boolean | true | Whether to display the close icon. **(Deprecated)** |
 | closeOnEscape | boolean | true | Specifies if pressing escape key should hide the drawer. |
-| transitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the animation. |
-| visible | boolean | - | Specifies the visibility of the dialog. |
-| position | InputSignal<string> | 'left' | Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top". |
+| transitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the animation. **(Deprecated)** |
+| visible | boolean | - | The visible property is an input that determines the visibility of the component. |
+| position | InputSignal<"right" \| "left" \| "top" \| "bottom" \| "full"> | 'left' | Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top". |
 | fullScreen | InputSignal<boolean> | false | Adds a close icon to the header to hide the dialog. |
-| enterAnimation | InputSignal<string> | 'p-drawer-enter-left' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-drawer-enter-right' | Leave animation class name. |
 | header | string | - | Title content of the dialog. |
 | maskStyle | { [klass: string]: any } | - | Style of the mask. |
 | closable | boolean | true | Whether to display close button. |
@@ -483,6 +483,7 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 | pcCloseButton | ButtonPassThrough | Used to pass attributes to the close Button component. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
 | footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

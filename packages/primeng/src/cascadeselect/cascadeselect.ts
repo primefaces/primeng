@@ -38,7 +38,16 @@ import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectPassThrough, CascadeSelectShowEvent } from 'primeng/types/cascadeselect';
+import {
+    CascadeSelectBeforeHideEvent,
+    CascadeSelectBeforeShowEvent,
+    CascadeSelectChangeEvent,
+    CascadeSelectHideEvent,
+    CascadeSelectOptionTemplateContext,
+    CascadeSelectPassThrough,
+    CascadeSelectShowEvent,
+    CascadeSelectValueTemplateContext
+} from 'primeng/types/cascadeselect';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
 
 const CASCADESELECT_INSTANCE = new InjectionToken<CascadeSelect>('CASCADESELECT_INSTANCE');
@@ -650,68 +659,68 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
 
     @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
     /**
-     * Content template for displaying the selected value.
+     * Custom value template.
      * @group Templates
      */
-    @ContentChild('value', { descendants: false }) valueTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('value', { descendants: false }) valueTemplate: Nullable<TemplateRef<CascadeSelectValueTemplateContext>>;
 
     /**
-     * Content template for customizing the option display.
+     * Custom option template.
      * @group Templates
      */
-    @ContentChild('option', { descendants: false }) optionTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('option', { descendants: false }) optionTemplate: Nullable<TemplateRef<CascadeSelectOptionTemplateContext>>;
 
     /**
-     * Content template for customizing the header.
+     * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
 
     /**
-     * Content template for customizing the footer.
+     * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
 
     /**
-     * Content template for customizing the trigger icon.
+     * Custom trigger icon template.
      * @group Templates
      */
-    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
-     * Content template for customizing the loading icon.
+     * Custom loading icon template.
      * @group Templates
      */
-    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
-     * Content template for customizing the group icon.
+     * Custom option group icon template.
      * @group Templates
      */
-    @ContentChild('optiongroupicon', { descendants: false }) groupIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('optiongroupicon', { descendants: false }) groupIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
-     * Content template for customizing the clear icon.
+     * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
 
-    _valueTemplate: TemplateRef<any> | undefined;
+    _valueTemplate: TemplateRef<CascadeSelectValueTemplateContext> | undefined;
 
-    _optionTemplate: TemplateRef<any> | undefined;
+    _optionTemplate: TemplateRef<CascadeSelectOptionTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _triggerIconTemplate: TemplateRef<any> | undefined;
+    _triggerIconTemplate: TemplateRef<void> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any> | undefined;
+    _loadingIconTemplate: TemplateRef<void> | undefined;
 
-    _groupIconTemplate: TemplateRef<any> | undefined;
+    _groupIconTemplate: TemplateRef<void> | undefined;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
     selectionPath: any = null;
 
