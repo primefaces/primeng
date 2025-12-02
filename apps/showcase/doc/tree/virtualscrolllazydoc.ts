@@ -15,7 +15,7 @@ import { TreeModule } from 'primeng/tree';
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
+            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
     `
@@ -47,10 +47,10 @@ export class LazyVirtualScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />`,
+        basic: `<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />`,
 
         html: `<div class="card">
-    <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
+    <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
 </div>`,
 
         typescript: `import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
