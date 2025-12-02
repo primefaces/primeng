@@ -15,10 +15,7 @@ import { ChipModule } from 'primeng/chip';
     imports: [CommonModule, FormsModule, AutoCompleteModule, ChipModule, AppDocSectionText, AppCode],
     providers: [ProductService],
     template: ` <app-docsectiontext>
-            <p>
-                Advanced chips mode combines <i>optionLabel</i>, <i>optionValue</i> functions with custom templates for a rich user experience. This example demonstrates product selection with images, custom chip templates, and flexible data
-                handling.
-            </p>
+            <p>This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.</p>
         </app-docsectiontext>
         <div class="card">
             <p-autocomplete

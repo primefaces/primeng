@@ -10,10 +10,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
-            <p>
-                When <i>typeahead</i> is disabled and <i>multiple</i> is enabled, AutoComplete can work like a chips component. Various features allow flexible item addition: use <i>addOnBlur</i> to add items when the input loses focus,
-                <i>addOnTab</i> to add items with the Tab key, and <i>separator</i> to define characters for adding multiple items at once.
-            </p>
+            <p>With <i>⁠multiple</i> enabled, the AutoComplete component behaves like a chips or tags input. Use <i>addOnBlur</i>, <i>⁠addOnTab</i>, and <i>⁠separator</i> properties to customize the keystroke behavior for adding items.</p>
         </app-docsectiontext>
         <div class="card">
             <label for="chips-blur" class="font-bold mb-2 block">With Add On Blur</label>
