@@ -4438,7 +4438,7 @@ export class ReorderableColumn extends BaseComponent {
     }
 
     onMouseDown(event: any) {
-        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || find(event.target, '[data-pc-column-resizer="true"]')) this.el.nativeElement.draggable = false;
+        if (event.target.nodeName === 'INPUT' || event.target.nodeName === 'TEXTAREA' || findSingle(event.target, '[data-pc-column-resizer="true"]')) this.el.nativeElement.draggable = false;
         else this.el.nativeElement.draggable = true;
     }
 
