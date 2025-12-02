@@ -304,8 +304,6 @@ const style = /*css*/ `
     outline-color: transparent;
     background: dt('treetable.row.background');
     color: dt('treetable.row.color');
-    transition: background dt('treetable.transition.duration'), color dt('treetable.transition.duration'), border-color dt('treetable.transition.duration'),
-            outline-color dt('treetable.transition.duration'), box-shadow dt('treetable.transition.duration');
 }
 
 .p-treetable .p-treetable-tbody>tr>td {
