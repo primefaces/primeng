@@ -124,7 +124,7 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                 </li>
             </ul>
         </div>
-        <div *ngIf="mask" [pBind]="ptm('mask')" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle"></div>
+        <div *ngIf="mask && visible" [pBind]="ptm('mask')" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'reference-doc',
@@ -115,6 +115,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                             </td>
                             <td>.p-message-enter-active</td>
                             <td>.p-message-leave-active</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i>Modal Masks</i>
+                            </td>
+                            <td>.p-overlay-mask-enter-active</td>
+                            <td>.p-overlay-mask-leave-active</td>
                         </tr>
                         <tr>
                             <td>

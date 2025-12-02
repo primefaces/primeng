@@ -95,7 +95,7 @@ const classes = {
     root: ({ instance }: { instance: any }) => [
         'p-overlay p-component',
         {
-            'p-overlay-modal p-overlay-mask p-overlay-mask-enter': instance.modal,
+            'p-overlay-modal p-overlay-mask p-overlay-mask-enter-active': instance.modal,
             'p-overlay-center': instance.modal && instance.overlayResponsiveDirection === 'center',
             'p-overlay-top': instance.modal && instance.overlayResponsiveDirection === 'top',
             'p-overlay-top-start': instance.modal && instance.overlayResponsiveDirection === 'top-start',
