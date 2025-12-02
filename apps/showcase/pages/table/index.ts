@@ -22,6 +22,8 @@ import { FrozenRowsDoc } from '@/doc/table/frozenrowsdoc';
 import { GridlinesDoc } from '@/doc/table/gridlinesdoc';
 import { HorizontalScrollDoc } from '@/doc/table/horizontalscrolldoc';
 import { ImportDoc } from '@/doc/table/importdoc';
+import { LoadingMaskDoc } from '@/doc/table/loadingmaskdoc';
+import { LoadingSkeletonDoc } from '@/doc/table/loadingskeletondoc';
 import { MultipleColumnsSortDoc } from '@/doc/table/multiplecolumnssortdoc';
 import { MultipleSelectionDoc } from '@/doc/table/multipleselectiondoc';
 import { PaginatorBasicDoc } from '@/doc/table/paginatorbasicdoc';
@@ -96,6 +98,22 @@ export class TableDemo {
             id: 'table-style',
             label: 'Conditional Style',
             component: StyleDoc
+        },
+        {
+            id: 'loading',
+            label: 'Loading',
+            children: [
+                {
+                    id: 'loading-mask',
+                    label: 'Mask',
+                    component: LoadingMaskDoc
+                },
+                {
+                    id: 'loading-skeleton',
+                    label: 'Skeleton',
+                    component: LoadingSkeletonDoc
+                }
+            ]
         },
         {
             id: 'paginator',
