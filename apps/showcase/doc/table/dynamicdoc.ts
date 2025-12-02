@@ -25,16 +25,20 @@ interface Column {
                 <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>
-                            <th *ngFor="let col of columns">
-                                {{ col.header }}
-                            </th>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
+                            }
                         </tr>
                     </ng-template>
                     <ng-template #body let-rowData let-columns="columns">
                         <tr>
-                            <td *ngFor="let col of columns">
-                                {{ rowData[col.field] }}
-                            </td>
+                            @for (col of columns; track col) {
+                                <td>
+                                    {{ rowData[col.field] }}
+                                </td>
+                            }
                         </tr>
                     </ng-template>
                 </p-table>
@@ -71,16 +75,20 @@ export class DynamicDoc {
         basic: `<p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowData let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns">
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; track col) {
+                <td>
+                    {{ rowData[col.field] }}
+                </td>
+            }
         </tr>
     </ng-template>
 </p-table>`,
@@ -88,19 +96,23 @@ export class DynamicDoc {
     <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header let-columns>
             <tr>
-                <th *ngFor="let col of columns">
-                    {{ col.header }}
-                </th>
+                @for (col of columns; track col) {
+                    <th>
+                        {{ col.header }}
+                    </th>
+                }
             </tr>
         </ng-template>
         <ng-template #body let-rowData let-columns="columns">
             <tr>
-                <td *ngFor="let col of columns">
-                    {{ rowData[col.field] }}
-                </td>
+                @for (col of columns; track col) {
+                    <td>
+                        {{ rowData[col.field] }}
+                    </td>
+                }
             </tr>
         </ng-template>
-    </p-table>
+</p-table>
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { Product } from '@/domain/product';
