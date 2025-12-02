@@ -57,7 +57,7 @@ import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { ContextMenuPassThrough } from 'primeng/types/contextmenu';
+import { ContextMenuItemTemplateContext, ContextMenuPassThrough, ContextMenuSubmenuIconTemplateContext } from 'primeng/types/contextmenu';
 import { ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
 
@@ -247,7 +247,7 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
 
     @Input() items: any[];
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<ContextMenuItemTemplateContext> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
@@ -704,22 +704,22 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         }
     }
     /**
-     * Defines template option for item.
+     * Custom item template.
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<ContextMenuItemTemplateContext> | undefined;
 
     /**
-     * Defines template option for submenuIcon.
+     * Custom submenu icon template.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<ContextMenuSubmenuIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _submenuIconTemplate: TemplateRef<any> | undefined;
+    _submenuIconTemplate: TemplateRef<ContextMenuSubmenuIconTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<ContextMenuItemTemplateContext> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

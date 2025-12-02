@@ -25,7 +25,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'primeng/icons';
-import { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
+import { CarouselItemTemplateContext, CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
 import { CarouselStyle } from './style/carouselstyle';
 
 /**
@@ -383,44 +383,44 @@ export class Carousel extends BaseComponent {
     swipeThreshold: number = 20;
 
     /**
-     * Template for carousel items.
+     * Custom item template.
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<CarouselItemTemplateContext> | undefined;
 
     /**
-     * Template for the carousel header.
+     * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for the carousel footer.
+     * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for the previous button icon.
+     * Custom previous icon template.
      * @group Templates
      */
-    @ContentChild('previousicon', { descendants: false }) previousIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('previousicon', { descendants: false }) previousIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for the next button icon.
+     * Custom next icon template.
      * @group Templates
      */
-    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('nexticon', { descendants: false }) nextIconTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<CarouselItemTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _previousIconTemplate: TemplateRef<any> | undefined;
+    _previousIconTemplate: TemplateRef<void> | undefined;
 
-    _nextIconTemplate: TemplateRef<any> | undefined;
+    _nextIconTemplate: TemplateRef<void> | undefined;
 
     window: Window;
 

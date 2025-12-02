@@ -4,7 +4,7 @@ import { getOuterHeight } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
-import { MeterGroupPassThrough, MeterItem } from 'primeng/types/metergroup';
+import { MeterGroupIconTemplateContext, MeterGroupLabelTemplateContext, MeterGroupMeterTemplateContext, MeterGroupPassThrough, MeterItem } from 'primeng/types/metergroup';
 import { MeterGroupStyle } from './style/metergroupstyle';
 
 const METERGROUP_INSTANCE = new InjectionToken<MeterGroup>('METERGROUP_INSTANCE');
@@ -37,7 +37,7 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
 
     @Input() max: number;
 
-    @Input() iconTemplate: TemplateRef<any> | undefined;
+    @Input() iconTemplate: TemplateRef<MeterGroupIconTemplateContext> | undefined;
 
     parentInstance: MeterGroup = inject(forwardRef(() => MeterGroup));
 
@@ -170,27 +170,57 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
         return this.orientation === 'vertical';
     }
 
-    @ContentChild('label', { descendants: false }) labelTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom label template.
+     * @param {MeterGroupLabelTemplateContext} context - label context.
+     * @see {@link MeterGroupLabelTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('label', { descendants: false }) labelTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
 
-    @ContentChild('meter', { descendants: false }) meterTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom meter template.
+     * @param {MeterGroupMeterTemplateContext} context - meter context.
+     * @see {@link MeterGroupMeterTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('meter', { descendants: false }) meterTemplate: TemplateRef<MeterGroupMeterTemplateContext> | undefined;
 
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom end template.
+     * @param {MeterGroupLabelTemplateContext} context - end context.
+     * @see {@link MeterGroupLabelTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
 
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom start template.
+     * @param {MeterGroupLabelTemplateContext} context - start context.
+     * @see {@link MeterGroupLabelTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
 
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom icon template.
+     * @param {MeterGroupIconTemplateContext} context - icon context.
+     * @see {@link MeterGroupIconTemplateContext}
+     * @group Templates
+     */
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<MeterGroupIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _labelTemplate: TemplateRef<any> | undefined;
+    _labelTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
 
-    _meterTemplate: TemplateRef<any> | undefined;
+    _meterTemplate: TemplateRef<MeterGroupMeterTemplateContext> | undefined;
 
-    _endTemplate: TemplateRef<any> | undefined;
+    _endTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
 
-    _startTemplate: TemplateRef<any> | undefined;
+    _startTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<MeterGroupIconTemplateContext> | undefined;
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

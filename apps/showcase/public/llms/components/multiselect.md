@@ -910,6 +910,7 @@ MultiSelect is used to select multiple items from a collection.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<MultiSelectPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
@@ -980,6 +981,7 @@ MultiSelect is used to select multiple items from a collection.
 | variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -996,6 +998,28 @@ MultiSelect is used to select multiple items from a collection.
 | onLazyLoad | event: MultiSelectLazyLoadEvent | Callback to invoke in lazy mode to load new data. |
 | onRemove | event: MultiSelectRemoveEvent | Callback to invoke in lazy mode to load new data. |
 | onSelectAllChange | event: MultiSelectSelectAllChangeEvent | Callback to invoke when all data is selected. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| item | TemplateRef<MultiSelectItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<MultiSelectGroupTemplateContext<any>> | Custom group template. |
+| loader | TemplateRef<MultiSelectLoaderTemplateContext> | Custom loader template. |
+| header | TemplateRef<void> | Custom header template. |
+| filter | TemplateRef<MultiSelectFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter template. |
+| empty | TemplateRef<void> | Custom empty template. |
+| selecteditems | TemplateRef<MultiSelectSelectedItemsTemplateContext<any>> | Custom selected items template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| removetokenicon | TemplateRef<MultiSelectChipIconTemplateContext> | Custom remove token icon template. |
+| chipicon | TemplateRef<MultiSelectChipIconTemplateContext> | Custom chip icon template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| dropdownicon | TemplateRef<MultiSelectDropdownIconTemplateContext> | Custom dropdown icon template. |
+| itemcheckboxicon | TemplateRef<MultiSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
+| headercheckboxicon | TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext> | Custom header checkbox icon template. |
 
 ### Methods
 

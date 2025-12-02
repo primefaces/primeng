@@ -65,25 +65,32 @@ export interface TieredMenuPassThroughOptions<I = unknown> {
 export type TieredMenuPassThrough<I = unknown> = PassThrough<I, TieredMenuPassThroughOptions<I>>;
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface TieredMenuItemTemplateContext {
+    /**
+     * Item instance.
+     */
+    $implicit: any;
+    /**
+     * Whether the item has a submenu.
+     */
+    hasSubmenu: boolean;
+}
+
+/**
  * Defines valid templates in TieredMenu.
  * @group Templates
  */
 export interface TieredMenuTemplates {
     /**
-     * Custom template of item.
+     * Custom item template.
+     * @param {TieredMenuItemTemplateContext} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-        /**
-         * Submenu control of the item.
-         */
-        hasSubmenu: boolean;
-    }): TemplateRef<{ $implicit: any; hasSubmenu: boolean }>;
+    item(context: TieredMenuItemTemplateContext): TemplateRef<TieredMenuItemTemplateContext>;
     /**
-     * Custom template of submenuicon.
+     * Custom submenu icon template.
      */
-    submenuicon(): TemplateRef<any>;
+    submenuicon(): TemplateRef<void>;
 }

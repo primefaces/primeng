@@ -52,6 +52,7 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ScrollTopPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | styleClass | string | - | Class of the element. |
@@ -60,10 +61,9 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 | threshold | number | 400 | Defines the threshold value of the vertical scroll position of the target to toggle the visibility. |
 | icon | string | - | Name of the icon or JSX.Element for icon. |
 | behavior | "auto" \| "smooth" | smooth | Defines the scrolling behavior, "smooth" adds an animation and "auto" scrolls with a jump. |
-| showTransitionOptions | string | .15s | A string value used to determine the display transition options. |
-| hideTransitionOptions | string | .15s | A string value used to determine the hiding transition options. |
-| enterAnimation | InputSignal<string> | 'p-scrolltop-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-scrolltop-leave' | Leave animation class name. |
+| showTransitionOptions | string | .15s | A string value used to determine the display transition options. **(Deprecated)** |
+| hideTransitionOptions | string | .15s | A string value used to determine the hiding transition options. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | buttonAriaLabel | string | - | Establishes a string value that labels the scroll-top button. |
 | buttonProps | ButtonProps | ... | Used to pass all properties of the ButtonProps to the Button component. |
 
@@ -80,6 +80,7 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 | host | PassThroughOption<HTMLElement, I> | Used to pass attributes to the host's DOM element. |
 | root | PassThroughOption<HTMLElement, I> | Used to pass attributes to the root's DOM element. |
 | pcButton | ButtonPassThrough | Used to pass attributes to the Button component. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

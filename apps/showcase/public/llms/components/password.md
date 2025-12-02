@@ -531,6 +531,7 @@ Password displays strength indicator for password fields.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<PasswordPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
@@ -563,16 +564,16 @@ Password displays strength indicator for password fields.
 | inputStyleClass | string | - | Style class of the input field. |
 | styleClass | string | - | Style class of the element. **(Deprecated)** |
 | inputStyle | { [klass: string]: any } | - | Inline style of the input field. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. |
-| enterAnimation | InputSignal<string> | 'p-password-overlay-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-password-overlay-leave' | Leave animation class name. |
+| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
 | autocomplete | string | - | Specify automated assistance in filling out password by browser. |
 | placeholder | string | - | Advisory information to display on input. |
 | showClear | boolean | false | When enabled, a clear icon is displayed to clear the value. |
 | autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
 | tabindex | number | - | Index of the element in tabbing order. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| overlayOptions | OverlayOptions | - | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
 
 ### Emits
 
@@ -592,11 +593,13 @@ Password displays strength indicator for password fields.
 | clearIcon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the clear icon's DOM element. |
 | maskIcon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the mask icon's DOM element. |
 | unmaskIcon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the unmask icon's DOM element. |
+| pcOverlay | OverlayPassThrough | Used to pass attributes to the Overlay component. |
 | overlay | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the overlay's DOM element. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
 | meter | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the meter's DOM element. |
 | meterLabel | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the meter label's DOM element. |
 | meterText | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the meter text's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

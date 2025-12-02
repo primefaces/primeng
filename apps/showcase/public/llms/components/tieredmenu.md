@@ -417,6 +417,7 @@ TieredMenu displays submenus in nested overlays.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TieredMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | model | MenuItem[] | - | An array of menuitems. |
@@ -427,16 +428,15 @@ TieredMenu displays submenus in nested overlays.
 | autoZIndex | boolean | true | Whether to automatically manage layering. |
 | baseZIndex | number | 0 | Base zIndex value to use in layering. |
 | autoDisplay | boolean | true | Whether to show a root submenu on mouse over. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. |
-| enterAnimation | InputSignal<string> | 'p-tieredmenu-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-tieredmenu-leave' | Leave animation class name. |
+| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
 | id | string | - | Current id state as a string. |
 | ariaLabel | string | - | Defines a string value that labels an interactive element. |
 | ariaLabelledBy | string | - | Identifier of the underlying input element. |
 | disabled | boolean | false | When present, it specifies that the component should be disabled. |
 | tabindex | number | 0 | Index of the element in tabbing order. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -474,6 +474,7 @@ TieredMenu displays submenus in nested overlays.
 | itemLabel | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the item label's DOM element. |
 | submenuIcon | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the submenu icon's DOM element. |
 | separator | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the separator's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

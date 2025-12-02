@@ -292,42 +292,42 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this.initialized = true;
     }
     /**
-     * Content template for the content of the drawer.
+     * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
     /**
-     * Header template for the header of the drawer.
+     * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
     /**
-     * Content template for the footer of the drawer.
+     * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
     /**
-     * Close icon template for the close icon of the drawer.
+     * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<void> | undefined;
     /**
-     * Headless template for the headless drawer.
+     * Custom headless template to replace the entire drawer content.
      * @group Templates
      */
-    @ContentChild('headless', { descendants: false }) headlessTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headless', { descendants: false }) headlessTemplate: TemplateRef<void> | undefined;
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _closeIconTemplate: TemplateRef<any> | undefined;
+    _closeIconTemplate: TemplateRef<void> | undefined;
 
-    _headlessTemplate: TemplateRef<any> | undefined;
+    _headlessTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

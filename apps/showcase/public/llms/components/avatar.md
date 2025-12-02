@@ -271,6 +271,7 @@ Avatar represents people using icons, labels and images.
 | ariaLabel | string | - | Establishes a string value that labels the component. |
 | ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<AvatarPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 

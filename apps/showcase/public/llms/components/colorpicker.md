@@ -229,6 +229,7 @@ ColorPicker groups a collection of contents in tabs.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ColorPickerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
@@ -236,8 +237,8 @@ ColorPicker groups a collection of contents in tabs.
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
-| enterAnimation | string | p-overlay-enter | Enter animation class name. |
-| leaveAnimation | string | p-overlay-leave | Leave animation class name. |
+| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
 | inline | boolean | false | Whether to display as an overlay or not. |
 | format | "rgb" \| "hex" \| "hsb" | hex | Format to use in value binding. |
 | tabindex | string | - | Index of the element in tabbing order. |
@@ -246,6 +247,8 @@ ColorPicker groups a collection of contents in tabs.
 | autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
 | defaultColor | string | ff0000 | Default color to display initially when model value is not present. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| overlayOptions | InputSignal<OverlayOptions> | ... | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -269,6 +272,7 @@ ColorPicker groups a collection of contents in tabs.
 | colorHandle | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the color handle's DOM element. |
 | hue | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the hue's DOM element. |
 | hueHandle | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the hue handle's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

@@ -30,7 +30,7 @@ import { Bind } from 'primeng/bind';
 import { Fluid } from 'primeng/fluid';
 import { SpinnerIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
-import type { ButtonPassThrough, ButtonProps, ButtonSeverity } from 'primeng/types/button';
+import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from 'primeng/types/button';
 import { ButtonStyle } from './style/buttonstyle';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
@@ -821,22 +821,22 @@ export class Button extends BaseComponent<ButtonPassThrough> {
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
     /**
-     * Template of the content.
+     * Custom content template.
      * @group Templates
      **/
-    @ContentChild('content') contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content') contentTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template of the loading.
+     * Custom loading icon template.
      * @group Templates
      **/
-    @ContentChild('loadingicon') loadingIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loadingicon') loadingIconTemplate: TemplateRef<ButtonLoadingIconTemplateContext> | undefined;
 
     /**
-     * Template of the icon.
+     * Custom icon template.
      * @group Templates
      **/
-    @ContentChild('icon') iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon') iconTemplate: TemplateRef<ButtonIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -850,11 +850,11 @@ export class Button extends BaseComponent<ButtonPassThrough> {
         return this.icon || this.buttonProps?.icon || this.iconTemplate || this._iconTemplate || this.loadingIcon || this.loadingIconTemplate || this._loadingIconTemplate;
     }
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<ButtonIconTemplateContext> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any> | undefined;
+    _loadingIconTemplate: TemplateRef<ButtonLoadingIconTemplateContext> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

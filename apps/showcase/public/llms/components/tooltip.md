@@ -199,6 +199,7 @@ Tooltip directive provides advisory information for a component.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TooltipPassThroughOptions<unknown>> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | tooltipPosition | string | - | Position of the tooltip. |
@@ -219,6 +220,9 @@ Tooltip directive provides advisory information for a component.
 | disabled | boolean | - | When present, it specifies that the component should be disabled. |
 | tooltipOptions | TooltipOptions | - | Specifies the tooltip configuration options for the component. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| ptTooltip | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. **(Deprecated)** |
+| pTooltipPt | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
+| pTooltipUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 
 ## Pass Through Options
 

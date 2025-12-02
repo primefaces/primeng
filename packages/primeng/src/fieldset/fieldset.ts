@@ -208,28 +208,28 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
     }
 
     /**
-     * Defines the header template.
+     * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines the expandicon template.
+     * Custom expand icon template.
      * @group Templates
      */
-    @ContentChild('expandicon', { descendants: false }) expandIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('expandicon', { descendants: false }) expandIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines the collapseicon template.
+     * Custom collapse icon template.
      * @group Templates
      */
-    @ContentChild('collapseicon', { descendants: false }) collapseIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('collapseicon', { descendants: false }) collapseIconTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines the content template.
+     * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
 
     toggle(event: MouseEvent) {
         this.onBeforeToggle.emit({ originalEvent: event, collapsed: this.collapsed });
@@ -280,13 +280,13 @@ export class Fieldset extends BaseComponent<FieldsetPassThrough> implements Bloc
         this.onAfterToggle.emit({ originalEvent: event as any, collapsed: this.collapsed });
     }
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _expandIconTemplate: TemplateRef<any> | undefined;
+    _expandIconTemplate: TemplateRef<void> | undefined;
 
-    _collapseIconTemplate: TemplateRef<any> | undefined;
+    _collapseIconTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 

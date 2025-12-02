@@ -29,7 +29,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
-import { ToastCloseEvent, ToastItemCloseEvent, ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
+import { ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
@@ -128,9 +128,9 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     @Input({ transform: numberAttribute }) life: number;
 
-    @Input() template: TemplateRef<any> | undefined;
+    @Input() template: TemplateRef<ToastMessageTemplateContext> | undefined;
 
-    @Input() headlessTemplate: TemplateRef<any> | undefined;
+    @Input() headlessTemplate: TemplateRef<ToastHeadlessTemplateContext> | undefined;
 
     @Input() showTransformOptions: string | undefined;
 
@@ -388,15 +388,19 @@ export class Toast extends BaseComponent<ToastPassThrough> {
      */
     @Output() onClose: EventEmitter<ToastCloseEvent> = new EventEmitter<ToastCloseEvent>();
     /**
-     * Custom template of message.
+     * Custom message template.
+     * @param {ToastMessageTemplateContext} context - message context.
+     * @see {@link ToastMessageTemplateContext}
      * @group Templates
      */
-    @ContentChild('message') template: TemplateRef<any> | undefined;
+    @ContentChild('message') template: TemplateRef<ToastMessageTemplateContext> | undefined;
     /**
      * Custom headless template.
+     * @param {ToastHeadlessTemplateContext} context - headless context.
+     * @see {@link ToastHeadlessTemplateContext}
      * @group Templates
      */
-    @ContentChild('headless') headlessTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headless') headlessTemplate: TemplateRef<ToastHeadlessTemplateContext> | undefined;
 
     messageSubscription: Subscription | undefined;
 
@@ -454,9 +458,9 @@ export class Toast extends BaseComponent<ToastPassThrough> {
         this.clearAllTrigger.set({});
     }
 
-    _template: TemplateRef<any> | undefined;
+    _template: TemplateRef<ToastMessageTemplateContext> | undefined;
 
-    _headlessTemplate: TemplateRef<any> | undefined;
+    _headlessTemplate: TemplateRef<ToastHeadlessTemplateContext> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

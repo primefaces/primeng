@@ -195,93 +195,124 @@ export interface AutoCompleteLazyLoadEvent {
     last: any;
 }
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface AutoCompleteItemTemplateContext<T = any> {
+    /**
+     * Data of the option.
+     */
+    $implicit: T;
+    /**
+     * Index of the option.
+     */
+    index: number;
+}
+
+/**
+ * Custom group template context.
+ * @group Interface
+ */
+export interface AutoCompleteGroupTemplateContext<T = any> {
+    /**
+     * Group option.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom selected item template context.
+ * @group Interface
+ */
+export interface AutoCompleteSelectedItemTemplateContext<T = any> {
+    /**
+     * Selected option value.
+     */
+    $implicit: T;
+}
+
+/**
+ * Custom loader template context.
+ * @group Interface
+ */
+export interface AutoCompleteLoaderTemplateContext {
+    /**
+     * Virtual scroller options.
+     */
+    options: ScrollerOptions;
+}
+
+/**
+ * Custom remove icon template context.
+ * @group Interface
+ */
+export interface AutoCompleteRemoveIconTemplateContext {
+    /**
+     * Style class of the icon.
+     */
+    class: string;
+    /**
+     * Callback to remove the item.
+     */
+    removeCallback: (event: Event, index: number) => void;
+    /**
+     * Index of the item.
+     */
+    index: number;
+}
+
+/**
  * Defines valid templates in AutoComplete.
  * @group Templates
  */
-export interface AutoCompleteTemplates {
+export interface AutoCompleteTemplates<T = any> {
     /**
      * Custom item template.
      * @param {Object} context - option data.
      */
-    item(context: {
-        /**
-         * Option.
-         */
-        $implicit: any;
-        /**
-         * Option index.
-         */
-        index: number;
-    }): TemplateRef<{ $implicit: any; index: number }>;
+    item(context: AutoCompleteItemTemplateContext<T>): TemplateRef<AutoCompleteItemTemplateContext<T>>;
     /**
      * Custom group template.
      * @param {Object} context - group data.
      */
-    group(context: {
-        /**
-         * Option group.
-         */
-        $implicit: any | any[];
-    }): TemplateRef<{ $implicit: any | any[] }>;
+    group(context: AutoCompleteGroupTemplateContext<T>): TemplateRef<AutoCompleteGroupTemplateContext<T>>;
     /**
      * Custom selected item template, only supported in multiple mode.
      * @param {Object} context - selected item data.
      */
-    selectedItem(context: {
-        /**
-         * Selected value.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    selecteditem(context: AutoCompleteSelectedItemTemplateContext<T>): TemplateRef<AutoCompleteSelectedItemTemplateContext<T>>;
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom empty template.
      */
-    empty(): TemplateRef<any>;
+    empty(): TemplateRef<void>;
     /**
      * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
      * Custom loader template.
      * @param {Object} context - scroller options.
      */
-    loader(context: {
-        /**
-         * Virtual scroller options.
-         */
-        $implicit: ScrollerOptions;
-    }): TemplateRef<{ $implicit: ScrollerOptions }>;
+    loader(context: AutoCompleteLoaderTemplateContext): TemplateRef<AutoCompleteLoaderTemplateContext>;
     /**
      * Custom remove icon template.
+     * @param {Object} context - icon context.
      */
-    removeicon(context: {
-        /**
-         * Class of the removeicon.
-         */
-        class: string;
-        /**
-         * Remove callback.
-         */
-        removeCallback: (event: Event, index: number) => void;
-        /**
-         * Option index.
-         */
-        index: number;
-    }): TemplateRef<{ class: string; removeCallback: (event: Event, index: number) => void; index: number }>;
+    removeicon(context: AutoCompleteRemoveIconTemplateContext): TemplateRef<AutoCompleteRemoveIconTemplateContext>;
     /**
      * Custom loading icon template.
      */
-    loadingicon(): TemplateRef<any>;
+    loadingicon(): TemplateRef<void>;
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom dropdown icon template.
      */
-    dropdownicon(): TemplateRef<any>;
+    dropdownicon(): TemplateRef<void>;
 }

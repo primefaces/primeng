@@ -353,6 +353,7 @@ Popover is a container component that can overlay other components on page.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<PopoverPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | ariaLabel | string | - | Defines a string that labels the input for accessibility. |
@@ -365,10 +366,9 @@ Popover is a container component that can overlay other components on page.
 | ariaCloseLabel | string | - | Aria label of the close icon. |
 | baseZIndex | number | 0 | Base zIndex value to use in layering. |
 | focusOnShow | boolean | true | When enabled, first button receives focus on show. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. |
-| enterAnimation | InputSignal<string> | 'p-popover-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-popover-leave' | Leave animation class name. |
+| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -398,6 +398,7 @@ Popover is a container component that can overlay other components on page.
 | host | PassThroughOption<HTMLElement, I> | Used to pass attributes to the host's DOM element. |
 | root | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the root's DOM element. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

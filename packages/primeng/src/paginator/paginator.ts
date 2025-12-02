@@ -33,7 +33,7 @@ import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIco
 import { InputNumber } from 'primeng/inputnumber';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { PaginatorPassThrough, PaginatorState } from 'primeng/types/paginator';
+import { PaginatorDropdownItemTemplateContext, PaginatorPassThrough, PaginatorState, PaginatorTemplateContext } from 'primeng/types/paginator';
 import { PaginatorStyle } from './style/paginatorstyle';
 
 const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
@@ -179,16 +179,18 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
     @Input() dropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Template instance to inject into the left side of the paginator.
-     * @param {PaginatorState} context - Paginator state.
+     * @param {PaginatorTemplateContext} context - Paginator template context.
+     * @see {@link PaginatorTemplateContext}
      * @group Props
      */
-    @Input() templateLeft: TemplateRef<PaginatorState> | undefined;
+    @Input() templateLeft: TemplateRef<PaginatorTemplateContext> | undefined;
     /**
      * Template instance to inject into the right side of the paginator.
-     * @param {PaginatorState} context - Paginator state.
+     * @param {PaginatorTemplateContext} context - Paginator template context.
+     * @see {@link PaginatorTemplateContext}
      * @group Props
      */
-    @Input() templateRight: TemplateRef<PaginatorState> | undefined;
+    @Input() templateRight: TemplateRef<PaginatorTemplateContext> | undefined;
     /**
      * Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
@@ -236,10 +238,11 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
     @Input({ transform: booleanAttribute }) showJumpToPageInput: boolean | undefined;
     /**
      * Template instance to inject into the jump to page dropdown item inside in the paginator.
-     * @param {Object} context - item instance.
+     * @param {PaginatorDropdownItemTemplateContext} context - dropdown item context.
+     * @see {@link PaginatorDropdownItemTemplateContext}
      * @group Props
      */
-    @Input() jumpToPageItemTemplate: TemplateRef<{ $implicit: any }> | undefined;
+    @Input() jumpToPageItemTemplate: TemplateRef<PaginatorDropdownItemTemplateContext> | undefined;
     /**
      * Whether to show page links.
      * @group Props
@@ -252,10 +255,11 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
     @Input() locale: string | undefined;
     /**
      * Template instance to inject into the rows per page dropdown item inside in the paginator.
-     * @param {Object} context - item instance.
+     * @param {PaginatorDropdownItemTemplateContext} context - dropdown item context.
+     * @see {@link PaginatorDropdownItemTemplateContext}
      * @group Props
      */
-    @Input() dropdownItemTemplate: TemplateRef<{ $implicit: any }> | undefined;
+    @Input() dropdownItemTemplate: TemplateRef<PaginatorDropdownItemTemplateContext> | undefined;
 
     /**
      * Zero-relative number of the first row to be displayed.
@@ -285,43 +289,43 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
      * Template for the dropdown icon.
      * @group Templates
      */
-    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Template for the first page link icon.
      * @group Templates
      */
-    @ContentChild('firstpagelinkicon', { descendants: false }) firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('firstpagelinkicon', { descendants: false }) firstPageLinkIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Template for the previous page link icon.
      * @group Templates
      */
-    @ContentChild('previouspagelinkicon', { descendants: false }) previousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('previouspagelinkicon', { descendants: false }) previousPageLinkIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Template for the last page link icon.
      * @group Templates
      */
-    @ContentChild('lastpagelinkicon', { descendants: false }) lastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('lastpagelinkicon', { descendants: false }) lastPageLinkIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
      * Template for the next page link icon.
      * @group Templates
      */
-    @ContentChild('nextpagelinkicon', { descendants: false }) nextPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('nextpagelinkicon', { descendants: false }) nextPageLinkIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _dropdownIconTemplate: TemplateRef<any> | undefined;
+    _dropdownIconTemplate: TemplateRef<void> | undefined;
 
-    _firstPageLinkIconTemplate: TemplateRef<any> | undefined;
+    _firstPageLinkIconTemplate: TemplateRef<void> | undefined;
 
-    _previousPageLinkIconTemplate: TemplateRef<any> | undefined;
+    _previousPageLinkIconTemplate: TemplateRef<void> | undefined;
 
-    _lastPageLinkIconTemplate: TemplateRef<any> | undefined;
+    _lastPageLinkIconTemplate: TemplateRef<void> | undefined;
 
-    _nextPageLinkIconTemplate: TemplateRef<any> | undefined;
+    _nextPageLinkIconTemplate: TemplateRef<void> | undefined;
 
     pageLinks: number[] | undefined;
 

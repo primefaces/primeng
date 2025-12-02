@@ -136,6 +136,7 @@ Panel is a container with the optional content toggle feature.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<PanelPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | toggleable | boolean | false | Defines if content of panel can be expanded and collapsed. |
@@ -145,10 +146,9 @@ Panel is a container with the optional content toggle feature.
 | iconPos | "center" \| "start" \| "end" | end | Position of the icons. |
 | showHeader | boolean | true | Specifies if header of panel cannot be displayed. |
 | toggler | "icon" \| "header" | icon | Specifies the toggler element to toggle the panel content. |
-| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. |
-| enterAnimation | InputSignal<string> | 'p-collapsible-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-collapsible-leave' | Leave animation class name. |
+| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. **(Deprecated)** |
 | toggleButtonProps | any | - | Used to pass all properties of the ButtonProps to the Button component. |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -179,8 +179,10 @@ Panel is a container with the optional content toggle feature.
 | headerActions | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the header actions' DOM element. |
 | pcToggleButton | ButtonPassThrough | Used to pass attributes to the toggle button button's DOM element. |
 | contentContainer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content container's DOM element. |
+| contentWrapper | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content wrapper DOM element. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
 | footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 
@@ -194,6 +196,7 @@ Panel is a container with the optional content toggle feature.
 | p-panel-header-actions | Class name of the header actions element |
 | p-panel-toggle-button | Class name of the toggle button element |
 | p-panel-content-container | Class name of the content container element |
+| p-panel-content-wrapper | Class name of the content wrapper element |
 | p-panel-content | Class name of the content element |
 | p-panel-footer | Class name of the footer element |
 

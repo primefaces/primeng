@@ -1,6 +1,6 @@
 import APIDoc from '@/doc/apidoc/index.json';
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, input, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ObjectUtils } from 'primeng/utils';
 import { AppDocApiTable } from './app.docapitable';
@@ -31,7 +31,11 @@ export class AppDocApiSection {
     constructor(
         private location: Location,
         private router: Router
-    ) {}
+    ) {
+        effect(() => {
+            console.log('DOCS', this._docs());
+        });
+    }
 
     ngOnInit() {
         if (!this.router.url.includes('#api')) {
@@ -139,7 +143,7 @@ export class AppDocApiSection {
                                 label: 'Templates',
                                 description: compTemplates.description ?? `Templates of ${component} component.`,
                                 component: AppDocApiTable,
-                                data: this.setEmitData(compTemplates.values)
+                                data: this.setTemplatesData(compTemplates.values)
                             });
                         }
                     });
@@ -185,7 +189,7 @@ export class AppDocApiSection {
                             label: 'Templates',
                             description: templates.description ?? `Templates of ${docName} component.`,
                             component: AppDocApiTable,
-                            data: this.setEmitData(filteredTemplates)
+                            data: this.setTemplatesData(filteredTemplates)
                         });
                     }
                 }
@@ -335,6 +339,16 @@ export class AppDocApiSection {
             parameters: emitter.parameters && emitter.parameters.length > 0 ? emitter.parameters : null,
             description: emitter.description,
             deprecated: emitter.deprecated
+        }));
+    }
+
+    setTemplatesData(templates) {
+        return templates.map((template) => ({
+            name: template.name,
+            type: template.type ?? null,
+            parameters: template.parameters && template.parameters.length > 0 ? template.parameters : null,
+            description: template.description,
+            deprecated: template.deprecated
         }));
     }
 

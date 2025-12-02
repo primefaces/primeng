@@ -30,7 +30,7 @@ import { Bind } from 'primeng/bind';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { Nullable } from 'primeng/ts-helpers';
-import { ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
+import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
@@ -358,37 +358,65 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
 
     _componentStyle = inject(ConfirmDialogStyle);
 
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom reject icon template.
+     * @group Templates
+     */
+    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom accept icon template.
+     * @group Templates
+     */
+    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('message', { descendants: false }) messageTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom message template.
+     * @group Templates
+     */
+    @ContentChild('message', { descendants: false }) messageTemplate: Nullable<TemplateRef<ConfirmDialogMessageTemplateContext>>;
 
-    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom icon template.
+     * @group Templates
+     */
+    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom headless template.
+     * @group Templates
+     */
+    @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<ConfirmDialogHeadlessTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _rejectIconTemplate: TemplateRef<any> | undefined;
+    _rejectIconTemplate: TemplateRef<void> | undefined;
 
-    _acceptIconTemplate: TemplateRef<any> | undefined;
+    _acceptIconTemplate: TemplateRef<void> | undefined;
 
-    _messageTemplate: TemplateRef<any> | undefined;
+    _messageTemplate: TemplateRef<ConfirmDialogMessageTemplateContext> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
-    _headlessTemplate: TemplateRef<any> | undefined;
+    _headlessTemplate: TemplateRef<ConfirmDialogHeadlessTemplateContext> | undefined;
 
     confirmation: Nullable<Confirmation>;
 

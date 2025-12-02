@@ -98,16 +98,16 @@ Fieldset is a grouping component with the optional content toggle feature.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<FieldsetPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | legend | string | - | Header text of the fieldset. |
 | toggleable | boolean | false | When specified, content can toggled by clicking the legend. |
-| collapsed | boolean | false | Defines the default visibility state of the content. * |
 | style | { [klass: string]: any } | - | Inline style of the component. |
 | styleClass | string | - | Style class of the component. |
-| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the panel animation. |
-| enterAnimation | InputSignal<string> | 'p-collapsible-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-collapsible-leave' | Leave animation class name. |
+| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the panel animation. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| collapsed | boolean | - | Defines the initial state of content, supports one or two-way binding as well. |
 
 ### Emits
 
@@ -136,7 +136,9 @@ Fieldset is a grouping component with the optional content toggle feature.
 | toggleIcon | PassThroughOption<HTMLSpanElement \| SVGElement, I> | Used to pass attributes to the toggle icon's DOM element. |
 | legendLabel | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the legend label's DOM element. |
 | contentContainer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content container's DOM element. |
+| contentWrapper | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content wrapper DOM element. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 
@@ -149,6 +151,7 @@ Fieldset is a grouping component with the optional content toggle feature.
 | p-fieldset-legend-label | Class name of the legend label element |
 | p-fieldset-toggle-icon | Class name of the toggle icon element |
 | p-fieldset-content-container | Class name of the content container element |
+| p-fieldset-content-wrapper | Class name of the content wrapper element |
 | p-fieldset-content | Class name of the content element |
 
 ### Design Tokens

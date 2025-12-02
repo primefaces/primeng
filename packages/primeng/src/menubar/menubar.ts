@@ -35,7 +35,7 @@ import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
-import { MenubarPassThrough } from 'primeng/types/menubar';
+import { MenubarItemTemplateContext, MenubarPassThrough } from 'primeng/types/menubar';
 import { ZIndexUtils } from 'primeng/utils';
 import { interval, Subject, Subscription } from 'rxjs';
 import { debounce, filter } from 'rxjs/operators';
@@ -216,7 +216,7 @@ export class MenubarService {
 export class MenubarSub extends BaseComponent<MenubarPassThrough> {
     @Input() items: any[];
 
-    @Input() itemTemplate: TemplateRef<any> | undefined;
+    @Input() itemTemplate: TemplateRef<MenubarItemTemplateContext> | undefined;
 
     @Input({ transform: booleanAttribute }) root: boolean = false;
 
@@ -242,7 +242,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
 
     @Input() inlineStyles: any;
 
-    @Input() submenuiconTemplate: TemplateRef<any> | undefined;
+    @Input() submenuiconTemplate: TemplateRef<void> | undefined;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -594,41 +594,43 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
      * Defines template option for start.
      * @group Templates
      */
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<void> | undefined;
 
     /**
      * Defines template option for end.
      * @group Templates
      */
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines template option for item.
+     * Custom item template.
+     * @param {MenubarItemTemplateContext} context - item context.
+     * @see {@link MenubarItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<MenubarItemTemplateContext> | undefined;
     /**
-     * Defines template option for item.
+     * Defines template option for menu icon.
      * @group Templates
      */
-    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('menuicon', { descendants: false }) menuIconTemplate: TemplateRef<void> | undefined;
     /**
      * Defines template option for submenu icon.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _startTemplate: TemplateRef<any> | undefined;
+    _startTemplate: TemplateRef<void> | undefined;
 
-    _endTemplate: TemplateRef<any> | undefined;
+    _endTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<MenubarItemTemplateContext> | undefined;
 
-    _menuIconTemplate: TemplateRef<any> | undefined;
+    _menuIconTemplate: TemplateRef<void> | undefined;
 
-    _submenuIconTemplate: TemplateRef<any> | undefined;
+    _submenuIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

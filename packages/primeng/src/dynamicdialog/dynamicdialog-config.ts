@@ -200,31 +200,32 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
 
 /**
  * Defines valid templates in Dynamic Dialog.
- * @group Interface
+ * Templates are Angular components that will be rendered using ngComponentOutlet.
+ * @group Templates
  */
 export interface DynamicDialogTemplates {
     /**
-     * Template of the header.
+     * Component to render as the header.
      */
     header?: Type<any>;
     /**
-     * Template of the content.
+     * Component to render as the content.
      */
     content?: Type<any>;
     /**
-     * Template of the footer.
+     * Component to render as the footer.
      */
     footer?: Type<any>;
     /**
-     * Template of the minimize icon.
+     * Component to render as the minimize icon.
      */
     minimizeicon?: Type<any>;
     /**
-     * Template of the maximize icon.
+     * Component to render as the maximize icon.
      */
     maximizeicon?: Type<any>;
     /**
-     * Template of the close icon.
+     * Component to render as the close icon.
      */
     closeicon?: Type<any>;
 }

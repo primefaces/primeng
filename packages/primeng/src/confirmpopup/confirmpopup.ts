@@ -36,7 +36,7 @@ import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
+import { ConfirmPopupContentTemplateContext, ConfirmPopupHeadlessTemplateContext, ConfirmPopupPassThrough } from 'primeng/types/confirmpopup';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
@@ -225,25 +225,41 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     autoFocusReject: boolean = false;
 
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom content template.
+     * @group Templates
+     */
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<ConfirmPopupContentTemplateContext>>;
 
-    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom accept icon template.
+     * @group Templates
+     */
+    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom reject icon template.
+     * @group Templates
+     */
+    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Custom headless template.
+     * @group Templates
+     */
+    @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<ConfirmPopupHeadlessTemplateContext>>;
 
     acceptButtonViewChild = viewChild('acceptButton', { read: ElementRef });
 
     rejectButtonViewChild = viewChild('rejectButton', { read: ElementRef });
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<ConfirmPopupContentTemplateContext> | undefined;
 
-    _acceptIconTemplate: TemplateRef<any> | undefined;
+    _acceptIconTemplate: TemplateRef<void> | undefined;
 
-    _rejectIconTemplate: TemplateRef<any> | undefined;
+    _rejectIconTemplate: TemplateRef<void> | undefined;
 
-    _headlessTemplate: TemplateRef<any> | undefined;
+    _headlessTemplate: TemplateRef<ConfirmPopupHeadlessTemplateContext> | undefined;
 
     documentClickListener: VoidListener;
 

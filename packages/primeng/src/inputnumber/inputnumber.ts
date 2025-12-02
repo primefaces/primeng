@@ -405,31 +405,31 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
     /**
-     * Template of the clear icon.
+     * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
     /**
-     * Template of the increment button icon.
+     * Custom increment button icon template.
      * @group Templates
      */
-    @ContentChild('incrementbuttonicon', { descendants: false }) incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('incrementbuttonicon', { descendants: false }) incrementButtonIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
-     * Template of the decrement button icon.
+     * Custom decrement button icon template.
      * @group Templates
      */
-    @ContentChild('decrementbuttonicon', { descendants: false }) decrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('decrementbuttonicon', { descendants: false }) decrementButtonIconTemplate: Nullable<TemplateRef<void>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
-    _incrementButtonIconTemplate: TemplateRef<any> | undefined;
+    _incrementButtonIconTemplate: TemplateRef<void> | undefined;
 
-    _decrementButtonIconTemplate: TemplateRef<any> | undefined;
+    _decrementButtonIconTemplate: TemplateRef<void> | undefined;
 
     value: Nullable<number>;
 

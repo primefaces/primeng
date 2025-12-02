@@ -79,25 +79,29 @@ export interface DialogTemplates {
     /**
      * Custom template of header.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom template of content.
      */
-    content(): TemplateRef<any>;
+    content(): TemplateRef<void>;
     /**
      * Custom template of footer.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
      * Custom template of closeicon.
      */
-    closeicon(): TemplateRef<any>;
+    closeicon(): TemplateRef<void>;
     /**
      * Custom template of maximizeicon.
      */
-    maximizeicon(): TemplateRef<any>;
+    maximizeicon(): TemplateRef<void>;
     /**
      * Custom template of minimizeicon.
      */
-    minimizeicon(): TemplateRef<any>;
+    minimizeicon(): TemplateRef<void>;
+    /**
+     * Custom headless template to replace the entire dialog content.
+     */
+    headless(): TemplateRef<void>;
 }

@@ -1,3 +1,4 @@
+import type { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
 import type { PassThrough, PassThroughOption } from 'primeng/api';
 import type { ButtonPassThrough } from 'primeng/types/button';
@@ -99,4 +100,32 @@ export interface PanelHeaderIconsTemplateContext {
      * Collapsed state as a boolean, implicit value.
      */
     $implicit: boolean;
+}
+
+/**
+ * Defines valid templates in Panel.
+ * @group Templates
+ */
+export interface PanelTemplates {
+    /**
+     * Custom header template.
+     */
+    header(): TemplateRef<void>;
+    /**
+     * Custom icons template.
+     */
+    icons(): TemplateRef<void>;
+    /**
+     * Custom content template.
+     */
+    content(): TemplateRef<void>;
+    /**
+     * Custom footer template.
+     */
+    footer(): TemplateRef<void>;
+    /**
+     * Custom header icons template.
+     * @param {PanelHeaderIconsTemplateContext} context - header icons context.
+     */
+    headericons(context: PanelHeaderIconsTemplateContext): TemplateRef<PanelHeaderIconsTemplateContext>;
 }

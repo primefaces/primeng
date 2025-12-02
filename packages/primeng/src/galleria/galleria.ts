@@ -35,7 +35,7 @@ import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, Time
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { VoidListener } from 'primeng/ts-helpers';
-import { GalleriaPassThrough, GalleriaResponsiveOptions } from 'primeng/types/galleria';
+import { GalleriaCaptionTemplateContext, GalleriaIndicatorTemplateContext, GalleriaItemTemplateContext, GalleriaPassThrough, GalleriaResponsiveOptions, GalleriaThumbnailTemplateContext } from 'primeng/types/galleria';
 import { ZIndexUtils } from 'primeng/utils';
 import { GalleriaStyle } from './style/galleriastyle';
 
@@ -311,38 +311,82 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
 
     _activeIndex: number = 0;
 
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
-    headerFacet: any;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
+    headerFacet: TemplateRef<void> | undefined;
 
-    @ContentChild('footer', { descendants: false, static: false }) footerTemplate: TemplateRef<any> | undefined;
-    footerFacet: any;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false, static: false }) footerTemplate: TemplateRef<void> | undefined;
+    footerFacet: TemplateRef<void> | undefined;
 
-    @ContentChild('indicator', { descendants: false }) indicatorTemplate: TemplateRef<any> | undefined;
-    indicatorFacet: any;
+    /**
+     * Custom indicator template.
+     * @group Templates
+     */
+    @ContentChild('indicator', { descendants: false }) indicatorTemplate: TemplateRef<GalleriaIndicatorTemplateContext> | undefined;
+    indicatorFacet: TemplateRef<GalleriaIndicatorTemplateContext> | undefined;
 
-    @ContentChild('caption', { descendants: false }) captionTemplate: TemplateRef<any> | undefined;
-    captionFacet: any;
+    /**
+     * Custom caption template.
+     * @group Templates
+     */
+    @ContentChild('caption', { descendants: false }) captionTemplate: TemplateRef<GalleriaCaptionTemplateContext> | undefined;
+    captionFacet: TemplateRef<GalleriaCaptionTemplateContext> | undefined;
 
-    @ContentChild('closeicon', { descendants: false }) _closeIconTemplate: TemplateRef<any> | undefined;
-    closeIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom close icon template.
+     * @group Templates
+     */
+    @ContentChild('closeicon', { descendants: false }) _closeIconTemplate: TemplateRef<void> | undefined;
+    closeIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('previousthumbnailicon', { descendants: false }) _previousThumbnailIconTemplate: TemplateRef<any> | undefined;
-    previousThumbnailIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom previous thumbnail icon template.
+     * @group Templates
+     */
+    @ContentChild('previousthumbnailicon', { descendants: false }) _previousThumbnailIconTemplate: TemplateRef<void> | undefined;
+    previousThumbnailIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('nextthumbnailicon', { descendants: false }) _nextThumbnailIconTemplate: TemplateRef<any> | undefined;
-    nextThumbnailIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom next thumbnail icon template.
+     * @group Templates
+     */
+    @ContentChild('nextthumbnailicon', { descendants: false }) _nextThumbnailIconTemplate: TemplateRef<void> | undefined;
+    nextThumbnailIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('itempreviousicon', { descendants: false }) _itemPreviousIconTemplate: TemplateRef<any> | undefined;
-    itemPreviousIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom item previous icon template.
+     * @group Templates
+     */
+    @ContentChild('itempreviousicon', { descendants: false }) _itemPreviousIconTemplate: TemplateRef<void> | undefined;
+    itemPreviousIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('itemnexticon', { descendants: false }) _itemNextIconTemplate: TemplateRef<any> | undefined;
-    itemNextIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom item next icon template.
+     * @group Templates
+     */
+    @ContentChild('itemnexticon', { descendants: false }) _itemNextIconTemplate: TemplateRef<void> | undefined;
+    itemNextIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('item', { descendants: false }) _itemTemplate: TemplateRef<any> | undefined;
-    itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('item', { descendants: false }) _itemTemplate: TemplateRef<GalleriaItemTemplateContext> | undefined;
+    itemTemplate: TemplateRef<GalleriaItemTemplateContext> | undefined;
 
-    @ContentChild('thumbnail', { descendants: false, static: false }) _thumbnailTemplate: TemplateRef<any> | undefined;
-    thumbnailTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom thumbnail template.
+     * @group Templates
+     */
+    @ContentChild('thumbnail', { descendants: false, static: false }) _thumbnailTemplate: TemplateRef<GalleriaThumbnailTemplateContext> | undefined;
+    thumbnailTemplate: TemplateRef<GalleriaThumbnailTemplateContext> | undefined;
 
     maskVisible: boolean = false;
 

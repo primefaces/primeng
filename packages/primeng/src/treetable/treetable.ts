@@ -60,12 +60,17 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
+    TreeTableBodyTemplateContext,
+    TreeTableCheckboxIconTemplateContext,
     TreeTableColResizeEvent,
     TreeTableColumnReorderEvent,
+    TreeTableColumnsTemplateContext,
     TreeTableContextMenuSelectEvent,
     TreeTableEditEvent,
+    TreeTableEmptyMessageTemplateContext,
     TreeTableFilterEvent,
     TreeTableFilterOptions,
+    TreeTableHeaderCheckboxIconTemplateContext,
     TreeTableHeaderCheckboxToggleEvent,
     TreeTableLazyLoadEvent,
     TreeTableNodeCollapseEvent,
@@ -73,7 +78,9 @@ import {
     TreeTableNodeUnSelectEvent,
     TreeTablePaginatorState,
     TreeTablePassThrough,
-    TreeTableSortEvent
+    TreeTableSortEvent,
+    TreeTableSortIconTemplateContext,
+    TreeTableTogglerIconTemplateContext
 } from 'primeng/types/treetable';
 import { Subject, Subscription } from 'rxjs';
 import { TreeTableStyle } from './style/treetablestyle';
@@ -797,83 +804,83 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
     filterTimeout: any;
 
-    @ContentChild('colgroup', { descendants: false }) _colGroupTemplate: Nullable<TemplateRef<any>>;
-    colGroupTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('colgroup', { descendants: false }) _colGroupTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
+    colGroupTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
 
-    @ContentChild('caption', { descendants: false }) _captionTemplate: Nullable<TemplateRef<any>>;
-    captionTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('caption', { descendants: false }) _captionTemplate: Nullable<TemplateRef<void>>;
+    captionTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('header', { descendants: false }) _headerTemplate: Nullable<TemplateRef<any>>;
-    headerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('header', { descendants: false }) _headerTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
+    headerTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
 
-    @ContentChild('body', { descendants: false }) _bodyTemplate: Nullable<TemplateRef<any>>;
-    bodyTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('body', { descendants: false }) _bodyTemplate: Nullable<TemplateRef<TreeTableBodyTemplateContext>>;
+    bodyTemplate: Nullable<TemplateRef<TreeTableBodyTemplateContext>>;
 
-    @ContentChild('footer', { descendants: false }) _footerTemplate: Nullable<TemplateRef<any>>;
-    footerTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('footer', { descendants: false }) _footerTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
+    footerTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
 
-    @ContentChild('summary', { descendants: false }) _summaryTemplate: Nullable<TemplateRef<any>>;
-    summaryTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('summary', { descendants: false }) _summaryTemplate: Nullable<TemplateRef<void>>;
+    summaryTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('emptymessage', { descendants: false }) _emptyMessageTemplate: Nullable<TemplateRef<any>>;
-    emptyMessageTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('emptymessage', { descendants: false }) _emptyMessageTemplate: Nullable<TemplateRef<TreeTableEmptyMessageTemplateContext>>;
+    emptyMessageTemplate: Nullable<TemplateRef<TreeTableEmptyMessageTemplateContext>>;
 
-    @ContentChild('paginatorleft', { descendants: false }) _paginatorLeftTemplate: Nullable<TemplateRef<any>>;
-    paginatorLeftTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('paginatorleft', { descendants: false }) _paginatorLeftTemplate: Nullable<TemplateRef<void>>;
+    paginatorLeftTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('paginatorright', { descendants: false }) _paginatorRightTemplate: Nullable<TemplateRef<any>>;
-    paginatorRightTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('paginatorright', { descendants: false }) _paginatorRightTemplate: Nullable<TemplateRef<void>>;
+    paginatorRightTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('paginatordropdownitem', { descendants: false }) _paginatorDropdownItemTemplate: Nullable<TemplateRef<any>>;
-    paginatorDropdownItemTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('paginatordropdownitem', { descendants: false }) _paginatorDropdownItemTemplate: Nullable<TemplateRef<void>>;
+    paginatorDropdownItemTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('frozenheader', { descendants: false }) _frozenHeaderTemplate: Nullable<TemplateRef<any>>;
-    frozenHeaderTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('frozenheader', { descendants: false }) _frozenHeaderTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
+    frozenHeaderTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
 
-    @ContentChild('frozenbody', { descendants: false }) _frozenBodyTemplate: Nullable<TemplateRef<any>>;
-    frozenBodyTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('frozenbody', { descendants: false }) _frozenBodyTemplate: Nullable<TemplateRef<void>>;
+    frozenBodyTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('frozenfooter', { descendants: false }) _frozenFooterTemplate: Nullable<TemplateRef<any>>;
-    frozenFooterTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('frozenfooter', { descendants: false }) _frozenFooterTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
+    frozenFooterTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
 
-    @ContentChild('frozencolgroup', { descendants: false }) _frozenColGroupTemplate: Nullable<TemplateRef<any>>;
-    frozenColGroupTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('frozencolgroup', { descendants: false }) _frozenColGroupTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
+    frozenColGroupTemplate: Nullable<TemplateRef<TreeTableColumnsTemplateContext>>;
 
-    @ContentChild('loadingicon', { descendants: false }) _loadingIconTemplate: Nullable<TemplateRef<any>>;
-    loadingIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loadingicon', { descendants: false }) _loadingIconTemplate: Nullable<TemplateRef<void>>;
+    loadingIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('reorderindicatorupicon', { descendants: false }) _reorderIndicatorUpIconTemplate: Nullable<TemplateRef<any>>;
-    reorderIndicatorUpIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('reorderindicatorupicon', { descendants: false }) _reorderIndicatorUpIconTemplate: Nullable<TemplateRef<void>>;
+    reorderIndicatorUpIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('reorderindicatordownicon', { descendants: false }) _reorderIndicatorDownIconTemplate: Nullable<TemplateRef<any>>;
-    reorderIndicatorDownIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('reorderindicatordownicon', { descendants: false }) _reorderIndicatorDownIconTemplate: Nullable<TemplateRef<void>>;
+    reorderIndicatorDownIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('sorticon', { descendants: false }) _sortIconTemplate: Nullable<TemplateRef<any>>;
-    sortIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('sorticon', { descendants: false }) _sortIconTemplate: Nullable<TemplateRef<TreeTableSortIconTemplateContext>>;
+    sortIconTemplate: Nullable<TemplateRef<TreeTableSortIconTemplateContext>>;
 
-    @ContentChild('checkboxicon', { descendants: false }) _checkboxIconTemplate: Nullable<TemplateRef<any>>;
-    checkboxIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('checkboxicon', { descendants: false }) _checkboxIconTemplate: Nullable<TemplateRef<TreeTableCheckboxIconTemplateContext>>;
+    checkboxIconTemplate: Nullable<TemplateRef<TreeTableCheckboxIconTemplateContext>>;
 
-    @ContentChild('headercheckboxicon', { descendants: false }) _headerCheckboxIconTemplate: Nullable<TemplateRef<any>>;
-    headerCheckboxIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('headercheckboxicon', { descendants: false }) _headerCheckboxIconTemplate: Nullable<TemplateRef<TreeTableHeaderCheckboxIconTemplateContext>>;
+    headerCheckboxIconTemplate: Nullable<TemplateRef<TreeTableHeaderCheckboxIconTemplateContext>>;
 
-    @ContentChild('togglericon', { descendants: false }) _togglerIconTemplate: Nullable<TemplateRef<any>>;
-    togglerIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('togglericon', { descendants: false }) _togglerIconTemplate: Nullable<TemplateRef<TreeTableTogglerIconTemplateContext>>;
+    togglerIconTemplate: Nullable<TemplateRef<TreeTableTogglerIconTemplateContext>>;
 
-    @ContentChild('paginatorfirstpagelinkicon', { descendants: false }) _paginatorFirstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
-    paginatorFirstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('paginatorfirstpagelinkicon', { descendants: false }) _paginatorFirstPageLinkIconTemplate: Nullable<TemplateRef<void>>;
+    paginatorFirstPageLinkIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('paginatorlastpagelinkicon', { descendants: false }) _paginatorLastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
-    paginatorLastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('paginatorlastpagelinkicon', { descendants: false }) _paginatorLastPageLinkIconTemplate: Nullable<TemplateRef<void>>;
+    paginatorLastPageLinkIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('paginatorpreviouspagelinkicon', { descendants: false }) _paginatorPreviousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
-    paginatorPreviousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('paginatorpreviouspagelinkicon', { descendants: false }) _paginatorPreviousPageLinkIconTemplate: Nullable<TemplateRef<void>>;
+    paginatorPreviousPageLinkIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('paginatornextpagelinkicon', { descendants: false }) _paginatorNextPageLinkIconTemplate: Nullable<TemplateRef<any>>;
-    paginatorNextPageLinkIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('paginatornextpagelinkicon', { descendants: false }) _paginatorNextPageLinkIconTemplate: Nullable<TemplateRef<void>>;
+    paginatorNextPageLinkIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChild('loader', { descendants: false }) _loaderTemplate: Nullable<TemplateRef<any>>;
-    loaderTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('loader', { descendants: false }) _loaderTemplate: Nullable<TemplateRef<void>>;
+    loaderTemplate: Nullable<TemplateRef<void>>;
 
     lastResizerHelperX: Nullable<number>;
 

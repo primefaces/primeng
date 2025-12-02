@@ -28,7 +28,7 @@ Headless mode allows you to customize the entire user interface instead of the d
         <div class="rounded p-4">
             <span>{{ message.message }}</span>
             <div class="flex items-center gap-2 mt-4">
-                <p-button (onClick)="cp.onAccept()" label="Save" size="small" />
+                <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
                 <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
             </div>
         </div>
@@ -162,19 +162,20 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ConfirmPopupPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | key | string | - | Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs. |
 | defaultFocus | string | accept | Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none". |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. |
-| enterAnimation | InputSignal<string> | 'p-confirmpopup-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-confirmpopup-leave' | Leave animation class name. |
+| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
 | autoZIndex | boolean | true | Whether to automatically manage layering. |
 | baseZIndex | number | 0 | Base zIndex value to use in layering. |
 | style | { [klass: string]: any } | - | Inline style of the component. |
 | styleClass | string | - | Style class of the component. |
-| visible | any | - | Defines if the component is visible. |
+| visible | InputSignal<boolean> | ... | Defines if the component is visible. |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
+| appendTo | InputSignal<any> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
 ## Pass Through Options
 
@@ -188,6 +189,7 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
 | pcRejectButton | ButtonPassThrough | Used to pass attributes to the reject Button component. |
 | pcAcceptButton | ButtonPassThrough | Used to pass attributes to the accept Button component. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

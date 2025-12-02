@@ -95,68 +95,84 @@ export interface OrderListFilterEvent {
 }
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface OrderListItemTemplateContext {
+    /**
+     * Item instance.
+     */
+    $implicit: any;
+    /**
+     * Whether the item is selected.
+     */
+    selected: boolean;
+    /**
+     * Index of the item.
+     */
+    index: number;
+}
+
+/**
+ * Custom filter template context.
+ * @group Interface
+ */
+export interface OrderListFilterTemplateContext {
+    /**
+     * Filter options.
+     */
+    options: OrderListFilterOptions;
+}
+
+/**
  * Defines valid templates in OrderList.
  * @group Templates
  */
 export interface OrderListTemplates {
     /**
-     * Custom header template.
-     * @param {Object} context - item data.
+     * Custom item template.
+     * @param {OrderListItemTemplateContext} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: any;
-        /**
-         * Index of the item.
-         */
-        index: number;
-    }): TemplateRef<{ $implicit: any; index: number }>;
+    item(context: OrderListItemTemplateContext): TemplateRef<OrderListItemTemplateContext>;
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom filter template.
-     * @param {OrderListFilterOptions} options - filter options.
+     * @param {OrderListFilterTemplateContext} context - filter context.
      */
-    filter(context: {
-        /**
-         * Filter options.
-         */
-        options: OrderListFilterOptions;
-    }): TemplateRef<{ options: OrderListFilterOptions }>;
+    filter(context: OrderListFilterTemplateContext): TemplateRef<OrderListFilterTemplateContext>;
     /**
      * Custom empty filter template.
      */
-    emptyfilter(): TemplateRef<any>;
+    emptyfilter(): TemplateRef<void>;
     /**
      * Custom empty template.
      */
-    empty(): TemplateRef<any>;
+    empty(): TemplateRef<void>;
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom filter icon template.
      */
-    filtericon(): TemplateRef<any>;
+    filtericon(): TemplateRef<void>;
     /**
      * Custom move up icon template.
      */
-    moveupicon(): TemplateRef<any>;
+    moveupicon(): TemplateRef<void>;
     /**
      * Custom move top icon template.
      */
-    movetopicon(): TemplateRef<any>;
+    movetopicon(): TemplateRef<void>;
     /**
      * Custom move down icon template.
      */
-    movedownicon(): TemplateRef<any>;
+    movedownicon(): TemplateRef<void>;
     /**
      * Custom move bottom icon template.
      */
-    movebottomicon(): TemplateRef<any>;
+    movebottomicon(): TemplateRef<void>;
 }

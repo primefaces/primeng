@@ -48,13 +48,22 @@ import { Nullable } from 'primeng/ts-helpers';
 import {
     MultiSelectBlurEvent,
     MultiSelectChangeEvent,
+    MultiSelectChipIconTemplateContext,
+    MultiSelectDropdownIconTemplateContext,
     MultiSelectFilterEvent,
     MultiSelectFilterOptions,
+    MultiSelectFilterTemplateContext,
     MultiSelectFocusEvent,
+    MultiSelectGroupTemplateContext,
+    MultiSelectHeaderCheckboxIconTemplateContext,
+    MultiSelectItemCheckboxIconTemplateContext,
+    MultiSelectItemTemplateContext,
     MultiSelectLazyLoadEvent,
+    MultiSelectLoaderTemplateContext,
     MultiSelectPassThrough,
     MultiSelectRemoveEvent,
-    MultiSelectSelectAllChangeEvent
+    MultiSelectSelectAllChangeEvent,
+    MultiSelectSelectedItemsTemplateContext
 } from 'primeng/types/multiselect';
 import { ObjectUtils } from 'primeng/utils';
 import { MultiSelectStyle } from './style/multiselectstyle';
@@ -135,11 +144,11 @@ export class MultiSelectItem extends BaseComponent {
 
     @Input() variant: 'outlined' | 'filled';
 
-    @Input() template: TemplateRef<any> | undefined;
+    @Input() template: TemplateRef<MultiSelectItemTemplateContext> | undefined;
 
-    @Input() checkIconTemplate: TemplateRef<any> | undefined;
+    @Input() checkIconTemplate: TemplateRef<MultiSelectItemCheckboxIconTemplateContext> | undefined;
 
-    @Input() itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+    @Input() itemCheckboxIconTemplate: TemplateRef<MultiSelectItemCheckboxIconTemplateContext> | undefined;
 
     @Input({ transform: booleanAttribute }) highlightOnSelect: boolean | undefined;
 
@@ -953,75 +962,143 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     public filtered: boolean | undefined;
 
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom item template.
+     * @group Templates
+     */
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<MultiSelectItemTemplateContext> | undefined;
 
-    @ContentChild('group', { descendants: false }) groupTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom group template.
+     * @group Templates
+     */
+    @ContentChild('group', { descendants: false }) groupTemplate: TemplateRef<MultiSelectGroupTemplateContext> | undefined;
 
-    @ContentChild('loader', { descendants: false }) loaderTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom loader template.
+     * @group Templates
+     */
+    @ContentChild('loader', { descendants: false }) loaderTemplate: TemplateRef<MultiSelectLoaderTemplateContext> | undefined;
 
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom header template.
+     * @group Templates
+     */
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom filter template.
+     * @group Templates
+     */
+    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<MultiSelectFilterTemplateContext> | undefined;
 
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom footer template.
+     * @group Templates
+     */
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom empty filter template.
+     * @group Templates
+     */
+    @ContentChild('emptyfilter', { descendants: false }) emptyFilterTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom empty template.
+     * @group Templates
+     */
+    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('selecteditems', { descendants: false }) selectedItemsTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom selected items template.
+     * @group Templates
+     */
+    @ContentChild('selecteditems', { descendants: false }) selectedItemsTemplate: TemplateRef<MultiSelectSelectedItemsTemplateContext> | undefined;
 
-    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom loading icon template.
+     * @group Templates
+     */
+    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom filter icon template.
+     * @group Templates
+     */
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('removetokenicon', { descendants: false }) removeTokenIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom remove token icon template.
+     * @group Templates
+     */
+    @ContentChild('removetokenicon', { descendants: false }) removeTokenIconTemplate: TemplateRef<MultiSelectChipIconTemplateContext> | undefined;
 
-    @ContentChild('chipicon', { descendants: false }) chipIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom chip icon template.
+     * @group Templates
+     */
+    @ContentChild('chipicon', { descendants: false }) chipIconTemplate: TemplateRef<MultiSelectChipIconTemplateContext> | undefined;
 
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom clear icon template.
+     * @group Templates
+     */
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom dropdown icon template.
+     * @group Templates
+     */
+    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: TemplateRef<MultiSelectDropdownIconTemplateContext> | undefined;
 
-    @ContentChild('itemcheckboxicon', { descendants: false }) itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom item checkbox icon template.
+     * @group Templates
+     */
+    @ContentChild('itemcheckboxicon', { descendants: false }) itemCheckboxIconTemplate: TemplateRef<MultiSelectItemCheckboxIconTemplateContext> | undefined;
 
-    @ContentChild('headercheckboxicon', { descendants: false }) headerCheckboxIconTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom header checkbox icon template.
+     * @group Templates
+     */
+    @ContentChild('headercheckboxicon', { descendants: false }) headerCheckboxIconTemplate: TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<MultiSelectItemTemplateContext> | undefined;
 
-    _groupTemplate: TemplateRef<any> | undefined;
+    _groupTemplate: TemplateRef<MultiSelectGroupTemplateContext> | undefined;
 
-    _loaderTemplate: TemplateRef<any> | undefined;
+    _loaderTemplate: TemplateRef<MultiSelectLoaderTemplateContext> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _filterTemplate: TemplateRef<any> | undefined;
+    _filterTemplate: TemplateRef<MultiSelectFilterTemplateContext> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _emptyFilterTemplate: TemplateRef<any> | undefined;
+    _emptyFilterTemplate: TemplateRef<void> | undefined;
 
-    _emptyTemplate: TemplateRef<any> | undefined;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _selectedItemsTemplate: TemplateRef<any> | undefined;
+    _selectedItemsTemplate: TemplateRef<MultiSelectSelectedItemsTemplateContext> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any> | undefined;
+    _loadingIconTemplate: TemplateRef<void> | undefined;
 
-    _filterIconTemplate: TemplateRef<any> | undefined;
+    _filterIconTemplate: TemplateRef<void> | undefined;
 
-    _removeTokenIconTemplate: TemplateRef<any> | undefined;
+    _removeTokenIconTemplate: TemplateRef<MultiSelectChipIconTemplateContext> | undefined;
 
-    _chipIconTemplate: TemplateRef<any> | undefined;
+    _chipIconTemplate: TemplateRef<MultiSelectChipIconTemplateContext> | undefined;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
-    _dropdownIconTemplate: TemplateRef<any> | undefined;
+    _dropdownIconTemplate: TemplateRef<MultiSelectDropdownIconTemplateContext> | undefined;
 
-    _itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+    _itemCheckboxIconTemplate: TemplateRef<MultiSelectItemCheckboxIconTemplateContext> | undefined;
 
-    _headerCheckboxIconTemplate: TemplateRef<any> | undefined;
+    _headerCheckboxIconTemplate: TemplateRef<MultiSelectHeaderCheckboxIconTemplateContext> | undefined;
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 

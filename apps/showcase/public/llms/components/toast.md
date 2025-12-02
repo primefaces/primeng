@@ -553,6 +553,7 @@ Toast is used to display messages in an overlay.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ToastPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | key | string | - | Key of the message in case message is targeted to a specific toast component. |
@@ -563,12 +564,11 @@ Toast is used to display messages in an overlay.
 | position | ToastPositionType | - | Position of the toast in viewport. |
 | preventOpenDuplicates | boolean | false | It does not add the new message if there is already a toast displayed with the same content |
 | preventDuplicates | boolean | false | Displays only once a message with the same content. |
-| showTransformOptions | string | translateY(100%) | Transform options of the show animation. |
-| hideTransformOptions | string | translateY(-100%) | Transform options of the hide animation. |
-| showTransitionOptions | string | 300ms ease-out | Transition options of the show animation. |
-| hideTransitionOptions | string | 250ms ease-in | Transition options of the hide animation. |
-| enterAnimation | InputSignal<string> | 'p-toast-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-toast-leave' | Leave animation class name. |
+| showTransformOptions | string | translateY(100%) | Transform options of the show animation. **(Deprecated)** |
+| hideTransformOptions | string | translateY(-100%) | Transform options of the hide animation. **(Deprecated)** |
+| showTransitionOptions | string | 300ms ease-out | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | 250ms ease-in | Transition options of the hide animation. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | breakpoints | { [key: string]: any } | - | Object literal to define styles per screen size. |
 
 ### Emits
@@ -598,6 +598,7 @@ Toast is used to display messages in an overlay.
 | detail | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the detail's DOM element. |
 | closeButton | PassThroughOption<HTMLButtonElement, I> | Used to pass attributes to the close button's DOM element. |
 | closeIcon | PassThroughOption<HTMLElement, I> | Used to pass attributes to the close icon's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

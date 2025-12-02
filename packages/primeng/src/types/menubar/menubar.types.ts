@@ -83,37 +83,44 @@ export interface MenubarPassThroughOptions<I = unknown> {
 export type MenubarPassThrough<I = unknown> = PassThrough<I, MenubarPassThroughOptions<I>>;
 
 /**
+ * Custom item template context.
+ * @group Interface
+ */
+export interface MenubarItemTemplateContext {
+    /**
+     * Menu item instance.
+     */
+    $implicit: MenuItem;
+    /**
+     * Whether the item is at the root level.
+     */
+    root: boolean;
+}
+
+/**
  * Defines valid templates in Menubar.
  * @group Templates
  */
 export interface MenubarTemplates {
     /**
      * Custom item template.
+     * @param {Object} context - item context.
      */
-    item(context: {
-        /**
-         * Item instance.
-         */
-        $implicit: MenuItem;
-        /**
-         * Whether root or not
-         */
-        root: boolean;
-    }): TemplateRef<{ $implicit: MenuItem; root: boolean }>;
+    item(context: MenubarItemTemplateContext): TemplateRef<MenubarItemTemplateContext>;
     /**
      * Custom template of start.
      */
-    start(): TemplateRef<any>;
+    start(): TemplateRef<void>;
     /**
      * Custom template of end.
      */
-    end(): TemplateRef<any>;
+    end(): TemplateRef<void>;
     /**
-     * Custom template of menuicon.
+     * Custom template of menu icon.
      */
-    menuicon(): TemplateRef<any>;
+    menuicon(): TemplateRef<void>;
     /**
-     * Custom template of submenuicon.
+     * Custom template of submenu icon.
      */
-    submenuicon(): TemplateRef<any>;
+    submenuicon(): TemplateRef<void>;
 }

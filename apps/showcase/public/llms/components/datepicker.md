@@ -864,6 +864,7 @@ DatePicker is a form component to work with dates.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<DatePickerPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | required | InputSignalWithTransform<boolean, unknown> | false | There must be a value (if set). |
@@ -924,10 +925,8 @@ DatePicker is a form component to work with dates.
 | touchUI | boolean | false | When enabled, datepicker overlay is displayed as optimized for touch devices. |
 | timeSeparator | string | : | Separator of time selector. |
 | focusTrap | boolean | true | When enabled, can only focus on elements inside the datepicker. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. |
-| enterAnimation | InputSignal<string> | 'p-datepicker-overlay-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-datepicker-overlay-leave' | Leave animation class name. |
+| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
 | tabindex | number | - | Index of the element in tabbing order. |
 | minDate | Date | - | The minimum selectable date. |
 | maxDate | Date | - | The maximum selectable date. |
@@ -940,6 +939,7 @@ DatePicker is a form component to work with dates.
 | view | DatePickerTypeView | - | Type of view to display, valid values are "date" for datepicker and "month" for month picker. |
 | defaultDate | Date | - | Set the date to highlight on first opening if the field is blank. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -947,7 +947,7 @@ DatePicker is a form component to work with dates.
 |------|------------|-------------|
 | onFocus | event: Event | Callback to invoke on focus of input field. |
 | onBlur | event: Event | Callback to invoke on blur of input field. |
-| onClose | event: AnimationEvent | Callback to invoke when date panel closed. |
+| onClose | value: HTMLElement | Callback to invoke when date panel closed. |
 | onSelect | value: Date | Callback to invoke on date select. |
 | onClear | value: any | Callback to invoke when input field cleared. |
 | onInput | value: any | Callback to invoke when input field is being typed. |
@@ -956,7 +956,7 @@ DatePicker is a form component to work with dates.
 | onMonthChange | event: DatePickerMonthChangeEvent | Callback to invoke when a month is changed using the navigators. |
 | onYearChange | event: DatePickerYearChangeEvent | Callback to invoke when a year is changed using the navigators. |
 | onClickOutside | value: any | Callback to invoke when clicked outside of the date panel. |
-| onShow | value: any | Callback to invoke when datepicker panel is shown. |
+| onShow | value: HTMLElement | Callback to invoke when datepicker panel is shown. |
 
 ### Templates
 
@@ -1034,6 +1034,7 @@ DatePicker is a form component to work with dates.
 | hiddenSelectedDay | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the hidden selected day's DOM element. |
 | hiddenMonth | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the hidden month's DOM element. |
 | hiddenYear | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the hidden year's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 
