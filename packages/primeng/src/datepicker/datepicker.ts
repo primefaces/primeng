@@ -146,15 +146,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 </span>
             </ng-container>
         </ng-template>
-        <p-motion
-            [visible]="inline || overlayVisible"
-            name="p-anchored-overlay"
-            [appear]="!inline"
-            [options]="computedMotionOptions()"
-            (onBeforeEnter)="onOverlayBeforeEnter($event)"
-            (onAfterLeave)="onOverlayAfterLeave($event)"
-            [style]="{ 'min-width': '100%' }"
-        >
+        <p-motion [visible]="inline || overlayVisible" name="p-anchored-overlay" [appear]="!inline" [options]="computedMotionOptions()" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAfterLeave($event)">
             <div
                 #contentWrapper
                 [attr.id]="panelId"
@@ -1083,6 +1075,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     responsiveStyleElement: HTMLStyleElement | undefined | null;
 
     overlayVisible: Nullable<boolean>;
+
+    overlayMinWidth: Nullable<number>;
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
@@ -3150,6 +3144,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 this.preventFocus = true;
             }
 
+            this.overlayMinWidth = this.el.nativeElement.offsetWidth;
             this.overlayVisible = true;
         }
     }
@@ -3180,7 +3175,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     onOverlayBeforeEnter(event: MotionEvent) {
         this.overlay = event.element as HTMLElement;
         this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
-        const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
+        const styles = !this.inline ? { position: 'absolute', top: '0', minWidth: `${this.overlayMinWidth}px` } : undefined;
         addStyle(this.overlay!, styles || {});
         this.appendOverlay();
         this.alignOverlay();
