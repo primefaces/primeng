@@ -708,9 +708,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     }
 
     setContentEl(el?: HTMLElement) {
-        const elementViewChild = this.elementViewChild?.nativeElement;
-
-        this.contentEl = el || this.contentViewChild?.nativeElement || findSingle(elementViewChild, '[data-pc-section="content"]') || findSingle(elementViewChild, '[data-p-virtualscroll="true"]');
+        this.contentEl = el || this.contentViewChild?.nativeElement || findSingle(this.elementViewChild?.nativeElement, '.p-virtualscroller-content');
     }
     setInitialState() {
         this.first = this.both ? { rows: 0, cols: 0 } : 0;
