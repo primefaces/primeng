@@ -9,14 +9,12 @@ import { AppDocCopyMarkdown } from './app.doccopymarkdown';
     imports: [AppDocSection, AppDocSectionNav, AppDocCopyMarkdown],
     template: ` <div class="doc-main">
             <div class="doc-intro">
-                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
-                    <div class="flex-1">
-                        <h1>{{ header }}</h1>
-                        <p>{{ description }}</p>
-                    </div>
+                <div class="grid grid-cols-[1fr_auto] gap-2 items-start">
+                    <h1 class="m-0">{{ header }}</h1>
                     @if (componentName || docType === 'page') {
-                        <app-doccopymarkdown [componentName]="componentName" [docType]="docType" class="flex-shrink-0" />
+                        <app-doccopymarkdown [componentName]="componentName" [docType]="docType" class="flex items-center gap-4 relative row-start-3 sm:row-start-1 sm:col-start-2" />
                     }
+                    <p class="col-span-2">{{ description }}</p>
                 </div>
             </div>
             <app-docsection [docs]="docs" />
