@@ -42,7 +42,7 @@ export class ReactiveFormsDoc {
 
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
-            checked: ['', Validators.required]
+            checked: [false, Validators.requiredTrue]
         });
     }
 
@@ -107,7 +107,7 @@ export class ToggleButtonReactiveFormsDemo {
 
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
-            checked: ['', Validators.required]
+            checked: [false, Validators.requiredTrue]
         });
     }
 
