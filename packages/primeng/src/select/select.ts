@@ -29,23 +29,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
-import {
-    deepEquals,
-    equals,
-    findLastIndex,
-    findSingle,
-    focus,
-    getFirstFocusableElement,
-    getFocusableElements,
-    getLastFocusableElement,
-    isEmpty,
-    isNotEmpty,
-    isPrintableCharacter,
-    nextFrame,
-    resolveFieldData,
-    scrollInView,
-    uuid
-} from '@primeuix/utils';
+import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
 import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -1435,9 +1419,9 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             if (this.virtualScroll) {
                 const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
                 if (selectedIndex !== -1) {
-                    nextFrame().then(() => {
+                    setTimeout(() => {
                         this.scroller?.scrollToIndex(selectedIndex);
-                    });
+                    }, 10);
                 }
             } else {
                 let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '[data-p-selected="true"]');
