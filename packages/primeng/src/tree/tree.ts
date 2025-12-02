@@ -919,11 +919,6 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      */
     contextMenuSelection = model<TreeNode<any> | null>(null);
     /**
-     * Whether to use context menu selection mode. When enabled, left click selection is disabled and only right click selects nodes.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) contextMenuSelectionMode: boolean | undefined;
-    /**
      * Scope of the draggable nodes to match a droppableScope.
      * @group Props
      */
@@ -1296,6 +1291,15 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      */
     selectionVersion = signal(0);
 
+    /**
+     * Returns true when context menu selection mode is active.
+     * This is determined by checking if contextMenu is defined.
+     * @internal
+     */
+    get contextMenuSelectionMode(): boolean {
+        return !!this.contextMenu;
+    }
+
     public nodeTouched: boolean | undefined | null;
 
     public dragNodeTree: Tree | undefined | null;
@@ -1412,7 +1416,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
         }
 
         // When contextMenuSelectionMode is active, disable left click selection
-        if (this.contextMenuSelectionMode && this.contextMenu) {
+        if (this.contextMenuSelectionMode) {
             return;
         }
 

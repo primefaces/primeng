@@ -17,7 +17,6 @@ import { Tree, UITreeNode } from './tree';
             [(selection)]="selectedNodes"
             [styleClass]="styleClass"
             [contextMenu]="contextMenu"
-            [contextMenuSelectionMode]="contextMenuSelectionMode"
             [(contextMenuSelection)]="contextMenuSelectedNode"
             [draggableScope]="draggableScope"
             [droppableScope]="droppableScope"
@@ -65,7 +64,6 @@ class TestBasicTreeComponent {
     selectedNodes: any;
     styleClass: string | undefined;
     contextMenu: any;
-    contextMenuSelectionMode: boolean = false;
     contextMenuSelectedNode: TreeNode | null = null;
     draggableScope: any;
     droppableScope: any;
@@ -2498,7 +2496,6 @@ describe('Tree', () => {
                 }
             ];
             component.contextMenu = mockContextMenu;
-            component.contextMenuSelectionMode = true;
 
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2508,7 +2505,7 @@ describe('Tree', () => {
             expect(tree.contextMenuSelection()).toBeNull();
         });
 
-        it('should not allow left click selection when contextMenuSelectionMode is enabled', async () => {
+        it('should not allow left click selection when contextMenu is provided', async () => {
             const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
             expect(nodeContent).toBeTruthy();
 
@@ -2521,7 +2518,7 @@ describe('Tree', () => {
             expect(component.selectedNodes).toBeFalsy();
         });
 
-        it('should select node on right click when contextMenuSelectionMode is enabled', async () => {
+        it('should select node on right click when contextMenu is provided', async () => {
             const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
             expect(nodeContent).toBeTruthy();
 
@@ -2541,7 +2538,7 @@ describe('Tree', () => {
             expect(mockContextMenu.show).toHaveBeenCalled();
         });
 
-        it('should only allow single selection in contextMenuSelectionMode', async () => {
+        it('should only allow single selection when contextMenu is provided', async () => {
             const nodeContents = fixture.debugElement.queryAll(By.css('.p-tree-node-content'));
             expect(nodeContents.length).toBeGreaterThan(1);
 
@@ -2775,12 +2772,8 @@ describe('Tree', () => {
             expect(tree.contextMenuSelection()?.key).toBe('0-0');
         });
 
-        it('should disable context menu selection when contextMenuSelectionMode is false', async () => {
-            component.contextMenuSelectionMode = false;
-            fixture.changeDetectorRef.markForCheck();
-            fixture.detectChanges();
-            await fixture.whenStable();
-
+        it('should disable context menu selection when contextMenu is removed', async () => {
+            // First verify context menu selection works
             const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
             const rightClickEvent = new MouseEvent('contextmenu', {
                 bubbles: true,
@@ -2791,7 +2784,26 @@ describe('Tree', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            // contextMenuSelection should remain null when mode is disabled
+            expect(tree.contextMenuSelection()?.label).toBe('Documents');
+
+            // Remove context menu
+            tree.contextMenuSelection.set(null);
+            component.contextMenu = null;
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // Right click should not update contextMenuSelection when contextMenu is null
+            const rightClickEvent2 = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent2);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // contextMenuSelection should remain null when contextMenu is removed
             expect(tree.contextMenuSelection()).toBeNull();
         });
     });

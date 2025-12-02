@@ -15,15 +15,12 @@ import { TreeModule } from 'primeng/tree';
     imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
-            <p>
-                Tree has exclusive integration with ContextMenu using the <i>contextMenu</i> property to open a menu on right click along with <i>contextMenuSelection</i> and <i>contextMenuSelectionMode</i> properties to control the selection via the
-                menu.
-            </p>
+            <p>Tree has exclusive integration with ContextMenu using the <i>contextMenu</i> property to open a menu on right click along with <i>contextMenuSelection</i> property to control the selection via the menu.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-tree [value]="files()" class="w-full md:w-[30rem]" [contextMenuSelectionMode]="true" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+                <p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
             </p-deferred-demo>
             <p-contextmenu #cm [model]="items" />
         </div>
@@ -85,14 +82,14 @@ export class ContextMenuDoc {
     code: Code = {
         basic: `<p-toast [style]="{ marginTop: '80px' }" />
 
-<p-tree [value]="files()" class="w-full md:w-[30rem]" [contextMenuSelectionMode]="true" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+<p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
 
 <p-contextmenu #cm [model]="items" />`,
 
         html: `<div class="card">
     <p-toast [style]="{ marginTop: '80px' }" />
 
-    <p-tree [value]="files()" class="w-full md:w-[30rem]" [contextMenuSelectionMode]="true" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+    <p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
 
     <p-contextmenu #cm [model]="items" />
 </div>`,
