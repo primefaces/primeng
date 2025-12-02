@@ -78,7 +78,7 @@ export class KnobDemo {
             label: 'Forms',
             children: [
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'reactiveforms', label: 'Reactive Forms', component: ReactiveFormsDoc }
             ]
         },
         {
