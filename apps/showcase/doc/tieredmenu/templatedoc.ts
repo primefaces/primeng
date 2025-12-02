@@ -1,12 +1,12 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
-import { TieredMenuModule } from 'primeng/tieredmenu';
 import { BadgeModule } from 'primeng/badge';
-import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @Component({
     selector: 'template-doc',
@@ -21,7 +21,7 @@ import { RippleModule } from 'primeng/ripple';
                 <ng-template #item let-item let-hasSubmenu="hasSubmenu">
                     <a pRipple class="flex items-center p-tieredmenu-item-link">
                         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
+                        <span>{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
@@ -122,7 +122,7 @@ export class TemplateDoc implements OnInit {
     <ng-template #item let-item let-hasSubmenu="hasSubmenu">
         <a pRipple class="flex items-center p-tieredmenu-item-link">
             <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
+            <span>{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
             <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
                 {{ item.shortcut }}
@@ -137,7 +137,7 @@ export class TemplateDoc implements OnInit {
         <ng-template #item let-item let-hasSubmenu="hasSubmenu">
             <a pRipple class="flex items-center p-tieredmenu-item-link">
                 <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
+                <span>{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
                 <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
                     {{ item.shortcut }}
