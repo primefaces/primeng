@@ -277,7 +277,7 @@ const style = /*css*/ `
     color: dt('treetable.header.cell.hover.color');
 }
 
-.p-treetable .p-sortable-column:not(.p-treetable-column-sorted):hover .p-sortable-column-icon {
+.p-treetable .p-sortable-column:not(.p-treetable-column-sorted):hover .p-treetable-sort-icon {
     color: dt('treetable.sort.icon.hover.color');
 }
 
@@ -286,7 +286,7 @@ const style = /*css*/ `
     color: dt('treetable.header.cell.selected.color');
 }
 
-.p-treetable .p-sortable-column.p-treetable-column-sorted .p-sortable-column-icon {
+.p-treetable .p-sortable-column.p-treetable-column-sorted .p-treetable-sort-icon {
     color: dt('treetable.header.cell.selected.color');
 }
 
