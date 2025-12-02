@@ -41,11 +41,15 @@ import { ChipModule } from 'primeng/chip';
                         <span class="font-bold sm:ml-8">\${{ product.price }}</span>
                     </div>
                 </ng-template>
-                <ng-template let-value #chip>
-                    <div class="flex align-items-center gap-2">
-                        <span class="font-semibold">{{ value.name }}</span>
-                        <span class="text-primary text-sm">\${{ value.price }}</span>
-                    </div>
+                <ng-template let-value #selecteditem>
+                    @if (value.price) {
+                        <div class="flex align-items-center gap-2">
+                            <span class="font-semibold">{{ value.name }}</span>
+                            <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+                        </div>
+                    } @else {
+                        <span class="font-semibold">{{ value }}</span>
+                    }
                 </ng-template>
             </p-autocomplete>
         </div>
@@ -121,11 +125,15 @@ export class AdvancedChipsDoc implements OnInit {
             <span class="font-bold sm:ml-8">\${{ product.price }}</span>
         </div>
     </ng-template>
-    <ng-template let-value #chip>
-        <div class="flex align-items-center gap-2">
-            <span class="font-semibold">{{ value.name }}</span>
-            <span class="text-primary text-sm">\${{ value.price }}</span>
-        </div>
+    <ng-template let-value #selecteditem>
+        @if (value.price) {
+            <div class="flex align-items-center gap-2">
+                <span class="font-semibold">{{ value.name }}</span>
+                <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+            </div>
+        } @else {
+            <span class="font-semibold">{{ value }}</span>
+        }
     </ng-template>
 </p-autocomplete>`,
 
@@ -153,11 +161,15 @@ export class AdvancedChipsDoc implements OnInit {
                 <span class="font-bold sm:ml-8">\${{ product.price }}</span>
             </div>
         </ng-template>
-        <ng-template let-value #chip>
-            <div class="flex align-items-center gap-2">
-                <span class="font-semibold">{{ value.name }}</span>
-                <span class="text-primary text-sm">\${{ value.price }}</span>
-            </div>
+        <ng-template let-value #selecteditem>
+            @if (value.price) {
+                <div class="flex align-items-center gap-2">
+                    <span class="font-semibold">{{ value.name }}</span>
+                    <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+                </div>
+            } @else {
+                <span class="font-semibold">{{ value }}</span>
+            }
         </ng-template>
     </p-autocomplete>
 </div>`,
