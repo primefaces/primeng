@@ -35,6 +35,13 @@ import { TagModule } from 'primeng/tag';
                             <td>v22</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
+                        <tr>
+                            <td>Directive PT attribute names e.g. ptInputText</td>
+                            <td>v21</td>
+                            <td>PT suffix at the end e.g. pInputTextPT</td>
+                            <td>v22</td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
