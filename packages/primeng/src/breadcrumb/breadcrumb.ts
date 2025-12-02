@@ -6,7 +6,7 @@ import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
 import { ChevronRightIcon, HomeIcon } from 'primeng/icons';
 import { TooltipModule } from 'primeng/tooltip';
-import { BreadcrumbItemClickEvent, BreadcrumbPassThrough } from 'primeng/types/breadcrumb';
+import { BreadcrumbItemClickEvent, BreadcrumbItemTemplateContext, BreadcrumbPassThrough } from 'primeng/types/breadcrumb';
 import { BreadCrumbStyle } from './style/breadcrumbstyle';
 
 const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE');
@@ -211,22 +211,22 @@ export class Breadcrumb extends BaseComponent<BreadcrumbPassThrough> {
     }
 
     /**
-     * Defines template option for item.
+     * Custom item template.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    @ContentChild('item') itemTemplate: TemplateRef<BreadcrumbItemTemplateContext> | undefined;
 
     /**
-     * Defines template option for separator.
+     * Custom separator template.
      * @group Templates
      */
-    @ContentChild('separator') separatorTemplate: TemplateRef<any> | undefined;
+    @ContentChild('separator') separatorTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _separatorTemplate: TemplateRef<any> | undefined;
+    _separatorTemplate: TemplateRef<void> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<BreadcrumbItemTemplateContext> | undefined;
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

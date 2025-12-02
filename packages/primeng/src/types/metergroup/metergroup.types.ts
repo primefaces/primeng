@@ -56,107 +56,104 @@ export interface MeterGroupPassThroughOptions<I = unknown> {
 export type MeterGroupPassThrough<I = unknown> = PassThrough<I, MeterGroupPassThroughOptions<I>>;
 
 /**
+ * Custom label template context.
+ * @group Interface
+ */
+export interface MeterGroupLabelTemplateContext {
+    /**
+     * Array of meter items.
+     */
+    $implicit: MeterItem[];
+    /**
+     * Total percent of the metergroup items.
+     */
+    totalPercent: number;
+    /**
+     * Array of sequential sum of values of metergroup items.
+     */
+    percentages: number[];
+}
+
+/**
+ * Custom meter template context.
+ * @group Interface
+ */
+export interface MeterGroupMeterTemplateContext {
+    /**
+     * Current meter item.
+     */
+    $implicit: MeterItem;
+    /**
+     * Current index of the meter item.
+     */
+    index: number;
+    /**
+     * Current orientation of the component.
+     */
+    orientation: 'horizontal' | 'vertical';
+    /**
+     * Style class of the meter item.
+     */
+    class: string;
+    /**
+     * Size (width/height percentage) of the meter item.
+     */
+    size: string;
+    /**
+     * Total percent of all metergroup items.
+     */
+    totalPercent: number;
+    /**
+     * DataP attributes.
+     */
+    dataP: string;
+}
+
+/**
+ * Custom icon template context.
+ * @group Interface
+ */
+export interface MeterGroupIconTemplateContext {
+    /**
+     * Current meter item.
+     */
+    $implicit: MeterItem;
+    /**
+     * Icon class of the meter item.
+     */
+    icon: string | undefined;
+}
+
+/**
  * Defines valid templates in MeterGroup.
  * @group Templates
  */
 export interface MeterGroupTemplates {
     /**
      * Custom label template.
+     * @param {Object} context - label context.
      */
-    label(context: {
-        /**
-         * Current value of the component.
-         */
-        $implicit?: MeterItem;
-        /**
-         * Total percent of the metergroup items.
-         */
-        totalPercent?: number;
-        /**
-         * Array of sequential sum of values of metergroup items.
-         */
-        percentages?: number;
-    }): TemplateRef<any>;
+    label(context: MeterGroupLabelTemplateContext): TemplateRef<MeterGroupLabelTemplateContext>;
     /**
      * Custom meter item template.
+     * @param {Object} context - meter context.
      */
-    meter(context: {
-        /**
-         * Current value of the component.
-         */
-        $implicit?: MeterItem;
-        /**
-         * Current index of the meter item.
-         */
-        index?: number;
-        /**
-         * Style class of the meter item
-         */
-        class?: string;
-        /**
-         * Current orientation of the component.
-         */
-        orientation?: string;
-        /**
-         * Current width of the meter item.
-         */
-        size?: string;
-        /**
-         * Total percent of the metergroup items
-         */
-        totalPercent?: number;
-        /**
-         * DataP attributes.
-         */
-        dataP?: string;
-    }): TemplateRef<{ $implicit?: MeterItem; index?: number; class?: string; orientation?: string; size?: string; totalPercent?: number; dataP?: string }>;
+    meter(context: MeterGroupMeterTemplateContext): TemplateRef<MeterGroupMeterTemplateContext>;
     /**
      * Custom start template.
+     * @param {Object} context - start context.
      */
-    start(context: {
-        /**
-         * Current value of the component.
-         */
-        $implicit?: MeterItem;
-        /**
-         * Total percent of the metergroup items.
-         */
-        totalPercent?: number;
-        /**
-         * Array of sequential sum of values of metergroup items.
-         */
-        percentages?: number;
-    }): TemplateRef<{ $implicit?: MeterItem; totalPercent?: number; percentages?: number }>;
+    start(context: MeterGroupLabelTemplateContext): TemplateRef<MeterGroupLabelTemplateContext>;
     /**
-     * Custom start template.
+     * Custom end template.
+     * @param {Object} context - end context.
      */
-    end(context: {
-        /**
-         * Current value of the component.
-         */
-        $implicit?: MeterItem;
-        /**
-         * Total percent of the metergroup items.
-         */
-        totalPercent?: number;
-        /**
-         * Array of sequential sum of values of metergroup items.
-         */
-        percentages?: number;
-    }): TemplateRef<{ $implicit?: MeterItem; totalPercent?: number; percentages?: number }>;
+    end(context: MeterGroupLabelTemplateContext): TemplateRef<MeterGroupLabelTemplateContext>;
     /**
      * Custom icon template.
+     * @param {Object} context - icon context.
      */
-    icon(context: {
-        /**
-         * Current value of the component.
-         */
-        $implicit?: MeterItem;
-        /**
-         * Style class of the icon.
-         */
-        class?: string;
-    }): TemplateRef<{ $implicit?: MeterItem; class?: string }>;
+    icon(context: MeterGroupIconTemplateContext): TemplateRef<MeterGroupIconTemplateContext>;
 }
 /**
  * Represents a meter item configuration.

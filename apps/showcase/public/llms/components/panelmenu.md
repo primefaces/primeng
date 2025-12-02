@@ -552,14 +552,14 @@ PanelMenu is a hybrid of Accordion and Tree components.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<PanelMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | model | MenuItem[] | - | An array of menuitems. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | multiple | boolean | false | Whether multiple tabs can be activated at the same time or not. |
-| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. |
-| enterAnimation | InputSignal<string> | 'p-collapsible-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-collapsible-leave' | Leave animation class name. |
+| transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | id | string | - | Current id state as a string. |
 | tabindex | number | 0 | Index of the element in tabbing order. |
 
@@ -590,6 +590,7 @@ PanelMenu is a hybrid of Accordion and Tree components.
 | headerIcon | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the header icon's DOM element. |
 | headerLabel | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the header label's DOM element. |
 | contentContainer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the toggleable content's DOM element. |
+| contentWrapper | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the toggleable content's DOM element. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the menu content's DOM element. |
 | rootList | PassThroughOption<HTMLUListElement, I> | Used to pass attributes to the root list's DOM element. |
 | submenu | PassThroughOption<HTMLUListElement, I> | Used to pass attributes to the submenu's DOM element. |
@@ -599,6 +600,7 @@ PanelMenu is a hybrid of Accordion and Tree components.
 | itemIcon | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the item icon's DOM element. |
 | itemLabel | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the item label's DOM element. |
 | separator | PassThroughOption<HTMLLIElement, I> | Used to pass attributes to the separator's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { Confirmation, PassThrough, PassThroughOption } from 'primeng/api';
 import { DialogPassThrough } from 'primeng/types/dialog';
 import type { ButtonPassThrough } from 'primeng/types/button';
 
@@ -82,36 +82,68 @@ export interface ConfirmDialogPassThroughOptions<I = unknown> {
 export type ConfirmDialogPassThrough<I = unknown> = PassThrough<I, ConfirmDialogPassThroughOptions<I>>;
 
 /**
+ * Custom headless template context.
+ * @group Interface
+ */
+export interface ConfirmDialogHeadlessTemplateContext {
+    /**
+     * Confirmation instance.
+     */
+    $implicit: Confirmation | null | undefined;
+    /**
+     * Callback to accept the confirmation.
+     */
+    onAccept: () => void;
+    /**
+     * Callback to reject the confirmation.
+     */
+    onReject: () => void;
+}
+
+/**
+ * Custom message template context.
+ * @group Interface
+ */
+export interface ConfirmDialogMessageTemplateContext {
+    /**
+     * Confirmation instance.
+     */
+    $implicit: Confirmation | null | undefined;
+}
+
+/**
  * Defines valid templates in ConfirmDialog.
  * @group Templates
  */
 export interface ConfirmDialogTemplates {
     /**
-     * Custom template of header.
+     * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
-     * Custom template of footer.
+     * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
-     * Custom template of message.
+     * Custom message template.
+     * @param {Object} context - message context.
      */
-    message(context: { $implicit?: any }): TemplateRef<any>;
+    message(context: ConfirmDialogMessageTemplateContext): TemplateRef<ConfirmDialogMessageTemplateContext>;
     /**
-     * Custom template of icon.
+     * Custom icon template.
      */
-    icon(): TemplateRef<any>;
+    icon(): TemplateRef<void>;
     /**
-     * Custom template of rejecticon.
+     * Custom reject icon template.
      */
-    rejecticon(): TemplateRef<any>;
+    rejecticon(): TemplateRef<void>;
     /**
-     * Custom template of accepticon.
+     * Custom accept icon template.
      */
-    accepticon(): TemplateRef<any>;
+    accepticon(): TemplateRef<void>;
     /**
-     * Headless template.
+     * Custom headless template.
+     * @param {Object} context - headless context.
      */
-    headless(context: { $implicit?: any }): TemplateRef<any>;
+    headless(context: ConfirmDialogHeadlessTemplateContext): TemplateRef<ConfirmDialogHeadlessTemplateContext>;
 }

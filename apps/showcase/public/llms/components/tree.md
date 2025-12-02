@@ -653,6 +653,7 @@ Tree is used to display hierarchical data.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TreePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | value | any | - | An array of treenodes. |
@@ -719,7 +720,7 @@ Tree is used to display hierarchical data.
 | header | TemplateRef<any> | Header template. |
 | footer | TemplateRef<any> | Footer template. |
 | loader | TemplateRef<any> | Loader template. |
-| emptymessage | TemplateRef<any> | Empty message template. |
+| empty | TemplateRef<any> | Empty message template. |
 | togglericon | TemplateRef<any> | Toggler icon template. |
 | checkboxicon | TemplateRef<any> | Checkbox icon template. |
 | loadingicon | TemplateRef<any> | Loading icon template. |

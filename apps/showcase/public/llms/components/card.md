@@ -73,12 +73,23 @@ Card is a flexible container component.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<CardPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | header | string | - | Header of the card. |
 | subheader | string | - | Subheader of the card. |
 | style | { [klass: string]: any } | - | Inline style of the element. |
 | styleClass | string | - | Class of the element. **(Deprecated)** |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Custom header template. |
+| title | TemplateRef<void> | Custom title template. |
+| subtitle | TemplateRef<void> | Custom subtitle template. |
+| content | TemplateRef<void> | Custom content template. |
+| footer | TemplateRef<void> | Custom footer template. |
 
 ## Pass Through Options
 

@@ -578,6 +578,7 @@ Button is an extension to standard button element with icons and theming.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | type | string | button | Type of the button. |
@@ -619,9 +620,9 @@ Button is an extension to standard button element with icons and theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Template of the content. |
-| loadingicon | TemplateRef<any> | Template of the loading. |
-| icon | TemplateRef<any> | Template of the icon. |
+| content | TemplateRef<void> | Custom content template. |
+| loadingicon | TemplateRef<ButtonLoadingIconTemplateContext> | Custom loading icon template. |
+| icon | TemplateRef<ButtonIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 

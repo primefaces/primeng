@@ -26,7 +26,7 @@ import { Bind } from 'primeng/bind';
 import { BindModule } from 'primeng/bind';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
-import { ToggleButtonPassThrough, ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
+import { ToggleButtonChangeEvent, ToggleButtonContentTemplateContext, ToggleButtonIconTemplateContext, ToggleButtonPassThrough } from 'primeng/types/togglebutton';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 
 const TOGGLEBUTTON_INSTANCE = new InjectionToken<ToggleButton>('TOGGLEBUTTON_INSTANCE');
@@ -191,14 +191,18 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
     @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
     /**
      * Custom icon template.
+     * @param {ToggleButtonIconTemplateContext} context - icon context.
+     * @see {@link ToggleButtonIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('icon', { descendants: false }) iconTemplate: Nullable<TemplateRef<ToggleButtonIconTemplateContext>>;
     /**
      * Custom content template.
+     * @param {ToggleButtonContentTemplateContext} context - content context.
+     * @see {@link ToggleButtonContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<ToggleButtonContentTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -228,9 +232,9 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
         return this.checked === true;
     }
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<ToggleButtonIconTemplateContext> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<ToggleButtonContentTemplateContext> | undefined;
 
     onAfterContentInit() {
         this.templates.forEach((item) => {

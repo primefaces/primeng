@@ -152,82 +152,112 @@ export interface DataViewLayoutChangeEvent {
 }
 
 /**
+ * Custom list template context.
+ * @group Interface
+ */
+export interface DataViewListTemplateContext<T = any> {
+    /**
+     * Rows data for the current page.
+     */
+    $implicit: T[];
+}
+
+/**
+ * Custom grid template context.
+ * @group Interface
+ */
+export interface DataViewGridTemplateContext<T = any> {
+    /**
+     * Rows data for the current page.
+     */
+    $implicit: T[];
+}
+
+/**
+ * Custom paginator left template context.
+ * @group Interface
+ */
+export interface DataViewPaginatorLeftTemplateContext {
+    /**
+     * State of the paginator.
+     */
+    $implicit: DataViewPaginatorState;
+}
+
+/**
+ * Custom paginator right template context.
+ * @group Interface
+ */
+export interface DataViewPaginatorRightTemplateContext {
+    /**
+     * State of the paginator.
+     */
+    $implicit: DataViewPaginatorState;
+}
+
+/**
+ * Custom paginator dropdown item template context.
+ * @group Interface
+ */
+export interface DataViewPaginatorDropdownItemTemplateContext {
+    /**
+     * Dropdown item instance (rows per page option).
+     */
+    $implicit: number;
+}
+
+/**
  * Defines valid templates in DataView.
  * @group Templates
  */
-export interface DataViewTemplates {
+export interface DataViewTemplates<T = any> {
     /**
      * Custom list template.
      * @param {Object} context - data of the DataView.
      */
-    list(context: {
-        /**
-         * Rows data.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    list(context: DataViewListTemplateContext<T>): TemplateRef<DataViewListTemplateContext<T>>;
     /**
      * Custom grid template.
      * @param {Object} context - data of the DataView.
      */
-    grid(context: {
-        /**
-         * Rows data.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    grid(context: DataViewGridTemplateContext<T>): TemplateRef<DataViewGridTemplateContext<T>>;
     /**
      * Custom paginator left template.
      * @param {Object} context - paginator state.
      */
-    paginatorleft(context: {
-        /**
-         * State of the paginator.
-         */
-        $implicit: DataViewPaginatorState;
-    }): TemplateRef<DataViewPaginatorState>;
+    paginatorleft(context: DataViewPaginatorLeftTemplateContext): TemplateRef<DataViewPaginatorLeftTemplateContext>;
     /**
      * Custom paginator right template.
      * @param {Object} context - paginator state.
      */
-    paginatorright(context: {
-        /**
-         * State of the paginator.
-         */
-        $implicit: DataViewPaginatorState;
-    }): TemplateRef<DataViewPaginatorState>;
+    paginatorright(context: DataViewPaginatorRightTemplateContext): TemplateRef<DataViewPaginatorRightTemplateContext>;
     /**
      * Custom paginator dropdown template.
      * @param {Object} context - dropdown item.
      */
-    paginatordropdownitem(context: {
-        /**
-         * Dropdown item instance.
-         */
-        $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+    paginatordropdownitem(context: DataViewPaginatorDropdownItemTemplateContext): TemplateRef<DataViewPaginatorDropdownItemTemplateContext>;
     /**
      * Custom empty message template.
      */
-    emptymessage(): TemplateRef<any>;
+    emptymessage(): TemplateRef<void>;
     /**
      * Custom header template.
      */
-    header(): TemplateRef<any>;
+    header(): TemplateRef<void>;
     /**
      * Custom footer template.
      */
-    footer(): TemplateRef<any>;
+    footer(): TemplateRef<void>;
     /**
      * Custom loading icon template.
      */
-    loadingicon(): TemplateRef<any>;
+    loadingicon(): TemplateRef<void>;
     /**
      * Custom list icon template.
      */
-    listicon(): TemplateRef<any>;
+    listicon(): TemplateRef<void>;
     /**
      * Custom grid icon template.
      */
-    gridicon(): TemplateRef<any>;
+    gridicon(): TemplateRef<void>;
 }

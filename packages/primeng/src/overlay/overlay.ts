@@ -29,6 +29,7 @@ import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MotionModule } from 'primeng/motion';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
+import { OverlayContentTemplateContext } from 'primeng/types/overlay';
 import { OverlayStyle } from './style/overlaystyle';
 
 const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
@@ -352,17 +353,19 @@ export class Overlay extends BaseComponent {
     @ViewChild('content') contentViewChild: ElementRef | undefined;
     /**
      * Content template of the component.
+     * @param {OverlayContentTemplateContext} context - content context.
+     * @see {@link OverlayContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<OverlayContentTemplateContext> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any> | undefined;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     hostAttrSelector = input<string>();
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<OverlayContentTemplateContext> | undefined;
 
     _visible: boolean = false;
 

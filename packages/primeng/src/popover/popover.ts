@@ -31,7 +31,7 @@ import { Bind } from 'primeng/bind';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { PopoverPassThrough } from 'primeng/types/popover';
+import { PopoverContentTemplateContext, PopoverPassThrough } from 'primeng/types/popover';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
@@ -194,13 +194,15 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
     /**
      * Custom content template.
+     * @param {PopoverContentTemplateContext} context - content context.
+     * @see {@link PopoverContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<PopoverContentTemplateContext>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<PopoverContentTemplateContext> | undefined;
 
     destroyCallback: Nullable<Function>;
 

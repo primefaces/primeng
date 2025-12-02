@@ -2502,7 +2502,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         if (!this.documentEditListener) {
             this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
                 if (this.editingCell && !this.selfClick && this.isEditingCellValid()) {
-                    DomHandler.removeClass(this.editingCell, 'p-cell-editing');
+                    !this.$unstyled() && DomHandler.removeClass(this.editingCell, 'p-cell-editing');
                     setAttribute(this.editingCell as HTMLElement, 'data-p-cell-editing', 'false');
                     this.editingCell = null;
                     this.onEditComplete.emit({
@@ -4478,7 +4478,6 @@ export class ReorderableColumn extends BaseComponent {
     selector: '[pEditableColumn]',
     standalone: false,
     host: {
-        '[class]': "cx('root')",
         '[attr.data-p-editable-column]': 'true'
     }
 })
@@ -4584,7 +4583,7 @@ export class EditableColumn extends BaseComponent {
             });
         }
 
-        DomHandler.removeClass(this.dataTable.editingCell, 'p-cell-editing');
+        !this.$unstyled() && DomHandler.removeClass(this.dataTable.editingCell, 'p-cell-editing');
         setAttribute(this.el.nativeElement, 'data-p-cell-editing', 'false');
         this.dataTable.editingCell = null;
         this.dataTable.editingCellData = null;

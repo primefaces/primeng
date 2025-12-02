@@ -39,8 +39,11 @@ import { Ripple } from 'primeng/ripple';
 import { Scroller } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
 import {
+    TreeCheckboxIconTemplateContext,
     TreeFilterEvent,
+    TreeFilterTemplateContext,
     TreeLazyLoadEvent,
+    TreeLoaderTemplateContext,
     TreeNodeCollapseEvent,
     TreeNodeContextMenuSelectEvent,
     TreeNodeDoubleClickEvent,
@@ -50,7 +53,8 @@ import {
     TreeNodeUnSelectEvent,
     TreePassThrough,
     TreeScrollEvent,
-    TreeScrollIndexChangeEvent
+    TreeScrollIndexChangeEvent,
+    TreeTogglerIconTemplateContext
 } from 'primeng/types/tree';
 import { Subscription } from 'rxjs';
 import { TreeStyle } from './style/treestyle';
@@ -1114,55 +1118,63 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      */
     @Output() onFilter: EventEmitter<TreeFilterEvent> = new EventEmitter<TreeFilterEvent>();
     /**
-     * Filter template.
+     * Custom filter template.
+     * @param {TreeFilterTemplateContext} context - filter context.
+     * @see {@link TreeFilterTemplateContext}
      * @group Templates
      */
-    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any>;
+    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<TreeFilterTemplateContext> | undefined;
     /**
-     * Node template.
+     * Custom node template.
      * @group Templates
      */
     @ContentChild('node', { descendants: false }) nodeTemplate: TemplateRef<any> | undefined;
     /**
-     * Header template.
+     * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
     /**
-     * Footer template.
+     * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
     /**
-     * Loader template.
+     * Custom loader template.
+     * @param {TreeLoaderTemplateContext} context - loader context.
+     * @see {@link TreeLoaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('loader', { descendants: false }) loaderTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loader', { descendants: false }) loaderTemplate: TemplateRef<TreeLoaderTemplateContext> | undefined;
     /**
-     * Empty message template.
+     * Custom empty message template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<void> | undefined;
     /**
-     * Toggler icon template.
+     * Custom toggler icon template.
+     * @param {TreeTogglerIconTemplateContext} context - toggler icon context.
+     * @see {@link TreeTogglerIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('togglericon', { descendants: false }) togglerIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('togglericon', { descendants: false }) togglerIconTemplate: TemplateRef<TreeTogglerIconTemplateContext> | undefined;
     /**
-     * Checkbox icon template.
+     * Custom checkbox icon template.
+     * @param {TreeCheckboxIconTemplateContext} context - checkbox icon context.
+     * @see {@link TreeCheckboxIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('checkboxicon', { descendants: false }) checkboxIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('checkboxicon', { descendants: false }) checkboxIconTemplate: TemplateRef<TreeCheckboxIconTemplateContext> | undefined;
     /**
-     * Loading icon template.
+     * Custom loading icon template.
      * @group Templates
      */
-    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('loadingicon', { descendants: false }) loadingIconTemplate: TemplateRef<void> | undefined;
     /**
-     * Filter icon template.
+     * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<void> | undefined;
 
     @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
 
@@ -1174,23 +1186,23 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     @ContentChildren(PrimeTemplate) private templates: QueryList<PrimeTemplate> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _emptyTemplate: TemplateRef<any> | undefined;
+    _emptyTemplate: TemplateRef<void> | undefined;
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _loaderTemplate: TemplateRef<any> | undefined;
+    _loaderTemplate: TemplateRef<TreeLoaderTemplateContext> | undefined;
 
-    _togglerIconTemplate: TemplateRef<any> | undefined;
+    _togglerIconTemplate: TemplateRef<TreeTogglerIconTemplateContext> | undefined;
 
-    _checkboxIconTemplate: TemplateRef<any> | undefined;
+    _checkboxIconTemplate: TemplateRef<TreeCheckboxIconTemplateContext> | undefined;
 
-    _loadingIconTemplate: TemplateRef<any> | undefined;
+    _loadingIconTemplate: TemplateRef<void> | undefined;
 
-    _filterIconTemplate: TemplateRef<any> | undefined;
+    _filterIconTemplate: TemplateRef<void> | undefined;
 
-    _filterTemplate: TemplateRef<any> | undefined;
+    _filterTemplate: TemplateRef<TreeFilterTemplateContext> | undefined;
 
     onAfterContentInit() {
         if ((this.templates as QueryList<PrimeTemplate>).length) {

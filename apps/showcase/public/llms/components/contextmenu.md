@@ -445,6 +445,7 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<ContextMenuPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | model | MenuItem[] | - | An array of menuitems. |
@@ -461,8 +462,7 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 | ariaLabelledBy | string | - | Identifier of the underlying input element. |
 | pressDelay | number | 500 | Press delay in touch devices as miliseconds. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| enterAnimation | InputSignal<string> | 'p-contextmenu-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-contextmenu-leave' | Leave animation class name. |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 
 ### Emits
 
@@ -492,6 +492,7 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 | itemIcon | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the item icon's DOM element. |
 | itemLabel | PassThroughOption<HTMLSpanElement, I> | Used to pass attributes to the item label's DOM element. |
 | submenuIcon | PassThroughOption<SVGElement, I> | Used to pass attributes to the submenu icon's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

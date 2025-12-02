@@ -26,7 +26,7 @@ import { Bind } from 'primeng/bind';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
-import { DockPassThrough } from 'primeng/types/dock';
+import { DockItemTemplateContext, DockPassThrough } from 'primeng/types/dock';
 import { DockStyle } from './style/dockstyle';
 
 const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
@@ -222,9 +222,14 @@ export class Dock extends BaseComponent<DockPassThrough> {
         this.unbindMatchMediaListener();
     }
 
-    @ContentChild('item') itemTemplate: TemplateRef<any> | undefined;
+    /**
+     * Custom item template.
+     * @param {DockItemTemplateContext} context - item template context.
+     * @group Templates
+     */
+    @ContentChild('item') itemTemplate: TemplateRef<DockItemTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<DockItemTemplateContext> | undefined;
 
     getItemId(item, index) {
         return item && item?.id ? item.id : `${index}`;

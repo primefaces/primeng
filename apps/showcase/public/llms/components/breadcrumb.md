@@ -102,6 +102,7 @@ Breadcrumb provides contextual information about page hierarchy.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<BreadcrumbPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | model | MenuItem[] | - | An array of menuitems. |
@@ -120,8 +121,8 @@ Breadcrumb provides contextual information about page hierarchy.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Defines template option for item. |
-| separator | TemplateRef<any> | Defines template option for separator. |
+| item | TemplateRef<BreadcrumbItemTemplateContext> | Custom item template. |
+| separator | TemplateRef<void> | Custom separator template. |
 
 ## Pass Through Options
 

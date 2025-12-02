@@ -59,12 +59,12 @@ export interface SplitterResizeStartEvent {
 export interface SplitterResizeEndEvent extends SplitterResizeStartEvent {}
 
 /**
- * Defines valid templates in Panel.
+ * Defines valid templates in Splitter.
  * @group Templates
  */
 export interface SplitterTemplates {
     /**
      * Custom panel template.
      */
-    panel(): TemplateRef<any>;
+    panel(): TemplateRef<void>;
 }

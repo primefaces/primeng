@@ -32,6 +32,8 @@ import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import {
     PickListFilterOptions,
+    PickListFilterTemplateContext,
+    PickListItemTemplateContext,
     PickListMoveAllToSourceEvent,
     PickListMoveAllToTargetEvent,
     PickListMoveToSourceEvent,
@@ -41,7 +43,8 @@ import {
     PickListSourceSelectEvent,
     PickListTargetFilterEvent,
     PickListTargetReorderEvent,
-    PickListTargetSelectEvent
+    PickListTargetSelectEvent,
+    PickListTransferIconTemplateContext
 } from 'primeng/types/picklist';
 import { PickListStyle } from './style/pickliststyle';
 
@@ -938,157 +941,171 @@ export class PickList extends BaseComponent {
 
     /**
      * Custom item template.
+     * @param {PickListItemTemplateContext} context - item context.
+     * @see {@link PickListItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any>;
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<PickListItemTemplateContext>;
 
     /**
      * Custom source header template.
      * @group Templates
      */
-    @ContentChild('sourceHeader', { descendants: false }) sourceHeaderTemplate: TemplateRef<any>;
+    @ContentChild('sourceHeader', { descendants: false }) sourceHeaderTemplate: TemplateRef<void>;
 
     /**
      * Custom target header template.
      * @group Templates
      */
-    @ContentChild('targetHeader', { descendants: false }) targetHeaderTemplate: TemplateRef<any>;
+    @ContentChild('targetHeader', { descendants: false }) targetHeaderTemplate: TemplateRef<void>;
 
     /**
      * Custom source filter template.
+     * @param {PickListFilterTemplateContext} context - filter context.
+     * @see {@link PickListFilterTemplateContext}
      * @group Templates
      */
-    @ContentChild('sourceFilter', { descendants: false }) sourceFilterTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+    @ContentChild('sourceFilter', { descendants: false }) sourceFilterTemplate: TemplateRef<PickListFilterTemplateContext>;
 
     /**
      * Custom target filter template.
+     * @param {PickListFilterTemplateContext} context - filter context.
+     * @see {@link PickListFilterTemplateContext}
      * @group Templates
      */
-    @ContentChild('targetFilter', { descendants: false }) targetFilterTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+    @ContentChild('targetFilter', { descendants: false }) targetFilterTemplate: TemplateRef<PickListFilterTemplateContext>;
 
     /**
      * Custom empty message when source is empty template.
      * @group Templates
      */
-    @ContentChild('emptymessagesource', { descendants: false }) emptyMessageSourceTemplate: TemplateRef<any>;
+    @ContentChild('emptymessagesource', { descendants: false }) emptyMessageSourceTemplate: TemplateRef<void>;
 
     /**
      * Custom empty filter message when source is empty template.
      * @group Templates
      */
-    @ContentChild('emptyfiltermessagesource', { descendants: false }) emptyFilterMessageSourceTemplate: TemplateRef<any>;
+    @ContentChild('emptyfiltermessagesource', { descendants: false }) emptyFilterMessageSourceTemplate: TemplateRef<void>;
 
     /**
      * Custom empty message when target is empty template.
      * @group Templates
      */
-    @ContentChild('emptymessagetarget', { descendants: false }) emptyMessageTargetTemplate: TemplateRef<any>;
+    @ContentChild('emptymessagetarget', { descendants: false }) emptyMessageTargetTemplate: TemplateRef<void>;
 
     /**
      * Custom empty filter message when target is empty template.
      * @group Templates
      */
-    @ContentChild('emptyfiltermessagetarget', { descendants: false }) emptyFilterMessageTargetTemplate: TemplateRef<any>;
+    @ContentChild('emptyfiltermessagetarget', { descendants: false }) emptyFilterMessageTargetTemplate: TemplateRef<void>;
 
     /**
      * Custom move up icon template.
      * @group Templates
      */
-    @ContentChild('moveupicon', { descendants: false }) moveUpIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('moveupicon', { descendants: false }) moveUpIconTemplate: TemplateRef<void>;
 
     /**
      * Custom move top icon template.
      * @group Templates
      */
-    @ContentChild('movetopicon', { descendants: false }) moveTopIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movetopicon', { descendants: false }) moveTopIconTemplate: TemplateRef<void>;
 
     /**
      * Custom move down icon template.
      * @group Templates
      */
-    @ContentChild('movedownicon', { descendants: false }) moveDownIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movedownicon', { descendants: false }) moveDownIconTemplate: TemplateRef<void>;
 
     /**
      * Custom move bottom icon template.
      * @group Templates
      */
-    @ContentChild('movebottomicon', { descendants: false }) moveBottomIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movebottomicon', { descendants: false }) moveBottomIconTemplate: TemplateRef<void>;
 
     /**
      * Custom move to target icon template.
+     * @param {PickListTransferIconTemplateContext} context - icon context.
+     * @see {@link PickListTransferIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('movetotargeticon', { descendants: false }) moveToTargetIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movetotargeticon', { descendants: false }) moveToTargetIconTemplate: TemplateRef<PickListTransferIconTemplateContext>;
 
     /**
      * Custom move all to target icon template.
+     * @param {PickListTransferIconTemplateContext} context - icon context.
+     * @see {@link PickListTransferIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('movealltotargeticon', { descendants: false }) moveAllToTargetIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movealltotargeticon', { descendants: false }) moveAllToTargetIconTemplate: TemplateRef<PickListTransferIconTemplateContext>;
 
     /**
      * Custom move to source icon template.
+     * @param {PickListTransferIconTemplateContext} context - icon context.
+     * @see {@link PickListTransferIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('movetosourceicon', { descendants: false }) moveToSourceIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movetosourceicon', { descendants: false }) moveToSourceIconTemplate: TemplateRef<PickListTransferIconTemplateContext>;
 
     /**
      * Custom move all to source icon template.
+     * @param {PickListTransferIconTemplateContext} context - icon context.
+     * @see {@link PickListTransferIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('movealltosourceicon', { descendants: false }) moveAllToSourceIconTemplate: TemplateRef<{ $implicit: boolean }>;
+    @ContentChild('movealltosourceicon', { descendants: false }) moveAllToSourceIconTemplate: TemplateRef<PickListTransferIconTemplateContext>;
 
     /**
      * Custom target filter icon template.
      * @group Templates
      */
-    @ContentChild('targetfiltericon', { descendants: false }) targetFilterIconTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+    @ContentChild('targetfiltericon', { descendants: false }) targetFilterIconTemplate: TemplateRef<void>;
 
     /**
      * Custom source filter icon template.
      * @group Templates
      */
-    @ContentChild('sourcefiltericon', { descendants: false }) sourceFilterIconTemplate: TemplateRef<{ options: PickListFilterOptions }>;
+    @ContentChild('sourcefiltericon', { descendants: false }) sourceFilterIconTemplate: TemplateRef<void>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<PickListItemTemplateContext> | undefined;
 
-    _sourceHeaderTemplate: TemplateRef<any> | undefined;
+    _sourceHeaderTemplate: TemplateRef<void> | undefined;
 
-    _targetHeaderTemplate: TemplateRef<any> | undefined;
+    _targetHeaderTemplate: TemplateRef<void> | undefined;
 
-    _sourceFilterTemplate: TemplateRef<any> | undefined;
+    _sourceFilterTemplate: TemplateRef<PickListFilterTemplateContext> | undefined;
 
-    _targetFilterTemplate: TemplateRef<any> | undefined;
+    _targetFilterTemplate: TemplateRef<PickListFilterTemplateContext> | undefined;
 
-    _emptyMessageSourceTemplate: TemplateRef<any> | undefined;
+    _emptyMessageSourceTemplate: TemplateRef<void> | undefined;
 
-    _emptyFilterMessageSourceTemplate: TemplateRef<any> | undefined;
+    _emptyFilterMessageSourceTemplate: TemplateRef<void> | undefined;
 
-    _emptyMessageTargetTemplate: TemplateRef<any> | undefined;
+    _emptyMessageTargetTemplate: TemplateRef<void> | undefined;
 
-    _emptyFilterMessageTargetTemplate: TemplateRef<any> | undefined;
+    _emptyFilterMessageTargetTemplate: TemplateRef<void> | undefined;
 
-    _moveUpIconTemplate: TemplateRef<any> | undefined;
+    _moveUpIconTemplate: TemplateRef<void> | undefined;
 
-    _moveTopIconTemplate: TemplateRef<any> | undefined;
+    _moveTopIconTemplate: TemplateRef<void> | undefined;
 
-    _moveDownIconTemplate: TemplateRef<any> | undefined;
+    _moveDownIconTemplate: TemplateRef<void> | undefined;
 
-    _moveBottomIconTemplate: TemplateRef<any> | undefined;
+    _moveBottomIconTemplate: TemplateRef<void> | undefined;
 
-    _moveToTargetIconTemplate: TemplateRef<any> | undefined;
+    _moveToTargetIconTemplate: TemplateRef<PickListTransferIconTemplateContext> | undefined;
 
-    _moveAllToTargetIconTemplate: TemplateRef<any> | undefined;
+    _moveAllToTargetIconTemplate: TemplateRef<PickListTransferIconTemplateContext> | undefined;
 
-    _moveToSourceIconTemplate: TemplateRef<any> | undefined;
+    _moveToSourceIconTemplate: TemplateRef<PickListTransferIconTemplateContext> | undefined;
 
-    _moveAllToSourceIconTemplate: TemplateRef<any> | undefined;
+    _moveAllToSourceIconTemplate: TemplateRef<PickListTransferIconTemplateContext> | undefined;
 
-    _targetFilterIconTemplate: TemplateRef<any> | undefined;
+    _targetFilterIconTemplate: TemplateRef<void> | undefined;
 
-    _sourceFilterIconTemplate: TemplateRef<any> | undefined;
+    _sourceFilterIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

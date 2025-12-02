@@ -507,6 +507,7 @@ Dialog is a container to display content in an overlay window.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<DialogPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | header | string | - | Title text of the dialog. |
@@ -533,7 +534,9 @@ Dialog is a container to display content in an overlay window.
 | maximizable | boolean | false | Whether the dialog can be displayed full screen. |
 | keepInViewport | boolean | true | Keeps dialog in the viewport. |
 | focusTrap | boolean | true | When enabled, can only focus on elements inside the dialog. |
-| transitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the animation. |
+| transitionOptions | string | 150ms cubic-bezier(0, 0, 0.2, 1) | Transition options of the animation. **(Deprecated)** |
+| maskMotionOptions | InputSignal<MotionOptions> | ... | The motion options for the mask. |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | closeIcon | string | - | Name of the close icon. |
 | closeAriaLabel | string | - | Defines a string that labels the close button for accessibility. |
 | closeTabindex | string | 0 | Index of the close button in tabbing order. |
@@ -552,8 +555,6 @@ Dialog is a container to display content in an overlay window.
 | maximizeIconTemplate | TemplateRef<any> | - | Maximize icon template. |
 | minimizeIconTemplate | TemplateRef<any> | - | Minimize icon template. |
 | headlessTemplate | TemplateRef<any> | - | Headless template. |
-| enterAnimation | InputSignal<string> | 'p-dialog-enter' | Enter animation class name. |
-| leaveAnimation | InputSignal<string> | 'p-dialog-leave' | Leave animation class name. |
 
 ### Emits
 
@@ -583,6 +584,7 @@ Dialog is a container to display content in an overlay window.
 | pcCloseButton | ButtonPassThrough | Used to pass attributes to the close Button component. |
 | content | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the content's DOM element. |
 | footer | PassThroughOption<HTMLDivElement, I> | Used to pass attributes to the footer's DOM element. |
+| motion | MotionOptions | Used to pass options to the motion component/directive. |
 
 ## Theming
 

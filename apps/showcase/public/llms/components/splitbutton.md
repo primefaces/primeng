@@ -863,6 +863,7 @@ SplitButton groups a set of commands in an overlay with a default command.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | dt | InputSignal<Object> | undefined | Defines scoped design tokens of the component. |
+| unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<SplitButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | model | MenuItem[] | - | MenuModel instance to define the overlay items. |
@@ -882,11 +883,12 @@ SplitButton groups a set of commands in an overlay with a default command.
 | menuStyle | { [klass: string]: any } | - | Inline style of the overlay menu. |
 | menuStyleClass | string | - | Style class of the overlay menu. |
 | dropdownIcon | string | - | Name of the dropdown icon. |
-| appendTo | any | body | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+| appendTo | InputSignal<any> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | dir | string | - | Indicates the direction of the element. |
 | expandAriaLabel | string | - | Defines a string that labels the expand button for accessibility. |
-| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. |
-| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. |
+| showTransitionOptions | string | .12s cubic-bezier(0, 0, 0.2, 1) | Transition options of the show animation. **(Deprecated)** |
+| hideTransitionOptions | string | .1s linear | Transition options of the hide animation. **(Deprecated)** |
+| motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
 | disabled | boolean | - | When present, it specifies that the element should be disabled. |
 | tabindex | number | - | Index of the element in tabbing order. |

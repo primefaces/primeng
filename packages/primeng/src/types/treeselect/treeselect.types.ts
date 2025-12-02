@@ -140,78 +140,117 @@ export interface TreeSelectNodeCollapseEvent {
  */
 export interface TreeSelectNodeExpandEvent extends TreeSelectNodeCollapseEvent {}
 /**
+ * Custom value template context.
+ * @group Interface
+ */
+export interface TreeSelectValueTemplateContext {
+    /**
+     * Value of the component.
+     */
+    $implicit: any;
+    /**
+     * Placeholder of the component.
+     */
+    placeholder: string | undefined;
+}
+
+/**
+ * Custom header/footer template context.
+ * @group Interface
+ */
+export interface TreeSelectHeaderTemplateContext {
+    /**
+     * Value of the component.
+     */
+    $implicit: any;
+    /**
+     * Options of the component.
+     */
+    options: TreeNode<any>[] | undefined;
+}
+
+/**
+ * Custom item toggler icon template context.
+ * @group Interface
+ */
+export interface TreeSelectItemTogglerIconTemplateContext {
+    /**
+     * Expanded state of the node.
+     */
+    $implicit: boolean;
+}
+
+/**
+ * Custom item checkbox icon template context.
+ * @group Interface
+ */
+export interface TreeSelectItemCheckboxIconTemplateContext {
+    /**
+     * Selected state of the node.
+     */
+    $implicit: boolean;
+    /**
+     * Partial selection state of the node.
+     */
+    partialSelected: boolean;
+}
+
+/**
  * Defines valid templates in TreeSelect.
  * @group Templates
  */
 export interface TreeSelectTemplates {
     /**
      * Custom value template.
-     * @param {Object} context - value data.
+     * @param {TreeSelectValueTemplateContext} context - value context.
      */
-    value(context: {
-        /**
-         * Value of the component.
-         */
-        $implicit: TreeNode<any> | null;
-        /**
-         * Placeholder of the component.
-         */
-        placeholder: string;
-    }): TemplateRef<{ $implicit: TreeNode<any> | null; placeholder: string }>;
+    value(context: TreeSelectValueTemplateContext): TemplateRef<TreeSelectValueTemplateContext>;
     /**
      * Custom header template.
-     * @param {Object} context - header data.
+     * @param {TreeSelectHeaderTemplateContext} context - header context.
      */
-    header(context: {
-        /**
-         * Value of the component.
-         */
-        $implicit: TreeNode<any> | null | undefined;
-        /**
-         * Placeholder of the component.
-         */
-        options: TreeNode<any>[] | undefined;
-    }): TemplateRef<{ $implicit: TreeNode<any> | null; options: TreeNode[] | null | undefined }>;
+    header(context: TreeSelectHeaderTemplateContext): TemplateRef<TreeSelectHeaderTemplateContext>;
+    /**
+     * Custom footer template.
+     * @param {TreeSelectHeaderTemplateContext} context - footer context.
+     */
+    footer(context: TreeSelectHeaderTemplateContext): TemplateRef<TreeSelectHeaderTemplateContext>;
     /**
      * Custom empty template.
      */
-    empty(): TemplateRef<any>;
-    /**
-     * Custom footer template.
-     */
-    footer(): TemplateRef<any>;
+    empty(): TemplateRef<void>;
     /**
      * Custom clear icon template.
      */
-    clearicon(): TemplateRef<any>;
+    clearicon(): TemplateRef<void>;
     /**
      * Custom dropdown trigger icon template.
      */
-    triggericon(): TemplateRef<any>;
+    triggericon(): TemplateRef<void>;
+    /**
+     * Custom dropdown icon template.
+     */
+    dropdownicon(): TemplateRef<void>;
     /**
      * Custom filter icon template.
      */
-    filtericon(): TemplateRef<any>;
+    filtericon(): TemplateRef<void>;
     /**
      * Custom close icon template.
      */
-    closeicon(): TemplateRef<any>;
+    closeicon(): TemplateRef<void>;
     /**
-     * Custom node toggler template.
-     * @param {Object} context - toggler icon data.
+     * Custom item toggler icon template.
+     * @param {TreeSelectItemTogglerIconTemplateContext} context - toggler icon context.
      */
-    itemtogglericon(context: {
-        /**
-         * Expanded state of the node.
-         */
-        $implicit: boolean;
-    }): TemplateRef<{ $implicit: TreeNode<any> | null }>;
+    itemtogglericon(context: TreeSelectItemTogglerIconTemplateContext): TemplateRef<TreeSelectItemTogglerIconTemplateContext>;
     /**
-     * Custom node checkbox icon template.
+     * Custom item checkbox icon template.
+     * @param {TreeSelectItemCheckboxIconTemplateContext} context - checkbox icon context.
      */
-    itemcheckboxicon(): TemplateRef<any>;
+    itemcheckboxicon(context: TreeSelectItemCheckboxIconTemplateContext): TemplateRef<TreeSelectItemCheckboxIconTemplateContext>;
     /**
-     * Custom loading icon template.
+     * Custom item loading icon template.
      */
-    itemloadingicon(): TemplateRef<any>;
+    itemloadingicon(): TemplateRef<void>;
 }
