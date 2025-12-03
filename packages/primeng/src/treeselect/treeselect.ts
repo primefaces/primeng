@@ -659,7 +659,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     listId: string = '';
 
-    @HostListener('click', ['$event'])
+    @HostListener('mousedown', ['$event'])
     onHostClick(event: MouseEvent) {
         this.onClick(event);
     }

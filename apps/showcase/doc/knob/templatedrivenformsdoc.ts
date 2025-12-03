@@ -1,13 +1,13 @@
-import { Code } from '@/domain/code';
-import { Component, inject } from '@angular/core';
-import { NgForm, FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { KnobModule } from 'primeng/knob';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component, inject } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { KnobModule } from 'primeng/knob';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'template-driven-forms-doc',
@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
         <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
                 <div class="flex flex-col items-center gap-1">
                     <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
                     @if (isInvalid(model)) {
@@ -71,7 +71,7 @@ export class TemplateDrivenFormsDoc {
     }
 
     code: Code = {
-        basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+        basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
     <div class="flex flex-col items-center gap-1">
         <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
         @if (isInvalid(model)) {
@@ -83,7 +83,7 @@ export class TemplateDrivenFormsDoc {
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
         <div class="flex flex-col items-center gap-1">
             <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
             @if (isInvalid(model)) {

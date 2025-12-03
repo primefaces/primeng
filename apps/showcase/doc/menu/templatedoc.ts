@@ -60,7 +60,7 @@ import { Ripple } from 'primeng/ripple';
                     <span class="text-primary font-bold">{{ item.label }}</span>
                 </ng-template>
                 <ng-template #item let-item>
-                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class.text-red-500]="item.label === 'Logout'">
+                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
@@ -120,7 +120,8 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
-                        shortcut: '⌘+Q'
+                        shortcut: '⌘+Q',
+                        linkClass: '!text-red-500 dark:!text-red-400'
                     }
                 ]
             },
@@ -146,7 +147,7 @@ export class TemplateDoc implements OnInit {
         <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
     <ng-template #item let-item>
-        <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class.text-red-500]="item.label === 'Logout'">
+        <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
             <span [class]="item.icon"></span>
             <span class="ms-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
@@ -240,7 +241,7 @@ export class TemplateDoc implements OnInit {
             <span class="text-primary font-bold">{{ item.label }}</span>
         </ng-template>
         <ng-template #item let-item>
-            <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class.text-red-500]="item.label === 'Logout'">
+            <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
                 <span [class]="item.icon"></span>
                 <span class="ms-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
@@ -311,7 +312,8 @@ export class MenuTemplateDemo implements OnInit {
                     {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
-                        shortcut: '⌘+Q'
+                        shortcut: '⌘+Q',
+                        linkClass: '!text-red-500 dark:!text-red-400'
                     }
                 ]
             },

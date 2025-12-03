@@ -130,16 +130,14 @@ export class TreeTableService {
     selector: 'p-treeTable, p-treetable, p-tree-table',
     standalone: false,
     template: `
-        <div [pBind]="ptm('loading')" [class]="cx('loading')" *ngIf="loading && showLoader" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">
-            <div [pBind]="ptm('mask')" [class]="cx('mask')">
-                <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
-                <ng-container *ngIf="!loadingIcon">
-                    <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
-                    <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
-                        <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
-                    </span>
-                </ng-container>
-            </div>
+        <div [pBind]="ptm('mask')" [class]="cx('mask')" *ngIf="loading && showLoader" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">
+            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
+            <ng-container *ngIf="!loadingIcon">
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
+                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
+                </span>
+            </ng-container>
         </div>
         <div [pBind]="ptm('header')" *ngIf="captionTemplate || _captionTemplate" [class]="cx('header')">
             <ng-container *ngTemplateOutlet="captionTemplate || _captionTemplate"></ng-container>
