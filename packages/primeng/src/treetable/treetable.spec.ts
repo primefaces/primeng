@@ -2417,7 +2417,7 @@ describe('TreeTable', () => {
                     });
 
                     // Test contextMenuSelectionMode
-                    (['separate', 'joint'] as const).forEach((mode) => {
+                    ['separate', 'joint'].forEach((mode) => {
                         if (dynamicTreetable.hasOwnProperty('contextMenuSelectionMode')) {
                             dynamicTreetable.contextMenuSelectionMode = mode;
                             dynamicFixture.changeDetectorRef.markForCheck();
