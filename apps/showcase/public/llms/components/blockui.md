@@ -11,8 +11,8 @@ Screen Reader BlockUI manages aria-busy state attribute when the UI gets blocked
 The element to block should be placed as a child of BlockUI and blocked property is required to control the state.
 
 ```html
-<p-button label="Block" (click)="blockedPanel = true" />
-<p-button label="Unblock" (click)="blockedPanel = false" />
+<p-button label="Block" (click)="blockedPanel = true" class="me-2" severity="secondary" />
+<p-button label="Unblock" (click)="blockedPanel = false" severity="secondary" />
 <p-blockui [target]="pnl" [blocked]="blockedPanel" />
 <p-panel #pnl header="Header" class="mt-6">
     <p class="m-0">
