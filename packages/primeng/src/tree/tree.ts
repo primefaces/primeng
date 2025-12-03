@@ -1409,11 +1409,6 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
             return;
         }
 
-        // Clear contextMenuSelection on left click
-        if (this.contextMenuSelection() !== null) {
-            this.contextMenuSelection.set(null);
-        }
-
         if (this.selectionMode) {
             if (node.selectable === false) {
                 node.style = '--p-focus-ring-color: none;';
@@ -1524,10 +1519,20 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
             let index = this.findIndexInSelection(node);
             let isNodeSelected = index >= 0;
 
+            const onContextMenuCallback = () => {
+                this.contextMenu.show(event);
+                this.contextMenu.hideCallback = () => {
+                    this.contextMenuSelection.set(null);
+                };
+
+                this.onNodeContextMenuSelect.emit({ originalEvent: event, node: node });
+            };
+
             if (this.contextMenuSelectionMode === 'separate') {
                 // In 'separate' mode: Update contextMenuSelection with clicked node, don't modify selection
                 this.contextMenuSelection.set(node);
-            } else {
+                onContextMenuCallback();
+            } else if (this.contextMenuSelectionMode === 'joint') {
                 // In 'joint' mode: Update only selection, don't touch contextMenuSelection
                 if (!isNodeSelected) {
                     if (this.isSingleSelectionMode()) {
@@ -1537,10 +1542,9 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                     }
                 }
                 // If already selected, keep current selection as is
-            }
 
-            this.contextMenu.show(event);
-            this.onNodeContextMenuSelect.emit({ originalEvent: event, node: node });
+                onContextMenuCallback();
+            }
         }
     }
 

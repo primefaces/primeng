@@ -636,6 +636,8 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
 
     pressTimer: any;
 
+    hideCallback: any;
+
     private matchMediaListener: (() => void) | null;
 
     private query: MediaQueryList;
@@ -1168,6 +1170,8 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
     hide() {
         this.visible.set(false);
         this.onHide.emit();
+
+        this.hideCallback?.();
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
     }
