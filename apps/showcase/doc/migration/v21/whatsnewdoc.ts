@@ -16,6 +16,11 @@ import { RouterModule } from '@angular/router';
                 <li class="py-1">Initial zoneless support for improved performance.</li>
                 <li class="py-1"><a routerLink="/llms" class="text-primary font-medium hover:underline">AI-enhanced documentation</a> for better developer experience.</li>
             </ul>
+            <h3>Notes</h3>
+            <ul class="leading-normal px-10 list-disc">
+                <li class="py-1">The internal packages <i>@primeuix/styles</i> and <i>@primeuix/themes</i> should be version <i>2.0.1</i> or higher. 
+                These packages are updated automatically with a fresh install. If you encounter any issues with visuals or animations, please verify that you are using the correct versions of these packages.</li>
+            </ul>
         </app-docsectiontext>
     `
 })

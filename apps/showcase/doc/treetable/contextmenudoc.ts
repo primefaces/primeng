@@ -21,7 +21,11 @@ interface Column {
     imports: [CommonModule, TreeTableModule, ToastModule, ContextMenuModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
-            <p>TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> properties to control the selection via the menu.</p>
+            <p>
+                TreeTable has exclusive integration with <i>contextmenu</i> component. In order to attach a menu to a table, add <i>ttContextMenuRow</i> directive to the rows that can be selected with context menu, define a local template variable
+                for the menu and bind it to the <i>contextMenu</i> property of the table. This enables displaying the menu whenever a row is right clicked. A separate <i>contextMenuSelection</i> property is used to get a hold of the right clicked
+                row. For dynamic columns, setting <i>ttContextMenuRowDisabled</i> property as true disables context menu for that particular row.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
