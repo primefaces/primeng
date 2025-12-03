@@ -1409,6 +1409,11 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
             return;
         }
 
+        // Clear contextMenuSelection on left click
+        if (this.contextMenuSelection() !== null) {
+            this.contextMenuSelection.set(null);
+        }
+
         if (this.selectionMode) {
             if (node.selectable === false) {
                 node.style = '--p-focus-ring-color: none;';
