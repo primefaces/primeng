@@ -66,6 +66,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
             [autoZIndex]="autoZIndex"
             [maskStyleClass]="cn(cx('mask'), maskStyleClass)"
             [unstyled]="unstyled()"
+            (onHide)="onDialogHide()"
         >
             @if (headlessTemplate || _headlessTemplate) {
                 <ng-template #headless>
@@ -602,6 +603,9 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
         this.visible = false;
         // Unsubscribe from confirmation events when the dialogue is closed, because events are created when the dialogue is opened.
         this.unsubscribeConfirmationEvents();
+    }
+
+    onDialogHide() {
         this.confirmation = null;
     }
 
