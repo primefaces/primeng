@@ -496,10 +496,10 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      */
     @Output() contextMenuSelectionChange: EventEmitter<any> = new EventEmitter();
     /**
-     *  Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property.
+     * Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in "joint" mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property.
      * @group Props
      */
-    @Input() contextMenuSelectionMode: string = 'separate';
+    @Input() contextMenuSelectionMode: 'separate' | 'joint' = 'separate';
     /**
      * A property to uniquely identify a record in data.
      * @group Props
