@@ -1,9 +1,8 @@
-import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component, model, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model, OnInit, signal } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
@@ -12,47 +11,94 @@ import { TreeModule } from 'primeng/tree';
 @Component({
     selector: 'context-menu-doc',
     standalone: true,
-    imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText, DeferredDemo],
+    imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Tree has exclusive integration with ContextMenu using the <i>contextMenu</i> property to open a menu on right click along with <i>contextMenuSelection</i> property to control the selection via the menu.</p>
+            <p>
+                Tree has exclusive integration with ContextMenu using the <i>contextMenu</i> property. Left-click always updates the <i>selection</i> model. The <i>contextMenuSelectionMode</i> property defines the right-click behavior: in
+                <b>separate</b> mode (default), right-click only updates <i>contextMenuSelection</i> without modifying <i>selection</i>, while in <b>joint</b> mode, right-click only updates <i>selection</i> without modifying
+                <i>contextMenuSelection</i>.
+            </p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card flex flex-wrap gap-4">
             <p-toast [style]="{ marginTop: '80px' }" />
-            <p-deferred-demo (load)="loadDemoData()">
-                <p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
-            </p-deferred-demo>
-            <p-contextmenu #cm [model]="items" />
+            <div class="flex w-full gap-8">
+                <div class="flex flex-1 flex-col gap-2">
+                    <span class="font-semibold">Separate Mode</span>
+                    <p-tree
+                        [value]="files()"
+                        class="flex-1 border border-surface rounded-lg"
+                        selectionMode="single"
+                        [(selection)]="selectedNodeSeparate"
+                        [(contextMenuSelection)]="contextMenuNodeSeparate"
+                        [contextMenu]="cmSeparate"
+                        contextMenuSelectionMode="separate"
+                    />
+                    <p-contextmenu #cmSeparate [model]="itemsSeparate" />
+                    <div class="text-sm mt-2">
+                        <div><b>Selection:</b> {{ selectedNodeSeparate()?.label || 'None' }}</div>
+                        <div><b>Context Menu Selection:</b> {{ contextMenuNodeSeparate()?.label || 'None' }}</div>
+                    </div>
+                </div>
+                <div class="flex flex-1 flex-col gap-2">
+                    <span class="font-semibold">Joint Mode</span>
+                    <p-tree
+                        [value]="files2()"
+                        class="flex-1 border border-surface rounded-lg"
+                        selectionMode="single"
+                        [(selection)]="selectedNodeJoint"
+                        [(contextMenuSelection)]="contextMenuNodeJoint"
+                        [contextMenu]="cmJoint"
+                        contextMenuSelectionMode="joint"
+                    />
+                    <p-contextmenu #cmJoint [model]="itemsJoint" />
+                    <div class="text-sm mt-2">
+                        <div><b>Selection:</b> {{ selectedNodeJoint()?.label || 'None' }}</div>
+                        <div><b>Context Menu Selection:</b> {{ contextMenuNodeJoint()?.label || 'None' }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <app-code [code]="code" selector="tree-context-menu-demo"></app-code>
     `,
     providers: [MessageService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContextMenuDoc {
+export class ContextMenuDoc implements OnInit {
     files = signal<TreeNode[]>([]);
 
-    selectedNode = model<TreeNode | null>(null);
+    files2 = signal<TreeNode[]>([]);
 
-    items!: MenuItem[];
+    selectedNodeSeparate = model<TreeNode | null>(null);
+
+    contextMenuNodeSeparate = model<TreeNode | null>(null);
+
+    selectedNodeJoint = model<TreeNode | null>(null);
+
+    contextMenuNodeJoint = model<TreeNode | null>(null);
+
+    itemsSeparate!: MenuItem[];
+
+    itemsJoint!: MenuItem[];
 
     constructor(
         private nodeService: NodeService,
         private messageService: MessageService
     ) {}
 
-    loadDemoData() {
+    ngOnInit() {
         this.nodeService.getFiles().then((files) => this.files.set(files));
+        this.nodeService.getFiles().then((files) => this.files2.set(files));
 
-        this.items = [
-            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode()) },
-            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode()) },
-            { label: 'Unselect', icon: 'pi pi-times', command: () => this.unselectFile() }
+        this.itemsSeparate = [
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNodeSeparate()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.files, this.contextMenuNodeSeparate()) }
         ];
-    }
 
-    unselectFile() {
-        this.selectedNode.set(null);
+        this.itemsJoint = [
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNodeJoint()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.files2, this.contextMenuNodeJoint()) }
+        ];
     }
 
     viewFile(node: TreeNode | null) {
@@ -61,9 +107,9 @@ export class ContextMenuDoc {
         }
     }
 
-    toggleFile(node: TreeNode | null) {
+    toggleFile(filesSignal: typeof this.files, node: TreeNode | null) {
         if (node) {
-            this.files.set(this.updateNodeInTree(this.files(), node.key, { ...node, expanded: !node.expanded }));
+            filesSignal.set(this.updateNodeInTree(filesSignal(), node.key, { ...node, expanded: !node.expanded }));
         }
     }
 
@@ -80,18 +126,64 @@ export class ContextMenuDoc {
     }
 
     code: Code = {
-        basic: `<p-toast [style]="{ marginTop: '80px' }" />
+        basic: `<!-- Separate Mode (default) -->
+<p-tree
+    [value]="files()"
+    selectionMode="single"
+    [(selection)]="selectedNode"
+    [(contextMenuSelection)]="contextMenuNode"
+    [contextMenu]="cm"
+    contextMenuSelectionMode="separate"
+/>
 
-<p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
+<!-- Joint Mode -->
+<p-tree
+    [value]="files()"
+    selectionMode="single"
+    [(selection)]="selectedNode"
+    [(contextMenuSelection)]="contextMenuNode"
+    [contextMenu]="cm"
+    contextMenuSelectionMode="joint"
+/>`,
 
-<p-contextmenu #cm [model]="items" />`,
-
-        html: `<div class="card">
+        html: `<div class="card flex flex-wrap gap-4">
     <p-toast [style]="{ marginTop: '80px' }" />
-
-    <p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
-
-    <p-contextmenu #cm [model]="items" />
+    <div class="flex w-full gap-8">
+        <div class="flex flex-1 flex-col gap-2">
+            <span class="font-semibold">Separate Mode</span>
+            <p-tree
+                [value]="files()"
+                class="flex-1 border border-surface rounded-lg"
+                selectionMode="single"
+                [(selection)]="selectedNodeSeparate"
+                [(contextMenuSelection)]="contextMenuNodeSeparate"
+                [contextMenu]="cmSeparate"
+                contextMenuSelectionMode="separate"
+            />
+            <p-contextmenu #cmSeparate [model]="itemsSeparate" />
+            <div class="text-sm mt-2">
+                <div><b>Selection:</b> {{ selectedNodeSeparate()?.label || 'None' }}</div>
+                <div><b>Context Menu Selection:</b> {{ contextMenuNodeSeparate()?.label || 'None' }}</div>
+            </div>
+        </div>
+        <div class="flex flex-1 flex-col gap-2">
+            <span class="font-semibold">Joint Mode</span>
+            <p-tree
+                [value]="files2()"
+                class="flex-1 border border-surface rounded-lg"
+                selectionMode="single"
+                [(selection)]="selectedNodeJoint"
+                [(contextMenuSelection)]="contextMenuNodeJoint"
+                [contextMenu]="cmJoint"
+                contextMenuSelectionMode="joint"
+            />
+            <p-contextmenu #cmJoint [model]="itemsJoint" />
+            <div class="text-sm mt-2">
+                <div><b>Selection:</b> {{ selectedNodeJoint()?.label || 'None' }}</div>
+                <div><b>Context Menu Selection:</b> {{ contextMenuNodeJoint()?.label || 'None' }}</div>
+            </div>
+        </div>
+    </div>
 </div>`,
 
         typescript: `import { Component, OnInit, model, signal } from '@angular/core';
@@ -111,9 +203,19 @@ import { ToastModule } from 'primeng/toast';
 export class TreeContextMenuDemo implements OnInit {
     files = signal<TreeNode[]>([]);
 
-    selectedNode = model<TreeNode | null>(null);
+    files2 = signal<TreeNode[]>([]);
 
-    items!: MenuItem[];
+    selectedNodeSeparate = model<TreeNode | null>(null);
+
+    contextMenuNodeSeparate = model<TreeNode | null>(null);
+
+    selectedNodeJoint = model<TreeNode | null>(null);
+
+    contextMenuNodeJoint = model<TreeNode | null>(null);
+
+    itemsSeparate!: MenuItem[];
+
+    itemsJoint!: MenuItem[];
 
     constructor(
         private nodeService: NodeService,
@@ -122,16 +224,17 @@ export class TreeContextMenuDemo implements OnInit {
 
     ngOnInit() {
         this.nodeService.getFiles().then((files) => this.files.set(files));
+        this.nodeService.getFiles().then((files) => this.files2.set(files));
 
-        this.items = [
-            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode()) },
-            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode()) },
-            { label: 'Unselect', icon: 'pi pi-times', command: () => this.unselectFile() }
+        this.itemsSeparate = [
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNodeSeparate()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.files, this.contextMenuNodeSeparate()) }
         ];
-    }
 
-    unselectFile() {
-        this.selectedNode.set(null);
+        this.itemsJoint = [
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNodeJoint()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.files2, this.contextMenuNodeJoint()) }
+        ];
     }
 
     viewFile(node: TreeNode | null) {
@@ -140,9 +243,9 @@ export class TreeContextMenuDemo implements OnInit {
         }
     }
 
-    toggleFile(node: TreeNode | null) {
+    toggleFile(filesSignal: typeof this.files, node: TreeNode | null) {
         if (node) {
-            this.files.set(this.updateNodeInTree(this.files(), node.key, { ...node, expanded: !node.expanded }));
+            filesSignal.set(this.updateNodeInTree(filesSignal(), node.key, { ...node, expanded: !node.expanded }));
         }
     }
 
