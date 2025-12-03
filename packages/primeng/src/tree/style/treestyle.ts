@@ -1,17 +1,6 @@
 import { Injectable } from '@angular/core';
-import { style as tree_style } from '@primeuix/styles/tree';
+import { style } from '@primeuix/styles/tree';
 import { BaseStyle } from 'primeng/base';
-
-const style = /*css*/ `
-${tree_style}
-
-.p-tree-node-content:focus-visible,
-.p-tree-node-content.p-tree-node-contextmenu-selected {
-    box-shadow: dt('tree.node.focus.ring.shadow');
-    outline: dt('tree.node.focus.ring.width') dt('tree.node.focus.ring.style') dt('tree.node.focus.ring.color');
-    outline-offset: dt('tree.node.focus.ring.offset');
-}
-`;
 
 const classes = {
     root: ({ instance }) => [
