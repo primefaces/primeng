@@ -457,7 +457,6 @@ export class ContextMenuSub extends BaseComponent<ContextMenuPassThrough> implem
                 [pMotionOptions]="computedMotionOptions()"
                 (pMotionOnBeforeEnter)="onBeforeEnter($event)"
                 (pMotionOnAfterEnter)="onAfterEnter()"
-                (pMotionOnBeforeLeave)="onBeforeLeave()"
                 (pMotionOnAfterLeave)="onAfterLeave()"
             >
                 <p-contextmenu-sub
@@ -1100,10 +1099,10 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
 
     onBeforeEnter(event: MotionEvent) {
         this.container = event.element as HTMLElement;
-        this.position();
-        this.moveOnTop();
-        this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
         this.appendOverlay();
+        this.moveOnTop();
+        this.position();
+        this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
     }
 
     onAfterEnter() {
@@ -1111,12 +1110,9 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
         focus(this.rootmenu?.sublistViewChild?.nativeElement);
     }
 
-    onBeforeLeave() {
+    onAfterLeave() {
         this.restoreOverlayAppend();
         this.onOverlayHide();
-    }
-
-    onAfterLeave() {
         this.handleSubmenuAfterLeave?.();
         this.render.set(false);
     }
