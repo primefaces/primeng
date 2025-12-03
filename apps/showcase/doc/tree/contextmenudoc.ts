@@ -14,11 +14,7 @@ import { TreeModule } from 'primeng/tree';
     imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>
-                Tree has exclusive integration with ContextMenu using the <i>contextMenu</i> property. Left-click always updates the <i>selection</i> model. The <i>contextMenuSelectionMode</i> property defines the right-click behavior: in
-                <b>separate</b> mode, right-click only updates <i>contextMenuSelection</i> without modifying <i>selection</i>, while in <b>joint</b> mode (default), right-click only updates <i>selection</i> without modifying
-                <i>contextMenuSelection</i>.
-            </p>
+            <p>Tree has exclusive integration with ContextMenu using the <i>contextMenu</i> property along with the <i>contextMenuSelection</i> to manage the selection.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
