@@ -2164,26 +2164,23 @@ export class TableFrozenRowsDemo implements OnInit{
 Enabling showGridlines displays borders between cells.
 
 ```html
-<p-table
-    [value]="products"
-    showGridlines
-    [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-        </ng-template>
+<p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
 </p-table>
 ```
 
@@ -2461,6 +2458,131 @@ export class TableLazyLoadDemo implements OnInit{
             this.selectedCustomers = [];
             this.selectAll = false;
         }
+    }
+}
+```
+</details>
+
+## loadingmaskdoc
+
+The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
+
+```html
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" 
+        [rows]="10" [loading]="loading()" (onPage)="handlePage()">
+    <ng-template #header>
+        <tr>
+            <th style="width:25%">Code</th>
+            <th style="width:25%">Name</th>
+            <th style="width:25%">Category</th>
+            <th style="width:25%">Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { timer } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+
+@Component({
+    selector: 'table-loading-mask-demo',
+    templateUrl: 'table-loading-mask.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
+})
+export class LoadingMaskDemo implements OnInit {
+    
+    products!: Product[];
+
+    loading = signal(false);
+
+    constructor(
+        private productService: ProductService,
+    ) {}
+
+    ngOnInit() {
+        this.productService.getProducts().then((data) => {
+            this.products = data;
+        });
+    }
+
+    handlePage() {
+        this.loading.set(true);
+        timer(500).pipe(
+            finalize(() => this.loading.set(false))
+        ).subscribe();
+    }
+}
+```
+</details>
+
+## loadingskeletondoc
+
+Skeleton component can be used as a placeholder during the loading process.
+
+```html
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+        </tr>
+    </ng-template>
+</p-table>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'primeng/skeleton';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'table-loading-skeleton-demo',
+    templateUrl: 'table-loading-skeleton-demo.html',
+    standalone: true,
+    imports: [CommonModule,TableModule,SkeletonModule]
+})
+export class LoadingSkeletonDemo implements OnInit {
+    products!: Product[];
+
+    ngOnInit() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = Array.from({ length: 10 }).map((_, i) => ({id: i.toString()}));
+        });
     }
 }
 ```

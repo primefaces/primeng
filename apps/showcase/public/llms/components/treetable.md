@@ -1312,6 +1312,160 @@ export class TreeTableLazyLoadDemo implements OnInit{
 ```
 </details>
 
+## loadingmaskdoc
+
+The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
+
+```html
+<p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [scrollable]="true" [loading]="loading()" [tableStyle]="{ 'min-width': '50rem' }" (onPage)="handlePage()">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
+            </td>
+            <td>{{ rowData.size }}</td>
+            <td>{{ rowData.type }}</td>
+        </tr>
+    </ng-template>
+</p-treetable>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
+import { finalize, timer } from 'rxjs';
+
+
+interface Column {
+    field: string;
+    header: string;
+}
+
+@Component({
+    selector: 'tree-table-loading-mask-demo',
+    templateUrl: 'tree-table-loading-mask.html',
+    standalone: true,
+    imports: [TreeTableModule],
+    providers: [ProductService]
+})
+export class LoadingMaskDemo implements OnInit {
+    
+    files!: TreeNode[];
+
+    cols!: Column[];
+
+    loading = signal(false);
+
+    ngOnInit() {
+        this.files = [];
+        
+        for(let i = 0; i < 15; i++) {
+            let node = {
+                data:{
+                    name: 'Item ' + i,
+                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    type: 'Type ' + i
+                },
+                children: [
+                    {
+                        data: {
+                            name: 'Item ' + i + ' - 0',
+                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            type: 'Type ' + i
+                        }
+                    }
+                ]
+            };
+
+            this.files.push(node);
+        }
+
+        this.cols = [
+            { field: 'name', header: 'Name' },
+            { field: 'size', header: 'Size' },
+            { field: 'type', header: 'Type' }
+        ];
+    }
+
+    handlePage() {
+        this.loading.set(true);
+        timer(500)
+            .pipe(finalize(() => this.loading.set(false)))
+            .subscribe();
+    }
+}
+```
+</details>
+
+## loadingskeletondoc
+
+Skeleton component can be used as a placeholder during the loading process.
+
+```html
+<p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+        </tr>
+    </ng-template>
+    <ng-template #body>
+        <tr>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+        </tr>
+    </ng-template>
+</p-treetable>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { NodeService } from '@/service/nodeservice';
+import { Component, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TreeTableModule } from 'primeng/treetable';
+
+@Component({
+    selector: 'tree-table-loading-skeleton-demo',
+    templateUrl: 'tree-table-loading-skeleton.html',
+    standalone: true,
+    imports: [TreeTableModule, SkeletonModule],
+    providers: [NodeService]
+})
+export class LoadingSkeletonDemo implements OnInit {
+    
+    files!: TreeNode[];
+
+    constructor(
+        private nodeService: NodeService,
+    ) {}
+
+    ngOnInit() {
+        this.nodeService.getFilesystem().then((files) => (this.files.set(files)));
+    }
+}
+```
+</details>
+
 ## Basic
 
 Pagination is enabled by adding paginator property and defining rows per page.

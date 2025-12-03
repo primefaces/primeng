@@ -33,12 +33,7 @@ const classes = {
     item: ({ instance, item, i }) => ['p-speeddial-item', { 'p-hidden': item.visible === false, 'p-focus': instance.focusedOptionId == instance.id + '_' + i }],
     pcAction: 'p-speeddial-action',
     actionIcon: 'p-speeddial-action-icon',
-    mask: ({ instance }) => [
-        'p-speeddial-mask',
-        {
-            'p-speeddial-mask-visible': instance.visible
-        }
-    ]
+    mask: 'p-speeddial-mask p-overlay-mask'
 };
 
 @Injectable()

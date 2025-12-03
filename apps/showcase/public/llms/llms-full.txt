@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2025-12-02T17:21:28.373Z
+Generated: 2025-12-03T02:36:23.427Z
 
 ---
 
@@ -424,11 +424,11 @@ Theming PrimeNG with alternative styling approaches.
 
 ## Architecture
 
-The term unstyled is used to define an alternative styling approach instead of the default theming with design tokens. In unstyled mode the css variables of the design tokens and the css rule sets that utilize them are not included. Here is an example of an Unstyled Select, the core functionality and accessibility is provided whereas styling is not included. Unstyled components still need to be styled on your end, in the next sections, we'll cover the styling solutions for both modes.
+The term unstyled is used to define an alternative styling approach instead of the default theming with design tokens. In unstyled mode the css variables of the design tokens and the css rule sets that utilize them are not included. Here is an example of an Unstyled Select, the core functionality and accessibility is provided whereas styling is not included.
 
 ## Example
 
-Here is a sample that styles a button component with Tailwind CSS using pass through attributes. Before beginning, head over to the the pass through section at button documentation to learn more about the components internals section. We'll be using the root , label and icon elements to add a custom style.
+Unstyled components require styling using your preferred approach. We recommend using Tailwind CSS with PassThrough attributes, a combination that works seamlessly together. The tailwindcss-primeui even provides special variants such as p-outlined: , p-vertical for the PrimeNG components. The example below demonstrates how to style a button component with Tailwind CSS using PassThrough attributes. Before you begin, refer to the pass through section in the button documentation to familiarize yourself with the component's internal structure and PassThrough attributes. In this example, we'll target the root , label and icon elements to apply custom styles.
 
 ```html
 <p-button
@@ -473,6 +473,10 @@ export const appConfig: ApplicationConfig = {
 ## Setup
 
 Unstyled mode is enabled for the whole suite by enabling unstyled option during PrimeNG installation. Alternatively even in the default styled mode, a particular component can still be used as unstyled by adding the unstyled prop of the component.
+
+## Voltui
+
+Tailwind CSS is perfect fit for the unstyled mode, PrimeTek has even initiated a new UI library called Volt UI based on the unstyled PrimeVue and Tailwind CSS v4. Volt follows the code ownership model where the components are located in the application codebase rather than node_modules. All components within Volt are essentially wrapped versions of the unstyled equivalents, with an added layer of theming through Tailwind CSS v4. This approach, along with the templating features, offers complete control over the theming and presentation. Volt will also be available for PrimeReact. In the future, PrimeTek may bring Volt to Angular via PrimeNG if there is significant community demand. Currently, Volt-Vue can serve as a reference when styling your unstyled PrimeNG components with Tailwind CSS.
 
 ---
 
@@ -1168,7 +1172,7 @@ Various PrimeNG Components utilize native CSS animations to provide an enhanced 
 
 ## Reference
 
-List of class names of the CSS animations used by the components. Component Enter Class Leave Class Accordion .p-collapsible-enter-active .p-collapsible-leave-active AutoComplete .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active CascadeSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ColorPicker .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ConfirmPopup .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ContextMenu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active DatePicker .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Dialog .p-dialog-enter-active .p-dialog-leave-active Drawer .p-drawer-enter-active .p-drawer-leave-active Fieldset .p-collapsible-enter-active .p-collapsible-leave-active Galleria .p-galleria-enter-active .p-galleria-leave-active Image .p-image-original-enter-active .p-image-original-leave-active Menu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Message .p-message-enter-active .p-message-leave-active MultiSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Panel .p-collapsible-enter-active .p-collapsible-leave-active PanelMenu .p-collapsible-enter-active .p-collapsible-leave-active Password .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Select .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Stepper .p-collapsible-enter-active .p-collapsible-leave-active TieredMenu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Toast .p-toast-message-enter-active .p-toast-message-leave-active TreeSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active
+List of class names of the CSS animations used by the components. Component Enter Class Leave Class Accordion .p-collapsible-enter-active .p-collapsible-leave-active AutoComplete .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active CascadeSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ColorPicker .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ConfirmPopup .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ContextMenu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active DatePicker .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Dialog .p-dialog-enter-active .p-dialog-leave-active Drawer .p-drawer-enter-active .p-drawer-leave-active Fieldset .p-collapsible-enter-active .p-collapsible-leave-active Galleria .p-galleria-enter-active .p-galleria-leave-active Image .p-image-original-enter-active .p-image-original-leave-active Menu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Message .p-message-enter-active .p-message-leave-active Modal Masks .p-overlay-mask-enter-active .p-overlay-mask-leave-active MultiSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Panel .p-collapsible-enter-active .p-collapsible-leave-active PanelMenu .p-collapsible-enter-active .p-collapsible-leave-active Password .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Select .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Stepper .p-collapsible-enter-active .p-collapsible-leave-active TieredMenu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Toast .p-toast-message-enter-active .p-toast-message-leave-active TreeSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active
 
 ---
 
@@ -4117,8 +4121,8 @@ The element to block should be placed as a child of BlockUI and blocked property
 **Basic Usage:**
 
 ```html
-<p-button label="Block" (click)="blockedPanel = true" />
-<p-button label="Unblock" (click)="blockedPanel = false" />
+<p-button label="Block" (click)="blockedPanel = true" class="me-2" severity="secondary" />
+<p-button label="Unblock" (click)="blockedPanel = false" severity="secondary" />
 <p-blockui [target]="pnl" [blocked]="blockedPanel" />
 <p-panel #pnl header="Header" class="mt-6">
     <p class="m-0">
@@ -41334,26 +41338,23 @@ Enabling showGridlines displays borders between cells.
 **Basic Usage:**
 
 ```html
-<p-table
-    [value]="products"
-    showGridlines
-    [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-        </ng-template>
+<p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
 </p-table>
 ```
 
@@ -41715,6 +41716,153 @@ export class TableLazyLoadDemo implements OnInit{
 },
 ...
 ```
+
+## loadingmaskdoc
+
+The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
+
+**Basic Usage:**
+
+```html
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" 
+        [rows]="10" [loading]="loading()" (onPage)="handlePage()">
+    <ng-template #header>
+        <tr>
+            <th style="width:25%">Code</th>
+            <th style="width:25%">Name</th>
+            <th style="width:25%">Category</th>
+            <th style="width:25%">Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { timer } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+
+@Component({
+    selector: 'table-loading-mask-demo',
+    templateUrl: 'table-loading-mask.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
+})
+export class LoadingMaskDemo implements OnInit {
+    
+    products!: Product[];
+
+    loading = signal(false);
+
+    constructor(
+        private productService: ProductService,
+    ) {}
+
+    ngOnInit() {
+        this.productService.getProducts().then((data) => {
+            this.products = data;
+        });
+    }
+
+    handlePage() {
+        this.loading.set(true);
+        timer(500).pipe(
+            finalize(() => this.loading.set(false))
+        ).subscribe();
+    }
+}
+```
+</details>
+
+**Sample Data:**
+
+```json
+{
+    id: '1000',
+    code: 'f230fh0g3',
+    name: 'Bamboo Watch',
+    description: 'Product Description',
+    image: 'bamboo-watch.jpg',
+    price: 65,
+    category: 'Accessories',
+    quantity: 24,
+    inventoryStatus: 'INSTOCK',
+    rating: 5
+},
+...
+```
+
+## loadingskeletondoc
+
+Skeleton component can be used as a placeholder during the loading process.
+
+**Basic Usage:**
+
+```html
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+        </tr>
+    </ng-template>
+</p-table>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'primeng/skeleton';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'table-loading-skeleton-demo',
+    templateUrl: 'table-loading-skeleton-demo.html',
+    standalone: true,
+    imports: [CommonModule,TableModule,SkeletonModule]
+})
+export class LoadingSkeletonDemo implements OnInit {
+    products!: Product[];
+
+    ngOnInit() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = Array.from({ length: 10 }).map((_, i) => ({id: i.toString()}));
+        });
+    }
+}
+```
+</details>
 
 ## multiplecolumnssortdoc
 
@@ -53549,6 +53697,164 @@ export class TreeTableLazyLoadDemo implements OnInit{
             this.files = [...this.files];
             this.cd.markForCheck();
         }, 250);
+    }
+}
+```
+</details>
+
+## loadingmaskdoc
+
+The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
+
+**Basic Usage:**
+
+```html
+<p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [scrollable]="true" [loading]="loading()" [tableStyle]="{ 'min-width': '50rem' }" (onPage)="handlePage()">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
+            </td>
+            <td>{{ rowData.size }}</td>
+            <td>{{ rowData.type }}</td>
+        </tr>
+    </ng-template>
+</p-treetable>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
+import { finalize, timer } from 'rxjs';
+
+
+interface Column {
+    field: string;
+    header: string;
+}
+
+@Component({
+    selector: 'tree-table-loading-mask-demo',
+    templateUrl: 'tree-table-loading-mask.html',
+    standalone: true,
+    imports: [TreeTableModule],
+    providers: [ProductService]
+})
+export class LoadingMaskDemo implements OnInit {
+    
+    files!: TreeNode[];
+
+    cols!: Column[];
+
+    loading = signal(false);
+
+    ngOnInit() {
+        this.files = [];
+        
+        for(let i = 0; i < 15; i++) {
+            let node = {
+                data:{
+                    name: 'Item ' + i,
+                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    type: 'Type ' + i
+                },
+                children: [
+                    {
+                        data: {
+                            name: 'Item ' + i + ' - 0',
+                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            type: 'Type ' + i
+                        }
+                    }
+                ]
+            };
+
+            this.files.push(node);
+        }
+
+        this.cols = [
+            { field: 'name', header: 'Name' },
+            { field: 'size', header: 'Size' },
+            { field: 'type', header: 'Type' }
+        ];
+    }
+
+    handlePage() {
+        this.loading.set(true);
+        timer(500)
+            .pipe(finalize(() => this.loading.set(false)))
+            .subscribe();
+    }
+}
+```
+</details>
+
+## loadingskeletondoc
+
+Skeleton component can be used as a placeholder during the loading process.
+
+**Basic Usage:**
+
+```html
+<p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+        </tr>
+    </ng-template>
+    <ng-template #body>
+        <tr>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+        </tr>
+    </ng-template>
+</p-treetable>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { NodeService } from '@/service/nodeservice';
+import { Component, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TreeTableModule } from 'primeng/treetable';
+
+@Component({
+    selector: 'tree-table-loading-skeleton-demo',
+    templateUrl: 'tree-table-loading-skeleton.html',
+    standalone: true,
+    imports: [TreeTableModule, SkeletonModule],
+    providers: [NodeService]
+})
+export class LoadingSkeletonDemo implements OnInit {
+    
+    files!: TreeNode[];
+
+    constructor(
+        private nodeService: NodeService,
+    ) {}
+
+    ngOnInit() {
+        this.nodeService.getFilesystem().then((files) => (this.files.set(files)));
     }
 }
 ```
