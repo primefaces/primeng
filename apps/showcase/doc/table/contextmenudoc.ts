@@ -1,15 +1,15 @@
-import { DeferredDemo } from '@/components/demo/deferreddemo';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
+import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'context-menu-doc',
@@ -25,7 +25,7 @@ import { ToastModule } from 'primeng/toast';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-                <p-table [value]="products" selectionMode="single" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Code</th>
@@ -87,7 +87,7 @@ export class ContextMenuDoc {
 
     code: Code = {
         basic: `<p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-<p-table [value]="products" selectionMode="single" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
     <ng-template #header>
         <tr>
             <th>Code</th>
@@ -108,7 +108,7 @@ export class ContextMenuDoc {
 <p-toast />`,
         html: `<div class="card">
     <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-    <p-table [value]="products" selectionMode="single" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+    <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
         <ng-template #header>
             <tr>
                 <th>Code</th>
