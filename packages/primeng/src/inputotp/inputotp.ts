@@ -384,7 +384,12 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
                 break;
 
             default:
-                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                const target = event.target;
+                const hasSelection = target.selectionStart !== target.selectionEnd;
+                const isAtMaxLength = this.tokens.join('').length >= this.length;
+                const isValidKey = this.integerOnly ? /^[0-9]$/.test(event.key) : true;
+
+                if (!isValidKey || (isAtMaxLength && event.key !== 'Delete' && !hasSelection)) {
                     event.preventDefault();
                 }
 
