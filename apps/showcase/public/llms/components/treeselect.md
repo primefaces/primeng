@@ -376,17 +376,7 @@ export class TreeSelectInvalidDemo {
 Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
 
 ```html
-<p-treeselect
-    class="w-full md:w-80"
-    [(ngModel)]="selectedNodes"
-    [options]="nodes()"
-    (onNodeExpand)="onNodeExpand($event)"
-    display="chip"
-    [metaKeySelection]="false"
-    selectionMode="checkbox"
-    placeholder="Select Item"
-    loadingMode="icon"
-/>
+<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>
 ```
 
 <details>

@@ -143,7 +143,7 @@ export class KnobReactiveDemo {
 Knob can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
 ```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
     <div class="flex flex-col items-center gap-1">
         <p-knob formControlName="value" [invalid]="isInvalid('value')" />
         @if (isInvalid('value')) {
@@ -370,7 +370,7 @@ export class KnobTemplateDemo {
 ## templatedrivenformsdoc
 
 ```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
     <div class="flex flex-col items-center gap-1">
         <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
         @if (isInvalid(model)) {

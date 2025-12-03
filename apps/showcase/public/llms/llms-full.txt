@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2025-12-03T02:36:23.427Z
+Generated: 2025-12-03T14:17:16.344Z
 
 ---
 
@@ -22439,7 +22439,7 @@ Knob can also be used with reactive forms. In this case, the formControlName pro
 **Basic Usage:**
 
 ```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
     <div class="flex flex-col items-center gap-1">
         <p-knob formControlName="value" [invalid]="isInvalid('value')" />
         @if (isInvalid('value')) {
@@ -22678,7 +22678,7 @@ export class KnobTemplateDemo {
 **Basic Usage:**
 
 ```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
     <div class="flex flex-col items-center gap-1">
         <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
         @if (isInvalid(model)) {
@@ -24550,7 +24550,7 @@ Menu offers item customization with the item template that receives the menuitem
         <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
     <ng-template #item let-item>
-        <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class.text-red-500]="item.label === 'Logout'">
+        <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
             <span [class]="item.icon"></span>
             <span class="ms-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
@@ -24625,7 +24625,8 @@ export class MenuTemplateDemo implements OnInit {
                     {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
-                        shortcut: '⌘+Q'
+                        shortcut: '⌘+Q',
+                        linkClass: '!text-red-500 dark:!text-red-400'
                     }
                 ]
             },
@@ -41724,8 +41725,7 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 **Basic Usage:**
 
 ```html
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" 
-        [rows]="10" [loading]="loading()" (onPage)="handlePage()">
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
     <ng-template #header>
         <tr>
             <th style="width:25%">Code</th>
@@ -41754,8 +41754,6 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { timer } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'table-loading-mask-demo',
@@ -41768,24 +41766,16 @@ export class LoadingMaskDemo implements OnInit {
     
     products!: Product[];
 
-    loading = signal(false);
-
     constructor(
         private productService: ProductService,
     ) {}
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => {
+        this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
     }
 
-    handlePage() {
-        this.loading.set(true);
-        timer(500).pipe(
-            finalize(() => this.loading.set(false))
-        ).subscribe();
-    }
 }
 ```
 </details>
@@ -43609,6 +43599,7 @@ import { Product } from '@/domain/product';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from '@/service/productservice';
 import { MessageService } from 'primeng/api';
@@ -43619,7 +43610,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, CommonModule],
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, FormsModule, CommonModule],
     providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{
@@ -49814,15 +49805,19 @@ export class TreeCheckboxDemo implements OnInit {
 
 ## Context Menu
 
-Tree has exclusive integration with ContextMenu using the contextMenu property to open a menu on right click along with contextMenuSelection property to control the selection via the menu.
+Tree has exclusive integration with ContextMenu using the contextMenu property along with the contextMenuSelection to manage the selection.
 
 **Basic Usage:**
 
 ```html
-<p-toast [style]="{ marginTop: '80px' }" />
-
-<p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
-
+<p-tree
+    [value]="files()"
+    selectionMode="single"
+    [(selection)]="selectedNode"
+    [(contextMenuSelection)]="contextMenuNode"
+    [contextMenu]="cm"
+    contextMenuSelectionMode="separate"
+/>
 <p-contextmenu #cm [model]="items" />
 ```
 
@@ -49849,6 +49844,8 @@ export class TreeContextMenuDemo implements OnInit {
 
     selectedNode = model<TreeNode | null>(null);
 
+    contextMenuNode = model<TreeNode | null>(null);
+
     items!: MenuItem[];
 
     constructor(
@@ -49860,14 +49857,9 @@ export class TreeContextMenuDemo implements OnInit {
         this.nodeService.getFiles().then((files) => this.files.set(files));
 
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode()) },
-            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode()) },
-            { label: 'Unselect', icon: 'pi pi-times', command: () => this.unselectFile() }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNode()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.contextMenuNode()) }
         ];
-    }
-
-    unselectFile() {
-        this.selectedNode.set(null);
     }
 
     viewFile(node: TreeNode | null) {
@@ -50206,13 +50198,12 @@ import { TreeModule } from 'primeng/tree';
 
 ## Lazy
 
-Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method. Default value of loadingMode is mask and also icon is available.
+Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
 
 **Basic Usage:**
 
 ```html
-<p-tree class="w-full md:w-[30rem]" [value]="nodes()" (onNodeExpand)="onNodeExpand($event)" [loading]="loading()" />
-<p-tree class="w-full md:w-[30rem]" [value]="nodes2()" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
+<p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
 ```
 
 <details>
@@ -50230,44 +50221,17 @@ import { Tree } from 'primeng/tree';
     imports: [Tree]
 })
 export class TreeLazyDemo implements OnInit {
-    loading = signal<boolean>(false);
-
     nodes = signal<TreeNode[]>(undefined);
 
-    nodes2 = signal<TreeNode[]>(undefined);
-
     ngOnInit() {
-        this.loading.set(true);
-        this.nodes2.set(this.initiateNodes2());
+        this.nodes.set(this.initiateNodes());
 
         setTimeout(() => {
-            this.nodes.set(this.initiateNodes());
-            this.loading.set(false);
-            this.nodes2.set(this.nodes2().map((node) => ({ ...node, loading: false })));
+            this.nodes.set(this.nodes().map((node) => ({ ...node, loading: false })));
         }, 2000);
     }
 
     initiateNodes(): TreeNode[] {
-        return [
-            {
-                key: '0',
-                label: 'Node 0',
-                leaf: false
-            },
-            {
-                key: '1',
-                label: 'Node 1',
-                leaf: false
-            },
-            {
-                key: '2',
-                label: 'Node 2',
-                leaf: false
-            }
-        ];
-    }
-
-    initiateNodes2(): TreeNode[] {
         return [
             {
                 key: '0',
@@ -50292,7 +50256,7 @@ export class TreeLazyDemo implements OnInit {
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading.set(true);
+            event.node.loading = true;
 
             setTimeout(() => {
                 const _nodes = this.nodes();
@@ -50306,33 +50270,9 @@ export class TreeLazyDemo implements OnInit {
                     });
                 }
 
-                _nodes[parseInt(event.node.key, 10)] = _node;
-                this.nodes.set([..._nodes]);
-
-                this.loading.set(false);
-            }, 500);
-        }
-    }
-
-    onNodeExpand2(event: any) {
-        if (!event.node.children) {
-            event.node.loading = true;
-
-            setTimeout(() => {
-                const _nodes2 = this.nodes2();
-                let _node = { ...event.node };
-                _node.children = [];
-
-                for (let i = 0; i < 3; i++) {
-                    _node.children.push({
-                        key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
-                    });
-                }
-
                 const key = parseInt(_node.key, 10);
-                _nodes2[key] = { ..._node, loading: false };
-                this.nodes2.set([..._nodes2]);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
@@ -51639,17 +51579,7 @@ Lazy loading is useful when dealing with huge datasets, in this example nodes ar
 **Basic Usage:**
 
 ```html
-<p-treeselect
-    class="w-full md:w-80"
-    [(ngModel)]="selectedNodes"
-    [options]="nodes()"
-    (onNodeExpand)="onNodeExpand($event)"
-    display="chip"
-    [metaKeySelection]="false"
-    selectionMode="checkbox"
-    placeholder="Select Item"
-    loadingMode="icon"
-/>
+<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>
 ```
 
 <details>
@@ -52980,7 +52910,7 @@ export class TreeTableConditionalStyleDemo implements OnInit{
 
 ## Context Menu
 
-TreeTable has exclusive integration with ContextMenu using the contextMenu event to open a menu on right click alont with contextMenuSelection properties to control the selection via the menu.
+TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a table, add ttContextMenuRow directive to the rows that can be selected with context menu, define a local template variable for the menu and bind it to the contextMenu property of the table. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection property is used to get a hold of the right clicked row. For dynamic columns, setting ttContextMenuRowDisabled property as true disables context menu for that particular row.
 
 **Basic Usage:**
 
@@ -53709,7 +53639,7 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 **Basic Usage:**
 
 ```html
-<p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [scrollable]="true" [loading]="loading()" [tableStyle]="{ 'min-width': '50rem' }" (onPage)="handlePage()">
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -53736,68 +53666,25 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { NodeService } from '@/service/nodeservice';
 import { TreeTableModule } from 'primeng/treetable';
-import { finalize, timer } from 'rxjs';
-
-
-interface Column {
-    field: string;
-    header: string;
-}
 
 @Component({
-    selector: 'tree-table-loading-mask-demo',
-    templateUrl: 'tree-table-loading-mask.html',
+    selector: 'tree-table-basic-demo',
+    templateUrl: './tree-table-basic-demo.html',
     standalone: true,
     imports: [TreeTableModule],
-    providers: [ProductService]
+    providers: [NodeService]
 })
 export class LoadingMaskDemo implements OnInit {
-    
     files!: TreeNode[];
 
-    cols!: Column[];
-
-    loading = signal(false);
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.files = [];
-        
-        for(let i = 0; i < 15; i++) {
-            let node = {
-                data:{
-                    name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + i
-                },
-                children: [
-                    {
-                        data: {
-                            name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                            type: 'Type ' + i
-                        }
-                    }
-                ]
-            };
-
-            this.files.push(node);
-        }
-
-        this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
-        ];
-    }
-
-    handlePage() {
-        this.loading.set(true);
-        timer(500)
-            .pipe(finalize(() => this.loading.set(false)))
-            .subscribe();
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
     }
 }
 ```

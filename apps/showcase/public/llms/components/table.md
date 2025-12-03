@@ -2468,8 +2468,7 @@ export class TableLazyLoadDemo implements OnInit{
 The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
 
 ```html
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" 
-        [rows]="10" [loading]="loading()" (onPage)="handlePage()">
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
     <ng-template #header>
         <tr>
             <th style="width:25%">Code</th>
@@ -2498,8 +2497,6 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { timer } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'table-loading-mask-demo',
@@ -2512,24 +2509,16 @@ export class LoadingMaskDemo implements OnInit {
     
     products!: Product[];
 
-    loading = signal(false);
-
     constructor(
         private productService: ProductService,
     ) {}
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => {
+        this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
     }
 
-    handlePage() {
-        this.loading.set(true);
-        timer(500).pipe(
-            finalize(() => this.loading.set(false))
-        ).subscribe();
-    }
 }
 ```
 </details>
@@ -4073,6 +4062,7 @@ import { Product } from '@/domain/product';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from '@/service/productservice';
 import { MessageService } from 'primeng/api';
@@ -4083,7 +4073,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, CommonModule],
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, FormsModule, CommonModule],
     providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{

@@ -56,13 +56,17 @@ export class TreeCheckboxDemo implements OnInit {
 
 ## Context Menu
 
-Tree has exclusive integration with ContextMenu using the contextMenu property to open a menu on right click along with contextMenuSelection property to control the selection via the menu.
+Tree has exclusive integration with ContextMenu using the contextMenu property along with the contextMenuSelection to manage the selection.
 
 ```html
-<p-toast [style]="{ marginTop: '80px' }" />
-
-<p-tree [value]="files()" class="w-full md:w-[30rem]" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" />
-
+<p-tree
+    [value]="files()"
+    selectionMode="single"
+    [(selection)]="selectedNode"
+    [(contextMenuSelection)]="contextMenuNode"
+    [contextMenu]="cm"
+    contextMenuSelectionMode="separate"
+/>
 <p-contextmenu #cm [model]="items" />
 ```
 
@@ -89,6 +93,8 @@ export class TreeContextMenuDemo implements OnInit {
 
     selectedNode = model<TreeNode | null>(null);
 
+    contextMenuNode = model<TreeNode | null>(null);
+
     items!: MenuItem[];
 
     constructor(
@@ -100,14 +106,9 @@ export class TreeContextMenuDemo implements OnInit {
         this.nodeService.getFiles().then((files) => this.files.set(files));
 
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode()) },
-            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode()) },
-            { label: 'Unselect', icon: 'pi pi-times', command: () => this.unselectFile() }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNode()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.contextMenuNode()) }
         ];
-    }
-
-    unselectFile() {
-        this.selectedNode.set(null);
     }
 
     viewFile(node: TreeNode | null) {
@@ -302,11 +303,10 @@ export class TreeFilterDemo implements OnInit {
 
 ## Lazy
 
-Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method. Default value of loadingMode is mask and also icon is available.
+Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
 
 ```html
-<p-tree class="w-full md:w-[30rem]" [value]="nodes()" (onNodeExpand)="onNodeExpand($event)" [loading]="loading()" />
-<p-tree class="w-full md:w-[30rem]" [value]="nodes2()" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
+<p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
 ```
 
 <details>
@@ -324,44 +324,17 @@ import { Tree } from 'primeng/tree';
     imports: [Tree]
 })
 export class TreeLazyDemo implements OnInit {
-    loading = signal<boolean>(false);
-
     nodes = signal<TreeNode[]>(undefined);
 
-    nodes2 = signal<TreeNode[]>(undefined);
-
     ngOnInit() {
-        this.loading.set(true);
-        this.nodes2.set(this.initiateNodes2());
+        this.nodes.set(this.initiateNodes());
 
         setTimeout(() => {
-            this.nodes.set(this.initiateNodes());
-            this.loading.set(false);
-            this.nodes2.set(this.nodes2().map((node) => ({ ...node, loading: false })));
+            this.nodes.set(this.nodes().map((node) => ({ ...node, loading: false })));
         }, 2000);
     }
 
     initiateNodes(): TreeNode[] {
-        return [
-            {
-                key: '0',
-                label: 'Node 0',
-                leaf: false
-            },
-            {
-                key: '1',
-                label: 'Node 1',
-                leaf: false
-            },
-            {
-                key: '2',
-                label: 'Node 2',
-                leaf: false
-            }
-        ];
-    }
-
-    initiateNodes2(): TreeNode[] {
         return [
             {
                 key: '0',
@@ -386,7 +359,7 @@ export class TreeLazyDemo implements OnInit {
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading.set(true);
+            event.node.loading = true;
 
             setTimeout(() => {
                 const _nodes = this.nodes();
@@ -400,33 +373,9 @@ export class TreeLazyDemo implements OnInit {
                     });
                 }
 
-                _nodes[parseInt(event.node.key, 10)] = _node;
-                this.nodes.set([..._nodes]);
-
-                this.loading.set(false);
-            }, 500);
-        }
-    }
-
-    onNodeExpand2(event: any) {
-        if (!event.node.children) {
-            event.node.loading = true;
-
-            setTimeout(() => {
-                const _nodes2 = this.nodes2();
-                let _node = { ...event.node };
-                _node.children = [];
-
-                for (let i = 0; i < 3; i++) {
-                    _node.children.push({
-                        key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
-                    });
-                }
-
                 const key = parseInt(_node.key, 10);
-                _nodes2[key] = { ..._node, loading: false };
-                this.nodes2.set([..._nodes2]);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
