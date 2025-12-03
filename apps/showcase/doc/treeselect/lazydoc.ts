@@ -95,30 +95,10 @@ export class LazyDoc {
     }
 
     code: Code = {
-        basic: `<p-treeselect
-    class="w-full md:w-80"
-    [(ngModel)]="selectedNodes"
-    [options]="nodes()"
-    (onNodeExpand)="onNodeExpand($event)"
-    display="chip"
-    [metaKeySelection]="false"
-    selectionMode="checkbox"
-    placeholder="Select Item"
-    loadingMode="icon"
-/>`,
+        basic: `<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>`,
 
         html: `<div class="card flex justify-center">
-    <p-treeselect
-        class="w-full md:w-80"
-        [(ngModel)]="selectedNodes"
-        [options]="nodes()"
-        (onNodeExpand)="onNodeExpand($event)"
-        display="chip"
-        [metaKeySelection]="false"
-        selectionMode="checkbox"
-        placeholder="Select Item"
-        loadingMode="icon"
-    />
+    <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>
 </div>`,
 
         typescript: `import { Component, signal } from '@angular/core';
