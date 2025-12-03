@@ -100,6 +100,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
                                 [attr.href]="getItemProp(processedItem, 'url')"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                                [attr.title]="getItemProp(processedItem, 'title')"
                                 [target]="getItemProp(processedItem, 'target')"
                                 [class]="cx('itemLink')"
                                 [attr.tabindex]="-1"
@@ -108,7 +109,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                                     [attr.tabindex]="-1"
@@ -137,6 +138,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                 *ngIf="getItemProp(processedItem, 'routerLink')"
                                 [routerLink]="getItemProp(processedItem, 'routerLink')"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                                [attr.title]="getItemProp(processedItem, 'title')"
                                 [attr.tabindex]="-1"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
                                 [routerLinkActive]="'p-tieredmenu-item-link-active'"
@@ -154,7 +156,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                    [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                                     [attr.aria-hidden]="true"

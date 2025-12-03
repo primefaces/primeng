@@ -97,6 +97,7 @@ export class MenubarService {
                             *ngIf="!getItemProp(processedItem, 'routerLink')"
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.target]="getItemProp(processedItem, 'target')"
                             [class]="cx('itemLink')"
                             [attr.tabindex]="-1"
@@ -105,8 +106,8 @@ export class MenubarService {
                         >
                             <span
                                 *ngIf="getItemProp(processedItem, 'icon')"
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
-                                [style]="getItemProp(processedItem, 'iconStyle')"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             >
@@ -131,6 +132,7 @@ export class MenubarService {
                             *ngIf="getItemProp(processedItem, 'routerLink')"
                             [routerLink]="getItemProp(processedItem, 'routerLink')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.tabindex]="-1"
                             [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-menubar-item-link-active'"
@@ -147,7 +149,7 @@ export class MenubarService {
                             pRipple
                         >
                             <span
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"

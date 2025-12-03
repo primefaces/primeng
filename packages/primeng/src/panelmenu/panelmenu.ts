@@ -66,6 +66,7 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [class]="cx('itemLink')"
                             [target]="getItemProp(processedItem, 'target')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.tabindex]="!!parentExpanded ? '0' : '-1'"
                             [pBind]="getPTOptions(processedItem, index, 'itemLink')"
                         >
@@ -88,7 +89,12 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate || panelMenu._submenuIconTemplate"></ng-template>
                             </ng-container>
-                            <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')" [pBind]="getPTOptions(processedItem, index, 'itemIcon')"></span>
+                            <span
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                *ngIf="processedItem.icon"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                            ></span>
                             <span [class]="cx('itemLabel')" *ngIf="processedItem.item?.escape !== false; else htmlLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemProp(processedItem, 'label') }}</span>
                             <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
                         </a>
@@ -129,7 +135,12 @@ const PANELMENUSUB_INSTANCE = new InjectionToken<PanelMenuSub>('PANELMENUSUB_INS
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="panelMenu.submenuIconTemplate && panelMenu._submenuIconTemplate"></ng-template>
                             </ng-container>
-                            <span [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')" [pBind]="getPTOptions(processedItem, index, 'itemIcon')"></span>
+                            <span
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                *ngIf="processedItem.icon"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
+                            ></span>
                             <span *ngIf="getItemProp(processedItem, 'label')" [class]="cx('itemLabel')" [innerHTML]="getItemProp(processedItem, 'label')" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
 
                             <span [class]="cn(cx('badge'), getItemProp(processedItem, 'badgeStyleClass'))" *ngIf="processedItem.badge">{{ processedItem.badge }}</span>
@@ -812,7 +823,7 @@ export class PanelMenuList extends BaseComponent {
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                                 </ng-container>
-                                <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
+                                <span [class]="cn(cx('headerIcon'), item.icon, getItemProp(item, 'iconClass'))" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
                                 <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel" [pBind]="getPTOptions('headerLabel', item, i)">{{ getItemProp(item, 'label') }}</span>
                                 <ng-template #htmlLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')" [pBind]="getPTOptions('headerLabel', item, i)"></span></ng-template>
                                 <span [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))" *ngIf="getItemProp(item, 'badge')">{{ getItemProp(item, 'badge') }}</span>
@@ -826,6 +837,7 @@ export class PanelMenuList extends BaseComponent {
                             [routerLinkActive]="'p-panelmenu-item-link-active'"
                             [routerLinkActiveOptions]="getItemProp(item, 'routerLinkActiveOptions') || { exact: false }"
                             [target]="getItemProp(item, 'target')"
+                            [attr.title]="getItemProp(item, 'title')"
                             [class]="cx('headerLink')"
                             [attr.tabindex]="-1"
                             [fragment]="getItemProp(item, 'fragment')"
@@ -843,7 +855,7 @@ export class PanelMenuList extends BaseComponent {
                                 </ng-container>
                                 <ng-template *ngTemplateOutlet="headerIconTemplate || _headerIconTemplate"></ng-template>
                             </ng-container>
-                            <span [class]="cn(cx('headerIcon'), item.icon)" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
+                            <span [class]="cn(cx('headerIcon'), item.icon, getItemProp(item, 'iconClass'))" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')" [pBind]="getPTOptions('headerIcon', item, i)"></span>
                             <span [class]="cx('headerLabel')" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel" [pBind]="getPTOptions('headerLabel', item, i)">{{ getItemProp(item, 'label') }}</span>
                             <ng-template #htmlRouteLabel><span [class]="cx('headerLabel')" [innerHTML]="getItemProp(item, 'label')" [pBind]="getPTOptions('headerLabel', item, i)"></span></ng-template>
                             <span *ngIf="getItemProp(item, 'badge')" [class]="cn(cx('badge'), getItemProp(item, 'badgeStyleClass'))">{{ getItemProp(item, 'badge') }}</span>
