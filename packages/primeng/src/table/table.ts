@@ -1191,6 +1191,29 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
+    @HostListener('document:click', ['$event'])
+    handleDocumentClick(event: MouseEvent) {
+        if (this.contextMenu) {
+            const target = event.target as HTMLElement;
+            const isOutsideTable = !this.el.nativeElement.contains(target);
+            const isOutsideContextMenu = !this.contextMenu.el?.nativeElement?.contains(target);
+
+            if (isOutsideTable && isOutsideContextMenu) {
+                if (this.contextMenuSelection != null) {
+                    this.contextMenuSelection = null;
+                    this.contextMenuSelectionChange.emit(null);
+                    this.tableService.onContextMenu(null);
+                }
+                if (this.selection != null) {
+                    this.selection = this.selectionMode === 'single' ? null : [];
+                    this.selectionChange.emit(this.selection);
+                    this.tableService.onSelectionChange();
+                }
+            }
+            this.cd.markForCheck();
+        }
+    }
+
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
