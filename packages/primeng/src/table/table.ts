@@ -1947,7 +1947,12 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     }
                 }
 
+                // Also update contextMenuSelection in joint mode
+                this.contextMenuSelection = rowData;
+                this.contextMenuSelectionChange.emit(rowData);
+
                 this.tableService.onSelectionChange();
+                this.tableService.onContextMenu(rowData);
                 this.contextMenu.show(event.originalEvent);
                 this.onContextMenuSelect.emit({
                     originalEvent: event,
