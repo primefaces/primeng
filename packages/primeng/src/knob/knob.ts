@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, signal, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@primeuix/styled';
 import { SharedModule } from 'primeng/api';
@@ -164,7 +164,7 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
 
     maxRadians: number = -Math.PI / 3;
 
-    value: number = 0;
+    value = signal<number>(0);
 
     windowMouseMoveListener: VoidListener;
 
@@ -201,10 +201,10 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
         else return;
 
         let newValue = Math.round((mappedValue - this.min) / this.step) * this.step + this.min;
-        this.value = newValue;
-        this.writeModelValue(this.value);
-        this.onModelChange(this.value);
-        this.onChange.emit(this.value);
+        this.value.set(newValue);
+        this.writeModelValue(this.value());
+        this.onModelChange(this.value());
+        this.onChange.emit(this.value());
     }
 
     onMouseDown(event: MouseEvent) {
@@ -274,13 +274,13 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
     }
 
     updateModelValue(newValue) {
-        if (newValue > this.max) this.value = this.max;
-        else if (newValue < this.min) this.value = this.min;
-        else this.value = newValue;
+        if (newValue > this.max) this.value.set(this.max);
+        else if (newValue < this.min) this.value.set(this.min);
+        else this.value.set(newValue);
 
-        this.writeModelValue(this.value);
-        this.onModelChange(this.value);
-        this.onChange.emit(this.value);
+        this.writeModelValue(this.value());
+        this.onModelChange(this.value());
+        this.onChange.emit(this.value());
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -392,7 +392,7 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
     }
 
     get _value(): number {
-        return this.value != null ? this.value : this.min;
+        return this.value() != null ? this.value() : this.min;
     }
 
     /**
@@ -402,8 +402,8 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value;
-        setModelValue(this.value);
+        this.value.set(value);
+        setModelValue(this.value());
         this.cd.markForCheck();
     }
 }
