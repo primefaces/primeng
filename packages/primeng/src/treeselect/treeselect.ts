@@ -77,6 +77,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                 [attr.aria-label]="ariaLabel || (label === 'p-emptylabel' ? undefined : label)"
                 [pAutoFocus]="autofocus"
                 [pBind]="ptm('hiddenInput')"
+                [loadingMode]="loadingMode"
             />
         </div>
         <div [class]="cx('labelContainer')" [pBind]="ptm('labelContainer')">
@@ -405,6 +406,11 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) loading: boolean | undefined;
+    /**
+     * Loading mode display.
+     * @group Props
+     */
+    @Input() loadingMode: 'mask' | 'icon' = 'mask';
     /**
      * Specifies the size of the component.
      * @defaultValue undefined
