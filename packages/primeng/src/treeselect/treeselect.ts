@@ -1,8 +1,6 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -77,7 +75,6 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                 [attr.aria-label]="ariaLabel || (label === 'p-emptylabel' ? undefined : label)"
                 [pAutoFocus]="autofocus"
                 [pBind]="ptm('hiddenInput')"
-                [loadingMode]="loadingMode"
             />
         </div>
         <div [class]="cx('labelContainer')" [pBind]="ptm('labelContainer')">
@@ -165,6 +162,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                             [loading]="loading"
                             [filterInputAutoFocus]="filterInputAutoFocus"
                             [pt]="ptm('pcTree')"
+                            [loadingMode]="loadingMode"
                         >
                             <ng-container *ngIf="emptyTemplate || _emptyTemplate">
                                 <ng-template #empty>
