@@ -1101,7 +1101,7 @@ describe('MegaMenu', () => {
 
         it('should show menu button on mobile', () => {
             // Simulate mobile breakpoint
-            megaMenuInstance.queryMatches = true;
+            megaMenuInstance.queryMatches.set(true);
             fixture.detectChanges();
 
             const menuButton = fixture.debugElement.query(By.css('a[role="button"]'));
@@ -1110,7 +1110,7 @@ describe('MegaMenu', () => {
 
         it('should handle menu button click', () => {
             spyOn(megaMenuInstance, 'toggle');
-            megaMenuInstance.queryMatches = true;
+            megaMenuInstance.queryMatches.set(true);
             fixture.detectChanges();
 
             const menuButton = fixture.debugElement.query(By.css('a[role="button"]'));
@@ -1378,7 +1378,7 @@ describe('MegaMenu', () => {
                         'data-p-button': true
                     }
                 });
-                megaMenuInstance.queryMatches = true;
+                megaMenuInstance.queryMatches.set(true);
                 fixture.detectChanges();
 
                 const buttonElement = fixture.debugElement.query(By.css('a[role="button"]'));
@@ -1455,7 +1455,7 @@ describe('MegaMenu', () => {
                         };
                     }
                 });
-                megaMenuInstance.queryMatches = true;
+                megaMenuInstance.queryMatches.set(true);
                 megaMenuInstance.mobileActive = true;
                 fixture.detectChanges();
 
@@ -1495,7 +1495,7 @@ describe('MegaMenu', () => {
                         }
                     }
                 });
-                megaMenuInstance.queryMatches = true;
+                megaMenuInstance.queryMatches.set(true);
                 fixture.detectChanges();
 
                 const buttonElement = fixture.debugElement.query(By.css('a[role="button"]'));

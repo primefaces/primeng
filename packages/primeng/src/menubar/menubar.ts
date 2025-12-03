@@ -382,6 +382,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             (keydown)="onKeyDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
             (mouseleave)="onMouseLeave($event)"
+            (mousedown)="onMenuMouseDown($event)"
             [pt]="pt()"
             [pBind]="ptm('rootList')"
         ></ul>
@@ -497,7 +498,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
     private query: MediaQueryList;
 
-    public queryMatches: boolean;
+    public queryMatches = signal<boolean>(false);
 
     outsideClickListener: VoidListener;
 
@@ -673,10 +674,10 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
                 this.query = query;
-                this.queryMatches = query.matches;
+                this.queryMatches.set(query.matches);
 
                 this.matchMediaListener = () => {
-                    this.queryMatches = query.matches;
+                    this.queryMatches.set(query.matches);
                     this.mobileActive = false;
                     this.cd.markForCheck();
                 };
@@ -787,7 +788,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
         grouped && (this.dirty = true);
         isFocus && focus(this.rootmenu?.el.nativeElement);
 
-        if (type === 'hover' && this.queryMatches) {
+        if (type === 'hover' && this.queryMatches()) {
             return;
         }
 
@@ -833,19 +834,41 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item };
+        const relatedTarget = event.relatedTarget;
+        const isFromOutside = !relatedTarget || !this.el.nativeElement.contains(relatedTarget);
 
-        this.focusedItemInfo.set(focusedItemInfo);
+        if (isFromOutside && this.focusedItemInfo().index === -1 && !this.activeItemPath().length && !this.dirty) {
+            const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
+            this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item });
+        }
+
         this.onFocus.emit(event);
     }
 
     onMenuBlur(event: any) {
-        this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
-        this.searchValue = '';
-        this.dirty = false;
-        this.onBlur.emit(event);
+        const relatedTarget = event.relatedTarget;
+
+        if (relatedTarget && this.el.nativeElement.contains(relatedTarget)) {
+            return;
+        }
+
+        setTimeout(() => {
+            const activeElement = this.document.activeElement;
+
+            if (activeElement && this.el.nativeElement.contains(activeElement)) {
+                return;
+            }
+
+            this.focused = false;
+            this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
+            this.searchValue = '';
+            this.dirty = false;
+            this.onBlur.emit(event);
+        });
+    }
+
+    onMenuMouseDown(event: any) {
+        this.dirty = true;
     }
 
     onKeyDown(event: KeyboardEvent) {

@@ -198,7 +198,8 @@ const MEGAMENU_SUB_INSTANCE = new InjectionToken<MegaMenuSub>('MEGAMENU_SUB_INST
         '[attr.data-pc-section]': 'root ? "rootlist" : "submenu"',
         '(keydown)': 'menuKeydown.emit($event)',
         '(focus)': 'menuFocus.emit($event)',
-        '(blur)': 'menuBlur.emit($event)'
+        '(blur)': 'menuBlur.emit($event)',
+        '(mousedown)': 'menuMouseDown.emit($event)'
     },
     hostDirectives: [Bind]
 })
@@ -252,6 +253,8 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
     @Output() menuBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
+
+    @Output() menuMouseDown: EventEmitter<any> = new EventEmitter();
 
     megaMenu: MegaMenu = inject(forwardRef(() => MegaMenu));
 
@@ -390,8 +393,9 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
             (menuFocus)="onMenuFocus($event)"
             (menuBlur)="onMenuBlur($event)"
             (menuKeydown)="onKeyDown($event)"
+            (menuMouseDown)="onMenuMouseDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
-            [queryMatches]="queryMatches"
+            [queryMatches]="queryMatches()"
             [scrollHeight]="scrollHeight"
             [pt]="pt()"
         ></ul>
@@ -549,7 +553,7 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
 
     private query: MediaQueryList;
 
-    public queryMatches: boolean = false;
+    public queryMatches = signal<boolean>(false);
 
     public mobileActive: boolean = false;
 
@@ -648,10 +652,10 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
                 this.query = query;
-                this.queryMatches = query.matches;
+                this.queryMatches.set(query.matches);
 
                 this.matchMediaListener = () => {
-                    this.queryMatches = query.matches;
+                    this.queryMatches.set(query.matches);
                     this.mobileActive = false;
                     this.cd.markForCheck();
                 };
@@ -702,6 +706,8 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
         const grouped = this.isProcessedItemGroup(processedItem);
         const root = isEmpty(processedItem.parent);
         const selected = this.isSelected(processedItem);
+
+        this.dirty = true;
 
         if (selected) {
             const { index, key, parentKey, item } = processedItem;
@@ -764,7 +770,7 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
 
         let element;
 
-        if (id === null && this.queryMatches) {
+        if (id === null && this.queryMatches()) {
             element = this.menubuttonViewChild?.nativeElement;
         } else {
             element = findSingle(this.rootmenu?.el?.nativeElement, `li[id="${id}"]`);
@@ -810,7 +816,10 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        if (this.focusedItemInfo().index === -1) {
+        const relatedTarget = event.relatedTarget;
+        const isFromOutside = !relatedTarget || !this.el.nativeElement.contains(relatedTarget);
+
+        if (isFromOutside && this.focusedItemInfo().index === -1 && !this.activeItem() && !this.dirty) {
             const index = this.findFirstFocusedItemIndex();
             const processedItem = this.findVisibleItem(index);
 
@@ -819,10 +828,28 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
     }
 
     onMenuBlur(event: any) {
-        this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
-        this.searchValue = '';
-        this.dirty = false;
+        const relatedTarget = event.relatedTarget;
+
+        if (relatedTarget && this.el.nativeElement.contains(relatedTarget)) {
+            return;
+        }
+
+        setTimeout(() => {
+            const activeElement = this.document.activeElement;
+
+            if (activeElement && this.el.nativeElement.contains(activeElement)) {
+                return;
+            }
+
+            this.focused = false;
+            this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
+            this.searchValue = '';
+            this.dirty = false;
+        });
+    }
+
+    onMenuMouseDown(event: any) {
+        this.dirty = true;
     }
 
     onKeyDown(event: KeyboardEvent) {
