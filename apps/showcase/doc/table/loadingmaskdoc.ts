@@ -4,10 +4,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { timer } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'table-loading-mask-doc',
@@ -18,7 +16,7 @@ import { finalize } from 'rxjs/operators';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="10" [loading]="loading()" (onPage)="handlePage()">
+                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
                     <ng-template #header>
                         <tr>
                             <th style="width:25%">Code</th>
@@ -44,30 +42,20 @@ import { finalize } from 'rxjs/operators';
 export class LoadingMaskDoc {
     products!: Product[];
 
-    loading = signal(false);
-
     constructor(
         private productService: ProductService,
         private cd: ChangeDetectorRef
     ) {}
 
     loadDemoData() {
-        this.productService.getProducts().then((data) => {
+        this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();
         });
     }
 
-    handlePage() {
-        this.loading.set(true);
-        timer(500)
-            .pipe(finalize(() => this.loading.set(false)))
-            .subscribe();
-    }
-
     code: Code = {
-        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" 
-        [rows]="10" [loading]="loading()" (onPage)="handlePage()">
+        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
     <ng-template #header>
         <tr>
             <th style="width:25%">Code</th>
@@ -87,8 +75,7 @@ export class LoadingMaskDoc {
 </p-table>`,
 
         html: `<div class="card">
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" 
-        [rows]="10" [loading]="loading()" (onPage)="handlePage()">
+    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
         <ng-template #header>
             <tr>
                 <th style="width:25%">Code</th>
@@ -112,8 +99,6 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { timer } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: 'table-loading-mask-demo',
@@ -126,24 +111,16 @@ export class LoadingMaskDemo implements OnInit {
     
     products!: Product[];
 
-    loading = signal(false);
-
     constructor(
         private productService: ProductService,
     ) {}
 
     ngOnInit() {
-        this.productService.getProducts().then((data) => {
+        this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
     }
 
-    handlePage() {
-        this.loading.set(true);
-        timer(500).pipe(
-            finalize(() => this.loading.set(false))
-        ).subscribe();
-    }
 }`,
         data: `{
     id: '1000',

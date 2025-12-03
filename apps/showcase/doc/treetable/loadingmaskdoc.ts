@@ -2,15 +2,10 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { NodeService } from '@/service/nodeservice';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
-import { finalize, timer } from 'rxjs';
-
-interface Column {
-    field: string;
-    header: string;
-}
 
 @Component({
     selector: 'tree-table-loading-mask-doc',
@@ -21,7 +16,7 @@ interface Column {
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [scrollable]="true" [loading]="loading()" [tableStyle]="{ 'min-width': '50rem' }" (onPage)="handlePage()">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
                     <ng-template #header>
                         <tr>
                             <th>Name</th>
@@ -50,50 +45,17 @@ interface Column {
 export class LoadingMaskDoc {
     files!: TreeNode[];
 
-    cols!: Column[];
-
-    loading = signal(false);
+    constructor(
+        private nodeService: NodeService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
-        this.files = [];
-
-        for (let i = 0; i < 15; i++) {
-            let node = {
-                data: {
-                    name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + i
-                },
-                children: [
-                    {
-                        data: {
-                            name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                            type: 'Type ' + i
-                        }
-                    }
-                ]
-            };
-
-            this.files.push(node);
-        }
-
-        this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
-        ];
-    }
-
-    handlePage() {
-        this.loading.set(true);
-        timer(500)
-            .pipe(finalize(() => this.loading.set(false)))
-            .subscribe();
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
     }
 
     code: Code = {
-        basic: `<p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [scrollable]="true" [loading]="loading()" [tableStyle]="{ 'min-width': '50rem' }" (onPage)="handlePage()">
+        basic: `<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -116,7 +78,7 @@ export class LoadingMaskDoc {
 </p-treetable>`,
 
         html: `<div class="card">
-    <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [scrollable]="true" [loading]="loading()" [tableStyle]="{ 'min-width': '50rem' }" (onPage)="handlePage()">
+    <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
         <ng-template #header>
             <tr>
                 <th>Name</th>
@@ -138,68 +100,25 @@ export class LoadingMaskDoc {
         </ng-template>
     </p-treetable>
 </div>`,
-        typescript: `import { Component, signal } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { NodeService } from '@/service/nodeservice';
 import { TreeTableModule } from 'primeng/treetable';
-import { finalize, timer } from 'rxjs';
-
-
-interface Column {
-    field: string;
-    header: string;
-}
 
 @Component({
-    selector: 'tree-table-loading-mask-demo',
-    templateUrl: 'tree-table-loading-mask.html',
+    selector: 'tree-table-basic-demo',
+    templateUrl: './tree-table-basic-demo.html',
     standalone: true,
     imports: [TreeTableModule],
-    providers: [ProductService]
+    providers: [NodeService]
 })
 export class LoadingMaskDemo implements OnInit {
-    
     files!: TreeNode[];
 
-    cols!: Column[];
-
-    loading = signal(false);
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.files = [];
-        
-        for(let i = 0; i < 15; i++) {
-            let node = {
-                data:{
-                    name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + i
-                },
-                children: [
-                    {
-                        data: {
-                            name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                            type: 'Type ' + i
-                        }
-                    }
-                ]
-            };
-
-            this.files.push(node);
-        }
-
-        this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
-        ];
-    }
-
-    handlePage() {
-        this.loading.set(true);
-        timer(500)
-            .pipe(finalize(() => this.loading.set(false)))
-            .subscribe();
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
     }
 }`
     };
