@@ -1875,6 +1875,15 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             const rowData = event.rowData;
             const rowIndex = event.rowIndex;
 
+            const showContextMenu = () => {
+                this.contextMenu.show(event.originalEvent);
+                this.contextMenu.hideCallback = () => {
+                    this.contextMenuSelection = null;
+                    this.contextMenuSelectionChange.emit(null);
+                    this.tableService.onContextMenu(null);
+                };
+            };
+
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = rowData;
                 this.contextMenuSelectionChange.emit(rowData);
@@ -1883,7 +1892,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     data: rowData,
                     index: event.rowIndex
                 });
-                this.contextMenu.show(event.originalEvent);
+                showContextMenu();
                 this.tableService.onContextMenu(rowData);
             } else if (this.contextMenuSelectionMode === 'joint') {
                 this.preventSelectionSetterPropagation = true;
@@ -1914,7 +1923,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 }
 
                 this.tableService.onSelectionChange();
-                this.contextMenu.show(event.originalEvent);
+                showContextMenu();
                 this.onContextMenuSelect.emit({
                     originalEvent: event,
                     data: rowData,
@@ -4134,7 +4143,7 @@ export class ContextMenuRow extends BaseComponent {
         super();
         if (this.isEnabled()) {
             this.subscription = this.dataTable.tableService.contextMenuSource$.subscribe((data) => {
-                this.selected = this.dataTable.equals(this.data, data);
+                this.selected = data ? this.dataTable.equals(this.data, data) : false;
             });
         }
     }
