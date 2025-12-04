@@ -201,9 +201,9 @@ export class AppTopBarComponent implements OnDestroy {
 
     initDocSearch() {
         docsearch({
-            appId: 'E0O9UQEWEK',
-            apiKey: 'd0466027448c3a63cdbb8d8cfbfba6aa',
-            indexName: 'primeng-v20',
+            appId: 'DNV7IJBB9N',
+            apiKey: '6a0f0dfe0eb93cf4b76b4f91bad6ca0d',
+            indexName: 'primeng v20 crawler',
             container: '#docsearch'
         });
     }
