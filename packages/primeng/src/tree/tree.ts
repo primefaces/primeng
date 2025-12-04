@@ -13,6 +13,7 @@ import {
     inject,
     InjectionToken,
     Input,
+    model,
     NgModule,
     numberAttribute,
     Optional,
@@ -218,6 +219,12 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     dropPosition = computed(() => (this.isPrevDropPointActive() ? -1 : this.isNextDropPointActive() ? 1 : 0));
 
+    private _contextMenuSelected = computed(() => {
+        const selection = this.tree.contextMenuSelection();
+        if (!selection || !this.node) return false;
+        return selection === this.node || (selection.key != null && selection.key === this.node.key);
+    });
+
     _componentStyle = inject(TreeStyle);
 
     get selected() {
@@ -226,6 +233,10 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     get checked() {
         return this.tree.selectionMode === 'checkbox' ? this.isSelected() : undefined;
+    }
+
+    get contextMenuSelected() {
+        return this._contextMenuSelected();
     }
 
     get nodeClass() {
@@ -249,6 +260,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                 selected: this.selected,
                 checked: this.checked,
                 partialChecked: this.node?.partialSelected,
+                contextMenuSelected: this.contextMenuSelected,
                 leaf: this.isLeaf()
             }
         });
@@ -868,6 +880,18 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      */
     @Input() contextMenu: any;
     /**
+     * Defines how the context menu selection behaves.
+     * When set to 'separate', context menu selection is handled independently from the main selection.
+     * When set to 'joint', context menu selection also updates the main selection.
+     * @group Props
+     */
+    @Input() contextMenuSelectionMode: 'separate' | 'joint' = 'separate';
+    /**
+     * A single treenode instance to refer to the context menu selection.
+     * @group Props
+     */
+    contextMenuSelection = model<TreeNode<any> | null>(null);
+    /**
      * Scope of the draggable nodes to match a droppableScope.
      * @group Props
      */
@@ -1447,15 +1471,29 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
             if (eventTarget.className && eventTarget.className.indexOf('p-tree-toggler') === 0) {
                 return;
             } else {
-                let index = this.findIndexInSelection(node);
-                let selected = index >= 0;
+                if (this.contextMenuSelectionMode === 'separate') {
+                    this.contextMenuSelection.set(node);
+                } else if (this.contextMenuSelectionMode === 'joint') {
+                    let index = this.findIndexInSelection(node);
+                    let selected = index >= 0;
 
-                if (!selected) {
-                    if (this.isSingleSelectionMode()) this.selectionChange.emit(node);
-                    else this.selectionChange.emit([node]);
+                    if (!selected) {
+                        if (this.isSingleSelectionMode()) {
+                            this.selection = node;
+                            this.selectionChange.emit(node);
+                        } else {
+                            this.selection = [node];
+                            this.selectionChange.emit([node]);
+                        }
+                    }
+
+                    this.contextMenuSelection.set(node);
                 }
 
                 this.contextMenu.show(event);
+                this.contextMenu.hideCallback = () => {
+                    this.contextMenuSelection.set(null);
+                };
                 this.onNodeContextMenuSelect.emit({ originalEvent: event, node: node });
             }
         }

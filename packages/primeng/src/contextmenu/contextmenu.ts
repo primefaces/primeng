@@ -534,6 +534,8 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
 
     documentTriggerListener: VoidListener;
 
+    hideCallback: any;
+
     touchEndListener: VoidListener;
 
     pageX: number;
@@ -1080,6 +1082,8 @@ export class ContextMenu extends BaseComponent<ContextMenuPassThrough> {
     hide() {
         this.visible.set(false);
         this.onHide.emit();
+
+        this.hideCallback?.();
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
     }
