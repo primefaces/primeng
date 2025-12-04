@@ -8,6 +8,7 @@ import { RuntimeDoc } from '@/doc/configuration/locale/runtimedoc';
 import { TranslationDoc } from '@/doc/configuration/locale/translationdoc';
 import { ProviderDoc } from '@/doc/configuration/providerdoc';
 import { RippleDoc } from '@/doc/configuration/rippledoc';
+import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendtodoc';
 import { ThemeDoc } from '@/doc/configuration/themedoc';
 import { ZIndexDoc } from '@/doc/configuration/zindexdoc';
 import { Component } from '@angular/core';
@@ -45,6 +46,11 @@ export class ConfigurationDemo {
             id: 'inputvariant',
             label: 'InputVariant',
             component: InputVariantDoc
+        },
+        {
+            id: 'overlayappendto',
+            label: 'OverlayAppendTo',
+            component: OverlayAppendToDoc
         },
         {
             id: 'zIndex',
