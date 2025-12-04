@@ -909,7 +909,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      * Defines the behavior of context menu selection, in "separate" mode context menu updates contextMenuSelection property whereas in joint mode selection property is used instead so that when row selection is enabled, both row selection and context menu selection use the same property.
      * @group Props
      */
-    @Input() contextMenuSelectionMode: 'separate' | 'joint' = 'separate';
+    @Input() contextMenuSelectionMode: 'separate' | 'joint' = 'joint';
     /**
      * Selected node with a context menu.
      * @group Props
@@ -1313,25 +1313,6 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
     @HostListener('dragleave', ['$event'])
     handleDragLeaveEvent(event: DragEvent) {
         this.onDragLeave(event);
-    }
-
-    @HostListener('document:click', ['$event'])
-    @HostListener('document:contextmenu', ['$event'])
-    handleDocumentClick(event: MouseEvent) {
-        if (!this.contextMenu) {
-            return;
-        }
-
-        const target = event.target as HTMLElement;
-        const isOutsideTree = !this.el.nativeElement.contains(target);
-        const isOutsideContextMenu = !this.contextMenu.el?.nativeElement?.contains(target);
-
-        if (isOutsideTree && isOutsideContextMenu) {
-            if (this.contextMenuSelection() !== null) {
-                this.contextMenuSelection.set(null);
-            }
-            this.contextMenu.hide();
-        }
     }
 
     constructor(@Optional() public dragDropService: TreeDragDropService) {

@@ -616,7 +616,7 @@ export class TreeTableConditionalStyleDemo implements OnInit{
 
 ## Context Menu
 
-TreeTable has exclusive integration with ContextMenu using the contextMenu event to open a menu on right click alont with contextMenuSelection properties to control the selection via the menu.
+TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a table, add ttContextMenuRow directive to the rows that can be selected with context menu, define a local template variable for the menu and bind it to the contextMenu property of the table. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection property is used to get a hold of the right clicked row. For dynamic columns, setting ttContextMenuRowDisabled property as true disables context menu for that particular row.
 
 ```html
 <p-toast [style]="{ marginTop: '80px' }" />
@@ -1317,7 +1317,7 @@ export class TreeTableLazyLoadDemo implements OnInit{
 The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
 
 ```html
-<p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [scrollable]="true" [loading]="loading()" [tableStyle]="{ 'min-width': '50rem' }" (onPage)="handlePage()">
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -1344,68 +1344,25 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { NodeService } from '@/service/nodeservice';
 import { TreeTableModule } from 'primeng/treetable';
-import { finalize, timer } from 'rxjs';
-
-
-interface Column {
-    field: string;
-    header: string;
-}
 
 @Component({
-    selector: 'tree-table-loading-mask-demo',
-    templateUrl: 'tree-table-loading-mask.html',
+    selector: 'tree-table-basic-demo',
+    templateUrl: './tree-table-basic-demo.html',
     standalone: true,
     imports: [TreeTableModule],
-    providers: [ProductService]
+    providers: [NodeService]
 })
 export class LoadingMaskDemo implements OnInit {
-    
     files!: TreeNode[];
 
-    cols!: Column[];
-
-    loading = signal(false);
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.files = [];
-        
-        for(let i = 0; i < 15; i++) {
-            let node = {
-                data:{
-                    name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                    type: 'Type ' + i
-                },
-                children: [
-                    {
-                        data: {
-                            name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
-                            type: 'Type ' + i
-                        }
-                    }
-                ]
-            };
-
-            this.files.push(node);
-        }
-
-        this.cols = [
-            { field: 'name', header: 'Name' },
-            { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
-        ];
-    }
-
-    handlePage() {
-        this.loading.set(true);
-        timer(500)
-            .pipe(finalize(() => this.loading.set(false)))
-            .subscribe();
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
     }
 }
 ```

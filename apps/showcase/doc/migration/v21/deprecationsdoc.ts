@@ -42,6 +42,13 @@ import { TagModule } from 'primeng/tag';
                             <td>v22</td>
                             <td><p-tag value="deprecated" severity="warn" /></td>
                         </tr>
+                        <tr>
+                            <td>contextMenuSelectionMode</td>
+                            <td>v21</td>
+                            <td>"joint" mode will be removed in favor of the "separate". Applies to Tree, TreeTable and Table.</td>
+                            <td>v22</td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

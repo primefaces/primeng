@@ -1791,12 +1791,21 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         if (this.contextMenu) {
             const node = event.rowNode.node;
 
+            const showContextMenu = () => {
+                this.contextMenu.show(event.originalEvent);
+                this.contextMenu.hideCallback = () => {
+                    this.contextMenuSelection = null;
+                    this.contextMenuSelectionChange.emit();
+                    this.tableService.onContextMenu(null);
+                };
+            };
+
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = node;
                 this.contextMenuSelectionChange.emit(node);
-                this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
-                this.contextMenu.show(event.originalEvent);
                 this.tableService.onContextMenu(node);
+                showContextMenu();
+                this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
             } else if (this.contextMenuSelectionMode === 'joint') {
                 this.preventSelectionSetterPropagation = true;
                 let selected = this.isSelected(node);
@@ -1816,7 +1825,11 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                     }
                 }
 
-                this.contextMenu.show(event.originalEvent);
+                this.contextMenuSelection = node;
+                this.contextMenuSelectionChange.emit(node);
+                this.tableService.onContextMenu(node);
+
+                showContextMenu();
                 this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
             }
         }
@@ -3276,7 +3289,7 @@ export class TTContextMenuRow extends BaseComponent {
         super();
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.contextMenuSource$.subscribe((node) => {
-                this.selected = this.tt.equals(this.rowNode.node, node);
+                this.selected = node ? this.tt.equals(this.rowNode.node, node) : false;
             });
         }
     }
