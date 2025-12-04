@@ -47583,7 +47583,7 @@
           "label": "Dialog",
           "description": "Overlays such as Dialog and Drawer are positioned relative to the viewport and have their own animations. Update your information. Username Email",
           "examples": {
-            "scss": ".p-dialog-enter-active {\n    animation: demo-dialog-in 500ms ease-out;\n}\n    \n.p-dialog-leave-active {\n    animation: demo-dialog-out 500ms ease-in;\n}\n\n@keyframes demo-dialog-in {\n    from {\n        opacity: 0;\n        transform: translateY(-10%) scale(1.1);\n        filter: blur(10px);\n    }\n}\n\n@keyframes demo-dialog-out {\n    to {\n        opacity: 0;\n        transform: translateY(200%) rotate(-90deg);\n    }\n}"
+            "scss": ".p-dialog-enter-active {\n    animation: demo-dialog-in 500ms ease-out;\n}\n    \n.p-dialog-leave-active {\n    animation: demo-dialog-out 300ms ease-in;\n}\n\n@keyframes demo-dialog-in {\n    from {\n        opacity: 0;\n        transform: translateY(-10%) scale(1.1);\n        filter: blur(10px);\n    }\n}\n\n@keyframes demo-dialog-out {\n    to {\n        opacity: 0;\n        transform: translateY(200%) rotate(-90deg);\n    }\n}"
           }
         },
         {
@@ -47694,6 +47694,38 @@
           "id": "removals",
           "label": "Removals",
           "description": "The list of items that were deprecated in previous releases and removed in this iteration. API Deprecated Since Replacement Status in v20 Calendar v18 DatePicker Dropdown v18 Select InputSwitch v18 ToggleSwitch OverlayPanel v18 Popover Sidebar v18 Drawer Chips v18 AutoComplete in multiple mode without typehead option TabMenu v18 Tabs without panels Steps v18 Stepper without panels Messages v18 Message InlineMessage v18 Message TabView v18 Tabs Accordion activeIndex property v18 value property Accordion headerAriaLevel property v18 AccordionHeader aria-level attribute AccordionTab v18 AccordionPanel, AccordionHeader, AccordionContent AutoComplete field property v18 optionLabel property AutoComplete itemSize property v18 virtualScrollItemSize property pDefer v18 Angular deferred views pAutoFocus autofocus property v18 Default attribute directive {{ '[pAutoFocus]=\"true|false\"' }} Badge size property v18 badgeSize property DatePicker monthNavigator, yearNavigator, yearRange, locale properties v18 Obsolete, not utilized. Dialog positionLeft, responsive, breakpoint properties v18 Obsolete, not utilized. InputMask autoFocus property v18 autofocus property. MultiSelect checkicon template v18 headercheckboxicon and itemcheckboxicon . MultiSelect/Select baseZIndex, autoZIndex, showTransitionOptions, hideTransitionOptions v14 overlayOptions property Rating onCancel event and cancelIcon template v18 Obsolete, not utilized. MultiSelect defaultLabel property v18 placeholder property. MultiSelect/Select itemSize property v18 virtualScrollItemSize property Select autoDisplayFirst property v17 Set initial value by model instead TreeSelect showTransitionOptions, hideTransitionOptions v14 overlayOptions property Panel expandIcon and collapseIcon properties v18 headericons template StyleClass enterClass/leaveClass properties v18 enterFromClass and leaveFromClass properties Table scrollDirection property 14 Obsolete, not utilized. Table responsive property 14 An horizontal scroll is displayed for smaller screens Table/TreeTable virtualRowHeight property v18 virtualScrollItemSize property Table autoLayout property v18 Table always uses autoLayout as implementation requirement Tree virtualNodeHeight property v18 virtualScrollItemSize property",
+          "examples": null
+        }
+      ]
+    },
+    {
+      "name": "v21",
+      "path": "migration/v21",
+      "title": "Migration v21",
+      "description": "Migration guide to PrimeNG v21.",
+      "sections": [
+        {
+          "id": "breaking",
+          "label": "Breaking",
+          "description": "Beginning with PrimeNG v20, PrimeTek adopted a no-breaking-change policy for incremental major version updates. PrimeNG v21 maintains this policy with one exception: due to the deprecation of Angular's animations package in Angular v20.2, we have migrated to native CSS-based animations. Consequently, the showTransitionOptions and hideTransitionOptions properties that belong to the animations api are deprecated in v21 and no longer functional. v21 will not cause an error as the properties still exist, however your customizations will be ignored. If you currently use these properties for animation customization, please refer to the new animations documentation for the updated approach. Other than this case, v21 should be a drop-in replacement. If you face with any issues during upgrade, please report an issue using at GitHub.",
+          "examples": null
+        },
+        {
+          "id": "deprecations",
+          "label": "Deprecations",
+          "description": "The following items are marked as deprecated. API Deprecated Since Replacement Removal Status showTransitionOptions v21 Native CSS animatons v22 hideTransitionOptions v21 Native CSS animatons v22 Directive PT attribute names e.g. ptInputText v21 PT suffix at the end e.g. pInputTextPT v22 contextMenuSelectionMode v21 \"joint\" mode will be removed in favor of the \"separate\". Applies to Tree, TreeTable and Table. v22",
+          "examples": null
+        },
+        {
+          "id": "removals",
+          "label": "Removals",
+          "description": "This version contains no API removals. For a list of APIs scheduled for removal in v22, refer to the v20 deprecations section.",
+          "examples": null
+        },
+        {
+          "id": "whatsnew",
+          "label": "Whatsnew",
+          "description": "PrimeNG v21 represents a major advancement in PrimeTek's product vision. Key highlights of this release include: PassThrough attributes for enhanced customization. Unstyled Mode for complete styling flexibility. Modern CSS-based animations . The deprecated provideAnimationsAsync is safe to remove. Initial zoneless support for improved performance. AI-enhanced documentation for better developer experience. Notes The internal packages @primeuix/styles and @primeuix/themes should be version 2.0.2 or higher. These packages are updated automatically with a fresh install. If you encounter any issues with visuals or animations, please verify that you are using the correct versions of these packages.",
           "examples": null
         }
       ]

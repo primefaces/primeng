@@ -143,6 +143,12 @@ const GUIDE_PAGES = [
         docPath: 'migration/v20',
         title: 'Migration v20',
         description: 'Migration guide to PrimeNG v20.'
+    },
+    {
+        route: 'migration/v21',
+        docPath: 'migration/v21',
+        title: 'Migration v21',
+        description: 'Migration guide to PrimeNG v21.'
     }
 ];
 
