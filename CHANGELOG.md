@@ -1,6 +1,13 @@
 # Changelog
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
+
+## [21.0.1](https://github.com/primefaces/primeng/tree/21.0.1) (2025-12-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0...21.0.1)
+
+**Fixed bugs:**
+- SplitButton animation is not working as expected [#19174](https://github.com/primefaces/primeng/issues/19174)
+
 ## [21.0.0](https://github.com/primefaces/primeng/tree/21.0.0) (2025-12-04)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0-rc.1...21.0.0)
 
