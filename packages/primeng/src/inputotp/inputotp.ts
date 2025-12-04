@@ -356,7 +356,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
             return;
         }
 
-        switch (event.code) {
+        switch (event.key) {
             case 'ArrowLeft':
                 this.moveToPrev(event);
                 event.preventDefault();
