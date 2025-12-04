@@ -823,6 +823,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;
         }
+        this.cd.markForCheck();
     }
 }
 
