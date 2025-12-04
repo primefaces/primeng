@@ -231,7 +231,8 @@ export class MotionDirective extends BaseComponent {
             if (!this.motion) {
                 this.motion = createMotion(this.$el, this.motionOptions());
             } else {
-                this.motion.update(this.$el, this.motionOptions());
+                // @todo: Update motion options method to update options dynamically
+                //this.motion.update(this.$el, this.motionOptions());
             }
         });
 

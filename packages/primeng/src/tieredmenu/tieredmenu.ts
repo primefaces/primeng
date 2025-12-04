@@ -453,7 +453,6 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
                 [pMotionOptions]="computedMotionOptions()"
                 (pMotionOnBeforeEnter)="onOverlayBeforeEnter($event)"
                 (pMotionOnAfterEnter)="onOverlayAfterEnter()"
-                (pMotionOnBeforeLeave)="onOverlayBeforeLeave()"
                 (pMotionOnAfterLeave)="onOverlayAfterLeave()"
             >
                 <p-tieredMenuSub
@@ -1103,12 +1102,9 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         focus(this.rootmenu?.sublistViewChild?.nativeElement);
     }
 
-    onOverlayBeforeLeave() {
+    onOverlayAfterLeave() {
         this.restoreOverlayAppend();
         this.onOverlayHide();
-    }
-
-    onOverlayAfterLeave() {
         this.render.set(false);
         this.onHide.emit({});
     }
