@@ -1,7 +1,7 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'download-doc',
@@ -17,12 +17,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 export class DownloadDoc {
     code: Code = {
         command: `# Using npm
-npm install primeng@21.0.0-rc.1 @primeuix/themes
+npm install primeng @primeuix/themes
 
 # Using yarn
-yarn add primeng@21.0.0-rc.1 @primeuix/themes
+yarn add primeng @primeuix/themes
 
 # Using pnpm
-pnpm add primeng@21.0.0-rc.1 @primeuix/themes`
+pnpm add primeng @primeuix/themes`
     };
 }

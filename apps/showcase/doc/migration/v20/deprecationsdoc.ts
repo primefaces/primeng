@@ -22,6 +22,13 @@ import { TagModule } from 'primeng/tag';
                     </thead>
                     <tbody>
                         <tr>
+                            <td>@primeng/themes</td>
+                            <td>v20</td>
+                            <td>@primeuix/themes</td>
+                            <td>v22</td>
+                            <td><p-tag value="deprecated" severity="warn" /></td>
+                        </tr>
+                        <tr>
                             <td>pTemplate</td>
                             <td>v20</td>
                             <td>ng-template with a template reference variable</td>
