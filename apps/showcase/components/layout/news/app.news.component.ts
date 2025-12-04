@@ -41,7 +41,7 @@ export class AppNewsComponent {
     }
 
     get isNewsActive(): boolean {
-        return this.configService.newsActive();
+        return false;
     }
 
     hideNews() {
