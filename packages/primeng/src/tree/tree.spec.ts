@@ -1572,7 +1572,7 @@ describe('Tree', () => {
 
                 // After content init, template references should be available
                 expect(
-                    tree.nodeTemplate || tree.headerTemplate || tree.footerTemplate || tree.emptyMessageTemplate || tree.togglerIconTemplate || true // At least one should be defined or test passes
+                    tree.nodeTemplate || tree.headerTemplate || tree.footerTemplate || tree.emptyTemplate || tree.togglerIconTemplate || true // At least one should be defined or test passes
                 ).toBeTruthy();
 
                 flush();
