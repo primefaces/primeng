@@ -42,7 +42,7 @@ import { InputTextModule } from 'primeng/inputtext';
                 }
 
                 .demo-dialog.p-dialog-leave-active {
-                    animation: demo-dialog-out 500ms ease-in;
+                    animation: demo-dialog-out 300ms ease-in;
                 }
             }
 
@@ -76,7 +76,7 @@ export class DialogDoc {
 }
     
 .p-dialog-leave-active {
-    animation: demo-dialog-out 500ms ease-in;
+    animation: demo-dialog-out 300ms ease-in;
 }
 
 @keyframes demo-dialog-in {
