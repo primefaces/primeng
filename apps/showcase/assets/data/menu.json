@@ -567,11 +567,11 @@
             "children": [
                 {
                     "name": "Updating to v20",
-                    "routerLink": "/migration/v20"
+                    "href": "https://primeng.org/migration/v20"
                 },
                 {
                     "name": "Updating to v19",
-                    "routerLink": "/migration/v19"
+                    "href": "https://primeng.org/migration/v19"
                 }
             ]
         },
