@@ -825,10 +825,10 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         </ng-container>
 
         <div [class]="cx('emptyMessage')" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)" [pBind]="ptm('emptyMessage')">
-            <ng-container *ngIf="!emptyMessageTemplate && !_emptyMessageTemplate; else emptyFilter">
+            <ng-container *ngIf="!emptyTemplate && !_emptyTemplate; else emptyFilter">
                 {{ emptyMessageLabel }}
             </ng-container>
-            <ng-template #emptyFilter *ngTemplateOutlet="emptyMessageTemplate || _emptyMessageTemplate"></ng-template>
+            <ng-template #emptyFilter *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-template>
         </div>
         <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
     `,
@@ -1147,7 +1147,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      * Empty message template.
      * @group Templates
      */
-    @ContentChild('empty', { descendants: false }) emptyMessageTemplate: TemplateRef<any> | undefined;
+    @ContentChild('empty', { descendants: false }) emptyTemplate: TemplateRef<any> | undefined;
     /**
      * Toggler icon template.
      * @group Templates
@@ -1181,7 +1181,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     _headerTemplate: TemplateRef<any> | undefined;
 
-    _emptyMessageTemplate: TemplateRef<any> | undefined;
+    _emptyTemplate: TemplateRef<any> | undefined;
 
     _footerTemplate: TemplateRef<any> | undefined;
 
@@ -1209,7 +1209,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                     break;
 
                 case 'empty':
-                    this._emptyMessageTemplate = item.template;
+                    this._emptyTemplate = item.template;
                     break;
 
                 case 'footer':
