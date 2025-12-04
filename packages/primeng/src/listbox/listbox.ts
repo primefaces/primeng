@@ -92,7 +92,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <p-checkbox
                 #headerchkbox
                 (onChange)="onToggleAll($event)"
-                *ngIf="checkbox && multiple"
+                *ngIf="checkbox && multiple && showToggleAll"
                 [class]="cx('optionCheckIcon')"
                 [ngModel]="allSelected()"
                 [disabled]="$disabled()"
