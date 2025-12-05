@@ -474,6 +474,12 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      */
     @Input({ transform: booleanAttribute }) editable: boolean | undefined;
     /**
+     * Determines whether the overlay panel should automatically open when the user types into an editable input.
+     * When set to `false`, typing in the editable input will not display the overlay automatically.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) overlayOnTyping: boolean = true;
+    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -1393,7 +1399,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             this.onChange.emit({ originalEvent: event, value: value });
         }, 1);
 
-        !this.overlayVisible && isNotEmpty(value) && this.show();
+        this.overlayOnTyping && !this.overlayVisible && isNotEmpty(value) && this.show();
     }
     /**
      * Displays the panel.
@@ -1568,7 +1574,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
                 break;
 
             default:
-                if (!event.metaKey && isPrintableCharacter(event.key)) {
+                if (!event.metaKey && isPrintableCharacter(event.key) && this.overlayOnTyping) {
                     !this.overlayVisible && this.show();
                     !this.editable && this.searchOptions(event, event.key);
                 }
@@ -1817,7 +1823,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     onEnterKey(event, pressedInInput = false) {
         if (!this.overlayVisible) {
             this.focusedOptionIndex.set(-1);
-            this.onArrowDownKey(event);
+            this.overlayOnTyping && this.onArrowDownKey(event);
         } else {
             if (this.focusedOptionIndex() !== -1) {
                 const option = this.visibleOptions()[this.focusedOptionIndex()];
@@ -1872,7 +1878,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {
         if (pressedInInputText) {
-            !this.overlayVisible && this.show();
+            this.overlayOnTyping && !this.overlayVisible && this.show();
         }
     }
 
