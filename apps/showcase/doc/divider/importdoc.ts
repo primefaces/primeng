@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DividerModule } from 'primeng/divider';`
+        typescript: `import { Divider } from 'primeng/divider';`
     };
 }
