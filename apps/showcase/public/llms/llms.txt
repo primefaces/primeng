@@ -23,7 +23,7 @@
 ## Components
 
 - [Angular Accordion Component](https://primeng.org/accordion): Accordion groups a collection of contents in tabs.
-- [Angular Animate On Scroll Directive](https://primeng.org/animateonscroll): AnimateOnScroll AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.
+- [Angular Animate On Scroll Directive](https://primeng.org/animateonscroll): AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.
 - [Angular AutoComplete Component](https://primeng.org/autocomplete): AutoComplete is an input component that provides real-time suggestions when being typed.
 - [Angular AutoFocus Directive](https://primeng.org/autofocus): AutoFocus manages focus on focusable element on load.
 - [Angular Avatar Component](https://primeng.org/avatar): Avatar represents people using icons, labels and images.
