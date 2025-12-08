@@ -888,7 +888,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     visibleOptions = computed(() => {
-        return this.group ? this.flatOptions(this.suggestions) : this.suggestions || [];
+        return this.group ? this.flatOptions(this._suggestions()) : this._suggestions() || [];
     });
 
     inputValue = computed(() => {
