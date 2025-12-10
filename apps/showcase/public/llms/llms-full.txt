@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2025-12-04
+Generated: 2025-12-10
 
 ---
 
@@ -188,6 +188,20 @@ providePrimeNG({
         reject: 'Rechazar',
         //translations
     }
+})
+```
+</details>
+
+## Overlayappendto
+
+Defines the default location of the overlays; self refers to the host element and body targets the document body. Defaults to self .
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+providePrimeNG({
+    overlayAppendTo: 'body'
 })
 ```
 </details>

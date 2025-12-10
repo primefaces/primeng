@@ -1,0 +1,60 @@
+{
+  "name": "@primeng/mcp",
+  "version": "21.3.1",
+  "author": "PrimeTek Informatics",
+  "description": "Model Context Protocol (MCP) server for PrimeNG component library",
+  "homepage": "https://primeng.org/",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/primefaces/primeng.git",
+    "directory": "packages/mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/primefaces/primeng/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "bin": {
+    "primeng-mcp": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "data"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@primemcp/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsup": "^8.1.0",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "primeng",
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "llm",
+    "angular",
+    "components"
+  ]
+}
