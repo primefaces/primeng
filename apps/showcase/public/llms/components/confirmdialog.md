@@ -25,22 +25,22 @@ Headless mode allows you to customize the entire user interface instead of the d
 <p-toast />
 <p-confirmdialog #cd>
     <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
-        <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-            <div
-                class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
-            >
-                <i class="pi pi-question !text-5xl"></i>
+        @if (message) {
+            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+                <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+                    <i class="pi pi-question !text-5xl"></i>
+                </div>
+                <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex items-center gap-2 mt-6">
+                    <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                    <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+                </div>
             </div>
-            <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
-            <p class="mb-0">{{ message.message }}</p>
-            <div class="flex items-center gap-2 mt-6">
-                <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
-            </div>
-        </div>
+        }
     </ng-template>
 </p-confirmdialog>
-<p-button (click)="confirm()" label="Save"/>
+<p-button (click)="confirm()" label="Save" />
 ```
 
 <details>
@@ -171,10 +171,12 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 <p-toast />
 <p-confirmdialog>
     <ng-template #message let-message>
-        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-            <p>{{ message.message }}</p>
-        </div>
+        @if (message) {
+            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                <p>{{ message.message }}</p>
+            </div>
+        }
     </ng-template>
 </p-confirmdialog>
 <p-button (click)="confirm()" label="Save" />

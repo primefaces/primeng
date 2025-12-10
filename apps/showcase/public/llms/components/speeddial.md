@@ -560,9 +560,9 @@ When pressed, a floating action button can display multiple primary actions that
 
 | Name | Type | Description |
 |------|------|-------------|
-| button | TemplateRef<any> | Template of the button. |
-| item | TemplateRef<any> | Template of the item. |
-| icon | TemplateRef<any> | Template of the item. |
+| button | TemplateRef<SpeedDialButtonTemplateContext> | Custom button template. |
+| item | TemplateRef<SpeedDialItemTemplateContext> | Custom item template. |
+| icon | TemplateRef<void> | Custom icon template. |
 
 ## Pass Through Options
 

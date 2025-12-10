@@ -692,9 +692,9 @@ InputNumber is an input component to provide numerical input.
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | TemplateRef<any> | Template of the clear icon. |
-| incrementbuttonicon | TemplateRef<any> | Template of the increment button icon. |
-| decrementbuttonicon | TemplateRef<any> | Template of the decrement button icon. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| incrementbuttonicon | TemplateRef<void> | Custom increment button icon template. |
+| decrementbuttonicon | TemplateRef<void> | Custom decrement button icon template. |
 
 ## Pass Through Options
 

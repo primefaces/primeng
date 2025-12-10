@@ -1,6 +1,6 @@
 # PrimeNG Documentation
 
-Generated: 2025-12-02T07:13:56.597Z
+Generated: 2025-12-04
 
 ---
 
@@ -24,20 +24,18 @@ Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we reco
 
 ## Provider
 
-Add providePrimeNG and provideAnimationsAsync to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
+Add providePrimeNG to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura
@@ -203,12 +201,10 @@ The initial configuration is defined by the providePrimeNG provider during appli
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({ /* options */ })
     ]
 };
@@ -238,14 +234,12 @@ PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and No
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura,
@@ -391,13 +385,11 @@ The theme property is used to customize the initial theme.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideAnimationsAsync(),
         providePrimeNG({
             theme: {
                 preset: Aura
@@ -432,11 +424,11 @@ Theming PrimeNG with alternative styling approaches.
 
 ## Architecture
 
-The term unstyled is used to define an alternative styling approach instead of the default theming with design tokens. In unstyled mode the css variables of the design tokens and the css rule sets that utilize them are not included. Here is an example of an Unstyled Select, the core functionality and accessibility is provided whereas styling is not included. Unstyled components still need to be styled on your end, in the next sections, we'll cover the styling solutions for both modes.
+The term unstyled is used to define an alternative styling approach instead of the default theming with design tokens. In unstyled mode the css variables of the design tokens and the css rule sets that utilize them are not included. Here is an example of an Unstyled Select, the core functionality and accessibility is provided whereas styling is not included.
 
 ## Example
 
-Here is a sample that styles a button component with Tailwind CSS using pass through attributes. Before beginning, head over to the the pass through section at button documentation to learn more about the components internals section. We'll be using the root , label and icon elements to add a custom style.
+Unstyled components require styling using your preferred approach. We recommend using Tailwind CSS with PassThrough attributes, a combination that works seamlessly together. The tailwindcss-primeui even provides special variants such as p-outlined: , p-vertical for the PrimeNG components. The example below demonstrates how to style a button component with Tailwind CSS using PassThrough attributes. Before you begin, refer to the pass through section in the button documentation to familiarize yourself with the component's internal structure and PassThrough attributes. In this example, we'll target the root , label and icon elements to apply custom styles.
 
 ```html
 <p-button
@@ -481,6 +473,10 @@ export const appConfig: ApplicationConfig = {
 ## Setup
 
 Unstyled mode is enabled for the whole suite by enabling unstyled option during PrimeNG installation. Alternatively even in the default styled mode, a particular component can still be used as unstyled by adding the unstyled prop of the component.
+
+## Voltui
+
+Tailwind CSS is perfect fit for the unstyled mode, PrimeTek has even initiated a new UI library called Volt UI based on the unstyled PrimeVue and Tailwind CSS v4. Volt follows the code ownership model where the components are located in the application codebase rather than node_modules. All components within Volt are essentially wrapped versions of the unstyled equivalents, with an added layer of theming through Tailwind CSS v4. This approach, along with the templating features, offers complete control over the theming and presentation. Volt will also be available for PrimeReact. In the future, PrimeTek may bring Volt to Angular via PrimeNG if there is significant community demand. Currently, Volt-Vue can serve as a reference when styling your unstyled PrimeNG components with Tailwind CSS.
 
 ---
 
@@ -1176,7 +1172,7 @@ Various PrimeNG Components utilize native CSS animations to provide an enhanced 
 
 ## Reference
 
-List of class names of the CSS animations used by the components. Component Enter Class Leave Class Accordion .p-collapsible-enter-active .p-collapsible-leave-active AutoComplete .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active CascadeSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ColorPicker .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ConfirmPopup .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ContextMenu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active DatePicker .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Dialog .p-dialog-enter-active .p-dialog-leave-active Drawer .p-drawer-enter-active .p-drawer-leave-active Fieldset .p-collapsible-enter-active .p-collapsible-leave-active Galleria .p-galleria-enter-active .p-galleria-leave-active Image .p-image-original-enter-active .p-image-original-leave-active Menu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Message .p-message-enter-active .p-message-leave-active MultiSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Panel .p-collapsible-enter-active .p-collapsible-leave-active PanelMenu .p-collapsible-enter-active .p-collapsible-leave-active Password .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Select .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Stepper .p-collapsible-enter-active .p-collapsible-leave-active TieredMenu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Toast .p-toast-message-enter-active .p-toast-message-leave-active TreeSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active
+List of class names of the CSS animations used by the components. Component Enter Class Leave Class Accordion .p-collapsible-enter-active .p-collapsible-leave-active AutoComplete .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active CascadeSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ColorPicker .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ConfirmPopup .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active ContextMenu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active DatePicker .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Dialog .p-dialog-enter-active .p-dialog-leave-active Drawer .p-drawer-enter-active .p-drawer-leave-active Fieldset .p-collapsible-enter-active .p-collapsible-leave-active Galleria .p-galleria-enter-active .p-galleria-leave-active Image .p-image-original-enter-active .p-image-original-leave-active Menu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Message .p-message-enter-active .p-message-leave-active Modal Masks .p-overlay-mask-enter-active .p-overlay-mask-leave-active MultiSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Panel .p-collapsible-enter-active .p-collapsible-leave-active PanelMenu .p-collapsible-enter-active .p-collapsible-leave-active Password .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Select .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Stepper .p-collapsible-enter-active .p-collapsible-leave-active TieredMenu .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active Toast .p-toast-message-enter-active .p-toast-message-leave-active TreeSelect .p-anchored-overlay-enter-active .p-anchored-overlay-leave-active
 
 ---
 
@@ -1230,7 +1226,7 @@ Our team has put in great deal of effort while updating PrimeNG, and there are n
 
 ## Deprecations
 
-The following items are marked as deprecated. These are subject to soft deprecation, which means they are no longer recommended for use, but will remain available and will not be removed in future releases. API Deprecated Since Replacement Removal Status pTemplate v20 ng-template with a template reference variable None styleClass *(for host enabled components) v20 class None Global inputVariant v20 inputVariant None CamelCase Selectors v20 Kebab case None pButton iconPos, loadingIcon, icon and label properties v20 pButtonIcon and pButtonLabel directives None Button plain property v20 pButtonIcon and pButtonLabel directives None pButton buttonProps property v20 Use button properties directly on the element None p-button badgeClass property v20 badgeSeverity property None AutoComplete minLength property v20 minQueryLength None OrganizationChart preserveSpace property v20 Obselete property, had no use None Paginator dropdownAppendTo property v20 appendTo None Message text and escape properties v20 Content projection None Password maxLength property v20 maxlength property None TreeSelect containerStyle/containerStyleClass properties v20 style and class None Table responsiveLayout property v20 Always defaults to scroll, stack mode needs custom implementation None TreeSelect default template v20 value template None pBadge directive v20 OverlayBadge component None clearFilterIcon template of Table v20 Obsolete, not utilized. None Inplace closable property. v20 Use templating with closeCallback . None
+The following items are marked as deprecated. API Deprecated Since Replacement Removal Status @primeng/themes v20 @primeuix/themes v22 pTemplate v20 ng-template with a template reference variable v22 styleClass *(for host enabled components) v20 class v22 Global inputStyle config v20 inputVariant v22 CamelCase Selectors v20 Kebab case v22 pButton iconPos, loadingIcon, icon and label properties v20 pButtonIcon and pButtonLabel directives v22 pButton buttonProps property v20 Use button properties directly on the element v22 p-button badgeClass property v20 badgeSeverity property v22 AutoComplete minLength property v20 minQueryLength v22 OrganizationChart preserveSpace property v20 Obselete property, had no use v22 Paginator dropdownAppendTo property v20 appendTo v22 Message text and escape properties v20 Content projection v22 Password maxLength property v20 maxlength property v22 TreeSelect containerStyle/containerStyleClass properties v20 style and class v22 Table responsiveLayout property v20 Always defaults to scroll, stack mode needs custom implementation v22 TreeSelect default template v20 value template v22 pBadge directive v20 OverlayBadge component v22 clearFilterIcon template of Table v20 Obsolete, not utilized. v22 Inplace closable property. v20 Use templating with closeCallback . v22
 
 ## Overview
 
@@ -1239,6 +1235,28 @@ PrimeNG v20 is an evolution rather than a revolution compared to v18/v19 that in
 ## Removals
 
 The list of items that were deprecated in previous releases and removed in this iteration. API Deprecated Since Replacement Status in v20 Calendar v18 DatePicker Dropdown v18 Select InputSwitch v18 ToggleSwitch OverlayPanel v18 Popover Sidebar v18 Drawer Chips v18 AutoComplete in multiple mode without typehead option TabMenu v18 Tabs without panels Steps v18 Stepper without panels Messages v18 Message InlineMessage v18 Message TabView v18 Tabs Accordion activeIndex property v18 value property Accordion headerAriaLevel property v18 AccordionHeader aria-level attribute AccordionTab v18 AccordionPanel, AccordionHeader, AccordionContent AutoComplete field property v18 optionLabel property AutoComplete itemSize property v18 virtualScrollItemSize property pDefer v18 Angular deferred views pAutoFocus autofocus property v18 Default attribute directive {{ '[pAutoFocus]="true|false"' }} Badge size property v18 badgeSize property DatePicker monthNavigator, yearNavigator, yearRange, locale properties v18 Obsolete, not utilized. Dialog positionLeft, responsive, breakpoint properties v18 Obsolete, not utilized. InputMask autoFocus property v18 autofocus property. MultiSelect checkicon template v18 headercheckboxicon and itemcheckboxicon . MultiSelect/Select baseZIndex, autoZIndex, showTransitionOptions, hideTransitionOptions v14 overlayOptions property Rating onCancel event and cancelIcon template v18 Obsolete, not utilized. MultiSelect defaultLabel property v18 placeholder property. MultiSelect/Select itemSize property v18 virtualScrollItemSize property Select autoDisplayFirst property v17 Set initial value by model instead TreeSelect showTransitionOptions, hideTransitionOptions v14 overlayOptions property Panel expandIcon and collapseIcon properties v18 headericons template StyleClass enterClass/leaveClass properties v18 enterFromClass and leaveFromClass properties Table scrollDirection property 14 Obsolete, not utilized. Table responsive property 14 An horizontal scroll is displayed for smaller screens Table/TreeTable virtualRowHeight property v18 virtualScrollItemSize property Table autoLayout property v18 Table always uses autoLayout as implementation requirement Tree virtualNodeHeight property v18 virtualScrollItemSize property
+
+---
+
+# Migration v21
+
+Migration guide to PrimeNG v21.
+
+## Breaking
+
+Beginning with PrimeNG v20, PrimeTek adopted a no-breaking-change policy for incremental major version updates. PrimeNG v21 maintains this policy with one exception: due to the deprecation of Angular's animations package in Angular v20.2, we have migrated to native CSS-based animations. Consequently, the showTransitionOptions and hideTransitionOptions properties that belong to the animations api are deprecated in v21 and no longer functional. v21 will not cause an error as the properties still exist, however your customizations will be ignored. If you currently use these properties for animation customization, please refer to the new animations documentation for the updated approach. Other than this case, v21 should be a drop-in replacement. If you face with any issues during upgrade, please report an issue using at GitHub.
+
+## Deprecations
+
+The following items are marked as deprecated. API Deprecated Since Replacement Removal Status showTransitionOptions v21 Native CSS animatons v22 hideTransitionOptions v21 Native CSS animatons v22 Directive PT attribute names e.g. ptInputText v21 PT suffix at the end e.g. pInputTextPT v22 contextMenuSelectionMode v21 "joint" mode will be removed in favor of the "separate". Applies to Tree, TreeTable and Table. v22
+
+## Removals
+
+This version contains no API removals. For a list of APIs scheduled for removal in v22, refer to the v20 deprecations section.
+
+## Whatsnew
+
+PrimeNG v21 represents a major advancement in PrimeTek's product vision. Key highlights of this release include: PassThrough attributes for enhanced customization. Unstyled Mode for complete styling flexibility. Modern CSS-based animations . The deprecated provideAnimationsAsync is safe to remove. Initial zoneless support for improved performance. AI-enhanced documentation for better developer experience. Notes The internal packages @primeuix/styles and @primeuix/themes should be version 2.0.2 or higher. These packages are updated automatically with a fresh install. If you encounter any issues with visuals or animations, please verify that you are using the correct versions of these packages.
 
 ---
 
@@ -1978,7 +1996,7 @@ Screen Reader Value to describe the component can either be provided via label t
 
 ## Advanced
 
-Advanced chips mode combines optionLabel , optionValue functions with custom templates for a rich user experience. This example demonstrates product selection with images, custom chip templates, and flexible data handling.
+This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.
 
 **Basic Usage:**
 
@@ -2006,11 +2024,15 @@ Advanced chips mode combines optionLabel , optionValue functions with custom tem
             <span class="font-bold sm:ml-8">\${{ product.price }}</span>
         </div>
     </ng-template>
-    <ng-template let-value #chip>
-        <div class="flex align-items-center gap-2">
-            <span class="font-semibold">{{ value.name }}</span>
-            <span class="text-primary text-sm">\${{ value.price }}</span>
-        </div>
+    <ng-template let-value #selecteditem>
+        @if (value.price) {
+            <div class="flex align-items-center gap-2">
+                <span class="font-semibold">{{ value.name }}</span>
+                <span class="text-primary text-sm font-bold">\${{ value.price }}</span>
+            </div>
+        } @else {
+            <span class="font-semibold">{{ value }}</span>
+        }
     </ng-template>
 </p-autocomplete>
 ```
@@ -2085,7 +2107,7 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
 
 ## Basic
 
-When typeahead is disabled and multiple is enabled, AutoComplete can work like a chips component. Various features allow flexible item addition: use addOnBlur to add items when the input loses focus, addOnTab to add items with the Tab key, and separator to define characters for adding multiple items at once.
+With ⁠multiple enabled, the AutoComplete component behaves like a chips or tags input. Use addOnBlur , ⁠addOnTab , and ⁠separator properties to customize the keystroke behavior for adding items.
 
 **Basic Usage:**
 
@@ -2707,7 +2729,7 @@ export class AutocompleteInvalidDemo {
 
 ## Multiple
 
-Multiple mode is enabled using multiple property used to select more than one value from the autocomplete. In this case, value reference should be an array.
+Enable multiple selection mode using the ⁠multiple property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.
 
 **Basic Usage:**
 
@@ -3709,7 +3731,9 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```html
 <p-avatar size="xlarge">
-    <span class="text-base">Content</span>
+    <svg width="35" height="40" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
+        <path d="..." fill="var(--primary-color)" />
+    </svg>
 </p-avatar>
 ```
 
@@ -3776,6 +3800,10 @@ Avatar represents people using icons, labels and images.
 | p-avatar | Class name of the root element |
 | p-avatar-label | Class name of the label element |
 | p-avatar-icon | Class name of the icon element |
+| p-avatar-image | Container element in image mode |
+| p-avatar-circle | Container element with a circle shape |
+| p-avatar-lg | Container element with a large size |
+| p-avatar-xl | Container element with an xlarge size |
 
 ### Design Tokens
 
@@ -4015,7 +4043,7 @@ Badge Directive is directive usage of badge component.
 | Name | Type | Default | Description |
 |------|------|---------|-------------|
 | ptBadgeDirective | InputSignal<BadgePassThrough> | undefined | Used to pass attributes to DOM elements inside the Badge component. **(Deprecated)** |
-| pBadgePt | InputSignal<BadgePassThrough> | undefined | Used to pass attributes to DOM elements inside the Badge component. |
+| pBadgePT | InputSignal<BadgePassThrough> | undefined | Used to pass attributes to DOM elements inside the Badge component. |
 | pBadgeUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | disabled | boolean | false | When specified, disables the component. |
 | badgeSize | "small" \| "large" \| "xlarge" | - | Size of the badge, valid options are "large" and "xlarge". |
@@ -4115,8 +4143,8 @@ The element to block should be placed as a child of BlockUI and blocked property
 **Basic Usage:**
 
 ```html
-<p-button label="Block" (click)="blockedPanel = true" />
-<p-button label="Unblock" (click)="blockedPanel = false" />
+<p-button label="Block" (click)="blockedPanel = true" class="me-2" severity="secondary" />
+<p-button label="Unblock" (click)="blockedPanel = false" severity="secondary" />
 <p-blockui [target]="pnl" [blocked]="blockedPanel" />
 <p-panel #pnl header="Header" class="mt-6">
     <p class="m-0">
@@ -5054,7 +5082,7 @@ Button directive is an extension to button component.
 | pt | InputSignal<any> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | ptButtonDirective | InputSignal<ButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the Button component. **(Deprecated)** |
-| pButtonPt | InputSignal<ButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the Button component. |
+| pButtonPT | InputSignal<ButtonPassThrough> | undefined | Used to pass attributes to DOM elements inside the Button component. |
 | pButtonUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | text | boolean | false | Add a textual class to the button without a background initially. |
 | plain | boolean | false | Add a plain textual class to the button without a background initially. |
@@ -10268,22 +10296,22 @@ Headless mode allows you to customize the entire user interface instead of the d
 <p-toast />
 <p-confirmdialog #cd>
     <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
-        <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-            <div
-                class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
-            >
-                <i class="pi pi-question !text-5xl"></i>
+        @if (message) {
+            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+                <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+                    <i class="pi pi-question !text-5xl"></i>
+                </div>
+                <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex items-center gap-2 mt-6">
+                    <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                    <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+                </div>
             </div>
-            <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
-            <p class="mb-0">{{ message.message }}</p>
-            <div class="flex items-center gap-2 mt-6">
-                <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
-            </div>
-        </div>
+        }
     </ng-template>
 </p-confirmdialog>
-<p-button (click)="confirm()" label="Save"/>
+<p-button (click)="confirm()" label="Save" />
 ```
 
 <details>
@@ -10428,10 +10456,12 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 <p-toast />
 <p-confirmdialog>
     <ng-template #message let-message>
-        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-            <p>{{ message.message }}</p>
-        </div>
+        @if (message) {
+            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                <p>{{ message.message }}</p>
+            </div>
+        }
     </ng-template>
 </p-confirmdialog>
 <p-button (click)="confirm()" label="Save" />
@@ -10786,6 +10816,15 @@ ConfirmPopup displays a confirmation overlay displayed relatively to its target.
 | visible | InputSignal<boolean> | ... | Defines if the component is visible. |
 | motionOptions | InputSignal<MotionOptions> | ... | The motion options. |
 | appendTo | InputSignal<any> | 'body' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<ConfirmPopupContentTemplateContext> | Custom content template. |
+| accepticon | TemplateRef<void> | Custom accept icon template. |
+| rejecticon | TemplateRef<void> | Custom reject icon template. |
+| headless | TemplateRef<ConfirmPopupHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -11148,12 +11187,12 @@ ContextMenu offers item customization with the item template that receives the m
 
 <p-contextmenu #cm [model]="items" (onHide)="onHide()">
     <ng-template #item let-item>
-        <a pRipple class="flex items-center p-contextmenu-item-link">
+        <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
             <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="item.items" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
         </a>
     </ng-template>
 </p-contextmenu>
@@ -11332,8 +11371,8 @@ ContextMenu displays an overlay menu on right click of its target. Note that com
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Defines template option for item. |
-| submenuicon | TemplateRef<any> | Defines template option for submenuIcon. |
+| item | TemplateRef<ContextMenuItemTemplateContext> | Custom item template. |
+| submenuicon | TemplateRef<ContextMenuSubmenuIconTemplateContext> | Custom submenu icon template. |
 
 ## Pass Through Options
 
@@ -12243,17 +12282,17 @@ DataView displays data in grid or list layout with pagination and sorting featur
 
 | Name | Type | Description |
 |------|------|-------------|
-| list | TemplateRef<any> | Template for the list layout. |
-| grid | TemplateRef<any> | Template for grid layout. |
-| header | TemplateRef<any> | Template for the header section. |
-| emptymessage | TemplateRef<any> | Template for the empty message section. |
-| footer | TemplateRef<any> | Template for the footer section. |
-| paginatorleft | TemplateRef<any> | Template for the left side of paginator. |
-| paginatorright | TemplateRef<any> | r* Template for the right side of paginator. |
-| paginatordropdownitem | TemplateRef<any> | Template for items in paginator dropdown. |
-| loadingicon | TemplateRef<any> | Template for loading icon. |
-| listicon | TemplateRef<any> | Template for list icon. |
-| gridicon | TemplateRef<any> | Template for grid icon. |
+| list | TemplateRef<DataViewListTemplateContext<any>> | Template for the list layout. |
+| grid | TemplateRef<DataViewGridTemplateContext<any>> | Template for grid layout. |
+| header | TemplateRef<void> | Template for the header section. |
+| emptymessage | TemplateRef<void> | Template for the empty message section. |
+| footer | TemplateRef<void> | Template for the footer section. |
+| paginatorleft | TemplateRef<DataViewPaginatorLeftTemplateContext> | Template for the left side of paginator. |
+| paginatorright | TemplateRef<DataViewPaginatorRightTemplateContext> | Template for the right side of paginator. |
+| paginatordropdownitem | TemplateRef<DataViewPaginatorDropdownItemTemplateContext> | Template for items in paginator dropdown. |
+| loadingicon | TemplateRef<void> | Template for loading icon. |
+| listicon | TemplateRef<void> | Template for list icon. |
+| gridicon | TemplateRef<void> | Template for grid icon. |
 
 ## Pass Through Options
 
@@ -13091,7 +13130,7 @@ export class CalendarTemplateDemo {
 **Basic Usage:**
 
 ```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
     <div class="flex flex-col gap-1">
         <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
         @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
@@ -13345,19 +13384,19 @@ DatePicker is a form component to work with dates.
 
 | Name | Type | Description |
 |------|------|-------------|
-| date | TemplateRef<any> | Custom template for date cells. |
-| header | TemplateRef<any> | Custom template for header section. |
-| footer | TemplateRef<any> | Custom template for footer section. |
-| disableddate | TemplateRef<any> | Custom template for disabled date cells. |
-| decade | TemplateRef<any> | Custom template for decade view. |
-| previousicon | TemplateRef<any> | Custom template for previous month icon. |
-| nexticon | TemplateRef<any> | Custom template for next month icon. |
-| triggericon | TemplateRef<any> | Custom template for trigger icon. |
-| clearicon | TemplateRef<any> | Custom template for clear icon. |
-| decrementicon | TemplateRef<any> | Custom template for decrement icon. |
-| incrementicon | TemplateRef<any> | Custom template for increment icon. |
-| inputicon | TemplateRef<any> | Custom template for input icon. |
-| buttonbar | TemplateRef<any> | Custom template for button bar. |
+| date | TemplateRef<DatePickerDateTemplateContext> | Custom template for date cells. |
+| header | TemplateRef<void> | Custom template for header section. |
+| footer | TemplateRef<void> | Custom template for footer section. |
+| disableddate | TemplateRef<DatePickerDisabledDateTemplateContext> | Custom template for disabled date cells. |
+| decade | TemplateRef<DatePickerDecadeTemplateContext> | Custom template for decade view. |
+| previousicon | TemplateRef<void> | Custom template for previous month icon. |
+| nexticon | TemplateRef<void> | Custom template for next month icon. |
+| triggericon | TemplateRef<void> | Custom template for trigger icon. |
+| clearicon | TemplateRef<void> | Custom template for clear icon. |
+| decrementicon | TemplateRef<void> | Custom template for decrement icon. |
+| incrementicon | TemplateRef<void> | Custom template for increment icon. |
+| inputicon | TemplateRef<DatePickerInputIconTemplateContext> | Custom template for input icon. |
+| buttonbar | TemplateRef<DatePickerButtonBarTemplateContext> | Custom template for button bar. |
 
 ## Pass Through Options
 
@@ -14130,13 +14169,6 @@ Dialog is a container to display content in an overlay window.
 | style | any | - | Inline style of the component. |
 | position | "right" \| "left" \| "top" \| "bottom" \| "center" \| "topleft" \| "bottomleft" \| "topright" \| "bottomright" | - | Position of the dialog. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
-| headerTemplate | TemplateRef<any> | - | Header template. |
-| contentTemplate | TemplateRef<any> | - | Content template. |
-| footerTemplate | TemplateRef<any> | - | Footer template. |
-| closeIconTemplate | TemplateRef<any> | - | Close icon template. |
-| maximizeIconTemplate | TemplateRef<any> | - | Maximize icon template. |
-| minimizeIconTemplate | TemplateRef<any> | - | Minimize icon template. |
-| headlessTemplate | TemplateRef<any> | - | Headless template. |
 
 ### Emits
 
@@ -14150,6 +14182,25 @@ Dialog is a container to display content in an overlay window.
 | onResizeEnd | event: MouseEvent | Callback to invoke when dialog resizing is completed. |
 | onDragEnd | event: DragEvent | Callback to invoke when dialog dragging is completed. |
 | onMaximize | value: any | Callback to invoke when dialog maximized or unmaximized. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Header template. |
+| content | TemplateRef<void> | Content template. |
+| footer | TemplateRef<void> | Footer template. |
+| closeicon | TemplateRef<void> | Close icon template. |
+| maximizeicon | TemplateRef<void> | Maximize icon template. |
+| minimizeicon | TemplateRef<void> | Minimize icon template. |
+| headless | TemplateRef<void> | Headless template. |
+| _header | TemplateRef<void> | Custom header template. |
+| _content | TemplateRef<void> | Custom content template. |
+| _footer | TemplateRef<void> | Custom footer template. |
+| _closeicon | TemplateRef<void> | Custom close icon template. |
+| _maximizeicon | TemplateRef<void> | Custom maximize icon template. |
+| _minimizeicon | TemplateRef<void> | Custom minimize icon template. |
+| _headless | TemplateRef<void> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -14953,6 +15004,12 @@ Dock is a navigation component consisting of menuitems.
 |------|------------|-------------|
 | onFocus | event: FocusEvent | Callback to execute when button is focused. |
 | onBlur | event: FocusEvent | Callback to invoke when the component loses focus. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| item | TemplateRef<DockItemTemplateContext> | Custom item template. |
 
 ## Pass Through Options
 
@@ -15965,11 +16022,11 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Content template for the content of the drawer. |
-| footer | TemplateRef<any> | Header template for the header of the drawer. |
-| content | TemplateRef<any> | Content template for the footer of the drawer. |
-| closeicon | TemplateRef<any> | Close icon template for the close icon of the drawer. |
-| headless | TemplateRef<any> | Headless template for the headless drawer. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| content | TemplateRef<void> | Custom content template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| headless | TemplateRef<void> | Custom headless template to replace the entire drawer content. |
 
 ## Pass Through Options
 
@@ -16761,10 +16818,10 @@ Fieldset is a grouping component with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Defines the header template. |
-| expandicon | TemplateRef<any> | Defines the expandicon template. |
-| collapseicon | TemplateRef<any> | Defines the collapseicon template. |
-| content | TemplateRef<any> | Defines the content template. |
+| header | TemplateRef<void> | Custom header template. |
+| expandicon | TemplateRef<void> | Custom expand icon template. |
+| collapseicon | TemplateRef<void> | Custom collapse icon template. |
+| content | TemplateRef<void> | Custom content template. |
 
 ## Pass Through Options
 
@@ -17205,15 +17262,15 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 
 | Name | Type | Description |
 |------|------|-------------|
-| file | TemplateRef<any> | Template for file. |
-| header | TemplateRef<any> | Template for header. |
-| content | TemplateRef<any> | Template for content. |
-| toolbar | TemplateRef<any> | Template for toolbar. |
-| chooseicon | TemplateRef<any> | Template for choose icon. |
-| filelabel | TemplateRef<any> | Template for file label. |
-| uploadicon | TemplateRef<any> | Template for upload icon. |
-| cancelicon | TemplateRef<any> | Template for cancel icon. |
-| empty | TemplateRef<any> | Template for empty state. |
+| file | TemplateRef<void> | Custom file template. |
+| header | TemplateRef<FileUploadHeaderTemplateContext> | Custom header template. |
+| content | TemplateRef<FileUploadContentTemplateContext> | Custom content template. |
+| toolbar | TemplateRef<void> | Custom toolbar template. |
+| chooseicon | TemplateRef<void> | Custom choose icon template. |
+| filelabel | TemplateRef<FileUploadFileLabelTemplateContext> | Custom file label template. |
+| uploadicon | TemplateRef<void> | Custom upload icon template. |
+| cancelicon | TemplateRef<void> | Custom cancel icon template. |
+| empty | TemplateRef<void> | Custom empty state template. |
 
 ### Methods
 
@@ -17629,8 +17686,19 @@ Galleria can be extended further to implement complex requirements.
 **Basic Usage:**
 
 ```html
-<p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"
-    [circular]="true" [autoPlay]="isAutoPlay" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()"
+<p-galleria
+    #galleria
+    [(value)]="images"
+    [(activeIndex)]="activeIndex"
+    [numVisible]="5"
+    [showThumbnails]="showThumbnails"
+    [showItemNavigators]="true"
+    [showItemNavigatorsOnHover]="true"
+    [circular]="true"
+    [autoPlay]="isAutoPlay"
+    [transitionInterval]="3000"
+    [containerStyle]="{ 'max-width': '640px' }"
+    [pt]="galleriaPT"
 >
     <ng-template #item let-item>
         <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
@@ -17684,23 +17752,6 @@ import { PhotoService } from '@/service/photoservice';
 @Component({
     selector: 'galleria-advanced-demo',
     templateUrl: './galleria-advanced-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .custom-galleria {
-                &.p-galleria {
-                    &.fullscreen {
-                        display: flex;
-                        flex-direction: column;
-
-                        .p-galleria-content {
-                            flex-grow: 1;
-                            justify-content: center;
-                        }
-                    }
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [ButtonModule, GalleriaModule],
     providers: [PhotoService]
@@ -17718,6 +17769,18 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     isAutoPlay: boolean = true;
 
     onFullScreenListener: any;
+
+    get galleriaPT() {
+        return {
+            root: {
+                class: [{ 'flex flex-col': this.fullscreen }]
+            },
+            content: {
+                class: ['relative', { 'flex-1 justify-center': this.fullscreen }]
+            },
+            thumbnails: 'absolute w-full left-0 bottom-0'
+        };
+    }
 
     @ViewChild('galleria') galleria: Galleria | undefined;
 
@@ -17809,10 +17872,6 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.unbindDocumentListeners();
-    }
-
-    galleriaClass() {
-        return \`custom-galleria \${this.fullscreen ? 'fullscreen' : ''}\`;
     }
 
     slideButtonIcon() {
@@ -18332,6 +18391,22 @@ Galleria is an advanced content gallery component.
 |------|------------|-------------|
 | activeIndexChange | value: number | Callback to invoke on active index change. |
 | visibleChange | value: boolean | Callback to invoke on visiblity change. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| indicator | TemplateRef<GalleriaIndicatorTemplateContext> | Custom indicator template. |
+| caption | TemplateRef<GalleriaCaptionTemplateContext<any>> | Custom caption template. |
+| _closeicon | TemplateRef<void> | Custom close icon template. |
+| _previousthumbnailicon | TemplateRef<void> | Custom previous thumbnail icon template. |
+| _nextthumbnailicon | TemplateRef<void> | Custom next thumbnail icon template. |
+| _itempreviousicon | TemplateRef<void> | Custom item previous icon template. |
+| _itemnexticon | TemplateRef<void> | Custom item next icon template. |
+| _item | TemplateRef<GalleriaItemTemplateContext<any>> | Custom item template. |
+| _thumbnail | TemplateRef<GalleriaThumbnailTemplateContext<any>> | Custom thumbnail template. |
 
 ## Pass Through Options
 
@@ -18933,8 +19008,8 @@ Compare two images side by side with a slider.
 
 | Name | Type | Description |
 |------|------|-------------|
-| left | TemplateRef<any> | Template for the left side. |
-| right | TemplateRef<any> | Template for the right side. |
+| left | TemplateRef<void> | Custom left side template. |
+| right | TemplateRef<void> | Custom right side template. |
 
 ## Pass Through Options
 
@@ -19274,9 +19349,9 @@ Inplace provides an easy to do editing and display at the same time where clicki
 
 | Name | Type | Description |
 |------|------|-------------|
-| display | TemplateRef<any> | Display template of the element. |
-| content | TemplateRef<any> | Content template of the element. |
-| closeicon | TemplateRef<any> | Close icon template of the element. |
+| display | TemplateRef<void> | Custom display template. |
+| content | TemplateRef<InplaceContentTemplateContext> | Custom content template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
 
 ### Methods
 
@@ -20274,7 +20349,7 @@ InputMask component is used to enter input in a certain format such as numeric, 
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | TemplateRef<any> | Template of the clear icon. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
 
 ## Pass Through Options
 
@@ -21034,9 +21109,9 @@ InputNumber is an input component to provide numerical input.
 
 | Name | Type | Description |
 |------|------|-------------|
-| clearicon | TemplateRef<any> | Template of the clear icon. |
-| incrementbuttonicon | TemplateRef<any> | Template of the increment button icon. |
-| decrementbuttonicon | TemplateRef<any> | Template of the decrement button icon. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| incrementbuttonicon | TemplateRef<void> | Custom increment button icon template. |
+| decrementbuttonicon | TemplateRef<void> | Custom decrement button icon template. |
 
 ## Pass Through Options
 
@@ -21504,7 +21579,7 @@ Input Otp is used to enter one time passwords.
 
 | Name | Type | Description |
 |------|------|-------------|
-| input | TemplateRef<any> | Input template. |
+| input | TemplateRef<InputOtpInputTemplateContext> | Custom input template. |
 
 ## Pass Through Options
 
@@ -22056,7 +22131,7 @@ InputText directive is an extension to standard input element with theming.
 | pt | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | ptInputText | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. **(Deprecated)** |
-| pInputTextPt | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
+| pInputTextPT | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
 | pInputTextUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pSize | "small" \| "large" | - | Defines the size of the component. |
 | variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
@@ -22379,14 +22454,14 @@ export class KnobReactiveDemo {
 ```
 </details>
 
-## reactiveformsdoc
+## Reactive Forms
 
 Knob can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
 
 **Basic Usage:**
 
 ```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
     <div class="flex flex-col items-center gap-1">
         <p-knob formControlName="value" [invalid]="isInvalid('value')" />
         @if (isInvalid('value')) {
@@ -22625,7 +22700,7 @@ export class KnobTemplateDemo {
 **Basic Usage:**
 
 ```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
     <div class="flex flex-col items-center gap-1">
         <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
         @if (isInvalid(model)) {
@@ -23553,17 +23628,17 @@ ListBox is used to select one or more values from a list of items.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| group | TemplateRef<any> | Custom group template. |
-| header | TemplateRef<any> | Custom header template. |
-| filter | TemplateRef<any> | Custom filter template. |
-| footer | TemplateRef<any> | Custom footer template. |
-| emptyfilter | TemplateRef<any> | Custom empty filter message template. |
-| empty | TemplateRef<any> | Custom empty message template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
-| checkicon | TemplateRef<any> | Custom check icon template. |
-| checkmark | TemplateRef<any> | Custom checkmark icon template. |
-| loader | TemplateRef<any> | Custom loader template. |
+| item | TemplateRef<ListboxItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<ListboxGroupTemplateContext<any>> | Custom group template. |
+| header | TemplateRef<ListboxHeaderTemplateContext<any>> | Custom header template. |
+| filter | TemplateRef<ListboxFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<ListboxFooterTemplateContext<any>> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter message template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| checkicon | TemplateRef<ListboxCheckIconTemplateContext> | Custom check icon template. |
+| checkmark | TemplateRef<ListboxCheckmarkTemplateContext> | Custom checkmark icon template. |
+| loader | TemplateRef<ListboxLoaderTemplateContext> | Custom loader template. |
 
 ### Methods
 
@@ -24095,13 +24170,13 @@ MegaMenu is navigation component that displays submenus together.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| menuicon | TemplateRef<any> | Defines template option for menu icon. |
-| submenuicon | TemplateRef<any> | Defines template option for submenu icon. |
-| item | TemplateRef<any> | Defines template option for submenu icon. |
-| button | TemplateRef<any> | Custom menu button template on responsive mode. |
-| buttonicon | TemplateRef<any> | Custom menu button icon template on responsive mode. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
+| item | TemplateRef<MegaMenuItemTemplateContext> | Custom item template. |
+| button | TemplateRef<void> | Custom menu button template on responsive mode. |
+| buttonicon | TemplateRef<void> | Custom menu button icon template on responsive mode. |
 
 ## Pass Through Options
 
@@ -24497,13 +24572,11 @@ Menu offers item customization with the item template that receives the menuitem
         <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
     <ng-template #item let-item>
-        <a pRipple class="flex items-center p-menu-item-link">
+        <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
             <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
         </a>
     </ng-template>
     <ng-template #end>
@@ -24574,7 +24647,8 @@ export class MenuTemplateDemo implements OnInit {
                     {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
-                        shortcut: '⌘+Q'
+                        shortcut: '⌘+Q',
+                        linkClass: '!text-red-500 dark:!text-red-400'
                     }
                 ]
             },
@@ -24627,11 +24701,11 @@ Menu is a navigation / command component that supports dynamic and static positi
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| header | TemplateRef<any> | Defines template option for header. |
-| item | TemplateRef<any> | Defines template option for item. |
-| submenuheader | TemplateRef<any> | Defines template option for item. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| header | TemplateRef<void> | Defines template option for header. |
+| item | TemplateRef<MenuItemTemplateContext> | Custom item template. |
+| submenuheader | TemplateRef<MenuSubmenuHeaderTemplateContext> | Custom submenu header template. |
 
 ### Methods
 
@@ -24914,11 +24988,11 @@ Custom content can be placed inside the menubar using the start and end template
         </svg>
     </ng-template>
     <ng-template #item let-item let-root="root">
-        <a pRipple class="flex items-center p-menubar-item-link">
+        <a pRipple class="flex items-center px-4 py-3 cursor-pointer gap-2">
             <span>{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
+            <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="item.items" [ngClass]="['ms-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
         </a>
     </ng-template>
     <ng-template #end>
@@ -25023,11 +25097,11 @@ Menubar is a horizontal menu component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| item | TemplateRef<any> | Defines template option for item. |
-| menuicon | TemplateRef<any> | Defines template option for item. |
-| submenuicon | TemplateRef<any> | Defines template option for submenu icon. |
+| start | TemplateRef<void> | Defines template option for start. |
+| end | TemplateRef<void> | Defines template option for end. |
+| item | TemplateRef<MenubarItemTemplateContext> | Custom item template. |
+| menuicon | TemplateRef<void> | Defines template option for menu icon. |
+| submenuicon | TemplateRef<void> | Defines template option for submenu icon. |
 
 ## Pass Through Options
 
@@ -25272,7 +25346,7 @@ The icon of a message is specified with the icon property.
     <ng-template #icon>
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
     </ng-template>
-    <span class="ml-2">How may I help you?</span>
+    <span class="ms-2">How may I help you?</span>
 </p-message>
 ```
 
@@ -25503,9 +25577,9 @@ Message groups a collection of contents in tabs.
 
 | Name | Type | Description |
 |------|------|-------------|
-| container | TemplateRef<any> | Custom template of the message container. |
-| icon | TemplateRef<any> | Custom template of the message icon. |
-| closeicon | TemplateRef<any> | Custom template of the close icon. |
+| container | TemplateRef<MessageContainerTemplateContext> | Custom template of the message container. |
+| icon | TemplateRef<void> | Custom template of the message icon. |
+| closeicon | TemplateRef<void> | Custom template of the close icon. |
 
 ### Methods
 
@@ -25925,6 +25999,16 @@ MeterGroup displays scalar measurements within a known range.
 | labelPosition | "start" \| "end" | end | Specifies the label position of the component, valid values are 'start' and 'end'. |
 | labelOrientation | "vertical" \| "horizontal" | horizontal | Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'. |
 | styleClass | string | - | Style class of the element. **(Deprecated)** |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| label | TemplateRef<MeterGroupLabelTemplateContext> | Custom label template. |
+| meter | TemplateRef<MeterGroupMeterTemplateContext> | Custom meter template. |
+| end | TemplateRef<MeterGroupLabelTemplateContext> | Custom end template. |
+| start | TemplateRef<MeterGroupLabelTemplateContext> | Custom start template. |
+| icon | TemplateRef<MeterGroupIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -27303,7 +27387,7 @@ Filter value is checked against the property of an object configured with the fi
 **Basic Usage:**
 
 ```html
-<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+<p-orderlist [value]="products" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
     <ng-template let-option let-selected="selected" #item>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
             <img
@@ -27549,16 +27633,16 @@ OrderList is used to manage the order of a collection.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| emptymessage | TemplateRef<any> | Custom empty template. |
-| emptyfiltermessage | TemplateRef<any> | Custom empty filter template. |
-| filter | TemplateRef<any> | Custom filter template. |
-| header | TemplateRef<any> | Custom header template. |
-| moveupicon | TemplateRef<any> | Custom move up icon template. |
-| movetopicon | TemplateRef<any> | Custom move top icon template. |
-| movedownicon | TemplateRef<any> | Custom move down icon template. |
-| movebottomicon | TemplateRef<any> | Custom move bottom icon template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
+| item | TemplateRef<OrderListItemTemplateContext> | Custom item template. |
+| emptymessage | TemplateRef<void> | Custom empty template. |
+| emptyfiltermessage | TemplateRef<void> | Custom empty filter template. |
+| filter | TemplateRef<OrderListFilterTemplateContext> | Custom filter template. |
+| header | TemplateRef<void> | Custom header template. |
+| moveupicon | TemplateRef<void> | Custom move up icon template. |
+| movetopicon | TemplateRef<void> | Custom move top icon template. |
+| movedownicon | TemplateRef<void> | Custom move down icon template. |
+| movebottomicon | TemplateRef<void> | Custom move bottom icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 
@@ -28225,7 +28309,7 @@ This API allows overlay components to be controlled from the PrimeNG. In this wa
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Content template of the component. |
+| content | TemplateRef<OverlayContentTemplateContext> | Content template of the component. |
 
 ## Pass Through Options
 
@@ -28307,7 +28391,8 @@ Sample image gallery implementation using paginator.
 
 ```html
 <p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-<img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />
+        
+<img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
 ```
 
 <details>
@@ -28324,11 +28409,8 @@ import { PaginatorState } from 'primeng/paginator';
 export class PaginatorImagesDemo {
     first: number = 0;
 
-    rows: number = 10;
-
     onPageChange(event: PaginatorState) {
         this.first = event.first ?? 0;
-        this.rows = event.rows ?? 10;
     }
 }
 ```
@@ -28457,8 +28539,8 @@ Paginator is a generic component to display content in paged format.
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | alwaysShow | boolean | true | Whether to show it even there is only one page. |
 | dropdownAppendTo | any | - | Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). **(Deprecated)** |
-| templateLeft | TemplateRef<PaginatorState> | - | Template instance to inject into the left side of the paginator. |
-| templateRight | TemplateRef<PaginatorState> | - | Template instance to inject into the right side of the paginator. |
+| templateLeft | TemplateRef<PaginatorTemplateContext> | - | Template instance to inject into the left side of the paginator. |
+| templateRight | TemplateRef<PaginatorTemplateContext> | - | Template instance to inject into the right side of the paginator. |
 | dropdownScrollHeight | string | 200px | Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value. |
 | currentPageReportTemplate | string | {currentPage} of {totalPages} | Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords} |
 | showCurrentPageReport | boolean | false | Whether to display current page report. |
@@ -28468,10 +28550,10 @@ Paginator is a generic component to display content in paged format.
 | rowsPerPageOptions | any[] | - | Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}] |
 | showJumpToPageDropdown | boolean | false | Whether to display a dropdown to navigate to any page. |
 | showJumpToPageInput | boolean | false | Whether to display a input to navigate to any page. |
-| jumpToPageItemTemplate | TemplateRef<{ $implicit: any }> | - | Template instance to inject into the jump to page dropdown item inside in the paginator. |
+| jumpToPageItemTemplate | TemplateRef<PaginatorDropdownItemTemplateContext> | - | Template instance to inject into the jump to page dropdown item inside in the paginator. |
 | showPageLinks | boolean | true | Whether to show page links. |
 | locale | string | - | Locale to be used in formatting. |
-| dropdownItemTemplate | TemplateRef<{ $implicit: any }> | - | Template instance to inject into the rows per page dropdown item inside in the paginator. |
+| dropdownItemTemplate | TemplateRef<PaginatorDropdownItemTemplateContext> | - | Template instance to inject into the rows per page dropdown item inside in the paginator. |
 | first | number | - | Zero-relative number of the first row to be displayed. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 
@@ -28485,11 +28567,11 @@ Paginator is a generic component to display content in paged format.
 
 | Name | Type | Description |
 |------|------|-------------|
-| dropdownicon | TemplateRef<any> | Template for the dropdown icon. |
-| firstpagelinkicon | TemplateRef<any> | Template for the first page link icon. |
-| previouspagelinkicon | TemplateRef<any> | Template for the previous page link icon. |
-| lastpagelinkicon | TemplateRef<any> | Template for the last page link icon. |
-| nextpagelinkicon | TemplateRef<any> | Template for the next page link icon. |
+| dropdownicon | TemplateRef<void> | Template for the dropdown icon. |
+| firstpagelinkicon | TemplateRef<void> | Template for the first page link icon. |
+| previouspagelinkicon | TemplateRef<void> | Template for the previous page link icon. |
+| lastpagelinkicon | TemplateRef<void> | Template for the last page link icon. |
+| nextpagelinkicon | TemplateRef<void> | Template for the next page link icon. |
 
 ## Pass Through Options
 
@@ -28747,10 +28829,10 @@ Panel is a container with the optional content toggle feature.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Defines template option for header. |
-| icon | TemplateRef<any> | Defines template option for icon. |
-| content | TemplateRef<any> | Defines template option for content. |
-| footer | TemplateRef<any> | Defines template option for footer. |
+| header | TemplateRef<void> | Defines template option for header. |
+| icon | TemplateRef<void> | Defines template option for icon. |
+| content | TemplateRef<void> | Defines template option for content. |
+| footer | TemplateRef<void> | Defines template option for footer. |
 | headericons | TemplateRef<PanelHeaderIconsTemplateContext> | Defines template option for headerIcon. |
 
 ## Pass Through Options
@@ -29249,16 +29331,11 @@ PanelMenu requires a collection of menuitems as its model .
 ```html
 <p-panelmenu [model]="items" class="w-full md:w-80">
     <ng-template #item let-item>
-        <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
+         <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
             <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
-            <span class="ml-2">
-                {{ item.label }}
-            </span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded
-            bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
         </a>
     </ng-template>
 </p-panelmenu>
@@ -29397,9 +29474,9 @@ PanelMenu is a hybrid of Accordion and Tree components.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | TemplateRef<any> | Template option of submenu icon. |
-| headericon | TemplateRef<any> | Template option of header icon. |
-| item | TemplateRef<any> | Template option of item. |
+| submenuicon | TemplateRef<void> | Template option of submenu icon. |
+| headericon | TemplateRef<void> | Template option of header icon. |
+| item | TemplateRef<PanelMenuItemTemplateContext> | Template option of item. |
 
 ### Methods
 
@@ -30069,7 +30146,7 @@ Password directive.
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |
 | disabled | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have disabled state style. |
 | name | InputSignal<string> | undefined | When present, it specifies that the name of the input. |
-| pPasswordPt | InputSignal<PasswordPassThrough> | undefined | Used to pass attributes to DOM elements inside the Password component. |
+| pPasswordPT | InputSignal<PasswordPassThrough> | undefined | Used to pass attributes to DOM elements inside the Password component. |
 | pPasswordUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | promptLabel | string | Enter a password | Text to prompt password entry. Defaults to PrimeNG I18N API configuration. |
 | weakLabel | string | Weak | Text for a weak password. Defaults to PrimeNG I18N API configuration. |
@@ -30141,6 +30218,17 @@ Password displays strength indicator for password fields.
 | onFocus | event: Event | Callback to invoke when the component receives focus. |
 | onBlur | event: Event | Callback to invoke when the component loses focus. |
 | onClear | value: any | Callback to invoke when clear button is clicked. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<void> | Custom template of content. |
+| footer | TemplateRef<void> | Custom template of footer. |
+| header | TemplateRef<void> | Custom template of header. |
+| clearicon | TemplateRef<void> | Custom template of clear icon. |
+| hideicon | TemplateRef<PasswordIconTemplateContext> | Custom template of hide icon. |
+| showicon | TemplateRef<PasswordIconTemplateContext> | Custom template of show icon. |
 
 ## Pass Through Options
 
@@ -30528,25 +30616,25 @@ PickList is used to reorder items between different lists.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| sourceheader | TemplateRef<any> | Custom source header template. |
-| targetheader | TemplateRef<any> | Custom target header template. |
-| sourcefilter | TemplateRef<{ options: PickListFilterOptions }> | Custom source filter template. |
-| targetfilter | TemplateRef<{ options: PickListFilterOptions }> | Custom target filter template. |
-| emptymessagesource | TemplateRef<any> | Custom empty message when source is empty template. |
-| emptyfiltermessagesource | TemplateRef<any> | Custom empty filter message when source is empty template. |
-| emptymessagetarget | TemplateRef<any> | Custom empty message when target is empty template. |
-| emptyfiltermessagetarget | TemplateRef<any> | Custom empty filter message when target is empty template. |
-| moveupicon | TemplateRef<{ $implicit: boolean }> | Custom move up icon template. |
-| movetopicon | TemplateRef<{ $implicit: boolean }> | Custom move top icon template. |
-| movedownicon | TemplateRef<{ $implicit: boolean }> | Custom move down icon template. |
-| movebottomicon | TemplateRef<{ $implicit: boolean }> | Custom move bottom icon template. |
-| movetotargeticon | TemplateRef<{ $implicit: boolean }> | Custom move to target icon template. |
-| movealltotargeticon | TemplateRef<{ $implicit: boolean }> | Custom move all to target icon template. |
-| movetosourceicon | TemplateRef<{ $implicit: boolean }> | Custom move to source icon template. |
-| movealltosourceicon | TemplateRef<{ $implicit: boolean }> | Custom move all to source icon template. |
-| targetfiltericon | TemplateRef<{ options: PickListFilterOptions }> | Custom target filter icon template. |
-| sourcefiltericon | TemplateRef<{ options: PickListFilterOptions }> | Custom source filter icon template. |
+| item | TemplateRef<PickListItemTemplateContext> | Custom item template. |
+| sourceheader | TemplateRef<void> | Custom source header template. |
+| targetheader | TemplateRef<void> | Custom target header template. |
+| sourcefilter | TemplateRef<PickListFilterTemplateContext> | Custom source filter template. |
+| targetfilter | TemplateRef<PickListFilterTemplateContext> | Custom target filter template. |
+| emptymessagesource | TemplateRef<void> | Custom empty message when source is empty template. |
+| emptyfiltermessagesource | TemplateRef<void> | Custom empty filter message when source is empty template. |
+| emptymessagetarget | TemplateRef<void> | Custom empty message when target is empty template. |
+| emptyfiltermessagetarget | TemplateRef<void> | Custom empty filter message when target is empty template. |
+| moveupicon | TemplateRef<void> | Custom move up icon template. |
+| movetopicon | TemplateRef<void> | Custom move top icon template. |
+| movedownicon | TemplateRef<void> | Custom move down icon template. |
+| movebottomicon | TemplateRef<void> | Custom move bottom icon template. |
+| movetotargeticon | TemplateRef<PickListTransferIconTemplateContext> | Custom move to target icon template. |
+| movealltotargeticon | TemplateRef<PickListTransferIconTemplateContext> | Custom move all to target icon template. |
+| movetosourceicon | TemplateRef<PickListTransferIconTemplateContext> | Custom move to source icon template. |
+| movealltosourceicon | TemplateRef<PickListTransferIconTemplateContext> | Custom move all to source icon template. |
+| targetfiltericon | TemplateRef<void> | Custom target filter icon template. |
+| sourcefiltericon | TemplateRef<void> | Custom source filter icon template. |
 
 ## Pass Through Options
 
@@ -30997,7 +31085,7 @@ Popover is a container component that can overlay other components on page.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Custom content template. |
+| content | TemplateRef<PopoverContentTemplateContext> | Custom content template. |
 
 ### Methods
 
@@ -31203,6 +31291,12 @@ ProgressBar is a process status indicator.
 | unit | string | % | Unit sign appended to the value. |
 | mode | "indeterminate" \| "determinate" | 'determinate' | Defines the mode of the progress |
 | color | string | - | Color for the background of the progress. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<ProgressBarContentTemplateContext> | Template of the content. |
 
 ## Pass Through Options
 
@@ -32200,8 +32294,8 @@ Rating is an extension to standard radio button element with theming.
 
 | Name | Type | Description |
 |------|------|-------------|
-| onicon | TemplateRef<any> | Custom on icon template. |
-| officon | TemplateRef<any> | Custom off icon template. |
+| onicon | TemplateRef<RatingIconTemplateContext> | Custom on icon template. |
+| officon | TemplateRef<RatingIconTemplateContext> | Custom off icon template. |
 
 ## Pass Through Options
 
@@ -32780,9 +32874,9 @@ Scroller content is customizable by using ng-template . Valid values are content
 **Basic Usage:**
 
 ```html
-<p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+<p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" [numToleratedItems]="20" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
     <ng-template #item let-item let-options="options">
-        <div class="flex flex-col align-items-strech" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="flex flex-col align-items-strech" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
             <div class="flex items-center px-2" style="height: 25px">Item: {{ item }}</div>
             <div class="flex items-center px-2" style="height: 25px">Index: {{ options.index }}</div>
             <div class="flex items-center px-2" style="height: 25px">Count: {{ options.count }}</div>
@@ -32793,7 +32887,7 @@ Scroller content is customizable by using ng-template . Valid values are content
         </div>
     </ng-template>
     <ng-template #loader let-options="options">
-        <div class="flex flex-col items-stretch" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="flex flex-col items-stretch" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
@@ -32891,10 +32985,10 @@ Scroller is a performance-approach to handle huge data efficiently.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Content template of the component. |
-| item | TemplateRef<any> | Item template of the component. |
-| loader | TemplateRef<any> | Loader template of the component. |
-| loadericon | TemplateRef<any> | Loader icon template of the component. |
+| content | TemplateRef<ScrollerContentTemplateContext> | Content template of the component. |
+| item | TemplateRef<ScrollerItemTemplateContext> | Item template of the component. |
+| loader | TemplateRef<ScrollerLoaderTemplateContext> | Loader template of the component. |
+| loadericon | TemplateRef<ScrollerLoaderIconTemplateContext> | Loader icon template of the component. |
 
 ## Pass Through Options
 
@@ -33038,7 +33132,7 @@ ScrollPanel is a cross browser, lightweight and themable alternative to native b
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Defines template option for content. |
+| content | TemplateRef<void> | Custom content template. |
 
 ### Methods
 
@@ -33172,7 +33266,7 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | TemplateRef<any> | Template of the icon. |
+| icon | TemplateRef<ScrollTopIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -33928,7 +34022,7 @@ export class SelectInvalidDemo {
 **Basic Usage:**
 
 ```html
-<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />
+<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
 ```
 
 <details>
@@ -34323,7 +34417,7 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 **Basic Usage:**
 
 ```html
-<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" class="w-full md:w-56" />
+<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
 ```
 
 <details>
@@ -35026,7 +35120,7 @@ SelectButton is used to choose single or multiple items from a list using button
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Template of an item in the list. |
+| item | TemplateRef<SelectButtonItemTemplateContext> | Custom item template. |
 
 ## Pass Through Options
 
@@ -36325,9 +36419,9 @@ When pressed, a floating action button can display multiple primary actions that
 
 | Name | Type | Description |
 |------|------|-------------|
-| button | TemplateRef<any> | Template of the button. |
-| item | TemplateRef<any> | Template of the item. |
-| icon | TemplateRef<any> | Template of the item. |
+| button | TemplateRef<SpeedDialButtonTemplateContext> | Custom button template. |
+| item | TemplateRef<SpeedDialItemTemplateContext> | Custom item template. |
+| icon | TemplateRef<void> | Custom icon template. |
 
 ## Pass Through Options
 
@@ -37310,8 +37404,8 @@ SplitButton groups a set of commands in an overlay with a default command.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Template of the content. |
-| dropdownicon | TemplateRef<any> | Template of the dropdownicon. |
+| content | TemplateRef<void> | Custom content template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
 
 ## Pass Through Options
 
@@ -38556,7 +38650,7 @@ When hideOnResize is enabled, the leave animation is triggered automatically whe
 **Basic Usage:**
 
 ```html
-<div class="flex justify-center">
+<div class="flex flex-wrap justify-center gap-4">
     <div class="flex flex-col items-center gap-4 w-[25rem]">
         <p-button pStyleClass=".window-responsive-box" enterFromClass="hidden" enterActiveClass="animate-fadein" leaveActiveClass="animate-fadeout" leaveToClass="hidden" [hideOnResize]="true" label="Show Window Responsive Content" />
         <div class="window-responsive-box hidden animate-duration-300 border border-lg border-surface">
@@ -38626,8 +38720,8 @@ StyleClass has two modes, toggleClass to simply add-remove a class and enter/lea
 **Basic Usage:**
 
 ```html
-<p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
-<input type="text" pInputText class="block mt-4" />
+<p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
+<input type="text" pInputText class="hidden mt-4" />
 ```
 
 <details>
@@ -40045,16 +40139,20 @@ Columns can be defined dynamically using the *ngFor directive.
 <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowData let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns">
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; track col) {
+                <td>
+                    {{ rowData[col.field] }}
+                </td>
+            }
         </tr>
     </ng-template>
 </p-table>
@@ -41263,26 +41361,23 @@ Enabling showGridlines displays borders between cells.
 **Basic Usage:**
 
 ```html
-<p-table
-    [value]="products"
-    showGridlines
-    [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-        </ng-template>
+<p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
 </p-table>
 ```
 
@@ -41644,6 +41739,142 @@ export class TableLazyLoadDemo implements OnInit{
 },
 ...
 ```
+
+## loadingmaskdoc
+
+The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
+
+**Basic Usage:**
+
+```html
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
+    <ng-template #header>
+        <tr>
+            <th style="width:25%">Code</th>
+            <th style="width:25%">Name</th>
+            <th style="width:25%">Category</th>
+            <th style="width:25%">Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'table-loading-mask-demo',
+    templateUrl: 'table-loading-mask.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
+})
+export class LoadingMaskDemo implements OnInit {
+    
+    products!: Product[];
+
+    constructor(
+        private productService: ProductService,
+    ) {}
+
+    ngOnInit() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = data;
+        });
+    }
+
+}
+```
+</details>
+
+**Sample Data:**
+
+```json
+{
+    id: '1000',
+    code: 'f230fh0g3',
+    name: 'Bamboo Watch',
+    description: 'Product Description',
+    image: 'bamboo-watch.jpg',
+    price: 65,
+    category: 'Accessories',
+    quantity: 24,
+    inventoryStatus: 'INSTOCK',
+    rating: 5
+},
+...
+```
+
+## loadingskeletondoc
+
+Skeleton component can be used as a placeholder during the loading process.
+
+**Basic Usage:**
+
+```html
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+        </tr>
+    </ng-template>
+</p-table>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'primeng/skeleton';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'table-loading-skeleton-demo',
+    templateUrl: 'table-loading-skeleton-demo.html',
+    standalone: true,
+    imports: [CommonModule,TableModule,SkeletonModule]
+})
+export class LoadingSkeletonDemo implements OnInit {
+    products!: Product[];
+
+    ngOnInit() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = Array.from({ length: 10 }).map((_, i) => ({id: i.toString()}));
+        });
+    }
+}
+```
+</details>
 
 ## multiplecolumnssortdoc
 
@@ -43390,6 +43621,7 @@ import { Product } from '@/domain/product';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from '@/service/productservice';
 import { MessageService } from 'primeng/api';
@@ -43400,7 +43632,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, CommonModule],
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, FormsModule, CommonModule],
     providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{
@@ -45918,6 +46150,12 @@ Tag component is used to categorize content.
 | icon | string | - | Icon of the tag to display next to the value. |
 | rounded | boolean | false | Whether the corners of the tag are rounded. |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| icon | TemplateRef<void> | Custom icon template. |
+
 ## Pass Through Options
 
 | Name | Type | Description |
@@ -46550,7 +46788,7 @@ Textarea adds styling and autoResize functionality to standard textarea element.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| pTextareaPt | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the Textarea component. |
+| pTextareaPT | InputSignal<TextareaPassThrough> | undefined | Used to pass attributes to DOM elements inside the Textarea component. |
 | pTextareaUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | autoResize | boolean | false | When present, textarea size changes as being typed. |
 | pSize | "small" \| "large" | - | Defines the size of the component. |
@@ -46927,14 +47165,12 @@ TieredMenu offers item customization with the item template that receives the me
 ```html
 <p-tieredmenu [model]="items">
     <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-        <a pRipple class="flex items-center p-tieredmenu-item-link">
-            <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
+        <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+            <span [class]="item.icon"></span>
+            <span class="ms-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
-            <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
         </a>
     </ng-template>
 </p-tieredmenu>
@@ -46971,7 +47207,7 @@ export class TieredMenuTemplateDemo implements OnInit {
                         icon: 'pi pi-plus',
                         items: [
                             {
-                                label: 'Document',
+                                label: 'Docs',
                                 icon: 'pi pi-file',
                                 shortcut: '⌘+N'
                             },
@@ -47086,8 +47322,8 @@ TieredMenu displays submenus in nested overlays.
 
 | Name | Type | Description |
 |------|------|-------------|
-| submenuicon | TemplateRef<any> | Template of the submenu icon. |
-| item | TemplateRef<any> | Template of the item. |
+| submenuicon | TemplateRef<void> | Custom submenu icon template. |
+| item | TemplateRef<TieredMenuItemTemplateContext> | Custom item template. |
 
 ### Methods
 
@@ -47454,9 +47690,9 @@ Timeline visualizes a series of chained events.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Custom content template. |
-| opposite | TemplateRef<any> | Custom opposite item template. |
-| marker | TemplateRef<any> | Custom marker template. |
+| content | TemplateRef<TimelineItemTemplateContext<any>> | Custom content template. |
+| opposite | TemplateRef<TimelineItemTemplateContext<any>> | Custom opposite item template. |
+| marker | TemplateRef<TimelineItemTemplateContext<any>> | Custom marker template. |
 
 ## Pass Through Options
 
@@ -47818,12 +48054,12 @@ export class ToastPositionDemo {
 
 ## Responsive
 
-Toast styling can be adjusted per screen size with the breakpoints option. The value of breakpoints should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.
+Toast styling can be adjusted per screen size with the breakpoints option. The value of breakpoints should be an object literal whose keys are the maximum screen sizes and values are the styles per screen.
 
 **Basic Usage:**
 
 ```html
-<p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
+<p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
 <p-button (click)="show()" label="Show" />
 ```
 
@@ -47848,7 +48084,7 @@ export class ToastResponsiveDemo {
     constructor(private messageService: MessageService) {}
 
     show() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+        this.messageService.add({ severity: 'contrast', summary: 'Success', detail: 'Message Content' });
     }
 }
 ```
@@ -48121,8 +48357,8 @@ Toast is used to display messages in an overlay.
 
 | Name | Type | Description |
 |------|------|-------------|
-| template | TemplateRef<any> | Custom template of message. |
-| headless | TemplateRef<any> | Custom headless template. |
+| template | TemplateRef<ToastMessageTemplateContext> | Custom message template. |
+| headless | TemplateRef<ToastHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 
@@ -48395,9 +48631,9 @@ ToggleButton can also be used with reactive forms. In this case, the formControl
 **Basic Usage:**
 
 ```html
-<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" />
+<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
+    <div class="flex flex-col items-center gap-1">
+        <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
         @if (isInvalid('checked')) {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }
@@ -48433,7 +48669,7 @@ export class ToggleButtonReactiveFormsDemo {
 
     constructor(private fb: FormBuilder) {
         this.exampleForm = this.fb.group({
-            checked: ['', Validators.required]
+            checked: [false, Validators.requiredTrue]
         });
     }
 
@@ -48499,9 +48735,9 @@ Following is the list of structural style classes, for theming classes visit the
 **Basic Usage:**
 
 ```html
-<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
-    <div class="flex flex-col gap-1">
-        <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required />
+<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
+    <div class="flex flex-col items-center gap-1">
+        <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required class="min-w-40" />
         @if (model.invalid && (model.touched || exampleForm.submitted)) {
             <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
         }
@@ -48584,8 +48820,8 @@ ToggleButton is used to select a boolean value using a button.
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | TemplateRef<any> | Custom icon template. |
-| content | TemplateRef<any> | Custom content template. |
+| icon | TemplateRef<ToggleButtonIconTemplateContext> | Custom icon template. |
+| content | TemplateRef<ToggleButtonContentTemplateContext> | Custom content template. |
 
 ## Pass Through Options
 
@@ -48969,7 +49205,7 @@ ToggleSwitch is used to select a boolean value.
 
 | Name | Type | Description |
 |------|------|-------------|
-| handle | TemplateRef<any> | Callback to invoke when the on value change. |
+| handle | TemplateRef<ToggleSwitchHandleTemplateContext> | Custom handle template. |
 
 ## Pass Through Options
 
@@ -49148,9 +49384,9 @@ Toolbar is a grouping component for buttons and other content.
 
 | Name | Type | Description |
 |------|------|-------------|
-| start | TemplateRef<any> | Defines template option for start. |
-| end | TemplateRef<any> | Defines template option for end. |
-| center | TemplateRef<any> | Defines template option for center. |
+| start | TemplateRef<void> | Custom start template. |
+| end | TemplateRef<void> | Custom end template. |
+| center | TemplateRef<void> | Custom center template. |
 
 ## Pass Through Options
 
@@ -49430,7 +49666,7 @@ Tooltip directive provides advisory information for a component.
 | tooltipOptions | TooltipOptions | - | Specifies the tooltip configuration options for the component. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | ptTooltip | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. **(Deprecated)** |
-| pTooltipPt | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
+| pTooltipPT | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
 | pTooltipUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 
 ## Pass Through Options
@@ -49591,21 +49827,27 @@ export class TreeCheckboxDemo implements OnInit {
 
 ## Context Menu
 
-Tree requires a collection of TreeNode instances as a value.
+Tree has exclusive integration with ContextMenu using the contextMenu property along with the contextMenuSelection to manage the selection.
 
 **Basic Usage:**
 
 ```html
-<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+<p-tree
+    [value]="files()"
+    selectionMode="single"
+    [(selection)]="selectedNode"
+    [(contextMenuSelection)]="contextMenuNode"
+    [contextMenu]="cm"
+    contextMenuSelectionMode="separate"
+/>
 <p-contextmenu #cm [model]="items" />
-<p-toast />
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, model, signal } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -49620,9 +49862,11 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService, NodeService]
 })
 export class TreeContextMenuDemo implements OnInit {
-    files = signal<TreeNode[]>(undefined);
+    files = signal<TreeNode[]>([]);
 
-    selectedFile!: TreeNode | null;
+    selectedNode = model<TreeNode | null>(null);
+
+    contextMenuNode = model<TreeNode | null>(null);
 
     items!: MenuItem[];
 
@@ -49632,15 +49876,37 @@ export class TreeContextMenuDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files.set(data);
-        });
+        this.nodeService.getFiles().then((files) => this.files.set(files));
+
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
-            { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNode()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.contextMenuNode()) }
         ];
     }
 
+    viewFile(node: TreeNode | null) {
+        if (node) {
+            this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.label });
+        }
+    }
+
+    toggleFile(node: TreeNode | null) {
+        if (node) {
+            this.files.set(this.updateNodeInTree(this.files(), node.key, { ...node, expanded: !node.expanded }));
+        }
+    }
+
+    updateNodeInTree(nodes: TreeNode[], key: string | undefined, updatedNode: TreeNode): TreeNode[] {
+        return nodes.map((n) => {
+            if (n.key === key) {
+                return updatedNode;
+            }
+            if (n.children) {
+                return { ...n, children: this.updateNodeInTree(n.children, key, updatedNode) };
+            }
+            return n;
+        });
+    }
 }
 ```
 </details>
@@ -49954,13 +50220,12 @@ import { TreeModule } from 'primeng/tree';
 
 ## Lazy
 
-Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method. Default value of loadingMode is mask and also icon is available.
+Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
 
 **Basic Usage:**
 
 ```html
-<p-tree class="w-full md:w-[30rem]" [value]="nodes()" (onNodeExpand)="onNodeExpand($event)" [loading]="loading()" />
-<p-tree class="w-full md:w-[30rem]" [value]="nodes2()" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
+<p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
 ```
 
 <details>
@@ -49978,44 +50243,17 @@ import { Tree } from 'primeng/tree';
     imports: [Tree]
 })
 export class TreeLazyDemo implements OnInit {
-    loading = signal<boolean>(false);
-
     nodes = signal<TreeNode[]>(undefined);
 
-    nodes2 = signal<TreeNode[]>(undefined);
-
     ngOnInit() {
-        this.loading.set(true);
-        this.nodes2.set(this.initiateNodes2());
+        this.nodes.set(this.initiateNodes());
 
         setTimeout(() => {
-            this.nodes.set(this.initiateNodes());
-            this.loading.set(false);
-            this.nodes2.set(this.nodes2().map((node) => ({ ...node, loading: false })));
+            this.nodes.set(this.nodes().map((node) => ({ ...node, loading: false })));
         }, 2000);
     }
 
     initiateNodes(): TreeNode[] {
-        return [
-            {
-                key: '0',
-                label: 'Node 0',
-                leaf: false
-            },
-            {
-                key: '1',
-                label: 'Node 1',
-                leaf: false
-            },
-            {
-                key: '2',
-                label: 'Node 2',
-                leaf: false
-            }
-        ];
-    }
-
-    initiateNodes2(): TreeNode[] {
         return [
             {
                 key: '0',
@@ -50040,7 +50278,7 @@ export class TreeLazyDemo implements OnInit {
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading.set(true);
+            event.node.loading = true;
 
             setTimeout(() => {
                 const _nodes = this.nodes();
@@ -50054,33 +50292,9 @@ export class TreeLazyDemo implements OnInit {
                     });
                 }
 
-                _nodes[parseInt(event.node.key, 10)] = _node;
-                this.nodes.set([..._nodes]);
-
-                this.loading.set(false);
-            }, 500);
-        }
-    }
-
-    onNodeExpand2(event: any) {
-        if (!event.node.children) {
-            event.node.loading = true;
-
-            setTimeout(() => {
-                const _nodes2 = this.nodes2();
-                let _node = { ...event.node };
-                _node.children = [];
-
-                for (let i = 0; i < 3; i++) {
-                    _node.children.push({
-                        key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
-                    });
-                }
-
                 const key = parseInt(_node.key, 10);
-                _nodes2[key] = { ..._node, loading: false };
-                this.nodes2.set([..._nodes2]);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
@@ -50326,7 +50540,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 **Basic Usage:**
 
 ```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
+<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
 ```
 
 <details>
@@ -50394,7 +50608,7 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 **Basic Usage:**
 
 ```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
+<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
 ```
 
 <details>
@@ -50490,6 +50704,7 @@ Tree is used to display hierarchical data.
 | selection | any | - | A single treenode instance or an array to refer to the selections. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | contextMenu | any | - | Context menu instance. |
+| contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
 | draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
 | droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
 | draggableNodes | boolean | false | Whether the nodes are draggable. |
@@ -50543,16 +50758,16 @@ Tree is used to display hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| filter | TemplateRef<any> | Filter template. |
-| node | TemplateRef<any> | Node template. |
-| header | TemplateRef<any> | Header template. |
-| footer | TemplateRef<any> | Footer template. |
-| loader | TemplateRef<any> | Loader template. |
-| empty | TemplateRef<any> | Empty message template. |
-| togglericon | TemplateRef<any> | Toggler icon template. |
-| checkboxicon | TemplateRef<any> | Checkbox icon template. |
-| loadingicon | TemplateRef<any> | Loading icon template. |
-| filtericon | TemplateRef<any> | Filter icon template. |
+| filter | TemplateRef<TreeFilterTemplateContext> | Custom filter template. |
+| node | TemplateRef<any> | Custom node template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| loader | TemplateRef<TreeLoaderTemplateContext> | Custom loader template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| togglericon | TemplateRef<TreeTogglerIconTemplateContext> | Custom toggler icon template. |
+| checkboxicon | TemplateRef<TreeCheckboxIconTemplateContext> | Custom checkbox icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 
@@ -51386,16 +51601,16 @@ Lazy loading is useful when dealing with huge datasets, in this example nodes ar
 **Basic Usage:**
 
 ```html
-<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>
+<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
-import { NodeService } from '@/service/nodeservice';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TreeNode } from 'primeng/api';
 import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
@@ -51403,24 +51618,14 @@ import { TreeSelect } from 'primeng/treeselect';
     templateUrl: './tree-select-lazy-demo.html',
     standalone: true,
     imports: [FormsModule, TreeSelect]
-  })
+})
 export class TreeSelectLazyDemo {
     selectedNodes: TreeNode[] = [];
 
-    nodes!: TreeNode[];
-
-    loading: boolean = false;
-
-    constructor(private cd: ChangeDetectorRef) {}
+    nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
-        this.loading = true;
-
-        setTimeout(() => {
-            this.nodes = this.initiateNodes();
-            this.loading = false;
-            this.cd.markForCheck();
-        }, 2000);
+        this.nodes.set(this.initiateNodes());
     }
 
     initiateNodes(): TreeNode[] {
@@ -51428,40 +51633,43 @@ export class TreeSelectLazyDemo {
             {
                 key: '0',
                 label: 'Node 0',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '1',
                 label: 'Node 1',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '2',
                 label: 'Node 2',
-                leaf: false
+                leaf: false,
+                loading: false
             }
         ];
     }
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading = true;
+            event.node.loading = true;
 
             setTimeout(() => {
+                const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
 
-                for (let i = 0; i < 150; i++) {
+                for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
                         label: 'Lazy ' + event.node.label + '-' + i
                     });
                 }
 
-                this.nodes[parseInt(event.node.key, 10)] = _node;
-
-                this.loading = false;
-                this.cd.markForCheck();
+                const key = parseInt(_node.key, 10);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
@@ -51472,31 +51680,11 @@ export class TreeSelectLazyDemo {
 **Sample Data:**
 
 ```json
-/* NodeService */
 {
     key: '0',
-    label: 'Documents',
-    data: 'Documents Folder',
-    icon: 'pi pi-fw pi-inbox',
-    children: [
-        {
-            key: '0-0',
-            label: 'Work',
-            data: 'Work Folder',
-            icon: 'pi pi-fw pi-cog',
-            children: [
-                { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
-                { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
-            ]
-        },
-        {
-            key: '0-1',
-            label: 'Home',
-            data: 'Home Folder',
-            icon: 'pi pi-fw pi-home',
-            children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
-        }
-    ]
+    label: 'Node 0',
+    leaf: false,
+    loading: false
 },
 ...
 ```
@@ -51905,7 +52093,7 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 **Basic Usage:**
 
 ```html
-<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="46" [virtualScrollOptions]="{scrollHeight: '200px'}" />
+<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="35" [virtualScrollOptions]="{scrollHeight: '200px'}" />
 ```
 
 <details>
@@ -51986,6 +52174,7 @@ TreeSelect is a form component to choose from hierarchical data.
 | autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
 | options | TreeNode<any>[] | - | An array of treenodes. |
 | loading | boolean | false | Displays a loader to indicate data load is in progress. |
+| loadingMode | "icon" \| "mask" | mask | Loading mode display. |
 | size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
 | variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
@@ -52011,18 +52200,18 @@ TreeSelect is a form component to choose from hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| value | TemplateRef<any> | Custom value template. |
-| header | TemplateRef<any> | Custom header template. |
-| empty | TemplateRef<any> | Custom empty message template. |
-| footer | TemplateRef<any> | Custom footer template. |
-| clearicon | TemplateRef<any> | Custom clear icon template. |
-| triggericon | TemplateRef<any> | Custom trigger icon template. |
-| dropdownicon | TemplateRef<any> | Custom dropdown icon template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
-| closeicon | TemplateRef<any> | Custom close icon template. |
-| itemtogglericon | TemplateRef<any> | Custom item toggler icon template. |
-| itemcheckboxicon | TemplateRef<any> | Custom item checkbox icon template. |
-| itemloadingicon | TemplateRef<any> | Custom item loading icon template. |
+| value | TemplateRef<TreeSelectValueTemplateContext> | Custom value template. |
+| header | TemplateRef<TreeSelectHeaderTemplateContext> | Custom header template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| footer | TemplateRef<TreeSelectHeaderTemplateContext> | Custom footer template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| triggericon | TemplateRef<void> | Custom trigger icon template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| itemtogglericon | TemplateRef<TreeSelectItemTogglerIconTemplateContext> | Custom item toggler icon template. |
+| itemcheckboxicon | TemplateRef<TreeSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
+| itemloadingicon | TemplateRef<void> | Custom item loading icon template. |
 
 ## Pass Through Options
 
@@ -52137,8 +52326,10 @@ TreeTable requires a collection of TreeNode instances as a value components as c
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -52172,8 +52363,10 @@ TreeTable requires a collection of TreeNode instances as a value components as c
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr>
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.brand }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.brand }}</span>
+                </div>
             </td>
             <td>{{ rowData.lastYearSale }}</td>
             <td>{{ rowData.thisYearSale }}</td>
@@ -52344,17 +52537,27 @@ Setting columnResizeMode as expand changes the table width as well.
 <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" ttResizableColumn>
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th ttResizableColumn>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52411,17 +52614,27 @@ Columns can be resized with drag and drop when resizableColumns is enabled. Defa
 <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{'min-width': '50rem'}" showGridlines>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" ttResizableColumn>
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th ttResizableColumn>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52478,22 +52691,34 @@ To utilize the column resize modes with a scrollable TreeTable, a colgroup templ
 <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" showGridlines>
     <ng-template #colgroup let-columns>
         <colgroup>
-            <col *ngFor="let col of columns">
+            @for (col of columns; track col) {
+                <col />
+            }
         </colgroup>
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" ttResizableColumn>
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th ttResizableColumn>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52555,17 +52780,27 @@ Column visibility based on a condition can be implemented with dynamic columns, 
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52627,20 +52862,30 @@ Particular rows and cells can be styled based on conditions. The ngClass receive
 ```html
 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ngClass]="{ 'p-highlight': rowData.size.endsWith('kb') }">
-            <td *ngFor="let col of columns; let i = index" [ngClass]="{ 'font-bold': col.field === 'size' && rowData.size.endsWith('kb') }">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
-        </tr>
-    </ng-template>
+            <tr>
+                @for (col of columns; track col) {
+                    <th>
+                        {{ col.header }}
+                    </th>
+                }
+            </tr>
+        </ng-template>
+        <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttRow]="rowNode" [ngClass]="{ '!bg-surface-100 dark:!bg-surface-800': rowData.size.endsWith('kb') }">
+                @for (col of columns; let first = $first; track col) {
+                    <td [class]="{ 'line-through': col.field === 'size' && rowData.size.endsWith('kb') }">
+                        @if (first) {
+                            <div class="flex items-center gap-2">
+                                <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                <span>{{ rowData[col.field] }}</span>
+                            </div>
+                        } @else {
+                            {{ rowData[col.field] }}
+                        }
+                    </td>
+                }
+            </tr>
+        </ng-template>
 </p-treetable>
 ```
 
@@ -52687,7 +52932,7 @@ export class TreeTableConditionalStyleDemo implements OnInit{
 
 ## Context Menu
 
-TreeTable has exclusive integration with ContextMenu using the contextMenu event to open a menu on right click alont with contextMenuSelection properties to control the selection via the menu.
+TreeTable has exclusive integration with contextmenu component. In order to attach a menu to a table, add ttContextMenuRow directive to the rows that can be selected with context menu, define a local template variable for the menu and bind it to the contextMenu property of the table. This enables displaying the menu whenever a row is right clicked. A separate contextMenuSelection property is used to get a hold of the right clicked row. For dynamic columns, setting ttContextMenuRowDisabled property as true disables context menu for that particular row.
 
 **Basic Usage:**
 
@@ -52697,17 +52942,27 @@ TreeTable has exclusive integration with ContextMenu using the contextMenu event
 <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -52784,8 +53039,8 @@ Expansion state is controlled with expandedKeys property.
 **Basic Usage:**
 
 ```html
-<p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" class="mt-6">
+<p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -52796,8 +53051,10 @@ Expansion state is controlled with expandedKeys property.
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -52856,17 +53113,27 @@ Columns can be created programmatically.
 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53011,22 +53278,34 @@ The filterMode specifies the filtering strategy, in lenient mode when the query 
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of cols">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
         <tr>
-            <th *ngFor="let col of cols">
-                <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of cols; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of cols; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #emptymessage>
@@ -53110,8 +53389,10 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
             <ng-template #body let-rowNode let-rowData="rowData">
                 <tr [ttRow]="rowNode">
                     <td>
-                        <p-treetable-toggler [rowNode]="rowNode" />
-                        {{ rowData.name }}
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <span>{{ rowData.name }}</span>
+                        </div>
                     </td>
                     <td>{{ rowData.size }}</td>
                     <td>{{ rowData.type }}</td>
@@ -53177,8 +53458,10 @@ Enabling showGridlines displays grid lines.
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -53247,17 +53530,27 @@ Lazy mode is handy to deal with large datasets, instead of loading the entire da
 >
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53361,6 +53654,121 @@ export class TreeTableLazyLoadDemo implements OnInit{
 ```
 </details>
 
+## loadingmaskdoc
+
+The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
+
+**Basic Usage:**
+
+```html
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
+            </td>
+            <td>{{ rowData.size }}</td>
+            <td>{{ rowData.type }}</td>
+        </tr>
+    </ng-template>
+</p-treetable>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { NodeService } from '@/service/nodeservice';
+import { TreeTableModule } from 'primeng/treetable';
+
+@Component({
+    selector: 'tree-table-basic-demo',
+    templateUrl: './tree-table-basic-demo.html',
+    standalone: true,
+    imports: [TreeTableModule],
+    providers: [NodeService]
+})
+export class LoadingMaskDemo implements OnInit {
+    files!: TreeNode[];
+
+    constructor(private nodeService: NodeService) {}
+
+    ngOnInit() {
+        this.nodeService.getFilesystem().then((files) => (this.files = files));
+    }
+}
+```
+</details>
+
+## loadingskeletondoc
+
+Skeleton component can be used as a placeholder during the loading process.
+
+**Basic Usage:**
+
+```html
+<p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+        </tr>
+    </ng-template>
+    <ng-template #body>
+        <tr>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+        </tr>
+    </ng-template>
+</p-treetable>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { NodeService } from '@/service/nodeservice';
+import { Component, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TreeTableModule } from 'primeng/treetable';
+
+@Component({
+    selector: 'tree-table-loading-skeleton-demo',
+    templateUrl: 'tree-table-loading-skeleton.html',
+    standalone: true,
+    imports: [TreeTableModule, SkeletonModule],
+    providers: [NodeService]
+})
+export class LoadingSkeletonDemo implements OnInit {
+    
+    files!: TreeNode[];
+
+    constructor(
+        private nodeService: NodeService,
+    ) {}
+
+    ngOnInit() {
+        this.nodeService.getFilesystem().then((files) => (this.files.set(files)));
+    }
+}
+```
+</details>
+
 ## Basic
 
 Pagination is enabled by adding paginator property and defining rows per page.
@@ -53371,17 +53779,27 @@ Pagination is enabled by adding paginator property and defining rows per page.
 <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53455,17 +53873,27 @@ Paginator UI is customized using the paginatorleft and paginatorright property. 
 <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #paginatorleft>
@@ -53546,17 +53974,27 @@ Order of the columns can be changed using drag and drop when reorderableColumns 
 <p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" ttReorderableColumn>
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th ttReorderableColumn>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetable-toggler>
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53608,28 +54046,36 @@ A column can be fixed during horizontal scrolling by enabling the frozenColumns 
 <p-treetable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #colgroup let-columns>
         <colgroup>
-            <col *ngFor="let col of columns" style="width:250px" />
+            @for (col of columns; track col) {
+                <col style="width:250px" />
+            }
         </colgroup>
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" style="height: 57px">
-            <td *ngFor="let col of columns; let i = index">
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; track col) {
+                <td>
+                    {{ rowData[col.field] }}
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #frozenbody let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode" style="height: 57px">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span class="font-bold">{{ rowData.name }}</span>
+                </div>
             </td>
         </tr>
     </ng-template>
@@ -53702,22 +54148,34 @@ Horizontal scrolling is enabled when the total width of columns exceeds table wi
 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #colgroup let-columns>
         <colgroup>
-            <col *ngFor="let col of columns" style="width:500px" />
+            @for (col of columns; track col) {
+                <col style="width:500px" />
+            }
         </colgroup>
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetable-toggler>
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53769,17 +54227,27 @@ Adding scrollable property along with a scrollHeight for the data viewport enabl
 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53836,18 +54304,28 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                <p-treetable-checkbox [value]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <p-treetable-checkbox [value]="rowNode" />
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -53936,17 +54414,27 @@ TreeTable provides onNodeSelect and onNodeUnselect events to listen selection ev
 >
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54021,17 +54509,27 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 <p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54095,17 +54593,27 @@ Single node selection is configured by setting selectionMode as single along wit
 <p-treetable [value]="files" [columns]="cols" selectionMode="single" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54180,8 +54688,10 @@ In addition to a regular treetable, alternatives with alternative sizes are avai
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -54236,23 +54746,33 @@ Multiple columns can be sorted by defining sortMode as multiple . This mode requ
 **Basic Usage:**
 
 ```html
-<p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+<p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                <div class="flex items-center gap-2">
-                    {{ col.header }}
-                    <p-treetable-sort-icon [field]="col.field" />
-                </div>
-            </th>
+            @for (col of columns; track col) {
+                <th [ttSortableColumn]="col.field">
+                    <div class="flex items-center gap-2">
+                        {{ col.header }}
+                        <p-treetable-sort-icon [field]="col.field" />
+                    </div>
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54393,23 +54913,33 @@ Sorting on a column is enabled by adding the ttSortableColumn property.
 **Basic Usage:**
 
 ```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                <div class="flex items-center gap-2">
-                    {{ col.header }}
-                    <p-treetable-sort-icon [field]="col.field" />
-                </div>
-            </th>
+            @for (col of columns; track col) {
+                <th [ttSortableColumn]="col.field">
+                    <div class="flex items-center gap-2">
+                        {{ col.header }}
+                        <p-treetable-sort-icon [field]="col.field" />
+                    </div>
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>
@@ -54468,25 +54998,36 @@ Custom content at caption , header , body and summary sections are supported via
 **Basic Usage:**
 
 ```html
-<p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+<p-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; let last = $last; track col) {
+                <th [class]="{ 'w-40': last }">
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index; let last = last">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    {{ rowData[col.field] }}
-                <ng-container *ngIf="last">
-                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
-                    <p-button icon="pi pi-pencil" rounded="true" severity="success" />
-                </ng-container>
-            </td>
+            @for (col of columns; let first = $first; let last = $last; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else if (last) {
+                        <div class="flex flex-wrap gap-2">
+                            <p-button icon="pi pi-search" rounded="true" severity="secondary" />
+                            <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
+                        </div>
+                    } @else {
+                        <span>{{ rowData[col.field] }}</span>
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #summary>

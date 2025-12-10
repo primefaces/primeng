@@ -143,6 +143,12 @@ const GUIDE_PAGES = [
         docPath: 'migration/v20',
         title: 'Migration v20',
         description: 'Migration guide to PrimeNG v20.'
+    },
+    {
+        route: 'migration/v21',
+        docPath: 'migration/v21',
+        title: 'Migration v21',
+        description: 'Migration guide to PrimeNG v21.'
     }
 ];
 
@@ -776,7 +782,7 @@ function generateThemingSection(apiDocs, componentName) {
 function generateJsonOutput(components, apiDocs, guidePages = []) {
     const output = {
         version: '1.0.0',
-        generatedAt: new Date().toISOString(),
+        generatedAt: new Date().toISOString().split('T')[0],
         components: components.map((comp) => {
             const mainComponentName = getApiComponentName(comp.name);
 
@@ -827,7 +833,7 @@ function generateJsonOutput(components, apiDocs, guidePages = []) {
  */
 function generateMarkdownOutput(components, apiDocs, guidePages = []) {
     let markdown = '# PrimeNG Documentation\n\n';
-    markdown += `Generated: ${new Date().toISOString()}\n\n`;
+    markdown += `Generated: ${new Date().toISOString().split('T')[0]}\n\n`;
     markdown += '---\n\n';
 
     // Guide Pages Section

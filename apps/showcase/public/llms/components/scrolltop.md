@@ -71,7 +71,7 @@ ScrollTop gets displayed after a certain scroll position and used to navigates t
 
 | Name | Type | Description |
 |------|------|-------------|
-| icon | TemplateRef<any> | Template of the icon. |
+| icon | TemplateRef<ScrollTopIconTemplateContext> | Custom icon template. |
 
 ## Pass Through Options
 

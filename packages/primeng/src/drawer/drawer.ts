@@ -434,8 +434,8 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
     disableModality() {
         if (this.mask) {
-            !this.$unstyled() && removeClass(this.mask, 'p-overlay-mask-enter');
-            !this.$unstyled() && addClass(this.mask, 'p-overlay-mask-leave');
+            !this.$unstyled() && removeClass(this.mask, 'p-overlay-mask-enter-active');
+            !this.$unstyled() && addClass(this.mask, 'p-overlay-mask-leave-active');
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }

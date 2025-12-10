@@ -171,6 +171,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                             [_templateMap]="templateMap"
                             [loading]="loading"
                             [filterInputAutoFocus]="filterInputAutoFocus"
+                            [loadingMode]="loadingMode"
                             [pt]="ptm('pcTree')"
                             [unstyled]="unstyled()"
                         >
@@ -415,6 +416,11 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      */
     @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
+     * Loading mode display.
+     * @group Props
+     */
+    @Input() loadingMode: 'mask' | 'icon' = 'mask';
+    /**
      * Specifies the size of the component.
      * @defaultValue undefined
      * @group Props
@@ -653,7 +659,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     listId: string = '';
 
-    @HostListener('click', ['$event'])
+    @HostListener('mousedown', ['$event'])
     onHostClick(event: MouseEvent) {
         this.onClick(event);
     }

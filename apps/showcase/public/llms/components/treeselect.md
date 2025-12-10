@@ -376,16 +376,16 @@ export class TreeSelectInvalidDemo {
 Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
 
 ```html
-<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [loading]="loading"/>
+<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes()" (onNodeExpand)="onNodeExpand($event)" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" loadingMode="icon"/>
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component } from '@angular/core';
-import { NodeService } from '@/service/nodeservice';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TreeNode } from 'primeng/api';
 import { TreeSelect } from 'primeng/treeselect';
 
 @Component({
@@ -393,24 +393,14 @@ import { TreeSelect } from 'primeng/treeselect';
     templateUrl: './tree-select-lazy-demo.html',
     standalone: true,
     imports: [FormsModule, TreeSelect]
-  })
+})
 export class TreeSelectLazyDemo {
     selectedNodes: TreeNode[] = [];
 
-    nodes!: TreeNode[];
-
-    loading: boolean = false;
-
-    constructor(private cd: ChangeDetectorRef) {}
+    nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
-        this.loading = true;
-
-        setTimeout(() => {
-            this.nodes = this.initiateNodes();
-            this.loading = false;
-            this.cd.markForCheck();
-        }, 2000);
+        this.nodes.set(this.initiateNodes());
     }
 
     initiateNodes(): TreeNode[] {
@@ -418,40 +408,43 @@ export class TreeSelectLazyDemo {
             {
                 key: '0',
                 label: 'Node 0',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '1',
                 label: 'Node 1',
-                leaf: false
+                leaf: false,
+                loading: false
             },
             {
                 key: '2',
                 label: 'Node 2',
-                leaf: false
+                leaf: false,
+                loading: false
             }
         ];
     }
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading = true;
+            event.node.loading = true;
 
             setTimeout(() => {
+                const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
 
-                for (let i = 0; i < 150; i++) {
+                for (let i = 0; i < 3; i++) {
                     _node.children.push({
                         key: event.node.key + '-' + i,
                         label: 'Lazy ' + event.node.label + '-' + i
                     });
                 }
 
-                this.nodes[parseInt(event.node.key, 10)] = _node;
-
-                this.loading = false;
-                this.cd.markForCheck();
+                const key = parseInt(_node.key, 10);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
@@ -723,7 +716,7 @@ export class TemplateDrivenFormsDemo {
 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining virtualScrollItemSize to specify the height of an item.
 
 ```html
-<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="46" [virtualScrollOptions]="{scrollHeight: '200px'}" />
+<p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="35" [virtualScrollOptions]="{scrollHeight: '200px'}" />
 ```
 
 <details>
@@ -804,6 +797,7 @@ TreeSelect is a form component to choose from hierarchical data.
 | autofocus | boolean | false | When present, it specifies that the component should automatically get focus on load. |
 | options | TreeNode<any>[] | - | An array of treenodes. |
 | loading | boolean | false | Displays a loader to indicate data load is in progress. |
+| loadingMode | "icon" \| "mask" | mask | Loading mode display. |
 | size | InputSignal<"small" \| "large"> | undefined | Specifies the size of the component. |
 | variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
@@ -829,18 +823,18 @@ TreeSelect is a form component to choose from hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| value | TemplateRef<any> | Custom value template. |
-| header | TemplateRef<any> | Custom header template. |
-| empty | TemplateRef<any> | Custom empty message template. |
-| footer | TemplateRef<any> | Custom footer template. |
-| clearicon | TemplateRef<any> | Custom clear icon template. |
-| triggericon | TemplateRef<any> | Custom trigger icon template. |
-| dropdownicon | TemplateRef<any> | Custom dropdown icon template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
-| closeicon | TemplateRef<any> | Custom close icon template. |
-| itemtogglericon | TemplateRef<any> | Custom item toggler icon template. |
-| itemcheckboxicon | TemplateRef<any> | Custom item checkbox icon template. |
-| itemloadingicon | TemplateRef<any> | Custom item loading icon template. |
+| value | TemplateRef<TreeSelectValueTemplateContext> | Custom value template. |
+| header | TemplateRef<TreeSelectHeaderTemplateContext> | Custom header template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| footer | TemplateRef<TreeSelectHeaderTemplateContext> | Custom footer template. |
+| clearicon | TemplateRef<void> | Custom clear icon template. |
+| triggericon | TemplateRef<void> | Custom trigger icon template. |
+| dropdownicon | TemplateRef<void> | Custom dropdown icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| itemtogglericon | TemplateRef<TreeSelectItemTogglerIconTemplateContext> | Custom item toggler icon template. |
+| itemcheckboxicon | TemplateRef<TreeSelectItemCheckboxIconTemplateContext> | Custom item checkbox icon template. |
+| itemloadingicon | TemplateRef<void> | Custom item loading icon template. |
 
 ## Pass Through Options
 

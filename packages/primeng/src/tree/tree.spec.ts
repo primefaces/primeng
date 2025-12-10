@@ -17,6 +17,7 @@ import { Tree, UITreeNode } from './tree';
             [(selection)]="selectedNodes"
             [styleClass]="styleClass"
             [contextMenu]="contextMenu"
+            [(contextMenuSelection)]="contextMenuSelectedNode"
             [draggableScope]="draggableScope"
             [droppableScope]="droppableScope"
             [draggableNodes]="draggableNodes"
@@ -63,6 +64,7 @@ class TestBasicTreeComponent {
     selectedNodes: any;
     styleClass: string | undefined;
     contextMenu: any;
+    contextMenuSelectedNode: TreeNode | null = null;
     draggableScope: any;
     droppableScope: any;
     draggableNodes: boolean = false;
@@ -2451,6 +2453,358 @@ describe('Tree', () => {
             await dynamicFixture.whenStable();
 
             expect(dynamicTree.indentation).toBe(2.5);
+        });
+    });
+
+    describe('Context Menu Selection', () => {
+        let fixture: ComponentFixture<TestBasicTreeComponent>;
+        let component: TestBasicTreeComponent;
+        let tree: Tree;
+        let mockContextMenu: any;
+
+        beforeEach(async () => {
+            TestBed.resetTestingModule();
+            await TestBed.configureTestingModule({
+                declarations: [TestBasicTreeComponent],
+                imports: [Tree, FormsModule],
+                providers: [TreeDragDropService, provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestBasicTreeComponent);
+            component = fixture.componentInstance;
+            tree = fixture.debugElement.query(By.directive(Tree)).componentInstance;
+
+            // Mock context menu
+            mockContextMenu = {
+                show: jasmine.createSpy('show')
+            };
+
+            component.nodes = [
+                {
+                    key: '0',
+                    label: 'Documents',
+                    expanded: true,
+                    children: [
+                        { key: '0-0', label: 'Work' },
+                        { key: '0-1', label: 'Home' }
+                    ]
+                },
+                {
+                    key: '1',
+                    label: 'Pictures',
+                    children: [{ key: '1-0', label: 'Vacation' }]
+                }
+            ];
+            component.contextMenu = mockContextMenu;
+
+            fixture.detectChanges();
+            await fixture.whenStable();
+        });
+
+        it('should initialize contextMenuSelection as null', () => {
+            expect(tree.contextMenuSelection()).toBeNull();
+        });
+
+        it('should not allow left click selection when contextMenu is provided', async () => {
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+            expect(nodeContent).toBeTruthy();
+
+            // Left click on node
+            nodeContent.nativeElement.click();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // Selection should remain null (left click disabled)
+            expect(component.selectedNodes).toBeFalsy();
+        });
+
+        it('should select node on right click when contextMenu is provided', async () => {
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+            expect(nodeContent).toBeTruthy();
+
+            // Right click on node
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // contextMenuSelection should be updated
+            expect(tree.contextMenuSelection()).toBeTruthy();
+            expect(tree.contextMenuSelection()?.label).toBe('Documents');
+            expect(mockContextMenu.show).toHaveBeenCalled();
+        });
+
+        it('should only allow single selection when contextMenu is provided', async () => {
+            const nodeContents = fixture.debugElement.queryAll(By.css('.p-tree-node-content'));
+            expect(nodeContents.length).toBeGreaterThan(1);
+
+            // Right click on first node
+            const rightClickEvent1 = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContents[0].nativeElement.dispatchEvent(rightClickEvent1);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()?.label).toBe('Documents');
+
+            // Right click on second node
+            const rightClickEvent2 = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContents[1].nativeElement.dispatchEvent(rightClickEvent2);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // Only the second node should be selected (single selection)
+            expect(tree.contextMenuSelection()?.label).toBe('Work');
+        });
+
+        it('should not conflict with regular selectionMode', async () => {
+            component.selectionMode = 'single';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const nodeContents = fixture.debugElement.queryAll(By.css('.p-tree-node-content'));
+
+            // Right click should update contextMenuSelection, not regular selection
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContents[0].nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()?.label).toBe('Documents');
+            // Regular selection should remain unchanged
+            expect(component.selectedNodes).toBeFalsy();
+        });
+
+        it('should update model when contextMenuSelection changes externally', async () => {
+            const testNode = component.nodes[1];
+            tree.contextMenuSelection.set(testNode);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()?.label).toBe('Pictures');
+            expect(component.contextMenuSelectedNode?.label).toBe('Pictures');
+        });
+
+        it('should handle unselect (setting to null)', async () => {
+            // First select a node
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()).toBeTruthy();
+
+            // Unselect by setting to null
+            tree.contextMenuSelection.set(null);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()).toBeNull();
+            expect(component.contextMenuSelectedNode).toBeNull();
+        });
+
+        it('should apply p-tree-node-contextmenu-selected class to selected node', async () => {
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+
+            // Right click on node
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // Check if the class is applied
+            const selectedNodeContent = fixture.debugElement.query(By.css('.p-tree-node-contextmenu-selected'));
+            expect(selectedNodeContent).toBeTruthy();
+        });
+
+        it('should remove p-tree-node-contextmenu-selected class when unselected', async () => {
+            // First select a node
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(fixture.debugElement.query(By.css('.p-tree-node-contextmenu-selected'))).toBeTruthy();
+
+            // Unselect
+            tree.contextMenuSelection.set(null);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(fixture.debugElement.query(By.css('.p-tree-node-contextmenu-selected'))).toBeFalsy();
+        });
+
+        it('should work independently from checkbox selection mode', async () => {
+            component.selectionMode = 'checkbox';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+
+            // Right click should still work
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()?.label).toBe('Documents');
+            // Checkbox selection should remain unchanged
+            expect(component.selectedNodes).toBeFalsy();
+        });
+
+        it('should work independently from multiple selection mode', async () => {
+            component.selectionMode = 'multiple';
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+
+            // Right click should still work
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()?.label).toBe('Documents');
+            // Multiple selection should remain unchanged
+            expect(component.selectedNodes).toBeFalsy();
+        });
+
+        it('should emit onNodeContextMenuSelect event on right click', async () => {
+            spyOn(tree.onNodeContextMenuSelect, 'emit');
+
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.onNodeContextMenuSelect.emit).toHaveBeenCalledWith(
+                jasmine.objectContaining({
+                    originalEvent: jasmine.any(MouseEvent),
+                    node: jasmine.objectContaining({ label: 'Documents' })
+                })
+            );
+        });
+
+        it('should not select when right clicking on toggle button', async () => {
+            const toggleButton = fixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
+            expect(toggleButton).toBeTruthy();
+
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            toggleButton.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // Should not select when clicking on toggle button
+            expect(tree.contextMenuSelection()).toBeNull();
+        });
+
+        it('should handle nested node selection correctly', async () => {
+            // Expand the first node to see children
+            component.nodes[0].expanded = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const nodeContents = fixture.debugElement.queryAll(By.css('.p-tree-node-content'));
+            // Find a child node (Work or Home)
+            const childNodeContent = nodeContents.find((el) => el.nativeElement.textContent.includes('Work'));
+            expect(childNodeContent).toBeTruthy();
+
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            childNodeContent!.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()?.label).toBe('Work');
+            expect(tree.contextMenuSelection()?.key).toBe('0-0');
+        });
+
+        it('should disable context menu selection when contextMenu is removed', async () => {
+            // First verify context menu selection works
+            const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+            const rightClickEvent = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(tree.contextMenuSelection()?.label).toBe('Documents');
+
+            // Remove context menu
+            tree.contextMenuSelection.set(null);
+            component.contextMenu = null;
+            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // Right click should not update contextMenuSelection when contextMenu is null
+            const rightClickEvent2 = new MouseEvent('contextmenu', {
+                bubbles: true,
+                cancelable: true,
+                button: 2
+            });
+            nodeContent.nativeElement.dispatchEvent(rightClickEvent2);
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // contextMenuSelection should remain null when contextMenu is removed
+            expect(tree.contextMenuSelection()).toBeNull();
         });
     });
 });

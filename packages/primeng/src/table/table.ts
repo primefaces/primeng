@@ -129,7 +129,7 @@ export class TableService {
     selector: 'p-table',
     standalone: false,
     template: `
-        <div [class]="cx('mask')" [pBind]="ptm('mask')" *ngIf="loading && showLoader">
+        <div [class]="cx('mask')" [pBind]="ptm('mask')" *ngIf="loading && showLoader" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">
             <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)" [pBind]="ptm('loadingIcon')"></i>
             <ng-container *ngIf="!loadingIcon">
                 <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" [pBind]="ptm('loadingIcon')" />
@@ -1886,16 +1886,25 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             const rowData = event.rowData;
             const rowIndex = event.rowIndex;
 
+            const showContextMenu = () => {
+                this.contextMenu.show(event.originalEvent);
+                this.contextMenu.hideCallback = () => {
+                    this.contextMenuSelection = null;
+                    this.contextMenuSelectionChange.emit(null);
+                    this.tableService.onContextMenu(null);
+                };
+            };
+
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = rowData;
                 this.contextMenuSelectionChange.emit(rowData);
+                this.tableService.onContextMenu(rowData);
+                showContextMenu();
                 this.onContextMenuSelect.emit({
                     originalEvent: event.originalEvent,
                     data: rowData,
                     index: event.rowIndex
                 });
-                this.contextMenu.show(event.originalEvent);
-                this.tableService.onContextMenu(rowData);
             } else if (this.contextMenuSelectionMode === 'joint') {
                 this.preventSelectionSetterPropagation = true;
                 let selected = this.isSelected(rowData);
@@ -1924,8 +1933,13 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     }
                 }
 
+                // Also update contextMenuSelection in joint mode
+                this.contextMenuSelection = rowData;
+                this.contextMenuSelectionChange.emit(rowData);
+                this.tableService.onContextMenu(rowData);
+
                 this.tableService.onSelectionChange();
-                this.contextMenu.show(event.originalEvent);
+                showContextMenu();
                 this.onContextMenuSelect.emit({
                     originalEvent: event,
                     data: rowData,
@@ -4180,7 +4194,7 @@ export class ContextMenuRow extends BaseComponent {
         super();
         if (this.isEnabled()) {
             this.subscription = this.dataTable.tableService.contextMenuSource$.subscribe((data) => {
-                this.selected = this.dataTable.equals(this.data, data);
+                this.selected = data ? this.dataTable.equals(this.data, data) : false;
             });
         }
     }

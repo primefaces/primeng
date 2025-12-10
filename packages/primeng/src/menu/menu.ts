@@ -77,7 +77,8 @@ export class SafeHtmlPipe implements PipeTransform {
                 [attr.href]="item.url || null"
                 [attr.data-automationid]="item.automationId"
                 [attr.tabindex]="-1"
-                [class]="cx('itemLink')"
+                [class]="cn(cx('itemLink'), item?.linkClass)"
+                [ngStyle]="item?.linkStyle"
                 [target]="item.target"
                 [pBind]="getPTOptions('itemLink')"
                 pRipple
@@ -93,7 +94,8 @@ export class SafeHtmlPipe implements PipeTransform {
                 [queryParams]="item.queryParams"
                 routerLinkActive="p-menu-item-link-active"
                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                [class]="cx('itemLink')"
+                [class]="cn(cx('itemLink'), item?.linkClass)"
+                [ngStyle]="item?.linkStyle"
                 [target]="item.target"
                 [fragment]="item.fragment"
                 [queryParamsHandling]="item.queryParamsHandling"
@@ -113,9 +115,9 @@ export class SafeHtmlPipe implements PipeTransform {
         </ng-container>
 
         <ng-template #itemContent>
-            <span [class]="cx('itemIcon', { item })" [pBind]="getPTOptions('itemIcon')" *ngIf="item.icon" [style]="item.iconStyle" [attr.data-pc-section]="'itemicon'"></span>
-            <span [class]="cx('itemLabel')" [pBind]="getPTOptions('itemLabel')" [attr.data-pc-section]="'itemlabel'" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-            <ng-template #htmlLabel><span [class]="cx('itemLabel')" [attr.data-pc-section]="'itemlabel'" [innerHTML]="item.label | safeHtml" [pBind]="getPTOptions('itemLabel')"></span></ng-template>
+            <span [class]="cn(cx('itemIcon', { item }), item.iconClass)" [pBind]="getPTOptions('itemIcon')" *ngIf="item.icon" [ngStyle]="item.iconStyle" [attr.data-pc-section]="'itemicon'"></span>
+            <span [class]="cn(cx('itemLabel'), item.labelClass)" [ngStyle]="item.labelStyle" [pBind]="getPTOptions('itemLabel')" [attr.data-pc-section]="'itemlabel'" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+            <ng-template #htmlLabel><span [class]="cn(cx('itemLabel'), item.labelClass)" [ngStyle]="item.labelStyle" [attr.data-pc-section]="'itemlabel'" [innerHTML]="item.label | safeHtml" [pBind]="getPTOptions('itemLabel')"></span></ng-template>
             <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions('pcBadge')" [unstyled]="unstyled()" />
         </ng-template>
     </div>`,

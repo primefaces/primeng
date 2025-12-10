@@ -1076,6 +1076,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     overlayVisible: Nullable<boolean>;
 
+    overlayMinWidth: Nullable<number>;
+
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
     calendarElement: Nullable<HTMLElement | ElementRef>;
@@ -3149,6 +3151,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 this.preventFocus = true;
             }
 
+            this.overlayMinWidth = this.el.nativeElement.offsetWidth;
             this.overlayVisible = true;
         }
     }
@@ -3179,7 +3182,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     onOverlayBeforeEnter(event: MotionEvent) {
         this.overlay = event.element as HTMLElement;
         this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
-        const styles = !this.inline ? { position: 'absolute', top: '0' } : undefined;
+        const styles = !this.inline ? { position: 'absolute', top: '0', minWidth: `${this.overlayMinWidth}px` } : undefined;
         addStyle(this.overlay!, styles || {});
         this.appendOverlay();
         this.alignOverlay();
@@ -3241,7 +3244,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (!this.mask && this.touchUI) {
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1));
-            let maskStyleClass = 'p-overlay-mask p-datepicker-mask p-datepicker-mask-scrollblocker p-overlay-mask p-overlay-mask-enter';
+            let maskStyleClass = 'p-overlay-mask p-datepicker-mask p-datepicker-mask-scrollblocker p-overlay-mask p-overlay-mask-enter-active';
             addClass(this.mask!, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {

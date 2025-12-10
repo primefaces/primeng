@@ -92,7 +92,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <p-checkbox
                 #headerchkbox
                 (onChange)="onToggleAll($event)"
-                *ngIf="checkbox && multiple"
+                *ngIf="checkbox && multiple && showToggleAll"
                 [class]="cx('optionCheckIcon')"
                 [ngModel]="allSelected()"
                 [disabled]="$disabled()"
@@ -1717,6 +1717,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
                 const currentOptions = [...this._options()];
                 moveItemInArray(currentOptions, event.previousIndex, event.currentIndex);
                 this._options.set(currentOptions);
+                this.changeFocusedOptionIndex(event, event.currentIndex);
 
                 // Update model value if needed for selection preservation
                 if (this.modelValue()) {

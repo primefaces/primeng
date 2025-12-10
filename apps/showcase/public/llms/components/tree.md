@@ -56,19 +56,25 @@ export class TreeCheckboxDemo implements OnInit {
 
 ## Context Menu
 
-Tree requires a collection of TreeNode instances as a value.
+Tree has exclusive integration with ContextMenu using the contextMenu property along with the contextMenuSelection to manage the selection.
 
 ```html
-<p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+<p-tree
+    [value]="files()"
+    selectionMode="single"
+    [(selection)]="selectedNode"
+    [(contextMenuSelection)]="contextMenuNode"
+    [contextMenu]="cm"
+    contextMenuSelectionMode="separate"
+/>
 <p-contextmenu #cm [model]="items" />
-<p-toast />
 ```
 
 <details>
 <summary>TypeScript Example</summary>
 
 ```typescript
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, model, signal } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -83,9 +89,11 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService, NodeService]
 })
 export class TreeContextMenuDemo implements OnInit {
-    files = signal<TreeNode[]>(undefined);
+    files = signal<TreeNode[]>([]);
 
-    selectedFile!: TreeNode | null;
+    selectedNode = model<TreeNode | null>(null);
+
+    contextMenuNode = model<TreeNode | null>(null);
 
     items!: MenuItem[];
 
@@ -95,15 +103,37 @@ export class TreeContextMenuDemo implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.nodeService.getFiles().then((data) => {
-            this.files.set(data);
-        });
+        this.nodeService.getFiles().then((files) => this.files.set(files));
+
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedFile) },
-            { label: 'Unselect', icon: 'pi pi-times', command: (event) => this.unselectFile() }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.contextMenuNode()) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.contextMenuNode()) }
         ];
     }
 
+    viewFile(node: TreeNode | null) {
+        if (node) {
+            this.messageService.add({ severity: 'info', summary: 'File Selected', detail: node.label });
+        }
+    }
+
+    toggleFile(node: TreeNode | null) {
+        if (node) {
+            this.files.set(this.updateNodeInTree(this.files(), node.key, { ...node, expanded: !node.expanded }));
+        }
+    }
+
+    updateNodeInTree(nodes: TreeNode[], key: string | undefined, updatedNode: TreeNode): TreeNode[] {
+        return nodes.map((n) => {
+            if (n.key === key) {
+                return updatedNode;
+            }
+            if (n.children) {
+                return { ...n, children: this.updateNodeInTree(n.children, key, updatedNode) };
+            }
+            return n;
+        });
+    }
 }
 ```
 </details>
@@ -273,11 +303,10 @@ export class TreeFilterDemo implements OnInit {
 
 ## Lazy
 
-Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method. Default value of loadingMode is mask and also icon is available.
+Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using loading property and onNodeExpand method.
 
 ```html
-<p-tree class="w-full md:w-[30rem]" [value]="nodes()" (onNodeExpand)="onNodeExpand($event)" [loading]="loading()" />
-<p-tree class="w-full md:w-[30rem]" [value]="nodes2()" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
+<p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
 ```
 
 <details>
@@ -295,44 +324,17 @@ import { Tree } from 'primeng/tree';
     imports: [Tree]
 })
 export class TreeLazyDemo implements OnInit {
-    loading = signal<boolean>(false);
-
     nodes = signal<TreeNode[]>(undefined);
 
-    nodes2 = signal<TreeNode[]>(undefined);
-
     ngOnInit() {
-        this.loading.set(true);
-        this.nodes2.set(this.initiateNodes2());
+        this.nodes.set(this.initiateNodes());
 
         setTimeout(() => {
-            this.nodes.set(this.initiateNodes());
-            this.loading.set(false);
-            this.nodes2.set(this.nodes2().map((node) => ({ ...node, loading: false })));
+            this.nodes.set(this.nodes().map((node) => ({ ...node, loading: false })));
         }, 2000);
     }
 
     initiateNodes(): TreeNode[] {
-        return [
-            {
-                key: '0',
-                label: 'Node 0',
-                leaf: false
-            },
-            {
-                key: '1',
-                label: 'Node 1',
-                leaf: false
-            },
-            {
-                key: '2',
-                label: 'Node 2',
-                leaf: false
-            }
-        ];
-    }
-
-    initiateNodes2(): TreeNode[] {
         return [
             {
                 key: '0',
@@ -357,7 +359,7 @@ export class TreeLazyDemo implements OnInit {
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading.set(true);
+            event.node.loading = true;
 
             setTimeout(() => {
                 const _nodes = this.nodes();
@@ -371,33 +373,9 @@ export class TreeLazyDemo implements OnInit {
                     });
                 }
 
-                _nodes[parseInt(event.node.key, 10)] = _node;
-                this.nodes.set([..._nodes]);
-
-                this.loading.set(false);
-            }, 500);
-        }
-    }
-
-    onNodeExpand2(event: any) {
-        if (!event.node.children) {
-            event.node.loading = true;
-
-            setTimeout(() => {
-                const _nodes2 = this.nodes2();
-                let _node = { ...event.node };
-                _node.children = [];
-
-                for (let i = 0; i < 3; i++) {
-                    _node.children.push({
-                        key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
-                    });
-                }
-
                 const key = parseInt(_node.key, 10);
-                _nodes2[key] = { ..._node, loading: false };
-                this.nodes2.set([..._nodes2]);
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
@@ -560,7 +538,7 @@ export class TreeTemplateDemo implements OnInit {
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.
 
 ```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" />
+<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
 ```
 
 <details>
@@ -596,7 +574,7 @@ export class TreeVirtualScrollDemo implements OnInit {
 VirtualScroller is a performance-approach to handle huge data efficiently. Setting virtualScroll property as true and providing a virtualScrollItemSize in pixels would be enough to enable this functionality.
 
 ```html
-<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
+<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
 ```
 
 <details>
@@ -662,6 +640,7 @@ Tree is used to display hierarchical data.
 | selection | any | - | A single treenode instance or an array to refer to the selections. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
 | contextMenu | any | - | Context menu instance. |
+| contextMenuSelection | ModelSignal<TreeNode<any>> | ... | Selected node with a context menu. |
 | draggableScope | any | - | Scope of the draggable nodes to match a droppableScope. |
 | droppableScope | any | - | Scope of the droppable nodes to match a draggableScope. |
 | draggableNodes | boolean | false | Whether the nodes are draggable. |
@@ -715,16 +694,16 @@ Tree is used to display hierarchical data.
 
 | Name | Type | Description |
 |------|------|-------------|
-| filter | TemplateRef<any> | Filter template. |
-| node | TemplateRef<any> | Node template. |
-| header | TemplateRef<any> | Header template. |
-| footer | TemplateRef<any> | Footer template. |
-| loader | TemplateRef<any> | Loader template. |
-| empty | TemplateRef<any> | Empty message template. |
-| togglericon | TemplateRef<any> | Toggler icon template. |
-| checkboxicon | TemplateRef<any> | Checkbox icon template. |
-| loadingicon | TemplateRef<any> | Loading icon template. |
-| filtericon | TemplateRef<any> | Filter icon template. |
+| filter | TemplateRef<TreeFilterTemplateContext> | Custom filter template. |
+| node | TemplateRef<any> | Custom node template. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| loader | TemplateRef<TreeLoaderTemplateContext> | Custom loader template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| togglericon | TemplateRef<TreeTogglerIconTemplateContext> | Custom toggler icon template. |
+| checkboxicon | TemplateRef<TreeCheckboxIconTemplateContext> | Custom checkbox icon template. |
+| loadingicon | TemplateRef<void> | Custom loading icon template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
 
 ### Methods
 

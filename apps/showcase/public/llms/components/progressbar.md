@@ -149,6 +149,12 @@ ProgressBar is a process status indicator.
 | mode | "indeterminate" \| "determinate" | 'determinate' | Defines the mode of the progress |
 | color | string | - | Color for the background of the progress. |
 
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| content | TemplateRef<ProgressBarContentTemplateContext> | Template of the content. |
+
 ## Pass Through Options
 
 | Name | Type | Description |

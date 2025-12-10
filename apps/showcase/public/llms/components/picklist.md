@@ -256,25 +256,25 @@ PickList is used to reorder items between different lists.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| sourceheader | TemplateRef<any> | Custom source header template. |
-| targetheader | TemplateRef<any> | Custom target header template. |
-| sourcefilter | TemplateRef<{ options: PickListFilterOptions }> | Custom source filter template. |
-| targetfilter | TemplateRef<{ options: PickListFilterOptions }> | Custom target filter template. |
-| emptymessagesource | TemplateRef<any> | Custom empty message when source is empty template. |
-| emptyfiltermessagesource | TemplateRef<any> | Custom empty filter message when source is empty template. |
-| emptymessagetarget | TemplateRef<any> | Custom empty message when target is empty template. |
-| emptyfiltermessagetarget | TemplateRef<any> | Custom empty filter message when target is empty template. |
-| moveupicon | TemplateRef<{ $implicit: boolean }> | Custom move up icon template. |
-| movetopicon | TemplateRef<{ $implicit: boolean }> | Custom move top icon template. |
-| movedownicon | TemplateRef<{ $implicit: boolean }> | Custom move down icon template. |
-| movebottomicon | TemplateRef<{ $implicit: boolean }> | Custom move bottom icon template. |
-| movetotargeticon | TemplateRef<{ $implicit: boolean }> | Custom move to target icon template. |
-| movealltotargeticon | TemplateRef<{ $implicit: boolean }> | Custom move all to target icon template. |
-| movetosourceicon | TemplateRef<{ $implicit: boolean }> | Custom move to source icon template. |
-| movealltosourceicon | TemplateRef<{ $implicit: boolean }> | Custom move all to source icon template. |
-| targetfiltericon | TemplateRef<{ options: PickListFilterOptions }> | Custom target filter icon template. |
-| sourcefiltericon | TemplateRef<{ options: PickListFilterOptions }> | Custom source filter icon template. |
+| item | TemplateRef<PickListItemTemplateContext> | Custom item template. |
+| sourceheader | TemplateRef<void> | Custom source header template. |
+| targetheader | TemplateRef<void> | Custom target header template. |
+| sourcefilter | TemplateRef<PickListFilterTemplateContext> | Custom source filter template. |
+| targetfilter | TemplateRef<PickListFilterTemplateContext> | Custom target filter template. |
+| emptymessagesource | TemplateRef<void> | Custom empty message when source is empty template. |
+| emptyfiltermessagesource | TemplateRef<void> | Custom empty filter message when source is empty template. |
+| emptymessagetarget | TemplateRef<void> | Custom empty message when target is empty template. |
+| emptyfiltermessagetarget | TemplateRef<void> | Custom empty filter message when target is empty template. |
+| moveupicon | TemplateRef<void> | Custom move up icon template. |
+| movetopicon | TemplateRef<void> | Custom move top icon template. |
+| movedownicon | TemplateRef<void> | Custom move down icon template. |
+| movebottomicon | TemplateRef<void> | Custom move bottom icon template. |
+| movetotargeticon | TemplateRef<PickListTransferIconTemplateContext> | Custom move to target icon template. |
+| movealltotargeticon | TemplateRef<PickListTransferIconTemplateContext> | Custom move all to target icon template. |
+| movetosourceicon | TemplateRef<PickListTransferIconTemplateContext> | Custom move to source icon template. |
+| movealltosourceicon | TemplateRef<PickListTransferIconTemplateContext> | Custom move all to source icon template. |
+| targetfiltericon | TemplateRef<void> | Custom target filter icon template. |
+| sourcefiltericon | TemplateRef<void> | Custom source filter icon template. |
 
 ## Pass Through Options
 

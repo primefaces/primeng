@@ -740,17 +740,17 @@ ListBox is used to select one or more values from a list of items.
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Custom item template. |
-| group | TemplateRef<any> | Custom group template. |
-| header | TemplateRef<any> | Custom header template. |
-| filter | TemplateRef<any> | Custom filter template. |
-| footer | TemplateRef<any> | Custom footer template. |
-| emptyfilter | TemplateRef<any> | Custom empty filter message template. |
-| empty | TemplateRef<any> | Custom empty message template. |
-| filtericon | TemplateRef<any> | Custom filter icon template. |
-| checkicon | TemplateRef<any> | Custom check icon template. |
-| checkmark | TemplateRef<any> | Custom checkmark icon template. |
-| loader | TemplateRef<any> | Custom loader template. |
+| item | TemplateRef<ListboxItemTemplateContext<any>> | Custom item template. |
+| group | TemplateRef<ListboxGroupTemplateContext<any>> | Custom group template. |
+| header | TemplateRef<ListboxHeaderTemplateContext<any>> | Custom header template. |
+| filter | TemplateRef<ListboxFilterTemplateContext> | Custom filter template. |
+| footer | TemplateRef<ListboxFooterTemplateContext<any>> | Custom footer template. |
+| emptyfilter | TemplateRef<void> | Custom empty filter message template. |
+| empty | TemplateRef<void> | Custom empty message template. |
+| filtericon | TemplateRef<void> | Custom filter icon template. |
+| checkicon | TemplateRef<ListboxCheckIconTemplateContext> | Custom check icon template. |
+| checkmark | TemplateRef<ListboxCheckmarkTemplateContext> | Custom checkmark icon template. |
+| loader | TemplateRef<ListboxLoaderTemplateContext> | Custom loader template. |
 
 ### Methods
 

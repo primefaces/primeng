@@ -89,7 +89,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [attr.data-p-highlight]="selected"
             [attr.data-p-selected]="selected"
             [attr.data-p-disabled]="disabled"
-            [ngStyle]="{ height: itemSize + 'px' }"
+            [ngStyle]="{ height: scrollerOptions?.itemSize + 'px' }"
             [class]="cx('option')"
         >
             <ng-container *ngIf="checkmark">
@@ -1419,7 +1419,9 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             if (this.virtualScroll) {
                 const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
                 if (selectedIndex !== -1) {
-                    this.scroller?.scrollToIndex(selectedIndex);
+                    setTimeout(() => {
+                        this.scroller?.scrollToIndex(selectedIndex);
+                    }, 10);
                 }
             } else {
                 let selectedListItem = findSingle(this.itemsWrapper as HTMLElement, '[data-p-selected="true"]');

@@ -142,7 +142,7 @@ The icon of a message is specified with the icon property.
     <ng-template #icon>
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
     </ng-template>
-    <span class="ml-2">How may I help you?</span>
+    <span class="ms-2">How may I help you?</span>
 </p-message>
 ```
 
@@ -353,9 +353,9 @@ Message groups a collection of contents in tabs.
 
 | Name | Type | Description |
 |------|------|-------------|
-| container | TemplateRef<any> | Custom template of the message container. |
-| icon | TemplateRef<any> | Custom template of the message icon. |
-| closeicon | TemplateRef<any> | Custom template of the close icon. |
+| container | TemplateRef<MessageContainerTemplateContext> | Custom template of the message container. |
+| icon | TemplateRef<void> | Custom template of the message icon. |
+| closeicon | TemplateRef<void> | Custom template of the close icon. |
 
 ### Methods
 

@@ -288,10 +288,10 @@ export class ToastPositionDemo {
 
 ## Responsive
 
-Toast styling can be adjusted per screen size with the breakpoints option. The value of breakpoints should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.
+Toast styling can be adjusted per screen size with the breakpoints option. The value of breakpoints should be an object literal whose keys are the maximum screen sizes and values are the styles per screen.
 
 ```html
-<p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
+<p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
 <p-button (click)="show()" label="Show" />
 ```
 
@@ -316,7 +316,7 @@ export class ToastResponsiveDemo {
     constructor(private messageService: MessageService) {}
 
     show() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+        this.messageService.add({ severity: 'contrast', summary: 'Success', detail: 'Message Content' });
     }
 }
 ```
@@ -581,8 +581,8 @@ Toast is used to display messages in an overlay.
 
 | Name | Type | Description |
 |------|------|-------------|
-| template | TemplateRef<any> | Custom template of message. |
-| headless | TemplateRef<any> | Custom headless template. |
+| template | TemplateRef<ToastMessageTemplateContext> | Custom message template. |
+| headless | TemplateRef<ToastHeadlessTemplateContext> | Custom headless template. |
 
 ## Pass Through Options
 

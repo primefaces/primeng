@@ -215,6 +215,21 @@ export class AppDocApiSection {
                     });
                 }
 
+                // Handle interfaces from types.interfaces (excluding PassThroughOptions)
+                if (types && types.interfaces && types.interfaces.values && types.interfaces.values.length) {
+                    const filteredTypesInterfaces = types.interfaces.values.filter((item) => !item.name.includes('PassThrough'));
+
+                    if (filteredTypesInterfaces.length > 0) {
+                        newDoc.children.push({
+                            id: `api.${moduleName}.interfaces`,
+                            label: 'Interfaces',
+                            component: AppDocApiTable,
+                            description: types.interfaces.description,
+                            data: this.setEventsData(moduleName, filteredTypesInterfaces, 'interfaces')
+                        });
+                    }
+                }
+
                 if (events && events.values.length) {
                     newDoc.children.push({
                         id: `api.${moduleName.toLowerCase()}.events`,

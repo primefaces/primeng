@@ -22,7 +22,8 @@ const classes = {
         'p-tree-node-content': true,
         'p-tree-node-selectable': instance.selectable,
         'p-tree-node-dragover': instance.isNodeDropActive(),
-        'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected
+        'p-tree-node-selected': instance.selectionMode === 'checkbox' && instance.tree.highlightOnSelect ? instance.checked : instance.selected,
+        'p-tree-node-contextmenu-selected': instance.isContextMenuSelected()
     }),
     nodeToggleButton: 'p-tree-node-toggle-button',
     nodeToggleIcon: 'p-tree-node-toggle-icon',

@@ -130,16 +130,14 @@ export class TreeTableService {
     selector: 'p-treeTable, p-treetable, p-tree-table',
     standalone: false,
     template: `
-        <div [pBind]="ptm('loading')" [class]="cx('loading')" *ngIf="loading && showLoader">
-            <div [pBind]="ptm('mask')" [class]="cx('mask')">
-                <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
-                <ng-container *ngIf="!loadingIcon">
-                    <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
-                    <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
-                        <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
-                    </span>
-                </ng-container>
-            </div>
+        <div [pBind]="ptm('mask')" [class]="cx('mask')" *ngIf="loading && showLoader" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">
+            <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
+            <ng-container *ngIf="!loadingIcon">
+                <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [spin]="true" [class]="cx('loadingIcon')" />
+                <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [class]="cx('loadingIcon')">
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
+                </span>
+            </ng-container>
         </div>
         <div [pBind]="ptm('header')" *ngIf="captionTemplate || _captionTemplate" [class]="cx('header')">
             <ng-container *ngTemplateOutlet="captionTemplate || _captionTemplate"></ng-container>
@@ -1793,12 +1791,21 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         if (this.contextMenu) {
             const node = event.rowNode.node;
 
+            const showContextMenu = () => {
+                this.contextMenu.show(event.originalEvent);
+                this.contextMenu.hideCallback = () => {
+                    this.contextMenuSelection = null;
+                    this.contextMenuSelectionChange.emit();
+                    this.tableService.onContextMenu(null);
+                };
+            };
+
             if (this.contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = node;
                 this.contextMenuSelectionChange.emit(node);
-                this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
-                this.contextMenu.show(event.originalEvent);
                 this.tableService.onContextMenu(node);
+                showContextMenu();
+                this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
             } else if (this.contextMenuSelectionMode === 'joint') {
                 this.preventSelectionSetterPropagation = true;
                 let selected = this.isSelected(node);
@@ -1818,7 +1825,11 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                     }
                 }
 
-                this.contextMenu.show(event.originalEvent);
+                this.contextMenuSelection = node;
+                this.contextMenuSelectionChange.emit(node);
+                this.tableService.onContextMenu(node);
+
+                showContextMenu();
                 this.onContextMenuSelect.emit({ originalEvent: event.originalEvent, node: node });
             }
         }
@@ -3278,7 +3289,7 @@ export class TTContextMenuRow extends BaseComponent {
         super();
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.contextMenuSource$.subscribe((node) => {
-                this.selected = this.tt.equals(this.rowNode.node, node);
+                this.selected = node ? this.tt.equals(this.rowNode.node, node) : false;
             });
         }
     }

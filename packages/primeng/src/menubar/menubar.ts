@@ -98,25 +98,39 @@ export class MenubarService {
                             *ngIf="!getItemProp(processedItem, 'routerLink')"
                             [attr.href]="getItemProp(processedItem, 'url')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.target]="getItemProp(processedItem, 'target')"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [attr.tabindex]="-1"
                             [pBind]="getPTOptions(processedItem, index, 'itemLink')"
                             pRipple
                         >
                             <span
                                 *ngIf="getItemProp(processedItem, 'icon')"
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
-                                [style]="getItemProp(processedItem, 'iconStyle')"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             >
                             </span>
-                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" [class]="cx('itemLabel')" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                            <span
+                                *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel"
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                [id]="getItemLabelId(processedItem)"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                            >
                                 {{ getItemLabel(processedItem) }}
                             </span>
                             <ng-template #htmlLabel>
-                                <span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [id]="getItemLabelId(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span>
+                                <span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemLabel(processedItem)"
+                                    [id]="getItemLabelId(processedItem)"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span>
                             </ng-template>
                             <p-badge
                                 *ngIf="getItemProp(processedItem, 'badge')"
@@ -138,12 +152,14 @@ export class MenubarService {
                             *ngIf="getItemProp(processedItem, 'routerLink')"
                             [routerLink]="getItemProp(processedItem, 'routerLink')"
                             [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                            [attr.title]="getItemProp(processedItem, 'title')"
                             [attr.tabindex]="-1"
                             [queryParams]="getItemProp(processedItem, 'queryParams')"
                             [routerLinkActive]="'p-menubar-item-link-active'"
                             [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                             [target]="getItemProp(processedItem, 'target')"
-                            [class]="cx('itemLink')"
+                            [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
+                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
                             [fragment]="getItemProp(processedItem, 'fragment')"
                             [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                             [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -154,14 +170,27 @@ export class MenubarService {
                             pRipple
                         >
                             <span
-                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'))"
+                                [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
                                 *ngIf="getItemProp(processedItem, 'icon')"
                                 [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                 [attr.tabindex]="-1"
                                 [pBind]="getPTOptions(processedItem, index, 'itemIcon')"
                             ></span>
-                            <span [class]="cx('itemLabel')" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel" [pBind]="getPTOptions(processedItem, index, 'itemLabel')">{{ getItemLabel(processedItem) }}</span>
-                            <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="getItemLabel(processedItem)" [pBind]="getPTOptions(processedItem, index, 'itemLabel')"></span></ng-template>
+                            <span
+                                [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel"
+                                [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                >{{ getItemLabel(processedItem) }}</span
+                            >
+                            <ng-template #htmlRouteLabel
+                                ><span
+                                    [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
+                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                    [innerHTML]="getItemLabel(processedItem)"
+                                    [pBind]="getPTOptions(processedItem, index, 'itemLabel')"
+                                ></span
+                            ></ng-template>
                             <p-badge
                                 *ngIf="getItemProp(processedItem, 'badge')"
                                 [class]="getItemProp(processedItem, 'badgeStyleClass')"
@@ -391,6 +420,7 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             [submenuiconTemplate]="submenuIconTemplate || _submenuIconTemplate"
             [activeItemPath]="activeItemPath()"
             (itemClick)="onItemClick($event)"
+            (mousedown)="onMenuMouseDown($event)"
             (focus)="onMenuFocus($event)"
             (blur)="onMenuBlur($event)"
             (keydown)="onKeyDown($event)"
@@ -512,7 +542,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
 
     private query: MediaQueryList;
 
-    public queryMatches: boolean;
+    public queryMatches = signal<boolean>(false);
 
     outsideClickListener: VoidListener;
 
@@ -690,10 +720,10 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
                 const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
 
                 this.query = query;
-                this.queryMatches = query.matches;
+                this.queryMatches.set(query.matches);
 
                 this.matchMediaListener = () => {
-                    this.queryMatches = query.matches;
+                    this.queryMatches.set(query.matches);
                     this.mobileActive = false;
                     this.cd.markForCheck();
                 };
@@ -723,6 +753,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
     }
 
     onItemClick(event: any) {
+        this.dirty = true;
         const { originalEvent, processedItem } = event;
         const grouped = this.isProcessedItemGroup(processedItem);
         const root = isEmpty(processedItem.parent);
@@ -804,7 +835,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
         grouped && (this.dirty = true);
         isFocus && focus(this.rootmenu?.el.nativeElement);
 
-        if (type === 'hover' && this.queryMatches) {
+        if (type === 'hover' && this.queryMatches()) {
             return;
         }
 
@@ -848,21 +879,42 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
         focus(this.rootmenu?.el.nativeElement);
     }
 
+    onMenuMouseDown(event: any) {
+        this.dirty = true;
+    }
+
     onMenuFocus(event: any) {
         this.focused = true;
-        const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item };
 
-        this.focusedItemInfo.set(focusedItemInfo);
+        const relatedTarget = event.relatedTarget;
+        const isFromOutside = !relatedTarget || !this.el.nativeElement.contains(relatedTarget);
+
+        if (isFromOutside && this.focusedItemInfo().index === -1 && !this.activeItemPath().length && !this.dirty) {
+            const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
+            this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item });
+        }
+
         this.onFocus.emit(event);
     }
 
     onMenuBlur(event: any) {
-        this.focused = false;
-        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
-        this.searchValue = '';
-        this.dirty = false;
-        this.onBlur.emit(event);
+        const relatedTarget = event.relatedTarget;
+        if (relatedTarget && this.el.nativeElement.contains(relatedTarget)) {
+            return;
+        }
+
+        setTimeout(() => {
+            const activeElement = this.document.activeElement;
+            if (activeElement && this.el.nativeElement.contains(activeElement)) {
+                return;
+            }
+
+            this.focused = false;
+            this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
+            this.searchValue = '';
+            this.dirty = false;
+            this.onBlur.emit(event);
+        });
     }
 
     onKeyDown(event: KeyboardEvent) {

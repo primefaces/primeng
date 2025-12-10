@@ -18,9 +18,15 @@ interface City {
     template: `
         <app-docsectiontext>
             <p>
-                Here is a sample that styles a button component with Tailwind CSS using <a routerLink="/passthrough">pass through</a> attributes. Before beginning, head over to the the pass through section at
-                <a routerLink="/button">button</a> documentation to learn more about the components internals section. We'll be using the <i>root</i>, <i>label</i> and <i>icon</i> elements to add a custom style.
+                Unstyled components require styling using your preferred approach. We recommend using Tailwind CSS with PassThrough attributes, a combination that works seamlessly together. The <i>tailwindcss-primeui</i> even provides special
+                variants such as <i>p-outlined:</i>, <i>p-vertical</i> for the PrimeNG components.
             </p>
+            <p>
+                The example below demonstrates how to style a button component with Tailwind CSS using PassThrough attributes. Before you begin, refer to the
+                <a routerLink="/passthrough" class="text-primary font-medium hover:underline">pass through</a> section in the button documentation to familiarize yourself with the component's internal structure and PassThrough attributes. In this
+                example, we'll target the <i>root</i>, <i>label</i> and <i>icon</i> elements to apply custom styles.
+            </p>
+
             <div class="card flex justify-center">
                 <p-button
                     label="Search"

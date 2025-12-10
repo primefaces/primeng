@@ -11,8 +11,19 @@ Screen Reader Galleria uses region role and since any attribute is passed to the
 Galleria can be extended further to implement complex requirements.
 
 ```html
-<p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"
-    [circular]="true" [autoPlay]="isAutoPlay" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()"
+<p-galleria
+    #galleria
+    [(value)]="images"
+    [(activeIndex)]="activeIndex"
+    [numVisible]="5"
+    [showThumbnails]="showThumbnails"
+    [showItemNavigators]="true"
+    [showItemNavigatorsOnHover]="true"
+    [circular]="true"
+    [autoPlay]="isAutoPlay"
+    [transitionInterval]="3000"
+    [containerStyle]="{ 'max-width': '640px' }"
+    [pt]="galleriaPT"
 >
     <ng-template #item let-item>
         <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
@@ -66,23 +77,6 @@ import { PhotoService } from '@/service/photoservice';
 @Component({
     selector: 'galleria-advanced-demo',
     templateUrl: './galleria-advanced-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .custom-galleria {
-                &.p-galleria {
-                    &.fullscreen {
-                        display: flex;
-                        flex-direction: column;
-
-                        .p-galleria-content {
-                            flex-grow: 1;
-                            justify-content: center;
-                        }
-                    }
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [ButtonModule, GalleriaModule],
     providers: [PhotoService]
@@ -100,6 +94,18 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     isAutoPlay: boolean = true;
 
     onFullScreenListener: any;
+
+    get galleriaPT() {
+        return {
+            root: {
+                class: [{ 'flex flex-col': this.fullscreen }]
+            },
+            content: {
+                class: ['relative', { 'flex-1 justify-center': this.fullscreen }]
+            },
+            thumbnails: 'absolute w-full left-0 bottom-0'
+        };
+    }
 
     @ViewChild('galleria') galleria: Galleria | undefined;
 
@@ -191,10 +197,6 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.unbindDocumentListeners();
-    }
-
-    galleriaClass() {
-        return \`custom-galleria \${this.fullscreen ? 'fullscreen' : ''}\`;
     }
 
     slideButtonIcon() {
@@ -601,6 +603,22 @@ Galleria is an advanced content gallery component.
 |------|------------|-------------|
 | activeIndexChange | value: number | Callback to invoke on active index change. |
 | visibleChange | value: boolean | Callback to invoke on visiblity change. |
+
+### Templates
+
+| Name | Type | Description |
+|------|------|-------------|
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| indicator | TemplateRef<GalleriaIndicatorTemplateContext> | Custom indicator template. |
+| caption | TemplateRef<GalleriaCaptionTemplateContext<any>> | Custom caption template. |
+| _closeicon | TemplateRef<void> | Custom close icon template. |
+| _previousthumbnailicon | TemplateRef<void> | Custom previous thumbnail icon template. |
+| _nextthumbnailicon | TemplateRef<void> | Custom next thumbnail icon template. |
+| _itempreviousicon | TemplateRef<void> | Custom item previous icon template. |
+| _itemnexticon | TemplateRef<void> | Custom item next icon template. |
+| _item | TemplateRef<GalleriaItemTemplateContext<any>> | Custom item template. |
+| _thumbnail | TemplateRef<GalleriaThumbnailTemplateContext<any>> | Custom thumbnail template. |
 
 ## Pass Through Options
 

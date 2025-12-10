@@ -368,9 +368,9 @@ Following is the list of structural style classes, for theming classes visit the
 Scroller content is customizable by using ng-template . Valid values are content , item , loader and loadericon
 
 ```html
-<p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+<p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" [numToleratedItems]="20" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
     <ng-template #item let-item let-options="options">
-        <div class="flex flex-col align-items-strech" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="flex flex-col align-items-strech" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
             <div class="flex items-center px-2" style="height: 25px">Item: {{ item }}</div>
             <div class="flex items-center px-2" style="height: 25px">Index: {{ options.index }}</div>
             <div class="flex items-center px-2" style="height: 25px">Count: {{ options.count }}</div>
@@ -381,7 +381,7 @@ Scroller content is customizable by using ng-template . Valid values are content
         </div>
     </ng-template>
     <ng-template #loader let-options="options">
-        <div class="flex flex-col items-stretch" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="flex flex-col items-stretch" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
@@ -479,10 +479,10 @@ Scroller is a performance-approach to handle huge data efficiently.
 
 | Name | Type | Description |
 |------|------|-------------|
-| content | TemplateRef<any> | Content template of the component. |
-| item | TemplateRef<any> | Item template of the component. |
-| loader | TemplateRef<any> | Loader template of the component. |
-| loadericon | TemplateRef<any> | Loader icon template of the component. |
+| content | TemplateRef<ScrollerContentTemplateContext> | Content template of the component. |
+| item | TemplateRef<ScrollerItemTemplateContext> | Item template of the component. |
+| loader | TemplateRef<ScrollerLoaderTemplateContext> | Loader template of the component. |
+| loadericon | TemplateRef<ScrollerLoaderIconTemplateContext> | Loader icon template of the component. |
 
 ## Pass Through Options
 

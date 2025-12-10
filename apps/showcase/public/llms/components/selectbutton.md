@@ -395,7 +395,7 @@ SelectButton is used to choose single or multiple items from a list using button
 
 | Name | Type | Description |
 |------|------|-------------|
-| item | TemplateRef<any> | Template of an item in the list. |
+| item | TemplateRef<SelectButtonItemTemplateContext> | Custom item template. |
 
 ## Pass Through Options
 

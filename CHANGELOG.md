@@ -2,6 +2,46 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.0.1](https://github.com/primefaces/primeng/tree/21.0.1) (2025-12-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0...21.0.1)
+
+**Fixed bugs:**
+- SplitButton animation is not working as expected [#19174](https://github.com/primefaces/primeng/issues/19174)
+
+## [21.0.0](https://github.com/primefaces/primeng/tree/21.0.0) (2025-12-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0-rc.1...21.0.0)
+
+**Fixed bugs:**
+- Backspace event not working in Input Otp component [#19172](https://github.com/primefaces/primeng/issues/19172)
+- Align Tree Selection with TreeTable [#18899](https://github.com/primefaces/primeng/issues/18899)
+
+## [21.0.0-rc.1](https://github.com/primefaces/primeng/tree/21.0.0-rc.1) (2025-12-03)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0-beta.1...21.0.0-rc.1)
+
+**Fixed bugs:**
+- v21beta1 Bad Dynamic Updating of Button Labels and Icons [#19123](https://github.com/primefaces/primeng/issues/19123)
+- [v20] & [v21] Tree component is very slow when using DragDrop feature [#19122](https://github.com/primefaces/primeng/issues/19122)
+- v21beta1 Table Column Filters display partially out of view [#19117](https://github.com/primefaces/primeng/issues/19117)
+- v21beta1 Table Column Filters dropdowns fail to reset [#19118](https://github.com/primefaces/primeng/issues/19118)
+- ConfirmPopup alignment and change detection issues when multiple popups are opened [#19129](https://github.com/primefaces/primeng/issues/19129)
+- ConfirmPopup issue with focusTrap [#19104](https://github.com/primefaces/primeng/issues/19104)
+- Items should be rendered correctly during scrolling in VirtualScroller [#19142](https://github.com/primefaces/primeng/issues/19142)
+- OTP Input not editable when default value is set [#19071](https://github.com/primefaces/primeng/issues/19071)
+- InputMask label overlaps Input after patchValue [#19096](https://github.com/primefaces/primeng/issues/19096)
+- CascadeSelect floatlabel jumps on clicking [#19148](https://github.com/primefaces/primeng/issues/19148)
+- TreeSelect floatlabel jumps on clicking [#19147](https://github.com/primefaces/primeng/issues/19147)
+- Table & TreeTable | Selection is not cleared on outside click when contextmenu enabled [#19149](https://github.com/primefaces/primeng/issues/19149)
+- Update focused option after reordering in Listbox [#19144](https://github.com/primefaces/primeng/issues/19144)
+- Knob component becomes very slow when used with Reactive Forms [#19171](https://github.com/primefaces/primeng/issues/19171)
+- Tree Component Docs incorrectly refer to the empty message template as "emptyMessage" instead of "empty" [#19135](https://github.com/primefaces/primeng/issues/19135)
+
+**New Features:**
+- Tree | Add contextMenu selection support [#19143](https://github.com/primefaces/primeng/issues/19143)
+- Update MenuItem API [#19145](https://github.com/primefaces/primeng/issues/19145)
+
+**Enhancements:**
+- Add motion support and rendering control to TieredMenu [#19146](https://github.com/primefaces/primeng/issues/19146)
+
 ## [21.0.0-beta.1](https://github.com/primefaces/primeng/tree/21.0.0-beta.1) (2025-11-25)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.3.0...21.0.0-beta.1)
 
@@ -24,6 +64,31 @@ Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 - Wrong "for" attribute in docs in the apps/showcase/doc/textarea/floatlabeldoc.ts file [#18947](https://github.com/primefaces/primeng/issues/18947)
 - [Doc] Passthrough guide page not found [#19066](https://github.com/primefaces/primeng/issues/19066)
 - Missing tooltip role since Prime 20 [#19048](https://github.com/primefaces/primeng/issues/19048)
+
+## [20.4.0](https://github.com/primefaces/primeng/tree/20.4.0) (2025-12-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.3.0...20.4.0)
+
+**Fixed bugs:**
+- Listbox: checkbox, properly hides toggle-all checkbox when showToggleAll is combined with filter [#19169](https://github.com/primefaces/primeng/issues/19169)
+- Knob component becomes very slow when used with Reactive Forms [#19170](https://github.com/primefaces/primeng/issues/19170)
+- Tree component is very slow when using DragDrop feature [#19168](https://github.com/primefaces/primeng/issues/19168)
+- TreeSelect floatlabel jumps on clicking [#19167](https://github.com/primefaces/primeng/issues/19167)
+- CascadeSelect floatlabel jumps on clicking [#19166](https://github.com/primefaces/primeng/issues/19166)
+- Missing tooltip role since Prime 20 [#19048](https://github.com/primefaces/primeng/issues/19048)
+- Autocomplete - Error clear input with showClear option [#18976](https://github.com/primefaces/primeng/issues/18976)
+- Listbox ignores showToggleAll false value when filter is enabled [#19156](https://github.com/primefaces/primeng/issues/19156)
+- Button: SSR error after passthrough changes [#19070](https://github.com/primefaces/primeng/issues/19070)
+- Picklist Target Not Updated [#18997](https://github.com/primefaces/primeng/issues/18997)
+- InputOTP integerOnly does not use numeric inputmode (alphanumeric keyboard shows on mobile) [#19083](https://github.com/primefaces/primeng/issues/19083)
+- Blank MultiSelect with VirtualScroll after selecting options [#19078](https://github.com/primefaces/primeng/issues/19078)
+- Backspace event not working in Input Otp component again (Mobile / Android) [#19155](https://github.com/primefaces/primeng/issues/19155)
+- OTP Input not editable when default value is set [#19162](https://github.com/primefaces/primeng/issues/19162)
+- Items should be rendered correctly during scrolling in VirtualScroller [#19161](https://github.com/primefaces/primeng/issues/19161)
+- Update focused option after reordering in Listbox [#19163](https://github.com/primefaces/primeng/issues/19163)
+- InputMask label overlaps Input after patchValue [#19165](https://github.com/primefaces/primeng/issues/19165)
+- Wrong "for" attribute in docs in the apps/showcase/doc/textarea/floatlabeldoc.ts file [#18947](https://github.com/primefaces/primeng/issues/18947)
+- [Doc] Passthrough guide page not found [#19066](https://github.com/primefaces/primeng/issues/19066)
+- Tree Component Docs incorrectly refer to the empty message template as "emptyMessage" instead of "empty" [#19164](https://github.com/primefaces/primeng/issues/19164)
 
 
 ## [20.3.0](https://github.com/primefaces/primeng/tree/20.3.0) (2025-10-31)

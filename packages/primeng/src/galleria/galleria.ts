@@ -55,8 +55,8 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                     [pBind]="ptm('mask')"
                     [pMotion]="maskVisible"
                     [pMotionAppear]="true"
-                    [pMotionEnterActiveClass]="fullScreen ? 'p-overlay-mask-enter' : ''"
-                    [pMotionLeaveActiveClass]="fullScreen ? 'p-overlay-mask-leave' : ''"
+                    [pMotionEnterActiveClass]="fullScreen ? 'p-overlay-mask-enter-active' : ''"
+                    [pMotionLeaveActiveClass]="fullScreen ? 'p-overlay-mask-leave-active' : ''"
                     [pMotionOptions]="computedMaskMotionOptions()"
                     (pMotionOnAfterLeave)="onMaskAfterLeave()"
                     [ngClass]="cx('mask')"
@@ -794,31 +794,35 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
         }
     }
 
+    getTemplateFromQueryList(type: string): TemplateRef<any> | undefined {
+        return this.galleria.templates?.find((item) => item.getType() === type)?.template;
+    }
+
     getContentTemplate() {
         switch (this.type) {
             case 'item':
                 this.context = { $implicit: this.item };
-                this.contentTemplate = this.galleria._itemTemplate || this.galleria.itemTemplate;
+                this.contentTemplate = this.galleria._itemTemplate || this.getTemplateFromQueryList('item');
                 break;
             case 'caption':
                 this.context = { $implicit: this.item };
-                this.contentTemplate = this.galleria.captionTemplate || this.galleria.captionFacet;
+                this.contentTemplate = this.galleria.captionTemplate || this.getTemplateFromQueryList('caption');
                 break;
             case 'thumbnail':
                 this.context = { $implicit: this.item };
-                this.contentTemplate = this.galleria.thumbnailTemplate || this.galleria._thumbnailTemplate;
+                this.contentTemplate = this.galleria._thumbnailTemplate || this.getTemplateFromQueryList('thumbnail');
                 break;
             case 'indicator':
                 this.context = { $implicit: this.index };
-                this.contentTemplate = this.galleria.indicatorTemplate || this.galleria.indicatorFacet;
+                this.contentTemplate = this.galleria.indicatorTemplate || this.getTemplateFromQueryList('indicator');
                 break;
             case 'footer':
                 this.context = { $implicit: this.item };
-                this.contentTemplate = this.galleria.footerTemplate || this.galleria.footerFacet;
+                this.contentTemplate = this.galleria.footerTemplate || this.getTemplateFromQueryList('footer');
                 break;
             default:
                 this.context = { $implicit: this.item };
-                this.contentTemplate = this.galleria._itemTemplate || this.galleria.itemTemplate;
+                this.contentTemplate = this.galleria._itemTemplate || this.getTemplateFromQueryList('item');
         }
     }
 

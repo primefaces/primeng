@@ -466,11 +466,11 @@ Sidebar is a panel component displayed as an overlay at the edges of the screen.
 
 | Name | Type | Description |
 |------|------|-------------|
-| header | TemplateRef<any> | Content template for the content of the drawer. |
-| footer | TemplateRef<any> | Header template for the header of the drawer. |
-| content | TemplateRef<any> | Content template for the footer of the drawer. |
-| closeicon | TemplateRef<any> | Close icon template for the close icon of the drawer. |
-| headless | TemplateRef<any> | Headless template for the headless drawer. |
+| header | TemplateRef<void> | Custom header template. |
+| footer | TemplateRef<void> | Custom footer template. |
+| content | TemplateRef<void> | Custom content template. |
+| closeicon | TemplateRef<void> | Custom close icon template. |
+| headless | TemplateRef<void> | Custom headless template to replace the entire drawer content. |
 
 ## Pass Through Options
 

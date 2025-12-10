@@ -1138,16 +1138,20 @@ Columns can be defined dynamically using the *ngFor directive.
 <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowData let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns">
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; track col) {
+                <td>
+                    {{ rowData[col.field] }}
+                </td>
+            }
         </tr>
     </ng-template>
 </p-table>
@@ -2160,26 +2164,23 @@ export class TableFrozenRowsDemo implements OnInit{
 Enabling showGridlines displays borders between cells.
 
 ```html
-<p-table
-    [value]="products"
-    showGridlines
-    [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template #header>
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-            </tr>
-        </ng-template>
-        <ng-template #body let-product>
-            <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.quantity }}</td>
-            </tr>
-        </ng-template>
+<p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
 </p-table>
 ```
 
@@ -2457,6 +2458,120 @@ export class TableLazyLoadDemo implements OnInit{
             this.selectedCustomers = [];
             this.selectAll = false;
         }
+    }
+}
+```
+</details>
+
+## loadingmaskdoc
+
+The loading property displays a mask layer to indicate busy state. Use the paginator to display the mask.
+
+```html
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
+    <ng-template #header>
+        <tr>
+            <th style="width:25%">Code</th>
+            <th style="width:25%">Name</th>
+            <th style="width:25%">Category</th>
+            <th style="width:25%">Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'table-loading-mask-demo',
+    templateUrl: 'table-loading-mask.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
+})
+export class LoadingMaskDemo implements OnInit {
+    
+    products!: Product[];
+
+    constructor(
+        private productService: ProductService,
+    ) {}
+
+    ngOnInit() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = data;
+        });
+    }
+
+}
+```
+</details>
+
+## loadingskeletondoc
+
+Skeleton component can be used as a placeholder during the loading process.
+
+```html
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+        </tr>
+    </ng-template>
+</p-table>
+```
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@/domain/product';
+import { ProductService } from '@/service/productservice';
+import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'primeng/skeleton';
+import { CommonModule } from '@angular/common';
+
+@Component({
+    selector: 'table-loading-skeleton-demo',
+    templateUrl: 'table-loading-skeleton-demo.html',
+    standalone: true,
+    imports: [CommonModule,TableModule,SkeletonModule]
+})
+export class LoadingSkeletonDemo implements OnInit {
+    products!: Product[];
+
+    ngOnInit() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = Array.from({ length: 10 }).map((_, i) => ({id: i.toString()}));
+        });
     }
 }
 ```
@@ -3947,6 +4062,7 @@ import { Product } from '@/domain/product';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from '@/service/productservice';
 import { MessageService } from 'primeng/api';
@@ -3957,7 +4073,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, CommonModule],
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, FormsModule, CommonModule],
     providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{

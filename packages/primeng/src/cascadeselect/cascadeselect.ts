@@ -756,7 +756,7 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
         return this.fluid() ?? !!this.pcFluid;
     }
 
-    @HostListener('click', ['$event'])
+    @HostListener('mousedown', ['$event'])
     onHostClick(event: MouseEvent) {
         this.onContainerClick(event);
     }

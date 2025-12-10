@@ -1,6 +1,6 @@
 {
-    "id": 91,
-    "content": "PassThrough Attributes just landed ✅",
+    "id": 93,
+    "content": "PrimeNG v21.0.0 has landed 🎉",
     "linkText": "Learn More",
-    "routerLink": "/passthrough"
+    "routerLink": "/migration/v21"
 }

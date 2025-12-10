@@ -29,6 +29,8 @@ import { SizeDoc } from '@/doc/treetable/sizedoc';
 import { SortMultipleColumnsDoc } from '@/doc/treetable/sortmultiplecolumnsdoc';
 import { SortSingleColumnDoc } from '@/doc/treetable/sortsinglecolumndoc';
 import { TemplateDoc } from '@/doc/treetable/templatedoc';
+import { LoadingMaskDoc } from '@/doc/treetable/loadingmaskdoc';
+import { LoadingSkeletonDoc } from '@/doc/treetable/loadingskeletondoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -83,6 +85,22 @@ export class TreeTableDemo {
             id: 'gridlines',
             label: 'Grid Lines',
             component: GridlinesDoc
+        },
+        {
+            id: 'loading',
+            label: 'Loading',
+            children: [
+                {
+                    id: 'loading-mask',
+                    label: 'Mask',
+                    component: LoadingMaskDoc
+                },
+                {
+                    id: 'loading-skeleton',
+                    label: 'Skeleton',
+                    component: LoadingSkeletonDoc
+                }
+            ]
         },
         {
             id: 'paginator',

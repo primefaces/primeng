@@ -221,7 +221,7 @@ Tooltip directive provides advisory information for a component.
 | tooltipOptions | TooltipOptions | - | Specifies the tooltip configuration options for the component. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | ptTooltip | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. **(Deprecated)** |
-| pTooltipPt | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
+| pTooltipPT | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
 | pTooltipUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 
 ## Pass Through Options
