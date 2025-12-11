@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { ToolbarStyle } from './style/toolbarstyle';
+import { ToolbarPassThrough } from 'primeng/types/toolbar';
+
+const TOOLBAR_INSTANCE = new InjectionToken<Toolbar>('TOOLBAR_INSTANCE');
 
 /**
  * Toolbar is a grouping component for buttons and other content.
@@ -11,31 +15,37 @@ import { ToolbarStyle } from './style/toolbarstyle';
 @Component({
     selector: 'p-toolbar',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
         <ng-content></ng-content>
-        <div [class]="cx('start')" *ngIf="startTemplate || _startTemplate" [attr.data-pc-section]="'start'">
+        <div [class]="cx('start')" *ngIf="startTemplate || _startTemplate" [pBind]="ptm('start')">
             <ng-container *ngTemplateOutlet="startTemplate || _startTemplate"></ng-container>
         </div>
-        <div [class]="cx('center')" *ngIf="centerTemplate || _centerTemplate" [attr.data-pc-section]="'center'">
+        <div [class]="cx('center')" *ngIf="centerTemplate || _centerTemplate" [pBind]="ptm('center')">
             <ng-container *ngTemplateOutlet="centerTemplate || _centerTemplate"></ng-container>
         </div>
-        <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate" [attr.data-pc-section]="'end'">
+        <div [class]="cx('end')" *ngIf="endTemplate || _endTemplate" [pBind]="ptm('end')">
             <ng-container *ngTemplateOutlet="endTemplate || _endTemplate"></ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ToolbarStyle],
+    providers: [ToolbarStyle, { provide: TOOLBAR_INSTANCE, useExisting: Toolbar }, { provide: PARENT_INSTANCE, useExisting: Toolbar }],
     host: {
         '[class]': 'cn(cx("root"), styleClass)',
-        'data-pc-section': 'root',
-        'data-pc-name': 'toolbar',
         role: 'toolbar',
         '[attr.aria-labelledby]': 'ariaLabelledBy'
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Toolbar extends BaseComponent implements AfterContentInit, BlockableUI {
+export class Toolbar extends BaseComponent<ToolbarPassThrough> implements BlockableUI {
+    $pcToolbar: Toolbar | undefined = inject(TOOLBAR_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -54,32 +64,32 @@ export class Toolbar extends BaseComponent implements AfterContentInit, Blockabl
         return this.el.nativeElement.children[0];
     }
     /**
-     * Defines template option for start.
+     * Custom start template.
      * @group Templates
      */
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<any> | undefined;
+    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines template option for end.
+     * Custom end template.
      * @group Templates
      */
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<any> | undefined;
+    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Defines template option for center.
+     * Custom center template.
      * @group Templates
      */
-    @ContentChild('center', { descendants: false }) centerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('center', { descendants: false }) centerTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _startTemplate: TemplateRef<any> | undefined;
+    _startTemplate: TemplateRef<void> | undefined;
 
-    _endTemplate: TemplateRef<any> | undefined;
+    _endTemplate: TemplateRef<void> | undefined;
 
-    _centerTemplate: TemplateRef<any> | undefined;
+    _centerTemplate: TemplateRef<void> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'start':
@@ -101,7 +111,7 @@ export class Toolbar extends BaseComponent implements AfterContentInit, Blockabl
 }
 
 @NgModule({
-    imports: [Toolbar, SharedModule],
-    exports: [Toolbar, SharedModule]
+    imports: [Toolbar, SharedModule, BindModule],
+    exports: [Toolbar, SharedModule, BindModule]
 })
 export class ToolbarModule {}

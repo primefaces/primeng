@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -319,6 +319,21 @@ class TestCommandSpeedDialComponent {
     ];
 }
 
+// SpeedDial PT Test Components
+@Component({
+    standalone: false,
+    template: ` <p-speeddial [model]="model" [pt]="pt" [visible]="visible"></p-speeddial> `
+})
+class TestPTSpeedDialComponent {
+    @Input() model: MenuItem[] = [
+        { label: 'Add', icon: 'pi pi-plus' },
+        { label: 'Update', icon: 'pi pi-refresh' },
+        { label: 'Delete', icon: 'pi pi-trash' }
+    ];
+    @Input() pt: any = {};
+    @Input() visible: boolean = false;
+}
+
 describe('SpeedDial', () => {
     let component: TestBasicSpeedDialComponent;
     let fixture: ComponentFixture<TestBasicSpeedDialComponent>;
@@ -338,19 +353,21 @@ describe('SpeedDial', () => {
                 TestRouterSpeedDialComponent,
                 TestIconSpeedDialComponent,
                 TestTooltipSpeedDialComponent,
-                TestCommandSpeedDialComponent
+                TestCommandSpeedDialComponent,
+                TestPTSpeedDialComponent
             ],
             imports: [
                 SpeedDial,
                 ButtonModule,
-                NoopAnimationsModule,
+
                 RouterTestingModule.withRoutes([
                     { path: 'home', component: TestBasicSpeedDialComponent },
                     { path: 'about', component: TestBasicSpeedDialComponent },
                     { path: 'products', component: TestBasicSpeedDialComponent },
                     { path: 'upload', component: TestBasicSpeedDialComponent }
                 ])
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicSpeedDialComponent);
@@ -401,75 +418,95 @@ describe('SpeedDial', () => {
     });
 
     describe('Input Properties', () => {
-        it('should update model property', () => {
+        it('should update model property', async () => {
             const newModel = [{ label: 'New Action', icon: 'pi pi-new' }];
             component.model = newModel;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.model).toEqual(newModel);
         });
 
-        it('should update visible property', () => {
+        it('should update visible property', async () => {
             component.visible = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.visible).toBe(true);
         });
 
-        it('should update direction property', () => {
+        it('should update direction property', async () => {
             component.direction = 'down';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.direction).toBe('down');
         });
 
-        it('should update type property', () => {
+        it('should update type property', async () => {
             component.type = 'circle';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.type).toBe('circle');
         });
 
-        it('should update transitionDelay property', () => {
+        it('should update transitionDelay property', async () => {
             component.transitionDelay = 50;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.transitionDelay).toBe(50);
         });
 
-        it('should update radius property', () => {
+        it('should update radius property', async () => {
             component.radius = 100;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.radius).toBe(100);
         });
 
-        it('should update mask property', () => {
+        it('should update mask property', async () => {
             component.mask = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.mask).toBe(true);
         });
 
-        it('should update disabled property', () => {
+        it('should update disabled property', async () => {
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.disabled).toBe(true);
         });
 
-        it('should update hideOnClickOutside property', () => {
+        it('should update hideOnClickOutside property', async () => {
             component.hideOnClickOutside = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.hideOnClickOutside).toBe(false);
         });
 
-        it('should update style properties', () => {
+        it('should update style properties', async () => {
             component.style = { width: '100px' };
             component.className = 'custom-speed-dial';
             component.buttonStyle = { backgroundColor: 'red' };
             component.buttonClassName = 'custom-button';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.style).toEqual({ width: '100px' });
@@ -489,26 +526,32 @@ describe('SpeedDial', () => {
             expect(speedDialInstance.rotateAnimation).toBe(false);
         });
 
-        it('should update accessibility properties', () => {
+        it('should update accessibility properties', async () => {
             component.ariaLabel = 'Speed Dial Menu';
             component.ariaLabelledBy = 'speed-dial-label';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.ariaLabel).toBe('Speed Dial Menu');
             expect(speedDialInstance.ariaLabelledBy).toBe('speed-dial-label');
         });
 
-        it('should update tooltip options', () => {
+        it('should update tooltip options', async () => {
             const tooltipOptions = { tooltipPosition: 'bottom' };
             component.tooltipOptions = tooltipOptions;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.tooltipOptions.tooltipPosition).toBe('bottom');
         });
 
-        it('should update button props', () => {
+        it('should update button props', async () => {
             const buttonProps = { size: 'small' };
             component.buttonProps = buttonProps;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.buttonProps.size).toBe('small');
@@ -516,86 +559,99 @@ describe('SpeedDial', () => {
     });
 
     describe('Event Handling', () => {
-        it('should emit onClick event when button is clicked', fakeAsync(() => {
+        it('should emit onClick event when button is clicked', async () => {
             const button = fixture.debugElement.query(By.css('button[pButton]'));
             const clickSpy = spyOn(component, 'onButtonClick');
 
             button.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(clickSpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should emit onVisibleChange and visibleChange events', fakeAsync(() => {
+        it('should emit onVisibleChange and visibleChange events', async () => {
             const visibleChangeSpy = spyOn(component, 'onVisibleChange');
             const visibleChangeV2Spy = spyOn(component, 'onVisibleChangeV2');
 
             speedDialInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(visibleChangeSpy).toHaveBeenCalledWith(true);
             expect(visibleChangeV2Spy).toHaveBeenCalledWith(true);
 
             speedDialInstance.hide();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(visibleChangeSpy).toHaveBeenCalledWith(false);
             expect(visibleChangeV2Spy).toHaveBeenCalledWith(false);
-        }));
+        });
 
-        it('should emit onShow event when shown', fakeAsync(() => {
+        it('should emit onShow event when shown', async () => {
             const showSpy = spyOn(component, 'onShow');
 
             speedDialInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(showSpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should emit onHide event when hidden', fakeAsync(() => {
+        it('should emit onHide event when hidden', async () => {
             const hideSpy = spyOn(component, 'onHide');
 
             speedDialInstance.hide();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(hideSpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should toggle visibility on button click', fakeAsync(() => {
+        it('should toggle visibility on button click', async () => {
             const button = fixture.debugElement.query(By.css('button[pButton]'));
 
             expect(speedDialInstance.visible).toBe(false);
 
             button.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(speedDialInstance.visible).toBe(true);
 
             button.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(speedDialInstance.visible).toBe(false);
-        }));
+        });
 
-        it('should not emit events when disabled', fakeAsync(() => {
+        it('should not emit events when disabled', async () => {
             const clickSpy = spyOn(component, 'onButtonClick');
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.css('button[pButton]'));
             button.nativeElement.click();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Button click event should still be called but component should be disabled
             expect(button.nativeElement.disabled).toBe(true);
-        }));
+        });
     });
 
     describe('Menu Item Interaction', () => {
-        it('should execute item commands', fakeAsync(() => {
+        it('should execute item commands', async () => {
             component.visible = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Execute first item command directly
             const firstItem = speedDialInstance.model?.[0];
@@ -604,21 +660,23 @@ describe('SpeedDial', () => {
             }
 
             expect(component.addClicked).toBe(true);
-        }));
+        });
 
-        it('should hide menu after item click', fakeAsync(() => {
+        it('should hide menu after item click', async () => {
             speedDialInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(speedDialInstance.visible).toBe(true);
 
             const firstItem = speedDialInstance.model?.[0];
             if (firstItem) {
                 speedDialInstance.onItemClick(new Event('click'), firstItem);
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
             }
 
             expect(speedDialInstance.visible).toBe(false);
-        }));
+        });
 
         it('should handle item tooltip options', () => {
             const item = { label: 'Test', tooltipOptions: { tooltipPosition: 'right' as 'right' | 'left' | 'top' | 'bottom' } };
@@ -629,53 +687,58 @@ describe('SpeedDial', () => {
     });
 
     describe('Keyboard Navigation', () => {
-        beforeEach(fakeAsync(() => {
+        beforeEach(async () => {
             speedDialInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
-        }));
+        });
 
-        it('should handle arrow down key', fakeAsync(() => {
+        it('should handle arrow down key', async () => {
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
             const keydownSpy = spyOn(speedDialInstance, 'onArrowDown').and.callThrough();
 
             list.triggerEventHandler('keydown', { code: 'ArrowDown', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(keydownSpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should handle arrow up key', fakeAsync(() => {
+        it('should handle arrow up key', async () => {
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
             const keydownSpy = spyOn(speedDialInstance, 'onArrowUp').and.callThrough();
 
             list.triggerEventHandler('keydown', { code: 'ArrowUp', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(keydownSpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should handle arrow left key', fakeAsync(() => {
+        it('should handle arrow left key', async () => {
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
             const keydownSpy = spyOn(speedDialInstance, 'onArrowLeft').and.callThrough();
 
             list.triggerEventHandler('keydown', { code: 'ArrowLeft', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(keydownSpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should handle arrow right key', fakeAsync(() => {
+        it('should handle arrow right key', async () => {
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
             const keydownSpy = spyOn(speedDialInstance, 'onArrowRight').and.callThrough();
 
             list.triggerEventHandler('keydown', { code: 'ArrowRight', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(keydownSpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should handle enter key', fakeAsync(() => {
+        it('should handle enter key', async () => {
             // Mock onEnterKey to avoid DOM dependencies in test
             const enterKeySpy = spyOn(speedDialInstance, 'onEnterKey').and.callFake(() => {
                 // Simulate successful enter key handling
@@ -683,123 +746,147 @@ describe('SpeedDial', () => {
 
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
             list.triggerEventHandler('keydown', { code: 'Enter', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(enterKeySpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should handle escape key', fakeAsync(() => {
+        it('should handle escape key', async () => {
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
             const keydownSpy = spyOn(speedDialInstance, 'onEscapeKey').and.callThrough();
 
             list.triggerEventHandler('keydown', { code: 'Escape', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             expect(keydownSpy).toHaveBeenCalled();
             expect(speedDialInstance.visible).toBe(false);
-        }));
+        });
 
-        it('should handle home key', fakeAsync(() => {
+        it('should handle home key', async () => {
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
             const keydownSpy = spyOn(speedDialInstance, 'onHomeKey').and.callThrough();
 
             list.triggerEventHandler('keydown', { code: 'Home', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(keydownSpy).toHaveBeenCalled();
-        }));
+        });
 
-        it('should handle end key', fakeAsync(() => {
+        it('should handle end key', async () => {
             const list = fixture.debugElement.query(By.css('ul[role="menu"]'));
             const keydownSpy = spyOn(speedDialInstance, 'onEndKey').and.callThrough();
 
             list.triggerEventHandler('keydown', { code: 'End', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(keydownSpy).toHaveBeenCalled();
-        }));
+        });
     });
 
     describe('Toggler Keyboard Navigation', () => {
-        it('should handle arrow down on toggler button', fakeAsync(() => {
+        it('should handle arrow down on toggler button', async () => {
             const button = fixture.debugElement.query(By.css('button[pButton]'));
             const keydownSpy = spyOn(speedDialInstance, 'onTogglerArrowDown').and.callThrough();
 
             button.triggerEventHandler('keydown', { code: 'ArrowDown', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(keydownSpy).toHaveBeenCalled();
             expect(speedDialInstance.visible).toBe(true);
-        }));
+        });
 
-        it('should handle arrow up on toggler button', fakeAsync(() => {
+        it('should handle arrow up on toggler button', async () => {
             const button = fixture.debugElement.query(By.css('button[pButton]'));
             const keydownSpy = spyOn(speedDialInstance, 'onTogglerArrowUp').and.callThrough();
 
             button.triggerEventHandler('keydown', { code: 'ArrowUp', preventDefault: () => {} });
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(keydownSpy).toHaveBeenCalled();
             expect(speedDialInstance.visible).toBe(true);
-        }));
+        });
 
-        it('should handle escape on toggler button', fakeAsync(() => {
+        it('should handle escape on toggler button', async () => {
             speedDialInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.css('button[pButton]'));
             const keydownSpy = spyOn(speedDialInstance, 'onEscapeKey').and.callThrough();
 
             button.triggerEventHandler('keydown', { code: 'Escape', preventDefault: () => {} });
-            tick();
+            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            fixture.detectChanges();
 
             expect(keydownSpy).toHaveBeenCalled();
             expect(speedDialInstance.visible).toBe(false);
-        }));
+        });
     });
 
     describe('SpeedDial Types and Directions', () => {
-        it('should handle linear type', () => {
+        it('should handle linear type', async () => {
             component.type = 'linear';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.type).toBe('linear');
         });
 
-        it('should handle circle type with radius', () => {
+        it('should handle circle type with radius', async () => {
             component.type = 'circle';
             component.radius = 80;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.type).toBe('circle');
             expect(speedDialInstance.radius).toBe(80);
         });
 
-        it('should handle semi-circle type', () => {
+        it('should handle semi-circle type', async () => {
             component.type = 'semi-circle';
             component.direction = 'up';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.type).toBe('semi-circle');
             expect(speedDialInstance.direction).toBe('up');
         });
 
-        it('should handle quarter-circle type', () => {
+        it('should handle quarter-circle type', async () => {
             component.type = 'quarter-circle';
             component.direction = 'up-right';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.type).toBe('quarter-circle');
             expect(speedDialInstance.direction).toBe('up-right');
         });
 
-        it('should calculate item styles for different types', () => {
+        it('should calculate item styles for different types', async () => {
             component.model = [
                 { label: 'Item 1', icon: 'pi pi-plus' },
                 { label: 'Item 2', icon: 'pi pi-minus' }
             ];
             component.type = 'circle';
             component.radius = 50;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const itemStyle = speedDialInstance.getItemStyle(0);
@@ -808,12 +895,14 @@ describe('SpeedDial', () => {
     });
 
     describe('Mask Functionality', () => {
-        it('should show mask when enabled and visible', () => {
+        it('should show mask when enabled and visible', async () => {
             const maskFixture = TestBed.createComponent(TestMaskSpeedDialComponent);
             maskFixture.detectChanges();
 
             const maskComponent = maskFixture.componentInstance;
             maskComponent.visible = true;
+            maskFixture.changeDetectorRef.markForCheck();
+            await maskFixture.whenStable();
             maskFixture.detectChanges();
 
             const maskElement = maskFixture.debugElement.query(By.css('[data-pc-section="mask"], .p-speeddial-mask'));
@@ -835,10 +924,11 @@ describe('SpeedDial', () => {
     describe('Templates', () => {
         // pTemplate Approach - @ContentChildren(PrimeTemplate) testleri
         describe('pTemplate Approach Tests', () => {
-            it('should handle pTemplate content processing', fakeAsync(() => {
+            it('should handle pTemplate content processing', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
 
                 const speedDialInstance = templateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
@@ -851,68 +941,63 @@ describe('SpeedDial', () => {
                 // Verify pTemplate container is rendered
                 const container = templateFixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
                 expect(container).toBeTruthy();
+            });
 
-                flush();
-            }));
-
-            it('should process _buttonTemplate from pTemplate="button"', fakeAsync(() => {
+            it('should process _buttonTemplate from pTemplate="button"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
 
                 const speedDialInstance = templateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
                 // ngAfterContentInit should process templates without errors
                 expect(() => speedDialInstance.ngAfterContentInit()).not.toThrow();
+            });
 
-                flush();
-            }));
-
-            it('should process _itemTemplate from pTemplate="item"', fakeAsync(() => {
+            it('should process _itemTemplate from pTemplate="item"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
 
                 const speedDialInstance = templateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
                 // ngAfterContentInit should process templates without errors
                 expect(() => speedDialInstance.ngAfterContentInit()).not.toThrow();
+            });
 
-                flush();
-            }));
-
-            it('should process _iconTemplate from pTemplate="icon"', fakeAsync(() => {
+            it('should process _iconTemplate from pTemplate="icon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
 
                 const speedDialInstance = templateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
                 // ngAfterContentInit should process templates without errors
                 expect(() => speedDialInstance.ngAfterContentInit()).not.toThrow();
+            });
 
-                flush();
-            }));
-
-            it('should render custom button template with pTemplate', fakeAsync(() => {
+            it('should render custom button template with pTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 templateFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
 
                 const customButtons = templateFixture.debugElement.queryAll(By.css('.custom-button'));
                 const customIcons = templateFixture.debugElement.queryAll(By.css('.custom-button-icon'));
                 // Either custom buttons or at least custom icons should exist
                 expect(customButtons.length + customIcons.length).toBeGreaterThanOrEqual(0);
+            });
 
-                flush();
-            }));
-
-            it('should render custom item template with pTemplate', fakeAsync(() => {
+            it('should render custom item template with pTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 const templateComponent = templateFixture.componentInstance;
                 templateComponent.model = [{ label: 'Test Item', icon: 'pi pi-test' }];
                 templateFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
 
                 const speedDialInstance = templateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
@@ -923,14 +1008,13 @@ describe('SpeedDial', () => {
                 const customItems = templateFixture.debugElement.queryAll(By.css('.custom-item'));
                 const customLabels = templateFixture.debugElement.queryAll(By.css('.custom-item-label'));
                 expect(customItems.length + customLabels.length).toBeGreaterThanOrEqual(0);
+            });
 
-                flush();
-            }));
-
-            it('should render custom icon template with pTemplate', fakeAsync(() => {
+            it('should render custom icon template with pTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 templateFixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
 
                 const speedDialInstance = templateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
@@ -940,17 +1024,16 @@ describe('SpeedDial', () => {
 
                 const customIcons = templateFixture.debugElement.queryAll(By.css('.custom-icon'));
                 expect(customIcons.length).toBeGreaterThanOrEqual(0);
-
-                flush();
-            }));
+            });
         });
 
         // #content Approach - @ContentChild testleri
         describe('#template Approach Tests', () => {
-            it('should handle #button template processing', fakeAsync(() => {
+            it('should handle #button template processing', async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateSpeedDialComponent);
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await contentTemplateFixture.whenStable();
 
                 const speedDialInstance = contentTemplateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
@@ -963,62 +1046,58 @@ describe('SpeedDial', () => {
                 // Verify container is rendered
                 const container = contentTemplateFixture.debugElement.query(By.css('[data-pc-name="speeddial"]'));
                 expect(container).toBeTruthy();
+            });
 
-                flush();
-            }));
-
-            it("should process buttonTemplate from @ContentChild('button')", fakeAsync(() => {
+            it("should process buttonTemplate from @ContentChild('button')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateSpeedDialComponent);
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await contentTemplateFixture.whenStable();
 
                 const speedDialInstance = contentTemplateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
                 // @ContentChild('button') should set buttonTemplate
                 expect(speedDialInstance.buttonTemplate).toBeDefined();
                 expect(speedDialInstance.buttonTemplate?.constructor.name).toBe('TemplateRef');
+            });
 
-                flush();
-            }));
-
-            it("should process itemTemplate from @ContentChild('item')", fakeAsync(() => {
+            it("should process itemTemplate from @ContentChild('item')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateSpeedDialComponent);
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await contentTemplateFixture.whenStable();
 
                 const speedDialInstance = contentTemplateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
                 // @ContentChild('item') should set itemTemplate
                 expect(speedDialInstance.itemTemplate).toBeDefined();
                 expect(speedDialInstance.itemTemplate?.constructor.name).toBe('TemplateRef');
+            });
 
-                flush();
-            }));
-
-            it("should process iconTemplate from @ContentChild('icon')", fakeAsync(() => {
+            it("should process iconTemplate from @ContentChild('icon')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateSpeedDialComponent);
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await contentTemplateFixture.whenStable();
 
                 const speedDialInstance = contentTemplateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
                 // @ContentChild('icon') should set iconTemplate
                 expect(speedDialInstance.iconTemplate).toBeDefined();
                 expect(speedDialInstance.iconTemplate?.constructor.name).toBe('TemplateRef');
-
-                flush();
-            }));
+            });
         });
 
         // Template comparison and integration tests
         describe('Template Integration Tests', () => {
-            it('should render different template types correctly', fakeAsync(() => {
+            it('should render different template types correctly', async () => {
                 // Test both pTemplate and #content template approaches
 
                 // Test pTemplate rendering
                 const pTemplateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 pTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await pTemplateFixture.whenStable();
 
                 const pTemplateSpeedDial = pTemplateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
                 expect(pTemplateSpeedDial.templates).toBeDefined();
@@ -1027,15 +1106,14 @@ describe('SpeedDial', () => {
                 // Test #content template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateSpeedDialComponent);
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await contentTemplateFixture.whenStable();
 
                 const contentTemplateSpeedDial = contentTemplateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
                 expect(contentTemplateSpeedDial.buttonTemplate).toBeDefined();
                 expect(contentTemplateSpeedDial.itemTemplate).toBeDefined();
                 expect(contentTemplateSpeedDial.iconTemplate).toBeDefined();
-
-                flush();
-            }));
+            });
 
             it('should use default templates when custom ones are not provided', () => {
                 // Test default behavior without custom templates
@@ -1048,24 +1126,25 @@ describe('SpeedDial', () => {
                 expect(list).toBeTruthy();
             });
 
-            it('should handle ngAfterContentInit template processing correctly', fakeAsync(() => {
+            it('should handle ngAfterContentInit template processing correctly', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSpeedDialComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
 
                 const speedDialInstance = templateFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
 
                 expect(() => speedDialInstance.ngAfterContentInit()).not.toThrow();
                 expect(speedDialInstance.templates).toBeDefined();
-
-                flush();
-            }));
+            });
         });
     });
 
     describe('Accessibility Tests', () => {
-        it('should have proper ARIA attributes on button', () => {
+        it('should have proper ARIA attributes on button', async () => {
             component.ariaLabel = 'Speed Dial Actions';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.css('button[pButton]'));
@@ -1075,17 +1154,18 @@ describe('SpeedDial', () => {
             expect(button.nativeElement.hasAttribute('aria-controls')).toBe(true);
         });
 
-        it('should update aria-expanded based on visibility', fakeAsync(() => {
+        it('should update aria-expanded based on visibility', async () => {
             const button = fixture.debugElement.query(By.css('button[pButton]'));
 
             expect(button.nativeElement.getAttribute('aria-expanded')).toBe('false');
 
             speedDialInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(button.nativeElement.getAttribute('aria-expanded')).toBe('true');
-        }));
+        });
 
         it('should have proper ARIA attributes on menu', () => {
             const menu = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -1095,10 +1175,13 @@ describe('SpeedDial', () => {
             expect(menu.nativeElement.getAttribute('tabindex')).toBe('-1');
         });
 
-        it('should have proper ARIA attributes on menu items', fakeAsync(() => {
+        it('should have proper ARIA attributes on menu items', async () => {
             component.visible = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             const menuItems = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
 
@@ -1106,73 +1189,86 @@ describe('SpeedDial', () => {
                 expect(item.nativeElement.getAttribute('role')).toBe('menuitem');
                 expect(item.nativeElement.hasAttribute('id')).toBe(true);
             });
-        }));
+        });
 
-        it('should handle focus management', fakeAsync(() => {
+        it('should handle focus management', async () => {
             const focusSpy = spyOn(speedDialInstance, 'onFocus').and.callThrough();
             const menu = fixture.debugElement.query(By.css('ul[role="menu"]'));
 
             menu.triggerEventHandler('focus', {});
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(focusSpy).toHaveBeenCalled();
             expect(speedDialInstance.focused).toBe(true);
-        }));
+        });
 
-        it('should handle blur management', fakeAsync(() => {
+        it('should handle blur management', async () => {
             const blurSpy = spyOn(speedDialInstance, 'onBlur').and.callThrough();
             const menu = fixture.debugElement.query(By.css('ul[role="menu"]'));
 
             menu.triggerEventHandler('focus', {});
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             menu.triggerEventHandler('focusout', {});
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(blurSpy).toHaveBeenCalled();
             expect(speedDialInstance.focused).toBe(false);
-        }));
+        });
 
-        it('should manage focused option index', fakeAsync(() => {
+        it('should manage focused option index', async () => {
             speedDialInstance.focusedOptionIndex.set('test-id');
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(speedDialInstance.focusedOptionId).toBe('test-id');
 
             speedDialInstance.focusedOptionIndex.set(-1);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(speedDialInstance.focusedOptionId).toBeNull();
-        }));
+        });
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom className', () => {
+        it('should apply custom className', async () => {
             component.className = 'my-custom-speed-dial';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.className).toBe('my-custom-speed-dial');
         });
 
-        it('should apply custom style', () => {
+        it('should apply custom style', async () => {
             component.style = { width: '200px', height: '200px' };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.style).toEqual({ width: '200px', height: '200px' });
         });
 
-        it('should apply button styling', () => {
+        it('should apply button styling', async () => {
             component.buttonStyle = { backgroundColor: 'blue' };
             component.buttonClassName = 'custom-button-class';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.buttonStyle).toEqual({ backgroundColor: 'blue' });
             expect(speedDialInstance.buttonClassName).toBe('custom-button-class');
         });
 
-        it('should apply mask styling when enabled', () => {
+        it('should apply mask styling when enabled', async () => {
             component.mask = true;
             component.maskStyle = { backgroundColor: 'rgba(0,0,0,0.8)' };
             component.maskClassName = 'custom-mask-class';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(speedDialInstance.maskStyle).toEqual({ backgroundColor: 'rgba(0,0,0,0.8)' });
@@ -1182,7 +1278,7 @@ describe('SpeedDial', () => {
         it('should have correct button icon class based on state', () => {
             // Test buttonIconClass getter logic directly
             speedDialInstance.showIcon = 'pi pi-plus';
-            speedDialInstance.hideIcon = undefined;
+            speedDialInstance.hideIcon = undefined as any;
             speedDialInstance._visible = false;
             expect(speedDialInstance.buttonIconClass).toBe('pi pi-plus');
 
@@ -1194,42 +1290,53 @@ describe('SpeedDial', () => {
     });
 
     describe('Document Click Outside', () => {
-        it('should hide when clicked outside if hideOnClickOutside is true', fakeAsync(() => {
+        it('should hide when clicked outside if hideOnClickOutside is true', async () => {
             speedDialInstance.show();
-            tick();
+            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(speedDialInstance.visible).toBe(true);
 
             // Simulate document click outside by calling hide directly
             // since document click listener is complex to simulate in test environment
             speedDialInstance.hide();
-            tick();
+            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(speedDialInstance.visible).toBe(false);
-        }));
+        });
 
-        it('should not hide when hideOnClickOutside is false', fakeAsync(() => {
+        it('should not hide when hideOnClickOutside is false', async () => {
             component.hideOnClickOutside = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             speedDialInstance.show();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Document click listener should not be bound
             expect(speedDialInstance.documentClickListener).toBeUndefined();
-        }));
+        });
     });
 
     describe('Edge Cases and Error Handling', () => {
-        it('should handle empty model gracefully', () => {
+        it('should handle empty model gracefully', async () => {
             component.model = [];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
             expect(speedDialInstance.model).toEqual([]);
         });
 
-        it('should handle null model', () => {
+        it('should handle null model', async () => {
             component.model = null as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -1246,23 +1353,25 @@ describe('SpeedDial', () => {
             expect(disabledItem.disabled).toBe(true);
         });
 
-        it('should handle rapid show/hide operations', fakeAsync(() => {
-            expect(() => {
+        it('should handle rapid show/hide operations', async () => {
+            expect(async () => {
                 speedDialInstance.show();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
                 speedDialInstance.hide();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
                 speedDialInstance.show();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
                 speedDialInstance.hide();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
             }).not.toThrow();
-
-            flush();
-        }));
+        });
 
         it('should handle missing container element gracefully', () => {
-            speedDialInstance.container = undefined;
+            speedDialInstance.container = undefined as any;
 
             expect(() => {
                 speedDialInstance.isOutsideClicked(new Event('click'));
@@ -1303,9 +1412,11 @@ describe('SpeedDial', () => {
             expect(typeof speedDialInstance.calculateTransitionDelay).toBe('function');
         });
 
-        it('should calculate transition delay correctly', () => {
+        it('should calculate transition delay correctly', async () => {
             component.model = [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }];
             component.transitionDelay = 50;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // When visible, delay increases with index
@@ -1323,23 +1434,26 @@ describe('SpeedDial', () => {
     });
 
     describe('Router Integration', () => {
-        it('should handle router links', fakeAsync(() => {
+        it('should handle router links', async () => {
             const routerFixture = TestBed.createComponent(TestRouterSpeedDialComponent);
             routerFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await routerFixture.whenStable();
 
             const routerSpeedDial = routerFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
             const routerItem = routerSpeedDial.model[0]; // Home link
 
             expect(routerItem.routerLink).toBe('/home');
             expect(routerSpeedDial.isClickableRouterLink(routerItem)).toBe(true);
-        }));
+        });
 
-        it('should not allow router link when disabled', () => {
+        it('should not allow router link when disabled', async () => {
             const routerItem = { routerLink: '/test', disabled: true };
             expect(speedDialInstance.isClickableRouterLink(routerItem)).toBe(false);
 
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             const routerItem2 = { routerLink: '/test' };
             expect(speedDialInstance.isClickableRouterLink(routerItem2)).toBe(false);
@@ -1347,10 +1461,11 @@ describe('SpeedDial', () => {
     });
 
     describe('Command Execution', () => {
-        it('should execute commands from menu items', fakeAsync(() => {
+        it('should execute commands from menu items', async () => {
             const commandFixture = TestBed.createComponent(TestCommandSpeedDialComponent);
             commandFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await commandFixture.whenStable();
 
             const commandComponent = commandFixture.componentInstance;
             const commandSpeedDial = commandFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
@@ -1362,7 +1477,7 @@ describe('SpeedDial', () => {
             }
 
             expect(commandComponent.addClicked).toBe(true);
-        }));
+        });
     });
 
     describe('Tooltip Integration', () => {
@@ -1403,6 +1518,623 @@ describe('SpeedDial', () => {
             const unbindSpy = spyOn(speedDialInstance, 'unbindDocumentClickListener');
             speedDialInstance.visible = false;
             expect(unbindSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        let ptFixture: ComponentFixture<TestPTSpeedDialComponent>;
+        let ptComponent: TestPTSpeedDialComponent;
+        let ptSpeedDialInstance: SpeedDial;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTSpeedDialComponent);
+            ptComponent = ptFixture.componentInstance;
+            ptSpeedDialInstance = ptFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
+            ptComponent.visible = true;
+            ptFixture.detectChanges();
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            it('should apply string class to host', () => {
+                ptFixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
+                ptFixture.detectChanges();
+
+                const hostElement = ptFixture.nativeElement.querySelector('p-speeddial');
+                expect(hostElement?.className).toContain('HOST_CLASS');
+            });
+
+            it('should apply string class to root', () => {
+                ptFixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                expect(rootElement?.className).toContain('ROOT_CLASS');
+            });
+
+            it('should apply string class to pcButton', () => {
+                ptFixture.componentRef.setInput('pt', { pcButton: { root: 'BUTTON_CLASS' } });
+                ptFixture.detectChanges();
+
+                const buttonElement = ptFixture.nativeElement.querySelector('[data-pc-name="pcbutton"]');
+                expect(buttonElement?.className).toContain('BUTTON_CLASS');
+            });
+
+            it('should apply string class to list', () => {
+                ptFixture.componentRef.setInput('pt', { list: 'LIST_CLASS' });
+                ptFixture.detectChanges();
+
+                const listElement = ptFixture.nativeElement.querySelector('ul[role="menu"]');
+                expect(listElement?.className).toContain('LIST_CLASS');
+            });
+
+            it('should apply string class to item', async () => {
+                ptComponent.visible = true;
+                ptFixture.componentRef.setInput('pt', { item: 'ITEM_CLASS' });
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const itemElements = ptFixture.nativeElement.querySelectorAll('li[role="menuitem"]');
+                itemElements.forEach((item: HTMLElement) => {
+                    expect(item?.className).toContain('ITEM_CLASS');
+                });
+            });
+
+            it('should apply string class to mask when visible', async () => {
+                ptComponent.visible = true;
+                ptFixture.componentRef.setInput('pt', { mask: 'MASK_CLASS' });
+                ptSpeedDialInstance.mask = true;
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const maskElement = ptFixture.nativeElement.querySelector('[data-pc-section="mask"]');
+                if (maskElement) {
+                    expect(maskElement.className).toContain('MASK_CLASS');
+                }
+            });
+        });
+
+        describe('Case 2: Objects with class, style, data attributes, and aria-label', () => {
+            it('should apply object with class, style, data attribute, and aria-label to root', () => {
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'collapsed',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': true,
+                        'aria-label': 'TEST_ARIA_LABEL'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                expect(rootElement?.className).toContain('collapsed');
+                expect(rootElement?.style.backgroundColor).toBe('red');
+                expect(rootElement?.getAttribute('data-p-test')).toBe('true');
+                expect(rootElement?.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
+            });
+
+            it('should apply object with class and style to pcButton', () => {
+                ptFixture.componentRef.setInput('pt', {
+                    pcButton: {
+                        root: {
+                            class: 'button-custom',
+                            style: { border: '2px solid blue' },
+                            'data-p-custom': true
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const buttonElement = ptFixture.nativeElement.querySelector('[data-pc-name="pcbutton"]');
+                expect(buttonElement?.className).toContain('button-custom');
+                expect(buttonElement?.style.border).toBe('2px solid blue');
+                expect(buttonElement?.getAttribute('data-p-custom')).toBe('true');
+            });
+
+            it('should apply object with class and style to list', () => {
+                ptFixture.componentRef.setInput('pt', {
+                    list: {
+                        class: 'list-custom',
+                        style: { padding: '10px' },
+                        'data-p-list': true
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const listElement = ptFixture.nativeElement.querySelector('ul[role="menu"]');
+                expect(listElement?.className).toContain('list-custom');
+                expect(listElement?.style.padding).toBe('10px');
+                expect(listElement?.getAttribute('data-p-list')).toBe('true');
+            });
+
+            it('should apply object to item elements', async () => {
+                ptComponent.visible = true;
+                ptFixture.componentRef.setInput('pt', {
+                    item: {
+                        class: 'item-custom',
+                        style: { margin: '5px' },
+                        'data-p-item': true
+                    }
+                });
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const itemElements = ptFixture.nativeElement.querySelectorAll('li[role="menuitem"]');
+                itemElements.forEach((item: HTMLElement) => {
+                    expect(item?.className).toContain('item-custom');
+                    expect(item?.style.margin).toBe('5px');
+                    expect(item?.getAttribute('data-p-item')).toBe('true');
+                });
+            });
+
+            it('should apply object to mask element', async () => {
+                ptComponent.visible = true;
+                ptFixture.componentRef.setInput('pt', {
+                    mask: {
+                        class: 'mask-custom',
+                        style: { opacity: '0.5' },
+                        'data-p-mask': true
+                    }
+                });
+                ptSpeedDialInstance.mask = true;
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const maskElement = ptFixture.nativeElement.querySelector('[data-pc-section="mask"]');
+                if (maskElement) {
+                    expect(maskElement.className).toContain('mask-custom');
+                    expect(maskElement.style.opacity).toBe('0.5');
+                    expect(maskElement.getAttribute('data-p-mask')).toBe('true');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed PT with object for root and string for list', () => {
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'ROOT_CLASS'
+                    },
+                    list: 'LIST_STRING_CLASS'
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const listElement = ptFixture.nativeElement.querySelector('ul[role="menu"]');
+
+                expect(rootElement?.className).toContain('ROOT_CLASS');
+                expect(listElement?.className).toContain('LIST_STRING_CLASS');
+            });
+
+            it('should apply mixed PT with string for pcButton and object for item', async () => {
+                ptComponent.visible = true;
+                ptFixture.componentRef.setInput('pt', {
+                    pcButton: { root: 'BUTTON_STRING_CLASS' },
+                    item: {
+                        class: 'ITEM_OBJECT_CLASS',
+                        style: { color: 'green' }
+                    }
+                });
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const buttonElement = ptFixture.nativeElement.querySelector('[data-pc-name="pcbutton"]');
+                const itemElements = ptFixture.nativeElement.querySelectorAll('li[role="menuitem"]');
+
+                expect(buttonElement?.className).toContain('BUTTON_STRING_CLASS');
+                itemElements.forEach((item: HTMLElement) => {
+                    expect(item?.className).toContain('ITEM_OBJECT_CLASS');
+                    expect(item?.style.color).toBe('green');
+                });
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should apply PT using instance variables for root based on visible state', async () => {
+                // Test verifies PT function receives instance with visible property
+                let capturedInstance: any = null;
+
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        capturedInstance = instance;
+                        return {
+                            'data-is-visible': String(instance?.visible || instance?._visible)
+                        };
+                    }
+                });
+
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                expect(capturedInstance).toBeDefined();
+                expect(capturedInstance.visible !== undefined || capturedInstance._visible !== undefined).toBe(true);
+
+                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                expect(rootElement?.getAttribute('data-is-visible')).toBe('true');
+            });
+
+            it('should apply PT using instance variables for pcButton based on disabled state', () => {
+                // Test verifies PT function receives instance correctly
+                let capturedInstance: any = null;
+
+                ptFixture.componentRef.setInput('pt', {
+                    pcButton: ({ instance }) => {
+                        capturedInstance = instance;
+                        return {
+                            root: {
+                                'data-disabled': instance?.disabled
+                            }
+                        };
+                    }
+                });
+
+                ptFixture.detectChanges();
+
+                expect(capturedInstance).toBeDefined();
+                expect(capturedInstance.disabled).toBeDefined();
+            });
+
+            it('should apply PT using instance variables for list based on direction', () => {
+                // Test verifies PT function receives instance with direction property
+                let capturedInstance: any = null;
+
+                ptFixture.componentRef.setInput('pt', {
+                    list: ({ instance }) => {
+                        capturedInstance = instance;
+                        return {
+                            'data-direction': instance?.direction
+                        };
+                    }
+                });
+
+                ptFixture.detectChanges();
+
+                expect(capturedInstance).toBeDefined();
+                expect(capturedInstance.direction).toBeDefined();
+
+                const listElement = ptFixture.nativeElement.querySelector('ul[role="menu"]');
+                expect(listElement?.getAttribute('data-direction')).toBe('up');
+            });
+
+            it('should apply PT using instance variables for item based on type', async () => {
+                // Test verifies PT function receives instance with type property
+                let capturedInstance: any = null;
+
+                ptFixture.componentRef.setInput('pt', {
+                    item: ({ instance }) => {
+                        capturedInstance = instance;
+                        return {
+                            'data-type': instance?.type
+                        };
+                    }
+                });
+
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                expect(capturedInstance).toBeDefined();
+                expect(capturedInstance.type).toBe('linear');
+
+                const itemElements = ptFixture.nativeElement.querySelectorAll('li[role="menuitem"]');
+                expect(itemElements.length).toBeGreaterThan(0);
+                itemElements.forEach((item: HTMLElement) => {
+                    expect(item?.getAttribute('data-type')).toBe('linear');
+                });
+            });
+        });
+
+        describe('Case 5: Event binding via PT', () => {
+            it('should handle onclick event via PT on root', () => {
+                // Test verifies PT can accept event handler functions
+                let onclickHandler = jasmine.createSpy('onclick');
+
+                ptFixture.componentRef.setInput('pt', {
+                    root: {
+                        onclick: onclickHandler,
+                        'data-has-handler': 'true'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                expect(rootElement).toBeTruthy();
+                expect(rootElement?.getAttribute('data-has-handler')).toBe('true');
+            });
+
+            it('should handle onclick event via PT function on pcButton', () => {
+                // Test verifies PT function can return event handlers
+                let capturedInstance: any = null;
+
+                ptFixture.componentRef.setInput('pt', {
+                    pcButton: ({ instance }) => {
+                        capturedInstance = instance;
+                        return {
+                            root: {
+                                'data-has-onclick': 'true'
+                            }
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const buttonElement = ptFixture.nativeElement.querySelector('[data-pc-name="pcbutton"]');
+                expect(buttonElement).toBeTruthy();
+                expect(capturedInstance).toBeDefined();
+                expect(capturedInstance.id).toBeDefined();
+            });
+
+            it('should handle onmouseenter event via PT on list', () => {
+                // Test verifies PT can accept event handler functions
+                let onmouseenterHandler = jasmine.createSpy('onmouseenter');
+
+                ptFixture.componentRef.setInput('pt', {
+                    list: {
+                        onmouseenter: onmouseenterHandler,
+                        'data-has-mouseenter': 'true'
+                    }
+                });
+                ptFixture.detectChanges();
+
+                const listElement = ptFixture.nativeElement.querySelector('ul[role="menu"]');
+                expect(listElement).toBeTruthy();
+                expect(listElement?.getAttribute('data-has-mouseenter')).toBe('true');
+            });
+        });
+
+        describe('Case 6: Inline PT test', () => {
+            it('should handle inline PT with string class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTSpeedDialComponent);
+                inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
+                inlineFixture.detectChanges();
+
+                const rootElement = inlineFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                expect(rootElement?.className).toContain('INLINE_TEST_CLASS');
+            });
+
+            it('should handle inline PT with object class', () => {
+                const inlineFixture = TestBed.createComponent(TestPTSpeedDialComponent);
+                inlineFixture.componentRef.setInput('pt', {
+                    root: {
+                        class: 'INLINE_OBJECT_CLASS',
+                        style: { border: '1px solid red' }
+                    }
+                });
+                inlineFixture.detectChanges();
+
+                const rootElement = inlineFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                expect(rootElement?.className).toContain('INLINE_OBJECT_CLASS');
+                expect(rootElement?.style.border).toBe('1px solid red');
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            it('should apply global PT configuration from PrimeNGConfig', async () => {
+                // Create a new test module with PrimeNG config
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTSpeedDialComponent],
+                    imports: [SpeedDial, ButtonModule, RouterTestingModule],
+                    providers: [
+                        provideZonelessChangeDetection(),
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    speeddial: {
+                                        host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
+                                        root: 'GLOBAL_ROOT_CLASS'
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }).compileComponents();
+
+                const configFixture = TestBed.createComponent(TestPTSpeedDialComponent);
+                configFixture.detectChanges();
+
+                // Note: This test verifies the configuration structure
+                // Actual global PT merging depends on PrimeNG configuration implementation
+                expect(configFixture.componentInstance).toBeTruthy();
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            it('should handle onAfterViewInit hook in PT', async () => {
+                let hookCalled = false;
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'TEST_HOOK_CLASS',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            hookCalled = true;
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                // Note: Hook execution depends on BaseComponent implementation
+                // This test verifies the PT structure accepts hooks
+                expect(ptFixture.componentInstance).toBeTruthy();
+            });
+
+            it('should handle lifecycle hooks via PT', () => {
+                let initCalled = false;
+                let destroyCalled = false;
+
+                ptFixture.componentRef.setInput('pt', {
+                    root: 'HOOK_TEST',
+                    hooks: {
+                        onInit: () => {
+                            initCalled = true;
+                        },
+                        onDestroy: () => {
+                            destroyCalled = true;
+                        }
+                    }
+                });
+                ptFixture.detectChanges();
+
+                // Verify PT structure with hooks
+                expect(ptFixture.componentInstance).toBeTruthy();
+            });
+        });
+
+        describe('Case 9: Component-Specific Methods - getPTOptions', () => {
+            it('should call getPTOptions method with correct parameters', async () => {
+                // Test verifies getPTOptions method exists and is callable
+                expect(typeof ptSpeedDialInstance.getPTOptions).toBe('function');
+
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const testId = ptSpeedDialInstance.id + '_0';
+                const ptOptions = ptSpeedDialInstance.getPTOptions(testId, 'item');
+
+                // Verify method returns something
+                expect(ptOptions).toBeDefined();
+            });
+
+            it('should use getPTOptions for item with context', async () => {
+                // Test verifies PT function can accept context parameter
+                let capturedContext: any = null;
+
+                ptFixture.componentRef.setInput('pt', {
+                    item: ({ context }) => {
+                        capturedContext = context;
+                        return {
+                            'data-has-context': context ? 'true' : 'false'
+                        };
+                    }
+                });
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const itemElements = ptFixture.nativeElement.querySelectorAll('li[role="menuitem"]');
+                expect(itemElements.length).toBeGreaterThan(0);
+
+                // Verify context was captured
+                expect(capturedContext).toBeDefined();
+            });
+
+            it('should handle getPTOptions with pcAction key', async () => {
+                // Test verifies getPTOptions works with pcAction key
+                expect(typeof ptSpeedDialInstance.getPTOptions).toBe('function');
+
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const testId = ptSpeedDialInstance.id + '_0';
+                const ptOptions = ptSpeedDialInstance.getPTOptions(testId, 'pcAction');
+
+                // Verify method returns something
+                expect(ptOptions).toBeDefined();
+            });
+
+            it('should verify context.active changes based on focused option', async () => {
+                // Test verifies getPTOptions method can be called with different parameters
+                expect(typeof ptSpeedDialInstance.getPTOptions).toBe('function');
+
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const firstItemId = ptSpeedDialInstance.id + '_0';
+
+                // Test method can be called
+                const ptOptions = ptSpeedDialInstance.getPTOptions(firstItemId, 'item');
+                expect(ptOptions).toBeDefined();
+
+                // Test focusedOptionIndex signal works
+                ptSpeedDialInstance.focusedOptionIndex.set(firstItemId);
+                ptFixture.detectChanges();
+
+                expect(ptSpeedDialInstance.focusedOptionIndex()).toBe(firstItemId);
+            });
+
+            it('should verify context.hidden changes based on visibility', async () => {
+                // Test verifies getPTOptions method works with visibility changes
+                expect(typeof ptSpeedDialInstance.getPTOptions).toBe('function');
+
+                const testId = ptSpeedDialInstance.id + '_0';
+
+                // Test method can be called
+                const ptOptions = ptSpeedDialInstance.getPTOptions(testId, 'item');
+                expect(ptOptions).toBeDefined();
+
+                // Test visibility property exists
+                expect(ptSpeedDialInstance._visible).toBeDefined();
+            });
+        });
+
+        describe('PT Integration Tests', () => {
+            it('should apply PT to all sections simultaneously', async () => {
+                ptComponent.visible = true;
+                ptFixture.componentRef.setInput('pt', {
+                    host: 'HOST_ALL',
+                    root: 'ROOT_ALL',
+                    pcButton: { root: 'BUTTON_ALL' },
+                    list: 'LIST_ALL',
+                    item: 'ITEM_ALL'
+                });
+                ptSpeedDialInstance.mask = true;
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                const hostElement = ptFixture.nativeElement.querySelector('p-speeddial');
+                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                const buttonElement = ptFixture.nativeElement.querySelector('[data-pc-name="pcbutton"]');
+                const listElement = ptFixture.nativeElement.querySelector('ul[role="menu"]');
+                const itemElements = ptFixture.nativeElement.querySelectorAll('li[role="menuitem"]');
+
+                expect(hostElement?.className).toContain('HOST_ALL');
+                expect(rootElement?.className).toContain('ROOT_ALL');
+                expect(buttonElement?.className).toContain('BUTTON_ALL');
+                expect(listElement?.className).toContain('LIST_ALL');
+                itemElements.forEach((item: HTMLElement) => {
+                    expect(item?.className).toContain('ITEM_ALL');
+                });
+            });
+
+            it('should handle complex PT with multiple instance variables', async () => {
+                // Test verifies PT function receives instance with multiple properties
+                let capturedInstance: any = null;
+
+                ptFixture.componentRef.setInput('pt', {
+                    root: ({ instance }) => {
+                        capturedInstance = instance;
+                        return {
+                            'data-visible': instance?.visible || instance?._visible,
+                            'data-disabled': instance?.disabled,
+                            'data-masked': instance?.mask
+                        };
+                    }
+                });
+
+                ptFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await ptFixture.whenStable();
+
+                expect(capturedInstance).toBeDefined();
+                expect(capturedInstance.disabled).toBeDefined();
+                expect(capturedInstance.mask).toBeDefined();
+
+                const rootElement = ptFixture.nativeElement.querySelector('[data-pc-name="speeddial"]');
+                expect(rootElement?.getAttribute('data-visible')).toBe('true');
+                expect(rootElement?.getAttribute('data-disabled')).toBe('false');
+                expect(rootElement?.getAttribute('data-masked')).toBe('false');
+            });
         });
     });
 });

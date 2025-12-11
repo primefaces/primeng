@@ -1,10 +1,10 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem, SharedModule } from 'primeng/api';
-import { Menubar } from './menubar';
+import { Menubar, MenubarSub } from './menubar';
 
 @Component({
     standalone: false,
@@ -54,6 +54,7 @@ class TestBasicMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-nested-menubar',
     template: ` <p-menubar [model]="nestedModel"> </p-menubar> `
 })
 class TestNestedMenubarComponent {
@@ -76,6 +77,7 @@ class TestNestedMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-router-menubar',
     template: ` <p-menubar [model]="routerModel"> </p-menubar> `
 })
 class TestRouterMenubarComponent {
@@ -177,6 +179,7 @@ class TestMenuIconTemplateComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-disabled-items',
     template: ` <p-menubar [model]="disabledModel"> </p-menubar> `
 })
 class TestDisabledItemsComponent {
@@ -185,6 +188,7 @@ class TestDisabledItemsComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-styled-menubar',
     template: ` <p-menubar [styleClass]="customStyleClass"> </p-menubar> `
 })
 class TestStyledMenubarComponent {
@@ -193,12 +197,14 @@ class TestStyledMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-minimal-menubar',
     template: `<p-menubar></p-menubar>`
 })
 class TestMinimalMenubarComponent {}
 
 @Component({
     standalone: false,
+    selector: 'test-dynamic-menubar',
     template: ` <p-menubar [model]="dynamicModel"> </p-menubar> `
 })
 class TestDynamicMenubarComponent {
@@ -219,6 +225,7 @@ class TestDynamicMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-command-menubar',
     template: ` <p-menubar [model]="commandModel"> </p-menubar> `
 })
 class TestCommandMenubarComponent {
@@ -237,6 +244,7 @@ class TestCommandMenubarComponent {
 
 @Component({
     standalone: false,
+    selector: 'test-autohide-menubar',
     template: ` <p-menubar [model]="model" [autoHide]="autoHide" [autoHideDelay]="autoHideDelay"> </p-menubar> `
 })
 class TestAutoHideMenubarComponent {
@@ -278,14 +286,15 @@ describe('Menubar', () => {
             imports: [
                 Menubar,
                 TestTargetComponent,
-                NoopAnimationsModule,
+
                 SharedModule,
                 RouterTestingModule.withRoutes([
                     { path: '', component: TestTargetComponent },
                     { path: 'products', component: TestTargetComponent },
                     { path: 'services', component: TestTargetComponent }
                 ])
-            ]
+            ],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicMenubarComponent);
@@ -321,7 +330,7 @@ describe('Menubar', () => {
             expect(freshMenubar.autoHideDelay).toBe(100);
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             const testModel: MenuItem[] = [{ label: 'Test Item' }];
             component.model = testModel;
             component.autoZIndex = false;
@@ -331,7 +340,8 @@ describe('Menubar', () => {
             component.breakpoint = '768px';
             component.styleClass = 'custom-menubar';
             component.ariaLabel = 'Custom Menu Bar';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menubarInstance.model).toBe(testModel);
             expect(menubarInstance.autoZIndex).toBe(false);
@@ -364,62 +374,71 @@ describe('Menubar', () => {
     });
 
     describe('Input Properties', () => {
-        it('should update model input', () => {
+        it('should update model input', async () => {
             const newModel = [{ label: 'New Item' }];
             component.model = newModel;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menubarInstance.model).toBe(newModel);
             expect(menubarInstance.processedItems).toBeTruthy();
         });
 
-        it('should update styleClass input', () => {
+        it('should update styleClass input', async () => {
             component.styleClass = 'test-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menubarInstance.styleClass).toBe('test-class');
         });
 
-        it('should update autoZIndex with booleanAttribute transform', () => {
+        it('should update autoZIndex with booleanAttribute transform', async () => {
             component.autoZIndex = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(menubarInstance.autoZIndex).toBe(false);
         });
 
-        it('should update baseZIndex with numberAttribute transform', () => {
+        it('should update baseZIndex with numberAttribute transform', async () => {
             component.baseZIndex = 500;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(menubarInstance.baseZIndex).toBe(500);
         });
 
-        it('should update autoDisplay with booleanAttribute transform', () => {
+        it('should update autoDisplay with booleanAttribute transform', async () => {
             component.autoDisplay = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(menubarInstance.autoDisplay).toBe(false);
         });
 
-        it('should update autoHide with booleanAttribute transform', () => {
+        it('should update autoHide with booleanAttribute transform', async () => {
             component.autoHide = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(menubarInstance.autoHide).toBe(true);
         });
 
-        it('should update autoHideDelay with numberAttribute transform', () => {
+        it('should update autoHideDelay with numberAttribute transform', async () => {
             component.autoHideDelay = 300;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(menubarInstance.autoHideDelay).toBe(300);
         });
 
-        it('should update breakpoint input', () => {
+        it('should update breakpoint input', async () => {
             component.breakpoint = '768px';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(menubarInstance.breakpoint).toBe('768px');
         });
 
-        it('should update ariaLabel and ariaLabelledBy inputs', () => {
+        it('should update ariaLabel and ariaLabelledBy inputs', async () => {
             component.ariaLabel = 'Test Menubar';
             component.ariaLabelledBy = 'menubar-label';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menubarInstance.ariaLabel).toBe('Test Menubar');
             expect(menubarInstance.ariaLabelledBy).toBe('menubar-label');
@@ -428,7 +447,7 @@ describe('Menubar', () => {
 
     describe('Menu Display Tests', () => {
         it('should render menu items', () => {
-            const menuItems = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const menuItems = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
 
             // Should have 3 regular items (excluding separator)
             expect(menuItems.length).toBe(3);
@@ -441,7 +460,7 @@ describe('Menubar', () => {
         });
 
         it('should display menu button on mobile', () => {
-            menubarInstance.queryMatches = true;
+            menubarInstance.queryMatches.set(true);
             fixture.detectChanges();
 
             const menuButton = fixture.debugElement.query(By.css('a[data-pc-section="button"]'));
@@ -449,7 +468,7 @@ describe('Menubar', () => {
         });
 
         it('should toggle mobile menu on button click', () => {
-            menubarInstance.queryMatches = true;
+            menubarInstance.queryMatches.set(true);
             fixture.detectChanges();
 
             const menuButton = fixture.debugElement.query(By.css('a[data-pc-section="button"]'));
@@ -476,7 +495,7 @@ describe('Menubar', () => {
 
     describe('Item Interaction Tests', () => {
         it('should handle item click', () => {
-            const firstItem = fixture.debugElement.query(By.css('li[data-pc-section="menuitem"] div[data-pc-section="content"]'));
+            const firstItem = fixture.debugElement.query(By.css('li[data-pc-section="item"] div[data-pc-section="itemcontent"]'));
 
             spyOn(menubarInstance, 'onItemClick');
 
@@ -490,7 +509,7 @@ describe('Menubar', () => {
             const commandComponent = commandFixture.componentInstance;
             commandFixture.detectChanges();
 
-            const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="menuitem"] div[data-pc-section="content"]'));
+            const itemElement = commandFixture.debugElement.query(By.css('li[data-pc-section="item"] div[data-pc-section="itemcontent"]'));
             itemElement.nativeElement.click();
 
             expect(commandComponent.commandExecuted).toBeDefined();
@@ -498,7 +517,7 @@ describe('Menubar', () => {
         });
 
         it('should handle mouse enter on item', () => {
-            const firstItemContent = fixture.debugElement.query(By.css('li[data-pc-section="menuitem"] div[data-pc-section="content"]'));
+            const firstItemContent = fixture.debugElement.query(By.css('li[data-pc-section="item"] div[data-pc-section="itemcontent"]'));
 
             spyOn(menubarInstance, 'onItemMouseEnter');
 
@@ -520,10 +539,10 @@ describe('Menubar', () => {
     });
 
     describe('Template Tests', () => {
-        it('should handle #start and #end templates', fakeAsync(() => {
+        it('should handle #start and #end templates', async () => {
             const templateFixture = TestBed.createComponent(TestTemplateMenubarComponent);
-            templateFixture.detectChanges();
-            tick(100);
+            templateFixture.changeDetectorRef.markForCheck();
+            await templateFixture.whenStable();
 
             const startContent = templateFixture.debugElement.query(By.css('.custom-start'));
             const endContent = templateFixture.debugElement.query(By.css('.custom-end'));
@@ -532,61 +551,51 @@ describe('Menubar', () => {
             expect(startContent.nativeElement.textContent.trim()).toBe('Start Content');
             expect(endContent).toBeTruthy();
             expect(endContent.nativeElement.textContent.trim()).toBe('End Content');
+        });
 
-            flush();
-        }));
-
-        it('should handle #item template processing', fakeAsync(() => {
+        it('should handle #item template processing', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenubarComponent);
-            itemTemplateFixture.detectChanges();
-            tick(100);
+            itemTemplateFixture.changeDetectorRef.markForCheck();
+            await itemTemplateFixture.whenStable();
 
             const itemTemplateMenubar = itemTemplateFixture.debugElement.query(By.directive(Menubar)).componentInstance;
 
             expect(() => itemTemplateMenubar.ngAfterContentInit()).not.toThrow();
             expect(itemTemplateMenubar.itemTemplate).toBeDefined();
+        });
 
-            flush();
-        }));
-
-        it('should handle pTemplate processing', fakeAsync(() => {
+        it('should handle pTemplate processing', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenubarComponent);
-            pTemplateFixture.detectChanges();
-            tick(100);
+            pTemplateFixture.changeDetectorRef.markForCheck();
+            await pTemplateFixture.whenStable();
 
             const pTemplateMenubar = pTemplateFixture.debugElement.query(By.directive(Menubar)).componentInstance;
 
             expect(() => pTemplateMenubar.ngAfterContentInit()).not.toThrow();
             expect(pTemplateMenubar.templates).toBeDefined();
+        });
 
-            flush();
-        }));
-
-        it('should handle submenuicon template', fakeAsync(() => {
+        it('should handle submenuicon template', async () => {
             const submenuTemplateFixture = TestBed.createComponent(TestSubmenuIconTemplateComponent);
-            submenuTemplateFixture.detectChanges();
-            tick(100);
+            submenuTemplateFixture.changeDetectorRef.markForCheck();
+            await submenuTemplateFixture.whenStable();
 
             const submenuMenubar = submenuTemplateFixture.debugElement.query(By.directive(Menubar)).componentInstance;
 
             expect(() => submenuMenubar.ngAfterContentInit()).not.toThrow();
             expect(submenuMenubar.submenuIconTemplate).toBeDefined();
+        });
 
-            flush();
-        }));
-
-        it('should handle menuicon template', fakeAsync(() => {
+        it('should handle menuicon template', async () => {
             const menuIconTemplateFixture = TestBed.createComponent(TestMenuIconTemplateComponent);
-            menuIconTemplateFixture.detectChanges();
-            tick(100);
+            menuIconTemplateFixture.changeDetectorRef.markForCheck();
+            await menuIconTemplateFixture.whenStable();
 
             const menuIconMenubar = menuIconTemplateFixture.debugElement.query(By.directive(Menubar)).componentInstance;
 
             expect(() => menuIconMenubar.ngAfterContentInit()).not.toThrow();
             expect(menuIconMenubar.menuIconTemplate).toBeDefined();
-
-            flush();
-        }));
+        });
 
         it('should handle missing templates gracefully', () => {
             expect(() => menubarInstance.ngAfterContentInit()).not.toThrow();
@@ -724,9 +733,10 @@ describe('Menubar', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply styleClass when provided', () => {
+        it('should apply styleClass when provided', async () => {
             component.styleClass = 'custom-menubar-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const hostElement = menubarElement.nativeElement;
             expect(hostElement.classList.contains('custom-menubar-class')).toBe(true);
@@ -756,7 +766,7 @@ describe('Menubar', () => {
         });
 
         it('should have proper ARIA attributes on menu items', () => {
-            const menuItems = fixture.debugElement.queryAll(By.css('li[data-pc-section="menuitem"]'));
+            const menuItems = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
 
             menuItems.forEach((item) => {
                 expect(item.nativeElement.getAttribute('role')).toBe('menuitem');
@@ -793,10 +803,11 @@ describe('Menubar', () => {
             expect(rootMenu.nativeElement.getAttribute('aria-activedescendant')).toBe(menubarInstance.focusedItemId);
         });
 
-        it('should update ariaLabel and ariaLabelledBy', () => {
+        it('should update ariaLabel and ariaLabelledBy', async () => {
             component.ariaLabel = 'Main Navigation';
             component.ariaLabelledBy = 'nav-heading';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const rootMenu = fixture.debugElement.query(By.css('ul[pMenubarSub]'));
             expect(rootMenu.nativeElement.getAttribute('aria-label')).toBe('Main Navigation');
@@ -847,18 +858,20 @@ describe('Menubar', () => {
             expect(menubarInstance.unbindMatchMediaListener).toHaveBeenCalled();
         });
 
-        it('should handle breakpoint changes', () => {
+        it('should handle breakpoint changes', async () => {
             component.breakpoint = '768px';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(menubarInstance.breakpoint).toBe('768px');
         });
     });
 
     describe('AutoHide Functionality', () => {
-        it('should configure autoHide settings', () => {
+        it('should configure autoHide settings', async () => {
             const autoHideFixture = TestBed.createComponent(TestAutoHideMenubarComponent);
-            autoHideFixture.detectChanges();
+            autoHideFixture.changeDetectorRef.markForCheck();
+            await autoHideFixture.whenStable();
 
             const autoHideMenubar = autoHideFixture.debugElement.query(By.directive(Menubar)).componentInstance;
 
@@ -878,27 +891,30 @@ describe('Menubar', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle null/undefined model', () => {
-            component.model = undefined;
-            fixture.detectChanges();
+        it('should handle null/undefined model', async () => {
+            component.model = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
             expect(menubarInstance.model).toBeUndefined();
         });
 
-        it('should handle empty model array', () => {
+        it('should handle empty model array', async () => {
             component.model = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
             expect(menubarInstance.model).toEqual([]);
         });
 
-        it('should handle items without labels', () => {
+        it('should handle items without labels', async () => {
             component.model = [{ icon: 'pi pi-file' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
             expect(menubarInstance.model?.[0]?.icon).toBe('pi pi-file');
         });
 
@@ -912,10 +928,11 @@ describe('Menubar', () => {
             expect(menubarInstance.isItemDisabled(disabledItem)).toBe(true);
         });
 
-        it('should handle dynamic model changes', () => {
+        it('should handle dynamic model changes', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicMenubarComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             const dynamicMenubar = dynamicFixture.debugElement.query(By.directive(Menubar)).componentInstance;
 
@@ -924,13 +941,15 @@ describe('Menubar', () => {
             // Add items dynamically
             dynamicComponent.addItem({ label: 'Dynamic 1', icon: 'pi pi-file' });
             dynamicComponent.addItem({ label: 'Dynamic 2', icon: 'pi pi-edit' });
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             expect(dynamicMenubar.model.length).toBe(2);
 
             // Clear items
             dynamicComponent.clearItems();
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             expect(dynamicMenubar.model.length).toBe(0);
         });
@@ -1031,6 +1050,340 @@ describe('Menubar', () => {
             expect(processedItems[1].key).toBe('1');
             expect(processedItems[1].items).toBeTruthy();
             expect(processedItems[1].items.length).toBe(2);
+        });
+    });
+
+    describe('MenubarSub getPTOptions Method', () => {
+        it('should call ptm with correct parameters', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item', disabled: false },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: {
+                    item: processedItem.item,
+                    index: 0,
+                    active: jasmine.any(Boolean),
+                    focused: jasmine.any(Boolean),
+                    disabled: jasmine.any(Boolean),
+                    level: menubarSub.level
+                }
+            });
+        });
+
+        it('should return value from ptm method', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item' },
+                key: '0',
+                index: 0
+            };
+
+            const result = menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(result).toBeDefined();
+        });
+
+        it('should determine active state correctly', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item' },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'isItemActive').and.returnValue(true);
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.isItemActive).toHaveBeenCalledWith(processedItem);
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    active: true
+                })
+            });
+        });
+
+        it('should determine focused state correctly', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item', id: 'test-item-0' },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'isItemFocused').and.returnValue(true);
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.isItemFocused).toHaveBeenCalledWith(processedItem);
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    focused: true
+                })
+            });
+        });
+
+        it('should determine disabled state correctly', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem', disabled: true }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Disabled Item', disabled: true },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'isItemDisabled').and.returnValue(true);
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.isItemDisabled).toHaveBeenCalledWith(processedItem);
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    disabled: true
+                })
+            });
+        });
+
+        it('should use correct PT key', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item' },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'itemLink');
+
+            expect(menubarSub.ptm).toHaveBeenCalledWith('itemLink', jasmine.any(Object));
+        });
+
+        it('should include level in context', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Test', items: [{ label: 'Subitem' }] }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Test Item' },
+                key: '0',
+                index: 0
+            };
+
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 0, 'item');
+
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    level: menubarSub.level
+                })
+            });
+        });
+
+        it('should pass correct index', () => {
+            const fixture = TestBed.createComponent(Menubar);
+            const menubar = fixture.componentInstance;
+
+            fixture.componentRef.setInput('model', [{ label: 'Item 1' }, { label: 'Item 2' }, { label: 'Item 3' }]);
+            fixture.detectChanges();
+
+            const menubarSub = menubar.rootmenu as MenubarSub;
+            const processedItem = {
+                item: { label: 'Item 2' },
+                key: '1',
+                index: 1
+            };
+
+            spyOn(menubarSub, 'ptm').and.callThrough();
+
+            menubarSub.getPTOptions(processedItem, 1, 'item');
+
+            expect(menubarSub.ptm).toHaveBeenCalledWith('item', {
+                context: jasmine.objectContaining({
+                    index: 1
+                })
+            });
+        });
+    });
+
+    describe('PassThrough', () => {
+        let fixture: ComponentFixture<Menubar>;
+        let menubar: Menubar;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(Menubar);
+            menubar = fixture.componentInstance;
+            fixture.componentRef.setInput('model', [
+                { label: 'Item 1', icon: 'pi pi-home' },
+                { label: 'Item 2', icon: 'pi pi-search', items: [{ label: 'Subitem' }] }
+            ]);
+        });
+
+        it('Case 1: should apply simple string classes to PT sections', () => {
+            fixture.componentRef.setInput('pt', {
+                button: 'BUTTON_CLASS',
+                buttonIcon: 'BUTTON_ICON_CLASS'
+            });
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('BUTTON_CLASS')).toBe(true);
+            }
+        });
+
+        it('Case 2: should apply PT as objects with class, style, and data attributes', () => {
+            fixture.componentRef.setInput('pt', {
+                button: {
+                    class: 'CUSTOM_BUTTON',
+                    style: 'background-color: red',
+                    'data-test': 'button-test',
+                    'aria-label': 'Custom Button'
+                }
+            });
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('CUSTOM_BUTTON')).toBe(true);
+                expect(buttonEl.style.backgroundColor).toBe('red');
+                expect(buttonEl.getAttribute('data-test')).toBe('button-test');
+                expect(buttonEl.getAttribute('aria-label')).toBe('Custom Button');
+            }
+        });
+
+        it('Case 3: should apply mixed object and string PT values', () => {
+            fixture.componentRef.setInput('pt', {
+                button: 'BUTTON_STR_CLASS',
+                buttonIcon: { class: 'ICON_OBJ_CLASS' }
+            });
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('BUTTON_STR_CLASS')).toBe(true);
+            }
+        });
+
+        it('Case 4: should use instance variables in PT functions', () => {
+            fixture.componentRef.setInput('pt', {
+                button: ({ instance }) => ({
+                    class: {
+                        MOBILE_ACTIVE: instance.mobileActive
+                    }
+                })
+            });
+
+            menubar.mobileActive = true;
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('MOBILE_ACTIVE')).toBe(true);
+            }
+        });
+
+        it('Case 5: should handle event binding in PT', () => {
+            let clicked = false;
+            fixture.componentRef.setInput('pt', {
+                button: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            const buttonEl = fixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                buttonEl.click();
+                expect(clicked).toBe(true);
+            }
+        });
+
+        it('Case 6: should apply inline PT object', () => {
+            const testFixture = TestBed.createComponent(Menubar);
+            testFixture.componentRef.setInput('model', [{ label: 'Test' }]);
+            testFixture.componentRef.setInput('pt', { button: 'INLINE_CLASS' });
+            testFixture.detectChanges();
+
+            const buttonEl = testFixture.nativeElement.querySelector('[class*="p-menubar-button"]');
+            expect(buttonEl).toBeTruthy();
+            if (buttonEl) {
+                expect(buttonEl.classList.contains('INLINE_CLASS')).toBe(true);
+            }
+        });
+
+        it('Case 8: should execute PT hooks', () => {
+            let hookCalled = false;
+            fixture.componentRef.setInput('pt', {
+                button: 'TEST',
+                hooks: {
+                    onInit: () => {
+                        hookCalled = true;
+                    }
+                }
+            });
+            fixture.detectChanges();
+
+            expect(hookCalled).toBe(true);
         });
     });
 });

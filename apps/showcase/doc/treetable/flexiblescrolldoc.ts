@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
     selector: 'flexible-scroll-doc',
@@ -35,8 +35,10 @@ import { TreeNode } from 'primeng/api';
                             <ng-template #body let-rowNode let-rowData="rowData">
                                 <tr [ttRow]="rowNode">
                                     <td>
-                                        <p-treetable-toggler [rowNode]="rowNode" />
-                                        {{ rowData.name }}
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode" />
+                                            <span>{{ rowData.name }}</span>
+                                        </div>
                                     </td>
                                     <td>{{ rowData.size }}</td>
                                     <td>{{ rowData.type }}</td>
@@ -85,8 +87,10 @@ export class ScrollFlexibleDoc {
             <ng-template #body let-rowNode let-rowData="rowData">
                 <tr [ttRow]="rowNode">
                     <td>
-                        <p-treetable-toggler [rowNode]="rowNode" />
-                        {{ rowData.name }}
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <span>{{ rowData.name }}</span>
+                        </div>
                     </td>
                     <td>{{ rowData.size }}</td>
                     <td>{{ rowData.type }}</td>
@@ -114,8 +118,10 @@ export class ScrollFlexibleDoc {
                 <ng-template #body let-rowNode let-rowData="rowData">
                     <tr [ttRow]="rowNode">
                         <td>
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            {{ rowData.name }}
+                            <div class="flex items-center gap-2">
+                                <p-treetable-toggler [rowNode]="rowNode" />
+                                <span>{{ rowData.name }}</span>
+                            </div>
                         </td>
                         <td>{{ rowData.size }}</td>
                         <td>{{ rowData.type }}</td>

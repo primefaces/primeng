@@ -1,7 +1,6 @@
 {
-    "id": 89,
-    "content": "Unlock the Power of Next-Gen PrimeBlocks | Now Available! 🎉",
+    "id": 93,
+    "content": "PrimeNG v21.0.0 has landed 🎉",
     "linkText": "Learn More",
-    "linkHref": "https://primeblocks.org",
-    "target": "_blank"
+    "routerLink": "/migration/v21"
 }

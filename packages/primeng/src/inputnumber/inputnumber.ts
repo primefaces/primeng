@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -10,12 +9,11 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     Injector,
     Input,
     NgModule,
     numberAttribute,
-    OnChanges,
-    OnInit,
     Output,
     QueryList,
     SimpleChanges,
@@ -27,12 +25,16 @@ import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { getSelection } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseInput } from 'primeng/baseinput';
+import { Bind, BindModule } from 'primeng/bind';
 import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
-import { InputNumberInputEvent } from './inputnumber.interface';
+import type { InputNumberInputEvent, InputNumberPassThrough } from 'primeng/types/inputnumber';
 import { InputNumberStyle } from './style/inputnumberstyle';
+
+const INPUTNUMBER_INSTANCE = new InjectionToken<InputNumber>('INPUTNUMBER_INSTANCE');
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -46,7 +48,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputNumber, p-inputnumber, p-input-number',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon, SharedModule, BindModule],
     template: `
         <input
             pInputText
@@ -88,19 +90,22 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (click)="onInputClick()"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
-            [attr.data-pc-section]="'input'"
+            [pt]="ptm('pcInputText')"
+            [unstyled]="unstyled()"
             [pAutoFocus]="autofocus"
             [fluid]="hasFluid"
+            [attr.data-p]="dataP"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" (click)="clear()" [class]="cx('clearIcon')" [attr.data-pc-section]="'clearIcon'">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [pBind]="ptm('clearIcon')" (click)="clear()" [class]="cx('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <span [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
+        <span [pBind]="ptm('buttonGroup')" [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-p]="dataP">
             <button
                 type="button"
+                [pBind]="ptm('incrementButton')"
                 [class]="cn(cx('incrementButton'), incrementButtonClass)"
                 [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
@@ -110,17 +115,18 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (keydown)="onUpButtonKeyDown($event)"
                 (keyup)="onUpButtonKeyUp()"
                 [attr.aria-hidden]="true"
-                [attr.data-pc-section]="'incrementbutton'"
+                [attr.data-p]="dataP"
             >
-                <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
+                <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <svg data-p-icon="angle-up" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
+                    <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
                     <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
 
             <button
                 type="button"
+                [pBind]="ptm('decrementButton')"
                 [class]="cn(cx('decrementButton'), decrementButtonClass)"
                 [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
@@ -130,11 +136,11 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (mouseleave)="onDownButtonMouseLeave()"
                 (keydown)="onDownButtonKeyDown($event)"
                 (keyup)="onDownButtonKeyUp()"
-                [attr.data-pc-section]="'decrementbutton'"
+                [attr.data-p]="dataP"
             >
-                <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
+                <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
-                    <svg data-p-icon="angle-down" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
+                    <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
                     <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
@@ -142,6 +148,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
+            [pBind]="ptm('incrementButton')"
             [class]="cn(cx('incrementButton'), incrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
@@ -151,17 +158,18 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (mouseleave)="onUpButtonMouseLeave()"
             (keydown)="onUpButtonKeyDown($event)"
             (keyup)="onUpButtonKeyUp()"
-            [attr.data-pc-section]="'incrementbutton'"
+            [attr.data-p]="dataP"
         >
-            <span *ngIf="incrementButtonIcon" [ngClass]="incrementButtonIcon" [attr.data-pc-section]="'incrementbuttonicon'"></span>
+            <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
             <ng-container *ngIf="!incrementButtonIcon">
-                <svg data-p-icon="angle-up" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" [attr.data-pc-section]="'incrementbuttonicon'" />
+                <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
                 <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
+            [pBind]="ptm('decrementButton')"
             [class]="cn(cx('decrementButton'), decrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
@@ -171,25 +179,35 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (mouseleave)="onDownButtonMouseLeave()"
             (keydown)="onDownButtonKeyDown($event)"
             (keyup)="onDownButtonKeyUp()"
-            [attr.data-pc-section]="'decrementbutton'"
+            [attr.data-p]="dataP"
         >
-            <span *ngIf="decrementButtonIcon" [ngClass]="decrementButtonIcon" [attr.data-pc-section]="'decrementbuttonicon'"></span>
+            <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
             <ng-container *ngIf="!decrementButtonIcon">
-                <svg data-p-icon="angle-down" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" [attr.data-pc-section]="'decrementbuttonicon'" />
+                <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
                 <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle],
+    providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle, { provide: INPUTNUMBER_INSTANCE, useExisting: InputNumber }, { provide: PARENT_INSTANCE, useExisting: InputNumber }],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.data-pc-name]': "'inputnumber'",
-        '[attr.data-pc-section]': "'root'",
-        '[class]': "cn(cx('root'), styleClass)"
-    }
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'dataP'
+    },
+    hostDirectives: [Bind]
 })
-export class InputNumber extends BaseInput implements OnInit, AfterContentInit, OnChanges {
+export class InputNumber extends BaseInput<InputNumberPassThrough> {
+    $pcInputNumber: InputNumber | undefined = inject(INPUTNUMBER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    _componentStyle = inject(InputNumberStyle);
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Displays spinner buttons.
      * @group Props
@@ -320,12 +338,12 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
      * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) minFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) }) minFractionDigits: number | undefined;
     /**
      * The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) }) maxFractionDigits: number | undefined;
     /**
      * Text to display before the value.
      * @group Props
@@ -387,31 +405,31 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
     /**
-     * Template of the clear icon.
+     * Custom clear icon template.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
     /**
-     * Template of the increment button icon.
+     * Custom increment button icon template.
      * @group Templates
      */
-    @ContentChild('incrementbuttonicon', { descendants: false }) incrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('incrementbuttonicon', { descendants: false }) incrementButtonIconTemplate: Nullable<TemplateRef<void>>;
 
     /**
-     * Template of the decrement button icon.
+     * Custom decrement button icon template.
      * @group Templates
      */
-    @ContentChild('decrementbuttonicon', { descendants: false }) decrementButtonIconTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('decrementbuttonicon', { descendants: false }) decrementButtonIconTemplate: Nullable<TemplateRef<void>>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
-    _clearIconTemplate: TemplateRef<any> | undefined;
+    _clearIconTemplate: TemplateRef<void> | undefined;
 
-    _incrementButtonIconTemplate: TemplateRef<any> | undefined;
+    _incrementButtonIconTemplate: TemplateRef<void> | undefined;
 
-    _decrementButtonIconTemplate: TemplateRef<any> | undefined;
+    _decrementButtonIconTemplate: TemplateRef<void> | undefined;
 
     value: Nullable<number>;
 
@@ -437,7 +455,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
 
     _decimal: any;
 
-    _decimalChar: string;
+    _decimalChar: string = '';
 
     _group: any;
 
@@ -451,25 +469,20 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
 
     _index: number | any;
 
-    _componentStyle = inject(InputNumberStyle);
-
     private ngControl: NgControl | null = null;
 
     constructor(public readonly injector: Injector) {
         super();
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
-        super.ngOnChanges(simpleChange);
+    onChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
         if (props.some((p) => !!simpleChange[p])) {
             this.updateConstructParser();
         }
     }
 
-    ngOnInit() {
-        super.ngOnInit();
-
+    onInit() {
         this.ngControl = this.injector.get(NgControl, null, { optional: true });
 
         this.constructParser();
@@ -477,7 +490,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         this.initialized = true;
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':
@@ -496,19 +509,37 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     getOptions() {
+        // Validate fraction digits according to Intl.NumberFormat specifications
+        // Handle potential NaN, Infinity, or invalid values
+        const validateFractionDigits = (value: number | undefined, min: number, max: number) => {
+            if (value == null || isNaN(value) || !isFinite(value)) {
+                return undefined;
+            }
+            return Math.max(min, Math.min(max, Math.floor(value)));
+        };
+
+        const minFractionDigits = validateFractionDigits(this.minFractionDigits, 0, 20);
+        const maxFractionDigits = validateFractionDigits(this.maxFractionDigits, 0, 100);
+
+        // Ensure minFractionDigits <= maxFractionDigits
+        const validatedMinFractionDigits = minFractionDigits != null && maxFractionDigits != null && minFractionDigits > maxFractionDigits ? maxFractionDigits : minFractionDigits;
+
         return {
             localeMatcher: this.localeMatcher,
             style: this.mode,
             currency: this.currency,
             currencyDisplay: this.currencyDisplay,
             useGrouping: this.useGrouping,
-            minimumFractionDigits: this.minFractionDigits ?? undefined,
-            maximumFractionDigits: this.maxFractionDigits ?? undefined
+            minimumFractionDigits: validatedMinFractionDigits,
+            maximumFractionDigits: maxFractionDigits
         };
     }
 
     constructParser() {
-        this.numberFormat = new Intl.NumberFormat(this.locale, this.getOptions());
+        const options = this.getOptions();
+        // Remove any properties with undefined or invalid values to let Intl.NumberFormat use defaults
+        const cleanOptions = Object.fromEntries(Object.entries(options).filter(([_key, value]) => value !== undefined));
+        this.numberFormat = new Intl.NumberFormat(this.locale, cleanOptions);
         const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [d, i]));
         this._numeral = new RegExp(`[${numerals.join('')}]`, 'g');
@@ -632,9 +663,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     parseValue(text: any) {
-        const suffixRegex = new RegExp(this._suffix, '');
-        const prefixRegex = new RegExp(this._prefix, '');
-        const currencyRegex = new RegExp(this._currency, '');
+        const suffixRegex = this._suffix ? new RegExp(this._suffix, '') : /(?:)/;
+        const prefixRegex = this._prefix ? new RegExp(this._prefix, '') : /(?:)/;
+        const currencyRegex = this._currency ? new RegExp(this._currency as RegExp | string, '') : /(?:)/;
 
         let filteredText = text
             .replace(suffixRegex, '')
@@ -678,9 +709,11 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         let step = (this.step() ?? 1) * dir;
         let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
         let newValue = this.validateValue((currentValue as number) + step);
-        if (this.maxlength() && this.maxlength() < this.formatValue(newValue).length) {
+        const max = this.maxlength();
+        if (max && max < this.formatValue(newValue).length) {
             return;
         }
+
         this.updateInput(newValue, null, 'spin', null);
         this.updateModel(event, newValue);
 
@@ -791,7 +824,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         let selectionStart = (event.target as HTMLInputElement).selectionStart as number;
         let selectionEnd = (event.target as HTMLInputElement).selectionEnd as number;
         let inputValue = (event.target as HTMLInputElement).value as string;
-        let newValueStr = null;
+        let newValueStr: any = null;
 
         if (event.altKey) {
             event.preventDefault();
@@ -869,7 +902,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
                         } else {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                         }
-                    } else if (this.mode === 'currency' && deleteChar.search(this._currency) != -1) {
+                    } else if (this.mode === 'currency' && this._currency && deleteChar.search(this._currency as RegExp) != -1) {
                         newValueStr = inputValue.slice(1);
                     }
 
@@ -966,7 +999,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         const { value, selectionStart, selectionEnd } = this.input.nativeElement;
         const newValue = this.parseValue(value + char);
         const newValueStr = newValue != null ? newValue.toString() : '';
-        const selectedValue = value.substring(selectionStart, selectionEnd);
+        const selectedValue = value.substring(selectionStart as number, selectionEnd as number);
         const selectedValueParsed = this.parseValue(selectedValue);
         const selectedValueStr = selectedValueParsed != null ? selectedValueParsed.toString() : '';
 
@@ -975,7 +1008,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             return;
         }
 
-        if (this.maxlength() && newValueStr.length > this.maxlength()) {
+        const max = this.maxlength();
+
+        if (max && newValueStr.length > max) {
             return;
         }
 
@@ -1005,7 +1040,9 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     allowMinusSign() {
-        return this.min() == null || this.min() < 0;
+        const min = this.min();
+
+        return min == null || min < 0;
     }
 
     isMinusSign(char: string) {
@@ -1065,8 +1102,8 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             return;
         }
 
-        let selectionStart = this.input?.nativeElement.selectionStart;
-        let selectionEnd = this.input?.nativeElement.selectionEnd;
+        let selectionStart: any = this.input?.nativeElement.selectionStart;
+        let selectionEnd: any = this.input?.nativeElement.selectionEnd;
         let inputValue = this.input?.nativeElement.value.trim();
         const { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex } = this.getCharIndexes(inputValue);
         let newValueStr;
@@ -1138,15 +1175,15 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     }
 
     initCursor() {
-        let selectionStart = this.input?.nativeElement.selectionStart;
-        let selectionEnd = this.input?.nativeElement.selectionEnd;
+        let selectionStart: any = this.input?.nativeElement.selectionStart;
+        let selectionEnd: any = this.input?.nativeElement.selectionEnd;
         let inputValue = this.input?.nativeElement.value;
         let valueLength = inputValue.length;
-        let index = null;
+        let index: any = null;
 
         // remove prefix
         let prefixLength = (this.prefixChar || '').length;
-        inputValue = inputValue.replace(this._prefix, '');
+        inputValue = inputValue.replace(this._prefix as RegExp, '');
 
         // Will allow selecting whole prefix. But not a part of it.
         // Negative values will trigger clauses after this to fix the cursor position.
@@ -1219,7 +1256,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
 
     updateValue(event: Event, valueStr: Nullable<string>, insertedValueStr: Nullable<string>, operation: Nullable<string>) {
         let currentValue = this.input?.nativeElement.value;
-        let newValue = null;
+        let newValue: any = null;
 
         if (valueStr != null) {
             newValue = this.parseValue(valueStr);
@@ -1256,13 +1293,15 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         if (value === '-' || value == null) {
             return null;
         }
+        const min = this.min();
+        const max = this.max();
 
-        if (this.min() != null && (value as number) < this.min()) {
+        if (min != null && (value as number) < min) {
             return this.min();
         }
 
-        if (this.max() != null && (value as number) > this.max()) {
-            return this.max();
+        if (max != null && (value as number) > max) {
+            return max;
         }
 
         return value;
@@ -1286,16 +1325,16 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
             const selectionEnd = index + insertedValueStr.length;
             this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
         } else {
-            let selectionStart = this.input.nativeElement.selectionStart;
-            let selectionEnd = this.input.nativeElement.selectionEnd;
-
-            if (this.maxlength() && newValue.length > this.maxlength()) {
-                newValue = newValue.slice(0, this.maxlength());
-                selectionStart = Math.min(selectionStart, this.maxlength());
-                selectionEnd = Math.min(selectionEnd, this.maxlength());
+            let selectionStart: any = this.input.nativeElement.selectionStart;
+            let selectionEnd: any = this.input.nativeElement.selectionEnd;
+            const maxlength = this.maxlength();
+            if (maxlength && newValue.length > maxlength) {
+                newValue = newValue.slice(0, maxlength);
+                selectionStart = Math.min(selectionStart, maxlength);
+                selectionEnd = Math.min(selectionEnd, maxlength);
             }
 
-            if (this.maxlength() && this.maxlength() < newValue.length) {
+            if (maxlength && maxlength < newValue.length) {
                 return;
             }
 
@@ -1386,7 +1425,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         this.focused = false;
 
         const newValueNumber = this.validateValue(this.parseValue(this.input.nativeElement.value));
-        const newValueString = newValueNumber?.toString();
+        const newValueString: any = newValueNumber?.toString();
         this.input.nativeElement.value = this.formatValue(newValueString);
         this.input.nativeElement.setAttribute('aria-valuenow', newValueString);
         this.updateModel(event, newValueNumber);
@@ -1429,6 +1468,19 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
         if (this.timer) {
             clearInterval(this.timer);
         }
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            disabled: this.$disabled(),
+            focus: this.focused,
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            empty: !this.$filled(),
+            [this.size() as string]: this.size(),
+            [this.buttonLayout]: this.showButtons && this.buttonLayout
+        });
     }
 }
 

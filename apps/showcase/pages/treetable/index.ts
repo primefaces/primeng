@@ -16,6 +16,7 @@ import { ImportDoc } from '@/doc/treetable/importdoc';
 import { LazyLoadDoc } from '@/doc/treetable/lazyloaddoc';
 import { PaginatorBasicDoc } from '@/doc/treetable/paginatorbasicdoc';
 import { PaginatorTemplateDoc } from '@/doc/treetable/paginatortemplatedoc';
+import { PTComponent } from '@/doc/treetable/pt/PTComponent';
 import { ReorderDoc } from '@/doc/treetable/reorderdoc';
 import { FrozenColumnsDoc } from '@/doc/treetable/scrollfrozencolumnsdoc';
 import { ScrollHorizontalDoc } from '@/doc/treetable/scrollhorizontaldoc';
@@ -28,6 +29,8 @@ import { SizeDoc } from '@/doc/treetable/sizedoc';
 import { SortMultipleColumnsDoc } from '@/doc/treetable/sortmultiplecolumnsdoc';
 import { SortSingleColumnDoc } from '@/doc/treetable/sortsinglecolumndoc';
 import { TemplateDoc } from '@/doc/treetable/templatedoc';
+import { LoadingMaskDoc } from '@/doc/treetable/loadingmaskdoc';
+import { LoadingSkeletonDoc } from '@/doc/treetable/loadingskeletondoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
@@ -38,12 +41,15 @@ import { AppDoc } from '@/components/doc/app.doc';
         description="TreeTable is used to display hierarchical data in tabular format."
         [docs]="docs"
         [apiDocs]="['TreeTable', 'TreeTableNode', 'TreeNode']"
+        [ptDocs]="ptComponent"
         themeDocs="treetable"
     ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class TreeTableDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import-demo',
@@ -79,6 +85,22 @@ export class TreeTableDemo {
             id: 'gridlines',
             label: 'Grid Lines',
             component: GridlinesDoc
+        },
+        {
+            id: 'loading',
+            label: 'Loading',
+            children: [
+                {
+                    id: 'loading-mask',
+                    label: 'Mask',
+                    component: LoadingMaskDoc
+                },
+                {
+                    id: 'loading-skeleton',
+                    label: 'Skeleton',
+                    component: LoadingSkeletonDoc
+                }
+            ]
         },
         {
             id: 'paginator',

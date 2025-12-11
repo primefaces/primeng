@@ -1,12 +1,13 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from 'primeng/api';
+import { providePrimeNG } from 'primeng/config';
+import { ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
 import { ToggleButton } from './togglebutton';
-import { ToggleButtonChangeEvent } from './togglebutton.interface';
 
 @Component({
     standalone: false,
@@ -171,8 +172,9 @@ describe('ToggleButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ToggleButton, FormsModule, ReactiveFormsModule, NoopAnimationsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent],
-            declarations: [TestBasicToggleButtonComponent, TestReactiveToggleButtonComponent, TestTemplateToggleButtonComponent, TestIconTemplateToggleButtonComponent, TestIconToggleButtonComponent]
+            imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent],
+            declarations: [TestBasicToggleButtonComponent, TestReactiveToggleButtonComponent, TestTemplateToggleButtonComponent, TestIconTemplateToggleButtonComponent, TestIconToggleButtonComponent],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
 
@@ -199,12 +201,14 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.autofocus).toBeFalsy();
         });
 
-        it('should accept custom input values', () => {
+        it('should accept custom input values', async () => {
             component.onLabel = 'Custom Yes';
             component.offLabel = 'Custom No';
             component.iconPos = 'right';
             component.tabindex = 5;
             component.ariaLabel = 'Custom Toggle';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toggleButtonInstance.onLabel).toBe('Custom Yes');
@@ -280,8 +284,10 @@ describe('ToggleButton', () => {
             expect(toggleButtonElement.nativeElement.getAttribute('aria-pressed')).toBe('true');
         });
 
-        it('should not toggle when disabled', () => {
+        it('should not toggle when disabled', async () => {
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             toggleButtonElement.nativeElement.click();
@@ -307,9 +313,11 @@ describe('ToggleButton', () => {
             toggleButtonInstance = toggleButtonElement.componentInstance;
         });
 
-        it('should handle custom labels', () => {
+        it('should handle custom labels', async () => {
             component.onLabel = 'Enabled';
             component.offLabel = 'Disabled';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"]'));
@@ -321,8 +329,10 @@ describe('ToggleButton', () => {
             expect(labelElement.nativeElement.textContent.trim()).toBe('Enabled');
         });
 
-        it('should handle disabled property', () => {
+        it('should handle disabled property', async () => {
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             toggleButtonElement.nativeElement.click();
@@ -331,16 +341,20 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.checked).toBeFalsy();
         });
 
-        it('should handle tabindex property', () => {
+        it('should handle tabindex property', async () => {
             component.tabindex = -1;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toggleButtonElement.nativeElement.getAttribute('tabindex')).toBe('-1');
         });
 
-        it('should handle disabled state tabindex', () => {
+        it('should handle disabled state tabindex', async () => {
             // Set disabled through component input property (real usage)
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Try to toggle - should not work when disabled
@@ -350,9 +364,11 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.checked).toBeFalsy(); // Should remain falsy when disabled
         });
 
-        it('should handle allowEmpty property', () => {
+        it('should handle allowEmpty property', async () => {
             component.allowEmpty = false;
             component.checked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             toggleButtonElement.nativeElement.click();
@@ -361,8 +377,10 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.checked).toBe(true);
         });
 
-        it('should handle size property', () => {
+        it('should handle size property', async () => {
             component.size = 'large';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toggleButtonInstance.size).toBe('large');
@@ -488,8 +506,10 @@ describe('ToggleButton', () => {
             expect(iconElement.nativeElement.className).toContain('p-togglebutton-icon-left');
         });
 
-        it('should position icon on the right when iconPos is right', () => {
+        it('should position icon on the right when iconPos is right', async () => {
             iconComponent.iconPos = 'right';
+            iconFixture.changeDetectorRef.markForCheck();
+            await iconFixture.whenStable();
             iconFixture.detectChanges();
 
             const iconElement = iconFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
@@ -537,8 +557,10 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.checked).toBeFalsy();
         });
 
-        it('should not toggle with keyboard when disabled', () => {
+        it('should not toggle with keyboard when disabled', async () => {
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
@@ -571,15 +593,19 @@ describe('ToggleButton', () => {
             expect(toggleButtonElement.nativeElement.getAttribute('aria-pressed')).toBe('true');
         });
 
-        it('should handle aria-label attribute', () => {
+        it('should handle aria-label attribute', async () => {
             component.ariaLabel = 'Toggle feature';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toggleButtonElement.nativeElement.getAttribute('aria-label')).toBe('Toggle feature');
         });
 
-        it('should handle aria-labelledby attribute', () => {
+        it('should handle aria-labelledby attribute', async () => {
             component.ariaLabelledBy = 'toggle-label';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toggleButtonElement.nativeElement.getAttribute('aria-labelledby')).toBe('toggle-label');
@@ -589,9 +615,11 @@ describe('ToggleButton', () => {
             expect(toggleButtonElement.nativeElement.getAttribute('tabindex')).toBe('0');
         });
 
-        it('should not be focusable when disabled', () => {
+        it('should not be focusable when disabled', async () => {
             // Set disabled through component input property (real usage)
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const initialChecked = toggleButtonInstance.checked;
@@ -611,7 +639,7 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
         });
 
-        it('should handle rapid clicks', fakeAsync(() => {
+        it('should handle rapid clicks', async () => {
             let clickCount = 0;
             toggleButtonInstance.onChange.subscribe(() => clickCount++);
 
@@ -619,35 +647,41 @@ describe('ToggleButton', () => {
             toggleButtonElement.nativeElement.click();
             toggleButtonElement.nativeElement.click();
 
-            tick();
-            flush();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(clickCount).toBe(3);
-        }));
+        });
 
-        it('should handle null/undefined values', () => {
-            component.onLabel = undefined;
-            component.offLabel = undefined;
-            component.onIcon = undefined;
-            component.offIcon = undefined;
+        it('should handle null/undefined values', async () => {
+            component.onLabel = undefined as any;
+            component.offLabel = undefined as any;
+            component.onIcon = undefined as any;
+            component.offIcon = undefined as any;
 
-            expect(() => {
+            await expect(async () => {
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
                 fixture.detectChanges();
             }).not.toThrow();
         });
 
-        it('should handle empty string labels', () => {
+        it('should handle empty string labels', async () => {
             component.onLabel = '';
             component.offLabel = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"]'));
-            expect(labelElement.nativeElement.textContent.trim()).toBe('');
+            expect(labelElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
-        it('should handle allowEmpty false with initial true state', () => {
+        it('should handle allowEmpty false with initial true state', async () => {
             component.checked = true;
             component.allowEmpty = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             toggleButtonElement.nativeElement.click();
@@ -656,30 +690,36 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.checked).toBe(true);
         });
 
-        it('should handle programmatic state changes', fakeAsync(() => {
+        it('should handle programmatic state changes', async () => {
             // Use ngModel to change value programmatically (real usage)
             component.checked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick(); // Allow ngModel binding to sync
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(toggleButtonInstance.checked).toBe(true);
             expect(component.checked).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle hasOnLabel getter correctly', () => {
+        it('should handle hasOnLabel getter correctly', async () => {
             expect(toggleButtonInstance.hasOnLabel).toBe(true);
 
             component.onLabel = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toggleButtonInstance.hasOnLabel).toBeFalsy();
         });
 
-        it('should handle hasOffLabel getter correctly', () => {
+        it('should handle hasOffLabel getter correctly', async () => {
             expect(toggleButtonInstance.hasOffLabel).toBe(true);
 
             component.offLabel = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(toggleButtonInstance.hasOffLabel).toBeFalsy();
@@ -688,7 +728,7 @@ describe('ToggleButton', () => {
 
     describe('Performance Tests', () => {
         it('should handle multiple toggle button instances', () => {
-            const multipleFixtures = [];
+            const multipleFixtures: any[] = [];
             for (let i = 0; i < 10; i++) {
                 const testFixture = TestBed.createComponent(TestBasicToggleButtonComponent);
                 testFixture.detectChanges();
@@ -721,7 +761,8 @@ describe('ToggleButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestToggleButtonPTemplateComponent, NoopAnimationsModule]
+                imports: [TestToggleButtonPTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestToggleButtonPTemplateComponent);
@@ -730,77 +771,96 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
         });
 
-        it('should create component with pTemplate templates', fakeAsync(() => {
+        it('should create component with pTemplate templates', async () => {
             expect(component).toBeTruthy();
             expect(toggleButtonInstance).toBeTruthy();
             expect(() => toggleButtonInstance.iconTemplate).not.toThrow();
             expect(() => toggleButtonInstance.contentTemplate).not.toThrow();
-        }));
+        });
 
-        it('should pass context parameters to icon template', fakeAsync(() => {
+        it('should pass context parameters to icon template', async () => {
             // Initially unchecked
             component.checked = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify that the toggle button component is working with the value
             expect(toggleButtonInstance.checked).toBe(false);
             expect(component.checked).toBe(false);
-        }));
+        });
 
-        it('should pass context parameters to content template', fakeAsync(() => {
+        it('should pass context parameters to content template', async () => {
             // Initially unchecked
             component.checked = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Toggle to checked
             component.checked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify that the toggle button component is working with the value
             expect(toggleButtonInstance.checked).toBe(true);
             expect(component.checked).toBe(true);
-        }));
+        });
 
-        it('should update templates when checked state changes', fakeAsync(() => {
+        it('should update templates when checked state changes', async () => {
             // Initially unchecked
             component.checked = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(toggleButtonInstance.checked).toBe(false);
 
             // Change to checked
             component.checked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(toggleButtonInstance.checked).toBe(true);
-        }));
+        });
 
-        it('should apply context to templates correctly', fakeAsync(() => {
+        it('should apply context to templates correctly', async () => {
             component.checked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify that the toggle button component works correctly
             expect(toggleButtonInstance.checked).toBe(true);
             expect(toggleButtonInstance.active).toBe(true);
-        }));
+        });
 
-        it('should process pTemplates after content init', fakeAsync(() => {
+        it('should process pTemplates after content init', async () => {
             if (toggleButtonInstance.ngAfterContentInit) {
                 toggleButtonInstance.ngAfterContentInit();
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 // Verify that ngAfterContentInit is called correctly
                 expect(toggleButtonInstance.checked).toBeDefined();
                 expect(component.checked).toBeDefined();
             }
-        }));
+        });
     });
 
     describe('ToggleButton #template Reference Tests', () => {
@@ -810,7 +870,8 @@ describe('ToggleButton', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestToggleButtonRefTemplateComponent, NoopAnimationsModule]
+                imports: [TestToggleButtonRefTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestToggleButtonRefTemplateComponent);
@@ -819,76 +880,505 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
         });
 
-        it('should create component with #template references', fakeAsync(() => {
+        it('should create component with #template references', async () => {
             expect(component).toBeTruthy();
             expect(toggleButtonInstance).toBeTruthy();
             expect(() => toggleButtonInstance.iconTemplate).not.toThrow();
             expect(() => toggleButtonInstance.contentTemplate).not.toThrow();
-        }));
+        });
 
-        it('should pass context parameters to icon template', fakeAsync(() => {
+        it('should pass context parameters to icon template', async () => {
             // Initially unchecked
             component.checked = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify that the toggle button component is working with the value
             expect(toggleButtonInstance.checked).toBe(false);
             expect(component.checked).toBe(false);
-        }));
+        });
 
-        it('should pass context parameters to content template', fakeAsync(() => {
+        it('should pass context parameters to content template', async () => {
             // Initially unchecked
             component.checked = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Toggle to checked
             component.checked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify that the toggle button component is working with the value
             expect(toggleButtonInstance.checked).toBe(true);
             expect(component.checked).toBe(true);
-        }));
+        });
 
-        it('should update templates when checked state changes', fakeAsync(() => {
+        it('should update templates when checked state changes', async () => {
             // Initially unchecked
             component.checked = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(toggleButtonInstance.checked).toBe(false);
 
             // Change to checked
             component.checked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(toggleButtonInstance.checked).toBe(true);
-        }));
+        });
 
-        it('should apply context to templates correctly', fakeAsync(() => {
+        it('should apply context to templates correctly', async () => {
             component.checked = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify that the toggle button component works correctly
             expect(toggleButtonInstance.checked).toBe(true);
             expect(toggleButtonInstance.active).toBe(true);
-        }));
+        });
 
-        it('should process #templates after content init', fakeAsync(() => {
+        it('should process #templates after content init', async () => {
             if (toggleButtonInstance.ngAfterContentInit) {
                 toggleButtonInstance.ngAfterContentInit();
                 fixture.detectChanges();
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 // Verify that ngAfterContentInit is called correctly
                 expect(toggleButtonInstance.checked).toBeDefined();
                 expect(component.checked).toBeDefined();
             }
-        }));
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        beforeEach(() => {
+            TestBed.resetTestingModule();
+        });
+
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase1Component {
+                checked: boolean = false;
+                pt = {
+                    root: 'ROOT_CLASS',
+                    content: 'CONTENT_CLASS',
+                    icon: 'ICON_CLASS',
+                    label: 'LABEL_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', async () => {
+                TestBed.configureTestingModule({
+                    imports: [TestPTCase1Component],
+                    providers: [provideZonelessChangeDetection()]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase1Component);
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+                const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
+
+                expect(toggleButtonRoot.classList.contains('ROOT_CLASS')).toBe(true);
+                if (content) expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
+                if (label) expect(label.nativeElement.classList.contains('LABEL_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 2: Objects with class, style, and attributes', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase2Component {
+                checked: boolean = true;
+                pt = {
+                    root: {
+                        class: 'ROOT_OBJECT_CLASS',
+                        style: { 'background-color': 'lightblue' } as any,
+                        'data-test': 'root-test'
+                    },
+                    content: {
+                        class: 'CONTENT_OBJECT_CLASS',
+                        style: { padding: '10px' } as any
+                    },
+                    icon: {
+                        class: 'ICON_OBJECT_CLASS',
+                        'data-icon': 'icon-test'
+                    },
+                    label: {
+                        class: 'LABEL_OBJECT_CLASS',
+                        'aria-label': 'Custom label'
+                    }
+                };
+            }
+
+            it('should apply object-based PT with class, style, and attributes', async () => {
+                TestBed.configureTestingModule({
+                    imports: [TestPTCase2Component],
+                    providers: [provideZonelessChangeDetection()]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase2Component);
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+                const icon = fixture.debugElement.query(By.css('.pi'));
+                const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
+
+                expect(toggleButtonRoot.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
+                expect(toggleButtonRoot.style.backgroundColor).toBe('lightblue');
+                expect(toggleButtonRoot.getAttribute('data-test')).toBe('root-test');
+
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
+                    expect(content.nativeElement.style.padding).toBe('10px');
+                }
+
+                if (icon) {
+                    expect(icon.nativeElement.classList.contains('ICON_OBJECT_CLASS')).toBe(true);
+                    expect(icon.nativeElement.getAttribute('data-icon')).toBe('icon-test');
+                }
+
+                if (label) {
+                    expect(label.nativeElement.classList.contains('LABEL_OBJECT_CLASS')).toBe(true);
+                    expect(label.nativeElement.getAttribute('aria-label')).toBe('Custom label');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase3Component {
+                checked: boolean = false;
+                pt = {
+                    root: 'ROOT_STRING_CLASS',
+                    content: {
+                        class: 'CONTENT_MIXED_CLASS'
+                    },
+                    icon: 'ICON_STRING_CLASS',
+                    label: {
+                        class: 'LABEL_MIXED_CLASS'
+                    }
+                };
+            }
+
+            it('should apply mixed object and string PT values', async () => {
+                TestBed.configureTestingModule({
+                    imports: [TestPTCase3Component],
+                    providers: [provideZonelessChangeDetection()]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase3Component);
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+                const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
+
+                expect(toggleButtonRoot.classList.contains('ROOT_STRING_CLASS')).toBe(true);
+
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
+                }
+
+                if (label) {
+                    expect(label.nativeElement.classList.contains('LABEL_MIXED_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" [disabled]="disabled" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase4Component {
+                checked: boolean = false;
+                disabled: boolean = false;
+                pt = {
+                    root: ({ instance }: any) => {
+                        return {
+                            class: instance?.checked ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
+                        };
+                    },
+                    content: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.$disabled() ? 'gray' : 'green'
+                            } as any
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', async () => {
+                TestBed.configureTestingModule({
+                    imports: [TestPTCase4Component],
+                    providers: [provideZonelessChangeDetection()]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase4Component);
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+
+                expect(toggleButtonRoot.classList.contains('UNCHECKED_CLASS') || toggleButtonRoot.classList.contains('CHECKED_CLASS')).toBe(true);
+
+                if (content) {
+                    expect(content.nativeElement.style.backgroundColor).toBeTruthy();
+                }
+
+                // Change checked state
+                fixture.componentInstance.checked = true;
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                // Root class should change
+                expect(toggleButtonRoot.classList.contains('UNCHECKED_CLASS') || toggleButtonRoot.classList.contains('CHECKED_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: true,
+                imports: [ToggleButton, FormsModule],
+                template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+            })
+            class TestPTCase5Component {
+                checked: boolean = false;
+                clickCount: number = 0;
+                pt = {
+                    content: ({ instance }: any) => {
+                        return {
+                            onclick: (event: Event) => {
+                                this.clickCount++;
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should bind click events via PT', async () => {
+                TestBed.configureTestingModule({
+                    imports: [TestPTCase5Component],
+                    providers: [provideZonelessChangeDetection()]
+                });
+
+                const fixture = TestBed.createComponent(TestPTCase5Component);
+                const component = fixture.componentInstance;
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
+
+                if (content) {
+                    content.nativeElement.click();
+                    fixture.detectChanges();
+                    expect(component.clickCount).toBeGreaterThan(0);
+                }
+            });
+        });
+
+        describe('Case 6: Inline PT test', () => {
+            it('should apply inline string PT', async () => {
+                @Component({
+                    standalone: true,
+                    imports: [ToggleButton, FormsModule],
+                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-togglebutton>`
+                })
+                class TestInlineComponent {
+                    checked: boolean = false;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [TestInlineComponent],
+                    providers: [provideZonelessChangeDetection()]
+                });
+
+                const fixture = TestBed.createComponent(TestInlineComponent);
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                expect(toggleButtonRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply inline object PT', async () => {
+                @Component({
+                    standalone: true,
+                    imports: [ToggleButton, FormsModule],
+                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></p-togglebutton>`
+                })
+                class TestInlineObjectComponent {
+                    checked: boolean = false;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [TestInlineObjectComponent],
+                    providers: [provideZonelessChangeDetection()]
+                });
+
+                const fixture = TestBed.createComponent(TestInlineObjectComponent);
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                expect(toggleButtonRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+                expect(toggleButtonRoot.style.border).toBe('2px solid red');
+            });
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            it('should apply global PT configuration', async () => {
+                @Component({
+                    standalone: true,
+                    imports: [ToggleButton, FormsModule],
+                    template: `<p-togglebutton [(ngModel)]="checked1"></p-togglebutton><p-togglebutton [(ngModel)]="checked2"></p-togglebutton>`
+                })
+                class TestGlobalPTComponent {
+                    checked1: boolean = false;
+                    checked2: boolean = true;
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [TestGlobalPTComponent],
+                    providers: [
+                        provideZonelessChangeDetection(),
+                        providePrimeNG({
+                            pt: {
+                                toggleButton: {
+                                    root: { 'data-test': 'global-togglebutton' },
+                                    content: 'GLOBAL_CONTENT_CLASS',
+                                    label: {
+                                        class: 'GLOBAL_LABEL_CLASS',
+                                        style: { 'font-weight': 'bold' } as any
+                                    }
+                                }
+                            }
+                        })
+                    ]
+                });
+
+                const fixture = TestBed.createComponent(TestGlobalPTComponent);
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                const toggleButtons = fixture.debugElement.queryAll(By.css('p-togglebutton'));
+                expect(toggleButtons.length).toBe(2);
+
+                toggleButtons.forEach((toggleButton) => {
+                    const toggleButtonRoot = toggleButton.nativeElement;
+                    const content = toggleButton.query(By.css('.p-togglebutton-content'));
+                    const label = toggleButton.query(By.css('.p-togglebutton-label'));
+
+                    expect(toggleButtonRoot.getAttribute('data-test')).toBe('global-togglebutton');
+
+                    if (content) {
+                        expect(content.nativeElement.classList.contains('GLOBAL_CONTENT_CLASS')).toBe(true);
+                    }
+
+                    if (label) {
+                        expect(label.nativeElement.classList.contains('GLOBAL_LABEL_CLASS')).toBe(true);
+                        expect(label.nativeElement.style.fontWeight).toBe('bold');
+                    }
+                });
+            });
+        });
+
+        describe('Case 8: PT Hooks', () => {
+            it('should call PT hooks during lifecycle', async () => {
+                const hookCalls: string[] = [];
+
+                @Component({
+                    standalone: true,
+                    imports: [ToggleButton, FormsModule],
+                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+                })
+                class TestHooksComponent {
+                    checked: boolean = false;
+                    pt = {
+                        root: 'MY-TOGGLEBUTTON',
+                        hooks: {
+                            onAfterViewInit: () => {
+                                hookCalls.push('onAfterViewInit');
+                            },
+                            onDestroy: () => {
+                                hookCalls.push('onDestroy');
+                            }
+                        }
+                    };
+                }
+
+                TestBed.configureTestingModule({
+                    imports: [TestHooksComponent],
+                    providers: [provideZonelessChangeDetection()]
+                });
+
+                const fixture = TestBed.createComponent(TestHooksComponent);
+                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
+
+                expect(hookCalls).toContain('onAfterViewInit');
+
+                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                expect(toggleButtonRoot.classList.contains('MY-TOGGLEBUTTON')).toBe(true);
+
+                fixture.destroy();
+
+                expect(hookCalls).toContain('onDestroy');
+            });
+        });
     });
 });

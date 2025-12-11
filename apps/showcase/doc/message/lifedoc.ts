@@ -31,7 +31,7 @@ export class LifeDoc {
 
         setTimeout(() => {
             this.visible.set(false);
-        }, 3500);
+        }, 3000);
     }
 
     code: Code = {
@@ -62,7 +62,7 @@ export class MessageLifeDemo {
 
         setTimeout(() => {
             this.visible.set(false);
-        }, 3500);
+        }, 3000);
     }
 }`
     };

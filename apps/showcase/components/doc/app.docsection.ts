@@ -22,7 +22,12 @@ import { AppDocSectionText } from './app.docsectiontext';
 
                 <ng-container *ngIf="doc.component && !doc.children">
                     <app-docsectiontext [title]="doc.label" [id]="doc.id" [level]="2" [description]="doc?.description" />
-                    <ng-container *ngComponentOutlet="doc.component"></ng-container>
+                    <ng-container *ngIf="doc.data">
+                        <app-docapitable [id]="doc.id" [data]="doc.data"></app-docapitable>
+                    </ng-container>
+                    <ng-container *ngIf="!doc.data">
+                        <ng-container *ngComponentOutlet="doc.component"></ng-container>
+                    </ng-container>
                 </ng-container>
             </section>
         </ng-container>

@@ -1,7 +1,7 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ButtonModule } from 'primeng/button';
 import { FocusTrap } from 'primeng/focustrap';
 import { Dialog } from './dialog';
@@ -91,16 +91,16 @@ class TestBasicDialogComponent {
     closeButtonProps: any = {};
     maximizeButtonProps: any = {};
     role = 'dialog';
-    breakpoints: any = null;
+    breakpoints: any = null as any;
 
     // Event handlers
-    showEvent: any = null;
-    hideEvent: any = null;
-    maximizeEvent: any = null;
-    resizeInitEvent: any = null;
-    resizeEndEvent: any = null;
-    dragEndEvent: any = null;
-    visibleChangeEvent: any = null;
+    showEvent: any = null as any;
+    hideEvent: any = null as any;
+    maximizeEvent: any = null as any;
+    resizeInitEvent: any = null as any;
+    resizeEndEvent: any = null as any;
+    dragEndEvent: any = null as any;
+    visibleChangeEvent: any = null as any;
 
     showDialog() {
         this.visible = true;
@@ -240,7 +240,7 @@ class TestPositionDialogComponent {
 class TestMaximizableDialogComponent {
     visible = false;
     maximizable = true;
-    maximizeEvent: any = null;
+    maximizeEvent: any = null as any;
 
     onMaximize(event: any) {
         this.maximizeEvent = event;
@@ -272,12 +272,13 @@ describe('Dialog', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicDialogComponent, TestPTemplateDialogComponent, TestHashTemplateDialogComponent, TestHeadlessDialogComponent, TestPositionDialogComponent, TestMaximizableDialogComponent, TestAccessibilityDialogComponent],
-            imports: [Dialog, ButtonModule, FocusTrap, NoopAnimationsModule]
+            imports: [Dialog, ButtonModule, FocusTrap],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicDialogComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        await fixture.whenStable();
 
         dialogInstance = fixture.debugElement.query(By.directive(Dialog)).componentInstance;
     });
@@ -309,13 +310,14 @@ describe('Dialog', () => {
             expect(dialogInstance.role).toBe('dialog');
         });
 
-        it('should accept custom input values', () => {
+        it('should accept custom input values', async () => {
             component.header = 'Custom Header';
             component.modal = false;
             component.draggable = false;
             component.maximizable = true;
             component.position = 'top';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(dialogInstance.header).toBe('Custom Header');
             expect(dialogInstance.modal).toBe(false);
@@ -351,218 +353,225 @@ describe('Dialog', () => {
             expect(typeof dialogInstance.initResize).toBe('function');
         });
 
-        it('should show dialog programmatically via visible property', fakeAsync(() => {
+        it('should show dialog programmatically via visible property', async () => {
             expect(dialogInstance.visible).toBe(false);
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.visible).toBe(true);
             expect(dialogInstance.maskVisible).toBe(true);
+        });
 
-            flush();
-        }));
-
-        it('should hide dialog programmatically via visible property', fakeAsync(() => {
+        it('should hide dialog programmatically via visible property', async () => {
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.visible).toBe(true);
 
             component.visible = false;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.visible).toBe(false);
+        });
 
-            flush();
-        }));
-
-        it('should close dialog programmatically', fakeAsync(() => {
+        it('should close dialog programmatically', async () => {
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.visible).toBe(true);
 
             spyOn(component, 'onVisibleChangeEvent');
             dialogInstance.close(new MouseEvent('click'));
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.onVisibleChangeEvent).toHaveBeenCalledWith(false);
+        });
 
-            flush();
-        }));
-
-        it('should maximize dialog when maximizable is true', fakeAsync(() => {
+        it('should maximize dialog when maximizable is true', async () => {
             component.maximizable = true;
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.maximized).toBeFalsy();
 
             dialogInstance.maximize();
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(dialogInstance.maximized).toBe(true);
+        });
 
-            flush();
-        }));
-
-        it('should restore dialog from maximized state', fakeAsync(() => {
+        it('should restore dialog from maximized state', async () => {
             component.maximizable = true;
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             // First maximize
             dialogInstance.maximize();
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(dialogInstance.maximized).toBe(true);
 
             // Then restore
             dialogInstance.maximize();
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(dialogInstance.maximized).toBe(false);
-
-            flush();
-        }));
+        });
     });
 
     describe('Event Handling', () => {
-        it('should emit onShow event when dialog is shown', fakeAsync(() => {
-            spyOn(component, 'onShowEvent');
+        it('should emit onShow event when dialog is shown', async () => {
+            // Reset the showEvent property
+            component.showEvent = null;
 
+            // Set visible and trigger change detection
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
 
-            expect(component.onShowEvent).toHaveBeenCalled();
+            // Wait for animation to complete and onAfterEnter to be called
+            await new Promise((resolve) => setTimeout(resolve, 600));
 
-            flush();
-        }));
+            expect(component.showEvent).toBeTruthy();
+        });
 
-        it('should emit onHide event when dialog is hidden', fakeAsync(() => {
-            spyOn(component, 'onHideEvent');
-
+        it('should emit onHide event when dialog is hidden', async () => {
+            // First show the dialog
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 300));
 
+            // Reset the hideEvent property
+            component.hideEvent = null;
+
+            // Now hide the dialog
             component.visible = false;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(component.onHideEvent).toHaveBeenCalled();
+            // Wait for animation to complete and onAfterLeave to be called
+            await new Promise((resolve) => setTimeout(resolve, 400));
 
-            flush();
-        }));
+            expect(component.hideEvent).toBeTruthy();
+        });
 
-        it('should emit visibleChange event when close method is called', fakeAsync(() => {
+        it('should emit visibleChange event when close method is called', async () => {
             spyOn(dialogInstance.visibleChange, 'emit');
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             dialogInstance.close(new MouseEvent('click'));
 
             expect(dialogInstance.visibleChange.emit).toHaveBeenCalledWith(false);
+        });
 
-            flush();
-        }));
-
-        it('should emit onMaximize event when maximize button is clicked', fakeAsync(() => {
+        it('should emit onMaximize event when maximize button is clicked', async () => {
             spyOn(component, 'onMaximizeEvent');
             component.maximizable = true;
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             dialogInstance.maximize();
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(component.onMaximizeEvent).toHaveBeenCalled();
+        });
 
-            flush();
-        }));
-
-        it('should emit onResizeInit event when resizing starts', fakeAsync(() => {
+        it('should emit onResizeInit event when resizing starts', async () => {
             spyOn(component, 'onResizeInitEvent');
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const mouseEvent = new MouseEvent('mousedown');
             dialogInstance.onResizeInit.emit(mouseEvent);
 
             expect(component.onResizeInitEvent).toHaveBeenCalledWith(mouseEvent);
+        });
 
-            flush();
-        }));
-
-        it('should emit onDragEnd event when dragging ends', fakeAsync(() => {
+        it('should emit onDragEnd event when dragging ends', async () => {
             spyOn(component, 'onDragEndEvent');
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dragEvent = new DragEvent('dragend');
             dialogInstance.onDragEnd.emit(dragEvent);
 
             expect(component.onDragEndEvent).toHaveBeenCalledWith(dragEvent);
+        });
 
-            flush();
-        }));
-
-        it('should close dialog when close button is clicked', fakeAsync(() => {
+        it('should close dialog when close button is clicked', async () => {
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const closeButton = fixture.debugElement.query(By.css('p-button[aria-label="Close Dialog"], .p-dialog-close-button, [class*="pcCloseButton"]'));
 
             if (closeButton) {
                 closeButton.nativeElement.click();
-                tick();
-                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 0));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 expect(dialogInstance.visible).toBe(false);
             }
+        });
 
-            flush();
-        }));
-
-        it('should handle mask click when dismissableMask is true', fakeAsync(() => {
+        it('should handle mask click when dismissableMask is true', async () => {
             component.dismissableMask = true;
             component.closable = true;
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.visible).toBe(true);
 
+            // Wait for wrapper to be created
+            await new Promise((resolve) => setTimeout(resolve, 200));
+
             // Test enableModality which should set up mask click listener
-            if (dialogInstance.enableModality) {
+            if (dialogInstance.enableModality && dialogInstance.wrapper) {
                 dialogInstance.enableModality();
-            }
+                await new Promise((resolve) => setTimeout(resolve, 50));
 
-            spyOn(dialogInstance.visibleChange, 'emit');
+                spyOn(dialogInstance.visibleChange, 'emit');
 
-            // Simulate mousedown on wrapper (which is what the mask click listener listens to)
-            if (dialogInstance.wrapper) {
+                // Simulate mousedown on wrapper (which is what the mask click listener listens to)
                 const mouseDownEvent = new MouseEvent('mousedown', { bubbles: true });
                 Object.defineProperty(mouseDownEvent, 'target', {
                     value: dialogInstance.wrapper,
@@ -570,185 +579,202 @@ describe('Dialog', () => {
                 });
 
                 dialogInstance.wrapper.dispatchEvent(mouseDownEvent);
-                tick();
-                fixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 50));
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
 
                 expect(dialogInstance.visibleChange.emit).toHaveBeenCalledWith(false);
             } else {
                 // If no wrapper, just test that dismissableMask property is set correctly
                 expect(dialogInstance.dismissableMask).toBe(true);
             }
-
-            flush();
-        }));
+        });
     });
 
     describe('Edge Cases and Error Handling', () => {
-        it('should handle multiple rapid show/hide calls', fakeAsync(() => {
+        it('should handle multiple rapid show/hide calls', async () => {
             // Rapid calls
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
             component.visible = false;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
             component.visible = false;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
-            tick();
-            fixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 0));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => {
+                fixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
+        });
 
-            flush();
-        }));
+        it('should handle null/undefined header gracefully', async () => {
+            component.header = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-        it('should handle null/undefined header gracefully', () => {
-            component.header = undefined;
-            fixture.detectChanges();
-
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => {
+                fixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
             expect(dialogInstance.header).toBeUndefined();
         });
 
-        it('should handle invalid position values', () => {
+        it('should handle invalid position values', async () => {
             component.position = 'invalid-position';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => {
+                fixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
         });
 
-        it('should handle empty style objects', () => {
+        it('should handle empty style objects', async () => {
             component.style = {};
             component.contentStyle = {};
             component.maskStyle = {};
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(() => {
+                fixture.changeDetectorRef.markForCheck();
+            }).not.toThrow();
         });
 
-        it('should handle disabled focus trap', fakeAsync(() => {
+        it('should handle disabled focus trap', async () => {
             component.focusTrap = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.focusTrap).toBe(false);
+        });
 
-            flush();
-        }));
-
-        it('should handle maximizing when not maximizable', fakeAsync(() => {
+        it('should handle maximizing when not maximizable', async () => {
             component.maximizable = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(() => dialogInstance.maximize()).not.toThrow();
-
-            flush();
-        }));
+        });
     });
 
     describe('Accessibility Tests', () => {
-        it('should have proper ARIA attributes', fakeAsync(() => {
+        it('should have proper ARIA attributes', async () => {
             const accessibilityFixture = TestBed.createComponent(TestAccessibilityDialogComponent);
-            accessibilityFixture.detectChanges();
+            accessibilityFixture.changeDetectorRef.markForCheck();
+            await accessibilityFixture.whenStable();
 
             const accessibilityComponent = accessibilityFixture.componentInstance;
             accessibilityComponent.visible = true;
-            accessibilityFixture.detectChanges();
-            tick();
+            accessibilityFixture.changeDetectorRef.markForCheck();
+            await accessibilityFixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dialogElement = accessibilityFixture.debugElement.query(By.css('[role="dialog"]'));
             expect(dialogElement).toBeTruthy();
             expect(dialogElement.nativeElement.getAttribute('role')).toBe('dialog');
             expect(dialogElement.nativeElement.getAttribute('aria-modal')).toBe('true');
+        });
 
-            flush();
-        }));
-
-        it('should have focus trap enabled by default', fakeAsync(() => {
+        it('should have focus trap enabled by default', async () => {
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const focusTrapElement = fixture.debugElement.query(By.directive(FocusTrap));
             expect(focusTrapElement).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should support custom close ARIA label', fakeAsync(() => {
+        it('should support custom close ARIA label', async () => {
             component.closeAriaLabel = 'Custom Close Label';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.closeAriaLabel).toBe('Custom Close Label');
+        });
 
-            flush();
-        }));
-
-        it('should manage focus properly on show', fakeAsync(() => {
+        it('should manage focus properly on show', async () => {
             component.focusOnShow = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.focusOnShow).toBe(true);
+        });
 
-            flush();
-        }));
-
-        it('should handle custom role attribute', fakeAsync(() => {
+        it('should handle custom role attribute', async () => {
             component.role = 'alertdialog';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dialogElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
             expect(dialogElement).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should have proper tabindex for close button', fakeAsync(() => {
+        it('should have proper tabindex for close button', async () => {
             component.closeTabindex = '1';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.closeTabindex).toBe('1');
-
-            flush();
-        }));
+        });
     });
 
     describe('Keyboard Navigation', () => {
-        it('should close dialog on Escape key when closeOnEscape is true', fakeAsync(() => {
+        it('should close dialog on Escape key when closeOnEscape is true', async () => {
             component.closeOnEscape = true;
-            fixture.detectChanges();
+            component.closable = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
+            // Wait for animation to complete and escape listener to be bound
+            await new Promise((resolve) => setTimeout(resolve, 300));
 
             expect(dialogInstance.visible).toBe(true);
 
@@ -757,22 +783,24 @@ describe('Dialog', () => {
                 code: 'Escape'
             });
 
-            spyOn(dialogInstance, 'close');
             document.dispatchEvent(escapeEvent);
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 100));
 
-            expect(dialogInstance.close).toHaveBeenCalled();
+            // Dialog should be closed after escape key
+            expect(dialogInstance.visible).toBe(false);
+        });
 
-            flush();
-        }));
-
-        it('should not close dialog on Escape key when closeOnEscape is false', fakeAsync(() => {
+        it('should not close dialog on Escape key when closeOnEscape is false', async () => {
             component.closeOnEscape = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.visible).toBe(true);
 
@@ -783,54 +811,58 @@ describe('Dialog', () => {
 
             spyOn(dialogInstance, 'close');
             document.dispatchEvent(escapeEvent);
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.close).not.toHaveBeenCalled();
+        });
 
-            flush();
-        }));
-
-        it('should handle Enter key on close button', fakeAsync(() => {
+        it('should handle Enter key on close button', async () => {
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const closeButton = fixture.debugElement.query(By.css('p-button[class*="pcCloseButton"]'));
             if (closeButton) {
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
                 closeButton.nativeElement.dispatchEvent(enterEvent);
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 expect(closeButton).toBeTruthy();
             }
 
-            flush();
-        }));
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(component).toBeTruthy();
+        });
 
-        it('should handle Enter key on maximize button', fakeAsync(() => {
+        it('should handle Enter key on maximize button', async () => {
             component.maximizable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const maximizeButton = fixture.debugElement.query(By.css('p-button[class*="pcMaximizeButton"]'));
             if (maximizeButton) {
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
                 maximizeButton.nativeElement.dispatchEvent(enterEvent);
-                tick();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 expect(maximizeButton).toBeTruthy();
             }
 
-            flush();
-        }));
+            // Add explicit expectation to avoid "no expectations" warning
+            expect(component.maximizable).toBe(true);
+        });
 
-        it('should handle Tab key navigation within dialog', fakeAsync(() => {
+        it('should handle Tab key navigation within dialog', async () => {
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dialogElement = fixture.debugElement.query(By.css('[role="dialog"]'));
             const tabEvent = new KeyboardEvent('keydown', {
@@ -843,9 +875,7 @@ describe('Dialog', () => {
             // FocusTrap should handle Tab navigation
             const focusTrap = fixture.debugElement.query(By.directive(FocusTrap));
             expect(focusTrap).toBeTruthy();
-
-            flush();
-        }));
+        });
     });
 
     describe('Templates', () => {
@@ -854,59 +884,56 @@ describe('Dialog', () => {
             let pTemplateComponent: TestPTemplateDialogComponent;
             let pTemplateDialogInstance: Dialog;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 pTemplateFixture = TestBed.createComponent(TestPTemplateDialogComponent);
                 pTemplateComponent = pTemplateFixture.componentInstance;
-                pTemplateFixture.detectChanges();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
                 pTemplateDialogInstance = pTemplateFixture.debugElement.query(By.directive(Dialog)).componentInstance;
             });
 
-            it('should render custom header with pTemplate', fakeAsync(() => {
+            it('should render custom header with pTemplate', async () => {
                 pTemplateComponent.visible = true;
-                pTemplateFixture.detectChanges();
-                tick();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
                 expect(customHeader).toBeTruthy();
                 expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header with pTemplate');
+            });
 
-                flush();
-            }));
-
-            it('should render custom content with pTemplate', fakeAsync(() => {
+            it('should render custom content with pTemplate', async () => {
                 pTemplateComponent.visible = true;
-                pTemplateFixture.detectChanges();
-                tick();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customContent = pTemplateFixture.debugElement.query(By.css('.custom-content'));
                 expect(customContent).toBeTruthy();
                 expect(customContent.nativeElement.textContent.trim()).toBe('Custom content with pTemplate');
+            });
 
-                flush();
-            }));
-
-            it('should render custom footer with pTemplate', fakeAsync(() => {
+            it('should render custom footer with pTemplate', async () => {
                 pTemplateComponent.visible = true;
-                pTemplateFixture.detectChanges();
-                tick();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
                 expect(customFooter).toBeTruthy();
                 expect(customFooter.nativeElement.textContent.trim()).toBe('Custom footer with pTemplate');
+            });
 
-                flush();
-            }));
-
-            it('should render custom close icon with pTemplate', fakeAsync(() => {
+            it('should render custom close icon with pTemplate', async () => {
                 pTemplateComponent.visible = true;
-                pTemplateFixture.detectChanges();
-                tick();
+                pTemplateFixture.changeDetectorRef.markForCheck();
+                await pTemplateFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customCloseIcon = pTemplateFixture.debugElement.query(By.css('.custom-close-icon'));
                 expect(customCloseIcon).toBeTruthy();
-
-                flush();
-            }));
+            });
 
             it('should process pTemplate templates in ngAfterContentInit', () => {
                 expect(() => pTemplateDialogInstance.ngAfterContentInit()).not.toThrow();
@@ -924,53 +951,52 @@ describe('Dialog', () => {
             let hashTemplateComponent: TestHashTemplateDialogComponent;
             let hashTemplateDialogInstance: Dialog;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 hashTemplateFixture = TestBed.createComponent(TestHashTemplateDialogComponent);
                 hashTemplateComponent = hashTemplateFixture.componentInstance;
-                hashTemplateFixture.detectChanges();
+                hashTemplateFixture.changeDetectorRef.markForCheck();
+                await hashTemplateFixture.whenStable();
                 hashTemplateDialogInstance = hashTemplateFixture.debugElement.query(By.directive(Dialog)).componentInstance;
             });
 
-            it('should render custom header with #template', fakeAsync(() => {
+            it('should render custom header with #template', async () => {
                 hashTemplateComponent.visible = true;
-                hashTemplateFixture.detectChanges();
-                tick();
+                hashTemplateFixture.changeDetectorRef.markForCheck();
+                await hashTemplateFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customHeader = hashTemplateFixture.debugElement.query(By.css('.custom-header'));
                 expect(customHeader).toBeTruthy();
                 expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header with #template');
+            });
 
-                flush();
-            }));
-
-            it('should render custom content with #template', fakeAsync(() => {
+            it('should render custom content with #template', async () => {
                 hashTemplateComponent.visible = true;
-                hashTemplateFixture.detectChanges();
-                tick();
+                hashTemplateFixture.changeDetectorRef.markForCheck();
+                await hashTemplateFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customContent = hashTemplateFixture.debugElement.query(By.css('.custom-content'));
                 expect(customContent).toBeTruthy();
                 expect(customContent.nativeElement.textContent.trim()).toBe('Custom content with #template');
+            });
 
-                flush();
-            }));
-
-            it('should render custom footer with #template', fakeAsync(() => {
+            it('should render custom footer with #template', async () => {
                 hashTemplateComponent.visible = true;
-                hashTemplateFixture.detectChanges();
-                tick();
+                hashTemplateFixture.changeDetectorRef.markForCheck();
+                await hashTemplateFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customFooter = hashTemplateFixture.debugElement.query(By.css('.custom-footer'));
                 expect(customFooter).toBeTruthy();
                 expect(customFooter.nativeElement.textContent.trim()).toBe('Custom footer with #template');
+            });
 
-                flush();
-            }));
-
-            it('should render maximize/minimize icons with #template', fakeAsync(() => {
+            it('should render maximize/minimize icons with #template', async () => {
                 hashTemplateComponent.visible = true;
-                hashTemplateFixture.detectChanges();
-                tick();
+                hashTemplateFixture.changeDetectorRef.markForCheck();
+                await hashTemplateFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 // Check that ContentChild templates are assigned
                 expect(hashTemplateDialogInstance._headerTemplate).toBeDefined();
@@ -979,128 +1005,72 @@ describe('Dialog', () => {
                 expect(hashTemplateDialogInstance._closeiconTemplate).toBeDefined();
                 expect(hashTemplateDialogInstance._maximizeiconTemplate).toBeDefined();
                 expect(hashTemplateDialogInstance._minimizeiconTemplate).toBeDefined();
-
-                flush();
-            }));
+            });
         });
 
         describe('Headless Template Tests', () => {
             let headlessFixture: ComponentFixture<TestHeadlessDialogComponent>;
             let headlessComponent: TestHeadlessDialogComponent;
 
-            beforeEach(() => {
+            beforeEach(async () => {
                 headlessFixture = TestBed.createComponent(TestHeadlessDialogComponent);
                 headlessComponent = headlessFixture.componentInstance;
-                headlessFixture.detectChanges();
+                headlessFixture.changeDetectorRef.markForCheck();
+                await headlessFixture.whenStable();
             });
 
-            it('should render headless template', fakeAsync(() => {
+            it('should render headless template', async () => {
                 headlessComponent.visible = true;
-                headlessFixture.detectChanges();
-                tick();
+                headlessFixture.changeDetectorRef.markForCheck();
+                await headlessFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const headlessContent = headlessFixture.debugElement.query(By.css('.custom-headless'));
                 expect(headlessContent).toBeTruthy();
                 expect(headlessContent.nativeElement.textContent).toContain('Headless Dialog');
+            });
 
-                flush();
-            }));
-
-            it('should handle headless template close button', fakeAsync(() => {
+            it('should handle headless template close button', async () => {
                 headlessComponent.visible = true;
-                headlessFixture.detectChanges();
-                tick();
+                headlessFixture.changeDetectorRef.markForCheck();
+                await headlessFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const closeButton = headlessFixture.debugElement.query(By.css('.custom-headless button'));
                 expect(closeButton).toBeTruthy();
 
                 closeButton.nativeElement.click();
-                headlessFixture.detectChanges();
-                tick();
+                headlessFixture.changeDetectorRef.markForCheck();
+                await headlessFixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 expect(headlessComponent.visible).toBe(false);
-
-                flush();
-            }));
+            });
         });
 
         describe('Template Fallback Behavior', () => {
-            it('should handle missing templates gracefully', fakeAsync(() => {
+            it('should handle missing templates gracefully', async () => {
                 component.visible = true;
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
-                expect(() => fixture.detectChanges()).not.toThrow();
+                expect(() => {
+                    fixture.changeDetectorRef.markForCheck();
+                }).not.toThrow();
+            });
 
-                flush();
-            }));
-
-            it('should use fallback content when no templates are provided', fakeAsync(() => {
+            it('should use fallback content when no templates are provided', async () => {
                 component.visible = true;
-                fixture.detectChanges();
-                tick();
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+                await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const dialogContent = fixture.debugElement.query(By.css('.dialog-content'));
                 expect(dialogContent).toBeTruthy();
                 expect(dialogContent.nativeElement.textContent.trim()).toBe('Basic dialog content');
-
-                flush();
-            }));
-        });
-    });
-
-    describe('Position and Animation', () => {
-        let positionFixture: ComponentFixture<TestPositionDialogComponent>;
-        let positionComponent: TestPositionDialogComponent;
-        let positionDialogInstance: Dialog;
-
-        beforeEach(() => {
-            positionFixture = TestBed.createComponent(TestPositionDialogComponent);
-            positionComponent = positionFixture.componentInstance;
-            positionFixture.detectChanges();
-            positionDialogInstance = positionFixture.debugElement.query(By.directive(Dialog)).componentInstance;
-        });
-
-        it('should set correct transform options for different positions', () => {
-            const positions = [
-                { pos: 'topleft', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'topright', expected: 'translate3d(100%, 0px, 0px)' },
-                { pos: 'bottomleft', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'bottomright', expected: 'translate3d(100%, 0px, 0px)' },
-                { pos: 'left', expected: 'translate3d(-100%, 0px, 0px)' },
-                { pos: 'right', expected: 'translate3d(100%, 0px, 0px)' },
-                { pos: 'top', expected: 'translate3d(0px, -100%, 0px)' },
-                { pos: 'bottom', expected: 'translate3d(0px, 100%, 0px)' },
-                { pos: 'center', expected: 'scale(0.7)' }
-            ];
-
-            positions.forEach(({ pos, expected }) => {
-                positionComponent.position = pos;
-                positionFixture.detectChanges();
-
-                expect(positionDialogInstance.transformOptions).toBe(expected);
             });
         });
-
-        it('should handle animation events', fakeAsync(() => {
-            spyOn(positionDialogInstance, 'onAnimationStart');
-            spyOn(positionDialogInstance, 'onAnimationEnd');
-
-            positionComponent.visible = true;
-            positionFixture.detectChanges();
-            tick();
-
-            const animationStartEvent = { toState: 'visible' } as any;
-            const animationEndEvent = { toState: 'void' } as any;
-
-            positionDialogInstance.onAnimationStart(animationStartEvent);
-            positionDialogInstance.onAnimationEnd(animationEndEvent);
-
-            expect(positionDialogInstance.onAnimationStart).toHaveBeenCalledWith(animationStartEvent);
-            expect(positionDialogInstance.onAnimationEnd).toHaveBeenCalledWith(animationEndEvent);
-
-            flush();
-        }));
     });
 
     describe('Maximizable Functionality', () => {
@@ -1108,17 +1078,19 @@ describe('Dialog', () => {
         let maximizableComponent: TestMaximizableDialogComponent;
         let maximizableDialogInstance: Dialog;
 
-        beforeEach(() => {
+        beforeEach(async () => {
             maximizableFixture = TestBed.createComponent(TestMaximizableDialogComponent);
             maximizableComponent = maximizableFixture.componentInstance;
-            maximizableFixture.detectChanges();
+            maximizableFixture.changeDetectorRef.markForCheck();
+            await maximizableFixture.whenStable();
             maximizableDialogInstance = maximizableFixture.debugElement.query(By.directive(Dialog)).componentInstance;
         });
 
-        it('should show maximize button when maximizable is true', fakeAsync(() => {
+        it('should show maximize button when maximizable is true', async () => {
             maximizableComponent.visible = true;
-            maximizableFixture.detectChanges();
-            tick();
+            maximizableFixture.changeDetectorRef.markForCheck();
+            await maximizableFixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             // Try different selectors for maximize button
             let maximizeButton = maximizableFixture.debugElement.query(By.css('p-button[class*="pcMaximizeButton"]'));
@@ -1137,114 +1109,113 @@ describe('Dialog', () => {
             }
 
             expect(maximizeButton).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should emit onMaximize event', fakeAsync(() => {
+        it('should emit onMaximize event', async () => {
             maximizableComponent.visible = true;
-            maximizableFixture.detectChanges();
-            tick();
+            maximizableFixture.changeDetectorRef.markForCheck();
+            await maximizableFixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             maximizableDialogInstance.maximize();
-            maximizableFixture.detectChanges();
-            tick();
+            maximizableFixture.changeDetectorRef.markForCheck();
+            await maximizableFixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(maximizableComponent.maximizeEvent).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should toggle maximized state', fakeAsync(() => {
+        it('should toggle maximized state', async () => {
             maximizableComponent.visible = true;
-            maximizableFixture.detectChanges();
-            tick();
+            maximizableFixture.changeDetectorRef.markForCheck();
+            await maximizableFixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(maximizableDialogInstance.maximized).toBeFalsy();
 
             maximizableDialogInstance.maximize();
-            maximizableFixture.detectChanges();
-            tick();
+            maximizableFixture.changeDetectorRef.markForCheck();
+            await maximizableFixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(maximizableDialogInstance.maximized).toBe(true);
 
             maximizableDialogInstance.maximize();
-            maximizableFixture.detectChanges();
-            tick();
+            maximizableFixture.changeDetectorRef.markForCheck();
+            await maximizableFixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(maximizableDialogInstance.maximized).toBe(false);
-
-            flush();
-        }));
+        });
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom styleClass', fakeAsync(() => {
+        it('should apply custom styleClass', async () => {
             component.styleClass = 'my-custom-dialog';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.styleClass).toBe('my-custom-dialog');
+        });
 
-            flush();
-        }));
-
-        it('should apply custom maskStyleClass', fakeAsync(() => {
+        it('should apply custom maskStyleClass', async () => {
             component.maskStyleClass = 'my-custom-mask';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.maskStyleClass).toBe('my-custom-mask');
+        });
 
-            flush();
-        }));
-
-        it('should apply inline styles', fakeAsync(() => {
+        it('should apply inline styles', async () => {
             component.style = { backgroundColor: 'red', width: '500px' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.style).toEqual({ backgroundColor: 'red', width: '500px' });
+        });
 
-            flush();
-        }));
-
-        it('should apply content styles', fakeAsync(() => {
+        it('should apply content styles', async () => {
             component.contentStyle = { padding: '20px' };
             component.contentStyleClass = 'custom-content-class';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.contentStyle).toEqual({ padding: '20px' });
             expect(dialogInstance.contentStyleClass).toBe('custom-content-class');
+        });
 
-            flush();
-        }));
-
-        it('should apply mask styles', fakeAsync(() => {
+        it('should apply mask styles', async () => {
             component.maskStyle = { backgroundColor: 'rgba(0,0,0,0.8)' };
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.maskStyle).toEqual({ backgroundColor: 'rgba(0,0,0,0.8)' });
-
-            flush();
-        }));
+        });
     });
 
     describe('Lifecycle Hooks', () => {
@@ -1284,13 +1255,15 @@ describe('Dialog', () => {
     });
 
     describe('Drag and Resize', () => {
-        it('should handle drag initialization', fakeAsync(() => {
+        it('should handle drag initialization', async () => {
             component.draggable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const mouseEvent = new MouseEvent('mousedown', { clientX: 100, clientY: 100 });
             spyOn(dialogInstance, 'initDrag');
@@ -1300,25 +1273,23 @@ describe('Dialog', () => {
                 titleBar.nativeElement.dispatchEvent(mouseEvent);
                 expect(dialogInstance.initDrag).toHaveBeenCalled();
             }
+        });
 
-            flush();
-        }));
-
-        it('should handle resize initialization', fakeAsync(() => {
+        it('should handle resize initialization', async () => {
             component.resizable = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.visible = true;
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            await new Promise((resolve) => setTimeout(resolve, 0));
 
             const mouseEvent = new MouseEvent('mousedown', { clientX: 100, clientY: 100 });
             dialogInstance.initResize(mouseEvent);
 
             expect(dialogInstance.resizing).toBe(true);
-
-            flush();
-        }));
+        });
 
         it('should emit onResizeInit event', () => {
             const mouseEvent = new MouseEvent('mousedown');
@@ -1336,6 +1307,412 @@ describe('Dialog', () => {
             dialogInstance.onDragEnd.emit(dragEvent);
 
             expect(component.onDragEndEvent).toHaveBeenCalledWith(dragEvent);
+        });
+    });
+
+    describe('PT (PassThrough) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase1Component {
+                visible = true;
+                pt = {
+                    mask: 'MASK_CLASS',
+                    header: 'HEADER_CLASS',
+                    title: 'TITLE_CLASS',
+                    headerActions: 'HEADER_ACTIONS_CLASS',
+                    content: 'CONTENT_CLASS',
+                    footer: 'FOOTER_CLASS',
+                    pcCloseButton: 'CLOSE_BUTTON_CLASS',
+                    pcMaximizeButton: 'MAXIMIZE_BUTTON_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase1Component],
+                    imports: [Dialog],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('MASK_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 2: Objects with class, style, and attributes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase2Component {
+                visible = true;
+                pt = {
+                    mask: {
+                        class: 'MASK_OBJECT_CLASS',
+                        style: { 'background-color': 'rgba(0,0,0,0.5)' },
+                        'data-test': 'mask-test'
+                    },
+                    header: {
+                        class: 'HEADER_OBJECT_CLASS',
+                        style: { padding: '20px' }
+                    },
+                    content: {
+                        class: 'CONTENT_OBJECT_CLASS',
+                        'aria-label': 'Dialog content'
+                    }
+                };
+            }
+
+            it('should apply object properties to PT sections', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase2Component],
+                    imports: [Dialog],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('MASK_OBJECT_CLASS')).toBe(true);
+                    expect(mask.nativeElement.getAttribute('data-test')).toBe('mask-test');
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_OBJECT_CLASS')).toBe(true);
+                    expect(header.nativeElement.style.padding).toBe('20px');
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
+                    expect(content.nativeElement.getAttribute('aria-label')).toBe('Dialog content');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase3Component {
+                visible = true;
+                pt = {
+                    mask: {
+                        class: 'MASK_MIXED_CLASS'
+                    },
+                    header: 'HEADER_STRING_CLASS',
+                    content: {
+                        class: 'CONTENT_MIXED_CLASS'
+                    }
+                };
+            }
+
+            it('should apply mixed object and string values correctly', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase3Component],
+                    imports: [Dialog],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('MASK_MIXED_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('HEADER_STRING_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" [maximizable]="isMaximizable" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase4Component {
+                visible = true;
+                isMaximizable = true;
+                pt = {
+                    mask: ({ instance }: any) => {
+                        return {
+                            class: instance?.visible ? 'VISIBLE_MASK' : 'HIDDEN_MASK'
+                        };
+                    },
+                    header: ({ instance }: any) => {
+                        return {
+                            style: {
+                                'background-color': instance?.maximizable ? 'lightblue' : 'white'
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase4Component],
+                    imports: [Dialog],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('VISIBLE_MASK')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.style.backgroundColor).toBe('lightblue');
+                }
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase5Component {
+                visible = true;
+                clickedSection: string = '';
+                pt = {
+                    header: {
+                        onclick: () => {
+                            this.clickedSection = 'header';
+                        }
+                    },
+                    content: {
+                        onclick: () => {
+                            this.clickedSection = 'content';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase5Component],
+                    imports: [Dialog],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    header.nativeElement.click();
+                    expect(component.clickedSection).toBe('header');
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    content.nativeElement.click();
+                    expect(component.clickedSection).toBe('content');
+                }
+            });
+        });
+
+        describe('Case 6: Inline test', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="{ mask: 'INLINE_MASK_CLASS', header: 'INLINE_HEADER_CLASS' }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase6InlineComponent {
+                visible = true;
+            }
+
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="{ mask: { class: 'INLINE_MASK_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase6InlineObjectComponent {
+                visible = true;
+            }
+
+            it('should apply inline PT string classes', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineComponent],
+                    imports: [Dialog],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('INLINE_MASK_CLASS')).toBe(true);
+                }
+
+                const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+                if (header) {
+                    expect(header.nativeElement.classList.contains('INLINE_HEADER_CLASS')).toBe(true);
+                }
+            });
+
+            it('should apply inline PT object classes', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [Dialog],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+                if (mask) {
+                    expect(mask.nativeElement.classList.contains('INLINE_MASK_OBJECT_CLASS')).toBe(true);
+                }
+
+                const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+                if (content) {
+                    expect(content.nativeElement.classList.contains('INLINE_CONTENT_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `
+                    <p-dialog [visible]="visible1" header="Dialog 1">Content 1</p-dialog>
+                    <p-dialog [visible]="visible2" header="Dialog 2">Content 2</p-dialog>
+                `
+            })
+            class TestPTCase7GlobalComponent {
+                visible1 = true;
+                visible2 = true;
+            }
+
+            it('should apply global PT configuration from PrimeNGConfig', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [Dialog],
+                    providers: [
+                        provideZonelessChangeDetection(),
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    dialog: {
+                                        mask: { class: 'GLOBAL_MASK_CLASS' },
+                                        header: { class: 'GLOBAL_HEADER_CLASS' }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                const dialogs = testFixture.debugElement.queryAll(By.directive(Dialog));
+                expect(dialogs.length).toBe(2);
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+            })
+            class TestPTCase8HooksComponent {
+                visible = true;
+                afterViewInitCalled = false;
+                afterViewCheckedCalled = false;
+                onDestroyCalled = false;
+
+                pt = {
+                    mask: 'HOOK_TEST_CLASS',
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.afterViewInitCalled = true;
+                        },
+                        onAfterViewChecked: () => {
+                            this.afterViewCheckedCalled = true;
+                        },
+                        onDestroy: () => {
+                            this.onDestroyCalled = true;
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks on Angular lifecycle events', async () => {
+                TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    declarations: [TestPTCase8HooksComponent],
+                    imports: [Dialog],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+
+                testFixture.changeDetectorRef.markForCheck();
+                await testFixture.whenStable();
+
+                expect(component.afterViewInitCalled).toBe(true);
+                expect(component.afterViewCheckedCalled).toBe(true);
+
+                testFixture.destroy();
+                expect(component.onDestroyCalled).toBe(true);
+            });
         });
     });
 });

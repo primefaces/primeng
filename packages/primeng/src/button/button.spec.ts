@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Button, ButtonDirective, ButtonIcon, ButtonLabel } from './button';
 
 // Basic Button Component Test
@@ -52,7 +52,7 @@ class TestBasicButtonComponent {
     rounded: boolean = false;
     text: boolean = false;
     outlined: boolean = false;
-    size: 'small' | 'large' | undefined | null = null;
+    size: 'small' | 'large' | undefined | null = null as any;
     plain: boolean = false;
     severity: any;
     badge: string | undefined;
@@ -155,7 +155,7 @@ class TestButtonDirectiveComponent {
     rounded: boolean = false;
     text: boolean = false;
     outlined: boolean = false;
-    size: 'small' | 'large' | undefined | null = null;
+    size: 'small' | 'large' | undefined | null = null as any;
     plain: boolean = false;
     loading: boolean = false;
     disabled: boolean = false;
@@ -278,7 +278,8 @@ describe('Button', () => {
                 TestBadgeButtonComponent,
                 TestIconButtonComponent
             ],
-            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel, NoopAnimationsModule]
+            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicButtonComponent);
@@ -321,8 +322,10 @@ describe('Button', () => {
     });
 
     describe('Input Properties', () => {
-        it('should update label property', () => {
+        it('should update label property', async () => {
             component.label = 'Updated Label';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.label).toBe('Updated Label');
@@ -330,8 +333,10 @@ describe('Button', () => {
             expect(labelElement?.textContent?.trim()).toBe('Updated Label');
         });
 
-        it('should update icon property', () => {
+        it('should update icon property', async () => {
             component.icon = 'pi pi-search';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.icon).toBe('pi pi-search');
@@ -339,16 +344,20 @@ describe('Button', () => {
             expect(iconElement).toBeTruthy();
         });
 
-        it('should update disabled property', () => {
+        it('should update disabled property', async () => {
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.disabled).toBe(true);
             expect(buttonElement.disabled).toBe(true);
         });
 
-        it('should update loading property', () => {
+        it('should update loading property', async () => {
             component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.loading).toBe(true);
@@ -356,25 +365,30 @@ describe('Button', () => {
             expect(loadingIcon).toBeTruthy();
         });
 
-        it('should update type property', () => {
+        it('should update type property', async () => {
             component.type = 'submit';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.type).toBe('submit');
             expect(buttonElement.type).toBe('submit');
         });
 
-        it('should update styleClass property', () => {
+        it('should update styleClass property', async () => {
             component.styleClass = 'custom-button';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonElement.classList.contains('custom-button')).toBe(true);
         });
 
-        it('should update style property', fakeAsync(() => {
+        it('should update style property', async () => {
             component.style = { backgroundColor: 'red', color: 'white' };
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
 
             // Check that component received the style input
             expect(buttonInstance.style).toEqual({ backgroundColor: 'red', color: 'white' });
@@ -382,27 +396,29 @@ describe('Button', () => {
             // Manually apply styles to test the style binding works as expected
             if (buttonInstance.style) {
                 Object.keys(buttonInstance.style).forEach((key) => {
-                    buttonElement.style[key] = buttonInstance.style[key];
+                    buttonElement.style[key] = buttonInstance.style![key];
                 });
             }
 
             // Verify that our simulated application works
             expect(buttonElement.style.backgroundColor).toBe('red');
             expect(buttonElement.style.color).toBe('white');
+        });
 
-            flush();
-        }));
-
-        it('should update ariaLabel property', () => {
+        it('should update ariaLabel property', async () => {
             component.ariaLabel = 'Custom Button Label';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.ariaLabel).toBe('Custom Button Label');
             expect(buttonElement.getAttribute('aria-label')).toBe('Custom Button Label');
         });
 
-        it('should update tabindex property', () => {
+        it('should update tabindex property', async () => {
             component.tabindex = 5;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.tabindex).toBe(5);
@@ -411,88 +427,96 @@ describe('Button', () => {
     });
 
     describe('Event Handling', () => {
-        it('should emit onClick event', fakeAsync(() => {
+        it('should emit onClick event', async () => {
             const clickSpy = spyOn(component, 'onButtonClick');
 
             buttonElement.click();
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(clickSpy).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should emit onFocus event', fakeAsync(() => {
+        it('should emit onFocus event', async () => {
             const focusSpy = spyOn(component, 'onButtonFocus');
 
             buttonElement.dispatchEvent(new FocusEvent('focus'));
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(focusSpy).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should emit onBlur event', fakeAsync(() => {
+        it('should emit onBlur event', async () => {
             const blurSpy = spyOn(component, 'onButtonBlur');
 
             buttonElement.dispatchEvent(new FocusEvent('blur'));
-            tick();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(blurSpy).toHaveBeenCalled();
-            flush();
-        }));
+        });
 
-        it('should not emit events when disabled', fakeAsync(() => {
+        it('should not emit events when disabled', async () => {
             const clickSpy = spyOn(component, 'onButtonClick');
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             buttonElement.click();
-            tick();
+            await fixture.whenStable();
 
             // Disabled button should not emit click events
             expect(clickSpy).not.toHaveBeenCalled();
-            flush();
-        }));
+        });
     });
 
     describe('Button Variants', () => {
-        it('should apply raised styling', () => {
+        it('should apply raised styling', async () => {
             component.raised = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.raised).toBe(true);
             expect(buttonElement.classList.contains('p-button-raised')).toBe(true);
         });
 
-        it('should apply rounded styling', () => {
+        it('should apply rounded styling', async () => {
             component.rounded = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.rounded).toBe(true);
             expect(buttonElement.classList.contains('p-button-rounded')).toBe(true);
         });
 
-        it('should apply text styling', () => {
+        it('should apply text styling', async () => {
             component.text = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.text).toBe(true);
             expect(buttonElement.classList.contains('p-button-text')).toBe(true);
         });
 
-        it('should apply outlined styling', () => {
+        it('should apply outlined styling', async () => {
             component.outlined = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.outlined).toBe(true);
             expect(buttonElement.classList.contains('p-button-outlined')).toBe(true);
         });
 
-        it('should apply plain styling', () => {
+        it('should apply plain styling', async () => {
             component.plain = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.plain).toBe(true);
@@ -500,22 +524,28 @@ describe('Button', () => {
             expect(buttonInstance.plain).toBe(true);
         });
 
-        it('should apply size variations', () => {
+        it('should apply size variations', async () => {
             // Small size
             component.size = 'small';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.size).toBe('small');
 
             // Large size
             component.size = 'large';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.size).toBe('large');
         });
 
-        it('should apply fluid styling', () => {
+        it('should apply fluid styling', async () => {
             component.fluid = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.fluid()).toBe(true);
@@ -524,32 +554,40 @@ describe('Button', () => {
     });
 
     describe('Button Severities', () => {
-        it('should apply primary severity', () => {
+        it('should apply primary severity', async () => {
             component.severity = 'primary';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.severity).toBe('primary');
             expect(buttonElement.classList.contains('p-button-primary')).toBe(true);
         });
 
-        it('should apply secondary severity', () => {
+        it('should apply secondary severity', async () => {
             component.severity = 'secondary';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.severity).toBe('secondary');
             expect(buttonElement.classList.contains('p-button-secondary')).toBe(true);
         });
 
-        it('should apply success severity', () => {
+        it('should apply success severity', async () => {
             component.severity = 'success';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.severity).toBe('success');
             expect(buttonElement.classList.contains('p-button-success')).toBe(true);
         });
 
-        it('should apply danger severity', () => {
+        it('should apply danger severity', async () => {
             component.severity = 'danger';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.severity).toBe('danger');
@@ -558,19 +596,23 @@ describe('Button', () => {
     });
 
     describe('Icon Functionality', () => {
-        it('should display icon', () => {
+        it('should display icon', async () => {
             component.icon = 'pi pi-search';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const iconElement = buttonElement.querySelector('.p-button-icon');
             expect(iconElement).toBeTruthy();
         });
 
-        it('should handle different icon positions', () => {
+        it('should handle different icon positions', async () => {
             component.icon = 'pi pi-search';
 
             // Left position
             component.iconPos = 'left';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             let iconElement = buttonElement.querySelector('.p-button-icon-left');
@@ -578,15 +620,23 @@ describe('Button', () => {
 
             // Right position
             component.iconPos = 'right';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             iconElement = buttonElement.querySelector('.p-button-icon-right');
             expect(iconElement).toBeTruthy();
         });
 
-        it('should show icon-only button when no label', () => {
-            component.label = undefined;
+        it('should show icon-only button when no label', async () => {
+            component.label = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
             component.icon = 'pi pi-search';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonElement.classList.contains('p-button-icon-only')).toBe(true);
@@ -594,31 +644,38 @@ describe('Button', () => {
     });
 
     describe('Loading State', () => {
-        it('should show loading spinner', fakeAsync(() => {
+        it('should show loading spinner', async () => {
             const loadingFixture = TestBed.createComponent(TestLoadingButtonComponent);
             const loadingComponent = loadingFixture.componentInstance;
             loadingFixture.detectChanges();
 
             loadingComponent.loading = true;
+            loadingFixture.changeDetectorRef.markForCheck();
+            await loadingFixture.whenStable();
             loadingFixture.detectChanges();
-            tick();
 
             const loadingIcon = loadingFixture.debugElement.query(By.css('[data-pc-section="loadingicon"]'));
             expect(loadingIcon).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should disable button when loading', () => {
+        it('should disable button when loading', async () => {
             component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonElement.disabled).toBe(true);
         });
 
-        it('should use custom loading icon', () => {
+        it('should use custom loading icon', async () => {
             component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
             component.loadingIcon = 'pi pi-spin pi-cog';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
@@ -627,25 +684,24 @@ describe('Button', () => {
     });
 
     describe('Badge Functionality', () => {
-        it('should display badge', fakeAsync(() => {
+        it('should display badge', async () => {
             const badgeFixture = TestBed.createComponent(TestBadgeButtonComponent);
             badgeFixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const badgeElement = badgeFixture.debugElement.query(By.css('p-badge'));
             expect(badgeElement).toBeTruthy();
-
-            flush();
-        }));
+        });
     });
 
     describe('Templates', () => {
         // pTemplate Approach - @ContentChildren(PrimeTemplate) testleri
         describe('pTemplate Approach Tests', () => {
-            it('should handle pTemplate content processing', fakeAsync(() => {
+            it('should handle pTemplate content processing', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const buttonInstance = templateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
@@ -658,14 +714,13 @@ describe('Button', () => {
                 // Verify pTemplate content container is rendered
                 const buttonElement = templateFixture.debugElement.query(By.css('button'));
                 expect(buttonElement).toBeTruthy();
+            });
 
-                flush();
-            }));
-
-            it('should process _contentTemplate from pTemplate="content"', fakeAsync(() => {
+            it('should process _contentTemplate from pTemplate="content"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const buttonInstance = templateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
@@ -674,14 +729,13 @@ describe('Button', () => {
 
                 // Just check processing works - template may be undefined in test environment
                 expect(() => buttonInstance.ngAfterContentInit()).not.toThrow();
+            });
 
-                flush();
-            }));
-
-            it('should process _iconTemplate from pTemplate="icon"', fakeAsync(() => {
+            it('should process _iconTemplate from pTemplate="icon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const buttonInstance = templateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
@@ -690,16 +744,17 @@ describe('Button', () => {
 
                 // Just check processing works - template may be undefined in test environment
                 expect(() => buttonInstance.ngAfterContentInit()).not.toThrow();
+            });
 
-                flush();
-            }));
-
-            it('should process _loadingIconTemplate from pTemplate="loadingicon"', fakeAsync(() => {
+            it('should process _loadingIconTemplate from pTemplate="loadingicon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 const templateComponent = templateFixture.componentInstance;
                 templateComponent.loading = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const buttonInstance = templateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
@@ -708,27 +763,23 @@ describe('Button', () => {
 
                 // Just check processing works - template may be undefined in test environment
                 expect(() => buttonInstance.ngAfterContentInit()).not.toThrow();
+            });
 
-                flush();
-            }));
-
-            it('should render custom content template with pTemplate', fakeAsync(() => {
+            it('should render custom content template with pTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
-                tick();
+                await fixture.whenStable();
 
                 const customContent = templateFixture.debugElement.queryAll(By.css('.custom-content'));
                 const customLabels = templateFixture.debugElement.queryAll(By.css('.custom-label'));
                 // Either custom content or at least custom labels should exist
                 expect(customContent.length + customLabels.length).toBeGreaterThanOrEqual(0);
+            });
 
-                flush();
-            }));
-
-            it('should render custom icon template with pTemplate', fakeAsync(() => {
+            it('should render custom icon template with pTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
-                tick();
+                await fixture.whenStable();
 
                 const buttonInstance = templateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
@@ -738,16 +789,15 @@ describe('Button', () => {
 
                 const customIcons = templateFixture.debugElement.queryAll(By.css('.custom-template-icon'));
                 expect(customIcons.length).toBeGreaterThanOrEqual(0);
+            });
 
-                flush();
-            }));
-
-            it('should render custom loading icon template', fakeAsync(() => {
+            it('should render custom loading icon template', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 const templateComponent = templateFixture.componentInstance;
                 templateComponent.loading = true;
+                templateFixture.changeDetectorRef.markForCheck();
+                await templateFixture.whenStable();
                 templateFixture.detectChanges();
-                tick();
 
                 const buttonInstance = templateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
@@ -757,16 +807,15 @@ describe('Button', () => {
 
                 const customLoadingIcons = templateFixture.debugElement.queryAll(By.css('.custom-loading-icon'));
                 expect(customLoadingIcons.length).toBeGreaterThanOrEqual(0);
-
-                flush();
-            }));
+            });
         });
 
         describe('#template Approach Tests', () => {
-            it('should handle #content template processing', fakeAsync(() => {
+            it('should handle #content template processing', async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateButtonComponent);
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const buttonInstance = contentTemplateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
@@ -779,54 +828,48 @@ describe('Button', () => {
                 // Verify content container is rendered
                 const buttonElement = contentTemplateFixture.debugElement.query(By.css('button'));
                 expect(buttonElement).toBeTruthy();
+            });
 
-                flush();
-            }));
-
-            it("should process contentTemplate from @ContentChild('content')", fakeAsync(() => {
+            it("should process contentTemplate from @ContentChild('content')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateButtonComponent);
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const buttonInstance = contentTemplateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
                 // @ContentChild('content') should set contentTemplate
                 expect(buttonInstance.contentTemplate).toBeDefined();
                 expect(buttonInstance.contentTemplate?.constructor.name).toBe('TemplateRef');
+            });
 
-                flush();
-            }));
-
-            it("should process loadingIconTemplate from @ContentChild('loadingicon')", fakeAsync(() => {
+            it("should process loadingIconTemplate from @ContentChild('loadingicon')", async () => {
                 // Test loading icon template via ContentChild
                 const buttonInstance = fixture.debugElement.query(By.directive(Button)).componentInstance;
 
                 // loadingIconTemplate should be undefined when not provided
                 expect(buttonInstance.loadingIconTemplate).toBeUndefined();
+            });
 
-                flush();
-            }));
-
-            it("should process iconTemplate from @ContentChild('icon')", fakeAsync(() => {
+            it("should process iconTemplate from @ContentChild('icon')", async () => {
                 // Test icon template via ContentChild
                 const buttonInstance = fixture.debugElement.query(By.directive(Button)).componentInstance;
 
                 // iconTemplate should be undefined when not provided
                 expect(buttonInstance.iconTemplate).toBeUndefined();
-
-                flush();
-            }));
+            });
         });
 
         // Template comparison and integration tests
         describe('Template Integration Tests', () => {
-            it('should render different template types correctly', fakeAsync(() => {
+            it('should render different template types correctly', async () => {
                 // Test both pTemplate and #content template approaches
 
                 // Test pTemplate rendering
                 const pTemplateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 pTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const pTemplateButton = pTemplateFixture.debugElement.query(By.directive(Button)).componentInstance;
                 expect(pTemplateButton.templates).toBeDefined();
@@ -835,13 +878,12 @@ describe('Button', () => {
                 // Test #content template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateButtonComponent);
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const contentTemplateButton = contentTemplateFixture.debugElement.query(By.directive(Button)).componentInstance;
                 expect(contentTemplateButton.contentTemplate).toBeDefined();
-
-                flush();
-            }));
+            });
 
             it('should use default templates when custom ones are not provided', () => {
                 // Test default behavior without custom templates
@@ -852,24 +894,25 @@ describe('Button', () => {
                 expect(defaultLabel).toBeTruthy();
             });
 
-            it('should handle ngAfterContentInit template processing correctly', fakeAsync(() => {
+            it('should handle ngAfterContentInit template processing correctly', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
 
                 const buttonInstance = templateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
                 expect(() => buttonInstance.ngAfterContentInit()).not.toThrow();
                 expect(buttonInstance.templates).toBeDefined();
-
-                flush();
-            }));
+            });
         });
     });
 
     describe('Accessibility Tests', () => {
-        it('should have proper ARIA attributes', () => {
+        it('should have proper ARIA attributes', async () => {
             component.ariaLabel = 'Click this button';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonElement.getAttribute('aria-label')).toBe('Click this button');
@@ -877,9 +920,15 @@ describe('Button', () => {
             expect(buttonElement.tagName.toLowerCase()).toBe('button');
         });
 
-        it('should handle aria-hidden for icons', () => {
+        it('should handle aria-hidden for icons', async () => {
             component.icon = 'pi pi-search';
-            component.label = undefined; // Icon only
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.label = undefined as any; // Icon only
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Check that icon property is set correctly
@@ -887,16 +936,20 @@ describe('Button', () => {
             expect(buttonInstance.label).toBeUndefined();
         });
 
-        it('should handle tabindex correctly', () => {
+        it('should handle tabindex correctly', async () => {
             component.tabindex = 0;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Check that component received the tabindex input
             expect(buttonInstance.tabindex).toBe(0);
         });
 
-        it('should be focusable when not disabled', () => {
+        it('should be focusable when not disabled', async () => {
             component.disabled = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonElement.disabled).toBe(false);
@@ -904,8 +957,10 @@ describe('Button', () => {
             expect(document.activeElement).toBe(buttonElement);
         });
 
-        it('should not be focusable when disabled', () => {
+        it('should not be focusable when disabled', async () => {
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonElement.disabled).toBe(true);
@@ -918,70 +973,500 @@ describe('Button', () => {
             expect(buttonElement.classList.contains('p-component')).toBe(true);
         });
 
-        it('should apply correct classes based on state', () => {
+        it('should apply correct classes based on state', async () => {
             // Test loading state
             component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.loading).toBe(true);
 
             // Test disabled state
             component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonInstance.disabled).toBe(true);
         });
 
-        it('should apply custom styleClass', () => {
+        it('should apply custom styleClass', async () => {
             component.styleClass = 'my-custom-button';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonElement.classList.contains('my-custom-button')).toBe(true);
         });
     });
 
-    describe('Edge Cases and Error Handling', () => {
-        it('should handle empty label gracefully', () => {
-            component.label = '';
+    describe('LoadingIcon and Icon Edge Cases', () => {
+        it('should show regular icon when loading is false and icon is provided', async () => {
+            component.icon = 'pi pi-search';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-
-            expect(() => fixture.detectChanges()).not.toThrow();
-            expect(buttonInstance.label).toBe('');
-        });
-
-        it('should handle undefined label', () => {
-            component.label = undefined;
-            fixture.detectChanges();
-
-            expect(() => fixture.detectChanges()).not.toThrow();
-        });
-
-        it('should handle invalid icon gracefully', () => {
-            component.icon = '';
-            fixture.detectChanges();
-
-            expect(() => fixture.detectChanges()).not.toThrow();
-        });
-
-        it('should handle rapid state changes', fakeAsync(() => {
-            // Rapid loading state changes
-            component.loading = true;
-            fixture.detectChanges();
-            tick();
 
             component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
-            tick();
 
-            expect(() => {
+            const iconElement = buttonElement.querySelector('.p-button-icon');
+            expect(iconElement).toBeTruthy();
+            expect(iconElement?.classList.contains('pi')).toBe(true);
+            expect(iconElement?.classList.contains('pi-search')).toBe(true);
+
+            // Should not have loading icon
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeFalsy();
+        });
+
+        it('should show default spinner when loading is true and no loadingIcon is provided', async () => {
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+
+            // Should use default SVG spinner (check for direct SVG or nested SVG)
+            const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]') || loadingIcon?.querySelector('svg[data-p-icon="spinner"]');
+            expect(svgSpinner).toBeTruthy();
+
+            // Should not show regular icon
+            const regularIcon = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            expect(regularIcon).toBeFalsy();
+        });
+
+        it('should show custom loadingIcon when loading is true and loadingIcon is provided', async () => {
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-spinner';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spinner')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+
+            // Should not use default SVG spinner
+            const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]');
+            expect(svgSpinner).toBeFalsy();
+        });
+
+        it('should apply pi-spin class to custom loadingIcon for animation', async () => {
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-cog';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-cog')).toBe(true);
+        });
+
+        it('should switch from icon to loadingIcon when loading state changes', async () => {
+            component.icon = 'pi pi-play';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-spinner';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Initially should show regular icon
+            let iconElement = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            let loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(iconElement).toBeTruthy();
+            expect(loadingIcon).toBeFalsy();
+
+            // Switch to loading state
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should now show loading icon and not regular icon
+            iconElement = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(iconElement).toBeFalsy();
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spinner')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+        });
+
+        it('should handle complex loadingIcon classes', async () => {
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-spin pi-cog custom-class';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-cog')).toBe(true);
+            expect(loadingIcon?.classList.contains('custom-class')).toBe(true);
+        });
+
+        it('should handle empty loadingIcon string', async () => {
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should fallback to default SVG spinner when loadingIcon is empty
+            const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]');
+            expect(svgSpinner).toBeTruthy();
+
+            // Check that span with empty loadingIcon is not shown
+            const spanWithEmptyIcon = buttonElement.querySelector('span[data-pc-section="loadingicon"]:not(:has(svg))');
+            expect(spanWithEmptyIcon).toBeFalsy();
+        });
+
+        it('should handle icon only button with loading state', async () => {
+            component.icon = 'pi pi-save';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-spinner';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.label = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Initially icon-only button
+            expect(buttonElement.classList.contains('p-button-icon-only')).toBe(true);
+
+            const iconElement = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            expect(iconElement).toBeTruthy();
+
+            // Switch to loading
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should still be disabled and show loading icon
+            expect(buttonElement.disabled).toBe(true);
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spinner')).toBe(true);
+        });
+
+        it('should handle loading state with label but no icons', async () => {
+            component.icon = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.label = 'Submit';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Should show default spinner even without custom icons
+            const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]') || buttonElement.querySelector('[data-pc-section="loadingicon"] svg[data-p-icon="spinner"]');
+            expect(svgSpinner).toBeTruthy();
+
+            // Should still show label
+            const labelElement = buttonElement.querySelector('.p-button-label');
+            expect(labelElement?.textContent?.trim()).toBe('Submit');
+
+            // Button should be disabled
+            expect(buttonElement.disabled).toBe(true);
+        });
+
+        it('should preserve icon position classes during loading state transitions', async () => {
+            component.icon = 'pi pi-search';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-spinner';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.label = 'Search';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.iconPos = 'right';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Initially check icon position
+            const iconElement = buttonElement.querySelector('.p-button-icon-right');
+            expect(iconElement).toBeTruthy();
+
+            // Switch to loading
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Loading icon should be present
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+
+            // Switch back to non-loading
+            component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Icon position should be preserved
+            const restoredIconElement = buttonElement.querySelector('.p-button-icon-right');
+            expect(restoredIconElement).toBeTruthy();
+        });
+
+        it('should handle rapid loading state changes with different icons', async () => {
+            component.icon = 'pi pi-play';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-spinner';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Multiple rapid state changes
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            let loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+
+            component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            let regularIcon = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+            expect(regularIcon).toBeTruthy();
+
+            // Change loadingIcon and switch again
+            component.loadingIcon = 'pi pi-cog';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-cog')).toBe(true);
+            expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
+        });
+
+        it('should maintain accessibility attributes during icon state changes', async () => {
+            component.icon = 'pi pi-download';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-spinner';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.label = 'Download';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Check initial accessibility
+            const iconElement = buttonElement.querySelector('.p-button-icon');
+            expect(iconElement?.getAttribute('aria-hidden')).toBeNull(); // Icon elements don't always have aria-hidden in this implementation
+
+            // Switch to loading
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon?.getAttribute('aria-hidden')).toBe('true');
+        });
+
+        it('should handle iconClass method correctly for different states', async () => {
+            component.icon = 'pi pi-home';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loadingIcon = 'pi pi-spinner';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.label = 'Home';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.iconPos = 'left';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            // Test non-loading state
+            component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const icon = buttonElement.querySelector('[data-pc-section="icon"]');
+            expect(icon).toBeTruthy();
+            expect(icon?.classList.contains('p-button-icon')).toBeTruthy();
+            expect(icon?.classList.contains('pi')).toBeTruthy();
+            expect(icon?.classList.contains('pi-home')).toBeTruthy();
+
+            // Test loading state
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+            expect(loadingIcon).toBeTruthy();
+            expect(loadingIcon?.classList.contains('p-button-loading-icon')).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spin')).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi')).toBeTruthy();
+            expect(loadingIcon?.classList.contains('pi-spinner')).toBeTruthy();
+        });
+    });
+
+    describe('Edge Cases and Error Handling', () => {
+        it('should handle empty label gracefully', async () => {
+            component.label = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            expect(() => fixture.detectChanges()).not.toThrow();
+            expect(buttonInstance.label).toBe('' as any);
+        });
+
+        it('should handle undefined label', async () => {
+            component.label = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            expect(() => fixture.detectChanges()).not.toThrow();
+        });
+
+        it('should handle invalid icon gracefully', async () => {
+            component.icon = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            expect(() => fixture.detectChanges()).not.toThrow();
+        });
+
+        it('should handle rapid state changes', async () => {
+            // Rapid loading state changes
+            component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            component.loading = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+
+            expect(async () => {
                 component.loading = true;
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
                 fixture.detectChanges();
-                tick();
             }).not.toThrow();
-
-            flush();
-        }));
+        });
     });
 });
 
@@ -994,7 +1479,8 @@ describe('ButtonDirective', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestButtonDirectiveComponent, TestButtonWithIconLabelDirectiveComponent],
-            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel, NoopAnimationsModule]
+            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestButtonDirectiveComponent);
@@ -1017,24 +1503,30 @@ describe('ButtonDirective', () => {
     });
 
     describe('Directive Properties', () => {
-        it('should update severity', () => {
+        it('should update severity', async () => {
             component.severity = 'success';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonDirective.severity).toBe('success');
             expect(buttonElement.classList.contains('p-button-success')).toBe(true);
         });
 
-        it('should handle loading state', () => {
+        it('should handle loading state', async () => {
             component.loading = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonDirective.loading).toBe(true);
             expect(buttonElement.classList.contains('p-button-loading')).toBe(true);
         });
 
-        it('should apply variant styles', () => {
+        it('should apply variant styles', async () => {
             component.raised = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(buttonDirective.raised).toBe(true);
@@ -1044,10 +1536,10 @@ describe('ButtonDirective', () => {
     });
 
     describe('ButtonIcon and ButtonLabel Directives', () => {
-        it('should render icon and label directives', fakeAsync(() => {
+        it('should render icon and label directives', async () => {
             const iconLabelFixture = TestBed.createComponent(TestButtonWithIconLabelDirectiveComponent);
             iconLabelFixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const iconElement = iconLabelFixture.debugElement.query(By.directive(ButtonIcon));
             const labelElement = iconLabelFixture.debugElement.query(By.directive(ButtonLabel));
@@ -1060,9 +1552,7 @@ describe('ButtonDirective', () => {
 
             expect(iconNativeElement.classList.contains('p-button-icon')).toBe(true);
             expect(labelNativeElement.classList.contains('p-button-label')).toBe(true);
-
-            flush();
-        }));
+        });
     });
 
     describe('Public Methods', () => {

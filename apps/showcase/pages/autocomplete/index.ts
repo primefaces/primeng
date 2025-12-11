@@ -1,9 +1,14 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/autocomplete/accessibilitydoc';
+import { AdvancedChipsDoc } from '@/doc/autocomplete/advancedchipsdoc';
+import { BasicChipsDoc } from '@/doc/autocomplete/basicchipsdoc';
 import { BasicDoc } from '@/doc/autocomplete/basicdoc';
+import { ClearIconDoc } from '@/doc/autocomplete/clearicondoc';
 import { DisabledDoc } from '@/doc/autocomplete/disableddoc';
 import { DropdownDoc } from '@/doc/autocomplete/dropdowndoc';
 import { FilledDoc } from '@/doc/autocomplete/filleddoc';
 import { FloatLabelDoc } from '@/doc/autocomplete/floatlabeldoc';
+import { FluidDoc } from '@/doc/autocomplete/fluiddoc';
 import { ForceSelectionDoc } from '@/doc/autocomplete/forceselectiondoc';
 import { GroupDoc } from '@/doc/autocomplete/groupdoc';
 import { IftaLabelDoc } from '@/doc/autocomplete/iftalabeldoc';
@@ -11,15 +16,13 @@ import { ImportDoc } from '@/doc/autocomplete/importdoc';
 import { InvalidDoc } from '@/doc/autocomplete/invaliddoc';
 import { MultipleDoc } from '@/doc/autocomplete/multipledoc';
 import { ObjectsDoc } from '@/doc/autocomplete/objectsdoc';
+import { PTComponent } from '@/doc/autocomplete/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/autocomplete/reactiveformsdoc';
 import { SizesDoc } from '@/doc/autocomplete/sizesdoc';
 import { TemplateDoc } from '@/doc/autocomplete/templatedoc';
 import { TemplateDrivenFormsDoc } from '@/doc/autocomplete/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/autocomplete/virtualscrolldoc';
-import { FluidDoc } from '@/doc/autocomplete/fluiddoc';
-import { ClearIconDoc } from '@/doc/autocomplete/clearicondoc';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -28,6 +31,7 @@ import { AppDoc } from '@/components/doc/app.doc';
         description="AutoComplete is an input component that provides real-time suggestions when being typed."
         [docs]="docs"
         [apiDocs]="['AutoComplete']"
+        [ptDocs]="ptComponent"
         themeDocs="AutoComplete"
     ></app-doc>`,
     standalone: true,
@@ -35,6 +39,8 @@ import { AppDoc } from '@/components/doc/app.doc';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -80,6 +86,22 @@ export class AutoCompleteDemo {
             id: 'multiple',
             label: 'Multiple',
             component: MultipleDoc
+        },
+        {
+            id: 'chips',
+            label: 'Chips',
+            children: [
+                {
+                    id: 'basicchips',
+                    label: 'Basic',
+                    component: BasicChipsDoc
+                },
+                {
+                    id: 'advancedchips',
+                    label: 'Advanced',
+                    component: AdvancedChipsDoc
+                }
+            ]
         },
         {
             id: 'floatlabel',

@@ -1,14 +1,14 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'datepicker-float-label-demo',
+    selector: 'date-picker-float-label-demo',
     standalone: true,
     imports: [FormsModule, RouterModule, DatePickerModule, FloatLabelModule, AppCode, AppDocSectionText],
     template: `
@@ -34,7 +34,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <label for="on_label">On Label</label>
             </p-floatlabel>
         </div>
-        <app-code [code]="code" selector="datepicker-float-label-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-float-label-demo"></app-code>
     `
 })
 export class FloatLabelDoc {
@@ -83,8 +83,8 @@ import { DatePicker } from 'primeng/datepicker';
 import { FloatLabel } from 'primeng/floatlabel';
 
 @Component({
-    selector: 'datepicker-float-label-demo',
-    templateUrl: './datepicker-float-label-demo.html',
+    selector: 'date-picker-float-label-demo',
+    templateUrl: './date-picker-float-label-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker, FloatLabel]
 })

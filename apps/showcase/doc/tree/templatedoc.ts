@@ -1,10 +1,10 @@
-import { Code } from '@/domain/code';
-import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { TreeModule } from 'primeng/tree';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit, signal } from '@angular/core';
+import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'template-doc',
@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="nodes" class="w-full md:w-[30rem]">
+            <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
                 <ng-template let-node pTemplate="url">
                     <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>
                 </ng-template>
@@ -28,10 +28,10 @@ import { CommonModule } from '@angular/common';
     `
 })
 export class TemplateDoc implements OnInit {
-    nodes!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
-        this.nodes = [
+        this.nodes.set([
             {
                 key: '0',
                 label: 'Introduction',
@@ -52,11 +52,11 @@ export class TemplateDoc implements OnInit {
                     { key: '1-3', label: 'Attribute Directives', data: 'https://angular.io/guide/attribute-directives', type: 'url' }
                 ]
             }
-        ];
+        ]);
     }
 
     code: Code = {
-        basic: `<p-tree [value]="nodes" class="w-full md:w-[30rem]">
+        basic: `<p-tree [value]="nodes()" class="w-full md:w-[30rem]">
     <ng-template let-node pTemplate="url">
         <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
             {{ node.label }}
@@ -68,7 +68,7 @@ export class TemplateDoc implements OnInit {
 </p-tree>`,
 
         html: `<div class="card">
-    <p-tree [value]="nodes" class="w-full md:w-[30rem]">
+    <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
         <ng-template let-node pTemplate="url">
             <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
                {{ node.label }}
@@ -80,7 +80,7 @@ export class TemplateDoc implements OnInit {
     </p-tree>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 
@@ -91,10 +91,10 @@ import { TreeModule } from 'primeng/tree';
     imports: [TreeModule]
 })
 export class TreeTemplateDemo implements OnInit {
-    nodes!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
-        this.nodes = [
+        this.nodes.set([
             {
                 key: '0',
                 label: 'Introduction',
@@ -115,7 +115,7 @@ export class TreeTemplateDemo implements OnInit {
                     { key: '1-3', label: 'Attribute Directives', data: 'https://angular.io/guide/attribute-directives', type: 'url' }
                 ]
             }
-        ];
+        ]);
     }
 }`
     };

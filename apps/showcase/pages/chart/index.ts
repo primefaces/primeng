@@ -7,23 +7,33 @@ import { HorizontalBarDoc } from '@/doc/chart/horizontalbardoc';
 import { ImportDoc } from '@/doc/chart/importdoc';
 import { LineDoc } from '@/doc/chart/linedoc';
 import { LineStyleDoc } from '@/doc/chart/linestyledoc';
-import { MethodsDoc } from '@/doc/chart/methodsdoc';
 import { MultiAxisDoc } from '@/doc/chart/multiaxisdoc';
 import { PieDoc } from '@/doc/chart/piedoc';
 import { PolarAreaDoc } from '@/doc/chart/polarareadoc';
-import { PropsDoc } from '@/doc/chart/propsdoc';
 import { RadarDoc } from '@/doc/chart/radardoc';
 import { StackedBarDoc } from '@/doc/chart/stackedbardoc';
 import { VerticalBarDoc } from '@/doc/chart/verticalbardoc';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-
+import { PTComponent } from '@/doc/chart/pt/PTComponent';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Chart Component" header="Charts" description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library." [docs]="docs" [apiDocs]="apiDocs"></app-doc> `
+    template: `
+        <app-doc
+            docTitle="Angular Chart Component"
+            header="Charts"
+            description="Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library."
+            [docs]="docs"
+            [apiDocs]="['Chart']"
+            themeDocs="chart"
+            [ptDocs]="ptComponent"
+        ></app-doc>
+    `
 })
 export class ChartDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -99,19 +109,6 @@ export class ChartDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        }
-    ];
-
-    apiDocs = [
-        {
-            id: 'properties',
-            label: 'Properties',
-            component: PropsDoc
-        },
-        {
-            id: 'methods',
-            label: 'Methods',
-            component: MethodsDoc
         }
     ];
 }

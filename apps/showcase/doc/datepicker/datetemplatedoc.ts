@@ -1,13 +1,13 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-datetemplate-demo',
+    selector: 'date-picker-datetemplate-demo',
     standalone: true,
     imports: [CommonModule, FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
@@ -22,7 +22,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
             </p-datepicker>
         </div>
-        <app-code [code]="code" selector="datepicker-datetemplate-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-datetemplate-demo"></app-code>
     `
 })
 export class DateTemplateDoc {
@@ -50,8 +50,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-datetemplate-demo',
-    templateUrl: './datepicker-datetemplate-demo.html',
+    selector: 'date-picker-datetemplate-demo',
+    templateUrl: './date-picker-datetemplate-demo.html',
     standalone: true,
     imports: [FormsModule, DatePickerModule]
 })

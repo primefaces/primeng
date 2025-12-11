@@ -129,6 +129,7 @@ body:
         Only issues related to v20 are valid, previous versions are covered by
         PrimeNG LTS service.
       options:
+        - v21
         - v20
         - v19 (LTS Only)
         - v18 (LTS Only)

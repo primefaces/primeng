@@ -44,7 +44,8 @@ export class DiamondPage {
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-remastered-hero-dashboard-2.png',
         description: 'An amazing application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
         liveHref: 'https://diamond.primeng.org',
-        docHref: 'https://diamond.primeng.org/documentation'
+        docHref: 'https://diamond.primeng.org/documentation',
+        storeHref: 'https://primeui.store/templates/angular/diamond'
     };
 
     features2Data = [

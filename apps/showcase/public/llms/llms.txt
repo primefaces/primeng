@@ -1,0 +1,120 @@
+# PrimeNG
+
+> The Most Complete Angular UI Component Library
+
+## Guides
+
+- [Installation](https://primeng.org/installation): Setting up PrimeNG in an Angular CLI project.
+- [Configuration](https://primeng.org/configuration): Application wide configuration for PrimeNG.
+- [Styled Mode](https://primeng.org/theming/styled): Choose from a variety of pre-styled themes or develop your own.
+- [Unstyled Mode](https://primeng.org/theming/unstyled): Theming PrimeNG with alternative styling approaches.
+- [Icons](https://primeng.org/icons): PrimeIcons is the default icon library of PrimeNG with over 250 open source icons.
+- [Custom Icons](https://primeng.org/customicons): Use custom icons with PrimeNG components.
+- [Pass Through](https://primeng.org/passthrough): Pass Through Props allow direct access to the underlying elements for complete customization.
+- [Tailwind CSS](https://primeng.org/tailwind): Integration between PrimeNG and Tailwind CSS.
+- [LLMs.txt](https://primeng.org/llms): LLM-optimized documentation endpoints for PrimeNG components.
+- [Accessibility](https://primeng.org/guides/accessibility): PrimeNG has WCAG 2.1 AA level compliance.
+- [Animations](https://primeng.org/guides/animations): Built-in CSS animations for PrimeNG components.
+- [RTL](https://primeng.org/guides/rtl): Right-to-left support for PrimeNG components.
+- [Migration v19](https://primeng.org/migration/v19): Migration guide to PrimeNG v19.
+- [Migration v20](https://primeng.org/migration/v20): Migration guide to PrimeNG v20.
+- [Migration v21](https://primeng.org/migration/v21): Migration guide to PrimeNG v21.
+
+## Components
+
+- [Angular Accordion Component](https://primeng.org/accordion): Accordion groups a collection of contents in tabs.
+- [Angular Animate On Scroll Directive](https://primeng.org/animateonscroll): AnimateOnScroll AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.
+- [Angular AutoComplete Component](https://primeng.org/autocomplete): AutoComplete is an input component that provides real-time suggestions when being typed.
+- [Angular AutoFocus Directive](https://primeng.org/autofocus): AutoFocus manages focus on focusable element on load.
+- [Angular Avatar Component](https://primeng.org/avatar): Avatar represents people using icons, labels and images.
+- [Angular Badge Component](https://primeng.org/badge): Badge is a small status indicator for another element.
+- [Angular BlockUI Component](https://primeng.org/blockui): BlockUI can either block other components or the whole page.
+- [Angular Breadcrumb Component](https://primeng.org/breadcrumb): Breadcrumb provides contextual information about page hierarchy.
+- [Angular Button Component](https://primeng.org/button): Button is an extension to standard button element with icons and theming.
+- [Angular Card Component](https://primeng.org/card): Card is a flexible container component.
+- [Angular Carousel Component](https://primeng.org/carousel): Carousel is a content slider featuring various customization options.
+- [Angular CascadeSelect Component](https://primeng.org/cascadeselect): CascadeSelect displays a nested structure of options.
+- [Angular Chart Component](https://primeng.org/chart): Chart components are based on Charts.js 3.3.2+, an open source HTML5 based charting library.
+- [Angular Checkbox Component](https://primeng.org/checkbox): Checkbox is an extension to standard checkbox element with theming.
+- [Angular Chip Component](https://primeng.org/chip): Chip represents entities using icons, labels and images.
+- [Angular ColorPicker Component](https://primeng.org/colorpicker): ColorPicker is an input component to select a color.
+- [Angular ConfirmDialog Component](https://primeng.org/confirmdialog): ConfirmDialog is backed by a service utilizing Observables to display confirmation windows easily that can be shared by multiple actions on the same component.
+- [Angular ConfirmPopup Component](https://primeng.org/confirmpopup): ConfirmPopup displays a confirmation overlay displayed relatively to its target.
+- [Angular ContextMenu Component](https://primeng.org/contextmenu): ContextMenu displays an overlay menu on right click of its target.
+- [Angular DataView Component](https://primeng.org/dataview): DataView displays data in grid grid-cols-12 gap-4 or list layout with pagination and sorting features.
+- [Angular DatePicker Component](https://primeng.org/datepicker): DatePicker is an input component to select a date.
+- [Angular Dialog Component](https://primeng.org/dialog): Dialog is a container to display content in an overlay window.
+- [Angular Divider Component](https://primeng.org/divider): Divider is used to separate contents.
+- [Angular Dock Component](https://primeng.org/dock): Dock is a navigation component consisting of menuitems.
+- [Angular Drag and Drop Component](https://primeng.org/dragdrop): pDraggable and pDroppable directives apply drag-drop behaviors to any element.
+- [Angular Drawer Component](https://primeng.org/drawer): Drawer is a container component displayed as an overlay.
+- [Angular Dynamic Dialog Component](https://primeng.org/dynamicdialog): Dialogs can be created dynamically with any component as the content using a DialogService.
+- [Angular Editor Component](https://primeng.org/editor): Editor is rich text editor component based on Quill.
+- [Angular Fieldset Component](https://primeng.org/fieldset): Fieldset is a grouping component with a content toggle feature.
+- [Angular FileUpload Component](https://primeng.org/fileupload): FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
+- [Angular Float Label Component](https://primeng.org/floatlabel): FloatLabel appears on top of the input field when focused.
+- [Angular Fluid Component](https://primeng.org/fluid): Fluid is a layout component to make descendant components span full width of their container.
+- [Angular Focus Trap Component](https://primeng.org/focustrap): Focus Trap keeps focus within a certain DOM element while tabbing.
+- [Angular Gallery Component](https://primeng.org/galleria): Galleria is an advanced content gallery component.
+- [Angular IconField Component](https://primeng.org/iconfield): IconField wraps an input and an icon.
+- [Angular Ifta Label Component](https://primeng.org/iftalabel): IftaLabel is used to create infield top aligned labels.
+- [Angular ImageCompare Component](https://primeng.org/imagecompare): Compare two images side by side with a slider.
+- [Angular Inplace Component](https://primeng.org/inplace): Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
+- [Angular InputGroup Component](https://primeng.org/inputgroup): Text, icon, buttons and other content can be grouped next to an input.
+- [Angular InputMask Component](https://primeng.org/inputmask): InputMask component is used to enter input in a certain format such as numeric, date, currency and phone.
+- [Angular InputNumber Component](https://primeng.org/inputnumber): InputNumber is an input component to provide numerical input.
+- [Angular InputText Component](https://primeng.org/inputtext): InputText is an extension to standard input element with theming and keyfiltering.
+- [Angular KeyFilter Component](https://primeng.org/keyfilter): KeyFilter is a directive to restrict individual key strokes. In order to restrict the whole input, use InputNumber or InputMask instead.
+- [Angular Knob Component](https://primeng.org/knob): Knob is a form component to define number inputs with a dial.
+- [Angular Listbox Component](https://primeng.org/listbox): Listbox is used to select one or more values from a list of items.
+- [Angular MegaMenu Component](https://primeng.org/megamenu): MegaMenu is navigation component that displays submenus together.
+- [Angular Menu Component](https://primeng.org/menu): Menu is a navigation / command component that supports dynamic and static positioning.
+- [Angular Menubar Component](https://primeng.org/menubar): Menubar is a horizontal menu component.
+- [Angular Message Component](https://primeng.org/message): Message component is used to display inline messages.
+- [Angular MeterGroup Component](https://primeng.org/metergroup): MeterGroup displays scalar measurements within a known range.
+- [Angular MultiSelect Component](https://primeng.org/multiselect): MultiSelect is used to select multiple items from a collection.
+- [Angular OrderList Component](https://primeng.org/orderlist): OrderList is used to sort a collection.
+- [Angular Organization Chart Component](https://primeng.org/organizationchart): OrganizationChart visualizes hierarchical organization data.
+- [Angular Otp Input Component](https://primeng.org/inputotp): Input Otp is used to enter one time passwords.
+- [Angular Paginator Component](https://primeng.org/paginator): Paginator displays data in paged format and provides navigation between pages.
+- [Angular Panel Component](https://primeng.org/panel): Panel is a container component with an optional content toggle feature.
+- [Angular PanelMenu Component](https://primeng.org/panelmenu): PanelMenu is a hybrid of Accordion and Tree components.
+- [Angular Password Component](https://primeng.org/password): Password displays strength indicator for password fields.
+- [Angular PickList Component](https://primeng.org/picklist): PickList is used to reorder items between different lists.
+- [Angular Popover Component](https://primeng.org/popover): Popover is a container component that can overlay other components on page.
+- [Angular ProgressBar Component](https://primeng.org/progressbar): ProgressBar is a process status indicator.
+- [Angular ProgressSpinner Component](https://primeng.org/progressspinner): ProgressSpinner is a process status indicator.
+- [Angular RadioButton Component](https://primeng.org/radiobutton): RadioButton is an extension to standard radio button element with theming.
+- [Angular Rating Component](https://primeng.org/rating): Rating component is a star based selection input.
+- [Angular Ripple Component](https://primeng.org/ripple): Ripple directive adds ripple effect to the host element.
+- [Angular Scroll Panel Component](https://primeng.org/scrollpanel): ScrollPanel is a cross browser, lightweight and skinnable alternative to native browser scrollbar.
+- [Angular Scroll Top Component](https://primeng.org/scrolltop): ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
+- [Angular Select Component](https://primeng.org/select): Select is used to choose an item from a collection of options.
+- [Angular SelectButton Component](https://primeng.org/selectbutton): SelectButton is used to choose single or multiple items from a list using buttons.
+- [Angular Skeleton Component](https://primeng.org/skeleton): Skeleton is a placeholder to display instead of the actual content.
+- [Angular Slider Component](https://primeng.org/slider): Slider is a component to provide input with a drag handle.
+- [Angular Speed Dial Component](https://primeng.org/speeddial): SpeedDial is a floating button with a popup menu.
+- [Angular SplitButton Component](https://primeng.org/splitbutton): SplitButton groups a set of commands in an overlay with a default action item.
+- [Angular Splitter Component](https://primeng.org/splitter): Splitter is utilized to separate and resize panels.
+- [Angular Stepper Component](https://primeng.org/stepper): The Stepper component displays a wizard-like workflow by guiding users through the multi-step progression.
+- [Angular Steps Component](https://primeng.org/steps): Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.
+- [Angular StyleClass Component](https://primeng.org/styleclass): StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.
+- [Angular Table Component](https://primeng.org/table): Table displays data in tabular format.
+- [Angular Tabs Component](https://primeng.org/tabs): Tabs is a container component to group content with tabs.
+- [Angular Tag Component](https://primeng.org/tag): Tag component is used to categorize content.
+- [Angular Terminal Component](https://primeng.org/terminal): 
+- [Angular Textarea Component](https://primeng.org/textarea): Textarea adds styling and autoResize functionality to standard textarea element.
+- [Angular TieredMenu Component](https://primeng.org/tieredmenu): TieredMenu displays submenus in nested overlays.
+- [Angular Timeline Component](https://primeng.org/timeline): Timeline visualizes a series of chained events.
+- [Angular Toast Component](https://primeng.org/toast): Toast is used to display messages in an overlay.
+- [Angular ToggleButton Component](https://primeng.org/togglebutton): ToggleButton is used to select a boolean value using a button.
+- [Angular ToggleSwitch Component](https://primeng.org/toggleswitch): ToggleSwitch is used to select a boolean value.
+- [Angular Toolbar Component](https://primeng.org/toolbar): Toolbar is a grouping component for buttons and other content.
+- [Angular Tooltip Component](https://primeng.org/tooltip): Tooltip directive provides advisory information for a component. Tooltip is integrated within various PrimeNG components.
+- [Angular Tree Component](https://primeng.org/tree): Tree is used to display hierarchical data.
+- [Angular TreeSelect Component](https://primeng.org/treeselect): TreeSelect is a form component to choose from hierarchical data.
+- [Angular TreeTable Component](https://primeng.org/treetable): TreeTable is used to display hierarchical data in tabular format.
+- [Angular Virtual Scroller Component](https://primeng.org/scroller): VirtualScroller is a performance-approach to handle huge data efficiently.
+- [LLMs.txt - PrimeNG](https://primeng.org/llms): LLM-optimized documentation endpoints for PrimeNG components.
+- [Overlay API - PrimeNG](https://primeng.org/overlay): This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
+- [uikit](https://primeng.org/uikit): 

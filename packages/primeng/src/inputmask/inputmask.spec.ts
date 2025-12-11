@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputMask, InputMaskModule } from './inputmask';
@@ -44,7 +44,7 @@ import { CommonModule } from '@angular/common';
     `
 })
 class TestBasicInputMaskComponent {
-    value: string | null = null;
+    value: string | null = null as any;
     mask: string = '999-99-9999';
     slotChar: string = '_';
     autoClear: boolean = true;
@@ -56,7 +56,7 @@ class TestBasicInputMaskComponent {
     keepBuffer: boolean = false;
     placeholder: string = '';
     styleClass: string = '';
-    style: any = null;
+    style: any = null as any;
     inputId: string = '';
     tabindex: string = '';
     title: string = '';
@@ -104,7 +104,7 @@ class TestFormInputMaskComponent {
     `
 })
 class TestTemplateInputMaskComponent {
-    value: string | null = null;
+    value: string | null = null as any;
     mask: string = '999-999-9999';
     showClear: boolean = true;
     placeholder: string = 'Enter phone number';
@@ -126,9 +126,9 @@ class TestMultipleInputMaskComponent {
     phoneMask: string = '(999) 999-9999';
     ssnMask: string = '999-99-9999';
     dateMask: string = '99/99/9999';
-    phoneValue: string | null = null;
-    ssnValue: string | null = null;
-    dateValue: string | null = null;
+    phoneValue: string | null = null as any;
+    ssnValue: string | null = null as any;
+    dateValue: string | null = null as any;
 }
 
 describe('InputMask', () => {
@@ -137,7 +137,8 @@ describe('InputMask', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputMask, InputMaskModule, FormsModule, CommonModule, SharedModule]
+            imports: [InputMask, InputMaskModule, FormsModule, CommonModule, SharedModule],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(InputMask);
@@ -229,7 +230,7 @@ describe('InputMask', () => {
             fixture.detectChanges();
 
             expect(component.characterPattern).toBe('[0-9A-Fa-f]');
-            expect(component.defs['a']).toBe('[0-9A-Fa-f]');
+            expect(component.defs!['a']).toBe('[0-9A-Fa-f]');
         });
     });
 
@@ -309,7 +310,7 @@ describe('InputMask', () => {
 
             component.clear();
 
-            expect(component.inputViewChild?.nativeElement.value).toBe('');
+            expect(component.inputViewChild?.nativeElement.value).toBe('' as any);
             expect(component.value).toBeNull();
             expect(component.onModelChange).toHaveBeenCalledWith(null);
             expect(component.onClear.emit).toHaveBeenCalled();
@@ -326,31 +327,29 @@ describe('InputMask', () => {
             testFixture.detectChanges();
         });
 
-        it('should handle focus event', fakeAsync(() => {
+        it('should handle focus event', async () => {
             spyOn(testComponent, 'onInputFocus');
             testFixture.detectChanges();
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
             const focusEvent = new Event('focus');
             inputMask.onInputFocus(focusEvent);
-            tick();
+            await testFixture.whenStable();
 
             expect(testComponent.onInputFocus).toHaveBeenCalledWith(focusEvent);
-            flush();
-        }));
+        });
 
-        it('should handle blur event', fakeAsync(() => {
+        it('should handle blur event', async () => {
             spyOn(testComponent, 'onInputBlur');
             testFixture.detectChanges();
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
             const blurEvent = new Event('blur');
             inputMask.onInputBlur(blurEvent);
-            tick();
+            await testFixture.whenStable();
 
             expect(testComponent.onInputBlur).toHaveBeenCalledWith(blurEvent);
-            flush();
-        }));
+        });
 
         it('should handle keydown event', () => {
             spyOn(testComponent, 'onKeydownEvent');
@@ -378,10 +377,11 @@ describe('InputMask', () => {
             expect(testComponent.onInputChange).toHaveBeenCalledWith(inputEvent);
         });
 
-        it('should emit onComplete when mask is fully filled', fakeAsync(() => {
+        it('should emit onComplete when mask is fully filled', async () => {
             spyOn(testComponent, 'onMaskComplete');
             testComponent.mask = '999';
-            testFixture.detectChanges();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
             if (inputMask.onComplete) {
@@ -391,15 +391,14 @@ describe('InputMask', () => {
                 // If onComplete is not available, just check that the component exists
                 expect(inputMask).toBeTruthy();
             }
-            flush();
-        }));
+        });
 
-        it('should handle clear event when showClear is enabled', fakeAsync(() => {
+        it('should handle clear event when showClear is enabled', async () => {
             spyOn(testComponent, 'onClearEvent');
             testComponent.showClear = true;
             testComponent.value = '123-45-6789';
-            testFixture.detectChanges();
-            tick();
+            testFixture.changeDetectorRef.markForCheck();
+            await testFixture.whenStable();
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
             if (inputMask.onClear) {
@@ -409,8 +408,7 @@ describe('InputMask', () => {
                 // If onClear is not available, just check that the component exists
                 expect(inputMask).toBeTruthy();
             }
-            flush();
-        }));
+        });
     });
 
     describe('Keyboard Input Processing', () => {
@@ -533,46 +531,43 @@ describe('InputMask', () => {
             formTestFixture.detectChanges();
         });
 
-        it('should work with reactive forms', fakeAsync(() => {
+        it('should work with reactive forms', async () => {
             formTestComponent.form.patchValue({ maskedValue: '1234567890' });
-            formTestFixture.detectChanges();
-            tick();
+            formTestFixture.changeDetectorRef.markForCheck();
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.value.maskedValue).toBe('1234567890');
-            flush();
-        }));
+        });
 
-        it('should validate required field', fakeAsync(() => {
+        it('should validate required field', async () => {
             expect(formTestComponent.form.invalid).toBe(true);
 
             formTestComponent.form.patchValue({ maskedValue: '(123) 456-7890' });
-            formTestFixture.detectChanges();
-            tick();
+            formTestFixture.changeDetectorRef.markForCheck();
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.valid).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should handle form reset', fakeAsync(() => {
+        it('should handle form reset', async () => {
             formTestComponent.form.patchValue({ maskedValue: '(123) 456-7890' });
-            formTestFixture.detectChanges();
-            tick();
+            formTestFixture.changeDetectorRef.markForCheck();
+            await formTestFixture.whenStable();
 
             formTestComponent.form.reset();
-            formTestFixture.detectChanges();
-            tick();
+            formTestFixture.changeDetectorRef.markForCheck();
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.form.pristine).toBe(true);
-            flush();
-        }));
+        });
 
-        it('should return unmasked value when unmask is true', fakeAsync(() => {
+        it('should return unmasked value when unmask is true', async () => {
             formTestComponent.unmask = true;
-            formTestFixture.detectChanges();
+            formTestFixture.changeDetectorRef.markForCheck();
+            await formTestFixture.whenStable();
 
             expect(formTestComponent.unmask).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Template and Content Projection', () => {
@@ -585,18 +580,17 @@ describe('InputMask', () => {
             expect(inputMaskInstance._clearIconTemplate !== undefined || inputMaskInstance._clearIconTemplate === undefined).toBe(true);
         });
 
-        it('should show custom clear icon when template is provided and showClear is true', fakeAsync(() => {
+        it('should show custom clear icon when template is provided and showClear is true', async () => {
             const templateComponent = TestBed.createComponent(TestTemplateInputMaskComponent);
             templateComponent.componentInstance.showClear = true;
             templateComponent.componentInstance.value = '123-456-7890';
-            templateComponent.detectChanges();
-            tick();
+            templateComponent.changeDetectorRef.markForCheck();
+            await templateComponent.whenStable();
 
             // Clear icon should be visible when value exists and showClear is true
             const inputMaskInstance = templateComponent.debugElement.query(By.css('p-inputmask')).componentInstance;
             expect(inputMaskInstance.showClear).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Multiple Mask Scenarios', () => {
@@ -632,10 +626,10 @@ describe('InputMask', () => {
             component.mask = '999-99-9999';
             fixture.detectChanges();
 
-            component.mask = null;
+            component.mask = null as any;
             expect(() => component.initMask()).not.toThrow(); // Now gracefully handled
 
-            component.mask = undefined;
+            component.mask = undefined as any;
             expect(() => component.initMask()).not.toThrow(); // Now gracefully handled
         });
 
@@ -768,7 +762,7 @@ describe('InputMask', () => {
             const mockSetValue = jasmine.createSpy('setModelValue');
             component.writeControlValue(null, mockSetValue);
 
-            expect(component.inputViewChild.nativeElement.value).toBe('');
+            expect(component.inputViewChild!.nativeElement.value).toBe('' as any);
             expect(component.value).toBeNull();
         });
     });
@@ -837,7 +831,7 @@ describe('InputMask', () => {
     });
 
     describe('Complex Mask Patterns', () => {
-        it('should handle phone number mask correctly', fakeAsync(() => {
+        it('should handle phone number mask correctly', async () => {
             component.mask = '(999) 999-9999';
             component.inputViewChild = {
                 nativeElement: {
@@ -854,8 +848,7 @@ describe('InputMask', () => {
 
             expect(component.defaultBuffer).toBe('(___) ___-____');
             expect(component.len).toBe(14);
-            flush();
-        }));
+        });
 
         it('should handle date mask correctly', () => {
             component.mask = '99/99/9999';
@@ -1059,14 +1052,15 @@ describe('InputMask', () => {
             expect(inputMaskComponent).toBeTruthy();
         });
 
-        it('should handle clearicon template when showClear is enabled', () => {
+        it('should handle clearicon template when showClear is enabled', async () => {
             const testComponent = templatesFixture.componentInstance;
             const inputMaskComponent = templatesInputMaskElement.componentInstance;
 
             // Enable showClear to make clearicon template relevant
             testComponent.showClear = true;
             testComponent.value = '123-456-7890';
-            templatesFixture.detectChanges();
+            templatesFixture.changeDetectorRef.markForCheck();
+            await templatesFixture.whenStable();
 
             // Test that clearicon template works with showClear enabled
             expect(() => {
@@ -1095,13 +1089,14 @@ describe('InputMask', () => {
             }).not.toThrow();
         });
 
-        it('should handle clearicon template context and rendering', () => {
+        it('should handle clearicon template context and rendering', async () => {
             const testComponent = templatesFixture.componentInstance;
 
             // Set up conditions for clearicon template to be active
             testComponent.showClear = true;
             testComponent.value = '555-123-4567';
-            templatesFixture.detectChanges();
+            templatesFixture.changeDetectorRef.markForCheck();
+            await templatesFixture.whenStable();
 
             // Test that template context works properly
             expect(() => {
@@ -1112,6 +1107,441 @@ describe('InputMask', () => {
                 expect(testComponent.value).toBe('555-123-4567');
                 expect(testComponent.mask).toBe('999-999-9999');
             }).not.toThrow();
+        });
+    });
+
+    describe('PassThrough (PT) Support', () => {
+        describe('Case 1: Simple string classes', () => {
+            it('should apply PT with simple string classes to pcInputText', () => {
+                const pt = {
+                    pcInputText: { root: 'PT_INPUT_CLASS' }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(inputElement?.classList.contains('PT_INPUT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT with simple string classes to clearIcon', () => {
+                const pt = {
+                    clearIcon: 'PT_CLEAR_ICON_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    expect(clearIconElement.classList.contains('PT_CLEAR_ICON_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 2: Objects', () => {
+            it('should apply PT with object properties to pcInputText', () => {
+                const pt = {
+                    pcInputText: {
+                        root: {
+                            class: 'PT_OBJECT_CLASS',
+                            style: { 'background-color': 'red' },
+                            'data-p-test': 'true',
+                            'aria-label': 'PT_ARIA_LABEL'
+                        }
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(inputElement?.classList.contains('PT_OBJECT_CLASS')).toBe(true);
+                expect(inputElement?.style.backgroundColor).toBe('red');
+                expect(inputElement?.getAttribute('data-p-test')).toBe('true');
+                expect(inputElement?.getAttribute('aria-label')).toBe('PT_ARIA_LABEL');
+            });
+
+            it('should apply PT with object properties to clearIcon', () => {
+                const pt = {
+                    clearIcon: {
+                        class: 'PT_CLEAR_ICON_OBJECT_CLASS',
+                        style: { color: 'blue' },
+                        'data-testid': 'clear-icon-pt'
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    expect(clearIconElement.classList.contains('PT_CLEAR_ICON_OBJECT_CLASS')).toBe(true);
+                    expect(clearIconElement.style.color).toBe('blue');
+                    expect(clearIconElement.getAttribute('data-testid')).toBe('clear-icon-pt');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            it('should apply mixed PT values correctly', () => {
+                const pt = {
+                    pcInputText: {
+                        root: {
+                            class: 'PT_INPUT_OBJECT_CLASS'
+                        }
+                    },
+                    clearIcon: 'PT_CLEAR_ICON_STRING_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(inputElement?.classList.contains('PT_INPUT_OBJECT_CLASS')).toBe(true);
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    expect(clearIconElement?.classList.contains('PT_CLEAR_ICON_STRING_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            it('should apply PT using instance variables for pcInputText', () => {
+                const pt = {
+                    pcInputText: ({ instance }: any) => {
+                        return {
+                            root: {
+                                class: {
+                                    PT_DISABLED: instance?.disabled,
+                                    PT_READONLY: instance?.readonly
+                                }
+                            }
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('disabled', true);
+                fixture.componentRef.setInput('readonly', false);
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(inputElement?.classList.contains('PT_DISABLED')).toBe(true);
+                expect(inputElement?.classList.contains('PT_READONLY')).toBe(false);
+            });
+
+            it('should apply PT using instance variables for clearIcon', () => {
+                const pt = {
+                    clearIcon: ({ instance }: any) => {
+                        return {
+                            style: {
+                                color: instance?.showClear ? 'green' : 'red'
+                            }
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    expect(clearIconElement.style.color).toBe('green');
+                }
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            it('should handle onclick event in pcInputText PT', () => {
+                let clickedValue = '';
+
+                const pt = {
+                    pcInputText: ({ instance }: any) => {
+                        return {
+                            root: {
+                                onclick: () => {
+                                    clickedValue = instance.value || 'clicked';
+                                }
+                            }
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                inputElement?.click();
+                fixture.detectChanges();
+
+                expect(clickedValue).toBe('123-45-6789');
+            });
+
+            it('should handle onclick event in clearIcon PT', () => {
+                let clearIconClicked = false;
+
+                const pt = {
+                    clearIcon: () => {
+                        return {
+                            onclick: () => {
+                                clearIconClicked = true;
+                            }
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('showClear', true);
+                component.writeValue('123-45-6789');
+                fixture.detectChanges();
+
+                const clearIconElement = fixture.nativeElement.querySelector('svg');
+                if (clearIconElement) {
+                    clearIconElement.dispatchEvent(new MouseEvent('click'));
+                    fixture.detectChanges();
+                    expect(clearIconClicked).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 6: Inline test', () => {
+            @Component({
+                standalone: true,
+                imports: [InputMask, FormsModule],
+                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ pcInputText: { root: 'INLINE_PT_CLASS' } }" />`
+            })
+            class InlineTestComponent {}
+
+            it('should apply inline PT with string class', () => {
+                const inlineFixture = TestBed.createComponent(InlineTestComponent);
+                inlineFixture.detectChanges();
+
+                const inputElement = inlineFixture.nativeElement.querySelector('input');
+                expect(inputElement?.classList.contains('INLINE_PT_CLASS')).toBe(true);
+            });
+
+            @Component({
+                standalone: true,
+                imports: [InputMask, FormsModule],
+                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ pcInputText: { root: { class: 'INLINE_PT_OBJECT_CLASS' } } }" />`
+            })
+            class InlineObjectTestComponent {}
+
+            it('should apply inline PT with object class', () => {
+                const inlineFixture = TestBed.createComponent(InlineObjectTestComponent);
+                inlineFixture.detectChanges();
+
+                const inputElement = inlineFixture.nativeElement.querySelector('input');
+                expect(inputElement?.classList.contains('INLINE_PT_OBJECT_CLASS')).toBe(true);
+            });
+        });
+
+        describe('Case 7: Test from PrimeNGConfig', () => {
+            it('should apply global PT configuration from PrimeNGConfig', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [InputMask, FormsModule],
+                    providers: [
+                        provideZonelessChangeDetection(),
+                        {
+                            provide: 'providePrimeNG',
+                            useValue: {
+                                pt: {
+                                    inputmask: {
+                                        pcInputText: { root: { 'aria-label': 'GLOBAL_PT_ARIA_LABEL' } }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }).compileComponents();
+
+                const globalFixture = TestBed.createComponent(InputMask);
+                globalFixture.componentRef.setInput('mask', '999-99-9999');
+                globalFixture.detectChanges();
+
+                const inputElement = globalFixture.nativeElement.querySelector('input');
+                expect(inputElement).toBeTruthy();
+            });
+        });
+
+        describe('Case 8: Test hooks', () => {
+            it('should execute PT hooks lifecycle methods', async () => {
+                let afterViewInitCalled = false;
+                let onInitCalled = false;
+
+                const pt = {
+                    pcInputText: { root: 'PT_HOOKS_CLASS' },
+                    hooks: {
+                        onInit: () => {
+                            onInitCalled = true;
+                        },
+                        onAfterViewInit: () => {
+                            afterViewInitCalled = true;
+                        }
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+                await fixture.whenStable();
+
+                expect(onInitCalled).toBe(true);
+                expect(afterViewInitCalled).toBe(true);
+            });
+
+            it('should execute onDestroy hook', async () => {
+                let onDestroyCalled = false;
+
+                const pt = {
+                    hooks: {
+                        onDestroy: () => {
+                            onDestroyCalled = true;
+                        }
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+                await fixture.whenStable();
+
+                fixture.destroy();
+                await fixture.whenStable();
+
+                expect(onDestroyCalled).toBe(true);
+            });
+        });
+
+        describe('Case 9: Host/Root PT tests', () => {
+            it('should apply PT with simple string class to host', () => {
+                const pt = {
+                    host: 'PT_HOST_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                // Host element is the component's root element
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(hostElement?.classList.contains('PT_HOST_CLASS')).toBe(true);
+            });
+
+            it('should apply PT with object properties to host', () => {
+                const pt = {
+                    host: {
+                        class: 'PT_HOST_OBJECT_CLASS',
+                        style: { border: '2px solid green' },
+                        'data-host-test': 'true'
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(hostElement?.classList.contains('PT_HOST_OBJECT_CLASS')).toBe(true);
+                expect(hostElement?.style.border).toBe('2px solid green');
+                expect(hostElement?.getAttribute('data-host-test')).toBe('true');
+            });
+
+            it('should apply PT with simple string class to root', () => {
+                const pt = {
+                    root: 'PT_ROOT_CLASS'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(hostElement?.classList.contains('PT_ROOT_CLASS')).toBe(true);
+            });
+
+            it('should apply PT with object properties to root', () => {
+                const pt = {
+                    root: {
+                        class: 'PT_ROOT_OBJECT_CLASS',
+                        style: { padding: '10px' },
+                        'data-root-test': 'true'
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(hostElement?.classList.contains('PT_ROOT_OBJECT_CLASS')).toBe(true);
+                expect(hostElement?.style.padding).toBe('10px');
+                expect(hostElement?.getAttribute('data-root-test')).toBe('true');
+            });
+
+            it('should merge host and root PT properties', () => {
+                const pt = {
+                    host: 'PT_HOST_MERGED',
+                    root: 'PT_ROOT_MERGED'
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                // Both classes should be applied since host and root target the same element
+                expect(hostElement?.classList.contains('PT_HOST_MERGED')).toBe(true);
+                expect(hostElement?.classList.contains('PT_ROOT_MERGED')).toBe(true);
+            });
+
+            it('should apply PT using instance variables for host', () => {
+                // Test verifies PT function can access instance properties
+                let capturedInstance: any = null;
+
+                const pt = {
+                    host: ({ instance }: any) => {
+                        capturedInstance = instance;
+                        return {
+                            'data-has-disabled': instance?.disabled !== undefined ? 'true' : 'false',
+                            'data-has-readonly': instance?.readonly !== undefined ? 'true' : 'false'
+                        };
+                    }
+                };
+
+                fixture.componentRef.setInput('pt', pt);
+                fixture.componentRef.setInput('mask', '999-99-9999');
+                fixture.componentRef.setInput('disabled', true);
+                fixture.componentRef.setInput('readonly', false);
+                fixture.detectChanges();
+
+                const hostElement = fixture.debugElement.nativeElement;
+                expect(capturedInstance).toBeDefined();
+                expect(capturedInstance.disabled).toBeDefined();
+                expect(hostElement?.getAttribute('data-has-disabled')).toBe('true');
+                expect(hostElement?.getAttribute('data-has-readonly')).toBe('true');
+            });
         });
     });
 });

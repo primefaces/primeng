@@ -1,13 +1,13 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 import { FluidModule } from 'primeng/fluid';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'datepicker-time-demo',
+    selector: 'date-picker-time-demo',
     standalone: true,
     imports: [FormsModule, DatePickerModule, FluidModule, AppCode, AppDocSectionText],
     template: `
@@ -30,7 +30,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </div>
         </p-fluid>
 
-        <app-code [code]="code" selector="datepicker-time-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-time-demo"></app-code>
     `
 })
 export class TimeDoc {
@@ -68,8 +68,8 @@ import { DatePicker } from 'primeng/datepicker';
 import { Fluid } from 'primeng/fluid';
 
 @Component({
-    selector: 'datepicker-time-demo',
-    templateUrl: './datepicker-time-demo.html',
+    selector: 'date-picker-time-demo',
+    templateUrl: './date-picker-time-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker, Fluid]
 })

@@ -1,13 +1,13 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { AppCode } from '@/components/doc/app.code';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'template-driven-forms-doc',
@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
         <div class="card flex justify-center">
-            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+            <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
                     <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
                     @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
@@ -28,7 +28,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </form>
         </div>
 
-        <app-code [code]="code" selector="datepicker-template-driven-forms-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-template-driven-forms-demo"></app-code>
     `
 })
 export class TemplateDrivenFormsDoc {
@@ -44,7 +44,7 @@ export class TemplateDrivenFormsDoc {
     }
 
     code: Code = {
-        basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+        basic: `<form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
     <div class="flex flex-col gap-1">
         <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
         @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
@@ -56,7 +56,7 @@ export class TemplateDrivenFormsDoc {
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
+    <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
         <div class="flex flex-col gap-1">
             <p-datepicker name="date" [invalid]="dateModel.invalid && (dateModel.touched || exampleForm.submitted)" #dateModel="ngModel" [(ngModel)]="date" required />
             @if (dateModel.invalid && (dateModel.touched || exampleForm.submitted)) {
@@ -76,8 +76,8 @@ import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'datepicker-template-driven-forms-demo',
-    templateUrl: './datepicker-template-driven-forms-demo.html',
+    selector: 'date-picker-template-driven-forms-demo',
+    templateUrl: './date-picker-template-driven-forms-demo.html',
     standalone: true,
     imports: [FormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule]
 })

@@ -21,7 +21,27 @@
         {
             "name": "Theming",
             "icon": "pi pi-palette",
-            "routerLink": "/theming"
+            "children": [
+                {
+                    "name": "Styled Mode",
+                    "routerLink": "/theming/styled"
+                },
+                {
+                    "name": "Unstyled Mode",
+                    "routerLink": "/theming/unstyled"
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "icon": "pi pi-heart",
+                    "routerLink": "/tailwind"
+                }
+            ]
+        },
+        {
+            "name": "LLMs.txt",
+            "icon": "pi pi-file",
+            "routerLink": "/llms",
+            "badge": "NEW"
         },
         {
             "name": "Components",
@@ -393,12 +413,22 @@
                             "routerLink": "/badge"
                         },
                         {
+                            "name": "Bind",
+                            "routerLink": "/bind",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "BlockUI",
                             "routerLink": "/blockui"
                         },
                         {
                             "name": "Chip",
                             "routerLink": "/chip"
+                        },
+                        {
+                            "name": "ClassNames",
+                            "routerLink": "/classnames",
+                            "badge": "NEW"
                         },
                         {
                             "name": "FocusTrap",
@@ -417,14 +447,6 @@
                             "routerLink": "/metergroup"
                         },
                         {
-                            "name": "ScrollTop",
-                            "routerLink": "/scrolltop"
-                        },
-                        {
-                            "name": "Skeleton",
-                            "routerLink": "/skeleton"
-                        },
-                        {
                             "name": "ProgressBar",
                             "routerLink": "/progressbar"
                         },
@@ -435,6 +457,14 @@
                         {
                             "name": "Ripple",
                             "routerLink": "/ripple"
+                        },
+                        {
+                            "name": "ScrollTop",
+                            "routerLink": "/scrolltop"
+                        },
+                        {
+                            "name": "Skeleton",
+                            "routerLink": "/skeleton"
                         },
                         {
                             "name": "StyleClass",
@@ -462,9 +492,37 @@
             ]
         },
         {
-            "name": "Tailwind CSS",
-            "icon": "pi pi-heart",
-            "routerLink": "/tailwind"
+            "name": "Pass Through",
+            "icon": "pi pi-directions",
+            "routerLink": "/passthrough",
+            "badge": "NEW"
+        },
+        {
+            "name": "Guides",
+            "icon": "pi pi-book",
+            "children": [
+                {
+                    "name": "Accessibility",
+                    "routerLink": "/guides/accessibility"
+                },
+                       {
+                    "name": "Animations",
+                    "routerLink": "/guides/animations",
+                    "badge": "NEW"
+                },
+                {
+                    "name": "PrimeFlex",
+                    "routerLink": "/guides/primeflex"
+                },
+                {
+                    "name": "PrimeTV",
+                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                },
+                   {
+                    "name": "RTL",
+                    "routerLink": "/guides/rtl"
+                }
+            ]
         },
         {
             "name": "Icons",
@@ -510,6 +568,10 @@
                 {
                     "name": "Guide",
                     "routerLink": "/designer/guide"
+                },
+                {
+                    "name": "CI Pipeline",
+                    "routerLink": "/designer/ci"
                 }
             ]
 
@@ -521,27 +583,13 @@
             "badge": "NEW"
         },
         {
-            "name": "Guides",
-            "icon": "pi pi-book",
-            "children": [
-                {
-                    "name": "Accessibility",
-                    "routerLink": "/guides/accessibility"
-                },
-                {
-                    "name": "PrimeFlex",
-                    "routerLink": "/guides/primeflex"
-                },
-                {
-                    "name": "PrimeTV",
-                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
-                }
-            ]
-        },
-        {
             "name": "Migration",
             "icon": "pi pi-arrow-up",
             "children": [
+                {
+                    "name": "Updating to v21",
+                    "routerLink": "/migration/v21"
+                },
                 {
                     "name": "Updating to v20",
                     "routerLink": "/migration/v20"
@@ -601,7 +649,7 @@
                 },
                 {
                     "name": "Store",
-                    "href": "https://www.primefaces.org/store/"
+                    "href": "https://primeui.store"
                 },
                 {
                     "name": "Twitter",

@@ -5,15 +5,17 @@ import { ImportDoc } from '@/doc/badge/importdoc';
 import { OverlayDoc } from '@/doc/badge/overlaydoc';
 import { SeverityDoc } from '@/doc/badge/severitydoc';
 import { SizeDoc } from '@/doc/badge/sizedoc';
+import { PTComponent } from '@/doc/badge/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Badge Component" header="Badge" description="Badge is a small status indicator for another element." [docs]="docs" [apiDocs]="['Badge', 'BadgeDirective']" themeDocs="Badge"></app-doc>`
+    template: ` <app-doc docTitle="Angular Badge Component" header="Badge" description="Badge is a small status indicator for another element." [docs]="docs" [apiDocs]="['Badge', 'BadgeDirective']" [ptDocs]="ptComponent" themeDocs="Badge"></app-doc>`
 })
 export class BadgeDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

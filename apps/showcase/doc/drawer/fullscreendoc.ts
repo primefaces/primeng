@@ -1,10 +1,10 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { DrawerModule } from 'primeng/drawer';
-import { ButtonModule } from 'primeng/button';
+import { Code } from '@/domain/code';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DrawerModule } from 'primeng/drawer';
 
 @Component({
     selector: 'full-screen-doc',
@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
             <p>Drawer can cover the whole page when <i>fullScreen</i> property is enabled.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-drawer header="Drawer" [(visible)]="visible" position="full">
+            <p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
@@ -30,7 +30,7 @@ export class FullScreenDoc {
     visible: boolean = false;
 
     code: Code = {
-        basic: `<p-drawer header="Drawer" [(visible)]="visible" position="full">
+        basic: `<p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit...
     </p>
@@ -38,7 +38,7 @@ export class FullScreenDoc {
 <p-button (click)="visible = true" icon="pi pi-window-maximize" />`,
 
         html: `<div class="card flex justify-center">
-    <p-drawer header="Drawer" [(visible)]="visible" position="full">
+    <p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat.

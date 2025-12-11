@@ -35,6 +35,13 @@ import { AppDocSectionText } from './app.docsectiontext';
                                     >{{ entry[1] || '-' }}<a (click)="navigate($event, entry[1])" class="doc-option-link"><i class="pi pi-link"></i></a
                                 ></span>
                                 <span *ngIf="entry[0] === 'type'" class="doc-option-type">{{ entry[1] || '-' }}</span>
+                                <span *ngIf="entry[0] === 'options'" class="doc-option-type">
+                                    @if (entry[0] === 'options') {
+                                        @for (option of entry[1]; track option) {
+                                            <div>{{ option.name }}: {{ option.type }};</div>
+                                        }
+                                    }
+                                </span>
                                 <ng-container *ngIf="entry[0] === 'parameters'">
                                     <ng-container *ngFor="let parameter of entry[1]">
                                         <div class="doc-option-params" *ngIf="parameter.name; else nullValue">
@@ -84,7 +91,7 @@ import { AppDocSectionText } from './app.docsectiontext';
                                         'min-w-full': entry[0] === 'variable'
                                     }"
                                     style="display: inline"
-                                    *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'"
+                                    *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters' && entry[0] !== 'options'"
                                     [id]="id + '.' + entry[0]"
                                 >
                                     {{ entry[1] }}
@@ -156,11 +163,21 @@ export class AppDocApiTable {
     }
 
     getKeys(object) {
-        return Object.keys(object);
+        const keys = Object.keys(object);
+        // Filter out 'parameters' column if all data items have null/empty parameters
+        if (keys.includes('parameters') && this.data?.every((item) => !item.parameters || item.parameters.length === 0)) {
+            return keys.filter((key) => key !== 'parameters');
+        }
+        return keys;
     }
 
     getEntries(object) {
-        return Object.entries(object);
+        const entries = Object.entries(object);
+        // Filter out 'parameters' entry if all data items have null/empty parameters
+        if (this.data?.every((item) => !item.parameters || item.parameters.length === 0)) {
+            return entries.filter(([key]) => key !== 'parameters');
+        }
+        return entries;
     }
 
     getType(value) {

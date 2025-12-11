@@ -2,7 +2,8 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, NgModule, Output, PLATFORM_ID, Provider } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
 import { getBrowser, isAndroid } from '@primeuix/utils';
-import { KeyFilterPattern } from './keyfilter.interface';
+
+export type KeyFilterPattern = 'pint' | 'int' | 'pnum' | 'money' | 'num' | 'hex' | 'email' | 'alpha' | 'alphanum';
 
 export const KEYFILTER_VALIDATOR: Provider = {
     provide: NG_VALIDATORS,
@@ -86,8 +87,8 @@ export class KeyFilter implements Validator {
 
         if (_pattern instanceof RegExp) {
             this.regex = _pattern;
-        } else if (_pattern in DEFAULT_MASKS) {
-            this.regex = DEFAULT_MASKS[_pattern];
+        } else if (_pattern && _pattern in DEFAULT_MASKS) {
+            this.regex = DEFAULT_MASKS[_pattern as keyof typeof DEFAULT_MASKS];
         } else {
             this.regex = /./;
         }

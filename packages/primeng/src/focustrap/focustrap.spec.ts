@@ -1,8 +1,7 @@
-import { Component, PLATFORM_ID } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { Component, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DOCUMENT } from '@angular/common';
+
 import { FocusTrap, FocusTrapModule } from './focustrap';
 
 @Component({
@@ -130,9 +129,9 @@ class TestConditionalFocusTrapComponent {
 describe('FocusTrap', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FocusTrapModule, NoopAnimationsModule],
+            imports: [FocusTrapModule],
             declarations: [TestBasicFocusTrapComponent, TestDisabledFocusTrapComponent, TestDynamicFocusTrapComponent, TestNestedFocusTrapComponent, TestComplexFocusTrapComponent, TestEmptyFocusTrapComponent, TestConditionalFocusTrapComponent],
-            providers: [{ provide: PLATFORM_ID, useValue: 'browser' }]
+            providers: [{ provide: PLATFORM_ID, useValue: 'browser' }, provideZonelessChangeDetection()]
         });
     });
 
@@ -221,9 +220,10 @@ describe('FocusTrap', () => {
             element = directiveDebugElement.nativeElement;
         });
 
-        it('should not create hidden elements when disabled', () => {
+        it('should not create hidden elements when disabled', async () => {
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check if elements were removed or not created
             const firstHidden = element.querySelector('[data-pc-section="firstfocusableelement"]');
@@ -245,18 +245,20 @@ describe('FocusTrap', () => {
             expect(lastHidden).toBeTruthy();
         });
 
-        it('should toggle hidden elements based on disabled state', () => {
+        it('should toggle hidden elements based on disabled state', async () => {
             // Start enabled
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeTruthy();
 
             // Disable
             component.disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeFalsy();
 
             // Re-enable
             component.disabled = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeTruthy();
         });
     });
@@ -373,13 +375,14 @@ describe('FocusTrap', () => {
             element = directiveDebugElement.nativeElement;
         });
 
-        it('should handle addition of new focusable elements', () => {
+        it('should handle addition of new focusable elements', async () => {
             // Initially textarea is not shown
             expect(element.querySelector('.textarea')).toBeFalsy();
 
             // Show textarea
             component.showTextarea = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const textarea = element.querySelector('.textarea') as HTMLElement;
             expect(textarea).toBeTruthy();
@@ -398,10 +401,11 @@ describe('FocusTrap', () => {
             expect(() => directive.onLastHiddenElementFocus(focusEvent)).not.toThrow();
         });
 
-        it('should handle removal of focusable elements', () => {
+        it('should handle removal of focusable elements', async () => {
             // Remove first input
             component.showFirstInput = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('.dynamic-first-input')).toBeFalsy();
 
@@ -423,37 +427,43 @@ describe('FocusTrap', () => {
             expect(select.focus).toHaveBeenCalled();
         });
 
-        it('should handle rapid content changes', () => {
+        it('should handle rapid content changes', async () => {
             // Rapid changes
             component.showTextarea = true;
             component.showCheckbox = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.showFirstInput = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.showTextarea = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should not throw errors and hidden elements should still exist
             expect(directive.firstHiddenFocusableElement).toBeTruthy();
             expect(directive.lastHiddenFocusableElement).toBeTruthy();
         });
 
-        it('should handle trap disable/enable with dynamic content', () => {
+        it('should handle trap disable/enable with dynamic content', async () => {
             component.showTextarea = true;
             component.showCheckbox = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Disable trap
             component.trapDisabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeFalsy();
 
             // Re-enable trap with new content
             component.trapDisabled = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeTruthy();
             expect(element.querySelector('[data-pc-section="lastfocusableelement"]')).toBeTruthy();
@@ -516,13 +526,14 @@ describe('FocusTrap', () => {
             element = directiveDebugElement.nativeElement;
         });
 
-        it('should handle disabled form elements', () => {
+        it('should handle disabled form elements', async () => {
             const textInput = element.querySelector('.text-input') as HTMLInputElement;
             const selectElement = element.querySelector('.select-element') as HTMLSelectElement;
 
             // Disable input
             component.inputDisabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(textInput.disabled).toBe(true);
 
@@ -539,9 +550,10 @@ describe('FocusTrap', () => {
             expect(() => directive.onFirstHiddenElementFocus(focusEvent)).not.toThrow();
         });
 
-        it('should handle readonly elements', () => {
+        it('should handle readonly elements', async () => {
             component.textareaReadonly = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const textarea = element.querySelector('.textarea-element') as HTMLTextAreaElement;
             expect(textarea.readOnly).toBe(true);
@@ -662,12 +674,13 @@ describe('FocusTrap', () => {
             expect(() => directive.onLastHiddenElementFocus(focusEvent)).not.toThrow();
         });
 
-        it('should handle elements being removed from DOM during focus', () => {
+        it('should handle elements being removed from DOM during focus', async () => {
             const input = element.querySelector('.conditional-input') as HTMLElement;
 
             // Remove elements
             component.showElements = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(element.querySelector('.conditional-input')).toBeFalsy();
 
@@ -682,21 +695,25 @@ describe('FocusTrap', () => {
             expect(() => directive.onFirstHiddenElementFocus(focusEvent)).not.toThrow();
         });
 
-        it('should handle rapid disable/enable cycles', () => {
+        it('should handle rapid disable/enable cycles', async () => {
             expect(directive.firstHiddenFocusableElement).toBeTruthy();
 
             // Rapid disable/enable
             component.trapDisabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.trapDisabled = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.trapDisabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.trapDisabled = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Should have hidden elements after final enable
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeTruthy();

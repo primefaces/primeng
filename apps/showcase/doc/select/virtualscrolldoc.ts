@@ -1,9 +1,9 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { SelectItem } from 'primeng/api';
-import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
+import { SelectItem } from 'primeng/api';
 import { SelectModule } from 'primeng/select';
 
 @Component({
@@ -18,7 +18,7 @@ import { SelectModule } from 'primeng/select';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" class="w-full md:w-56" />
+            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-virtualscroll-demo"></app-code>
     `
@@ -36,10 +36,10 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" class="w-full md:w-56" />`,
+        basic: `<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" class="w-full md:w-56" />
+    <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { SelectItem } from 'primeng/api';

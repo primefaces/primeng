@@ -1,12 +1,12 @@
-import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'confirm-dialog-template-demo',
@@ -27,10 +27,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-toast />
             <p-confirmdialog>
                 <ng-template #message let-message>
-                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-                        <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                        <p>{{ message.message }}</p>
-                    </div>
+                    @if (message) {
+                        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                            <p>{{ message.message }}</p>
+                        </div>
+                    }
                 </ng-template>
             </p-confirmdialog>
             <p-button (click)="confirm()" label="Save" />
@@ -74,10 +76,12 @@ export class TemplateDoc {
         basic: `<p-toast />
 <p-confirmdialog>
     <ng-template #message let-message>
-        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-            <p>{{ message.message }}</p>
-        </div>
+        @if (message) {
+            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                <p>{{ message.message }}</p>
+            </div>
+        }
     </ng-template>
 </p-confirmdialog>
 <p-button (click)="confirm()" label="Save" />`,
@@ -86,10 +90,12 @@ export class TemplateDoc {
     <p-toast />
     <p-confirmdialog>
         <ng-template #message let-message>
-            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-                <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-                <p>{{ message.message }}</p>
-            </div>
+            @if (message) {
+                <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                    <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+                    <p>{{ message.message }}</p>
+                </div>
+            }
         </ng-template>
     </p-confirmdialog>
     <p-button (click)="confirm()" label="Save" />

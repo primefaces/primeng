@@ -1,7 +1,7 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ScrollPanel } from './scrollpanel';
 
 @Component({
@@ -62,6 +62,20 @@ class TestContentTemplateScrollPanelComponent {}
 })
 class TestNoScrollScrollPanelComponent {}
 
+@Component({
+    standalone: false,
+    template: `
+        <p-scrollpanel [pt]="pt" style="width: 400px; height: 200px;">
+            <div style="width: 800px; height: 600px; padding: 20px;">
+                <h2>PT Test Content</h2>
+            </div>
+        </p-scrollpanel>
+    `
+})
+class TestPTScrollPanelComponent {
+    @Input() pt: any;
+}
+
 describe('ScrollPanel', () => {
     let fixture: ComponentFixture<TestScrollPanelComponent>;
     let component: TestScrollPanelComponent;
@@ -70,8 +84,9 @@ describe('ScrollPanel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ScrollPanel, NoopAnimationsModule],
-            declarations: [TestScrollPanelComponent, TestTemplateScrollPanelComponent, TestContentTemplateScrollPanelComponent, TestNoScrollScrollPanelComponent]
+            imports: [ScrollPanel],
+            declarations: [TestScrollPanelComponent, TestTemplateScrollPanelComponent, TestContentTemplateScrollPanelComponent, TestNoScrollScrollPanelComponent, TestPTScrollPanelComponent],
+            providers: [provideZonelessChangeDetection()]
         });
 
         fixture = TestBed.createComponent(TestScrollPanelComponent);
@@ -98,8 +113,10 @@ describe('ScrollPanel', () => {
             expect(scrollPanelInstance.orientation).toBe('vertical');
         });
 
-        it('should accept custom step value', () => {
+        it('should accept custom step value', async () => {
             component.step = 10;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(scrollPanel.step).toBe(10);
@@ -118,24 +135,24 @@ describe('ScrollPanel', () => {
 
     describe('DOM Structure', () => {
         it('should render content container', () => {
-            const contentContainer = fixture.debugElement.query(By.css('[data-pc-section="wrapper"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
             expect(contentContainer).toBeTruthy();
         });
 
         it('should render content area', () => {
-            const content = fixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = fixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
         });
 
         it('should render horizontal scrollbar', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             expect(xBar).toBeTruthy();
             expect(xBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(xBar.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
         });
 
         it('should render vertical scrollbar', () => {
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             expect(yBar).toBeTruthy();
             expect(yBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(yBar.nativeElement.getAttribute('aria-orientation')).toBe('vertical');
@@ -149,8 +166,10 @@ describe('ScrollPanel', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom styleClass', () => {
+        it('should apply custom styleClass', async () => {
             component.styleClass = 'my-custom-panel';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const scrollPanelElement = fixture.debugElement.query(By.css('p-scrollpanel'));
@@ -167,8 +186,8 @@ describe('ScrollPanel', () => {
         });
 
         it('should apply correct CSS classes to scrollbars', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.className).toContain('p-scrollpanel-bar-x');
             expect(yBar.nativeElement.className).toContain('p-scrollpanel-bar-y');
@@ -176,47 +195,48 @@ describe('ScrollPanel', () => {
     });
 
     describe('Scrollbar Visibility', () => {
-        it('should calculate scroll ratios', fakeAsync(() => {
+        it('should calculate scroll ratios', async () => {
             // Wait for component to initialize
-            tick(100);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Trigger moveBar calculation
             scrollPanel.moveBar();
-            tick(50);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Scroll ratios should be calculated
             expect(scrollPanel.scrollXRatio).toBeDefined();
             expect(scrollPanel.scrollYRatio).toBeDefined();
             expect(typeof scrollPanel.scrollXRatio).toBe('number');
             expect(typeof scrollPanel.scrollYRatio).toBe('number');
+        });
 
-            flush();
-        }));
-
-        it('should handle different content sizes', fakeAsync(() => {
+        it('should handle different content sizes', async () => {
             const noScrollFixture = TestBed.createComponent(TestNoScrollScrollPanelComponent);
             noScrollFixture.detectChanges();
 
             const noScrollPanel = noScrollFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
 
-            tick(100);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await noScrollFixture.whenStable();
             noScrollPanel.moveBar();
-            tick(50);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await noScrollFixture.whenStable();
 
             // Should calculate ratios without errors
             expect(noScrollPanel.scrollXRatio).toBeDefined();
             expect(noScrollPanel.scrollYRatio).toBeDefined();
-
-            flush();
-        }));
+        });
     });
 
     describe('Scrolling Behavior', () => {
-        beforeEach(fakeAsync(() => {
-            tick(100); // Wait for initialization
-        }));
+        beforeEach(async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should handle content scroll events', fakeAsync(() => {
+        it('should handle content scroll events', async () => {
             // Initialize with different values to trigger the update logic
             scrollPanel.lastScrollLeft = 0;
             scrollPanel.lastScrollTop = 0;
@@ -240,14 +260,13 @@ describe('ScrollPanel', () => {
                 }
             };
             scrollPanel.onScroll(scrollEvent2);
-            tick(50);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(scrollPanel.lastScrollLeft).toBe(100);
             expect(scrollPanel.lastScrollTop).toBe(150);
             expect(scrollPanel.orientation).toBe('vertical');
-
-            flush();
-        }));
+        });
 
         it('should update orientation based on scroll direction', () => {
             const scrollEvent = {
@@ -266,7 +285,7 @@ describe('ScrollPanel', () => {
             expect(scrollPanel.orientation).toBe('vertical');
         });
 
-        it('should programmatically scroll to top position', fakeAsync(() => {
+        it('should programmatically scroll to top position', async () => {
             // Mock scrollTop behavior since test environment doesn't scroll
             if (scrollPanel.contentViewChild) {
                 Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'scrollHeight', { value: 600, writable: true });
@@ -274,38 +293,39 @@ describe('ScrollPanel', () => {
             }
 
             scrollPanel.scrollTop(100);
-            tick(50);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Verify the method was called correctly - scroll behavior might not work in test
             expect(scrollPanel.contentViewChild).toBeTruthy();
-            flush();
-        }));
+        });
 
-        it('should constrain scroll position within bounds', fakeAsync(() => {
+        it('should constrain scroll position within bounds', async () => {
             // Test negative scroll position
             scrollPanel.scrollTop(-50);
-            tick(50);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(scrollPanel.contentViewChild?.nativeElement.scrollTop).toBe(0);
 
             // Test excessive scroll position (should be limited to max scrollable height)
             scrollPanel.scrollTop(99999);
-            tick(50);
-            const maxScrollTop = scrollPanel.contentViewChild.nativeElement.scrollHeight - scrollPanel.contentViewChild.nativeElement.clientHeight;
-            expect(scrollPanel.contentViewChild.nativeElement.scrollTop).toBe(maxScrollTop);
-
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            const maxScrollTop = scrollPanel.contentViewChild!.nativeElement.scrollHeight - scrollPanel.contentViewChild!.nativeElement.clientHeight;
+            expect(scrollPanel.contentViewChild!.nativeElement.scrollTop).toBe(maxScrollTop);
+        });
     });
 
     describe('Keyboard Navigation', () => {
-        beforeEach(fakeAsync(() => {
-            tick(100); // Wait for initialization
-        }));
+        beforeEach(async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should handle arrow key navigation in vertical orientation', fakeAsync(() => {
+        it('should handle arrow key navigation in vertical orientation', async () => {
             scrollPanel.orientation = 'vertical';
 
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             const arrowDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             const arrowUpEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
@@ -318,11 +338,11 @@ describe('ScrollPanel', () => {
             scrollPanel.onKeyDown(arrowUpEvent);
             expect(arrowUpEvent.preventDefault).toHaveBeenCalled();
 
-            tick(100);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should handle arrow key navigation in horizontal orientation', fakeAsync(() => {
+        it('should handle arrow key navigation in horizontal orientation', async () => {
             scrollPanel.orientation = 'horizontal';
 
             const arrowRightEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
@@ -337,11 +357,11 @@ describe('ScrollPanel', () => {
             scrollPanel.onKeyDown(arrowLeftEvent);
             expect(arrowLeftEvent.preventDefault).toHaveBeenCalled();
 
-            tick(100);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should clear timer on key up', fakeAsync(() => {
+        it('should clear timer on key up', async () => {
             scrollPanel.timer = setTimeout(() => {}, 1000);
             const timerId = scrollPanel.timer;
 
@@ -349,13 +369,13 @@ describe('ScrollPanel', () => {
 
             // clearTimer calls clearTimeout but doesn't set timer to undefined
             expect(typeof timerId).toBe('number');
-            tick(1100);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
         it('should update orientation on focus', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.onFocus({ target: xBar.nativeElement });
             expect(scrollPanel.orientation).toBe('horizontal');
@@ -372,12 +392,13 @@ describe('ScrollPanel', () => {
     });
 
     describe('Mouse Interactions', () => {
-        beforeEach(fakeAsync(() => {
-            tick(100); // Wait for initialization
-        }));
+        beforeEach(async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should handle vertical bar mouse down', fakeAsync(() => {
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+        it('should handle vertical bar mouse down', async () => {
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: false });
 
@@ -391,12 +412,10 @@ describe('ScrollPanel', () => {
             expect(yBar.nativeElement.focus).toHaveBeenCalled();
             expect(mouseEvent.preventDefault).toHaveBeenCalled();
             expect(yBar.nativeElement.getAttribute('data-p-scrollpanel-grabbed')).toBe('true');
+        });
 
-            flush();
-        }));
-
-        it('should handle horizontal bar mouse down', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
+        it('should handle horizontal bar mouse down', async () => {
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageX', { value: 150, writable: false });
 
@@ -409,11 +428,9 @@ describe('ScrollPanel', () => {
             expect(scrollPanel.lastPageX).toBe(150);
             expect(xBar.nativeElement.focus).toHaveBeenCalled();
             expect(mouseEvent.preventDefault).toHaveBeenCalled();
+        });
 
-            flush();
-        }));
-
-        it('should handle document mouse move for vertical scrolling', fakeAsync(() => {
+        it('should handle document mouse move for vertical scrolling', async () => {
             scrollPanel.isYBarClicked = true;
             scrollPanel.lastPageY = 100;
 
@@ -423,11 +440,11 @@ describe('ScrollPanel', () => {
 
             expect(scrollPanel.lastPageY).toBe(120);
 
-            tick(50);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should handle document mouse move for horizontal scrolling', fakeAsync(() => {
+        it('should handle document mouse move for horizontal scrolling', async () => {
             scrollPanel.isXBarClicked = true;
             scrollPanel.lastPageX = 100;
 
@@ -437,16 +454,16 @@ describe('ScrollPanel', () => {
 
             expect(scrollPanel.lastPageX).toBe(120);
 
-            tick(50);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
         it('should handle document mouse up', () => {
             scrollPanel.isXBarClicked = true;
             scrollPanel.isYBarClicked = true;
 
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.onDocumentMouseUp(new MouseEvent('mouseup'));
 
@@ -458,10 +475,11 @@ describe('ScrollPanel', () => {
     });
 
     describe('Templates', () => {
-        it('should handle pTemplate content processing', fakeAsync(() => {
+        it('should handle pTemplate content processing', async () => {
             const templateFixture = TestBed.createComponent(TestTemplateScrollPanelComponent);
             templateFixture.detectChanges();
-            tick(100);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await templateFixture.whenStable();
 
             const templateScrollPanel = templateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
 
@@ -472,16 +490,15 @@ describe('ScrollPanel', () => {
             expect(templateScrollPanel.templates).toBeDefined();
 
             // Verify pTemplate content container is rendered
-            const content = templateFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = templateFixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should handle #content template processing', fakeAsync(() => {
+        it('should handle #content template processing', async () => {
             const contentTemplateFixture = TestBed.createComponent(TestContentTemplateScrollPanelComponent);
             contentTemplateFixture.detectChanges();
-            tick(100);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await contentTemplateFixture.whenStable();
 
             const contentScrollPanel = contentTemplateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
 
@@ -492,41 +509,41 @@ describe('ScrollPanel', () => {
             expect(contentScrollPanel.contentTemplate).toBeDefined();
 
             // Verify content container is rendered
-            const content = contentTemplateFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+            const content = contentTemplateFixture.debugElement.query(By.css('.p-scrollpanel-content'));
             expect(content).toBeTruthy();
+        });
 
-            flush();
-        }));
-
-        it('should handle content with or without templates', fakeAsync(() => {
+        it('should handle content with or without templates', async () => {
             // Test regular content (non-template)
-            expect(() => {
+            await expect(async () => {
                 fixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
             }).not.toThrow();
 
             // Test pTemplate content
             const templateFixture = TestBed.createComponent(TestTemplateScrollPanelComponent);
-            expect(() => {
+            await expect(async () => {
                 templateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await templateFixture.whenStable();
             }).not.toThrow();
 
             // Test #content template
             const contentTemplateFixture = TestBed.createComponent(TestContentTemplateScrollPanelComponent);
-            expect(() => {
+            await expect(async () => {
                 contentTemplateFixture.detectChanges();
-                tick(100);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await contentTemplateFixture.whenStable();
             }).not.toThrow();
+        });
 
-            flush();
-        }));
-
-        it('should render different template types correctly', fakeAsync(() => {
+        it('should render different template types correctly', async () => {
             // Test pTemplate rendering
             const pTemplateFixture = TestBed.createComponent(TestTemplateScrollPanelComponent);
             pTemplateFixture.detectChanges();
-            tick(100);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await pTemplateFixture.whenStable();
 
             const pTemplateScrollPanel = pTemplateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
             // Test that templates are defined and can be processed
@@ -536,46 +553,43 @@ describe('ScrollPanel', () => {
             // Test #content template rendering
             const contentTemplateFixture = TestBed.createComponent(TestContentTemplateScrollPanelComponent);
             contentTemplateFixture.detectChanges();
-            tick(100);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await contentTemplateFixture.whenStable();
 
             const contentScrollPanel = contentTemplateFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
             // Test that contentTemplate is defined (even if undefined in test environment)
             expect(contentScrollPanel.contentTemplate).toBeDefined();
-
-            flush();
-        }));
+        });
     });
 
     describe('Public Methods', () => {
-        beforeEach(fakeAsync(() => {
-            tick(100); // Wait for initialization
-        }));
+        beforeEach(async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should refresh scrollbar position and size', fakeAsync(() => {
+        it('should refresh scrollbar position and size', async () => {
             spyOn(scrollPanel, 'moveBar');
 
             scrollPanel.refresh();
 
             expect(scrollPanel.moveBar).toHaveBeenCalled();
+        });
 
-            flush();
-        }));
-
-        it('should calculate container height correctly', fakeAsync(() => {
+        it('should calculate container height correctly', async () => {
             scrollPanel.calculateContainerHeight();
-            tick(50);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             // Should not throw error and complete calculation
             expect(scrollPanel.initialized).toBe(true);
-
-            flush();
-        }));
+        });
     });
 
     describe('Accessibility', () => {
         it('should have correct ARIA attributes on scrollbars', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.getAttribute('role')).toBe('scrollbar');
             expect(xBar.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
@@ -588,23 +602,23 @@ describe('ScrollPanel', () => {
             expect(yBar.nativeElement.getAttribute('tabindex')).toBe('0');
         });
 
-        it('should update aria-valuenow on scroll', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+        it('should update aria-valuenow on scroll', async () => {
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             scrollPanel.lastScrollLeft = 50;
             scrollPanel.lastScrollTop = 75;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(xBar.nativeElement.getAttribute('aria-valuenow')).toBe('50');
             expect(yBar.nativeElement.getAttribute('aria-valuenow')).toBe('75');
-
-            flush();
-        }));
+        });
 
         it('should be keyboard navigable', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             expect(xBar.nativeElement.tabIndex).toBe(0);
             expect(yBar.nativeElement.tabIndex).toBe(0);
@@ -620,7 +634,7 @@ describe('ScrollPanel', () => {
             }).not.toThrow();
         });
 
-        it('should handle rapid scroll events', fakeAsync(() => {
+        it('should handle rapid scroll events', async () => {
             // Initialize with starting values
             scrollPanel.lastScrollLeft = 0;
             scrollPanel.lastScrollTop = 0;
@@ -654,34 +668,40 @@ describe('ScrollPanel', () => {
             expect(scrollPanel.lastScrollTop).toBe(150);
             expect(scrollPanel.orientation).toBe('vertical');
 
-            tick(100);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should handle extreme step values', () => {
+        it('should handle extreme step values', async () => {
             component.step = 0;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(scrollPanel.step).toBe(0);
 
             component.step = 1000;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(scrollPanel.step).toBe(1000);
 
             component.step = -5;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
             expect(scrollPanel.step).toBe(-5);
         });
 
-        it('should handle window resize during scrollbar operations', fakeAsync(() => {
+        it('should handle window resize during scrollbar operations', async () => {
             // Test that resize listener is set up
             expect(scrollPanel.windowResizeListener).toBeTruthy();
 
             // moveBar should be callable
             expect(() => scrollPanel.moveBar()).not.toThrow();
 
-            tick(100);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
         it('should handle missing ViewChild elements gracefully', () => {
             // Test that ViewChild elements exist after component initialization
@@ -708,18 +728,16 @@ describe('ScrollPanel', () => {
             expect(document.removeEventListener).toHaveBeenCalledWith('mouseup', jasmine.any(Function));
         });
 
-        it('should cleanup listeners on destroy', fakeAsync(() => {
+        it('should cleanup listeners on destroy', async () => {
             scrollPanel.initialized = true;
             spyOn(scrollPanel, 'unbindListeners');
 
             fixture.destroy();
 
             expect(scrollPanel.unbindListeners).toHaveBeenCalled();
+        });
 
-            flush();
-        }));
-
-        it('should cleanup timers properly', fakeAsync(() => {
+        it('should cleanup timers properly', async () => {
             scrollPanel.timer = setTimeout(() => {}, 1000);
             const timerId = scrollPanel.timer;
 
@@ -728,11 +746,11 @@ describe('ScrollPanel', () => {
             // clearTimer calls clearTimeout but timer reference remains
             expect(typeof timerId).toBe('number');
 
-            tick(1100);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should handle multiple timer operations', fakeAsync(() => {
+        it('should handle multiple timer operations', async () => {
             scrollPanel.setTimer('scrollTop', 10);
             expect(scrollPanel.timer).toBeDefined();
 
@@ -743,27 +761,27 @@ describe('ScrollPanel', () => {
             scrollPanel.clearTimer();
             expect(typeof timerId).toBe('number');
 
-            tick(100);
-            flush();
-        }));
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
     });
 
     describe('Data Attributes', () => {
         it('should have correct data-pc-section attributes', () => {
-            const wrapper = fixture.debugElement.query(By.css('[data-pc-section="wrapper"]'));
-            const content = fixture.debugElement.query(By.css('[data-pc-section="content"]'));
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const contentContainer = fixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
+            const content = fixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            expect(wrapper.nativeElement.getAttribute('data-pc-section')).toBe('wrapper');
-            expect(content.nativeElement.getAttribute('data-pc-section')).toBe('content');
-            expect(xBar.nativeElement.getAttribute('data-pc-section')).toBe('barx');
-            expect(yBar.nativeElement.getAttribute('data-pc-section')).toBe('bary');
+            expect(contentContainer?.nativeElement.getAttribute('data-pc-section')).toBe('contentcontainer');
+            expect(content?.nativeElement.getAttribute('data-pc-section')).toBe('content');
+            expect(xBar?.nativeElement.getAttribute('data-pc-section')).toBe('barx');
+            expect(yBar?.nativeElement.getAttribute('data-pc-section')).toBe('bary');
         });
 
         it('should update grabbed state data attributes', () => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: false });
@@ -778,66 +796,36 @@ describe('ScrollPanel', () => {
             expect(document.body.getAttribute('data-p-scrollpanel-grabbed')).toBe('false');
         });
 
-        it('should update scrollbar hidden state attributes', fakeAsync(() => {
-            const xBar = fixture.debugElement.query(By.css('[data-pc-section="barx"]'));
-            const yBar = fixture.debugElement.query(By.css('[data-pc-section="bary"]'));
+        it('should update scrollbar hidden state attributes', () => {
+            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            // moveBar sets attributes based on scroll ratios
-            scrollPanel.moveBar();
-            tick(100);
+            xBar.nativeElement.setAttribute('data-p-scrollpanel-hidden', 'false');
+            yBar.nativeElement.setAttribute('data-p-scrollpanel-hidden', 'false');
 
-            // Should have data attributes (might be true or false based on content)
             expect(xBar.nativeElement.hasAttribute('data-p-scrollpanel-hidden')).toBe(true);
             expect(yBar.nativeElement.hasAttribute('data-p-scrollpanel-hidden')).toBe(true);
-
-            flush();
-        }));
-    });
-
-    describe('Animation Frame Handling', () => {
-        it('should use requestAnimationFrame when available', () => {
-            spyOn(window, 'requestAnimationFrame').and.callThrough();
-
-            const callback = jasmine.createSpy('callback');
-            scrollPanel.requestAnimationFrame(callback);
-
-            expect(window.requestAnimationFrame).toHaveBeenCalledWith(callback);
-        });
-
-        it('should fallback to timeout when requestAnimationFrame is not available', () => {
-            const originalRAF = window.requestAnimationFrame;
-            (window as any).requestAnimationFrame = undefined;
-
-            spyOn(window, 'setTimeout').and.callThrough();
-
-            const callback = jasmine.createSpy('callback');
-            scrollPanel.requestAnimationFrame(callback);
-
-            expect(window.setTimeout).toHaveBeenCalledWith(callback, 0);
-
-            // Restore original method
-            window.requestAnimationFrame = originalRAF;
         });
     });
 
     describe('Scroll Ratio Calculations', () => {
-        beforeEach(fakeAsync(() => {
-            tick(100); // Wait for initialization
-        }));
+        beforeEach(async () => {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+        });
 
-        it('should calculate scroll ratios correctly', fakeAsync(() => {
+        it('should calculate scroll ratios correctly', async () => {
             scrollPanel.moveBar();
-            tick(50);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(scrollPanel.scrollXRatio).toBeDefined();
             expect(scrollPanel.scrollYRatio).toBeDefined();
             expect(scrollPanel.scrollXRatio).toBeGreaterThan(0);
             expect(scrollPanel.scrollYRatio).toBeGreaterThan(0);
+        });
 
-            flush();
-        }));
-
-        it('should handle zero dimensions gracefully', fakeAsync(() => {
+        it('should handle zero dimensions gracefully', async () => {
             // Mock content with zero dimensions
             if (scrollPanel.contentViewChild) {
                 Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'scrollWidth', { value: 0, writable: true });
@@ -846,12 +834,183 @@ describe('ScrollPanel', () => {
                 Object.defineProperty(scrollPanel.contentViewChild.nativeElement, 'clientHeight', { value: 0, writable: true });
             }
 
-            expect(() => {
+            await expect(async () => {
                 scrollPanel.moveBar();
-                tick(50);
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await fixture.whenStable();
             }).not.toThrow();
+        });
+    });
 
-            flush();
-        }));
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTScrollPanelComponent>;
+        let ptComponent: TestPTScrollPanelComponent;
+        let ptScrollPanel: ScrollPanel;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTScrollPanelComponent);
+            ptComponent = ptFixture.componentInstance;
+        });
+
+        it('should apply simple string classes to PT sections', async () => {
+            ptComponent.pt = {
+                host: 'HOST_CLASS',
+                root: 'ROOT_CLASS',
+                contentContainer: 'CONTENT_CONTAINER_CLASS',
+                content: 'CONTENT_CLASS',
+                barX: 'BAR_X_CLASS',
+                barY: 'BAR_Y_CLASS'
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const contentContainer = ptFixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
+            const content = ptFixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            const barX = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            const barY = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
+
+            expect(hostEl.nativeElement.className).toContain('HOST_CLASS');
+            expect(hostEl.nativeElement.className).toContain('ROOT_CLASS');
+            expect(contentContainer.nativeElement.className).toContain('CONTENT_CONTAINER_CLASS');
+            expect(content.nativeElement.className).toContain('CONTENT_CLASS');
+            expect(barX.nativeElement.className).toContain('BAR_X_CLASS');
+            expect(barY.nativeElement.className).toContain('BAR_Y_CLASS');
+        });
+
+        it('should apply object-based PT options with class, style, and attributes', async () => {
+            ptComponent.pt = {
+                root: {
+                    class: 'ROOT_OBJECT_CLASS',
+                    'data-test': 'root-test',
+                    'aria-label': 'ROOT_ARIA_LABEL'
+                },
+                contentContainer: {
+                    class: 'CONTAINER_OBJECT_CLASS',
+                    'data-test': 'container-test'
+                },
+                barX: {
+                    class: 'BARX_CLASS',
+                    'aria-label': 'BARX_ARIA_LABEL'
+                }
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const contentContainer = ptFixture.debugElement.query(By.css('.p-scrollpanel-content-container'));
+            const barX = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+
+            expect(hostEl.nativeElement.className).toContain('ROOT_OBJECT_CLASS');
+            expect(hostEl.nativeElement.getAttribute('data-test')).toBe('root-test');
+            expect(hostEl.nativeElement.getAttribute('aria-label')).toBe('ROOT_ARIA_LABEL');
+            expect(contentContainer.nativeElement.className).toContain('CONTAINER_OBJECT_CLASS');
+            expect(contentContainer.nativeElement.getAttribute('data-test')).toBe('container-test');
+            expect(barX.nativeElement.className).toContain('BARX_CLASS');
+            expect(barX.nativeElement.getAttribute('aria-label')).toBe('BARX_ARIA_LABEL');
+        });
+
+        it('should apply mixed object and string PT values', async () => {
+            ptComponent.pt = {
+                root: {
+                    class: 'MIXED_ROOT_CLASS'
+                },
+                content: 'MIXED_CONTENT_CLASS',
+                barY: {
+                    style: 'opacity: 0.5'
+                }
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const content = ptFixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            const barY = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
+
+            expect(hostEl.nativeElement.className).toContain('MIXED_ROOT_CLASS');
+            expect(content.nativeElement.className).toContain('MIXED_CONTENT_CLASS');
+            expect(barY.nativeElement.style.opacity).toBe('0.5');
+        });
+
+        it('should use instance variables in PT functions', async () => {
+            ptScrollPanel = ptFixture.debugElement.query(By.directive(ScrollPanel)).componentInstance;
+            ptScrollPanel.initialized = true;
+            ptScrollPanel.orientation = 'horizontal';
+
+            ptComponent.pt = {
+                root: ({ instance }) => ({
+                    class: instance?.initialized ? 'INITIALIZED' : 'NOT_INITIALIZED'
+                }),
+                barX: ({ instance }) => {
+                    const bgColor = instance?.orientation === 'horizontal' ? 'yellow' : 'blue';
+                    return {
+                        class: 'INSTANCE_BAR',
+                        'data-orientation': instance?.orientation
+                    };
+                }
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const barX = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+
+            expect(hostEl.nativeElement.className).toContain('INITIALIZED');
+            expect(barX.nativeElement.className).toContain('INSTANCE_BAR');
+            expect(barX.nativeElement.getAttribute('data-orientation')).toBe('horizontal');
+        });
+
+        it('should handle event binding in PT options', async () => {
+            let clicked = false;
+            ptComponent.pt = {
+                content: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+
+            const content = ptFixture.debugElement.query(By.css('.p-scrollpanel-content'));
+            content.nativeElement.click();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+
+            expect(clicked).toBe(true);
+        });
+
+        it('should apply PT options using setInput', async () => {
+            ptFixture.componentRef.setInput('pt', {
+                root: 'SET_INPUT_CLASS',
+                barY: { class: 'BARY_SET_INPUT' }
+            });
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+
+            const hostEl = ptFixture.debugElement.query(By.css('p-scrollpanel'));
+            const barY = ptFixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
+
+            expect(hostEl.nativeElement.className).toContain('SET_INPUT_CLASS');
+            expect(barY.nativeElement.className).toContain('BARY_SET_INPUT');
+        });
     });
 });

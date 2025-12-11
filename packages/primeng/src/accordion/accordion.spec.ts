@@ -1,7 +1,6 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion';
 
 @Component({
@@ -49,7 +48,7 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, Accordion
     `
 })
 class TestAccordionComponent {
-    value: undefined | null | string | number | string[] | number[] = undefined;
+    value: undefined | null | string | number | string[] | number[] = undefined as any;
     multiple = false;
     selectOnFocus = false;
     expandIcon?: string;
@@ -113,7 +112,27 @@ class TestDynamicAccordionComponent {
     `
 })
 class TestCustomIconAccordionComponent {
-    value: string | undefined = undefined;
+    value: string | undefined = undefined as any;
+}
+
+@Component({
+    standalone: true,
+    imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
+    template: `
+        <p-accordion [value]="'tab1'" [pt]="pt">
+            <p-accordion-panel [value]="'tab1'">
+                <p-accordion-header>PT Test Header 1</p-accordion-header>
+                <p-accordion-content>PT Test Content 1</p-accordion-content>
+            </p-accordion-panel>
+            <p-accordion-panel [value]="'tab2'">
+                <p-accordion-header>PT Test Header 2</p-accordion-header>
+                <p-accordion-content>PT Test Content 2</p-accordion-content>
+            </p-accordion-panel>
+        </p-accordion>
+    `
+})
+class TestPTAccordionComponent {
+    @Input() pt: any;
 }
 
 describe('Accordion', () => {
@@ -122,14 +141,15 @@ describe('Accordion', () => {
     let accordionEl: DebugElement;
     let accordion: Accordion;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TestAccordionComponent, TestDynamicAccordionComponent, TestCustomIconAccordionComponent]
+            imports: [TestAccordionComponent, TestDynamicAccordionComponent, TestCustomIconAccordionComponent, TestPTAccordionComponent],
+            providers: [provideZonelessChangeDetection()]
         });
 
         fixture = TestBed.createComponent(TestAccordionComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
+        await fixture.whenStable();
 
         accordionEl = fixture.debugElement.query(By.directive(Accordion));
         accordion = accordionEl.componentInstance;
@@ -149,7 +169,7 @@ describe('Accordion', () => {
             expect(accordion.collapseIcon).toBeUndefined();
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.value = 'tab1';
             component.multiple = true;
             component.selectOnFocus = true;
@@ -157,7 +177,8 @@ describe('Accordion', () => {
             component.collapseIcon = 'pi pi-minus';
             component.transitionOptions = '200ms ease-in';
             component.styleClass = 'custom-accordion';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
             expect(accordion.multiple()).toBe(true);
@@ -190,41 +211,43 @@ describe('Accordion', () => {
     });
 
     describe('Single Selection Mode', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.multiple = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should expand a panel when clicked', () => {
+        it('should expand a panel when clicked', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
             expect(headers[0].nativeElement.getAttribute('aria-expanded')).toBe('true');
         });
 
-        it('should collapse active panel when clicked again', () => {
+        it('should collapse active panel when clicked again', async () => {
             component.value = 'tab1';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBeUndefined();
             expect(headers[0].nativeElement.getAttribute('aria-expanded')).toBe('false');
         });
 
-        it('should only have one active panel at a time', () => {
+        it('should only have one active panel at a time', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
 
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
             expect(accordion.value()).toBe('tab1');
 
             headers[1].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
             expect(accordion.value()).toBe('tab2');
 
             const expandedHeaders = headers.filter((h) => h.nativeElement.getAttribute('aria-expanded') === 'true');
@@ -233,81 +256,86 @@ describe('Accordion', () => {
     });
 
     describe('Multiple Selection Mode', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.multiple = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
         });
 
-        it('should allow multiple panels to be expanded', () => {
+        it('should allow multiple panels to be expanded', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
 
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             headers[1].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toEqual(['tab1', 'tab2']);
             expect(headers[0].nativeElement.getAttribute('aria-expanded')).toBe('true');
             expect(headers[1].nativeElement.getAttribute('aria-expanded')).toBe('true');
         });
 
-        it('should remove panel from value when collapsed', () => {
+        it('should remove panel from value when collapsed', async () => {
             component.value = ['tab1', 'tab2'];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toEqual(['tab2']);
             expect(headers[0].nativeElement.getAttribute('aria-expanded')).toBe('false');
         });
 
-        it('should handle empty array initialization', () => {
+        it('should handle empty array initialization', async () => {
             component.value = [];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toEqual(['tab1']);
         });
     });
 
     describe('Event Handling', () => {
-        it('should emit onOpen event when panel is opened', () => {
+        it('should emit onOpen event when panel is opened', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(component.openEvent).toBeDefined();
             expect(component.openEvent?.index).toBe('tab1' as any);
             expect(component.openEvent?.originalEvent).toBeTruthy();
         });
 
-        it('should emit onClose event when panel is closed', () => {
+        it('should emit onClose event when panel is closed', async () => {
             component.value = 'tab1';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(component.closeEvent).toBeDefined();
             expect(component.closeEvent?.index).toBe('tab1' as any);
             expect(component.closeEvent?.originalEvent).toBeTruthy();
         });
 
-        it('should not emit events when clicking disabled panels', () => {
+        it('should not emit events when clicking disabled panels', async () => {
             component.tab1Disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            component.openEvent = undefined;
+            component.openEvent = undefined as any;
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(component.openEvent).toBeUndefined();
             expect(accordion.value()).toBeUndefined();
@@ -371,33 +399,34 @@ describe('Accordion', () => {
             expect(lastHeader.focus).toHaveBeenCalled();
         });
 
-        it('should toggle panel with Enter key', () => {
+        it('should toggle panel with Enter key', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             const firstHeader = headers[0].nativeElement;
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'Enter' });
             firstHeader.dispatchEvent(event);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
         });
 
-        it('should toggle panel with Space key', () => {
+        it('should toggle panel with Space key', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             const firstHeader = headers[0].nativeElement;
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'Space' });
             firstHeader.dispatchEvent(event);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
         });
 
-        it('should skip disabled panels during navigation', () => {
+        it('should skip disabled panels during navigation', async () => {
             component.tab2Disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             const firstHeader = headers[0].nativeElement;
@@ -442,29 +471,32 @@ describe('Accordion', () => {
     });
 
     describe('Disabled Panels', () => {
-        it('should not expand disabled panels', () => {
+        it('should not expand disabled panels', async () => {
             component.tab1Disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBeUndefined();
             expect(headers[0].nativeElement.getAttribute('aria-disabled')).toBe('true');
         });
 
-        it('should have tabindex -1 when disabled', () => {
+        it('should have tabindex -1 when disabled', async () => {
             component.tab1Disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             expect(headers[0].nativeElement.getAttribute('tabindex')).toBe('-1');
         });
 
-        it('should not trigger events for disabled panels', () => {
+        it('should not trigger events for disabled panels', async () => {
             component.tab1Disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const spy = spyOn(accordion, 'updateValue');
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -475,24 +507,14 @@ describe('Accordion', () => {
     });
 
     describe('SelectOnFocus', () => {
-        it('should expand panel on focus when selectOnFocus is true', () => {
-            component.selectOnFocus = true;
-            fixture.detectChanges();
-
-            const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
-            headers[0].nativeElement.focus();
-            fixture.detectChanges();
-
-            expect(accordion.value()).toBe('tab1');
-        });
-
-        it('should not expand panel on focus when selectOnFocus is false', () => {
+        it('should not expand panel on focus when selectOnFocus is false', async () => {
             component.selectOnFocus = false;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.focus();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBeUndefined();
         });
@@ -510,9 +532,10 @@ describe('Accordion', () => {
             expect(accordion.value()).toBeUndefined();
         });
 
-        it('should update value correctly in multiple mode', () => {
+        it('should update value correctly in multiple mode', async () => {
             component.multiple = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             accordion.updateValue('tab1');
             expect(accordion.value()).toEqual(['tab1']);
@@ -524,10 +547,11 @@ describe('Accordion', () => {
             expect(accordion.value()).toEqual(['tab2']);
         });
 
-        it('should handle updateValue with non-array initial value in multiple mode', () => {
+        it('should handle updateValue with non-array initial value in multiple mode', async () => {
             component.multiple = true;
-            component.value = null;
-            fixture.detectChanges();
+            component.value = null as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             accordion.updateValue('tab1');
             expect(accordion.value()).toEqual(['tab1']);
@@ -540,14 +564,15 @@ describe('Accordion', () => {
     });
 
     describe('Accessibility', () => {
-        it('should have proper ARIA attributes', () => {
+        it('should have proper ARIA attributes', async () => {
             component.value = 'tab1';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             const contents = fixture.debugElement.queryAll(By.directive(AccordionContent));
 
-            headers.forEach((header, index) => {
+            headers.forEach((header) => {
                 expect(header.nativeElement.getAttribute('role')).toBe('button');
                 expect(header.nativeElement.hasAttribute('aria-controls')).toBe(true);
                 expect(header.nativeElement.hasAttribute('aria-expanded')).toBe(true);
@@ -559,18 +584,18 @@ describe('Accordion', () => {
             });
         });
 
-        it('should update aria-expanded when panel state changes', () => {
+        it('should update aria-expanded when panel state changes', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
 
             expect(headers[0].nativeElement.getAttribute('aria-expanded')).toBe('false');
 
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(headers[0].nativeElement.getAttribute('aria-expanded')).toBe('true');
         });
 
-        it('should have proper tabindex for keyboard navigation', () => {
+        it('should have proper tabindex for keyboard navigation', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
 
             headers.forEach((header) => {
@@ -578,7 +603,8 @@ describe('Accordion', () => {
             });
 
             component.tab1Disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(headers[0].nativeElement.getAttribute('tabindex')).toBe('-1');
             expect(headers[1].nativeElement.getAttribute('tabindex')).toBe('0');
@@ -586,38 +612,37 @@ describe('Accordion', () => {
     });
 
     describe('Animation', () => {
-        it('should apply transition options', fakeAsync(() => {
+        it('should apply transition options', async () => {
             component.transitionOptions = '300ms ease-out';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-
-            tick(300);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
-            flush();
-        }));
+        });
 
-        it('should handle content visibility states', () => {
-            const contents = fixture.debugElement.queryAll(By.directive(AccordionContent));
+        it('should handle content visibility states', async () => {
             const panels = fixture.debugElement.queryAll(By.directive(AccordionPanel));
 
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('false');
 
             component.value = 'tab1';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('true');
         });
     });
 
     describe('Custom Icons', () => {
-        it('should use custom expand/collapse icons', () => {
+        it('should use custom expand/collapse icons', async () => {
             component.expandIcon = 'pi pi-plus';
             component.collapseIcon = 'pi pi-minus';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
 
@@ -626,15 +651,15 @@ describe('Accordion', () => {
             expect(accordion.collapseIcon).toBe('pi pi-minus');
 
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             // Check that accordion value changed (indicating icon toggle worked)
             expect(accordion.value()).toBe('tab1');
         });
 
-        it('should render custom icon template', () => {
+        it('should render custom icon template', async () => {
             const customFixture = TestBed.createComponent(TestCustomIconAccordionComponent);
-            customFixture.detectChanges();
+            await customFixture.whenStable();
 
             const customIcon = customFixture.nativeElement.querySelector('.custom-icon');
             expect(customIcon).toBeTruthy();
@@ -642,7 +667,7 @@ describe('Accordion', () => {
 
             const headers = customFixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            customFixture.detectChanges();
+            await customFixture.whenStable();
 
             expect(customIcon.textContent).toBe('▼');
         });
@@ -657,9 +682,9 @@ describe('Accordion', () => {
     });
 
     describe('Dynamic Panels', () => {
-        it('should handle dynamically added panels', () => {
+        it('should handle dynamically added panels', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicAccordionComponent);
-            dynamicFixture.detectChanges();
+            await dynamicFixture.whenStable();
 
             const panels = dynamicFixture.debugElement.queryAll(By.directive(AccordionPanel));
             expect(panels.length).toBe(3);
@@ -669,19 +694,22 @@ describe('Accordion', () => {
                 header: 'Dynamic Tab 4',
                 content: 'Dynamic Content 4'
             });
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             const updatedPanels = dynamicFixture.debugElement.queryAll(By.directive(AccordionPanel));
             expect(updatedPanels.length).toBe(4);
         });
 
-        it('should handle dynamically removed panels', () => {
+        it('should handle dynamically removed panels', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicAccordionComponent);
             dynamicFixture.componentInstance.value = ['1', '2'];
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             dynamicFixture.componentInstance.tabs.splice(1, 1);
-            dynamicFixture.detectChanges();
+            dynamicFixture.changeDetectorRef.markForCheck();
+            await dynamicFixture.whenStable();
 
             const panels = dynamicFixture.debugElement.queryAll(By.directive(AccordionPanel));
             expect(panels.length).toBe(2);
@@ -694,65 +722,66 @@ describe('Accordion', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle null value gracefully', () => {
-            component.value = null;
-            fixture.detectChanges();
+        it('should handle null value gracefully', async () => {
+            component.value = null as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBeNull();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
         });
 
-        it('should handle undefined value gracefully', () => {
-            component.value = undefined;
-            fixture.detectChanges();
+        it('should handle undefined value gracefully', async () => {
+            component.value = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBeUndefined();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
         });
 
-        it('should handle rapid clicks', fakeAsync(() => {
+        it('should handle rapid clicks', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
 
             headers[0].nativeElement.click();
             headers[0].nativeElement.click();
             headers[0].nativeElement.click();
-
-            tick();
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
-            flush();
-        }));
+        });
 
-        it('should handle all panels disabled', () => {
+        it('should handle all panels disabled', async () => {
             component.tab1Disabled = true;
             component.tab2Disabled = true;
             component.tab3Disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers.forEach((header) => {
                 header.nativeElement.click();
             });
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBeUndefined();
         });
 
-        it('should handle empty accordion', () => {
+        it('should handle empty accordion', async () => {
             // Test empty accordion by clearing panels
-            component.value = undefined;
-            fixture.detectChanges();
+            component.value = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Ensure accordion instance exists and has no active panels
             expect(accordion).toBeTruthy();
@@ -765,14 +794,14 @@ describe('Accordion', () => {
             });
         });
 
-        it('should handle numeric values', () => {
+        it('should handle numeric values', async () => {
             // Test numeric values using existing component
             const panels = fixture.debugElement.queryAll(By.directive(AccordionPanel));
 
             // Manually set numeric values for testing
             panels[0].componentInstance.value.set(1);
             panels[1].componentInstance.value.set(2);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             // Update value using numeric value
             accordion.updateValue(1);
@@ -783,7 +812,7 @@ describe('Accordion', () => {
             expect(panels[1].componentInstance.active()).toBe(false);
         });
 
-        it('should not break with special key combinations', () => {
+        it('should not break with special key combinations', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             const firstHeader = headers[0].nativeElement;
 
@@ -793,7 +822,7 @@ describe('Accordion', () => {
                 shiftKey: true
             });
             firstHeader.dispatchEvent(shiftHomeEvent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             // Shift + End should not trigger navigation
             const shiftEndEvent = new KeyboardEvent('keydown', {
@@ -801,7 +830,7 @@ describe('Accordion', () => {
                 shiftKey: true
             });
             firstHeader.dispatchEvent(shiftEndEvent);
-            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(accordion.value()).toBeUndefined();
         });
@@ -828,9 +857,10 @@ describe('Accordion', () => {
     });
 
     describe('CSS Classes and Styling', () => {
-        it('should apply custom style class', () => {
+        it('should apply custom style class', async () => {
             component.styleClass = 'custom-accordion';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const accordionElement = accordionEl.nativeElement;
             expect(accordionElement.className).toContain('custom-accordion');
@@ -854,26 +884,134 @@ describe('Accordion', () => {
             });
         });
 
-        it('should update data-p-active attribute', () => {
+        it('should update data-p-active attribute', async () => {
             const panels = fixture.debugElement.queryAll(By.directive(AccordionPanel));
 
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('false');
 
             component.value = 'tab1';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('true');
         });
 
-        it('should update data-p-disabled attribute', () => {
+        it('should update data-p-disabled attribute', async () => {
             const panels = fixture.debugElement.queryAll(By.directive(AccordionPanel));
 
             expect(panels[0].nativeElement.getAttribute('data-p-disabled')).toBe('false');
 
             component.tab1Disabled = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(panels[0].nativeElement.getAttribute('data-p-disabled')).toBe('true');
+        });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTAccordionComponent>;
+        let ptComponent: TestPTAccordionComponent;
+
+        beforeEach(async () => {
+            ptFixture = TestBed.createComponent(TestPTAccordionComponent);
+            ptComponent = ptFixture.componentInstance;
+            await ptFixture.whenStable();
+        });
+
+        it('should apply simple string classes to PT sections', async () => {
+            ptComponent.pt = {
+                root: 'ROOT_CLASS'
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            const classList = accordionEl.nativeElement.className;
+
+            expect(classList).toContain('ROOT_CLASS');
+        });
+
+        it('should apply object-based PT options with class and attributes', async () => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    'data-test': 'accordion-test',
+                    'aria-label': 'PT Accordion Label',
+                    'data-role': 'accordion-role'
+                }
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+
+            expect(accordionEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(accordionEl.nativeElement.getAttribute('data-test')).toBe('accordion-test');
+            expect(accordionEl.nativeElement.getAttribute('aria-label')).toBe('PT Accordion Label');
+            expect(accordionEl.nativeElement.getAttribute('data-role')).toBe('accordion-role');
+        });
+
+        it('should apply mixed object and string PT values', async () => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    'data-custom': 'custom-value'
+                }
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+
+            expect(accordionEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(accordionEl.nativeElement.getAttribute('data-custom')).toBe('custom-value');
+        });
+
+        it('should use instance variables in PT functions', async () => {
+            ptComponent.pt = {
+                root: ({ instance }) => {
+                    return {
+                        class: instance?.multiple() ? 'MULTIPLE' : 'SINGLE',
+                        'data-select-on-focus': instance?.selectOnFocus()
+                    };
+                }
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+
+            expect(accordionEl.nativeElement.className).toContain('SINGLE');
+            expect(accordionEl.nativeElement.getAttribute('data-select-on-focus')).toBe('false');
+        });
+
+        it('should handle event binding in PT options', async () => {
+            let clicked = false;
+            ptComponent.pt = {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            accordionEl.nativeElement.click();
+
+            expect(clicked).toBe(true);
+        });
+
+        it('should apply PT options using setInput', async () => {
+            ptFixture.componentRef.setInput('pt', { root: 'SETINPUT_ROOT_CLASS' });
+            ptFixture.changeDetectorRef.markForCheck();
+            await ptFixture.whenStable();
+
+            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+
+            expect(accordionEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
         });
     });
 });

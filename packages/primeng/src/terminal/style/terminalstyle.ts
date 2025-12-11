@@ -18,7 +18,7 @@ const classes = {
 export class TerminalStyle extends BaseStyle {
     name = 'terminal';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

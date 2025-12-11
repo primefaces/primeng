@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/rating';
+import { style as rating_style } from '@primeuix/styles/rating';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${rating_style}
 
     /* For PrimeNG */
     p-rating.ng-invalid.ng-dirty > .p-rating > .p-rating-icon {
@@ -35,7 +35,7 @@ const classes = {
 export class RatingStyle extends BaseStyle {
     name = 'rating';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

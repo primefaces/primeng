@@ -1,7 +1,7 @@
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { Step, StepItem, StepList, StepPanel, StepPanels, Stepper } from './stepper';
 
 @Component({
@@ -89,6 +89,29 @@ class TestTemplateStepperComponent {
     value = 1;
 }
 
+@Component({
+    standalone: false,
+    template: `
+        <p-stepper [value]="1" [pt]="pt">
+            <p-step-list>
+                <p-step [value]="1">PT Test Step 1</p-step>
+                <p-step [value]="2">PT Test Step 2</p-step>
+            </p-step-list>
+            <p-step-panels>
+                <p-step-panel [value]="1">
+                    <div>PT Test Panel 1</div>
+                </p-step-panel>
+                <p-step-panel [value]="2">
+                    <div>PT Test Panel 2</div>
+                </p-step-panel>
+            </p-step-panels>
+        </p-stepper>
+    `
+})
+class TestPTStepperComponent {
+    @Input() pt: any;
+}
+
 describe('Stepper', () => {
     let fixture: ComponentFixture<TestStepperComponent>;
     let component: TestStepperComponent;
@@ -97,8 +120,9 @@ describe('Stepper', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step, NoopAnimationsModule],
-            declarations: [TestStepperComponent, TestVerticalStepperComponent, TestTemplateStepperComponent]
+            imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step],
+            declarations: [TestStepperComponent, TestVerticalStepperComponent, TestTemplateStepperComponent, TestPTStepperComponent],
+            providers: [provideZonelessChangeDetection()]
         });
 
         fixture = TestBed.createComponent(TestStepperComponent);
@@ -123,10 +147,12 @@ describe('Stepper', () => {
             expect(stepperInstance.transitionOptions()).toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
         });
 
-        it('should accept custom values', () => {
+        it('should accept custom values', async () => {
             component.value = 2;
             component.linear = true;
             component.transitionOptions = '500ms ease-in-out';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(stepper.value()).toBe(2);
@@ -181,8 +207,10 @@ describe('Stepper', () => {
             expect(panels.length).toBe(3);
         });
 
-        it('should render active panel content', () => {
+        it('should render active panel content', async () => {
             component.value = 1;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Check that step panel is active
@@ -191,8 +219,10 @@ describe('Stepper', () => {
             expect(panel1Instance.active()).toBe(true);
         });
 
-        it('should switch panel content on value change', () => {
+        it('should switch panel content on value change', async () => {
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             // Check that correct panel is active
@@ -213,8 +243,10 @@ describe('Stepper', () => {
             expect(component.value).toBe(2);
         });
 
-        it('should update active step state', () => {
+        it('should update active step state', async () => {
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const steps = fixture.debugElement.queryAll(By.css('p-step'));
@@ -222,15 +254,19 @@ describe('Stepper', () => {
             expect(steps[0].nativeElement.getAttribute('data-p-active')).toBe('false');
         });
 
-        it('should handle programmatic value update', () => {
+        it('should handle programmatic value update', async () => {
             stepper.updateValue(3);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(component.value).toBe(3);
         });
 
-        it('should check if step is active', () => {
+        it('should check if step is active', async () => {
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(stepper.isStepActive(2)).toBe(true);
@@ -239,9 +275,11 @@ describe('Stepper', () => {
     });
 
     describe('Linear Navigation', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             component.linear = true;
             component.value = 1;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
         });
 
@@ -266,16 +304,20 @@ describe('Stepper', () => {
     });
 
     describe('Disabled Steps', () => {
-        it('should disable specific steps', () => {
+        it('should disable specific steps', async () => {
             component.step3Disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const step3Button = fixture.debugElement.queryAll(By.css('p-step button'))[2];
             expect(step3Button.nativeElement.disabled).toBe(true);
         });
 
-        it('should not activate disabled steps', () => {
+        it('should not activate disabled steps', async () => {
             component.step3Disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const step3Button = fixture.debugElement.queryAll(By.css('p-step button'))[2];
@@ -285,8 +327,10 @@ describe('Stepper', () => {
             expect(component.value).not.toBe(3);
         });
 
-        it('should set correct data attributes for disabled steps', () => {
+        it('should set correct data attributes for disabled steps', async () => {
             component.step3Disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const step3 = fixture.debugElement.queryAll(By.css('p-step'))[2];
@@ -370,33 +414,6 @@ describe('Stepper', () => {
         });
     });
 
-    describe('Animations', () => {
-        it('should apply transition options', () => {
-            component.transitionOptions = '500ms ease-in-out';
-            fixture.detectChanges();
-
-            expect(stepper.transitionOptions()).toBe('500ms ease-in-out');
-        });
-
-        it('should handle animation start and end events', fakeAsync(() => {
-            const verticalFixture = TestBed.createComponent(TestVerticalStepperComponent);
-            verticalFixture.detectChanges();
-
-            const stepPanel = verticalFixture.debugElement.query(By.directive(StepPanel));
-            const stepPanelInstance = stepPanel.componentInstance;
-
-            // Simulate animation start
-            stepPanelInstance.onAnimationStart({ toState: 'visible' });
-            expect(stepPanelInstance.visible()).toBe(true);
-
-            // Simulate animation end
-            stepPanelInstance.onAnimationEnd({ toState: 'hidden' });
-            expect(stepPanelInstance.visible()).toBe(false);
-
-            flush();
-        }));
-    });
-
     describe('Accessibility', () => {
         it('should have correct ARIA roles', () => {
             const stepperElement = fixture.debugElement.query(By.css('p-stepper'));
@@ -416,8 +433,10 @@ describe('Stepper', () => {
             expect(stepPanels[0].nativeElement.getAttribute('id')).toBeTruthy();
         });
 
-        it('should set aria-current for active step', () => {
+        it('should set aria-current for active step', async () => {
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const steps = fixture.debugElement.queryAll(By.css('p-step'));
@@ -425,9 +444,11 @@ describe('Stepper', () => {
             expect(steps[0].nativeElement.getAttribute('aria-current')).toBeNull();
         });
 
-        it('should set correct tabindex for disabled steps', () => {
+        it('should set correct tabindex for disabled steps', async () => {
             component.linear = true;
             component.value = 1;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const step3Button = fixture.debugElement.queryAll(By.css('p-step button'))[2];
@@ -436,16 +457,20 @@ describe('Stepper', () => {
     });
 
     describe('Public Methods', () => {
-        it('should update value programmatically', () => {
+        it('should update value programmatically', async () => {
             stepper.updateValue(3);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(stepper.value()).toBe(3);
             expect(component.value).toBe(3);
         });
 
-        it('should check if step is active', () => {
+        it('should check if step is active', async () => {
             stepper.updateValue(2);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(stepper.isStepActive(2)).toBe(true);
@@ -465,8 +490,10 @@ describe('Stepper', () => {
             expect(panels[0].nativeElement.className).toContain('p-steppanel');
         });
 
-        it('should apply active state classes', () => {
+        it('should apply active state classes', async () => {
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const steps = fixture.debugElement.queryAll(By.css('p-step'));
@@ -487,8 +514,10 @@ describe('Stepper', () => {
             expect(panels[0].nativeElement.getAttribute('data-pc-name')).toBe('steppanel');
         });
 
-        it('should update data attributes on state change', () => {
+        it('should update data attributes on state change', async () => {
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const step2 = fixture.debugElement.queryAll(By.css('p-step'))[1];
@@ -500,43 +529,53 @@ describe('Stepper', () => {
     });
 
     describe('Edge Cases', () => {
-        it('should handle undefined value', () => {
-            component.value = undefined;
+        it('should handle undefined value', async () => {
+            component.value = undefined as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
             expect(stepper.value()).toBeUndefined();
         });
 
-        it('should handle non-existent step value', () => {
+        it('should handle non-existent step value', async () => {
             stepper.updateValue(999);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(stepper.value()).toBe(999);
             expect(stepper.isStepActive(999)).toBe(true);
         });
 
-        it('should handle rapid step changes', () => {
+        it('should handle rapid step changes', async () => {
             stepper.updateValue(1);
             stepper.updateValue(2);
             stepper.updateValue(3);
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(stepper.value()).toBe(3);
         });
 
-        it('should handle boolean transform for linear input', () => {
+        it('should handle boolean transform for linear input', async () => {
             component.linear = 'true' as any;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(stepper.linear()).toBe(true);
         });
 
-        it('should handle empty transition options', () => {
+        it('should handle empty transition options', async () => {
             component.transitionOptions = '';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(stepper.transitionOptions()).toBe('');
+            expect(stepper.transitionOptions()).toBe('' as any);
         });
     });
 
@@ -597,15 +636,18 @@ describe('Stepper', () => {
     });
 
     describe('Panel Visibility Logic', () => {
-        it('should show active panel in horizontal layout', () => {
+        it('should show active panel in horizontal layout', async () => {
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
             fixture.detectChanges();
 
             const panels = fixture.debugElement.queryAll(By.directive(StepPanel));
             const panel2Instance = panels[1].componentInstance;
 
             expect(panel2Instance.active()).toBe(true);
-            expect(panel2Instance.isVisible()).toBe(true);
+            // In horizontal layout, visibility is controlled by p-motion directive based on active() state
+            expect(panel2Instance.isVertical()).toBe(false);
         });
 
         it('should handle panel visibility in vertical layout', () => {
@@ -616,7 +658,130 @@ describe('Stepper', () => {
             const panel1Instance = panels[0].componentInstance;
 
             expect(panel1Instance.isVertical()).toBe(true);
-            expect(panel1Instance.isVisible()).toBe(true);
+            // In vertical layout, visibility is controlled by p-motion directive based on active() state
+            expect(panel1Instance.active()).toBe(true);
+        });
+    });
+
+    describe('PassThrough', () => {
+        let ptFixture: ComponentFixture<TestPTStepperComponent>;
+        let ptComponent: TestPTStepperComponent;
+        let ptStepper: Stepper;
+
+        beforeEach(() => {
+            ptFixture = TestBed.createComponent(TestPTStepperComponent);
+            ptComponent = ptFixture.componentInstance;
+        });
+
+        it('should apply simple string classes to PT sections', async () => {
+            ptComponent.pt = {
+                root: 'ROOT_CLASS',
+                host: 'HOST_CLASS'
+            };
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+            const classList = stepperEl.nativeElement.className;
+
+            expect(classList).toContain('ROOT_CLASS');
+            expect(classList).toContain('HOST_CLASS');
+        });
+
+        it('should apply object-based PT options with class and attributes', async () => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS',
+                    'data-test': 'stepper-test',
+                    'aria-label': 'PT Stepper Label',
+                    'data-role': 'stepper-role'
+                }
+            };
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+
+            expect(stepperEl.nativeElement.className).toContain('PT_ROOT_CLASS');
+            expect(stepperEl.nativeElement.getAttribute('data-test')).toBe('stepper-test');
+            expect(stepperEl.nativeElement.getAttribute('aria-label')).toBe('PT Stepper Label');
+            expect(stepperEl.nativeElement.getAttribute('data-role')).toBe('stepper-role');
+        });
+
+        it('should apply mixed object and string PT values', async () => {
+            ptComponent.pt = {
+                root: {
+                    class: 'PT_ROOT_CLASS'
+                },
+                host: 'PT_HOST_CLASS'
+            };
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+            const classList = stepperEl.nativeElement.className;
+
+            expect(classList).toContain('PT_ROOT_CLASS');
+            expect(classList).toContain('PT_HOST_CLASS');
+        });
+
+        it('should use instance variables in PT functions', async () => {
+            ptComponent.pt = {
+                root: ({ instance }) => {
+                    return {
+                        class: instance?.linear() ? 'LINEAR' : 'NON_LINEAR',
+                        'data-value': instance?.value()
+                    };
+                }
+            };
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+            ptStepper = ptFixture.debugElement.query(By.directive(Stepper)).componentInstance;
+
+            expect(stepperEl.nativeElement.className).toContain('NON_LINEAR');
+            expect(stepperEl.nativeElement.getAttribute('data-value')).toBe('1');
+        });
+
+        it('should handle event binding in PT options', async () => {
+            let clicked = false;
+            ptComponent.pt = {
+                root: {
+                    onclick: () => {
+                        clicked = true;
+                    }
+                }
+            };
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+            stepperEl.nativeElement.click();
+
+            expect(clicked).toBe(true);
+        });
+
+        it('should apply PT options using setInput', async () => {
+            ptFixture.componentRef.setInput('pt', { root: 'SETINPUT_ROOT_CLASS' });
+            ptFixture.detectChanges();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await ptFixture.whenStable();
+            ptFixture.detectChanges();
+
+            const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
+
+            expect(stepperEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
         });
     });
 });

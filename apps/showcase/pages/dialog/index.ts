@@ -5,6 +5,7 @@ import { ImportDoc } from '@/doc/dialog/importdoc';
 import { LongContentDoc } from '@/doc/dialog/longcontentdoc';
 import { MaximizableDoc } from '@/doc/dialog/maximizabledoc';
 import { PositionDoc } from '@/doc/dialog/positiondoc';
+import { PTComponent } from '@/doc/dialog/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/dialog/responsivedoc';
 import { TemplateDoc } from '@/doc/dialog/templatedoc';
 import { WithoutModalDoc } from '@/doc/dialog/withoutmodaldoc';
@@ -14,9 +15,11 @@ import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Angular Dialog Component" header="Dialog" description="Dialog is a container to display content in an overlay window." [docs]="docs" [apiDocs]="['Dialog']" themeDocs="dialog"></app-doc> `
+    template: ` <app-doc docTitle="Angular Dialog Component" header="Dialog" description="Dialog is a container to display content in an overlay window." [docs]="docs" [apiDocs]="['Dialog']" [ptDocs]="ptComponent" themeDocs="dialog"></app-doc> `
 })
 export class DialogDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',

@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Ripple } from './ripple';
@@ -56,7 +56,8 @@ describe('Ripple', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [TestBasicRippleComponent, TestStyledRippleComponent, TestMultipleRippleComponent, TestNestedRippleComponent, TestCustomStyledComponent],
-            imports: [Ripple]
+            imports: [Ripple],
+            providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicRippleComponent);
@@ -317,7 +318,7 @@ describe('Ripple', () => {
         it('should work with modified DOM structure', () => {
             const newChild = document.createElement('div');
             newChild.textContent = 'New child';
-            rippleElement.nativeElement.appendChild(newChild);
+            rippleElement!.nativeElement.appendChild(newChild);
 
             expect(rippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);
             expect(rippleElement.nativeElement.querySelector('div')).toBeTruthy();
@@ -349,7 +350,7 @@ describe('Ripple', () => {
         it('should handle multiple directive instances efficiently', () => {
             const startTime = performance.now();
 
-            const fixtures = [];
+            const fixtures: ComponentFixture<TestBasicRippleComponent>[] = [];
             for (let i = 0; i < 10; i++) {
                 const testFixture = TestBed.createComponent(TestBasicRippleComponent);
                 testFixture.detectChanges();

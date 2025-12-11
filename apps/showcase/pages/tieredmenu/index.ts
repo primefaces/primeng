@@ -3,13 +3,22 @@ import { BasicDoc } from '@/doc/tieredmenu/basicdoc';
 import { CommandDoc } from '@/doc/tieredmenu/commanddoc';
 import { ImportDoc } from '@/doc/tieredmenu/importdoc';
 import { PopupDoc } from '@/doc/tieredmenu/popupdoc';
+import { PTComponent } from '@/doc/tieredmenu/pt/PTComponent';
 import { RouterDoc } from '@/doc/tieredmenu/routerdoc';
 import { TemplateDoc } from '@/doc/tieredmenu/templatedoc';
 import { AppDoc } from '@/components/doc/app.doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular TieredMenu Component" header="TieredMenu" description="TieredMenu displays submenus in nested overlays." [docs]="docs" [apiDocs]="['TieredMenu', 'MenuItem']" themeDocs="tieredmenu"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular TieredMenu Component"
+        header="TieredMenu"
+        description="TieredMenu displays submenus in nested overlays."
+        [docs]="docs"
+        [apiDocs]="['TieredMenu', 'MenuItem']"
+        [ptDocs]="ptComponent"
+        themeDocs="tieredmenu"
+    ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
@@ -51,4 +60,6 @@ export class TieredMenuDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

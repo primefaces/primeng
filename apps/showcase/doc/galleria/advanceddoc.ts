@@ -1,12 +1,11 @@
-import { Code } from '@/domain/code';
-import { PhotoService } from '@/service/photoservice';
-import { isPlatformBrowser, CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Galleria } from 'primeng/galleria';
-import { GalleriaModule } from 'primeng/galleria';
-import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Code } from '@/domain/code';
+import { PhotoService } from '@/service/photoservice';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { Galleria, GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-advanced-doc',
@@ -29,7 +28,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 [autoPlay]="isAutoPlay"
                 [transitionInterval]="3000"
                 [containerStyle]="{ 'max-width': '640px' }"
-                [containerClass]="galleriaClass()"
+                [pt]="galleriaPT"
             >
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
@@ -40,7 +39,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     </div>
                 </ng-template>
                 <ng-template #footer let-item>
-                    <div class="flex items-stretch bg-surface-950 text-white h-10">
+                    <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
                         <button
                             type="button"
                             pButton
@@ -86,6 +85,18 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     isAutoPlay: boolean = true;
 
     onFullScreenListener: any;
+
+    get galleriaPT() {
+        return {
+            root: {
+                class: [{ 'flex flex-col': this.fullscreen }]
+            },
+            content: {
+                class: ['relative', { 'flex-1 justify-center': this.fullscreen }]
+            },
+            thumbnails: 'absolute w-full left-0 bottom-0'
+        };
+    }
 
     @ViewChild('galleria') galleria: Galleria | undefined;
 
@@ -192,10 +203,6 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         this.unbindDocumentListeners();
     }
 
-    galleriaClass() {
-        return `custom-galleria ${this.fullscreen ? 'fullscreen' : ''}`;
-    }
-
     slideButtonIcon() {
         return this.isAutoPlay ? 'pi pi-pause' : 'pi pi-play';
     }
@@ -205,8 +212,19 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     code: Code = {
-        basic: `<p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"
-    [circular]="true" [autoPlay]="isAutoPlay" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()"
+        basic: `<p-galleria
+    #galleria
+    [(value)]="images"
+    [(activeIndex)]="activeIndex"
+    [numVisible]="5"
+    [showThumbnails]="showThumbnails"
+    [showItemNavigators]="true"
+    [showItemNavigatorsOnHover]="true"
+    [circular]="true"
+    [autoPlay]="isAutoPlay"
+    [transitionInterval]="3000"
+    [containerStyle]="{ 'max-width': '640px' }"
+    [pt]="galleriaPT"
 >
     <ng-template #item let-item>
         <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
@@ -217,7 +235,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         </div>
     </ng-template>
     <ng-template #footer let-item>
-        <div class="flex items-stretch bg-surface-950 text-white h-10">
+        <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
             <button
                 type="button"
                 pButton
@@ -248,8 +266,19 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true"
-        [circular]="true" [autoPlay]="isAutoPlay" [transitionInterval]="3000" [containerStyle]="{ 'max-width': '640px' }" [containerClass]="galleriaClass()"
+    <p-galleria
+        #galleria
+        [(value)]="images"
+        [(activeIndex)]="activeIndex"
+        [numVisible]="5"
+        [showThumbnails]="showThumbnails"
+        [showItemNavigators]="true"
+        [showItemNavigatorsOnHover]="true"
+        [circular]="true"
+        [autoPlay]="isAutoPlay"
+        [transitionInterval]="3000"
+        [containerStyle]="{ 'max-width': '640px' }"
+        [pt]="galleriaPT"
     >
         <ng-template #item let-item>
             <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
@@ -260,17 +289,37 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             </div>
         </ng-template>
         <ng-template #footer let-item>
-            <div class="custom-galleria-footer">
-                <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
-                <span *ngIf="images" class="title-container">
-                    <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
-                    <span class="title">{{ images[activeIndex].title }}</span>
-                    <span>{{ images[activeIndex].alt }}</span>
+            <div class="flex items-stretch gap-2 bg-surface-950 text-white h-10">
+                <button
+                    type="button"
+                    pButton
+                    icon="pi pi-th-large"
+                    (click)="onThumbnailButtonClick()"
+                    class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+                ></button>
+                <button
+                    type="button"
+                    pButton
+                    [icon]="slideButtonIcon()"
+                    (click)="toggleAutoSlide()"
+                    class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
+                ></button>
+                <span *ngIf="images" class="flex items-center gap-4 ml-3">
+                    <span class="text-sm">{{ activeIndex + 1 }}/{{ images.length }}</span>
+                    <span class="font-bold text-sm">{{ images[activeIndex].title }}</span>
+                    <span class="text-sm">{{ images[activeIndex].alt }}</span>
                 </span>
-                <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
+                <button
+                    type="button"
+                    pButton
+                    [icon]="fullScreenIcon()"
+                    (click)="toggleFullScreen()"
+                    class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3 ml-auto"
+                ></button>
             </div>
         </ng-template>
-    </p-galleria>`,
+    </p-galleria>
+</div>`,
         typescript: `import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
 import { PhotoService } from '@/service/photoservice';
@@ -278,23 +327,6 @@ import { PhotoService } from '@/service/photoservice';
 @Component({
     selector: 'galleria-advanced-demo',
     templateUrl: './galleria-advanced-demo.html',
-    styles: [
-        \`:host ::ng-deep {
-            .custom-galleria {
-                &.p-galleria {
-                    &.fullscreen {
-                        display: flex;
-                        flex-direction: column;
-
-                        .p-galleria-content {
-                            flex-grow: 1;
-                            justify-content: center;
-                        }
-                    }
-                }
-            }
-        }\`
-    ],
     standalone: true,
     imports: [ButtonModule, GalleriaModule],
     providers: [PhotoService]
@@ -312,6 +344,18 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     isAutoPlay: boolean = true;
 
     onFullScreenListener: any;
+
+    get galleriaPT() {
+        return {
+            root: {
+                class: [{ 'flex flex-col': this.fullscreen }]
+            },
+            content: {
+                class: ['relative', { 'flex-1 justify-center': this.fullscreen }]
+            },
+            thumbnails: 'absolute w-full left-0 bottom-0'
+        };
+    }
 
     @ViewChild('galleria') galleria: Galleria | undefined;
 
@@ -403,10 +447,6 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.unbindDocumentListeners();
-    }
-
-    galleriaClass() {
-        return \`custom-galleria \${this.fullscreen ? 'fullscreen' : ''}\`;
     }
 
     slideButtonIcon() {

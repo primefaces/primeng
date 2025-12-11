@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'datepicker-local-demo',
+    selector: 'date-picker-local-demo',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

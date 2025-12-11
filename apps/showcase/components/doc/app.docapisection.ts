@@ -59,7 +59,12 @@ export class AppDocApiSection {
 
         for (const docName of this.docs()) {
             const moduleName = docName.toLowerCase();
-            let module = APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
+            let module = APIDoc[moduleName] ? APIDoc[moduleName] : APIDoc[this.docs()[0].toLowerCase()]?.components[docName];
+
+            // Special case for StyleClass which is nested under "class" -> "style" -> "components"
+            if (docName === 'StyleClass' && !module) {
+                module = APIDoc['class']?.style?.components[docName];
+            }
 
             let newDoc = {
                 id: `api.${this.isInterface(module) ? this.docs()[0].toLowerCase() + '.interfaces' : moduleName}`,
@@ -72,8 +77,8 @@ export class AppDocApiSection {
 
             if (module) {
                 let props =
-                    module.components && module.components[docName.toLowerCase()]
-                        ? module.components[docName.toLowerCase()].props
+                    module.components && module.components[docName]
+                        ? module.components[docName].props
                         : module.props
                           ? module.props
                           : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)
@@ -81,9 +86,8 @@ export class AppDocApiSection {
                             : undefined;
                 let emits = module.components && module.components[docName] ? module.components[docName].emits : module.emits ? module.emits : undefined;
 
-                let templates = module.interfaces ? module.interfaces.templates : undefined;
-
-                let _templates = module.templates ? module.templates : undefined;
+                // Check for templates in multiple locations
+                let templates = module.interfaces?.templates || module.templates || module.components?.[docName]?.templates;
 
                 let events = module.interfaces ? module.interfaces.events : undefined;
                 let methods = module.components && module.components[docName] ? module.components[docName].methods : module.methods ? module.methods : undefined;
@@ -97,6 +101,7 @@ export class AppDocApiSection {
                         const props = comp['props'] ?? undefined;
                         const emits = comp['emits'] ?? undefined;
                         const methods = comp['methods'] ?? undefined;
+                        const compTemplates = comp['templates'] ?? undefined;
 
                         if (props && props.values && props.values.length) {
                             newDoc.children.push({
@@ -125,6 +130,16 @@ export class AppDocApiSection {
                                 description: methods.description ?? `Methods of ${component} component.`,
                                 component: AppDocApiTable,
                                 data: this.setEmitData(methods.values)
+                            });
+                        }
+
+                        if (compTemplates && compTemplates.values && compTemplates.values.length) {
+                            newDoc.children.push({
+                                id: `api.${component.toLowerCase()}.templates`,
+                                label: 'Templates',
+                                description: compTemplates.description ?? `Templates of ${component} component.`,
+                                component: AppDocApiTable,
+                                data: this.setTemplatesData(compTemplates.values)
                             });
                         }
                     });
@@ -160,34 +175,34 @@ export class AppDocApiSection {
                     });
                 }
 
-                if (templates && templates.values.length && templates.values[0].parent === moduleName) {
-                    newDoc.children.push({
-                        id: `api.${docName.toLowerCase()}.templates`,
-                        label: 'Templates',
-                        description: templates.description ?? `Templates of ${docName} component.`,
-                        component: AppDocApiTable,
-                        data: this.setEmitData(templates.values)
-                    });
-                }
+                if (templates && templates.values && templates.values.length) {
+                    // Filter templates by parent if parent property exists, otherwise show all
+                    const filteredTemplates = templates.values[0]?.parent ? templates.values.filter((t) => t.parent === moduleName) : templates.values;
 
-                if (_templates && _templates.values.length) {
-                    newDoc.children.push({
-                        id: `api.${docName.toLowerCase()}.templates`,
-                        label: 'Templates',
-                        description: _templates.description ?? `Templates of ${docName} component.`,
-                        component: AppDocApiTable,
-                        data: this.setEmitData(_templates.values)
-                    });
+                    if (filteredTemplates.length > 0) {
+                        newDoc.children.push({
+                            id: `api.${docName.toLowerCase()}.templates`,
+                            label: 'Templates',
+                            description: templates.description ?? `Templates of ${docName} component.`,
+                            component: AppDocApiTable,
+                            data: this.setTemplatesData(filteredTemplates)
+                        });
+                    }
                 }
 
                 if (interfaces && interfaces.values && interfaces.values.length) {
-                    newDoc.children.push({
-                        id: `api.${this.docs()[0].toLowerCase()}.interfaces`,
-                        label: 'Interfaces',
-                        component: AppDocApiTable,
-                        description: interfaces.description,
-                        data: this.setEventsData(this.docs()[0].toLowerCase(), interfaces.values, 'interfaces')
-                    });
+                    // Filter out PassThroughOptions interfaces
+                    const filteredInterfaces = interfaces.values.filter((item) => !item.name.includes('PassThrough'));
+
+                    if (filteredInterfaces.length > 0) {
+                        newDoc.children.push({
+                            id: `api.${this.docs()[0].toLowerCase()}.interfaces`,
+                            label: 'Interfaces',
+                            component: AppDocApiTable,
+                            description: interfaces.description,
+                            data: this.setEventsData(this.docs()[0].toLowerCase(), filteredInterfaces, 'interfaces')
+                        });
+                    }
                 }
 
                 if (types && types.values && types.values.length) {
@@ -198,6 +213,21 @@ export class AppDocApiSection {
                         data: this.setTypesData(moduleName, types.values),
                         description: APIDoc[moduleName].types.description || null
                     });
+                }
+
+                // Handle interfaces from types.interfaces (excluding PassThroughOptions)
+                if (types && types.interfaces && types.interfaces.values && types.interfaces.values.length) {
+                    const filteredTypesInterfaces = types.interfaces.values.filter((item) => !item.name.includes('PassThrough'));
+
+                    if (filteredTypesInterfaces.length > 0) {
+                        newDoc.children.push({
+                            id: `api.${moduleName}.interfaces`,
+                            label: 'Interfaces',
+                            component: AppDocApiTable,
+                            description: types.interfaces.description,
+                            data: this.setEventsData(moduleName, filteredTypesInterfaces, 'interfaces')
+                        });
+                    }
                 }
 
                 if (events && events.values.length) {
@@ -213,14 +243,19 @@ export class AppDocApiSection {
                 if (interfaces) {
                     // @todo refactor and remove .interfaces.ts files
                     if (interfaces.interfaces && interfaces.interfaces.values && interfaces.interfaces.values.length) {
-                        newDoc.children.push({
-                            id: `api.${this.docs()[0].toLowerCase()}.interfaces`,
-                            label: 'Interfaces',
-                            component: AppDocApiTable,
-                            isInterface: interfaces.isInterface ?? false,
-                            description: interfaces.interfaces.description,
-                            data: this.setEventsData(this.docs()[0], interfaces.interfaces.values, 'interfaces')
-                        });
+                        // Filter out PassThroughOptions interfaces
+                        const filteredInterfaces = interfaces.interfaces.values.filter((item) => !item.name.includes('PassThrough'));
+
+                        if (filteredInterfaces.length > 0) {
+                            newDoc.children.push({
+                                id: `api.${this.docs()[0].toLowerCase()}.interfaces`,
+                                label: 'Interfaces',
+                                component: AppDocApiTable,
+                                isInterface: interfaces.isInterface ?? false,
+                                description: interfaces.interfaces.description,
+                                data: this.setEventsData(this.docs()[0], filteredInterfaces, 'interfaces')
+                            });
+                        }
 
                         if (interfaces.types && interfaces.types.values && interfaces.types.values.length) {
                             newDoc.children.push({
@@ -312,9 +347,19 @@ export class AppDocApiSection {
     setEmitData(emitters) {
         return emitters.map((emitter) => ({
             name: emitter.name,
-            parameters: emitter.parameters,
+            parameters: emitter.parameters && emitter.parameters.length > 0 ? emitter.parameters : null,
             description: emitter.description,
             deprecated: emitter.deprecated
+        }));
+    }
+
+    setTemplatesData(templates) {
+        return templates.map((template) => ({
+            name: template.name,
+            type: template.type ?? null,
+            parameters: template.parameters && template.parameters.length > 0 ? template.parameters : null,
+            description: template.description,
+            deprecated: template.deprecated
         }));
     }
 

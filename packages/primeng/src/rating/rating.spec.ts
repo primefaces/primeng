@@ -1,11 +1,12 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Rating } from './rating';
+import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { SharedModule } from 'primeng/api';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Rating } from './rating';
+
+import { providePrimeNG } from 'primeng/config';
 
 // Basic Rating test component
 @Component({
@@ -29,7 +30,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     `
 })
 class TestBasicRatingComponent {
-    value: number | null = null;
+    value: number | null = null as any;
     stars: number = 5;
     readonly: boolean = false;
     disabled: boolean = false;
@@ -68,7 +69,7 @@ class TestBasicRatingComponent {
 })
 class TestReactiveRatingComponent {
     ratingForm = new FormGroup({
-        rating: new FormControl(null, [Validators.required, Validators.min(1)])
+        rating: new FormControl<number | null>(null, [Validators.required, Validators.min(1)])
     });
 
     isInvalid: boolean = false;
@@ -90,7 +91,7 @@ class TestReactiveRatingComponent {
     `
 })
 class TestTemplateRatingComponent {
-    value: number | null = null;
+    value: number | null = null as any;
 }
 
 // Advanced features test component
@@ -169,7 +170,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule]
+                imports: [TestBasicRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicRatingComponent);
@@ -185,7 +187,7 @@ describe('Rating', () => {
         });
 
         it('should initialize with default properties', () => {
-            expect(ratingInstance.stars).toBe(5);
+            expect(ratingInstance.stars).toBe(5 as any);
             expect(ratingInstance.readonly).toBeFalsy();
             expect(ratingInstance.value).toBeNull();
             expect(ratingInstance.autofocus).toBeFalsy();
@@ -193,7 +195,7 @@ describe('Rating', () => {
 
         it('should create stars array', () => {
             expect(ratingInstance.starsArray).toBeDefined();
-            expect(ratingInstance.starsArray?.length).toBe(5);
+            expect(ratingInstance.starsArray?.length).toBe(5 as any);
             expect(ratingInstance.starsArray).toEqual([0, 1, 2, 3, 4]);
         });
 
@@ -202,12 +204,12 @@ describe('Rating', () => {
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
                 return el.query(By.css('input[type="radio"]'));
             });
-            expect(starOptions.length).toBe(5);
+            expect(starOptions.length).toBe(5 as any);
         });
 
         it('should render hidden input elements', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
-            expect(inputs.length).toBe(5);
+            expect(inputs.length).toBe(5 as any);
             inputs.forEach((input) => {
                 expect(input.nativeElement.parentElement.classList.contains('p-hidden-accessible')).toBe(true);
             });
@@ -226,7 +228,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule]
+                imports: [TestBasicRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicRatingComponent);
@@ -235,7 +238,7 @@ describe('Rating', () => {
             fixture.detectChanges();
         });
 
-        it('should select rating on click', fakeAsync(() => {
+        it('should select rating on click', async () => {
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
                 return el.query(By.css('input[type="radio"]'));
@@ -243,13 +246,14 @@ describe('Rating', () => {
 
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(component.value).toBe(3);
-            expect(ratingInstance.value).toBe(3);
-        }));
+            expect(component.value).toBe(3 as any);
+            expect(ratingInstance.value).toBe(3 as any);
+        });
 
-        it('should emit onRate event', fakeAsync(() => {
+        it('should emit onRate event', async () => {
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
                 return el.query(By.css('input[type="radio"]'));
@@ -257,14 +261,15 @@ describe('Rating', () => {
 
             starOptions[3].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(component.rateEvents.length).toBe(1);
-            expect(component.rateEvents[0].value).toBe(4);
+            expect(component.rateEvents.length).toBe(1 as any);
+            expect(component.rateEvents[0].value).toBe(4 as any);
             expect(component.rateEvents[0].originalEvent).toBeTruthy();
-        }));
+        });
 
-        it('should toggle rating when clicking same star', fakeAsync(() => {
+        it('should toggle rating when clicking same star', async () => {
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
                 return el.query(By.css('input[type="radio"]'));
@@ -273,52 +278,56 @@ describe('Rating', () => {
             // First click - set to 3
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
-            tick();
-            expect(component.value).toBe(3);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
+            expect(component.value).toBe(3 as any);
 
             // Second click on same star - unset
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             expect(component.value).toBeNull();
-        }));
+        });
 
-        it('should handle focus and blur events', fakeAsync(() => {
+        it('should handle focus and blur events', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
 
             inputs[0].nativeElement.dispatchEvent(new Event('focus'));
-            expect(component.focusEvents.length).toBe(1);
-            expect(ratingInstance.focusedOptionIndex()).toBe(1);
+            expect(component.focusEvents.length).toBe(1 as any);
+            expect(ratingInstance.focusedOptionIndex()).toBe(1 as any);
 
             inputs[0].nativeElement.dispatchEvent(new Event('blur'));
-            expect(component.blurEvents.length).toBe(1);
+            expect(component.blurEvents.length).toBe(1 as any);
             expect(ratingInstance.focusedOptionIndex()).toBe(-1);
-        }));
+        });
 
-        it('should update visual state when value changes', fakeAsync(() => {
+        it('should update visual state when value changes', async () => {
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Check that the Rating component has the correct value
-            expect(ratingInstance.value).toBe(3);
+            expect(ratingInstance.value).toBe(3 as any);
 
             // Check that we have the correct number of total icons (on + off = 5)
             const allSvgs = fixture.debugElement.queryAll(By.css('svg'));
-            expect(allSvgs.length).toBe(5);
-        }));
+            expect(allSvgs.length).toBe(5 as any);
+        });
 
-        it('should handle change event', fakeAsync(() => {
+        it('should handle change event', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
 
             const changeEvent = new Event('change');
             inputs[1].nativeElement.checked = true;
             inputs[1].nativeElement.dispatchEvent(changeEvent);
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(component.value).toBe(2);
-        }));
+            expect(component.value).toBe(2 as any);
+        });
     });
 
     describe('Configuration Tests', () => {
@@ -328,7 +337,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedRatingComponent, NoopAnimationsModule]
+                imports: [TestAdvancedRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAdvancedRatingComponent);
@@ -348,9 +358,11 @@ describe('Rating', () => {
             expect(starOptions.length).toBe(10);
         });
 
-        it('should handle readonly state', fakeAsync(() => {
+        it('should handle readonly state', async () => {
             component.isReadonly = true;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
+            await fixture.whenStable();
 
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
@@ -360,15 +372,18 @@ describe('Rating', () => {
 
             starOptions[4].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.value).toBe(initialValue);
-            expect(component.rateEvents.length).toBe(0);
-        }));
+            expect(component.rateEvents.length).toBe(0 as any);
+        });
 
-        it('should handle disabled state', fakeAsync(() => {
+        it('should handle disabled state', async () => {
             component.isDisabled = true;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
+            await fixture.whenStable();
 
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
@@ -378,16 +393,17 @@ describe('Rating', () => {
 
             starOptions[4].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.value).toBe(initialValue);
-            expect(component.rateEvents.length).toBe(0);
+            expect(component.rateEvents.length).toBe(0 as any);
 
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
             inputs.forEach((input) => {
                 expect(input.nativeElement.hasAttribute('disabled')).toBe(true);
             });
-        }));
+        });
 
         it('should apply name attribute', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
@@ -414,7 +430,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestReactiveRatingComponent, NoopAnimationsModule]
+                imports: [TestReactiveRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestReactiveRatingComponent);
@@ -423,7 +440,7 @@ describe('Rating', () => {
             fixture.detectChanges();
         });
 
-        it('should integrate with reactive forms', fakeAsync(() => {
+        it('should integrate with reactive forms', async () => {
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
                 return el.query(By.css('input[type="radio"]'));
@@ -431,10 +448,11 @@ describe('Rating', () => {
 
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(component.ratingForm.get('rating')?.value).toBe(3);
-        }));
+            expect(component.ratingForm.get('rating')?.value).toBe(3 as any);
+        });
 
         it('should validate form controls', () => {
             const control = component.ratingForm.get('rating');
@@ -450,7 +468,7 @@ describe('Rating', () => {
             expect(control?.hasError('min')).toBe(true);
         });
 
-        it('should update form when rating changes', fakeAsync(() => {
+        it('should update form when rating changes', async () => {
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
                 return el.query(By.css('input[type="radio"]'));
@@ -458,20 +476,22 @@ describe('Rating', () => {
 
             starOptions[3].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(component.ratingForm.get('rating')?.value).toBe(4);
+            expect(component.ratingForm.get('rating')?.value).toBe(4 as any);
             expect(component.ratingForm.valid).toBe(true);
-        }));
+        });
 
-        it('should reflect invalid state', () => {
+        it('should reflect invalid state', async () => {
             component.isInvalid = true;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(ratingInstance.invalid()).toBe(true);
         });
 
-        it('should reset form correctly', fakeAsync(() => {
+        it('should reset form correctly', async () => {
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
                 return el.query(By.css('input[type="radio"]'));
@@ -479,17 +499,19 @@ describe('Rating', () => {
 
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(component.ratingForm.get('rating')?.value).toBe(3);
+            expect(component.ratingForm.get('rating')?.value).toBe(3 as any);
 
             component.ratingForm.reset();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.ratingForm.get('rating')?.value).toBeNull();
             expect(ratingInstance.value).toBeNull();
-        }));
+        });
     });
 
     describe('Template Tests', () => {
@@ -498,7 +520,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestTemplateRatingComponent, NoopAnimationsModule]
+                imports: [TestTemplateRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestTemplateRatingComponent);
@@ -506,10 +529,11 @@ describe('Rating', () => {
             fixture.detectChanges();
         });
 
-        it('should render custom on icon template', fakeAsync(() => {
+        it('should render custom on icon template', async () => {
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Wait for templates to be processed
             fixture.detectChanges();
@@ -520,12 +544,13 @@ describe('Rating', () => {
 
             // Templates might not be fully functional in test environment
             expect(fixture.componentInstance).toBeTruthy();
-        }));
+        });
 
-        it('should render custom off icon template', fakeAsync(() => {
+        it('should render custom off icon template', async () => {
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Wait for templates to be processed
             fixture.detectChanges();
@@ -536,7 +561,7 @@ describe('Rating', () => {
 
             // Templates might not be fully functional in test environment
             expect(fixture.componentInstance).toBeTruthy();
-        }));
+        });
     });
 
     describe('Icon Customization Tests', () => {
@@ -546,7 +571,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule]
+                imports: [TestBasicRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicRatingComponent);
@@ -555,26 +581,28 @@ describe('Rating', () => {
             fixture.detectChanges();
         });
 
-        it('should apply custom icon classes', fakeAsync(() => {
+        it('should apply custom icon classes', async () => {
             component.iconOnClass = 'pi pi-heart-fill';
             component.iconOffClass = 'pi pi-heart';
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // When iconOnClass is set, spans are created with that class
             const spans = fixture.debugElement.queryAll(By.css('span'));
             const iconSpans = spans.filter((el) => el.nativeElement.classList.contains('pi-heart-fill') || el.nativeElement.classList.contains('pi-heart'));
             // Should have custom icon spans
             expect(iconSpans.length).toBeGreaterThan(0);
-        }));
+        });
 
-        it('should apply custom icon styles', fakeAsync(() => {
+        it('should apply custom icon styles', async () => {
             component.iconOnStyle = { color: 'gold', fontSize: '20px' };
             component.iconOffStyle = { color: 'gray', fontSize: '20px' };
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             const onIcons = fixture.debugElement.queryAll(By.css('[data-pc-section="onIcon"]'));
             onIcons.forEach((icon) => {
@@ -587,7 +615,7 @@ describe('Rating', () => {
                 expect(icon.nativeElement.style.color).toBe('gray');
                 expect(icon.nativeElement.style.fontSize).toBe('20px');
             });
-        }));
+        });
 
         it('should render default SVG icons when no custom classes', () => {
             component.value = 2;
@@ -595,7 +623,7 @@ describe('Rating', () => {
 
             // SVG icons are rendered when no custom class is provided
             const allSvgs = fixture.debugElement.queryAll(By.css('svg'));
-            expect(allSvgs.length).toBe(5); // Total should be 5 stars
+            expect(allSvgs.length).toBe(5 as any); // Total should be 5 stars
         });
     });
 
@@ -606,7 +634,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule]
+                imports: [TestBasicRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicRatingComponent);
@@ -625,30 +654,32 @@ describe('Rating', () => {
             expect(inputs[4].nativeElement.getAttribute('aria-label')).toContain('5');
         });
 
-        it('should handle keyboard navigation', fakeAsync(() => {
+        it('should handle keyboard navigation', async () => {
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
 
             // Focus first input
             inputs[0].nativeElement.focus();
             inputs[0].nativeElement.dispatchEvent(new Event('focus'));
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(ratingInstance.focusedOptionIndex()).toBe(1);
+            expect(ratingInstance.focusedOptionIndex()).toBe(1 as any);
 
             // Navigate with keyboard
             const changeEvent = new Event('change');
             inputs[2].nativeElement.checked = true;
             inputs[2].nativeElement.dispatchEvent(changeEvent);
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(component.value).toBe(3);
-        }));
+            expect(component.value).toBe(3 as any);
+        });
 
         it('should support screen readers', () => {
             const hiddenAccessibleElements = fixture.debugElement.queryAll(By.css('.p-hidden-accessible'));
-            expect(hiddenAccessibleElements.length).toBe(5);
+            expect(hiddenAccessibleElements.length).toBe(5 as any);
 
             hiddenAccessibleElements.forEach((element) => {
                 expect(element.nativeElement.getAttribute('data-p-hidden-accessible')).toBe('true');
@@ -672,7 +703,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestBasicRatingComponent, NoopAnimationsModule]
+                imports: [TestBasicRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicRatingComponent);
@@ -681,39 +713,42 @@ describe('Rating', () => {
             fixture.detectChanges();
         });
 
-        it('should handle null value', fakeAsync(() => {
-            component.value = null;
+        it('should handle null value', async () => {
+            component.value = null as any;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(ratingInstance.value).toBeNull();
 
             const onIcons = fixture.debugElement.queryAll(By.css('[data-pc-section="onIcon"]'));
-            expect(onIcons.length).toBe(0);
-        }));
+            expect(onIcons.length).toBe(0 as any);
+        });
 
-        it('should handle value greater than stars', fakeAsync(() => {
+        it('should handle value greater than stars', async () => {
             component.value = 10;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(ratingInstance.value).toBe(10);
 
             // Should show all icons
             const allIcons = fixture.debugElement.queryAll(By.css('svg'));
-            expect(allIcons.length).toBe(5);
-        }));
+            expect(allIcons.length).toBe(5 as any);
+        });
 
-        it('should handle negative value', fakeAsync(() => {
+        it('should handle negative value', async () => {
             component.value = -1;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             expect(ratingInstance.value).toBe(-1);
 
             const onIcons = fixture.debugElement.queryAll(By.css('[data-pc-section="onIcon"]'));
-            expect(onIcons.length).toBe(0);
-        }));
+            expect(onIcons.length).toBe(0 as any);
+        });
 
         it('should handle zero stars configuration', () => {
             // Create a new component with 0 stars
@@ -725,13 +760,13 @@ describe('Rating', () => {
             newRatingInstance.ngOnInit();
             newFixture.detectChanges();
 
-            expect(newRatingInstance.starsArray?.length).toBe(0);
+            expect(newRatingInstance.starsArray?.length).toBe(0 as any);
 
             const starOptions = newFixture.debugElement.queryAll(By.css('input[type="radio"]'));
-            expect(starOptions.length).toBe(0);
+            expect(starOptions.length).toBe(0 as any);
         });
 
-        it('should handle rapid clicks', fakeAsync(() => {
+        it('should handle rapid clicks', async () => {
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
                 return el.query(By.css('input[type="radio"]'));
@@ -744,16 +779,19 @@ describe('Rating', () => {
             starOptions[4].nativeElement.click();
 
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
-            expect(component.value).toBe(5);
-            expect(component.rateEvents.length).toBe(5);
-        }));
+            expect(component.value).toBe(5 as any);
+            expect(component.rateEvents.length).toBe(5 as any);
+        });
 
-        it('should prevent interaction when disabled and readonly are both set', fakeAsync(() => {
+        it('should prevent interaction when disabled and readonly are both set', async () => {
             component.readonly = true;
             component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
+            await fixture.whenStable();
 
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
@@ -762,11 +800,12 @@ describe('Rating', () => {
 
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
 
             expect(component.value).toBeNull();
-            expect(component.rateEvents.length).toBe(0);
-        }));
+            expect(component.rateEvents.length).toBe(0 as any);
+        });
     });
 
     describe('Performance Tests', () => {
@@ -775,7 +814,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestAdvancedRatingComponent, NoopAnimationsModule]
+                imports: [TestAdvancedRatingComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestAdvancedRatingComponent);
@@ -783,7 +823,7 @@ describe('Rating', () => {
             fixture.detectChanges();
         });
 
-        it('should handle large number of stars efficiently', fakeAsync(() => {
+        it('should handle large number of stars efficiently', async () => {
             // Create a new component with 100 stars
             const newFixture = TestBed.createComponent(TestAdvancedRatingComponent);
             const newComponent = newFixture.componentInstance;
@@ -792,27 +832,29 @@ describe('Rating', () => {
             const newRatingInstance = newFixture.debugElement.query(By.directive(Rating)).componentInstance;
             newRatingInstance.ngOnInit();
             newFixture.detectChanges();
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await newFixture.whenStable();
 
             const starOptions = newFixture.debugElement.queryAll(By.css('input[type="radio"]'));
             expect(starOptions.length).toBe(100);
-        }));
+        });
 
-        it('should handle frequent value changes efficiently', fakeAsync(() => {
+        it('should handle frequent value changes efficiently', async () => {
             const startTime = performance.now();
 
             for (let i = 0; i < 50; i++) {
                 component.value = i % 10;
+                fixture.changeDetectorRef.markForCheck();
                 fixture.detectChanges();
-                tick(1);
+                await new Promise((resolve) => setTimeout(resolve, 1));
+                await fixture.whenStable();
             }
 
             const endTime = performance.now();
             const duration = endTime - startTime;
 
             expect(duration).toBeLessThan(1000);
-            flush();
-        }));
+        });
     });
 
     describe('pTemplate Tests', () => {
@@ -823,7 +865,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestRatingPTemplateComponent, NoopAnimationsModule]
+                imports: [TestRatingPTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestRatingPTemplateComponent);
@@ -843,73 +886,80 @@ describe('Rating', () => {
             expect(() => ratingInstance.offIconTemplate).not.toThrow();
         });
 
-        it('should pass context parameters to onicon template', fakeAsync(() => {
+        it('should pass context parameters to onicon template', async () => {
             // Set value to 3 - first 3 stars should show onicon
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Verify that the rating component is working with the value
-            expect(ratingInstance.value).toBe(3);
-            expect(component.stars).toBe(5);
-        }));
+            expect(ratingInstance.value).toBe(3 as any);
+            expect(component.stars).toBe(5 as any);
+        });
 
-        it('should pass context parameters to officon template', fakeAsync(() => {
+        it('should pass context parameters to officon template', async () => {
             // Set value to 2 - last 3 stars should show officon
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Verify that the rating component is working with the value
-            expect(ratingInstance.value).toBe(2);
-            expect(component.stars).toBe(5);
-        }));
+            expect(ratingInstance.value).toBe(2 as any);
+            expect(component.stars).toBe(5 as any);
+        });
 
-        it('should update templates when value changes', fakeAsync(() => {
+        it('should update templates when value changes', async () => {
             // Initially 3 stars filled
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
-            expect(ratingInstance.value).toBe(3);
+            expect(ratingInstance.value).toBe(3 as any);
 
             // Change to 1 star filled
             component.value = 1;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
-            expect(ratingInstance.value).toBe(1);
-        }));
+            expect(ratingInstance.value).toBe(1 as any);
+        });
 
-        it('should process pTemplates after content init', fakeAsync(() => {
+        it('should process pTemplates after content init', async () => {
             if (ratingInstance.ngAfterContentInit) {
                 ratingInstance.ngAfterContentInit();
             }
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(ratingInstance).toBeTruthy();
-        }));
+        });
 
-        it('should handle pTemplate changes after view init', fakeAsync(() => {
+        it('should handle pTemplate changes after view init', async () => {
             if (ratingInstance.ngAfterViewInit) {
                 ratingInstance.ngAfterViewInit();
             }
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(ratingInstance).toBeTruthy();
-        }));
+        });
 
-        it('should apply class context to templates', fakeAsync(() => {
+        it('should apply class context to templates', async () => {
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Verify that the rating component works correctly
-            expect(ratingInstance.value).toBe(3);
-            expect(ratingInstance.stars).toBe(5);
-        }));
+            expect(ratingInstance.value).toBe(3 as any);
+            expect(ratingInstance.stars).toBe(5 as any);
+        });
     });
 
     describe('#template Tests', () => {
@@ -920,7 +970,8 @@ describe('Rating', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [TestRatingRefTemplateComponent, NoopAnimationsModule]
+                imports: [TestRatingRefTemplateComponent],
+                providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestRatingRefTemplateComponent);
@@ -940,72 +991,483 @@ describe('Rating', () => {
             expect(() => ratingInstance.offIconTemplate).not.toThrow();
         });
 
-        it('should pass context parameters to onicon template', fakeAsync(() => {
+        it('should pass context parameters to onicon template', async () => {
             // Set value to 3 - first 3 hearts should be filled
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Verify that the rating component is working with the value
-            expect(ratingInstance.value).toBe(3);
-            expect(component.stars).toBe(5);
-        }));
+            expect(ratingInstance.value).toBe(3 as any);
+            expect(component.stars).toBe(5 as any);
+        });
 
-        it('should pass context parameters to officon template', fakeAsync(() => {
+        it('should pass context parameters to officon template', async () => {
             // Set value to 2 - last 3 hearts should be empty
             component.value = 2;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Verify that the rating component is working with the value
-            expect(ratingInstance.value).toBe(2);
-            expect(component.stars).toBe(5);
-        }));
+            expect(ratingInstance.value).toBe(2 as any);
+            expect(component.stars).toBe(5 as any);
+        });
 
-        it('should update templates when value changes', fakeAsync(() => {
+        it('should update templates when value changes', async () => {
             // Initially 3 hearts filled
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
-            expect(ratingInstance.value).toBe(3);
+            expect(ratingInstance.value).toBe(3 as any);
 
             // Change to 1 heart filled
             component.value = 1;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
-            expect(ratingInstance.value).toBe(1);
-        }));
+            expect(ratingInstance.value).toBe(1 as any);
+        });
 
-        it('should process #templates after content init', fakeAsync(() => {
+        it('should process #templates after content init', async () => {
             if (ratingInstance.ngAfterContentInit) {
                 ratingInstance.ngAfterContentInit();
             }
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(ratingInstance).toBeTruthy();
-        }));
+        });
 
-        it('should handle #template changes after view init', fakeAsync(() => {
+        it('should handle #template changes after view init', async () => {
             if (ratingInstance.ngAfterViewInit) {
                 ratingInstance.ngAfterViewInit();
             }
-            tick();
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            await fixture.whenStable();
             fixture.detectChanges();
 
             expect(ratingInstance).toBeTruthy();
-        }));
+        });
 
-        it('should apply class context to templates', fakeAsync(() => {
+        it('should apply class context to templates', async () => {
             component.value = 3;
+            fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
-            tick();
+            await fixture.whenStable();
 
             // Verify that the rating component works correctly
-            expect(ratingInstance.value).toBe(3);
-            expect(ratingInstance.stars).toBe(5);
-        }));
+            expect(ratingInstance.value).toBe(3 as any);
+            expect(ratingInstance.stars).toBe(5 as any);
+        });
+    });
+
+    describe('PassThrough (PT) Tests', () => {
+        describe('Case 1: Simple string classes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase1Component {
+                value: number = 3;
+                pt = {
+                    host: 'HOST_CLASS',
+                    root: 'ROOT_CLASS',
+                    option: 'OPTION_CLASS',
+                    onIcon: 'ON_ICON_CLASS',
+                    offIcon: 'OFF_ICON_CLASS',
+                    hiddenOptionInputContainer: 'HIDDEN_CONTAINER_CLASS',
+                    hiddenOptionInput: 'HIDDEN_INPUT_CLASS'
+                };
+            }
+
+            it('should apply simple string classes to PT sections', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase1Component],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase1Component);
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
+                    expect(hostEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
+                }
+
+                const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+                if (optionEls.length > 0) {
+                    expect(optionEls[0].nativeElement.classList.contains('OPTION_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 2: Object with class, style, data attributes', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase2Component {
+                value: number = 3;
+                pt = {
+                    host: {
+                        class: 'OBJECT_HOST_CLASS',
+                        style: { 'background-color': 'red' },
+                        'data-p-test': 'test-value'
+                    },
+                    option: {
+                        class: 'OPTION_OBJECT_CLASS',
+                        'data-p-custom': 'custom-value'
+                    }
+                };
+            }
+
+            it('should apply object properties to PT sections', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase2Component],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase2Component);
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('OBJECT_HOST_CLASS')).toBe(true);
+                    expect(hostEl.nativeElement.style.backgroundColor).toBe('red');
+                    expect(hostEl.nativeElement.getAttribute('data-p-test')).toBe('test-value');
+                }
+            });
+        });
+
+        describe('Case 3: Mixed object and string values', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase3Component {
+                value: number = 3;
+                pt = {
+                    host: 'MIXED_HOST_CLASS',
+                    option: {
+                        class: 'MIXED_OPTION_CLASS',
+                        style: { color: 'blue' }
+                    }
+                };
+            }
+
+            it('should apply mixed object and string values', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase3Component],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase3Component);
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('MIXED_HOST_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 4: Use variables from instance', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [stars]="5" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase4Component {
+                value: number = 4;
+                pt = {
+                    host: ({ instance }: any) => {
+                        return {
+                            class: instance?.value > 2 ? 'HIGH_RATING_CLASS' : 'LOW_RATING_CLASS'
+                        };
+                    },
+                    option: ({ instance }: any) => {
+                        return {
+                            style: {
+                                opacity: instance?.value > 2 ? '1' : '0.5'
+                            }
+                        };
+                    }
+                };
+            }
+
+            it('should use instance variables in PT functions', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase4Component],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase4Component);
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    const hasHighRating = hostEl.nativeElement.classList.contains('HIGH_RATING_CLASS');
+                    const hasLowRating = hostEl.nativeElement.classList.contains('LOW_RATING_CLASS');
+                    expect(hasHighRating || hasLowRating).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 5: Event binding', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase5Component {
+                value: number = 3;
+                clickedSection: string = '';
+                pt = {
+                    host: {
+                        onclick: () => {
+                            this.clickedSection = 'host';
+                        }
+                    },
+                    option: {
+                        onclick: () => {
+                            this.clickedSection = 'option';
+                        }
+                    }
+                };
+            }
+
+            it('should bind click events through PT', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase5Component],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase5Component);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+                if (optionEls.length > 0) {
+                    const clickEvent = new MouseEvent('click');
+                    optionEls[0].nativeElement.dispatchEvent(clickEvent);
+                    testFixture.detectChanges();
+                    expect(component.clickedSection).toBeTruthy();
+                }
+            });
+        });
+
+        describe('Case 6: Inline PT', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', option: 'INLINE_OPTION_CLASS' }"></p-rating>`
+            })
+            class TestPTCase6InlineComponent {
+                value: number = 3;
+            }
+
+            it('should apply inline PT as string', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase6InlineComponent],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
+                }
+            });
+
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, option: { class: 'OPTION_INLINE_CLASS' } }"></p-rating>`
+            })
+            class TestPTCase6InlineObjectComponent {
+                value: number = 3;
+            }
+
+            it('should apply inline PT as object', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase6InlineObjectComponent],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 7: Global PT from PrimeNGConfig', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value"></p-rating>`
+            })
+            class TestPTCase7GlobalComponent {
+                value: number = 3;
+            }
+
+            it('should apply global PT from config', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase7GlobalComponent],
+                    providers: [
+                        provideZonelessChangeDetection(),
+                        providePrimeNG({
+                            pt: {
+                                rating: {
+                                    host: 'GLOBAL_HOST_CLASS',
+                                    option: 'GLOBAL_OPTION_CLASS'
+                                }
+                            }
+                        })
+                    ]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                if (hostEl) {
+                    expect(hostEl.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
+                }
+            });
+        });
+
+        describe('Case 8: PT Hooks', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCase8HooksComponent {
+                value: number = 3;
+                hooksCalled: string[] = [];
+                pt = {
+                    hooks: {
+                        onAfterViewInit: () => {
+                            this.hooksCalled.push('onAfterViewInit');
+                        },
+                        onAfterViewChecked: () => {
+                            this.hooksCalled.push('onAfterViewChecked');
+                        },
+                        onDestroy: () => {
+                            this.hooksCalled.push('onDestroy');
+                        }
+                    }
+                };
+            }
+
+            it('should call PT hooks', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCase8HooksComponent],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
+                const component = testFixture.componentInstance;
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                expect(component.hooksCalled.some((h) => h.includes('onAfterView'))).toBe(true);
+
+                testFixture.destroy();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+            });
+        });
+
+        describe('PT Section Coverage', () => {
+            @Component({
+                standalone: false,
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+            })
+            class TestPTCoverageComponent {
+                value: number = 3;
+                pt = {
+                    host: 'PT_HOST',
+                    root: 'PT_ROOT',
+                    option: 'PT_OPTION',
+                    onIcon: 'PT_ON_ICON',
+                    offIcon: 'PT_OFF_ICON',
+                    hiddenOptionInputContainer: 'PT_HIDDEN_CONTAINER',
+                    hiddenOptionInput: 'PT_HIDDEN_INPUT'
+                };
+            }
+
+            it('should apply PT to all sections', async () => {
+                await TestBed.resetTestingModule();
+                await TestBed.configureTestingModule({
+                    imports: [Rating, FormsModule],
+                    declarations: [TestPTCoverageComponent],
+                    providers: [provideZonelessChangeDetection()]
+                }).compileComponents();
+
+                const testFixture = TestBed.createComponent(TestPTCoverageComponent);
+                testFixture.detectChanges();
+                await new Promise((resolve) => setTimeout(resolve, 100));
+                await testFixture.whenStable();
+
+                const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+                expect(hostEl).toBeTruthy();
+                if (hostEl) {
+                    expect(hostEl.nativeElement.getAttribute('data-pc-name')).toBe('rating');
+                }
+
+                const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+                expect(optionEls.length).toBeGreaterThan(0);
+
+                // Check for hidden containers and inputs - they should exist within the options
+                const hiddenAccessibleEls = testFixture.debugElement.queryAll(By.css('.p-hidden-accessible'));
+                expect(hiddenAccessibleEls.length).toBeGreaterThan(0);
+
+                const inputEls = testFixture.debugElement.queryAll(By.css('input[type="radio"]'));
+                expect(inputEls.length).toBeGreaterThan(0);
+            });
+        });
     });
 });

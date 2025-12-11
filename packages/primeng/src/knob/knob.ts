@@ -1,11 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, signal, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@primeuix/styled';
 import { SharedModule } from 'primeng/api';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind } from 'primeng/bind';
+import { BindModule } from 'primeng/bind';
 import { VoidListener } from 'primeng/ts-helpers';
+import { KnobPassThrough } from 'primeng/types/knob';
 import { KnobStyle } from './style/knobstyle';
+
+const KNOB_INSTANCE = new InjectionToken<Knob>('KNOB_INSTANCE');
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -19,7 +25,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-knob',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
         <svg
             viewBox="0 0 100 100"
@@ -39,25 +45,32 @@ export const KNOB_VALUE_ACCESSOR: any = {
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
             [attr.tabindex]="readonly || $disabled() ? -1 : tabindex"
-            [attr.data-pc-section]="'svg'"
+            [pBind]="ptm('svg')"
         >
-            <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" [class]="cx('range')"></path>
-            <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" [class]="cx('value')"></path>
-            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name()">
+            <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" [class]="cx('range')" [pBind]="ptm('range')"></path>
+            <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" [class]="cx('value')" [pBind]="ptm('value')"></path>
+            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name()" [pBind]="ptm('text')">
                 {{ valueToDisplay() }}
             </text>
         </svg>
     `,
-    providers: [KNOB_VALUE_ACCESSOR, KnobStyle],
+    providers: [KNOB_VALUE_ACCESSOR, KnobStyle, { provide: KNOB_INSTANCE, useExisting: Knob }, { provide: PARENT_INSTANCE, useExisting: Knob }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.data-pc-name]': "'knob'",
-        '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)"
-    }
+    },
+    hostDirectives: [Bind]
 })
-export class Knob extends BaseEditableHolder {
+export class Knob extends BaseEditableHolder<KnobPassThrough> {
+    $pcKnob: Knob | undefined = inject(KNOB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -151,7 +164,7 @@ export class Knob extends BaseEditableHolder {
 
     maxRadians: number = -Math.PI / 3;
 
-    value: number = 0;
+    value = signal<number>(0);
 
     windowMouseMoveListener: VoidListener;
 
@@ -188,10 +201,11 @@ export class Knob extends BaseEditableHolder {
         else return;
 
         let newValue = Math.round((mappedValue - this.min) / this.step) * this.step + this.min;
-        this.value = newValue;
-        this.writeModelValue(this.value);
-        this.onModelChange(this.value);
-        this.onChange.emit(this.value);
+
+        this.value.set(newValue);
+        this.writeModelValue(this.value());
+        this.onModelChange(this.value());
+        this.onChange.emit(this.value());
     }
 
     onMouseDown(event: MouseEvent) {
@@ -261,13 +275,13 @@ export class Knob extends BaseEditableHolder {
     }
 
     updateModelValue(newValue) {
-        if (newValue > this.max) this.value = this.max;
-        else if (newValue < this.min) this.value = this.min;
-        else this.value = newValue;
+        if (newValue > this.max) this.value.set(this.max);
+        else if (newValue < this.min) this.value.set(this.min);
+        else this.value.set(newValue);
 
-        this.writeModelValue(this.value);
-        this.onModelChange(this.value);
-        this.onChange.emit(this.value);
+        this.writeModelValue(this.value());
+        this.onModelChange(this.value());
+        this.onChange.emit(this.value());
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -379,7 +393,7 @@ export class Knob extends BaseEditableHolder {
     }
 
     get _value(): number {
-        return this.value != null ? this.value : this.min;
+        return this.value() != null ? this.value() : this.min;
     }
 
     /**
@@ -389,8 +403,8 @@ export class Knob extends BaseEditableHolder {
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value;
-        setModelValue(this.value);
+        this.value.set(value);
+        setModelValue(this.value());
         this.cd.markForCheck();
     }
 }

@@ -20,8 +20,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
             <p>Trigger element also requires <i>aria-expanded</i> and <i>aria-controls</i> to be handled explicitly.</p>
             <p>
-                Close element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a href="/configuration/#locale">locale</a> API by default, you may use<i>closeButtonProps</i> to customize the element
+                Close element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.close</i> property of the <a href="/configuration/#locale">locale</a> API by default, you may use <i>closeButtonProps</i> to customize the element
                 and override the default <i>aria-label</i>.
+            </p>
+            <p>
+                Maximize element is a <i>button</i> with an <i>aria-label</i> that refers to the <i>aria.maximizeLabel</i> and <i>aria.minimizeLabel</i> property of the <a href="/configuration/#locale">locale</a> API. It cannot be customized using
+                the <i>maximizeButtonProps</i>.
             </p>
 
             <app-code [code]="code" [hideToggleCode]="true"></app-code>

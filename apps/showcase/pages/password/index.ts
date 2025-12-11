@@ -15,15 +15,25 @@ import { TemplateDrivenFormsDoc } from '@/doc/password/templatedrivenformsdoc';
 import { ToggleMaskDoc } from '@/doc/password/togglemaskdoc';
 import { FluidDoc } from '@/doc/password/fluiddoc';
 import { ClearIconDoc } from '@/doc/password/clearicondoc';
+import { PTComponent } from '@/doc/password/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular Password Component" header="Password" description="Password displays strength indicator for password fields." [docs]="docs" [apiDocs]="['Password', 'PasswordDirective']" themeDocs="password"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular Password Component"
+        header="Password"
+        description="Password displays strength indicator for password fields."
+        [docs]="docs"
+        [apiDocs]="['Password', 'PasswordDirective']"
+        [ptDocs]="ptComponent"
+        themeDocs="password"
+    ></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
 export class PasswordDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',

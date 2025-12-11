@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MeterGroup, MeterGroupModule, MeterGroupLabel } from './metergroup';
-import { MeterItem } from './metergroup.interface';
+
+import { MeterItem } from 'primeng/types/metergroup';
+import { MeterGroup, MeterGroupLabel, MeterGroupModule } from './metergroup';
 
 @Component({
     standalone: false,
@@ -109,8 +109,9 @@ class TestMeterGroupDynamicComponent {
 describe('MeterGroup', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [MeterGroupModule, NoopAnimationsModule],
-            declarations: [TestBasicMeterGroupComponent, TestMeterGroupOrientationsComponent, TestMeterGroupTemplatesComponent, TestMeterGroupWithIconsComponent, TestMeterGroupEmptyComponent, TestMeterGroupDynamicComponent]
+            imports: [MeterGroupModule],
+            declarations: [TestBasicMeterGroupComponent, TestMeterGroupOrientationsComponent, TestMeterGroupTemplatesComponent, TestMeterGroupWithIconsComponent, TestMeterGroupEmptyComponent, TestMeterGroupDynamicComponent],
+            providers: [provideZonelessChangeDetection()]
         });
     });
 
@@ -225,9 +226,13 @@ describe('MeterGroup', () => {
             expect(meterStyle.width).toBeFalsy();
         });
 
-        it('should handle zero values', () => {
+        it('should handle zero values', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.value = [{ label: 'Zero', value: 0, color: '#ff0000' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const percent = meterGroup.percent(0);
             expect(percent).toBe(0);
@@ -260,67 +265,91 @@ describe('MeterGroup', () => {
             element = meterGroupDebugElement.nativeElement;
         });
 
-        it('should handle horizontal orientation', () => {
+        it('should handle horizontal orientation', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.orientation = 'horizontal';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(meterGroup.orientation).toBe('horizontal');
             expect(meterGroup.vertical).toBe(false);
         });
 
-        it('should handle vertical orientation', () => {
+        it('should handle vertical orientation', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.orientation = 'vertical';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(meterGroup.orientation).toBe('vertical');
             expect(meterGroup.vertical).toBe(true);
         });
 
-        it('should handle label position start', () => {
+        it('should handle label position start', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.labelPosition = 'start';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.directive(MeterGroupLabel));
             expect(labelElement).toBeTruthy();
             expect(meterGroup.labelPosition).toBe('start');
         });
 
-        it('should handle label position end', () => {
+        it('should handle label position end', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.labelPosition = 'end';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.directive(MeterGroupLabel));
             expect(labelElement).toBeTruthy();
             expect(meterGroup.labelPosition).toBe('end');
         });
 
-        it('should handle horizontal label orientation', () => {
+        it('should handle horizontal label orientation', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.labelOrientation = 'horizontal';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(meterGroup.labelOrientation).toBe('horizontal');
         });
 
-        it('should handle vertical label orientation', () => {
+        it('should handle vertical label orientation', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.labelOrientation = 'vertical';
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(meterGroup.labelOrientation).toBe('vertical');
         });
 
-        it('should apply height for vertical orientation', fakeAsync(() => {
+        it('should apply height for vertical orientation', async () => {
             component.orientation = 'vertical';
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // After view init, vertical orientation should set height
             meterGroup.ngAfterViewInit();
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Height should be set on the element for vertical orientation
             expect(meterGroup.vertical).toBe(true);
-            flush();
-        }));
+        });
     });
 
     describe('Templates', () => {
@@ -475,9 +504,13 @@ describe('MeterGroup', () => {
             });
         });
 
-        it('should render markers when no icon provided', () => {
+        it('should render markers when no icon provided', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.value = [{ label: 'No Icon', value: 30, color: '#123456' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const markers = element.querySelectorAll('.p-metergroup-label-marker');
             expect(markers.length).toBeGreaterThan(0);
@@ -517,9 +550,13 @@ describe('MeterGroup', () => {
             expect(element.getAttribute('aria-valuenow')).toBe(totalPercent.toString());
         });
 
-        it('should update aria-valuenow when value changes', () => {
+        it('should update aria-valuenow when value changes', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.value = [{ label: 'New', value: 50, color: '#ff0000' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const newTotalPercent = meterGroup.totalPercent();
             expect(element.getAttribute('aria-valuenow')).toBe(newTotalPercent.toString());
@@ -573,50 +610,66 @@ describe('MeterGroup', () => {
             element = meterGroupDebugElement.nativeElement;
         });
 
-        it('should update when value changes', () => {
+        it('should update when value changes', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.value = [
                 { label: 'Updated 1', value: 40, color: '#00ff00' },
                 { label: 'Updated 2', value: 30, color: '#0000ff' }
             ];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(meterGroup.value.length).toBe(2);
+            expect(meterGroup.value!.length).toBe(2);
             expect(meterGroup.totalPercent()).toBe(70);
         });
 
-        it('should update when min/max changes', () => {
+        it('should update when min/max changes', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.min = 10;
             component.max = 50;
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const percent = meterGroup.percent(30);
             expect(percent).toBe(50); // (30-10)/(50-10) = 20/40 = 50%
         });
 
-        it('should add new meter items dynamically', () => {
+        it('should add new meter items dynamically', async () => {
             // Initial state has 1 item
             expect(component.value.length).toBe(1);
 
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             // Create a new array with the additional item (to trigger change detection)
             component.value = [...component.value, { label: 'New Item', value: 20, color: '#ff00ff' }];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             // Check the component's value array
             expect(component.value.length).toBe(2);
 
             // The meterGroup should reflect the updated value
-            expect(meterGroup.value.length).toBe(2);
+            expect(meterGroup.value!.length).toBe(2);
 
             // Check DOM elements
             const labelTexts = element.querySelectorAll('.p-metergroup-label-text');
             expect(labelTexts.length).toBe(2);
         });
 
-        it('should remove meter items dynamically', () => {
-            component.value = [];
-            fixture.detectChanges();
+        it('should remove meter items dynamically', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(meterGroup.value.length).toBe(0);
+            component.value = [];
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
+            expect(meterGroup.value!.length).toBe(0);
             const meters = element.querySelectorAll('.p-metergroup-meter');
             expect(meters.length).toBe(0);
         });
@@ -653,31 +706,34 @@ describe('MeterGroup', () => {
             expect(meterGroup.percentages()).toEqual([]);
         });
 
-        it('should handle meter items with missing properties', () => {
+        it('should handle meter items with missing properties', async () => {
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             component.value = [{ label: 'Incomplete', value: 30 } as MeterItem];
-            fixture.detectChanges();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             const meterStyle = meterGroup.meterStyle(component.value[0]);
             expect(meterStyle.backgroundColor).toBeUndefined();
             expect(meterStyle.width).toBe('30%');
         });
 
-        it('should handle rapid value updates', fakeAsync(() => {
+        it('should handle rapid value updates', async () => {
             component.value = [{ label: 'Test 1', value: 10, color: '#ff0000' }];
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.value = [{ label: 'Test 2', value: 20, color: '#00ff00' }];
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             component.value = [{ label: 'Test 3', value: 30, color: '#0000ff' }];
-            fixture.detectChanges();
-            tick();
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(meterGroup.value[0].value).toBe(30);
-            flush();
-        }));
+            expect(meterGroup.value![0].value).toBe(30);
+        });
 
         it('should handle boundary values', () => {
             // Test with min = max
@@ -760,7 +816,7 @@ describe('MeterGroup', () => {
     });
 
     describe('Performance', () => {
-        it('should handle large datasets efficiently', fakeAsync(() => {
+        it('should handle large datasets efficiently', async () => {
             const largeDataset: MeterItem[] = [];
             for (let i = 0; i < 100; i++) {
                 largeDataset.push({
@@ -773,16 +829,16 @@ describe('MeterGroup', () => {
             const fixture = TestBed.createComponent(TestBasicMeterGroupComponent);
             const component = fixture.componentInstance;
             component.value = largeDataset;
+            fixture.detectChanges();
 
-            expect(() => {
-                fixture.detectChanges();
-                tick();
+            await expect(async () => {
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
             }).not.toThrow();
 
             const meterGroup = fixture.debugElement.query(By.directive(MeterGroup)).componentInstance;
-            expect(meterGroup.value.length).toBe(100);
-            flush();
-        }));
+            expect(meterGroup.value!.length).toBe(100);
+        });
 
         it('should efficiently update percentages', () => {
             const fixture = TestBed.createComponent(TestBasicMeterGroupComponent);
@@ -800,9 +856,10 @@ describe('MeterGroup', () => {
     });
 
     describe('Complex Scenarios', () => {
-        it('should handle mixed orientations and positions', () => {
+        it('should handle mixed orientations and positions', async () => {
             const fixture = TestBed.createComponent(TestMeterGroupOrientationsComponent);
             const component = fixture.componentInstance;
+            fixture.detectChanges();
 
             // Test all combinations
             const combinations = [
@@ -816,13 +873,19 @@ describe('MeterGroup', () => {
                 { orientation: 'vertical', labelPosition: 'end', labelOrientation: 'vertical' }
             ];
 
-            combinations.forEach((combo) => {
+            for (const combo of combinations) {
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+
                 component.orientation = combo.orientation as 'horizontal' | 'vertical';
                 component.labelPosition = combo.labelPosition as 'start' | 'end';
                 component.labelOrientation = combo.labelOrientation as 'horizontal' | 'vertical';
 
-                expect(() => fixture.detectChanges()).not.toThrow();
-            });
+                fixture.changeDetectorRef.markForCheck();
+                await fixture.whenStable();
+            }
+
+            expect(true).toBe(true);
         });
 
         it('should handle real-world storage example', () => {

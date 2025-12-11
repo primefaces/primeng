@@ -2,6 +2,183 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [21.0.1](https://github.com/primefaces/primeng/tree/21.0.1) (2025-12-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0...21.0.1)
+
+**Fixed bugs:**
+- SplitButton animation is not working as expected [#19174](https://github.com/primefaces/primeng/issues/19174)
+
+## [21.0.0](https://github.com/primefaces/primeng/tree/21.0.0) (2025-12-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0-rc.1...21.0.0)
+
+**Fixed bugs:**
+- Backspace event not working in Input Otp component [#19172](https://github.com/primefaces/primeng/issues/19172)
+- Align Tree Selection with TreeTable [#18899](https://github.com/primefaces/primeng/issues/18899)
+
+## [21.0.0-rc.1](https://github.com/primefaces/primeng/tree/21.0.0-rc.1) (2025-12-03)
+[Full Changelog](https://github.com/primefaces/primeng/compare/21.0.0-beta.1...21.0.0-rc.1)
+
+**Fixed bugs:**
+- v21beta1 Bad Dynamic Updating of Button Labels and Icons [#19123](https://github.com/primefaces/primeng/issues/19123)
+- [v20] & [v21] Tree component is very slow when using DragDrop feature [#19122](https://github.com/primefaces/primeng/issues/19122)
+- v21beta1 Table Column Filters display partially out of view [#19117](https://github.com/primefaces/primeng/issues/19117)
+- v21beta1 Table Column Filters dropdowns fail to reset [#19118](https://github.com/primefaces/primeng/issues/19118)
+- ConfirmPopup alignment and change detection issues when multiple popups are opened [#19129](https://github.com/primefaces/primeng/issues/19129)
+- ConfirmPopup issue with focusTrap [#19104](https://github.com/primefaces/primeng/issues/19104)
+- Items should be rendered correctly during scrolling in VirtualScroller [#19142](https://github.com/primefaces/primeng/issues/19142)
+- OTP Input not editable when default value is set [#19071](https://github.com/primefaces/primeng/issues/19071)
+- InputMask label overlaps Input after patchValue [#19096](https://github.com/primefaces/primeng/issues/19096)
+- CascadeSelect floatlabel jumps on clicking [#19148](https://github.com/primefaces/primeng/issues/19148)
+- TreeSelect floatlabel jumps on clicking [#19147](https://github.com/primefaces/primeng/issues/19147)
+- Table & TreeTable | Selection is not cleared on outside click when contextmenu enabled [#19149](https://github.com/primefaces/primeng/issues/19149)
+- Update focused option after reordering in Listbox [#19144](https://github.com/primefaces/primeng/issues/19144)
+- Knob component becomes very slow when used with Reactive Forms [#19171](https://github.com/primefaces/primeng/issues/19171)
+- Tree Component Docs incorrectly refer to the empty message template as "emptyMessage" instead of "empty" [#19135](https://github.com/primefaces/primeng/issues/19135)
+
+**New Features:**
+- Tree | Add contextMenu selection support [#19143](https://github.com/primefaces/primeng/issues/19143)
+- Update MenuItem API [#19145](https://github.com/primefaces/primeng/issues/19145)
+
+**Enhancements:**
+- Add motion support and rendering control to TieredMenu [#19146](https://github.com/primefaces/primeng/issues/19146)
+
+## [21.0.0-beta.1](https://github.com/primefaces/primeng/tree/21.0.0-beta.1) (2025-11-25)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.3.0...21.0.0-beta.1)
+
+**Deprecated:**
+- Deprecate legacy animation properties [#19107](https://github.com/primefaces/primeng/issues/19107)
+
+**New Features:**
+- Add unstyled support to components [#19036](https://github.com/primefaces/primeng/issues/19036)
+
+**Enhancements:**
+- Rename directive pass-through inputs for naming consistency [#19085](https://github.com/primefaces/primeng/issues/19085)
+- New Animations Implementations [#18978](https://github.com/primefaces/primeng/issues/18978)
+- Support for Angular v21 [#19095](https://github.com/primefaces/primeng/issues/19095)
+
+**Fixed bugs:**
+- Picklist Target Not Updated [#18997](https://github.com/primefaces/primeng/issues/18997)
+- InputOTP integerOnly does not use numeric inputmode (alphanumeric keyboard shows on mobile) [#19066](https://github.com/primefaces/primeng/issues/19066)
+- Button: SSR error after passthrough changes [#19083](https://github.com/primefaces/primeng/issues/19083)
+- Blank MultiSelect with VirtualScroll after selecting options [#19078](https://github.com/primefaces/primeng/issues/19078)
+- Wrong "for" attribute in docs in the apps/showcase/doc/textarea/floatlabeldoc.ts file [#18947](https://github.com/primefaces/primeng/issues/18947)
+- [Doc] Passthrough guide page not found [#19066](https://github.com/primefaces/primeng/issues/19066)
+- Missing tooltip role since Prime 20 [#19048](https://github.com/primefaces/primeng/issues/19048)
+
+## [20.4.0](https://github.com/primefaces/primeng/tree/20.4.0) (2025-12-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.3.0...20.4.0)
+
+**Fixed bugs:**
+- Listbox: checkbox, properly hides toggle-all checkbox when showToggleAll is combined with filter [#19169](https://github.com/primefaces/primeng/issues/19169)
+- Knob component becomes very slow when used with Reactive Forms [#19170](https://github.com/primefaces/primeng/issues/19170)
+- Tree component is very slow when using DragDrop feature [#19168](https://github.com/primefaces/primeng/issues/19168)
+- TreeSelect floatlabel jumps on clicking [#19167](https://github.com/primefaces/primeng/issues/19167)
+- CascadeSelect floatlabel jumps on clicking [#19166](https://github.com/primefaces/primeng/issues/19166)
+- Missing tooltip role since Prime 20 [#19048](https://github.com/primefaces/primeng/issues/19048)
+- Autocomplete - Error clear input with showClear option [#18976](https://github.com/primefaces/primeng/issues/18976)
+- Listbox ignores showToggleAll false value when filter is enabled [#19156](https://github.com/primefaces/primeng/issues/19156)
+- Button: SSR error after passthrough changes [#19070](https://github.com/primefaces/primeng/issues/19070)
+- Picklist Target Not Updated [#18997](https://github.com/primefaces/primeng/issues/18997)
+- InputOTP integerOnly does not use numeric inputmode (alphanumeric keyboard shows on mobile) [#19083](https://github.com/primefaces/primeng/issues/19083)
+- Blank MultiSelect with VirtualScroll after selecting options [#19078](https://github.com/primefaces/primeng/issues/19078)
+- Backspace event not working in Input Otp component again (Mobile / Android) [#19155](https://github.com/primefaces/primeng/issues/19155)
+- OTP Input not editable when default value is set [#19162](https://github.com/primefaces/primeng/issues/19162)
+- Items should be rendered correctly during scrolling in VirtualScroller [#19161](https://github.com/primefaces/primeng/issues/19161)
+- Update focused option after reordering in Listbox [#19163](https://github.com/primefaces/primeng/issues/19163)
+- InputMask label overlaps Input after patchValue [#19165](https://github.com/primefaces/primeng/issues/19165)
+- Wrong "for" attribute in docs in the apps/showcase/doc/textarea/floatlabeldoc.ts file [#18947](https://github.com/primefaces/primeng/issues/18947)
+- [Doc] Passthrough guide page not found [#19066](https://github.com/primefaces/primeng/issues/19066)
+- Tree Component Docs incorrectly refer to the empty message template as "emptyMessage" instead of "empty" [#19164](https://github.com/primefaces/primeng/issues/19164)
+
+
+## [20.3.0](https://github.com/primefaces/primeng/tree/20.3.0) (2025-10-31)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.3.0-rc.1...20.3.0)
+
+**Fixed bugs:**
+- CSP Trusted Types fails for BadgeDirective [#19035](https://github.com/primefaces/primeng/issues/19035)
+- Data Table column filter styles broken [#19037](https://github.com/primefaces/primeng/issues/19037)
+- DatePicker selectionMode="range" timing error [#18479](https://github.com/primefaces/primeng/issues/18479)
+- v20.3rc1 Dynamic Dialog width/height values ignored [#19049](https://github.com/primefaces/primeng/issues/19049)
+- TreeView single selection mode not working in 20.3 rc 1 [#19040](https://github.com/primefaces/primeng/issues/19040)
+- InputText nested within Select Component does not focus on click [#19047](https://github.com/primefaces/primeng/issues/19047)
+- PrimeNGConfigType is not exported in public_api [#19052](https://github.com/primefaces/primeng/issues/19052)
+
+## [20.3.0-rc.1](https://github.com/primefaces/primeng/tree/20.3.0-rc.1) (2025-10-27)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.2.0...20.3.0-rc.1)
+
+**Fixed bugs:**
+- pFocusTrap doesn't work with Drawer [#19005](https://github.com/primefaces/primeng/issues/19005)
+- Scroller/Tree/TreeTable/Table: VirtualScrolling does not work after upgrading to PrimeNG 18 from 17.18.12 [#17102](https://github.com/primefaces/primeng/issues/17102)
+- DnD Tree is not working as expected [#18952](https://github.com/primefaces/primeng/issues/18952)
+- OrderList | filtericon & filter templates do not work [#19027](https://github.com/primefaces/primeng/issues/19027)
+
+**Implemented New Features and Enhancements:**
+- New Directive | pBind [\#18956](https://github.com/primefaces/primeng/issues/18956)
+- PassThrough Implementation [\#19020](https://github.com/primefaces/primeng/issues/19020)
+- Datepicker - Add buttonbar template [\#18980](https://github.com/primefaces/primeng/issues/18980)
+
+## [20.2.0](https://github.com/primefaces/primeng/tree/20.2.0) (2025-09-26)
+[Full Changelog](https://github.com/primefaces/primeng/compare/20.1.2...20.2.0)
+
+**PrimeUIX Changelog**
+Enhancements via the PrimeUIX packages that PrimeNG utilizes internally. 
+- [#Styles](https://github.com/primefaces/primeuix/milestone/28?closed=1)
+- [#Themes](https://github.com/primefaces/primeuix/milestone/29?closed=1)
+
+**Fixed bugs:**
+- Table: Performance degradation for the table with pFrozenColumn [#15922](https://github.com/primefaces/primeng/issues/15922)
+- Autocomplete: Do not clear input on Backspace [#16570](https://github.com/primefaces/primeng/issues/16570)
+- Autocomplete: can't display labels [#17332](https://github.com/primefaces/primeng/issues/17332)
+- Autocomplete: An infinite loop freezes the application [#17639](https://github.com/primefaces/primeng/issues/17639)
+- Drawer: Conflict between drawer .p-overlay-mask styles and table loading mask [#17687](https://github.com/primefaces/primeng/issues/17687)
+- Rating: Changing the rating component from inline-flex to flex is causing issues [#17744](https://github.com/primefaces/primeng/issues/17744)
+- Tabs: p-tabs removes content from the DOM [#17935](https://github.com/primefaces/primeng/issues/17935)
+- Password: Long password overlaps with clear button [#17939](https://github.com/primefaces/primeng/issues/17939)
+- Menu: Ripple leaking outside of items with radius [#18008](https://github.com/primefaces/primeng/issues/18008)
+- Button: Using loadingIcon attribute on a button breaks icon attribute [#18105](https://github.com/primefaces/primeng/issues/18105)
+- Table: Styling issues when using frozen columns [#18138](https://github.com/primefaces/primeng/issues/18138)
+- Select: Selected item disabled and not showing selected item template [#18157](https://github.com/primefaces/primeng/issues/18157)
+- Type information for dynamic dialog positions is outdated [#18160](https://github.com/primefaces/primeng/issues/18160)
+- Autocomplete: Multiple does not display selected labels [#18219](https://github.com/primefaces/primeng/issues/18219)
+- ConfirmDialog: baseZindex not applied correctly [#18364](https://github.com/primefaces/primeng/issues/18364)
+- Select and TreeSelect: Detached dom element issues that cause memory leaks [#18378](https://github.com/primefaces/primeng/issues/18378)
+- Menu Components: Keyboard navigation broken when using custom template [#18380](https://github.com/primefaces/primeng/issues/18380)
+- Table: Cannot set autoSize from ScrollerOptions [#18381](https://github.com/primefaces/primeng/issues/18381)
+- p-tableCheckbox: Overrides aria-label on re-render [#18385](https://github.com/primefaces/primeng/issues/18385)
+- RadioButton: Invalid aria attribute "aria-checked" [#18412](https://github.com/primefaces/primeng/issues/18412)
+- TreeTable: Remove restricted aria attributes [#18434](https://github.com/primefaces/primeng/issues/18434)
+- Dialog: Can't close using ESC key when focus is on p-dropdown or p-multiSelect [#18439](https://github.com/primefaces/primeng/issues/18439)
+- DatePicker: selectionMode="range" timing error [#18479](https://github.com/primefaces/primeng/issues/18479)
+- DatePicker: Setting seconds when showTime is true and showSeconds is false [#18567](https://github.com/primefaces/primeng/issues/18567)
+- ConfirmDialog: Reusing p-confirmationdialog [#18602](https://github.com/primefaces/primeng/issues/18602)
+- Select: Clear icon in wrong position when inside an inputgroup [#18693](https://github.com/primefaces/primeng/issues/18693)
+- Tabs: TabList next button visibility issue [#18711](https://github.com/primefaces/primeng/issues/18711)
+- Tree: Missing .p-tree-node-droppoint class in base style [#18712](https://github.com/primefaces/primeng/issues/18712)
+- Wrong typings in 20.x release [#18717](https://github.com/primefaces/primeng/issues/18717)
+- ContextMenu: Menu is not closed when user clicks outside with triggerEvent="click" [#18726](https://github.com/primefaces/primeng/issues/18726)
+- MultiSelect: Incorrectly adding p-variant-filled class [#18737](https://github.com/primefaces/primeng/issues/18737)
+- Accordion: Ripple effect appears in wrong location [#18749](https://github.com/primefaces/primeng/issues/18749)
+- Message, Tag: severity typing issue [#18757](https://github.com/primefaces/primeng/issues/18757)
+- Tree: It's now impossible to switch different nodes position at the same level [#18782](https://github.com/primefaces/primeng/issues/18782)
+- Table: Not showing loading in PrimeNG 20 [#18786](https://github.com/primefaces/primeng/issues/18786)
+- Select: Selection is not shown if Option is marked as disabled [#18807](https://github.com/primefaces/primeng/issues/18807)
+- TreeTable: Missing bottom border with showGridLines [#18808](https://github.com/primefaces/primeng/issues/18808)
+- Dialog: focusOnShow does not work [#18816](https://github.com/primefaces/primeng/issues/18816)
+- Select: EmptyFilterMessage does not work with virtualscroll [#18821](https://github.com/primefaces/primeng/issues/18821)
+- PanelMenu: Icons and badges in sub-menus do not appear in 20.1.x [#18833](https://github.com/primefaces/primeng/issues/18833)
+- Autocomplete: Problems with attribute disabled set to true [#18834](https://github.com/primefaces/primeng/issues/18834)
+- Menu: sanitizeHtml is undefined because inject() is called outside the injection context [#18836](https://github.com/primefaces/primeng/issues/18836)
+- Theme Designer: Still imports from @primeng/themes [#18838](https://github.com/primefaces/primeng/issues/18838)
+- Table: pFrozenColumn won't work properly if it's not in view on first loading [#18842](https://github.com/primefaces/primeng/issues/18842)
+- ListBox: Scrolling issues with virtual scroll [#18845](https://github.com/primefaces/primeng/issues/18845)
+- Editor: Add support for missing events [#18855](https://github.com/primefaces/primeng/issues/18855)
+- Dialog: Incorrect aria-label for the maximize button when maximized [#18859](https://github.com/primefaces/primeng/issues/18859)
+- CascadeSelect: fluid prop applies min-width: 100% to submenus instead of only root menu [#18884](https://github.com/primefaces/primeng/issues/18884)
+- Autocomplete: Extended support for chips replacement [#18923](https://github.com/primefaces/primeng/issues/18923)
+- Picklist: Drag&Drop issues [#18931](https://github.com/primefaces/primeng/issues/18931)
+- Orderlist & Picklist: add dataKey input [#18932](https://github.com/primefaces/primeng/issues/18932)
+- pClass: New Directive [#18934](https://github.com/primefaces/primeng/issues/18934)
+
 ## [20.1.2](https://github.com/primefaces/primeng/tree/20.1.2) (2025-09-15)
 [Full Changelog](https://github.com/primefaces/primeng/compare/20.1.1...20.1.2)
 
