@@ -29,6 +29,7 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
     encapsulation: ViewEncapsulation.None,
     providers: [ProgressBarStyle, { provide: PROGRESSBAR_INSTANCE, useExisting: ProgressBar }, { provide: PARENT_INSTANCE, useExisting: ProgressBar }],
     host: {
+        '[role]': 'progressbar',
         '[attr.aria-valuemin]': '0',
         '[attr.aria-valuenow]': 'value',
         '[attr.aria-valuemax]': '100',
