@@ -2376,7 +2376,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
             </ng-container>
         </ng-template>
         <ng-container *ngIf="tt.isEmpty()">
-            <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
+            <ng-container *ngTemplateOutlet="tt.emptyMessageTemplate || tt._emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
         </ng-container>
     `,
     encapsulation: ViewEncapsulation.None,
