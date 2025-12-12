@@ -1,9 +1,5 @@
-import { runPrimeMcpServer, ComponentsData } from "@primemcp/core";
-import { readFile } from "fs/promises";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { ComponentsData, runPrimeMcpServer } from '@primeuix/mcp';
+import ComponentJson from '@primeng/mcp/data/components.json';
 
 // Angular-specific migration data
 const migrationGuides = {
@@ -107,11 +103,7 @@ runPrimeMcpServer({
   slotKey: "templates",
   codeLanguage: "typescript",
   compatibility: "Angular 17+",
-  loadComponentsData: async () => {
-    const dataPath = join(__dirname, "../data/components.json");
-    const fileContent = await readFile(dataPath, "utf-8");
-    return JSON.parse(fileContent);
-  },
+  loadComponentsData: async () => ComponentJson as ComponentsData,
   customTools: [
     // Angular-specific: get_migration_guide
     {

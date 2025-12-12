@@ -22,7 +22,8 @@
   "exports": {
     ".": {
       "import": "./dist/index.js"
-    }
+    },
+    "./data/components.json": "./data/components.json"
   },
   "files": [
     "dist",
@@ -38,7 +39,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@primemcp/core": "^1.0.0"
+    "@primeuix/mcp": "catalog:"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
