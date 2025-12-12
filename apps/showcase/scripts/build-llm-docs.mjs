@@ -116,6 +116,12 @@ const GUIDE_PAGES = [
         description: 'LLM-optimized documentation endpoints for PrimeNG components.'
     },
     {
+        route: 'mcp',
+        docPath: 'mcp',
+        title: 'MCP Server',
+        description: 'Model Context Protocol (MCP) server for PrimeNG component library.'
+    },
+    {
         route: 'guides/accessibility',
         docPath: 'guides/accessibility',
         title: 'Accessibility',

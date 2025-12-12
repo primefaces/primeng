@@ -48,6 +48,44 @@ After adding, start a new Claude Code session and use `/mcp` to verify the conne
 
 ---
 
+### VS Code
+
+**Option 1: Project Configuration**
+
+Create `.vscode/mcp.json` in your project:
+
+```json
+{
+    "servers": {
+        "primeng": {
+            "command": "npx",
+            "args": ["-y", "@primeng/mcp"]
+        }
+    }
+}
+```
+
+**Option 2: Global Configuration**
+
+Create or edit `~/Library/Application Support/Code/User/mcp.json` (macOS) or `~/.config/Code/User/mcp.json` (Linux):
+
+```json
+{
+    "servers": {
+        "primeng": {
+            "command": "npx",
+            "args": ["-y", "@primeng/mcp"]
+        }
+    }
+}
+```
+
+After adding, the MCP server will be available in GitHub Copilot Chat.
+
+> **Reference:** [VS Code MCP Documentation](https://code.visualstudio.com/docs/copilot/chat/mcp-servers)
+
+---
+
 ### Cursor
 
 **Option 1: Project Configuration**
