@@ -23,14 +23,14 @@ import {
     QueryList,
     signal,
     TemplateRef,
-    ViewChild,
+    viewChild,
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
-import { absolutePosition, addStyle, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@primeuix/utils';
+import { absolutePosition, addStyle, appendChild, find, findSingle, focus, getOuterWidth, isTouchDevice, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -39,7 +39,7 @@ import { ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MotionModule } from 'primeng/motion';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { VoidListener } from 'primeng/ts-helpers';
 import { MenuItemTemplateContext, MenuPassThrough, MenuSubmenuHeaderTemplateContext } from 'primeng/types/menu';
 import { ZIndexUtils } from 'primeng/utils';
 import { MenuStyle } from './style/menustyle';
@@ -377,9 +377,9 @@ export class Menu extends BaseComponent<MenuPassThrough> {
      */
     @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @ViewChild('list') listViewChild: Nullable<ElementRef>;
+    listViewChild = viewChild<ElementRef>('list');
 
-    @ViewChild('container') containerViewChild: Nullable<ElementRef>;
+    containerViewChild = viewChild<ElementRef>('container');
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
@@ -542,17 +542,22 @@ export class Menu extends BaseComponent<MenuPassThrough> {
 
     onOverlayBeforeEnter(event: MotionEvent) {
         this.container = event.element as HTMLElement;
-        addStyle(this.container, { position: 'absolute', top: '0' });
-        this.appendOverlay();
-        this.moveOnTop();
 
-        this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
-        this.bindDocumentClickListener();
-        this.bindDocumentResizeListener();
-        this.bindScrollListener();
-        absolutePosition(this.container!, this.target);
-        focus(this.listViewChild?.nativeElement);
-        this.onShow.emit({});
+        if (this.container) {
+            const nativeElementOuterWidth = getOuterWidth(this.containerViewChild()?.nativeElement);
+            addStyle(this.container, { width: nativeElementOuterWidth + 'px' });
+            addStyle(this.container, { position: 'absolute', top: '0' });
+            this.appendOverlay();
+            this.moveOnTop();
+
+            this.$attrSelector && this.container?.setAttribute(this.$attrSelector, '');
+            this.bindDocumentClickListener();
+            this.bindDocumentResizeListener();
+            this.bindScrollListener();
+            absolutePosition(this.container!, this.target);
+            focus(this.listViewChild()?.nativeElement);
+            this.onShow.emit({});
+        }
     }
 
     onOverlayAfterLeave() {
@@ -706,12 +711,12 @@ export class Menu extends BaseComponent<MenuPassThrough> {
     }
 
     onEndKey(event) {
-        this.changeFocusedOptionIndex(find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.containerViewChild()?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]').length - 1);
         event.preventDefault();
     }
 
     onEnterKey(event) {
-        const element = <any>findSingle(this.containerViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
+        const element = <any>findSingle(this.containerViewChild()?.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
         const anchorElement = element && (<any>findSingle(element, '[data-pc-section="itemlink"]') || findSingle(element, 'a,button'));
 
         this.popup && focus(this.target);
@@ -725,21 +730,21 @@ export class Menu extends BaseComponent<MenuPassThrough> {
     }
 
     findNextOptionIndex(index) {
-        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild()?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild()?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const links = find(this.containerViewChild?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
+        const links = find(this.containerViewChild()?.nativeElement, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
         if (links.length > 0) {
             let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
             order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));
@@ -795,7 +800,7 @@ export class Menu extends BaseComponent<MenuPassThrough> {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                const isOutsideContainer = this.containerViewChild?.nativeElement && !this.containerViewChild?.nativeElement.contains(event.target);
+                const isOutsideContainer = this.containerViewChild()?.nativeElement && !this.containerViewChild()?.nativeElement.contains(event.target);
                 const isOutsideTarget = !(this.target && (this.target === event.target || this.target.contains(event.target)));
                 if (!this.popup && isOutsideContainer && isOutsideTarget) {
                     this.onListBlur(event);
