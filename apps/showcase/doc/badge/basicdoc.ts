@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'badge-basic-demo',
-    standalone: false,
+    standalone: true,
+    imports: [BadgeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Content of the badge is specified using the <i>value</i> property.</p>

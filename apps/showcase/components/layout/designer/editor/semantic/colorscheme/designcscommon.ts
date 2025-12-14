@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
-import { FieldsetModule } from 'primeng/fieldset';
-import { FormsModule } from '@angular/forms';
-import { palette } from '@primeng/themes';
 import { DesignColorPalette } from '@/components/layout/designer/editor/designcolorpalette';
+import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
+import { DesignerService } from '@/service/designerservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { palette } from '@primeuix/themes';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
     selector: 'design-cs-common',
@@ -14,7 +15,7 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
         <section class="flex justify-between items-center mb-4 gap-8">
             <div class="flex gap-2 items-center">
                 <span class="text-sm">Surface</span>
-                <input [value]="colorScheme.surface['500']" (input)="onSurfaceColorChange($event)" [type]="'color'" />
+                <input [value]="colorScheme.surface['500']" (input)="onSurfaceColorChange($event)" [type]="'color'" [disabled]="designerService.isThemeViewOnly()" [class]="{ '!cursor-not-allowed': designerService.isThemeViewOnly() }" />
             </div>
             <design-color-palette [value]="colorScheme.surface" />
         </section>
@@ -90,9 +91,12 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignCSCommon {
+    designerService: DesignerService = inject(DesignerService);
+
     @Input() colorScheme: any;
 
     onSurfaceColorChange(event: any) {
+        //@ts-ignore
         this.colorScheme.surface = { ...{ 0: '#ffffff' }, ...palette(event.target.value) };
     }
 }

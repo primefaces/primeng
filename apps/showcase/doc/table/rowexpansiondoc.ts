@@ -1,18 +1,28 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'row-expansion-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, ToastModule, ButtonModule, FormsModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule, RatingModule, TagModule],
     template: ` <app-docsectiontext>
             <p>
-                Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named expandedrow and use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice
-                whose click event toggles the expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle
-                event for the element.
+                Row expansion allows displaying detailed content for a particular row. To use this feature, define a <i>dataKey</i>, add a template named <i>expandedrow</i> and use the <i>pRowToggler</i> directive on an element as the target to
+                toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle event for the element.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -28,33 +38,18 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                     <ng-template #header>
                         <tr>
                             <th style="width: 5rem"></th>
-                            <th pSortableColumn="name">
-                                Name
-                                <p-sortIcon field="name" />
-                            </th>
+                            <th>Name</th>
                             <th>Image</th>
-                            <th pSortableColumn="price">
-                                Price
-                                <p-sortIcon field="price" />
-                            </th>
-                            <th pSortableColumn="category">
-                                Category
-                                <p-sortIcon field="category" />
-                            </th>
-                            <th pSortableColumn="rating">
-                                Reviews
-                                <p-sortIcon field="rating" />
-                            </th>
-                            <th pSortableColumn="inventoryStatus">
-                                Status
-                                <p-sortIcon field="inventoryStatus" />
-                            </th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Reviews</th>
+                            <th>Status</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-product let-expanded="expanded">
                         <tr>
                             <td>
-                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" severity="secondary" [rounded]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                             </td>
                             <td>{{ product.name }}</td>
                             <td>
@@ -63,7 +58,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td>
-                                <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" />
+                                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
                             </td>
                             <td>
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
@@ -79,24 +74,34 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                                         <ng-template #header>
                                             <tr>
                                                 <th pSortableColumn="id">
-                                                    Id
-                                                    <p-sortIcon field="price" />
+                                                    <div class="flex items-center gap-2">
+                                                        Id
+                                                        <p-sortIcon field="price" />
+                                                    </div>
                                                 </th>
                                                 <th pSortableColumn="customer">
-                                                    Customer
-                                                    <p-sortIcon field="customer" />
+                                                    <div class="flex items-center gap-2">
+                                                        Customer
+                                                        <p-sortIcon field="customer" />
+                                                    </div>
                                                 </th>
                                                 <th pSortableColumn="date">
-                                                    Date
-                                                    <p-sortIcon field="date" />
+                                                    <div class="flex items-center gap-2">
+                                                        Date
+                                                        <p-sortIcon field="date" />
+                                                    </div>
                                                 </th>
                                                 <th pSortableColumn="amount">
-                                                    Amount
-                                                    <p-sortIcon field="amount" />
+                                                    <div class="flex items-center gap-2">
+                                                        Amount
+                                                        <p-sortIcon field="amount" />
+                                                    </div>
                                                 </th>
                                                 <th pSortableColumn="status">
-                                                    Status
-                                                    <p-sortIcon field="status" />
+                                                    <div class="flex items-center gap-2">
+                                                        Status
+                                                        <p-sortIcon field="status" />
+                                                    </div>
                                                 </th>
                                                 <th style="width: 4rem"></th>
                                             </tr>
@@ -196,18 +201,18 @@ export class RowExpansionDoc {
     <ng-template #header>
         <tr>
             <th style="width: 5rem"></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+            <th>Name</th>
             <th>Image</th>
-            <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
-            <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
-            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
-            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Reviews</th>
+            <th>Status</th>
         </tr>
     </ng-template>
     <ng-template #body let-product let-expanded="expanded">
         <tr>
             <td>
-                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" severity="secondary"  [rounded]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
             </td>
             <td>{{ product.name }}</td>
             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" /></td>
@@ -227,11 +232,36 @@ export class RowExpansionDoc {
                     <p-table [value]="product.orders" dataKey="id">
                         <ng-template #header>
                             <tr>
-                                <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
-                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
-                                <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
-                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
-                                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                                <th pSortableColumn="id">
+                                    <div class="flex items-center gap-2">
+                                        Id
+                                        <p-sortIcon field="price" />
+                                    </div>
+                                </th>
+                                <th pSortableColumn="customer">
+                                    <div class="flex items-center gap-2">
+                                        Customer
+                                        <p-sortIcon field="customer" />
+                                    </div>
+                                </th>
+                                <th pSortableColumn="date">
+                                    <div class="flex items-center gap-2">
+                                        Date
+                                        <p-sortIcon field="date" />
+                                    </div>
+                                </th>
+                                <th pSortableColumn="amount">
+                                    <div class="flex items-center gap-2">
+                                        Amount
+                                        <p-sortIcon field="amount" />
+                                    </div>
+                                </th>
+                                <th pSortableColumn="status">
+                                    <div class="flex items-center gap-2">
+                                        Status
+                                        <p-sortIcon field="status" />
+                                    </div>
+                                </th>
                                 <th style="width: 4rem"></th>
                             </tr>
                         </ng-template>
@@ -270,18 +300,18 @@ export class RowExpansionDoc {
         <ng-template #header>
             <tr>
                 <th style="width: 5rem"></th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                <th>Name</th>
                 <th>Image</th>
-                <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
-                <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
-                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Reviews</th>
+                <th>Status</th>
             </tr>
         </ng-template>
         <ng-template #body let-product let-expanded="expanded">
             <tr>
                 <td>
-                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" severity="secondary" [rounded]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                 </td>
                 <td>{{ product.name }}</td>
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" /></td>
@@ -301,11 +331,36 @@ export class RowExpansionDoc {
                         <p-table [value]="product.orders" dataKey="id">
                             <ng-template #header>
                                 <tr>
-                                    <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
-                                    <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
-                                    <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
-                                    <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
-                                    <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                                    <th pSortableColumn="id">
+                                        <div class="flex items-center gap-2">
+                                            Id
+                                            <p-sortIcon field="price" />
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="customer">
+                                        <div class="flex items-center gap-2">
+                                            Customer
+                                            <p-sortIcon field="customer" />
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="date">
+                                        <div class="flex items-center gap-2">
+                                            Date
+                                            <p-sortIcon field="date" />
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="amount">
+                                        <div class="flex items-center gap-2">
+                                            Amount
+                                            <p-sortIcon field="amount" />
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="status">
+                                        <div class="flex items-center gap-2">
+                                            Status
+                                            <p-sortIcon field="status" />
+                                        </div>
+                                    </th>
                                     <th style="width: 4rem"></th>
                                 </tr>
                             </ng-template>
@@ -336,9 +391,10 @@ export class RowExpansionDoc {
         typescript: `import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { Product } from '@/domain/product';
-import { Tag } from 'primeng/tag';
-import { Rating } from 'primeng/rating';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ProductService } from '@/service/productservice';
 import { MessageService } from 'primeng/api';
@@ -349,7 +405,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, Tag, ToastModule, Rating, ButtonModule, CommonModule],
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, FormsModule, CommonModule],
     providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{

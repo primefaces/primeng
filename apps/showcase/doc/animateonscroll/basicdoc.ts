@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { AvatarModule } from 'primeng/avatar';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, AnimateOnScrollModule, AvatarModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Animation classes are defined with the <i>enterClass</i> and <i>leaveClass</i> properties. This example utilizes tailwindcss-primeui plugin animations however any valid CSS animation is supported.</p>
@@ -15,7 +21,7 @@ import { Component } from '@angular/core';
                     <i class="pi pi-arrow-down"></i>
                 </span>
             </div>
-            <div class="h-[30rem]"></div>
+            <div class="h-[40rem]"></div>
             <div class="flex flex-wrap justify-center gap-8">
                 <div
                     pAnimateOnScroll
@@ -139,7 +145,7 @@ export class BasicDoc {
             <i class="pi pi-arrow-down"></i>
         </span>
     </div>
-    <div class="h-[30rem]"></div>
+    <div class="h-[40rem]"></div>
     <div class="flex flex-wrap justify-center gap-8">
         <div
             pAnimateOnScroll
@@ -263,7 +269,7 @@ export class BasicDoc {
             <i class="pi pi-arrow-down"></i>
         </span>
     </div>
-    <div class="h-[30rem]"></div>
+    <div class="h-[40rem]"></div>
     <div class="flex flex-wrap justify-center gap-8">
         <div
             pAnimateOnScroll

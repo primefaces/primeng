@@ -1,10 +1,14 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/autocomplete/accessibilitydoc';
-import { AutoCompleteDocModule } from '@/doc/autocomplete/autocompletedoc.module';
+import { AdvancedChipsDoc } from '@/doc/autocomplete/advancedchipsdoc';
+import { BasicChipsDoc } from '@/doc/autocomplete/basicchipsdoc';
 import { BasicDoc } from '@/doc/autocomplete/basicdoc';
+import { ClearIconDoc } from '@/doc/autocomplete/clearicondoc';
 import { DisabledDoc } from '@/doc/autocomplete/disableddoc';
 import { DropdownDoc } from '@/doc/autocomplete/dropdowndoc';
 import { FilledDoc } from '@/doc/autocomplete/filleddoc';
 import { FloatLabelDoc } from '@/doc/autocomplete/floatlabeldoc';
+import { FluidDoc } from '@/doc/autocomplete/fluiddoc';
 import { ForceSelectionDoc } from '@/doc/autocomplete/forceselectiondoc';
 import { GroupDoc } from '@/doc/autocomplete/groupdoc';
 import { IftaLabelDoc } from '@/doc/autocomplete/iftalabeldoc';
@@ -12,9 +16,11 @@ import { ImportDoc } from '@/doc/autocomplete/importdoc';
 import { InvalidDoc } from '@/doc/autocomplete/invaliddoc';
 import { MultipleDoc } from '@/doc/autocomplete/multipledoc';
 import { ObjectsDoc } from '@/doc/autocomplete/objectsdoc';
+import { PTComponent } from '@/doc/autocomplete/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/autocomplete/reactiveformsdoc';
 import { SizesDoc } from '@/doc/autocomplete/sizesdoc';
 import { TemplateDoc } from '@/doc/autocomplete/templatedoc';
+import { TemplateDrivenFormsDoc } from '@/doc/autocomplete/templatedrivenformsdoc';
 import { VirtualScrollDoc } from '@/doc/autocomplete/virtualscrolldoc';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
@@ -25,13 +31,16 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         description="AutoComplete is an input component that provides real-time suggestions when being typed."
         [docs]="docs"
         [apiDocs]="['AutoComplete']"
+        [ptDocs]="ptComponent"
         themeDocs="AutoComplete"
     ></app-doc>`,
     standalone: true,
-    imports: [AutoCompleteDocModule],
+    imports: [AppDoc],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -42,11 +51,6 @@ export class AutoCompleteDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'dropdown',
@@ -84,6 +88,22 @@ export class AutoCompleteDemo {
             component: MultipleDoc
         },
         {
+            id: 'chips',
+            label: 'Chips',
+            children: [
+                {
+                    id: 'basicchips',
+                    label: 'Basic',
+                    component: BasicChipsDoc
+                },
+                {
+                    id: 'advancedchips',
+                    label: 'Advanced',
+                    component: AdvancedChipsDoc
+                }
+            ]
+        },
+        {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
@@ -94,9 +114,19 @@ export class AutoCompleteDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'filled',
@@ -104,14 +134,22 @@ export class AutoCompleteDemo {
             component: FilledDoc
         },
         {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'accessibility',

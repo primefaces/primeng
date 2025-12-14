@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FieldsetModule } from 'primeng/fieldset';
-import { FormsModule } from '@angular/forms';
-import { DesignerService } from '@/service/designerservice';
-import { palette } from '@primeng/themes';
 import { DesignColorPalette } from '@/components/layout/designer/editor/designcolorpalette';
+import { DesignerService } from '@/service/designerservice';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { palette } from '@primeuix/themes';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
     selector: 'design-colors',
@@ -15,7 +15,14 @@ import { DesignColorPalette } from '@/components/layout/designer/editor/designco
             <section *ngIf="key !== 'borderRadius'" class="flex justify-between items-center mb-4 gap-8">
                 <div class="flex gap-2 items-center">
                     <span class="text-sm capitalize block w-20">{{ key }}</span>
-                    <input [value]="designerService.resolveColor(designerService.designer().theme.preset.primitive[key]['500'])" (change)="onColorChange($event, key)" (blur)="onBlur()" type="color" />
+                    <input
+                        [value]="designerService.resolveColor(designerService.designer().theme.preset.primitive[key]['500'])"
+                        (change)="onColorChange($event, key)"
+                        (blur)="onBlur()"
+                        type="color"
+                        [disabled]="designerService.isThemeViewOnly()"
+                        [class]="{ '!cursor-not-allowed': designerService.isThemeViewOnly() }"
+                    />
                 </div>
                 <design-color-palette [value]="designerService.designer().theme?.preset?.primitive[key]" />
             </section>

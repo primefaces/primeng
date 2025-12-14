@@ -1,3 +1,2 @@
-import { SplitterDesignTokens } from '../../types/splitter';
-declare const _default: SplitterDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/splitter';
+export { default } from '@primeuix/themes/nora/splitter';

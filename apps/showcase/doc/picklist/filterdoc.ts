@@ -1,11 +1,17 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { PickListModule } from 'primeng/picklist';
 
 @Component({
     selector: 'filter-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, PickListModule, AppCode, AppDocSectionText],
+    providers: [ProductService],
     template: `
         <app-docsectiontext>
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property.</p>
@@ -16,13 +22,11 @@ import { ChangeDetectorRef, Component } from '@angular/core';
                 [target]="targetProducts"
                 [dragdrop]="true"
                 [responsive]="true"
-                [sourceStyle]="{ height: '30rem' }"
-                [targetStyle]="{ height: '30rem' }"
                 filterBy="name"
                 sourceFilterPlaceholder="Search by name"
                 targetFilterPlaceholder="Search by name"
                 breakpoint="1400px"
-                scrollHeight="30rem"
+                scrollHeight="20rem"
             >
                 <ng-template let-option let-selected="selected" #option>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -70,13 +74,11 @@ export class FilterDoc {
     [target]="targetProducts"
     [dragdrop]="true"
     [responsive]="true"
-    [sourceStyle]="{ height: '30rem' }"
-    [targetStyle]="{ height: '30rem' }"
     filterBy="name"
     sourceFilterPlaceholder="Search by name"
     targetFilterPlaceholder="Search by name"
     breakpoint="1400px"
-    scrollHeight="30rem"
+    scrollHeight="20rem"
 >
     <ng-template let-option let-selected="selected" #option>
         <div class="flex flex-wrap p-1 items-center gap-4 w-full">
@@ -107,13 +109,11 @@ export class FilterDoc {
         [target]="targetProducts"
         [dragdrop]="true"
         [responsive]="true"
-        [sourceStyle]="{ height: '30rem' }"
-        [targetStyle]="{ height: '30rem' }"
         filterBy="name"
         sourceFilterPlaceholder="Search by name"
         targetFilterPlaceholder="Search by name"
         breakpoint="1400px"
-        scrollHeight="30rem"
+        scrollHeight="20rem"
     >
         <ng-template let-option let-selected="selected" #option>
             <div class="flex flex-wrap p-1 items-center gap-4 w-full">

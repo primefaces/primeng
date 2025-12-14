@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, EventEmitter, inject, input, Input, model, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, EventEmitter, inject, input, Input, model, OnInit, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { $dt } from '@primeuix/themes';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TooltipModule } from 'primeng/tooltip';
-import { $dt } from '@primeng/themes';
 import { UniqueComponentId } from 'primeng/utils';
 
 @Component({
@@ -35,6 +35,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 (onKeyUp)="onInput($event)"
                 [inputStyleClass]="inputStyleClass()"
                 [maxlength]="100"
+                [disabled]="designerService.isThemeViewOnly()"
             >
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
@@ -55,7 +56,7 @@ import { UniqueComponentId } from 'primeng/utils';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignTokenField implements OnInit {
-    private designerService: DesignerService = inject(DesignerService);
+    designerService: DesignerService = inject(DesignerService);
 
     @Input() label: string | undefined;
 

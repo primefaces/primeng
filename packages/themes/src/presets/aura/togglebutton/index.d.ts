@@ -1,3 +1,2 @@
-import { ToggleButtonDesignTokens } from '../../types/togglebutton';
-declare const _default: ToggleButtonDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/togglebutton';
+export { default } from '@primeuix/themes/aura/togglebutton';

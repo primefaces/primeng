@@ -1,38 +1,47 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ButtonModule } from 'primeng/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'button-link-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ButtonModule, RouterModule],
     template: `
         <app-docsectiontext>
-            <p>A button can be rendered as a link as well.</p>
+            <p>A button can be rendered as a link when <i>link</i> property is present, while the <i>pButton</i> directive can be applied on an anchor element to style the link as a button.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-4">
-            <p-button label="Link" [link]="true" />
-            <a href="https://angular.dev/" target="_blank" rel="noopener noreferrer" class="p-button font-bold">External</a>
-            <a routerLink="/" class="p-button font-bold">Router</a>
+            <p-button label="Link" link />
+            <a href="https://angular.dev/" pButton target="_blank" rel="noopener noreferrer">
+                <span pButtonLabel>Angular Website</span>
+            </a>
+            <a routerLink="/" pButton>
+                <span pButtonLabel>Router Link</span>
+            </a>
         </div>
         <app-code [code]="code" selector="button-link-demo"></app-code>
     `
 })
 export class LinkDoc {
     code: Code = {
-        basic: `<p-button label="Link" [link]="true" />
-<a href="https://angular.dev/" target="_blank" rel="noopener noreferrer" class="p-button font-bold">
-    External
+        basic: `<p-button label="Link" link />
+<a href="https://angular.dev/" pButton target="_blank" rel="noopener noreferrer">
+    <span pButtonLabel>Angular Website</span>
 </a>
-<a routerLink="/" class="p-button font-bold">
-    Router
+<a routerLink="/" pButton>
+    <span pButtonLabel>Router Link</span>
 </a>`,
 
         html: `<div class="card flex justify-center gap-4">
-    <p-button label="Link" [link]="true" />
-    <a href="https://angular.dev/" target="_blank" rel="noopener noreferrer" class="p-button font-bold">
-        External
+    <p-button label="Link" link />
+    <a href="https://angular.dev/" pButton target="_blank" rel="noopener noreferrer">
+        <span pButtonLabel>Angular Website</span>
     </a>
-    <a routerLink="/" class="p-button font-bold">
-        Router
+    <a routerLink="/" pButton>
+        <span pButtonLabel>Router Link</span>
     </a>
 </div>`,
 

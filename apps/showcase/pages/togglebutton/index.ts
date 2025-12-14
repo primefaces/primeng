@@ -6,15 +6,27 @@ import { ImportDoc } from '@/doc/togglebutton/importdoc';
 import { InvalidDoc } from '@/doc/togglebutton/invaliddoc';
 import { ReactiveFormsDoc } from '@/doc/togglebutton/reactiveformsdoc';
 import { SizesDoc } from '@/doc/togglebutton/sizesdoc';
-import { ToggleButtonDocModule } from '@/doc/togglebutton/togglebuttondoc.module';
+import { TemplateDrivenFormsDoc } from '@/doc/togglebutton/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/togglebutton/fluiddoc';
+import { PTComponent } from '@/doc/togglebutton/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Angular ToggleButton Component" header="ToggleButton" description="ToggleButton is used to select a boolean value using a button." [docs]="docs" [apiDocs]="['ToggleButton']" themeDocs="togglebutton"></app-doc>`,
+    template: `<app-doc
+        docTitle="Angular ToggleButton Component"
+        header="ToggleButton"
+        description="ToggleButton is used to select a boolean value using a button."
+        [docs]="docs"
+        [apiDocs]="['ToggleButton']"
+        [ptDocs]="ptComponent"
+        themeDocs="togglebutton"
+    ></app-doc>`,
     standalone: true,
-    imports: [ToggleButtonDocModule]
+    imports: [AppDoc]
 })
 export class ToggleButtonDemo {
+    ptComponent = PTComponent;
     docs = [
         {
             id: 'import',
@@ -27,11 +39,6 @@ export class ToggleButtonDemo {
             component: BasicDoc
         },
         {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
-        },
-        {
             id: 'customized',
             label: 'Customized',
             component: CustomizedDoc
@@ -42,14 +49,27 @@ export class ToggleButtonDemo {
             component: SizesDoc
         },
         {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
         },
         {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
+        },
+        {
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
         {
             id: 'accessibility',

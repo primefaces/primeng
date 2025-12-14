@@ -1,13 +1,18 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ToastModule } from 'primeng/toast';
 import { Footer } from './footer';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'dynamic-dialog-example-demo',
-    standalone: false,
+    standalone: true,
+    imports: [ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -183,7 +188,7 @@ import { ButtonModule } from 'primeng/button';
     template: \`<div class="flex justify-end mt-1 mb-4">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
-        <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
+        <p-table [value]="products" responsiveLayout="scroll" [rows]="5">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="code">Code</th>
@@ -254,7 +259,7 @@ export class ProductListDemo implements OnInit {
             path: 'src/app/demo/infodemo.ts',
             name: 'InfoDemo',
             content: `import { Component} from '@angular/core';
-import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 
@@ -274,7 +279,7 @@ import { ButtonModule } from 'primeng/button';
 export class InfoDemo {
     totalProducts: number = 0;
 
-    instance: DynamicDialogComponent | undefined;
+    instance: DynamicDialog | undefined;
 
     constructor(public ref: DynamicDialogRef, private dialogService: DialogService) {
         this.instance = this.dialogService.getInstance(this.ref);

@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons';
-import { InplaceStyle } from './style/inplacestyle';
 import { Ripple } from 'primeng/ripple';
+import { InplaceContentTemplateContext, InplacePassThrough } from 'primeng/types/inplace';
+import { InplaceStyle } from './style/inplacestyle';
+
+const INPLACE_INSTANCE = new InjectionToken<Inplace>('INPLACE_INSTANCE');
 
 @Component({
     selector: 'p-inplacedisplay, p-inplaceDisplay',
@@ -13,7 +17,7 @@ import { Ripple } from 'primeng/ripple';
     imports: [CommonModule],
     template: '<ng-content></ng-content>'
 })
-export class InplaceDisplay {}
+export class InplaceDisplay extends BaseComponent {}
 
 @Component({
     selector: 'p-inplacecontent, p-inplaceContent',
@@ -21,7 +25,7 @@ export class InplaceDisplay {}
     imports: [CommonModule],
     template: '<ng-content></ng-content>'
 })
-export class InplaceContent {}
+export class InplaceContent extends BaseComponent {}
 /**
  * Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
  * @group Components
@@ -29,32 +33,45 @@ export class InplaceContent {}
 @Component({
     selector: 'p-inplace',
     standalone: true,
-    imports: [CommonModule, ButtonModule, TimesIcon, SharedModule, Ripple],
+    imports: [CommonModule, ButtonModule, TimesIcon, SharedModule, Ripple, Bind],
     template: `
-        <div [ngClass]="{ 'p-inplace p-component': true, 'p-inplace-closable': closable }" [ngStyle]="style" [class]="styleClass" [attr.aria-live]="'polite'">
-            <div class="p-inplace-display" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [ngClass]="{ 'p-disabled': disabled }" *ngIf="!active">
-                <ng-content select="[pInplaceDisplay]"></ng-content>
-                <ng-container *ngTemplateOutlet="displayTemplate || _displayTemplate"></ng-container>
-            </div>
-            <div class="p-inplace-content" *ngIf="active">
-                <ng-content select="[pInplaceContent]"></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
+        <div [class]="cx('display')" [pBind]="ptm('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [attr.data-p-disabled]="disabled" *ngIf="!active">
+            <ng-content select="[pInplaceDisplay]"></ng-content>
+            <ng-container *ngTemplateOutlet="displayTemplate || _displayTemplate"></ng-container>
+        </div>
+        <div [class]="cx('content')" [pBind]="ptm('content')" *ngIf="active">
+            <ng-content select="[pInplaceContent]"></ng-content>
+            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onDeactivateClick.bind(this) }"></ng-container>
 
-                <ng-container *ngIf="closable">
-                    <button *ngIf="closeIcon" type="button" [icon]="closeIcon" pButton pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></button>
-                    <button *ngIf="!closeIcon" type="button" pButton pRipple [ngClass]="'p-button-icon-only'" (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
-                        <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" />
-                        <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
-                    </button>
-                </ng-container>
-            </div>
+            <ng-container *ngIf="closable">
+                <p-button *ngIf="closeIcon" [pt]="ptm('pcButton')" type="button" [icon]="closeIcon" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel"></p-button>
+                <p-button *ngIf="!closeIcon" [pt]="ptm('pcButton')" type="button" pRipple (click)="onDeactivateClick($event)" [attr.aria-label]="closeAriaLabel">
+                    <ng-template #icon>
+                        <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" />
+                    </ng-template>
+                    <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
+                </p-button>
+            </ng-container>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [InplaceStyle]
+    providers: [InplaceStyle, { provide: INPLACE_INSTANCE, useExisting: Inplace }, { provide: PARENT_INSTANCE, useExisting: Inplace }],
+    host: {
+        '[attr.aria-live]': "'polite'",
+        '[class]': "cn(cx('root'), styleClass)"
+    },
+    hostDirectives: [Bind]
 })
-export class Inplace extends BaseComponent implements AfterContentInit {
+export class Inplace extends BaseComponent<InplacePassThrough> {
+    $pcInplace: Inplace | undefined = inject(INPLACE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Whether the content is displayed or not.
      * @group Props
@@ -62,6 +79,7 @@ export class Inplace extends BaseComponent implements AfterContentInit {
     @Input({ transform: booleanAttribute }) active: boolean | undefined = false;
     /**
      * Displays a button to switch back to display mode.
+     * @deprecated since v20.0.0, use `closeCallback` within content template.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) closable: boolean | undefined = false;
@@ -76,17 +94,14 @@ export class Inplace extends BaseComponent implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) preventClick: boolean | undefined;
     /**
-     * Inline style of the element.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
     /**
      * Icon to display in the close button.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() closeIcon: string | undefined;
@@ -110,20 +125,20 @@ export class Inplace extends BaseComponent implements AfterContentInit {
 
     hover!: boolean;
     /**
-     * Display template of the element.
+     * Custom display template.
      * @group Templates
      */
-    @ContentChild('display', { descendants: false }) displayTemplate: TemplateRef<any> | undefined;
+    @ContentChild('display', { descendants: false }) displayTemplate: TemplateRef<void> | undefined;
     /**
-     * Content template of the element.
+     * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<InplaceContentTemplateContext> | undefined;
     /**
-     * Close icon template of the element.
+     * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<void> | undefined;
 
     _componentStyle = inject(InplaceStyle);
 
@@ -169,13 +184,13 @@ export class Inplace extends BaseComponent implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _displayTemplate: TemplateRef<any> | undefined;
+    _displayTemplate: TemplateRef<void> | undefined;
 
-    _closeIconTemplate: TemplateRef<any> | undefined;
+    _closeIconTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<InplaceContentTemplateContext> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'display':

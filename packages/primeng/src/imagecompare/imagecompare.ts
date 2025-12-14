@@ -1,8 +1,12 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
+import { ImageComparePassThrough } from 'primeng/types/imagecompare';
 import { ImageCompareStyle } from './style/imagecomparestyle';
+
+const IMAGECOMPARE_INSTANCE = new InjectionToken<ImageCompare>('IMAGECOMPARE_INSTANCE');
 
 /**
  * Compare two images side by side with a slider.
@@ -11,26 +15,28 @@ import { ImageCompareStyle } from './style/imagecomparestyle';
 @Component({
     selector: 'p-imageCompare, p-imagecompare, p-image-compare',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: `
         <ng-template *ngTemplateOutlet="leftTemplate || _leftTemplate"></ng-template>
         <ng-template *ngTemplateOutlet="rightTemplate || _rightTemplate"></ng-template>
 
-        <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" />
+        <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" [pBind]="ptm('slider')" />
     `,
     host: {
-        class: 'p-imagecompare',
+        '[class]': "cx('root')",
         '[attr.tabindex]': 'tabindex',
         '[attr.aria-labelledby]': 'ariaLabelledby',
         '[attr.aria-label]': 'ariaLabel'
     },
+    hostDirectives: [Bind],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ImageCompareStyle]
+    providers: [ImageCompareStyle, { provide: IMAGECOMPARE_INSTANCE, useExisting: ImageCompare }, { provide: PARENT_INSTANCE, useExisting: ImageCompare }]
 })
-export class ImageCompare extends BaseComponent implements AfterContentInit {
-    isRTL: boolean = false;
+export class ImageCompare extends BaseComponent<ImageComparePassThrough> {
+    $pcImageCompare: ImageCompare | undefined = inject(IMAGECOMPARE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
+    bindDirectiveInstance = inject(Bind, { self: true });
     /**
      * Index of the element in tabbing order.
      * @defaultValue 0
@@ -49,20 +55,20 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
     @Input() ariaLabel: string | undefined;
 
     /**
-     * Template for the left side.
+     * Custom left side template.
      * @group Templates
      */
-    @ContentChild('left', { descendants: false }) leftTemplate: TemplateRef<any>;
+    @ContentChild('left', { descendants: false }) leftTemplate: TemplateRef<void> | undefined;
 
     /**
-     * Template for the right side.
+     * Custom right side template.
      * @group Templates
      */
-    @ContentChild('right', { descendants: false }) rightTemplate: TemplateRef<any>;
+    @ContentChild('right', { descendants: false }) rightTemplate: TemplateRef<void> | undefined;
 
-    _leftTemplate: TemplateRef<any> | undefined;
+    _leftTemplate: TemplateRef<void> | undefined;
 
-    _rightTemplate: TemplateRef<any> | undefined;
+    _rightTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -70,13 +76,18 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
 
     mutationObserver: MutationObserver;
 
-    ngOnInit() {
-        super.ngOnInit();
+    isRTL: boolean = false;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    onInit() {
         this.updateDirection();
         this.observeDirectionChanges();
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'left':
@@ -117,12 +128,10 @@ export class ImageCompare extends BaseComponent implements AfterContentInit {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.mutationObserver) {
             this.mutationObserver.disconnect();
         }
-
-        super.ngOnDestroy();
     }
 }
 

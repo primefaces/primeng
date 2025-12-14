@@ -1,32 +1,29 @@
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    inject,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { SpinnerIcon } from 'primeng/icons';
 import { PaginatorModule } from 'primeng/paginator';
 import { Nullable } from 'primeng/ts-helpers';
+import {
+    DataViewGridTemplateContext,
+    DataViewLayoutChangeEvent,
+    DataViewLazyLoadEvent,
+    DataViewListTemplateContext,
+    DataViewPageEvent,
+    DataViewPaginatorDropdownItemTemplateContext,
+    DataViewPaginatorLeftTemplateContext,
+    DataViewPaginatorRightTemplateContext,
+    DataViewPaginatorState,
+    DataViewPassThrough,
+    DataViewSortEvent
+} from 'primeng/types/dataview';
 import { Subscription } from 'rxjs';
-import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
 import { DataViewStyle } from './style/dataviewstyle';
+
+const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
 
 /**
  * DataView displays data in grid or list layout with pagination and sorting features.
@@ -35,22 +32,29 @@ import { DataViewStyle } from './style/dataviewstyle';
 @Component({
     selector: 'p-dataView, p-dataview, p-data-view',
     standalone: true,
-    imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule],
+    imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule, Bind],
     template: `
-        <div [ngClass]="{ 'p-dataview p-component': true, 'p-dataview-list': layout === 'list', 'p-dataview-grid': layout === 'grid' }" [ngStyle]="style" [class]="styleClass">
-            <div class="p-dataview-loading" *ngIf="loading">
-                <div class="p-dataview-loading-overlay p-overlay-mask">
-                    <i *ngIf="loadingIcon" [class]="'p-dataview-loading-icon pi-spin ' + loadingIcon"></i>
-                    <ng-container *ngIf="!loadingIcon">
-                        <SpinnerIcon *ngIf="!loadingicon" [spin]="true" [styleClass]="'p-dataview-loading-icon'" />
-                        <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
-                    </ng-container>
+        @if (loading) {
+            <div [pBind]="ptm('loading')" [class]="cx('loading')">
+                <div [pBind]="ptm('loadingOverlay')" [class]="cx('loadingOverlay')">
+                    @if (loadingIcon) {
+                        <i [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
+                    } @else {
+                        <ng-container>
+                            <svg [pBind]="ptm('loadingIcon')" data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" />
+                            <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
+                        </ng-container>
+                    }
                 </div>
             </div>
-            <div class="p-dataview-header" *ngIf="header || headerTemplate">
+        }
+        @if (header || headerTemplate) {
+            <div [pBind]="ptm('header')" [class]="cx('header')">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
+        }
+        @if (paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')) {
             <p-paginator
                 [rows]="rows"
                 [first]="first"
@@ -58,10 +62,8 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [pageLinkSize]="pageLinks"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)"
-                styleClass="p-paginator-top"
                 [rowsPerPageOptions]="rowsPerPageOptions"
-                *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [appendTo]="paginatorDropdownAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [templateLeft]="paginatorleft"
                 [templateRight]="paginatorright"
@@ -71,39 +73,42 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="cn(cx('pcPaginator', { position: 'top' }), paginatorStyleClass)"
+                [pt]="ptm('pcPaginator')"
+                [unstyled]="unstyled()"
             ></p-paginator>
-
-            <div class="p-dataview-content">
-                @if (layout === 'list') {
-                    <ng-container
-                        *ngTemplateOutlet="
-                            listTemplate;
-                            context: {
-                                $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
-                            }
-                        "
-                    ></ng-container>
-                }
-                @if (layout === 'grid') {
-                    <ng-container
-                        *ngTemplateOutlet="
-                            gridTemplate;
-                            context: {
-                                $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
-                            }
-                        "
-                    ></ng-container>
-                }
-                <div *ngIf="isEmpty() && !loading">
-                    <div class="p-dataview-emptymessage">
-                        <ng-container *ngIf="!emptymessageTemplate; else empty">
-                            {{ emptyMessageLabel }}
-                        </ng-container>
-                        <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
-                    </div>
+        }
+        <div [pBind]="ptm('content')" [class]="cx('content')">
+            @if (layout === 'list') {
+                <ng-container
+                    *ngTemplateOutlet="
+                        listTemplate;
+                        context: {
+                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
+                        }
+                    "
+                ></ng-container>
+            }
+            @if (layout === 'grid') {
+                <ng-container
+                    *ngTemplateOutlet="
+                        gridTemplate;
+                        context: {
+                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
+                        }
+                    "
+                ></ng-container>
+            }
+            @if (isEmpty() && !loading) {
+                <div [pBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')">
+                    <ng-container *ngIf="!emptymessageTemplate; else empty">
+                        {{ emptyMessageLabel }}
+                    </ng-container>
+                    <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
                 </div>
-            </div>
+            }
+        </div>
+        @if (paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')) {
             <p-paginator
                 [rows]="rows"
                 [first]="first"
@@ -111,10 +116,8 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [pageLinkSize]="pageLinks"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="paginate($event)"
-                styleClass="p-paginator-bottom"
                 [rowsPerPageOptions]="rowsPerPageOptions"
-                *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
+                [appendTo]="paginatorDropdownAppendTo"
                 [dropdownScrollHeight]="paginatorDropdownScrollHeight"
                 [templateLeft]="paginatorleft"
                 [templateRight]="paginatorright"
@@ -124,19 +127,35 @@ import { DataViewStyle } from './style/dataviewstyle';
                 [showCurrentPageReport]="showCurrentPageReport"
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="cn(cx('pcPaginator', { position: 'bottom' }), paginatorStyleClass)"
+                [pt]="ptm('pcPaginator')"
+                [unstyled]="unstyled()"
             ></p-paginator>
-            <div class="p-dataview-footer" *ngIf="footer || footerTemplate">
+        }
+        @if (footer || footerTemplate) {
+            <div [pBind]="ptm('footer')" [class]="cx('footer')">
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
-        </div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DataViewStyle]
+    providers: [DataViewStyle, { provide: DATAVIEW_INSTANCE, useExisting: DataView }, { provide: PARENT_INSTANCE, useExisting: DataView }],
+    host: {
+        '[class]': "cn(cx('root'), styleClass)"
+    },
+    hostDirectives: [Bind]
 })
-export class DataView extends BaseComponent implements OnInit, OnDestroy, BlockableUI, OnChanges {
+export class DataView extends BaseComponent<DataViewPassThrough> implements BlockableUI {
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcDataView: DataView | undefined = inject(DATAVIEW_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * When specified as true, enables the pagination.
      * @group Props
@@ -228,12 +247,8 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
      */
     @Input() emptyMessage: string = '';
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -318,58 +333,64 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
     @Output() onChangeLayout: EventEmitter<DataViewLayoutChangeEvent> = new EventEmitter<DataViewLayoutChangeEvent>();
     /**
      * Template for the list layout.
+     * @param {DataViewListTemplateContext} context - list template context.
      * @group Templates
      */
-    @ContentChild('list') listTemplate: Nullable<TemplateRef<any>>;
+    @ContentChild('list') listTemplate: Nullable<TemplateRef<DataViewListTemplateContext>>;
     /**
      * Template for grid layout.
+     * @param {DataViewGridTemplateContext} context - grid template context.
      * @group Templates
      */
-    @ContentChild('grid') gridTemplate: TemplateRef<any>;
+    @ContentChild('grid') gridTemplate: TemplateRef<DataViewGridTemplateContext>;
     /**
      * Template for the header section.
      * @group Templates
      */
-    @ContentChild('header') headerTemplate: TemplateRef<any>;
+    @ContentChild('header') headerTemplate: TemplateRef<void>;
     /**
      * Template for the empty message section.
      * @group Templates
      */
-    @ContentChild('emptymessage') emptymessageTemplate: TemplateRef<any>;
+    @ContentChild('emptymessage') emptymessageTemplate: TemplateRef<void>;
     /**
      * Template for the footer section.
      * @group Templates
      */
-    @ContentChild('footer') footerTemplate: TemplateRef<any>;
+    @ContentChild('footer') footerTemplate: TemplateRef<void>;
     /**
      * Template for the left side of paginator.
+     * @param {DataViewPaginatorLeftTemplateContext} context - paginator left template context.
      * @group Templates
      */
-    @ContentChild('paginatorleft') paginatorleft: TemplateRef<any>;
-    /**r* Template for the right side of paginator.
+    @ContentChild('paginatorleft') paginatorleft: TemplateRef<DataViewPaginatorLeftTemplateContext>;
+    /**
+     * Template for the right side of paginator.
+     * @param {DataViewPaginatorRightTemplateContext} context - paginator right template context.
      * @group Templates
      */
-    @ContentChild('paginatorright') paginatorright: TemplateRef<any>;
+    @ContentChild('paginatorright') paginatorright: TemplateRef<DataViewPaginatorRightTemplateContext>;
     /**
      * Template for items in paginator dropdown.
+     * @param {DataViewPaginatorDropdownItemTemplateContext} context - paginator dropdown item template context.
      * @group Templates
      */
-    @ContentChild('paginatordropdownitem') paginatordropdownitem: TemplateRef<any>;
+    @ContentChild('paginatordropdownitem') paginatordropdownitem: TemplateRef<DataViewPaginatorDropdownItemTemplateContext>;
     /**
      * Template for loading icon.
      * @group Templates
      */
-    @ContentChild('loadingicon') loadingicon: TemplateRef<any>;
+    @ContentChild('loadingicon') loadingicon: TemplateRef<void>;
     /**
      * Template for list icon.
      * @group Templates
      */
-    @ContentChild('listicon') listicon: TemplateRef<any>;
+    @ContentChild('listicon') listicon: TemplateRef<void>;
     /**
      * Template for grid icon.
      * @group Templates
      */
-    @ContentChild('gridicon') gridicon: TemplateRef<any>;
+    @ContentChild('gridicon') gridicon: TemplateRef<void>;
 
     @ContentChild(Header) header: any;
 
@@ -395,8 +416,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
 
     filterService = inject(FilterService);
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -407,12 +427,9 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
         this.initialized = true;
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-    }
+    onAfterViewInit() {}
 
-    ngOnChanges(simpleChanges: SimpleChanges) {
-        super.ngOnChanges(simpleChanges);
+    onChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.layout && !simpleChanges.layout.firstChange) {
             this.onChangeLayout.emit({ layout: simpleChanges.layout.currentValue });
         }
@@ -460,7 +477,7 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
             this.value.sort((data1, data2) => {
                 let value1 = resolveFieldData(data1, this.sortField);
                 let value2 = resolveFieldData(data2, this.sortField);
-                let result = null;
+                let result: number;
 
                 if (value1 == null && value2 != null) result = -1;
                 else if (value1 != null && value2 == null) result = 1;
@@ -524,11 +541,10 @@ export class DataView extends BaseComponent implements OnInit, OnDestroy, Blocka
         return this.filterValue && this.filterValue.trim().length > 0;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
-        super.ngOnDestroy();
     }
 }
 

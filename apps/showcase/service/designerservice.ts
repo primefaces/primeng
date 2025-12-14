@@ -1,15 +1,16 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { $dt, usePreset } from '@primeuix/styled';
-import { MessageService } from 'primeng/api';
-import Aura from '@primeng/themes/aura/index';
 import { environment } from '@/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { $dt, usePreset } from '@primeuix/styled';
+import Aura from '@primeuix/themes/aura';
+import { MessageService } from 'primeng/api';
 
 export interface Theme {
     key: string;
     name: string;
     preset: any;
     config: any;
+    origin: string;
 }
 
 export interface Designer {
@@ -44,7 +45,8 @@ export class DesignerService {
             key: null,
             name: null,
             preset: null,
-            config: null
+            config: null,
+            origin: null
         },
         acTokens: [],
         themes: []
@@ -74,12 +76,14 @@ export class DesignerService {
 
     figmaData = signal<any>(null);
 
+    isThemeViewOnly = computed(() => this.designer().theme.origin !== 'web');
+
     openDashboard() {
         this.designer.update((prev) => ({ ...prev, activeView: 'dashboard' }));
     }
 
     resolveColor(token) {
-        if (token.startsWith('{') && token.endsWith('}')) {
+        if (token && token.startsWith('{') && token.endsWith('}')) {
             let cssVariable = $dt(token).variable.slice(4, -1);
             return getComputedStyle(document.documentElement).getPropertyValue(cssVariable);
         } else {
@@ -163,7 +167,8 @@ export class DesignerService {
                             key: null,
                             name: null,
                             preset: null,
-                            config: null
+                            config: null,
+                            origin: null
                         },
                         acTokens: [],
                         themes: []
@@ -196,7 +201,7 @@ export class DesignerService {
     }
 
     async saveTheme(theme: any) {
-        if (this.designer().verified) {
+        if (this.designer().verified && theme.origin === 'web') {
             const url = `${this.baseUrl}/theme/update`;
 
             const body = {
@@ -270,6 +275,7 @@ export class DesignerService {
     }
 
     async restore() {
+        if (!environment.production) return;
         this.http.get(this.baseUrl + '/license/restore', { withCredentials: true }).subscribe({
             next: (res: any) => {
                 const data = res.data;
@@ -315,14 +321,16 @@ export class DesignerService {
         }
     }
 
-    async applyTheme(theme: any) {
+    async applyTheme(theme: any, showMessage = true) {
         if (this.designer().verified) {
             await this.saveTheme(theme);
             this.refreshACTokens();
         }
 
         usePreset(theme.preset);
-        this.messageService.add({ key: 'designer', severity: 'success', summary: 'Success', detail: 'Theme saved.', life: 3000 });
+        if (showMessage) {
+            this.messageService.add({ key: 'designer', severity: 'success', summary: 'Success', detail: 'Theme saved.', life: 3000 });
+        }
     }
 
     async preview() {
@@ -376,7 +384,7 @@ export class DesignerService {
     }
 
     async renameTheme(theme: any) {
-        if (theme.t_name && theme.t_name.trim().length > 0) {
+        if (theme.t_name && theme.t_name.trim().length > 0 && theme.t_origin === 'web') {
             const url = `${this.baseUrl}/theme/rename/${theme.t_key}`;
             const options = {
                 withCredentials: true,
@@ -440,7 +448,8 @@ export class DesignerService {
                 config: {
                     font_size: '14px',
                     font_family: 'Inter var'
-                }
+                },
+                origin: 'web'
             }
         }));
         this.missingTokens.set([]);
@@ -474,11 +483,11 @@ export class DesignerService {
                     if (res.error) {
                         this.messageService.add({ key: 'designer', severity: 'error', summary: 'An error occurred', detail: res.error.message, life: 3000 });
                     } else {
-                        const data = res.data;
-                        if (data.lostAndFound?.length) {
+                        this.loadThemeEditor(res.data.t_key, res.data.t_preset);
+
+                        if (res.data.lostAndFound?.length) {
                             this.messageService.add({ key: 'designer', severity: 'warn', summary: 'Warning', detail: 'There are missing tokens. An update is recommended using the "Migration Assistant" in the settings section.', life: 3000 });
                         }
-                        this.designer.update((prev) => ({ ...prev, activeTab: 0, activeView: 'dashboard' }));
                     }
                 },
                 error: (err: any) => {
@@ -494,7 +503,17 @@ export class DesignerService {
     }
 
     async activateTheme(data: any) {
-        this.designer.update((prev) => ({ ...prev, active: true, theme: { key: data.t_key, name: data.t_name, preset: JSON.parse(data.t_preset), config: JSON.parse(data.t_config) } }));
+        this.designer.update((prev) => ({
+            ...prev,
+            active: true,
+            theme: {
+                key: data.t_key,
+                name: data.t_name,
+                preset: typeof data.t_preset === 'string' ? JSON.parse(data.t_preset) : data.t_preset,
+                config: typeof data.t_config === 'string' ? JSON.parse(data.t_config) : data.t_config,
+                origin: data.t_origin
+            }
+        }));
 
         usePreset(this.designer().theme.preset);
         await this.applyFont(this.designer().theme.config.fontFamily);

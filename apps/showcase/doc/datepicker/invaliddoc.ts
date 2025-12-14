@@ -1,27 +1,37 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-invalid-demo',
-    standalone: false,
+    selector: 'date-picker-invalid-demo',
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>The invalid state is applied using the <i>⁠invalid</i> property to indicate failed validation, which can be integrated with Angular Forms.</p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" class="ng-invalid ng-dirty" />
+        <div class="card flex flex-wrap justify-center gap-4">
+            <p-datepicker [(ngModel)]="date1" [invalid]="!date1" placeholder="Date" />
+            <p-datepicker [(ngModel)]="date2" [invalid]="!date2" variant="filled" placeholder="Date" />
         </div>
-        <app-code [code]="code" selector="datepicker-invalid-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-invalid-demo"></app-code>
     `
 })
 export class InvalidDoc {
-    date: Date | undefined;
+    date1: Date | undefined;
+
+    date2: Date | undefined;
 
     code: Code = {
-        basic: `<p-datepicker [(ngModel)]="date" class="ng-invalid ng-dirty" />`,
+        basic: `<p-datepicker [(ngModel)]="date1" [invalid]="!date1" placeholder="Date" />
+<p-datepicker [(ngModel)]="date2" [invalid]="!date2" variant="filled" placeholder="Date" />`,
 
-        html: `<div class="card flex justify-center">
-    <p-datepicker [(ngModel)]="date" class="ng-invalid ng-dirty" />
+        html: `<div class="card flex flex-wrap justify-center gap-4">
+    <p-datepicker [(ngModel)]="date1" [invalid]="!date1" placeholder="Date" />
+    <p-datepicker [(ngModel)]="date2" [invalid]="!date2" variant="filled" placeholder="Date" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -29,13 +39,15 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-invalid-demo',
-    templateUrl: './datepicker-invalid-demo.html',
+    selector: 'date-picker-invalid-demo',
+    templateUrl: './date-picker-invalid-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })
 export class DatePickerInvalidDemo {
-    date: Date | undefined;
+    date1: Date | undefined;
+    
+    date2: Date | undefined;
 }`
     };
 }

@@ -1,3 +1,2 @@
-import { DataViewDesignTokens } from '../../types/dataview';
-declare const _default: DataViewDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/dataview';
+export { default } from '@primeuix/themes/lara/dataview';

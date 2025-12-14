@@ -1,3 +1,2 @@
-import { CascadeSelectDesignTokens } from '../../types/cascadeselect';
-declare const _default: CascadeSelectDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/cascadeselect';
+export { default } from '@primeuix/themes/aura/cascadeselect';

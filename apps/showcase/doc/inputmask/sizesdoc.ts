@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'sizes-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, InputMaskModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>InputMask provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>

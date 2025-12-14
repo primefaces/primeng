@@ -1,22 +1,29 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+import { PanelMenu } from 'primeng/panelmenu';
+import { Ripple } from 'primeng/ripple';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, PanelMenu, BadgeModule, Ripple, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80">
+            <p-panelmenu [model]="items" class="w-full md:w-80">
                 <ng-template #item let-item>
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <span class="ms-2">{{ item.label }}</span>
+                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
             </p-panelmenu>
@@ -113,35 +120,25 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelmenu [model]="items" styleClass="w-full md:w-80">
+        basic: `<p-panelmenu [model]="items" class="w-full md:w-80">
     <ng-template #item let-item>
-        <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
+         <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
             <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
-            <span class="ml-2">
-                {{ item.label }}
-            </span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded
-            bg-emphasis text-muted-color text-xs p-1">
-                {{ item.shortcut }}
-            </span>
+            <span class="ms-2">{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
         </a>
     </ng-template>
 </p-panelmenu>`,
 
         html: `<div class="card flex flex-col items-center">
-    <p-panelmenu [model]="items" styleClass="w-full md:w-80">
+    <p-panelmenu [model]="items" class="w-full md:w-80">
         <ng-template #item let-item>
-            <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
+             <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                 <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
-                <span class="ml-2">
-                    {{ item.label }}
-                </span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded
-                 bg-emphasis text-muted-color text-xs p-1">
-                    {{ item.shortcut }}
-                </span>
+                <span class="ms-2">{{ item.label }}</span>
+                <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
             </a>
         </ng-template>
     </p-panelmenu>

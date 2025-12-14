@@ -1,9 +1,15 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
     selector: 'toggle-class-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -12,19 +18,19 @@ import { Component } from '@angular/core';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center">
-            <p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
-            <input type="text" pInputText class="block mt-4" />
+            <p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
+            <input type="text" pInputText class="hidden mt-4" />
         </div>
         <app-code [code]="code" selector="style-class-toggle-class-demo"></app-code>
     `
 })
 export class ToggleClassDoc {
     code: Code = {
-        basic: `<p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
-<input type="text" pInputText class="block mt-4" />`,
+        basic: `<p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
+<input type="text" pInputText class="hidden mt-4" />`,
         html: `<div class="card flex flex-col items-center">
-    <p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
-    <input type="text" pInputText class="block mt-4">
+    <p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
+    <input type="text" pInputText class="hidden mt-4" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { StyleClass } from 'primeng/styleclass';

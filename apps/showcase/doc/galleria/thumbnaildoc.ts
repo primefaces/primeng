@@ -1,10 +1,17 @@
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { GalleriaModule } from 'primeng/galleria';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'galleria-thumbnail-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, GalleriaModule, RadioButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>

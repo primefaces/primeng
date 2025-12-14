@@ -2,10 +2,15 @@ import { Code } from '@/domain/code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
     selector: 'subheader-grouping-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>
                 Rows are grouped with the <i>groupRowsBy</i> property. When <i>rowGroupMode</i> is set as <i>subheader</i>, a header and footer can be displayed for each group. The content of a group header is provided with <i>groupheader</i> and
@@ -36,7 +41,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
                     </ng-template>
                     <ng-template #groupfooter let-customer>
                         <tr>
-                            <td colspan="5" class="text-right font-bold pr-12">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</td>
+                            <td colspan="5">
+                                <div class="text-right font-bold pe-12">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</div>
+                            </td>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer let-rowIndex="rowIndex">
@@ -136,10 +143,10 @@ export class SubheaderGroupingDoc {
             </td>
         </tr>
     </ng-template>
-    <ng-template #groupfooter let-customer>
+   <ng-template #groupfooter let-customer>
         <tr>
-            <td colspan="5" class="text-right font-bold pr-12">
-                Total Customers: {{calculateCustomerTotal(customer.representative.name)}}
+            <td colspan="5">
+                <div class="text-right font-bold pe-12">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</div>
             </td>
         </tr>
     </ng-template>
@@ -189,8 +196,8 @@ export class SubheaderGroupingDoc {
         </ng-template>
         <ng-template #groupfooter let-customer>
             <tr>
-                <td colspan="5" class="text-right font-bold pr-12">
-                    Total Customers: {{calculateCustomerTotal(customer.representative.name)}}
+                <td colspan="5">
+                    <div class="text-right font-bold">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</div>
                 </td>
             </tr>
         </ng-template>
@@ -200,7 +207,7 @@ export class SubheaderGroupingDoc {
                     {{customer.name}}
                 </td>
                 <td>
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 pe-12">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                         <span>{{ customer.country.name }}</span>
                     </div>

@@ -1,3 +1,2 @@
-import { TreeSelectDesignTokens } from '../../types/treeselect';
-declare const _default: TreeSelectDesignTokens;
-export default _default;
+export * from '@primeuix/themes/nora/treeselect';
+export { default } from '@primeuix/themes/nora/treeselect';

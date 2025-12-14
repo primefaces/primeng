@@ -1,13 +1,18 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, NgZone, numberAttribute, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind, BindModule } from 'primeng/bind';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
+import type { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
+import { SliderPassThrough } from 'primeng/types/slider';
 import { SliderStyle } from './style/sliderstyle';
+
+const SLIDER_INSTANCE = new InjectionToken<Slider>('SLIDER_INSTANCE');
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,132 +26,138 @@ export const SLIDER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-slider',
     standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule],
+    imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
-        <div
-            [ngStyle]="style"
-            [class]="styleClass"
-            [ngClass]="{
-                'p-slider p-component': true,
-                'p-disabled': disabled,
-                'p-slider-horizontal': orientation == 'horizontal',
-                'p-slider-vertical': orientation == 'vertical',
-                'p-slider-animate': animate
+        <span
+            *ngIf="range && orientation == 'horizontal'"
+            [class]="cx('range')"
+            [ngStyle]="{
+                'inset-inline-start': offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
+                width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
             }"
-            (click)="onBarClick($event)"
-            [attr.data-pc-name]="'slider'"
-            [attr.data-pc-section]="'root'"
-        >
-            <span
-                *ngIf="range && orientation == 'horizontal'"
-                class="p-slider-range"
-                [ngStyle]="{
-                    position: 'absolute',
-                    'inset-inline-start': offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
-                    width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
-                }"
-                [attr.data-pc-section]="'range'"
-            ></span>
-            <span
-                *ngIf="range && orientation == 'vertical'"
-                class="p-slider-range"
-                [ngStyle]="{
-                    position: 'absolute',
-                    bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
-                    height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
-                }"
-                [attr.data-pc-section]="'range'"
-            ></span>
-            <span *ngIf="!range && orientation == 'vertical'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', height: handleValue + '%' }"></span>
-            <span *ngIf="!range && orientation == 'horizontal'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', width: handleValue + '%' }"></span>
-            <span
-                *ngIf="!range"
-                #sliderHandle
-                class="p-slider-handle"
-                [style.transition]="dragging ? 'none' : null"
-                [ngStyle]="{
-                    position: 'absolute',
-                    'inset-inline-start': orientation == 'horizontal' ? handleValue + '%' : null,
-                    bottom: orientation == 'vertical' ? handleValue + '%' : null
-                }"
-                (touchstart)="onDragStart($event)"
-                (touchmove)="onDrag($event)"
-                (touchend)="onDragEnd($event)"
-                (mousedown)="onMouseDown($event)"
-                (keydown)="onKeyDown($event)"
-                [attr.tabindex]="disabled ? null : tabindex"
-                role="slider"
-                [attr.aria-valuemin]="min"
-                [attr.aria-valuenow]="value"
-                [attr.aria-valuemax]="max"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-orientation]="orientation"
-                [attr.data-pc-section]="'handle'"
-                [pAutoFocus]="autofocus"
-            ></span>
-            <span
-                *ngIf="range"
-                #sliderHandleStart
-                [style.transition]="dragging ? 'none' : null"
-                class="p-slider-handle"
-                [ngStyle]="{ position: 'absolute', 'inset-inline-start': rangeStartLeft, bottom: rangeStartBottom }"
-                [ngClass]="{ 'p-slider-handle-active': handleIndex == 0 }"
-                (keydown)="onKeyDown($event, 0)"
-                (mousedown)="onMouseDown($event, 0)"
-                (touchstart)="onDragStart($event, 0)"
-                (touchmove)="onDrag($event)"
-                (touchend)="onDragEnd($event)"
-                [attr.tabindex]="disabled ? null : tabindex"
-                role="slider"
-                [attr.aria-valuemin]="min"
-                [attr.aria-valuenow]="value ? value[0] : null"
-                [attr.aria-valuemax]="max"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-orientation]="orientation"
-                [attr.data-pc-section]="'startHandler'"
-                [pAutoFocus]="autofocus"
-            ></span>
-            <span
-                *ngIf="range"
-                #sliderHandleEnd
-                [style.transition]="dragging ? 'none' : null"
-                class="p-slider-handle"
-                [ngStyle]="{ position: 'absolute', 'inset-inline-start': rangeEndLeft, bottom: rangeEndBottom }"
-                [ngClass]="{ 'p-slider-handle-active': handleIndex == 1 }"
-                (keydown)="onKeyDown($event, 1)"
-                (mousedown)="onMouseDown($event, 1)"
-                (touchstart)="onDragStart($event, 1)"
-                (touchmove)="onDrag($event)"
-                (touchend)="onDragEnd($event)"
-                [attr.tabindex]="disabled ? null : tabindex"
-                role="slider"
-                [attr.aria-valuemin]="min"
-                [attr.aria-valuenow]="value ? value[1] : null"
-                [attr.aria-valuemax]="max"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-orientation]="orientation"
-                [attr.data-pc-section]="'endHandler'"
-            ></span>
-        </div>
+            [style]="sx('range')"
+            [attr.data-pc-section]="'range'"
+            [attr.data-p]="dataP"
+            [pBind]="ptm('range')"
+        ></span>
+        <span
+            *ngIf="range && orientation == 'vertical'"
+            [class]="cx('range')"
+            [ngStyle]="{
+                bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%',
+                height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%'
+            }"
+            [style]="sx('range')"
+            [attr.data-pc-section]="'range'"
+            [attr.data-p]="dataP"
+            [pBind]="ptm('range')"
+        ></span>
+        <span *ngIf="!range && orientation == 'vertical'" [class]="cx('range')" [attr.data-pc-section]="'range'" [style]="sx('range')" [ngStyle]="{ height: handleValue + '%' }" [pBind]="ptm('range')"></span>
+        <span *ngIf="!range && orientation == 'horizontal'" [class]="cx('range')" [attr.data-pc-section]="'range'" [style]="sx('range')" [ngStyle]="{ width: handleValue + '%' }" [pBind]="ptm('range')"></span>
+        <span
+            *ngIf="!range"
+            #sliderHandle
+            [class]="cx('handle')"
+            [style.transition]="dragging ? 'none' : null"
+            [ngStyle]="{
+                'inset-inline-start': orientation == 'horizontal' ? handleValue + '%' : null,
+                bottom: orientation == 'vertical' ? handleValue + '%' : null
+            }"
+            [style]="sx('handle')"
+            (touchstart)="onDragStart($event)"
+            (touchmove)="onDrag($event)"
+            (touchend)="onDragEnd($event)"
+            (mousedown)="onMouseDown($event)"
+            (keydown)="onKeyDown($event)"
+            [attr.tabindex]="$disabled() ? null : tabindex"
+            role="slider"
+            [attr.aria-valuemin]="min"
+            [attr.aria-valuenow]="value"
+            [attr.aria-valuemax]="max"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-orientation]="orientation"
+            [attr.data-pc-section]="'handle'"
+            [pAutoFocus]="autofocus"
+            [pBind]="ptm('handle')"
+            [attr.data-p]="dataP"
+        ></span>
+        <span
+            *ngIf="range"
+            #sliderHandleStart
+            [style.transition]="dragging ? 'none' : null"
+            [class]="cn(cx('handle'), handleIndex == 0 && 'p-slider-handle-active')"
+            [style]="sx('handle')"
+            [ngStyle]="{ 'inset-inline-start': rangeStartLeft, bottom: rangeStartBottom }"
+            (keydown)="onKeyDown($event, 0)"
+            (mousedown)="onMouseDown($event, 0)"
+            (touchstart)="onDragStart($event, 0)"
+            (touchmove)="onDrag($event)"
+            (touchend)="onDragEnd($event)"
+            [attr.tabindex]="$disabled() ? null : tabindex"
+            role="slider"
+            [attr.aria-valuemin]="min"
+            [attr.aria-valuenow]="value ? value[0] : null"
+            [attr.aria-valuemax]="max"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-orientation]="orientation"
+            [attr.data-pc-section]="'startHandler'"
+            [pAutoFocus]="autofocus"
+            [pBind]="ptm('startHandler')"
+            [attr.data-p]="dataP"
+        ></span>
+        <span
+            *ngIf="range"
+            #sliderHandleEnd
+            [style.transition]="dragging ? 'none' : null"
+            [class]="cn(cx('handle'), handleIndex == 1 && 'p-slider-handle-active')"
+            [ngStyle]="{ 'inset-inline-start': rangeEndLeft, bottom: rangeEndBottom }"
+            [style]="sx('handle')"
+            (keydown)="onKeyDown($event, 1)"
+            (mousedown)="onMouseDown($event, 1)"
+            (touchstart)="onDragStart($event, 1)"
+            (touchmove)="onDrag($event)"
+            (touchend)="onDragEnd($event)"
+            [attr.tabindex]="$disabled() ? null : tabindex"
+            role="slider"
+            [attr.aria-valuemin]="min"
+            [attr.aria-valuenow]="value ? value[1] : null"
+            [attr.aria-valuemax]="max"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-orientation]="orientation"
+            [attr.data-pc-section]="'endHandler'"
+            [pBind]="ptm('endHandler')"
+            [attr.data-p]="dataP"
+        ></span>
     `,
-    providers: [SLIDER_VALUE_ACCESSOR, SliderStyle],
+    providers: [SLIDER_VALUE_ACCESSOR, SliderStyle, { provide: SLIDER_INSTANCE, useExisting: Slider }, { provide: PARENT_INSTANCE, useExisting: Slider }],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[attr.data-pc-name]': "'slider'",
+        '[attr.data-pc-section]': "'root'",
+        '[class]': "cn(cx('root'), styleClass)",
+        '[attr.data-p]': 'dataP',
+        '[attr.data-p-sliding]': 'false'
+    },
+    hostDirectives: [Bind]
 })
-export class Slider extends BaseComponent implements OnDestroy, ControlValueAccessor {
+export class Slider extends BaseEditableHolder<SliderPassThrough> {
+    $pcSlider: Slider | undefined = inject(SLIDER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) animate: boolean | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Mininum boundary value.
      * @group Props
@@ -173,12 +184,8 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
      */
     @Input({ transform: booleanAttribute }) range: boolean | undefined;
     /**
-     * Inline style of the component.
-     * @group Props
-     */
-    @Input() style: { [klass: string]: any } | null | undefined;
-    /**
      * Style class of the component.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     @Input() styleClass: string | undefined;
@@ -237,10 +244,6 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 
     bottom: Nullable<number>;
 
-    public onModelChange: Function = () => {};
-
-    public onModelTouched: Function = () => {};
-
     public dragging: Nullable<boolean>;
 
     public dragListener: VoidListener;
@@ -267,8 +270,13 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 
     private ngZone = inject(NgZone);
 
+    @HostListener('click', ['$event'])
+    onHostClick(event: MouseEvent) {
+        this.onBarClick(event);
+    }
+
     onMouseDown(event: Event, index?: number) {
-        if (this.disabled) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -286,14 +294,16 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         event.preventDefault();
 
         if (this.animate) {
-            removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            removeClass(this.el.nativeElement, 'p-slider-animate');
         }
     }
 
     onDragStart(event: TouchEvent, index?: number) {
-        if (this.disabled) {
+        if (this.$disabled()) {
             return;
         }
+
+        this.el.nativeElement.setAttribute('data-p-sliding', true);
 
         var touchobj = event.changedTouches[0];
         this.startHandleValue = this.range ? this.handleValues[index as number] : this.handleValue;
@@ -306,21 +316,21 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
 
         if (this.orientation === 'horizontal') {
             this.startx = parseInt((touchobj as any).clientX, 10);
-            this.barWidth = this.el.nativeElement.children[0].offsetWidth;
+            this.barWidth = this.el.nativeElement.offsetWidth;
         } else {
             this.starty = parseInt((touchobj as any).clientY, 10);
-            this.barHeight = this.el.nativeElement.children[0].offsetHeight;
+            this.barHeight = this.el.nativeElement.offsetHeight;
         }
 
         if (this.animate) {
-            removeClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            removeClass(this.el.nativeElement, 'p-slider-animate');
         }
 
         event.preventDefault();
     }
 
     onDrag(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -339,24 +349,25 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     onDragEnd(event: TouchEvent) {
-        if (this.disabled) {
+        if (this.$disabled()) {
             return;
         }
 
         this.dragging = false;
+        this.el.nativeElement.setAttribute('data-p-sliding', false);
 
         if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values as number[] });
         else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
 
         if (this.animate) {
-            addClass(this.el.nativeElement.children[0], 'p-slider-animate');
+            addClass(this.el.nativeElement, 'p-slider-animate');
         }
 
         event.preventDefault();
     }
 
     onBarClick(event: Event) {
-        if (this.disabled) {
+        if (this.$disabled()) {
             return;
         }
 
@@ -416,12 +427,12 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         let newValue;
 
         if (this.range) {
-            if (this.step) newValue = this.values[index] - this.step;
-            else newValue = this.values[index] - 1;
+            if (this.step) newValue = (this.values?.[index] ?? 0) - this.step;
+            else newValue = (this.values?.[index] ?? 0) - 1;
         } else {
-            if (this.step) newValue = this.value - this.step;
-            else if (!this.step && pageKey) newValue = this.value - 10;
-            else newValue = this.value - 1;
+            if (this.step) newValue = this.value! - this.step;
+            else if (!this.step && pageKey) newValue = this.value! - 10;
+            else newValue = this.value! - 1;
         }
 
         this.updateValue(newValue, event);
@@ -432,12 +443,12 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         let newValue;
 
         if (this.range) {
-            if (this.step) newValue = this.values[index] + this.step;
-            else newValue = this.values[index] + 1;
+            if (this.step) newValue = (this.values?.[index] ?? 0) + this.step;
+            else newValue = (this.values?.[index] ?? 0) + 1;
         } else {
-            if (this.step) newValue = this.value + this.step;
-            else if (!this.step && pageKey) newValue = this.value + 10;
-            else newValue = this.value + 1;
+            if (this.step) newValue = this.value! + this.step;
+            else if (!this.step && pageKey) newValue = this.value! + 10;
+            else newValue = this.value! + 1;
         }
 
         this.updateValue(newValue, event);
@@ -457,6 +468,7 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
                 if (!this.dragListener) {
                     this.dragListener = this.renderer.listen(documentTarget, 'mousemove', (event) => {
                         if (this.dragging) {
+                            this.el.nativeElement.setAttribute('data-p-sliding', true);
                             this.ngZone.run(() => {
                                 this.handleChange(event);
                             });
@@ -468,12 +480,13 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
                     this.mouseupListener = this.renderer.listen(documentTarget, 'mouseup', (event) => {
                         if (this.dragging) {
                             this.dragging = false;
+                            this.el.nativeElement.setAttribute('data-p-sliding', false);
                             this.ngZone.run(() => {
                                 if (this.range) this.onSlideEnd.emit({ originalEvent: event, values: this.values as number[] });
                                 else this.onSlideEnd.emit({ originalEvent: event, value: this.value as number });
 
                                 if (this.animate) {
-                                    addClass(this.el.nativeElement.children[0], 'p-slider-animate');
+                                    addClass(this.el.nativeElement, 'p-slider-animate');
                                 }
                             });
                         }
@@ -532,28 +545,6 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         this.updateHandleValue();
     }
 
-    writeValue(value: any): void {
-        if (this.range) this.values = value || [0, 0];
-        else this.value = value || 0;
-
-        this.updateHandleValue();
-        this.updateDiffAndOffset();
-        this.cd.markForCheck();
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
-    }
-
     get rangeStartLeft() {
         if (!this.isVertical()) return this.handleValues[0] > 100 ? 100 + '%' : this.handleValues[0] + '%';
         return null;
@@ -576,11 +567,11 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
 
     updateDomData(): void {
-        let rect = this.el.nativeElement.children[0].getBoundingClientRect();
+        let rect = this.el.nativeElement.getBoundingClientRect();
         this.initX = rect.left + getWindowScrollLeft();
         this.initY = rect.top + getWindowScrollTop();
-        this.barWidth = this.el.nativeElement.children[0].offsetWidth;
-        this.barHeight = this.el.nativeElement.children[0].offsetHeight;
+        this.barWidth = this.el.nativeElement.offsetWidth;
+        this.barHeight = this.el.nativeElement.offsetHeight;
     }
 
     calculateHandleValue(event: Event): number {
@@ -698,9 +689,8 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindDragListeners();
-        super.ngOnDestroy();
     }
 
     get minVal() {
@@ -708,6 +698,27 @@ export class Slider extends BaseComponent implements OnDestroy, ControlValueAcce
     }
     get maxVal() {
         return Math.max((this.values as number[])[1], (this.values as number[])[0]);
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any): void {
+        if (this.range) this.values = value || [0, 0];
+        else this.value = value || 0;
+
+        this.updateHandleValue();
+        this.updateDiffAndOffset();
+        this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.orientation as string]: this.orientation
+        });
     }
 }
 

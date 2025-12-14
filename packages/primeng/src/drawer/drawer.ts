@@ -1,38 +1,42 @@
-import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
+    input,
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { addClass, appendChild, blockBodyScroll, setAttribute, unblockBodyScroll } from '@primeuix/utils';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
+import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { Button, ButtonProps } from 'primeng/button';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
+import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { DrawerPassThrough } from 'primeng/types/drawer';
 import { ZIndexUtils } from 'primeng/utils';
 import { DrawerStyle } from './style/drawerstyle';
 
-const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
+const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
 
-const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 /**
  * Sidebar is a panel component displayed as an overlay at the edges of the screen.
  * @group Components
@@ -40,77 +44,96 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-drawer',
     standalone: true,
-    imports: [CommonModule, Button, TimesIcon, SharedModule],
+    imports: [CommonModule, Button, TimesIcon, SharedModule, Bind, FocusTrapModule, MotionModule],
+    providers: [DrawerStyle, { provide: DRAWER_INSTANCE, useExisting: Drawer }, { provide: PARENT_INSTANCE, useExisting: Drawer }],
+    hostDirectives: [Bind],
     template: `
-        <div
-            #container
-            [ngClass]="{
-                'p-drawer': true,
-                'p-drawer-active': visible,
-                'p-drawer-left': position === 'left' && !fullScreen,
-                'p-drawer-right': position === 'right' && !fullScreen,
-                'p-drawer-top': position === 'top' && !fullScreen,
-                'p-drawer-bottom': position === 'bottom' && !fullScreen,
-                'p-drawer-full': fullScreen || position === 'full'
-            }"
-            *ngIf="visible"
-            [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
-            (@panelState.start)="onAnimationStart($event)"
-            (@panelState.done)="onAnimationEnd($event)"
-            [style]="style"
-            [class]="styleClass"
-            role="complementary"
-            [attr.data-pc-name]="'sidebar'"
-            [attr.data-pc-section]="'root'"
-            (keydown)="onKeyDown($event)"
-        >
-            @if (headlessTemplate || _headlessTemplate) {
-                <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
-            } @else {
-                <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
-                    <p-button
-                        *ngIf="showCloseIcon && closable"
-                        [ngClass]="cx('closeButton')"
-                        (onClick)="close($event)"
-                        (keydown.enter)="close($event)"
-                        [buttonProps]="closeButtonProps"
-                        [ariaLabel]="ariaCloseLabel"
-                        [attr.data-pc-section]="'closebutton'"
-                        [attr.data-pc-group-section]="'iconcontainer'"
-                    >
-                        <ng-template #icon>
-                            <TimesIcon *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
-                            <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
-                        </ng-template>
-                    </p-button>
-                </div>
-
-                <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                </div>
-
-                <ng-container *ngIf="footerTemplate || _footerTemplate">
-                    <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
-                        <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+        @if (modalVisible) {
+            <div
+                #container
+                [pBind]="ptm('root')"
+                [pMotion]="visible"
+                [pMotionAppear]="true"
+                [pMotionEnterActiveClass]="$enterAnimation()"
+                [pMotionLeaveActiveClass]="$leaveAnimation()"
+                [pMotionOptions]="computedMotionOptions()"
+                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (pMotionOnAfterLeave)="onAfterLeave($event)"
+                [class]="cn(cx('root'), styleClass)"
+                [style]="style"
+                role="complementary"
+                (keydown)="onKeyDown($event)"
+                pFocusTrap
+                [attr.data-p]="dataP"
+                [attr.data-p-open]="visible"
+            >
+                @if (headlessTemplate || _headlessTemplate) {
+                    <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
+                } @else {
+                    <div [pBind]="ptm('header')" [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
+                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                        <div *ngIf="header" [pBind]="ptm('title')" [class]="cx('title')">{{ header }}</div>
+                        <p-button
+                            *ngIf="showCloseIcon && closable"
+                            [pt]="ptm('pcCloseButton')"
+                            [ngClass]="cx('pcCloseButton')"
+                            (onClick)="close($event)"
+                            (keydown.enter)="close($event)"
+                            [buttonProps]="closeButtonProps"
+                            [ariaLabel]="ariaCloseLabel"
+                            [attr.data-pc-group-section]="'iconcontainer'"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
+                                <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
+                            </ng-template>
+                        </p-button>
                     </div>
-                </ng-container>
-            }
-        </div>
+
+                    <div [pBind]="ptm('content')" [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                    </div>
+
+                    <ng-container *ngIf="footerTemplate || _footerTemplate">
+                        <div [pBind]="ptm('footer')" [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
+                            <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                        </div>
+                    </ng-container>
+                }
+            </div>
+        }
     `,
-    animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    providers: [DrawerStyle]
+    encapsulation: ViewEncapsulation.None
 })
-export class Drawer extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class Drawer extends BaseComponent<DrawerPassThrough> {
+    $pcDrawer: Drawer | undefined = inject(DRAWER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
     /**
-     *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @defaultValue 'self'
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
+    appendTo = input<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>(undefined);
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Whether to block scrolling of the document when drawer is active.
      * @group Props
@@ -170,58 +193,42 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     /**
      * Transition options of the animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     /**
-     * Specifies the visibility of the dialog.
+     * The visible property is an input that determines the visibility of the component.
+     * @defaultValue false
      * @group Props
      */
     @Input() get visible(): boolean {
-        return this._visible as boolean;
+        return this._visible ?? false;
     }
-    set visible(val: boolean) {
-        this._visible = val;
+    set visible(value: boolean) {
+        this._visible = value;
+
+        if (this._visible && !this.modalVisible) {
+            this.modalVisible = true;
+        }
     }
+
     /**
      * Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top".
+     * @defaultValue 'left'
      * @group Props
      */
-    @Input() get position(): string {
-        return this._position;
-    }
-    set position(value: string) {
-        this._position = value;
-        if (value === 'full') {
-            this.transformOptions = 'none';
-            return;
-        }
-        switch (value) {
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-        }
-    }
+    position = input<'left' | 'right' | 'bottom' | 'top' | 'full'>('left');
     /**
      * Adds a close icon to the header to hide the dialog.
+     * @defaultValue false
      * @group Props
      */
-    @Input() get fullScreen(): boolean {
-        return this._fullScreen;
-    }
-    set fullScreen(value: boolean) {
-        this._fullScreen = value;
+    fullScreen = input<boolean>(false);
 
-        if (value) this.transformOptions = 'none';
-    }
+    $enterAnimation = computed(() => (this.fullScreen() ? 'p-drawer-enter-full' : `p-drawer-enter-${this.position()}`));
+
+    $leaveAnimation = computed(() => (this.fullScreen() ? 'p-drawer-leave-full' : `p-drawer-leave-${this.position()}`));
+
     /**
      * Title content of the dialog.
      * @group Props
@@ -255,8 +262,6 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @ViewChild('maskRef') maskRef: ElementRef | undefined;
-
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 
     @ViewChild('closeButton') closeButtonViewChild: ElementRef | undefined;
@@ -269,9 +274,9 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     _fullScreen: boolean = false;
 
-    container: Nullable<HTMLDivElement>;
+    modalVisible: boolean = false;
 
-    transformOptions: any = 'translate3d(-100%, 0px, 0px)';
+    container: Nullable<HTMLDivElement>;
 
     mask: Nullable<HTMLDivElement>;
 
@@ -283,49 +288,50 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     _componentStyle = inject(DrawerStyle);
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         this.initialized = true;
     }
     /**
-     * Content template for the content of the drawer.
+     * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
     /**
-     * Header template for the header of the drawer.
+     * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any> | undefined;
+    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
     /**
-     * Content template for the footer of the drawer.
+     * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<any> | undefined;
+    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
     /**
-     * Close icon template for the close icon of the drawer.
+     * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<void> | undefined;
     /**
-     * Headless template for the headless drawer.
+     * Custom headless template to replace the entire drawer content.
      * @group Templates
      */
-    @ContentChild('headless', { descendants: false }) headlessTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headless', { descendants: false }) headlessTemplate: TemplateRef<void> | undefined;
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _footerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: TemplateRef<void> | undefined;
 
-    _contentTemplate: TemplateRef<any> | undefined;
+    _footerTemplate: TemplateRef<void> | undefined;
 
-    _closeIconTemplate: TemplateRef<any> | undefined;
+    _contentTemplate: TemplateRef<void> | undefined;
 
-    _headlessTemplate: TemplateRef<any> | undefined;
+    _closeIconTemplate: TemplateRef<void> | undefined;
+
+    _headlessTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
@@ -358,7 +364,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     show() {
-        this.container.setAttribute(this.attrSelector, '');
+        this.container?.setAttribute(this.$attrSelector, '');
 
         if (this.autoZIndex) {
             ZIndexUtils.set('modal', this.container, this.baseZIndex || this.config.zIndex.modal);
@@ -389,15 +395,19 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
     }
 
     enableModality() {
-        const activeDrawers = this.document.querySelectorAll('.p-drawer-active');
+        const activeDrawers = this.document.querySelectorAll('[data-p-open="true"]');
         const activeDrawersLength = activeDrawers.length;
         const zIndex = activeDrawersLength == 1 ? String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1) : String(parseInt((activeDrawers[activeDrawersLength - 1] as HTMLElement).style.zIndex) - 1);
 
         if (!this.mask) {
             this.mask = this.renderer.createElement('div');
-            this.renderer.setStyle(this.mask, 'zIndex', zIndex);
-            setAttribute(this.mask, 'style', this.maskStyle);
-            addClass(this.mask, 'p-overlay-mask p-drawer-mask p-overlay-mask-enter');
+
+            if (this.mask) {
+                const style = `z-index: ${zIndex};${this.getMaskStyle()}`;
+                setAttribute(this.mask, 'style', style);
+                setAttribute(this.mask, 'data-p', this.dataP);
+                addClass(this.mask, this.cx('mask'));
+            }
 
             if (this.dismissible) {
                 this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -414,9 +424,18 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         }
     }
 
+    getMaskStyle() {
+        return this.maskStyle
+            ? Object.entries(this.maskStyle)
+                  .map(([key, value]) => `${key}: ${value}`)
+                  .join('; ')
+            : '';
+    }
+
     disableModality() {
         if (this.mask) {
-            addClass(this.mask, 'p-overlay-mask-leave');
+            !this.$unstyled() && removeClass(this.mask, 'p-overlay-mask-enter-active');
+            !this.$unstyled() && addClass(this.mask, 'p-overlay-mask-leave-active');
             this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
         }
     }
@@ -436,34 +455,31 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         this.mask = null;
     }
 
-    onAnimationStart(event: any) {
-        switch (event.toState) {
-            case 'visible':
-                this.container = event.element;
-                this.appendContainer();
-                this.show();
+    onBeforeEnter(event: MotionEvent) {
+        this.container = event.element as HTMLDivElement;
+        this.appendContainer();
+        this.show();
 
-                if (this.closeOnEscape) {
-                    this.bindDocumentEscapeListener();
-                }
-                break;
+        if (this.closeOnEscape) {
+            this.bindDocumentEscapeListener();
         }
     }
 
-    onAnimationEnd(event: any) {
-        switch (event.toState) {
-            case 'void':
-                this.hide(false);
-                ZIndexUtils.clear(this.container);
-                this.unbindGlobalListeners();
-                break;
-        }
+    onAfterLeave() {
+        this.hide(false);
+        ZIndexUtils.clear(this.container);
+        this.unbindGlobalListeners();
+        this.modalVisible = false;
+        this.container = null;
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') {
+                appendChild(this.document.body, this.container!);
+            } else {
+                appendChild(this.$appendTo(), this.container!);
+            }
         }
     }
 
@@ -472,7 +488,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.which == 27) {
-                if (parseInt((this.container as HTMLDivElement).style.zIndex) === ZIndexUtils.get(this.container)) {
+                if (parseInt((this.container as HTMLDivElement)?.style.zIndex) === ZIndexUtils.get(this.container)) {
                     this.close(event);
                 }
             }
@@ -505,14 +521,14 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.initialized = false;
 
         if (this.visible && this.modal) {
             this.destroyModal();
         }
 
-        if (this.appendTo && this.container) {
+        if (this.$appendTo() && this.container) {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
 
@@ -523,6 +539,15 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         this.container = null;
         this.unbindGlobalListeners();
         this.unbindAnimationEndListener();
+    }
+
+    get dataP() {
+        return this.cn({
+            'full-screen': this.position() === 'full',
+            [this.position()]: this.position(),
+            open: this.visible,
+            modal: this.modal
+        });
     }
 }
 

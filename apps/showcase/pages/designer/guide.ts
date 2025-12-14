@@ -1,4 +1,5 @@
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSection } from '@/components/doc/app.docsection';
+import { AppDocSectionNav } from '@/components/doc/app.docsection-nav';
 import { BaseDoc } from '@/doc/designer/createtheme/basedoc';
 import { FigmaDoc } from '@/doc/designer/createtheme/figmadoc';
 import { DashboardDoc } from '@/doc/designer/dashboarddoc';
@@ -14,12 +15,12 @@ import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [AppDocModule],
+    imports: [AppDocSection, AppDocSectionNav],
     template: `<div class="doc">
         <div class="doc-main">
             <div class="doc-intro">
                 <h1>Designer</h1>
-                <p>Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, figma to code, cloud storage, and migration assistant.</p>
+                <p>Theme Designer is the ultimate tool to customize and design your own themes featuring a visual editor, figma to theme code, cloud storage, and migration assistant.</p>
             </div>
             <app-docsection [docs]="docs" />
         </div>

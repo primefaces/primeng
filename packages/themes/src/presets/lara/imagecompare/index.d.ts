@@ -1,3 +1,2 @@
-import { ImageCompareDesignTokens } from '../../types/imagecompare';
-declare const _default: ImageCompareDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/imagecompare';
+export { default } from '@primeuix/themes/lara/imagecompare';

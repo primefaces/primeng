@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
+import { FloatLabelPassThrough } from 'primeng/types/floatlabel';
 import { FloatLabelStyle } from './style/floatlabelstyle';
+
+const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE');
 
 /**
  * FloatLabel appears on top of the input field when focused.
@@ -11,20 +15,27 @@ import { FloatLabelStyle } from './style/floatlabelstyle';
 @Component({
     selector: 'p-floatlabel, p-floatLabel, p-float-label',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [FloatLabelStyle],
+    providers: [FloatLabelStyle, { provide: FLOATLABEL_INSTANCE, useExisting: FloatLabel }, { provide: PARENT_INSTANCE, useExisting: FloatLabel }],
     host: {
-        '[class.p-floatlabel]': 'true',
-        '[class.p-floatlabel-over]': "variant === 'over'",
-        '[class.p-floatlabel-on]': "variant === 'on'",
-        '[class.p-floatlabel-in]': "variant === 'in'"
-    }
+        '[class]': "cx('root')"
+    },
+    hostDirectives: [Bind]
 })
-export class FloatLabel extends BaseComponent {
+export class FloatLabel extends BaseComponent<FloatLabelPassThrough> implements AfterViewChecked {
     _componentStyle = inject(FloatLabelStyle);
+
+    $pcFloatLabel: FloatLabel | undefined = inject(FLOATLABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Defines the positioning of the label relative to the input.
      * @group Props

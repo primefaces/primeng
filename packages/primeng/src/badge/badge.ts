@@ -1,9 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, computed, Directive, inject, Input, input, NgModule, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { addClass, hasClass, isEmpty, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
+import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
+import type { BadgePassThrough } from 'primeng/types/badge';
 import { BadgeStyle } from './style/badgestyle';
+
+const BADGE_INSTANCE = new InjectionToken<Badge>('BADGE_INSTANCE');
+
+const BADGE_DIRECTIVE_INSTANCE = new InjectionToken<BadgeDirective>('BADGE_DIRECTIVE_INSTANCE');
 
 /**
  * Badge Directive is directive usage of badge component.
@@ -11,10 +17,31 @@ import { BadgeStyle } from './style/badgestyle';
  */
 @Directive({
     selector: '[pBadge]',
-    providers: [BadgeStyle],
+    providers: [BadgeStyle, { provide: BADGE_DIRECTIVE_INSTANCE, useExisting: BadgeDirective }, { provide: PARENT_INSTANCE, useExisting: BadgeDirective }],
     standalone: true
 })
-export class BadgeDirective extends BaseComponent implements OnChanges, AfterViewInit {
+export class BadgeDirective extends BaseComponent {
+    $pcBadgeDirective: BadgeDirective | undefined = inject(BADGE_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    /**
+     * Used to pass attributes to DOM elements inside the Badge component.
+     * @defaultValue undefined
+     * @deprecated use pBadgePT instead.
+     * @group Props
+     */
+    ptBadgeDirective = input<BadgePassThrough | undefined>();
+    /**
+     * Used to pass attributes to DOM elements inside the Badge component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pBadgePT = input<BadgePassThrough | undefined>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pBadgeUnstyled = input<boolean | undefined>();
     /**
      * When specified, disables the component.
      * @group Props
@@ -70,15 +97,24 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     }
 
     private get canUpdateBadge(): boolean {
-        return this.id && !this.disabled;
+        return isNotEmpty(this.id) && !this.disabled;
     }
 
     constructor() {
         super();
+        effect(() => {
+            const pt = this.ptBadgeDirective() || this.pBadgePT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pBadgeUnstyled() && this.directiveUnstyled.set(this.pBadgeUnstyled());
+        });
     }
 
-    public ngOnChanges({ value, size, severity, disabled, badgeStyle, badgeStyleClass }: SimpleChanges): void {
-        super.ngOnChanges({ value, size, severity, disabled });
+    onChanges(changes: SimpleChanges): void {
+        const { value, size, severity, disabled, badgeStyle, badgeStyleClass } = changes;
+
         if (disabled) {
             this.toggleDisableState();
         }
@@ -104,8 +140,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         }
     }
 
-    public ngAfterViewInit(): void {
-        super.ngAfterViewInit();
+    onAfterViewInit(): void {
         this.id = uuid('pn_id_') + '_badge';
         this.renderBadgeContent();
     }
@@ -135,7 +170,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
             removeClass(badge, 'p-badge-circle');
         }
 
-        badge.innerHTML = '';
+        badge.textContent = '';
         const badgeValue = this.value != null ? String(this.value) : '';
         this.renderer.appendChild(badge, this.document.createTextNode(badgeValue));
     }
@@ -175,14 +210,11 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
 
     private renderBadgeContent(): void {
         if (this.disabled) {
-            return null;
+            return;
         }
 
         const el = this.activeElement;
-        const badge = this.document.createElement('span');
-        badge.id = this.id;
-        badge.className = 'p-badge p-component';
-
+        const badge = <HTMLElement>createElement('span', { class: this.cx('root'), id: this.id, 'p-bind': this.ptm('root') });
         this.setSeverity(null, badge);
         this.setSizeClasses(badge);
         this.setValue(badge);
@@ -243,27 +275,31 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     selector: 'p-badge',
     template: `{{ value() }}`,
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, BindModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [BadgeStyle],
+    providers: [BadgeStyle, { provide: BADGE_INSTANCE, useExisting: Badge }, { provide: PARENT_INSTANCE, useExisting: Badge }],
     host: {
-        '[class]': 'containerClass()',
+        '[class]': "cn(cx('root'), styleClass())",
         '[style.display]': 'badgeDisabled() ? "none" : null',
-        '[style]': 'style()'
-    }
+        '[attr.data-p]': 'dataP'
+    },
+    hostDirectives: [Bind]
 })
-export class Badge extends BaseComponent {
+export class Badge extends BaseComponent<BadgePassThrough> {
+    $pcBadge: Badge | undefined = inject(BADGE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Class of the element.
+     * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
     styleClass = input<string>();
-    /**
-     * Inline style of the element.
-     * @group Props
-     */
-    style = input<{ [klass: string]: any } | null>();
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
@@ -292,39 +328,15 @@ export class Badge extends BaseComponent {
 
     _componentStyle = inject(BadgeStyle);
 
-    /**
-     * Computes the container class for the badge element based on its properties.
-     * @returns An object representing the CSS classes to be applied to the badge container.
-     */
-    containerClass = computed<string>(() => {
-        let classes = 'p-badge p-component';
-
-        if (isNotEmpty(this.value()) && String(this.value()).length === 1) {
-            classes += ' p-badge-circle';
-        }
-
-        if (this.badgeSize() === 'large') {
-            classes += ' p-badge-lg';
-        } else if (this.badgeSize() === 'xlarge') {
-            classes += ' p-badge-xl';
-        } else if (this.badgeSize() === 'small') {
-            classes += ' p-badge-sm';
-        }
-
-        if (isEmpty(this.value())) {
-            classes += ' p-badge-dot';
-        }
-
-        if (this.styleClass()) {
-            classes += ` ${this.styleClass()}`;
-        }
-
-        if (this.severity()) {
-            classes += ` p-badge-${this.severity()}`;
-        }
-
-        return classes;
-    });
+    get dataP() {
+        return this.cn({
+            circle: this.value() != null && String(this.value()).length === 1,
+            empty: this.value() == null,
+            disabled: this.badgeDisabled(),
+            [this.severity() as string]: this.severity(),
+            [this.size() as string]: this.size()
+        });
+    }
 }
 
 @NgModule({

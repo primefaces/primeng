@@ -1,3 +1,2 @@
-import { SkeletonDesignTokens } from '../../types/skeleton';
-declare const _default: SkeletonDesignTokens;
-export default _default;
+export * from '@primeuix/themes/aura/skeleton';
+export { default } from '@primeuix/themes/aura/skeleton';

@@ -1,4 +1,3 @@
-import { ConfigurationDocModule } from '@/doc/configuration/configurationdoc.module';
 import { CspDoc } from '@/doc/configuration/cspdoc';
 import { DynamicDoc } from '@/doc/configuration/dynamicdoc';
 import { FilterModeDoc } from '@/doc/configuration/filtermodedoc';
@@ -9,16 +8,17 @@ import { RuntimeDoc } from '@/doc/configuration/locale/runtimedoc';
 import { TranslationDoc } from '@/doc/configuration/locale/translationdoc';
 import { ProviderDoc } from '@/doc/configuration/providerdoc';
 import { RippleDoc } from '@/doc/configuration/rippledoc';
+import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendtodoc';
 import { ThemeDoc } from '@/doc/configuration/themedoc';
 import { ZIndexDoc } from '@/doc/configuration/zindexdoc';
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     selector: 'configuration',
     standalone: true,
-    imports: [CommonModule, ConfigurationDocModule],
-    template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Application wide configuration for PrimeNG." [docs]="docs"></app-doc>`
+    imports: [AppDoc],
+    template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Application wide configuration for PrimeNG." [docs]="docs" docType="page"></app-doc>`
 })
 export class ConfigurationDemo {
     docs = [
@@ -46,6 +46,11 @@ export class ConfigurationDemo {
             id: 'inputvariant',
             label: 'InputVariant',
             component: InputVariantDoc
+        },
+        {
+            id: 'overlayappendto',
+            label: 'OverlayAppendTo',
+            component: OverlayAppendToDoc
         },
         {
             id: 'zIndex',

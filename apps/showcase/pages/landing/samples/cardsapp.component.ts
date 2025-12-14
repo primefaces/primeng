@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -9,13 +9,11 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { Checkbox } from 'primeng/checkbox';
-import { Chip } from 'primeng/chip';
 import { PrimeNG } from 'primeng/config';
 import { DividerModule } from 'primeng/divider';
 import { FileUpload } from 'primeng/fileupload';
 import { InputNumber } from 'primeng/inputnumber';
 import { InputOtp } from 'primeng/inputotp';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
@@ -36,7 +34,6 @@ import { TooltipModule } from 'primeng/tooltip';
         InputNumber,
         Select,
         RadioButton,
-        InputSwitchModule,
         SelectButton,
         Slider,
         BadgeModule,

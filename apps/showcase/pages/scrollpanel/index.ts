@@ -1,8 +1,9 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/scrollpanel/accessibilitydoc';
 import { BasicDoc } from '@/doc/scrollpanel/basicdoc';
 import { CusstomDoc } from '@/doc/scrollpanel/customdoc';
 import { ImportDoc } from '@/doc/scrollpanel/importdoc';
-import { ScrollPanelDocModule } from '@/doc/scrollpanel/scrollpaneldoc.module';
+import { PTComponent } from '@/doc/scrollpanel/pt/PTComponent';
 import { Component } from '@angular/core';
 
 @Component({
@@ -13,9 +14,10 @@ import { Component } from '@angular/core';
         [docs]="docs"
         [apiDocs]="['ScrollPanel']"
         themeDocs="scrollpanel"
+        [ptDocs]="ptComponent"
     ></app-doc>`,
     standalone: true,
-    imports: [ScrollPanelDocModule]
+    imports: [AppDoc]
 })
 export class ScrollPanelDemo {
     docs = [
@@ -41,4 +43,6 @@ export class ScrollPanelDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

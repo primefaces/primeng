@@ -1,9 +1,12 @@
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
     selector: 'download-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>PrimeNG is available for download on the <a href="https://www.npmjs.com/package/primeng">npm registry</a>.</p>
@@ -14,12 +17,12 @@ import { Component } from '@angular/core';
 export class DownloadDoc {
     code: Code = {
         command: `# Using npm
-npm install primeng @primeng/themes
+npm install primeng @primeuix/themes
 
 # Using yarn
-yarn add primeng @primeng/themes
+yarn add primeng @primeuix/themes
 
 # Using pnpm
-pnpm add primeng @primeng/themes`
+pnpm add primeng @primeuix/themes`
     };
 }

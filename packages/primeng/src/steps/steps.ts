@@ -18,23 +18,19 @@ import { StepsStyle } from './style/stepsstyle';
     standalone: true,
     imports: [CommonModule, RouterModule, TooltipModule, SharedModule],
     template: `
-        <nav [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'steps'">
-            <ul #list [attr.data-pc-section]="'menu'" class="p-steps-list">
+        <nav [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [attr.data-pc-name]="'steps'">
+            <ul #list [attr.data-pc-section]="'menu'" [class]="cx('list')">
                 @for (item of model; track item.label; let i = $index) {
                     <li
                         *ngIf="item.visible !== false"
-                        class="p-steps-item"
+                        [class]="cx('item', { item, index: i })"
                         #menuitem
                         [ngStyle]="item.style"
-                        [class]="item.styleClass"
                         [attr.aria-current]="isActive(item, i) ? 'step' : undefined"
                         [attr.id]="item.id"
                         pTooltip
                         [tooltipOptions]="item.tooltipOptions"
-                        [ngClass]="{
-                            'p-steps-item-active': isActive(item, i),
-                            'p-disabled': item.disabled || (readonly && !isActive(item, i))
-                        }"
+                        [pTooltipUnstyled]="unstyled()"
                         [attr.data-pc-section]="'menuitem'"
                     >
                         <a
@@ -43,7 +39,7 @@ import { StepsStyle } from './style/stepsstyle';
                             [routerLink]="item.routerLink"
                             [queryParams]="item.queryParams"
                             [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                            class="p-steps-item-link"
+                            [class]="cx('itemLink')"
                             (click)="onItemClick($event, item, i)"
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
@@ -58,15 +54,15 @@ import { StepsStyle } from './style/stepsstyle';
                             [state]="item.state"
                             [attr.ariaCurrentWhenActive]="exact ? 'step' : undefined"
                         >
-                            <span class="p-steps-item-number">{{ i + 1 }}</span>
-                            <span class="p-steps-item-label" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-                            <ng-template #htmlLabel><span class="p-steps-item-label" [innerHTML]="item.label"></span></ng-template>
+                            <span [class]="cx('itemNumber')">{{ i + 1 }}</span>
+                            <span [class]="cx('itemLabel')" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+                            <ng-template #htmlLabel><span [class]="cx('itemLabel')" [innerHTML]="item.label"></span></ng-template>
                         </a>
                         <ng-template #elseBlock>
                             <a
                                 role="link"
                                 [attr.href]="item.url"
-                                class="p-steps-item-link"
+                                [class]="cx('itemLink')"
                                 (click)="onItemClick($event, item, i)"
                                 (keydown)="onItemKeydown($event, item, i)"
                                 [target]="item.target"
@@ -75,9 +71,9 @@ import { StepsStyle } from './style/stepsstyle';
                                 [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                                 [attr.ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
                             >
-                                <span class="p-steps-item-number">{{ i + 1 }}</span>
-                                <span class="p-steps-item-label" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-steps-item-label" [innerHTML]="item.label"></span></ng-template>
+                                <span [class]="cx('itemNumber')">{{ i + 1 }}</span>
+                                <span [class]="cx('itemLabel')" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
+                                <ng-template #htmlRouteLabel><span [class]="cx('itemLabel')" [innerHTML]="item.label"></span></ng-template>
                             </a>
                         </ng-template>
                     </li>
@@ -89,7 +85,7 @@ import { StepsStyle } from './style/stepsstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [StepsStyle]
 })
-export class Steps extends BaseComponent implements OnInit, OnDestroy {
+export class Steps extends BaseComponent {
     /**
      * Index of the active item.
      * @group Props
@@ -137,8 +133,7 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    ngOnInit() {
-        super.ngOnInit();
+    onInit() {
         this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
     }
 
@@ -190,10 +185,10 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
             }
 
             case 'Tab':
-                if (i !== this.activeIndex) {
-                    const siblings = <any>find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+                if (i !== (this.activeIndex ?? -1)) {
+                    const siblings = <any>find(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
                     siblings[i].children[0].tabIndex = '-1';
-                    siblings[this.activeIndex].children[0].tabIndex = '0';
+                    siblings[this.activeIndex ?? 0].children[0].tabIndex = '0';
                 }
                 break;
 
@@ -214,41 +209,49 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
 
         nextItem && this.setFocusToMenuitem(target, nextItem);
     }
+
     navigateToPrevItem(target) {
         const prevItem = this.findPrevItem(target);
 
         prevItem && this.setFocusToMenuitem(target, prevItem);
     }
+
     navigateToFirstItem(target) {
         const firstItem = this.findFirstItem();
 
         firstItem && this.setFocusToMenuitem(target, firstItem);
     }
+
     navigateToLastItem(target) {
         const lastItem = this.findLastItem();
 
         lastItem && this.setFocusToMenuitem(target, lastItem);
     }
+
     findNextItem(item) {
         const nextItem = item.parentElement.nextElementSibling;
 
         return nextItem ? nextItem.children[0] : null;
     }
+
     findPrevItem(item) {
         const prevItem = item.parentElement.previousElementSibling;
 
         return prevItem ? prevItem.children[0] : null;
     }
+
     findFirstItem() {
-        const firstSibling = findSingle(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const firstSibling = findSingle(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
 
         return firstSibling ? firstSibling.children[0] : null;
     }
+
     findLastItem() {
-        const siblings = find(this.listViewChild.nativeElement, '[data-pc-section="menuitem"]');
+        const siblings = find(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
 
         return siblings ? siblings[siblings.length - 1].children[0] : null;
     }
+
     setFocusToMenuitem(target, focusableItem) {
         target.tabIndex = '-1';
         focusableItem.tabIndex = '0';
@@ -257,6 +260,10 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
 
     isClickableRouterLink(item: MenuItem) {
         return item.routerLink && !this.readonly && !item.disabled;
+    }
+
+    isItemDisabled(item: MenuItem, index: number): boolean {
+        return item.disabled || (this.readonly && !this.isActive(item, index));
     }
 
     isActive(item: MenuItem, index: number) {
@@ -281,12 +288,10 @@ export class Steps extends BaseComponent implements OnInit, OnDestroy {
         return item.tabindex ?? '-1';
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
-
-        super.ngOnDestroy();
     }
 }
 

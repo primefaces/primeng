@@ -1,3 +1,2 @@
-import { ListboxDesignTokens } from '../../types/listbox';
-declare const _default: ListboxDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/listbox';
+export { default } from '@primeuix/themes/lara/listbox';

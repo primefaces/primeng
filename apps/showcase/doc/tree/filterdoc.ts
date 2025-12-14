@@ -1,11 +1,15 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'filter-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -16,43 +20,43 @@ import { TreeNode } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4">
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
+                <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
             </div>
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files2" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+                <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
             </div>
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
     `
 })
 export class FilterDoc implements OnInit {
-    files: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
-    files2: TreeNode[];
+    files2 = signal<TreeNode[]>(undefined);
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
-            this.files = data;
-            this.files2 = data;
+            this.files.set(data);
+            this.files2.set(data);
         });
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
-<p-tree [value]="files2" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />`,
+        basic: `<p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
+<p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />`,
 
         html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <p-tree [value]="files" styleClass="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
+        <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
     </div>
     <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <p-tree [value]="files2" styleClass="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+        <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
     </div>
 </div>`,
 
-        typescript: `import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -65,16 +69,16 @@ import { Tree } from 'primeng/tree';
     providers: [NodeService]
 })
 export class TreeFilterDemo implements OnInit {
-    files: TreeNode[];
+    files = signal<TreeNode[]>(undefined);
 
-    files2: TreeNode[];
+    files2 = signal<TreeNode[]>(undefined);
 
     constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {
-            this.files = data;
-            this.files2 = data;
+            this.files.set(data);
+            this.files2.set(data);
         });
     }
 }`,

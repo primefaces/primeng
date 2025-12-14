@@ -5,14 +5,18 @@ import { FilledDoc } from '@/doc/inputmask/filleddoc';
 import { FloatlabelDoc } from '@/doc/inputmask/floatlabeldoc';
 import { IftaLabelDoc } from '@/doc/inputmask/iftalabeldoc';
 import { ImportDoc } from '@/doc/inputmask/importdoc';
-import { InputMaskDocModule } from '@/doc/inputmask/inputmaskdoc.module';
 import { InvalidDoc } from '@/doc/inputmask/invaliddoc';
 import { MaskDoc } from '@/doc/inputmask/maskdoc';
 import { OptionalDoc } from '@/doc/inputmask/optionaldoc';
 import { ReactiveFormsDoc } from '@/doc/inputmask/reactiveformsdoc';
 import { SizesDoc } from '@/doc/inputmask/sizesdoc';
 import { SlotCharDoc } from '@/doc/inputmask/slotchardoc';
+import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenformsdoc';
+import { FluidDoc } from '@/doc/inputmask/fluiddoc';
+import { ClearIconDoc } from '@/doc/inputmask/clearicondoc';
+import { PTComponent } from '@/doc/inputmask/pt/PTComponent';
 import { Component } from '@angular/core';
+import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
     template: `<app-doc
@@ -20,13 +24,16 @@ import { Component } from '@angular/core';
         header="InputMask"
         description="InputMask component is used to enter input in a certain format such as numeric, date, currency and phone."
         [docs]="docs"
+        [ptDocs]="ptComponent"
         [apiDocs]="['InputMask']"
         themeDocs="inputmask"
     ></app-doc> `,
     standalone: true,
-    imports: [InputMaskDocModule]
+    imports: [AppDoc]
 })
 export class InputMaskDemo {
+    ptComponent = PTComponent;
+
     docs = [
         {
             id: 'import',
@@ -37,11 +44,6 @@ export class InputMaskDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'reactive-forms',
-            label: 'Reactive Forms',
-            component: ReactiveFormsDoc
         },
         {
             id: 'mask',
@@ -74,9 +76,24 @@ export class InputMaskDemo {
             component: IftaLabelDoc
         },
         {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
             id: 'sizes',
             label: 'Sizes',
             component: SizesDoc
+        },
+        {
+            id: 'fluid',
+            label: 'Fluid',
+            component: FluidDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'invalid',
@@ -84,11 +101,13 @@ export class InputMaskDemo {
             component: InvalidDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'forms',
+            label: 'Forms',
+            children: [
+                { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+            ]
         },
-
         {
             id: 'accessibility',
             label: 'Accessibility',

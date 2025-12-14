@@ -1,9 +1,13 @@
-import { AfterViewInit, booleanAttribute, Directive, DoCheck, HostListener, inject, Input, NgModule, Optional } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { isEmpty } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Nullable } from 'primeng/ts-helpers';
+import { booleanAttribute, computed, Directive, effect, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseModelHolder } from 'primeng/basemodelholder';
+import { Bind } from 'primeng/bind';
+import { Fluid } from 'primeng/fluid';
+import { InputTextPassThrough } from 'primeng/types/inputtext';
 import { InputTextStyle } from './style/inputtextstyle';
+
+const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 
 /**
  * InputText directive is an extension to standard input element with theming.
@@ -13,66 +17,112 @@ import { InputTextStyle } from './style/inputtextstyle';
     selector: '[pInputText]',
     standalone: true,
     host: {
-        class: 'p-inputtext p-component',
-        '[class.p-filled]': 'filled',
-        '[class.p-variant-filled]': '(variant ?? (config.inputStyle() || config.inputVariant())) === "filled"',
-        '[class.p-inputtext-fluid]': 'hasFluid',
-        '[class.p-inputtext-sm]': 'pSize === "small"',
-        '[class.p-inputfield-sm]': 'pSize === "small"',
-        '[class.p-inputtext-lg]': 'pSize === "large"',
-        '[class.p-inputfield-lg]': 'pSize === "large"'
+        '[class]': "cx('root')",
+        '[attr.data-p]': 'dataP'
     },
-    providers: [InputTextStyle]
+    providers: [InputTextStyle, { provide: INPUTTEXT_INSTANCE, useExisting: InputText }, { provide: PARENT_INSTANCE, useExisting: InputText }],
+    hostDirectives: [Bind]
 })
-export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
+export class InputText extends BaseModelHolder<InputTextPassThrough> {
+    @Input() hostName: any = '';
+
     /**
-     * Specifies the input variant of the component.
+     * Used to pass attributes to DOM elements inside the InputText component.
+     * @defaultValue undefined
+     * @deprecated use pInputTextPT instead.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined';
+    ptInputText = input<InputTextPassThrough>();
     /**
-     * Spans 100% width of the container when enabled.
+     * Used to pass attributes to DOM elements inside the InputText component.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+    pInputTextPT = input<InputTextPassThrough>();
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @defaultValue undefined
+     * @group Props
+     */
+    pInputTextUnstyled = input<boolean | undefined>();
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    $pcInputText: InputText | undefined = inject(INPUTTEXT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    ngControl = inject(NgControl, { optional: true, self: true });
+
+    pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
     /**
      * Defines the size of the component.
      * @group Props
      */
     @Input('pSize') pSize: 'large' | 'small';
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @defaultValue false
+     * @group Props
+     */
+    invalid = input(undefined, { transform: booleanAttribute });
 
-    filled: Nullable<boolean>;
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     _componentStyle = inject(InputTextStyle);
 
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-
-        return isEmpty(this.fluid) ? !!fluidComponent : this.fluid;
-    }
-
-    constructor(@Optional() public ngModel: NgModel) {
+    constructor() {
         super();
+        effect(() => {
+            const pt = this.ptInputText() || this.pInputTextPT();
+            pt && this.directivePT.set(pt);
+        });
+
+        effect(() => {
+            this.pInputTextUnstyled() && this.directiveUnstyled.set(this.pInputTextUnstyled());
+        });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-        this.updateFilledState();
+    onAfterViewInit() {
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
         this.cd.detectChanges();
     }
 
-    ngDoCheck() {
-        this.updateFilledState();
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
 
-    @HostListener('input', ['$event'])
+    onDoCheck() {
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
+    }
+
+    @HostListener('input')
     onInput() {
-        this.updateFilledState();
+        this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
-    updateFilledState() {
-        this.filled = (this.el.nativeElement.value && this.el.nativeElement.value.length) || (this.ngModel && this.ngModel.model);
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
+
+    get dataP() {
+        return this.cn({
+            invalid: this.invalid(),
+            fluid: this.hasFluid,
+            filled: this.$variant() === 'filled',
+            [this.pSize]: this.pSize
+        });
     }
 }
 

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'input-otp-accessibility-doc',
-    standalone: false,
+    standalone: true,
+    imports: [RouterModule, AppDocSectionText],
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>

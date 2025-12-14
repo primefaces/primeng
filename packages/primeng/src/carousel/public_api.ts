@@ -1,3 +1,3 @@
+export * from 'primeng/types/carousel';
 export * from './carousel';
-export * from './carousel.interface';
 export * from './style/carouselstyle';

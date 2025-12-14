@@ -2,7 +2,11 @@ import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { SortEvent, TreeNode } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { CommonModule } from '@angular/common';
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 interface Column {
     field: string;
@@ -11,7 +15,8 @@ interface Column {
 
 @Component({
     selector: 'sort-removable-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>

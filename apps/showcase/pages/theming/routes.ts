@@ -1,8 +1,13 @@
-import { ThemingDemo } from './';
+import { ThemingStyledDemo } from './styled';
+import { ThemingUnstyledDemo } from './unstyled';
 
 export default [
     {
-        path: '',
-        component: ThemingDemo
+        path: 'styled',
+        component: ThemingStyledDemo
+    },
+    {
+        path: 'unstyled',
+        component: ThemingUnstyledDemo
     }
 ];

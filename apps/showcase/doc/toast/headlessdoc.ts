@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { ProgressBar } from 'primeng/progressbar';
 
 @Component({
     selector: 'headless-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, ProgressBar],
     template: `
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
@@ -18,7 +24,7 @@ import { MessageService } from 'primeng/api';
                             <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" styleClass="!bg-primary/80" />
+                            <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
                             <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
                         </div>
                         <div class="flex gap-4 mb-4 justify-end">
@@ -99,7 +105,7 @@ export class HeadlessDoc {
                 <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
             </div>
             <div class="flex flex-col gap-2">
-                <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" styleClass="!bg-primary/80" />
+                <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
                 <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
             </div>
             <div class="flex gap-4 mb-4 justify-end">
@@ -119,7 +125,7 @@ export class HeadlessDoc {
                     <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" styleClass="!bg-primary/80" />
+                    <p-progressbar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
                     <label class="text-sm font-bold text-white dark:text-black">{{ progress }}% uploaded</label>
                 </div>
                 <div class="flex gap-4 mb-4 justify-end">

@@ -1,3 +1,2 @@
-import { StepperDesignTokens } from '../../types/stepper';
-declare const _default: StepperDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/stepper';
+export { default } from '@primeuix/themes/lara/stepper';

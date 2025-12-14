@@ -1,3 +1,2 @@
-import { SpeedDialDesignTokens } from '../../types/speeddial';
-declare const _default: SpeedDialDesignTokens;
-export default _default;
+export * from '@primeuix/themes/material/speeddial';
+export { default } from '@primeuix/themes/material/speeddial';

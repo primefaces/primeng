@@ -1,17 +1,22 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { PhotoService } from '@/service/photoservice';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, model } from '@angular/core';
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'itemwithoutthumbnails-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, GalleriaModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Simple example with indicators only.</p>
         </app-docsectiontext>
         <div class="card">
             <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
-                <ng-template pTemplate="item" let-item>
+                <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
             </p-galleria>

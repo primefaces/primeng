@@ -1,3 +1,2 @@
-import { BreadcrumbDesignTokens } from '../../types/breadcrumb';
-declare const _default: BreadcrumbDesignTokens;
-export default _default;
+export * from '@primeuix/themes/lara/breadcrumb';
+export { default } from '@primeuix/themes/lara/breadcrumb';

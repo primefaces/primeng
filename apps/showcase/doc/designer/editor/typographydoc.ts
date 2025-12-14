@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppCodeModule } from '@/components/doc/app.code.component';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'typography-doc',
     standalone: true,
-    imports: [CommonModule, AppCodeModule, AppDocModule],
+    imports: [CommonModule, AppDocSectionText],
     template: `<app-docsectiontext>
         <p>
             The components are not opinionated about the typography. Important properties such as the font family, font size, and line-height do not have design tokens since they can be inherited from the document. For preview purposes, the
