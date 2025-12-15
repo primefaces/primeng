@@ -164,6 +164,7 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
             ZIndexUtils.clear(this.el.nativeElement);
 
             if (!this.target) {
+                this.document.body.removeChild(this.el.nativeElement);
                 //@ts-ignore
                 unblockBodyScroll();
             }
