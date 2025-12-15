@@ -13,44 +13,40 @@ export interface Props {
 const version = require('package.json').version;
 
 const dependencies = {
-    '@angular/cdk': '^20.0.3',
-    '@angular/cli': '^20.0.3',
-    '@angular/common': '^20.0.4',
-    '@angular/compiler': '^20.0.4',
-    '@angular/core': '^20.0.4',
-    '@angular/forms': '^20.0.4',
-    '@angular/platform-browser': '^20.0.4',
-    '@angular/platform-browser-dynamic': '^20.0.4',
-    '@angular/router': '^20.0.4',
-    '@primeuix/themes': 'latest',
-    '@types/jasmine': '4.3.1',
-    '@types/node': '22.9.0',
+    '@angular/cdk': '^21.0.0',
+    '@angular/common': '^21.0.0',
+    '@angular/compiler': '^21.0.0',
+    '@angular/core': '^21.0.0',
+    '@angular/forms': '^21.0.0',
+    '@angular/platform-browser': '^21.0.0',
+    '@angular/platform-browser-dynamic': '^21.0.0',
+    '@angular/router': '^21.0.0',
+    '@primeuix/themes': '^2.0.2',
     'chart.js': '4.4.2',
-    primeicons: 'latest',
+    primeicons: '^7.0.0',
     primeng: `${version}`,
     quill: '2.0.2',
-    rxjs: '~7.8.2',
-    tailwindcss: '^3',
-    'tailwindcss-primeui': 'latest',
-    tslib: '^2.5.0'
+    rxjs: '~7.8.0',
+    tailwindcss: '^3.4.10',
+    'tailwindcss-primeui': '^0.6.1',
+    tslib: '^2.3.0',
+    'zone.js': '~0.15.0'
 };
 
 const devDependencies = {
-    '@angular-devkit/build-angular': '^20.0.3',
-    '@angular/cli': '^20.0.3',
-    '@angular/compiler-cli': '^20.0.3',
-    '@angular/language-service': '^20.0.0',
-    '@types/jasmine': '~4.3.1',
+    '@angular-devkit/build-angular': '^21.0.0',
+    '@angular/build': '^21.0.0',
+    '@angular/cli': '^21.0.0',
+    '@angular/compiler-cli': '^21.0.0',
+    '@types/jasmine': '~5.1.0',
     '@types/node': '^22.9.0',
-    codelyzer: '^0.0.28',
-    'jasmine-core': '~4.6.0',
-    karma: '~6.4.2',
+    'jasmine-core': '~5.8.0',
+    karma: '~6.4.0',
     'karma-chrome-launcher': '~3.2.0',
     'karma-coverage': '~2.2.0',
-    'karma-jasmine': '~5.1.0',
-    'karma-jasmine-html-reporter': '~2.0.0',
-    'ts-node': '~10.9.2',
-    typescript: '~5.8.3',
+    'karma-jasmine': '~5.0.0',
+    'karma-jasmine-html-reporter': '~2.1.0',
+    typescript: '~5.9.2',
     tailwindcss: '^3.4.10',
     autoprefixer: '^10.4.20',
     postcss: '^8.4.41'
@@ -233,11 +229,11 @@ const angular_json = `{
         "prefix": "app",
         "architect": {
           "build": {
-            "builder": "@angular-devkit/build-angular:browser",
+            "builder": "@angular/build:application",
             "options": {
               "outputPath": "dist/example-app",
               "index": "src/index.html",
-              "main": "src/main.ts",
+              "browser": "src/main.ts",
               "tsConfig": "tsconfig.app.json",
               "inlineStyleLanguage": "scss",
               "assets": ["src/assets"],
@@ -266,18 +262,15 @@ const angular_json = `{
                 "outputHashing": "all"
               },
               "development": {
-                "buildOptimizer": false,
                 "optimization": false,
-                "vendorChunk": true,
                 "extractLicenses": false,
-                "sourceMap": true,
-                "namedChunks": true
+                "sourceMap": true
               }
             },
             "defaultConfiguration": "production"
           },
           "serve": {
-            "builder": "@angular-devkit/build-angular:dev-server",
+            "builder": "@angular/build:dev-server",
             "configurations": {
               "production": {
                 "buildTarget": "example-app:build:production"
@@ -289,9 +282,9 @@ const angular_json = `{
             "defaultConfiguration": "development"
           },
           "extract-i18n": {
-            "builder": "@angular-devkit/build-angular:extract-i18n",
+            "builder": "@angular/build:extract-i18n",
             "options": {
-              "browserTarget": "example-app:build"
+              "buildTarget": "example-app:build"
             }
           },
           "test": {
