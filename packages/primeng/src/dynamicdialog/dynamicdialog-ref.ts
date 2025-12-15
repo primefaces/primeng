@@ -1,5 +1,4 @@
 import { Observable, Subject } from 'rxjs';
-import { Output, EventEmitter, Type } from '@angular/core';
 /**
  * Dynamic Dialog instance.
  * @group Components
@@ -7,15 +6,11 @@ import { Output, EventEmitter, Type } from '@angular/core';
 export class DynamicDialogRef<ComponentType = any> {
     constructor() {}
 
-    private _closed = false;
-
     /**
      * Closes dialog.
      * @group Method
      */
     close(result?: any) {
-        if (this._closed) return;
-        this._closed = true;
         this._onClose.next(result);
 
         setTimeout(() => {
