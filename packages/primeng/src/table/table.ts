@@ -3665,7 +3665,7 @@ export class FrozenColumn extends BaseComponent {
     host: {
         '[class]': "cx('sortableColumn')",
         '[tabindex]': 'isEnabled() ? "0" : null',
-        role: '"columnheader"',
+        role: 'columnheader',
         '[attr.aria-sort]': 'sortOrder'
     },
     providers: [TableStyle]
