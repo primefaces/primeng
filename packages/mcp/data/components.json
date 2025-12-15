@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2025-12-12",
+  "generatedAt": "2025-12-15",
   "components": [
     {
       "name": "accordion",
@@ -414,7 +414,7 @@
     {
       "name": "animateonscroll",
       "title": "Angular Animate On Scroll Directive",
-      "description": "AnimateOnScroll AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.",
+      "description": "AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.",
       "sections": [
         {
           "id": "accessibility",
@@ -21455,12 +21455,6 @@
           "id": "openaicodex",
           "label": "OpenAI Codex",
           "description": "Add the PrimeNG MCP server using the CLI or edit ~/.codex/config.toml directly.",
-          "examples": null
-        },
-        {
-          "id": "quickstart",
-          "label": "Quick Start",
-          "description": "The easiest way to use this MCP server is with npx - no installation required:",
           "examples": null
         },
         {
@@ -47644,12 +47638,6 @@
           "id": "openaicodex",
           "label": "Openaicodex",
           "description": "Add the PrimeNG MCP server using the CLI or edit ~/.codex/config.toml directly.",
-          "examples": null
-        },
-        {
-          "id": "quickstart",
-          "label": "Quickstart",
-          "description": "The easiest way to use this MCP server is with npx - no installation required:",
           "examples": null
         },
         {

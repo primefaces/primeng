@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
     template: ` <app-doc
         docTitle="Angular Animate On Scroll Directive"
         header="AnimateOnScroll"
-        description="AnimateOnScroll AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling."
+        description="AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling."
         [docs]="docs"
         [apiDocs]="['AnimateOnScroll']"
     ></app-doc>`,
