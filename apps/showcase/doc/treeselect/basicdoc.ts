@@ -1,10 +1,16 @@
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { RouterModule } from '@angular/router';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'basic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeSelectModule, FormsModule, RouterModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>TreeSelect is used as a controlled component with <i>ng-model</i> directive along with an <i>options</i> collection. Internally <a routerLink="/tree">Tree</a> component is used so the options model is based on TreeNode API.</p>

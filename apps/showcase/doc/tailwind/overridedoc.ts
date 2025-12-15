@@ -1,8 +1,11 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 
 @Component({
     selector: 'override-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Tailwind utilities may not be able to override the default styling of components due to css specificity, there are two possible solutions; Import and CSS Layer.</p>
@@ -57,7 +60,7 @@ export class OverrideDoc {
 
     code4 = {
         basic: `@import "tailwindcss";
-@plugin "tailwindcss-primeui";`
+@import "tailwindcss-primeui";`
     };
 
     code5 = {

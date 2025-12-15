@@ -1,59 +1,59 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'lazy-virtual-scroll-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
+            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
     `
 })
 export class LazyVirtualScrollDoc implements OnInit {
-    loading: boolean = false;
+    loading = signal<boolean>(false);
 
-    nodes!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.loading = true;
+        this.loading.set(true);
         setTimeout(() => {
-            this.nodes = this.nodeService.generateNodes(150);
-            this.loading = false;
+            this.nodes.set(this.nodeService.generateNodes(150));
+            this.loading.set(false);
         }, 1000);
     }
 
     nodeExpand(event: any) {
         if (event.node) {
-            this.loading = true;
+            this.loading.set(true);
             setTimeout(() => {
                 event.node.children = this.nodeService.createNodes(5, event.node.key);
-                this.loading = false;
-                this.nodes = [...this.nodes];
-                this.cd.markForCheck();
+                this.loading.set(false);
+                this.nodes.set([...this.nodes()]);
             }, 200);
         }
     }
 
     code: Code = {
-        basic: `<p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />`,
+        basic: `<p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />`,
 
         html: `<div class="card">
-    <p-tree [value]="nodes" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
+    <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
 </div>`,
 
-        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@/service/nodeservice';
 import { Tree } from 'primeng/tree';
@@ -66,31 +66,27 @@ import { Tree } from 'primeng/tree';
     providers: [NodeService]
 })
 export class TreeVirtualScrollLazyDemo implements OnInit {
-    loading: boolean = false;
+    loading = signal<boolean>(false);
 
-    nodes!: TreeNode[];
+    nodes = signal<TreeNode[]>(undefined);
 
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
-        this.loading = true;
+        this.loading.set(true);
         setTimeout(() => {
-            this.nodes = this.nodeService.generateNodes(150);
-            this.loading = false;
+            this.nodes.set(this.nodeService.generateNodes(150));
+            this.loading.set(false);
         }, 1000);
     }
 
     nodeExpand(event: any) {
         if (event.node) {
-            this.loading = true;
+            this.loading.set(true);
             setTimeout(() => {
                 event.node.children = this.nodeService.createNodes(5, event.node.key);
-                this.loading = false;
-                this.nodes = [...this.nodes];
-                this.cd.markForCheck();
+                this.loading.set(false);
+                this.nodes.set([...this.nodes()]);
             }, 200);
         }
     }

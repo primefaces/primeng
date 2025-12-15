@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'editor-customtoolbar-demo',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, EditorModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>

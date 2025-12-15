@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/multiselect';
+import { style as multiselect_style } from '@primeuix/styles/multiselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${multiselect_style}
 
     /* For PrimeNG */
    .p-multiselect.ng-invalid.ng-dirty {
@@ -28,7 +28,7 @@ const classes = {
             'p-multiselect-display-chip': instance.display === 'chip',
             'p-disabled': instance.$disabled(),
             'p-invalid': instance.invalid(),
-            'p-variant-filled': instance.$variant(),
+            'p-variant-filled': instance.$variant() === 'filled',
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.$filled(),
             'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
@@ -71,7 +71,7 @@ const classes = {
 export class MultiSelectStyle extends BaseStyle {
     name = 'multiselect';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 

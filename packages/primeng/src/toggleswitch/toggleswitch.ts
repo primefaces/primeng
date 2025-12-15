@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -11,6 +10,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -24,18 +24,13 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Bind, BindModule } from 'primeng/bind';
+import { ToggleSwitchChangeEvent, ToggleSwitchHandleTemplateContext, ToggleSwitchPassThrough } from 'primeng/types/toggleswitch';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
-import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
 
-/**
- * Context interface for the handle template.
- * @property {boolean} checked - A flag indicating whether the input is checked.
- * @group Interface
- */
-export interface ToggleSwitchHandleTemplateContext {
-    checked: boolean;
-}
+const TOGGLESWITCH_INSTANCE = new InjectionToken<ToggleSwitch>('TOGGLESWITCH_INSTANCE');
 
 export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -49,7 +44,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleswitch, p-toggleSwitch, p-toggle-switch',
     standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule],
+    imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <input
             #input
@@ -67,28 +62,38 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [attr.tabindex]="tabindex"
             (focus)="onFocus()"
             (blur)="onBlur()"
-            [attr.data-pc-section]="'hiddenInput'"
             [pAutoFocus]="autofocus"
+            [pBind]="ptm('input')"
         />
-        <div [class]="cx('slider')" [attr.data-pc-section]="'slider'">
-            <div [class]="cx('handle')">
+        <div [class]="cx('slider')" [pBind]="ptm('slider')" [attr.data-p]="dataP">
+            <div [class]="cx('handle')" [pBind]="ptm('handle')" [attr.data-p]="dataP">
                 @if (handleTemplate || _handleTemplate) {
                     <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
                 }
             </div>
         </div>
     `,
-    providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
+    providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle, { provide: TOGGLESWITCH_INSTANCE, useExisting: ToggleSwitch }, { provide: PARENT_INSTANCE, useExisting: ToggleSwitch }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
-        '[attr.data-pc-name]': "'toggleswitch'",
-        '[attr.data-pc-section]': "'root'"
-    }
+        '[attr.data-p-checked]': 'checked()',
+        '[attr.data-p-disabled]': '$disabled()',
+        '[attr.data-p]': 'dataP'
+    },
+    hostDirectives: [Bind]
 })
-export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit {
+export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
+    $pcToggleSwitch: ToggleSwitch | undefined = inject(TOGGLESWITCH_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -150,18 +155,14 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
 
     @ViewChild('input') input!: ElementRef;
     /**
-     * Callback to invoke when the on value change.
-     * @type {TemplateRef<ToggleSwitchHandleTemplateContext>} context - Context of the template
-     * @example
-     * ```html
-     * <ng-template #handle let-checked="checked"> </ng-template>
-     * ```
+     * Custom handle template.
+     * @param {ToggleSwitchHandleTemplateContext} context - handle context.
      * @see {@link ToggleSwitchHandleTemplateContext}
      * @group Templates
      */
-    @ContentChild('handle', { descendants: false }) handleTemplate: TemplateRef<any> | undefined;
+    @ContentChild('handle', { descendants: false }) handleTemplate: TemplateRef<ToggleSwitchHandleTemplateContext> | undefined;
 
-    _handleTemplate: TemplateRef<any> | undefined;
+    _handleTemplate: TemplateRef<ToggleSwitchHandleTemplateContext> | undefined;
 
     focused: boolean = false;
 
@@ -174,7 +175,7 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
         this.onClick(event);
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'handle':
@@ -223,6 +224,14 @@ export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
         setModelValue(value);
         this.cd.markForCheck();
+    }
+
+    get dataP() {
+        return this.cn({
+            checked: this.checked(),
+            disabled: this.$disabled(),
+            invalid: this.invalid()
+        });
     }
 }
 

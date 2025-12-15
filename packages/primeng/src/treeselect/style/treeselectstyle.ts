@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { style } from '@primeuix/styles/treeselect';
+import { style as treeselect_style } from '@primeuix/styles/treeselect';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
-    ${style}
+const style = /*css*/ `
+    ${treeselect_style}
 
     /* For PrimeNG */
 
@@ -17,6 +17,10 @@ const theme = /*css*/ `
 
     p-treeselect.ng-invalid.ng-dirty .p-treeselect-label.p-placeholder {
         color: dt('treeselect.invalid.placeholder.color');
+    }
+
+    .p-treeselect-clear-icon.p-icon {
+        flex-shrink: 0;
     }
 `;
 
@@ -50,6 +54,7 @@ const classes = {
             'p-treeselect-label-empty': !instance.placeholder && instance.emptyValue
         }
     ],
+    clearIcon: 'p-treeselect-clear-icon',
     chip: 'p-treeselect-chip-item',
     pcChip: 'p-treeselect-chip',
     dropdown: 'p-treeselect-dropdown',
@@ -63,7 +68,7 @@ const classes = {
 export class TreeSelectStyle extends BaseStyle {
     name = 'treeselect';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 
@@ -96,6 +101,10 @@ export enum TreeSelectClasses {
      * Class name of the chip item element
      */
     chipItem = 'p-treeselect-chip-item',
+    /**
+     * Class name of the clear icon element
+     */
+    clearIcon = 'p-treeselect-clear-icon',
     /**
      * Class name of the chip element
      */

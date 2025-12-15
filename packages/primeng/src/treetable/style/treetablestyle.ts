@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
+const style = /*css*/ `
 /* For PrimeNG */
 .p-treetable {
     position: relative;
@@ -277,7 +277,7 @@ const theme = /*css*/ `
     color: dt('treetable.header.cell.hover.color');
 }
 
-.p-treetable .p-sortable-column:not(.p-treetable-column-sorted):hover .p-sortable-column-icon {
+.p-treetable .p-sortable-column:not(.p-treetable-column-sorted):hover .p-treetable-sort-icon {
     color: dt('treetable.sort.icon.hover.color');
 }
 
@@ -286,7 +286,7 @@ const theme = /*css*/ `
     color: dt('treetable.header.cell.selected.color');
 }
 
-.p-treetable .p-sortable-column.p-treetable-column-sorted .p-sortable-column-icon {
+.p-treetable .p-sortable-column.p-treetable-column-sorted .p-treetable-sort-icon {
     color: dt('treetable.header.cell.selected.color');
 }
 
@@ -304,8 +304,6 @@ const theme = /*css*/ `
     outline-color: transparent;
     background: dt('treetable.row.background');
     color: dt('treetable.row.color');
-    transition: background dt('treetable.transition.duration'), color dt('treetable.transition.duration'), border-color dt('treetable.transition.duration'),
-            outline-color dt('treetable.transition.duration'), box-shadow dt('treetable.transition.duration');
 }
 
 .p-treetable .p-treetable-tbody>tr>td {
@@ -521,7 +519,7 @@ const classes = {
             'p-treetable-flex-scrollable': instance.scrollable && instance.scrollHeight === 'flex'
         }
     ],
-    loading: 'p-treetable-loading', //TODO: required?
+    loading: 'p-treetable-loading',
     mask: 'p-treetable-mask p-overlay-mask',
     loadingIcon: 'p-treetable-loading-icon',
     header: 'p-treetable-header',
@@ -582,7 +580,7 @@ const classes = {
 export class TreeTableStyle extends BaseStyle {
     name = 'treetable';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }

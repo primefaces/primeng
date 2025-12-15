@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DragDropModule } from 'primeng/dragdrop';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'drag-drop-drop-indicator-demo',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, DragDropModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>When a suitable draggable enters a droppable area, the area gets <i>p-draggable-enter</i> class that can be used to style the droppable section.</p>

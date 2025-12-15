@@ -24,7 +24,7 @@ const classes = {
 export class DataViewStyle extends BaseStyle {
     name = 'dataview';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

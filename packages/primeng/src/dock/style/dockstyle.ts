@@ -28,7 +28,7 @@ const classes = {
 export class DockStyle extends BaseStyle {
     name = 'dock';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

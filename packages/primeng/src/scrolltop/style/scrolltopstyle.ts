@@ -11,7 +11,7 @@ const classes = {
 export class ScrollTopStyle extends BaseStyle {
     name = 'scrolltop';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

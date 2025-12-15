@@ -1,17 +1,23 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ScrollerModule, SkeletonModule, AppCode, AppDocSectionText, CommonModule],
     template: `
         <app-docsectiontext>
             <p>Scroller content is customizable by using <i>ng-template</i>. Valid values are <i>content</i>, <i>item</i>, <i>loader</i> and <i>loadericon</i></p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+            <p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" [numToleratedItems]="20" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                 <ng-template #item let-item let-options="options">
-                    <div class="flex flex-col align-items-strech" [ngClass]="{ 'surface-ground': options.odd }">
+                    <div class="flex flex-col align-items-strech" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
                         <div class="flex items-center px-2" style="height: 25px">Item: {{ item }}</div>
                         <div class="flex items-center px-2" style="height: 25px">Index: {{ options.index }}</div>
                         <div class="flex items-center px-2" style="height: 25px">Count: {{ options.count }}</div>
@@ -22,7 +28,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
                     </div>
                 </ng-template>
                 <ng-template #loader let-options="options">
-                    <div class="flex flex-col items-stretch" [ngClass]="{ 'surface-ground': options.odd }">
+                    <div class="flex flex-col items-stretch" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
                         <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
                         <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
                         <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
@@ -46,9 +52,9 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+        basic: `<p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" [numToleratedItems]="20" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
     <ng-template #item let-item let-options="options">
-        <div class="flex flex-col align-items-strech" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="flex flex-col align-items-strech" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
             <div class="flex items-center px-2" style="height: 25px">Item: {{ item }}</div>
             <div class="flex items-center px-2" style="height: 25px">Index: {{ options.index }}</div>
             <div class="flex items-center px-2" style="height: 25px">Count: {{ options.count }}</div>
@@ -59,7 +65,7 @@ export class TemplateDoc {
         </div>
     </ng-template>
     <ng-template #loader let-options="options">
-        <div class="flex flex-col items-stretch" [ngClass]="{ 'surface-ground': options.odd }">
+        <div class="flex flex-col items-stretch" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
             <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
@@ -71,9 +77,9 @@ export class TemplateDoc {
     </ng-template>
 </p-virtualscroller>`,
         html: `<div class="card flex justify-center">
-   <p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
+    <p-virtualscroller [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" [numToleratedItems]="20" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
         <ng-template #item let-item let-options="options">
-            <div class="flex flex-col align-items-strech" [ngClass]="{ 'surface-ground': options.odd }">
+            <div class="flex flex-col align-items-strech" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
                 <div class="flex items-center px-2" style="height: 25px">Item: {{ item }}</div>
                 <div class="flex items-center px-2" style="height: 25px">Index: {{ options.index }}</div>
                 <div class="flex items-center px-2" style="height: 25px">Count: {{ options.count }}</div>
@@ -84,7 +90,7 @@ export class TemplateDoc {
             </div>
         </ng-template>
         <ng-template #loader let-options="options">
-            <div class="flex flex-col items-stretch" [ngClass]="{ 'surface-ground': options.odd }">
+            <div class="flex flex-col items-stretch" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }">
                 <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
                 <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
                 <div class="flex items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>

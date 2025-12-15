@@ -20,17 +20,19 @@ dist
 *.launch
 .settings/
 *.sublime-workspace
-/.vscode
 
 # misc
 /.sass-cache
 /connect.lock
 /coverage
+coverage/
+**/coverage/
 /libpeerconnection.log
 npm-debug.log
 testem.log
 /typings
 .angular
+TEST.md
 
 # e2e
 /e2e/*.js

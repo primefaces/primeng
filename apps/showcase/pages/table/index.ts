@@ -1,3 +1,4 @@
+import { AppDoc } from '@/components/doc/app.doc';
 import { AccessibilityDoc } from '@/doc/table/accessibilitydoc';
 import { BasicDoc } from '@/doc/table/basicdoc';
 import { CellEditDoc } from '@/doc/table/celleditdoc';
@@ -21,12 +22,15 @@ import { FrozenRowsDoc } from '@/doc/table/frozenrowsdoc';
 import { GridlinesDoc } from '@/doc/table/gridlinesdoc';
 import { HorizontalScrollDoc } from '@/doc/table/horizontalscrolldoc';
 import { ImportDoc } from '@/doc/table/importdoc';
+import { LoadingMaskDoc } from '@/doc/table/loadingmaskdoc';
+import { LoadingSkeletonDoc } from '@/doc/table/loadingskeletondoc';
 import { MultipleColumnsSortDoc } from '@/doc/table/multiplecolumnssortdoc';
 import { MultipleSelectionDoc } from '@/doc/table/multipleselectiondoc';
 import { PaginatorBasicDoc } from '@/doc/table/paginatorbasicdoc';
 import { PaginatorProgrammaticDoc } from '@/doc/table/paginatorprogrammaticdoc';
 import { PreSortDoc } from '@/doc/table/presortdoc';
 import { ProductsDoc } from '@/doc/table/productsdoc';
+import { PTComponent } from '@/doc/table/pt/PTComponent';
 import { RadioButtonSelectionDoc } from '@/doc/table/radiobuttonselectiondoc';
 import { RemovableSortDoc } from '@/doc/table/removablesortdoc';
 import { ReorderDoc } from '@/doc/table/reorderdoc';
@@ -41,7 +45,6 @@ import { StatefulDoc } from '@/doc/table/statefuldoc';
 import { StripedDoc } from '@/doc/table/stripeddoc';
 import { StyleDoc } from '@/doc/table/styledoc';
 import { SubheaderGroupingDoc } from '@/doc/table/subheadergroupingdoc';
-import { TableDocModule } from '@/doc/table/tabledoc.module';
 import { TemplateDoc } from '@/doc/table/templatedoc';
 import { VerticalScrollDoc } from '@/doc/table/verticalscrolldoc';
 import { VirtualScrollDoc } from '@/doc/table/virtualscrolldoc';
@@ -49,9 +52,9 @@ import { VirtualScrollLazyDoc } from '@/doc/table/virtualscrolllazydoc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Angular Table Component" header="Table" description="Table displays data in tabular format." [docs]="docs" [apiDocs]="['Table', 'ColumnFilter']" themeDocs="table"></app-doc>`,
+    template: `<app-doc docTitle="Angular Table Component" header="Table" description="Table displays data in tabular format." [docs]="docs" [apiDocs]="['Table', 'ColumnFilter']" themeDocs="table" [ptDocs]="ptComponent"></app-doc>`,
     standalone: true,
-    imports: [TableDocModule],
+    imports: [AppDoc],
     styleUrl: './tabledemo.scss'
 })
 export class TableDemo {
@@ -95,6 +98,22 @@ export class TableDemo {
             id: 'table-style',
             label: 'Conditional Style',
             component: StyleDoc
+        },
+        {
+            id: 'loading',
+            label: 'Loading',
+            children: [
+                {
+                    id: 'loading-mask',
+                    label: 'Mask',
+                    component: LoadingMaskDoc
+                },
+                {
+                    id: 'loading-skeleton',
+                    label: 'Skeleton',
+                    component: LoadingSkeletonDoc
+                }
+            ]
         },
         {
             id: 'paginator',
@@ -357,4 +376,6 @@ export class TableDemo {
             component: AccessibilityDoc
         }
     ];
+
+    ptComponent = PTComponent;
 }

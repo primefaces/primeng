@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
 
 @Component({
     selector: 'vertical-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, SliderModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>Default layout of slider is <i>horizontal</i>, use <i>orientation</i> property for the alternative <i>vertical</i> mode.</p>

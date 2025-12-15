@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { ScrollTop, ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
     selector: 'element-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, ScrollTopModule],
     template: `
         <app-docsectiontext>
             <p>Setting the <i>target</i> property to <i>parent</i> binds ScrollTop to its parent element that has scrolling content.</p>

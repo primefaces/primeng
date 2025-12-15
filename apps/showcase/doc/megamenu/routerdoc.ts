@@ -2,10 +2,14 @@ import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuModule } from 'primeng/megamenu';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'router-doc',
-    standalone: false,
+    standalone: true,
+    imports: [MegaMenuModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Menu items support navigation via routerLink, programmatic routing using commands, or external URLs.</p>

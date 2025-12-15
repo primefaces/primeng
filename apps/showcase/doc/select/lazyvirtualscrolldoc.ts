@@ -1,13 +1,17 @@
+import { AppCode } from '@/components/doc/app.code';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ScrollerOptions, SelectItem } from 'primeng/api';
+import { SelectModule } from 'primeng/select';
 
 @Component({
     selector: 'select-lazy-virtualscroll-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, FormsModule, SelectModule],
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />
+            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
         </div>
         <app-code [code]="code" selector="select-lazy-virtualscroll-demo"></app-code>
     `
@@ -59,10 +63,10 @@ export class LazyVirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />`,
+        basic: `<p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />`,
 
         html: `<div class="card flex justify-center">
-    <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" class="w-full md:w-56" />
+    <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
 </div>`,
 
         typescript: `import { SelectItem } from 'primeng/api';

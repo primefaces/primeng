@@ -35,6 +35,7 @@ import { UniqueComponentId } from 'primeng/utils';
                 (onKeyUp)="onInput($event)"
                 [inputStyleClass]="inputStyleClass()"
                 [maxlength]="100"
+                [disabled]="designerService.isThemeViewOnly()"
             >
                 <ng-template #item let-option>
                     <div [pTooltip]="getTooltipData(option)" tooltipPosition="left" class="w-full flex items-center justify-between gap-4 px-2">
@@ -55,7 +56,7 @@ import { UniqueComponentId } from 'primeng/utils';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignTokenField implements OnInit {
-    private designerService: DesignerService = inject(DesignerService);
+    designerService: DesignerService = inject(DesignerService);
 
     @Input() label: string | undefined;
 

@@ -1,11 +1,16 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
     selector: 'gridlines-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeTableModule, AppCode, AppDocSectionText, DeferredDemo],
     template: ` <section class="py-6">
         <app-docsectiontext>
             <p>Enabling <i>showGridlines</i> displays grid lines.</p>
@@ -23,8 +28,10 @@ import { TreeNode } from 'primeng/api';
                     <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treetable-toggler [rowNode]="rowNode" />
-                                {{ rowData.name }}
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.name }}</span>
+                                </div>
                             </td>
                             <td>{{ rowData.size }}</td>
                             <td>{{ rowData.type }}</td>
@@ -58,8 +65,10 @@ export class GridlinesDoc {
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -79,8 +88,10 @@ export class GridlinesDoc {
         <ng-template #body let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treetable-toggler [rowNode]="rowNode" />
-                    {{ rowData.name }}
+                    <div class="flex items-center gap-2">
+                        <p-treetable-toggler [rowNode]="rowNode" />
+                        <span>{{ rowData.name }}</span>
+                    </div>
                 </td>
                 <td>{{ rowData.size }}</td>
                 <td>{{ rowData.type }}</td>

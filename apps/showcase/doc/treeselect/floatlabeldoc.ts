@@ -1,10 +1,17 @@
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'floatlabel-doc',
-    standalone: false,
+    standalone: true,
+    imports: [FormsModule, RouterModule, TreeSelectModule, FloatLabelModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>

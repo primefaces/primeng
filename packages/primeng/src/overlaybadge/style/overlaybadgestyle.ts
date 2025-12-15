@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = /*css*/ `
+const style = /*css*/ `
 .p-overlaybadge {
     position: relative;
 }
@@ -27,7 +27,7 @@ const classes = {
 export class OverlayBadgeStyle extends BaseStyle {
     name = 'overlaybadge';
 
-    theme = theme;
+    style = style;
 
     classes = classes;
 }
