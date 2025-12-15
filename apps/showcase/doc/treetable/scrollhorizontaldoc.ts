@@ -1,7 +1,12 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
 
 interface Column {
     field: string;
@@ -10,7 +15,8 @@ interface Column {
 
 @Component({
     selector: 'scroll-horizontal-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Horizontal scrolling is enabled when the total width of columns exceeds table width.</p>
@@ -20,22 +26,34 @@ interface Column {
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #colgroup let-columns>
                         <colgroup>
-                            <col *ngFor="let col of columns" style="width:500px" />
+                            @for (col of columns; track col) {
+                                <col style="width:500px" />
+                            }
                         </colgroup>
                     </ng-template>
                     <ng-template #header let-columns>
                         <tr>
-                            <th *ngFor="let col of columns">
-                                {{ col.header }}
-                            </th>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
+                            }
                         </tr>
                     </ng-template>
                     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
-                            <td *ngFor="let col of columns; let i = index">
-                                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetable-toggler>
-                                {{ rowData[col.field] }}
-                            </td>
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
                         </tr>
                     </ng-template>
                 </p-treetable>
@@ -64,22 +82,34 @@ export class ScrollHorizontalDoc {
         basic: `<p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #colgroup let-columns>
         <colgroup>
-            <col *ngFor="let col of columns" style="width:500px" />
+            @for (col of columns; track col) {
+                <col style="width:500px" />
+            }
         </colgroup>
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetable-toggler>
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of columns; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
 </p-treetable>`,
@@ -89,22 +119,34 @@ export class ScrollHorizontalDoc {
     <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template #colgroup let-columns>
             <colgroup>
-                <col *ngFor="let col of columns" style="width:500px" />
+                @for (col of columns; track col) {
+                    <col style="width:500px" />
+                }
             </colgroup>
         </ng-template>
         <ng-template #header let-columns>
             <tr>
-                <th *ngFor="let col of columns">
-                    {{ col.header }}
-                </th>
+                @for (col of columns; track col) {
+                    <th>
+                        {{ col.header }}
+                    </th>
+                }
             </tr>
         </ng-template>
         <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0"></p-treetable-toggler>
-                    {{ rowData[col.field] }}
-                </td>
+                @for (col of columns; let first = $first; track col) {
+                    <td>
+                        @if (first) {
+                            <div class="flex items-center gap-2">
+                                <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                <span>{{ rowData[col.field] }}</span>
+                            </div>
+                        } @else {
+                            {{ rowData[col.field] }}
+                        }
+                    </td>
+                }
             </tr>
         </ng-template>
     </p-treetable>

@@ -22,7 +22,7 @@ const classes = {
 export class OrganizationChartStyle extends BaseStyle {
     name = 'organizationchart';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

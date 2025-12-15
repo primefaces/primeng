@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -10,6 +11,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    InjectionToken,
     input,
     Input,
     NgModule,
@@ -22,9 +24,14 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind, BindModule } from 'primeng/bind';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
+import { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpPassThrough } from 'primeng/types/inputotp';
 import { InputOtpStyle } from './style/inputotpstyle';
+
+const INPUTOTP_INSTANCE = new InjectionToken<InputOtp>('INPUTOTP_INSTANCE');
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -32,46 +39,8 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-/**
- * Input change event.
- * @property {Event} originalEvent - browser event.
- * @property {any}  value - updated value.
- * @group Interface
- */
-export interface InputOtpChangeEvent {
-    originalEvent: Event;
-    value: any;
-}
-
-/**
- * Context interface for the input template events.
- * @property {(event: Event, index: number) => void} input - input event.
- * @property {(event: Event)} keydown - keydown event.
- * @property {(event: Event)} focus - focus event.
- * @property {(event: Event)} blur - blur event.
- * @property {(event: Event)} paste - paste event.
- * @group Interface
- */
-export interface InputOtpTemplateEvents {
-    input: (event: Event, index: number) => void;
-    keydown: (event: Event) => void;
-    focus: (event: Event) => void;
-    blur: (event: Event) => void;
-    paste: (event: Event) => void;
-}
-
-/**
- * Context of the input template.
- * @property {number | string} $implicit - token value.
- * @property {InputOtpTemplateEvents} events - Browser events of the template.
- * @property {number} index - index of the token.
- * @group Interface
- */
-export interface InputOtpInputTemplateContext {
-    $implicit: number | string;
-    events: InputOtpTemplateEvents;
-    index: number;
-}
+// Re-export interfaces from types for backwards compatibility
+export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEvents } from 'primeng/types/inputotp';
 
 /**
  * Input Otp is used to enter one time passwords.
@@ -80,7 +49,7 @@ export interface InputOtpInputTemplateContext {
 @Component({
     selector: 'p-inputOtp, p-inputotp, p-input-otp',
     standalone: true,
-    imports: [CommonModule, InputText, AutoFocus, SharedModule],
+    imports: [CommonModule, InputText, AutoFocus, SharedModule, BindModule],
     template: `
         <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
             <ng-container *ngIf="!inputTemplate && !_inputTemplate">
@@ -94,17 +63,20 @@ export interface InputOtpInputTemplateContext {
                     [pSize]="size()"
                     [variant]="$variant()"
                     [invalid]="invalid()"
+                    [attr.inputmode]="inputMode"
                     [attr.name]="name()"
                     [attr.tabindex]="tabindex"
                     [attr.required]="required() ? '' : undefined"
                     [attr.readonly]="readonly ? '' : undefined"
-                    [attr.disabled]="disabled() ? '' : undefined"
+                    [attr.disabled]="$disabled() ? '' : undefined"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
                     [pAutoFocus]="getAutofocus(i)"
+                    [pt]="ptm('pcInputText')"
+                    [unstyled]="unstyled()"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate || _inputTemplate">
@@ -114,12 +86,23 @@ export interface InputOtpInputTemplateContext {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle],
+    providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle, { provide: INPUTOTP_INSTANCE, useExisting: InputOtp }, { provide: PARENT_INSTANCE, useExisting: InputOtp }],
+    hostDirectives: [Bind],
     host: {
         '[class]': "cx('root')"
     }
 })
-export class InputOtp extends BaseEditableHolder implements AfterContentInit {
+export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements AfterViewChecked {
+    _componentStyle = inject(InputOtpStyle);
+
+    $pcInputOtp: InputOtp | undefined = inject(INPUTOTP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
@@ -185,22 +168,18 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter();
     /**
-     * Input template.
+     * Custom input template.
      * @param {InputOtpInputTemplateContext} context - Context of the template
      * @see {@link InputOtpInputTemplateContext}
      * @group Templates
      */
-    @ContentChild('input', { descendants: false }) inputTemplate: TemplateRef<any>;
+    @ContentChild('input', { descendants: false }) inputTemplate: TemplateRef<InputOtpInputTemplateContext> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    _inputTemplate: TemplateRef<any> | undefined;
+    _inputTemplate: TemplateRef<InputOtpInputTemplateContext> | undefined;
 
     tokens: any = [];
-
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
 
     value: any;
 
@@ -214,9 +193,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
         return this.mask ? 'password' : 'text';
     }
 
-    _componentStyle = inject(InputOtpStyle);
-
-    ngAfterContentInit() {
+    onAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'input':
@@ -271,21 +248,6 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
         });
     }
 
-    writeValue(value: any): void {
-        if (value) {
-            if (Array.isArray(value) && value.length > 0) {
-                this.value = value.slice(0, this.length);
-            } else {
-                this.value = value.toString().split('').slice(0, this.length);
-            }
-        } else {
-            this.value = value;
-        }
-        this.writeModelValue(this.value);
-        this.updateTokens();
-        this.cd.markForCheck();
-    }
-
     updateTokens() {
         if (this.value !== null && this.value !== undefined) {
             if (Array.isArray(this.value)) {
@@ -304,17 +266,9 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     getAutofocus(i: number): boolean {
         if (i === 1) {
-            return this.autofocus;
+            return this.autofocus || false;
         }
         return false;
-    }
-
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
     }
 
     moveToPrev(event) {
@@ -365,7 +319,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
             return;
         }
 
-        switch (event.code) {
+        switch (event.key) {
             case 'ArrowLeft':
                 this.moveToPrev(event);
                 event.preventDefault();
@@ -393,7 +347,12 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
                 break;
 
             default:
-                if ((this.integerOnly && !(Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                const target = event.target;
+                const hasSelection = target.selectionStart !== target.selectionEnd;
+                const isAtMaxLength = this.tokens.join('').length >= this.length;
+                const isValidKey = this.integerOnly ? /^[0-9]$/.test(event.key) : true;
+
+                if (!isValidKey || (isAtMaxLength && event.key !== 'Delete' && !hasSelection)) {
                     event.preventDefault();
                 }
 
@@ -402,7 +361,7 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
     }
 
     onPaste(event) {
-        if (!this.disabled() && !this.readonly) {
+        if (!this.$disabled() && !this.readonly) {
             let paste = event.clipboardData.getData('text');
 
             if (paste.length) {
@@ -428,6 +387,27 @@ export class InputOtp extends BaseEditableHolder implements AfterContentInit {
 
     trackByFn(index: number) {
         return index;
+    }
+
+    /**
+     * @override
+     *
+     * @see {@link BaseEditableHolder.writeControlValue}
+     * Writes the value to the control.
+     */
+    writeControlValue(value: any, setModelValue: (value: any) => void): void {
+        if (value) {
+            if (Array.isArray(value) && value.length > 0) {
+                this.value = value.slice(0, this.length);
+            } else {
+                this.value = value.toString().split('').slice(0, this.length);
+            }
+        } else {
+            this.value = value;
+        }
+        setModelValue(this.value);
+        this.updateTokens();
+        this.cd.markForCheck();
     }
 }
 

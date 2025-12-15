@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'card-style-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, RouterModule],
     template: `
         <app-docsectiontext>
             <p>

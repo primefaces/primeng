@@ -1,9 +1,13 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
     selector: 'disabled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TabsModule],
     template: `
         <app-docsectiontext>
             <p>Enabling <i>disabled</i> property of a Tab prevents user interaction.</p>

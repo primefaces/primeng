@@ -1,7 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -10,10 +8,10 @@ import {
     ElementRef,
     EventEmitter,
     inject,
+    InjectionToken,
     Input,
     NgModule,
     numberAttribute,
-    OnDestroy,
     Output,
     QueryList,
     signal,
@@ -24,13 +22,17 @@ import {
 import { RouterModule } from '@angular/router';
 import { find, findSingle, focus, hasClass, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { ButtonModule, ButtonProps } from 'primeng/button';
 import { PlusIcon } from 'primeng/icons';
 import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { SpeedDialButtonTemplateContext, SpeedDialItemTemplateContext, SpeedDialPassThrough } from 'primeng/types/speeddial';
 import { asapScheduler } from 'rxjs';
 import { SpeedDialStyle } from './style/speeddialstyle';
+
+const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE');
 
 /**
  * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
@@ -39,9 +41,9 @@ import { SpeedDialStyle } from './style/speeddialstyle';
 @Component({
     selector: 'p-speeddial, p-speedDial, p-speed-dial',
     standalone: true,
-    imports: [CommonModule, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, SharedModule],
+    imports: [CommonModule, ButtonModule, Ripple, TooltipModule, RouterModule, PlusIcon, SharedModule, Bind],
     template: `
-        <div #container [class]="cn(cx('root'), className)" [style]="style" [ngStyle]="sx('root')" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
+        <div #container [pBind]="ptm('root')" [class]="cn(cx('root'), className)" [style]="style" [ngStyle]="sx('root')">
             <ng-container *ngIf="!buttonTemplate && !_buttonTemplate">
                 <button
                     type="button"
@@ -58,10 +60,11 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                     [attr.aria-labelledby]="ariaLabelledBy"
                     (click)="onButtonClick($event)"
                     (keydown)="onTogglerKeydown($event)"
-                    [attr.data-pc-name]="'button'"
                     [buttonProps]="buttonProps"
+                    [pt]="ptm('pcButton')"
+                    [unstyled]="unstyled()"
                 >
-                    <svg data-p-icon="plus" pButtonIcon *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
+                    <svg data-p-icon="plus" pButtonIcon [pt]="ptm('pcButton')['icon']" *ngIf="!buttonIconClass && !iconTemplate && !_iconTemplate" />
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                 </button>
             </ng-container>
@@ -70,6 +73,7 @@ import { SpeedDialStyle } from './style/speeddialstyle';
             </ng-container>
             <ul
                 #list
+                [pBind]="ptm('list')"
                 [class]="cx('list')"
                 role="menu"
                 [id]="id + '_list'"
@@ -78,19 +82,20 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                 (keydown)="onKeyDown($event)"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 [tabindex]="-1"
-                [attr.data-pc-section]="'menu'"
                 [ngStyle]="sx('list')"
             >
                 <li
                     *ngFor="let item of model; let i = index"
+                    [pBind]="getPTOptions(id + '_' + i, 'item')"
                     [ngStyle]="getItemStyle(i)"
                     [class]="cx('item', { item, i })"
                     pTooltip
+                    [pTooltipUnstyled]="unstyled()"
                     [tooltipOptions]="item.tooltipOptions || getTooltipOptions(item)"
                     [id]="id + '_' + i"
                     [attr.aria-controls]="id + '_item'"
                     role="menuitem"
-                    [attr.data-pc-section]="'menuitem'"
+                    [attr.data-p-active]="isItemActive(id + '_' + i)"
                 >
                     <ng-container *ngIf="itemTemplate || _itemTemplate">
                         <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, index: i, toggleCallback: onItemClick.bind(this) }"></ng-container>
@@ -105,25 +110,36 @@ import { SpeedDialStyle } from './style/speeddialstyle';
                             [rounded]="true"
                             size="small"
                             role="menuitem"
-                            [icon]="item.icon"
                             (click)="onItemClick($event, item)"
                             [disabled]="item?.disabled"
                             (keydown.enter)="onItemClick($event, item)"
-                            [attr.data-pc-section]="'action'"
                             [attr.aria-label]="item.label"
                             [attr.tabindex]="item.disabled || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                        ></button>
+                            [pt]="getPTOptions(id + '_' + i, 'pcAction')"
+                            [unstyled]="unstyled()"
+                        >
+                            <span *ngIf="item.icon" pButtonIcon [pt]="getPTOptions(id + '_' + i, 'actionIcon')" [class]="item.icon"></span>
+                        </button>
                     </ng-container>
                 </li>
             </ul>
         </div>
-        <div *ngIf="mask && visible" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle"></div>
+        <div *ngIf="mask && visible" [pBind]="ptm('mask')" [class]="cn(cx('mask'), maskClassName)" [ngStyle]="maskStyle" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [SpeedDialStyle]
+    providers: [SpeedDialStyle, { provide: SPEED_DIAL_INSTANCE, useExisting: SpeedDial }, { provide: PARENT_INSTANCE, useExisting: SpeedDial }],
+    hostDirectives: [Bind]
 })
-export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
+    $pcSpeedDial: SpeedDial | undefined = inject(SPEED_DIAL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
     /**
      * List of items id.
      * @group Props
@@ -286,29 +302,32 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     @ViewChild('list') list: ElementRef | undefined;
     /**
-     * Template of the button.
+     * Custom button template.
+     * @param {SpeedDialButtonTemplateContext} context - button context.
+     * @see {@link SpeedDialButtonTemplateContext}
      * @group Templates
      */
-    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<any> | undefined;
+    @ContentChild('button', { descendants: false }) buttonTemplate: TemplateRef<SpeedDialButtonTemplateContext> | undefined;
     /**
-     * Template of the item.
+     * Custom item template.
+     * @param {SpeedDialItemTemplateContext} context - item context.
+     * @see {@link SpeedDialItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<any> | undefined;
-
+    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<SpeedDialItemTemplateContext> | undefined;
     /**
-     * Template of the item.
+     * Custom icon template.
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<any> | undefined;
+    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<void> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    _buttonTemplate: TemplateRef<any> | undefined;
+    _buttonTemplate: TemplateRef<SpeedDialButtonTemplateContext> | undefined;
 
-    _itemTemplate: TemplateRef<any> | undefined;
+    _itemTemplate: TemplateRef<SpeedDialItemTemplateContext> | undefined;
 
-    _iconTemplate: TemplateRef<any> | undefined;
+    _iconTemplate: TemplateRef<void> | undefined;
 
     isItemClicked: boolean = false;
 
@@ -330,17 +349,28 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         return { ...this.tooltipOptions, tooltipLabel: item.label, disabled: !this.tooltipOptions };
     }
 
-    ngOnInit() {
-        super.ngOnInit();
+    getPTOptions(id: string, key: string) {
+        return this.ptm(key, {
+            context: {
+                active: this.isItemActive(id),
+                hidden: !this.visible
+            }
+        });
+    }
+
+    isItemActive(id: string) {
+        return id === this.focusedOptionId;
+    }
+
+    onInit() {
         this.id = this.id || uuid('pn_id_');
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.type !== 'linear') {
-                const button = <any>findSingle(this.container?.nativeElement, '.p-speeddial-button');
-                const firstItem = <any>findSingle(this.list?.nativeElement, '.p-speeddial-item');
+                const button = <any>findSingle(this.container?.nativeElement, '[data-pc-name="pcbutton"]');
+                const firstItem = <any>findSingle(this.list?.nativeElement, '[data-pc-section="item"]');
 
                 if (button && firstItem) {
                     const wDiff = Math.abs(button.offsetWidth - firstItem.offsetWidth);
@@ -352,7 +382,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         }
     }
 
-    ngAfterContentInit() {
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'button':
@@ -475,9 +505,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         const leftValidDirections = ['left', 'up-right', 'down-left'];
         const rightValidDirections = ['right', 'up-left', 'down-right'];
 
-        if (leftValidDirections.includes(this.direction)) {
+        if (leftValidDirections.includes(this.direction || '')) {
             this.navigateNextItem(event);
-        } else if (rightValidDirections.includes(this.direction)) {
+        } else if (rightValidDirections.includes(this.direction || '')) {
             this.navigatePrevItem(event);
         } else {
             this.navigatePrevItem(event);
@@ -488,9 +518,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         const leftValidDirections = ['left', 'up-right', 'down-left'];
         const rightValidDirections = ['right', 'up-left', 'down-right'];
 
-        if (leftValidDirections.includes(this.direction)) {
+        if (leftValidDirections.includes(this.direction || '')) {
             this.navigatePrevItem(event);
-        } else if (rightValidDirections.includes(this.direction)) {
+        } else if (rightValidDirections.includes(this.direction || '')) {
             this.navigateNextItem(event);
         } else {
             this.navigateNextItem(event);
@@ -512,13 +542,15 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     onEnterKey(event: any) {
-        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
         const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
-        this.onItemClick(event, this.model[itemIndex]);
+        if (itemIndex !== -1 && this.model && this.model[itemIndex]) {
+            this.onItemClick(event, this.model[itemIndex]);
+        }
         this.onBlur(event);
 
-        const buttonEl = <any>findSingle(this.container.nativeElement, 'button');
+        const buttonEl = <any>findSingle(this.container?.nativeElement, 'button');
 
         buttonEl && focus(buttonEl);
     }
@@ -526,7 +558,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     onEscapeKey(event: KeyboardEvent) {
         this.hide();
 
-        const buttonEl = <any>findSingle(this.container.nativeElement, 'button');
+        const buttonEl = <any>findSingle(this.container?.nativeElement, 'button');
 
         buttonEl && focus(buttonEl);
     }
@@ -557,7 +589,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     onTogglerArrowUp(event) {
         this.focused = true;
-        focus(this.list.nativeElement);
+        focus(this.list?.nativeElement);
 
         this.show();
         this.navigatePrevItem(event);
@@ -567,7 +599,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     onTogglerArrowDown(event) {
         this.focused = true;
-        focus(this.list.nativeElement);
+        focus(this.list?.nativeElement);
 
         this.show();
         this.navigateNextItem(event);
@@ -592,9 +624,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     findPrevOptionIndex(index) {
-        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
 
-        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
+        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[filteredItems.length - 1].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
 
@@ -604,8 +636,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     findNextOptionIndex(index) {
-        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
+        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
         const newIndex = index === -1 ? filteredItems[0].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
 
@@ -615,8 +647,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     changeFocusedOptionIndex(index) {
-        const items = find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a'), 'p-disabled'));
+        const items = find(this.container?.nativeElement, '[data-pc-section="item"]');
+        const filteredItems = [...items].filter((item) => !hasClass(findSingle(item, 'a')!, 'p-disabled'));
 
         if (filteredItems[index]) {
             this.focusedOptionIndex.set(filteredItems[index].getAttribute('id'));
@@ -678,7 +710,13 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     get buttonIconClass() {
-        return (!this.visible && this.showIcon) || !this.hideIcon ? this.showIcon : this.hideIcon;
+        if (!this.visible && this.showIcon) {
+            return this.showIcon;
+        }
+        if (this.visible && this.hideIcon) {
+            return this.hideIcon;
+        }
+        return this.showIcon;
     }
 
     getItemStyle(index: number) {
@@ -719,9 +757,8 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         this.unbindDocumentClickListener();
-        super.ngOnDestroy();
     }
 }
 

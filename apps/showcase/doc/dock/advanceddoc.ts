@@ -3,12 +3,22 @@ import { NodeService } from '@/service/nodeservice';
 import { PhotoService } from '@/service/photoservice';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { TerminalService } from 'primeng/terminal';
+import { TerminalModule, TerminalService } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
+import { Dock } from 'primeng/dock';
+import { DialogModule } from 'primeng/dialog';
+import { GalleriaModule } from 'primeng/galleria';
+import { MenubarModule } from 'primeng/menubar';
+import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
+import { TreeModule } from 'primeng/tree';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dock-advanced-demo',
-    standalone: false,
+    standalone: true,
+    imports: [Dock, DialogModule, GalleriaModule, MenubarModule, TerminalModule, ToastModule, TooltipModule, TreeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A mock desktop UI implemented with various components in addition to Dock.</p>

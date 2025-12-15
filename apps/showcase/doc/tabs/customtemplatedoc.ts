@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { TabsModule } from 'primeng/tabs';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'template-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, TabsModule, AvatarModule, BadgeModule],
     template: `
         <app-docsectiontext>
             <p>Custom content for a tab is defined with the default ng-content.</p>

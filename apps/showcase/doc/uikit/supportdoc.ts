@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'support-doc',
     standalone: true,
-    imports: [AppDocModule],
+    imports: [AppDocSectionText],
     template: `<app-docsectiontext>
         <p>
             The community gathers on <a href="https://github.com/orgs/primefaces/discussions/categories/figma-ui-kit" target="_blank" rel="noopener noreferrer">GitHub Discussions</a> and

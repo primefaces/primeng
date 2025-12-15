@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import type { DialogPassThrough } from 'primeng/types/dialog';
 
 /**
  * Dialogs can be created dynamically with any component as the content using a DialogService.
@@ -156,7 +157,7 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      */
     minimizeIcon?: string;
     /**
-     * Position of the dialog, options are "center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left" or "bottom-right".
+     * Position of the dialog, options are "center", "top", "bottom", "left", "right", "topleft", "topright", "bottomleft" or "bottomright".
      * @group Props
      */
     position?: string;
@@ -185,35 +186,46 @@ export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<
      * @group Props
      */
     templates?: DynamicDialogTemplates;
+    /**
+     * Used to pass attributes to DOM elements inside the Dialog component.
+     * @group Props
+     */
+    pt?: DialogPassThrough;
+    /**
+     * Indicates whether the component should be rendered without styles.
+     * @group Props
+     */
+    unstyled?: boolean;
 }
 
 /**
  * Defines valid templates in Dynamic Dialog.
- * @group Interface
+ * Templates are Angular components that will be rendered using ngComponentOutlet.
+ * @group Templates
  */
 export interface DynamicDialogTemplates {
     /**
-     * Template of the header.
+     * Component to render as the header.
      */
     header?: Type<any>;
     /**
-     * Template of the content.
+     * Component to render as the content.
      */
     content?: Type<any>;
     /**
-     * Template of the footer.
+     * Component to render as the footer.
      */
     footer?: Type<any>;
     /**
-     * Template of the minimize icon.
+     * Component to render as the minimize icon.
      */
     minimizeicon?: Type<any>;
     /**
-     * Template of the maximize icon.
+     * Component to render as the maximize icon.
      */
     maximizeicon?: Type<any>;
     /**
-     * Template of the close icon.
+     * Component to render as the close icon.
      */
     closeicon?: Type<any>;
 }

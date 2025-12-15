@@ -13,7 +13,6 @@ export interface Props {
 const version = require('package.json').version;
 
 const dependencies = {
-    '@angular/animations': '^20.0.4',
     '@angular/cdk': '^20.0.3',
     '@angular/cli': '^20.0.3',
     '@angular/common': '^20.0.4',
@@ -33,8 +32,7 @@ const dependencies = {
     rxjs: '~7.8.2',
     tailwindcss: '^3',
     'tailwindcss-primeui': 'latest',
-    tslib: '^2.5.0',
-    'zone.js': '~0.15.0'
+    tslib: '^2.5.0'
 };
 
 const devDependencies = {
@@ -178,7 +176,6 @@ module.exports = function (config) {
 const test_ts = `
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
-import 'zone.js/dist/zone-testing';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
@@ -241,7 +238,6 @@ const angular_json = `{
               "outputPath": "dist/example-app",
               "index": "src/index.html",
               "main": "src/main.ts",
-              "polyfills": ["zone.js"],
               "tsConfig": "tsconfig.app.json",
               "inlineStyleLanguage": "scss",
               "assets": ["src/assets"],
@@ -302,7 +298,6 @@ const angular_json = `{
             "builder": "@angular-devkit/build-angular:karma",
             "options": {
               "main": "src/test.ts",
-              "polyfills": ["zone.js"],
               "tsConfig": "tsconfig.spec.json",
               "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",
@@ -1120,14 +1115,16 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { DrawerModule } from 'primeng/drawer';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { ThemeSwitcher } from './themeswitcher';
 
     ${serviceImports}
 
     @NgModule({
         imports: [
-            ThemeSwitcher,
+    ThemeSwitcher,
     AvatarModule,
+    KeyFilterModule,
     AvatarGroupModule,
     AnimateOnScrollModule,
     TabsModule,
@@ -1243,6 +1240,7 @@ import { ThemeSwitcher } from './themeswitcher';
     ButtonModule,
     DatePickerModule,
     CarouselModule,
+    KeyFilterModule,
     CascadeSelectModule,
     ChartModule,
     CheckboxModule,
@@ -1352,7 +1350,6 @@ import { ThemeSwitcher } from './themeswitcher';
 
     const main_ts = `import { bootstrapApplication } from '@angular/platform-browser';
 import { ${componentName} } from './app/${selector}';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { providePrimeNG } from 'primeng/config';
@@ -1361,7 +1358,6 @@ import Aura from '@primeuix/themes/aura';
   export const appConfig: ApplicationConfig = {
       providers: [
       provideHttpClient(withFetch()),
-      provideAnimationsAsync(),
       providePrimeNG({
           theme: { preset: Aura, options: { darkModeSelector: '.p-dark' } },
       }),

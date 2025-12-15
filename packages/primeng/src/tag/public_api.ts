@@ -1,3 +1,3 @@
+export * from 'primeng/types/tag';
 export * from './tag';
-export * from './tag.interface';
 export * from './style/tagstyle';

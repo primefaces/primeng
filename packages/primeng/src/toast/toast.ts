@@ -1,101 +1,114 @@
-import { animate, animateChild, AnimationEvent, query, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
-    AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
+    effect,
     EventEmitter,
     inject,
+    InjectionToken,
+    input,
     Input,
     NgModule,
     NgZone,
     numberAttribute,
-    OnDestroy,
-    OnInit,
+    output,
     Output,
     QueryList,
+    signal,
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { Bind } from 'primeng/bind';
 import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
+import { MotionModule } from 'primeng/motion';
+import { ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
-import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast.interface';
+
+const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
 
 @Component({
     selector: 'p-toastItem',
     standalone: true,
-    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule],
+    imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind, MotionModule],
     template: `
         <div
             #container
+            [pMotion]="visible()"
+            [pMotionAppear]="true"
+            [pMotionName]="'p-toast-message'"
+            [pMotionOptions]="motionOptions()"
+            (pMotionOnBeforeEnter)="onBeforeEnter($event)"
+            (pMotionOnAfterLeave)="onAfterLeave($event)"
             [attr.id]="message?.id"
+            [pBind]="ptm('message')"
             [class]="cn(cx('message'), message?.styleClass)"
-            [@messageState]="{
-                value: 'visible',
-                params: {
-                    showTransformParams: showTransformOptions,
-                    hideTransformParams: hideTransformOptions,
-                    showTransitionParams: showTransitionOptions,
-                    hideTransitionParams: hideTransitionOptions
-                }
-            }"
             (mouseenter)="onMouseEnter()"
             (mouseleave)="onMouseLeave()"
             role="alert"
             aria-live="assertive"
             aria-atomic="true"
-            [attr.data-pc-name]="'toast'"
-            [attr.data-pc-section]="'root'"
+            [attr.data-p]="dataP"
         >
             @if (headlessTemplate) {
                 <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"></ng-container>
             } @else {
-                <div [class]="cn(cx('messageContent'), message?.contentStyleClass)" [attr.data-pc-section]="'content'">
+                <div [pBind]="ptm('messageContent')" [class]="cn(cx('messageContent'), message?.contentStyleClass)">
                     <ng-container *ngIf="!template">
                         @if (message.icon) {
-                            <span [class]="cn(cx('messageIcon'), message?.icon)"></span>
+                            <span [pBind]="ptm('messageIcon')" [class]="cn(cx('messageIcon'), message?.icon)"></span>
                         } @else {
                             @switch (message.severity) {
                                 @case ('success') {
-                                    <svg data-p-icon="check" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="check" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                                 @case ('info') {
-                                    <svg data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                                 @case ('error') {
-                                    <svg data-p-icon="times-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="times-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                                 @case ('warn') {
-                                    <svg data-p-icon="exclamation-triangle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="exclamation-triangle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                                 @default {
-                                    <svg data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'icon'" />
+                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                             }
                         }
-                        <div [ngClass]="cx('messageText')" [attr.data-pc-section]="'text'">
-                            <div [ngClass]="cx('summary')" [attr.data-pc-section]="'summary'">
+                        <div [pBind]="ptm('messageText')" [ngClass]="cx('messageText')" [attr.data-p]="dataP">
+                            <div [pBind]="ptm('summary')" [ngClass]="cx('summary')" [attr.data-p]="dataP">
                                 {{ message.summary }}
                             </div>
-                            <div [ngClass]="cx('detail')" [attr.data-pc-section]="'detail'">{{ message.detail }}</div>
+                            <div [pBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message.detail }}</div>
                         </div>
                     </ng-container>
                     <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                     @if (message?.closable !== false) {
                         <div>
-                            <button type="button" [attr.class]="cx('closeButton')" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" [attr.aria-label]="closeAriaLabel" [attr.data-pc-section]="'closebutton'" autofocus>
+                            <button
+                                [pBind]="ptm('closeButton')"
+                                type="button"
+                                [attr.class]="cx('closeButton')"
+                                (click)="onCloseIconClick($event)"
+                                (keydown.enter)="onCloseIconClick($event)"
+                                [attr.aria-label]="closeAriaLabel"
+                                autofocus
+                                [attr.data-p]="dataP"
+                            >
                                 @if (message.closeIcon) {
-                                    <span *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
+                                    <span [pBind]="ptm('closeIcon')" *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
                                 } @else {
-                                    <svg data-p-icon="times" [class]="cx('closeIcon')" [attr.aria-hidden]="true" [attr.data-pc-section]="'closeicon'" />
+                                    <svg [pBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.aria-hidden]="true" />
                                 }
                             </button>
                         </div>
@@ -104,48 +117,20 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
             }
         </div>
     `,
-    animations: [
-        trigger('messageState', [
-            state(
-                'visible',
-                style({
-                    transform: 'translateY(0)',
-                    opacity: 1
-                })
-            ),
-            transition('void => *', [
-                style({
-                    transform: '{{showTransformParams}}',
-                    opacity: 0
-                }),
-                animate('{{showTransitionParams}}')
-            ]),
-            transition('* => void', [
-                animate(
-                    '{{hideTransitionParams}}',
-                    style({
-                        height: 0,
-                        opacity: 0,
-                        transform: '{{hideTransformParams}}'
-                    })
-                )
-            ])
-        ])
-    ],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ToastStyle]
 })
-export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy {
+export class ToastItem extends BaseComponent<ToastPassThrough> {
     @Input() message: ToastMessageOptions | null | undefined;
 
     @Input({ transform: numberAttribute }) index: number | null | undefined;
 
     @Input({ transform: numberAttribute }) life: number;
 
-    @Input() template: TemplateRef<any> | undefined;
+    @Input() template: TemplateRef<ToastMessageTemplateContext> | undefined;
 
-    @Input() headlessTemplate: TemplateRef<any> | undefined;
+    @Input() headlessTemplate: TemplateRef<ToastHeadlessTemplateContext> | undefined;
 
     @Input() showTransformOptions: string | undefined;
 
@@ -155,30 +140,66 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
 
     @Input() hideTransitionOptions: string | undefined;
 
+    motionOptions = input<MotionOptions>();
+
+    clearAll = input<any>(null);
+
+    onAnimationStart = output<HTMLElement>();
+
+    onAnimationEnd = output<HTMLElement>();
+
+    onBeforeEnter(event: MotionEvent) {
+        this.onAnimationStart.emit(event.element as HTMLElement);
+    }
+
+    onAfterLeave(event: MotionEvent) {
+        if (!this.visible() && !this.isDestroyed) {
+            this.onClose.emit({
+                index: <number>this.index,
+                message: <ToastMessageOptions>this.message
+            });
+
+            if (!this.isDestroyed) {
+                this.onAnimationEnd.emit(event.element as HTMLElement);
+            }
+        }
+    }
+
     @Output() onClose: EventEmitter<ToastItemCloseEvent> = new EventEmitter();
 
     _componentStyle = inject(ToastStyle);
 
     timeout: any;
 
+    visible = signal<boolean | undefined>(undefined);
+
+    private isDestroyed = false;
+
+    private isClosing = false;
+
     constructor(private zone: NgZone) {
         super();
+
+        effect(() => {
+            if (this.clearAll()) {
+                this.visible.set(false);
+            }
+        });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
+        this.message?.sticky && this.visible.set(true);
         this.initTimeout();
     }
 
     initTimeout() {
         if (!this.message?.sticky) {
+            this.clearTimeout();
             this.zone.runOutsideAngular(() => {
+                this.visible.set(true);
                 this.timeout = setTimeout(
                     () => {
-                        this.onClose.emit({
-                            index: <number>this.index,
-                            message: <ToastMessageOptions>this.message
-                        });
+                        this.visible.set(false);
                     },
                     this.message?.life || this.life || 3000
                 );
@@ -198,17 +219,15 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
     }
 
     onMouseLeave() {
-        this.initTimeout();
+        if (!this.isClosing) {
+            this.initTimeout();
+        }
     }
 
     onCloseIconClick = (event: Event) => {
+        this.isClosing = true;
         this.clearTimeout();
-
-        this.onClose.emit({
-            index: <number>this.index,
-            message: <ToastMessageOptions>this.message
-        });
-
+        this.visible.set(false);
         event.preventDefault();
     };
 
@@ -216,9 +235,16 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
-    ngOnDestroy() {
+    onDestroy() {
+        this.isDestroyed = true;
         this.clearTimeout();
-        super.ngOnDestroy();
+        this.visible.set(false);
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.message?.severity as string]: this.message?.severity
+        });
     }
 }
 
@@ -236,28 +262,35 @@ export class ToastItem extends BaseComponent implements AfterViewInit, OnDestroy
             [message]="msg"
             [index]="i"
             [life]="life"
+            [clearAll]="clearAllTrigger()"
             (onClose)="onMessageClose($event)"
+            (onAnimationEnd)="onAnimationEnd()"
+            (onAnimationStart)="onAnimationStart()"
             [template]="template || _template"
             [headlessTemplate]="headlessTemplate || _headlessTemplate"
-            @toastAnimation
-            (@toastAnimation.start)="onAnimationStart($event)"
-            (@toastAnimation.done)="onAnimationEnd($event)"
-            [showTransformOptions]="showTransformOptions"
-            [hideTransformOptions]="hideTransformOptions"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
+            [pt]="pt"
+            [unstyled]="unstyled()"
+            [motionOptions]="computedMotionOptions()"
         ></p-toastItem>
     `,
-    animations: [trigger('toastAnimation', [transition(':enter, :leave', [query('@*', animateChild())])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ToastStyle],
+    providers: [ToastStyle, { provide: TOAST_INSTANCE, useExisting: Toast }, { provide: PARENT_INSTANCE, useExisting: Toast }],
     host: {
         '[class]': "cn(cx('root'), styleClass)",
-        '[style]': "sx('root')"
-    }
+        '[style]': "sx('root')",
+        '[attr.data-p]': 'dataP'
+    },
+    hostDirectives: [Bind]
 })
-export class Toast extends BaseComponent implements OnInit, OnDestroy {
+export class Toast extends BaseComponent<ToastPassThrough> {
+    $pcToast: Toast | undefined = inject(TOAST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
+
+    bindDirectiveInstance = inject(Bind, { self: true });
+
+    onAfterViewChecked(): void {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
     /**
      * Key of the message in case message is targeted to a specific toast component.
      * @group Props
@@ -310,23 +343,39 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
     /**
      * Transform options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransformOptions: string = 'translateY(100%)';
     /**
      * Transform options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransformOptions: string = 'translateY(-100%)';
     /**
      * Transition options of the show animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() showTransitionOptions: string = '300ms ease-out';
     /**
      * Transition options of the hide animation.
      * @group Props
+     * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
     @Input() hideTransitionOptions: string = '250ms ease-in';
+    /**
+     * The motion options.
+     * @group Props
+     */
+    motionOptions = input<MotionOptions | undefined>(undefined);
+
+    computedMotionOptions = computed<MotionOptions>(() => {
+        return {
+            ...this.ptm('motion'),
+            ...this.motionOptions()
+        };
+    });
     /**
      * Object literal to define styles per screen size.
      * @group Props
@@ -339,15 +388,19 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
      */
     @Output() onClose: EventEmitter<ToastCloseEvent> = new EventEmitter<ToastCloseEvent>();
     /**
-     * Custom template of message.
+     * Custom message template.
+     * @param {ToastMessageTemplateContext} context - message context.
+     * @see {@link ToastMessageTemplateContext}
      * @group Templates
      */
-    @ContentChild('message') template: TemplateRef<any> | undefined;
+    @ContentChild('message') template: TemplateRef<ToastMessageTemplateContext> | undefined;
     /**
      * Custom headless template.
+     * @param {ToastHeadlessTemplateContext} context - headless context.
+     * @see {@link ToastHeadlessTemplateContext}
      * @group Templates
      */
-    @ContentChild('headless') headlessTemplate: TemplateRef<any> | undefined;
+    @ContentChild('headless') headlessTemplate: TemplateRef<ToastHeadlessTemplateContext> | undefined;
 
     messageSubscription: Subscription | undefined;
 
@@ -369,13 +422,13 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
+    clearAllTrigger = signal<{} | null>(null);
+
     constructor() {
         super();
     }
 
-    ngOnInit() {
-        super.ngOnInit();
-
+    onInit() {
         this.messageSubscription = this.messageService.messageObserver.subscribe((messages) => {
             if (messages) {
                 if (Array.isArray(messages)) {
@@ -390,21 +443,26 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
             if (key) {
                 if (this.key === key) {
-                    this.messages = null;
+                    this.clearAll();
                 }
             } else {
-                this.messages = null;
+                this.clearAll();
             }
 
             this.cd.markForCheck();
         });
     }
 
-    _template: TemplateRef<any> | undefined;
+    clearAll() {
+        // trigger signal to clear all messages
+        this.clearAllTrigger.set({});
+    }
 
-    _headlessTemplate: TemplateRef<any> | undefined;
+    _template: TemplateRef<ToastMessageTemplateContext> | undefined;
 
-    ngAfterContentInit() {
+    _headlessTemplate: TemplateRef<ToastHeadlessTemplateContext> | undefined;
+
+    onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
                 case 'message':
@@ -421,8 +479,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
+    onAfterViewInit() {
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -470,24 +527,20 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         this.onClose.emit({
             message: event.message
         });
-
+        this.onAnimationEnd();
         this.cd.detectChanges();
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (event.fromState === 'void') {
-            this.renderer.setAttribute(this.el?.nativeElement, this.id, '');
-            if (this.autoZIndex && this.el?.nativeElement.style.zIndex === '') {
-                ZIndexUtils.set('modal', this.el?.nativeElement, this.baseZIndex || this.config.zIndex.modal);
-            }
+    onAnimationStart() {
+        this.renderer.setAttribute(this.el?.nativeElement, this.id, '');
+        if (this.autoZIndex && this.el?.nativeElement.style.zIndex === '') {
+            ZIndexUtils.set('modal', this.el?.nativeElement, this.baseZIndex || this.config.zIndex.modal);
         }
     }
 
-    onAnimationEnd(event: AnimationEvent) {
-        if (event.toState === 'void') {
-            if (this.autoZIndex && isEmpty(this.messages)) {
-                ZIndexUtils.clear(this.el?.nativeElement);
-            }
+    onAnimationEnd() {
+        if (this.autoZIndex && isEmpty(this.messages)) {
+            ZIndexUtils.clear(this.el?.nativeElement);
         }
     }
 
@@ -495,6 +548,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         if (!this.styleElement) {
             this.styleElement = this.renderer.createElement('style');
             this.styleElement.type = 'text/css';
+            setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             this.renderer.appendChild(this.document.head, this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
@@ -523,7 +577,7 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
+    onDestroy() {
         if (this.messageSubscription) {
             this.messageSubscription.unsubscribe();
         }
@@ -537,7 +591,12 @@ export class Toast extends BaseComponent implements OnInit, OnDestroy {
         }
 
         this.destroyStyle();
-        super.ngOnDestroy();
+    }
+
+    get dataP() {
+        return this.cn({
+            [this.position]: this.position
+        });
     }
 }
 

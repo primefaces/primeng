@@ -1,9 +1,14 @@
 import { Code } from '@/domain/code';
 import { ChangeDetectorRef, Component } from '@angular/core';
+import { BlockUIModule } from 'primeng/blockui';
+import { ButtonModule } from 'primeng/button';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'block-ui-document-demo',
-    standalone: false,
+    standalone: true,
+    imports: [BlockUIModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>If the target element is not specified, BlockUI blocks the document by default.</p>

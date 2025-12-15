@@ -1,10 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { AppCode } from '@/components/doc/app.code';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'clear-doc',
-    standalone: false,
+    standalone: true,
+    imports: [AppDocSectionText, AppCode, Toast, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -14,6 +19,8 @@ import { MessageService } from 'primeng/api';
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-toast key="myKey" />
+            <p-button (click)="show()" label="Show" />
+            <p-button (click)="clear()" label="Clear" severity="secondary" />
         </div>
         <app-code [code]="code" selector="toast-clear-demo"></app-code>
     `,

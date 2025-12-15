@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AppDocModule } from '@/components/doc/app.doc.module';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'design-changes-doc',
     standalone: true,
-    imports: [AppDocModule],
+    imports: [AppDocSectionText],
     template: `<app-docsectiontext>
         <ul class="leading-normal px-10 list-disc">
             <li class="py-2">

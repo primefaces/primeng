@@ -1,9 +1,14 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-multiple-demo',
-    standalone: false,
+    selector: 'date-picker-multiple-demo',
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>In order to choose multiple dates, set <i>selectionMode</i> as <i>multiple</i>. In this mode, the value binding should be an array.</p>
@@ -11,7 +16,7 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-multiple-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-multiple-demo"></app-code>
     `
 })
 export class MultipleDoc {
@@ -29,8 +34,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-multiple-demo',
-    templateUrl: './datepicker-multiple-demo.html',
+    selector: 'date-picker-multiple-demo',
+    templateUrl: './date-picker-multiple-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

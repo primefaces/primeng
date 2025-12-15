@@ -3,9 +3,14 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
+import { ChartModule } from 'primeng/chart';
+
 @Component({
     selector: 'chart-stacked-bar-demo',
-    standalone: false,
+    standalone: true,
+    imports: [AppCode, AppDocSectionText, ChartModule],
     template: `
         <app-docsectiontext>
             <p>Bars can be stacked on top of each other when <i>stacked</i> option of a scale is enabled.</p>

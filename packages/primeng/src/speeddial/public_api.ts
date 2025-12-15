@@ -1,3 +1,3 @@
+export * from 'primeng/types/speeddial';
 export * from './speeddial';
-export * from './speeddial.interface';
 export * from './style/speeddialstyle';

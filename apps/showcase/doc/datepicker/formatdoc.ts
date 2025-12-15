@@ -1,9 +1,14 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-format-demo',
-    standalone: false,
+    selector: 'date-picker-format-demo',
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Default date format is <i>mm/dd/yy</i> which can be customized using the <i>dateFormat</i> property. Following options can be a part of the format.</p>
@@ -30,7 +35,7 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
-        <app-code [code]="code" selector="datepicker-format-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-format-demo"></app-code>
     `
 })
 export class FormatDoc {
@@ -48,8 +53,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-format-demo',
-    templateUrl: './datepicker-format-demo.html',
+    selector: 'date-picker-format-demo',
+    templateUrl: './date-picker-format-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

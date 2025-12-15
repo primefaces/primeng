@@ -1,7 +1,17 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TreeTableModule } from 'primeng/treetable';
 
 interface Column {
     field: string;
@@ -10,7 +20,8 @@ interface Column {
 
 @Component({
     selector: 'filter-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, InputTextModule, IconFieldModule, InputIconModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>
@@ -34,22 +45,34 @@ interface Column {
                     </ng-template>
                     <ng-template #header let-columns>
                         <tr>
-                            <th *ngFor="let col of cols">
-                                {{ col.header }}
-                            </th>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
+                            }
                         </tr>
                         <tr>
-                            <th *ngFor="let col of cols">
-                                <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-                            </th>
+                            @for (col of columns; track col) {
+                                <th>
+                                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
+                                </th>
+                            }
                         </tr>
                     </ng-template>
                     <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
-                            <td *ngFor="let col of cols; let i = index">
-                                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                                {{ rowData[col.field] }}
-                            </td>
+                            @for (col of cols; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
                         </tr>
                     </ng-template>
                     <ng-template #emptymessage>
@@ -101,22 +124,34 @@ export class FilterDoc {
     </ng-template>
     <ng-template #header let-columns>
         <tr>
-            <th *ngFor="let col of cols">
-                {{ col.header }}
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    {{ col.header }}
+                </th>
+            }
         </tr>
         <tr>
-            <th *ngFor="let col of cols">
-                <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-            </th>
+            @for (col of columns; track col) {
+                <th>
+                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
+                </th>
+            }
         </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
-            <td *ngFor="let col of cols; let i = index">
-                <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                {{ rowData[col.field] }}
-            </td>
+            @for (col of cols; let first = $first; track col) {
+                <td>
+                    @if (first) {
+                        <div class="flex items-center gap-2">
+                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                            <span>{{ rowData[col.field] }}</span>
+                        </div>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            }
         </tr>
     </ng-template>
     <ng-template #emptymessage>
@@ -130,7 +165,7 @@ export class FilterDoc {
     <div class="flex justify-center mb-6">
         <p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
     </div>
-     <p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #caption>
             <div class="flex justify-end items-center">
                 <p-iconfield>
@@ -141,22 +176,34 @@ export class FilterDoc {
         </ng-template>
         <ng-template #header let-columns>
             <tr>
-                <th *ngFor="let col of cols">
-                    {{ col.header }}
-                </th>
+                @for (col of columns; track col) {
+                    <th>
+                        {{ col.header }}
+                    </th>
+                }
             </tr>
             <tr>
-                <th *ngFor="let col of cols">
-                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-                </th>
+                @for (col of columns; track col) {
+                    <th>
+                        <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
+                    </th>
+                }
             </tr>
         </ng-template>
         <ng-template #body let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
-                <td *ngFor="let col of cols; let i = index">
-                    <p-treetable-toggler [rowNode]="rowNode" *ngIf="i === 0" />
-                    {{ rowData[col.field] }}
-                </td>
+                @for (col of cols; let first = $first; track col) {
+                    <td>
+                        @if (first) {
+                            <div class="flex items-center gap-2">
+                                <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                <span>{{ rowData[col.field] }}</span>
+                            </div>
+                        } @else {
+                            {{ rowData[col.field] }}
+                        }
+                    </td>
+                }
             </tr>
         </ng-template>
         <ng-template #emptymessage>

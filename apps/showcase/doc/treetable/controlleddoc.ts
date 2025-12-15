@@ -1,33 +1,41 @@
+import { DeferredDemo } from '@/components/demo/deferreddemo';
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
     selector: 'controlled-doc',
-    standalone: false,
+    standalone: true,
+    imports: [TreeTableModule, ButtonModule, AppCode, AppDocSectionText, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Expansion state is controlled with <i>expandedKeys</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-button (click)="toggleApplications()" label="Toggle Applications" />
+            <p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" class="mt-6">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
-                            <th style="width:34%;">Name</th>
-                            <th style="width:34%;">Size</th>
-                            <th style="width:34%;">Type</th>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
-                            <td style="width:34%;">
-                                <p-treetable-toggler [rowNode]="rowNode" />
-                                {{ rowData.name }}
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.name }}</span>
+                                </div>
                             </td>
-                            <td style="width:34%;">{{ rowData.size }}</td>
-                            <td style="width:34%;">{{ rowData.type }}</td>
+                            <td>{{ rowData.size }}</td>
+                            <td>{{ rowData.type }}</td>
                         </tr>
                     </ng-template>
                 </p-treetable>
@@ -60,8 +68,8 @@ export class ControlledDoc {
     }
 
     code: Code = {
-        basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" class="mt-6">
+        basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -72,8 +80,10 @@ export class ControlledDoc {
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>
@@ -82,8 +92,8 @@ export class ControlledDoc {
 </p-treetable>`,
 
         html: `<div class="card">
-<p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" class="mt-6">
+<p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
+<p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header>
         <tr>
             <th>Name</th>
@@ -94,8 +104,10 @@ export class ControlledDoc {
     <ng-template #body let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treetable-toggler [rowNode]="rowNode" />
-                {{ rowData.name }}
+                <div class="flex items-center gap-2">
+                    <p-treetable-toggler [rowNode]="rowNode" />
+                    <span>{{ rowData.name }}</span>
+                </div>
             </td>
             <td>{{ rowData.size }}</td>
             <td>{{ rowData.type }}</td>

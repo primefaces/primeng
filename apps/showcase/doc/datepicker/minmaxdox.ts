@@ -1,9 +1,14 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-minmax-demo',
-    standalone: false,
+    selector: 'date-picker-minmax-demo',
+    standalone: true,
+    imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Boundaries for the permitted dates that can be entered are defined with <i>minDate</i> and <i>maxDate</i> properties.</p>
@@ -11,10 +16,10 @@ import { Component } from '@angular/core';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
         </div>
-        <app-code [code]="code" selector="datepicker-minmax-demo"></app-code>
+        <app-code [code]="code" selector="date-picker-minmax-demo"></app-code>
     `
 })
-export class MinMaxDoc {
+export class MinMaxDoc implements OnInit {
     date: Date | undefined;
 
     minDate: Date | undefined;
@@ -49,8 +54,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-minmax-demo',
-    templateUrl: './datepicker-minmax-demo.html',
+    selector: 'date-picker-minmax-demo',
+    templateUrl: './date-picker-minmax-demo.html',
     standalone: true,
     imports: [FormsModule, DatePicker]
 })

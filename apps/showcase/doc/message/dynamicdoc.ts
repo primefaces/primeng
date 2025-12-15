@@ -1,9 +1,15 @@
 import { Code } from '@/domain/code';
 import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
     selector: 'dynamic-doc',
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, MessageModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Multiple messages can be displayed using the standard <i>for</i> block.</p>
@@ -14,7 +20,7 @@ import { Component, signal } from '@angular/core';
                 <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
             </div>
             <div class="flex flex-col">
-                @for (message of messages(); track message; let first = $first) {
+                @for (message of messages(); track message.severity; let first = $first) {
                     <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" [closable]="message?.closable" />
                 }
             </div>
@@ -31,7 +37,7 @@ export class DynamicDoc {
     <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
 </div>
 <div class="flex flex-col">
-    @for (message of messages(); track message; let first = $first) {
+    @for (message of messages(); track message.severity; let first = $first) {
         <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" />
     }
 </div>`,
@@ -42,7 +48,7 @@ export class DynamicDoc {
         <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
     </div>
     <div class="flex flex-col">
-        @for (message of messages(); track message; let first = $first) {
+        @for (message of messages(); track message.severity; let first = $first) {
             <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" />
         }
     </div>

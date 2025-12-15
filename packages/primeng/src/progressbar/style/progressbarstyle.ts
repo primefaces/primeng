@@ -18,7 +18,7 @@ const classes = {
 export class ProgressBarStyle extends BaseStyle {
     name = 'progressbar';
 
-    theme = style;
+    style = style;
 
     classes = classes;
 }

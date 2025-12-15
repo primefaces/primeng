@@ -1,11 +1,18 @@
+import { AppCodeModule } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { KnobModule } from 'primeng/knob';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'reactive-forms-doc',
-    standalone: false,
+    standalone: true,
+    imports: [ReactiveFormsModule, KnobModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Knob can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -13,7 +20,7 @@ import { MessageService } from 'primeng/api';
 
         <p-toast />
         <div class="card flex justify-center">
-            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+            <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
                 <div class="flex flex-col items-center gap-1">
                     <p-knob formControlName="value" [invalid]="isInvalid('value')" />
                     @if (isInvalid('value')) {
@@ -75,7 +82,7 @@ export class ReactiveFormsDoc {
     }
 
     code: Code = {
-        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+        basic: `<form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
     <div class="flex flex-col items-center gap-1">
         <p-knob formControlName="value" [invalid]="isInvalid('value')" />
         @if (isInvalid('value')) {
@@ -87,7 +94,7 @@ export class ReactiveFormsDoc {
 
         html: `<p-toast />
 <div class="card flex justify-center">
-    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
         <div class="flex flex-col items-center gap-1">
             <p-knob formControlName="value" [invalid]="isInvalid('value')" />
             @if (isInvalid('value')) {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'chip-style-doc',
-    standalone: false,
+    standalone: true,
     template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">

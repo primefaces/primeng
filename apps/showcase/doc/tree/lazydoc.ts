@@ -1,72 +1,39 @@
+import { AppCode } from '@/components/doc/app.code';
+import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'lazy-demo',
-    standalone: false,
+    standalone: true,
+    imports: [TreeModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
                 Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using
-                <i>loading</i> property and <i>onNodeExpand</i> method. Default value of <i>loadingMode</i> is <i>mask</i> and also <i>icon</i> is available.
+                <i>loading</i> property and <i>onNodeExpand</i> method.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-4">
-            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <label for="mask" class="font-bold block mb-2">Mask Mode</label>
-                <p-tree class="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
-            </div>
-            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <label for="icon" class="font-bold block mb-2">Icon Mode</label>
-                <p-tree class="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
-            </div>
+        <div class="card">
+            <p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
     `
 })
 export class LazyDoc implements OnInit {
-    loading: boolean = false;
-
-    nodes!: TreeNode[];
-
-    nodes2!: TreeNode[];
-
-    constructor(private cd: ChangeDetectorRef) {}
+    nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
-        this.loading = true;
-        this.nodes2 = this.initiateNodes2();
+        this.nodes.set(this.initiateNodes());
 
         setTimeout(() => {
-            this.nodes = this.initiateNodes();
-            this.loading = false;
-            this.nodes2.map((node) => (node.loading = false));
-            this.cd.markForCheck();
+            this.nodes.set(this.nodes().map((node) => ({ ...node, loading: false })));
         }, 2000);
     }
 
     initiateNodes(): TreeNode[] {
-        return [
-            {
-                key: '0',
-                label: 'Node 0',
-                leaf: false
-            },
-            {
-                key: '1',
-                label: 'Node 1',
-                leaf: false
-            },
-            {
-                key: '2',
-                label: 'Node 2',
-                leaf: false
-            }
-        ];
-    }
-
-    initiateNodes2(): TreeNode[] {
         return [
             {
                 key: '0',
@@ -91,32 +58,10 @@ export class LazyDoc implements OnInit {
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading = true;
-
-            setTimeout(() => {
-                let _node = { ...event.node };
-                _node.children = [];
-
-                for (let i = 0; i < 3; i++) {
-                    _node.children.push({
-                        key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
-                    });
-                }
-
-                this.nodes[parseInt(event.node.key, 10)] = _node;
-
-                this.loading = false;
-                this.cd.markForCheck();
-            }, 500);
-        }
-    }
-
-    onNodeExpand2(event: any) {
-        if (!event.node.children) {
             event.node.loading = true;
 
             setTimeout(() => {
+                const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
 
@@ -128,28 +73,20 @@ export class LazyDoc implements OnInit {
                 }
 
                 const key = parseInt(_node.key, 10);
-                this.nodes2[key] = { ..._node, loading: false };
-                this.cd.markForCheck();
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
 
     code: Code = {
-        basic: `<p-tree class="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
-<p-tree class="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />`,
+        basic: `<p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />`,
 
-        html: `<div class="card flex flex-wrap gap-4">
-    <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <label for="mask" class="font-bold block mb-2">Mask Mode</label>
-        <p-tree class="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
-    </div>
-    <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-        <label for="icon" class="font-bold block mb-2">Icon Mode</label>
-        <p-tree class="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
-    </div>
+        html: `<div class="card">
+    <p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
 </div>`,
 
-        typescript: `import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+        typescript: `import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Tree } from 'primeng/tree';
 
@@ -160,47 +97,17 @@ import { Tree } from 'primeng/tree';
     imports: [Tree]
 })
 export class TreeLazyDemo implements OnInit {
-    loading: boolean = false;
-
-    nodes!: TreeNode[];
-
-    nodes2!: TreeNode[];
-
-    constructor(private cd: ChangeDetectorRef) {}
+    nodes = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
-        this.loading = true;
-        this.nodes2 = this.initiateNodes2();
+        this.nodes.set(this.initiateNodes());
 
         setTimeout(() => {
-            this.nodes = this.initiateNodes();
-            this.loading = false;
-            this.nodes2.map((node) => (node.loading = false));
-            this.cd.markForCheck();
+            this.nodes.set(this.nodes().map((node) => ({ ...node, loading: false })));
         }, 2000);
     }
 
     initiateNodes(): TreeNode[] {
-        return [
-            {
-                key: '0',
-                label: 'Node 0',
-                leaf: false
-            },
-            {
-                key: '1',
-                label: 'Node 1',
-                leaf: false
-            },
-            {
-                key: '2',
-                label: 'Node 2',
-                leaf: false
-            }
-        ];
-    }
-
-    initiateNodes2(): TreeNode[] {
         return [
             {
                 key: '0',
@@ -225,32 +132,10 @@ export class TreeLazyDemo implements OnInit {
 
     onNodeExpand(event: any) {
         if (!event.node.children) {
-            this.loading = true;
-
-            setTimeout(() => {
-                let _node = { ...event.node };
-                _node.children = [];
-
-                for (let i = 0; i < 3; i++) {
-                    _node.children.push({
-                        key: event.node.key + '-' + i,
-                        label: 'Lazy ' + event.node.label + '-' + i
-                    });
-                }
-
-                this.nodes[parseInt(event.node.key, 10)] = _node;
-
-                this.loading = false;
-                this.cd.markForCheck();
-            }, 500);
-        }
-    }
-
-    onNodeExpand2(event: any) {
-        if (!event.node.children) {
             event.node.loading = true;
 
             setTimeout(() => {
+                const _nodes = this.nodes();
                 let _node = { ...event.node };
                 _node.children = [];
 
@@ -262,8 +147,8 @@ export class TreeLazyDemo implements OnInit {
                 }
 
                 const key = parseInt(_node.key, 10);
-                this.nodes2[key] = { ..._node, loading: false };
-                this.cd.markForCheck();
+                _nodes[key] = { ..._node, loading: false };
+                this.nodes.set([..._nodes]);
             }, 500);
         }
     }
