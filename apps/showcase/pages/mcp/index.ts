@@ -1,5 +1,4 @@
 import { IntroductionDoc } from '@/doc/mcp/introductiondoc';
-import { QuickStartDoc } from '@/doc/mcp/quickstartdoc';
 import { ClaudeCodeDoc } from '@/doc/mcp/claudecodedoc';
 import { VSCodeDoc } from '@/doc/mcp/vscodedoc';
 import { OpenAICodexDoc } from '@/doc/mcp/openaicodexdoc';
@@ -23,11 +22,6 @@ export class MCPDemo {
             id: 'introduction',
             label: 'Introduction',
             component: IntroductionDoc
-        },
-        {
-            id: 'quickstart',
-            label: 'Quick Start',
-            component: QuickStartDoc
         },
         {
             id: 'installation',

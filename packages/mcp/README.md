@@ -6,14 +6,6 @@ Model Context Protocol (MCP) server for PrimeNG component library. Provides AI a
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open standard that enables AI models to connect with external tools and data sources. By installing this MCP server, your AI assistant gains deep knowledge of PrimeNG components and can provide accurate, up-to-date information while helping you build Angular applications.
 
-## Quick Start
-
-The easiest way to use this MCP server is with `npx` - no installation required:
-
-```bash
-npx @primeng/mcp
-```
-
 ## Installation
 
 ### Claude Code
