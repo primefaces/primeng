@@ -14,7 +14,15 @@ import { AppDoc } from '@/components/doc/app.doc';
     selector: 'mcp-demo',
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="MCP Server - PrimeNG" header="MCP Server" description="Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation." [docs]="docs" docType="page"></app-doc> `
+    template: `
+        <app-doc
+            docTitle="MCP Server - PrimeNG"
+            header="MCP Server"
+            description="Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation."
+            [docs]="docs"
+            docType="page"
+        ></app-doc>
+    `
 })
 export class MCPDemo {
     docs = [
