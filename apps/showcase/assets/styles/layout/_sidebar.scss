@@ -29,11 +29,11 @@
         margin: 0;
         padding: 0;
 
-        > li {
+        >li {
             margin-bottom: .25rem;
 
-            > button,
-            > a {
+            >button,
+            >a {
                 display: flex;
                 width: 100%;
                 align-items: center;
@@ -73,9 +73,20 @@
                     }
                 }
 
+                .menu-toggle {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin-inline-start: auto;
+
+                    .p-tag {
+                        position: static;
+                        transform: none;
+                    }
+                }
+
                 .menu-toggle-icon {
                     color: var(--text-secondary-color);
-                    margin-inline-start: auto;
                 }
 
                 &:hover {
@@ -95,7 +106,7 @@
                 &.router-link-active {
                     color: var(--primary-text-color);
 
-                    > .menu-icon {
+                    >.menu-icon {
                         i {
                             color: var(--primary-text-color);
                         }
@@ -103,7 +114,7 @@
                 }
             }
 
-            > div {
+            >div {
                 overflow: hidden;
 
                 ol {
@@ -161,8 +172,9 @@
             top: 50%;
             transform: translateY(-50%);
 
-            .p-tag-value {
+            .p-tag-label {
                 line-height: 1;
+                font-size: 0.75rem;
             }
         }
 
