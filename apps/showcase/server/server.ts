@@ -96,6 +96,49 @@ export function app(): express.Express {
         res.send(content);
     });
 
+    // Serve LLM markdown files from /llms/components/ and /llms/pages/ paths
+    // This must be before static file serving to set correct Content-Type for ChatGPT compatibility
+    server.get('/llms/:folder/:name.md', (req, res, next) => {
+        const { folder, name } = req.params;
+
+        // Only allow components and pages folders
+        if (folder !== 'components' && folder !== 'pages') {
+            return next();
+        }
+
+        const filePath = join(llmsFolder, folder, `${name}.md`);
+
+        if (!existsSync(filePath)) {
+            return next();
+        }
+
+        const content = readFileSync(filePath, 'utf-8');
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.setHeader('Cache-Control', process.env['NODE_ENV'] === 'production' ? 'public, max-age=300' : 'no-cache');
+        res.send(content);
+    });
+
+    // Serve llms.txt and llms-full.txt from /llms/ path
+    server.get('/llms/:file', (req, res, next) => {
+        const { file } = req.params;
+
+        // Only handle .txt files
+        if (!file.endsWith('.txt')) {
+            return next();
+        }
+
+        const filePath = join(llmsFolder, file);
+
+        if (!existsSync(filePath)) {
+            return next();
+        }
+
+        const content = readFileSync(filePath, 'utf-8');
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.setHeader('Cache-Control', process.env['NODE_ENV'] === 'production' ? 'public, max-age=300' : 'no-cache');
+        res.send(content);
+    });
+
     // Example Express Rest API endpoints
     // server.get('/api/**', (req, res) => { });
     // Serve static files from /browser
