@@ -54,6 +54,7 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             (onResizeInit)="onDialogResizeInit($event)"
             (onResizeEnd)="onDialogResizeEnd($event)"
             (onDragEnd)="onDialogDragEnd($event)"
+            (visibleChange)="onVisibleChange($event)"
             [pt]="ddconfig.pt"
             hostName="DynamicDialog"
             [unstyled]="isUnstyled"
@@ -240,6 +241,12 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         private dialogRef: DynamicDialogRef
     ) {
         super();
+    }
+
+    onVisibleChange(visible: boolean) {
+        if (!visible) {
+            this.dialogRef.close();
+        }
     }
 
     onAfterViewInit() {
