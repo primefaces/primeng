@@ -44,6 +44,12 @@
             "badge": "NEW"
         },
         {
+            "name": "MCP Server",
+            "icon": "pi pi-server",
+            "routerLink": "/mcp",
+            "badge": "NEW"
+        },
+        {
             "name": "Components",
             "icon": "pi pi-compass",
             "children": [

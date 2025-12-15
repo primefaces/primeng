@@ -134,6 +134,20 @@ providePrimeNG({
 ```
 </details>
 
+## Overlayappendto
+
+Defines the default location of the overlays; self refers to the host element and body targets the document body. Defaults to self .
+
+<details>
+<summary>TypeScript Example</summary>
+
+```typescript
+providePrimeNG({
+    overlayAppendTo: 'body'
+})
+```
+</details>
+
 ## Provider
 
 The initial configuration is defined by the providePrimeNG provider during application startup.

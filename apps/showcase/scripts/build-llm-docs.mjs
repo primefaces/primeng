@@ -10,6 +10,7 @@ const DOCS_DIR = path.resolve(__dirname, '../doc');
 const PAGES_DIR = path.resolve(__dirname, '../pages');
 const API_DOC_PATH = path.resolve(__dirname, '../doc/apidoc/index.json');
 const OUTPUT_DIR = path.resolve(__dirname, '../public/llms');
+const MCP_DATA_DIR = path.resolve(__dirname, '../../../packages/mcp/data');
 
 // Mapping for components where route name doesn't match API component name
 const COMPONENT_NAME_MAP = {
@@ -113,6 +114,12 @@ const GUIDE_PAGES = [
         docPath: 'llms',
         title: 'LLMs.txt',
         description: 'LLM-optimized documentation endpoints for PrimeNG components.'
+    },
+    {
+        route: 'mcp',
+        docPath: 'mcp',
+        title: 'MCP Server',
+        description: 'Model Context Protocol (MCP) server for PrimeNG component library.'
     },
     {
         route: 'guides/accessibility',
@@ -824,6 +831,14 @@ function generateJsonOutput(components, apiDocs, guidePages = []) {
     const outputPath = path.join(OUTPUT_DIR, 'components.json');
     fs.writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf-8');
     console.log(`✓ Generated JSON output: ${outputPath}`);
+
+    // Also write to MCP package data directory
+    if (!fs.existsSync(MCP_DATA_DIR)) {
+        fs.mkdirSync(MCP_DATA_DIR, { recursive: true });
+    }
+    const mcpOutputPath = path.join(MCP_DATA_DIR, 'components.json');
+    fs.writeFileSync(mcpOutputPath, JSON.stringify(output, null, 2), 'utf-8');
+    console.log(`✓ Generated MCP JSON output: ${mcpOutputPath}`);
 
     return output;
 }
