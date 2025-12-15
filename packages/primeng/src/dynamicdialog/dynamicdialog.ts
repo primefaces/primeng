@@ -274,6 +274,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
     }
 
     onDialogHide(event: any) {
+        this.dialogRef.close();
         this.dialogRef.destroy();
     }
 
